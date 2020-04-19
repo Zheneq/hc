@@ -1,0 +1,5163 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class ActorMovement : MonoBehaviour, IGameEventListener
+{
+	internal ActorData m_actor;
+
+	private float m_moveTimeoutTime;
+
+	private List<ActorMovement.SquaresCanMoveToCacheEntry> m_squaresCanMoveToCache;
+
+	private static int s_maxSquaresCanMoveToCacheCount = 4;
+
+	private HashSet<BoardSquare> m_squaresCanMoveTo;
+
+	private HashSet<BoardSquare> m_squareCanMoveToWithQueuedAbility;
+
+	public float m_brushTransitionAnimationSpeed;
+
+	public float m_brushTransitionAnimationSpeedEaseTime = 0.4f;
+
+	private EasedOutFloat m_brushTransitionAnimationSpeedEased = new EasedOutFloat(1f);
+
+	private static int animDistToGoal;
+
+	private static int animDistToWaypoint;
+
+	private static int animNextChargeCycleType;
+
+	private static int animChargeCycleType;
+
+	private static int animChargeEndType;
+
+	private static int animNextLinkType;
+
+	private static int animCurLinkType;
+
+	private static int animTimeInAnim;
+
+	private static int animForceIdle;
+
+	private static int animMoveSegmentStart;
+
+	private static int animDecisionPhase;
+
+	private static int animIdleType;
+
+	private MoveState m_curMoveState;
+
+	private Dictionary<BoardSquare, BoardSquarePathInfo> m_tempClosedSquares = new Dictionary<BoardSquare, BoardSquarePathInfo>();
+
+	private BoardSquarePathInfo m_gameplayPath;
+
+	private BoardSquarePathInfo m_aestheticPath;
+
+	public string GetCurrentMoveStateStr()
+	{
+		if (this.m_curMoveState != null)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetCurrentMoveStateStr()).MethodHandle;
+			}
+			return this.m_curMoveState.stateName;
+		}
+		return "None";
+	}
+
+	private void Awake()
+	{
+		this.m_actor = base.GetComponent<ActorData>();
+		this.m_squaresCanMoveToCache = new List<ActorMovement.SquaresCanMoveToCacheEntry>();
+		this.m_squaresCanMoveTo = new HashSet<BoardSquare>();
+		this.m_squareCanMoveToWithQueuedAbility = new HashSet<BoardSquare>();
+		ActorMovement.animDistToGoal = Animator.StringToHash("DistToGoal");
+		ActorMovement.animDistToWaypoint = Animator.StringToHash("DistToWayPoint");
+		ActorMovement.animNextChargeCycleType = Animator.StringToHash("NextChargeCycleType");
+		ActorMovement.animChargeCycleType = Animator.StringToHash("ChargeCycleType");
+		ActorMovement.animChargeEndType = Animator.StringToHash("ChargeEndType");
+		ActorMovement.animNextLinkType = Animator.StringToHash("NextLinkType");
+		ActorMovement.animCurLinkType = Animator.StringToHash("CurLinkType");
+		ActorMovement.animTimeInAnim = Animator.StringToHash("TimeInAnim");
+		ActorMovement.animForceIdle = Animator.StringToHash("ForceIdle");
+		ActorMovement.animMoveSegmentStart = Animator.StringToHash("MoveSegmentStart");
+		ActorMovement.animDecisionPhase = Animator.StringToHash("DecisionPhase");
+		ActorMovement.animIdleType = Animator.StringToHash("IdleType");
+	}
+
+	private void Start()
+	{
+		GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActiveControlChangedToEnemyTeam);
+	}
+
+	private void OnDestroy()
+	{
+		GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ActiveControlChangedToEnemyTeam);
+	}
+
+	private void Update()
+	{
+		this.UpdatePosition();
+		if (NetworkClient.active)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.Update()).MethodHandle;
+			}
+			if (this.m_actor != null)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (this.m_actor.\u000E() != null)
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					float num = this.m_brushTransitionAnimationSpeedEased;
+					Animator animator = this.m_actor.\u000E();
+					if (animator.speed != num)
+					{
+						for (;;)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						animator.speed = num;
+					}
+				}
+			}
+			if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
+			{
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.MovementWaypointModifier))
+				{
+					if (!InputManager.Get().IsKeyBindingNewlyReleased(KeyPreference.MovementWaypointModifier))
+					{
+						return;
+					}
+					for (;;)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				this.UpdateSquaresCanMoveTo();
+			}
+		}
+	}
+
+	internal HashSet<BoardSquare> SquaresCanMoveTo
+	{
+		get
+		{
+			return this.m_squaresCanMoveTo;
+		}
+	}
+
+	internal HashSet<BoardSquare> SquaresCanMoveToWithQueuedAbility
+	{
+		get
+		{
+			return this.m_squareCanMoveToWithQueuedAbility;
+		}
+	}
+
+	public void UpdateSquaresCanMoveTo()
+	{
+		if (NetworkServer.active)
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateSquaresCanMoveTo()).MethodHandle;
+			}
+		}
+		float maxMoveDist = this.m_actor.RemainingHorizontalMovement;
+		float innerMoveDist = this.m_actor.RemainingMovementWithQueuedAbility;
+		BoardSquare squareToStartFrom = this.m_actor.MoveFromBoardSquare;
+		bool flag;
+		if (Options_UI.Get() != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier))
+			{
+				flag = true;
+				goto IL_97;
+			}
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		flag = !FirstTurnMovement.CanWaypoint();
+		IL_97:
+		bool flag2 = flag;
+		if (flag2)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
+			{
+				for (;;)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				maxMoveDist = this.CalculateMaxHorizontalMovement(false, false);
+				innerMoveDist = this.CalculateMaxHorizontalMovement(true, false);
+				squareToStartFrom = this.m_actor.InitialMoveStartSquare;
+			}
+		}
+		this.GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out this.m_squaresCanMoveTo, out this.m_squareCanMoveToWithQueuedAbility);
+		if (Board.\u000E() != null)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Board.\u000E().MarkForUpdateValidSquares(true);
+		}
+		if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			LineData component = this.m_actor.GetComponent<LineData>();
+			if (component != null)
+			{
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				component.OnCanMoveToSquaresUpdated();
+			}
+		}
+	}
+
+	public bool CanMoveToBoardSquare(int x, int y)
+	{
+		bool result = false;
+		BoardSquare boardSquare = Board.\u000E().\u0016(x, y);
+		if (boardSquare)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CanMoveToBoardSquare(int, int)).MethodHandle;
+			}
+			result = this.CanMoveToBoardSquare(boardSquare);
+		}
+		return result;
+	}
+
+	public bool CanMoveToBoardSquare(BoardSquare dest)
+	{
+		return this.m_squaresCanMoveTo.Contains(dest);
+	}
+
+	public BoardSquare GetClosestMoveableSquareTo(BoardSquare selectedSquare, bool alwaysIncludeMoverSquare = true)
+	{
+		BoardSquare boardSquare;
+		if (alwaysIncludeMoverSquare)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetClosestMoveableSquareTo(BoardSquare, bool)).MethodHandle;
+			}
+			boardSquare = this.m_actor.\u0012();
+		}
+		else
+		{
+			boardSquare = null;
+		}
+		BoardSquare boardSquare2 = boardSquare;
+		float num;
+		if (alwaysIncludeMoverSquare)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num = boardSquare2.HorizontalDistanceOnBoardTo(selectedSquare);
+		}
+		else
+		{
+			num = 100000f;
+		}
+		float num2 = num;
+		if (selectedSquare != null)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			using (HashSet<BoardSquare>.Enumerator enumerator = this.m_squaresCanMoveTo.GetEnumerator())
+			{
+				while (enumerator.MoveNext())
+				{
+					BoardSquare boardSquare3 = enumerator.Current;
+					float num3 = boardSquare3.HorizontalDistanceOnBoardTo(selectedSquare);
+					if (num3 <= num2)
+					{
+						for (;;)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num2 = num3;
+						boardSquare2 = boardSquare3;
+					}
+				}
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+		}
+		else
+		{
+			Log.Error("Trying to find the closest moveable square to a null square.  Code error-- tell Danny.", new object[0]);
+		}
+		return boardSquare2;
+	}
+
+	public float CalculateMaxHorizontalMovement(bool forcePostAbility = false, bool calculateAsIfSnared = false)
+	{
+		float num = 0f;
+		if (!this.m_actor.\u000E())
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalculateMaxHorizontalMovement(bool, bool)).MethodHandle;
+			}
+			num = (float)this.m_actor.\u000E().GetModifiedStatInt(StatType.Movement_Horizontal);
+			AbilityData abilityData = this.m_actor.\u000E();
+			if (abilityData)
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (abilityData.GetQueuedAbilitiesAllowMovement())
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					float num2;
+					if (forcePostAbility)
+					{
+						num2 = -1f * this.m_actor.\u000E();
+					}
+					else
+					{
+						num2 = abilityData.GetQueuedAbilitiesMovementAdjust();
+					}
+					num += num2;
+					num = this.GetAdjustedMovementFromBuffAndDebuff(num, forcePostAbility, calculateAsIfSnared);
+				}
+				else
+				{
+					num = 0f;
+				}
+			}
+			else
+			{
+				num = this.GetAdjustedMovementFromBuffAndDebuff(num, forcePostAbility, calculateAsIfSnared);
+			}
+			num = Mathf.Clamp(num, 0f, 99f);
+		}
+		return num;
+	}
+
+	public float GetAdjustedMovementFromBuffAndDebuff(float movement, bool forcePostAbility, bool calculateAsIfSnared = false)
+	{
+		float num = movement;
+		ActorStatus actorStatus = this.m_actor.\u000E();
+		if (actorStatus.HasStatus(StatusType.RecentlySpawned, true))
+		{
+			num += (float)GameplayData.Get().m_recentlySpawnedBonusMovement;
+		}
+		if (actorStatus.HasStatus(StatusType.RecentlyRespawned, true))
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetAdjustedMovementFromBuffAndDebuff(float, bool, bool)).MethodHandle;
+			}
+			num += (float)GameplayData.Get().m_recentlyRespawnedBonusMovement;
+		}
+		List<StatusType> queuedAbilitiesOnRequestStatuses = this.m_actor.\u000E().GetQueuedAbilitiesOnRequestStatuses();
+		bool flag = actorStatus.HasStatus(StatusType.MovementDebuffSuppression, true) || queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffSuppression);
+		bool flag2;
+		if (!actorStatus.IsMovementDebuffImmune(true) && !queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffImmunity))
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			flag2 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Unstoppable);
+		}
+		else
+		{
+			flag2 = true;
+		}
+		bool flag3 = flag2;
+		bool flag4 = !flag && !flag3;
+		bool flag5;
+		if (!actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable, true))
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			flag5 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable);
+		}
+		else
+		{
+			flag5 = true;
+		}
+		bool flag6 = flag5;
+		bool flag7;
+		if (!actorStatus.HasStatus(StatusType.CantSprint_Absolute, true))
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			flag7 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_Absolute);
+		}
+		else
+		{
+			flag7 = true;
+		}
+		bool flag8 = flag7;
+		bool flag9;
+		if (flag6)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag4)
+			{
+				flag9 = true;
+				goto IL_129;
+			}
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		flag9 = flag8;
+		IL_129:
+		bool flag10 = flag9;
+		if (flag4)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (actorStatus.HasStatus(StatusType.Rooted, true))
+			{
+				goto IL_165;
+			}
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		if (!actorStatus.HasStatus(StatusType.AnchoredNoMovement, true))
+		{
+			if (flag4)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (actorStatus.HasStatus(StatusType.CrippledMovement, true))
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					return Mathf.Clamp(num, 0f, 1f);
+				}
+			}
+			if (flag10 && !forcePostAbility && this.m_actor.\u000E() != null)
+			{
+				for (;;)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (this.m_actor.\u000E().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
+				{
+					for (;;)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					num -= this.m_actor.\u000E();
+				}
+			}
+			bool flag11;
+			if (!actorStatus.HasStatus(StatusType.Snared, true))
+			{
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				flag11 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Snared);
+			}
+			else
+			{
+				flag11 = true;
+			}
+			bool flag12 = flag11;
+			bool flag13;
+			if (!actorStatus.HasStatus(StatusType.Hasted, true))
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				flag13 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Hasted);
+			}
+			else
+			{
+				flag13 = true;
+			}
+			bool flag14 = flag13;
+			if (flag4)
+			{
+				for (;;)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (flag12)
+				{
+					for (;;)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!flag14)
+					{
+						goto IL_28A;
+					}
+					for (;;)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+			}
+			if (calculateAsIfSnared)
+			{
+				for (;;)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			else
+			{
+				if (flag14)
+				{
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (flag4)
+					{
+						if (flag12)
+						{
+							return num;
+						}
+						for (;;)
+						{
+							switch (6)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+					}
+					float num2;
+					int num3;
+					int num4;
+					ActorMovement.CalcHastedMovementAdjustments(out num2, out num3, out num4);
+					if (forcePostAbility)
+					{
+						num = Mathf.Clamp(num + (float)num3, 0f, 99f);
+					}
+					else
+					{
+						int num5 = num4;
+						if (this.m_actor.\u000E() != null)
+						{
+							for (;;)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = this.m_actor.\u000E().GetQueuedAbilitiesMovementAdjustType();
+							if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
+							{
+								for (;;)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								num5 = num3;
+							}
+						}
+						num = Mathf.Clamp(num + (float)num5, 0f, 99f);
+					}
+					num *= num2;
+					return MovementUtils.RoundToNearestHalf(num);
+				}
+				return num;
+			}
+			IL_28A:
+			float num6;
+			int num7;
+			int num8;
+			ActorMovement.CalcSnaredMovementAdjustments(out num6, out num7, out num8);
+			if (forcePostAbility)
+			{
+				for (;;)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				num = Mathf.Clamp(num + (float)num7, 0f, 99f);
+			}
+			else
+			{
+				int num9 = num8;
+				if (this.m_actor.\u000E() != null)
+				{
+					Ability.MovementAdjustment queuedAbilitiesMovementAdjustType2 = this.m_actor.\u000E().GetQueuedAbilitiesMovementAdjustType();
+					if (queuedAbilitiesMovementAdjustType2 == Ability.MovementAdjustment.ReducedMovement)
+					{
+						for (;;)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num9 = num7;
+					}
+				}
+				num = Mathf.Clamp(num + (float)num9, 0f, 99f);
+			}
+			num *= num6;
+			return MovementUtils.RoundToNearestHalf(num);
+		}
+		for (;;)
+		{
+			switch (4)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		IL_165:
+		num = 0f;
+		return num;
+	}
+
+	public unsafe static void CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjustment, out int fullMoveAdjustment)
+	{
+		if (!(GameplayMutators.Get() == null))
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalcHastedMovementAdjustments(float*, int*, int*)).MethodHandle;
+			}
+			if (GameplayMutators.Get().m_useHasteOverride)
+			{
+				halfMoveAdjustment = GameplayMutators.Get().m_hasteHalfMovementAdjustAmount;
+				fullMoveAdjustment = GameplayMutators.Get().m_hasteFullMovementAdjustAmount;
+				mult = GameplayMutators.Get().m_hasteMovementMultiplier;
+				return;
+			}
+		}
+		halfMoveAdjustment = GameWideData.Get().m_hasteHalfMovementAdjustAmount;
+		fullMoveAdjustment = GameWideData.Get().m_hasteFullMovementAdjustAmount;
+		mult = GameWideData.Get().m_hasteMovementMultiplier;
+	}
+
+	public unsafe static void CalcSnaredMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust)
+	{
+		if (!(GameplayMutators.Get() == null))
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalcSnaredMovementAdjustments(float*, int*, int*)).MethodHandle;
+			}
+			if (GameplayMutators.Get().m_useSlowOverride)
+			{
+				halfMoveAdjust = GameplayMutators.Get().m_slowHalfMovementAdjustAmount;
+				fullMoveAdjust = GameplayMutators.Get().m_slowFullMovementAdjustAmount;
+				mult = GameplayMutators.Get().m_slowMovementMultiplier;
+				return;
+			}
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		halfMoveAdjust = GameWideData.Get().m_slowHalfMovementAdjustAmount;
+		fullMoveAdjust = GameWideData.Get().m_slowFullMovementAdjustAmount;
+		mult = GameWideData.Get().m_slowMovementMultiplier;
+	}
+
+	public unsafe void BuildSquaresCanMoveTo_InnerOuter(BoardSquare squareToStartFrom, float maxHorizontalMovement, float innerMaxMove, out HashSet<BoardSquare> eligibleSquares, out HashSet<BoardSquare> innerSquares)
+	{
+		eligibleSquares = new HashSet<BoardSquare>();
+		innerSquares = new HashSet<BoardSquare>();
+		if (!(squareToStartFrom == null))
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildSquaresCanMoveTo_InnerOuter(BoardSquare, float, float, HashSet<BoardSquare>*, HashSet<BoardSquare>*)).MethodHandle;
+			}
+			if (maxHorizontalMovement != 0f)
+			{
+				eligibleSquares.Add(squareToStartFrom);
+				if (innerMaxMove > 0f)
+				{
+					innerSquares.Add(squareToStartFrom);
+				}
+				LinkedList<ActorMovement.BoardSquareMovementInfo> linkedList = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
+				HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
+				ActorMovement.BoardSquareMovementInfo value;
+				value.square = squareToStartFrom;
+				value.cost = 0f;
+				value.prevCost = 0f;
+				linkedList.AddLast(value);
+				bool flag;
+				if (GameplayData.Get() != null)
+				{
+					for (;;)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag = (GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax);
+				}
+				else
+				{
+					flag = false;
+				}
+				bool flag2 = flag;
+				Board board = Board.\u000E();
+				while (linkedList.Count > 0)
+				{
+					ActorMovement.BoardSquareMovementInfo value2 = linkedList.First.Value;
+					BoardSquare square = value2.square;
+					int x = square.x;
+					int y = square.y;
+					for (int i = -1; i <= 1; i++)
+					{
+						int j = -1;
+						while (j <= 1)
+						{
+							if (i != 0)
+							{
+								goto IL_126;
+							}
+							for (;;)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (j != 0)
+							{
+								goto IL_126;
+							}
+							IL_2E5:
+							j++;
+							continue;
+							IL_126:
+							BoardSquare boardSquare = board.\u0016(x + i, y + j);
+							if (!(boardSquare == null))
+							{
+								for (;;)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (hashSet.Contains(boardSquare))
+								{
+									for (;;)
+									{
+										switch (6)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+								}
+								else
+								{
+									bool flag3 = board.\u0015(square, boardSquare);
+									float num;
+									if (flag3)
+									{
+										for (;;)
+										{
+											switch (7)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										num = value2.cost + 1.5f;
+									}
+									else
+									{
+										num = value2.cost + 1f;
+									}
+									bool flag4;
+									if (flag2)
+									{
+										flag4 = (num <= maxHorizontalMovement);
+									}
+									else
+									{
+										flag4 = (value2.cost < maxHorizontalMovement);
+									}
+									if (flag4)
+									{
+										for (;;)
+										{
+											switch (2)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										BoardSquare src = square;
+										BoardSquare dest = boardSquare;
+										bool ignoreBarriers = false;
+										ActorMovement.DiagonalCalcFlag diagonalFlag;
+										if (flag3)
+										{
+											for (;;)
+											{
+												switch (4)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
+										}
+										else
+										{
+											diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
+										}
+										if (this.CanCrossToAdjacentSquare(src, dest, ignoreBarriers, diagonalFlag))
+										{
+											for (;;)
+											{
+												switch (6)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											ActorMovement.BoardSquareMovementInfo value3;
+											value3.square = boardSquare;
+											value3.cost = num;
+											value3.prevCost = value2.cost;
+											bool flag5 = false;
+											LinkedListNode<ActorMovement.BoardSquareMovementInfo> linkedListNode = linkedList.First;
+											while (linkedListNode != linkedList.Last)
+											{
+												ActorMovement.BoardSquareMovementInfo value4 = linkedListNode.Value;
+												if (value4.square == boardSquare)
+												{
+													flag5 = true;
+													if (value4.cost > num)
+													{
+														for (;;)
+														{
+															switch (7)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														linkedListNode.Value = value3;
+													}
+													else if (value4.cost == num && value3.prevCost < value4.prevCost)
+													{
+														for (;;)
+														{
+															switch (7)
+															{
+															case 0:
+																continue;
+															}
+															break;
+														}
+														linkedListNode.Value = value3;
+													}
+													IL_2C5:
+													if (!flag5 && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
+													{
+														linkedList.AddLast(value3);
+														goto IL_2E5;
+													}
+													goto IL_2E5;
+												}
+												else
+												{
+													linkedListNode = linkedListNode.Next;
+												}
+											}
+											for (;;)
+											{
+												switch (3)
+												{
+												case 0:
+													continue;
+												}
+												goto IL_2C5;
+											}
+										}
+									}
+								}
+							}
+							goto IL_2E5;
+						}
+					}
+					for (;;)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (MovementUtils.CanStopOnSquare(square) && SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
+					{
+						for (;;)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
+						{
+							if (!eligibleSquares.Contains(square))
+							{
+								for (;;)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								eligibleSquares.Add(square);
+							}
+							if (innerMaxMove > 0f && !innerSquares.Contains(square))
+							{
+								for (;;)
+								{
+									switch (4)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								bool flag6;
+								if (flag2)
+								{
+									for (;;)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									flag6 = (value2.cost <= innerMaxMove);
+								}
+								else
+								{
+									flag6 = (value2.prevCost < innerMaxMove);
+								}
+								if (flag6)
+								{
+									for (;;)
+									{
+										switch (3)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									innerSquares.Add(square);
+								}
+							}
+						}
+					}
+					hashSet.Add(square);
+					linkedList.RemoveFirst();
+				}
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				return;
+			}
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+	}
+
+	public HashSet<BoardSquare> BuildSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
+	{
+		HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
+		if (squareToStartFrom == null || maxHorizontalMovement == 0f)
+		{
+			return hashSet;
+		}
+		hashSet.Add(squareToStartFrom);
+		LinkedList<ActorMovement.BoardSquareMovementInfo> linkedList = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
+		HashSet<BoardSquare> hashSet2 = new HashSet<BoardSquare>();
+		ActorMovement.BoardSquareMovementInfo value;
+		value.square = squareToStartFrom;
+		value.cost = 0f;
+		value.prevCost = 0f;
+		linkedList.AddLast(value);
+		List<BoardSquare> list = new List<BoardSquare>(8);
+		while (linkedList.Count > 0)
+		{
+			ActorMovement.BoardSquareMovementInfo value2 = linkedList.First.Value;
+			BoardSquare square = value2.square;
+			list.Clear();
+			if (!(GameplayData.Get() != null))
+			{
+				goto IL_DB;
+			}
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildSquaresCanMoveTo(BoardSquare, float)).MethodHandle;
+			}
+			if (GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled)
+			{
+				goto IL_DB;
+			}
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Board.\u000E().\u000E(square.x, square.y, ref list);
+			IL_FB:
+			for (int i = 0; i < list.Count; i++)
+			{
+				BoardSquare boardSquare = list[i];
+				if (!hashSet2.Contains(boardSquare))
+				{
+					bool flag = Board.\u000E().\u0015(square, boardSquare);
+					float num;
+					if (flag)
+					{
+						for (;;)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num = value2.cost + 1.5f;
+					}
+					else
+					{
+						num = value2.cost + 1f;
+					}
+					if (!(GameplayData.Get() != null))
+					{
+						goto IL_19A;
+					}
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax)
+					{
+						goto IL_19A;
+					}
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					bool flag2 = num <= maxHorizontalMovement;
+					IL_1A6:
+					if (!flag2)
+					{
+						goto IL_290;
+					}
+					for (;;)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					ActorMovement.BoardSquareMovementInfo value3;
+					value3.square = boardSquare;
+					value3.cost = num;
+					value3.prevCost = value2.cost;
+					bool flag3 = false;
+					LinkedListNode<ActorMovement.BoardSquareMovementInfo> linkedListNode = linkedList.First;
+					while (linkedListNode != linkedList.Last)
+					{
+						ActorMovement.BoardSquareMovementInfo value4 = linkedListNode.Value;
+						if (value4.square == boardSquare)
+						{
+							for (;;)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag3 = true;
+							if (value4.cost > num)
+							{
+								linkedListNode.Value = value3;
+							}
+							IL_245:
+							if (flag3)
+							{
+								goto IL_290;
+							}
+							for (;;)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (this.CanCrossToAdjacentSquare(square, boardSquare, false, (!flag) ? ActorMovement.DiagonalCalcFlag.NotDiagonal : ActorMovement.DiagonalCalcFlag.IsDiagonal) && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
+							{
+								for (;;)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								linkedList.AddLast(value3);
+								goto IL_290;
+							}
+							goto IL_290;
+						}
+						else
+						{
+							linkedListNode = linkedListNode.Next;
+						}
+					}
+					for (;;)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						goto IL_245;
+					}
+					IL_19A:
+					flag2 = (value2.cost < maxHorizontalMovement);
+					goto IL_1A6;
+				}
+				IL_290:;
+			}
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!hashSet.Contains(square))
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (MovementUtils.CanStopOnSquare(square))
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
+					{
+						for (;;)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
+						{
+							for (;;)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							hashSet.Add(square);
+						}
+					}
+				}
+			}
+			hashSet2.Add(square);
+			linkedList.RemoveFirst();
+			continue;
+			IL_DB:
+			Board.\u000E().\u0015(square.x, square.y, ref list);
+			goto IL_FB;
+		}
+		return hashSet;
+	}
+
+	public HashSet<BoardSquare> CheckSquareCanMoveToCache(BoardSquare squareToStartFrom, float maxHorizontalMovement)
+	{
+		HashSet<BoardSquare> result = null;
+		int squaresCanMoveToSinglePlayerState = -1;
+		if (SinglePlayerManager.Get() != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CheckSquareCanMoveToCache(BoardSquare, float)).MethodHandle;
+			}
+			if (this.m_actor.SpawnerId == -1)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
+			}
+		}
+		int squaresCanMoveToBarrierState = -1;
+		if (BarrierManager.Get() != null)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(this.m_actor);
+		}
+		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
+		if (FirstTurnMovement.Get() != null)
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
+		}
+		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry();
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin = squareToStartFrom;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState;
+		int num = 0;
+		ActorMovement.SquaresCanMoveToCacheEntry item = null;
+		for (int i = 0; i < this.m_squaresCanMoveToCache.Count; i++)
+		{
+			ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = this.m_squaresCanMoveToCache[i];
+			if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin)
+			{
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed)
+				{
+					for (;;)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState)
+					{
+						for (;;)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState && squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
+						{
+							for (;;)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
+							item = squaresCanMoveToCacheEntry2;
+							num = i;
+							IL_1A7:
+							if (num != 0)
+							{
+								this.m_squaresCanMoveToCache.RemoveAt(num);
+								this.m_squaresCanMoveToCache.Insert(0, item);
+							}
+							return result;
+						}
+					}
+				}
+			}
+		}
+		for (;;)
+		{
+			switch (2)
+			{
+			case 0:
+				continue;
+			}
+			goto IL_1A7;
+		}
+	}
+
+	public void AddToSquareCanMoveToCache(BoardSquare squareToStartFrom, float maxHorizontalMovement, HashSet<BoardSquare> squaresCanMoveTo)
+	{
+		int squaresCanMoveToBarrierState = -1;
+		int squaresCanMoveToSinglePlayerState = -1;
+		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
+		if (SinglePlayerManager.Get() != null && this.m_actor.SpawnerId == -1)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AddToSquareCanMoveToCache(BoardSquare, float, HashSet<BoardSquare>)).MethodHandle;
+			}
+			squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
+		}
+		if (BarrierManager.Get() != null)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(this.m_actor);
+		}
+		if (FirstTurnMovement.Get() != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
+		}
+		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry();
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin = squareToStartFrom;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState;
+		squaresCanMoveToCacheEntry.m_squaresCanMoveTo = squaresCanMoveTo;
+		if (this.m_squaresCanMoveToCache.Count >= ActorMovement.s_maxSquaresCanMoveToCacheCount)
+		{
+			this.m_squaresCanMoveToCache.RemoveAt(this.m_squaresCanMoveToCache.Count - 1);
+		}
+		this.m_squaresCanMoveToCache.Insert(0, squaresCanMoveToCacheEntry);
+	}
+
+	public HashSet<BoardSquare> GetSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
+	{
+		HashSet<BoardSquare> hashSet = this.CheckSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement);
+		if (hashSet != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetSquaresCanMoveTo(BoardSquare, float)).MethodHandle;
+			}
+			return hashSet;
+		}
+		hashSet = this.BuildSquaresCanMoveTo(squareToStartFrom, maxHorizontalMovement);
+		this.AddToSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement, hashSet);
+		return hashSet;
+	}
+
+	public unsafe void GetSquaresCanMoveTo_InnerOuter(BoardSquare squareToStartFrom, float maxMoveDist, float innerMoveDist, out HashSet<BoardSquare> outMaxMoveSquares, out HashSet<BoardSquare> outInnerMoveSquares)
+	{
+		HashSet<BoardSquare> hashSet = this.CheckSquareCanMoveToCache(squareToStartFrom, maxMoveDist);
+		HashSet<BoardSquare> hashSet2 = this.CheckSquareCanMoveToCache(squareToStartFrom, innerMoveDist);
+		if (hashSet == null && hashSet2 == null)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetSquaresCanMoveTo_InnerOuter(BoardSquare, float, float, HashSet<BoardSquare>*, HashSet<BoardSquare>*)).MethodHandle;
+			}
+			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out hashSet, out hashSet2);
+			this.AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, hashSet);
+			this.AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, hashSet2);
+		}
+		else if (hashSet == null)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			HashSet<BoardSquare> hashSet3;
+			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, 0f, out hashSet, out hashSet3);
+			this.AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, hashSet);
+		}
+		else if (hashSet2 == null)
+		{
+			HashSet<BoardSquare> hashSet4;
+			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, innerMoveDist, 0f, out hashSet2, out hashSet4);
+			this.AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, hashSet2);
+		}
+		outMaxMoveSquares = hashSet;
+		outInnerMoveSquares = hashSet2;
+	}
+
+	public bool CanCrossToAdjacentSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, ActorMovement.DiagonalCalcFlag diagonalFlag = ActorMovement.DiagonalCalcFlag.Unknown)
+	{
+		return this.CanCrossToAdjacentSingleSquare(src, dest, ignoreBarriers, true, diagonalFlag);
+	}
+
+	private bool CanCrossToAdjacentSingleSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, bool knownAdjacent = false, ActorMovement.DiagonalCalcFlag diagonalFlag = ActorMovement.DiagonalCalcFlag.Unknown)
+	{
+		if (!(dest == null))
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CanCrossToAdjacentSingleSquare(BoardSquare, BoardSquare, bool, bool, ActorMovement.DiagonalCalcFlag)).MethodHandle;
+			}
+			if (!dest.\u0016())
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			else
+			{
+				if (src.\u001D(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
+				{
+					for (;;)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					return false;
+				}
+				if (!ignoreBarriers)
+				{
+					for (;;)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (BarrierManager.Get() != null)
+					{
+						for (;;)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (BarrierManager.Get().IsMovementBlocked(this.m_actor, src, dest))
+						{
+							return false;
+						}
+					}
+				}
+				bool flag;
+				if (!knownAdjacent)
+				{
+					for (;;)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag = Board.\u000E().\u000E(src, dest);
+				}
+				else
+				{
+					flag = true;
+				}
+				if (!flag)
+				{
+					return false;
+				}
+				bool flag2 = true;
+				if (diagonalFlag != ActorMovement.DiagonalCalcFlag.IsDiagonal)
+				{
+					for (;;)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (diagonalFlag != ActorMovement.DiagonalCalcFlag.Unknown)
+					{
+						goto IL_18A;
+					}
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!Board.\u000E().\u0015(src, dest))
+					{
+						goto IL_18A;
+					}
+					for (;;)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				BoardSquare boardSquare = Board.\u000E().\u0016(src.x, dest.y);
+				BoardSquare boardSquare2 = Board.\u000E().\u0016(dest.x, src.y);
+				if (flag2)
+				{
+					for (;;)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
+				}
+				if (flag2)
+				{
+					for (;;)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
+				}
+				if (flag2)
+				{
+					flag2 &= this.CanCrossToAdjacentSingleSquare(boardSquare, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
+				}
+				if (flag2)
+				{
+					flag2 &= this.CanCrossToAdjacentSingleSquare(boardSquare2, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
+				}
+				IL_18A:
+				if (!flag2)
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					return false;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void ClearPath()
+	{
+		if (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ClearPath()).MethodHandle;
+			}
+			this.m_gameplayPath = null;
+		}
+		this.Client_ClearAestheticPath();
+	}
+
+	private void Client_ClearAestheticPath()
+	{
+		if (this.m_aestheticPath != null)
+		{
+			this.m_aestheticPath = null;
+		}
+	}
+
+	public Vector3 GetGroundPosition(Vector3 testPos)
+	{
+		Vector3 result = testPos;
+		int layerMask = 1 << LayerMask.NameToLayer("LineOfSight");
+		Vector3 origin = testPos;
+		origin.y += 4f;
+		float radius = 0.1f;
+		RaycastHit raycastHit;
+		if (Physics.SphereCast(origin, radius, Vector3.down, out raycastHit, 100f, layerMask))
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetGroundPosition(Vector3)).MethodHandle;
+			}
+			result.y = raycastHit.point.y;
+		}
+		return result;
+	}
+
+	public bool ShouldSetForceIdle()
+	{
+		Animator animator = this.m_actor.\u000E();
+		if (!(animator == null))
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ShouldSetForceIdle()).MethodHandle;
+			}
+			if (animator.layerCount >= 1)
+			{
+				AnimatorStateInfo currentAnimatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+				if (!currentAnimatorStateInfo.IsName("Run_Vault"))
+				{
+					for (;;)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!currentAnimatorStateInfo.IsName("Run_End"))
+					{
+						for (;;)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (!currentAnimatorStateInfo.IsTag("Run_End"))
+						{
+							for (;;)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (!currentAnimatorStateInfo.IsName("KnockbackEnd") && !currentAnimatorStateInfo.IsTag("Knockdown") && !currentAnimatorStateInfo.IsTag("Damage"))
+							{
+								for (;;)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								return !this.m_actor.\u000E().IsPlayingIdleAnim(false);
+							}
+						}
+					}
+				}
+				return false;
+			}
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		return false;
+	}
+
+	internal void OnGameStateChange(bool decisionState)
+	{
+		Animator animator = this.m_actor.\u000E();
+		if (!decisionState)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnGameStateChange(bool)).MethodHandle;
+			}
+			if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != 1f)
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				this.m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
+			}
+		}
+		while (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (this.m_gameplayPath.next == null || this.m_actor.\u000E())
+			{
+				break;
+			}
+			this.AdvanceGameplayPath();
+		}
+		if (this.m_curMoveState != null)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			this.m_curMoveState = null;
+			this.StopMovementAnimator();
+		}
+		if (animator != null)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (animator.GetInteger(ActorMovement.animIdleType) < 0)
+			{
+				for (;;)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				animator.SetInteger(ActorMovement.animIdleType, 0);
+			}
+		}
+		if (this.ShouldSetForceIdle())
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			animator.SetTrigger(ActorMovement.animForceIdle);
+		}
+		if (this.m_actor.\u0012() != null)
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			this.m_actor.SetTransformPositionToSquare(this.m_actor.\u0012());
+		}
+		this.Client_ClearAestheticPath();
+		this.m_moveTimeoutTime = -1f;
+	}
+
+	public void ResetChargeCycleFlag()
+	{
+		Animator animator = this.m_actor.\u000E();
+		if (animator != null)
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ResetChargeCycleFlag()).MethodHandle;
+			}
+			animator.SetInteger(ActorMovement.animNextChargeCycleType, 0);
+			animator.SetInteger(ActorMovement.animChargeCycleType, 0);
+			animator.SetInteger(ActorMovement.animChargeEndType, 4);
+			animator.SetFloat(ActorMovement.animDistToWaypoint, 0f);
+		}
+	}
+
+	private void UpdatePath()
+	{
+		bool flag = false;
+		if (this.m_aestheticPath == null)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdatePath()).MethodHandle;
+			}
+			Log.Error(string.Format("{0} trying to UpdatePath with a null aesthetic path; exiting.", this.m_actor.DisplayName), new object[0]);
+			return;
+		}
+		if (this.m_aestheticPath.next == null)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			while (this.m_gameplayPath.next != null)
+			{
+				this.AdvanceGameplayPath();
+				bool flag2;
+				if (Application.isEditor && DebugParameters.Get() != null)
+				{
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag2 = DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
+				}
+				else
+				{
+					flag2 = false;
+				}
+				bool flag3 = flag2;
+				flag = !flag3;
+			}
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			ActorCover actorCover = this.m_actor.\u000E();
+			actorCover.RecalculateCover();
+		}
+		if (this.m_aestheticPath != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (this.m_aestheticPath.next != null)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				this.m_aestheticPath = this.m_aestheticPath.next;
+				goto IL_108;
+			}
+		}
+		this.m_aestheticPath = null;
+		IL_108:
+		if (flag)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			this.m_actor.\u000E().MarkForRecalculateVisibility();
+			this.UpdateClientFogOfWarIfNeeded();
+		}
+	}
+
+	public bool AmMoving()
+	{
+		bool flag;
+		if (this.m_curMoveState != null)
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AmMoving()).MethodHandle;
+			}
+			if (this.m_curMoveState is ChargeState)
+			{
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				ChargeState chargeState = this.m_curMoveState as ChargeState;
+				if (chargeState.DoneMoving())
+				{
+					for (;;)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag = false;
+				}
+				else
+				{
+					flag = true;
+				}
+			}
+			else if (this.m_curMoveState.m_done)
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				flag = false;
+			}
+			else
+			{
+				flag = true;
+			}
+		}
+		else
+		{
+			flag = false;
+		}
+		bool result;
+		if (flag)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			result = !this.ShouldPauseAnimator();
+		}
+		else
+		{
+			result = false;
+		}
+		return result;
+	}
+
+	public bool InChargeState()
+	{
+		return this.m_curMoveState != null && this.m_curMoveState is ChargeState;
+	}
+
+	internal float FindDistanceToEnd()
+	{
+		if (this.AmMoving())
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.FindDistanceToEnd()).MethodHandle;
+			}
+			if (this.m_gameplayPath != null)
+			{
+				for (;;)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				return this.m_gameplayPath.FindDistanceToEnd();
+			}
+		}
+		return 0f;
+	}
+
+	internal bool FindIsVisibleToClient()
+	{
+		FogOfWar clientFog = FogOfWar.GetClientFog();
+		if (this.m_gameplayPath == null || clientFog == null)
+		{
+			return false;
+		}
+		for (BoardSquarePathInfo boardSquarePathInfo = this.m_gameplayPath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+		{
+			if (clientFog.IsVisible(boardSquarePathInfo.square))
+			{
+				for (;;)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!true)
+				{
+					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.FindIsVisibleToClient()).MethodHandle;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	internal bool OnPathType(BoardSquarePathInfo.ConnectionType type)
+	{
+		bool result;
+		if (this.m_aestheticPath != null)
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnPathType(BoardSquarePathInfo.ConnectionType)).MethodHandle;
+			}
+			result = (this.m_aestheticPath.connectionType == type);
+		}
+		else
+		{
+			result = false;
+		}
+		return result;
+	}
+
+	public void OnMidMovementDeath()
+	{
+		this.UpdatePosition();
+		if (this.m_curMoveState != null)
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnMidMovementDeath()).MethodHandle;
+			}
+			this.m_curMoveState.Update();
+		}
+		this.StopMovementAnimator();
+	}
+
+	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
+	{
+		if (eventType == GameEventManager.EventType.ActiveControlChangedToEnemyTeam)
+		{
+			this.m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
+		}
+	}
+
+	public void UpdatePosition()
+	{
+		if (this.m_curMoveState != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdatePosition()).MethodHandle;
+			}
+			BoardSquarePathInfo gameplayPathClosestTo = this.GetGameplayPathClosestTo(this.m_actor.transform.position);
+			bool flag = false;
+			while (this.m_gameplayPath != gameplayPathClosestTo)
+			{
+				this.AdvanceGameplayPath();
+				bool flag2;
+				if (Application.isEditor && DebugParameters.Get() != null)
+				{
+					for (;;)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag2 = DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
+				}
+				else
+				{
+					flag2 = false;
+				}
+				bool flag3 = flag2;
+				flag = !flag3;
+			}
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (flag)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				this.m_actor.\u000E().MarkForRecalculateVisibility();
+				this.UpdateClientFogOfWarIfNeeded();
+			}
+			bool flag4;
+			if (!this.m_actor.\u000E())
+			{
+				for (;;)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				flag4 = !this.m_actor.\u0012();
+			}
+			else
+			{
+				flag4 = false;
+			}
+			bool flag5 = flag4;
+			if (flag5)
+			{
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				bool updatePath = this.m_curMoveState.m_updatePath;
+				this.m_curMoveState.Update();
+				this.UpdateValuesAnimator();
+				if (!updatePath)
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (this.m_curMoveState.m_updatePath)
+					{
+						for (;;)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						this.UpdatePath();
+					}
+				}
+				if (this.m_curMoveState != null)
+				{
+					for (;;)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!this.m_curMoveState.m_done)
+					{
+						return;
+					}
+					for (;;)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				this.UpdateMovementState();
+				this.UpdateValuesAnimator();
+				if (this.m_curMoveState == null)
+				{
+					for (;;)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					this.StopMovementAnimator();
+				}
+			}
+		}
+	}
+
+	private void UpdateClientFogOfWarIfNeeded()
+	{
+		if (NetworkClient.active)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateClientFogOfWarIfNeeded()).MethodHandle;
+			}
+			if (FogOfWar.GetClientFog() != null)
+			{
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (GameFlowData.Get() != null)
+				{
+					for (;;)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (GameFlowData.Get().LocalPlayerData != null)
+					{
+						Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+						bool flag;
+						if (this.m_actor.\u000E() != null)
+						{
+							for (;;)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag = this.m_actor.\u000E().HasStatus(StatusType.Revealed, true);
+						}
+						else
+						{
+							flag = false;
+						}
+						bool flag2 = flag;
+						bool flag3 = CaptureTheFlag.IsActorRevealedByFlag_Client(this.m_actor);
+						if (this.m_actor.\u000E() != teamViewing)
+						{
+							if (!flag2)
+							{
+								for (;;)
+								{
+									switch (5)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (!flag3)
+								{
+									return;
+								}
+								for (;;)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							FogOfWar.GetClientFog().MarkForRecalculateVisibility();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private bool ShouldPauseAnimator()
+	{
+		return false;
+	}
+
+	private void StopMovementAnimator()
+	{
+		Animator animator = this.m_actor.\u000E();
+		if (animator == null)
+		{
+			return;
+		}
+		if (this.ShouldPauseAnimator())
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.StopMovementAnimator()).MethodHandle;
+			}
+			if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != this.m_brushTransitionAnimationSpeed)
+			{
+				for (;;)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				this.m_brushTransitionAnimationSpeedEased.EaseTo(this.m_brushTransitionAnimationSpeed, this.m_brushTransitionAnimationSpeedEaseTime);
+			}
+		}
+		else
+		{
+			animator.SetInteger(ActorMovement.animNextLinkType, 0);
+			animator.SetInteger(ActorMovement.animCurLinkType, 0);
+			animator.SetFloat(ActorMovement.animDistToGoal, 0f);
+			animator.SetFloat(ActorMovement.animTimeInAnim, 0f);
+		}
+		if (this.m_actor != null)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (this.m_actor.\u000E() != null)
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				this.m_actor.\u000E().OnMovementAnimatorStop();
+			}
+		}
+	}
+
+	private float GetDistToPathSquare(BoardSquare goalGridSquare)
+	{
+		Vector3 position = this.m_actor.transform.position;
+		Vector3 a = goalGridSquare.\u001D();
+		Vector3 vector = a - position;
+		vector.y = 0f;
+		return vector.magnitude;
+	}
+
+	public Vector3 GetCurrentMovementDir()
+	{
+		Vector3 result;
+		if (this.m_actor != null)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetCurrentMovementDir()).MethodHandle;
+			}
+			if (this.m_actor.transform != null)
+			{
+				for (;;)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (this.m_aestheticPath != null && this.m_aestheticPath.square != null)
+				{
+					for (;;)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					Vector3 position = this.m_actor.transform.position;
+					Vector3 a = this.m_aestheticPath.square.\u001D();
+					result = a - position;
+					result.y = 0f;
+					result.Normalize();
+					return result;
+				}
+			}
+		}
+		result = Vector3.zero;
+		return result;
+	}
+
+	private void UpdateValuesAnimator()
+	{
+		Animator animator = this.m_actor.\u000E();
+		if (animator == null)
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateValuesAnimator()).MethodHandle;
+			}
+			return;
+		}
+		float num;
+		if (this.ShouldPauseAnimator())
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			num = this.m_brushTransitionAnimationSpeed;
+		}
+		else
+		{
+			num = 1f;
+		}
+		float num2 = num;
+		if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != num2)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Eased<float> brushTransitionAnimationSpeedEased = this.m_brushTransitionAnimationSpeedEased;
+			float endValue = num2;
+			float duration;
+			if (num2 == 1f)
+			{
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				duration = 0f;
+			}
+			else
+			{
+				duration = this.m_brushTransitionAnimationSpeedEaseTime;
+			}
+			brushTransitionAnimationSpeedEased.EaseTo(endValue, duration);
+		}
+		if (this.m_curMoveState != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			animator.SetFloat(ActorMovement.animDistToGoal, this.GetDistToGoal());
+			animator.SetFloat(ActorMovement.animTimeInAnim, this.m_curMoveState.m_timeInAnim);
+			if (this.m_curMoveState.m_forceAnimReset)
+			{
+				for (;;)
+				{
+					switch (4)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (this.ShouldSetForceIdle())
+				{
+					for (;;)
+					{
+						switch (2)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					animator.SetTrigger(ActorMovement.animForceIdle);
+				}
+			}
+		}
+		animator.SetInteger(ActorMovement.animCurLinkType, MovementUtils.GetLinkType(this.m_aestheticPath));
+		if (this.m_aestheticPath != null)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			animator.SetInteger(ActorMovement.animNextLinkType, MovementUtils.GetLinkType(this.m_aestheticPath.next));
+			animator.SetInteger(ActorMovement.animChargeCycleType, (int)this.m_aestheticPath.chargeCycleType);
+			animator.SetInteger(ActorMovement.animChargeEndType, (int)this.m_aestheticPath.chargeEndType);
+			animator.SetFloat(ActorMovement.animDistToWaypoint, this.GetDistToPathSquare(this.m_aestheticPath.square));
+			if (this.m_aestheticPath.next != null)
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				animator.SetInteger(ActorMovement.animNextChargeCycleType, (int)this.m_aestheticPath.next.chargeCycleType);
+			}
+		}
+	}
+
+	private bool EnemyRunningIntoBrush(BoardSquarePathInfo pathEndInfo)
+	{
+		if (!this.m_actor.VisibleTillEndOfPhase && !this.m_actor.CurrentlyVisibleForAbilityCast && !this.m_actor.\u000E().HasStatus(StatusType.Revealed, false))
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.EnemyRunningIntoBrush(BoardSquarePathInfo)).MethodHandle;
+			}
+			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(this.m_actor))
+			{
+				if (pathEndInfo == null)
+				{
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (!this.m_actor.\u0018())
+					{
+						for (;;)
+						{
+							switch (7)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (this.m_actor.\u0016())
+						{
+							for (;;)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (this.m_actor.\u000E().IsPast2ndToLastSquare())
+							{
+								goto IL_13B;
+							}
+							for (;;)
+							{
+								switch (6)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+					}
+				}
+				if (pathEndInfo == null)
+				{
+					goto IL_159;
+				}
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (pathEndInfo.m_visibleToEnemies)
+				{
+					goto IL_159;
+				}
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (pathEndInfo.m_moverHasGameplayHitHere || !(pathEndInfo.square != null))
+				{
+					goto IL_159;
+				}
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!(BrushCoordinator.Get() != null) || !BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
+				{
+					goto IL_159;
+				}
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				IL_13B:
+				return ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement || GameFlowData.Get().gameState == GameState.BothTeams_Decision;
+			}
+		}
+		IL_159:
+		return false;
+	}
+
+	private float GetDistToGoal()
+	{
+		float num = 0f;
+		Vector3 b = base.transform.position;
+		BoardSquarePathInfo boardSquarePathInfo = this.m_aestheticPath;
+		BoardSquarePathInfo pathEndInfo = this.m_aestheticPath;
+		while (boardSquarePathInfo != null)
+		{
+			Vector3 vector = boardSquarePathInfo.square.ToVector3();
+			num += (vector - b).magnitude;
+			b = vector;
+			boardSquarePathInfo = boardSquarePathInfo.next;
+			if (boardSquarePathInfo != null)
+			{
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!true)
+				{
+					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetDistToGoal()).MethodHandle;
+				}
+				pathEndInfo = boardSquarePathInfo;
+			}
+		}
+		if (this.EnemyRunningIntoBrush(pathEndInfo))
+		{
+			num += 999f;
+		}
+		return num;
+	}
+
+	private float GetDistToGround()
+	{
+		Vector3 groundPosition = this.GetGroundPosition(this.m_actor.transform.position);
+		return this.m_actor.transform.position.y - groundPosition.y;
+	}
+
+	private void OnDeath()
+	{
+		this.UpdateMovementState();
+	}
+
+	private void UpdateMovementState()
+	{
+		if (this.m_actor.\u000E())
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateMovementState()).MethodHandle;
+			}
+			this.Client_ClearAestheticPath();
+		}
+		if (this.m_actor.\u0012())
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			this.Client_ClearAestheticPath();
+		}
+		if (this.m_aestheticPath != null)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (this.m_curMoveState != null)
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (this.m_curMoveState.m_connectionType == BoardSquarePathInfo.ConnectionType.Run)
+				{
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					if (this.m_aestheticPath.connectionType == BoardSquarePathInfo.ConnectionType.Run)
+					{
+						goto IL_CA;
+					}
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+			}
+			Animator animator = this.m_actor.\u000E();
+			if (animator != null)
+			{
+				for (;;)
+				{
+					switch (3)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				animator.SetTrigger(ActorMovement.animMoveSegmentStart);
+			}
+			IL_CA:
+			switch (this.m_aestheticPath.connectionType)
+			{
+			case BoardSquarePathInfo.ConnectionType.Run:
+			case BoardSquarePathInfo.ConnectionType.Vault:
+				this.m_curMoveState = new RunState(this, this.m_aestheticPath);
+				break;
+			case BoardSquarePathInfo.ConnectionType.Knockback:
+				this.m_curMoveState = new KnockbackState(this, this.m_aestheticPath);
+				break;
+			case BoardSquarePathInfo.ConnectionType.Charge:
+			case BoardSquarePathInfo.ConnectionType.Flight:
+				this.m_curMoveState = new ChargeState(this, this.m_aestheticPath);
+				break;
+			}
+			if (this.m_actor != null)
+			{
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (this.m_actor.\u000E() != null)
+				{
+					for (;;)
+					{
+						switch (1)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					this.m_actor.\u000E().OnMovementAnimatorUpdate(this.m_aestheticPath.connectionType);
+				}
+			}
+		}
+		else if (this.m_curMoveState != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Animator animator2 = this.m_actor.\u000E();
+			if (animator2 != null)
+			{
+				for (;;)
+				{
+					switch (1)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				animator2.SetTrigger(ActorMovement.animMoveSegmentStart);
+			}
+			this.m_curMoveState = null;
+			this.StopMovementAnimator();
+		}
+	}
+
+	private BoardSquarePathInfo GetGameplayPathClosestTo(Vector3 pos)
+	{
+		Vector3 b = new Vector3(pos.x, 0f, pos.z);
+		BoardSquarePathInfo boardSquarePathInfo;
+		if (this.m_gameplayPath == null)
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetGameplayPathClosestTo(Vector3)).MethodHandle;
+			}
+			boardSquarePathInfo = null;
+		}
+		else
+		{
+			boardSquarePathInfo = this.m_gameplayPath.next;
+		}
+		BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
+		BoardSquarePathInfo result = this.m_gameplayPath;
+		if (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Vector3 a = new Vector3(this.m_gameplayPath.square.transform.position.x, 0f, this.m_gameplayPath.square.transform.position.z);
+			float num = (a - b).sqrMagnitude;
+			while (boardSquarePathInfo2 != null)
+			{
+				Vector3 a2 = new Vector3(boardSquarePathInfo2.square.transform.position.x, 0f, boardSquarePathInfo2.square.transform.position.z);
+				float sqrMagnitude = (a2 - b).sqrMagnitude;
+				if (sqrMagnitude < num)
+				{
+					result = boardSquarePathInfo2;
+					num = sqrMagnitude;
+				}
+				boardSquarePathInfo2 = boardSquarePathInfo2.next;
+			}
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		return result;
+	}
+
+	private void AdvanceGameplayPath()
+	{
+		this.m_gameplayPath = this.m_gameplayPath.next;
+		BoardSquare square = this.m_gameplayPath.square;
+		bool flag = this.m_gameplayPath.next == null;
+		this.m_actor.ActorData_OnActorMoved(square, this.m_gameplayPath.m_visibleToEnemies, this.m_gameplayPath.m_updateLastKnownPos);
+		ActorVFX actorVFX = this.m_actor.\u000E();
+		if (actorVFX != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AdvanceGameplayPath()).MethodHandle;
+			}
+			actorVFX.OnMove(this.m_gameplayPath, this.m_gameplayPath.prev);
+		}
+		CameraManager.Get().OnActorMoved(this.m_actor);
+		ClientClashManager.Get().OnActorMoved_ClientClashManager(this.m_actor, this.m_gameplayPath);
+		ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(this.m_actor, this.m_gameplayPath);
+		if (this.m_actor != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (this.m_actor.\u000E() != null)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				this.m_actor.\u000E().OnMovementAnimatorUpdate(this.m_aestheticPath.connectionType);
+			}
+		}
+		if (flag)
+		{
+			this.m_actor.UpdateFacingAfterMovement();
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve && HighlightUtils.Get() != null)
+			{
+				for (;;)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (HighlightUtils.Get().m_coverDirIndicatorTiming == HighlightUtils.MoveIntoCoverIndicatorTiming.ShowOnMoveEnd && HighlightUtils.Get().m_showMoveIntoCoverIndicators)
+				{
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+					if (activeOwnedActorData != null)
+					{
+						for (;;)
+						{
+							switch (1)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						if (activeOwnedActorData == this.m_actor)
+						{
+							for (;;)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (this.m_actor.\u000E() != null)
+							{
+								for (;;)
+								{
+									switch (2)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								if (this.m_actor.\u0018())
+								{
+									for (;;)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									this.m_actor.\u000E().RecalculateCover();
+									this.m_actor.\u000E().StartShowMoveIntoCoverIndicator();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void CalculateMoveTimeout()
+	{
+		this.m_moveTimeoutTime = 0f;
+		BoardSquarePathInfo boardSquarePathInfo = this.m_gameplayPath;
+		ActorData actor = this.m_actor;
+		while (boardSquarePathInfo != null)
+		{
+			BoardSquarePathInfo prev = boardSquarePathInfo.prev;
+			Vector3 a;
+			if (prev == null)
+			{
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (!true)
+				{
+					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalculateMoveTimeout()).MethodHandle;
+				}
+				a = this.m_actor.transform.position;
+			}
+			else
+			{
+				a = prev.square.ToVector3();
+			}
+			switch (boardSquarePathInfo.connectionType)
+			{
+			case BoardSquarePathInfo.ConnectionType.Run:
+			case BoardSquarePathInfo.ConnectionType.Knockback:
+			case BoardSquarePathInfo.ConnectionType.Charge:
+			case BoardSquarePathInfo.ConnectionType.Vault:
+				if (boardSquarePathInfo.segmentMovementDuration > 0f)
+				{
+					this.m_moveTimeoutTime += boardSquarePathInfo.segmentMovementDuration * 1.5f + 3f;
+				}
+				else
+				{
+					Vector3 vector = a - boardSquarePathInfo.square.ToVector3();
+					float num;
+					if (boardSquarePathInfo.segmentMovementSpeed > 0f)
+					{
+						for (;;)
+						{
+							switch (5)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						num = boardSquarePathInfo.segmentMovementSpeed;
+					}
+					else
+					{
+						num = actor.m_runSpeed;
+					}
+					float num2 = num;
+					this.m_moveTimeoutTime += vector.magnitude / num2 * 1.5f + 3f;
+				}
+				break;
+			}
+			boardSquarePathInfo = boardSquarePathInfo.next;
+		}
+		for (;;)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+	}
+
+	public void BeginTravellingAlongPath(BoardSquarePathInfo gameplayPath, ActorData.MovementType movementType)
+	{
+		this.m_actor.SetTransformPositionToSquare(gameplayPath.square);
+		this.m_actor.m_endVisibilityForHitTime = 0f;
+		BoardSquare travelBoardSquare = this.GetTravelBoardSquare();
+		this.m_gameplayPath = gameplayPath;
+		if (travelBoardSquare != this.GetTravelBoardSquare())
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BeginTravellingAlongPath(BoardSquarePathInfo, ActorData.MovementType)).MethodHandle;
+			}
+			this.m_actor.ForceUpdateIsVisibleToClientCache();
+			this.m_actor.ForceUpdateActorModelVisibility();
+		}
+		this.m_aestheticPath = this.m_gameplayPath.Clone(null);
+		if (movementType == ActorData.MovementType.Normal)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			MovementUtils.CreateRunAndVaultAestheticPath(ref this.m_aestheticPath, this.m_actor);
+		}
+		else
+		{
+			MovementUtils.CreateUnskippableAestheticPath(ref this.m_aestheticPath, movementType);
+		}
+		this.CalculateMoveTimeout();
+		this.m_actor.SetTransformPositionToSquare(gameplayPath.square);
+		this.UpdateMovementState();
+	}
+
+	public void BeginChargeOrKnockback(BoardSquare src, BoardSquare dest, BoardSquarePathInfo gameplayPath, ActorData.MovementType movementType)
+	{
+		if (movementType == ActorData.MovementType.Knockback)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BeginChargeOrKnockback(BoardSquare, BoardSquare, BoardSquarePathInfo, ActorData.MovementType)).MethodHandle;
+			}
+			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorKnockback, new GameEventManager.ActorKnockback
+			{
+				m_target = this.m_actor
+			});
+		}
+		if (src == null && dest != null)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			src = dest;
+		}
+		else if (src != null)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (dest == null)
+			{
+				for (;;)
+				{
+					switch (6)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				dest = src;
+			}
+		}
+		if (src != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (dest != null)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				this.m_actor.SetTransformPositionToSquare(src);
+				this.m_gameplayPath = gameplayPath;
+				this.m_aestheticPath = this.m_gameplayPath.Clone(null);
+				MovementUtils.CreateUnskippableAestheticPath(ref this.m_aestheticPath, movementType);
+				this.CalculateMoveTimeout();
+				this.m_actor.SetTransformPositionToSquare(src);
+				this.UpdateMovementState();
+			}
+		}
+	}
+
+	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest)
+	{
+		float maxHorizontalMovement = this.CalculateMaxHorizontalMovement(false, false);
+		return this.BuildPathTo(src, dest, maxHorizontalMovement, false, null);
+	}
+
+	public BoardSquarePathInfo BuildPathTo_IgnoreBarriers(BoardSquare src, BoardSquare dest)
+	{
+		float maxHorizontalMovement = this.CalculateMaxHorizontalMovement(false, false);
+		return this.BuildPathTo(src, dest, maxHorizontalMovement, true, null);
+	}
+
+	public BoardSquarePathInfo BuildPathTo(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
+	{
+		BoardSquarePathInfo boardSquarePathInfo = null;
+		if (!(src == null))
+		{
+			if (!(dest == null))
+			{
+				Board board = Board.\u000E();
+				BuildNormalPathNodePool normalPathBuildScratchPool = board.m_normalPathBuildScratchPool;
+				normalPathBuildScratchPool.ResetAvailableNodeIndex();
+				Vector3 tieBreakerDir = dest.ToVector3() - src.ToVector3();
+				Vector3 tieBreakerPos = src.ToVector3();
+				BuildNormalPathHeap normalPathNodeHeap = board.m_normalPathNodeHeap;
+				normalPathNodeHeap.Clear();
+				normalPathNodeHeap.SetTieBreakerDirAndPos(tieBreakerDir, tieBreakerPos);
+				this.m_tempClosedSquares.Clear();
+				Dictionary<BoardSquare, BoardSquarePathInfo> tempClosedSquares = this.m_tempClosedSquares;
+				BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
+				allocatedNode.square = src;
+				normalPathNodeHeap.Insert(allocatedNode);
+				List<BoardSquare> list = new List<BoardSquare>(8);
+				bool flag = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
+				bool flag2 = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
+				bool flag3;
+				if (claimedSquares != null)
+				{
+					for (;;)
+					{
+						switch (5)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag3 = claimedSquares.Contains(dest);
+				}
+				else
+				{
+					flag3 = false;
+				}
+				bool flag4 = flag3;
+				while (!normalPathNodeHeap.IsEmpty())
+				{
+					BoardSquarePathInfo boardSquarePathInfo2 = normalPathNodeHeap.ExtractTop();
+					if (boardSquarePathInfo2.square == dest)
+					{
+						boardSquarePathInfo = boardSquarePathInfo2;
+						break;
+					}
+					tempClosedSquares[boardSquarePathInfo2.square] = boardSquarePathInfo2;
+					list.Clear();
+					if (!flag)
+					{
+						for (;;)
+						{
+							switch (3)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						board.\u000E(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list);
+					}
+					else
+					{
+						board.\u0015(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list);
+					}
+					for (int i = 0; i < list.Count; i++)
+					{
+						BoardSquare boardSquare = list[i];
+						bool flag5 = board.\u0015(boardSquarePathInfo2.square, boardSquare);
+						float num;
+						if (flag5)
+						{
+							for (;;)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = boardSquarePathInfo2.moveCost + 1.5f;
+						}
+						else
+						{
+							num = boardSquarePathInfo2.moveCost + 1f;
+						}
+						bool flag6;
+						if (!flag2)
+						{
+							flag6 = (num <= maxHorizontalMovement);
+						}
+						else
+						{
+							flag6 = (boardSquarePathInfo2.moveCost < maxHorizontalMovement);
+						}
+						if (!flag6)
+						{
+							for (;;)
+							{
+								switch (3)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+						}
+						else
+						{
+							BoardSquare square = boardSquarePathInfo2.square;
+							BoardSquare dest2 = boardSquare;
+							ActorMovement.DiagonalCalcFlag diagonalFlag;
+							if (flag5)
+							{
+								for (;;)
+								{
+									switch (6)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
+							}
+							else
+							{
+								diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
+							}
+							if (!this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag))
+							{
+								for (;;)
+								{
+									switch (3)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							else if (!FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
+							{
+								for (;;)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							else
+							{
+								BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+								allocatedNode2.square = boardSquare;
+								allocatedNode2.moveCost = num;
+								if (claimedSquares != null && flag4 && allocatedNode2.square == dest)
+								{
+									int num2 = 1;
+									BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
+									while (boardSquarePathInfo3 != null)
+									{
+										for (;;)
+										{
+											switch (5)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										if (!claimedSquares.Contains(boardSquarePathInfo3.square))
+										{
+											for (;;)
+											{
+												switch (2)
+												{
+												case 0:
+													continue;
+												}
+												goto IL_2D8;
+											}
+										}
+										else
+										{
+											num2++;
+											boardSquarePathInfo3 = boardSquarePathInfo3.prev;
+										}
+									}
+									IL_2D8:
+									allocatedNode2.m_expectedBackupNum = num2;
+								}
+								float squareSize = board.squareSize;
+								if (!flag2)
+								{
+									for (;;)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
+								}
+								else
+								{
+									float num3 = (float)Mathf.Abs(boardSquare.x - dest.x);
+									float num4 = (float)Mathf.Abs(boardSquare.y - dest.y);
+									float num5 = num3 + num4 - 0.5f * Mathf.Min(num3, num4);
+									float heuristicCost = Mathf.Max(0f, num5 - 1.01f);
+									allocatedNode2.heuristicCost = heuristicCost;
+								}
+								allocatedNode2.prev = boardSquarePathInfo2;
+								bool flag7 = false;
+								if (tempClosedSquares.ContainsKey(allocatedNode2.square))
+								{
+									for (;;)
+									{
+										switch (5)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									flag7 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
+								}
+								if (flag7)
+								{
+									for (;;)
+									{
+										switch (4)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+								}
+								else
+								{
+									bool flag8 = false;
+									BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
+									if (boardSquarePathInfo4 != null)
+									{
+										for (;;)
+										{
+											switch (3)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										flag8 = true;
+										if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+										{
+											for (;;)
+											{
+												switch (6)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											normalPathNodeHeap.UpdatePriority(allocatedNode2);
+										}
+									}
+									if (!flag8)
+									{
+										for (;;)
+										{
+											switch (4)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										normalPathNodeHeap.Insert(allocatedNode2);
+									}
+								}
+							}
+						}
+					}
+					for (;;)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+				}
+				if (boardSquarePathInfo != null)
+				{
+					for (;;)
+					{
+						switch (7)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					while (boardSquarePathInfo.prev != null)
+					{
+						boardSquarePathInfo.prev.next = boardSquarePathInfo;
+						boardSquarePathInfo = boardSquarePathInfo.prev;
+					}
+					for (;;)
+					{
+						switch (4)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
+					normalPathBuildScratchPool.ResetAvailableNodeIndex();
+				}
+				return boardSquarePathInfo;
+			}
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildPathTo(BoardSquare, BoardSquare, float, bool, List<BoardSquare>)).MethodHandle;
+			}
+		}
+		return boardSquarePathInfo;
+	}
+
+	public BoardSquarePathInfo BuildPathTo_Orig(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
+	{
+		BoardSquarePathInfo boardSquarePathInfo = null;
+		if (!(src == null))
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildPathTo_Orig(BoardSquare, BoardSquare, float, bool, List<BoardSquare>)).MethodHandle;
+			}
+			if (dest == null)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+			}
+			else
+			{
+				Vector3 tieBreakDir = dest.ToVector3() - src.ToVector3();
+				Vector3 tieBreakTestPos = src.ToVector3();
+				BuildNormalPathNodePool normalPathBuildScratchPool = Board.\u000E().m_normalPathBuildScratchPool;
+				normalPathBuildScratchPool.ResetAvailableNodeIndex();
+				List<BoardSquarePathInfo> list = new List<BoardSquarePathInfo>();
+				Dictionary<BoardSquare, BoardSquarePathInfo> dictionary = new Dictionary<BoardSquare, BoardSquarePathInfo>();
+				BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
+				allocatedNode.square = src;
+				list.Add(allocatedNode);
+				List<BoardSquare> list2 = new List<BoardSquare>(8);
+				bool flag = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
+				bool flag2 = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
+				bool flag3;
+				if (claimedSquares != null)
+				{
+					for (;;)
+					{
+						switch (6)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					flag3 = claimedSquares.Contains(dest);
+				}
+				else
+				{
+					flag3 = false;
+				}
+				bool flag4 = flag3;
+				while (list.Count > 0)
+				{
+					list.Sort(delegate(BoardSquarePathInfo p1, BoardSquarePathInfo p2)
+					{
+						if (Mathf.Approximately(p1.F_cost, p2.F_cost))
+						{
+							for (;;)
+							{
+								switch (5)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							if (!true)
+							{
+								RuntimeMethodHandle runtimeMethodHandle2 = methodof(ActorMovement.<BuildPathTo_Orig>c__AnonStorey0.<>m__0(BoardSquarePathInfo, BoardSquarePathInfo)).MethodHandle;
+							}
+							Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
+							Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
+							return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
+						}
+						return p1.F_cost.CompareTo(p2.F_cost);
+					});
+					BoardSquarePathInfo boardSquarePathInfo2 = list[0];
+					tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
+					if (boardSquarePathInfo2.prev != null)
+					{
+						for (;;)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
+					}
+					if (boardSquarePathInfo2.square == dest)
+					{
+						for (;;)
+						{
+							switch (2)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						boardSquarePathInfo = boardSquarePathInfo2;
+						IL_56F:
+						if (boardSquarePathInfo != null)
+						{
+							while (boardSquarePathInfo.prev != null)
+							{
+								boardSquarePathInfo.prev.next = boardSquarePathInfo;
+								boardSquarePathInfo = boardSquarePathInfo.prev;
+							}
+							for (;;)
+							{
+								switch (4)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							boardSquarePathInfo = boardSquarePathInfo.Clone(null);
+							normalPathBuildScratchPool.ResetAvailableNodeIndex();
+						}
+						return boardSquarePathInfo;
+					}
+					dictionary[boardSquarePathInfo2.square] = boardSquarePathInfo2;
+					list.Remove(boardSquarePathInfo2);
+					list2.Clear();
+					if (!flag)
+					{
+						for (;;)
+						{
+							switch (4)
+							{
+							case 0:
+								continue;
+							}
+							break;
+						}
+						Board.\u000E().\u000E(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
+					}
+					else
+					{
+						Board.\u000E().\u0015(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
+					}
+					for (int i = 0; i < list2.Count; i++)
+					{
+						BoardSquare boardSquare = list2[i];
+						bool flag5 = Board.\u000E().\u0015(boardSquarePathInfo2.square, boardSquare);
+						float num;
+						if (flag5)
+						{
+							for (;;)
+							{
+								switch (1)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							num = boardSquarePathInfo2.moveCost + 1.5f;
+						}
+						else
+						{
+							num = boardSquarePathInfo2.moveCost + 1f;
+						}
+						bool flag6;
+						if (!flag2)
+						{
+							for (;;)
+							{
+								switch (7)
+								{
+								case 0:
+									continue;
+								}
+								break;
+							}
+							flag6 = (num <= maxHorizontalMovement);
+						}
+						else
+						{
+							flag6 = (boardSquarePathInfo2.moveCost < maxHorizontalMovement);
+						}
+						if (flag6)
+						{
+							BoardSquare square = boardSquarePathInfo2.square;
+							BoardSquare dest2 = boardSquare;
+							ActorMovement.DiagonalCalcFlag diagonalFlag;
+							if (flag5)
+							{
+								for (;;)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+								diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
+							}
+							else
+							{
+								diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
+							}
+							if (!this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag))
+							{
+								for (;;)
+								{
+									switch (7)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							else if (!FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
+							{
+								for (;;)
+								{
+									switch (1)
+									{
+									case 0:
+										continue;
+									}
+									break;
+								}
+							}
+							else
+							{
+								BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+								allocatedNode2.square = boardSquare;
+								allocatedNode2.moveCost = num;
+								if (claimedSquares != null && flag4)
+								{
+									for (;;)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									if (allocatedNode2.square == dest)
+									{
+										for (;;)
+										{
+											switch (2)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										int num2 = 1;
+										BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
+										while (boardSquarePathInfo3 != null)
+										{
+											for (;;)
+											{
+												switch (5)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											if (!claimedSquares.Contains(boardSquarePathInfo3.square))
+											{
+												for (;;)
+												{
+													switch (5)
+													{
+													case 0:
+														continue;
+													}
+													goto IL_372;
+												}
+											}
+											else
+											{
+												num2++;
+												boardSquarePathInfo3 = boardSquarePathInfo3.prev;
+											}
+										}
+										IL_372:
+										allocatedNode2.m_expectedBackupNum = num2;
+									}
+								}
+								float squareSize = Board.\u000E().squareSize;
+								if (!flag2)
+								{
+									for (;;)
+									{
+										switch (2)
+										{
+										case 0:
+											continue;
+										}
+										break;
+									}
+									allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
+								}
+								else
+								{
+									float num3 = (float)Mathf.Abs(boardSquare.x - dest.x);
+									float num4 = (float)Mathf.Abs(boardSquare.y - dest.y);
+									float num5 = num3 + num4 - 0.5f * Mathf.Min(num3, num4);
+									float heuristicCost = Mathf.Max(0f, num5 - 1.01f);
+									allocatedNode2.heuristicCost = heuristicCost;
+								}
+								allocatedNode2.prev = boardSquarePathInfo2;
+								bool flag7 = false;
+								if (dictionary.ContainsKey(allocatedNode2.square))
+								{
+									flag7 = (allocatedNode2.F_cost > dictionary[allocatedNode2.square].F_cost);
+								}
+								if (!flag7)
+								{
+									bool flag8 = false;
+									for (int j = 0; j < list.Count; j++)
+									{
+										BoardSquarePathInfo boardSquarePathInfo4 = list[j];
+										if (boardSquarePathInfo4.square == allocatedNode2.square)
+										{
+											for (;;)
+											{
+												switch (4)
+												{
+												case 0:
+													continue;
+												}
+												break;
+											}
+											flag8 = true;
+											if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+											{
+												for (;;)
+												{
+													switch (7)
+													{
+													case 0:
+														continue;
+													}
+													break;
+												}
+												boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
+												boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
+												boardSquarePathInfo4.prev = allocatedNode2.prev;
+												boardSquarePathInfo4.m_expectedBackupNum = allocatedNode2.m_expectedBackupNum;
+											}
+											break;
+										}
+									}
+									if (!flag8)
+									{
+										for (;;)
+										{
+											switch (3)
+											{
+											case 0:
+												continue;
+											}
+											break;
+										}
+										list.Add(allocatedNode2);
+									}
+								}
+							}
+						}
+					}
+				}
+				for (;;)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					goto IL_56F;
+				}
+			}
+		}
+		return boardSquarePathInfo;
+	}
+
+	public BoardSquarePathInfo GetAestheticPath()
+	{
+		BoardSquarePathInfo result;
+		if (this.m_curMoveState == null)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetAestheticPath()).MethodHandle;
+			}
+			result = null;
+		}
+		else
+		{
+			result = this.m_curMoveState.GetAestheticPath();
+		}
+		return result;
+	}
+
+	public BoardSquare GetTravelBoardSquare()
+	{
+		BoardSquare boardSquare = null;
+		if (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (4)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetTravelBoardSquare()).MethodHandle;
+			}
+			boardSquare = this.m_gameplayPath.square;
+		}
+		if (boardSquare == null)
+		{
+			boardSquare = this.m_actor.\u0012();
+		}
+		return boardSquare;
+	}
+
+	internal BoardSquarePathInfo GetPreviousTravelBoardSquarePathInfo()
+	{
+		if (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (3)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetPreviousTravelBoardSquarePathInfo()).MethodHandle;
+			}
+			if (this.m_gameplayPath.prev != null)
+			{
+				return this.m_gameplayPath.prev;
+			}
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+		}
+		return this.m_gameplayPath;
+	}
+
+	internal BoardSquarePathInfo GetNextTravelBoardSquarePathInfo()
+	{
+		if (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (6)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetNextTravelBoardSquarePathInfo()).MethodHandle;
+			}
+			if (this.m_gameplayPath.next != null)
+			{
+				return this.m_gameplayPath.next;
+			}
+		}
+		return this.m_gameplayPath;
+	}
+
+	public unsafe void EncapsulatePathInBound(ref Bounds bound)
+	{
+		if (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (1)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.EncapsulatePathInBound(Bounds*)).MethodHandle;
+			}
+			if (this.m_actor != null)
+			{
+				for (;;)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				TheatricsManager.EncapsulatePathInBound(ref bound, this.m_gameplayPath, this.m_actor);
+			}
+		}
+	}
+
+	public bool IsOnLastSegment()
+	{
+		bool result;
+		if (this.m_aestheticPath != null)
+		{
+			for (;;)
+			{
+				switch (7)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.IsOnLastSegment()).MethodHandle;
+			}
+			result = (this.m_aestheticPath.next == null);
+		}
+		else
+		{
+			result = false;
+		}
+		return result;
+	}
+
+	public bool IsYetToCompleteGameplayPath()
+	{
+		return this.m_gameplayPath != null && !this.m_gameplayPath.IsPathEndpoint();
+	}
+
+	internal bool IsPast2ndToLastSquare()
+	{
+		bool result;
+		if (this.m_gameplayPath != null)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.IsPast2ndToLastSquare()).MethodHandle;
+			}
+			result = (this.m_gameplayPath.next == null);
+		}
+		else
+		{
+			result = true;
+		}
+		return result;
+	}
+
+	public void OnAssignedToInitialBoardSquare()
+	{
+		Vector3 spawnFacing = SpawnPointManager.Get().GetSpawnFacing(base.transform.position);
+		this.m_actor.TurnToDirection(spawnFacing);
+		Animator animator = this.m_actor.\u000E();
+		if (animator != null)
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnAssignedToInitialBoardSquare()).MethodHandle;
+			}
+			animator.SetBool(ActorMovement.animDecisionPhase, true);
+		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
+		{
+			for (;;)
+			{
+				switch (5)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			if (!true)
+			{
+				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnDrawGizmos()).MethodHandle;
+			}
+			return;
+		}
+		Gizmos.color = Color.black;
+		Gizmos.DrawWireCube(this.m_actor.transform.position, new Vector3(1.5f, 2.5f, 1.5f));
+		Color[] array = new Color[]
+		{
+			Color.white,
+			Color.magenta,
+			Color.yellow,
+			Color.red,
+			Color.blue,
+			Color.black
+		};
+		float num = 0.4f;
+		for (BoardSquarePathInfo boardSquarePathInfo = this.m_aestheticPath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+		{
+			Gizmos.color = array[(int)boardSquarePathInfo.connectionType];
+			if (boardSquarePathInfo.square != null)
+			{
+				Gizmos.DrawWireSphere(boardSquarePathInfo.square.\u001D(), num);
+			}
+			if (boardSquarePathInfo.prev != null)
+			{
+				for (;;)
+				{
+					switch (5)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (boardSquarePathInfo.prev.square != null)
+				{
+					Gizmos.DrawLine(boardSquarePathInfo.square.\u001D() + Vector3.up * num, boardSquarePathInfo.prev.square.\u001D() + Vector3.up * num);
+				}
+			}
+		}
+		for (;;)
+		{
+			switch (1)
+			{
+			case 0:
+				continue;
+			}
+			break;
+		}
+		Gizmos.color = Color.black;
+		for (BoardSquarePathInfo boardSquarePathInfo2 = this.m_gameplayPath; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
+		{
+			if (boardSquarePathInfo2.square != null)
+			{
+				for (;;)
+				{
+					switch (2)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				Gizmos.DrawSphere(boardSquarePathInfo2.square.\u001D(), 0.15f);
+			}
+			if (boardSquarePathInfo2.prev != null)
+			{
+				for (;;)
+				{
+					switch (7)
+					{
+					case 0:
+						continue;
+					}
+					break;
+				}
+				if (boardSquarePathInfo2.prev.square != null)
+				{
+					for (;;)
+					{
+						switch (3)
+						{
+						case 0:
+							continue;
+						}
+						break;
+					}
+					Gizmos.DrawLine(boardSquarePathInfo2.square.\u001D(), boardSquarePathInfo2.prev.square.\u001D());
+				}
+			}
+		}
+		BoardSquare travelBoardSquare = this.GetTravelBoardSquare();
+		if (travelBoardSquare != null)
+		{
+			for (;;)
+			{
+				switch (2)
+				{
+				case 0:
+					continue;
+				}
+				break;
+			}
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawWireCube(travelBoardSquare.CameraBounds.center, travelBoardSquare.CameraBounds.size);
+		}
+	}
+
+	public enum IdleType
+	{
+		Default,
+		Special1
+	}
+
+	public class SquaresCanMoveToCacheEntry
+	{
+		public BoardSquare m_squaresCanMoveToOrigin;
+
+		public float m_squaresCanMoveToHorizontalAllowed;
+
+		public int m_squaresCanMoveToSinglePlayerState = -1;
+
+		public int m_squaresCanMoveToBarrierState = -1;
+
+		public FirstTurnMovement.RestrictedMovementState m_squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
+
+		public HashSet<BoardSquare> m_squaresCanMoveTo;
+	}
+
+	private struct BoardSquareMovementInfo
+	{
+		public BoardSquare square;
+
+		public float cost;
+
+		public float prevCost;
+	}
+
+	public enum DiagonalCalcFlag
+	{
+		Unknown,
+		IsDiagonal,
+		NotDiagonal
+	}
+}
