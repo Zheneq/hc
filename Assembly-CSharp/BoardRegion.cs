@@ -172,60 +172,43 @@ public class BoardRegion
 		return false;
 	}
 
-	public float symbol_001D(BoardSquare symbol_001D)
+	public float HorizontalDistanceOnBoardTo(BoardSquare dest)
 	{
-		if (symbol_001D == null)
+		if (dest == null)
 		{
 			return 0f;
 		}
 		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
-		if (squaresInRegion != null)
+
+		if (squaresInRegion == null || squaresInRegion.Count == 0)
 		{
-			if (squaresInRegion.Count != 0)
-			{
-				BoardSquare boardSquare = null;
-				for (int i = 0; i < squaresInRegion.Count; i++)
-				{
-					BoardSquare boardSquare2 = squaresInRegion[i];
-					if (boardSquare2 == null)
-					{
-					}
-					else if (symbol_001D == boardSquare2)
-					{
-						boardSquare = symbol_001D;
-						IL_E6:
-						if (boardSquare == null)
-						{
-							return 0f;
-						}
-						return boardSquare.HorizontalDistanceOnBoardTo(symbol_001D);
-					}
-					else if (boardSquare == null)
-					{
-						boardSquare = boardSquare2;
-					}
-					else
-					{
-						float num = boardSquare.HorizontalDistanceOnBoardTo(symbol_001D);
-						float num2 = boardSquare2.HorizontalDistanceOnBoardTo(symbol_001D);
-						if (num2 < num)
-						{
-							boardSquare = boardSquare2;
-						}
-					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_E6;
-				}
-			}
+			return 0f;
 		}
-		return 0f;
+		
+		BoardSquare best = null;
+		foreach (BoardSquare src in squaresInRegion)
+		{
+			if (src == null)
+			{
+				continue;
+			}
+
+			if (dest == src)
+			{
+				best = dest;
+				break;
+			}
+			if (best == null)
+			{
+				best = src;
+			}
+			else if (src.HorizontalDistanceOnBoardTo(dest) < best.HorizontalDistanceOnBoardTo(dest))
+			{
+				best = src;
+			}
+			
+		}
+		return best?.HorizontalDistanceOnBoardTo(dest) ?? 0f;
 	}
 
 	public void GizmosDrawRegion(Color color)
