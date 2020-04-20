@@ -724,19 +724,8 @@ public static class CompilerExtensions
 	public static IEnumerable<T> Descendants<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> DescendBy)
 	{
 		bool flag = false;
-		uint num;
-		IEnumerator<T> enumerator;
-		switch (num)
-		{
-		case 0U:
-			enumerator = source.GetEnumerator();
-			break;
-		case 1U:
-		case 2U:
-			break;
-		default:
-			yield break;
-		}
+		IEnumerator<T> enumerator = source.GetEnumerator();
+		
 		try
 		{
 			while (enumerator.MoveNext())
