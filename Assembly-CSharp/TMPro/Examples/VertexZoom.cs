@@ -47,12 +47,11 @@ namespace TMPro.Examples
 
 		private IEnumerator coroutine0013()
 		{
-			VertexZoom.AnimateVertexColors_c__Iterator0.AnimateVertexColors_c__AnonStorey1 AnimateVertexColors_c__AnonStorey = new VertexZoom.AnimateVertexColors_c__Iterator0.AnimateVertexColors_c__AnonStorey1();
-			AnimateVertexColors_c__AnonStorey.symbol_000E = this;
+			VertexZoom symbol_000E = this;
 			this.symbol_0015.ForceMeshUpdate();
 			TMP_TextInfo textInfo = this.symbol_0015.textInfo;
 			TMP_MeshInfo[] array = textInfo.CopyMeshInfoVertexData();
-			AnimateVertexColors_c__AnonStorey.symbol_001D = new List<float>();
+			List<float> symbol_001D = new List<float>();
 			List<int> list = new List<int>();
 			this.symbol_0016 = true;
 			for (;;)
@@ -69,7 +68,7 @@ namespace TMPro.Examples
 				}
 				else
 				{
-					AnimateVertexColors_c__AnonStorey.symbol_001D.Clear();
+					symbol_001D.Clear();
 					list.Clear();
 					for (int i = 0; i < characterCount; i++)
 					{
@@ -90,8 +89,8 @@ namespace TMPro.Examples
 							vertices2[vertexIndex + 2] = vertices[vertexIndex + 2] - b;
 							vertices2[vertexIndex + 3] = vertices[vertexIndex + 3] - b;
 							float num = UnityEngine.Random.Range(1f, 1.5f);
-							AnimateVertexColors_c__AnonStorey.symbol_001D.Add(num);
-							list.Add(AnimateVertexColors_c__AnonStorey.symbol_001D.Count - 1);
+							symbol_001D.Add(num);
+							list.Add(symbol_001D.Count - 1);
 							Matrix4x4 matrix4x = Matrix4x4.TRS(new Vector3(0f, 0f, 0f), Quaternion.identity, Vector3.one * num);
 							vertices2[vertexIndex] = matrix4x.MultiplyPoint3x4(vertices2[vertexIndex]);
 							vertices2[vertexIndex + 1] = matrix4x.MultiplyPoint3x4(vertices2[vertexIndex + 1]);
@@ -117,7 +116,10 @@ namespace TMPro.Examples
 					}
 					for (int j = 0; j < textInfo.meshInfo.Length; j++)
 					{
-						list.Sort(new Comparison<int>(AnimateVertexColors_c__AnonStorey.symbol_0012));
+						list.Sort(new Comparison<int>(delegate (int a, int b)
+						{
+							return symbol_001D[a].CompareTo(symbol_001D[b]);
+						}));
 						textInfo.meshInfo[j].SortGeometry(list);
 						textInfo.meshInfo[j].mesh.vertices = textInfo.meshInfo[j].vertices;
 						textInfo.meshInfo[j].mesh.uv = textInfo.meshInfo[j].uvs0;
