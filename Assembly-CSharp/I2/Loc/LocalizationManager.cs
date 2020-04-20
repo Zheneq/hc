@@ -267,27 +267,28 @@ namespace I2.Loc
 			}
 		}
 
+		private static LocalizationManager.OnLocalizeCallback OnLocalizeEventHolder;
 		public static event LocalizationManager.OnLocalizeCallback OnLocalizeEvent
 		{
 			add
 			{
-				LocalizationManager.OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEvent;
+				LocalizationManager.OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEventHolder;
 				LocalizationManager.OnLocalizeCallback onLocalizeCallback2;
 				do
 				{
 					onLocalizeCallback2 = onLocalizeCallback;
-					onLocalizeCallback = Interlocked.CompareExchange<LocalizationManager.OnLocalizeCallback>(ref LocalizationManager.OnLocalizeEvent, (LocalizationManager.OnLocalizeCallback)Delegate.Combine(onLocalizeCallback2, value), onLocalizeCallback);
+					onLocalizeCallback = Interlocked.CompareExchange<LocalizationManager.OnLocalizeCallback>(ref LocalizationManager.OnLocalizeEventHolder, (LocalizationManager.OnLocalizeCallback)Delegate.Combine(onLocalizeCallback2, value), onLocalizeCallback);
 				}
 				while (onLocalizeCallback != onLocalizeCallback2);
 			}
 			remove
 			{
-				LocalizationManager.OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEvent;
+				LocalizationManager.OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEventHolder;
 				LocalizationManager.OnLocalizeCallback onLocalizeCallback2;
 				do
 				{
 					onLocalizeCallback2 = onLocalizeCallback;
-					onLocalizeCallback = Interlocked.CompareExchange<LocalizationManager.OnLocalizeCallback>(ref LocalizationManager.OnLocalizeEvent, (LocalizationManager.OnLocalizeCallback)Delegate.Remove(onLocalizeCallback2, value), onLocalizeCallback);
+					onLocalizeCallback = Interlocked.CompareExchange<LocalizationManager.OnLocalizeCallback>(ref LocalizationManager.OnLocalizeEventHolder, (LocalizationManager.OnLocalizeCallback)Delegate.Remove(onLocalizeCallback2, value), onLocalizeCallback);
 				}
 				while (onLocalizeCallback != onLocalizeCallback2);
 			}
@@ -411,9 +412,9 @@ namespace I2.Loc
 				localize.OnLocalize(Force);
 				i++;
 			}
-			if (LocalizationManager.OnLocalizeEvent != null)
+			if (LocalizationManager.OnLocalizeEventHolder != null)
 			{
-				LocalizationManager.OnLocalizeEvent();
+				LocalizationManager.OnLocalizeEventHolder();
 			}
 			ResourceManager.pInstance.CleanResourceCache();
 		}
