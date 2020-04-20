@@ -396,7 +396,7 @@ public class UILootMatrixScreen : UIScene
 		string text = this.m_template.GetDisplayName();
 		if (this.m_template.AssociatedCharacter != CharacterType.None)
 		{
-			text = string.Format("<voffset=0.15em><size=30><sprite=\"CharacterSprites\" index={0}>​</size></voffset>{1}", (int)(CharacterType.BazookaGirl * this.m_template.AssociatedCharacter), text);
+			text = string.Format("<voffset=0.15em><size=30><sprite=\"CharacterSprites\" index={0}>​</size></voffset>{1}", 2 * (int)this.m_template.AssociatedCharacter, text);
 		}
 		this.m_title.text = text;
 		this.m_vfxOpenTime = Time.time + 0.5f;
@@ -473,20 +473,10 @@ public class UILootMatrixScreen : UIScene
 			inventoryItemTemplate = this.m_lockboxButtons[i].GetItemTemplate();
 			if (inventoryItemTemplate.Index != 0x203)
 			{
-				IL_6B:
-				this.SelectLockbox(inventoryItemTemplate, false);
-				return;
+				break;
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_6B;
-		}
+		this.SelectLockbox(inventoryItemTemplate, false);
 	}
 
 	private void OpenChestResponse(ConsumeInventoryItemResponse response)
@@ -518,68 +508,56 @@ public class UILootMatrixScreen : UIScene
 		{
 			if (this.m_item.Id == this.m_boxIds[i])
 			{
-				if (this.m_item.Count > 1)
-				{
-				}
-				else
+				if (this.m_item.Count <= 1)
 				{
 					if (this.m_item.Count != 1)
 					{
 						this.m_boxIds.RemoveAt(i);
-						goto IL_183;
+						continue;
 					}
 					this.m_boxIds.RemoveAt(i);
 				}
-				IL_19B:
-				this.m_numBoxes--;
-				this.m_outputItems = response.OutputItems;
-				InventoryItemRarity inventoryItemRarity = InventoryItemRarity.Common;
-				using (List<InventoryItemWithData>.Enumerator enumerator = this.m_outputItems.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						InventoryItemWithData inventoryItemWithData = enumerator.Current;
-						InventoryItemRarity rarity = inventoryItemWithData.Item.GetTemplate().Rarity;
-						if (rarity > inventoryItemRarity)
-						{
-							inventoryItemRarity = rarity;
-						}
-					}
-				}
-				switch (inventoryItemRarity)
-				{
-				case InventoryItemRarity.Common:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenCommon.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Uncommon:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Rare:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenRare.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Epic:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenEpic.SetActive(true);
-					goto IL_2C4;
-				case InventoryItemRarity.Legendary:
-					FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenLegendary.SetActive(true);
-					goto IL_2C4;
-				}
-				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenBase.SetActive(true);
-				IL_2C4:
-				this.m_chestAnimator.Play("NanoOpenChest", -1, 0f);
-				return;
+				break;
 			}
-			IL_183:;
 		}
-		for (;;)
+
+		this.m_numBoxes--;
+		this.m_outputItems = response.OutputItems;
+		InventoryItemRarity inventoryItemRarity = InventoryItemRarity.Common;
+		using (List<InventoryItemWithData>.Enumerator enumerator = this.m_outputItems.GetEnumerator())
 		{
-			switch (5)
+			while (enumerator.MoveNext())
 			{
-			case 0:
-				continue;
+				InventoryItemWithData inventoryItemWithData = enumerator.Current;
+				InventoryItemRarity rarity = inventoryItemWithData.Item.GetTemplate().Rarity;
+				if (rarity > inventoryItemRarity)
+				{
+					inventoryItemRarity = rarity;
+				}
 			}
-			goto IL_19B;
 		}
+		switch (inventoryItemRarity)
+		{
+			case InventoryItemRarity.Common:
+				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenCommon.SetActive(true);
+				break;
+			case InventoryItemRarity.Uncommon:
+				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(true);
+				break;
+			case InventoryItemRarity.Rare:
+				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenRare.SetActive(true);
+				break;
+			case InventoryItemRarity.Epic:
+				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenEpic.SetActive(true);
+				break;
+			case InventoryItemRarity.Legendary:
+				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenLegendary.SetActive(true);
+				break;
+			default:
+				FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenBase.SetActive(true);
+				break;
+		}
+		this.m_chestAnimator.Play("NanoOpenChest", -1, 0f);
 	}
 
 	public void DoOpenChestAnimationEvent()
@@ -605,9 +583,7 @@ public class UILootMatrixScreen : UIScene
 		this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, this.m_item, this.m_template, this.m_boxIds, gotLegendary);
 		string text = string.Empty;
 		List<InventoryItem> list = new List<InventoryItem>();
-		int j = 0;
-		IL_1F2:
-		while (j < this.m_outputItems.Count)
+		for (int j = 0; j < this.m_outputItems.Count; j++)
 		{
 			bool flag = false;
 			for (int k = 0; k < list.Count; k++)
@@ -616,23 +592,12 @@ public class UILootMatrixScreen : UIScene
 				{
 					list[k].Count += this.m_outputItems[j].Item.Count;
 					flag = true;
-					IL_1BD:
-					if (!flag)
-					{
-						list.Add(new InventoryItem(this.m_outputItems[j].Item, 0));
-					}
-					j++;
-					goto IL_1F2;
+					break;
 				}
 			}
-			for (;;)
+			if (!flag)
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_1BD;
+				list.Add(new InventoryItem(this.m_outputItems[j].Item, 0));
 			}
 		}
 		foreach (InventoryItem inventoryItem in list)
