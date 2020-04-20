@@ -157,9 +157,8 @@ public class UIPlayerNavPanel : MonoBehaviour
 			UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnProfileDown));
 			UITooltipObject component = this.m_buttonHitBox.GetComponent<UITooltipClickObject>();
 			TooltipType tooltipType = TooltipType.PlayerGroupMenu;
-			if (UIPlayerNavPanel.f__am_cache0 == null)
-			{
-				UIPlayerNavPanel.f__am_cache0 = delegate(UITooltipBase tooltip)
+			
+			component.Setup(tooltipType, delegate(UITooltipBase tooltip)
 				{
 					if (ClientGameManager.Get().GroupInfo != null)
 					{
@@ -178,9 +177,7 @@ public class UIPlayerNavPanel : MonoBehaviour
 						}
 					}
 					return false;
-				};
-			}
-			component.Setup(tooltipType, UIPlayerNavPanel.f__am_cache0, null);
+				}, null);
 		}
 		if (this.ggbuttonHitBox != null)
 		{

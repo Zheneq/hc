@@ -10,9 +10,8 @@ public class SlashCommand_GroupLeave : SlashCommand
 	public override void OnSlashCommand(string arguments)
 	{
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (SlashCommand_GroupLeave.f__am_cache0 == null)
-		{
-			SlashCommand_GroupLeave.f__am_cache0 = delegate(GroupLeaveResponse r)
+		
+		clientGameManager.LeaveGroup(delegate(GroupLeaveResponse r)
 			{
 				if (!r.Success)
 				{
@@ -37,8 +36,6 @@ public class SlashCommand_GroupLeave : SlashCommand
 						UICharacterSelectScreenController.Get().NotifyGroupUpdate();
 					}
 				}
-			};
-		}
-		clientGameManager.LeaveGroup(SlashCommand_GroupLeave.f__am_cache0);
+			});
 	}
 }

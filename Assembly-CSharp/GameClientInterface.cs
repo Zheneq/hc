@@ -18,18 +18,18 @@ public class GameClientInterface : WebSocketInterface
 	public GameClientInterface() : base(new WebSocketMessageFactory())
 	{
 		
-		this.OnConnected = delegate()
+		this.OnConnectedHolder = delegate()
 			{
 			};
 		
-		this.OnDisconnected = delegate(string A_0, bool A_1, CloseStatusCode A_2)
+		this.OnDisconnectedHolder = delegate(string A_0, bool A_1, CloseStatusCode A_2)
 			{
 			};
-		this.OnConnectionError = delegate(string A_0)
+		this.OnConnectionErrorHolder = delegate(string A_0)
 		{
 		};
 		
-		this.OnMessage = delegate(BinaryMessageNotification A_0)
+		this.OnMessageHolder = delegate(BinaryMessageNotification A_0)
 			{
 			};
 		base.HeartbeatPeriod = TimeSpan.FromMinutes(1.0);
@@ -40,82 +40,86 @@ public class GameClientInterface : WebSocketInterface
 		base.ConnectionTimeout = 30f;
 	}
 
+	private Action OnConnectedHolder;
 	public event Action OnConnected
 	{
 		add
 		{
-			Action action = this.OnConnected;
+			Action action = this.OnConnectedHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnConnected, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.OnConnectedHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action action = this.OnConnected;
+			Action action = this.OnConnectedHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnConnected, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.OnConnectedHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
 	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private Action<string, bool, CloseStatusCode> OnDisconnectedHolder;
 	public event Action<string, bool, CloseStatusCode> OnDisconnected;
 
+	private Action<string> OnConnectionErrorHolder;
 	public event Action<string> OnConnectionError
 	{
 		add
 		{
-			Action<string> action = this.OnConnectionError;
+			Action<string> action = this.OnConnectionErrorHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionError, (Action<string>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionErrorHolder, (Action<string>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<string> action = this.OnConnectionError;
+			Action<string> action = this.OnConnectionErrorHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionError, (Action<string>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionErrorHolder, (Action<string>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<BinaryMessageNotification> OnMessageHolder;
 	public event Action<BinaryMessageNotification> OnMessage
 	{
 		add
 		{
-			Action<BinaryMessageNotification> action = this.OnMessage;
+			Action<BinaryMessageNotification> action = this.OnMessageHolder;
 			Action<BinaryMessageNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessageHolder, (Action<BinaryMessageNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<BinaryMessageNotification> action = this.OnMessage;
+			Action<BinaryMessageNotification> action = this.OnMessageHolder;
 			Action<BinaryMessageNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessageHolder, (Action<BinaryMessageNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -160,7 +164,7 @@ public class GameClientInterface : WebSocketInterface
 		});
 		this.m_overallConnectionTimer.Reset();
 		this.m_registered = true;
-		this.OnConnected();
+		this.OnConnectedHolder();
 	}
 
 	private void HandleConnectionClosedNotification(ConnectionClosedNotification notification)
@@ -174,7 +178,7 @@ public class GameClientInterface : WebSocketInterface
 				notification.Code
 			});
 			this.m_allowRelogin = true;
-			this.OnDisconnected(notification.Message, this.m_allowRelogin, notification.Code);
+			this.OnDisconnectedHolder(notification.Message, this.m_allowRelogin, notification.Code);
 		}
 		else if (this.m_overallConnectionTimer.IsRunning)
 		{
@@ -198,14 +202,14 @@ public class GameClientInterface : WebSocketInterface
 				});
 				this.m_overallConnectionTimer.Reset();
 				this.m_allowRelogin = false;
-				this.OnDisconnected(notification.Message, this.m_allowRelogin, notification.Code);
+				this.OnDisconnectedHolder(notification.Message, this.m_allowRelogin, notification.Code);
 			}
 		}
 	}
 
 	private void HandleConnectionErrorNotification(ConnectionErrorNotification notification)
 	{
-		this.OnConnectionError(notification.ErrorMessage);
+		this.OnConnectionErrorHolder(notification.ErrorMessage);
 	}
 
 	protected override void HandleMessage(WebSocketMessage message)
@@ -216,7 +220,7 @@ public class GameClientInterface : WebSocketInterface
 
 	private void HandleBinaryMessageNotification(BinaryMessageNotification notification)
 	{
-		this.OnMessage(notification);
+		this.OnMessageHolder(notification);
 	}
 
 	public bool SendMessage(byte[] bytes)

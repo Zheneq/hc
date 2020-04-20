@@ -464,27 +464,28 @@ namespace I2.Loc
 			return eTermType.Text;
 		}
 
-		public event Action<LanguageSource> Event_OnSourceUpdateFromGoogle
+		private Action<LanguageSource> Event_OnSourceUpdateFromGoogleHolder;
+	public event Action<LanguageSource> Event_OnSourceUpdateFromGoogle
 		{
 			add
 			{
-				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogle;
+				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogleHolder;
 				Action<LanguageSource> action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogle, (Action<LanguageSource>)Delegate.Combine(action2, value), action);
+					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogleHolder, (Action<LanguageSource>)Delegate.Combine(action2, value), action);
 				}
 				while (action != action2);
 			}
 			remove
 			{
-				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogle;
+				Action<LanguageSource> action = this.Event_OnSourceUpdateFromGoogleHolder;
 				Action<LanguageSource> action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogle, (Action<LanguageSource>)Delegate.Remove(action2, value), action);
+					action = Interlocked.CompareExchange<Action<LanguageSource>>(ref this.Event_OnSourceUpdateFromGoogleHolder, (Action<LanguageSource>)Delegate.Remove(action2, value), action);
 				}
 				while (action != action2);
 			}
@@ -571,9 +572,9 @@ namespace I2.Loc
 					PlayerPrefs.SetString("I2Source_" + this.Google_SpreadsheetKey, www.text);
 					PlayerPrefs.Save();
 					this.Import_Google_Result(www.text, eSpreadsheetUpdateMode.Replace);
-					if (this.Event_OnSourceUpdateFromGoogle != null)
+					if (this.Event_OnSourceUpdateFromGoogleHolder != null)
 					{
-						this.Event_OnSourceUpdateFromGoogle(this);
+						this.Event_OnSourceUpdateFromGoogleHolder(this);
 					}
 					LocalizationManager.LocalizeAll(false);
 					Debug.Log("Done Google Sync '" + www.text + "'");

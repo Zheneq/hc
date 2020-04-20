@@ -22,7 +22,7 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 	// Note: this type is marked as 'beforefieldinit'.
 	static VisualsLoader()
 	{
-		VisualsLoader.OnLoading = delegate(string A_0)
+		VisualsLoader.OnLoadingHolder = delegate(string A_0)
 		{
 		};
 	}
@@ -32,27 +32,28 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 		return VisualsLoader.s_instance;
 	}
 
+	private static Action<string> OnLoadingHolder;
 	public static event Action<string> OnLoading
 	{
 		add
 		{
-			Action<string> action = VisualsLoader.OnLoading;
+			Action<string> action = VisualsLoader.OnLoadingHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string>>(ref VisualsLoader.OnLoading, (Action<string>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<string>>(ref VisualsLoader.OnLoadingHolder, (Action<string>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<string> action = VisualsLoader.OnLoading;
+			Action<string> action = VisualsLoader.OnLoadingHolder;
 			Action<string> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string>>(ref VisualsLoader.OnLoading, (Action<string>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<string>>(ref VisualsLoader.OnLoadingHolder, (Action<string>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -155,7 +156,7 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameTeardown);
 		}
-		VisualsLoader.OnLoading(this.m_visualsSceneName);
+		VisualsLoader.OnLoadingHolder(this.m_visualsSceneName);
 		base.StartCoroutine(AssetBundleManager.Get().LoadSceneAsync(this.m_visualsSceneName, LoadSceneMode.Single));
 	}
 

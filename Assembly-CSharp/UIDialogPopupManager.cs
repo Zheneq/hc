@@ -42,34 +42,35 @@ public class UIDialogPopupManager : UIScene
 	// Note: this type is marked as 'beforefieldinit'.
 	static UIDialogPopupManager()
 	{
-		UIDialogPopupManager.OnReady = delegate()
+		UIDialogPopupManager.OnReadyHolder = delegate()
 		{
 		};
 	}
 
 	internal static bool Ready { get; private set; }
 
+	private static Action OnReadyHolder;
 	public static event Action OnReady
 	{
 		add
 		{
-			Action action = UIDialogPopupManager.OnReady;
+			Action action = UIDialogPopupManager.OnReadyHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref UIDialogPopupManager.OnReady, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref UIDialogPopupManager.OnReadyHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action action = UIDialogPopupManager.OnReady;
+			Action action = UIDialogPopupManager.OnReadyHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref UIDialogPopupManager.OnReady, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref UIDialogPopupManager.OnReadyHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -110,9 +111,9 @@ public class UIDialogPopupManager : UIScene
 		UIManager.SetGameObjectActive(this.m_allDialogs, false, null);
 		this.m_openBoxes = new List<UIDialogBox>();
 		UIDialogPopupManager.Ready = true;
-		if (UIDialogPopupManager.OnReady != null)
+		if (UIDialogPopupManager.OnReadyHolder != null)
 		{
-			UIDialogPopupManager.OnReady();
+			UIDialogPopupManager.OnReadyHolder();
 		}
 	}
 

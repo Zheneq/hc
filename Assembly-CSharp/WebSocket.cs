@@ -25,7 +25,7 @@ public class WebSocket : IDisposable
 	private WebSocket(WebSocketMessageFactory factory)
 	{
 		
-		this.OnMessage = delegate(WebSocketMessage A_0)
+		this.OnMessageHolder = delegate(WebSocketMessage A_0)
 			{
 			};
 		
@@ -74,27 +74,28 @@ public class WebSocket : IDisposable
 		this.m_httpSocket = httpSocket;
 	}
 
+	private Action<WebSocketMessage> OnMessageHolder;
 	public event Action<WebSocketMessage> OnMessage
 	{
 		add
 		{
-			Action<WebSocketMessage> action = this.OnMessage;
+			Action<WebSocketMessage> action = this.OnMessageHolder;
 			Action<WebSocketMessage> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<WebSocketMessage>>(ref this.OnMessage, (Action<WebSocketMessage>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<WebSocketMessage>>(ref this.OnMessageHolder, (Action<WebSocketMessage>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<WebSocketMessage> action = this.OnMessage;
+			Action<WebSocketMessage> action = this.OnMessageHolder;
 			Action<WebSocketMessage> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<WebSocketMessage>>(ref this.OnMessage, (Action<WebSocketMessage>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<WebSocketMessage>>(ref this.OnMessageHolder, (Action<WebSocketMessage>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -329,7 +330,7 @@ public class WebSocket : IDisposable
 				this.State = global::WebSocket.SocketState.Open;
 			}
 			WebSocketMessage obj = new ConnectionOpenedNotification();
-			this.OnMessage(obj);
+			this.OnMessageHolder(obj);
 		}
 		catch (Exception exception)
 		{
@@ -364,7 +365,7 @@ public class WebSocket : IDisposable
 				Reason = text,
 				Code = (CloseStatusCode)args.Code
 			};
-			this.OnMessage(obj);
+			this.OnMessageHolder(obj);
 		}
 		catch (Exception exception)
 		{
@@ -381,7 +382,7 @@ public class WebSocket : IDisposable
 			{
 				ErrorMessage = args.Message
 			};
-			this.OnMessage(obj);
+			this.OnMessageHolder(obj);
 		}
 		catch (Exception exception)
 		{
@@ -447,7 +448,7 @@ public class WebSocket : IDisposable
 							{
 								this.IsBinary = false;
 							}
-							this.OnMessage(obj);
+							this.OnMessageHolder(obj);
 						}
 						else if (args.Type == Opcode.Binary)
 						{
@@ -467,7 +468,7 @@ public class WebSocket : IDisposable
 							{
 								this.IsBinary = true;
 							}
-							this.OnMessage(obj2);
+							this.OnMessageHolder(obj2);
 						}
 					}
 				}
@@ -496,7 +497,7 @@ public class WebSocket : IDisposable
 			{
 				throw new Exception("Failed to read message from HTTP request");
 			}
-			this.OnMessage(this.m_httpSocket.Message);
+			this.OnMessageHolder(this.m_httpSocket.Message);
 			this.m_httpSocket.WaitForSend();
 		}
 		catch (Exception exception)

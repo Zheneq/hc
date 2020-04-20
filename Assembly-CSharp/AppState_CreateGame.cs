@@ -80,9 +80,8 @@ public class AppState_CreateGame : AppState
 		ReadyState readyState = ReadyState.Accepted;
 		BotDifficulty selectedBotSkillTeamA = botDifficulty;
 		BotDifficulty selectedBotSkillTeamB = botDifficulty2;
-		if (AppState_CreateGame.f__am_cache0 == null)
-		{
-			AppState_CreateGame.f__am_cache0 = delegate(CreateGameResponse response)
+		
+		clientGameManager.CreateGame(gameConfig, readyState, selectedBotSkillTeamA, selectedBotSkillTeamB, delegate(CreateGameResponse response)
 			{
 				if (response.Success)
 				{
@@ -102,9 +101,7 @@ public class AppState_CreateGame : AppState
 					string description = text;
 					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
 				}
-			};
-		}
-		clientGameManager.CreateGame(gameConfig, readyState, selectedBotSkillTeamA, selectedBotSkillTeamB, AppState_CreateGame.f__am_cache0);
+			});
 	}
 
 	public void OnCancelClicked()

@@ -10,7 +10,7 @@ public class TextConsole
 
 	public TextConsole()
 	{
-		this.OnMessage = delegate(TextConsole.Message A_0, TextConsole.AllowedEmojis A_1)
+		this.OnMessageHolder = delegate(TextConsole.Message A_0, TextConsole.AllowedEmojis A_1)
 		{
 		};
 		
@@ -29,27 +29,28 @@ public class TextConsole
 
 	public string LastWhisperSenderHandle { get; private set; }
 
+	private Action<TextConsole.Message, TextConsole.AllowedEmojis> OnMessageHolder;
 	public event Action<TextConsole.Message, TextConsole.AllowedEmojis> OnMessage
 	{
 		add
 		{
-			Action<TextConsole.Message, TextConsole.AllowedEmojis> action = this.OnMessage;
+			Action<TextConsole.Message, TextConsole.AllowedEmojis> action = this.OnMessageHolder;
 			Action<TextConsole.Message, TextConsole.AllowedEmojis> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<TextConsole.Message, TextConsole.AllowedEmojis>>(ref this.OnMessage, (Action<TextConsole.Message, TextConsole.AllowedEmojis>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<TextConsole.Message, TextConsole.AllowedEmojis>>(ref this.OnMessageHolder, (Action<TextConsole.Message, TextConsole.AllowedEmojis>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<TextConsole.Message, TextConsole.AllowedEmojis> action = this.OnMessage;
+			Action<TextConsole.Message, TextConsole.AllowedEmojis> action = this.OnMessageHolder;
 			Action<TextConsole.Message, TextConsole.AllowedEmojis> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<TextConsole.Message, TextConsole.AllowedEmojis>>(ref this.OnMessage, (Action<TextConsole.Message, TextConsole.AllowedEmojis>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<TextConsole.Message, TextConsole.AllowedEmojis>>(ref this.OnMessageHolder, (Action<TextConsole.Message, TextConsole.AllowedEmojis>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -59,7 +60,7 @@ public class TextConsole
 	{
 		TextConsole.AllowedEmojis allowedEmojis;
 		allowedEmojis.emojis = EmojisAllowed;
-		this.OnMessage(message, allowedEmojis);
+		this.OnMessageHolder(message, allowedEmojis);
 		UITextConsole.StoreMessage(message, allowedEmojis);
 	}
 

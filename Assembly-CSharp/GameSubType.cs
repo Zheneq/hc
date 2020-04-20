@@ -282,16 +282,10 @@ public class GameSubType
 			}
 			this.m_originalHasPivot = originalHasPivot;
 			IEnumerable<GameMapConfig> gameMapConfigs = this.m_original.GameMapConfigs;
-			if (GameSubType.CCSTSort.f__am_cache0 == null)
-			{
-				GameSubType.CCSTSort.f__am_cache0 = ((GameMapConfig p) => p.IsActive);
-			}
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(GameSubType.CCSTSort.f__am_cache0);
-			if (GameSubType.CCSTSort.f__am_cache1 == null)
-			{
-				GameSubType.CCSTSort.f__am_cache1 = ((GameMapConfig p) => p.Map);
-			}
-			this.m_originalMaps = source.Select(GameSubType.CCSTSort.f__am_cache1).ToList<string>();
+			
+			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(((GameMapConfig p) => p.IsActive));
+			
+			this.m_originalMaps = source.Select(((GameMapConfig p) => p.Map)).ToList<string>();
 		}
 
 		public int Compare(GameSubType left, GameSubType right)
@@ -369,27 +363,15 @@ public class GameSubType
 				}
 			}
 			IEnumerable<GameMapConfig> gameMapConfigs = left.GameMapConfigs;
-			if (GameSubType.CCSTSort.f__am_cache2 == null)
-			{
-				GameSubType.CCSTSort.f__am_cache2 = ((GameMapConfig p) => p.IsActive);
-			}
-			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(GameSubType.CCSTSort.f__am_cache2);
-			if (GameSubType.CCSTSort.f__am_cache3 == null)
-			{
-				GameSubType.CCSTSort.f__am_cache3 = ((GameMapConfig p) => p.Map);
-			}
-			int num = source.Select(GameSubType.CCSTSort.f__am_cache3).ToList<string>().Intersect(this.m_originalMaps).Count<string>();
+			
+			IEnumerable<GameMapConfig> source = gameMapConfigs.Where(((GameMapConfig p) => p.IsActive));
+			
+			int num = source.Select(((GameMapConfig p) => p.Map)).ToList<string>().Intersect(this.m_originalMaps).Count<string>();
 			IEnumerable<GameMapConfig> gameMapConfigs2 = right.GameMapConfigs;
-			if (GameSubType.CCSTSort.f__am_cache4 == null)
-			{
-				GameSubType.CCSTSort.f__am_cache4 = ((GameMapConfig p) => p.IsActive);
-			}
-			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(GameSubType.CCSTSort.f__am_cache4);
-			if (GameSubType.CCSTSort.f__am_cache5 == null)
-			{
-				GameSubType.CCSTSort.f__am_cache5 = ((GameMapConfig p) => p.Map);
-			}
-			int num2 = source2.Select(GameSubType.CCSTSort.f__am_cache5).ToList<string>().Intersect(this.m_originalMaps).Count<string>();
+			
+			IEnumerable<GameMapConfig> source2 = gameMapConfigs2.Where(((GameMapConfig p) => p.IsActive));
+			
+			int num2 = source2.Select(((GameMapConfig p) => p.Map)).ToList<string>().Intersect(this.m_originalMaps).Count<string>();
 			if (num != num2)
 			{
 				int result4;

@@ -99,9 +99,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			{
 				ClientGameManager clientGameManager = ClientGameManager.Get();
 				int selectedID = this.m_selectedID;
-				if (UIPlayerProgressBannersButton.f__am_cache0 == null)
-				{
-					UIPlayerProgressBannersButton.f__am_cache0 = delegate(SelectTitleResponse response)
+				
+				clientGameManager.RequestTitleSelect(selectedID, delegate(SelectTitleResponse response)
 					{
 						if (!response.Success)
 						{
@@ -109,9 +108,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 							UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 							ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
 						}
-					};
-				}
-				clientGameManager.RequestTitleSelect(selectedID, UIPlayerProgressBannersButton.f__am_cache0);
+					});
 			}
 			else
 			{
@@ -137,9 +134,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 				}
 				ClientGameManager clientGameManager2 = ClientGameManager.Get();
 				int selectedID2 = this.m_selectedID;
-				if (UIPlayerProgressBannersButton.f__am_cache1 == null)
-				{
-					UIPlayerProgressBannersButton.f__am_cache1 = delegate(SelectBannerResponse response)
+				
+				clientGameManager2.RequestBannerSelect(selectedID2, delegate(SelectBannerResponse response)
 					{
 						if (!response.Success)
 						{
@@ -147,9 +143,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 							UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 							ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
 						}
-					};
-				}
-				clientGameManager2.RequestBannerSelect(selectedID2, UIPlayerProgressBannersButton.f__am_cache1);
+					});
 			}
 		}
 	}

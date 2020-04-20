@@ -259,9 +259,8 @@ public class AppState_GameTypeSelect : AppState
 		ClientGameManager clientGameManager2 = clientGameManager;
 		BotDifficulty? allyDifficulty = botDifficulty;
 		BotDifficulty? enemyDifficulty = botDifficulty2;
-		if (AppState_GameTypeSelect.f__am_cache0 == null)
-		{
-			AppState_GameTypeSelect.f__am_cache0 = delegate(JoinMatchmakingQueueResponse response)
+		
+		clientGameManager2.JoinQueue(gameType, allyDifficulty, enemyDifficulty, delegate(JoinMatchmakingQueueResponse response)
 			{
 				if (response.Success)
 				{
@@ -284,9 +283,7 @@ public class AppState_GameTypeSelect : AppState
 					}
 					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
 				}
-			};
-		}
-		clientGameManager2.JoinQueue(gameType, allyDifficulty, enemyDifficulty, AppState_GameTypeSelect.f__am_cache0);
+			});
 	}
 
 	public void CreateGame(LobbyGameConfig gameConfig, LobbyTeamInfo teamInfo = null)

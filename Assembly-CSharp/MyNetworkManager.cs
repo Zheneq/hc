@@ -23,46 +23,46 @@ public class MyNetworkManager : NetworkManager
 
 	public MyNetworkManager()
 	{
-		this.m_OnServerStart = delegate()
+		this.m_OnServerStartHolder = delegate()
 		{
 		};
 		
-		this.m_OnServerConnect = delegate(NetworkConnection A_0)
+		this.m_OnServerConnectHolder = delegate(NetworkConnection A_0)
 			{
 			};
 		
-		this.m_OnServerDisconnect = delegate(NetworkConnection A_0)
+		this.m_OnServerDisconnectHolder = delegate(NetworkConnection A_0)
 			{
 			};
 		
-		this.m_OnServerReady = delegate(NetworkConnection A_0)
+		this.m_OnServerReadyHolder = delegate(NetworkConnection A_0)
 			{
 			};
 		
-		this.m_OnServerAddPlayer = delegate(NetworkConnection A_0, short A_1)
+		this.m_OnServerAddPlayerHolder = delegate(NetworkConnection A_0, short A_1)
 			{
 			};
 		
-		this.m_OnServerRemovePlayer = delegate(NetworkConnection A_0, PlayerController A_1)
+		this.m_OnServerRemovePlayerHolder = delegate(NetworkConnection A_0, PlayerController A_1)
 			{
 			};
 		
-		this.m_OnServerError = delegate(NetworkConnection A_0, NetworkError A_1)
+		this.m_OnServerErrorHolder = delegate(NetworkConnection A_0, NetworkError A_1)
 			{
 			};
 		
-		this.m_OnClientConnect = delegate(NetworkConnection A_0)
+		this.m_OnClientConnectHolder = delegate(NetworkConnection A_0)
 			{
 			};
-		this.m_OnClientDisconnect = delegate(NetworkConnection A_0)
+		this.m_OnClientDisconnectHolder = delegate(NetworkConnection A_0)
 		{
 		};
 		
-		this.m_OnClientNotReady = delegate(NetworkConnection A_0)
+		this.m_OnClientNotReadyHolder = delegate(NetworkConnection A_0)
 			{
 			};
 		
-		this.m_OnClientError = delegate(NetworkConnection A_0, NetworkError A_1)
+		this.m_OnClientErrorHolder = delegate(NetworkConnection A_0, NetworkError A_1)
 			{
 			};
 		this.m_nextPlayerChannelIndex = 6;
@@ -74,264 +74,275 @@ public class MyNetworkManager : NetworkManager
 		return (MyNetworkManager)NetworkManager.singleton;
 	}
 
+	private Action m_OnServerStartHolder;
 	public event Action m_OnServerStart
 	{
 		add
 		{
-			Action action = this.m_OnServerStart;
+			Action action = this.m_OnServerStartHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.m_OnServerStart, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.m_OnServerStartHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action action = this.m_OnServerStart;
+			Action action = this.m_OnServerStartHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.m_OnServerStart, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.m_OnServerStartHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection> m_OnServerConnectHolder;
 	public event Action<NetworkConnection> m_OnServerConnect
 	{
 		add
 		{
-			Action<NetworkConnection> action = this.m_OnServerConnect;
+			Action<NetworkConnection> action = this.m_OnServerConnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerConnect, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerConnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection> action = this.m_OnServerConnect;
+			Action<NetworkConnection> action = this.m_OnServerConnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerConnect, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerConnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection> m_OnServerDisconnectHolder;
 	public event Action<NetworkConnection> m_OnServerDisconnect
 	{
 		add
 		{
-			Action<NetworkConnection> action = this.m_OnServerDisconnect;
+			Action<NetworkConnection> action = this.m_OnServerDisconnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerDisconnect, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerDisconnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection> action = this.m_OnServerDisconnect;
+			Action<NetworkConnection> action = this.m_OnServerDisconnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerDisconnect, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnServerDisconnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
 	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private Action<NetworkConnection> m_OnServerReadyHolder;
 	public event Action<NetworkConnection> m_OnServerReady;
 
+	private Action<NetworkConnection, short> m_OnServerAddPlayerHolder;
 	public event Action<NetworkConnection, short> m_OnServerAddPlayer
 	{
 		add
 		{
-			Action<NetworkConnection, short> action = this.m_OnServerAddPlayer;
+			Action<NetworkConnection, short> action = this.m_OnServerAddPlayerHolder;
 			Action<NetworkConnection, short> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, short>>(ref this.m_OnServerAddPlayer, (Action<NetworkConnection, short>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, short>>(ref this.m_OnServerAddPlayerHolder, (Action<NetworkConnection, short>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection, short> action = this.m_OnServerAddPlayer;
+			Action<NetworkConnection, short> action = this.m_OnServerAddPlayerHolder;
 			Action<NetworkConnection, short> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, short>>(ref this.m_OnServerAddPlayer, (Action<NetworkConnection, short>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, short>>(ref this.m_OnServerAddPlayerHolder, (Action<NetworkConnection, short>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection, PlayerController> m_OnServerRemovePlayerHolder;
 	public event Action<NetworkConnection, PlayerController> m_OnServerRemovePlayer
 	{
 		add
 		{
-			Action<NetworkConnection, PlayerController> action = this.m_OnServerRemovePlayer;
+			Action<NetworkConnection, PlayerController> action = this.m_OnServerRemovePlayerHolder;
 			Action<NetworkConnection, PlayerController> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, PlayerController>>(ref this.m_OnServerRemovePlayer, (Action<NetworkConnection, PlayerController>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, PlayerController>>(ref this.m_OnServerRemovePlayerHolder, (Action<NetworkConnection, PlayerController>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection, PlayerController> action = this.m_OnServerRemovePlayer;
+			Action<NetworkConnection, PlayerController> action = this.m_OnServerRemovePlayerHolder;
 			Action<NetworkConnection, PlayerController> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, PlayerController>>(ref this.m_OnServerRemovePlayer, (Action<NetworkConnection, PlayerController>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, PlayerController>>(ref this.m_OnServerRemovePlayerHolder, (Action<NetworkConnection, PlayerController>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection, NetworkError> m_OnServerErrorHolder;
 	public event Action<NetworkConnection, NetworkError> m_OnServerError
 	{
 		add
 		{
-			Action<NetworkConnection, NetworkError> action = this.m_OnServerError;
+			Action<NetworkConnection, NetworkError> action = this.m_OnServerErrorHolder;
 			Action<NetworkConnection, NetworkError> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnServerError, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnServerErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection, NetworkError> action = this.m_OnServerError;
+			Action<NetworkConnection, NetworkError> action = this.m_OnServerErrorHolder;
 			Action<NetworkConnection, NetworkError> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnServerError, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnServerErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection> m_OnClientConnectHolder;
 	public event Action<NetworkConnection> m_OnClientConnect
 	{
 		add
 		{
-			Action<NetworkConnection> action = this.m_OnClientConnect;
+			Action<NetworkConnection> action = this.m_OnClientConnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientConnect, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientConnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection> action = this.m_OnClientConnect;
+			Action<NetworkConnection> action = this.m_OnClientConnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientConnect, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientConnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection> m_OnClientDisconnectHolder;
 	public event Action<NetworkConnection> m_OnClientDisconnect
 	{
 		add
 		{
-			Action<NetworkConnection> action = this.m_OnClientDisconnect;
+			Action<NetworkConnection> action = this.m_OnClientDisconnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientDisconnect, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientDisconnectHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection> action = this.m_OnClientDisconnect;
+			Action<NetworkConnection> action = this.m_OnClientDisconnectHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientDisconnect, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientDisconnectHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection> m_OnClientNotReadyHolder;
 	public event Action<NetworkConnection> m_OnClientNotReady
 	{
 		add
 		{
-			Action<NetworkConnection> action = this.m_OnClientNotReady;
+			Action<NetworkConnection> action = this.m_OnClientNotReadyHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientNotReady, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientNotReadyHolder, (Action<NetworkConnection>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection> action = this.m_OnClientNotReady;
+			Action<NetworkConnection> action = this.m_OnClientNotReadyHolder;
 			Action<NetworkConnection> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientNotReady, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection>>(ref this.m_OnClientNotReadyHolder, (Action<NetworkConnection>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<NetworkConnection, NetworkError> m_OnClientErrorHolder;
 	public event Action<NetworkConnection, NetworkError> m_OnClientError
 	{
 		add
 		{
-			Action<NetworkConnection, NetworkError> action = this.m_OnClientError;
+			Action<NetworkConnection, NetworkError> action = this.m_OnClientErrorHolder;
 			Action<NetworkConnection, NetworkError> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnClientError, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnClientErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<NetworkConnection, NetworkError> action = this.m_OnClientError;
+			Action<NetworkConnection, NetworkError> action = this.m_OnClientErrorHolder;
 			Action<NetworkConnection, NetworkError> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnClientError, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<NetworkConnection, NetworkError>>(ref this.m_OnClientErrorHolder, (Action<NetworkConnection, NetworkError>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -512,91 +523,91 @@ public class MyNetworkManager : NetworkManager
 	public override void OnStartServer()
 	{
 		this.m_nextPlayerChannelIndex = 6;
-		if (this.m_OnServerStart != null)
+		if (this.m_OnServerStartHolder != null)
 		{
-			this.m_OnServerStart();
+			this.m_OnServerStartHolder();
 		}
 	}
 
 	public override void OnServerConnect(NetworkConnection conn)
 	{
 		this.SetDefaultChannelOptions(conn);
-		if (this.m_OnServerConnect != null)
+		if (this.m_OnServerConnectHolder != null)
 		{
-			this.m_OnServerConnect(conn);
+			this.m_OnServerConnectHolder(conn);
 		}
 	}
 
 	public override void OnServerDisconnect(NetworkConnection conn)
 	{
-		if (this.m_OnServerDisconnect != null)
+		if (this.m_OnServerDisconnectHolder != null)
 		{
-			this.m_OnServerDisconnect(conn);
+			this.m_OnServerDisconnectHolder(conn);
 		}
 	}
 
 	public override void OnServerReady(NetworkConnection conn)
 	{
-		if (this.m_OnServerReady != null)
+		if (this.m_OnServerReadyHolder != null)
 		{
-			this.m_OnServerReady(conn);
+			this.m_OnServerReadyHolder(conn);
 		}
 	}
 
 	public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
 	{
-		if (this.m_OnServerAddPlayer != null)
+		if (this.m_OnServerAddPlayerHolder != null)
 		{
-			this.m_OnServerAddPlayer(conn, playerControllerId);
+			this.m_OnServerAddPlayerHolder(conn, playerControllerId);
 		}
 	}
 
 	public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController player)
 	{
-		if (this.m_OnServerRemovePlayer != null)
+		if (this.m_OnServerRemovePlayerHolder != null)
 		{
-			this.m_OnServerRemovePlayer(conn, player);
+			this.m_OnServerRemovePlayerHolder(conn, player);
 		}
 	}
 
 	public override void OnServerError(NetworkConnection conn, int errorCode)
 	{
-		if (this.m_OnServerError != null)
+		if (this.m_OnServerErrorHolder != null)
 		{
-			this.m_OnServerError(conn, (NetworkError)errorCode);
+			this.m_OnServerErrorHolder(conn, (NetworkError)errorCode);
 		}
 	}
 
 	public override void OnClientConnect(NetworkConnection conn)
 	{
 		this.SetDefaultChannelOptions(conn);
-		if (this.m_OnClientConnect != null)
+		if (this.m_OnClientConnectHolder != null)
 		{
-			this.m_OnClientConnect(conn);
+			this.m_OnClientConnectHolder(conn);
 		}
 	}
 
 	public override void OnClientDisconnect(NetworkConnection conn)
 	{
-		if (this.m_OnClientDisconnect != null)
+		if (this.m_OnClientDisconnectHolder != null)
 		{
-			this.m_OnClientDisconnect(conn);
+			this.m_OnClientDisconnectHolder(conn);
 		}
 	}
 
 	public override void OnClientError(NetworkConnection conn, int errorCode)
 	{
-		if (this.m_OnClientError != null)
+		if (this.m_OnClientErrorHolder != null)
 		{
-			this.m_OnClientError(conn, (NetworkError)errorCode);
+			this.m_OnClientErrorHolder(conn, (NetworkError)errorCode);
 		}
 	}
 
 	public override void OnClientNotReady(NetworkConnection conn)
 	{
-		if (this.m_OnClientNotReady != null)
+		if (this.m_OnClientNotReadyHolder != null)
 		{
-			this.m_OnClientNotReady(conn);
+			this.m_OnClientNotReadyHolder(conn);
 		}
 	}
 

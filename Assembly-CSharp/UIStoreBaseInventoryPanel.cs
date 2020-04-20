@@ -61,33 +61,34 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 	protected UIStoreBaseInventoryPanel()
 	{
 		
-		this.OnCountsRefreshed = delegate(UIStoreBaseInventoryPanel A_0, int A_1, int A_2)
+		this.OnCountsRefreshedHolder = delegate(UIStoreBaseInventoryPanel A_0, int A_1, int A_2)
 			{
 			};
 		
 	}
 
+	private Action<UIStoreBaseInventoryPanel, int, int> OnCountsRefreshedHolder;
 	public event Action<UIStoreBaseInventoryPanel, int, int> OnCountsRefreshed
 	{
 		add
 		{
-			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshed;
+			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshedHolder;
 			Action<UIStoreBaseInventoryPanel, int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UIStoreBaseInventoryPanel, int, int>>(ref this.OnCountsRefreshed, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<UIStoreBaseInventoryPanel, int, int>>(ref this.OnCountsRefreshedHolder, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshed;
+			Action<UIStoreBaseInventoryPanel, int, int> action = this.OnCountsRefreshedHolder;
 			Action<UIStoreBaseInventoryPanel, int, int> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UIStoreBaseInventoryPanel, int, int>>(ref this.OnCountsRefreshed, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<UIStoreBaseInventoryPanel, int, int>>(ref this.OnCountsRefreshedHolder, (Action<UIStoreBaseInventoryPanel, int, int>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -405,7 +406,7 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 			this.m_visibleItemsList.Add(this.m_rawItemsList[i]);
 			goto IL_247;
 		}
-		this.OnCountsRefreshed(this, this.m_numOwned, this.m_numTotal);
+		this.OnCountsRefreshedHolder(this, this.m_numOwned, this.m_numTotal);
 		this.m_numberOfPages = this.m_visibleItemsList.Count / this.m_itemBtns.Length;
 		if (this.m_visibleItemsList.Count % this.m_itemBtns.Length > 0)
 		{

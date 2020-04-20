@@ -12,7 +12,7 @@ public class LogInstance
 	public LogInstance()
 	{
 		
-		this.OnLogMessage = delegate(Log.Message A_0)
+		this.OnLogMessageHolder = delegate(Log.Message A_0)
 			{
 			};
 		
@@ -23,12 +23,12 @@ public class LogInstance
 
 	public void AddLogHandler(Action<Log.Message> handler)
 	{
-		this.OnLogMessage += handler;
+		this.OnLogMessageHolder += handler;
 	}
 
 	public void RemoveLogHandler(Action<Log.Message> handler)
 	{
-		this.OnLogMessage -= handler;
+		this.OnLogMessageHolder -= handler;
 	}
 
 	[Conditional("HYDROGEN_DEBUG")]
@@ -121,7 +121,7 @@ public class LogInstance
 			file = file,
 			line = line
 		};
-		this.OnLogMessage(obj2);
+		this.OnLogMessageHolder(obj2);
 	}
 
 	public void Exception(Exception exception)
@@ -161,7 +161,7 @@ public class LogInstance
 			}
 			if (this.m_lastLogEventArgs.repeatCount > 0)
 			{
-				this.OnLogMessage(this.m_lastLogEventArgs);
+				this.OnLogMessageHolder(this.m_lastLogEventArgs);
 			}
 			this.m_lastLogEventArgs = new Log.Message
 			{
@@ -179,39 +179,40 @@ public class LogInstance
 
 	public void Write(Log.Message message)
 	{
-		this.OnLogMessage(message);
+		this.OnLogMessageHolder(message);
 	}
 
 	public void Update()
 	{
 		if (this.m_lastLogEventArgs.repeatCount > 0 && DateTime.Now - this.m_lastLogEventArgs.timestamp > TimeSpan.FromSeconds(1.0))
 		{
-			this.OnLogMessage(this.m_lastLogEventArgs);
+			this.OnLogMessageHolder(this.m_lastLogEventArgs);
 			this.m_lastLogEventArgs = default(Log.Message);
 		}
 	}
 
+	private Action<Log.Message> OnLogMessageHolder;
 	private event Action<Log.Message> OnLogMessage
 	{
 		add
 		{
-			Action<Log.Message> action = this.OnLogMessage;
+			Action<Log.Message> action = this.OnLogMessageHolder;
 			Action<Log.Message> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<Log.Message>>(ref this.OnLogMessage, (Action<Log.Message>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<Log.Message>>(ref this.OnLogMessageHolder, (Action<Log.Message>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<Log.Message> action = this.OnLogMessage;
+			Action<Log.Message> action = this.OnLogMessageHolder;
 			Action<Log.Message> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<Log.Message>>(ref this.OnLogMessage, (Action<Log.Message>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<Log.Message>>(ref this.OnLogMessageHolder, (Action<Log.Message>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}

@@ -31,149 +31,149 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	public LobbyGameClientInterface() : base(Factory.Get())
     {
-		this.OnConnected = delegate(RegisterGameClientResponse A_0)
+		this.OnConnectedHolder = delegate(RegisterGameClientResponse A_0)
 		{
 		};
 		
-		this.OnDisconnected = delegate(string A_0, bool A_1, CloseStatusCode A_2)
+		this.OnDisconnectedHolder = delegate(string A_0, bool A_1, CloseStatusCode A_2)
 			{
 			};
-		this.OnLobbyServerReadyNotification = delegate(LobbyServerReadyNotification A_0)
+		this.OnLobbyServerReadyNotificationHolder = delegate(LobbyServerReadyNotification A_0)
 		{
 		};
 		
-		this.OnLobbyStatusNotification = delegate(LobbyStatusNotification A_0)
+		this.OnLobbyStatusNotificationHolder = delegate(LobbyStatusNotification A_0)
 			{
 			};
 		
-		this.OnLobbyGameplayOverridesNotification = delegate(LobbyGameplayOverridesNotification A_0)
+		this.OnLobbyGameplayOverridesNotificationHolder = delegate(LobbyGameplayOverridesNotification A_0)
 			{
 			};
 		
-		this.OnLobbyCustomGamesNotification = delegate(LobbyCustomGamesNotification A_0)
+		this.OnLobbyCustomGamesNotificationHolder = delegate(LobbyCustomGamesNotification A_0)
 			{
 			};
-		this.OnQueueAssignmentNotification = delegate(MatchmakingQueueAssignmentNotification A_0)
+		this.OnQueueAssignmentNotificationHolder = delegate(MatchmakingQueueAssignmentNotification A_0)
 		{
 		};
 		
-		this.OnQueueStatusNotification = delegate(MatchmakingQueueStatusNotification A_0)
+		this.OnQueueStatusNotificationHolder = delegate(MatchmakingQueueStatusNotification A_0)
 			{
 			};
 		
-		this.OnGameAssignmentNotification = delegate(GameAssignmentNotification A_0)
+		this.OnGameAssignmentNotificationHolder = delegate(GameAssignmentNotification A_0)
 			{
 			};
 		
-		this.OnGameInfoNotification = delegate(GameInfoNotification A_0)
+		this.OnGameInfoNotificationHolder = delegate(GameInfoNotification A_0)
 			{
 			};
 		
-		this.OnGameStatusNotification = delegate(GameStatusNotification A_0)
+		this.OnGameStatusNotificationHolder = delegate(GameStatusNotification A_0)
 			{
 			};
 		
-		this.OnAccountDataUpdated = delegate(PlayerAccountDataUpdateNotification A_0)
+		this.OnAccountDataUpdatedHolder = delegate(PlayerAccountDataUpdateNotification A_0)
 			{
 			};
 		
-		this.OnForcedCharacterChangeFromServerNotification = delegate(ForcedCharacterChangeFromServerNotification A_0)
+		this.OnForcedCharacterChangeFromServerNotificationHolder = delegate(ForcedCharacterChangeFromServerNotification A_0)
 			{
 			};
 		
-		this.OnCharacterDataUpdateNotification = delegate(PlayerCharacterDataUpdateNotification A_0)
+		this.OnCharacterDataUpdateNotificationHolder = delegate(PlayerCharacterDataUpdateNotification A_0)
 			{
 			};
 		
-		this.OnInventoryComponentUpdateNotification = delegate(InventoryComponentUpdateNotification A_0)
+		this.OnInventoryComponentUpdateNotificationHolder = delegate(InventoryComponentUpdateNotification A_0)
 			{
 			};
 		
-		this.OnBankBalanceChangeNotification = delegate(BankBalanceChangeNotification A_0)
+		this.OnBankBalanceChangeNotificationHolder = delegate(BankBalanceChangeNotification A_0)
 			{
 			};
 		
-		this.OnSeasonStatusNotification = delegate(SeasonStatusNotification A_0)
+		this.OnSeasonStatusNotificationHolder = delegate(SeasonStatusNotification A_0)
 			{
 			};
-		this.OnChapterStatusNotification = delegate(ChapterStatusNotification A_0)
+		this.OnChapterStatusNotificationHolder = delegate(ChapterStatusNotification A_0)
 		{
 		};
 		
-		this.OnGroupUpdateNotification = delegate(GroupUpdateNotification A_0)
+		this.OnGroupUpdateNotificationHolder = delegate(GroupUpdateNotification A_0)
 			{
 			};
 		
-		this.OnUseGGPackNotification = delegate(UseGGPackNotification A_0)
+		this.OnUseGGPackNotificationHolder = delegate(UseGGPackNotification A_0)
 			{
 			};
 		
-		this.OnChatNotification = delegate(ChatNotification A_0)
+		this.OnChatNotificationHolder = delegate(ChatNotification A_0)
 			{
 			};
 		
-		this.OnUseOverconNotification = delegate(UseOverconResponse A_0)
+		this.OnUseOverconNotificationHolder = delegate(UseOverconResponse A_0)
 			{
 			};
 		
-		this.OnFriendStatusNotification = delegate(FriendStatusNotification A_0)
+		this.OnFriendStatusNotificationHolder = delegate(FriendStatusNotification A_0)
 			{
 			};
-		this.OnGroupConfirmation = delegate(GroupConfirmationRequest A_0)
+		this.OnGroupConfirmationHolder = delegate(GroupConfirmationRequest A_0)
 		{
 		};
 		
-		this.OnGroupSuggestion = delegate(GroupSuggestionRequest A_0)
+		this.OnGroupSuggestionHolder = delegate(GroupSuggestionRequest A_0)
 			{
 			};
 		
-		this.OnForceQueueNotification = delegate(ForceMatchmakingQueueNotification A_0)
+		this.OnForceQueueNotificationHolder = delegate(ForceMatchmakingQueueNotification A_0)
 			{
 			};
 		
-		this.OnGameInviteConfirmationRequest = delegate(GameInviteConfirmationRequest A_0)
+		this.OnGameInviteConfirmationRequestHolder = delegate(GameInviteConfirmationRequest A_0)
 			{
 			};
 		
-		this.OnQuestCompleteNotification = delegate(QuestCompleteNotification A_0)
+		this.OnQuestCompleteNotificationHolder = delegate(QuestCompleteNotification A_0)
 			{
 			};
 		
-		this.OnMatchResultsNotification = delegate(MatchResultsNotification A_0)
+		this.OnMatchResultsNotificationHolder = delegate(MatchResultsNotification A_0)
 			{
 			};
 		
-		this.OnServerQueueConfigurationUpdateNotification = delegate(ServerQueueConfigurationUpdateNotification A_0)
+		this.OnServerQueueConfigurationUpdateNotificationHolder = delegate(ServerQueueConfigurationUpdateNotification A_0)
 			{
 			};
 		
-		this.OnRankedOverviewChangeNotification = delegate(RankedOverviewChangeNotification A_0)
+		this.OnRankedOverviewChangeNotificationHolder = delegate(RankedOverviewChangeNotification A_0)
 			{
 			};
-		this.OnFactionCompetitionNotification = delegate(FactionCompetitionNotification A_0)
+		this.OnFactionCompetitionNotificationHolder = delegate(FactionCompetitionNotification A_0)
 		{
 		};
-		this.OnTrustBoostUsedNotification = delegate(TrustBoostUsedNotification A_0)
+		this.OnTrustBoostUsedNotificationHolder = delegate(TrustBoostUsedNotification A_0)
 		{
 		};
 		
-		this.OnFacebookAccessTokenNotification = delegate(FacebookAccessTokenNotification A_0)
+		this.OnFacebookAccessTokenNotificationHolder = delegate(FacebookAccessTokenNotification A_0)
 			{
 			};
 		
-		this.OnPlayerFactionContributionChange = delegate(PlayerFactionContributionChangeNotification A_0)
+		this.OnPlayerFactionContributionChangeHolder = delegate(PlayerFactionContributionChangeNotification A_0)
 			{
 			};
 		
-		this.OnFactionLoginRewardNotification = delegate(FactionLoginRewardNotification A_0)
+		this.OnFactionLoginRewardNotificationHolder = delegate(FactionLoginRewardNotification A_0)
 			{
 			};
 		
-		this.OnLobbyAlertMissionDataNotification = delegate(LobbyAlertMissionDataNotification A_0)
+		this.OnLobbyAlertMissionDataNotificationHolder = delegate(LobbyAlertMissionDataNotification A_0)
 			{
 			};
 		
-		this.OnLobbySeasonQuestDataNotification = delegate(LobbySeasonQuestDataNotification A_0)
+		this.OnLobbySeasonQuestDataNotificationHolder = delegate(LobbySeasonQuestDataNotification A_0)
 			{
 			};
 		this.m_registered = false;
@@ -181,943 +181,981 @@ public class LobbyGameClientInterface : WebSocketInterface
 		base.ConnectionTimeout = 30f;
 	}
 
+	private Action<RegisterGameClientResponse> OnConnectedHolder;
 	public event Action<RegisterGameClientResponse> OnConnected
 	{
 		add
 		{
-			Action<RegisterGameClientResponse> action = this.OnConnected;
+			Action<RegisterGameClientResponse> action = this.OnConnectedHolder;
 			Action<RegisterGameClientResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RegisterGameClientResponse>>(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<RegisterGameClientResponse>>(ref this.OnConnectedHolder, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<RegisterGameClientResponse> action = this.OnConnected;
+			Action<RegisterGameClientResponse> action = this.OnConnectedHolder;
 			Action<RegisterGameClientResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RegisterGameClientResponse>>(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<RegisterGameClientResponse>>(ref this.OnConnectedHolder, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<string, bool, CloseStatusCode> OnDisconnectedHolder;
 	public event Action<string, bool, CloseStatusCode> OnDisconnected
 	{
 		add
 		{
-			Action<string, bool, CloseStatusCode> action = this.OnDisconnected;
+			Action<string, bool, CloseStatusCode> action = this.OnDisconnectedHolder;
 			Action<string, bool, CloseStatusCode> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string, bool, CloseStatusCode>>(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<string, bool, CloseStatusCode>>(ref this.OnDisconnectedHolder, (Action<string, bool, CloseStatusCode>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<string, bool, CloseStatusCode> action = this.OnDisconnected;
+			Action<string, bool, CloseStatusCode> action = this.OnDisconnectedHolder;
 			Action<string, bool, CloseStatusCode> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<string, bool, CloseStatusCode>>(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<string, bool, CloseStatusCode>>(ref this.OnDisconnectedHolder, (Action<string, bool, CloseStatusCode>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<LobbyServerReadyNotification> OnLobbyServerReadyNotificationHolder;
 	public event Action<LobbyServerReadyNotification> OnLobbyServerReadyNotification
 	{
 		add
 		{
-			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotification;
+			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotificationHolder;
 			Action<LobbyServerReadyNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyServerReadyNotification>>(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyServerReadyNotification>>(ref this.OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotification;
+			Action<LobbyServerReadyNotification> action = this.OnLobbyServerReadyNotificationHolder;
 			Action<LobbyServerReadyNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyServerReadyNotification>>(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyServerReadyNotification>>(ref this.OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<LobbyStatusNotification> OnLobbyStatusNotificationHolder;
 	public event Action<LobbyStatusNotification> OnLobbyStatusNotification
 	{
 		add
 		{
-			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotification;
+			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotificationHolder;
 			Action<LobbyStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyStatusNotification>>(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyStatusNotification>>(ref this.OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotification;
+			Action<LobbyStatusNotification> action = this.OnLobbyStatusNotificationHolder;
 			Action<LobbyStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyStatusNotification>>(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyStatusNotification>>(ref this.OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<LobbyGameplayOverridesNotification> OnLobbyGameplayOverridesNotificationHolder;
 	public event Action<LobbyGameplayOverridesNotification> OnLobbyGameplayOverridesNotification
 	{
 		add
 		{
-			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotification;
+			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotificationHolder;
 			Action<LobbyGameplayOverridesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotificationHolder, (Action<LobbyGameplayOverridesNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotification;
+			Action<LobbyGameplayOverridesNotification> action = this.OnLobbyGameplayOverridesNotificationHolder;
 			Action<LobbyGameplayOverridesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotificationHolder, (Action<LobbyGameplayOverridesNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotificationHolder;
 	public event Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotification
 	{
 		add
 		{
-			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotification;
+			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotificationHolder;
 			Action<LobbyCustomGamesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotification;
+			Action<LobbyCustomGamesNotification> action = this.OnLobbyCustomGamesNotificationHolder;
 			Action<LobbyCustomGamesNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotificationHolder;
 	public event Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotification
 	{
 		add
 		{
-			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotification;
+			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotificationHolder;
 			Action<MatchmakingQueueAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueAssignmentNotification>>(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<MatchmakingQueueAssignmentNotification>>(ref this.OnQueueAssignmentNotificationHolder, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotification;
+			Action<MatchmakingQueueAssignmentNotification> action = this.OnQueueAssignmentNotificationHolder;
 			Action<MatchmakingQueueAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueAssignmentNotification>>(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<MatchmakingQueueAssignmentNotification>>(ref this.OnQueueAssignmentNotificationHolder, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<MatchmakingQueueStatusNotification> OnQueueStatusNotificationHolder;
 	public event Action<MatchmakingQueueStatusNotification> OnQueueStatusNotification
 	{
 		add
 		{
-			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotification;
+			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotificationHolder;
 			Action<MatchmakingQueueStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotification;
+			Action<MatchmakingQueueStatusNotification> action = this.OnQueueStatusNotificationHolder;
 			Action<MatchmakingQueueStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<GameAssignmentNotification> OnGameAssignmentNotificationHolder;
 	public event Action<GameAssignmentNotification> OnGameAssignmentNotification
 	{
 		add
 		{
-			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotification;
+			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotificationHolder;
 			Action<GameAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotification;
+			Action<GameAssignmentNotification> action = this.OnGameAssignmentNotificationHolder;
 			Action<GameAssignmentNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<GameInfoNotification> OnGameInfoNotificationHolder;
 	public event Action<GameInfoNotification> OnGameInfoNotification
 	{
 		add
 		{
-			Action<GameInfoNotification> action = this.OnGameInfoNotification;
+			Action<GameInfoNotification> action = this.OnGameInfoNotificationHolder;
 			Action<GameInfoNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameInfoNotification>>(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameInfoNotification>>(ref this.OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<GameInfoNotification> action = this.OnGameInfoNotification;
+			Action<GameInfoNotification> action = this.OnGameInfoNotificationHolder;
 			Action<GameInfoNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameInfoNotification>>(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameInfoNotification>>(ref this.OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<GameStatusNotification> OnGameStatusNotificationHolder;
 	public event Action<GameStatusNotification> OnGameStatusNotification
 	{
 		add
 		{
-			Action<GameStatusNotification> action = this.OnGameStatusNotification;
+			Action<GameStatusNotification> action = this.OnGameStatusNotificationHolder;
 			Action<GameStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameStatusNotification>>(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameStatusNotification>>(ref this.OnGameStatusNotificationHolder, (Action<GameStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<GameStatusNotification> action = this.OnGameStatusNotification;
+			Action<GameStatusNotification> action = this.OnGameStatusNotificationHolder;
 			Action<GameStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameStatusNotification>>(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameStatusNotification>>(ref this.OnGameStatusNotificationHolder, (Action<GameStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<PlayerAccountDataUpdateNotification> OnAccountDataUpdatedHolder;
 	public event Action<PlayerAccountDataUpdateNotification> OnAccountDataUpdated
 	{
 		add
 		{
-			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdated;
+			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdatedHolder;
 			Action<PlayerAccountDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerAccountDataUpdateNotification>>(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<PlayerAccountDataUpdateNotification>>(ref this.OnAccountDataUpdatedHolder, (Action<PlayerAccountDataUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdated;
+			Action<PlayerAccountDataUpdateNotification> action = this.OnAccountDataUpdatedHolder;
 			Action<PlayerAccountDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerAccountDataUpdateNotification>>(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<PlayerAccountDataUpdateNotification>>(ref this.OnAccountDataUpdatedHolder, (Action<PlayerAccountDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
 	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private Action<ForcedCharacterChangeFromServerNotification> OnForcedCharacterChangeFromServerNotificationHolder;
 	public event Action<ForcedCharacterChangeFromServerNotification> OnForcedCharacterChangeFromServerNotification;
 
+	private Action<PlayerCharacterDataUpdateNotification> OnCharacterDataUpdateNotificationHolder;
 	public event Action<PlayerCharacterDataUpdateNotification> OnCharacterDataUpdateNotification
 	{
 		add
 		{
-			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotification;
+			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotificationHolder;
 			Action<PlayerCharacterDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotificationHolder, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotification;
+			Action<PlayerCharacterDataUpdateNotification> action = this.OnCharacterDataUpdateNotificationHolder;
 			Action<PlayerCharacterDataUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotificationHolder, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<InventoryComponentUpdateNotification> OnInventoryComponentUpdateNotificationHolder;
 	public event Action<InventoryComponentUpdateNotification> OnInventoryComponentUpdateNotification
 	{
 		add
 		{
-			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotification;
+			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotificationHolder;
 			Action<InventoryComponentUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<InventoryComponentUpdateNotification>>(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<InventoryComponentUpdateNotification>>(ref this.OnInventoryComponentUpdateNotificationHolder, (Action<InventoryComponentUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotification;
+			Action<InventoryComponentUpdateNotification> action = this.OnInventoryComponentUpdateNotificationHolder;
 			Action<InventoryComponentUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<InventoryComponentUpdateNotification>>(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<InventoryComponentUpdateNotification>>(ref this.OnInventoryComponentUpdateNotificationHolder, (Action<InventoryComponentUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<BankBalanceChangeNotification> OnBankBalanceChangeNotificationHolder;
 	public event Action<BankBalanceChangeNotification> OnBankBalanceChangeNotification
 	{
 		add
 		{
-			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotification;
+			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotificationHolder;
 			Action<BankBalanceChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotificationHolder, (Action<BankBalanceChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotification;
+			Action<BankBalanceChangeNotification> action = this.OnBankBalanceChangeNotificationHolder;
 			Action<BankBalanceChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotificationHolder, (Action<BankBalanceChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<SeasonStatusNotification> OnSeasonStatusNotificationHolder;
 	public event Action<SeasonStatusNotification> OnSeasonStatusNotification
 	{
 		add
 		{
-			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotification;
+			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotificationHolder;
 			Action<SeasonStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotification;
+			Action<SeasonStatusNotification> action = this.OnSeasonStatusNotificationHolder;
 			Action<SeasonStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<ChapterStatusNotification> OnChapterStatusNotificationHolder;
 	public event Action<ChapterStatusNotification> OnChapterStatusNotification
 	{
 		add
 		{
-			Action<ChapterStatusNotification> action = this.OnChapterStatusNotification;
+			Action<ChapterStatusNotification> action = this.OnChapterStatusNotificationHolder;
 			Action<ChapterStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChapterStatusNotification>>(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ChapterStatusNotification>>(ref this.OnChapterStatusNotificationHolder, (Action<ChapterStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ChapterStatusNotification> action = this.OnChapterStatusNotification;
+			Action<ChapterStatusNotification> action = this.OnChapterStatusNotificationHolder;
 			Action<ChapterStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChapterStatusNotification>>(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ChapterStatusNotification>>(ref this.OnChapterStatusNotificationHolder, (Action<ChapterStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<GroupUpdateNotification> OnGroupUpdateNotificationHolder;
 	public event Action<GroupUpdateNotification> OnGroupUpdateNotification
 	{
 		add
 		{
-			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotification;
+			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotificationHolder;
 			Action<GroupUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupUpdateNotification>>(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GroupUpdateNotification>>(ref this.OnGroupUpdateNotificationHolder, (Action<GroupUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotification;
+			Action<GroupUpdateNotification> action = this.OnGroupUpdateNotificationHolder;
 			Action<GroupUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupUpdateNotification>>(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GroupUpdateNotification>>(ref this.OnGroupUpdateNotificationHolder, (Action<GroupUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<UseGGPackNotification> OnUseGGPackNotificationHolder;
 	public event Action<UseGGPackNotification> OnUseGGPackNotification
 	{
 		add
 		{
-			Action<UseGGPackNotification> action = this.OnUseGGPackNotification;
+			Action<UseGGPackNotification> action = this.OnUseGGPackNotificationHolder;
 			Action<UseGGPackNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseGGPackNotification>>(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<UseGGPackNotification>>(ref this.OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<UseGGPackNotification> action = this.OnUseGGPackNotification;
+			Action<UseGGPackNotification> action = this.OnUseGGPackNotificationHolder;
 			Action<UseGGPackNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseGGPackNotification>>(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<UseGGPackNotification>>(ref this.OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<ChatNotification> OnChatNotificationHolder;
 	public event Action<ChatNotification> OnChatNotification
 	{
 		add
 		{
-			Action<ChatNotification> action = this.OnChatNotification;
+			Action<ChatNotification> action = this.OnChatNotificationHolder;
 			Action<ChatNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ChatNotification> action = this.OnChatNotification;
+			Action<ChatNotification> action = this.OnChatNotificationHolder;
 			Action<ChatNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<UseOverconResponse> OnUseOverconNotificationHolder;
 	public event Action<UseOverconResponse> OnUseOverconNotification
 	{
 		add
 		{
-			Action<UseOverconResponse> action = this.OnUseOverconNotification;
+			Action<UseOverconResponse> action = this.OnUseOverconNotificationHolder;
 			Action<UseOverconResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<UseOverconResponse> action = this.OnUseOverconNotification;
+			Action<UseOverconResponse> action = this.OnUseOverconNotificationHolder;
 			Action<UseOverconResponse> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<FriendStatusNotification> OnFriendStatusNotificationHolder;
 	public event Action<FriendStatusNotification> OnFriendStatusNotification
 	{
 		add
 		{
-			Action<FriendStatusNotification> action = this.OnFriendStatusNotification;
+			Action<FriendStatusNotification> action = this.OnFriendStatusNotificationHolder;
 			Action<FriendStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FriendStatusNotification>>(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FriendStatusNotification>>(ref this.OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<FriendStatusNotification> action = this.OnFriendStatusNotification;
+			Action<FriendStatusNotification> action = this.OnFriendStatusNotificationHolder;
 			Action<FriendStatusNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FriendStatusNotification>>(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FriendStatusNotification>>(ref this.OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<GroupConfirmationRequest> OnGroupConfirmationHolder;
 	public event Action<GroupConfirmationRequest> OnGroupConfirmation
 	{
 		add
 		{
-			Action<GroupConfirmationRequest> action = this.OnGroupConfirmation;
+			Action<GroupConfirmationRequest> action = this.OnGroupConfirmationHolder;
 			Action<GroupConfirmationRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmationHolder, (Action<GroupConfirmationRequest>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<GroupConfirmationRequest> action = this.OnGroupConfirmation;
+			Action<GroupConfirmationRequest> action = this.OnGroupConfirmationHolder;
 			Action<GroupConfirmationRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmationHolder, (Action<GroupConfirmationRequest>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<GroupSuggestionRequest> OnGroupSuggestionHolder;
 	public event Action<GroupSuggestionRequest> OnGroupSuggestion
 	{
 		add
 		{
-			Action<GroupSuggestionRequest> action = this.OnGroupSuggestion;
+			Action<GroupSuggestionRequest> action = this.OnGroupSuggestionHolder;
 			Action<GroupSuggestionRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestionHolder, (Action<GroupSuggestionRequest>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<GroupSuggestionRequest> action = this.OnGroupSuggestion;
+			Action<GroupSuggestionRequest> action = this.OnGroupSuggestionHolder;
 			Action<GroupSuggestionRequest> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestionHolder, (Action<GroupSuggestionRequest>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<ForceMatchmakingQueueNotification> OnForceQueueNotificationHolder;
 	public event Action<ForceMatchmakingQueueNotification> OnForceQueueNotification
 	{
 		add
 		{
-			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotification;
+			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotificationHolder;
 			Action<ForceMatchmakingQueueNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ForceMatchmakingQueueNotification>>(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ForceMatchmakingQueueNotification>>(ref this.OnForceQueueNotificationHolder, (Action<ForceMatchmakingQueueNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotification;
+			Action<ForceMatchmakingQueueNotification> action = this.OnForceQueueNotificationHolder;
 			Action<ForceMatchmakingQueueNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ForceMatchmakingQueueNotification>>(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ForceMatchmakingQueueNotification>>(ref this.OnForceQueueNotificationHolder, (Action<ForceMatchmakingQueueNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
 	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private Action<GameInviteConfirmationRequest> OnGameInviteConfirmationRequestHolder;
 	public event Action<GameInviteConfirmationRequest> OnGameInviteConfirmationRequest;
 
+	private Action<QuestCompleteNotification> OnQuestCompleteNotificationHolder;
 	public event Action<QuestCompleteNotification> OnQuestCompleteNotification
 	{
 		add
 		{
-			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotification;
+			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotificationHolder;
 			Action<QuestCompleteNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotification;
+			Action<QuestCompleteNotification> action = this.OnQuestCompleteNotificationHolder;
 			Action<QuestCompleteNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<MatchResultsNotification> OnMatchResultsNotificationHolder;
 	public event Action<MatchResultsNotification> OnMatchResultsNotification
 	{
 		add
 		{
-			Action<MatchResultsNotification> action = this.OnMatchResultsNotification;
+			Action<MatchResultsNotification> action = this.OnMatchResultsNotificationHolder;
 			Action<MatchResultsNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchResultsNotification>>(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<MatchResultsNotification>>(ref this.OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<MatchResultsNotification> action = this.OnMatchResultsNotification;
+			Action<MatchResultsNotification> action = this.OnMatchResultsNotificationHolder;
 			Action<MatchResultsNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<MatchResultsNotification>>(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<MatchResultsNotification>>(ref this.OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotificationHolder;
 	public event Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotification
 	{
 		add
 		{
-			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotification;
+			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotificationHolder;
 			Action<ServerQueueConfigurationUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotification;
+			Action<ServerQueueConfigurationUpdateNotification> action = this.OnServerQueueConfigurationUpdateNotificationHolder;
 			Action<ServerQueueConfigurationUpdateNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<RankedOverviewChangeNotification> OnRankedOverviewChangeNotificationHolder;
 	public event Action<RankedOverviewChangeNotification> OnRankedOverviewChangeNotification
 	{
 		add
 		{
-			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotification;
+			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotificationHolder;
 			Action<RankedOverviewChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotificationHolder, (Action<RankedOverviewChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotification;
+			Action<RankedOverviewChangeNotification> action = this.OnRankedOverviewChangeNotificationHolder;
 			Action<RankedOverviewChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotificationHolder, (Action<RankedOverviewChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<FactionCompetitionNotification> OnFactionCompetitionNotificationHolder;
 	public event Action<FactionCompetitionNotification> OnFactionCompetitionNotification
 	{
 		add
 		{
-			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotification;
+			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotificationHolder;
 			Action<FactionCompetitionNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotification;
+			Action<FactionCompetitionNotification> action = this.OnFactionCompetitionNotificationHolder;
 			Action<FactionCompetitionNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<TrustBoostUsedNotification> OnTrustBoostUsedNotificationHolder;
 	public event Action<TrustBoostUsedNotification> OnTrustBoostUsedNotification
 	{
 		add
 		{
-			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotification;
+			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotificationHolder;
 			Action<TrustBoostUsedNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotification;
+			Action<TrustBoostUsedNotification> action = this.OnTrustBoostUsedNotificationHolder;
 			Action<TrustBoostUsedNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<FacebookAccessTokenNotification> OnFacebookAccessTokenNotificationHolder;
 	public event Action<FacebookAccessTokenNotification> OnFacebookAccessTokenNotification
 	{
 		add
 		{
-			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotification;
+			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotificationHolder;
 			Action<FacebookAccessTokenNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotificationHolder, (Action<FacebookAccessTokenNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotification;
+			Action<FacebookAccessTokenNotification> action = this.OnFacebookAccessTokenNotificationHolder;
 			Action<FacebookAccessTokenNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotificationHolder, (Action<FacebookAccessTokenNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChangeHolder;
 	public event Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChange
 	{
 		add
 		{
-			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChange;
+			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeHolder;
 			Action<PlayerFactionContributionChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChangeHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChange;
+			Action<PlayerFactionContributionChangeNotification> action = this.OnPlayerFactionContributionChangeHolder;
 			Action<PlayerFactionContributionChangeNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChangeHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<FactionLoginRewardNotification> OnFactionLoginRewardNotificationHolder;
 	public event Action<FactionLoginRewardNotification> OnFactionLoginRewardNotification
 	{
 		add
 		{
-			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotification;
+			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotificationHolder;
 			Action<FactionLoginRewardNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotification;
+			Action<FactionLoginRewardNotification> action = this.OnFactionLoginRewardNotificationHolder;
 			Action<FactionLoginRewardNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<LobbyAlertMissionDataNotification> OnLobbyAlertMissionDataNotificationHolder;
 	public event Action<LobbyAlertMissionDataNotification> OnLobbyAlertMissionDataNotification
 	{
 		add
 		{
-			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotification;
+			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotificationHolder;
 			Action<LobbyAlertMissionDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotificationHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotification;
+			Action<LobbyAlertMissionDataNotification> action = this.OnLobbyAlertMissionDataNotificationHolder;
 			Action<LobbyAlertMissionDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotificationHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action<LobbySeasonQuestDataNotification> OnLobbySeasonQuestDataNotificationHolder;
 	public event Action<LobbySeasonQuestDataNotification> OnLobbySeasonQuestDataNotification
 	{
 		add
 		{
-			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotification;
+			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotificationHolder;
 			Action<LobbySeasonQuestDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotificationHolder, (Action<LobbySeasonQuestDataNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotification;
+			Action<LobbySeasonQuestDataNotification> action = this.OnLobbySeasonQuestDataNotificationHolder;
 			Action<LobbySeasonQuestDataNotification> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotificationHolder, (Action<LobbySeasonQuestDataNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -1365,7 +1403,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleForceQueueNotification(ForceMatchmakingQueueNotification notification)
 	{
-		this.OnForceQueueNotification(notification);
+		this.OnForceQueueNotificationHolder(notification);
 	}
 
 	private void HandleQueueToPlayerNotification(MatchmakingQueueToPlayersNotification notification)
@@ -1395,7 +1433,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleServerQueueConfigurationUpdateNotification(ServerQueueConfigurationUpdateNotification notification)
 	{
-		this.OnServerQueueConfigurationUpdateNotification(notification);
+		this.OnServerQueueConfigurationUpdateNotificationHolder(notification);
 	}
 
 	private void HandleGameDestroyedByPlayerNotification(GameDestroyedByPlayerNotification notification)
@@ -1610,7 +1648,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 				notification.Message.Trim(),
 				notification.Code
 			});
-			this.OnDisconnected(this.m_lastLobbyErrorMessage, this.m_allowRelogin, notification.Code);
+			this.OnDisconnectedHolder(this.m_lastLobbyErrorMessage, this.m_allowRelogin, notification.Code);
 			this.m_lastLobbyErrorMessage = null;
 			this.m_allowRelogin = true;
 		}
@@ -1638,7 +1676,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 				RegisterGameClientResponse registerGameClientResponse = new RegisterGameClientResponse();
 				registerGameClientResponse.Success = false;
 				registerGameClientResponse.LocalizedFailure = LocalizationPayload.Create("NetworkError", "Global");
-				this.OnConnected(registerGameClientResponse);
+				this.OnConnectedHolder(registerGameClientResponse);
 			}
 		}
 	}
@@ -1695,7 +1733,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 				response.ErrorMessage
 			});
 			this.m_registered = false;
-			this.OnConnected(response);
+			this.OnConnectedHolder(response);
 			this.Disconnect();
 		}
 		else
@@ -1722,13 +1760,13 @@ public class LobbyGameClientInterface : WebSocketInterface
 					this.m_ticket.AuthInfo = response.AuthInfo;
 				}
 			}
-			this.OnConnected(response);
+			this.OnConnectedHolder(response);
 		}
 	}
 
 	private void HandleLobbyServerReadyNotification(LobbyServerReadyNotification notification)
 	{
-		this.OnLobbyServerReadyNotification(notification);
+		this.OnLobbyServerReadyNotificationHolder(notification);
 		if (notification.Success)
 		{
 			base.Logger.Info("Lobby server is ready", new object[0]);
@@ -1763,12 +1801,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 			this.Disconnect();
 			return;
 		}
-		this.OnLobbyStatusNotification(notification);
+		this.OnLobbyStatusNotificationHolder(notification);
 	}
 
 	private void HandleLobbyGameplayOverridesNotification(LobbyGameplayOverridesNotification notification)
 	{
-		this.OnLobbyGameplayOverridesNotification(notification);
+		this.OnLobbyGameplayOverridesNotificationHolder(notification);
 	}
 
 	public void SubscribeToCustomGames()
@@ -1783,7 +1821,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleLobbyCustomGamesNotification(LobbyCustomGamesNotification notification)
 	{
-		this.OnLobbyCustomGamesNotification(notification);
+		this.OnLobbyCustomGamesNotificationHolder(notification);
 	}
 
 	public void SetGameTypeSubMasks(GameType gameType, ushort subGameMask, Action<SetGameSubTypeResponse> onResponseCallback)
@@ -1884,17 +1922,17 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleQueueAssignmentNotification(MatchmakingQueueAssignmentNotification notification)
 	{
-		this.OnQueueAssignmentNotification(notification);
+		this.OnQueueAssignmentNotificationHolder(notification);
 	}
 
 	private void HandleQueueStatusNotification(MatchmakingQueueStatusNotification notification)
 	{
-		this.OnQueueStatusNotification(notification);
+		this.OnQueueStatusNotificationHolder(notification);
 	}
 
 	private void HandleGameAssignmentNotification(GameAssignmentNotification notification)
 	{
-		this.OnGameAssignmentNotification(notification);
+		this.OnGameAssignmentNotificationHolder(notification);
 	}
 
 	public void Replay_RemoveFromGame()
@@ -1904,12 +1942,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleGameInfoNotification(GameInfoNotification notification)
 	{
-		this.OnGameInfoNotification(notification);
+		this.OnGameInfoNotificationHolder(notification);
 	}
 
 	private void HandleGameStatusNotification(GameStatusNotification notification)
 	{
-		this.OnGameStatusNotification(notification);
+		this.OnGameStatusNotificationHolder(notification);
 	}
 
 	public void HandleSynchronizeWithClientOutOfGameRequest(SynchronizeWithClientOutOfGameRequest request)
@@ -2060,27 +2098,27 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleAccountDataUpdateNotification(PlayerAccountDataUpdateNotification notification)
 	{
-		this.OnAccountDataUpdated(notification);
+		this.OnAccountDataUpdatedHolder(notification);
 	}
 
 	private void HandleRequeueForceCharacterNotification(ForcedCharacterChangeFromServerNotification notification)
 	{
-		this.OnForcedCharacterChangeFromServerNotification(notification);
+		this.OnForcedCharacterChangeFromServerNotificationHolder(notification);
 	}
 
 	private void HandleCharacterDataUpdateNotification(PlayerCharacterDataUpdateNotification notification)
 	{
-		this.OnCharacterDataUpdateNotification(notification);
+		this.OnCharacterDataUpdateNotificationHolder(notification);
 	}
 
 	private void HandleInventoryComponentUpdateNotification(InventoryComponentUpdateNotification notification)
 	{
-		this.OnInventoryComponentUpdateNotification(notification);
+		this.OnInventoryComponentUpdateNotificationHolder(notification);
 	}
 
 	private void HandleRankedOverviewChangeNotification(RankedOverviewChangeNotification notification)
 	{
-		this.OnRankedOverviewChangeNotification(notification);
+		this.OnRankedOverviewChangeNotificationHolder(notification);
 	}
 
 	public void GetPlayerMatchData(Action<PlayerMatchDataResponse> onResponseCallback = null)
@@ -2135,12 +2173,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleBankBalanceChangeNotification(BankBalanceChangeNotification notification)
 	{
-		this.OnBankBalanceChangeNotification(notification);
+		this.OnBankBalanceChangeNotificationHolder(notification);
 	}
 
 	private void HandleSeasonStatusNotification(SeasonStatusNotification notification)
 	{
-		this.OnSeasonStatusNotification(notification);
+		this.OnSeasonStatusNotificationHolder(notification);
 	}
 
 	public bool SendSeasonStatusConfirmed(SeasonStatusConfirmed.DialogType dialogType)
@@ -2153,7 +2191,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleChapterStatusNotification(ChapterStatusNotification notification)
 	{
-		this.OnChapterStatusNotification(notification);
+		this.OnChapterStatusNotificationHolder(notification);
 	}
 
 	public void InviteToGroup(string friendHandle, Action<GroupInviteResponse> onResponseCallback)
@@ -2783,7 +2821,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		try
 		{
 			LobbyGameClientInterface.BlockSendingGroupUpdates = true;
-			this.OnGroupUpdateNotification(notification);
+			this.OnGroupUpdateNotificationHolder(notification);
 		}
 		finally
 		{
@@ -2793,82 +2831,82 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleGGPackUsedNotification(UseGGPackNotification notification)
 	{
-		this.OnUseGGPackNotification(notification);
+		this.OnUseGGPackNotificationHolder(notification);
 	}
 
 	private void HandleChatNotification(ChatNotification notification)
 	{
-		this.OnChatNotification(notification);
+		this.OnChatNotificationHolder(notification);
 	}
 
 	private void HandleUseOverconResponse(UseOverconResponse notification)
 	{
-		this.OnUseOverconNotification(notification);
+		this.OnUseOverconNotificationHolder(notification);
 	}
 
 	private void HandleFriendStatusNotification(FriendStatusNotification notification)
 	{
-		this.OnFriendStatusNotification(notification);
+		this.OnFriendStatusNotificationHolder(notification);
 	}
 
 	private void HandleGroupConfirmationRequest(GroupConfirmationRequest request)
 	{
-		this.OnGroupConfirmation(request);
+		this.OnGroupConfirmationHolder(request);
 	}
 
 	private void HandleGroupSuggestionRequest(GroupSuggestionRequest request)
 	{
-		this.OnGroupSuggestion(request);
+		this.OnGroupSuggestionHolder(request);
 	}
 
 	private void HandleGameInviteConfirmationRequest(GameInviteConfirmationRequest request)
 	{
-		this.OnGameInviteConfirmationRequest(request);
+		this.OnGameInviteConfirmationRequestHolder(request);
 	}
 
 	private void HandleQuestCompleteNotification(QuestCompleteNotification request)
 	{
-		this.OnQuestCompleteNotification(request);
+		this.OnQuestCompleteNotificationHolder(request);
 	}
 
 	private void HandleMatchResultsNotification(MatchResultsNotification request)
 	{
-		this.OnMatchResultsNotification(request);
+		this.OnMatchResultsNotificationHolder(request);
 	}
 
 	private void HandleFactionCompetitionNotification(FactionCompetitionNotification request)
 	{
-		this.OnFactionCompetitionNotification(request);
+		this.OnFactionCompetitionNotificationHolder(request);
 	}
 
 	private void HandleTrustBoostUsedNotification(TrustBoostUsedNotification request)
 	{
-		this.OnTrustBoostUsedNotification(request);
+		this.OnTrustBoostUsedNotificationHolder(request);
 	}
 
 	private void HandleFacebookAccessTokenNotification(FacebookAccessTokenNotification request)
 	{
-		this.OnFacebookAccessTokenNotification(request);
+		this.OnFacebookAccessTokenNotificationHolder(request);
 	}
 
 	private void HandleFactionLoginRewardNotification(FactionLoginRewardNotification notification)
 	{
-		this.OnFactionLoginRewardNotification(notification);
+		this.OnFactionLoginRewardNotificationHolder(notification);
 	}
 
 	private void HandlePlayerFactionContributionChangeNotification(PlayerFactionContributionChangeNotification notification)
 	{
-		this.OnPlayerFactionContributionChange(notification);
+		this.OnPlayerFactionContributionChangeHolder(notification);
 	}
 
 	private void HandleLobbyAlertMissionDataNotification(LobbyAlertMissionDataNotification notification)
 	{
-		this.OnLobbyAlertMissionDataNotification(notification);
+		this.OnLobbyAlertMissionDataNotificationHolder(notification);
 	}
 
 	private void HandleLobbySeasonQuestDataNotification(LobbySeasonQuestDataNotification notification)
 	{
-		this.OnLobbySeasonQuestDataNotification(notification);
+		this.OnLobbySeasonQuestDataNotificationHolder(notification);
 	}
 
 	private void HandleErrorReportSummaryRequest(ErrorReportSummaryRequest request)

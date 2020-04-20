@@ -118,27 +118,28 @@ namespace I2.Loc
 			}
 		}
 
-		public event Action EventFindTarget
+		private Action EventFindTargetHolder;
+	public event Action EventFindTarget
 		{
 			add
 			{
-				Action action = this.EventFindTarget;
+				Action action = this.EventFindTargetHolder;
 				Action action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange<Action>(ref this.EventFindTarget, (Action)Delegate.Combine(action2, value), action);
+					action = Interlocked.CompareExchange<Action>(ref this.EventFindTargetHolder, (Action)Delegate.Combine(action2, value), action);
 				}
 				while (action != action2);
 			}
 			remove
 			{
-				Action action = this.EventFindTarget;
+				Action action = this.EventFindTargetHolder;
 				Action action2;
 				do
 				{
 					action2 = action;
-					action = Interlocked.CompareExchange<Action>(ref this.EventFindTarget, (Action)Delegate.Remove(action2, value), action);
+					action = Interlocked.CompareExchange<Action>(ref this.EventFindTargetHolder, (Action)Delegate.Remove(action2, value), action);
 				}
 				while (action != action2);
 			}
@@ -147,7 +148,7 @@ namespace I2.Loc
 		private void Awake()
 		{
 			this.RegisterTargets();
-			this.EventFindTarget();
+			this.EventFindTargetHolder();
 			if (this.LocalizeOnAwake)
 			{
 				this.OnLocalize(false);
@@ -156,7 +157,7 @@ namespace I2.Loc
 
 		private void RegisterTargets()
 		{
-			if (this.EventFindTarget != null)
+			if (this.EventFindTargetHolder != null)
 			{
 				return;
 			}
@@ -290,11 +291,11 @@ namespace I2.Loc
 
 		public bool FindTarget()
 		{
-			if (this.EventFindTarget == null)
+			if (this.EventFindTargetHolder == null)
 			{
 				this.RegisterTargets();
 			}
-			this.EventFindTarget();
+			this.EventFindTargetHolder();
 			return this.HasTargetCache();
 		}
 
@@ -571,8 +572,8 @@ namespace I2.Loc
 
 		public void RegisterEvents_TextMeshPro()
 		{
-			this.EventFindTarget += this.FindTarget_TMPLabel;
-			this.EventFindTarget += this.FindTarget_TMPUGUILabel;
+			this.EventFindTargetHolder += this.FindTarget_TMPLabel;
+			this.EventFindTargetHolder += this.FindTarget_TMPUGUILabel;
 		}
 
 		private void FindTarget_TMPLabel()
@@ -749,9 +750,9 @@ namespace I2.Loc
 
 		public void RegisterEvents_UGUI()
 		{
-			this.EventFindTarget += this.FindTarget_uGUI_Text;
-			this.EventFindTarget += this.FindTarget_uGUI_Image;
-			this.EventFindTarget += this.FindTarget_uGUI_RawImage;
+			this.EventFindTargetHolder += this.FindTarget_uGUI_Text;
+			this.EventFindTargetHolder += this.FindTarget_uGUI_Image;
+			this.EventFindTargetHolder += this.FindTarget_uGUI_RawImage;
 		}
 
 		private void FindTarget_uGUI_Text()
@@ -941,11 +942,11 @@ namespace I2.Loc
 
 		public void RegisterEvents_UnityStandard()
 		{
-			this.EventFindTarget += this.FindTarget_GUIText;
-			this.EventFindTarget += this.FindTarget_TextMesh;
-			this.EventFindTarget += this.FindTarget_AudioSource;
-			this.EventFindTarget += this.FindTarget_GUITexture;
-			this.EventFindTarget += this.FindTarget_Child;
+			this.EventFindTargetHolder += this.FindTarget_GUIText;
+			this.EventFindTargetHolder += this.FindTarget_TextMesh;
+			this.EventFindTargetHolder += this.FindTarget_AudioSource;
+			this.EventFindTargetHolder += this.FindTarget_GUITexture;
+			this.EventFindTargetHolder += this.FindTarget_Child;
 		}
 
 		private void FindTarget_GUIText()

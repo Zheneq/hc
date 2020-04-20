@@ -104,7 +104,7 @@ public class DiscordClientInterface : MonoBehaviour
 			{
 			};
 		
-		this.OnError = delegate(ErrorEventArgs A_0)
+		this.OnErrorHolder = delegate(ErrorEventArgs A_0)
 			{
 			};
 		this.m_discordChannelUsers = new List<DiscordUserInfo>();
@@ -118,27 +118,28 @@ public class DiscordClientInterface : MonoBehaviour
 		return DiscordClientInterface.s_instance;
 	}
 
+	private Action<ErrorEventArgs> OnErrorHolder;
 	public event Action<ErrorEventArgs> OnError
 	{
 		add
 		{
-			Action<ErrorEventArgs> action = this.OnError;
+			Action<ErrorEventArgs> action = this.OnErrorHolder;
 			Action<ErrorEventArgs> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnError, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ErrorEventArgs> action = this.OnError;
+			Action<ErrorEventArgs> action = this.OnErrorHolder;
 			Action<ErrorEventArgs> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnError, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ErrorEventArgs>>(ref this.OnErrorHolder, (Action<ErrorEventArgs>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}

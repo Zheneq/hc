@@ -108,16 +108,16 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	static GameFlowData()
 	{
-		GameFlowData.s_onAddActor = delegate(ActorData A_0)
+		GameFlowData.s_onAddActorHolder = delegate(ActorData A_0)
 		{
 		};
-		GameFlowData.s_onRemoveActor = delegate(ActorData A_0)
+		GameFlowData.s_onRemoveActorHolder = delegate(ActorData A_0)
 		{
 		};
-		GameFlowData.s_onActiveOwnedActorChange = delegate(ActorData A_0)
+		GameFlowData.s_onActiveOwnedActorChangeHolder = delegate(ActorData A_0)
 		{
 		};
-		GameFlowData.s_onGameStateChanged = delegate(GameState A_0)
+		GameFlowData.s_onGameStateChangedHolder = delegate(GameState A_0)
 		{
 		};
 		GameFlowData.s_loadingScreenTime = 4f;
@@ -126,105 +126,109 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		NetworkCRC.RegisterBehaviour("GameFlowData", 0);
 	}
 
+	private static Action<ActorData> s_onAddActorHolder;
 	internal static event Action<ActorData> s_onAddActor
 	{
 		add
 		{
-			Action<ActorData> action = GameFlowData.s_onAddActor;
+			Action<ActorData> action = GameFlowData.s_onAddActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActor, (Action<ActorData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActorHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ActorData> action = GameFlowData.s_onAddActor;
+			Action<ActorData> action = GameFlowData.s_onAddActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActor, (Action<ActorData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onAddActorHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private static Action<ActorData> s_onRemoveActorHolder;
 	internal static event Action<ActorData> s_onRemoveActor
 	{
 		add
 		{
-			Action<ActorData> action = GameFlowData.s_onRemoveActor;
+			Action<ActorData> action = GameFlowData.s_onRemoveActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActor, (Action<ActorData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActorHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ActorData> action = GameFlowData.s_onRemoveActor;
+			Action<ActorData> action = GameFlowData.s_onRemoveActorHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActor, (Action<ActorData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onRemoveActorHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private static Action<ActorData> s_onActiveOwnedActorChangeHolder;
 	internal static event Action<ActorData> s_onActiveOwnedActorChange
 	{
 		add
 		{
-			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChange;
+			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChangeHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChange, (Action<ActorData>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChangeHolder, (Action<ActorData>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChange;
+			Action<ActorData> action = GameFlowData.s_onActiveOwnedActorChangeHolder;
 			Action<ActorData> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChange, (Action<ActorData>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<ActorData>>(ref GameFlowData.s_onActiveOwnedActorChangeHolder, (Action<ActorData>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private static Action<GameState> s_onGameStateChangedHolder;
 	internal static event Action<GameState> s_onGameStateChanged
 	{
 		add
 		{
-			Action<GameState> action = GameFlowData.s_onGameStateChanged;
+			Action<GameState> action = GameFlowData.s_onGameStateChangedHolder;
 			Action<GameState> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChanged, (Action<GameState>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChangedHolder, (Action<GameState>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<GameState> action = GameFlowData.s_onGameStateChanged;
+			Action<GameState> action = GameFlowData.s_onGameStateChangedHolder;
 			Action<GameState> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChanged, (Action<GameState>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<GameState>>(ref GameFlowData.s_onGameStateChangedHolder, (Action<GameState>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -307,10 +311,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private void OnDestroy()
 	{
-		GameFlowData.s_onActiveOwnedActorChange = null;
-		GameFlowData.s_onAddActor = null;
-		GameFlowData.s_onRemoveActor = null;
-		GameFlowData.s_onGameStateChanged = null;
+		GameFlowData.s_onActiveOwnedActorChangeHolder = null;
+		GameFlowData.s_onAddActorHolder = null;
+		GameFlowData.s_onRemoveActorHolder = null;
+		GameFlowData.s_onGameStateChangedHolder = null;
 		if (GameEventManager.Get() != null)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameTeardown);
@@ -919,9 +923,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			if (flag)
 			{
-				if (GameFlowData.s_onActiveOwnedActorChange != null)
+				if (GameFlowData.s_onActiveOwnedActorChangeHolder != null)
 				{
-					GameFlowData.s_onActiveOwnedActorChange(value);
+					GameFlowData.s_onActiveOwnedActorChangeHolder(value);
 				}
 			}
 			if (flag2)
@@ -1126,9 +1130,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		this.m_actors.Add(actor);
 		if (NetworkServer.active)
 		{
-			if (GameFlowData.s_onAddActor != null)
+			if (GameFlowData.s_onAddActorHolder != null)
 			{
-				GameFlowData.s_onAddActor(actor);
+				GameFlowData.s_onAddActorHolder(actor);
 			}
 		}
 	}
@@ -1257,9 +1261,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				this.m_actors.Remove(actor);
 			}
 			this.SetLocalPlayerData();
-			if (GameFlowData.s_onRemoveActor != null)
+			if (GameFlowData.s_onRemoveActorHolder != null)
 			{
-				GameFlowData.s_onRemoveActor(actor);
+				GameFlowData.s_onRemoveActorHolder(actor);
 			}
 		}
 		else
@@ -1342,9 +1346,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			this.m_timeInDecision = 0f;
 			break;
 		}
-		if (GameFlowData.s_onGameStateChanged != null)
+		if (GameFlowData.s_onGameStateChangedHolder != null)
 		{
-			GameFlowData.s_onGameStateChanged(this.m_gameState);
+			GameFlowData.s_onGameStateChangedHolder(this.m_gameState);
 		}
 	}
 

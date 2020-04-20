@@ -1,4 +1,4 @@
-#region License and information
+﻿#region License and information
 /* * * * *
  * 
  * Unity extension for the SimpleJSON framework. It does only work together with

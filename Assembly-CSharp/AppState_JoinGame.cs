@@ -80,9 +80,8 @@ public class AppState_JoinGame : AppState
 			IL_CA:
 			AppState_JoinGame.s_joinPending = true;
 			ClientGameManager clientGameManager = ClientGameManager.Get();
-			if (AppState_JoinGame.f__am_cache0 == null)
-			{
-				AppState_JoinGame.f__am_cache0 = delegate(JoinGameResponse response)
+			
+			clientGameManager.JoinGame(gameInfo, asSpectator, delegate(JoinGameResponse response)
 				{
 					AppState_JoinGame.s_joinPending = false;
 					if (response.Success)
@@ -97,9 +96,7 @@ public class AppState_JoinGame : AppState
 					{
 						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, string.Format("{0}#NeedsLocalization", response.ErrorMessage), StringUtil.TR("Ok", "Global"), null, -1, false);
 					}
-				};
-			}
-			clientGameManager.JoinGame(gameInfo, asSpectator, AppState_JoinGame.f__am_cache0);
+				});
 		}
 	}
 

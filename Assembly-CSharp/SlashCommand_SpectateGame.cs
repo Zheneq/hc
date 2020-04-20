@@ -15,9 +15,8 @@ public class SlashCommand_SpectateGame : SlashCommand
 			TextConsole.Get().Write(StringUtil.TR("FriendGameSpectatingNotAvailable", "Frontend"), ConsoleMessageType.SystemMessage);
 			return;
 		}
-		if (SlashCommand_SpectateGame.f__am_cache0 == null)
-		{
-			SlashCommand_SpectateGame.f__am_cache0 = delegate(GameSpectatorResponse response)
+		
+		Action<GameSpectatorResponse> onResponseCallback = delegate(GameSpectatorResponse response)
 			{
 				TextConsole.Message message = default(TextConsole.Message);
 				message.MessageType = ConsoleMessageType.SystemMessage;
@@ -38,8 +37,6 @@ public class SlashCommand_SpectateGame : SlashCommand
 					TextConsole.Get().Write(message, null);
 				}
 			};
-		}
-		Action<GameSpectatorResponse> onResponseCallback = SlashCommand_SpectateGame.f__am_cache0;
 		if (!arguments.IsNullOrEmpty())
 		{
 			if (!(ClientGameManager.Get() == null))

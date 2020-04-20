@@ -342,18 +342,18 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public ActorData()
 	{
-		this.OnTurnStartDelegates = delegate()
+		this.OnTurnStartDelegatesHolder = delegate()
 		{
 		};
-		this.OnAnimationEventDelegates = delegate(UnityEngine.Object A_0, GameObject A_1)
+		this.OnAnimationEventDelegatesHolder = delegate(UnityEngine.Object A_0, GameObject A_1)
 		{
 		};
 		
-		this.OnSelectedAbilityChangedDelegates = delegate(Ability A_0)
+		this.OnSelectedAbilityChangedDelegatesHolder = delegate(Ability A_0)
 			{
 			};
 		
-		this.OnClientQueuedActionChangedDelegates = delegate()
+		this.OnClientQueuedActionChangedDelegatesHolder = delegate()
 			{
 			};
 		this.m_serializeHelper = new SerializeHelper();
@@ -1860,82 +1860,86 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	private Action OnTurnStartDelegatesHolder;
 	public event Action OnTurnStartDelegates
 	{
 		add
 		{
-			Action action = this.OnTurnStartDelegates;
+			Action action = this.OnTurnStartDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnTurnStartDelegates, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.OnTurnStartDelegatesHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action action = this.OnTurnStartDelegates;
+			Action action = this.OnTurnStartDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnTurnStartDelegates, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.OnTurnStartDelegatesHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
 	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private Action<UnityEngine.Object, GameObject> OnAnimationEventDelegatesHolder;
 	public event Action<UnityEngine.Object, GameObject> OnAnimationEventDelegates;
 
+	private Action<Ability> OnSelectedAbilityChangedDelegatesHolder;
 	public event Action<Ability> OnSelectedAbilityChangedDelegates
 	{
 		add
 		{
-			Action<Ability> action = this.OnSelectedAbilityChangedDelegates;
+			Action<Ability> action = this.OnSelectedAbilityChangedDelegatesHolder;
 			Action<Ability> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<Ability>>(ref this.OnSelectedAbilityChangedDelegates, (Action<Ability>)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action<Ability>>(ref this.OnSelectedAbilityChangedDelegatesHolder, (Action<Ability>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action<Ability> action = this.OnSelectedAbilityChangedDelegates;
+			Action<Ability> action = this.OnSelectedAbilityChangedDelegatesHolder;
 			Action<Ability> action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action<Ability>>(ref this.OnSelectedAbilityChangedDelegates, (Action<Ability>)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action<Ability>>(ref this.OnSelectedAbilityChangedDelegatesHolder, (Action<Ability>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
 	}
 
+	private Action OnClientQueuedActionChangedDelegatesHolder;
 	public event Action OnClientQueuedActionChangedDelegates
 	{
 		add
 		{
-			Action action = this.OnClientQueuedActionChangedDelegates;
+			Action action = this.OnClientQueuedActionChangedDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnClientQueuedActionChangedDelegates, (Action)Delegate.Combine(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.OnClientQueuedActionChangedDelegatesHolder, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
 		}
 		remove
 		{
-			Action action = this.OnClientQueuedActionChangedDelegates;
+			Action action = this.OnClientQueuedActionChangedDelegatesHolder;
 			Action action2;
 			do
 			{
 				action2 = action;
-				action = Interlocked.CompareExchange<Action>(ref this.OnClientQueuedActionChangedDelegates, (Action)Delegate.Remove(action2, value), action);
+				action = Interlocked.CompareExchange<Action>(ref this.OnClientQueuedActionChangedDelegatesHolder, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
 		}
@@ -1943,17 +1947,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnClientQueuedActionChanged()
 	{
-		if (this.OnClientQueuedActionChangedDelegates != null)
+		if (this.OnClientQueuedActionChangedDelegatesHolder != null)
 		{
-			this.OnClientQueuedActionChangedDelegates();
+			this.OnClientQueuedActionChangedDelegatesHolder();
 		}
 	}
 
 	public void OnSelectedAbilityChanged(Ability ability)
 	{
-		if (this.OnSelectedAbilityChangedDelegates != null)
+		if (this.OnSelectedAbilityChangedDelegatesHolder != null)
 		{
-			this.OnSelectedAbilityChangedDelegates(ability);
+			this.OnSelectedAbilityChangedDelegatesHolder(ability);
 		}
 	}
 
@@ -4386,9 +4390,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		if (this.OnTurnStartDelegates != null)
+		if (this.OnTurnStartDelegatesHolder != null)
 		{
-			this.OnTurnStartDelegates();
+			this.OnTurnStartDelegatesHolder();
 		}
 	}
 
@@ -5451,9 +5455,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnAnimEvent(UnityEngine.Object eventObject, GameObject sourceObject)
 	{
-		if (this.OnAnimationEventDelegates != null)
+		if (this.OnAnimationEventDelegatesHolder != null)
 		{
-			this.OnAnimationEventDelegates(eventObject, sourceObject);
+			this.OnAnimationEventDelegatesHolder(eventObject, sourceObject);
 		}
 	}
 
