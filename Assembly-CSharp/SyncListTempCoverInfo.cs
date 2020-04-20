@@ -17,4 +17,14 @@ public class SyncListTempCoverInfo : SyncListStruct<TempCoverInfo>
 			m_ignoreMinDist = reader.ReadBoolean()
 		};
 	}
+
+	public void SerializeItemPublic(NetworkWriter writer, TempCoverInfo item)
+	{
+		SerializeItem(writer, item);
+	}
+
+	public TempCoverInfo DeserializeItemPublic(NetworkReader reader)
+	{
+		return DeserializeItem(reader);
+	}
 }

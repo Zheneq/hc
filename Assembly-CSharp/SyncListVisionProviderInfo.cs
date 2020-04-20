@@ -33,4 +33,14 @@ public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
 			m_canFunctionInGlobalBlind = reader.ReadBoolean()
 		};
 	}
+
+	public void SerializeItemPublic(NetworkWriter writer, VisionProviderInfo item)
+	{
+		SerializeItem(writer, item);
+	}
+
+	public VisionProviderInfo DeserializeItemPublic(NetworkReader reader)
+	{
+		return DeserializeItem(reader);
+	}
 }
