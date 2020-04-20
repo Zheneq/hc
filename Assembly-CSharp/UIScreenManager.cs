@@ -142,15 +142,15 @@ public class UIScreenManager : MonoBehaviour
 				}
 				switch (gameStatus)
 				{
-				case 3:
-				case 4:
-				case 5:
-				case 6:
-				case 7:
-				case 8:
-				case 9:
-				case 0xA:
-				case 0xB:
+				case GameStatus.LoadoutSelecting:
+				case GameStatus.Launching:
+				case GameStatus.Launched:
+				case GameStatus.Connecting:
+				case GameStatus.Connected:
+				case GameStatus.Authenticated:
+				case GameStatus.Loading:
+				case GameStatus.Loaded:
+				case GameStatus.Started:
 					break;
 				default:
 					if (flag)
