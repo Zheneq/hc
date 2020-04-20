@@ -25,7 +25,7 @@ public class ClientCrashReportDetector : MonoBehaviour
 		try
 		{
 			DirectoryInfo parent = Directory.GetParent(Application.dataPath);
-			string path = parent?.FullName ?? string.Empty();
+			string path = parent?.FullName ?? string.Empty;
 			string[] directories = Directory.GetDirectories(path);
 			int i = 0;
 			while (i < directories.Length)
@@ -173,23 +173,14 @@ public class ClientCrashReportDetector : MonoBehaviour
 	private IEnumerator UploadArchiveCoroutine(string crashServerAndArchiveURL, byte[] crashReportBytes, Action<bool> endEvent)
 	{
 		bool flag = false;
-		uint num;
 		WWW client;
-		switch (num)
+		Log.Info("Attempting to start WWW to post {0} crash report bytes to URL {1}", new object[]
 		{
-		case 0U:
-			Log.Info("Attempting to start WWW to post {0} crash report bytes to URL {1}", new object[]
-			{
-				crashReportBytes.Length,
-				crashServerAndArchiveURL
-			});
-			client = new WWW(crashServerAndArchiveURL, crashReportBytes);
-			break;
-		case 1U:
-			break;
-		default:
-			yield break;
-		}
+			crashReportBytes.Length,
+			crashServerAndArchiveURL
+		});
+		client = new WWW(crashServerAndArchiveURL, crashReportBytes);
+			
 		try
 		{
 			yield return client;
