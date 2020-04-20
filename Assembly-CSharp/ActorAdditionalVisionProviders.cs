@@ -111,22 +111,12 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			if (this.m_visionProviders[i].IsEqual(actorIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, flag, canFunctionInGlobalBlind))
 			{
 				num = i;
-				IL_78:
-				if (num >= 0)
-				{
-					this.m_visionProviders.RemoveAt(num);
-				}
-				return;
+				break;
 			}
 		}
-		for (;;)
+		if (num >= 0)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_78;
+			this.m_visionProviders.RemoveAt(num);
 		}
 	}
 
