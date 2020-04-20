@@ -181,37 +181,20 @@ public static class VectorUtils
 			array2[1] = vector2;
 			array2[2] = vector2 + b2;
 		}
-		int i = 0;
-		IL_26F:
-		while (i < array.Length)
+		
+		for (int i = 0; i < array.Length; i++)
 		{
-			int j = 0;
-			while (j < array2.Length)
+			for (int j = 0; j < array2.Length; j++)
 			{
 				flag = VectorUtils.HasLineOfSight(array[i], array2[j], layerName);
 				if (flag)
 				{
-					IL_259:
-					if (flag)
-					{
-						return flag;
-					}
-					i++;
-					goto IL_26F;
-				}
-				else
-				{
-					j++;
+					break;
 				}
 			}
-			for (;;)
+			if (flag)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_259;
+				return flag;
 			}
 		}
 		return flag;
