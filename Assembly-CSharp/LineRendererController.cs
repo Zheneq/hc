@@ -87,40 +87,28 @@ public class LineRendererController : MonoBehaviour
 			if (entries.Length > 0)
 			{
 				int num = entries.Length;
-				int i = 0;
-				while (i < entries.Length)
+				
+				for (int i = 0; i < entries.Length; i++)
 				{
 					if (entries[i].m_time > curTime)
 					{
 						num = i;
-						IL_53:
-						if (num == 0)
-						{
-							return entries[num].m_value;
-						}
-						if (num == entries.Length)
-						{
-							return entries[entries.Length - 1].m_value;
-						}
-						float time = entries[num].m_time;
-						float time2 = entries[num - 1].m_time;
-						float t = (curTime - time2) / (time - time2);
-						return Mathf.Lerp(entries[num - 1].m_value, entries[num].m_value, t);
+						break;
 					}
-					else
-					{
-						i++;
-					}
+
 				}
-				for (;;)
+				if (num == 0)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_53;
+					return entries[num].m_value;
 				}
+				if (num == entries.Length)
+				{
+					return entries[entries.Length - 1].m_value;
+				}
+				float time = entries[num].m_time;
+				float time2 = entries[num - 1].m_time;
+				float t = (curTime - time2) / (time - time2);
+				return Mathf.Lerp(entries[num - 1].m_value, entries[num].m_value, t);
 			}
 		}
 		return result;
