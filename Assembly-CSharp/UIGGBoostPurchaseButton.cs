@@ -31,7 +31,7 @@ public class UIGGBoostPurchaseButton : MonoBehaviour
 		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
 		uipurchaseableItem.m_itemType = PurchaseItemType.GGBoost;
 		uipurchaseableItem.m_ggPack = this.PackRef;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 	}
 
