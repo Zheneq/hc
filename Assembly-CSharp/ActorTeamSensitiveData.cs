@@ -1071,12 +1071,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						{
 							if (boardSquareUnsafe.OccupantActor.GetTeam() != actor.GetTeam())
 							{
-								string arg = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquareUnsafe.OccupantActor.m_characterType + 1));
+								string arg = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", 2 * (int)boardSquareUnsafe.OccupantActor.m_characterType + 1);
 								text = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.GetFancyDisplayName(), arg, boardSquareUnsafe.OccupantActor.GetFancyDisplayName());
 							}
 							else if (boardSquareUnsafe.OccupantActor != actor)
 							{
-								string arg2 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquareUnsafe.OccupantActor.m_characterType));
+								string arg2 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", 2 * (int)boardSquareUnsafe.OccupantActor.m_characterType);
 								text = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.GetFancyDisplayName(), arg2, boardSquareUnsafe.OccupantActor.GetFancyDisplayName());
 							}
 							else
@@ -1100,12 +1100,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							{
 								if (boardSquareUnsafe2.OccupantActor.GetTeam() != actor.GetTeam())
 								{
-									string arg3 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquareUnsafe2.OccupantActor.m_characterType + 1));
+									string arg3 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", 2 * (int)boardSquareUnsafe2.OccupantActor.m_characterType + 1);
 									text = string.Format(StringUtil.TR("DangerEnemy", "Ping"), actor.GetFancyDisplayName(), arg3, boardSquareUnsafe2.OccupantActor.GetFancyDisplayName());
 								}
 								else if (boardSquareUnsafe2.OccupantActor != actor)
 								{
-									string arg4 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquareUnsafe2.OccupantActor.m_characterType));
+									string arg4 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", 2 * (int)boardSquareUnsafe2.OccupantActor.m_characterType);
 									text = string.Format(StringUtil.TR("DangerAlly", "Ping"), actor.GetFancyDisplayName(), arg4, boardSquareUnsafe2.OccupantActor.GetFancyDisplayName());
 								}
 								else
@@ -1129,7 +1129,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							{
 								if (boardSquareUnsafe3.OccupantActor.GetTeam() != actor.GetTeam())
 								{
-									string arg5 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquareUnsafe3.OccupantActor.m_characterType + 1));
+									string arg5 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", 2 * (int)boardSquareUnsafe3.OccupantActor.m_characterType + 1);
 									text = string.Format(StringUtil.TR("AttackEnemy", "Ping"), actor.GetFancyDisplayName(), arg5, boardSquareUnsafe3.OccupantActor.GetFancyDisplayName());
 								}
 								else
@@ -1153,12 +1153,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 							{
 								if (boardSquareUnsafe4.OccupantActor.GetTeam() != actor.GetTeam())
 								{
-									string arg6 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquareUnsafe4.OccupantActor.m_characterType + 1));
+									string arg6 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", 2 * (int)boardSquareUnsafe4.OccupantActor.m_characterType + 1);
 									text = string.Format(StringUtil.TR("MoveEnemy", "Ping"), actor.GetFancyDisplayName(), arg6, boardSquareUnsafe4.OccupantActor.GetFancyDisplayName());
 								}
 								else if (boardSquareUnsafe4.OccupantActor != actor)
 								{
-									string arg7 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", (int)(CharacterType.BazookaGirl * boardSquareUnsafe4.OccupantActor.m_characterType));
+									string arg7 = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>", 2 * (int)boardSquareUnsafe4.OccupantActor.m_characterType);
 									text = string.Format(StringUtil.TR("MoveAlly", "Ping"), actor.GetFancyDisplayName(), arg7, boardSquareUnsafe4.OccupantActor.GetFancyDisplayName());
 								}
 								else
