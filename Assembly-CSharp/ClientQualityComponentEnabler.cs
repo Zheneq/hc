@@ -382,7 +382,8 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 							particleSystem.gameObject.SetActive(true);
 							particleSystem.Play();
 						}
-						particleSystem.emission.enabled = true;
+						var emission = particleSystem.emission;
+						emission.enabled = true;
 					}
 				}
 				else
@@ -396,7 +397,8 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 							particleSystem2.Stop();
 							particleSystem2.Clear();
 						}
-						particleSystem2.emission.enabled = false;
+						var emission = particleSystem2.emission;
+						emission.enabled = false;
 					}
 				}
 			}
