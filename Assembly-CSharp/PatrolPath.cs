@@ -64,7 +64,7 @@ public class PatrolPath
 		{
 			if (num2 <= -1 || num2 >= this.mWayPoints.Count)
 			{
-				this.m_Direction = -this.m_Direction;
+				this.m_Direction = (PatrolPath.Direction)(-(int)this.m_Direction);
 				num2 = (int)(num2 + this.m_Direction);
 				Debug.Log(string.Concat(new object[]
 				{
