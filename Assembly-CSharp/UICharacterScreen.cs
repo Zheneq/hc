@@ -528,7 +528,7 @@ public class UICharacterScreen : UIScene
 					{
 						if (this.m_gameSubTypeBtns[i].btn.IsChecked())
 						{
-							newMask = (this.m_gameSubTypeBtns[i].SubTypeBit | newMask);
+							newMask = (ushort)(this.m_gameSubTypeBtns[i].SubTypeBit | newMask);
 						}
 					}
 				}
@@ -578,41 +578,29 @@ public class UICharacterScreen : UIScene
 					if ((exclusiveModBitsOfGameTypeToDisplay | this.m_gameSubTypeBtns[j].SubTypeBit) != 0)
 					{
 						num = this.m_gameSubTypeBtns[j].SubTypeBit;
-						IL_2DE:
-						if (num != 0)
-						{
-							newMask = num;
-							goto IL_2F4;
-						}
-						goto IL_2F4;
+						break;
 					}
 				}
 			}
-			for (;;)
+			if (num != 0)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_2DE;
+				newMask = num;
 			}
 		}
-		IL_2F4:
 		if (num == 0)
 		{
 			for (int k = 0; k < this.m_gameSubTypeBtns.Count; k++)
 			{
 				if (this.m_gameSubTypeBtns[k].btn.IsChecked())
 				{
-					newMask = (this.m_gameSubTypeBtns[k].SubTypeBit | newMask);
+					newMask = (ushort)(this.m_gameSubTypeBtns[k].SubTypeBit | newMask);
 				}
 			}
 		}
 		ushort num2 = 0;
 		for (int l = 0; l < this.m_gameSubTypeBtns.Count; l++)
 		{
-			num2 = (this.m_gameSubTypeBtns[l].SubTypeBit | num2);
+			num2 = (ushort)(this.m_gameSubTypeBtns[l].SubTypeBit | num2);
 		}
 		if (num2 != 0)
 		{
