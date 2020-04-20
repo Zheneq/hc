@@ -1861,213 +1861,153 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	public BoardSquarePathInfo BuildPathTo_Orig(BoardSquare src, BoardSquare dest, float maxHorizontalMovement, bool ignoreBarriers, List<BoardSquare> claimedSquares)
 	{
 		BoardSquarePathInfo boardSquarePathInfo = null;
-		if (!(src == null))
+		if (src != null &&  dest != null)
 		{
-			if (dest == null)
+			Vector3 tieBreakDir = dest.ToVector3() - src.ToVector3();
+			Vector3 tieBreakTestPos = src.ToVector3();
+			BuildNormalPathNodePool normalPathBuildScratchPool = Board.Get().m_normalPathBuildScratchPool;
+			normalPathBuildScratchPool.ResetAvailableNodeIndex();
+			List<BoardSquarePathInfo> list = new List<BoardSquarePathInfo>();
+			Dictionary<BoardSquare, BoardSquarePathInfo> dictionary = new Dictionary<BoardSquare, BoardSquarePathInfo>();
+			BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
+			allocatedNode.square = src;
+			list.Add(allocatedNode);
+			List<BoardSquare> list2 = new List<BoardSquare>(8);
+			bool diagonalMovementEnabled = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
+			bool canExceedMaxMovement = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
+			bool destClaimed = claimedSquares != null && claimedSquares.Contains(dest);
+			while (list.Count > 0)
 			{
-			}
-			else
-			{
-				Vector3 tieBreakDir = dest.ToVector3() - src.ToVector3();
-				Vector3 tieBreakTestPos = src.ToVector3();
-				BuildNormalPathNodePool normalPathBuildScratchPool = Board.Get().m_normalPathBuildScratchPool;
-				normalPathBuildScratchPool.ResetAvailableNodeIndex();
-				List<BoardSquarePathInfo> list = new List<BoardSquarePathInfo>();
-				Dictionary<BoardSquare, BoardSquarePathInfo> dictionary = new Dictionary<BoardSquare, BoardSquarePathInfo>();
-				BoardSquarePathInfo allocatedNode = normalPathBuildScratchPool.GetAllocatedNode();
-				allocatedNode.square = src;
-				list.Add(allocatedNode);
-				List<BoardSquare> list2 = new List<BoardSquare>(8);
-				bool flag = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
-				bool flag2 = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
-				bool flag3;
-				if (claimedSquares != null)
+				list.Sort(delegate(BoardSquarePathInfo p1, BoardSquarePathInfo p2)
 				{
-					flag3 = claimedSquares.Contains(dest);
+					if (Mathf.Approximately(p1.F_cost, p2.F_cost))
+					{
+						Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
+						Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
+						return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
+					}
+					return p1.F_cost.CompareTo(p2.F_cost);
+				});
+				BoardSquarePathInfo boardSquarePathInfo2 = list[0];
+				tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
+				if (boardSquarePathInfo2.prev != null)
+				{
+					tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
+				}
+				if (boardSquarePathInfo2.square == dest)
+				{
+					boardSquarePathInfo = boardSquarePathInfo2;
+					break;
+				}
+				dictionary[boardSquarePathInfo2.square] = boardSquarePathInfo2;
+				list.Remove(boardSquarePathInfo2);
+				list2.Clear();
+				if (!diagonalMovementEnabled)
+				{
+					Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
 				}
 				else
 				{
-					flag3 = false;
+					Board.Get().GetAllAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
 				}
-				bool flag4 = flag3;
-				while (list.Count > 0)
+				for (int i = 0; i < list2.Count; i++)
 				{
-					list.Sort(delegate(BoardSquarePathInfo p1, BoardSquarePathInfo p2)
+					BoardSquare boardSquare = list2[i];
+					bool diag = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
+					float cost = boardSquarePathInfo2.moveCost + (diag ? 1.5f : 1f);
+					bool validMove = canExceedMaxMovement
+						? boardSquarePathInfo2.moveCost < maxHorizontalMovement
+						: cost <= maxHorizontalMovement;
+					if (validMove)
 					{
-						if (Mathf.Approximately(p1.F_cost, p2.F_cost))
+						BoardSquare square = boardSquarePathInfo2.square;
+						BoardSquare dest2 = boardSquare;
+						ActorMovement.DiagonalCalcFlag diagonalFlag = diag ? ActorMovement.DiagonalCalcFlag.IsDiagonal : ActorMovement.DiagonalCalcFlag.NotDiagonal;
+
+						if (this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag) && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
 						{
-							Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
-							Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
-							return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
-						}
-						return p1.F_cost.CompareTo(p2.F_cost);
-					});
-					BoardSquarePathInfo boardSquarePathInfo2 = list[0];
-					tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
-					if (boardSquarePathInfo2.prev != null)
-					{
-						tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
-					}
-					if (boardSquarePathInfo2.square == dest)
-					{
-						boardSquarePathInfo = boardSquarePathInfo2;
-						IL_56F:
-						if (boardSquarePathInfo != null)
-						{
-							while (boardSquarePathInfo.prev != null)
+							BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
+							allocatedNode2.square = boardSquare;
+							allocatedNode2.moveCost = cost;
+							if (claimedSquares != null && destClaimed)
 							{
-								boardSquarePathInfo.prev.next = boardSquarePathInfo;
-								boardSquarePathInfo = boardSquarePathInfo.prev;
-							}
-							boardSquarePathInfo = boardSquarePathInfo.Clone(null);
-							normalPathBuildScratchPool.ResetAvailableNodeIndex();
-						}
-						return boardSquarePathInfo;
-					}
-					dictionary[boardSquarePathInfo2.square] = boardSquarePathInfo2;
-					list.Remove(boardSquarePathInfo2);
-					list2.Clear();
-					if (!flag)
-					{
-						Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
-					}
-					else
-					{
-						Board.Get().GetAllAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
-					}
-					for (int i = 0; i < list2.Count; i++)
-					{
-						BoardSquare boardSquare = list2[i];
-						bool flag5 = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
-						float num;
-						if (flag5)
-						{
-							num = boardSquarePathInfo2.moveCost + 1.5f;
-						}
-						else
-						{
-							num = boardSquarePathInfo2.moveCost + 1f;
-						}
-						bool flag6;
-						if (!flag2)
-						{
-							flag6 = (num <= maxHorizontalMovement);
-						}
-						else
-						{
-							flag6 = (boardSquarePathInfo2.moveCost < maxHorizontalMovement);
-						}
-						if (flag6)
-						{
-							BoardSquare square = boardSquarePathInfo2.square;
-							BoardSquare dest2 = boardSquare;
-							ActorMovement.DiagonalCalcFlag diagonalFlag;
-							if (flag5)
-							{
-								diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
-							}
-							else
-							{
-								diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
-							}
-							if (!this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag))
-							{
-							}
-							else if (!FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
-							{
-							}
-							else
-							{
-								BoardSquarePathInfo allocatedNode2 = normalPathBuildScratchPool.GetAllocatedNode();
-								allocatedNode2.square = boardSquare;
-								allocatedNode2.moveCost = num;
-								if (claimedSquares != null && flag4)
+								if (allocatedNode2.square == dest)
 								{
-									if (allocatedNode2.square == dest)
+									int num2 = 1;
+									BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
+									while (boardSquarePathInfo3 != null)
 									{
-										int num2 = 1;
-										BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
-										while (boardSquarePathInfo3 != null)
+										if (!claimedSquares.Contains(boardSquarePathInfo3.square))
 										{
-											if (!claimedSquares.Contains(boardSquarePathInfo3.square))
-											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													goto IL_372;
-												}
-											}
-											else
-											{
-												num2++;
-												boardSquarePathInfo3 = boardSquarePathInfo3.prev;
-											}
-										}
-										IL_372:
-										allocatedNode2.m_expectedBackupNum = num2;
-									}
-								}
-								float squareSize = Board.Get().squareSize;
-								if (!flag2)
-								{
-									allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
-								}
-								else
-								{
-									float num3 = (float)Mathf.Abs(boardSquare.x - dest.x);
-									float num4 = (float)Mathf.Abs(boardSquare.y - dest.y);
-									float num5 = num3 + num4 - 0.5f * Mathf.Min(num3, num4);
-									float heuristicCost = Mathf.Max(0f, num5 - 1.01f);
-									allocatedNode2.heuristicCost = heuristicCost;
-								}
-								allocatedNode2.prev = boardSquarePathInfo2;
-								bool flag7 = false;
-								if (dictionary.ContainsKey(allocatedNode2.square))
-								{
-									flag7 = (allocatedNode2.F_cost > dictionary[allocatedNode2.square].F_cost);
-								}
-								if (!flag7)
-								{
-									bool flag8 = false;
-									for (int j = 0; j < list.Count; j++)
-									{
-										BoardSquarePathInfo boardSquarePathInfo4 = list[j];
-										if (boardSquarePathInfo4.square == allocatedNode2.square)
-										{
-											flag8 = true;
-											if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
-											{
-												boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
-												boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
-												boardSquarePathInfo4.prev = allocatedNode2.prev;
-												boardSquarePathInfo4.m_expectedBackupNum = allocatedNode2.m_expectedBackupNum;
-											}
 											break;
 										}
+										else
+										{
+											num2++;
+											boardSquarePathInfo3 = boardSquarePathInfo3.prev;
+										}
 									}
-									if (!flag8)
+									allocatedNode2.m_expectedBackupNum = num2;
+								}
+							}
+							float squareSize = Board.Get().squareSize;
+							if (!canExceedMaxMovement)
+							{
+								allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
+							}
+							else
+							{
+								float num3 = (float)Mathf.Abs(boardSquare.x - dest.x);
+								float num4 = (float)Mathf.Abs(boardSquare.y - dest.y);
+								float num5 = num3 + num4 - 0.5f * Mathf.Min(num3, num4);
+								float heuristicCost = Mathf.Max(0f, num5 - 1.01f);
+								allocatedNode2.heuristicCost = heuristicCost;
+							}
+							allocatedNode2.prev = boardSquarePathInfo2;
+							bool flag7 = false;
+							if (dictionary.ContainsKey(allocatedNode2.square))
+							{
+								flag7 = (allocatedNode2.F_cost > dictionary[allocatedNode2.square].F_cost);
+							}
+							if (!flag7)
+							{
+								bool flag8 = false;
+								for (int j = 0; j < list.Count; j++)
+								{
+									BoardSquarePathInfo boardSquarePathInfo4 = list[j];
+									if (boardSquarePathInfo4.square == allocatedNode2.square)
 									{
-										list.Add(allocatedNode2);
+										flag8 = true;
+										if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
+										{
+											boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
+											boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
+											boardSquarePathInfo4.prev = allocatedNode2.prev;
+											boardSquarePathInfo4.m_expectedBackupNum = allocatedNode2.m_expectedBackupNum;
+										}
+										break;
 									}
+								}
+								if (!flag8)
+								{
+									list.Add(allocatedNode2);
 								}
 							}
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_56F;
-				}
 			}
+			if (boardSquarePathInfo != null)
+			{
+				while (boardSquarePathInfo.prev != null)
+				{
+					boardSquarePathInfo.prev.next = boardSquarePathInfo;
+					boardSquarePathInfo = boardSquarePathInfo.prev;
+				}
+				boardSquarePathInfo = boardSquarePathInfo.Clone(null);
+				normalPathBuildScratchPool.ResetAvailableNodeIndex();
+			}
+			return boardSquarePathInfo;
 		}
 		return boardSquarePathInfo;
 	}
