@@ -96,18 +96,8 @@ public class ServerMessage
 		get
 		{
 			bool flag = false;
-			uint num;
-			IEnumerator<ServerMessageLanguage> enumerator;
-			switch (num)
-			{
-			case 0U:
-				enumerator = Enum.GetValues(typeof(ServerMessageLanguage)).Cast<ServerMessageLanguage>().GetEnumerator();
-				break;
-			case 1U:
-				break;
-			default:
-				yield break;
-			}
+			IEnumerator<ServerMessageLanguage> enumerator = Enum.GetValues(typeof(ServerMessageLanguage)).Cast<ServerMessageLanguage>().GetEnumerator();
+
 			try
 			{
 				while (enumerator.MoveNext())
