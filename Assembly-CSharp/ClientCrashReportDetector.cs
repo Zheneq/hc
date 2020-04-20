@@ -25,16 +25,7 @@ public class ClientCrashReportDetector : MonoBehaviour
 		try
 		{
 			DirectoryInfo parent = Directory.GetParent(Application.dataPath);
-			string text;
-			if (parent == null)
-			{
-				text = string.Empty;
-			}
-			else
-			{
-				text = parent.FullName;
-			}
-			string path = text;
+			string path = parent?.FullName ?? string.Empty();
 			string[] directories = Directory.GetDirectories(path);
 			int i = 0;
 			while (i < directories.Length)
@@ -52,30 +43,22 @@ public class ClientCrashReportDetector : MonoBehaviour
 						continue;
 					}
 				}
-				IL_9A:
-				if (this.m_crashDumpDirectoryPath != null)
-				{
-					Log.Warning("Detected crash dump directory: " + this.m_crashDumpDirectoryPath, new object[0]);
-					if (UIDialogPopupManager.Ready)
-					{
-						this.CreateFirstDialog();
-					}
-					else
-					{
-						UIDialogPopupManager.OnReady += this.HandleUIDialogPopupManagerReady;
-					}
-				}
-				return;
+				break;
 			}
-			for (;;)
+			if (this.m_crashDumpDirectoryPath != null)
 			{
-				switch (6)
+				Log.Warning("Detected crash dump directory: " + this.m_crashDumpDirectoryPath, new object[0]);
+				if (UIDialogPopupManager.Ready)
 				{
-				case 0:
-					continue;
+					this.CreateFirstDialog();
 				}
-				goto IL_9A;
+				else
+				{
+					UIDialogPopupManager.OnReady += this.HandleUIDialogPopupManagerReady;
+				}
 			}
+			return;
+
 		}
 		catch (Exception exception)
 		{
