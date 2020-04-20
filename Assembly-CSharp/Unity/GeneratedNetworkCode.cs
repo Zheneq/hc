@@ -12,7 +12,7 @@ namespace Unity
 			instance.Clear();
 			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
 			{
-				instance.AddInternal(instance.DeserializeItem(reader));
+				instance.AddInternal(instance.DeserializeItemPublic(reader));
 			}
 			while (true)
 			{
@@ -35,7 +35,7 @@ namespace Unity
 			writer.Write(count);
 			for (ushort num = 0; num < count; num = (ushort)(num + 1))
 			{
-				value.SerializeItem(writer, value.GetItem(num));
+				value.SerializeItemPublic(writer, value.GetItem(num));
 			}
 			while (true)
 			{
@@ -58,7 +58,7 @@ namespace Unity
 			instance.Clear();
 			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
 			{
-				instance.AddInternal(instance.DeserializeItem(reader));
+				instance.AddInternal(instance.DeserializeItemPublic(reader));
 			}
 			while (true)
 			{
@@ -81,7 +81,7 @@ namespace Unity
 			writer.Write(count);
 			for (ushort num = 0; num < count; num = (ushort)(num + 1))
 			{
-				value.SerializeItem(writer, value.GetItem(num));
+				value.SerializeItemPublic(writer, value.GetItem(num));
 			}
 			while (true)
 			{
@@ -104,7 +104,7 @@ namespace Unity
 			instance.Clear();
 			for (ushort num2 = 0; num2 < num; num2 = (ushort)(num2 + 1))
 			{
-				instance.AddInternal(instance.DeserializeItem(reader));
+				instance.AddInternal(instance.DeserializeItemPublic(reader));
 			}
 			while (true)
 			{
@@ -127,7 +127,7 @@ namespace Unity
 			writer.Write(count);
 			for (ushort num = 0; num < count; num = (ushort)(num + 1))
 			{
-				value.SerializeItem(writer, value.GetItem(num));
+				value.SerializeItemPublic(writer, value.GetItem(num));
 			}
 		}
 

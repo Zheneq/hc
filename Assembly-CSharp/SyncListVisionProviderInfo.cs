@@ -2,7 +2,7 @@ using UnityEngine.Networking;
 
 public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
 {
-	public override void SerializeItem(NetworkWriter writer, VisionProviderInfo item)
+	protected override void SerializeItem(NetworkWriter writer, VisionProviderInfo item)
 	{
 		writer.WritePackedUInt32((uint)item.m_actorIndex);
 		writer.WritePackedUInt32((uint)item.m_satelliteIndex);
@@ -16,7 +16,7 @@ public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
 		writer.Write(item.m_canFunctionInGlobalBlind);
 	}
 
-	public override VisionProviderInfo DeserializeItem(NetworkReader reader)
+	protected override VisionProviderInfo DeserializeItem(NetworkReader reader)
 	{
 		VisionProviderInfo result = default(VisionProviderInfo);
 		result.m_actorIndex = (int)reader.ReadPackedUInt32();
@@ -30,5 +30,15 @@ public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
 		result.m_ignoreLos = reader.ReadBoolean();
 		result.m_canFunctionInGlobalBlind = reader.ReadBoolean();
 		return result;
+	}
+
+	public void SerializeItemPublic(NetworkWriter writer, VisionProviderInfo item)
+	{
+		SerializeItem(writer, item);
+	}
+
+	public VisionProviderInfo DeserializeItemPublic(NetworkReader reader)
+	{
+		return DeserializeItem(reader);
 	}
 }
