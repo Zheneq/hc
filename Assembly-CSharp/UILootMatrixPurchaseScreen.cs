@@ -35,7 +35,7 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 			UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
 			uipurchaseableItem.m_itemType = PurchaseItemType.LootMatrixPack;
 			uipurchaseableItem.m_lootMatrixPack = btn.PackRef;
-			UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+			UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 		}
 	}
