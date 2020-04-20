@@ -48,9 +48,8 @@ public class BannedWords
 							}
 						}
 						string[] subStrings = bannedWordsData.m_subStrings;
-						int l = 0;
-						IL_157:
-						while (l < subStrings.Length)
+						
+						for (int l = 0; l < subStrings.Length; l++)
 						{
 							string text2 = subStrings[l];
 							int length = text2.Length;
@@ -59,21 +58,11 @@ public class BannedWords
 								m = text.IndexOf(text2, m);
 								if (m == -1)
 								{
-									IL_151:
-									l++;
-									goto IL_157;
+									continue;
 								}
 								this.Mask(stringBuilder, i + m, length);
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_151;
-							}
+		
 						}
 						foreach (string text3 in bannedWordsData.m_prefixStrings)
 						{
@@ -96,19 +85,10 @@ public class BannedWords
 			}
 			if (num < 0)
 			{
-				IL_25A:
 				return stringBuilder.ToString();
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_25A;
-		}
+		return stringBuilder.ToString();
 	}
 
 	private void Mask(StringBuilder stringBuilder, int maskStartIndex, int maskLength)
