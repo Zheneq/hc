@@ -1886,7 +1886,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<UnityEngine.Object, GameObject> OnAnimationEventDelegates;
 
 	public event Action<Ability> OnSelectedAbilityChangedDelegates

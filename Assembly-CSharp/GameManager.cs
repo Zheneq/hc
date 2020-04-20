@@ -240,7 +240,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<GameStatus> OnGameStatusChanged;
 
 	public LobbyGameInfo GameInfo { get; private set; }

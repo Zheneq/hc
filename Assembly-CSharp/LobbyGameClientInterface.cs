@@ -29,8 +29,8 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	protected WebSocketMessageDispatcher<LobbyGameClientInterface> m_messageDispatcher;
 
-	public LobbyGameClientInterface()
-	{
+	public LobbyGameClientInterface() : base(Factory.Get())
+    {
 		this.OnConnected = delegate(RegisterGameClientResponse A_0)
 		{
 		};
@@ -176,7 +176,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		this.OnLobbySeasonQuestDataNotification = delegate(LobbySeasonQuestDataNotification A_0)
 			{
 			};
-		base..ctor(Factory.Get());
 		this.m_registered = false;
 		this.m_sessionInfo = new LobbySessionInfo();
 		base.ConnectionTimeout = 30f;
@@ -494,7 +493,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<ForcedCharacterChangeFromServerNotification> OnForcedCharacterChangeFromServerNotification;
 
 	public event Action<PlayerCharacterDataUpdateNotification> OnCharacterDataUpdateNotification
@@ -835,7 +834,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<GameInviteConfirmationRequest> OnGameInviteConfirmationRequest;
 
 	public event Action<QuestCompleteNotification> OnQuestCompleteNotification

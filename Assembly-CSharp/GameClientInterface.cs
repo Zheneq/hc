@@ -15,7 +15,7 @@ public class GameClientInterface : WebSocketInterface
 
 	protected WebSocketMessageDispatcher<GameClientInterface> m_messageDispatcher;
 
-	public GameClientInterface()
+	public GameClientInterface() : base(new WebSocketMessageFactory())
 	{
 		
 		this.OnConnected = delegate()
@@ -32,7 +32,6 @@ public class GameClientInterface : WebSocketInterface
 		this.OnMessage = delegate(BinaryMessageNotification A_0)
 			{
 			};
-		base..ctor(new WebSocketMessageFactory());
 		base.HeartbeatPeriod = TimeSpan.FromMinutes(1.0);
 		base.HeartbeatTimeout = TimeSpan.FromMinutes(5.0);
 		base.IsRaw = true;
@@ -67,7 +66,7 @@ public class GameClientInterface : WebSocketInterface
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<string, bool, CloseStatusCode> OnDisconnected;
 
 	public event Action<string> OnConnectionError

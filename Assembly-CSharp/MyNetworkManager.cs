@@ -152,7 +152,7 @@ public class MyNetworkManager : NetworkManager
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<NetworkConnection> m_OnServerReady;
 
 	public event Action<NetworkConnection, short> m_OnServerAddPlayer

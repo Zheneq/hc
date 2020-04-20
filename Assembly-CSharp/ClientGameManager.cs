@@ -442,7 +442,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotification;
 
 	public event Action<MatchmakingQueueStatusNotification> OnQueueStatusNotification
@@ -679,7 +679,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<CharacterType, PlayerModData> OnModUnlocked;
 
 	public event Action<PersistedAccountData> OnAccountDataUpdated
@@ -1150,7 +1150,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	public event Action<int, int> OnChapterCompleteNotification;
 
 	public event Action<FactionCompetitionNotification> OnFactionCompetitionNotification

@@ -39,7 +39,7 @@ public class CommerceClient
 		}
 	}
 
-	protected override void Finalize()
+	~CommerceClient()
 	{
 		try
 		{
@@ -51,7 +51,6 @@ public class CommerceClient
 		}
 		finally
 		{
-			base.Finalize();
 		}
 	}
 

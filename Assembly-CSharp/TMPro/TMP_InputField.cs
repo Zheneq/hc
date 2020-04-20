@@ -3738,10 +3738,10 @@ namespace TMPro
 			this.textComponent.font = fontAsset;
 		}
 
-		Transform ICanvasElement.get_transform()
-		{
-			return base.transform;
-		}
+		//Transform ICanvasElement.get_transform()
+		//{
+		//	return base.transform;
+		//}
 
 		bool ICanvasElement.IsDestroyed()
 		{

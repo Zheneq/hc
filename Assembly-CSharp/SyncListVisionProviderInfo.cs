@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 
 public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
 {
-	public override void SerializeItem(NetworkWriter writer, VisionProviderInfo item)
+    protected override void SerializeItem(NetworkWriter writer, VisionProviderInfo item)
 	{
 		writer.WritePackedUInt32((uint)item.m_actorIndex);
 		writer.WritePackedUInt32((uint)item.m_satelliteIndex);
@@ -17,7 +17,7 @@ public class SyncListVisionProviderInfo : SyncListStruct<VisionProviderInfo>
 		writer.Write(item.m_canFunctionInGlobalBlind);
 	}
 
-	public override VisionProviderInfo DeserializeItem(NetworkReader reader)
+    protected override VisionProviderInfo DeserializeItem(NetworkReader reader)
 	{
 		return new VisionProviderInfo
 		{

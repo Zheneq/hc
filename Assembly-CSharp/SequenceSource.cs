@@ -107,7 +107,7 @@ public class SequenceSource
 		return (SequenceSource)base.MemberwiseClone();
 	}
 
-	protected override void Finalize()
+	~SequenceSource()
 	{
 		try
 		{
@@ -119,7 +119,6 @@ public class SequenceSource
 		}
 		finally
 		{
-			base.Finalize();
 		}
 	}
 

@@ -3695,7 +3695,7 @@ public class UIGameOverScreen : UIScene
 
 		public UIGameOverScreen.GameOverScreenState SubStateType { get; protected set; }
 
-		private protected float SubStateStartTime { protected get; private set; }
+		private protected float SubStateStartTime { get; private set; }
 
 		public float ProgressThatClickCanSkip { get; private set; }
 

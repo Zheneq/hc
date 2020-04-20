@@ -1090,13 +1090,9 @@
     <Compile Include="I2\Loc\ScriptLocalization.cs" />
     <Compile Include="I2\Loc\SetLanguage.cs" />
     <Compile Include="I2\Loc\SimpleButton.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSON.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONArray.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONBinaryTag.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONClass.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONData.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONLazyCreator.cs" />
-    <Compile Include="I2\Loc\SimpleJSON\JSONNode.cs" />
+    <Compile Include="I2\Loc\SimpleJSON\SimpleJSON.cs" />
+    <Compile Include="I2\Loc\SimpleJSON\SimpleJSONBinary.cs" />
+    <Compile Include="I2\Loc\SimpleJSON\SimpleJSONUnity.cs" />
     <Compile Include="I2\Loc\TermData.cs" />
     <Compile Include="I2\Loc\TermsPopup.cs" />
     <Compile Include="I2\Loc\tk2dChangeLanguage.cs" />
