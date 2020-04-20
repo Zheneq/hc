@@ -351,7 +351,8 @@ namespace Theatrics
 			IL_87:
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(actorData.transform.position);
 			Bounds cameraBounds = boardSquare.CameraBounds;
-			cameraBounds.center.y = 0f;
+			var center = cameraBounds.center;
+			center.y = 0f;
 			Bounds result = cameraBounds;
 			bool flag2 = true;
 			int i = 0;
@@ -543,126 +544,73 @@ namespace Theatrics
 			return true;
 		}
 
-		internal bool symbol_0004(ActorData symbol_001D, int symbol_000E = 0, int symbol_0012 = -1)
+		internal bool symbol_0004(ActorData actor, int symbol_000E = 0, int symbol_0012 = -1)
 		{
-			if (symbol_001D.GetHitPointsAfterResolution() + symbol_000E <= 0)
+			if (actor.GetHitPointsAfterResolution() + symbol_000E <= 0 && !actor.IsModelAnimatorDisabled() && this.symbol_0011(actor) && this.symbol_0012 >= 3)
 			{
-				if (!symbol_001D.IsModelAnimatorDisabled())
+				int num = this.symbol_0012;
+				int u = this.symbol_0012;
+				do
 				{
-					if (this.symbol_0011(symbol_001D))
+					if (num < this.symbol_000E.Count && num >= 0)
 					{
-						if (this.symbol_0012 >= 3)
+						if (num == 5 && this.symbol_000E[num].symbol_001Dsymbol_000E(actor))
 						{
-							int num = this.symbol_0012;
-							int u = this.symbol_0012;
-							do
-							{
-								if (num < this.symbol_000E.Count)
-								{
-									if (num >= 0)
-									{
-										if (num == 5 && this.symbol_000E[num].symbol_001Dsymbol_000E(symbol_001D))
-										{
-											goto IL_A8;
-										}
-										List<ActorAnimation> animations = this.symbol_000E[num].animations;
-										int i = 0;
-										while (i < animations.Count)
-										{
-											ActorAnimation actorAnimation = animations[i];
-											if (symbol_0012 < 0)
-											{
-												goto IL_F2;
-											}
-											if ((ulong)actorAnimation.SeqSource.RootID != (ulong)((long)symbol_0012))
-											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													goto IL_F2;
-												}
-											}
-											IL_132:
-											i++;
-											continue;
-											IL_F2:
-											if (actorAnimation.Actor == symbol_001D)
-											{
-												if (actorAnimation.symbol_0014symbol_000E())
-												{
-													return false;
-												}
-											}
-											if (actorAnimation.symbol_0008symbol_000E(symbol_001D))
-											{
-												return false;
-											}
-											goto IL_132;
-										}
-										if (num > u)
-										{
-											if (this.symbol_000E[num].symbol_000Esymbol_000E(symbol_001D))
-											{
-												goto IL_171;
-											}
-										}
-									}
-								}
-								num++;
-								if (num >= 7)
-								{
-									goto IL_1A8;
-								}
-							}
-							while (!GameplayData.Get().m_resolveDamageBetweenAbilityPhases);
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_1A8;
-							}
-							for (;;)
-							{
-								IL_A8:
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
-							for (;;)
+						}
+						List<ActorAnimation> animations = this.symbol_000E[num].animations;
+						int i = 0;
+						while (i < animations.Count)
+						{
+							ActorAnimation actorAnimation = animations[i];
+							if (symbol_0012 < 0)
 							{
-								IL_171:
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
+								goto IL_F2;
 							}
-							return false;
-							IL_1A8:
-							if (ClientResolutionManager.Get() != null)
+							if ((ulong)actorAnimation.SeqSource.RootID != (ulong)((long)symbol_0012))
 							{
-								bool flag = ClientResolutionManager.Get().HasUnexecutedHitsOnActor(symbol_001D, symbol_0012);
-								if (flag)
+								goto IL_F2;
+							}
+							IL_132:
+							i++;
+							continue;
+							IL_F2:
+							if (actorAnimation.Actor == actor)
+							{
+								if (actorAnimation.symbol_0014symbol_000E())
 								{
 									return false;
 								}
 							}
-							return true;
+							if (actorAnimation.symbol_0008symbol_000E(actor))
+							{
+								return false;
+							}
+							goto IL_132;
+						}
+						if (num > u && this.symbol_000E[num].symbol_000Esymbol_000E(actor))
+						{
+							return false;
 						}
 					}
+					num++;
+					if (num >= 7)
+					{
+						goto IL_1A8;
+					}
 				}
+				while (!GameplayData.Get().m_resolveDamageBetweenAbilityPhases);
+				return false;
+				IL_1A8:
+				if (ClientResolutionManager.Get() != null)
+				{
+					bool flag = ClientResolutionManager.Get().HasUnexecutedHitsOnActor(actor, symbol_0012);
+					if (flag)
+					{
+						return false;
+					}
+				}
+				return true;
 			}
 			return false;
 		}
