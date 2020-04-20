@@ -112,7 +112,7 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 		uipurchaseableItem.m_abilityID = item.Index2;
 		uipurchaseableItem.m_abilityVfxID = item.ID;
 		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 
 	private void SetupTooltip(Toggle toggle, string text)
