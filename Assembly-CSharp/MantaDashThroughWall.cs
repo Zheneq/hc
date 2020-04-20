@@ -433,52 +433,35 @@ public class MantaDashThroughWall : Ability
 			}
 			if (++num3 > num2)
 			{
-				IL_D0:
-				if (!(boardSquare == null))
-				{
-					if (boardSquare.IsBaselineHeight())
-					{
-						goto IL_113;
-					}
-				}
-				boardSquare = Board.Get().GetBoardSquare(laserEndPoint);
-				coneStartPos = endPos;
-				IL_113:
-				if (boardSquare != null)
-				{
-					Vector3 worldPositionForLoS = boardSquare.GetWorldPositionForLoS();
-					Vector3 normalized = (worldPositionForLoS - startPos).normalized;
-					normalized.y = 0f;
-					if (Mathf.Abs(normalized.x) > 0.3f)
-					{
-						if (Mathf.Abs(normalized.z) > 0.3f)
-						{
-							float x = normalized.x;
-							normalized.x = 0f;
-							RaycastHit raycastHit;
-							if (!VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit))
-							{
-								normalized.z = 0f;
-								normalized.x = x;
-								bool flag = VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit);
-							}
-						}
-					}
-					int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(normalized));
-					perpendicularFromWall = VectorUtils.HorizontalAngleToClosestCardinalDirection(angleWithHorizontal);
-					coneStartPos = worldPositionForLoS - perpendicularFromWall * 0.5f;
-				}
-				return boardSquare;
+				break;
 			}
 		}
-		for (;;)
+		if (boardSquare == null || !boardSquare.IsBaselineHeight())
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_D0;
+			boardSquare = Board.Get().GetBoardSquare(laserEndPoint);
+			coneStartPos = endPos;
 		}
+		if (boardSquare != null)
+		{
+			Vector3 worldPositionForLoS = boardSquare.GetWorldPositionForLoS();
+			Vector3 normalized = (worldPositionForLoS - startPos).normalized;
+			normalized.y = 0f;
+			if (Mathf.Abs(normalized.x) > 0.3f && Mathf.Abs(normalized.z) > 0.3f)
+			{
+				float x = normalized.x;
+				normalized.x = 0f;
+				RaycastHit raycastHit;
+				if (!VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit))
+				{
+					normalized.z = 0f;
+					normalized.x = x;
+					bool flag = VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit);
+				}
+			}
+			int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(normalized));
+			perpendicularFromWall = VectorUtils.HorizontalAngleToClosestCardinalDirection(angleWithHorizontal);
+			coneStartPos = worldPositionForLoS - perpendicularFromWall * 0.5f;
+		}
+		return boardSquare;
 	}
 }
