@@ -118,6 +118,6 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 		uipurchaseableItem.m_itemType = PurchaseItemType.LoadingScreenBackground;
 		uipurchaseableItem.m_loadingScreenBackgroundId = item.ID;
 		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 }
