@@ -546,7 +546,14 @@ namespace CameraManagerInternal
 				if (vector.y > 0f)
 				{
 					num = (num2 - endValue.y - vector.y * this.m_defaultExtraDistance) / vector.y;
-					this.m_zoomParameter = ((!userControlled) ? new EasedFloatQuart(this.m_zoomParameter) : new EasedOutFloatQuart(this.m_zoomParameter));
+					if (userControlled)
+					{
+						this.m_zoomParameter = new EasedOutFloatQuart(this.m_zoomParameter);
+					}
+					else
+					{
+						this.m_zoomParameter = new EasedFloatQuart(this.m_zoomParameter);
+					}
 					this.m_zoomParameter.EaseTo(num, easeInTime);
 				}
 			}
@@ -602,7 +609,7 @@ namespace CameraManagerInternal
 
 		private Vector3 CalcCurrentPosition()
 		{
-			return this.m_targetBottomEased + Quaternion.Euler(0f, this.m_orbitEulerAngleY, 0f) * (this.m_orbitLengths + this.m_orbitLengths.normalized * (this.m_zoomParameter + this.m_defaultExtraDistance));
+			return this.m_targetBottomEased + Quaternion.Euler(0f, this.m_orbitEulerAngleY, 0f) * (this.m_orbitLengths + ((Vector3)(this.m_orbitLengths)).normalized * (this.m_zoomParameter + this.m_defaultExtraDistance));
 		}
 
 		private Vector3 CalcDesiredPosition()
