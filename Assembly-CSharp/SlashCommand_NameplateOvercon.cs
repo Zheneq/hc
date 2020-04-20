@@ -15,7 +15,7 @@ public class SlashCommand_NameplateOvercon : SlashCommand
 			{
 				if (ClientGameManager.Get() != null)
 				{
-					string[] array = arguments.Split(null, StringSplitOptions.RemoveEmptyEntries);
+					string[] array = arguments.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
 					if (arguments.Length > 0)
 					{
 						string text = array[0];

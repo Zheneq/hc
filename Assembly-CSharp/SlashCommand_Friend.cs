@@ -14,7 +14,7 @@ public class SlashCommand_Friend : SlashCommand
 		{
 			if (!(ClientGameManager.Get() == null))
 			{
-				string[] array = arguments.Split(null, StringSplitOptions.RemoveEmptyEntries);
+				string[] array = arguments.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
 				if (array.Length < 2)
 				{
 					return;

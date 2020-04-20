@@ -15,7 +15,7 @@ public class SlashCommand_ChatWhisper : SlashCommand
 			}
 			else
 			{
-				string[] array = arguments.Split(null, 2, StringSplitOptions.RemoveEmptyEntries);
+				string[] array = arguments.Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 				if (array.Length < 2)
 				{
 					return;
