@@ -252,7 +252,7 @@ public class SequenceManager : MonoBehaviour
 
 	internal Sequence[] CreateClientSequences(GameObject prefab, BoardSquare targetSquare, Vector3 targetPos, Quaternion targetRotation, ActorData[] targets, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams)
 	{
-		short baseSequenceLookupId = (!(SequenceLookup.Get() != null)) ? -1 : SequenceLookup.Get().GetSequenceIdOfPrefab(prefab);
+		short baseSequenceLookupId = SequenceLookup.Get() == null ? (short)-1 : SequenceLookup.Get().GetSequenceIdOfPrefab(prefab);
 		if (source == null)
 		{
 			Log.Error("Code error: sequences must always be created with a SequenceSource (typically, AbilityRunData.m_sequenceSource, Effect.SequenceSource, or PowerUp.SequenceSource.", new object[0]);
