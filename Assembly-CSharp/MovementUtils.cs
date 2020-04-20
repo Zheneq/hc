@@ -645,22 +645,13 @@ public static class MovementUtils
 				}
 			}
 			Debug.LogError("CreateClonePathEndingAt somehow has a bad clone...?  Tell Danny");
-			IL_95:
-			if (boardSquarePathInfo2 != null)
-			{
-				boardSquarePathInfo2.next = null;
-			}
-			return boardSquarePathInfo2;
+			break;
 		}
-		for (;;)
+		if (boardSquarePathInfo2 != null)
 		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_95;
+			boardSquarePathInfo2.next = null;
 		}
+		return boardSquarePathInfo2;
 	}
 
 	public static bool ShouldVault(BoardSquare srcSquare, BoardSquare destSquare)
