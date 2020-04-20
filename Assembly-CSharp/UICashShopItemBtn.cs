@@ -136,22 +136,12 @@ public class UICashShopItemBtn : MonoBehaviour
 				if (GameWideData.Get().m_ggPackData.m_ggPacks[i].SortOrder > item.m_ggPack.SortOrder)
 				{
 					flag = false;
-					IL_32D:
-					if (flag)
-					{
-						text = StringUtil.TR("BestValue", "Store");
-					}
-					goto IL_B54;
+					break;
 				}
 			}
-			for (;;)
+			if (flag)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_32D;
+				text = StringUtil.TR("BestValue", "Store");
 			}
 		}
 		else if (item.m_itemType == PurchaseItemType.LootMatrixPack)
@@ -288,23 +278,13 @@ public class UICashShopItemBtn : MonoBehaviour
 				if (GameBalanceVars.Get().ChatEmojis[k].ID == item.m_emoticonID)
 				{
 					chatEmoticon = GameBalanceVars.Get().ChatEmojis[k];
-					IL_AB4:
-					num = 0f;
-					num2 = 0f;
-					this.m_nameText.text = chatEmoticon.GetEmojiName();
-					this.m_icon.sprite = Resources.Load<Sprite>(chatEmoticon.GetSpritePath());
-					goto IL_B54;
+					break;
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_AB4;
-			}
+			num = 0f;
+			num2 = 0f;
+			this.m_nameText.text = chatEmoticon.GetEmojiName();
+			this.m_icon.sprite = Resources.Load<Sprite>(chatEmoticon.GetSpritePath());
 		}
 		else if (item.m_itemType == PurchaseItemType.LoadingScreenBackground)
 		{
@@ -314,7 +294,6 @@ public class UICashShopItemBtn : MonoBehaviour
 			this.m_nameText.text = loadingScreenBackground.GetLoadingScreenBackgroundName();
 			this.m_icon.sprite = Resources.Load<Sprite>(loadingScreenBackground.m_iconPath);
 		}
-		IL_B54:
 		if (this.m_costText != null)
 		{
 			if (num > 0f)
@@ -386,7 +365,7 @@ public class UICashShopItemBtn : MonoBehaviour
 					}
 				}
 			}
-			UIStorePanel.Get().OpenPurchaseDialog(this.m_item, null);
+			UIStorePanel.Get().OpenPurchaseDialog(this.m_item);
 			this.m_selectableBtn.spriteController.ResetMouseState();
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 		}
