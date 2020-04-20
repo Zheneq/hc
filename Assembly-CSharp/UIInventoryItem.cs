@@ -316,7 +316,7 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		IL_AD:
 		TMP_Text amount3 = this.m_amount;
-		object arg;
+		string arg;
 		if (includeX)
 		{
 			arg = "x";
