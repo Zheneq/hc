@@ -4832,24 +4832,15 @@ namespace TMPro
 				IL_7A:
 				if (onlyVisibleCharacters)
 				{
-					IL_1A5:
-					Vector2 v;
-					v.x = extents.max.x - extents.min.x;
-					v.y = extents.max.y - extents.min.y;
-					Vector2 v2 = (extents.min + extents.max) / 2f;
-					return new Bounds(v2, v);
+					break;
 				}
 				goto IL_82;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_1A5;
-			}
+			Vector2 v;
+			v.x = extents.max.x - extents.min.x;
+			v.y = extents.max.y - extents.min.y;
+			Vector2 v2 = (extents.min + extents.max) / 2f;
+			return new Bounds(v2, v);
 		}
 
 		protected virtual void AdjustLineOffset(int startIndex, int endIndex, float offset)
