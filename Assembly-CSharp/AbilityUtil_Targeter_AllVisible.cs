@@ -49,7 +49,7 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 				for (int i = 0; i < actorsVisibleToActor.Count; i++)
 				{
 					ActorData actorData = actorsVisibleToActor[i];
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
 						for (;;)
 						{
@@ -75,7 +75,7 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 							{
 								goto IL_11E;
 							}
-							if (actorData != targetingActor && actorData.\u000E() == targetingActor.\u000E())
+							if (actorData != targetingActor && actorData.GetTeam() == targetingActor.GetTeam())
 							{
 								for (;;)
 								{
@@ -101,7 +101,7 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 								}
 							}
 							bool flag;
-							if (actorData.\u000E() != targetingActor.\u000E())
+							if (actorData.GetTeam() != targetingActor.GetTeam())
 							{
 								for (;;)
 								{
@@ -147,7 +147,7 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 										goto IL_180;
 									}
 								}
-								Vector3 vector;
+								Vector3 travelBoardSquareWorldPosition;
 								if (this.m_damageOriginType == AbilityUtil_Targeter_AllVisible.DamageOriginType.CasterPos)
 								{
 									for (;;)
@@ -159,13 +159,13 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 										}
 										break;
 									}
-									vector = targetingActor.\u0016();
+									travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 								}
 								else
 								{
-									vector = actorData.\u0016();
+									travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
 								}
-								Vector3 damageOrigin = vector;
+								Vector3 damageOrigin = travelBoardSquareWorldPosition;
 								base.AddActorInRange(actorData, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
 								goto IL_180;
 							}

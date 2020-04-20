@@ -174,7 +174,7 @@ public class FishManGeyser : Ability
 				{
 					for (int j = 0; j < actorsSoFar.Count; j++)
 					{
-						if (caster.\u000E() != actorsSoFar[j].\u000E())
+						if (caster.GetTeam() != actorsSoFar[j].GetTeam())
 						{
 							for (;;)
 							{
@@ -1320,7 +1320,7 @@ public class FishManGeyser : Ability
 					while (enumerator.MoveNext())
 					{
 						AbilityUtil_Targeter_MultipleShapes.HitActorContext hitActorContext2 = enumerator.Current;
-						if (hitActorContext2.m_actor == targetActor && targetActor.\u000E() != actorData.\u000E())
+						if (hitActorContext2.m_actor == targetActor && targetActor.GetTeam() != actorData.GetTeam())
 						{
 							for (;;)
 							{

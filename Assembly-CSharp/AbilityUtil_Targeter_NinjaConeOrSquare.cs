@@ -103,9 +103,9 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			{
 				gameObject2.SetActive(true);
 				gameObject.SetActive(false);
-				Vector3 vector = targetingActor.\u0015();
+				Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 				float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
-				List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector, coneCenterAngleDegrees, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, this.m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies), null, false, default(Vector3));
+				List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, this.m_penetrateLoS, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies), null, false, default(Vector3));
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 				if (this.m_affectsTargetingActor && !actorsInCone.Contains(targetingActor))
 				{
@@ -123,10 +123,10 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				for (int i = 0; i < actorsInCone.Count; i++)
 				{
 					ActorData actor = actorsInCone[i];
-					base.AddActorInRange(actor, vector, targetingActor, AbilityTooltipSubject.Primary, false);
+					base.AddActorInRange(actor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 				}
-				float d = this.m_coneInfo.m_backwardsOffset * Board.\u000E().squareSize;
-				Vector3 position = vector - currentTarget.AimDirection * d;
+				float d = this.m_coneInfo.m_backwardsOffset * Board.Get().squareSize;
+				Vector3 position = travelBoardSquareWorldPositionForLos - currentTarget.AimDirection * d;
 				position.y = HighlightUtils.GetHighlightHeight();
 				gameObject2.transform.position = position;
 				gameObject2.transform.rotation = Quaternion.LookRotation(currentTarget.AimDirection);
@@ -167,7 +167,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, freePos, gameplayRefSquare);
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, freePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
 			actorsInShape.Remove(targetingActor);
-			bool flag = AreaEffectUtils.IsSquareInShape(targetingActor.\u0012(), this.m_shape, freePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor);
+			bool flag = AreaEffectUtils.IsSquareInShape(targetingActor.GetCurrentBoardSquare(), this.m_shape, freePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Possible)
 			{
@@ -207,7 +207,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (!actorData.\u0018())
+				if (!actorData.IsVisibleToClient())
 				{
 					for (;;)
 					{
@@ -279,7 +279,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (actorData.\u000E() == targetingActor.\u000E())
+					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
 						for (;;)
 						{
@@ -315,8 +315,8 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			}
 			else
 			{
-				BoardSquare startSquare = targetingActor.\u0012();
-				BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, gameplayRefSquare, startSquare, true);
+				BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
+				BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, gameplayRefSquare, currentBoardSquare, true);
 				fromIndex = base.AddMovementArrowWithPrevious(targetingActor, path, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
 			}
 		}
@@ -398,7 +398,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					}
 					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, abilityTooltipSubject, false);
 				}
-				if (potentialTarget.\u000E() == targetingActor.\u000E())
+				if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 				{
 					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, this.m_allyTooltipSubject, false);
 				}
@@ -436,12 +436,12 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		}
 		this.m_highlights = new List<GameObject>();
 		this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_coneInfo.m_radiusInSquares * Board.\u000E().squareSize, this.m_coneInfo.m_widthAngleDeg));
+		this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_coneInfo.m_radiusInSquares * Board.Get().squareSize, this.m_coneInfo.m_widthAngleDeg));
 	}
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return Board.\u000E().\u000E(currentTarget.GridPos);
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
@@ -451,7 +451,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		{
 			Vector3 freePos = currentTarget.FreePos;
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, freePos, gameplayRefSquare);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			centerOfShape.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;

@@ -78,7 +78,7 @@ public class BotController : MonoBehaviour
 				}
 				break;
 			}
-			if (!(component.\u0012() == "Sniper") && !(component.\u0012() == "RageBeast") && !(component.\u0012() == "Scoundrel"))
+			if (!(component.GetName() == "Sniper") && !(component.GetName() == "RageBeast") && !(component.GetName() == "Scoundrel"))
 			{
 				for (;;)
 				{
@@ -89,7 +89,7 @@ public class BotController : MonoBehaviour
 					}
 					break;
 				}
-				if (!(component.\u0012() == "RobotAnimal"))
+				if (!(component.GetName() == "RobotAnimal"))
 				{
 					for (;;)
 					{
@@ -100,7 +100,7 @@ public class BotController : MonoBehaviour
 						}
 						break;
 					}
-					if (!(component.\u0012() == "NanoSmith"))
+					if (!(component.GetName() == "NanoSmith"))
 					{
 						for (;;)
 						{
@@ -111,7 +111,7 @@ public class BotController : MonoBehaviour
 							}
 							break;
 						}
-						if (!(component.\u0012() == "Thief"))
+						if (!(component.GetName() == "Thief"))
 						{
 							for (;;)
 							{
@@ -122,7 +122,7 @@ public class BotController : MonoBehaviour
 								}
 								break;
 							}
-							if (!(component.\u0012() == "BattleMonk") && !(component.\u0012() == "BazookaGirl"))
+							if (!(component.GetName() == "BattleMonk") && !(component.GetName() == "BazookaGirl"))
 							{
 								for (;;)
 								{
@@ -133,7 +133,7 @@ public class BotController : MonoBehaviour
 									}
 									break;
 								}
-								if (!(component.\u0012() == "SpaceMarine"))
+								if (!(component.GetName() == "SpaceMarine"))
 								{
 									for (;;)
 									{
@@ -144,7 +144,7 @@ public class BotController : MonoBehaviour
 										}
 										break;
 									}
-									if (!(component.\u0012() == "Gremlins"))
+									if (!(component.GetName() == "Gremlins"))
 									{
 										for (;;)
 										{
@@ -155,7 +155,7 @@ public class BotController : MonoBehaviour
 											}
 											break;
 										}
-										if (!(component.\u0012() == "Tracker"))
+										if (!(component.GetName() == "Tracker"))
 										{
 											for (;;)
 											{
@@ -166,7 +166,7 @@ public class BotController : MonoBehaviour
 												}
 												break;
 											}
-											if (!(component.\u0012() == "DigitalSorceress"))
+											if (!(component.GetName() == "DigitalSorceress"))
 											{
 												for (;;)
 												{
@@ -177,7 +177,7 @@ public class BotController : MonoBehaviour
 													}
 													break;
 												}
-												if (!(component.\u0012() == "Spark") && !(component.\u0012() == "Claymore") && !(component.\u0012() == "Rampart"))
+												if (!(component.GetName() == "Spark") && !(component.GetName() == "Claymore") && !(component.GetName() == "Rampart"))
 												{
 													for (;;)
 													{
@@ -188,7 +188,7 @@ public class BotController : MonoBehaviour
 														}
 														break;
 													}
-													if (!(component.\u0012() == "Trickster"))
+													if (!(component.GetName() == "Trickster"))
 													{
 														for (;;)
 														{
@@ -199,7 +199,7 @@ public class BotController : MonoBehaviour
 															}
 															break;
 														}
-														if (!(component.\u0012() == "Blaster"))
+														if (!(component.GetName() == "Blaster"))
 														{
 															for (;;)
 															{
@@ -210,7 +210,7 @@ public class BotController : MonoBehaviour
 																}
 																break;
 															}
-															if (!(component.\u0012() == "FishMan"))
+															if (!(component.GetName() == "FishMan"))
 															{
 																for (;;)
 																{
@@ -221,7 +221,7 @@ public class BotController : MonoBehaviour
 																	}
 																	break;
 																}
-																if (!(component.\u0012() == "Thief"))
+																if (!(component.GetName() == "Thief"))
 																{
 																	for (;;)
 																	{
@@ -232,7 +232,7 @@ public class BotController : MonoBehaviour
 																		}
 																		break;
 																	}
-																	if (!(component.\u0012() == "Soldier"))
+																	if (!(component.GetName() == "Soldier"))
 																	{
 																		for (;;)
 																		{
@@ -243,7 +243,7 @@ public class BotController : MonoBehaviour
 																			}
 																			break;
 																		}
-																		if (!(component.\u0012() == "Exo"))
+																		if (!(component.GetName() == "Exo"))
 																		{
 																			for (;;)
 																			{
@@ -254,7 +254,7 @@ public class BotController : MonoBehaviour
 																				}
 																				break;
 																			}
-																			if (!(component.\u0012() == "Martyr") && !(component.\u0012() == "Sensei"))
+																			if (!(component.GetName() == "Martyr") && !(component.GetName() == "Sensei"))
 																			{
 																				for (;;)
 																				{
@@ -265,7 +265,7 @@ public class BotController : MonoBehaviour
 																					}
 																					break;
 																				}
-																				if (!(component.\u0012() == "TeleportingNinja") && !(component.\u0012() == "Manta"))
+																				if (!(component.GetName() == "TeleportingNinja") && !(component.GetName() == "Manta"))
 																				{
 																					for (;;)
 																					{
@@ -276,7 +276,7 @@ public class BotController : MonoBehaviour
 																						}
 																						break;
 																					}
-																					if (!(component.\u0012() == "Valkyrie"))
+																					if (!(component.GetName() == "Valkyrie"))
 																					{
 																						for (;;)
 																						{
@@ -287,7 +287,7 @@ public class BotController : MonoBehaviour
 																							}
 																							break;
 																						}
-																						if (!(component.\u0012() == "Archer"))
+																						if (!(component.GetName() == "Archer"))
 																						{
 																							for (;;)
 																							{
@@ -298,7 +298,7 @@ public class BotController : MonoBehaviour
 																								}
 																								break;
 																							}
-																							if (!(component.\u0012() == "Samurai"))
+																							if (!(component.GetName() == "Samurai"))
 																							{
 																								for (;;)
 																								{
@@ -309,7 +309,7 @@ public class BotController : MonoBehaviour
 																									}
 																									break;
 																								}
-																								if (!(component.\u0012() == "Cleric"))
+																								if (!(component.GetName() == "Cleric"))
 																								{
 																									for (;;)
 																									{
@@ -320,7 +320,7 @@ public class BotController : MonoBehaviour
 																										}
 																										break;
 																									}
-																									if (!(component.\u0012() == "Neko"))
+																									if (!(component.GetName() == "Neko"))
 																									{
 																										for (;;)
 																										{
@@ -331,7 +331,7 @@ public class BotController : MonoBehaviour
 																											}
 																											break;
 																										}
-																										if (!(component.\u0012() == "Scamp"))
+																										if (!(component.GetName() == "Scamp"))
 																										{
 																											for (;;)
 																											{
@@ -342,7 +342,7 @@ public class BotController : MonoBehaviour
 																												}
 																												break;
 																											}
-																											if (!(component.\u0012() == "Dino"))
+																											if (!(component.GetName() == "Dino"))
 																											{
 																												for (;;)
 																												{
@@ -353,7 +353,7 @@ public class BotController : MonoBehaviour
 																													}
 																													break;
 																												}
-																												if (!(component.\u0012() == "Iceborg"))
+																												if (!(component.GetName() == "Iceborg"))
 																												{
 																													for (;;)
 																													{
@@ -364,11 +364,11 @@ public class BotController : MonoBehaviour
 																														}
 																														break;
 																													}
-																													if (!(component.\u0012() == "Fireborg"))
+																													if (!(component.GetName() == "Fireborg"))
 																													{
 																														Log.Info("Using Generic AI for {0}", new object[]
 																														{
-																															component.\u0012()
+																															component.GetName()
 																														});
 																														return;
 																													}
@@ -410,7 +410,7 @@ public class BotController : MonoBehaviour
 			NPCBrain_Adaptive.Create(this, component.transform, botDifficulty, flag);
 			Log.Info("Making Adaptive AI for {0} at difficulty {1}, can taunt: {2}", new object[]
 			{
-				component.\u0012(),
+				component.GetName(),
 				botDifficulty.ToString(),
 				flag
 			});
@@ -434,18 +434,18 @@ public class BotController : MonoBehaviour
 	{
 		numEnemiesInRange = 0;
 		ActorData component = base.GetComponent<ActorData>();
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.\u0012());
-		BoardSquare boardSquare = component.\u0012();
-		BoardSquare boardSquare2 = null;
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetOpposingTeam());
+		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
+		BoardSquare boardSquare = null;
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				BoardSquare boardSquare3 = actorData.\u0012();
-				if (!actorData.\u000E())
+				BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+				if (!actorData.IsDead())
 				{
-					if (boardSquare3 == null)
+					if (currentBoardSquare2 == null)
 					{
 						for (;;)
 						{
@@ -463,7 +463,7 @@ public class BotController : MonoBehaviour
 					}
 					else
 					{
-						float num = boardSquare.HorizontalDistanceOnBoardTo(boardSquare3);
+						float num = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
 						if (num <= this.m_combatRange)
 						{
 							for (;;)
@@ -488,7 +488,7 @@ public class BotController : MonoBehaviour
 								}
 								break;
 							}
-							if (!component.\u000E().IsVisible(boardSquare3))
+							if (!component.GetFogOfWar().IsVisible(currentBoardSquare2))
 							{
 								for (;;)
 								{
@@ -502,7 +502,7 @@ public class BotController : MonoBehaviour
 								continue;
 							}
 						}
-						if (boardSquare2 == null)
+						if (boardSquare == null)
 						{
 							for (;;)
 							{
@@ -513,11 +513,11 @@ public class BotController : MonoBehaviour
 								}
 								break;
 							}
-							boardSquare2 = boardSquare3;
+							boardSquare = currentBoardSquare2;
 						}
 						else
 						{
-							float num2 = boardSquare.HorizontalDistanceOnBoardTo(boardSquare2);
+							float num2 = currentBoardSquare.HorizontalDistanceOnBoardTo(boardSquare);
 							if (num < num2)
 							{
 								for (;;)
@@ -529,7 +529,7 @@ public class BotController : MonoBehaviour
 									}
 									break;
 								}
-								boardSquare2 = boardSquare3;
+								boardSquare = currentBoardSquare2;
 							}
 						}
 					}
@@ -545,24 +545,24 @@ public class BotController : MonoBehaviour
 				break;
 			}
 		}
-		return boardSquare2;
+		return boardSquare;
 	}
 
 	public BoardSquare GetRetreatSquare()
 	{
 		ActorData component = base.GetComponent<ActorData>();
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.\u0012());
-		BoardSquare boardSquare = component.\u0012();
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetOpposingTeam());
+		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
 		Vector3 a = new Vector3(0f, 0f, 0f);
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				BoardSquare boardSquare2 = actorData.\u0012();
-				if (!actorData.\u000E())
+				BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+				if (!actorData.IsDead())
 				{
-					if (boardSquare2 == null)
+					if (currentBoardSquare2 == null)
 					{
 						for (;;)
 						{
@@ -580,7 +580,7 @@ public class BotController : MonoBehaviour
 					}
 					else
 					{
-						float num = boardSquare.HorizontalDistanceOnBoardTo(boardSquare2);
+						float num = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
 						if (num <= this.m_retreatFromRange)
 						{
 							for (;;)
@@ -592,7 +592,7 @@ public class BotController : MonoBehaviour
 								}
 								break;
 							}
-							Vector3 b = boardSquare2.ToVector3() - boardSquare.ToVector3();
+							Vector3 b = currentBoardSquare2.ToVector3() - currentBoardSquare.ToVector3();
 							b.Normalize();
 							a += b;
 						}
@@ -611,8 +611,8 @@ public class BotController : MonoBehaviour
 		}
 		Vector3 a2 = -a;
 		a2.Normalize();
-		Vector3 vector = boardSquare.ToVector3() + a2 * this.m_retreatFromRange;
-		return Board.\u000E().\u0013(vector.x, vector.z);
+		Vector3 vector = currentBoardSquare.ToVector3() + a2 * this.m_retreatFromRange;
+		return Board.Get().\u0013(vector.x, vector.z);
 	}
 
 	public BoardSquare GetAdvanceSquare()
@@ -625,8 +625,8 @@ public class BotController : MonoBehaviour
 		}
 		Vector3 a = closestEnemyPlayerSquare.ToVector3();
 		ActorData component = base.GetComponent<ActorData>();
-		BoardSquare boardSquare = component.\u0012();
-		Vector3 vector = boardSquare.ToVector3();
+		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
+		Vector3 vector = currentBoardSquare.ToVector3();
 		Vector3 vector2 = a - vector;
 		if (num > 1)
 		{
@@ -660,18 +660,18 @@ public class BotController : MonoBehaviour
 			}
 		}
 		Vector3 vector3 = Vector3.zero;
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.\u000E());
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(component.GetTeam());
 		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				if (!actorData.\u000E() || actorData == component)
+				if (!actorData.IsDead() || actorData == component)
 				{
-					BoardSquare boardSquare2 = actorData.\u0012();
-					if (boardSquare2 != null && boardSquare.HorizontalDistanceOnBoardTo(boardSquare2) < this.m_idealRange)
+					BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+					if (currentBoardSquare2 != null && currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2) < this.m_idealRange)
 					{
-						Vector3 a2 = boardSquare2.ToVector3() - vector;
+						Vector3 a2 = currentBoardSquare2.ToVector3() - vector;
 						a2.Normalize();
 						vector3 -= a2 * 1.5f;
 					}
@@ -688,8 +688,8 @@ public class BotController : MonoBehaviour
 			}
 		}
 		Vector3 vector4 = vector + vector2 + vector3;
-		BoardSquare u001D = Board.\u000E().\u0015(vector4.x, vector4.z);
-		return Board.\u000E().\u0018(u001D, null);
+		BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector4.x, vector4.z);
+		return Board.Get().\u0018(boardSquareUnsafe, null);
 	}
 
 	public void SelectBotAbilityMods()
@@ -747,7 +747,7 @@ public class BotController : MonoBehaviour
 	public void SelectBotAbilityMods_Brainless()
 	{
 		ActorData component = base.GetComponent<ActorData>();
-		AbilityData abilityData = component.\u000E();
+		AbilityData abilityData = component.GetAbilityData();
 		List<Ability> abilitiesAsList = abilityData.GetAbilitiesAsList();
 		CharacterModInfo selectedMods = default(CharacterModInfo);
 		int num = 0;
@@ -832,7 +832,7 @@ public class BotController : MonoBehaviour
 			while (enumerator.MoveNext())
 			{
 				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-				if (lobbyPlayerInfo.TeamId != actorData.\u000E())
+				if (lobbyPlayerInfo.TeamId != actorData.GetTeam())
 				{
 					for (;;)
 					{

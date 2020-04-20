@@ -547,8 +547,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				}
 			}
 		}
-		Board board = Board.\u000E();
-		BoardSquare boardSquare = Board.\u000E().\u0016(Board.\u000E().\u000E() / 2, Board.\u000E().\u0012() / 2);
+		Board board = Board.Get();
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
 		if (boardSquare != null)
 		{
 			for (;;)
@@ -574,13 +574,13 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				}
 				if (isometricCamera.enabled)
 				{
-					Vector3 pos = new Vector3(boardSquare.gameObject.transform.position.x, (float)Board.\u000E().BaselineHeight, boardSquare.gameObject.transform.position.z);
+					Vector3 pos = new Vector3(boardSquare.gameObject.transform.position.x, (float)Board.Get().BaselineHeight, boardSquare.gameObject.transform.position.z);
 					isometricCamera.SetTargetPosition(pos, 0f);
 				}
 			}
 		}
-		BoardSquare boardSquare2 = board.\u0016(0, 0);
-		BoardSquare boardSquare3 = board.\u0016(board.\u000E() - 1, board.\u0012() - 1);
+		BoardSquare boardSquare2 = board.GetBoardSquare(0, 0);
+		BoardSquare boardSquare3 = board.GetBoardSquare(board.GetMaxX() - 1, board.GetMaxY() - 1);
 		Bounds cameraBounds = boardSquare2.CameraBounds;
 		Bounds cameraBounds2 = boardSquare3.CameraBounds;
 		Bounds cameraPositionBounds = cameraBounds;
@@ -832,7 +832,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			result = ((GameFlowData.Get().activeOwnedActorData.\u000E().CurrentState == TurnStateEnum.PICKING_RESPAWN) ? 1 : 0);
+			result = ((GameFlowData.Get().activeOwnedActorData.GetActorTurnSM().CurrentState == TurnStateEnum.PICKING_RESPAWN) ? 1 : 0);
 		}
 		else
 		{
@@ -1479,7 +1479,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			return false;
 		}
 		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-		Bounds cameraBounds = a.\u000E().CameraBounds;
+		Bounds cameraBounds = a.GetTravelBoardSquare().CameraBounds;
 		return GeometryUtility.TestPlanesAABB(planes, cameraBounds);
 	}
 
@@ -2083,7 +2083,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 							this.ShotSequence.Begin(animatedActor, altCamShotIndex);
 							result = true;
 							HUD_UI.Get().SetHUDVisibility(false, false);
-							if (animatedActor.\u0019())
+							if (animatedActor.GetIsHumanControlled())
 							{
 								for (;;)
 								{
@@ -2096,7 +2096,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 								}
 								HUD_UI.Get().SetupTauntBanner(animatedActor);
 							}
-							HUD_UI.Get().SetTauntBannerVisibility(animatedActor.\u0019());
+							HUD_UI.Get().SetTauntBannerVisibility(animatedActor.GetIsHumanControlled());
 						}
 					}
 				}
@@ -2809,7 +2809,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 								Vector3 direction = Quaternion.AngleAxis(-75f, Camera.main.transform.right) * Vector3.down;
 								ray = new Ray(Camera.main.transform.position, direction);
 							}
-							Plane plane = new Plane(Vector3.up, (float)(-(float)Board.\u000E().BaselineHeight));
+							Plane plane = new Plane(Vector3.up, (float)(-(float)Board.Get().BaselineHeight));
 							float distance;
 							if (!plane.Raycast(ray, out distance))
 							{

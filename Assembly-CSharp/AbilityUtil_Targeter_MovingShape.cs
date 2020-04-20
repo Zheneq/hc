@@ -198,7 +198,7 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 			}
 			return this.m_delegateMoveStartSquare(currentTarget, targetingActor);
 		}
-		return targetingActor.\u0012();
+		return targetingActor.GetCurrentBoardSquare();
 	}
 
 	private Vector3 GetMoveStartFreePos(AbilityTarget currentTarget, ActorData targetingActor)
@@ -220,7 +220,7 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 			}
 			return this.m_delegateMoveStartFreePos(currentTarget, targetingActor);
 		}
-		return targetingActor.\u0016();
+		return targetingActor.GetTravelBoardSquareWorldPosition();
 	}
 
 	public delegate bool IsMovingShapeDelegate(ActorData targetingActor);

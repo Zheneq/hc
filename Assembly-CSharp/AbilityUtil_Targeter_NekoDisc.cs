@@ -58,19 +58,19 @@ public class AbilityUtil_Targeter_NekoDisc : AbilityUtil_Targeter_Laser
 			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			this.m_highlights.Add(HighlightUtils.Get().CreateAoECursor(this.m_aoeRadiusAtEnd * Board.SquareSizeStatic, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 vector2;
-		AreaEffectUtils.GetActorsInLaser(vector, currentTarget.AimDirection, this.GetDistance(), this.GetWidth(), targetingActor, targetingActor.\u0015(), false, this.GetMaxTargets(), false, false, out vector2, null, null, false, true);
-		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(vector, vector2);
-		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector2, this.m_aoeRadiusAtEnd, false, targetingActor, targetingActor.\u0012(), null, true, coneLosCheckPos);
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector;
+		AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, this.GetDistance(), this.GetWidth(), targetingActor, targetingActor.GetOpposingTeams(), false, this.GetMaxTargets(), false, false, out vector, null, null, false, true);
+		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, vector);
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector, this.m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetOpposingTeam(), null, true, coneLosCheckPos);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadius);
-		base.AddActorsInRange(actorsInRadius, vector, targetingActor, AbilityTooltipSubject.Primary, false);
-		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(vector, vector2);
-		Vector3 position = discEndSquare.\u0012();
-		position.y = HighlightUtils.GetHighlightHeight();
-		this.m_highlights[1].transform.position = position;
-		vector2.y = HighlightUtils.GetHighlightHeight();
-		this.m_highlights[2].transform.position = vector2;
+		base.AddActorsInRange(actorsInRadius, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
+		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(travelBoardSquareWorldPositionForLos, vector);
+		Vector3 baselineHeight = discEndSquare.GetBaselineHeight();
+		baselineHeight.y = HighlightUtils.GetHighlightHeight();
+		this.m_highlights[1].transform.position = baselineHeight;
+		vector.y = HighlightUtils.GetHighlightHeight();
+		this.m_highlights[2].transform.position = vector;
 	}
 
 	protected override void DrawInvalidSquareIndicators(AbilityTarget currentTarget, ActorData targetingActor, Vector3 startPos, Vector3 endPos)

@@ -82,7 +82,7 @@ public class LineSequence : Sequence
 				}
 				break;
 			}
-			if (Board.\u000E() != null)
+			if (Board.Get() != null)
 			{
 				for (;;)
 				{
@@ -93,7 +93,7 @@ public class LineSequence : Sequence
 					}
 					break;
 				}
-				this.m_fixedStartPos.y = (float)Board.\u000E().BaselineHeight;
+				this.m_fixedStartPos.y = (float)Board.Get().BaselineHeight;
 			}
 		}
 		this.m_fixedStartPos.y = this.m_fixedStartPos.y + this.m_fixedTargetPosYOffset;
@@ -250,7 +250,7 @@ public class LineSequence : Sequence
 								}
 								break;
 							}
-							this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+							this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 						}
 					}
 				}
@@ -424,7 +424,7 @@ public class LineSequence : Sequence
 				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.GetLineEndPos()).MethodHandle;
 			}
 			Vector3 result = this.m_fxTargetJoint.m_jointObject.transform.position;
-			bool flag = base.Target.\u0012();
+			bool flag = base.Target.IsModelAnimatorDisabled();
 			if (this.m_useTargetDeathPosIfRagdolled)
 			{
 				for (;;)

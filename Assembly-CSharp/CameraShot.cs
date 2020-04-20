@@ -398,7 +398,7 @@ public class CameraShot
 
 	internal static void SetAnimParamsForActor(ActorData actor, List<CameraShot.AnimParamSetAction> paramSetActions)
 	{
-		if (actor != null && actor.\u000E() != null)
+		if (actor != null && actor.GetModelAnimator() != null)
 		{
 			for (;;)
 			{
@@ -450,16 +450,16 @@ public class CameraShot
 									}
 									break;
 								}
-								actor.\u000E().SetTrigger(animParamSetAction.m_paramName);
+								actor.GetModelAnimator().SetTrigger(animParamSetAction.m_paramName);
 							}
 							else
 							{
-								actor.\u000E().ResetTrigger(animParamSetAction.m_paramName);
+								actor.GetModelAnimator().ResetTrigger(animParamSetAction.m_paramName);
 							}
 						}
 						else
 						{
-							actor.\u000E().SetInteger(animParamSetAction.m_paramName, animParamSetAction.m_paramValue);
+							actor.GetModelAnimator().SetInteger(animParamSetAction.m_paramName, animParamSetAction.m_paramValue);
 						}
 					}
 				}

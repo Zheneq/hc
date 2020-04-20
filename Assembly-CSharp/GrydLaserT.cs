@@ -82,7 +82,7 @@ public class GrydLaserT : Ability
 	public unsafe static Vector3 GetClampedTargeterRangeStatic(AbilityTarget currentTarget, Vector3 startPos, Vector3 aimDir, float minForwardLenInSquares, float maxForwardLenInSquares, bool discreteStepsForRange, float branchLenDecreaseOverDist, ref float dist, ref float branchLengthInWorld)
 	{
 		Vector3 vector = currentTarget.FreePos;
-		float squareSize = Board.\u000E().squareSize;
+		float squareSize = Board.Get().squareSize;
 		float num = minForwardLenInSquares * squareSize;
 		float num2 = maxForwardLenInSquares * squareSize;
 		Vector3 vector2 = vector - startPos;

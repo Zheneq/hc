@@ -63,16 +63,16 @@ public static class VectorUtils
 		switch (direction)
 		{
 		case ActorCover.CoverDirections.X_POS:
-			result = Board.\u000E().\u0016(square.x + 1, square.y);
+			result = Board.Get().GetBoardSquare(square.x + 1, square.y);
 			break;
 		case ActorCover.CoverDirections.X_NEG:
-			result = Board.\u000E().\u0016(square.x - 1, square.y);
+			result = Board.Get().GetBoardSquare(square.x - 1, square.y);
 			break;
 		case ActorCover.CoverDirections.Y_POS:
-			result = Board.\u000E().\u0016(square.x, square.y + 1);
+			result = Board.Get().GetBoardSquare(square.x, square.y + 1);
 			break;
 		case ActorCover.CoverDirections.Y_NEG:
-			result = Board.\u000E().\u0016(square.x, square.y - 1);
+			result = Board.Get().GetBoardSquare(square.x, square.y - 1);
 			break;
 		}
 		return result;
@@ -245,7 +245,7 @@ public static class VectorUtils
 	{
 		float squareSize = board.squareSize;
 		float y;
-		if (board.\u000E(startX, startY) < 0f)
+		if (board.GetSquareHeight(startX, startY) < 0f)
 		{
 			for (;;)
 			{
@@ -264,10 +264,10 @@ public static class VectorUtils
 		}
 		else
 		{
-			y = heightOffset + board.\u000E(startX, startY);
+			y = heightOffset + board.GetSquareHeight(startX, startY);
 		}
 		float y2;
-		if (board.\u000E(endX, endY) < 0f)
+		if (board.GetSquareHeight(endX, endY) < 0f)
 		{
 			for (;;)
 			{
@@ -282,7 +282,7 @@ public static class VectorUtils
 		}
 		else
 		{
-			y2 = heightOffset + board.\u000E(endX, endY);
+			y2 = heightOffset + board.GetSquareHeight(endX, endY);
 		}
 		Vector3 vector = new Vector3((float)startX * squareSize, y, (float)startY * squareSize);
 		Vector3 vector2 = new Vector3((float)endX * squareSize, y2, (float)endY * squareSize);
@@ -386,7 +386,7 @@ public static class VectorUtils
 	{
 		float squareSize = board.squareSize;
 		float y;
-		if (board.\u000E(startX, startY) < 0f)
+		if (board.GetSquareHeight(startX, startY) < 0f)
 		{
 			for (;;)
 			{
@@ -405,10 +405,10 @@ public static class VectorUtils
 		}
 		else
 		{
-			y = heightOffset + board.\u000E(startX, startY);
+			y = heightOffset + board.GetSquareHeight(startX, startY);
 		}
 		float y2;
-		if (board.\u000E(endX, endY) < 0f)
+		if (board.GetSquareHeight(endX, endY) < 0f)
 		{
 			for (;;)
 			{
@@ -423,7 +423,7 @@ public static class VectorUtils
 		}
 		else
 		{
-			y2 = heightOffset + board.\u000E(endX, endY);
+			y2 = heightOffset + board.GetSquareHeight(endX, endY);
 		}
 		Vector3 vector = new Vector3((float)startX * squareSize, y, (float)startY * squareSize);
 		Vector3 vector2 = new Vector3((float)endX * squareSize, y2, (float)endY * squareSize);
@@ -556,8 +556,8 @@ public static class VectorUtils
 		{
 			Vector3[] array = new Vector3[3];
 			array[0] = startPos;
-			float d = VectorUtils.s_laserOffset * Board.\u000E().squareSize;
-			float num = VectorUtils.s_laserInitialLengthOffset * Board.\u000E().squareSize;
+			float d = VectorUtils.s_laserOffset * Board.Get().squareSize;
+			float num = VectorUtils.s_laserInitialLengthOffset * Board.Get().squareSize;
 			Vector3 vector2 = Vector3.Cross(Vector3.up, dir);
 			vector2.Normalize();
 			vector2 *= d;
@@ -877,7 +877,7 @@ public static class VectorUtils
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetAdjustedStartPosWithOffset(Vector3, Vector3, float)).MethodHandle;
 			}
-			float d = Mathf.Min(vector.magnitude, offsetInSquares * Board.\u000E().squareSize);
+			float d = Mathf.Min(vector.magnitude, offsetInSquares * Board.Get().squareSize);
 			result = startPos + d * vector.normalized;
 		}
 		return result;
@@ -896,9 +896,9 @@ public static class VectorUtils
 		List<Vector3> list = new List<Vector3>();
 		bounceHitActors = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
 		orderedHitActors = new List<ActorData>();
-		float num = Board.\u000E().squareSize * AreaEffectUtils.GetActorTargetingRadius();
-		float num2 = maxDistancePerBounceInSquares * Board.\u000E().squareSize;
-		float num3 = totalMaxDistanceInSquares * Board.\u000E().squareSize;
+		float num = Board.Get().squareSize * AreaEffectUtils.GetActorTargetingRadius();
+		float num2 = maxDistancePerBounceInSquares * Board.Get().squareSize;
+		float num3 = totalMaxDistanceInSquares * Board.Get().squareSize;
 		Vector3 vector2 = forwardDirection;
 		int num4 = 0;
 		int num5 = 0;
@@ -907,7 +907,7 @@ public static class VectorUtils
 		bool flag2 = false;
 		bool flag3 = false;
 		ActorData excludeActor = null;
-		float maxDistanceInWorld = Board.\u000E().squareSize * 1.8f;
+		float maxDistanceInWorld = Board.Get().squareSize * 1.8f;
 		List<NonActorTargetInfo> list2 = new List<NonActorTargetInfo>();
 		Vector3 end = VectorUtils.GetLaserCoordinates(laserStartPos, forwardDirection, maxDistanceInWorld, 0f, false, caster, list2).end;
 		Vector3 a = end - laserStartPos;
@@ -939,7 +939,7 @@ public static class VectorUtils
 			}
 			vector2.Normalize();
 			float num8 = Mathf.Min(num2, num3 - num6);
-			num2 = maxDistancePerBounceInSquares * Board.\u000E().squareSize;
+			num2 = maxDistancePerBounceInSquares * Board.Get().squareSize;
 			Vector3 zero = Vector3.zero;
 			Vector3 vector3 = Vector3.zero;
 			bool flag5 = false;
@@ -1100,7 +1100,7 @@ public static class VectorUtils
 					break;
 				}
 				Vector3 normalized = (vector3 - laserStartPos).normalized;
-				Vector3 rhs = orderedHitActors[orderedHitActors.Count - 1].\u0016() - laserStartPos;
+				Vector3 rhs = orderedHitActors[orderedHitActors.Count - 1].GetTravelBoardSquareWorldPosition() - laserStartPos;
 				vector3 = laserStartPos + (Vector3.Dot(normalized, rhs) + num) * normalized;
 				if (flag4)
 				{
@@ -1405,8 +1405,8 @@ public static class VectorUtils
 				Vector3 collisionNormal2 = 0.5f * (a2 + b);
 				for (int i = list2.Count - 1; i >= 0; i--)
 				{
-					BoardSquare testSquare = list2[i].\u0012();
-					if (!VectorUtils.SquareOnSameSideAsBounceBend(testSquare, startPosForBounce, collisionNormal2))
+					BoardSquare currentBoardSquare = list2[i].GetCurrentBoardSquare();
+					if (!VectorUtils.SquareOnSameSideAsBounceBend(currentBoardSquare, startPosForBounce, collisionNormal2))
 					{
 						for (;;)
 						{
@@ -1437,7 +1437,7 @@ public static class VectorUtils
 				break;
 			}
 			int num = 0;
-			float num2 = GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+			float num2 = GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 			int j = 0;
 			while (j < list2.Count)
 			{
@@ -1465,7 +1465,7 @@ public static class VectorUtils
 				else
 				{
 					ActorData actorData = list2[j];
-					Vector3 vector2 = actorData.\u0016() - startPosForBounce;
+					Vector3 vector2 = actorData.GetTravelBoardSquareWorldPosition() - startPosForBounce;
 					vector2.y = 0f;
 					float magnitude2 = vector2.magnitude;
 					Vector3 vector3 = endPoint - startPosForBounce;
@@ -1482,8 +1482,8 @@ public static class VectorUtils
 							}
 							break;
 						}
-						Vector3 vector4 = actorData.\u0016();
-						float num3 = 0.5f * widthInSquares * Board.\u000E().squareSize;
+						Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+						float num3 = 0.5f * widthInSquares * Board.Get().squareSize;
 						if (GameWideData.Get().UseActorRadiusForLaser())
 						{
 							for (;;)
@@ -1497,10 +1497,10 @@ public static class VectorUtils
 							}
 							num3 += num2;
 						}
-						num3 = Mathf.Min(0.4f * Board.\u000E().squareSize, num3);
+						num3 = Mathf.Min(0.4f * Board.Get().squareSize, num3);
+						Vector3 vector4;
 						Vector3 vector5;
-						Vector3 vector6;
-						int lineCircleIntersections = VectorUtils.GetLineCircleIntersections(startPosForGameplay, endPoint, vector4, num3, out vector5, out vector6);
+						int lineCircleIntersections = VectorUtils.GetLineCircleIntersections(startPosForGameplay, endPoint, travelBoardSquareWorldPosition, num3, out vector4, out vector5);
 						if (lineCircleIntersections > 1)
 						{
 							for (;;)
@@ -1512,9 +1512,9 @@ public static class VectorUtils
 								}
 								break;
 							}
-							float num4 = VectorUtils.HorizontalPlaneDistInWorld(vector5, startPosForGameplay);
-							float num5 = VectorUtils.HorizontalPlaneDistInWorld(vector6, startPosForGameplay);
-							Vector3 vector7;
+							float num4 = VectorUtils.HorizontalPlaneDistInWorld(vector4, startPosForGameplay);
+							float num5 = VectorUtils.HorizontalPlaneDistInWorld(vector5, startPosForGameplay);
+							Vector3 vector6;
 							if (num4 <= num5)
 							{
 								for (;;)
@@ -1526,15 +1526,15 @@ public static class VectorUtils
 									}
 									break;
 								}
-								vector7 = vector5;
+								vector6 = vector4;
 							}
 							else
 							{
-								vector7 = vector6;
+								vector6 = vector5;
 							}
-							endPoint = vector7;
+							endPoint = vector6;
 							endPoint.y = startPosForBounce.y;
-							collisionNormal = endPoint - vector4;
+							collisionNormal = endPoint - travelBoardSquareWorldPosition;
 							collisionNormal.y = 0f;
 							collisionNormal.Normalize();
 							float num6 = 0.5f * AreaEffectUtils.GetMaxAngleForActorBounce();
@@ -1563,8 +1563,8 @@ public static class VectorUtils
 		List<Vector3> list = new List<Vector3>();
 		bounceHitActors = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
 		orderedHitActors = new List<ActorData>();
-		float num = maxDistancePerBounceInSquares * Board.\u000E().squareSize;
-		float num2 = totalMaxDistanceInSquares * Board.\u000E().squareSize;
+		float num = maxDistancePerBounceInSquares * Board.Get().squareSize;
+		float num2 = totalMaxDistanceInSquares * Board.Get().squareSize;
 		Vector3 vector2 = forwardDirection;
 		int num3 = 0;
 		float num4 = 0f;
@@ -1572,8 +1572,8 @@ public static class VectorUtils
 		bool flag = false;
 		bool flag2 = false;
 		bool flag3 = false;
-		float maxDistanceInWorld = Board.\u000E().squareSize * 1.8f;
-		laserStartPos.y = caster.\u0015().y;
+		float maxDistanceInWorld = Board.Get().squareSize * 1.8f;
+		laserStartPos.y = caster.GetTravelBoardSquareWorldPositionForLos().y;
 		List<NonActorTargetInfo> list2 = new List<NonActorTargetInfo>();
 		Vector3 end = VectorUtils.GetLaserCoordinates(laserStartPos, forwardDirection, maxDistanceInWorld, 0f, false, caster, list2).end;
 		Vector3 a = end - laserStartPos;
@@ -1593,7 +1593,7 @@ public static class VectorUtils
 			}
 			vector2.Normalize();
 			float num7 = Mathf.Min(num, num2 - num4);
-			num = maxDistancePerBounceInSquares * Board.\u000E().squareSize;
+			num = maxDistancePerBounceInSquares * Board.Get().squareSize;
 			Vector3 zero = Vector3.zero;
 			Vector3 zero2 = Vector3.zero;
 			bool flag5 = false;
@@ -2029,8 +2029,8 @@ public static class VectorUtils
 				Vector3 collisionNormal2 = 0.5f * (a2 + b);
 				for (int i = list2.Count - 1; i >= 0; i--)
 				{
-					BoardSquare testSquare = list2[i].\u0012();
-					if (!VectorUtils.SquareOnSameSideAsBounceBend(testSquare, startPosForBounce, collisionNormal2))
+					BoardSquare currentBoardSquare = list2[i].GetCurrentBoardSquare();
+					if (!VectorUtils.SquareOnSameSideAsBounceBend(currentBoardSquare, startPosForBounce, collisionNormal2))
 					{
 						for (;;)
 						{
@@ -2072,7 +2072,7 @@ public static class VectorUtils
 			while (num2 < list2.Count && !hitActorFirst)
 			{
 				ActorData actorData = list2[num2];
-				Vector3 vector2 = actorData.\u0016() - startPosForBounce;
+				Vector3 vector2 = actorData.GetTravelBoardSquareWorldPosition() - startPosForBounce;
 				vector2.y = 0f;
 				float magnitude2 = vector2.magnitude;
 				Vector3 vector3 = endPoint - startPosForBounce;
@@ -2080,16 +2080,16 @@ public static class VectorUtils
 				float magnitude3 = vector3.magnitude;
 				if (magnitude2 < magnitude3)
 				{
-					Vector3 vector4 = actorData.\u0016();
-					float num3 = 0.5f * bounceTestWidthInSquares * Board.\u000E().squareSize;
+					Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+					float num3 = 0.5f * bounceTestWidthInSquares * Board.Get().squareSize;
 					if (GameWideData.Get().UseActorRadiusForLaser())
 					{
-						num3 += actorTargetingRadius * Board.\u000E().squareSize;
+						num3 += actorTargetingRadius * Board.Get().squareSize;
 					}
-					num3 = Mathf.Min(0.4f * Board.\u000E().squareSize, num3);
+					num3 = Mathf.Min(0.4f * Board.Get().squareSize, num3);
+					Vector3 vector4;
 					Vector3 vector5;
-					Vector3 vector6;
-					int lineCircleIntersections = VectorUtils.GetLineCircleIntersections(startPosForBounce, endPoint, vector4, num3, out vector5, out vector6);
+					int lineCircleIntersections = VectorUtils.GetLineCircleIntersections(startPosForBounce, endPoint, travelBoardSquareWorldPosition, num3, out vector4, out vector5);
 					if (lineCircleIntersections > 1)
 					{
 						for (;;)
@@ -2101,11 +2101,11 @@ public static class VectorUtils
 							}
 							break;
 						}
-						float num4 = VectorUtils.HorizontalPlaneDistInWorld(vector5, startPosForBounce);
-						float num5 = VectorUtils.HorizontalPlaneDistInWorld(vector6, startPosForBounce);
-						endPoint = ((num4 > num5) ? vector6 : vector5);
+						float num4 = VectorUtils.HorizontalPlaneDistInWorld(vector4, startPosForBounce);
+						float num5 = VectorUtils.HorizontalPlaneDistInWorld(vector5, startPosForBounce);
+						endPoint = ((num4 > num5) ? vector5 : vector4);
 						endPoint.y = startPosForBounce.y;
-						collisionNormal = endPoint - vector4;
+						collisionNormal = endPoint - travelBoardSquareWorldPosition;
 						collisionNormal.y = 0f;
 						collisionNormal.Normalize();
 						float num6 = 0.5f * AreaEffectUtils.GetMaxAngleForActorBounce();
@@ -2762,7 +2762,7 @@ public static class VectorUtils
 	public unsafe static Vector3 GetDirectionAndOffsetToClosestSide(BoardSquare square, Vector3 testPos, bool allowDiagonalAim, out Vector3 offset)
 	{
 		Vector3 vector = new Vector3(1f, 0f, 0f);
-		offset = 0.5f * Board.\u000E().squareSize * vector;
+		offset = 0.5f * Board.Get().squareSize * vector;
 		if (square != null)
 		{
 			for (;;)
@@ -2806,7 +2806,7 @@ public static class VectorUtils
 					break;
 				}
 				vector = VectorUtils.GetDirectionToClosestSide(square, testPos);
-				offset = 0.5f * Board.\u000E().squareSize * vector;
+				offset = 0.5f * Board.Get().squareSize * vector;
 			}
 			else
 			{
@@ -2936,11 +2936,11 @@ public static class VectorUtils
 						break;
 					}
 					float num2 = 0.5f * Mathf.Sqrt(2f) - 0.01f;
-					offset = num2 * Board.\u000E().squareSize * vector;
+					offset = num2 * Board.Get().squareSize * vector;
 				}
 				else
 				{
-					offset = 0.5f * Board.\u000E().squareSize * vector;
+					offset = 0.5f * Board.Get().squareSize * vector;
 				}
 			}
 		}
@@ -2956,7 +2956,7 @@ public static class VectorUtils
 
 	public static float HorizontalPlaneDistInSquares(Vector3 a, Vector3 b)
 	{
-		return VectorUtils.HorizontalPlaneDistInWorld(a, b) / Board.\u000E().squareSize;
+		return VectorUtils.HorizontalPlaneDistInWorld(a, b) / Board.Get().squareSize;
 	}
 
 	public struct LaserCoords

@@ -227,7 +227,7 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 
 	public VectorUtils.LaserCoords CurrentLaserCoordinates(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		Vector3 startPos = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 vector;
 		if (currentTarget == null)
 		{
@@ -252,15 +252,15 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 		}
 		Vector3 freeDir = vector;
 		Vector3 validDirOf = AbilityUtil_Targeter_Angle.GetValidDirOf(freeDir);
-		float maxDistanceInWorld = this.m_distance * Board.\u000E().squareSize;
-		float widthInWorld = this.m_width * Board.\u000E().squareSize;
-		return VectorUtils.GetLaserCoordinates(startPos, validDirOf, maxDistanceInWorld, widthInWorld, this.m_penetrateLoS, targetingActor, null);
+		float maxDistanceInWorld = this.m_distance * Board.Get().squareSize;
+		float widthInWorld = this.m_width * Board.Get().squareSize;
+		return VectorUtils.GetLaserCoordinates(travelBoardSquareWorldPositionForLos, validDirOf, maxDistanceInWorld, widthInWorld, this.m_penetrateLoS, targetingActor, null);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		VectorUtils.LaserCoords coords = this.CurrentLaserCoordinates(currentTarget, targetingActor);
-		float widthInWorld = this.m_width * Board.\u000E().squareSize;
+		float widthInWorld = this.m_width * Board.Get().squareSize;
 		base.ClearActorsInRange();
 		List<ActorData> actorsInBox = AreaEffectUtils.GetActorsInBox(coords.start, coords.end, this.m_width, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams());
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInBox);
@@ -351,7 +351,7 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 	public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		VectorUtils.LaserCoords laserCoords = this.CurrentLaserCoordinates(currentTarget, targetingActor);
-		float num = this.m_width * Board.\u000E().squareSize;
+		float num = this.m_width * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 vector = laserCoords.start + new Vector3(0f, y, 0f);
 		Vector3 vector2 = laserCoords.end + new Vector3(0f, y, 0f);
@@ -378,7 +378,7 @@ public class AbilityUtil_Targeter_Angle : AbilityUtil_Targeter
 			while (enumerator.MoveNext())
 			{
 				BoardSquare boardSquare = enumerator.Current;
-				if (boardSquare.\u0016())
+				if (boardSquare.IsBaselineHeight())
 				{
 					for (;;)
 					{

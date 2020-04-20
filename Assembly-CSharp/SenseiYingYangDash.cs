@@ -597,7 +597,7 @@ public class SenseiYingYangDash : Ability
 		int num = this.GetHealOnAlly();
 		if (allyActor != null)
 		{
-			bool flag = allyActor.\u0012() < this.GetAllyLowHealthThresh();
+			bool flag = allyActor.GetHitPointShareOfMax() < this.GetAllyLowHealthThresh();
 			if (this.ReverseHealthThreshForAlly())
 			{
 				for (;;)
@@ -613,7 +613,7 @@ public class SenseiYingYangDash : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiYingYangDash.GetCurrentAllyHeal(ActorData, ActorData)).MethodHandle;
 				}
-				flag = (allyActor.\u0012() > this.GetAllyLowHealthThresh());
+				flag = (allyActor.GetHitPointShareOfMax() > this.GetAllyLowHealthThresh());
 			}
 			if (this.GetExtraHealOnAllyForLowHealth() > 0 && this.GetAllyLowHealthThresh() > 0f)
 			{
@@ -662,7 +662,7 @@ public class SenseiYingYangDash : Ability
 		int num = this.GetDamage();
 		if (enemyActor != null)
 		{
-			bool flag = enemyActor.\u0012() < this.GetEnemyLowHealthThresh();
+			bool flag = enemyActor.GetHitPointShareOfMax() < this.GetEnemyLowHealthThresh();
 			if (this.ReverseHealthThreshForEnemy())
 			{
 				for (;;)
@@ -678,7 +678,7 @@ public class SenseiYingYangDash : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiYingYangDash.GetCurrentDamage(ActorData, ActorData)).MethodHandle;
 				}
-				flag = (enemyActor.\u0012() > this.GetEnemyLowHealthThresh());
+				flag = (enemyActor.GetHitPointShareOfMax() > this.GetEnemyLowHealthThresh());
 			}
 			if (this.GetExtraDamageForLowHealth() > 0)
 			{
@@ -881,7 +881,7 @@ public class SenseiYingYangDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiYingYangDash.ShouldApplyBonusForDiffTeam(ActorData, ActorData)).MethodHandle;
 			}
-			bool flag = targetActor.\u000E() == caster.\u000E();
+			bool flag = targetActor.GetTeam() == caster.GetTeam();
 			return this.m_syncComp.m_syncLastYingYangDashedToAlly != flag;
 		}
 		return false;
@@ -990,8 +990,8 @@ public class SenseiYingYangDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiYingYangDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -1002,7 +1002,7 @@ public class SenseiYingYangDash : Ability
 					}
 					break;
 				}
-				if (boardSquare.OccupantActor != null)
+				if (boardSquareSafe.OccupantActor != null)
 				{
 					for (;;)
 					{
@@ -1013,7 +1013,7 @@ public class SenseiYingYangDash : Ability
 						}
 						break;
 					}
-					if (base.CanTargetActorInDecision(caster, boardSquare.OccupantActor, this.CanTargetEnemy(), this.CanTargetAlly(), false, Ability.ValidateCheckPath.CanBuildPath, true, false, false))
+					if (base.CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, this.CanTargetEnemy(), this.CanTargetAlly(), false, Ability.ValidateCheckPath.CanBuildPath, true, false, false))
 					{
 						for (;;)
 						{
@@ -1033,9 +1033,9 @@ public class SenseiYingYangDash : Ability
 		else
 		{
 			flag = true;
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquare3 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare3 != null && boardSquare3.\u0016())
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -1046,7 +1046,7 @@ public class SenseiYingYangDash : Ability
 					}
 					break;
 				}
-				if (boardSquare3 != boardSquare2)
+				if (boardSquareSafe3 != boardSquareSafe2)
 				{
 					for (;;)
 					{
@@ -1057,7 +1057,7 @@ public class SenseiYingYangDash : Ability
 						}
 						break;
 					}
-					if (boardSquare3 != caster.\u0012())
+					if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 					{
 						for (;;)
 						{
@@ -1068,10 +1068,10 @@ public class SenseiYingYangDash : Ability
 							}
 							break;
 						}
-						if (AreaEffectUtils.IsSquareInShape(boardSquare3, this.GetChooseDestShape(), target.FreePos, boardSquare2, false, caster))
+						if (AreaEffectUtils.IsSquareInShape(boardSquareSafe3, this.GetChooseDestShape(), target.FreePos, boardSquareSafe2, false, caster))
 						{
 							int num;
-							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare3, boardSquare2, false, out num);
+							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out num);
 						}
 					}
 				}

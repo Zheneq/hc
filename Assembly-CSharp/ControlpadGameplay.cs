@@ -455,7 +455,7 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			actorData = GameFlowData.Get().activeOwnedActorData;
 		}
-		if (actorData != null && Board.\u000E() != null && this.UsingControllerInput)
+		if (actorData != null && Board.Get() != null && this.UsingControllerInput)
 		{
 			for (;;)
 			{
@@ -466,8 +466,8 @@ public class ControlpadGameplay : MonoBehaviour
 				}
 				break;
 			}
-			Ability selectedAbility = actorData.\u000E().GetSelectedAbility();
-			int targetSelectionIndex = actorData.\u000E().GetTargetSelectionIndex();
+			Ability selectedAbility = actorData.GetAbilityData().GetSelectedAbility();
+			int targetSelectionIndex = actorData.GetActorTurnSM().GetTargetSelectionIndex();
 			if (selectedAbility != null && targetSelectionIndex >= 0)
 			{
 				for (;;)
@@ -479,7 +479,7 @@ public class ControlpadGameplay : MonoBehaviour
 					}
 					break;
 				}
-				List<AbilityTarget> abilityTargets = actorData.\u000E().GetAbilityTargets();
+				List<AbilityTarget> abilityTargets = actorData.GetActorTurnSM().GetAbilityTargets();
 				Ability.TargetingParadigm controlpadTargetingParadigm = selectedAbility.GetControlpadTargetingParadigm(targetSelectionIndex);
 				if (controlpadTargetingParadigm == Ability.TargetingParadigm.Direction)
 				{
@@ -503,7 +503,7 @@ public class ControlpadGameplay : MonoBehaviour
 					this.UpdateAiming_PositionTargeter();
 				}
 			}
-			else if (actorData.\u000E().AmDecidingMovement())
+			else if (actorData.GetActorTurnSM().AmDecidingMovement())
 			{
 				for (;;)
 				{
@@ -537,7 +537,7 @@ public class ControlpadGameplay : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.UpdateAiming_PositionTargeter()).MethodHandle;
 			}
-			if (activeOwnedActorData.\u000E().IsAbilityOrPingSelectorVisible())
+			if (activeOwnedActorData.GetActorTurnSM().IsAbilityOrPingSelectorVisible())
 			{
 				for (;;)
 				{
@@ -786,7 +786,7 @@ public class ControlpadGameplay : MonoBehaviour
 					}
 					break;
 				}
-				this.ControllerAimingOriginPos = activeOwnedActorData.\u0016();
+				this.ControllerAimingOriginPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
 				Vector3 controllerAimDir = this.ControllerAimPos - this.ControllerAimingOriginPos;
 				controllerAimDir.y = 0f;
 				controllerAimDir.Normalize();
@@ -991,10 +991,10 @@ public class ControlpadGameplay : MonoBehaviour
 				goto IL_330;
 			}
 		}
-		this.ControllerAimingOriginPos = clientActor.\u0016();
+		this.ControllerAimingOriginPos = clientActor.GetTravelBoardSquareWorldPosition();
 		IL_330:
 		float num5 = VectorUtils.HorizontalAngle_Deg(this.ControllerAimDir);
-		float magnitude = (this.ControllerAimingOriginPos - Board.\u000E().PlayerFreePos).magnitude;
+		float magnitude = (this.ControllerAimingOriginPos - Board.Get().PlayerFreePos).magnitude;
 		float angle = num5 + num3;
 		float num6 = magnitude + num4;
 		num6 = Mathf.Clamp(num6, 0.01f, 50f);
@@ -1055,7 +1055,7 @@ public class ControlpadGameplay : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.OnCameraCenteredOnActor(ActorData)).MethodHandle;
 			}
-			this.ControllerAimDir = (cameraActor.\u0016() - activeOwnedActorData.\u0016()).normalized;
+			this.ControllerAimDir = (cameraActor.GetTravelBoardSquareWorldPosition() - activeOwnedActorData.GetTravelBoardSquareWorldPosition()).normalized;
 		}
 		if (cameraActor != null)
 		{
@@ -1068,7 +1068,7 @@ public class ControlpadGameplay : MonoBehaviour
 				}
 				break;
 			}
-			this.ControllerAimPos = cameraActor.\u0016();
+			this.ControllerAimPos = cameraActor.GetTravelBoardSquareWorldPosition();
 		}
 	}
 
@@ -1092,7 +1092,7 @@ public class ControlpadGameplay : MonoBehaviour
 			if (!(GameFlowData.Get().activeOwnedActorData == null))
 			{
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-				if (!activeOwnedActorData.\u000E())
+				if (!activeOwnedActorData.IsDead())
 				{
 					for (;;)
 					{
@@ -1103,7 +1103,7 @@ public class ControlpadGameplay : MonoBehaviour
 						}
 						break;
 					}
-					if (activeOwnedActorData.CurrentBoardSquare != null && activeOwnedActorData.\u0018())
+					if (activeOwnedActorData.CurrentBoardSquare != null && activeOwnedActorData.IsVisibleToClient())
 					{
 						for (;;)
 						{
@@ -1114,7 +1114,7 @@ public class ControlpadGameplay : MonoBehaviour
 							}
 							break;
 						}
-						this.ControllerAimPos = activeOwnedActorData.\u0016();
+						this.ControllerAimPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
 					}
 				}
 				return;

@@ -240,8 +240,8 @@ public class SpaceMarineDropPod : Ability
 				if (this.m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData.damageAmount > 0)
 				{
 					List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-					BoardSquare boardSquare = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-					if (tooltipSubjectTypes != null && boardSquare != null)
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+					if (tooltipSubjectTypes != null && boardSquareSafe != null)
 					{
 						for (;;)
 						{
@@ -264,7 +264,7 @@ public class SpaceMarineDropPod : Ability
 								break;
 							}
 							GroundEffectField groundEffectData = this.m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData;
-							if (AreaEffectUtils.IsSquareInShape(targetActor.\u0012(), groundEffectData.shape, base.Targeter.LastUpdateFreePos, boardSquare, this.m_penetrateLoS, base.ActorData))
+							if (AreaEffectUtils.IsSquareInShape(targetActor.GetCurrentBoardSquare(), groundEffectData.shape, base.Targeter.LastUpdateFreePos, boardSquareSafe, this.m_penetrateLoS, base.ActorData))
 							{
 								dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 								dictionary[AbilityTooltipSymbol.Damage] = this.ModdedDamage() + groundEffectData.damageAmount;

@@ -185,8 +185,8 @@ public class FishManCone : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManCone.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
 			}
-			min = this.m_stretchInterpMinDist * Board.\u000E().squareSize;
-			max = (this.m_stretchInterpMinDist + this.m_stretchInterpRange) * Board.\u000E().squareSize;
+			min = this.m_stretchInterpMinDist * Board.Get().squareSize;
+			max = (this.m_stretchInterpMinDist + this.m_stretchInterpRange) * Board.Get().squareSize;
 			return true;
 		}
 		return base.HasRestrictedFreeAimDegrees(aimingActor, targetIndex, targetsSoFar, out min, out max);
@@ -1219,7 +1219,7 @@ public class FishManCone : Ability
 				}
 				this.GetTargeterClampedAimDirection(targets[0].AimDirection, targets[targets.Count - 1].AimDirection, out coneWidthAngleMin, out angle);
 			}
-			return caster.\u0016() + VectorUtils.AngleDegreesToVector(angle);
+			return caster.GetTravelBoardSquareWorldPosition() + VectorUtils.AngleDegreesToVector(angle);
 		}
 		return base.GetRotateToTargetPos(targets, caster);
 	}

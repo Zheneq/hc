@@ -596,10 +596,10 @@ public class SenseiBasicAttack : Ability
 					}
 					break;
 				}
-				Vector3 vector = targetActor.\u0016() - caster.\u0016();
+				Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 				vector.y = 0f;
 				float magnitude = vector.magnitude;
-				if (magnitude >= num2 * Board.\u000E().squareSize)
+				if (magnitude >= num2 * Board.Get().squareSize)
 				{
 					for (;;)
 					{
@@ -793,7 +793,7 @@ public class SenseiBasicAttack : Ability
 
 	private bool ShouldUseCircle(Vector3 freePos, ActorData caster)
 	{
-		Vector3 vector = freePos - caster.\u0016();
+		Vector3 vector = freePos - caster.GetTravelBoardSquareWorldPosition();
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
 		return magnitude <= this.m_circleDistThreshold;

@@ -410,12 +410,12 @@ public class RampartBarricade_Prep : Ability
 		position = targets[0].FreePos;
 		if (this.m_snapToGrid)
 		{
-			BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+			if (boardSquareSafe != null)
 			{
 				Vector3 b;
-				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquare, targets[0].FreePos, this.AllowAimAtDiagonals(), out b);
-				position = boardSquare.ToVector3() + b;
+				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, targets[0].FreePos, this.AllowAimAtDiagonals(), out b);
+				position = boardSquareSafe.ToVector3() + b;
 			}
 		}
 	}

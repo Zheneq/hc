@@ -69,8 +69,8 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 			}
 			if (this.m_splineTraveled < this.m_splineFractionUntilImpact)
 			{
-				Animator animator = base.Caster.\u000E();
-				animator.SetFloat(NekoDiscReturnProjectileSequence.animDistToGoal, this.m_totalTravelDist2D * (this.m_splineFractionUntilImpact - this.m_splineTraveled));
+				Animator modelAnimator = base.Caster.GetModelAnimator();
+				modelAnimator.SetFloat(NekoDiscReturnProjectileSequence.animDistToGoal, this.m_totalTravelDist2D * (this.m_splineFractionUntilImpact - this.m_splineTraveled));
 			}
 		}
 	}
@@ -93,7 +93,7 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscReturnProjectileSequence.SpawnFX()).MethodHandle;
 			}
-			Animator animator = base.Caster.\u000E();
+			Animator modelAnimator = base.Caster.GetModelAnimator();
 			if (!this.m_animParamToSet.IsNullOrEmpty())
 			{
 				for (;;)
@@ -105,7 +105,7 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 					}
 					break;
 				}
-				if (animator != null)
+				if (modelAnimator != null)
 				{
 					for (;;)
 					{
@@ -116,7 +116,7 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 						}
 						break;
 					}
-					animator.SetInteger(this.m_animParamToSet, this.m_animParamValue);
+					modelAnimator.SetInteger(this.m_animParamToSet, this.m_animParamValue);
 				}
 			}
 		}
@@ -140,8 +140,8 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscReturnProjectileSequence.SpawnImpactFX(Vector3, Quaternion)).MethodHandle;
 			}
-			Animator animator = base.Caster.\u000E();
-			animator.SetFloat(NekoDiscReturnProjectileSequence.animDistToGoal, 0f);
+			Animator modelAnimator = base.Caster.GetModelAnimator();
+			modelAnimator.SetFloat(NekoDiscReturnProjectileSequence.animDistToGoal, 0f);
 		}
 	}
 

@@ -28,7 +28,7 @@ namespace TMPro.Examples
 
 		private void \u0013()
 		{
-			base.StartCoroutine(this.\u0016());
+			base.StartCoroutine(this.coroutine0016\u0016());
 		}
 
 		private AnimationCurve \u0016(AnimationCurve \u001D)
@@ -39,7 +39,7 @@ namespace TMPro.Examples
 			};
 		}
 
-		private IEnumerator \u0016()
+		private IEnumerator coroutine0016\u0016()
 		{
 			this.\u000E.preWrapMode = WrapMode.Once;
 			this.\u000E.postWrapMode = WrapMode.Once;

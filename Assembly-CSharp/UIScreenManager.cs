@@ -928,7 +928,7 @@ public class UIScreenManager : MonoBehaviour
 						}
 						bool flag2 = !this.m_HideHUDDebug;
 						this.SetHUDHideDebug(!flag2, true, flag2, false);
-						GameFlowData.Get().activeOwnedActorData.\u000E().SetMovementDistanceLinesVisible(!flag2);
+						GameFlowData.Get().activeOwnedActorData.GetActorController().SetMovementDistanceLinesVisible(!flag2);
 					}
 				}
 				IL_129:;

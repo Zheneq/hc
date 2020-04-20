@@ -367,7 +367,7 @@ namespace I2.Loc.SimpleJSON
 				{
 					text2,
 					"\"",
-					JSONNode.\u000A(keyValuePair.Key),
+					JSONNode.escapeString(keyValuePair.Key),
 					"\":",
 					keyValuePair.Value.ToString()
 				});
@@ -394,7 +394,7 @@ namespace I2.Loc.SimpleJSON
 					{
 						text2,
 						"\"",
-						JSONNode.\u000A(keyValuePair.Key),
+						JSONNode.escapeString(keyValuePair.Key),
 						"\" : ",
 						keyValuePair.Value.\u0004(\u001D + "   ")
 					});

@@ -482,7 +482,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				return UINameplateItem.BarColor.Self;
 			}
-			if (activeOwnedActorData.\u000E() == theActor.\u000E())
+			if (activeOwnedActorData.GetTeam() == theActor.GetTeam())
 			{
 				for (;;)
 				{
@@ -499,7 +499,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		else
 		{
-			if (theActor.\u000E() == Team.TeamA)
+			if (theActor.GetTeam() == Team.TeamA)
 			{
 				return UINameplateItem.BarColor.Team;
 			}
@@ -1305,7 +1305,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			this.m_catalsystPips.transform.localEulerAngles = Vector3.zero;
 		}
 		UIUtils.SetAsLastSiblingIfNeeded(this.m_catalsystPips.transform);
-		this.m_actorData.\u000E().UpdateCatalystDisplay();
+		this.m_actorData.GetAbilityData().UpdateCatalystDisplay();
 	}
 
 	public void TurnOffTargetingAbilityIndicator(int fromIndex)
@@ -2041,7 +2041,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (actorData.\u000E() == targetingActor.\u000E())
+					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
 						for (;;)
 						{
@@ -2052,7 +2052,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						ActorTargeting actorTargeting = actorData.\u000E();
+						ActorTargeting actorTargeting = actorData.GetActorTargeting();
 						if (actorTargeting != null)
 						{
 							for (;;)
@@ -2064,7 +2064,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 								}
 								break;
 							}
-							if (targetingActor.\u000E() != this.m_actorData.\u000E())
+							if (targetingActor.GetTeam() != this.m_actorData.GetTeam())
 							{
 								for (;;)
 								{
@@ -2143,7 +2143,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					bool fadeOut = flag2;
 					Color color;
-					if (targetingActor.\u000E() != this.m_actorData.\u000E())
+					if (targetingActor.GetTeam() != this.m_actorData.GetTeam())
 					{
 						for (;;)
 						{
@@ -2252,7 +2252,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().activeOwnedActorData.\u000E() != null)
+				if (GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().activeOwnedActorData.GetAbilityData() != null)
 				{
 					for (;;)
 					{
@@ -2263,7 +2263,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (GameFlowData.Get().activeOwnedActorData.\u000E().GetSelectedAbility() == null)
+					if (GameFlowData.Get().activeOwnedActorData.GetAbilityData().GetSelectedAbility() == null)
 					{
 						for (;;)
 						{
@@ -2807,8 +2807,8 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateItem.IsInFrontOfCamera()).MethodHandle;
 			}
-			Vector3 position = this.m_actorData.\u000E(30f);
-			if (Camera.main.WorldToViewportPoint(position).z < 0f)
+			Vector3 nameplatePosition = this.m_actorData.GetNameplatePosition(30f);
+			if (Camera.main.WorldToViewportPoint(nameplatePosition).z < 0f)
 			{
 				for (;;)
 				{
@@ -2847,7 +2847,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateItem.IsVisibleInDecisionPhase()).MethodHandle;
 			}
-			result = (this.m_actorData.\u0013() && this.IsInFrontOfCamera());
+			result = (this.m_actorData.ShouldShowNameplate() && this.IsInFrontOfCamera());
 		}
 		return result;
 	}
@@ -3022,7 +3022,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					uibuffIndicator.transform.localScale = Vector3.one;
 					uibuffIndicator.transform.localPosition = Vector3.zero;
 					uibuffIndicator.transform.localEulerAngles = Vector3.zero;
-					uibuffIndicator.Setup(item.statusType, this.m_actorData.\u000E().GetDurationOfStatus(item.statusType));
+					uibuffIndicator.Setup(item.statusType, this.m_actorData.GetActorStatus().GetDurationOfStatus(item.statusType));
 					CanvasGroup component = uibuffIndicator.gameObject.GetComponent<CanvasGroup>();
 					component.alpha = 0f;
 					UINameplateItem.StaticStatusDisplayInfo item2;
@@ -3097,7 +3097,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				this.m_statusEffectsAnimating.Remove(item);
 				UnityEngine.Object.Destroy(nameplateStatus.gameObject);
 				i--;
-				if (!this.m_actorData.\u000E().HasStatus(item.statusType, true))
+				if (!this.m_actorData.GetActorStatus().HasStatus(item.statusType, true))
 				{
 					for (;;)
 					{
@@ -3279,7 +3279,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 							}
 							this.SetBarColors(UINameplateItem.BarColor.Self);
 						}
-						else if (activeOwnedActorData.\u000E() == this.m_actorData.\u000E())
+						else if (activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam())
 						{
 							for (;;)
 							{
@@ -3292,7 +3292,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 							}
 							this.SetBarColors(UINameplateItem.BarColor.Team);
 						}
-						else if (activeOwnedActorData.\u000E() == this.m_actorData.\u000E().OtherTeam())
+						else if (activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam().OtherTeam())
 						{
 							for (;;)
 							{
@@ -3310,7 +3310,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 							this.SetBarColors(UINameplateItem.BarColor.None);
 						}
 					}
-					else if (this.m_actorData.\u000E() == Team.TeamA)
+					else if (this.m_actorData.GetTeam() == Team.TeamA)
 					{
 						for (;;)
 						{
@@ -3372,7 +3372,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				this.CanvasRect = (this.myCanvas.transform as RectTransform);
 			}
 			Vector3 vector;
-			if (this.m_actorData.\u0013())
+			if (this.m_actorData.ShouldShowNameplate())
 			{
 				for (;;)
 				{
@@ -3383,9 +3383,9 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				vector = this.m_actorData.\u000E(-2f);
+				vector = this.m_actorData.GetNameplatePosition(-2f);
 			}
-			else if (this.m_actorData.\u000E())
+			else if (this.m_actorData.IsDead())
 			{
 				for (;;)
 				{
@@ -3398,13 +3398,13 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				}
 				vector = this.m_actorData.LastDeathPosition;
 			}
-			else if (!this.m_actorData.\u0018())
+			else if (!this.m_actorData.IsVisibleToClient())
 			{
-				vector = this.m_actorData.\u000E();
+				vector = this.m_actorData.GetClientLastKnownPos();
 			}
 			else
 			{
-				vector = this.m_actorData.\u000E(-2f);
+				vector = this.m_actorData.GetNameplatePosition(-2f);
 			}
 			Vector2 vector2 = Camera.main.WorldToViewportPoint(vector);
 			Vector2 anchoredPosition = new Vector2(vector2.x * this.CanvasRect.sizeDelta.x, vector2.y * this.CanvasRect.sizeDelta.y);
@@ -3412,9 +3412,9 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			Vector3 position = Camera.main.transform.position;
 			this.m_distanceFromCamera = (vector - position).sqrMagnitude;
 			this.OnHitUpdate();
-			int num = this.m_actorData.\u0009();
-			int num2 = this.m_actorData.\u0011();
-			if (num == 0)
+			int hitPointsAfterResolution = this.m_actorData.GetHitPointsAfterResolution();
+			int clientUnappliedHoTTotal_ToDisplay_zq = this.m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
+			if (hitPointsAfterResolution == 0)
 			{
 				for (;;)
 				{
@@ -3472,12 +3472,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					UIManager.SetGameObjectActive(this.m_healthLabel, this.m_textVisible, null);
 				}
 			}
-			if (!object.ReferenceEquals(this.m_textNameLabel.text, this.m_actorData.\u000E()))
+			if (!object.ReferenceEquals(this.m_textNameLabel.text, this.m_actorData.GetFancyDisplayName()))
 			{
-				this.m_textNameLabel.text = this.m_actorData.\u000E();
+				this.m_textNameLabel.text = this.m_actorData.GetFancyDisplayName();
 			}
-			int num3 = this.m_actorData.\u0004();
-			if (num3 > 0)
+			int num = this.m_actorData.\u0004();
+			if (num > 0)
 			{
 				for (;;)
 				{
@@ -3488,10 +3488,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (this.m_actorData.\u000E().GetSelectedAbility() == null);
+				this.m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (this.m_actorData.GetAbilityData().GetSelectedAbility() == null);
 				if (this.m_mouseIsOverHP)
 				{
-					if (num2 > 0)
+					if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 					{
 						for (;;)
 						{
@@ -3504,26 +3504,26 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						}
 						this.m_healthLabel.text = string.Format("{0} + <color={1}>{2}</color> + <color={3}>{4}</color>", new object[]
 						{
-							num.ToString(),
+							hitPointsAfterResolution.ToString(),
 							HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor),
-							num3.ToString(),
+							num.ToString(),
 							HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor),
-							num2.ToString()
+							clientUnappliedHoTTotal_ToDisplay_zq.ToString()
 						});
 					}
 					else
 					{
-						this.m_healthLabel.text = string.Format("{0} + <color={1}>{2}</color>", num.ToString(), HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor), num3.ToString());
+						this.m_healthLabel.text = string.Format("{0} + <color={1}>{2}</color>", hitPointsAfterResolution.ToString(), HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor), num.ToString());
 					}
 				}
 				else
 				{
-					this.m_healthLabel.text = string.Format("<color={0}>{1}</color>", HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor), (num + num3).ToString());
+					this.m_healthLabel.text = string.Format("<color={0}>{1}</color>", HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor), (hitPointsAfterResolution + num).ToString());
 				}
 			}
-			else if (num2 > 0)
+			else if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 			{
-				this.m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (this.m_actorData.\u000E().GetSelectedAbility() == null);
+				this.m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (this.m_actorData.GetAbilityData().GetSelectedAbility() == null);
 				if (this.m_mouseIsOverHP)
 				{
 					for (;;)
@@ -3535,12 +3535,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.m_healthLabel.text = string.Format("{0} + <color={1}>{2}</color>", num.ToString(), HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor), num2.ToString());
+					this.m_healthLabel.text = string.Format("{0} + <color={1}>{2}</color>", hitPointsAfterResolution.ToString(), HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor), clientUnappliedHoTTotal_ToDisplay_zq.ToString());
 				}
 				else
 				{
 					this.m_healthLabel.color = Color.white;
-					string text = num.ToString();
+					string text = hitPointsAfterResolution.ToString();
 					if (!this.m_healthLabel.text.Equals(text))
 					{
 						for (;;)
@@ -3560,7 +3560,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				this.m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = false;
 				this.m_healthLabel.color = Color.white;
-				string text2 = num.ToString();
+				string text2 = hitPointsAfterResolution.ToString();
 				if (!this.m_healthLabel.text.Equals(text2))
 				{
 					for (;;)
@@ -3575,12 +3575,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					this.m_healthLabel.text = text2;
 				}
 			}
-			int num4 = this.m_actorData.\u0019();
-			int num5 = this.m_actorData.\u0016();
-			if (num4 != this.m_previousTP || num5 != this.m_previousTPMax)
+			int energyToDisplay = this.m_actorData.GetEnergyToDisplay();
+			int actualMaxTechPoints = this.m_actorData.GetActualMaxTechPoints();
+			if (energyToDisplay != this.m_previousTP || actualMaxTechPoints != this.m_previousTPMax)
 			{
 				float endValue = 0f;
-				if (num5 != 0)
+				if (actualMaxTechPoints != 0)
 				{
 					for (;;)
 					{
@@ -3591,9 +3591,9 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					endValue = (float)num4 / (float)num5;
+					endValue = (float)energyToDisplay / (float)actualMaxTechPoints;
 				}
-				if (num4 > this.m_previousTP)
+				if (energyToDisplay > this.m_previousTP)
 				{
 					this.m_TPEased.EaseTo(endValue, 0f);
 					this.m_TPEasedGained.EaseTo(endValue, 2.5f);
@@ -3603,12 +3603,12 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					this.m_TPEasedGained.EaseTo(endValue, 0f);
 					this.m_TPEased.EaseTo(endValue, 2.5f);
 				}
-				List<Ability> abilitiesAsList = this.m_actorData.\u000E().GetAbilitiesAsList();
+				List<Ability> abilitiesAsList = this.m_actorData.GetAbilityData().GetAbilitiesAsList();
 				bool flag2 = false;
 				if (abilitiesAsList.Count > 4 && abilitiesAsList[4] != null)
 				{
 					bool flag3;
-					if (num4 >= abilitiesAsList[4].GetModdedCost() && !this.m_actorData.\u000E())
+					if (energyToDisplay >= abilitiesAsList[4].GetModdedCost() && !this.m_actorData.IsDead())
 					{
 						for (;;)
 						{
@@ -3619,7 +3619,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						flag3 = (this.m_actorData.\u000E().GetCooldownRemaining(AbilityData.ActionType.ABILITY_4) <= 0);
+						flag3 = (this.m_actorData.GetAbilityData().GetCooldownRemaining(AbilityData.ActionType.ABILITY_4) <= 0);
 					}
 					else
 					{
@@ -3628,7 +3628,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					flag2 = flag3;
 				}
 				bool flag4;
-				if (num4 != num5)
+				if (energyToDisplay != actualMaxTechPoints)
 				{
 					for (;;)
 					{
@@ -4069,10 +4069,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 
 	private void SnapBarValues()
 	{
-		this.m_previousHP = this.m_actorData.\u0009();
-		this.m_previousHPMax = this.m_actorData.\u0012();
+		this.m_previousHP = this.m_actorData.GetHitPointsAfterResolution();
+		this.m_previousHPMax = this.m_actorData.GetMaxHitPoints();
 		this.m_previousShieldValue = this.m_actorData.\u0004();
-		this.m_previousHPShieldAndHot = this.m_previousHP + this.m_previousShieldValue + this.m_actorData.\u0011();
+		this.m_previousHPShieldAndHot = this.m_previousHP + this.m_previousShieldValue + this.m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
 		this.SetMaxHPWithShield(this.m_previousHPMax + this.m_previousShieldValue);
 		int num = this.m_previousHPMax + this.m_previousShieldValue;
 		float duration = 0f;
@@ -4128,15 +4128,15 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			return;
 		}
 		int num = this.m_actorData.\u0004();
-		int num2 = this.m_actorData.\u0009();
+		int hitPointsAfterResolution = this.m_actorData.GetHitPointsAfterResolution();
 		int hitPoints = this.m_actorData.HitPoints;
-		int num3 = this.m_actorData.\u0011();
-		int num4 = num2 + num + num3;
-		float num5 = (float)num2 / (float)this.m_maxHPWithShield;
-		float num6 = this.m_HPEased.EndValue();
-		float endValue = ((float)num2 + (float)num) / (float)this.m_maxHPWithShield;
-		float endValue2 = (float)num4 / (float)this.m_maxHPWithShield;
-		if (num2 < this.m_previousHP)
+		int clientUnappliedHoTTotal_ToDisplay_zq = this.m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
+		int num2 = hitPointsAfterResolution + num + clientUnappliedHoTTotal_ToDisplay_zq;
+		float num3 = (float)hitPointsAfterResolution / (float)this.m_maxHPWithShield;
+		float num4 = this.m_HPEased.EndValue();
+		float endValue = ((float)hitPointsAfterResolution + (float)num) / (float)this.m_maxHPWithShield;
+		float endValue2 = (float)num2 / (float)this.m_maxHPWithShield;
+		if (hitPointsAfterResolution < this.m_previousHP)
 		{
 			for (;;)
 			{
@@ -4153,13 +4153,13 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			}
 			this.m_lostHealth = true;
 			this.m_ShieldEased.EaseTo(endValue, 0f);
-			float num7 = Mathf.Abs(num5 - this.m_HPEased.EndValue());
-			this.m_HPEased.EaseTo(this.m_HPEased.EndValue() - num7, 0f);
-			num7 = Mathf.Abs(num5 - this.m_HPDamageEased.EndValue());
-			this.m_HPDamageEased.EaseTo(this.m_HPDamageEased.EndValue() - num7, 2.5f);
-			this.m_previousHP = num2;
+			float num5 = Mathf.Abs(num3 - this.m_HPEased.EndValue());
+			this.m_HPEased.EaseTo(this.m_HPEased.EndValue() - num5, 0f);
+			num5 = Mathf.Abs(num3 - this.m_HPDamageEased.EndValue());
+			this.m_HPDamageEased.EaseTo(this.m_HPDamageEased.EndValue() - num5, 2.5f);
+			this.m_previousHP = hitPointsAfterResolution;
 		}
-		else if (this.m_previousHP < num2)
+		else if (this.m_previousHP < hitPointsAfterResolution)
 		{
 			for (;;)
 			{
@@ -4171,7 +4171,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				break;
 			}
 			this.m_lostHealth = false;
-			float num8 = Mathf.Abs(num5 - num6);
+			float num6 = Mathf.Abs(num3 - num4);
 			if (this.m_previousShieldValue != 0)
 			{
 				for (;;)
@@ -4185,15 +4185,15 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				}
 				this.m_ShieldEased.EaseTo(endValue, 2.5f);
 			}
-			this.m_HPEased.EaseTo(this.m_HPEased.EndValue() + num8, 2.5f);
-			this.m_HPDamageEased.EaseTo(this.m_HPDamageEased.EndValue() + num8, 2.5f);
-			this.m_previousHP = num2;
+			this.m_HPEased.EaseTo(this.m_HPEased.EndValue() + num6, 2.5f);
+			this.m_HPDamageEased.EaseTo(this.m_HPDamageEased.EndValue() + num6, 2.5f);
+			this.m_previousHP = hitPointsAfterResolution;
 		}
 		if (this.m_previousShieldValue < num)
 		{
-			this.SetMaxHPWithShield(this.m_actorData.\u0012() + num);
-			float endValue3 = ((float)num2 + (float)num) / (float)this.m_maxHPWithShield;
-			float endValue4 = (float)num2 / (float)this.m_maxHPWithShield;
+			this.SetMaxHPWithShield(this.m_actorData.GetMaxHitPoints() + num);
+			float endValue3 = ((float)hitPointsAfterResolution + (float)num) / (float)this.m_maxHPWithShield;
+			float endValue4 = (float)hitPointsAfterResolution / (float)this.m_maxHPWithShield;
 			this.m_ShieldEased.EaseTo(endValue3, 0f);
 			this.m_HPEased.EaseTo(endValue4, 0f);
 			this.m_HPDamageEased.EaseTo(endValue3, 1f);
@@ -4221,16 +4221,16 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				this.SetMaxHPWithShield(this.m_actorData.\u0012() + num);
-				float endValue5 = (float)num2 / (float)this.m_maxHPWithShield;
-				float endValue6 = ((float)num2 + (float)num) / (float)this.m_maxHPWithShield;
+				this.SetMaxHPWithShield(this.m_actorData.GetMaxHitPoints() + num);
+				float endValue5 = (float)hitPointsAfterResolution / (float)this.m_maxHPWithShield;
+				float endValue6 = ((float)hitPointsAfterResolution + (float)num) / (float)this.m_maxHPWithShield;
 				this.m_ShieldEased.EaseTo(endValue6, 0f);
 				this.m_HPEased.EaseTo(endValue5, 0f);
 				this.m_HPDamageEased.EaseTo(endValue6, 0f);
 				this.m_previousShieldValue = num;
 			}
 		}
-		if (num4 != this.m_previousHPShieldAndHot)
+		if (num2 != this.m_previousHPShieldAndHot)
 		{
 			for (;;)
 			{
@@ -4242,7 +4242,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				break;
 			}
 			this.m_HPGainedEased.EaseTo(endValue2, 0f);
-			this.m_previousHPShieldAndHot = num4;
+			this.m_previousHPShieldAndHot = num2;
 		}
 		if (this.m_previousResolvedHP != hitPoints)
 		{
@@ -4286,15 +4286,15 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		}
 		this.m_lostHealth = false;
 		int num = this.m_actorData.\u0004();
-		int num2 = this.m_actorData.\u0009();
-		this.SetMaxHPWithShield(this.m_actorData.\u0012() + num);
-		float endValue = (float)num2 / (float)this.m_maxHPWithShield;
-		float num3 = ((float)num2 + (float)num) / (float)this.m_maxHPWithShield;
-		float num4 = (float)this.m_actorData.\u0011() / (float)this.m_maxHPWithShield;
-		this.m_ShieldEased.EaseTo(num3, 2.5f);
+		int hitPointsAfterResolution = this.m_actorData.GetHitPointsAfterResolution();
+		this.SetMaxHPWithShield(this.m_actorData.GetMaxHitPoints() + num);
+		float endValue = (float)hitPointsAfterResolution / (float)this.m_maxHPWithShield;
+		float num2 = ((float)hitPointsAfterResolution + (float)num) / (float)this.m_maxHPWithShield;
+		float num3 = (float)this.m_actorData.GetClientUnappliedHoTTotal_ToDisplay_zq() / (float)this.m_maxHPWithShield;
+		this.m_ShieldEased.EaseTo(num2, 2.5f);
 		this.m_HPEased.EaseTo(endValue, 2.5f);
-		this.m_HPGainedEased.EaseTo(num3 + num4, 2.5f);
-		this.m_HPDamageEased.EaseTo(num3, 2.5f);
+		this.m_HPGainedEased.EaseTo(num2 + num3, 2.5f);
+		this.m_HPDamageEased.EaseTo(num2, 2.5f);
 	}
 
 	public void Setup(ActorData actorData)
@@ -4302,7 +4302,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		this.m_actorData = actorData;
 		ActorData actorData2 = this.m_actorData;
 		actorData2.m_onResolvedHitPoints = (ActorData.ActorDataDelegate)Delegate.Combine(actorData2.m_onResolvedHitPoints, new ActorData.ActorDataDelegate(this.OnResolvedHitPoints));
-		this.m_textNameLabel.text = this.m_actorData.\u000E();
+		this.m_textNameLabel.text = this.m_actorData.GetFancyDisplayName();
 		this.SnapBarValues();
 	}
 

@@ -71,6 +71,6 @@ public class ArcherHealProjectileSequence : ArcingProjectileSequence
 
 	protected override Team GetFoFObservingTeam()
 	{
-		return base.Caster.\u0012();
+		return base.Caster.GetOpposingTeam();
 	}
 }

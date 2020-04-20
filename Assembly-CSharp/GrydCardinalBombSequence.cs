@@ -441,7 +441,7 @@ public class GrydCardinalBombSequence : Sequence
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.StartInitialProjectile()).MethodHandle;
 			}
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_initiatingProjectileInfo.m_jointReferenceType);
-			Vector3 startPos = base.Caster.\u0016();
+			Vector3 startPos = base.Caster.GetTravelBoardSquareWorldPosition();
 			Vector3 targetPos = base.TargetPos;
 			if (referenceModel != null)
 			{
@@ -801,8 +801,8 @@ public class GrydCardinalBombSequence : Sequence
 			stream.Serialize(ref b2);
 			stream.Serialize(ref b3);
 			stream.Serialize(ref b4);
-			entry.m_startSquare = Board.\u000E().\u0016((int)b, (int)b2);
-			entry.m_endSquare = Board.\u000E().\u0016((int)b3, (int)b4);
+			entry.m_startSquare = Board.Get().GetBoardSquare((int)b, (int)b2);
+			entry.m_endSquare = Board.Get().GetBoardSquare((int)b3, (int)b4);
 		}
 	}
 

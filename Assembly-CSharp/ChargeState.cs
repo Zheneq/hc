@@ -75,7 +75,7 @@ public class ChargeState : MoveState
 
 	protected override void UpdateState()
 	{
-		if (this.m_ownerActorData.\u000E() != null)
+		if (this.m_ownerActorData.GetActorModelData() != null)
 		{
 			for (;;)
 			{
@@ -90,12 +90,12 @@ public class ChargeState : MoveState
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ChargeState.UpdateState()).MethodHandle;
 			}
-			if (this.m_ownerActorData.\u000E().IsPlayingChargeEnd())
+			if (this.m_ownerActorData.GetActorModelData().IsPlayingChargeEnd())
 			{
 				BoardSquare square = this.m_pathSquareInfo.square;
-				Vector3 vector = square.\u001D();
-				vector.y = (float)Board.\u000E().BaselineHeight;
-				this.m_owner.m_actor.SetTransformPositionToVector(vector);
+				Vector3 worldPosition = square.GetWorldPosition();
+				worldPosition.y = (float)Board.Get().BaselineHeight;
+				this.m_owner.m_actor.SetTransformPositionToVector(worldPosition);
 				if (this.m_pathSquareInfo.next != null)
 				{
 					for (;;)
@@ -109,7 +109,7 @@ public class ChargeState : MoveState
 					}
 					if (this.m_pathSquareInfo.chargeEndType == BoardSquarePathInfo.ChargeEndType.Pivot)
 					{
-						Vector3 dir = this.m_pathSquareInfo.next.square.ToVector3() - vector;
+						Vector3 dir = this.m_pathSquareInfo.next.square.ToVector3() - worldPosition;
 						dir.y = 0f;
 						if (dir.magnitude > 0f)
 						{
@@ -150,11 +150,11 @@ public class ChargeState : MoveState
 		{
 			BoardSquare square2 = this.m_pathSquareInfo.square;
 			Vector3 position = this.m_owner.m_actor.transform.position;
-			Vector3 vector2 = square2.\u001D();
-			vector2.y = (float)Board.\u000E().BaselineHeight;
-			Vector3 vector3 = vector2 - position;
-			vector3.y = 0f;
-			float sqrMagnitude = vector3.sqrMagnitude;
+			Vector3 worldPosition2 = square2.GetWorldPosition();
+			worldPosition2.y = (float)Board.Get().BaselineHeight;
+			Vector3 vector = worldPosition2 - position;
+			vector.y = 0f;
+			float sqrMagnitude = vector.sqrMagnitude;
 			float num = Time.deltaTime;
 			if (Application.isEditor)
 			{
@@ -197,15 +197,15 @@ public class ChargeState : MoveState
 			float num3 = num2 * num2;
 			if (sqrMagnitude > num3)
 			{
-				vector3.Normalize();
-				this.m_owner.m_actor.SetTransformPositionToVector(position + vector3 * num2);
-				Vector3 dir2 = vector3;
+				vector.Normalize();
+				this.m_owner.m_actor.SetTransformPositionToVector(position + vector * num2);
+				Vector3 dir2 = vector;
 				if (this.m_pathSquareInfo.m_reverse)
 				{
-					dir2 = -vector3;
+					dir2 = -vector;
 				}
-				float num4 = Board.\u000E().squareSize * Board.\u000E().squareSize;
-				if (this.m_owner.m_actor.\u0013() != Vector3.zero)
+				float num4 = Board.Get().squareSize * Board.Get().squareSize;
+				if (this.m_owner.m_actor.GetFacingDirAfterMovement() != Vector3.zero)
 				{
 					for (;;)
 					{
@@ -218,7 +218,7 @@ public class ChargeState : MoveState
 					}
 					if (this.m_playedEnd || sqrMagnitude < num4)
 					{
-						dir2 = this.m_owner.m_actor.\u0013();
+						dir2 = this.m_owner.m_actor.GetFacingDirAfterMovement();
 					}
 				}
 				dir2.y = 0f;
@@ -251,7 +251,7 @@ public class ChargeState : MoveState
 					}
 					if (this.m_pathSquareInfo.next != null)
 					{
-						this.m_owner.m_actor.SetTransformPositionToVector(vector2);
+						this.m_owner.m_actor.SetTransformPositionToVector(worldPosition2);
 						if (NetworkClient.active)
 						{
 							return;
@@ -265,7 +265,7 @@ public class ChargeState : MoveState
 							}
 							break;
 						}
-						if (this.m_owner.m_actor.\u000E() == null)
+						if (this.m_owner.m_actor.GetActorModelData() == null)
 						{
 							this.m_updatePath = true;
 							this.m_done = true;
@@ -275,8 +275,8 @@ public class ChargeState : MoveState
 					}
 				}
 				this.m_updatePath = true;
-				this.m_owner.m_actor.SetTransformPositionToVector(vector2);
-				if (this.m_owner.m_actor.\u0013() != Vector3.zero)
+				this.m_owner.m_actor.SetTransformPositionToVector(worldPosition2);
+				if (this.m_owner.m_actor.GetFacingDirAfterMovement() != Vector3.zero)
 				{
 					for (;;)
 					{
@@ -287,11 +287,11 @@ public class ChargeState : MoveState
 						}
 						break;
 					}
-					Vector3 dir3 = this.m_owner.m_actor.\u0013();
-					dir3.y = 0f;
-					if (dir3.magnitude > 0.01f)
+					Vector3 facingDirAfterMovement = this.m_owner.m_actor.GetFacingDirAfterMovement();
+					facingDirAfterMovement.y = 0f;
+					if (facingDirAfterMovement.magnitude > 0.01f)
 					{
-						this.m_owner.m_actor.TurnToDirection(dir3);
+						this.m_owner.m_actor.TurnToDirection(facingDirAfterMovement);
 					}
 				}
 				this.m_done = true;

@@ -354,7 +354,7 @@ public class SequenceSource
 				" | ",
 				seq.GetType(),
 				"</color>> \nhit on: ",
-				target.\u0012("white"),
+				target.GetColoredDebugName("white"),
 				" @time= ",
 				Time.time
 			}));

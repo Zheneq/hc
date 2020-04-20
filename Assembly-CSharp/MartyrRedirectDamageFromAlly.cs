@@ -157,7 +157,7 @@ public class MartyrRedirectDamageFromAlly : MartyrLaserBase
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		if (targetActor.\u000E() == base.ActorData.\u000E())
+		if (targetActor.GetTeam() == base.ActorData.GetTeam())
 		{
 			int currentAbsorb = this.GetCurrentAbsorb(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Ally);

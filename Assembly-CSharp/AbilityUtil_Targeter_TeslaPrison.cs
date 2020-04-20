@@ -68,8 +68,8 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 		{
 			num = 0;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		float squareSize = Board.\u000E().squareSize;
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		float squareSize = Board.Get().squareSize;
 		if (this.m_shapeForActorHits > AbilityAreaShape.SingleSquare)
 		{
 			for (;;)
@@ -84,7 +84,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 			base.ClearActorsInRange();
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shapeForActorHits, currentTarget, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-			base.AddActorsInRange(actorsInShape, boardSquare.ToVector3(), targetingActor, AbilityTooltipSubject.Primary, false);
+			base.AddActorsInRange(actorsInShape, boardSquareSafe.ToVector3(), targetingActor, AbilityTooltipSubject.Primary, false);
 		}
 		if (this.m_wallSegmentType == TrackerTeslaPrison.PrisonWallSegmentType.SquareMadeOfCornersAndMidsection)
 		{
@@ -97,7 +97,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 				}
 				break;
 			}
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTarget.GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 			if (this.m_squareCornerLength > 0 && this.m_squareMidsectionLength >= 0)
 			{
 				for (;;)
@@ -109,7 +109,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 					}
 					break;
 				}
-				if (!(boardSquare2 == null))
+				if (!(boardSquareSafe2 == null))
 				{
 					if (this.m_highlights == null)
 					{
@@ -141,7 +141,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 						}
 						GameObject gameObject = this.m_highlights[this.m_highlights.Count - 1];
 						Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_squarePrisonShape, currentTarget);
-						centerOfShape.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+						centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
 						gameObject.transform.position = centerOfShape;
 					}
 					else
@@ -178,7 +178,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 							}
 							for (int i = 0; i < num3; i++)
 							{
-								float squareSize2 = Board.\u000E().squareSize;
+								float squareSize2 = Board.Get().squareSize;
 								float num4;
 								if (i < 8)
 								{
@@ -215,7 +215,7 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 						float num6 = 0.05f;
 						List<List<BarrierPoseInfo>> list;
 						List<BarrierPoseInfo> list2;
-						BarrierPoseInfo.GetBarrierPosesForSquaresMadeOfCornerAndMidsection(boardSquare2, (float)this.m_squareCornerLength, (float)this.m_squareMidsectionLength, -num6, out list, out list2);
+						BarrierPoseInfo.GetBarrierPosesForSquaresMadeOfCornerAndMidsection(boardSquareSafe2, (float)this.m_squareCornerLength, (float)this.m_squareMidsectionLength, -num6, out list, out list2);
 						using (List<List<BarrierPoseInfo>>.Enumerator enumerator = list.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
@@ -287,8 +287,8 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 				}
 				if (this.m_radius >= 0f)
 				{
-					Vector3 centerPos = boardSquare.ToVector3();
-					centerPos.y = (float)Board.\u000E().BaselineHeight;
+					Vector3 centerPos = boardSquareSafe.ToVector3();
+					centerPos.y = (float)Board.Get().BaselineHeight;
 					List<BarrierPoseInfo> barrierPosesForRegularPolygon = BarrierPoseInfo.GetBarrierPosesForRegularPolygon(centerPos, this.m_sides, this.m_radius * squareSize, 0f);
 					if (barrierPosesForRegularPolygon == null)
 					{

@@ -31,9 +31,9 @@ public class UITauntSelection : MonoBehaviour
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelection.SetupTauntList()).MethodHandle;
 			}
 			ActorCinematicRequests component = activeOwnedActorData.GetComponent<ActorCinematicRequests>();
-			AbilityData abilityData = activeOwnedActorData.\u000E();
+			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 			int i = 0;
-			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.\u000E().GetAutoQueuedRequestActionTypes();
+			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.GetActorTurnSM().GetAutoQueuedRequestActionTypes();
 			int j = 0;
 			while (j < autoQueuedRequestActionTypes.Count)
 			{
@@ -73,7 +73,7 @@ public class UITauntSelection : MonoBehaviour
 							}
 							break;
 						}
-						List<CameraShotSequence> tauntListForActionTypeForPlayer = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.\u000E(), actionType);
+						List<CameraShotSequence> tauntListForActionTypeForPlayer = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.GetCharacterResourceLink(), actionType);
 						using (List<CameraShotSequence>.Enumerator enumerator = tauntListForActionTypeForPlayer.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
@@ -123,7 +123,7 @@ public class UITauntSelection : MonoBehaviour
 				}
 			}
 			IL_183:
-			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.\u000E().GetRequestStackForUndo();
+			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 			int k = 0;
 			while (k < requestStackForUndo.Count)
 			{
@@ -163,7 +163,7 @@ public class UITauntSelection : MonoBehaviour
 							}
 							break;
 						}
-						List<CameraShotSequence> tauntListForActionTypeForPlayer2 = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.\u000E(), action);
+						List<CameraShotSequence> tauntListForActionTypeForPlayer2 = abilityData.GetTauntListForActionTypeForPlayer(ClientGameManager.Get().GetPlayerCharacterData(activeOwnedActorData.m_characterType), activeOwnedActorData.GetCharacterResourceLink(), action);
 						using (List<CameraShotSequence>.Enumerator enumerator2 = tauntListForActionTypeForPlayer2.GetEnumerator())
 						{
 							while (enumerator2.MoveNext())

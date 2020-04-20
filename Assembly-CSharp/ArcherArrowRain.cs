@@ -132,9 +132,9 @@ public class ArcherArrowRain : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -145,7 +145,7 @@ public class ArcherArrowRain : Ability
 					}
 					break;
 				}
-				if (boardSquare2 != null)
+				if (boardSquareSafe2 != null)
 				{
 					for (;;)
 					{
@@ -156,8 +156,8 @@ public class ArcherArrowRain : Ability
 						}
 						break;
 					}
-					float num = Vector3.Distance(boardSquare.ToVector3(), boardSquare2.ToVector3());
-					if (num <= this.GetMaxRangeBetween() * Board.\u000E().squareSize)
+					float num = Vector3.Distance(boardSquareSafe.ToVector3(), boardSquareSafe2.ToVector3());
+					if (num <= this.GetMaxRangeBetween() * Board.Get().squareSize)
 					{
 						for (;;)
 						{
@@ -168,7 +168,7 @@ public class ArcherArrowRain : Ability
 							}
 							break;
 						}
-						if (num >= this.GetMinRangeBetween() * Board.\u000E().squareSize)
+						if (num >= this.GetMinRangeBetween() * Board.Get().squareSize)
 						{
 							for (;;)
 							{
@@ -190,7 +190,7 @@ public class ArcherArrowRain : Ability
 									}
 									break;
 								}
-								if (!boardSquare.\u0013(boardSquare2.x, boardSquare2.y))
+								if (!boardSquareSafe.\u0013(boardSquareSafe2.x, boardSquareSafe2.y))
 								{
 									return false;
 								}
@@ -580,7 +580,7 @@ public class ArcherArrowRain : Ability
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		int num = this.GetDamage();
-		if (targetActor.\u0012() <= this.GetHealthThresholdForBonusDamage())
+		if (targetActor.GetHitPointShareOfMax() <= this.GetHealthThresholdForBonusDamage())
 		{
 			for (;;)
 			{
@@ -729,8 +729,8 @@ public class ArcherArrowRain : Ability
 							}
 							break;
 						}
-						BoardSquare square = Board.\u000E().\u000E(abilityTargetsInRequest[0].GridPos);
-						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(square, true, false, base.ActorData);
+						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
+						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{
 							for (;;)

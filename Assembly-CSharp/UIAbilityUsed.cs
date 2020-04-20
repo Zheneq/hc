@@ -34,7 +34,7 @@ public class UIAbilityUsed : MonoBehaviour
 	public void Setup(Ability newAbility, ActorData theOwner)
 	{
 		this.m_abilityIcon.sprite = newAbility.sprite;
-		this.m_playerIcon.sprite = theOwner.\u000E();
+		this.m_playerIcon.sprite = theOwner.GetAliveHUDIcon();
 		if (!(GameFlowData.Get().activeOwnedActorData == null))
 		{
 			for (;;)
@@ -64,7 +64,7 @@ public class UIAbilityUsed : MonoBehaviour
 			}
 			else
 			{
-				if (GameFlowData.Get().activeOwnedActorData.\u000E() == theOwner.\u000E())
+				if (GameFlowData.Get().activeOwnedActorData.GetTeam() == theOwner.GetTeam())
 				{
 					for (;;)
 					{

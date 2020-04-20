@@ -218,7 +218,7 @@ public class AbilityRequest : IComparable
 		this.m_caster = GameFlowData.Get().FindActorByActorIndex((int)b3);
 		this.m_cinematicRequested = cinematicRequested;
 		this.m_resolveState = (AbilityRequest.AbilityResolveState)b4;
-		this.m_ability = ((!(this.m_caster == null)) ? this.m_caster.\u000E().GetAbilityOfActionType(this.m_actionType) : null);
+		this.m_ability = ((!(this.m_caster == null)) ? this.m_caster.GetAbilityData().GetAbilityOfActionType(this.m_actionType) : null);
 	}
 
 	public enum AbilityResolveState

@@ -76,7 +76,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 			for (int i = 0; i < actors.Count; i++)
 			{
 				ActorData actorData = actors[i];
-				if (actorData.\u000E() != base.Caster.\u000E())
+				if (actorData.GetTeam() != base.Caster.GetTeam())
 				{
 					for (;;)
 					{
@@ -128,7 +128,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						}
 						break;
 					}
-					this.m_largePingFoFSelector.Setup(base.Caster.\u000E());
+					this.m_largePingFoFSelector.Setup(base.Caster.GetTeam());
 				}
 			}
 		}
@@ -226,7 +226,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 							}
 							break;
 						}
-						if (!base.Caster.\u000E())
+						if (!base.Caster.IsDead())
 						{
 							for (;;)
 							{
@@ -237,7 +237,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 								}
 								break;
 							}
-							if (base.Caster.\u0012() != null)
+							if (base.Caster.GetCurrentBoardSquare() != null)
 							{
 								for (;;)
 								{
@@ -280,7 +280,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 							}
 							break;
 						}
-						if (GameFlowData.Get().activeOwnedActorData.\u000E() == base.Caster.\u000E())
+						if (GameFlowData.Get().activeOwnedActorData.GetTeam() == base.Caster.GetTeam())
 						{
 							for (;;)
 							{
@@ -294,8 +294,8 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 							flag3 = true;
 						}
 					}
-					float num = base.Caster.\u0015();
-					ActorAdditionalVisionProviders actorAdditionalVisionProviders = base.Caster.\u000E();
+					float num = base.Caster.GetActualSightRange();
+					ActorAdditionalVisionProviders actorAdditionalVisionProviders = base.Caster.GetActorAdditionalVisionProviders();
 					if (actorAdditionalVisionProviders != null)
 					{
 						SyncListVisionProviderInfo visionProviders = actorAdditionalVisionProviders.GetVisionProviders();
@@ -356,8 +356,8 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 					while (j < this.m_actorsToProcess.Count)
 					{
 						ActorData actorData = this.m_actorsToProcess[j];
-						BoardSquare boardSquare = actorData.\u0012();
-						if (actorData.\u000E() || !(boardSquare != null))
+						BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+						if (actorData.IsDead() || !(currentBoardSquare != null))
 						{
 							goto IL_293;
 						}
@@ -370,7 +370,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 							}
 							break;
 						}
-						if (actorData.\u0012())
+						if (actorData.IsModelAnimatorDisabled())
 						{
 							goto IL_293;
 						}
@@ -383,7 +383,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 							}
 							break;
 						}
-						bool flag7 = actorData.\u0018();
+						bool flag7 = actorData.IsVisibleToClient();
 						IL_294:
 						bool flag8 = flag7;
 						if (flag8)
@@ -397,7 +397,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 								}
 								break;
 							}
-							float num2 = base.Caster.\u0012().HorizontalDistanceOnBoardTo(boardSquare);
+							float num2 = base.Caster.GetCurrentBoardSquare().HorizontalDistanceOnBoardTo(currentBoardSquare);
 							if (num2 > num)
 							{
 								flag8 = false;
@@ -427,7 +427,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 									break;
 								}
 								attachedActorVFXInfo = new AttachedActorVFXInfo(this.m_markerFxPrefab, actorData, this.m_markerFxJoint, false, "VisionMarker", AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
-								attachedActorVFXInfo.SetCasterTeam(base.Caster.\u000E());
+								attachedActorVFXInfo.SetCasterTeam(base.Caster.GetTeam());
 								this.m_actorToMarkerVfx[actorData] = attachedActorVFXInfo;
 							}
 							attachedActorVFXInfo.UpdateVisibility(flag8, !flag3);
@@ -508,7 +508,7 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 									}
 									break;
 								}
-								this.m_largePingFoFSelector.Setup(base.Caster.\u000E());
+								this.m_largePingFoFSelector.Setup(base.Caster.GetTeam());
 							}
 							if (flag4)
 							{

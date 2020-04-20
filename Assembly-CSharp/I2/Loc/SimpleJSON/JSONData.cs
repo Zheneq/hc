@@ -46,12 +46,12 @@ namespace I2.Loc.SimpleJSON
 
 		public override string ToString()
 		{
-			return "\"" + JSONNode.\u000A(this.\u0012) + "\"";
+			return "\"" + JSONNode.escapeString(this.\u0012) + "\"";
 		}
 
 		public override string \u0004(string \u001D)
 		{
-			return "\"" + JSONNode.\u000A(this.\u0012) + "\"";
+			return "\"" + JSONNode.escapeString(this.\u0012) + "\"";
 		}
 
 		public override void \u0002(BinaryWriter \u001D)
@@ -71,7 +71,7 @@ namespace I2.Loc.SimpleJSON
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONData.\u0002(BinaryWriter)).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(I2.Loc.SimpleJSON.JSONData.\u0002(BinaryWriter)).MethodHandle;
 				}
 				\u001D.Write(4);
 				\u001D.Write(this.\u000B);

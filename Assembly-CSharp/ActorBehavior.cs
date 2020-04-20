@@ -532,7 +532,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	{
 		get
 		{
-			int deathCountOfTeam = GameFlowData.Get().GetDeathCountOfTeam(this.m_actor.\u0012());
+			int deathCountOfTeam = GameFlowData.Get().GetDeathCountOfTeam(this.m_actor.GetOpposingTeam());
 			if (deathCountOfTeam <= 0)
 			{
 				for (;;)
@@ -922,7 +922,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				}
 				break;
 			}
-			return new float?((float)GameFlowData.Get().GetTotalTeamDamageReceived(this.m_actor.\u000E()));
+			return new float?((float)GameFlowData.Get().GetTotalTeamDamageReceived(this.m_actor.GetTeam()));
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamMitigation)
 		{
@@ -936,7 +936,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				break;
 			}
 			float num = (float)(this.EffectiveHealing + this.m_totalPlayerAbsorb + this.teamIncomingDamageReducedByWeakenedFromMe);
-			float num2 = (float)(this.teamIncomingDamageReducedByWeakenedFromMe + GameFlowData.Get().GetTotalTeamDamageReceived(this.m_actor.\u000E()));
+			float num2 = (float)(this.teamIncomingDamageReducedByWeakenedFromMe + GameFlowData.Get().GetTotalTeamDamageReceived(this.m_actor.GetTeam()));
 			if (num2 == 0f)
 			{
 				Log.Warning("Divide by Zero for Team Mitigation", new object[0]);
@@ -1261,7 +1261,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 							}
 							break;
 						}
-						Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + this.m_actor.\u0012("white") + " recording EFFECT from " + caster.\u0012("yellow"));
+						Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + this.m_actor.GetColoredDebugName("white") + " recording EFFECT from " + caster.GetColoredDebugName("yellow"));
 					}
 				}
 			}
@@ -1296,7 +1296,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 					}
 					break;
 				}
-				if (caster.\u000E() != this.m_actor.\u000E())
+				if (caster.GetTeam() != this.m_actor.GetTeam())
 				{
 					for (;;)
 					{
@@ -1330,7 +1330,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 								}
 								break;
 							}
-							Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + this.m_actor.\u0012("white") + " recording DAMAGE from " + caster.\u0012("yellow"));
+							Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + this.m_actor.GetColoredDebugName("white") + " recording DAMAGE from " + caster.GetColoredDebugName("yellow"));
 						}
 					}
 				}
@@ -1355,7 +1355,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorBehavior.Client_RecordHealingFromActor(ActorData)).MethodHandle;
 			}
-			if (caster.ActorIndex >= 0 && caster.\u000E() == this.m_actor.\u000E() && !this.m_clientHealSourceActors.Contains(caster.ActorIndex))
+			if (caster.ActorIndex >= 0 && caster.GetTeam() == this.m_actor.GetTeam() && !this.m_clientHealSourceActors.Contains(caster.ActorIndex))
 			{
 				for (;;)
 				{
@@ -1369,7 +1369,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 				this.m_clientHealSourceActors.Add(caster.ActorIndex);
 				if (this.\u001D)
 				{
-					Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + this.m_actor.\u0012("white") + " recording HEALING from " + caster.\u0012("yellow"));
+					Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + this.m_actor.GetColoredDebugName("white") + " recording HEALING from " + caster.GetColoredDebugName("yellow"));
 				}
 			}
 		}
@@ -1392,7 +1392,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorBehavior.Client_ActorDamagedOrDebuffedByActor(ActorData)).MethodHandle;
 			}
-			if (caster.\u000E() != this.m_actor.\u000E())
+			if (caster.GetTeam() != this.m_actor.GetTeam())
 			{
 				for (;;)
 				{
@@ -1437,7 +1437,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 					}
 					break;
 				}
-				if (caster.\u000E() == this.m_actor.\u000E())
+				if (caster.GetTeam() == this.m_actor.GetTeam())
 				{
 					for (;;)
 					{

@@ -364,7 +364,7 @@ public abstract class Sequence : MonoBehaviour
 							}
 							break;
 						}
-						result = ((this.Caster.\u0012() == target.\u000E()) ? 1 : 0);
+						result = ((this.Caster.GetOpposingTeam() == target.GetTeam()) ? 1 : 0);
 					}
 					else
 					{
@@ -745,9 +745,9 @@ public abstract class Sequence : MonoBehaviour
 					}
 					break;
 				}
-				if (Board.\u000E().m_showLOS)
+				if (Board.Get().m_showLOS)
 				{
-					if (!clientFog.IsVisible(Board.\u000E().\u000E(this.GetSequencePos())))
+					if (!clientFog.IsVisible(Board.Get().GetBoardSquare(this.GetSequencePos())))
 					{
 						goto IL_81;
 					}
@@ -791,7 +791,7 @@ public abstract class Sequence : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsTargetPosVisible()).MethodHandle;
 			}
-			if (clientFog.IsVisible(Board.\u000E().\u000E(this.TargetPos)))
+			if (clientFog.IsVisible(Board.Get().GetBoardSquare(this.TargetPos)))
 			{
 				result = true;
 			}
@@ -835,7 +835,7 @@ public abstract class Sequence : MonoBehaviour
 				}
 				result = true;
 			}
-			else if (clientFog.IsVisible(Board.\u000E().\u000E(this.TargetPos)))
+			else if (clientFog.IsVisible(Board.Get().GetBoardSquare(this.TargetPos)))
 			{
 				for (;;)
 				{
@@ -866,7 +866,7 @@ public abstract class Sequence : MonoBehaviour
 			{
 				result = true;
 			}
-			else if (clientFog.IsVisible(Board.\u000E().\u000E(this.TargetPos)))
+			else if (clientFog.IsVisible(Board.Get().GetBoardSquare(this.TargetPos)))
 			{
 				for (;;)
 				{
@@ -1081,7 +1081,7 @@ public abstract class Sequence : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsActorConsideredVisible(ActorData)).MethodHandle;
 			}
-			if (actor.\u0018())
+			if (actor.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -1092,7 +1092,7 @@ public abstract class Sequence : MonoBehaviour
 					}
 					break;
 				}
-				if (!(actor.\u000E() == null))
+				if (!(actor.GetActorModelData() == null))
 				{
 					for (;;)
 					{
@@ -1103,7 +1103,7 @@ public abstract class Sequence : MonoBehaviour
 						}
 						break;
 					}
-					result = (actor.\u000E().IsVisibleToClient() ? 1 : 0);
+					result = (actor.GetActorModelData().IsVisibleToClient() ? 1 : 0);
 				}
 				else
 				{
@@ -1493,7 +1493,7 @@ public abstract class Sequence : MonoBehaviour
 								}
 								break;
 							}
-							this.SetSequenceVisibility(this.Caster.\u000E() == activeOwnedActorData.\u000E());
+							this.SetSequenceVisibility(this.Caster.GetTeam() == activeOwnedActorData.GetTeam());
 						}
 						else
 						{
@@ -1559,7 +1559,7 @@ public abstract class Sequence : MonoBehaviour
 									}
 									break;
 								}
-								this.SetSequenceVisibility(this.Caster.\u000E() == activeOwnedActorData.\u000E() || this.IsSequencePosVisible());
+								this.SetSequenceVisibility(this.Caster.GetTeam() == activeOwnedActorData.GetTeam() || this.IsSequencePosVisible());
 								goto IL_4C3;
 							}
 						}
@@ -1702,7 +1702,7 @@ public abstract class Sequence : MonoBehaviour
 									}
 									break;
 								}
-								if (actorData2.\u000E() != null)
+								if (actorData2.GetActorMovement() != null)
 								{
 									for (;;)
 									{
@@ -1713,7 +1713,7 @@ public abstract class Sequence : MonoBehaviour
 										}
 										break;
 									}
-									sequenceVisibility3 = !actorData2.\u000E().InChargeState();
+									sequenceVisibility3 = !actorData2.GetActorMovement().InChargeState();
 								}
 								else
 								{
@@ -1815,7 +1815,7 @@ public abstract class Sequence : MonoBehaviour
 			}
 		}
 		float num2;
-		if (num < Board.\u000E().squareSize / 2f)
+		if (num < Board.Get().squareSize / 2f)
 		{
 			for (;;)
 			{
@@ -1881,8 +1881,8 @@ public abstract class Sequence : MonoBehaviour
 		}
 		this.Source.OnSequenceHit(this, this.TargetPos, impulseInfo);
 		List<Team> list = new List<Team>();
-		list.Add(this.Caster.\u0012());
-		list.Add(this.Caster.\u000E());
+		list.Add(this.Caster.GetOpposingTeam());
+		list.Add(this.Caster.GetTeam());
 		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(impactPos, num * 3f, false, this.Caster, list, null, false, default(Vector3));
 		for (int k = 0; k < actorsInRadius.Count; k++)
 		{
@@ -1897,7 +1897,7 @@ public abstract class Sequence : MonoBehaviour
 					}
 					break;
 				}
-				if (actorsInRadius[k].\u000E() != null)
+				if (actorsInRadius[k].GetActorModelData() != null)
 				{
 					for (;;)
 					{
@@ -1911,7 +1911,7 @@ public abstract class Sequence : MonoBehaviour
 					Vector3 direction = actorsInRadius[k].transform.position - impactPos;
 					direction.y = 0f;
 					direction.Normalize();
-					actorsInRadius[k].\u000E().ImpartWindImpulse(direction);
+					actorsInRadius[k].GetActorModelData().ImpartWindImpulse(direction);
 				}
 			}
 		}
@@ -2196,7 +2196,7 @@ public abstract class Sequence : MonoBehaviour
 						}
 						break;
 					}
-					if (hitTarget.\u000E() == this.Caster.\u000E())
+					if (hitTarget.GetTeam() == this.Caster.GetTeam())
 					{
 						for (;;)
 						{
@@ -2207,7 +2207,7 @@ public abstract class Sequence : MonoBehaviour
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() != hitTarget.\u000E())
+						if (activeOwnedActorData.GetTeam() != hitTarget.GetTeam())
 						{
 							for (;;)
 							{
@@ -2269,7 +2269,7 @@ public abstract class Sequence : MonoBehaviour
 						}
 						break;
 					}
-					bool flag2 = this.Caster.\u000E() == hitTarget.\u000E();
+					bool flag2 = this.Caster.GetTeam() == hitTarget.GetTeam();
 					bool flag3;
 					if (teamFilter != Sequence.HitVFXSpawnTeam.AllTargets)
 					{
@@ -2354,7 +2354,7 @@ public abstract class Sequence : MonoBehaviour
 
 	public bool ShouldHideForActorIfAttached(ActorData actor)
 	{
-		return actor != null && actor.\u0012();
+		return actor != null && actor.IsModelAnimatorDisabled();
 	}
 
 	protected void InitializeFXStorage()
@@ -2516,7 +2516,7 @@ public abstract class Sequence : MonoBehaviour
 				}
 				gameEventManager.FireEvent(GameEventManager.EventType.ReplaceVFXPrefab, new GameEventManager.ReplaceVFXPrefab
 				{
-					characterResourceLink = this.Caster.\u000E(),
+					characterResourceLink = this.Caster.GetCharacterResourceLink(),
 					characterVisualInfo = this.Caster.m_visualInfo,
 					characterAbilityVfxSwapInfo = this.Caster.m_abilityVfxSwapInfo,
 					vfxRoot = vfxInstanceRoot.transform

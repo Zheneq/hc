@@ -177,9 +177,9 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 	{
 		if (targetIndex > 0)
 		{
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-			BoardSquare boardSquare2 = caster.\u0012();
-			if (boardSquare == boardSquare2)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
+			if (boardSquareSafe == currentBoardSquare)
 			{
 				for (;;)
 				{
@@ -207,7 +207,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 					}
 					break;
 				}
-				if (boardSquare2.HorizontalDistanceInSquaresTo(boardSquare) > this.GetSquareRangeFromCaster())
+				if (currentBoardSquare.HorizontalDistanceInSquaresTo(boardSquareSafe) > this.GetSquareRangeFromCaster())
 				{
 					return false;
 				}
@@ -223,13 +223,13 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 					}
 					break;
 				}
-				if (!boardSquare2.\u0013(boardSquare.x, boardSquare.y))
+				if (!currentBoardSquare.\u0013(boardSquareSafe.x, boardSquareSafe.y))
 				{
 					return false;
 				}
 			}
 			Vector3 from = -1f * currentTargets[0].AimDirection;
-			Vector3 to = boardSquare.ToVector3() - caster.\u0016();
+			Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
 			from.y = 0f;
 			to.y = 0f;
 			int num = Mathf.RoundToInt(Vector3.Angle(from, to));
@@ -276,9 +276,9 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 						{
 							break;
 						}
-						BoardSquare startSquare = visibleActorsInRangeByTooltipSubject[i].\u0012();
+						BoardSquare currentBoardSquare2 = visibleActorsInRangeByTooltipSubject[i].GetCurrentBoardSquare();
 						int num2;
-						flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, startSquare, false, out num2);
+						flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, currentBoardSquare2, false, out num2);
 					}
 					if (!flag)
 					{
@@ -294,7 +294,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 	{
 		targetPosForSequences = new List<Vector3>();
 		Vector3 item;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(caster.\u0015(), targets[0].AimDirection, this.GetLaserRange(), this.GetLaserWidth(), caster, TargeterUtils.GetRelevantTeams(caster, base.IncludeAllies(), base.IncludeEnemies()), false, this.GetMaxTargets(), false, true, out item, nonActorTargetInfo, null, false, true);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(caster.GetTravelBoardSquareWorldPositionForLos(), targets[0].AimDirection, this.GetLaserRange(), this.GetLaserWidth(), caster, TargeterUtils.GetRelevantTeams(caster, base.IncludeAllies(), base.IncludeEnemies()), false, this.GetMaxTargets(), false, true, out item, nonActorTargetInfo, null, false, true);
 		targetPosForSequences.Add(item);
 		return actorsInLaser;
 	}

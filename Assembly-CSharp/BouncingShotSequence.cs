@@ -1504,7 +1504,7 @@ public class BouncingShotSequence : Sequence
 								}
 								for (int i = 0; i < base.Targets.Length; i++)
 								{
-									if (base.Caster.\u000E() != base.Targets[i].\u000E())
+									if (base.Caster.GetTeam() != base.Targets[i].GetTeam())
 									{
 										for (;;)
 										{

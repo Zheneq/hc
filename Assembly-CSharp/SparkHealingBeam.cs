@@ -590,9 +590,9 @@ public class SparkHealingBeam : Ability
 			}
 			return true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		ActorData actorData;
-		if (boardSquare)
+		if (boardSquareSafe)
 		{
 			for (;;)
 			{
@@ -603,7 +603,7 @@ public class SparkHealingBeam : Ability
 				}
 				break;
 			}
-			actorData = boardSquare.OccupantActor;
+			actorData = boardSquareSafe.OccupantActor;
 		}
 		else
 		{

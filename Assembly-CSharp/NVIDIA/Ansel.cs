@@ -41,7 +41,7 @@ namespace NVIDIA
 
 		private Camera \u000F;
 
-		public static bool \u0017
+		public static bool GetFlag0013
 		{
 			get
 			{
@@ -49,7 +49,7 @@ namespace NVIDIA
 			}
 		}
 
-		public static bool \u000D
+		public static bool GetFlag0018
 		{
 			get
 			{
@@ -57,17 +57,17 @@ namespace NVIDIA
 			}
 		}
 
-		public static bool \u0008
+		public static bool IsAvailable
 		{
 			get
 			{
-				return Ansel.\u0006();
+				return Ansel.anselIsAvailable();
 			}
 		}
 
-		public void \u0017()
+		public void Init()
 		{
-			if (!Ansel.\u0008)
+			if (!Ansel.IsAvailable)
 			{
 				for (;;)
 				{
@@ -80,7 +80,7 @@ namespace NVIDIA
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ansel.\u0017()).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(Ansel.Init()).MethodHandle;
 				}
 				MonoBehaviour.print("Ansel not available on this platform");
 				return;
@@ -109,7 +109,7 @@ namespace NVIDIA
 			configData.\u0011 = true;
 			configData.\u0004 = true;
 			configData.\u000B = false;
-			Ansel.\u0017(ref configData);
+			Ansel.anselInit(ref configData);
 			this.\u000B = default(Ansel.CameraData);
 			Ansel.SessionData sessionData = default(Ansel.SessionData);
 			sessionData.\u001D = true;
@@ -120,33 +120,33 @@ namespace NVIDIA
 			sessionData.\u0009 = true;
 			sessionData.\u0012 = true;
 			sessionData.\u000E = true;
-			Ansel.\u0017(ref sessionData);
+			Ansel.anselConfigureSession(ref sessionData);
 			MonoBehaviour.print("Ansel is initialized and ready to use");
 		}
 
-		public void \u0017(Ansel.SessionData \u001D)
+		public void ConfigureSession(Ansel.SessionData sessionData)
 		{
-			if (!Ansel.\u0008)
+			if (!Ansel.IsAvailable)
 			{
 				Debug.LogError("Ansel is not available");
 				return;
 			}
-			if (Ansel.\u0002())
+			if (Ansel.anselIsSessionOn())
 			{
 				Debug.LogError("Ansel session cannot be configured while session is active");
 				return;
 			}
-			Ansel.\u0017(ref \u001D);
+			Ansel.anselConfigureSession(ref sessionData);
 		}
 
 		public void \u000D()
 		{
-			if (!Ansel.\u0008)
+			if (!Ansel.IsAvailable)
 			{
 				Debug.LogError("Ansel is not available");
 				return;
 			}
-			if (Ansel.\u0002())
+			if (Ansel.anselIsSessionOn())
 			{
 				if (!Ansel.\u0013)
 				{
@@ -154,7 +154,7 @@ namespace NVIDIA
 					this.\u0008();
 					MonoBehaviour.print("Started Ansel session");
 				}
-				Ansel.\u0018 = Ansel.\u000A();
+				Ansel.\u0018 = Ansel.anselIsCaptureOn();
 				Transform transform = this.\u000F.transform;
 				this.\u000B.\u001D = this.\u000F.fieldOfView;
 				this.\u000B.\u000E = new float[2];
@@ -171,7 +171,7 @@ namespace NVIDIA
 					transform.rotation.z,
 					transform.rotation.w
 				};
-				Ansel.\u0017(ref this.\u000B);
+				Ansel.anselUpdateCamera(ref this.\u000B);
 				this.\u000F.ResetProjectionMatrix();
 				this.\u000F.transform.position = new Vector3(this.\u000B.\u0012[0], this.\u000B.\u0012[1], this.\u000B.\u0012[2]);
 				this.\u000F.transform.rotation = new Quaternion(this.\u000B.\u0015[0], this.\u000B.\u0015[1], this.\u000B.\u0015[2], this.\u000B.\u0015[3]);
@@ -257,23 +257,23 @@ namespace NVIDIA
 			Cursor.lockState = CursorLockMode.None;
 		}
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselInit")]
-		private static extern void \u0017(ref Ansel.ConfigData \u001D);
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern void anselInit(ref Ansel.ConfigData configData);
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselUpdateCamera")]
-		private static extern void \u0017(ref Ansel.CameraData \u001D);
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern void anselUpdateCamera(ref Ansel.CameraData cameraData);
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselConfigureSession")]
-		private static extern void \u0017(ref Ansel.SessionData \u001D);
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern void anselConfigureSession(ref Ansel.SessionData sessionData);
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselIsSessionOn")]
-		private static extern bool \u0002();
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern bool anselIsSessionOn();
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselIsCaptureOn")]
-		private static extern bool \u000A();
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern bool anselIsCaptureOn();
 
-		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "anselIsAvailable")]
-		private static extern bool \u0006();
+		[DllImport("AnselPlugin32", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		private static extern bool anselIsAvailable();
 
 		public struct ConfigData
 		{

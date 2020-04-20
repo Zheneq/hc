@@ -484,8 +484,8 @@ public class ClericBasicAttack : Ability
 
 	private bool InsideNearRadius(ActorData targetActor, Vector3 damageOrigin)
 	{
-		float num = this.GetConeLengthInner() * Board.\u000E().squareSize;
-		Vector3 vector = targetActor.\u0016() - damageOrigin;
+		float num = this.GetConeLengthInner() * Board.Get().squareSize;
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
 		vector.y = 0f;
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
@@ -503,7 +503,7 @@ public class ClericBasicAttack : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.InsideNearRadius(ActorData, Vector3)).MethodHandle;
 			}
-			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		return num2 <= num;
 	}
@@ -553,7 +553,7 @@ public class ClericBasicAttack : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (caster.\u000E().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+		if (caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
 			for (;;)
 			{

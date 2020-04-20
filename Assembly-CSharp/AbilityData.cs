@@ -1399,7 +1399,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void NextSoftTarget()
 	{
-		ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 		if (actorTurnSM)
 		{
 			for (;;)
@@ -1506,7 +1506,7 @@ public class AbilityData : NetworkBehaviour
 					}
 					break;
 				}
-				ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+				ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 				if (this.m_actionToSelectWhenEnteringDecisionState != AbilityData.ActionType.INVALID_ACTION && actorTurnSM.CurrentState == TurnStateEnum.DECIDING)
 				{
 					for (;;)
@@ -1580,7 +1580,7 @@ public class AbilityData : NetworkBehaviour
 							return;
 						}
 					}
-					if (!this.m_actor.\u000E())
+					if (!this.m_actor.IsDead())
 					{
 						for (;;)
 						{
@@ -1659,7 +1659,7 @@ public class AbilityData : NetworkBehaviour
 			return false;
 		}
 		bool flag = InputManager.Get().IsKeyBindingHeld(KeyPreference.MinimapPing);
-		ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 		bool flag2 = actorTurnSM.CanSelectAbility();
 		bool flag3 = actorTurnSM.CanQueueSimpleAction();
 		if (!flag2 && !flag3)
@@ -1870,8 +1870,8 @@ public class AbilityData : NetworkBehaviour
 					break;
 				}
 			}
-			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(this.m_actor.m_characterType, ability, selectable, Mathf.Max(this.GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), this.GetTurnsTillUnlock(actionType)), actionType == AbilityData.ActionType.ABILITY_4, this.m_actor.\u0019(), this.m_actor.\u0016());
-			this.m_actor.SendAbilityPingRequestToServer((int)this.m_actor.\u000E(), localizedPing);
+			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(this.m_actor.m_characterType, ability, selectable, Mathf.Max(this.GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), this.GetTurnsTillUnlock(actionType)), actionType == AbilityData.ActionType.ABILITY_4, this.m_actor.GetEnergyToDisplay(), this.m_actor.GetActualMaxTechPoints());
+			this.m_actor.SendAbilityPingRequestToServer((int)this.m_actor.GetTeam(), localizedPing);
 			this.m_lastPingSendTime = Time.time;
 		}
 	}
@@ -1894,7 +1894,7 @@ public class AbilityData : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.RedoTurn(Ability, AbilityData.ActionType, List<AbilityData.ActionType>, bool, bool)).MethodHandle;
 			}
-			actorController = this.m_actor.\u000E();
+			actorController = this.m_actor.GetActorController();
 		}
 		else
 		{
@@ -1913,7 +1913,7 @@ public class AbilityData : NetworkBehaviour
 				}
 				break;
 			}
-			actorTurnSM = this.m_actor.\u000E();
+			actorTurnSM = this.m_actor.GetActorTurnSM();
 		}
 		else
 		{
@@ -2330,7 +2330,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		ActorData actor = this.m_actor;
 		FogOfWar component = base.GetComponent<FogOfWar>();
-		if (actor.\u000E())
+		if (actor.IsDead())
 		{
 			for (;;)
 			{
@@ -2366,7 +2366,7 @@ public class AbilityData : NetworkBehaviour
 						}
 						break;
 					}
-					if (!component.IsVisible(actorData.\u0012()))
+					if (!component.IsVisible(actorData.GetCurrentBoardSquare()))
 					{
 						continue;
 					}
@@ -2391,9 +2391,9 @@ public class AbilityData : NetworkBehaviour
 						}
 						break;
 					}
-					if (!component.IsVisibleBySelf(actorData.\u0012()))
+					if (!component.IsVisibleBySelf(actorData.GetCurrentBoardSquare()))
 					{
-						if (!actor.\u000E(actorData))
+						if (!actor.IsLineOfSightVisibleException(actorData))
 						{
 							continue;
 						}
@@ -2424,7 +2424,7 @@ public class AbilityData : NetworkBehaviour
 		for (int i = 0; i < list.Count; i++)
 		{
 			ActorData actorData2 = list[i];
-			if (!actorData2.\u000E())
+			if (!actorData2.IsDead())
 			{
 				for (;;)
 				{
@@ -2679,7 +2679,7 @@ public class AbilityData : NetworkBehaviour
 				component.UpdateSquaresCanMoveTo();
 			}
 		}
-		if (flag2 && this.m_actor.\u000E() != null)
+		if (flag2 && this.m_actor.GetActorTargeting() != null)
 		{
 			for (;;)
 			{
@@ -2690,7 +2690,7 @@ public class AbilityData : NetworkBehaviour
 				}
 				break;
 			}
-			this.m_actor.\u000E().MarkForForceRedraw();
+			this.m_actor.GetActorTargeting().MarkForForceRedraw();
 		}
 	}
 
@@ -2765,7 +2765,7 @@ public class AbilityData : NetworkBehaviour
 		}
 		else
 		{
-			actorTurnSM = this.m_actor.\u000E();
+			actorTurnSM = this.m_actor.GetActorTurnSM();
 		}
 		ActorTurnSM actorTurnSM2 = actorTurnSM;
 		bool flag;
@@ -2873,7 +2873,7 @@ public class AbilityData : NetworkBehaviour
 		{
 			this.m_lastSelectedAbility = selectedAbility;
 		}
-		Board.\u000E().MarkForUpdateValidSquares(true);
+		Board.Get().MarkForUpdateValidSquares(true);
 	}
 
 	public Ability GetSelectedAbility()
@@ -4777,7 +4777,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		bool flag = false;
 		ActorData actor = this.m_actor;
-		BoardSquare src = actor.\u0012();
+		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
 		float num = calculatedMaxRangeInSquares;
 		float num2 = calculatedMinRangeInSquares;
 		if (num < 0f)
@@ -4804,8 +4804,8 @@ public class AbilityData : NetworkBehaviour
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
 		if (targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 		{
-			BoardSquare dest = Board.\u000E().\u000E(target.GridPos);
-			flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(dest, src, num, num2);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe, currentBoardSquare, num, num2);
 		}
 		else if (targetingParadigm == Ability.TargetingParadigm.Position)
 		{
@@ -4818,9 +4818,9 @@ public class AbilityData : NetworkBehaviour
 				}
 				break;
 			}
-			Vector3 b = actor.\u0015();
-			float num3 = num * Board.\u000E().squareSize;
-			float num4 = num2 * Board.\u000E().squareSize;
+			Vector3 travelBoardSquareWorldPositionForLos = actor.GetTravelBoardSquareWorldPositionForLos();
+			float num3 = num * Board.Get().squareSize;
+			float num4 = num2 * Board.Get().squareSize;
 			if (GameplayData.Get().m_abilityRangeType == GameplayData.AbilityRangeType.WorldDistToFreePos)
 			{
 				for (;;)
@@ -4832,7 +4832,7 @@ public class AbilityData : NetworkBehaviour
 					}
 					break;
 				}
-				Vector3 vector = target.FreePos - b;
+				Vector3 vector = target.FreePos - travelBoardSquareWorldPositionForLos;
 				vector.y = 0f;
 				float sqrMagnitude = vector.sqrMagnitude;
 				bool flag2;
@@ -4857,8 +4857,8 @@ public class AbilityData : NetworkBehaviour
 			}
 			else
 			{
-				BoardSquare dest2 = Board.\u000E().\u000E(target.GridPos);
-				flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(dest2, src, num, num2);
+				BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+				flag |= this.IsTargetSquareInRangeOfAbilityFromSquare(boardSquareSafe2, currentBoardSquare, num, num2);
 			}
 		}
 		else if (targetingParadigm == Ability.TargetingParadigm.Direction)
@@ -4985,7 +4985,7 @@ public class AbilityData : NetworkBehaviour
 		bool result = false;
 		ActorData actor = this.m_actor;
 		Ability.TargetingParadigm targetingParadigm = specificAbility.GetTargetingParadigm(targetIndex);
-		if (actor.\u0012() == null)
+		if (actor.GetCurrentBoardSquare() == null)
 		{
 			for (;;)
 			{
@@ -5036,9 +5036,9 @@ public class AbilityData : NetworkBehaviour
 					return result;
 				}
 			}
-			BoardSquare value = Board.\u000E().\u000E(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			ReadOnlyCollection<BoardSquare> lineOfSightVisibleExceptionSquares = actor.LineOfSightVisibleExceptionSquares;
-			if (lineOfSightVisibleExceptionSquares.Contains(value))
+			if (lineOfSightVisibleExceptionSquares.Contains(boardSquareSafe))
 			{
 				for (;;)
 				{
@@ -5051,7 +5051,7 @@ public class AbilityData : NetworkBehaviour
 				}
 				result = true;
 			}
-			else if (actor.\u0012().\u0013(target.GridPos.x, target.GridPos.y))
+			else if (actor.GetCurrentBoardSquare().\u0013(target.GridPos.x, target.GridPos.y))
 			{
 				result = true;
 			}
@@ -5090,7 +5090,7 @@ public class AbilityData : NetworkBehaviour
 						}
 						break;
 					}
-					if (actor.\u000E(target))
+					if (actor.IsLineOfSightVisibleException(target))
 					{
 						for (;;)
 						{
@@ -5104,9 +5104,9 @@ public class AbilityData : NetworkBehaviour
 						return true;
 					}
 				}
-				BoardSquare boardSquare = target.\u0012();
-				BoardSquare boardSquare2 = actor.\u0012();
-				return boardSquare2.\u0013(boardSquare.x, boardSquare.y);
+				BoardSquare currentBoardSquare = target.GetCurrentBoardSquare();
+				BoardSquare currentBoardSquare2 = actor.GetCurrentBoardSquare();
+				return currentBoardSquare2.\u0013(currentBoardSquare.x, currentBoardSquare.y);
 			}
 			for (;;)
 			{
@@ -5124,7 +5124,7 @@ public class AbilityData : NetworkBehaviour
 	public bool ValidateAbilityOnTarget(Ability ability, AbilityTarget target, int targetIndex, float calculatedMinRangeInSquares = -1f, float calculatedMaxRangeInSquares = -1f)
 	{
 		bool result = false;
-		ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 		if (actorTurnSM)
 		{
 			for (;;)
@@ -5223,9 +5223,9 @@ public class AbilityData : NetworkBehaviour
 				break;
 			}
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		bool flag2;
-		if (boardSquare != null)
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -5236,7 +5236,7 @@ public class AbilityData : NetworkBehaviour
 				}
 				break;
 			}
-			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.\u000E().\u000E(target.GridPos).\u0016());
+			flag2 = (ability.AllowInvalidSquareForSquareBasedTarget() || Board.Get().GetBoardSquareSafe(target.GridPos).IsBaselineHeight());
 		}
 		else
 		{
@@ -5254,7 +5254,7 @@ public class AbilityData : NetworkBehaviour
 				}
 				break;
 			}
-			if (flag && BarrierManager.Get().IsPositionTargetingBlocked(actor, boardSquare))
+			if (flag && BarrierManager.Get().IsPositionTargetingBlocked(actor, boardSquareSafe))
 			{
 				for (;;)
 				{
@@ -5308,8 +5308,8 @@ public class AbilityData : NetworkBehaviour
 		bool flag5 = true;
 		if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCoverToCaster))
 		{
-			BoardSquare targetSquare = Board.\u000E().\u000E(target.GridPos);
-			flag5 = ActorCover.IsInCoverWrt(actor.\u0016(), targetSquare, null, null, null);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			flag5 = ActorCover.IsInCoverWrt(actor.GetTravelBoardSquareWorldPosition(), boardSquareSafe2, null, null, null);
 		}
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCover))
 		{
@@ -5322,9 +5322,9 @@ public class AbilityData : NetworkBehaviour
 				}
 				break;
 			}
-			BoardSquare square = Board.\u000E().\u000E(target.GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			bool[] array;
-			flag5 = ActorCover.CalcCoverLevelGeoOnly(out array, square);
+			flag5 = ActorCover.CalcCoverLevelGeoOnly(out array, boardSquareSafe3);
 		}
 		bool flag6 = true;
 		if (ability.GetCheckLoS(targetIndex) && !ability.IsSimpleAction())
@@ -5724,7 +5724,7 @@ public class AbilityData : NetworkBehaviour
 			}
 			AbilityData.ActionType actionTypeOfAbility = this.GetActionTypeOfAbility(ability);
 			bool flag = actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION;
-			bool flag2 = !actor.\u000E();
+			bool flag2 = !actor.IsDead();
 			bool flag3 = actor.TechPoints >= ability.GetModdedCost();
 			bool flag4;
 			if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenOutOfCombat))
@@ -5746,7 +5746,7 @@ public class AbilityData : NetworkBehaviour
 			}
 			bool flag5 = flag4;
 			bool flag6 = !AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhenInCombat) || !actor.OutOfCombat;
-			bool flag7 = !actor.\u000E().IsActionSilenced(actionTypeOfAbility, false);
+			bool flag7 = !actor.GetActorStatus().IsActionSilenced(actionTypeOfAbility, false);
 			bool flag8;
 			if (flag)
 			{
@@ -5896,7 +5896,7 @@ public class AbilityData : NetworkBehaviour
 							}
 							break;
 						}
-						flag2 = (actor.TechPoints + actor.ReservedTechPoints >= actor.\u0016());
+						flag2 = (actor.TechPoints + actor.ReservedTechPoints >= actor.GetActualMaxTechPoints());
 					}
 				}
 			}
@@ -5964,7 +5964,7 @@ public class AbilityData : NetworkBehaviour
 					}
 					break;
 				}
-				result = this.m_actor.\u0012();
+				result = this.m_actor.GetCurrentBoardSquare();
 			}
 		}
 		return result;
@@ -6243,7 +6243,7 @@ public class AbilityData : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.GetQueuedAbilitiesMovementAdjust()).MethodHandle;
 			}
-			result = -1f * this.m_actor.\u000E();
+			result = -1f * this.m_actor.GetPostAbilityHorizontalMovementChange();
 		}
 		return result;
 	}
@@ -6937,7 +6937,7 @@ public class AbilityData : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityData.DrawBoardVisibilityGizmos()).MethodHandle;
 			}
-			BoardSquare playerFreeSquare = Board.\u000E().PlayerFreeSquare;
+			BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
 			if (playerFreeSquare != null)
 			{
 				for (int i = 0; i < 0xF; i++)
@@ -6948,7 +6948,7 @@ public class AbilityData : NetworkBehaviour
 						while (enumerator.MoveNext())
 						{
 							BoardSquare boardSquare = enumerator.Current;
-							if (boardSquare.\u0016())
+							if (boardSquare.IsBaselineHeight())
 							{
 								for (;;)
 								{
@@ -6973,7 +6973,7 @@ public class AbilityData : NetworkBehaviour
 									Color white = Color.white;
 									white.a = 0.5f;
 									Gizmos.color = white;
-									Vector3 size = 0.05f * Board.\u000E().squareSize * Vector3.one;
+									Vector3 size = 0.05f * Board.Get().squareSize * Vector3.one;
 									size.y = 0.1f;
 									Gizmos.DrawWireCube(boardSquare.ToVector3(), size);
 								}
@@ -6982,7 +6982,7 @@ public class AbilityData : NetworkBehaviour
 									Color red = Color.red;
 									red.a = 0.5f;
 									Gizmos.color = red;
-									Vector3 size2 = 0.05f * Board.\u000E().squareSize * Vector3.one;
+									Vector3 size2 = 0.05f * Board.Get().squareSize * Vector3.one;
 									size2.y = 0.1f;
 									Gizmos.DrawWireCube(boardSquare.ToVector3(), size2);
 								}

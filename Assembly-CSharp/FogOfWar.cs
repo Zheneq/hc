@@ -26,7 +26,7 @@ public class FogOfWar : MonoBehaviour
 		{
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				result = GameFlowData.Get().activeOwnedActorData.\u000E();
+				result = GameFlowData.Get().activeOwnedActorData.GetFogOfWar();
 			}
 			else if (GameFlowData.Get().LocalPlayerData != null)
 			{
@@ -164,7 +164,7 @@ public class FogOfWar : MonoBehaviour
 						}
 						break;
 					}
-					flag = (teamViewing == this.m_owner.\u000E());
+					flag = (teamViewing == this.m_owner.GetTeam());
 				}
 				else
 				{
@@ -272,14 +272,14 @@ public class FogOfWar : MonoBehaviour
 			if (radius > 0f)
 			{
 				ActorData owner = this.m_owner;
-				Board board = Board.\u000E();
+				Board board = Board.Get();
 				float num = Mathf.Max(radius, 0f);
-				int x = center.\u001D().x;
-				int y = center.\u001D().y;
+				int x = center.GetGridPos().x;
+				int y = center.GetGridPos().y;
 				int num2 = Mathf.Max(Mathf.FloorToInt((float)x - num), 0);
-				int num3 = Mathf.Min(Mathf.CeilToInt((float)x + num), board.\u000E() - 1);
+				int num3 = Mathf.Min(Mathf.CeilToInt((float)x + num), board.GetMaxX() - 1);
 				int num4 = Mathf.Max(Mathf.FloorToInt((float)y - num), 0);
-				int num5 = Mathf.Min(Mathf.CeilToInt((float)y + num), board.\u0012() - 1);
+				int num5 = Mathf.Min(Mathf.CeilToInt((float)y + num), board.GetMaxY() - 1);
 				bool flag2;
 				if (owner != null)
 				{
@@ -292,7 +292,7 @@ public class FogOfWar : MonoBehaviour
 						}
 						break;
 					}
-					flag2 = owner.\u000E().HasStatus(StatusType.SeeThroughBrush, true);
+					flag2 = owner.GetActorStatus().HasStatus(StatusType.SeeThroughBrush, true);
 				}
 				else
 				{
@@ -303,7 +303,7 @@ public class FogOfWar : MonoBehaviour
 				{
 					for (int j = num4; j <= num5; j++)
 					{
-						BoardSquare boardSquare = board.\u0016(i, j);
+						BoardSquare boardSquare = board.GetBoardSquare(i, j);
 						if (boardSquare != null)
 						{
 							for (;;)
@@ -841,8 +841,8 @@ public class FogOfWar : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsVisibleBySelf(ActorData)).MethodHandle;
 			}
-			BoardSquare boardSquare = otherActor.\u000E();
-			if (boardSquare != null)
+			BoardSquare travelBoardSquare = otherActor.GetTravelBoardSquare();
+			if (travelBoardSquare != null)
 			{
 				for (;;)
 				{
@@ -853,7 +853,7 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				if (this.IsVisibleBySelf(boardSquare))
+				if (this.IsVisibleBySelf(travelBoardSquare))
 				{
 					result = true;
 				}
@@ -938,7 +938,7 @@ public class FogOfWar : MonoBehaviour
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					if (actorData.\u000E() == team)
+					if (actorData.GetTeam() == team)
 					{
 						for (;;)
 						{
@@ -949,7 +949,7 @@ public class FogOfWar : MonoBehaviour
 							}
 							break;
 						}
-						FogOfWar fogOfWar = actorData.\u000E();
+						FogOfWar fogOfWar = actorData.GetFogOfWar();
 						if (fogOfWar != null)
 						{
 							for (;;)
@@ -1002,7 +1002,7 @@ public class FogOfWar : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.UpdateVisibilityOfSquares(bool)).MethodHandle;
 			}
-			bool flag = this.m_owner.\u000E();
+			bool flag = this.m_owner.IsDead();
 			if (!flag)
 			{
 				for (;;)
@@ -1025,7 +1025,7 @@ public class FogOfWar : MonoBehaviour
 						}
 						break;
 					}
-					flag = this.m_owner.\u0012();
+					flag = this.m_owner.IsModelAnimatorDisabled();
 				}
 			}
 			float num;
@@ -1044,10 +1044,10 @@ public class FogOfWar : MonoBehaviour
 			}
 			else
 			{
-				num = this.m_owner.\u0015();
+				num = this.m_owner.GetActualSightRange();
 			}
 			float radius = num;
-			this.CalcVisibleSquares(this.m_owner.\u000E(), radius, false, BoardSquare.VisibilityFlags.Self, false, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
+			this.CalcVisibleSquares(this.m_owner.GetTravelBoardSquare(), radius, false, BoardSquare.VisibilityFlags.Self, false, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
 		}
 		bool flag2 = GameplayMutators.IsStatusActive(StatusType.Blind, GameFlowData.Get().CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default);
 		if (!this.m_visibilityPersonalOnly)
@@ -1072,7 +1072,7 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				ActorAdditionalVisionProviders actorAdditionalVisionProviders = this.m_owner.\u000E();
+				ActorAdditionalVisionProviders actorAdditionalVisionProviders = this.m_owner.GetActorAdditionalVisionProviders();
 				if (actorAdditionalVisionProviders != null)
 				{
 					for (;;)
@@ -1150,7 +1150,7 @@ public class FogOfWar : MonoBehaviour
 					for (int j = 0; j < allControlPoints.Count; j++)
 					{
 						ControlPoint controlPoint = allControlPoints[j];
-						if (controlPoint.IsGrantingVisionForTeam(this.m_owner.\u000E()))
+						if (controlPoint.IsGrantingVisionForTeam(this.m_owner.GetTeam()))
 						{
 							for (;;)
 							{
@@ -1175,7 +1175,7 @@ public class FogOfWar : MonoBehaviour
 					}
 				}
 			}
-			Team team = (!this.m_owner) ? this.m_ownerPlayer.GetTeamViewing() : this.m_owner.\u000E();
+			Team team = (!this.m_owner) ? this.m_ownerPlayer.GetTeamViewing() : this.m_owner.GetTeam();
 			ActorStatus actorStatus;
 			if (this.m_owner)
 			{
@@ -1188,7 +1188,7 @@ public class FogOfWar : MonoBehaviour
 					}
 					break;
 				}
-				actorStatus = this.m_owner.\u000E();
+				actorStatus = this.m_owner.GetActorStatus();
 			}
 			else
 			{
@@ -1280,7 +1280,7 @@ public class FogOfWar : MonoBehaviour
 								break;
 							}
 						}
-						if (actorData.\u000E())
+						if (actorData.GetTravelBoardSquare())
 						{
 							for (;;)
 							{
@@ -1291,10 +1291,10 @@ public class FogOfWar : MonoBehaviour
 								}
 								break;
 							}
-							ActorStatus actorStatus3 = actorData.\u000E();
+							ActorStatus actorStatus3 = actorData.GetActorStatus();
 							if (!actorStatus3.HasStatus(StatusType.IsolateVisionFromAllies, true))
 							{
-								bool flag4 = actorData.\u000E();
+								bool flag4 = actorData.IsDead();
 								if (!flag4 && NetworkClient.active)
 								{
 									for (;;)
@@ -1306,10 +1306,10 @@ public class FogOfWar : MonoBehaviour
 										}
 										break;
 									}
-									flag4 = actorData.\u0012();
+									flag4 = actorData.IsModelAnimatorDisabled();
 								}
-								float radius2 = (!flag4) ? actorData.\u0015() : 0f;
-								this.CalcVisibleSquares(actorData.\u000E(), radius2, false, BoardSquare.VisibilityFlags.Team, false, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
+								float radius2 = (!flag4) ? actorData.GetActualSightRange() : 0f;
+								this.CalcVisibleSquares(actorData.GetTravelBoardSquare(), radius2, false, BoardSquare.VisibilityFlags.Team, false, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
 								ActorAdditionalVisionProviders component = actorData.GetComponent<ActorAdditionalVisionProviders>();
 								if (component != null)
 								{
@@ -1364,8 +1364,8 @@ public class FogOfWar : MonoBehaviour
 					ActorData actorData2 = enumerator2.Current;
 					if (actorData2 != null)
 					{
-						BoardSquare boardSquare = actorData2.\u000E();
-						ActorStatus actorStatus4 = actorData2.\u000E();
+						BoardSquare travelBoardSquare = actorData2.GetTravelBoardSquare();
+						ActorStatus actorStatus4 = actorData2.GetActorStatus();
 						bool flag5;
 						if (actorStatus4)
 						{
@@ -1411,7 +1411,7 @@ public class FogOfWar : MonoBehaviour
 								flag7 = true;
 							}
 						}
-						if (boardSquare)
+						if (travelBoardSquare)
 						{
 							for (;;)
 							{
@@ -1438,10 +1438,10 @@ public class FogOfWar : MonoBehaviour
 									goto IL_6A6;
 								}
 							}
-							this.CalcVisibleSquares(actorData2.\u000E(), 0.1f, false, BoardSquare.VisibilityFlags.Revealed, true, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
+							this.CalcVisibleSquares(actorData2.GetTravelBoardSquare(), 0.1f, false, BoardSquare.VisibilityFlags.Revealed, true, VisionProviderInfo.BrushRevealType.BaseOnCenterPosition);
 						}
 						IL_6A6:
-						if (boardSquare)
+						if (travelBoardSquare)
 						{
 							for (;;)
 							{
@@ -1452,7 +1452,7 @@ public class FogOfWar : MonoBehaviour
 								}
 								break;
 							}
-							if (this.m_owner && this.m_owner.\u000E(actorData2))
+							if (this.m_owner && this.m_owner.IsLineOfSightVisibleException(actorData2))
 							{
 								for (;;)
 								{
@@ -1464,9 +1464,9 @@ public class FogOfWar : MonoBehaviour
 									break;
 								}
 								FogOfWar.VisibleSquareEntry value;
-								this.m_visibleSquares.TryGetValue(boardSquare, out value);
+								this.m_visibleSquares.TryGetValue(travelBoardSquare, out value);
 								value.m_visibleFlags |= 8;
-								this.m_visibleSquares[boardSquare] = value;
+								this.m_visibleSquares[travelBoardSquare] = value;
 							}
 						}
 					}
@@ -1556,12 +1556,12 @@ public class FogOfWar : MonoBehaviour
 			return;
 		}
 		bool flag = false;
-		Board board = Board.\u000E();
-		for (int i = 0; i < board.\u000E(); i++)
+		Board board = Board.Get();
+		for (int i = 0; i < board.GetMaxX(); i++)
 		{
-			for (int j = 0; j < board.\u0012(); j++)
+			for (int j = 0; j < board.GetMaxY(); j++)
 			{
-				BoardSquare boardSquare = board.\u0016(i, j);
+				BoardSquare boardSquare = board.GetBoardSquare(i, j);
 				if (boardSquare != null)
 				{
 					for (;;)
@@ -1722,7 +1722,7 @@ public class FogOfWar : MonoBehaviour
 				float num = 1f - Mathf.Clamp((Time.time - this.m_lastRecalcTime) * 2f, 0f, 1f);
 				Color color = new Color(0f, num, num, num);
 				Gizmos.color = color;
-				Gizmos.DrawSphere(this.m_owner.\u000E(10f), 0.5f);
+				Gizmos.DrawSphere(this.m_owner.GetNameplatePosition(10f), 0.5f);
 			}
 		}
 	}

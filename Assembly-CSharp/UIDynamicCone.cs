@@ -657,8 +657,8 @@ public class UIDynamicCone : MonoBehaviour
 	public void SetBorderStartOffset(float startOffsetInSquares)
 	{
 		this.m_borderStartOffsetInSquares = startOffsetInSquares;
-		float num = Mathf.Max(0f, this.m_currentRadiusInWorld - this.c_borderZOffset) / Board.\u000E().squareSize;
-		float num2 = this.m_borderStartOffsetInSquares * Board.\u000E().squareSize;
+		float num = Mathf.Max(0f, this.m_currentRadiusInWorld - this.c_borderZOffset) / Board.Get().squareSize;
+		float num2 = this.m_borderStartOffsetInSquares * Board.Get().squareSize;
 		float lengthInSquares = Mathf.Max(0f, num - this.m_borderStartOffsetInSquares);
 		if (this.m_sideA != null)
 		{

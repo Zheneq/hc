@@ -779,7 +779,7 @@ public class ClientActorHitResults
 						}
 						break;
 					}
-					if (ClientAbilityResults.\u001D)
+					if (ClientAbilityResults.LogMissingSequences)
 					{
 						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + clientReactionResults.GetDebugDescription() + " executing reaction hit on first damaging hit", new object[0]);
 					}
@@ -823,7 +823,7 @@ public class ClientActorHitResults
 			}
 			return;
 		}
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
 			for (;;)
 			{
@@ -838,9 +838,9 @@ public class ClientActorHitResults
 			{
 				ClientAbilityResults.s_executeActorHitHeader,
 				" Target: ",
-				target.\u0018(),
+				target.GetDebugName(),
 				" Caster: ",
-				caster.\u0018()
+				caster.GetDebugName()
 			}));
 		}
 		bool flag = ClientResolutionManager.Get().IsInResolutionState();
@@ -1024,7 +1024,7 @@ public class ClientActorHitResults
 				}
 				target.OnHitWhileInCover(this.m_damageHitOrigin, caster);
 			}
-			if (target.\u000E() != null)
+			if (target.GetActorBehavior() != null)
 			{
 				for (;;)
 				{
@@ -1035,7 +1035,7 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				target.\u000E().Client_RecordDamageFromActor(caster);
+				target.GetActorBehavior().Client_RecordDamageFromActor(caster);
 			}
 			GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Damage, this.m_finalDamage, target, caster, this.m_isCharacterSpecificAbility);
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorDamaged_Client, args);
@@ -1069,9 +1069,9 @@ public class ClientActorHitResults
 				}
 			}
 			target.AddCombatText(this.m_finalHealing.ToString(), string.Empty, CombatTextCategory.Healing, BuffIconToDisplay.None);
-			if (target.\u000E() != null)
+			if (target.GetActorBehavior() != null)
 			{
-				target.\u000E().Client_RecordHealingFromActor(caster);
+				target.GetActorBehavior().Client_RecordHealingFromActor(caster);
 			}
 			GameEventManager.CharacterHealBuffArgs characterHealBuffArgs = new GameEventManager.CharacterHealBuffArgs();
 			characterHealBuffArgs.targetCharacter = target;
@@ -1164,7 +1164,7 @@ public class ClientActorHitResults
 					}
 					break;
 				}
-				if (target.\u000E() != null && target.\u000E().IsKnockbackImmune(true))
+				if (target.GetActorStatus() != null && target.GetActorStatus().IsKnockbackImmune(true))
 				{
 					target.OnKnockbackWhileUnstoppable(this.m_damageHitOrigin, caster);
 				}

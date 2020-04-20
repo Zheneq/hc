@@ -80,7 +80,7 @@ public class UITauntSelectionButton : MonoBehaviour
 		this.m_abilityEntry = entry;
 		this.m_theSprite.sprite = this.m_abilityEntry.ability.sprite;
 		this.m_tauntRef = taunt;
-		List<CharacterTaunt> taunts = activeOwnedActorData.\u000E().m_taunts;
+		List<CharacterTaunt> taunts = activeOwnedActorData.GetCharacterResourceLink().m_taunts;
 		for (int i = 0; i < taunts.Count; i++)
 		{
 			if (taunts[i].m_uniqueID == taunt.m_uniqueTauntID)
@@ -98,7 +98,7 @@ public class UITauntSelectionButton : MonoBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelectionButton.SetupTaunt(AbilityData.ActionType, AbilityData.AbilityEntry, CameraShotSequence)).MethodHandle;
 				}
-				this.m_tauntName.text = string.Format("{0}: {1}", this.m_abilityEntry.ability.GetNameString(), activeOwnedActorData.\u000E().GetTauntName(i));
+				this.m_tauntName.text = string.Format("{0}: {1}", this.m_abilityEntry.ability.GetNameString(), activeOwnedActorData.GetCharacterResourceLink().GetTauntName(i));
 				return;
 			}
 		}

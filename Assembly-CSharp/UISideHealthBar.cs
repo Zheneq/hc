@@ -162,7 +162,7 @@ public class UISideHealthBar : MonoBehaviour
 					}
 					break;
 				}
-				TurnStateEnum currentState = this.m_actor.\u000E().CurrentState;
+				TurnStateEnum currentState = this.m_actor.GetActorTurnSM().CurrentState;
 				if (currentState != TurnStateEnum.CONFIRMED)
 				{
 					for (;;)
@@ -309,21 +309,21 @@ public class UISideHealthBar : MonoBehaviour
 			ActorData actor = this.m_actor;
 			if (actor != null)
 			{
-				int num = actor.\u0009();
-				int num2 = actor.\u0012();
-				int num3 = actor.\u0019();
-				int num4 = actor.\u0016();
-				int num5 = actor.\u0004();
-				int num6 = actor.\u0011();
-				if (num6 > 0)
+				int hitPointsAfterResolution = actor.GetHitPointsAfterResolution();
+				int maxHitPoints = actor.GetMaxHitPoints();
+				int energyToDisplay = actor.GetEnergyToDisplay();
+				int actualMaxTechPoints = actor.GetActualMaxTechPoints();
+				int num = actor.\u0004();
+				int clientUnappliedHoTTotal_ToDisplay_zq = actor.GetClientUnappliedHoTTotal_ToDisplay_zq();
+				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					this.m_pendingHealthText.text = "+" + num6.ToString();
+					this.m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq.ToString();
 				}
 				else
 				{
 					this.m_pendingHealthText.text = string.Empty;
 				}
-				if (num5 > 0)
+				if (num > 0)
 				{
 					for (;;)
 					{
@@ -334,18 +334,18 @@ public class UISideHealthBar : MonoBehaviour
 						}
 						break;
 					}
-					this.m_shieldText.text = "+" + num5.ToString();
+					this.m_shieldText.text = "+" + num.ToString();
 				}
 				else
 				{
 					this.m_shieldText.text = string.Empty;
 				}
-				this.m_healthText.text = num.ToString();
-				this.m_energyText.text = num3.ToString();
-				this.m_healthPercent = (float)num / (float)(num2 + num5);
-				this.m_shieldPercent = (float)(num + num5) / (float)(num2 + num5);
-				this.m_pendingHPPercent = (float)(num + num5 + num6) / (float)(num2 + num5);
-				this.m_energyPercent = (float)num3 / (float)num4;
+				this.m_healthText.text = hitPointsAfterResolution.ToString();
+				this.m_energyText.text = energyToDisplay.ToString();
+				this.m_healthPercent = (float)hitPointsAfterResolution / (float)(maxHitPoints + num);
+				this.m_shieldPercent = (float)(hitPointsAfterResolution + num) / (float)(maxHitPoints + num);
+				this.m_pendingHPPercent = (float)(hitPointsAfterResolution + num + clientUnappliedHoTTotal_ToDisplay_zq) / (float)(maxHitPoints + num);
+				this.m_energyPercent = (float)energyToDisplay / (float)actualMaxTechPoints;
 			}
 		}
 		this.UpdateEnergyBar();

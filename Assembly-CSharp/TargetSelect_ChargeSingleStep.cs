@@ -65,8 +65,8 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 
 	public override bool HandleCustomTargetValidation(Ability ability, ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
 			for (;;)
 			{
@@ -81,7 +81,7 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeSingleStep.HandleCustomTargetValidation(Ability, ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare != caster.\u0012())
+			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
 				for (;;)
 				{
@@ -93,7 +93,7 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 					break;
 				}
 				int num;
-				return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num);
+				return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 			}
 		}
 		return false;

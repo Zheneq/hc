@@ -713,12 +713,12 @@ public class NekoFanOfDiscs : Ability
 		targetSquares = new List<BoardSquare>();
 		List<Vector3> list;
 		Dictionary<ActorData, int> hitActorsAndHitCount = AbilityCommon_FanLaser.GetHitActorsAndHitCount(targets, caster, this.GetLaserInfo(), this.GetNumDiscs(), this.GetMaxAngleForLaserFan() / (float)this.GetNumDiscs(), true, this.GetMinAngleForLaserFan(), this.GetMaxAngleForLaserFan(), this.GetAngleInterpMinDist(), this.GetAngleInterpMaxDist(), out actorsForSequence, out list, out numLasersWithHits, nonActorTargetInfo, false, this.m_interpStepInSquares, 0f);
-		Vector3 startPos = caster.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
 		for (int i = 0; i < list.Count; i++)
 		{
 			Vector3 vector = list[i];
-			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(startPos, vector);
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector, this.GetAoeRadius(), false, caster, caster.\u0012(), nonActorTargetInfo, true, coneLosCheckPos);
+			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, vector);
+			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector, this.GetAoeRadius(), false, caster, caster.GetOpposingTeam(), nonActorTargetInfo, true, coneLosCheckPos);
 			using (List<ActorData>.Enumerator enumerator = actorsInRadius.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -784,7 +784,7 @@ public class NekoFanOfDiscs : Ability
 			}
 			break;
 		}
-		targetSquares = NekoFanOfDiscs.GetDiscSquaresFromEndPositions(list, caster.\u0015());
+		targetSquares = NekoFanOfDiscs.GetDiscSquaresFromEndPositions(list, caster.GetTravelBoardSquareWorldPositionForLos());
 		return hitActorsAndHitCount;
 	}
 
@@ -847,7 +847,7 @@ public class NekoFanOfDiscs : Ability
 								while (enumerator2.MoveNext())
 								{
 									BoardSquare boardSquare2 = enumerator2.Current;
-									if (boardSquare2.\u0016())
+									if (boardSquare2.IsBaselineHeight())
 									{
 										for (;;)
 										{

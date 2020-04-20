@@ -893,8 +893,8 @@ public class TricksterCatchMeIfYouCan : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = true;
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -909,7 +909,7 @@ public class TricksterCatchMeIfYouCan : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -920,7 +920,7 @@ public class TricksterCatchMeIfYouCan : Ability
 					}
 					break;
 				}
-				if (!(boardSquare == caster.\u0012()))
+				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					goto IL_67;
 				}
@@ -961,7 +961,7 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				for (int i = 0; i < targetIndex; i++)
 				{
-					if (Board.\u000E().\u000E(currentTargets[i].GridPos) == boardSquare)
+					if (Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos) == boardSquareSafe)
 					{
 						for (;;)
 						{
@@ -997,7 +997,7 @@ public class TricksterCatchMeIfYouCan : Ability
 				}
 				break;
 			}
-			if (boardSquare.OccupantActor != null)
+			if (boardSquareSafe.OccupantActor != null)
 			{
 				for (;;)
 				{
@@ -1019,7 +1019,7 @@ public class TricksterCatchMeIfYouCan : Ability
 						}
 						break;
 					}
-					ActorData occupantActor = boardSquare.OccupantActor;
+					ActorData occupantActor = boardSquareSafe.OccupantActor;
 					bool flag2;
 					if (NetworkClient.active)
 					{
@@ -1032,7 +1032,7 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						flag2 = occupantActor.\u0018();
+						flag2 = occupantActor.IsVisibleToClient();
 					}
 					else
 					{
@@ -1082,14 +1082,14 @@ public class TricksterCatchMeIfYouCan : Ability
 				break;
 			}
 			int num;
-			flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), this.m_chargeThroughInvalidSquares, out num);
+			flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), this.m_chargeThroughInvalidSquares, out num);
 		}
 		return flag;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return !caster.\u000E().HasQueuedAbilityOfType(typeof(TricksterMadeYouLook));
+		return !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterMadeYouLook));
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -1321,7 +1321,7 @@ public class TricksterCatchMeIfYouCan : Ability
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
 					}
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
 						for (;;)
 						{
@@ -1332,12 +1332,12 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						Animator animator = actorData.\u000E();
-						animator.SetFloat(TricksterCatchMeIfYouCan.animDistToGoal, 10f);
-						animator.ResetTrigger(TricksterCatchMeIfYouCan.animStartDamageReaction);
-						animator.SetInteger(TricksterCatchMeIfYouCan.animAttack, animationIndex);
-						animator.SetBool(TricksterCatchMeIfYouCan.animCinematicCam, false);
-						animator.SetTrigger(TricksterCatchMeIfYouCan.animStartAttack);
+						Animator modelAnimator = actorData.GetModelAnimator();
+						modelAnimator.SetFloat(TricksterCatchMeIfYouCan.animDistToGoal, 10f);
+						modelAnimator.ResetTrigger(TricksterCatchMeIfYouCan.animStartDamageReaction);
+						modelAnimator.SetInteger(TricksterCatchMeIfYouCan.animAttack, animationIndex);
+						modelAnimator.SetBool(TricksterCatchMeIfYouCan.animCinematicCam, false);
+						modelAnimator.SetTrigger(TricksterCatchMeIfYouCan.animStartAttack);
 					}
 				}
 			}
@@ -1376,7 +1376,7 @@ public class TricksterCatchMeIfYouCan : Ability
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
 					}
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
 						for (;;)
 						{
@@ -1387,9 +1387,9 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						Animator animator = actorData.\u000E();
-						animator.SetInteger(TricksterCatchMeIfYouCan.animAttack, 0);
-						animator.SetBool(TricksterCatchMeIfYouCan.animCinematicCam, false);
+						Animator modelAnimator = actorData.GetModelAnimator();
+						modelAnimator.SetInteger(TricksterCatchMeIfYouCan.animAttack, 0);
+						modelAnimator.SetBool(TricksterCatchMeIfYouCan.animCinematicCam, false);
 					}
 				}
 			}
@@ -1413,7 +1413,7 @@ public class TricksterCatchMeIfYouCan : Ability
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				if (actorData != null && !actorData.\u000E())
+				if (actorData != null && !actorData.IsDead())
 				{
 					for (;;)
 					{
@@ -1428,7 +1428,7 @@ public class TricksterCatchMeIfYouCan : Ability
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCatchMeIfYouCan.OnEvasionMoveStartEvent(ActorData)).MethodHandle;
 					}
-					if (actorData.\u000E() != null)
+					if (actorData.GetActorModelData() != null)
 					{
 						for (;;)
 						{
@@ -1439,8 +1439,8 @@ public class TricksterCatchMeIfYouCan : Ability
 							}
 							break;
 						}
-						actorData.\u000E().EnableRendererAndUpdateVisibility();
-						actorData.\u000E().gameObject.transform.localScale = Vector3.one;
+						actorData.GetActorModelData().EnableRendererAndUpdateVisibility();
+						actorData.GetActorModelData().gameObject.transform.localScale = Vector3.one;
 						TricksterAfterImageNetworkBehaviour.SetMaterialEnabledForAfterImage(caster, actorData, true);
 					}
 				}

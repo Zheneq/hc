@@ -95,7 +95,7 @@ public class UISideCharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				ActorTurnSM actorTurnSM = this.m_actorData.\u000E();
+				ActorTurnSM actorTurnSM = this.m_actorData.GetActorTurnSM();
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (actorTurnSM != null)
 				{
@@ -119,7 +119,7 @@ public class UISideCharacterProfile : MonoBehaviour
 							}
 							break;
 						}
-						if (this.m_actorData.\u000E() == activeOwnedActorData.\u000E())
+						if (this.m_actorData.GetTeam() == activeOwnedActorData.GetTeam())
 						{
 							for (;;)
 							{
@@ -176,7 +176,7 @@ public class UISideCharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					if (this.m_actorData.\u000E() != activeOwnedActorData.\u000E())
+					if (this.m_actorData.GetTeam() != activeOwnedActorData.GetTeam())
 					{
 						this.SetCurrentActorArrowActive(false);
 					}
@@ -416,7 +416,7 @@ public class UISideCharacterProfile : MonoBehaviour
 					}
 					break;
 				}
-				this.m_characterIcon.sprite = this.m_actorData.\u000E();
+				this.m_characterIcon.sprite = this.m_actorData.GetAliveHUDIcon();
 			}
 		}
 		this.SetAlpha(1f);

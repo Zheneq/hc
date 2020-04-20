@@ -28,14 +28,14 @@ public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBas
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u001A.\u0012(), "1 if target is in AoE, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.\u0003.\u0012(), "for indicating which layer a target in AoE (sorted from inner to outer)", true) + base.GetContextUsageStr(ContextKeys.\u0018.\u0012(), "distance from start of AoE center, in squares", true);
+		return base.GetContextUsageStr(ContextKeys.\u001A.GetName(), "1 if target is in AoE, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.\u0003.GetName(), "for indicating which layer a target in AoE (sorted from inner to outer)", true) + base.GetContextUsageStr(ContextKeys.\u0018.GetName(), "distance from start of AoE center, in squares", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u001A.\u0012());
-		names.Add(ContextKeys.\u0003.\u0012());
-		names.Add(ContextKeys.\u0018.\u0012());
+		names.Add(ContextKeys.\u001A.GetName());
+		names.Add(ContextKeys.\u0003.GetName());
+		names.Add(ContextKeys.\u0018.GetName());
 	}
 
 	public override void Initialize()

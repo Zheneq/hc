@@ -209,7 +209,7 @@ public class DinoDashOrShield : GenericAbility_Container
 					{
 						KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
 						ActorData key = keyValuePair.Key;
-						if (key.\u000E() != caster.\u000E())
+						if (key.GetTeam() != caster.GetTeam())
 						{
 							for (;;)
 							{

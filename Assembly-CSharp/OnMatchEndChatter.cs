@@ -90,7 +90,7 @@ public class OnMatchEndChatter : ScriptableObject, IChatterData
 			}
 		}
 		ActorData component2 = component.gameObject.GetComponent<ActorData>();
-		Team team = component2.\u000E();
+		Team team = component2.GetTeam();
 		bool flag;
 		if (matchEndedArgs.result == GameResult.TeamAWon)
 		{

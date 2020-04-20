@@ -35,7 +35,7 @@ public class MoveState
 		this.m_ownerActorData = owner.GetComponent<ActorData>();
 		this.m_done = false;
 		this.m_updatePath = false;
-		this.m_animator = this.m_ownerActorData.\u000E();
+		this.m_animator = this.m_ownerActorData.GetModelAnimator();
 		this.m_pathSquareInfo = aesheticPath;
 		this.m_connectionType = this.m_pathSquareInfo.connectionType;
 		if (this.m_animator != null && this.m_animator.layerCount > 0)

@@ -100,8 +100,8 @@ public class SenseiStatusOrbs : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiStatusOrbs.ShouldAddActorForTargeter(ActorData, Vector3, ActorData)).MethodHandle;
 			}
-			BoardSquare square = Board.\u000E().\u000E(centerPos);
-			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(square, true, true, targetingActor);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(centerPos);
+			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, true, true, targetingActor);
 			if (targetableActorOnSquare != null)
 			{
 				for (;;)
@@ -113,7 +113,7 @@ public class SenseiStatusOrbs : Ability
 					}
 					break;
 				}
-				if (targetableActorOnSquare.\u0018())
+				if (targetableActorOnSquare.IsVisibleToClient())
 				{
 					for (;;)
 					{
@@ -135,7 +135,7 @@ public class SenseiStatusOrbs : Ability
 							}
 							break;
 						}
-						return potentialActor.\u000E() != targetableActorOnSquare.\u000E();
+						return potentialActor.GetTeam() != targetableActorOnSquare.GetTeam();
 					}
 				}
 			}
@@ -159,7 +159,7 @@ public class SenseiStatusOrbs : Ability
 		ActorData actorData = base.ActorData;
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Tertiary) > 0)
 		{
-			if (actorData.\u000E() == targetActor.\u000E())
+			if (actorData.GetTeam() == targetActor.GetTeam())
 			{
 				for (;;)
 				{

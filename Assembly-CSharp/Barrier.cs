@@ -142,7 +142,7 @@ public class Barrier
 		this.m_bidirectional = bidirectional;
 		Vector3 a = Vector3.Cross(facingDir, Vector3.up);
 		a.Normalize();
-		float d = width * Board.\u000E().squareSize;
+		float d = width * Board.Get().squareSize;
 		this.m_endpoint1 = center + a * d / 2f;
 		this.m_endpoint2 = center - a * d / 2f;
 		this.BlocksVision = blocksVision;
@@ -154,7 +154,7 @@ public class Barrier
 		this.m_owner = owner;
 		if (this.m_owner != null)
 		{
-			this.m_team = this.m_owner.\u000E();
+			this.m_team = this.m_owner.GetTeam();
 		}
 		else
 		{
@@ -258,7 +258,7 @@ public class Barrier
 			result = false;
 			break;
 		case BlockingRules.ForEnemies:
-			result = (actor == null || actor.\u000E() != this.m_team);
+			result = (actor == null || actor.GetTeam() != this.m_team);
 			break;
 		case BlockingRules.ForEverybody:
 			result = true;
@@ -275,7 +275,7 @@ public class Barrier
 		visionUpdaters = new List<ActorData>();
 		if (NetworkClient.active && this.m_makeClientGeo)
 		{
-			float squareSize = Board.\u000E().squareSize;
+			float squareSize = Board.Get().squareSize;
 			Vector3 a = this.m_endpoint2 - this.m_endpoint1;
 			bool flag = Mathf.Abs(a.z) > Mathf.Abs(a.x);
 			Vector3 vector = this.m_endpoint1 + 0.5f * a;
@@ -705,7 +705,7 @@ public class Barrier
 			owner = GameFlowData.Get().FindActorByActorIndex(info.m_ownerIndex);
 		}
 		Vector3 facingDir = VectorUtils.AngleDegreesToVector(info.m_facingHorizontalAngle);
-		float width = info.m_widthInWorld / Board.\u000E().squareSize;
+		float width = info.m_widthInWorld / Board.Get().squareSize;
 		return new Barrier(info.m_guid, string.Empty, info.m_center, facingDir, width, info.m_bidirectional, blocksVision, blocksAbilities, blocksMovement, blocksPositionTargeting, info.m_considerAsCover, -1, owner, null, true, null, null, -1, false, null, Team.Invalid)
 		{
 			BlocksMovementOnCrossover = blocksMovementOnCrossover,

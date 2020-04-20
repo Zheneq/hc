@@ -145,7 +145,7 @@ public class Exo_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				this.GetOwner().\u000E().UpdateSquaresCanMoveTo();
+				this.GetOwner().GetActorMovement().UpdateSquaresCanMoveTo();
 			}
 		}
 	}
@@ -156,7 +156,7 @@ public class Exo_SyncComponent : NetworkBehaviour
 		if (!NetworkServer.active)
 		{
 			ActorData owner = this.GetOwner();
-			if (owner != null && owner.\u000E() != null)
+			if (owner != null && owner.GetModelAnimator() != null)
 			{
 				for (;;)
 				{
@@ -171,10 +171,10 @@ public class Exo_SyncComponent : NetworkBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.RpcSetIdleType(int)).MethodHandle;
 				}
-				int integer = owner.\u000E().GetInteger(Exo_SyncComponent.animIdleType);
+				int integer = owner.GetModelAnimator().GetInteger(Exo_SyncComponent.animIdleType);
 				if (integer != idleType)
 				{
-					owner.\u000E().SetInteger(Exo_SyncComponent.animIdleType, idleType);
+					owner.GetModelAnimator().SetInteger(Exo_SyncComponent.animIdleType, idleType);
 					if (idleType == 0)
 					{
 						for (;;)
@@ -186,7 +186,7 @@ public class Exo_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						owner.\u000E().SetTrigger(Exo_SyncComponent.animExitAnchor);
+						owner.GetModelAnimator().SetTrigger(Exo_SyncComponent.animExitAnchor);
 					}
 				}
 			}
@@ -238,9 +238,9 @@ public class Exo_SyncComponent : NetworkBehaviour
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.RpcSetSweepingRight(bool)).MethodHandle;
 			}
 			ActorData owner = this.GetOwner();
-			if (owner != null && owner.\u000E() != null)
+			if (owner != null && owner.GetModelAnimator() != null)
 			{
-				owner.\u000E().SetBool("SweepingRight", sweepingToTheRight);
+				owner.GetModelAnimator().SetBool("SweepingRight", sweepingToTheRight);
 			}
 		}
 	}

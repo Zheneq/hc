@@ -26,7 +26,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 
 	internal bool DroneIsActive()
 	{
-		BoardSquare x = Board.\u000E().\u0016(this.m_boardX, this.m_boardY);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_boardX, this.m_boardY);
 		bool result;
 		if (this.m_droneActive)
 		{
@@ -43,7 +43,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.DroneIsActive()).MethodHandle;
 			}
-			result = (x != null);
+			result = (boardSquare != null);
 		}
 		else
 		{
@@ -220,7 +220,7 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 				}
 				satellite.OverrideVisibility(true);
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(satellite.transform);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(satellite.transform);
 			if (!(boardSquare == null))
 			{
 				for (;;)
@@ -258,8 +258,8 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 					}
 				}
 			}
-			float x = (float)this.BoardX() * Board.\u000E().squareSize;
-			float z = (float)this.BoardY() * Board.\u000E().squareSize;
+			float x = (float)this.BoardX() * Board.Get().squareSize;
+			float z = (float)this.BoardY() * Board.Get().squareSize;
 			Vector3 targetPosition = new Vector3(x, satellite.transform.position.y, z);
 			satellite.TeleportToLocation(targetPosition);
 			IL_127:;

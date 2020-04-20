@@ -30,7 +30,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.\u0015(IceborgDetonateNova.s_cvarNumNovaCores.\u0012(), "Number of nova cores detonating", false);
+		return base.GetUsageForEditor() + ContextVars.GetDebugString(IceborgDetonateNova.s_cvarNumNovaCores.GetName(), "Number of nova cores detonating", false);
 	}
 
 	public override string GetOnHitDataDesc()
@@ -59,7 +59,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(IceborgDetonateNova.s_cvarNumNovaCores.\u0012());
+		contextNamesForEditor.Add(IceborgDetonateNova.s_cvarNumNovaCores.GetName());
 		return contextNamesForEditor;
 	}
 
@@ -295,7 +295,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
 			}
-			abilityContext.\u0016(IceborgDetonateNova.s_cvarNumNovaCores.\u0012(), (int)this.m_syncComp.m_numNovaEffectsOnTurnStart);
+			abilityContext.SetInt(IceborgDetonateNova.s_cvarNumNovaCores.GetHash(), (int)this.m_syncComp.m_numNovaEffectsOnTurnStart);
 		}
 	}
 

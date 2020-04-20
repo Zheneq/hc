@@ -38,7 +38,7 @@ public class GrydMoveBomb : Ability
 			}
 			this.m_abilityName = "Move Bomb";
 		}
-		this.m_placeBombAbility = (base.ActorData.\u000E().GetAbilityOfType(typeof(GrydPlaceBomb)) as GrydPlaceBomb);
+		this.m_placeBombAbility = (base.ActorData.GetAbilityData().GetAbilityOfType(typeof(GrydPlaceBomb)) as GrydPlaceBomb);
 		this.SetupTargeter();
 	}
 

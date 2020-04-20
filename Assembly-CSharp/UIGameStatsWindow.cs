@@ -500,7 +500,7 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 							while (enumerator.MoveNext())
 							{
 								ActorData actorData = enumerator.Current;
-								ActorBehavior actorBehavior = actorData.\u000E();
+								ActorBehavior actorBehavior = actorData.GetActorBehavior();
 								num6 += actorBehavior.totalPlayerContribution;
 							}
 							for (;;)
@@ -515,7 +515,7 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						}
 						foreach (ActorData actorData2 in playerAndBotTeamMembers2)
 						{
-							ActorBehavior actorBehavior2 = actorData2.\u000E();
+							ActorBehavior actorBehavior2 = actorData2.GetActorBehavior();
 							num7 += actorBehavior2.totalPlayerContribution;
 						}
 						UIGameOverPanel.TeamELOs teamELOs;

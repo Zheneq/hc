@@ -106,7 +106,7 @@ public class GrydCycleDash : Ability
 		GridPos gridPos;
 		if (targetIndex == 0)
 		{
-			gridPos = caster.\u000E();
+			gridPos = caster.GetGridPosWithIncrementedHeight();
 		}
 		else
 		{
@@ -141,8 +141,8 @@ public class GrydCycleDash : Ability
 				return false;
 			}
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -153,7 +153,7 @@ public class GrydCycleDash : Ability
 				}
 				break;
 			}
-			if (!boardSquare.\u0016())
+			if (!boardSquareSafe.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -167,7 +167,7 @@ public class GrydCycleDash : Ability
 			}
 			else
 			{
-				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, Board.\u000E().\u000E(gridPos), false);
+				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetBoardSquareSafe(gridPos), false);
 				if (boardSquarePathInfo == null)
 				{
 					for (;;)
@@ -183,7 +183,7 @@ public class GrydCycleDash : Ability
 				}
 				boardSquarePathInfo.CalcAndSetMoveCostToEnd();
 				float num = boardSquarePathInfo.FindMoveCostToEnd();
-				return num <= this.m_legRange * Board.\u000E().squareSize;
+				return num <= this.m_legRange * Board.Get().squareSize;
 			}
 		}
 		return false;

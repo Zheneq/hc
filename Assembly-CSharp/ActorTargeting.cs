@@ -70,8 +70,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			}
 			this.m_actorData = base.GetComponent<ActorData>();
 		}
-		ActorTurnSM actorTurnSM = this.m_actorData.\u000E();
-		AbilityData abilityData = this.m_actorData.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actorData.GetActorTurnSM();
+		AbilityData abilityData = this.m_actorData.GetAbilityData();
 		ActorData actorData;
 		if (GameFlowData.Get() != null)
 		{
@@ -413,7 +413,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		this.m_currentTargetedActors.Clear();
 		ActorData actorData = this.m_actorData;
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		AbilityData abilityData = actorData.\u000E();
+		AbilityData abilityData = actorData.GetAbilityData();
 		List<ActorTargeting.AbilityRequestData> abilityRequestDataForClient = this.GetAbilityRequestDataForClient();
 		using (List<ActorTargeting.AbilityRequestData>.Enumerator enumerator = abilityRequestDataForClient.GetEnumerator())
 		{
@@ -938,7 +938,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 												}
 												break;
 											}
-											num = AbilityUtils.ApplyCoverDamageReduction(target.\u000E(), num, reducedCoverEffectiveness);
+											num = AbilityUtils.ApplyCoverDamageReduction(target.GetActorStats(), num, reducedCoverEffectiveness);
 										}
 									}
 									flag8 = true;
@@ -1278,7 +1278,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					return false;
 				}
 				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-				if (teamViewing != Team.Invalid && actorData.\u000E() != teamViewing)
+				if (teamViewing != Team.Invalid && actorData.GetTeam() != teamViewing)
 				{
 					return false;
 				}
@@ -1311,7 +1311,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				{
 					return false;
 				}
-				if (actorData.\u000E())
+				if (actorData.IsDead())
 				{
 					for (;;)
 					{
@@ -1324,7 +1324,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					}
 					return false;
 				}
-				if (actorData.\u0012() == null)
+				if (actorData.GetCurrentBoardSquare() == null)
 				{
 					for (;;)
 					{
@@ -1434,7 +1434,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 						return false;
 					}
 				}
-				if (!actorData.\u0018())
+				if (!actorData.IsVisibleToClient())
 				{
 					for (;;)
 					{
@@ -1473,11 +1473,11 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					}
 					return false;
 				}
-				if (actorData.\u000E())
+				if (actorData.IsDead())
 				{
 					return false;
 				}
-				if (actorData.\u0015())
+				if (actorData.ShouldPickRespawn_zq())
 				{
 					for (;;)
 					{
@@ -1490,7 +1490,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					}
 					return false;
 				}
-				if (actorData.\u0012() == null)
+				if (actorData.GetCurrentBoardSquare() == null)
 				{
 					for (;;)
 					{
@@ -1513,7 +1513,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		ActorData actorData = this.m_actorData;
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		AbilityData abilityData = actorData.\u000E();
+		AbilityData abilityData = actorData.GetAbilityData();
 		List<ActorTargeting.AbilityRequestData> abilityRequestDataForClient = this.GetAbilityRequestDataForClient();
 		foreach (ActorTargeting.AbilityRequestData abilityRequestData in abilityRequestDataForClient)
 		{
@@ -1682,7 +1682,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							if (abilityRequestDataForClient.Count == 1 && actorData.\u000E().GetLastSelectedAbility() == null)
+							if (abilityRequestDataForClient.Count == 1 && actorData.GetAbilityData().GetLastSelectedAbility() == null)
 							{
 								for (;;)
 								{
@@ -1693,7 +1693,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 									}
 									break;
 								}
-								actorData.\u000E().SetLastSelectedAbility(abilityOfActionType);
+								actorData.GetAbilityData().SetLastSelectedAbility(abilityOfActionType);
 							}
 						}
 					}
@@ -1768,8 +1768,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 	{
 		ActorData actorData = this.m_actorData;
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		ActorData y = (!(Board.\u000E().PlayerFreeSquare != null)) ? null : Board.\u000E().PlayerFreeSquare.OccupantActor;
-		AbilityData abilityData = actorData.\u000E();
+		ActorData y = (!(Board.Get().PlayerFreeSquare != null)) ? null : Board.Get().PlayerFreeSquare.OccupantActor;
+		AbilityData abilityData = actorData.GetAbilityData();
 		List<ActorTargeting.AbilityRequestData> abilityRequestDataForClient = this.GetAbilityRequestDataForClient();
 		int num = 0;
 		for (int i = 0; i < abilityRequestDataForClient.Count; i++)
@@ -2011,7 +2011,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 
 	public void UpdateAbilityCooldowns(int targetingAbilityIndicatorIndex, bool showRequestedAbilities)
 	{
-		AbilityData abilityData = this.m_actorData.\u000E();
+		AbilityData abilityData = this.m_actorData.GetAbilityData();
 		AbilityData.ActionType actionTargeting = abilityData.GetSelectedActionTypeForTargeting();
 		bool flag = this.InSpectatorModeAndHideTargeting();
 		bool flag2 = false;
@@ -2041,7 +2041,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(this.m_actorData.\u000E()))
+				if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(this.m_actorData.GetTeam()))
 				{
 					for (;;)
 					{
@@ -2058,7 +2058,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		List<ActorTargeting.AbilityRequestData> abilityRequestDataForClient = this.GetAbilityRequestDataForClient();
 		ActorData actorData;
-		if (Board.\u000E().PlayerFreeSquare != null)
+		if (Board.Get().PlayerFreeSquare != null)
 		{
 			for (;;)
 			{
@@ -2069,7 +2069,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			actorData = Board.\u000E().PlayerFreeSquare.OccupantActor;
+			actorData = Board.Get().PlayerFreeSquare.OccupantActor;
 		}
 		else
 		{
@@ -2128,7 +2128,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				ActorTargeting.s_updatedAbilityCooldownsActors.Add(this.m_actorData);
 				ActorTargeting.s_lastTimeAddedAbilityCooldownsActor = Time.time;
 			}
-			int num = this.m_actorData.\u0016();
+			int actualMaxTechPoints = this.m_actorData.GetActualMaxTechPoints();
 			List<Ability> abilitiesAsList = abilityData.GetAbilitiesAsList();
 			using (List<Ability>.Enumerator enumerator = abilitiesAsList.GetEnumerator())
 			{
@@ -2164,7 +2164,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							flag4 = (moddedCost >= num);
+							flag4 = (moddedCost >= actualMaxTechPoints);
 						}
 						else
 						{
@@ -2200,7 +2200,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 										continue;
 									}
 								}
-								if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(this.m_actorData.\u000E()))
+								if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(this.m_actorData.GetTeam()))
 								{
 									for (;;)
 									{
@@ -2365,7 +2365,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 				}
 				if (this.m_actorData != null)
 				{
-					AbilityData abilityData = this.m_actorData.\u000E();
+					AbilityData abilityData = this.m_actorData.GetAbilityData();
 					int i = 0;
 					while (i < abilityRequestDataForClient.Count)
 					{

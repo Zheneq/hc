@@ -109,7 +109,7 @@ public class ProximityMineGroundSequence : Sequence
 			}
 			return false;
 		}
-		bool flag = this.m_visibleToEnemies || GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
+		bool flag = this.m_visibleToEnemies || GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam());
 		bool flag2 = !GameFlowData.Get().IsOwnerTargeting();
 		bool result;
 		if (flag)
@@ -163,7 +163,7 @@ public class ProximityMineGroundSequence : Sequence
 				}
 				break;
 			}
-			flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
+			flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam());
 		}
 		else
 		{
@@ -223,7 +223,7 @@ public class ProximityMineGroundSequence : Sequence
 				}
 				break;
 			}
-			result = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
+			result = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam());
 		}
 		else
 		{
@@ -265,7 +265,7 @@ public class ProximityMineGroundSequence : Sequence
 					}
 					break;
 				}
-				bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.\u000E());
+				bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(base.Caster.GetTeam());
 				Vector3 position = new Vector3(base.TargetPos.x, base.TargetPos.y + 0.1f, base.TargetPos.z);
 				GameObject gameObject;
 				if (flag)
@@ -312,7 +312,7 @@ public class ProximityMineGroundSequence : Sequence
 						}
 						break;
 					}
-					this.m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+					this.m_mineArmed.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 				}
 				AudioManager.PostEvent(this.m_audioEventArm, this.m_mineArmed.gameObject);
 				this.m_createdVFX = true;

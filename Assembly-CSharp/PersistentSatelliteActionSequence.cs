@@ -170,7 +170,7 @@ public class PersistentSatelliteActionSequence : Sequence
 						this.m_persistentSatellite.AltMoveToPosition(base.TargetPos);
 					}
 					IL_109:
-					this.m_lastBoardSquare = Board.\u000E().\u000E(this.m_persistentSatellite.transform.position);
+					this.m_lastBoardSquare = Board.Get().GetBoardSquare(this.m_persistentSatellite.transform.position);
 				}
 			}
 		}
@@ -385,10 +385,10 @@ public class PersistentSatelliteActionSequence : Sequence
 							}
 							break;
 						}
-						BoardSquare boardSquare = Board.\u000E().\u000E(this.m_persistentSatellite.transform.position);
+						BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_persistentSatellite.transform.position);
 						if (boardSquare != this.m_lastBoardSquare)
 						{
-							base.Caster.\u000E().MarkForRecalculateVisibility();
+							base.Caster.GetFogOfWar().MarkForRecalculateVisibility();
 							this.m_lastBoardSquare = boardSquare;
 						}
 					}

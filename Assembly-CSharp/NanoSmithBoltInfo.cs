@@ -44,7 +44,7 @@ public class NanoSmithBoltInfo
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.GetActorsHitByBolt(Vector3, Vector3, ActorData, AbilityPriority, VectorUtils.LaserCoords*, List<NonActorTargetInfo>, bool, bool, bool)).MethodHandle;
 			}
-			start = caster.\u0015();
+			start = caster.GetTravelBoardSquareWorldPositionForLos();
 		}
 		VectorUtils.LaserCoords coords;
 		coords.start = start;
@@ -60,7 +60,7 @@ public class NanoSmithBoltInfo
 				}
 				break;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(boltStartPos);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(boltStartPos);
 			if (boardSquare != null)
 			{
 				for (;;)
@@ -218,9 +218,9 @@ public class NanoSmithBoltInfo
 			for (int i = 0; i < sequenceActors.Count; i++)
 			{
 				Vector3 start = sequenceEndPoints[i].start;
-				start.y = (float)Board.\u000E().BaselineHeight + this.sequenceHeightFromGround;
+				start.y = (float)Board.Get().BaselineHeight + this.sequenceHeightFromGround;
 				Vector3 end = sequenceEndPoints[i].end;
-				end.y = (float)Board.\u000E().BaselineHeight + this.sequenceHeightFromGround;
+				end.y = (float)Board.Get().BaselineHeight + this.sequenceHeightFromGround;
 				SplineProjectileSequence.DelayedProjectileExtraParams delayedProjectileExtraParams = new SplineProjectileSequence.DelayedProjectileExtraParams();
 				delayedProjectileExtraParams.useOverrideStartPos = true;
 				delayedProjectileExtraParams.overrideStartPos = start;

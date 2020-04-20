@@ -83,7 +83,7 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 				}
 				break;
 			}
-			PlayerDetails playerDetails = GameFlow.Get().playerDetails[data.\u000E()];
+			PlayerDetails playerDetails = GameFlow.Get().playerDetails[data.GetPlayer()];
 			if (playerDetails.m_accPrivateElo == playerDetails.m_usedMatchmakingElo)
 			{
 				TextMeshProUGUI playerName = this.m_playerName;
@@ -102,9 +102,9 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 			TextMeshProUGUI playerClass = this.m_playerClass;
 			playerClass.text += string.Format(" C: {0:F0}", playerDetails.m_charPrivateElo);
 		}
-		ActorBehavior actorBehavior = data.\u000E();
+		ActorBehavior actorBehavior = data.GetActorBehavior();
 		this.m_playerContribution.text = actorBehavior.totalPlayerContribution.ToString();
-		this.m_playerGold.text = data.\u000E().credits.ToString();
+		this.m_playerGold.text = data.GetItemData().credits.ToString();
 		this.m_playerTime.text = "?";
 		string text = string.Concat(new string[]
 		{
@@ -115,7 +115,7 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 			actorBehavior.totalPlayerAssists.ToString()
 		});
 		this.m_playerKDA.text = text;
-		this.m_playerIcon.sprite = data.\u000E();
+		this.m_playerIcon.sprite = data.GetAliveHUDIcon();
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData == data)
 		{
 			for (;;)
@@ -172,11 +172,11 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 				}
 				break;
 			}
-			if (this.m_playerData.\u000E() != null)
+			if (this.m_playerData.GetAbilityData() != null)
 			{
 				for (int i = 0; i < this.m_abilityList.Length; i++)
 				{
-					if (i < this.m_playerData.\u000E().abilityEntries.Length && this.m_playerData.\u000E().abilityEntries[i].ability != null)
+					if (i < this.m_playerData.GetAbilityData().abilityEntries.Length && this.m_playerData.GetAbilityData().abilityEntries[i].ability != null)
 					{
 						for (;;)
 						{
@@ -187,13 +187,13 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 							}
 							break;
 						}
-						this.m_abilityList[i].sprite = this.m_playerData.\u000E().abilityEntries[i].ability.sprite;
-						this.m_abilityReferences.Add(this.m_playerData.\u000E().abilityEntries[i].ability);
-						if (this.m_playerData.\u000E().abilityEntries[i].ability.CurrentAbilityMod != null)
+						this.m_abilityList[i].sprite = this.m_playerData.GetAbilityData().abilityEntries[i].ability.sprite;
+						this.m_abilityReferences.Add(this.m_playerData.GetAbilityData().abilityEntries[i].ability);
+						if (this.m_playerData.GetAbilityData().abilityEntries[i].ability.CurrentAbilityMod != null)
 						{
 							this.m_modList[i].color = new Color(1f, 1f, 1f, 1f);
-							this.m_modList[i].sprite = this.m_playerData.\u000E().abilityEntries[i].ability.CurrentAbilityMod.m_iconSprite;
-							this.m_abilityModReferences.Add(this.m_playerData.\u000E().abilityEntries[i].ability.CurrentAbilityMod);
+							this.m_modList[i].sprite = this.m_playerData.GetAbilityData().abilityEntries[i].ability.CurrentAbilityMod.m_iconSprite;
+							this.m_abilityModReferences.Add(this.m_playerData.GetAbilityData().abilityEntries[i].ability.CurrentAbilityMod);
 						}
 						else
 						{
@@ -333,7 +333,7 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoScreenPlayerInfo.SetupContibutionTooltip(UITooltipBase)).MethodHandle;
 			}
-			ActorBehavior actorBehavior = this.m_playerData.\u000E();
+			ActorBehavior actorBehavior = this.m_playerData.GetActorBehavior();
 			uicontributionTooltip.Setup(StringUtil.TR("Contribution", "GameOver"), actorBehavior.GetContributionBreakdownForUI());
 			return true;
 		}

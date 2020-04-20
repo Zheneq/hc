@@ -111,12 +111,12 @@ public class BarrierPoseInfo
 						}
 						break;
 					}
-					float squareSize = Board.\u000E().squareSize;
+					float squareSize = Board.Get().squareSize;
 					float num = cornerLengthAdjustInSquares * squareSize;
 					float num2 = cornerLength * squareSize + num;
 					float num3 = midsectionLength * squareSize - num;
 					Vector3 vector = targetSquare.ToVector3();
-					vector.y = (float)Board.\u000E().BaselineHeight;
+					vector.y = (float)Board.Get().BaselineHeight;
 					Vector3 a = vector;
 					bool flag = midsectionLength % 2f == 0f;
 					if (flag)

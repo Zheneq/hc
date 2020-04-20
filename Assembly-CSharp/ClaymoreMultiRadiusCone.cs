@@ -824,7 +824,7 @@ public class ClaymoreMultiRadiusCone : Ability
 						}
 						break;
 					}
-					float num2 = (float)actorData.HitPoints / (float)actorData.\u0012();
+					float num2 = (float)actorData.HitPoints / (float)actorData.GetMaxHitPoints();
 					if (this.ShouldApplyCasterBonusPerThresholdReached())
 					{
 						for (;;)
@@ -865,7 +865,7 @@ public class ClaymoreMultiRadiusCone : Ability
 					}
 					break;
 				}
-				if ((float)targetActor.HitPoints / (float)targetActor.\u0012() < this.GetEnemyHealthThreshForBonus())
+				if ((float)targetActor.HitPoints / (float)targetActor.GetMaxHitPoints() < this.GetEnemyHealthThreshForBonus())
 				{
 					for (;;)
 					{
@@ -999,14 +999,14 @@ public class ClaymoreMultiRadiusCone : Ability
 				}
 			}
 		}
-		float num = this.ModdedInnerRadius() * Board.\u000E().squareSize;
-		float num2 = this.ModdedMiddleRadius() * Board.\u000E().squareSize;
-		Vector3 vector = targetActor.\u0016() - damageOrigin;
+		float num = this.ModdedInnerRadius() * Board.Get().squareSize;
+		float num2 = this.ModdedMiddleRadius() * Board.Get().squareSize;
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
 		vector.y = 0f;
 		float num3 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			num3 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+			num3 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		bool flag = num3 <= num;
 		bool flag2;

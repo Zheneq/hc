@@ -313,7 +313,7 @@ public class ValkyrieDashAoE : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (targetActor.\u000E() == base.ActorData.\u000E())
+		if (targetActor.GetTeam() == base.ActorData.GetTeam())
 		{
 			for (;;)
 			{
@@ -346,10 +346,10 @@ public class ValkyrieDashAoE : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (targetIndex == 0)
 		{
-			if (boardSquare != null)
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -364,7 +364,7 @@ public class ValkyrieDashAoE : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 				}
-				if (boardSquare.\u0016())
+				if (boardSquareSafe.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -375,7 +375,7 @@ public class ValkyrieDashAoE : Ability
 						}
 						break;
 					}
-					if (boardSquare != caster.\u0012())
+					if (boardSquareSafe != caster.GetCurrentBoardSquare())
 					{
 						for (;;)
 						{
@@ -386,7 +386,7 @@ public class ValkyrieDashAoE : Ability
 							}
 							break;
 						}
-						return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare) != null;
+						return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 					}
 				}
 			}
@@ -398,7 +398,7 @@ public class ValkyrieDashAoE : Ability
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
 		bool result;
-		if (caster != null && caster.\u000E() != null)
+		if (caster != null && caster.GetAbilityData() != null)
 		{
 			for (;;)
 			{
@@ -413,7 +413,7 @@ public class ValkyrieDashAoE : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.CustomCanCastValidation(ActorData)).MethodHandle;
 			}
-			result = !caster.\u000E().HasQueuedAbilityOfType(typeof(ValkyrieGuard));
+			result = !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieGuard));
 		}
 		else
 		{
@@ -809,8 +809,8 @@ public class ValkyrieDashAoE : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDashAoE.HasAimingOriginOverride(ActorData, int, List<AbilityTarget>, Vector3*)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targetsSoFar[0].GridPos);
-			overridePos = boardSquare.ToVector3();
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+			overridePos = boardSquareSafe.ToVector3();
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);

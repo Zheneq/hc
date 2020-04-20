@@ -19,7 +19,7 @@ public class PosInsideChecker_Box : IPosInsideChecker
 
 	public bool IsPositionInside(Vector3 testPos)
 	{
-		return AreaEffectUtils.PointInBox(testPos, this.m_startPos, this.m_endPos, Board.\u000E().squareSize * this.m_radiusInSquares);
+		return AreaEffectUtils.PointInBox(testPos, this.m_startPos, this.m_endPos, Board.Get().squareSize * this.m_radiusInSquares);
 	}
 
 	public bool AddTestPosForBarrier(List<Vector3> testPoints, Barrier barrier)

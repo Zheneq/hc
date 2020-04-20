@@ -209,7 +209,7 @@ public class BattleMonkBuffCharge_Prep : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.CustomCanCastValidation(ActorData)).MethodHandle;
 			}
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.\u0016(), this.GetAllySelectRadius(), this.m_buffAoePenetratesLoS, caster, caster.\u000E(), null, false, default(Vector3));
+			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), this.GetAllySelectRadius(), this.m_buffAoePenetratesLoS, caster, caster.GetTeam(), null, false, default(Vector3));
 			actorsInRadius.Remove(caster);
 			if (NetworkClient.active)
 			{
@@ -223,8 +223,8 @@ public class BattleMonkBuffCharge_Prep : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null) && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
 			for (;;)
 			{
@@ -239,7 +239,7 @@ public class BattleMonkBuffCharge_Prep : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (!(boardSquare == caster.\u0012()))
+			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				bool result = false;
 				if (this.GetRequireHitAlly())
@@ -253,7 +253,7 @@ public class BattleMonkBuffCharge_Prep : Ability
 						}
 						break;
 					}
-					List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.\u0016(), this.GetAllySelectRadius(), this.m_buffAoePenetratesLoS, caster, caster.\u000E(), null, false, default(Vector3));
+					List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), this.GetAllySelectRadius(), this.m_buffAoePenetratesLoS, caster, caster.GetTeam(), null, false, default(Vector3));
 					actorsInRadius.Remove(caster);
 					for (int i = 0; i < actorsInRadius.Count; i++)
 					{
@@ -270,11 +270,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 								}
 								break;
 							}
-							flag = actorData.\u0018();
+							flag = actorData.IsVisibleToClient();
 						}
 						else
 						{
-							flag = actorData.\u000E(caster, false);
+							flag = actorData.IsActorVisibleToActor(caster, false);
 						}
 						bool flag2 = flag;
 						if (flag2)
@@ -288,8 +288,8 @@ public class BattleMonkBuffCharge_Prep : Ability
 								}
 								break;
 							}
-							BoardSquare boardSquare2 = actorData.\u0012();
-							if (boardSquare2 != null)
+							BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+							if (currentBoardSquare != null)
 							{
 								for (;;)
 								{
@@ -300,7 +300,7 @@ public class BattleMonkBuffCharge_Prep : Ability
 									}
 									break;
 								}
-								if (AreaEffectUtils.IsSquareInShape(boardSquare, this.m_buffAlliesShape, boardSquare2.ToVector3(), boardSquare2, this.m_buffAoePenetratesLoS, caster))
+								if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, this.m_buffAlliesShape, currentBoardSquare.ToVector3(), currentBoardSquare, this.m_buffAoePenetratesLoS, caster))
 								{
 									for (;;)
 									{

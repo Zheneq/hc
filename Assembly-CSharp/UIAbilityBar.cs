@@ -82,7 +82,7 @@ public class UIAbilityBar : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.UpdateElementsVisibility(bool)).MethodHandle;
 			}
-			flag = activeOwnedActorData.\u000E();
+			flag = activeOwnedActorData.IsDead();
 		}
 		bool flag2;
 		if (isResolving)
@@ -503,14 +503,14 @@ public class UIAbilityBar : MonoBehaviour
 				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties(UIQueueListPanel.UIPhase.None);
 				ActorTurnSM turnSM = this.m_turnSM;
 				this.m_lockInCancelButton.EnableLockIn(turnSM.CurrentState != TurnStateEnum.CONFIRMED, !this.m_turnSM.AmTargetingAction());
-				this.m_lockInCancelButton.SetDecisionContainerVisible(true, this.m_actorData.\u000E());
+				this.m_lockInCancelButton.SetDecisionContainerVisible(true, this.m_actorData.IsDead());
 				this.m_theTimer.NotifyPhase(true);
 				UIManager.SetGameObjectActive(this.m_lockInCancelButton.m_phaseColor, false, null);
 			}
 			else
 			{
 				this.m_lockInCancelButton.EnableLockIn(false, true);
-				this.m_lockInCancelButton.SetDecisionContainerVisible(false, this.m_actorData.\u000E());
+				this.m_lockInCancelButton.SetDecisionContainerVisible(false, this.m_actorData.IsDead());
 				this.m_theTimer.NotifyPhase(false);
 				this.m_lockInCancelButton.UpdatePhase();
 				if (SinglePlayerManager.Get() != null)

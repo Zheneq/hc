@@ -49,9 +49,9 @@ public class StatusIndicatorVFX : AttachedActorVFXInfo
 						}
 						break;
 					}
-					if (this.m_actor.\u000E() != null)
+					if (this.m_actor.GetActorStatus() != null)
 					{
-						bool flag = actorVisible && this.m_actor.\u000E().HasStatus(this.m_status, false);
+						bool flag = actorVisible && this.m_actor.GetActorStatus().HasStatus(this.m_status, false);
 						if (this.m_vfxInstance.activeSelf != flag)
 						{
 							for (;;)

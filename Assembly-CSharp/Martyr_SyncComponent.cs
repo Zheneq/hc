@@ -42,7 +42,7 @@ public class Martyr_SyncComponent : NetworkBehaviour
 
 	public bool IsBonusActive(ActorData owner)
 	{
-		return this.CrystalsSpentThisTurn || owner.\u000E().HasQueuedAbilityOfType(typeof(MartyrSpendCrystals));
+		return this.CrystalsSpentThisTurn || owner.GetAbilityData().HasQueuedAbilityOfType(typeof(MartyrSpendCrystals));
 	}
 
 	public int SpentDamageCrystals(ActorData owner)

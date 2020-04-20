@@ -709,7 +709,7 @@ public static class ServerClientUtils
 							}
 							break;
 						}
-						text = text + " | " + actorData.\u0018();
+						text = text + " | " + actorData.GetDebugName();
 					}
 					else
 					{
@@ -969,7 +969,7 @@ public static class ServerClientUtils
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.CreateSequencesFromData(SequenceSource.ActorDelegate, SequenceSource.Vector3Delegate)).MethodHandle;
 				}
-				targetSquare = Board.\u000E().\u0016(this.m_targetSquareX, this.m_targetSquareY);
+				targetSquare = Board.Get().GetBoardSquare(this.m_targetSquareX, this.m_targetSquareY);
 			}
 			else
 			{

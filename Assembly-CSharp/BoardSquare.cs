@@ -57,9 +57,9 @@ public class BoardSquare : MonoBehaviour
 
 	private sbyte m_lastVisibleFlag = -1;
 
-	public ThinCover.CoverType \u001D(ActorCover.CoverDirections \u001D)
+	public ThinCover.CoverType GetCoverInDirection(ActorCover.CoverDirections direction)
 	{
-		return this.m_thinCoverTypes[(int)\u001D];
+		return this.m_thinCoverTypes[(int)direction];
 	}
 
 	public void SetThinCover(ActorCover.CoverDirections squareSide, ThinCover.CoverType coverType)
@@ -67,7 +67,7 @@ public class BoardSquare : MonoBehaviour
 		this.m_thinCoverTypes[(int)squareSide] = coverType;
 	}
 
-	public bool \u001D()
+	public bool IsExposedFromAnyDirection_zq()
 	{
 		for (int i = 0; i < this.m_thinCoverTypes.Length; i++)
 		{
@@ -87,12 +87,12 @@ public class BoardSquare : MonoBehaviour
 		}
 		if (!true)
 		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u001D()).MethodHandle;
+			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.IsExposedFromAnyDirection_zq()).MethodHandle;
 		}
 		return false;
 	}
 
-	public bool \u000E()
+	public bool HasFullCoverFromAnyDirection_zq()
 	{
 		for (int i = 0; i < this.m_thinCoverTypes.Length; i++)
 		{
@@ -109,7 +109,7 @@ public class BoardSquare : MonoBehaviour
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u000E()).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.HasFullCoverFromAnyDirection_zq()).MethodHandle;
 				}
 				return true;
 			}
@@ -126,7 +126,7 @@ public class BoardSquare : MonoBehaviour
 		return false;
 	}
 
-	public GridPos \u001D()
+	public GridPos GetGridPos()
 	{
 		return this.m_pos;
 	}
@@ -225,7 +225,7 @@ public class BoardSquare : MonoBehaviour
 
 	public int BrushRegion { get; set; }
 
-	public bool \u0012()
+	public bool IsInBrushRegion()
 	{
 		return this.BrushRegion != -1;
 	}
@@ -233,10 +233,10 @@ public class BoardSquare : MonoBehaviour
 	public bool \u0015()
 	{
 		int num = 1;
-		return this.height <= Board.\u000E().BaselineHeight + num;
+		return this.height <= Board.Get().BaselineHeight + num;
 	}
 
-	public bool \u0016()
+	public bool IsBaselineHeight()
 	{
 		return this.height == Board.BaselineHeightStatic;
 	}
@@ -364,9 +364,9 @@ public class BoardSquare : MonoBehaviour
 		}
 	}
 
-	public Vector3 \u001D(BoardSquare.CornerType \u001D)
+	public Vector3 GetVerticesAtCorner_zq(BoardSquare.CornerType corner)
 	{
-		return this.m_vertices[(int)\u001D];
+		return this.m_vertices[(int)corner];
 	}
 
 	public Vector3 ToVector3()
@@ -387,7 +387,7 @@ public class BoardSquare : MonoBehaviour
 		vertices[3] = new Vector3(num2 - num, (float)this.m_pos.height + this.m_highlightOffset, num3 + num);
 	}
 
-	public float \u001D()
+	public float GetHighlightOffset()
 	{
 		return this.m_highlightOffset;
 	}
@@ -464,19 +464,19 @@ public class BoardSquare : MonoBehaviour
 		Plane result = default(Plane);
 		if ((byte)(side & SideFlags.Up) != 0)
 		{
-			result = new Plane(Vector3.forward, this.\u001D(BoardSquare.CornerType.UpperLeft));
+			result = new Plane(Vector3.forward, this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft));
 		}
 		else if ((byte)(side & SideFlags.Down) != 0)
 		{
-			result = new Plane(Vector3.back, this.\u001D(BoardSquare.CornerType.LowerLeft));
+			result = new Plane(Vector3.back, this.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerLeft));
 		}
 		else if ((byte)(side & SideFlags.Left) != 0)
 		{
-			result = new Plane(Vector3.left, this.\u001D(BoardSquare.CornerType.UpperLeft));
+			result = new Plane(Vector3.left, this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft));
 		}
 		else if ((byte)(side & SideFlags.Right) != 0)
 		{
-			result = new Plane(Vector3.right, this.\u001D(BoardSquare.CornerType.UpperRight));
+			result = new Plane(Vector3.right, this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight));
 		}
 		return result;
 	}
@@ -499,15 +499,15 @@ public class BoardSquare : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.CalcSideBounds(SideFlags)).MethodHandle;
 			}
-			result.SetMinMax(this.\u001D(BoardSquare.CornerType.UpperLeft), this.\u001D(BoardSquare.CornerType.UpperRight) + Vector3.up);
+			result.SetMinMax(this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft), this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight) + Vector3.up);
 		}
 		if ((byte)(side & SideFlags.Down) != 0)
 		{
-			result.SetMinMax(this.\u001D(BoardSquare.CornerType.LowerLeft), this.\u001D(BoardSquare.CornerType.LowerRight) + Vector3.up);
+			result.SetMinMax(this.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerLeft), this.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerRight) + Vector3.up);
 		}
 		if ((byte)(side & SideFlags.Left) != 0)
 		{
-			result.SetMinMax(this.\u001D(BoardSquare.CornerType.LowerLeft), this.\u001D(BoardSquare.CornerType.UpperLeft) + Vector3.up);
+			result.SetMinMax(this.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerLeft), this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft) + Vector3.up);
 		}
 		if ((byte)(side & SideFlags.Right) != 0)
 		{
@@ -520,20 +520,20 @@ public class BoardSquare : MonoBehaviour
 				}
 				break;
 			}
-			result.SetMinMax(this.\u001D(BoardSquare.CornerType.LowerRight), this.\u001D(BoardSquare.CornerType.UpperRight) + Vector3.up);
+			result.SetMinMax(this.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerRight), this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight) + Vector3.up);
 		}
 		return result;
 	}
 
 	public float[] CalculateLOS(Board board)
 	{
-		float[] array = new float[board.\u000E() * board.\u0012()];
-		for (int i = 0; i < board.\u000E(); i++)
+		float[] array = new float[board.GetMaxX() * board.GetMaxY()];
+		for (int i = 0; i < board.GetMaxX(); i++)
 		{
-			for (int j = 0; j < board.\u0012(); j++)
+			for (int j = 0; j < board.GetMaxY(); j++)
 			{
-				BoardSquare x = board.\u0016(i, j);
-				if (x == this)
+				BoardSquare boardSquare = board.GetBoardSquare(i, j);
+				if (boardSquare == this)
 				{
 					for (;;)
 					{
@@ -548,11 +548,11 @@ public class BoardSquare : MonoBehaviour
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.CalculateLOS(Board)).MethodHandle;
 					}
-					array[i + j * board.\u000E()] = 1f;
+					array[i + j * board.GetMaxX()] = 1f;
 				}
 				else
 				{
-					array[i + j * board.\u000E()] = VectorUtils.GetLineOfSightPercentDistance(this.x, this.y, i, j, board, BoardSquare.s_LoSHeightOffset, "LineOfSight");
+					array[i + j * board.GetMaxX()] = VectorUtils.GetLineOfSightPercentDistance(this.x, this.y, i, j, board, BoardSquare.s_LoSHeightOffset, "LineOfSight");
 				}
 			}
 			for (;;)
@@ -571,7 +571,7 @@ public class BoardSquare : MonoBehaviour
 	public bool \u0013(int \u001D, int \u000E)
 	{
 		bool result = false;
-		if (Board.\u000E().m_losLookup != null)
+		if (Board.Get().m_losLookup != null)
 		{
 			for (;;)
 			{
@@ -587,7 +587,7 @@ public class BoardSquare : MonoBehaviour
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u0013(int, int)).MethodHandle;
 			}
 			bool flag;
-			if (Board.\u000E().m_losLookup.GetLOSDistance(this.m_pos.x, this.m_pos.y, \u001D, \u000E) == 1f)
+			if (Board.Get().m_losLookup.GetLOSDistance(this.m_pos.x, this.m_pos.y, \u001D, \u000E) == 1f)
 			{
 				for (;;)
 				{
@@ -609,10 +609,10 @@ public class BoardSquare : MonoBehaviour
 		return result;
 	}
 
-	public float \u000E(int \u001D, int \u000E)
+	public float GetLOSDistance(int xDest, int yDest)
 	{
 		float result = 0f;
-		if (Board.\u000E().m_losLookup != null)
+		if (Board.Get().m_losLookup != null)
 		{
 			for (;;)
 			{
@@ -625,9 +625,9 @@ public class BoardSquare : MonoBehaviour
 			}
 			if (!true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u000E(int, int)).MethodHandle;
+				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.GetLOSDistance(int, int)).MethodHandle;
 			}
-			result = Board.\u000E().m_losLookup.GetLOSDistance(this.m_pos.x, this.m_pos.y, \u001D, \u000E);
+			result = Board.Get().m_losLookup.GetLOSDistance(this.m_pos.x, this.m_pos.y, xDest, yDest);
 		}
 		return result;
 	}
@@ -787,7 +787,7 @@ public class BoardSquare : MonoBehaviour
 		Vector3 vector = worldPos - b;
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
-		return magnitude / Board.\u000E().squareSize;
+		return magnitude / Board.Get().squareSize;
 	}
 
 	public int VerticalDistanceTo(BoardSquare other)
@@ -795,7 +795,7 @@ public class BoardSquare : MonoBehaviour
 		return other.height - this.height;
 	}
 
-	public Color \u001D()
+	public Color GetLOSHighlightMeshBaseColor()
 	{
 		if (this.m_LOSHighlightMesh != null)
 		{
@@ -810,7 +810,7 @@ public class BoardSquare : MonoBehaviour
 			}
 			if (!true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u001D()).MethodHandle;
+				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.GetLOSHighlightMeshBaseColor()).MethodHandle;
 			}
 			if (this.m_LOSHighlightMesh.colors.Length > 0)
 			{
@@ -862,7 +862,7 @@ public class BoardSquare : MonoBehaviour
 					}
 					break;
 				}
-				if (!Board.\u000E().m_showLOS)
+				if (!Board.Get().m_showLOS)
 				{
 					for (;;)
 					{
@@ -925,7 +925,7 @@ public class BoardSquare : MonoBehaviour
 			lhs = BoardSquare.s_revealedColor;
 			IL_C2:
 			bool flag5 = false;
-			if (!Board.\u000E().m_showLOS)
+			if (!Board.Get().m_showLOS)
 			{
 				this.m_lastVisibleFlag = -1;
 				flag5 = true;
@@ -942,7 +942,7 @@ public class BoardSquare : MonoBehaviour
 					}
 					break;
 				}
-				flag6 = (lhs != this.\u001D());
+				flag6 = (lhs != this.GetLOSHighlightMeshBaseColor());
 			}
 			if (flag6)
 			{
@@ -1076,23 +1076,23 @@ public class BoardSquare : MonoBehaviour
 		return result;
 	}
 
-	public Vector3 \u001D()
+	public Vector3 GetWorldPosition()
 	{
 		Vector3 result = new Vector3(this.worldX, (float)this.height, this.worldY);
 		return result;
 	}
 
-	public Vector3 \u000E()
+	public Vector3 GetWorldPositionForLoS()
 	{
-		Vector3 result = this.\u001D();
-		result.y += BoardSquare.s_LoSHeightOffset;
-		return result;
+		Vector3 worldPosition = this.GetWorldPosition();
+		worldPosition.y += BoardSquare.s_LoSHeightOffset;
+		return worldPosition;
 	}
 
-	public Vector3 \u0012()
+	public Vector3 GetBaselineHeight()
 	{
 		Vector3 result = new Vector3(this.worldX, (float)this.height, this.worldY);
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -1105,9 +1105,9 @@ public class BoardSquare : MonoBehaviour
 			}
 			if (!true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u0012()).MethodHandle;
+				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.GetBaselineHeight()).MethodHandle;
 			}
-			result.y = (float)Board.\u000E().BaselineHeight;
+			result.y = (float)Board.Get().BaselineHeight;
 		}
 		return result;
 	}
@@ -1131,7 +1131,7 @@ public class BoardSquare : MonoBehaviour
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u001D(bool)).MethodHandle;
 			}
 			ActorData component = this.occupant.GetComponent<ActorData>();
-			if (component.\u000E() == Team.TeamA)
+			if (component.GetTeam() == Team.TeamA)
 			{
 				for (;;)
 				{
@@ -1144,7 +1144,7 @@ public class BoardSquare : MonoBehaviour
 				}
 				result = InfluenceType.InfluencedByA;
 			}
-			else if (component.\u000E() == Team.TeamB)
+			else if (component.GetTeam() == Team.TeamB)
 			{
 				for (;;)
 				{
@@ -1170,7 +1170,7 @@ public class BoardSquare : MonoBehaviour
 			List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
 			foreach (ActorData actorData in allTeamMembers)
 			{
-				if (actorData.\u000E())
+				if (actorData.IsDead())
 				{
 					for (;;)
 					{
@@ -1200,8 +1200,8 @@ public class BoardSquare : MonoBehaviour
 							continue;
 						}
 					}
-					BoardSquare other = actorData.\u0012();
-					float b = this.HorizontalDistanceInSquaresTo_Squared(other);
+					BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+					float b = this.HorizontalDistanceInSquaresTo_Squared(currentBoardSquare);
 					num = Mathf.Min(num, b);
 				}
 			}
@@ -1211,7 +1211,7 @@ public class BoardSquare : MonoBehaviour
 				while (enumerator2.MoveNext())
 				{
 					ActorData actorData2 = enumerator2.Current;
-					if (!actorData2.\u000E())
+					if (!actorData2.IsDead())
 					{
 						if (GameplayUtils.IsPlayerControlled(actorData2))
 						{
@@ -1238,8 +1238,8 @@ public class BoardSquare : MonoBehaviour
 								continue;
 							}
 						}
-						BoardSquare other2 = actorData2.\u0012();
-						float b2 = this.HorizontalDistanceInSquaresTo_Squared(other2);
+						BoardSquare currentBoardSquare2 = actorData2.GetCurrentBoardSquare();
+						float b2 = this.HorizontalDistanceInSquaresTo_Squared(currentBoardSquare2);
 						num2 = Mathf.Min(num2, b2);
 					}
 				}
@@ -1337,10 +1337,10 @@ public class BoardSquare : MonoBehaviour
 		}
 		else
 		{
-			text = \u001D.\u001D().ToString();
+			text = \u001D.GetGridPos().ToString();
 			if (\u000E)
 			{
-				if (\u001D.\u0016())
+				if (\u001D.IsBaselineHeight())
 				{
 					for (;;)
 					{

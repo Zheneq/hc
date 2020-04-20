@@ -115,7 +115,7 @@ public class ClientEffectResults
 		}
 		else
 		{
-			if (ClientAbilityResults.\u001D)
+			if (ClientAbilityResults.LogMissingSequences)
 			{
 				for (;;)
 				{
@@ -182,7 +182,7 @@ public class ClientEffectResults
 		}
 		else
 		{
-			Debug.LogError("ClientEffectResults error-- Sequence hitting actor " + target.\u0018() + ", but that actor isn't in our hit results.");
+			Debug.LogError("ClientEffectResults error-- Sequence hitting actor " + target.GetDebugName() + ", but that actor isn't in our hit results.");
 		}
 	}
 
@@ -418,7 +418,7 @@ public class ClientEffectResults
 
 	public string GetDebugDescription()
 	{
-		return this.m_effectCaster.\u0018() + "'s effect, guid = " + this.m_effectGUID;
+		return this.m_effectCaster.GetDebugName() + "'s effect, guid = " + this.m_effectGUID;
 	}
 
 	internal string UnexecutedHitsDebugStr()

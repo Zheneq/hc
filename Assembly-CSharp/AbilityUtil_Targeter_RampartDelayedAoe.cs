@@ -64,7 +64,7 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartDelayedAoe.GetHighlightGoalPos(AbilityTarget, ActorData)).MethodHandle;
 			}
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shapeFullEnergy, currentTarget.FreePos, targetSquare);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			centerOfShape.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -72,7 +72,7 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 
 	private BoardSquare GetTargetSquare(AbilityTarget currentTarget)
 	{
-		return Board.\u000E().\u000E(currentTarget.GridPos);
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
@@ -133,7 +133,7 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 				break;
 			}
 			IL_165:
-			bool flag = targetingActor.TechPoints >= targetingActor.\u0016();
+			bool flag = targetingActor.TechPoints >= targetingActor.GetActualMaxTechPoints();
 			this.m_highlights[0].SetActive(!flag);
 			this.m_highlights[1].SetActive(flag);
 			AbilityAreaShape shape = (!flag) ? this.m_shapeLowEnergy : this.m_shapeFullEnergy;

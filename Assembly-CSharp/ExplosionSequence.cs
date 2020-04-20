@@ -285,7 +285,7 @@ public class ExplosionSequence : Sequence
 		IL_7C:
 		foreach (ActorData actorData in array)
 		{
-			Vector3 position = actorData.\u000E("upperRoot_JNT");
+			Vector3 bonePosition = actorData.GetBonePosition("upperRoot_JNT");
 			this.m_hitDuration = Sequence.GetFXDuration(this.m_hitPrefab);
 			if (this.m_hitPrefab != null)
 			{
@@ -298,7 +298,7 @@ public class ExplosionSequence : Sequence
 					}
 					break;
 				}
-				GameObject item = UnityEngine.Object.Instantiate<GameObject>(this.m_hitPrefab, position, Quaternion.identity);
+				GameObject item = UnityEngine.Object.Instantiate<GameObject>(this.m_hitPrefab, bonePosition, Quaternion.identity);
 				this.m_hitEffects.Add(item);
 			}
 			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(this.m_radius, base.TargetPos);
@@ -403,7 +403,7 @@ public class ExplosionSequence : Sequence
 				{
 					ParticleSystem.MainModule main = particleSystem.main;
 					ParticleSystem.MinMaxCurve startSize = main.startSize;
-					startSize.constant *= this.m_radius * Board.\u000E().squareSize;
+					startSize.constant *= this.m_radius * Board.Get().squareSize;
 					main.startSize = startSize;
 				}
 				for (;;)

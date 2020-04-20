@@ -17,7 +17,7 @@ namespace AbilityContextNamespace
 
 		private int m_contextKey;
 
-		public int \u001D()
+		public int GetContextKey()
 		{
 			if (this.m_contextKey == 0)
 			{
@@ -32,14 +32,14 @@ namespace AbilityContextNamespace
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextValueCompareCond.\u001D()).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextValueCompareCond.GetContextKey()).MethodHandle;
 				}
-				this.m_contextKey = ContextVars.\u0015(this.m_contextName);
+				this.m_contextKey = ContextVars.GetHash(this.m_contextName);
 			}
 			return this.m_contextKey;
 		}
 
-		public NumericContextValueCompareCond \u001D()
+		public NumericContextValueCompareCond Clone()
 		{
 			return base.MemberwiseClone() as NumericContextValueCompareCond;
 		}

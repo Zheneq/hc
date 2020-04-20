@@ -202,7 +202,7 @@ public class PowerUp : NetworkBehaviour
 					}
 					break;
 				}
-				BoardSquare targetSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.transform.position.x, base.transform.position.z);
 				PowerUp.ExtraParams extraParams = new PowerUp.ExtraParams();
 				if (this.m_restrictPickupByTeam)
 				{
@@ -230,7 +230,7 @@ public class PowerUp : NetworkBehaviour
 				{
 					this._sequenceSource = new SequenceSource(null, null, this.m_sequenceSourceId, false);
 				}
-				Sequence[] array = SequenceManager.Get().CreateClientSequences(this.m_sequencePrefab, targetSquare, null, null, this.SequenceSource, extraParams2);
+				Sequence[] array = SequenceManager.Get().CreateClientSequences(this.m_sequencePrefab, boardSquareSafe, null, null, this.SequenceSource, extraParams2);
 				bool flag = false;
 				if (array != null)
 				{
@@ -281,7 +281,7 @@ public class PowerUp : NetworkBehaviour
 
 	public void CalculateBoardSquare()
 	{
-		this.m_boardSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+		this.m_boardSquare = Board.Get().GetBoardSquareSafe(base.transform.position.x, base.transform.position.z);
 	}
 
 	public void SetDuration(int duration)

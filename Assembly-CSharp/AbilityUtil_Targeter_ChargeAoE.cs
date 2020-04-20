@@ -95,7 +95,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquare = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		base.ClearActorsInRange();
 		this.OrderedHitActors.Clear();
 		BoardSquarePathInfo boardSquarePathInfo = null;
@@ -152,7 +152,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 					break;
 				}
 			}
-			boardSquare2 = targetingActor.\u0012();
+			boardSquare2 = targetingActor.GetCurrentBoardSquare();
 			goto IL_FA;
 		}
 		IL_C4:
@@ -167,7 +167,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				}
 				break;
 			}
-			boardSquare2 = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
+			boardSquare2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 		}
 		IL_FA:
 		List<Team> affectedTeams = base.GetAffectedTeams();
@@ -514,7 +514,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				}
 				List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(vector2, vector3, startRadiusInSquares, endRadiusInSquares, num2, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadiusOfLine);
-				TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadiusOfLine, targetingActor.\u0016());
+				TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadiusOfLine, targetingActor.GetTravelBoardSquareWorldPosition());
 				TargeterUtils.LimitActorsToMaxNumber(ref actorsInRadiusOfLine, this.m_maxTargets);
 				using (List<ActorData>.Enumerator enumerator = actorsInRadiusOfLine.GetEnumerator())
 				{
@@ -569,9 +569,9 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 									}
 									break;
 								}
-								Vector3 a = actorData.\u0016();
-								a.y = vector3.y;
-								if ((a - vector3).sqrMagnitude <= Mathf.Epsilon)
+								Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+								travelBoardSquareWorldPosition.y = vector3.y;
+								if ((travelBoardSquareWorldPosition - vector3).sqrMagnitude <= Mathf.Epsilon)
 								{
 									for (;;)
 									{
@@ -602,8 +602,8 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 									}
 									break;
 								}
-								BoardSquare testSquare = actorData.\u0012();
-								if (AreaEffectUtils.IsSquareInConeByActorRadius(testSquare, vector2, 0f, 360f, this.m_radiusAroundStart, 0f, this.m_penetrateLoS, targetingActor, false, default(Vector3)))
+								BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+								if (AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare, vector2, 0f, 360f, this.m_radiusAroundStart, 0f, this.m_penetrateLoS, targetingActor, false, default(Vector3)))
 								{
 									for (;;)
 									{
@@ -629,8 +629,8 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 									}
 									break;
 								}
-								BoardSquare testSquare2 = actorData.\u0012();
-								if (AreaEffectUtils.IsSquareInConeByActorRadius(testSquare2, vector3, 0f, 360f, this.m_radiusAroundEnd, 0f, this.m_penetrateLoS, targetingActor, false, default(Vector3)))
+								BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+								if (AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare2, vector3, 0f, 360f, this.m_radiusAroundEnd, 0f, this.m_penetrateLoS, targetingActor, false, default(Vector3)))
 								{
 									for (;;)
 									{
@@ -647,8 +647,8 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 							}
 							ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
 							ContextVars u = actorHitContext.\u0015;
-							int u001D = ContextKeys.\u0004.\u0012();
-							int u000E;
+							int hash = ContextKeys.\u0004.GetHash();
+							int value;
 							if (flag5)
 							{
 								for (;;)
@@ -660,13 +660,13 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 									}
 									break;
 								}
-								u000E = 1;
+								value = 1;
 							}
 							else
 							{
-								u000E = 0;
+								value = 0;
 							}
-							u.\u0016(u001D, u000E);
+							u.SetInt(hash, value);
 						}
 					}
 					for (;;)
@@ -725,7 +725,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				return;
 			}
 		}
-		base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+		base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 	}
 
 	public delegate bool ShouldAddActorDelegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability);

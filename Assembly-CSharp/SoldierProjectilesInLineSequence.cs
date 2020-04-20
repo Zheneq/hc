@@ -101,10 +101,10 @@ public class SoldierProjectilesInLineSequence : Sequence
 			float magnitude = vector.magnitude;
 			vector.Normalize();
 			Vector3 normalized = Vector3.Cross(vector, Vector3.up).normalized;
-			float squareSize = Board.\u000E().squareSize;
+			float squareSize = Board.Get().squareSize;
 			float num = 0.5f * this.m_areaWidthInSquares * squareSize;
 			float num2 = this.m_maxVariationForDistBetween * squareSize;
-			float num3 = Mathf.Max(0.3f, this.m_distBetweenProjectile * Board.\u000E().squareSize);
+			float num3 = Mathf.Max(0.3f, this.m_distBetweenProjectile * Board.Get().squareSize);
 			int num4 = Mathf.CeilToInt(magnitude / num3);
 			if (num4 > 0)
 			{
@@ -139,7 +139,7 @@ public class SoldierProjectilesInLineSequence : Sequence
 									}
 									break;
 								}
-								Vector3 rhs = actorData.\u0016() - vector2;
+								Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector2;
 								rhs.y = 0f;
 								if (i != num4)
 								{
@@ -165,11 +165,11 @@ public class SoldierProjectilesInLineSequence : Sequence
 					}
 					Vector3 vector3 = vector2;
 					Vector3 vector4 = vector3;
-					vector4.y += this.m_startHeightFromFloor * Board.\u000E().squareSize;
-					vector4 -= this.m_backwardsOffset * Board.\u000E().squareSize * vector;
+					vector4.y += this.m_startHeightFromFloor * Board.Get().squareSize;
+					vector4 -= this.m_backwardsOffset * Board.Get().squareSize * vector;
 					vector3 += UnityEngine.Random.Range(-num, num) * normalized;
 					vector3 += UnityEngine.Random.Range(-num2, num2) * vector;
-					vector3.y = (float)Board.\u000E().BaselineHeight;
+					vector3.y = (float)Board.Get().BaselineHeight;
 					GenericSequenceProjectileInfo genericSequenceProjectileInfo = new GenericSequenceProjectileInfo(this, this.m_projectileInfo, vector4, vector3, list2.ToArray());
 					genericSequenceProjectileInfo.m_startDelay = Mathf.Clamp((float)i * this.m_timeBetweenSpawns + UnityEngine.Random.Range(0f, this.m_timeMaxVariation), 0f, 3f);
 					if (i == num4)

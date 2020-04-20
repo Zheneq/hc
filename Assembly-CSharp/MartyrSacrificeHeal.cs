@@ -282,7 +282,7 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 			int currentDamageForSelf = this.GetCurrentDamageForSelf(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentDamageForSelf, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Self);
 		}
-		else if (targetActor.\u000E() == base.ActorData.\u000E())
+		else if (targetActor.GetTeam() == base.ActorData.GetTeam())
 		{
 			for (;;)
 			{

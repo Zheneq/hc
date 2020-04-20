@@ -190,11 +190,11 @@ public class TrackerHuntingCrossbow : Ability
 								}
 								break;
 							}
-							flag2 = actorData.\u0016();
+							flag2 = actorData.IsHiddenInBrush();
 						}
 						else
 						{
-							flag2 = actorData.\u0012().\u0012();
+							flag2 = actorData.GetCurrentBoardSquare().IsInBrushRegion();
 						}
 						bool flag3 = flag2;
 						if (flag3)

@@ -287,8 +287,8 @@ public class ScampDualLasers : GenericAbility_Container
 					break;
 				}
 				ActorHitContext actorHitContext2 = actorHitContext[targetActor];
-				int u001D = ContextKeys.\u001A.\u0012();
-				if (actorHitContext2.\u0015.\u0015(u001D))
+				int hash = ContextKeys.\u001A.GetHash();
+				if (actorHitContext2.\u0015.ContainsInt(hash))
 				{
 					for (;;)
 					{
@@ -299,7 +299,7 @@ public class ScampDualLasers : GenericAbility_Container
 						}
 						break;
 					}
-					if (actorHitContext2.\u0015.\u0015(u001D) > 0)
+					if (actorHitContext2.\u0015.GetInt(hash) > 0)
 					{
 						for (;;)
 						{

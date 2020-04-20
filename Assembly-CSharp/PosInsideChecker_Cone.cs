@@ -22,7 +22,7 @@ public class PosInsideChecker_Cone : IPosInsideChecker
 
 	public bool IsPositionInside(Vector3 testPos)
 	{
-		return AreaEffectUtils.IsPosInCone(testPos, this.m_coneStart, this.m_radiusInSquares * Board.\u000E().squareSize, this.m_coneCenterAngle, this.m_coneWidthAngle);
+		return AreaEffectUtils.IsPosInCone(testPos, this.m_coneStart, this.m_radiusInSquares * Board.Get().squareSize, this.m_coneCenterAngle, this.m_coneWidthAngle);
 	}
 
 	public bool AddTestPosForBarrier(List<Vector3> testPoints, Barrier barrier)
@@ -68,7 +68,7 @@ public class PosInsideChecker_Cone : IPosInsideChecker
 					Vector3 endPos = barrier.GetEndPos1();
 					Vector3 endPos2 = barrier.GetEndPos2();
 					float num = 0.49f * this.m_coneWidthAngle;
-					float d = this.m_radiusInSquares * Board.\u000E().squareSize;
+					float d = this.m_radiusInSquares * Board.Get().squareSize;
 					for (int i = -1; i <= 1; i++)
 					{
 						Vector3 vector = VectorUtils.AngleDegreesToVector(this.m_coneCenterAngle + (float)i * num);

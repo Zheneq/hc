@@ -94,7 +94,7 @@ public class FirstTurnMovement : MonoBehaviour
 					}
 					return true;
 				}
-				if (actor.\u000E() == Team.TeamA)
+				if (actor.GetTeam() == Team.TeamA)
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
@@ -123,7 +123,7 @@ public class FirstTurnMovement : MonoBehaviour
 					}
 					return true;
 				}
-				if (actor.\u000E() == Team.TeamB)
+				if (actor.GetTeam() == Team.TeamB)
 				{
 					if (firstTurnMovement.m_regionForTeamB != null)
 					{
@@ -185,7 +185,7 @@ public class FirstTurnMovement : MonoBehaviour
 					}
 					return false;
 				}
-				if (actor.\u000E() == Team.TeamA)
+				if (actor.GetTeam() == Team.TeamA)
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
@@ -214,7 +214,7 @@ public class FirstTurnMovement : MonoBehaviour
 					}
 					return false;
 				}
-				if (actor.\u000E() == Team.TeamB)
+				if (actor.GetTeam() == Team.TeamB)
 				{
 					for (;;)
 					{
@@ -317,7 +317,7 @@ public class FirstTurnMovement : MonoBehaviour
 		List<ActorData> actors = GameFlowData.Get().GetActors();
 		foreach (ActorData actorData in actors)
 		{
-			actorData.\u000E().UpdateSquaresCanMoveTo();
+			actorData.GetActorMovement().UpdateSquaresCanMoveTo();
 		}
 	}
 

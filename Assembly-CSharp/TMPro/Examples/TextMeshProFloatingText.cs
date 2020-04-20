@@ -45,7 +45,7 @@ namespace TMPro.Examples
 				this.\u0012.color = new Color32((byte)UnityEngine.Random.Range(0, 0xFF), (byte)UnityEngine.Random.Range(0, 0xFF), (byte)UnityEngine.Random.Range(0, 0xFF), byte.MaxValue);
 				this.\u0012.fontSize = 24f;
 				this.\u0012.text = string.Empty;
-				base.StartCoroutine(this.\u001A());
+				base.StartCoroutine(this.coroutine001A());
 			}
 			else if (this.\u0011 == 1)
 			{
@@ -70,7 +70,7 @@ namespace TMPro.Examples
 				this.\u0015.color = new Color32((byte)UnityEngine.Random.Range(0, 0xFF), (byte)UnityEngine.Random.Range(0, 0xFF), (byte)UnityEngine.Random.Range(0, 0xFF), byte.MaxValue);
 				this.\u0015.anchor = TextAnchor.LowerCenter;
 				this.\u0015.fontSize = 0x18;
-				base.StartCoroutine(this.\u0004());
+				base.StartCoroutine(this.Coroutine0004());
 			}
 			else if (this.\u0011 == 2)
 			{
@@ -86,7 +86,7 @@ namespace TMPro.Examples
 			}
 		}
 
-		public IEnumerator \u001A()
+		public IEnumerator coroutine001A()
 		{
 			float num = 2f;
 			float num2 = UnityEngine.Random.Range(5f, 20f);
@@ -165,11 +165,11 @@ namespace TMPro.Examples
 				break;
 			}
 			this.\u0013.position = position;
-			base.StartCoroutine(this.\u001A());
+			base.StartCoroutine(this.coroutine001A());
 			yield break;
 		}
 
-		public IEnumerator \u0004()
+		public IEnumerator Coroutine0004()
 		{
 			float num = 2f;
 			float num2 = UnityEngine.Random.Range(5f, 20f);
@@ -233,7 +233,7 @@ namespace TMPro.Examples
 				break;
 			}
 			this.\u0013.position = position;
-			base.StartCoroutine(this.\u0004());
+			base.StartCoroutine(this.Coroutine0004());
 			yield break;
 		}
 	}

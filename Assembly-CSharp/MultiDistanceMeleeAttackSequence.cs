@@ -91,7 +91,7 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 				}
 				break;
 			}
-			float num = withinDistanceInSquares * Board.\u000E().squareSize;
+			float num = withinDistanceInSquares * Board.Get().squareSize;
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
 				Vector3 vector = base.Targets[i].transform.position - base.Caster.transform.position;

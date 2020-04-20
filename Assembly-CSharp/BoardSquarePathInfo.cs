@@ -289,8 +289,8 @@ public class BoardSquarePathInfo : IComparable
 		float num = this.moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = this.next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			bool flag = Board.\u000E().\u0015(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
-			bool flag2 = Board.\u000E().\u0012(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
+			bool flag = Board.Get().\u0015(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
+			bool flag2 = Board.Get().\u0012(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
 			bool flag3 = boardSquarePathInfo.square == boardSquarePathInfo.prev.square;
 			if (flag)
 			{
@@ -639,7 +639,7 @@ public class BoardSquarePathInfo : IComparable
 		List<GridPos> list = new List<GridPos>();
 		for (BoardSquarePathInfo boardSquarePathInfo = this; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			list.Add(boardSquarePathInfo.square.\u001D());
+			list.Add(boardSquarePathInfo.square.GetGridPos());
 		}
 		for (;;)
 		{
@@ -1041,7 +1041,7 @@ public class BoardSquarePathInfo : IComparable
 			"\n\t",
 			text3
 		});
-		text4 = text4 + "\nMover: " + mover.\u0018();
+		text4 = text4 + "\nMover: " + mover.GetDebugName();
 		Debug.LogError(text4);
 	}
 

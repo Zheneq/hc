@@ -829,7 +829,7 @@ public class NekoFlipDash : Ability
 				while (enumerator.MoveNext())
 				{
 					BoardSquare dest = enumerator.Current;
-					if (caster.\u000E().CanMoveToBoardSquare(dest))
+					if (caster.GetActorMovement().CanMoveToBoardSquare(dest))
 					{
 						for (;;)
 						{
@@ -902,7 +902,7 @@ public class NekoFlipDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFlipDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (this.CanTargetEnemies())
 			{
 				for (;;)
@@ -914,7 +914,7 @@ public class NekoFlipDash : Ability
 					}
 					break;
 				}
-				if (boardSquare != null && boardSquare.OccupantActor != null)
+				if (boardSquareSafe != null && boardSquareSafe.OccupantActor != null)
 				{
 					for (;;)
 					{
@@ -925,7 +925,7 @@ public class NekoFlipDash : Ability
 						}
 						break;
 					}
-					if (base.CanTargetActorInDecision(caster, boardSquare.OccupantActor, true, false, false, Ability.ValidateCheckPath.CanBuildPath, true, false, false))
+					if (base.CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, true, false, false, Ability.ValidateCheckPath.CanBuildPath, true, false, false))
 					{
 						for (;;)
 						{
@@ -965,7 +965,7 @@ public class NekoFlipDash : Ability
 						break;
 					}
 					List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-					if (activeDiscSquares.Contains(boardSquare))
+					if (activeDiscSquares.Contains(boardSquareSafe))
 					{
 						for (;;)
 						{
@@ -977,7 +977,7 @@ public class NekoFlipDash : Ability
 							break;
 						}
 						flag = true;
-						float num = boardSquare.HorizontalDistanceInSquaresTo(caster.\u0012());
+						float num = boardSquareSafe.HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
 						if (num <= this.GetRangeInSquares(this.m_dashTargeterIndex))
 						{
 							for (;;)
@@ -992,7 +992,7 @@ public class NekoFlipDash : Ability
 							if (num >= base.GetMinRangeInSquares(this.m_dashTargeterIndex))
 							{
 								int num2;
-								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num2);
+								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num2);
 								goto IL_150;
 							}
 							for (;;)
@@ -1037,9 +1037,9 @@ public class NekoFlipDash : Ability
 							}
 							break;
 						}
-						if (boardSquare != null)
+						if (boardSquareSafe != null)
 						{
-							float num3 = boardSquare.HorizontalDistanceInSquaresTo(caster.\u0012());
+							float num3 = boardSquareSafe.HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
 							flag3 = (num3 <= this.GetDashTargetRange());
 							goto IL_1D2;
 						}
@@ -1059,7 +1059,7 @@ public class NekoFlipDash : Ability
 							break;
 						}
 						int num4;
-						flag4 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num4);
+						flag4 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num4);
 					}
 					else
 					{
@@ -1086,9 +1086,9 @@ public class NekoFlipDash : Ability
 				break;
 			}
 			flag = true;
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquare3 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare3 != null && boardSquare3.\u0016())
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe3 != null && boardSquareSafe3.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -1099,7 +1099,7 @@ public class NekoFlipDash : Ability
 					}
 					break;
 				}
-				if (boardSquare3 != boardSquare2)
+				if (boardSquareSafe3 != boardSquareSafe2)
 				{
 					for (;;)
 					{
@@ -1110,7 +1110,7 @@ public class NekoFlipDash : Ability
 						}
 						break;
 					}
-					if (boardSquare3 != caster.\u0012())
+					if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 					{
 						for (;;)
 						{
@@ -1121,9 +1121,9 @@ public class NekoFlipDash : Ability
 							}
 							break;
 						}
-						float num5 = boardSquare3.HorizontalDistanceInSquaresTo(boardSquare2);
-						Vector3 to = boardSquare3.ToVector3() - boardSquare2.ToVector3();
-						Vector3 from = boardSquare2.ToVector3() - caster.\u0012().ToVector3();
+						float num5 = boardSquareSafe3.HorizontalDistanceInSquaresTo(boardSquareSafe2);
+						Vector3 to = boardSquareSafe3.ToVector3() - boardSquareSafe2.ToVector3();
+						Vector3 from = boardSquareSafe2.ToVector3() - caster.GetCurrentBoardSquare().ToVector3();
 						float num6 = Vector3.Angle(from, to);
 						if (num5 >= this.m_minDistanceFromTarget)
 						{
@@ -1148,7 +1148,7 @@ public class NekoFlipDash : Ability
 									break;
 								}
 								int num7;
-								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare3, boardSquare2, false, out num7);
+								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out num7);
 							}
 						}
 					}

@@ -90,7 +90,7 @@ public class AbilityCommon_FanLaser
 		{
 			Vector3 dir = VectorUtils.AngleDegreesToVector(num6 + (float)i * num);
 			VectorUtils.LaserCoords laserCoords;
-			laserCoords.start = caster.\u0015();
+			laserCoords.start = caster.GetTravelBoardSquareWorldPositionForLos();
 			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, laserInfo.affectsAllies, laserInfo.affectsEnemies);
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, laserInfo.range, laserInfo.width, caster, relevantTeams, laserInfo.penetrateLos, maxTargets, false, true, out laserCoords.end, nonActorTargetInfo, null, false, true);
 			if (i == 0)
@@ -194,7 +194,7 @@ public class AbilityCommon_FanLaser
 				}
 				break;
 			}
-			targetPosForSequences.Add(actorsForSequence[i][count - 1].\u0016());
+			targetPosForSequences.Add(actorsForSequence[i][count - 1].GetTravelBoardSquareWorldPosition());
 			IL_241:
 			i++;
 			continue;
@@ -209,7 +209,7 @@ public class AbilityCommon_FanLaser
 	{
 		minAngle = Mathf.Max(minAngle, 0f);
 		maxAngle = Mathf.Max(maxAngle, 1f);
-		float value = (currentTarget.FreePos - targetingActor.\u0016()).magnitude / Board.\u000E().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
 		float num = Mathf.Clamp(value, minInterpDist, maxInterpDist) - minInterpDist;
 		if (interpStep > 0f)
 		{
@@ -241,6 +241,6 @@ public class AbilityCommon_FanLaser
 		maxAngle = Mathf.Max(maxAngle, 1f);
 		float num = 1f - fanAngleDegrees / maxAngle;
 		float num2 = minInterpDist + (maxInterpDist - minInterpDist) * num;
-		return num2 * Board.\u000E().squareSize;
+		return num2 * Board.Get().squareSize;
 	}
 }

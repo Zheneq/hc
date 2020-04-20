@@ -22,13 +22,13 @@ public class IceborgIcicle : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(Iceborg_SyncComponent.s_cvarHasNova.\u0012());
+		contextNamesForEditor.Add(Iceborg_SyncComponent.s_cvarHasNova.GetName());
 		return contextNamesForEditor;
 	}
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.\u0015(Iceborg_SyncComponent.s_cvarHasNova.\u0012(), "set to 1 if target has nova core on start of turn, 0 otherwise", true);
+		return base.GetUsageForEditor() + ContextVars.GetDebugString(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise", true);
 	}
 
 	protected override void SetupTargetersAndCachedVars()
@@ -99,7 +99,7 @@ public class IceborgIcicle : GenericAbility_Container
 				{
 					KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
 					ActorData key = keyValuePair.Key;
-					if (key.\u000E() != caster.\u000E())
+					if (key.GetTeam() != caster.GetTeam())
 					{
 						for (;;)
 						{

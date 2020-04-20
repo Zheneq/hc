@@ -344,22 +344,22 @@ public class AbilityUtil_Targeter
 				break;
 			}
 			List<Vector3> list = new List<Vector3>();
-			Vector3 item = Board.\u000E().\u000E(caster.\u000E()).\u001D();
-			list.Add(item);
-			Vector3 item2 = Board.\u000E().\u000E(currentTarget.GridPos).\u001D();
-			list.Add(item2);
+			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(caster.GetGridPosWithIncrementedHeight()).GetWorldPosition();
+			list.Add(worldPosition);
+			Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos).GetWorldPosition();
+			list.Add(worldPosition2);
 			Vector3 a = list[0] - list[1];
 			Vector3 a2 = list[list.Count - 1] - list[list.Count - 2];
 			a.Normalize();
 			a2.Normalize();
 			List<Vector3> list2;
-			(list2 = list)[0] = list2[0] - a * Board.\u000E().squareSize * 0.6f;
+			(list2 = list)[0] = list2[0] - a * Board.Get().squareSize * 0.6f;
 			int index;
-			(list2 = list)[index = list.Count - 1] = list2[index] - a2 * Board.\u000E().squareSize * 0.4f;
+			(list2 = list)[index = list.Count - 1] = list2[index] - a2 * Board.Get().squareSize * 0.4f;
 			this.DestroyTeleportLine();
 			this.m_lineBetweenPath = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, teleportColor, true, HighlightUtils.Get().m_ArrowDottedLineMaterial, null, false);
 			this.m_gameObjectOnCastTarget.transform.position = currentTarget.GetWorldGridPos();
-			this.m_gameObjectOnCastTarget.AbilityCasted(caster.\u000E(), currentTarget.GridPos);
+			this.m_gameObjectOnCastTarget.AbilityCasted(caster.GetGridPosWithIncrementedHeight(), currentTarget.GridPos);
 			this.m_gameObjectOnCastTarget.SetColor(teleportColor);
 			this.m_gameObjectOnCastTarget.Setup();
 		}
@@ -438,7 +438,7 @@ public class AbilityUtil_Targeter
 				break;
 			}
 			this.m_gameObjectOnCaster.transform.position = caster.transform.position;
-			this.m_gameObjectOnCaster.AbilityCasted(caster.\u000E(), currentTarget.GridPos);
+			this.m_gameObjectOnCaster.AbilityCasted(caster.GetGridPosWithIncrementedHeight(), currentTarget.GridPos);
 			this.m_gameObjectOnCaster.SetColor(teleportColor);
 		}
 	}
@@ -564,7 +564,7 @@ public class AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.TargeterAbilityDeselected(int)).MethodHandle;
 			}
-			AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.\u000E();
+			AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.GetAbilityData();
 			if (abilityData != null)
 			{
 				for (;;)
@@ -662,7 +662,7 @@ public class AbilityUtil_Targeter
 		this.DestroyTeleportEndObjet();
 		this.m_confirmedTargetingStartTime = 0f;
 		this.m_actorContextVars.Clear();
-		this.m_nonActorSpecificContext.\u0015();
+		this.m_nonActorSpecificContext.Clear();
 		this.MarkedForForceUpdate = true;
 	}
 
@@ -795,7 +795,7 @@ public class AbilityUtil_Targeter
 						break;
 					}
 					result = true;
-					ActorCover actorCover = actorTarget.m_actor.\u000E();
+					ActorCover actorCover = actorTarget.m_actor.GetActorCover();
 					if (actorCover != null)
 					{
 						for (;;)
@@ -820,7 +820,7 @@ public class AbilityUtil_Targeter
 								}
 								break;
 							}
-							flag = (povactorData.\u000E() != actor.\u000E());
+							flag = (povactorData.GetTeam() != actor.GetTeam());
 						}
 						else
 						{
@@ -828,8 +828,8 @@ public class AbilityUtil_Targeter
 						}
 						bool flag2 = flag;
 						bool flag3 = AbilityUtils.AbilityIgnoreCover(this.m_ability, actorTarget.m_actor);
-						bool flag4 = actor.\u0018();
-						bool flag5 = (!actorTarget.m_ignoreCoverMinDist) ? actorCover.IsInCoverWrt(actorTarget.m_damageOrigin) : actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.\u0012());
+						bool flag4 = actor.IsVisibleToClient();
+						bool flag5 = (!actorTarget.m_ignoreCoverMinDist) ? actorCover.IsInCoverWrt(actorTarget.m_damageOrigin) : actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.GetCurrentBoardSquare());
 						if (flag2)
 						{
 							for (;;)
@@ -905,7 +905,7 @@ public class AbilityUtil_Targeter
 			while (enumerator.MoveNext())
 			{
 				AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
-				if (actorTarget.m_actor.\u0018())
+				if (actorTarget.m_actor.IsVisibleToClient())
 				{
 					for (;;)
 					{
@@ -942,7 +942,7 @@ public class AbilityUtil_Targeter
 		for (int i = 0; i < this.m_actorsInRange.Count; i++)
 		{
 			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
-			if (actorTarget.m_actor.\u0018() && actorTarget.m_subjectTypes.Contains(subject))
+			if (actorTarget.m_actor.IsVisibleToClient() && actorTarget.m_subjectTypes.Contains(subject))
 			{
 				for (;;)
 				{
@@ -978,7 +978,7 @@ public class AbilityUtil_Targeter
 		for (int i = 0; i < this.m_actorsInRange.Count; i++)
 		{
 			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
-			if (actorTarget.m_actor.\u0018())
+			if (actorTarget.m_actor.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -1171,7 +1171,7 @@ public class AbilityUtil_Targeter
 				}
 				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Self);
 			}
-			else if (actor.\u000E() == targetingActor.\u000E())
+			else if (actor.GetTeam() == targetingActor.GetTeam())
 			{
 				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Ally);
 			}
@@ -1321,9 +1321,9 @@ public class AbilityUtil_Targeter
 				flag = true;
 				List<Vector3> list = KnockbackUtils.BuildDrawablePath(this.m_arrows[i].m_pathInfo, false);
 				MovementPathStart componentInChildren = this.m_arrows[i].m_gameObject.GetComponentInChildren<MovementPathStart>();
-				Vector3 u001D = list[list.Count - 1];
-				BoardSquare characterMovementPanel = Board.\u000E().\u000E(u001D);
-				componentInChildren.SetCharacterMovementPanel(characterMovementPanel);
+				Vector3 vector2D = list[list.Count - 1];
+				BoardSquare boardSquare = Board.Get().GetBoardSquare(vector2D);
+				componentInChildren.SetCharacterMovementPanel(boardSquare);
 			}
 		}
 		for (;;)
@@ -1379,7 +1379,7 @@ public class AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AddMovementArrow(ActorData, BoardSquarePathInfo, Color, MovementPathStart, bool, AbilityUtil_Targeter.TargeterMovementType)).MethodHandle;
 			}
-			if (mover != null && mover.\u0018())
+			if (mover != null && mover.IsVisibleToClient())
 			{
 				List<Vector3> list = KnockbackUtils.BuildDrawablePath(path, false);
 				if (list.Count >= 2)
@@ -1665,12 +1665,12 @@ public class AbilityUtil_Targeter
 	public static GameObject CreateArrowFromGridPosPoints(GridPos start, GridPos end, Color lineColor, bool isChasing, ActorData theActor)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 item = Board.\u000E().\u000E(start).\u001D();
-		item.y += 0.5f;
-		list.Add(item);
-		Vector3 item2 = Board.\u000E().\u000E(end).\u001D();
-		item2.y += 0.5f;
-		list.Add(item2);
+		Vector3 worldPosition = Board.Get().GetBoardSquareSafe(start).GetWorldPosition();
+		worldPosition.y += 0.5f;
+		list.Add(worldPosition);
+		Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(end).GetWorldPosition();
+		worldPosition2.y += 0.5f;
+		list.Add(worldPosition2);
 		return Targeting.GetTargeting().CreateFancyArrowMesh(ref list, 0.2f, lineColor, isChasing, theActor, AbilityUtil_Targeter.TargeterMovementType.Movement, null, null, false, 0.4f, 0.4f);
 	}
 
@@ -1977,7 +1977,7 @@ public class AbilityUtil_Targeter
 			}
 			else
 			{
-				if (targeterOwner.\u000E() == potentialTarget.\u000E())
+				if (targeterOwner.GetTeam() == potentialTarget.GetTeam())
 				{
 					if (targeterOwner == potentialTarget)
 					{
@@ -2039,11 +2039,11 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(targeterOwner.\u000E());
+				list.Add(targeterOwner.GetTeam());
 			}
 			if (this.m_affectsEnemies)
 			{
-				list.Add(targeterOwner.\u0012());
+				list.Add(targeterOwner.GetOpposingTeam());
 			}
 		}
 		return list;
@@ -2085,7 +2085,7 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (targetingActor.\u0012() != null)
+			if (targetingActor.GetCurrentBoardSquare() != null)
 			{
 				for (;;)
 				{
@@ -2096,7 +2096,7 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				return targetingActor.\u0012().ToVector3();
+				return targetingActor.GetCurrentBoardSquare().ToVector3();
 			}
 		}
 		return Vector3.zero;
@@ -2155,7 +2155,7 @@ public class AbilityUtil_Targeter
 					}
 					break;
 				}
-				if ((this.GetTargetingArcEndPosition(targetingActor) - targetingActor.\u0012().ToVector3()).magnitude > HighlightUtils.Get().m_minDistForTargetingArc)
+				if ((this.GetTargetingArcEndPosition(targetingActor) - targetingActor.GetCurrentBoardSquare().ToVector3()).magnitude > HighlightUtils.Get().m_minDistForTargetingArc)
 				{
 					for (;;)
 					{
@@ -2166,10 +2166,10 @@ public class AbilityUtil_Targeter
 						}
 						break;
 					}
-					Vector3 vector = targetingActor.\u0015();
-					Vector3 vector2 = Camera.main.transform.rotation * Vector3.forward;
+					Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+					Vector3 vector = Camera.main.transform.rotation * Vector3.forward;
 					bool flag;
-					if ((vector2 - this.m_cameraForward).sqrMagnitude <= 0.01f)
+					if ((vector - this.m_cameraForward).sqrMagnitude <= 0.01f)
 					{
 						for (;;)
 						{
@@ -2198,7 +2198,7 @@ public class AbilityUtil_Targeter
 							}
 							break;
 						}
-						this.m_cameraForward = vector2;
+						this.m_cameraForward = vector;
 						this.m_cameraPosition = Camera.main.transform.position;
 					}
 					if (activatePulse)
@@ -2229,7 +2229,7 @@ public class AbilityUtil_Targeter
 						}
 						this.m_targetingArcPulseInstance = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_targetingArcForShape);
 						this.m_targetingArcPulseInstance.SetActive(true);
-						this.m_targetingArcPulseInstance.transform.position = vector;
+						this.m_targetingArcPulseInstance.transform.position = travelBoardSquareWorldPositionForLos;
 						this.m_arcTraveled = 0f;
 					}
 					Vector3 targetingArcEndPosition = this.GetTargetingArcEndPosition(targetingActor);
@@ -2279,8 +2279,8 @@ public class AbilityUtil_Targeter
 						}
 					}
 					float targetingArcMaxHeight = HighlightUtils.Get().m_targetingArcMaxHeight;
-					float num = 1f + (vector.y - targetingArcEndPosition.y) / targetingArcMaxHeight;
-					Vector3 a = targetingArcEndPosition - vector;
+					float num = 1f + (travelBoardSquareWorldPositionForLos.y - targetingArcEndPosition.y) / targetingArcMaxHeight;
+					Vector3 a = targetingArcEndPosition - travelBoardSquareWorldPositionForLos;
 					a.y = 0f;
 					if (a.magnitude <= 0.5f)
 					{
@@ -2293,7 +2293,7 @@ public class AbilityUtil_Targeter
 							}
 							break;
 						}
-						a = new Vector3(0.5f * vector2.x, 0f, 0.5f * vector2.z);
+						a = new Vector3(0.5f * vector.x, 0f, 0.5f * vector.z);
 					}
 					float num2 = 0.5f * a.magnitude;
 					float num3 = targetingArcMaxHeight / (num2 * num2);
@@ -2324,7 +2324,7 @@ public class AbilityUtil_Targeter
 							}
 							num5 *= num;
 						}
-						Vector3 position = vector + a * this.m_arcTraveled + Vector3.up * (targetingArcMaxHeight - num5);
+						Vector3 position = travelBoardSquareWorldPositionForLos + a * this.m_arcTraveled + Vector3.up * (targetingArcMaxHeight - num5);
 						this.m_targetingArcPulseInstance.transform.position = position;
 					}
 					bool flag3 = false;
@@ -2368,7 +2368,7 @@ public class AbilityUtil_Targeter
 						{
 							num8 *= num;
 						}
-						Vector3 item = vector + a * num6 + Vector3.up * (targetingArcMaxHeight - num8);
+						Vector3 item = travelBoardSquareWorldPositionForLos + a * num6 + Vector3.up * (targetingArcMaxHeight - num8);
 						list.Add(item);
 					}
 					for (;;)
@@ -2559,7 +2559,7 @@ public class AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (targetingActor.\u000E().CurrentState != TurnStateEnum.TARGETING_ACTION)
+			if (targetingActor.GetActorTurnSM().CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
 				this.HideAllSquareIndicators();
 			}

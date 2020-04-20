@@ -32,7 +32,7 @@ public class NumericContextOperand
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextOperand.GetContextKey()).MethodHandle;
 			}
-			this.m_contextKey = ContextVars.\u0015(this.m_contextName);
+			this.m_contextKey = ContextVars.GetHash(this.m_contextName);
 		}
 		return this.m_contextKey;
 	}

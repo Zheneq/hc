@@ -216,7 +216,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				bool flag = this.m_owner.\u0018();
+				bool flag = this.m_owner.IsVisibleToClient();
 				if (flag)
 				{
 					for (;;)
@@ -228,7 +228,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					if (this.m_owner.\u000E() != null)
+					if (this.m_owner.GetActorModelData() != null)
 					{
 						for (;;)
 						{
@@ -239,11 +239,11 @@ public class Sensei_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						flag = this.m_owner.\u000E().IsVisibleToClient();
+						flag = this.m_owner.GetActorModelData().IsVisibleToClient();
 					}
 				}
 				bool flag2;
-				if (!this.m_owner.\u000E())
+				if (!this.m_owner.IsDead())
 				{
 					for (;;)
 					{
@@ -254,7 +254,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					flag2 = this.m_owner.\u0012();
+					flag2 = this.m_owner.IsModelAnimatorDisabled();
 				}
 				else
 				{

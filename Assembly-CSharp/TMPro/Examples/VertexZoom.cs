@@ -34,7 +34,7 @@ namespace TMPro.Examples
 
 		private void \u0019()
 		{
-			base.StartCoroutine(this.\u0013());
+			base.StartCoroutine(this.coroutine0013());
 		}
 
 		private void \u0013(UnityEngine.Object \u001D)
@@ -58,7 +58,7 @@ namespace TMPro.Examples
 			}
 		}
 
-		private IEnumerator \u0013()
+		private IEnumerator coroutine0013()
 		{
 			VertexZoom.<AnimateVertexColors>c__Iterator0.<AnimateVertexColors>c__AnonStorey1 <AnimateVertexColors>c__AnonStorey = new VertexZoom.<AnimateVertexColors>c__Iterator0.<AnimateVertexColors>c__AnonStorey1();
 			<AnimateVertexColors>c__AnonStorey.\u000E = this;

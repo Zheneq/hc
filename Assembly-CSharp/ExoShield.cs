@@ -371,7 +371,7 @@ public class ExoShield : Ability
 			flag = false;
 		}
 		bool flag2 = flag;
-		bool flag3 = base.ActorData.\u000E().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
+		bool flag3 = base.ActorData.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
 		return flag2 || flag3;
 	}
 
@@ -392,9 +392,9 @@ public class ExoShield : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoShield.IsSiegingThisTurn(ActorData)).MethodHandle;
 			}
-			if (caster.\u000E() != null)
+			if (caster.GetAbilityData() != null)
 			{
-				return caster.\u000E().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
+				return caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
 			}
 		}
 		return false;

@@ -100,7 +100,7 @@ public class SamuraiDashAndAimedSlash : Ability
 		bool flag = true;
 		if (targetIndex == 0)
 		{
-			flag = (KnockbackUtils.BuildStraightLineChargePath(caster, Board.\u000E().\u000E(target.GridPos), caster.\u0012(), false) != null);
+			flag = (KnockbackUtils.BuildStraightLineChargePath(caster, Board.Get().GetBoardSquareSafe(target.GridPos), caster.GetCurrentBoardSquare(), false) != null);
 		}
 		return flag && base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 	}

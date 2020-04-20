@@ -36,7 +36,7 @@ public class NekoDiscTetherSequence : LineSequence
 	{
 		base.Initialize(extraParams);
 		this.m_syncComp = base.Caster.GetComponent<Neko_SyncComponent>();
-		this.m_targetSquare = Board.\u000E().\u000E(base.TargetPos);
+		this.m_targetSquare = Board.Get().GetBoardSquare(base.TargetPos);
 	}
 
 	protected override void SpawnFX()
@@ -133,9 +133,9 @@ public class NekoDiscTetherSequence : LineSequence
 		if (base.Target != null)
 		{
 			this.m_startUsingTargetActorSquare = true;
-			if (!base.Target.\u000E())
+			if (!base.Target.IsDead())
 			{
-				if (base.Target.\u0012() != null)
+				if (base.Target.GetCurrentBoardSquare() != null)
 				{
 					for (;;)
 					{
@@ -150,7 +150,7 @@ public class NekoDiscTetherSequence : LineSequence
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscTetherSequence.OnTurnStart(int)).MethodHandle;
 					}
-					this.m_fixedEndPos = base.Target.\u0012().ToVector3();
+					this.m_fixedEndPos = base.Target.GetCurrentBoardSquare().ToVector3();
 				}
 				else if (base.Target.ClientLastKnownPosSquare != null)
 				{
@@ -161,7 +161,7 @@ public class NekoDiscTetherSequence : LineSequence
 			{
 				this.m_fixedEndPos = base.Target.LastDeathPosition;
 			}
-			this.m_fixedEndPos.y = (float)Board.\u000E().BaselineHeight;
+			this.m_fixedEndPos.y = (float)Board.Get().BaselineHeight;
 		}
 	}
 
@@ -194,14 +194,14 @@ public class NekoDiscTetherSequence : LineSequence
 					}
 					break;
 				}
-				if (base.Caster.\u000E())
+				if (base.Caster.IsDead())
 				{
-					if (base.Caster.\u0015() != null)
+					if (base.Caster.GetMostResetDeathSquare() != null)
 					{
-						vector = base.Caster.\u0015().ToVector3();
+						vector = base.Caster.GetMostResetDeathSquare().ToVector3();
 					}
 				}
-				else if (base.Caster.\u0012())
+				else if (base.Caster.IsModelAnimatorDisabled())
 				{
 					for (;;)
 					{
@@ -214,7 +214,7 @@ public class NekoDiscTetherSequence : LineSequence
 					}
 					vector = this.m_lastStartPos;
 				}
-				else if (!base.Caster.\u0018())
+				else if (!base.Caster.IsVisibleToClient())
 				{
 					for (;;)
 					{
@@ -250,7 +250,7 @@ public class NekoDiscTetherSequence : LineSequence
 			}
 		}
 		this.m_lastStartPos = vector;
-		vector.y = (float)Board.\u000E().BaselineHeight + this.m_discAtStartHeightOffset;
+		vector.y = (float)Board.Get().BaselineHeight + this.m_discAtStartHeightOffset;
 		return vector;
 	}
 
@@ -306,7 +306,7 @@ public class NekoDiscTetherSequence : LineSequence
 						}
 						break;
 					}
-					if (!base.Caster.\u000E())
+					if (!base.Caster.IsDead())
 					{
 						for (;;)
 						{
@@ -317,7 +317,7 @@ public class NekoDiscTetherSequence : LineSequence
 							}
 							break;
 						}
-						if (!base.Caster.\u0018())
+						if (!base.Caster.IsVisibleToClient())
 						{
 							for (;;)
 							{
@@ -333,7 +333,7 @@ public class NekoDiscTetherSequence : LineSequence
 					}
 				}
 			}
-			lastStartPos.y = (float)Board.\u000E().BaselineHeight + this.m_discAtStartHeightOffset;
+			lastStartPos.y = (float)Board.Get().BaselineHeight + this.m_discAtStartHeightOffset;
 			this.m_discAtStartFxInst.transform.position = lastStartPos;
 			if (this.m_discFofSelector != null)
 			{
@@ -346,7 +346,7 @@ public class NekoDiscTetherSequence : LineSequence
 					}
 					break;
 				}
-				this.m_discFofSelector.Setup(base.Caster.\u000E());
+				this.m_discFofSelector.Setup(base.Caster.GetTeam());
 			}
 			this.m_discAtStartFxInst.SetActiveIfNeeded(flag);
 			if (this.m_enlargeDiscInst != null)
@@ -373,7 +373,7 @@ public class NekoDiscTetherSequence : LineSequence
 						}
 						break;
 					}
-					this.m_enlargeDiscFofSelector.Setup(base.Caster.\u000E());
+					this.m_enlargeDiscFofSelector.Setup(base.Caster.GetTeam());
 				}
 				this.m_enlargeDiscInst.SetActiveIfNeeded(desiredActive);
 			}

@@ -205,7 +205,7 @@ public class ClientMovementResults
 		}
 		else
 		{
-			if (ClientAbilityResults.\u001D)
+			if (ClientAbilityResults.LogMissingSequences)
 			{
 				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + this.GetDebugDescription() + ": no Sequence to start, executing results directly", new object[0]);
 			}
@@ -600,7 +600,7 @@ public class ClientMovementResults
 		{
 			str = this.m_gameModeResults.GetDebugDescription();
 		}
-		return str + " triggering on " + this.m_triggeringMover.\u0018();
+		return str + " triggering on " + this.m_triggeringMover.GetDebugName();
 	}
 
 	internal void ExecuteUnexecutedClientHits()
@@ -716,7 +716,7 @@ public class ClientMovementResults
 
 	internal string UnexecutedHitsDebugStr()
 	{
-		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + this.m_triggeringMover.\u0018() + "\n";
+		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + this.m_triggeringMover.GetDebugName() + "\n";
 		if (this.m_effectResults != null)
 		{
 			for (;;)

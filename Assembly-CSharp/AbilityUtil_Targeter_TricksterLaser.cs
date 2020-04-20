@@ -176,7 +176,7 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		List<ActorData> list = new List<ActorData>();
 		list.Add(targetingActor);
 		list.AddRange(validAfterImages);
-		float widthInWorld = this.m_width * Board.\u000E().squareSize;
+		float widthInWorld = this.m_width * Board.Get().squareSize;
 		Vector3 vector;
 		Vector3 a;
 		this.m_afterImageSyncComp.CalcTargetingCenterAndAimAtPos(currentTarget.FreePos, targetingActor, list, false, out vector, out a);
@@ -188,12 +188,12 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		while (l < list.Count)
 		{
 			ActorData actorData = list[l];
-			Vector3 dir = a - list[l].\u0016();
+			Vector3 dir = a - list[l].GetTravelBoardSquareWorldPosition();
 			dir.y = 0f;
 			float magnitude = dir.magnitude;
 			dir.Normalize();
 			VectorUtils.LaserCoords laserCoords;
-			laserCoords.start = actorData.\u0015();
+			laserCoords.start = actorData.GetTravelBoardSquareWorldPositionForLos();
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, this.m_distance, this.m_width, actorData, base.GetAffectedTeams(), this.m_penetrateLoS, this.m_maxTargets, false, false, out laserCoords.end, null, null, false, true);
 			list2.Add(laserCoords);
 			VectorUtils.LaserCoords laserCoords2 = laserCoords;
@@ -215,7 +215,7 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData2 = enumerator.Current;
-					ActorCover actorCover = actorData2.\u000E();
+					ActorCover actorCover = actorData2.GetActorCover();
 					bool flag2 = actorCover.IsInCoverWrt(laserCoords2.start);
 					if (dictionary.ContainsKey(actorData2))
 					{
@@ -340,7 +340,7 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 				color = Color.cyan;
 			}
 			Color color2 = color;
-			HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_highlights[this.m_maxLasers + l], magnitude / Board.\u000E().squareSize, color2);
+			HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_highlights[this.m_maxLasers + l], magnitude / Board.Get().squareSize, color2);
 			if (l != list.Count - 1)
 			{
 				goto IL_627;

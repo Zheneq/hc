@@ -309,7 +309,7 @@ public class MovementPathStart : MonoBehaviour
 		if (this.m_pointsToMoveAcross.Count > 1)
 		{
 			Vector3 normalized = (this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 1] - this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 2]).normalized;
-			this.m_pointsToMoveAcross.Add(this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 1] + normalized * Board.\u000E().squareSize * 0.2f);
+			this.m_pointsToMoveAcross.Add(this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 1] + normalized * Board.Get().squareSize * 0.2f);
 		}
 		this.m_totalLineDistance = 0f;
 		for (int j = 1; j < this.m_pointsToMoveAcross.Count; j++)

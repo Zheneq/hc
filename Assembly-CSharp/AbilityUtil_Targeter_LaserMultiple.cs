@@ -62,15 +62,15 @@ public class AbilityUtil_Targeter_LaserMultiple : AbilityUtil_Targeter
 		IL_84:
 		base.ClearActorsInRange();
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
-		float widthInWorld = this.m_laserInfo.width * Board.\u000E().squareSize;
-		Vector3 start = targetingActor.\u0015();
+		float widthInWorld = this.m_laserInfo.width * Board.Get().squareSize;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		float num = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
 		float num2 = num - 0.5f * (float)(this.m_laserCount - 1) * this.m_angleInBetween;
 		for (int j = 0; j < this.m_laserCount; j++)
 		{
 			Vector3 vector = VectorUtils.AngleDegreesToVector(num2 + (float)j * this.m_angleInBetween);
 			VectorUtils.LaserCoords laserCoords;
-			laserCoords.start = start;
+			laserCoords.start = travelBoardSquareWorldPositionForLos;
 			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, this.m_laserInfo.affectsAllies, this.m_laserInfo.affectsEnemies);
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector, this.m_laserInfo.range, this.m_laserInfo.width, targetingActor, relevantTeams, this.m_laserInfo.penetrateLos, this.m_laserInfo.maxTargets, false, false, out laserCoords.end, null, null, false, true);
 			VectorUtils.LaserCoords laserCoords2 = laserCoords;

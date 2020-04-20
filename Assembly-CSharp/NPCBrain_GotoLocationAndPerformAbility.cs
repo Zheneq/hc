@@ -11,7 +11,7 @@ public class NPCBrain_GotoLocationAndPerformAbility : NPCBrain
 	{
 		NPCBrain_GotoLocationAndPerformAbility npcbrain_GotoLocationAndPerformAbility = bot.gameObject.AddComponent<NPCBrain_GotoLocationAndPerformAbility>();
 		npcbrain_GotoLocationAndPerformAbility.m_abilityId = this.m_abilityId;
-		npcbrain_GotoLocationAndPerformAbility.m_destination = Board.\u000E().\u000E(destination);
+		npcbrain_GotoLocationAndPerformAbility.m_destination = Board.Get().GetBoardSquare(destination);
 		return npcbrain_GotoLocationAndPerformAbility;
 	}
 }

@@ -13,7 +13,7 @@ namespace I2.Loc.SimpleJSON
 		{
 		}
 
-		public virtual JSONNode \u0018
+		public virtual JSONNode no_op_return_null_A
 		{
 			get
 			{
@@ -24,7 +24,7 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public virtual JSONNode \u0018
+		public virtual JSONNode no_op_return_null_B
 		{
 			get
 			{
@@ -82,7 +82,7 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public IEnumerable<JSONNode> \u000A
+		public IEnumerable<JSONNode> getter000A
 		{
 			get
 			{
@@ -227,12 +227,12 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public static JSONNode \u000A(string \u001D)
+		public static JSONNode JSONData(string \u001D)
 		{
 			return new JSONData(\u001D);
 		}
 
-		public static string \u0006(JSONNode \u001D)
+		public static string toString_zq(JSONNode \u001D)
 		{
 			string result;
 			if (JSONNode.\u000A(\u001D, null))
@@ -248,7 +248,7 @@ namespace I2.Loc.SimpleJSON
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.\u0006(JSONNode)).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.toString_zq(JSONNode)).MethodHandle;
 				}
 				result = null;
 			}
@@ -308,7 +308,7 @@ namespace I2.Loc.SimpleJSON
 			return base.GetHashCode();
 		}
 
-		internal static string \u000A(string \u001D)
+		internal static string escapeString(string \u001D)
 		{
 			string text = string.Empty;
 			foreach (char c in \u001D)
@@ -338,7 +338,7 @@ namespace I2.Loc.SimpleJSON
 						}
 						if (!true)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.\u000A(string)).MethodHandle;
+							RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.escapeString(string)).MethodHandle;
 						}
 						if (c != '\\')
 						{
@@ -638,7 +638,7 @@ namespace I2.Loc.SimpleJSON
 										}
 										if (jsonnode is JSONArray)
 										{
-											jsonnode.\u0013(JSONNode.\u000A(text));
+											jsonnode.\u0013(JSONNode.JSONData(text));
 										}
 										else if (text2 != string.Empty)
 										{
@@ -651,7 +651,7 @@ namespace I2.Loc.SimpleJSON
 												}
 												break;
 											}
-											jsonnode.\u0013(text2, JSONNode.\u000A(text));
+											jsonnode.\u0013(text2, JSONNode.JSONData(text));
 										}
 									}
 									text2 = string.Empty;
@@ -721,7 +721,7 @@ namespace I2.Loc.SimpleJSON
 									}
 									break;
 								}
-								jsonnode.\u0013(JSONNode.\u000A(text));
+								jsonnode.\u0013(JSONNode.JSONData(text));
 							}
 							else if (text2 != string.Empty)
 							{
@@ -734,7 +734,7 @@ namespace I2.Loc.SimpleJSON
 									}
 									break;
 								}
-								jsonnode.\u0013(text2, JSONNode.\u000A(text));
+								jsonnode.\u0013(text2, JSONNode.JSONData(text));
 							}
 						}
 						text2 = string.Empty;
@@ -794,18 +794,18 @@ namespace I2.Loc.SimpleJSON
 		{
 		}
 
-		public void \u000A(Stream \u001D)
+		public void write(Stream \u001D)
 		{
 			BinaryWriter u001D = new BinaryWriter(\u001D);
 			this.\u0002(u001D);
 		}
 
-		public void \u0006(Stream \u001D)
+		public void compressed0006(Stream \u001D)
 		{
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
 
-		public void \u000A(string \u001D)
+		public void compressed000A(string \u001D)
 		{
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
@@ -815,22 +815,22 @@ namespace I2.Loc.SimpleJSON
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
 
-		public void \u0006(string \u001D)
+		public void writeToFile(string path)
 		{
-			Directory.CreateDirectory(new FileInfo(\u001D).Directory.FullName);
-			using (FileStream fileStream = File.OpenWrite(\u001D))
+			Directory.CreateDirectory(new FileInfo(path).Directory.FullName);
+			using (FileStream fileStream = File.OpenWrite(path))
 			{
-				this.\u000A(fileStream);
+				this.write(fileStream);
 			}
 		}
 
-		public string \u0006()
+		public string writeToString()
 		{
 			MemoryStream memoryStream = new MemoryStream();
 			string result;
 			try
 			{
-				this.\u000A(memoryStream);
+				this.write(memoryStream);
 				memoryStream.Position = 0L;
 				result = Convert.ToBase64String(memoryStream.ToArray());
 			}
@@ -849,7 +849,7 @@ namespace I2.Loc.SimpleJSON
 					}
 					if (!true)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.\u0006()).MethodHandle;
+						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.writeToString()).MethodHandle;
 					}
 					((IDisposable)memoryStream).Dispose();
 				}

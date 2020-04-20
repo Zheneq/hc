@@ -481,8 +481,8 @@ public class RampartGrab : Ability
 		{
 			return true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -497,16 +497,16 @@ public class RampartGrab : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				bool result = false;
-				if (boardSquare != caster.\u0012())
+				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
-					float num = VectorUtils.HorizontalPlaneDistInSquares(boardSquare.ToVector3(), caster.\u0016());
+					float num = VectorUtils.HorizontalPlaneDistInSquares(boardSquareSafe.ToVector3(), caster.GetTravelBoardSquareWorldPosition());
 					if (num <= this.GetDestinationSelectRange())
 					{
 						Vector3 from = -1f * currentTargets[0].AimDirection;
-						Vector3 to = boardSquare.ToVector3() - caster.\u0016();
+						Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
 						from.y = 0f;
 						to.y = 0f;
 						int num2 = Mathf.RoundToInt(Vector3.Angle(from, to));

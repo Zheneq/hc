@@ -114,7 +114,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 	private void SetGlobalFloatsForShaders()
 	{
 		Shader.SetGlobalFloat(this.m_verticalFadeHeightID, this.m_fadeHeight);
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -129,7 +129,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.SetGlobalFloatsForShaders()).MethodHandle;
 			}
-			Shader.SetGlobalFloat(this.m_verticalFadeEndWorldYID, (float)Board.\u000E().BaselineHeight + this.m_fadeEndFloorOffset);
+			Shader.SetGlobalFloat(this.m_verticalFadeEndWorldYID, (float)Board.Get().BaselineHeight + this.m_fadeEndFloorOffset);
 		}
 	}
 
@@ -176,7 +176,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.\u000E();
+					ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM();
 					if (actorTurnSM.AmTargetingAction())
 					{
 						for (;;)
@@ -247,7 +247,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 						}
 						break;
 					}
-					if (actorData.\u0018())
+					if (actorData.IsVisibleToClient())
 					{
 						for (;;)
 						{
@@ -258,7 +258,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 							}
 							break;
 						}
-						if (!actorData.\u000E())
+						if (!actorData.IsDead())
 						{
 							for (;;)
 							{
@@ -321,7 +321,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 						}
 						break;
 					}
-					if (activeOwnedActorData.\u000E())
+					if (activeOwnedActorData.IsDead())
 					{
 						for (;;)
 						{
@@ -538,7 +538,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 						goto IL_57A;
 					}
 					gameObject = GameFlowData.FindParentBelowRoot(raycastHit.collider.gameObject);
-					actorModelData = gameObject.GetComponent<ActorData>().\u000E();
+					actorModelData = gameObject.GetComponent<ActorData>().GetActorModelData();
 				}
 				bool flag2 = false;
 				if (gameObject != null)
@@ -1051,7 +1051,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					}
 					break;
 				}
-				this.RevealPosition(Board.\u000E().PlayerFreePos);
+				this.RevealPosition(Board.Get().PlayerFreePos);
 			}
 			return;
 		}
@@ -1088,7 +1088,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 			}
 			return;
 		}
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -1185,7 +1185,7 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 						}
 						break;
 					}
-					Vector3 playerFreePos = Board.\u000E().PlayerFreePos;
+					Vector3 playerFreePos = Board.Get().PlayerFreePos;
 					playerFreePos.y += num3 + num2;
 					Gizmos.DrawWireSphere(playerFreePos, num3);
 				}

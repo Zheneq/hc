@@ -231,7 +231,7 @@ public class ScampAoeLaserSequence : Sequence
 							}
 							break;
 						}
-						value.y = (float)Board.\u000E().BaselineHeight;
+						value.y = (float)Board.Get().BaselineHeight;
 					}
 					Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "startPoint", position);
 					Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "endPoint", value);
@@ -344,7 +344,7 @@ public class ScampAoeLaserSequence : Sequence
 						for (int i = 0; i < base.Targets.Length; i++)
 						{
 							ActorData actorData = base.Targets[i];
-							Vector3 vector = base.Caster.\u0016();
+							Vector3 vector = base.Caster.GetTravelBoardSquareWorldPosition();
 							GameObject attachObj = base.Caster.gameObject;
 							GameObject gameObject;
 							if (this.m_syncComp.m_suitWasActiveOnTurnStart)
@@ -412,7 +412,7 @@ public class ScampAoeLaserSequence : Sequence
 									attachObj = this.m_fxJointNoSuit.m_jointObject;
 								}
 							}
-							GenericSequenceProjectileInfo item = new GenericSequenceProjectileInfo(this, this.m_authoredProjectileData, vector, actorData.\u0016(), actorData.AsArray());
+							GenericSequenceProjectileInfo item = new GenericSequenceProjectileInfo(this, this.m_authoredProjectileData, vector, actorData.GetTravelBoardSquareWorldPosition(), actorData.AsArray());
 							this.m_projectileList.Add(item);
 							if (gameObject != null)
 							{

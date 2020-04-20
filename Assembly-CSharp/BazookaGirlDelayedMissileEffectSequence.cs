@@ -78,7 +78,7 @@ public class BazookaGirlDelayedMissileEffectSequence : Sequence
 					this.m_fx = base.InstantiateFX(this.m_fxPrefab);
 					if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 					{
-						this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+						this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 					}
 					this.m_fx.transform.position = base.TargetPos + Vector3.up * 0.12f;
 					this.m_fx.transform.localRotation = Quaternion.identity;

@@ -63,7 +63,7 @@ public class ConeTargetingInfo
 				}
 				break;
 			}
-			list.Add(caster.\u0012());
+			list.Add(caster.GetOpposingTeam());
 		}
 		if (this.m_affectsAllies)
 		{
@@ -76,7 +76,7 @@ public class ConeTargetingInfo
 				}
 				break;
 			}
-			list.Add(caster.\u000E());
+			list.Add(caster.GetTeam());
 		}
 		return list;
 	}

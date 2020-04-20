@@ -139,7 +139,7 @@ public class NinjaRewind : Ability
 					}
 					break;
 				}
-				return AbilityTarget.CreateAbilityTargetFromBoardSquare(squareForRewind, caster.\u0016());
+				return AbilityTarget.CreateAbilityTargetFromBoardSquare(squareForRewind, caster.GetTravelBoardSquareWorldPosition());
 			}
 		}
 		return base.CreateAbilityTargetForSimpleAction(caster);

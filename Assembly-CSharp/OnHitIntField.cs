@@ -82,7 +82,7 @@ public class OnHitIntField
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitIntField.CalcValue(ActorHitContext, ContextVars)).MethodHandle;
 				}
-				if (abilityContext.\u0015(contextKey))
+				if (abilityContext.ContainsInt(contextKey))
 				{
 					for (;;)
 					{
@@ -93,10 +93,10 @@ public class OnHitIntField
 						}
 						break;
 					}
-					input = (float)abilityContext.\u0015(contextKey);
+					input = (float)abilityContext.GetInt(contextKey);
 					flag = true;
 				}
-				else if (abilityContext.\u0016(contextKey))
+				else if (abilityContext.ContaintFloat(contextKey))
 				{
 					for (;;)
 					{
@@ -107,11 +107,11 @@ public class OnHitIntField
 						}
 						break;
 					}
-					input = abilityContext.\u0015(contextKey);
+					input = abilityContext.GetFloat(contextKey);
 					flag = true;
 				}
 			}
-			else if (hitContext.\u0015.\u0015(contextKey))
+			else if (hitContext.\u0015.ContainsInt(contextKey))
 			{
 				for (;;)
 				{
@@ -122,10 +122,10 @@ public class OnHitIntField
 					}
 					break;
 				}
-				input = (float)hitContext.\u0015.\u0015(contextKey);
+				input = (float)hitContext.\u0015.GetInt(contextKey);
 				flag = true;
 			}
-			else if (hitContext.\u0015.\u0016(contextKey))
+			else if (hitContext.\u0015.ContaintFloat(contextKey))
 			{
 				for (;;)
 				{
@@ -136,7 +136,7 @@ public class OnHitIntField
 					}
 					break;
 				}
-				input = hitContext.\u0015.\u0015(contextKey);
+				input = hitContext.\u0015.GetFloat(contextKey);
 				flag = true;
 			}
 			if (flag)

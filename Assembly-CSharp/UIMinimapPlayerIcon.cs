@@ -27,7 +27,7 @@ public class UIMinimapPlayerIcon : MonoBehaviour
 			}
 			return;
 		}
-		this.m_playerIcon.sprite = playerData.\u000E();
+		this.m_playerIcon.sprite = playerData.GetAliveHUDIcon();
 		if (GameFlowData.Get() != null)
 		{
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
@@ -55,7 +55,7 @@ public class UIMinimapPlayerIcon : MonoBehaviour
 					}
 					this.m_teamColorImage.color = HUD_UIResources.Get().m_selfColorHighlight;
 				}
-				else if (playerData.\u000E() == activeOwnedActorData.\u000E())
+				else if (playerData.GetTeam() == activeOwnedActorData.GetTeam())
 				{
 					for (;;)
 					{

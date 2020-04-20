@@ -437,8 +437,8 @@ public class ValkyrieGuard : Ability
 
 	public override Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -454,8 +454,8 @@ public class ValkyrieGuard : Ability
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetRotateToTargetPos(List<AbilityTarget>, ActorData)).MethodHandle;
 			}
 			Vector3 b;
-			VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquare, targets[0].FreePos, false, out b);
-			return boardSquare.ToVector3() + b;
+			VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, targets[0].FreePos, false, out b);
+			return boardSquareSafe.ToVector3() + b;
 		}
 		return base.GetRotateToTargetPos(targets, caster);
 	}
@@ -477,7 +477,7 @@ public class ValkyrieGuard : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.CustomCanCastValidation(ActorData)).MethodHandle;
 			}
-			if (caster.\u000E() != null)
+			if (caster.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -488,7 +488,7 @@ public class ValkyrieGuard : Ability
 					}
 					break;
 				}
-				return !caster.\u000E().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
+				return !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
 			}
 		}
 		return false;

@@ -433,11 +433,11 @@ public class BarrierManager : NetworkBehaviour
 							}
 							break;
 						}
-						b = new Vector3(0f, 0f, Board.\u000E().squareSize * num);
+						b = new Vector3(0f, 0f, Board.Get().squareSize * num);
 					}
 					else
 					{
-						b = new Vector3(Board.\u000E().squareSize * num, 0f, 0f);
+						b = new Vector3(Board.Get().squareSize * num, 0f, 0f);
 					}
 					Vector3 src = a + b;
 					Vector3 dest2 = a2 + b;
@@ -575,7 +575,7 @@ public class BarrierManager : NetworkBehaviour
 
 	public int GetVisionStateChangesFor(ActorData actor)
 	{
-		Team team = actor.\u000E();
+		Team team = actor.GetTeam();
 		if (!this.IsTeamSupported(team))
 		{
 			for (;;)
@@ -658,7 +658,7 @@ public class BarrierManager : NetworkBehaviour
 	{
 		bool result = false;
 		bool flag;
-		if (mover.\u000E() != null)
+		if (mover.GetActorStatus() != null)
 		{
 			for (;;)
 			{
@@ -673,7 +673,7 @@ public class BarrierManager : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierManager.IsMovementBlockedOnCrossover(ActorData, BoardSquare, BoardSquare)).MethodHandle;
 			}
-			flag = mover.\u000E().HasStatus(StatusType.Unstoppable, true);
+			flag = mover.GetActorStatus().HasStatus(StatusType.Unstoppable, true);
 		}
 		else
 		{
@@ -713,7 +713,7 @@ public class BarrierManager : NetworkBehaviour
 
 	public int GetMovementStateChangesFor(ActorData mover)
 	{
-		Team team = mover.\u000E();
+		Team team = mover.GetTeam();
 		if (!this.IsTeamSupported(team))
 		{
 			return -1;
@@ -782,8 +782,8 @@ public class BarrierManager : NetworkBehaviour
 			}
 			return true;
 		}
-		BoardSquare boardSquare = caster.\u0012();
-		if (boardSquare == null)
+		BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
+		if (currentBoardSquare == null)
 		{
 			for (;;)
 			{
@@ -800,7 +800,7 @@ public class BarrierManager : NetworkBehaviour
 		for (int i = 0; i < this.m_barriers.Count; i++)
 		{
 			Barrier barrier = this.m_barriers[i];
-			if (barrier.IsPositionTargetingBlockedFor(caster) && barrier.CrossingBarrier(boardSquare.ToVector3(), dest.ToVector3()))
+			if (barrier.IsPositionTargetingBlockedFor(caster) && barrier.CrossingBarrier(currentBoardSquare.ToVector3(), dest.ToVector3()))
 			{
 				for (;;)
 				{
@@ -1100,7 +1100,7 @@ public class BarrierManager : NetworkBehaviour
 							}
 							break;
 						}
-						if (barrier.GetBarrierTeam() == forActor.\u000E())
+						if (barrier.GetBarrierTeam() == forActor.GetTeam())
 						{
 							for (;;)
 							{
@@ -1391,7 +1391,7 @@ public class BarrierManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (actorData.\u000E() == team)
+			if (actorData.GetTeam() == team)
 			{
 				for (;;)
 				{
@@ -1402,7 +1402,7 @@ public class BarrierManager : NetworkBehaviour
 					}
 					break;
 				}
-				actorData.\u000E().UpdateSquaresCanMoveTo();
+				actorData.GetActorMovement().UpdateSquaresCanMoveTo();
 			}
 		}
 	}
@@ -1458,7 +1458,7 @@ public class BarrierManager : NetworkBehaviour
 				}
 				break;
 			}
-			if (actorData2.\u000E() == team)
+			if (actorData2.GetTeam() == team)
 			{
 				for (;;)
 				{
@@ -1469,7 +1469,7 @@ public class BarrierManager : NetworkBehaviour
 					}
 					break;
 				}
-				actorData2.\u000E().MarkForRecalculateVisibility();
+				actorData2.GetFogOfWar().MarkForRecalculateVisibility();
 			}
 		}
 	}

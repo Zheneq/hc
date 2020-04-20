@@ -19,16 +19,16 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		GridPos u001D;
+		GridPos gridPos;
 		if (this.GetCurrentRangeInSquares() != 0f)
 		{
-			u001D = currentTarget.GridPos;
+			gridPos = currentTarget.GridPos;
 		}
 		else
 		{
-			u001D = targetingActor.\u000E();
+			gridPos = targetingActor.GetGridPosWithIncrementedHeight();
 		}
-		return Board.\u000E().\u000E(u001D);
+		return Board.Get().GetBoardSquareSafe(gridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
@@ -50,7 +50,7 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Grid.GetHighlightGoalPos(AbilityTarget, ActorData)).MethodHandle;
 			}
 			Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(this.m_pattern, currentTarget.FreePos, gameplayRefSquare);
-			centerOfGridPattern.y = targetingActor.\u0016().y + this.m_heightOffset;
+			centerOfGridPattern.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfGridPattern;
 		}
 		return Vector3.zero;

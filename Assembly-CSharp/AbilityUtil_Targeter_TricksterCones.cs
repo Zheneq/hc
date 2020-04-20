@@ -80,7 +80,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.ClearActorsInRange();
-		float squareSize = Board.\u000E().squareSize;
+		float squareSize = Board.Get().squareSize;
 		float radiusInWorld = (this.m_coneInfo.m_radiusInSquares + this.m_coneInfo.m_backwardsOffset) * squareSize;
 		if (this.m_highlights != null)
 		{
@@ -238,7 +238,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				}
 				foreach (ActorData actorData in actorsInCone)
 				{
-					ActorCover actorCover = actorData.\u000E();
+					ActorCover actorCover = actorData.GetActorCover();
 					bool flag2 = actorCover.IsInCoverWrt(vector);
 					if (tempActorToDamageOrigins.ContainsKey(actorData))
 					{
@@ -397,7 +397,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					color = Color.cyan;
 				}
 				Color color2 = color;
-				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_highlights[this.m_maxCones + l], magnitude / Board.\u000E().squareSize, color2);
+				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_highlights[this.m_maxCones + l], magnitude / Board.Get().squareSize, color2);
 				if (l != num - 1)
 				{
 					goto IL_671;
@@ -430,7 +430,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					squareInsideChecker_Cone.UpdateConeProperties(vector, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, num2, targetingActor);
 					if (this.m_useCasterPosForLoS)
 					{
-						squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.\u0015(), true);
+						squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
 					}
 				}
 				for (;;)
@@ -450,7 +450,7 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				squareInsideChecker_Cone2.UpdateConeProperties(vector, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, num2, targetingActor);
 				if (this.m_useCasterPosForLoS)
 				{
-					squareInsideChecker_Cone2.SetLosPosOverride(true, targetingActor.\u0015(), true);
+					squareInsideChecker_Cone2.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
 					goto IL_6CB;
 				}
 				goto IL_6CB;
@@ -476,10 +476,10 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 			}
 			for (int n = 0; n < this.m_actorToHitCount[key5]; n++)
 			{
-				AbilityTooltipSubject subjectType = (key5.\u000E() != targetingActor.\u000E()) ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Secondary;
+				AbilityTooltipSubject subjectType = (key5.GetTeam() != targetingActor.GetTeam()) ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Secondary;
 				base.AddActorInRange(key5, vector3, targetingActor, subjectType, true);
 				ActorHitContext actorHitContext = this.m_actorContextVars[key5];
-				actorHitContext.\u0015.\u0016(ContextKeys.\u0019.\u0012(), this.m_actorToHitCount[key5]);
+				actorHitContext.\u0015.SetInt(ContextKeys.\u0019.GetHash(), this.m_actorToHitCount[key5]);
 			}
 		}
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)

@@ -588,7 +588,7 @@ public abstract class SplineProjectileSequence : Sequence
 							}
 							for (int i = 0; i < base.Targets.Length; i++)
 							{
-								if (base.Caster.\u000E() != base.Targets[i].\u000E())
+								if (base.Caster.GetTeam() != base.Targets[i].GetTeam())
 								{
 									for (;;)
 									{
@@ -756,7 +756,7 @@ public abstract class SplineProjectileSequence : Sequence
 
 	protected virtual Team GetFoFObservingTeam()
 	{
-		return base.Caster.\u000E();
+		return base.Caster.GetTeam();
 	}
 
 	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
@@ -993,7 +993,7 @@ public abstract class SplineProjectileSequence : Sequence
 					}
 					else
 					{
-						vector = target.\u0016();
+						vector = target.GetTravelBoardSquareWorldPosition();
 					}
 					Vector3 position = vector;
 					GameObject gameObject2 = base.InstantiateFX(this.m_targetHitFxPrefab, position, this.m_fx.transform.rotation, true, true);
@@ -1031,7 +1031,7 @@ public abstract class SplineProjectileSequence : Sequence
 						this.m_targetHitFx.Add(gameObject2);
 					}
 				}
-				if (target.\u000E() == base.Caster.\u000E())
+				if (target.GetTeam() == base.Caster.GetTeam())
 				{
 					for (;;)
 					{

@@ -53,7 +53,7 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		this.AllocateHighlights();
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, true);
 		VectorUtils.LaserCoords laserCoords;
-		laserCoords.start = targetingActor.\u0015();
+		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, this.m_distance, this.m_width, targetingActor, relevantTeams, this.m_penetrateLos, this.m_maxTargets, false, false, out laserCoords.end, null, null, false, true);
 		GameObject highlightObj = this.m_highlights[0];
 		SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[0] as SquareInsideChecker_Box;
@@ -123,7 +123,7 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 							}
 							break;
 						}
-						base.AddActorInRange(actorData3, actorData2.\u0015(), targetingActor, AbilityTooltipSubject.Secondary, false);
+						base.AddActorInRange(actorData3, actorData2.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Secondary, false);
 						list.Add(actorData3);
 						if (num + 1 < this.m_highlights.Count)
 						{
@@ -137,10 +137,10 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 								break;
 							}
 							GameObject gameObject = this.m_highlights[1 + num];
-							this.AdjustLaserHighlight(gameObject, actorData2.\u0016(), actorData3.\u0016(), this.m_chainHighlightWidthInSquares);
+							this.AdjustLaserHighlight(gameObject, actorData2.GetTravelBoardSquareWorldPosition(), actorData3.GetTravelBoardSquareWorldPosition(), this.m_chainHighlightWidthInSquares);
 							gameObject.SetActive(true);
 							SquareInsideChecker_Box squareInsideChecker_Box2 = this.m_squarePosCheckerList[1 + num] as SquareInsideChecker_Box;
-							squareInsideChecker_Box2.UpdateBoxProperties(actorData2.\u0016(), actorData3.\u0016(), targetingActor);
+							squareInsideChecker_Box2.UpdateBoxProperties(actorData2.GetTravelBoardSquareWorldPosition(), actorData3.GetTravelBoardSquareWorldPosition(), targetingActor);
 						}
 						num++;
 					}
@@ -202,10 +202,10 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 	{
 		ActorData result = null;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.m_affectsAllies, true);
-		Vector3 vector = fromActor.\u0015();
-		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector, this.m_chainRadius, this.m_penetrateLos, caster, relevantTeams, null, false, default(Vector3));
+		Vector3 travelBoardSquareWorldPositionForLos = fromActor.GetTravelBoardSquareWorldPositionForLos();
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(travelBoardSquareWorldPositionForLos, this.m_chainRadius, this.m_penetrateLos, caster, relevantTeams, null, false, default(Vector3));
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadius);
-		TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadius, vector);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadius, travelBoardSquareWorldPositionForLos);
 		using (List<ActorData>.Enumerator enumerator = actorsInRadius.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
@@ -244,7 +244,7 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 
 	private void AllocateHighlights()
 	{
-		float widthInWorld = this.m_width * Board.\u000E().squareSize;
+		float widthInWorld = this.m_width * Board.Get().squareSize;
 		if (this.m_highlights != null)
 		{
 			for (;;)
@@ -286,7 +286,7 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 	{
 		startPos.y = HighlightUtils.GetHighlightHeight();
 		endPos.y = startPos.y;
-		float widthInWorld = widthInSquares * Board.\u000E().squareSize;
+		float widthInWorld = widthInSquares * Board.Get().squareSize;
 		Vector3 vector = endPos - startPos;
 		float magnitude = vector.magnitude;
 		HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, highlightObj);

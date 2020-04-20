@@ -590,8 +590,8 @@ public class SinglePlayerState
 		if (this.m_advanceDestinationsHashSet == null && this.m_advanceScriptDestinations.m_quads.Length > 0)
 		{
 			this.m_advanceDestinationsHashSet = new HashSet<BoardSquare>();
-			List<BoardSquare> list = this.m_advanceScriptDestinations.\u001D();
-			using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+			List<BoardSquare> squaresInRegion = this.m_advanceScriptDestinations.GetSquaresInRegion();
+			using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{

@@ -84,7 +84,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.ClearActorsInRange();
-		Vector3 casterPos = targetingActor.\u0015();
+		Vector3 casterPos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		ActorCover component = targetingActor.GetComponent<ActorCover>();
 		if (this.m_restrictWithinCover)
 		{
@@ -163,7 +163,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 				actorsInCone.RemoveAll(delegate(ActorData actor)
 				{
 					bool result;
-					if (actor.\u000E() != null)
+					if (actor.GetActorCover() != null)
 					{
 						for (;;)
 						{
@@ -178,7 +178,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 						{
 							RuntimeMethodHandle runtimeMethodHandle2 = methodof(AbilityUtil_Targeter_Blindfire.<UpdateTargeting>c__AnonStorey0.<>m__0(ActorData)).MethodHandle;
 						}
-						result = actor.\u000E().IsInCoverWrt(casterPos);
+						result = actor.GetActorCover().IsInCoverWrt(casterPos);
 					}
 					else
 					{
@@ -216,7 +216,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 	public void CreateConeHighlights(Vector3 casterPos, float aimDir_degrees)
 	{
 		Vector3 vector = VectorUtils.AngleDegreesToVector(aimDir_degrees);
-		float d = this.m_coneBackwardOffsetInSquares * Board.\u000E().squareSize;
+		float d = this.m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 position = casterPos + new Vector3(0f, y, 0f) - vector * d;
 		if (base.Highlight == null)
@@ -234,7 +234,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Blindfire.CreateConeHighlights(Vector3, float)).MethodHandle;
 			}
-			float radiusInWorld = (this.m_coneLengthRadiusInSquares + this.m_coneBackwardOffsetInSquares) * Board.\u000E().squareSize;
+			float radiusInWorld = (this.m_coneLengthRadiusInSquares + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			base.Highlight = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.m_coneAngleDegrees);
 		}
 		base.Highlight.transform.position = position;
@@ -289,7 +289,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
 			base.ResetSquareIndicatorIndexToUse();
-			Vector3 coneStart = targetingActor.\u0015();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			Vector3 vector;
 			if (currentTarget == null)
 			{
@@ -314,7 +314,7 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			}
 			Vector3 vec = vector;
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
-			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStart, coneCenterAngleDegrees, this.m_coneAngleDegrees, this.m_coneLengthRadiusInSquares, this.m_coneBackwardOffsetInSquares, targetingActor, this.m_penetrateLoS, null);
+			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, this.m_coneAngleDegrees, this.m_coneLengthRadiusInSquares, this.m_coneBackwardOffsetInSquares, targetingActor, this.m_penetrateLoS, null);
 			base.HideUnusedSquareIndicators();
 		}
 	}

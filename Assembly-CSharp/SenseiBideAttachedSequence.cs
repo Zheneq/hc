@@ -617,7 +617,7 @@ public class SenseiBideAttachedSequence : Sequence
 								}
 								break;
 							}
-							gameObject.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+							gameObject.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 						}
 						if (this.m_useRootOrientation)
 						{
@@ -895,7 +895,7 @@ public class SenseiBideAttachedSequence : Sequence
 		gameObject = base.InstantiateFX(fxPrefab, position, rotation, true, true);
 		Sequence.SetAttribute(gameObject, "abilityAreaLength", (base.TargetPos - position).magnitude);
 		IL_111:
-		Sequence.SetAttribute(gameObject, "targetDiameter", base.Caster.\u000E().GetModelSize());
+		Sequence.SetAttribute(gameObject, "targetDiameter", base.Caster.GetActorModelData().GetModelSize());
 		return gameObject;
 	}
 

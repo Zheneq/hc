@@ -41,7 +41,7 @@ public class FireborgDualCones : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.\u0012());
+		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.GetName());
 		return contextNamesForEditor;
 	}
 
@@ -247,7 +247,7 @@ public class FireborgDualCones : GenericAbility_Container
 				break;
 			}
 			int num;
-			actorHitContext[targetActor].\u0015.\u0015(ContextKeys.\u0019.\u0012(), out num);
+			actorHitContext[targetActor].\u0015.TryGetInt(ContextKeys.\u0019.GetHash(), out num);
 			if (num > 1)
 			{
 				for (;;)
@@ -364,7 +364,7 @@ public class FireborgDualCones : GenericAbility_Container
 				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.GetTargeterHitCountOnTarget(ActorData)).MethodHandle;
 			}
 			int result;
-			if (actorHitContext.\u0015.\u0015(ContextKeys.\u0019.\u0012(), out result))
+			if (actorHitContext.\u0015.TryGetInt(ContextKeys.\u0019.GetHash(), out result))
 			{
 				for (;;)
 				{

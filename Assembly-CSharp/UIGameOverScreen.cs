@@ -1436,7 +1436,7 @@ public class UIGameOverScreen : UIScene
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupExpBars()).MethodHandle;
 			}
-			this.SetupCharacterRewardTooltip(playersOriginalActorData.\u000E(), this.m_results.CharacterLevelAtStart);
+			this.SetupCharacterRewardTooltip(playersOriginalActorData.GetCharacterResourceLink(), this.m_results.CharacterLevelAtStart);
 		}
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
@@ -2051,7 +2051,7 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					CharacterResourceLink characterResourceLink = playersOriginalActorData.\u000E();
+					CharacterResourceLink characterResourceLink = playersOriginalActorData.GetCharacterResourceLink();
 					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 					List<int> list5 = new List<int>();
 					int k = this.GetNormalBarXPTotal() + this.m_results.ConsumableXpGained + this.m_results.GGXpGained;
@@ -2815,7 +2815,7 @@ public class UIGameOverScreen : UIScene
 		ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 		if (playersOriginalActorData != null)
 		{
-			this.m_CharacterImage.sprite = playersOriginalActorData.\u000E().GetCharacterSelectIcon();
+			this.m_CharacterImage.sprite = playersOriginalActorData.GetCharacterResourceLink().GetCharacterSelectIcon();
 			this.m_PersonalHighlightsCharacterImage.sprite = this.m_CharacterImage.sprite;
 		}
 		else
@@ -2825,12 +2825,12 @@ public class UIGameOverScreen : UIScene
 		}
 		this.m_GameOverStatWidgets.Clear();
 		ActorData playersOriginalActorData2 = UIGameOverScreen.GetPlayersOriginalActorData();
-		FreelancerStats freelancerStats = playersOriginalActorData2.\u000E();
-		ActorBehavior actorBehavior = playersOriginalActorData2.\u000E();
+		FreelancerStats freelancerStats = playersOriginalActorData2.GetFreelancerStats();
+		ActorBehavior actorBehavior = playersOriginalActorData2.GetActorBehavior();
 		for (int num5 = 0; num5 < freelancerStats.GetNumStats(); num5++)
 		{
 			UIGameOverStatWidget uigameOverStatWidget6 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_freelancerStatPrefab);
-			uigameOverStatWidget6.SetupForFreelancerStats(this.m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, num5, playersOriginalActorData2.\u000E());
+			uigameOverStatWidget6.SetupForFreelancerStats(this.m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, num5, playersOriginalActorData2.GetAbilityData());
 			uigameOverStatWidget6.UpdatePercentiles(this.GetFreelancerStatPercentiles(num5));
 			UIManager.ReparentTransform(uigameOverStatWidget6.transform, this.m_freelancerStatGrid.transform);
 			this.m_GameOverStatWidgets.Add(uigameOverStatWidget6);
@@ -3035,7 +3035,7 @@ public class UIGameOverScreen : UIScene
 						}
 						break;
 					}
-					this.m_PersonalHighlightWidgets[num12].SetupForFreelancerStats(this.m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, list[num12].FreelancerStat, playersOriginalActorData2.\u000E());
+					this.m_PersonalHighlightWidgets[num12].SetupForFreelancerStats(this.m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, list[num12].FreelancerStat, playersOriginalActorData2.GetAbilityData());
 				}
 				else if (list[num12].DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 				{
@@ -3999,7 +3999,7 @@ public class UIGameOverScreen : UIScene
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.Setup(GameType, GameResult, int, int)).MethodHandle;
 			}
-			this.m_characterExpBarImage.sprite = playersOriginalActorData.\u000E().GetCharacterSelectIcon();
+			this.m_characterExpBarImage.sprite = playersOriginalActorData.GetCharacterResourceLink().GetCharacterSelectIcon();
 		}
 		GameBalanceVars.PlayerBanner currentBackgroundBanner = ClientGameManager.Get().GetCurrentBackgroundBanner();
 		if (currentBackgroundBanner != null)

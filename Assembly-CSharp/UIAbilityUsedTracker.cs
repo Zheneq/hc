@@ -30,7 +30,7 @@ public class UIAbilityUsedTracker : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsedTracker.AddNewAbility(Ability, ActorData)).MethodHandle;
 			}
-			if (theOwner.\u0018())
+			if (theOwner.IsVisibleToClient())
 			{
 				UIAbilityUsed uiabilityUsed = UnityEngine.Object.Instantiate<UIAbilityUsed>(this.m_abilityPrefab);
 				uiabilityUsed.transform.SetParent(this.m_gridlayout.transform);

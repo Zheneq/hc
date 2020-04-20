@@ -495,7 +495,7 @@ public class SimpleAttachedVFXSequence : Sequence
 						SimpleAttachedVFXSequence.HitVFXStatusFilters hitVFXStatusFilters = this.m_hitVfxStatusRequirements[num];
 						if (hitVFXStatusFilters.m_status != StatusType.INVALID)
 						{
-							bool flag2 = hitTarget.\u000E().HasStatus(hitVFXStatusFilters.m_status, true);
+							bool flag2 = hitTarget.GetActorStatus().HasStatus(hitVFXStatusFilters.m_status, true);
 							if (hitVFXStatusFilters.m_condition == SimpleAttachedVFXSequence.HitVFXStatusFilters.FilterCond.HasStatus)
 							{
 								for (;;)
@@ -661,7 +661,7 @@ public class SimpleAttachedVFXSequence : Sequence
 					}
 					break;
 				}
-				this.m_mainFxFoFSelector.Setup(base.Caster.\u000E());
+				this.m_mainFxFoFSelector.Setup(base.Caster.GetTeam());
 			}
 			this.SetFxRotation();
 			if (this.m_hitSpawnTime > 0f && GameTime.time > this.m_hitSpawnTime)
@@ -790,7 +790,7 @@ public class SimpleAttachedVFXSequence : Sequence
 											}
 											break;
 										}
-										Vector3 vector = gameObject.transform.position - base.Caster.\u0016();
+										Vector3 vector = gameObject.transform.position - base.Caster.GetTravelBoardSquareWorldPosition();
 										vector.y = 0f;
 										if (vector.magnitude > 1E-05f)
 										{
@@ -1094,7 +1094,7 @@ public class SimpleAttachedVFXSequence : Sequence
 								}
 								break;
 							}
-							component.Setup(base.Caster.\u000E());
+							component.Setup(base.Caster.GetTeam());
 						}
 						this.m_hitFx.Add(gameObject);
 						this.m_hitFxAttachedActors.Add(base.Targets[i]);
@@ -1346,7 +1346,7 @@ public class SimpleAttachedVFXSequence : Sequence
 					}
 					if (base.Caster != null)
 					{
-						this.m_mainFxFoFSelector.Setup(base.Caster.\u000E());
+						this.m_mainFxFoFSelector.Setup(base.Caster.GetTeam());
 					}
 				}
 			}

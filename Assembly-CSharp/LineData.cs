@@ -352,7 +352,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		this.DisplayLineDataDebugInfo();
 		ActorData actor = this.m_actor;
 		GameFlowData gameFlowData = GameFlowData.Get();
-		ActorTurnSM actorTurnSM = actor.\u000E();
+		ActorTurnSM actorTurnSM = actor.GetActorTurnSM();
 		if (this.m_potentialMovementLine != null)
 		{
 			InterfaceManager exists = InterfaceManager.Get();
@@ -490,7 +490,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (!(Board.\u000E().PlayerClampedSquare != null) || !(Board.\u000E().PlayerClampedSquare.OccupantActor == actor))
+				if (!(Board.Get().PlayerClampedSquare != null) || !(Board.Get().PlayerClampedSquare.OccupantActor == actor))
 				{
 					flag2 = flag;
 					goto IL_195;
@@ -588,7 +588,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		}
 		IL_272:
 		bool flag7;
-		if (HighlightUtils.Get().m_showMovementPreview && this.m_actor.\u000E().GetSelectedAbility() == null)
+		if (HighlightUtils.Get().m_showMovementPreview && this.m_actor.GetAbilityData().GetSelectedAbility() == null)
 		{
 			for (;;)
 			{
@@ -612,7 +612,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 				}
 				if (GameFlowData.Get().activeOwnedActorData == this.m_actor && GameFlowData.Get().activeOwnedActorData != null)
 				{
-					flag7 = !this.m_actor.\u000E();
+					flag7 = !this.m_actor.IsDead();
 					goto IL_309;
 				}
 			}
@@ -647,7 +647,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 					break;
 				}
 			}
-			if (Board.\u000E() != null)
+			if (Board.Get() != null)
 			{
 				for (;;)
 				{
@@ -670,7 +670,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 						break;
 					}
 					BoardSquare currentBoardSquare = GameFlowData.Get().activeOwnedActorData.CurrentBoardSquare;
-					if (Board.\u000E().PlayerClampedSquare != null)
+					if (Board.Get().PlayerClampedSquare != null)
 					{
 						for (;;)
 						{
@@ -692,8 +692,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							GridPos gridPos = currentBoardSquare.\u001D();
-							GridPos lastDrawnEndPreview = Board.\u000E().PlayerClampedSquare.\u001D();
+							GridPos gridPos = currentBoardSquare.GetGridPos();
+							GridPos gridPos2 = Board.Get().PlayerClampedSquare.GetGridPos();
 							if (this.m_movementLine != null)
 							{
 								for (;;)
@@ -708,9 +708,9 @@ public class LineData : NetworkBehaviour, IGameEventListener
 								if (flag5)
 								{
 									BoardSquare moveFromBoardSquare = GameFlowData.Get().activeOwnedActorData.MoveFromBoardSquare;
-									GridPos lastDrawnStartPreview = moveFromBoardSquare.\u001D();
+									GridPos gridPos3 = moveFromBoardSquare.GetGridPos();
 									bool flag9;
-									if (this.m_lastDrawnStartPreview.x == lastDrawnStartPreview.x)
+									if (this.m_lastDrawnStartPreview.x == gridPos3.x)
 									{
 										for (;;)
 										{
@@ -721,9 +721,9 @@ public class LineData : NetworkBehaviour, IGameEventListener
 											}
 											break;
 										}
-										if (this.m_lastDrawnStartPreview.y == lastDrawnStartPreview.y && this.m_lastDrawnEndPreview.x == lastDrawnEndPreview.x)
+										if (this.m_lastDrawnStartPreview.y == gridPos3.y && this.m_lastDrawnEndPreview.x == gridPos2.x)
 										{
-											flag9 = (this.m_lastDrawnEndPreview.y != lastDrawnEndPreview.y);
+											flag9 = (this.m_lastDrawnEndPreview.y != gridPos2.y);
 											goto IL_498;
 										}
 									}
@@ -752,16 +752,16 @@ public class LineData : NetworkBehaviour, IGameEventListener
 												}
 												break;
 											}
-											BoardSquare boardSquare = Board.\u000E().PlayerClampedSquare;
+											BoardSquare boardSquare = Board.Get().PlayerClampedSquare;
 											if (!actor.CanMoveToBoardSquare(boardSquare))
 											{
-												boardSquare = actor.\u000E().GetClosestMoveableSquareTo(boardSquare, false);
+												boardSquare = actor.GetActorMovement().GetClosestMoveableSquareTo(boardSquare, false);
 											}
-											BoardSquarePathInfo path = this.m_actor.\u000E().BuildPathTo(moveFromBoardSquare, boardSquare);
+											BoardSquarePathInfo path = this.m_actor.GetActorMovement().BuildPathTo(moveFromBoardSquare, boardSquare);
 											this.SetMouseOverMovementLine(this.GetGridPosPathForPath(path, false, null), false, false);
 											this.ShowLine(this.m_mousePotentialMovementLine, HighlightUtils.Get().m_movementLinePreviewColor, true, false);
-											this.m_lastDrawnStartPreview = lastDrawnStartPreview;
-											this.m_lastDrawnEndPreview = lastDrawnEndPreview;
+											this.m_lastDrawnStartPreview = gridPos3;
+											this.m_lastDrawnEndPreview = gridPos2;
 											this.m_lastPreviewDrawnTime = Time.time;
 										}
 										else
@@ -795,7 +795,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 										}
 										break;
 									}
-									if (this.m_lastDrawnEndPreview.x == lastDrawnEndPreview.x)
+									if (this.m_lastDrawnEndPreview.x == gridPos2.x)
 									{
 										for (;;)
 										{
@@ -806,7 +806,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 											}
 											break;
 										}
-										flag11 = (this.m_lastDrawnEndPreview.y != lastDrawnEndPreview.y);
+										flag11 = (this.m_lastDrawnEndPreview.y != gridPos2.y);
 										goto IL_5E7;
 									}
 								}
@@ -816,17 +816,17 @@ public class LineData : NetworkBehaviour, IGameEventListener
 							bool flag12 = flag11;
 							if (flag12)
 							{
-								BoardSquare boardSquare2 = Board.\u000E().PlayerClampedSquare;
+								BoardSquare boardSquare2 = Board.Get().PlayerClampedSquare;
 								if (!actor.CanMoveToBoardSquare(boardSquare2))
 								{
-									boardSquare2 = actor.\u000E().GetClosestMoveableSquareTo(boardSquare2, false);
+									boardSquare2 = actor.GetActorMovement().GetClosestMoveableSquareTo(boardSquare2, false);
 								}
 								BoardSquare initialMoveStartSquare = GameFlowData.Get().activeOwnedActorData.InitialMoveStartSquare;
-								BoardSquarePathInfo path2 = this.m_actor.\u000E().BuildPathTo(initialMoveStartSquare, boardSquare2);
+								BoardSquarePathInfo path2 = this.m_actor.GetActorMovement().BuildPathTo(initialMoveStartSquare, boardSquare2);
 								this.SetMouseOverMovementLine(this.GetGridPosPathForPath(path2, false, null), false, false);
 								this.ShowLine(this.m_mousePotentialMovementLine, HighlightUtils.Get().m_movementLinePreviewColor, true, false);
-								this.m_lastDrawnStartPreview = initialMoveStartSquare.\u001D();
-								this.m_lastDrawnEndPreview = lastDrawnEndPreview;
+								this.m_lastDrawnStartPreview = initialMoveStartSquare.GetGridPos();
+								this.m_lastDrawnEndPreview = gridPos2;
 								this.m_lastPreviewDrawnTime = Time.time;
 							}
 							IL_69F:
@@ -1044,7 +1044,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			GridPos item = default(GridPos);
 			item.x = (int)x;
 			item.y = (int)y;
-			item.height = (int)Board.\u000E().\u000E(item.x, item.y);
+			item.height = (int)Board.Get().GetSquareHeight(item.x, item.y);
 			lineInstance.m_positions.Add(item);
 		}
 		for (;;)
@@ -1206,7 +1206,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		snaredMovement = false;
 		showLostMovement = false;
 		fullPathColor = (snaredColor = HighlightUtils.Get().s_defaultMovementColor * colorMult);
-		if (this.m_actor != null && this.m_actor.\u000E() != null)
+		if (this.m_actor != null && this.m_actor.GetActorStatus() != null)
 		{
 			for (;;)
 			{
@@ -1221,8 +1221,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.GetMovementLineVisibilityFromStatus(float, bool*, bool*, bool*, Color*, Color*)).MethodHandle;
 			}
-			ActorStatus actorStatus = this.m_actor.\u000E();
-			AbilityData abilityData = this.m_actor.\u000E();
+			ActorStatus actorStatus = this.m_actor.GetActorStatus();
+			AbilityData abilityData = this.m_actor.GetAbilityData();
 			bool flag = actorStatus.IsMovementDebuffImmune(true);
 			if (!flag)
 			{
@@ -1719,7 +1719,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					flag2 = (teamViewing == actor.\u000E());
+					flag2 = (teamViewing == actor.GetTeam());
 				}
 				else
 				{
@@ -1917,8 +1917,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		List<Vector3> list = new List<Vector3>();
 		for (int i = 0; i < targetSquares.Count; i++)
 		{
-			Vector3 vector = Board.\u000E().\u000E(targetSquares[i]).\u001D();
-			list.Add(new Vector3(vector.x, vector.y + 0.1f, vector.z));
+			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(targetSquares[i]).GetWorldPosition();
+			list.Add(new Vector3(worldPosition.x, worldPosition.y + 0.1f, worldPosition.z));
 		}
 		for (;;)
 		{
@@ -1961,8 +1961,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.GetGridPosPathForPath(BoardSquarePathInfo, bool, ActorData)).MethodHandle;
 			}
 			list = new List<GridPos>();
-			list.Add(this.m_actor.MoveFromBoardSquare.\u001D());
-			list.Add(chaseTarget.\u0012().\u001D());
+			list.Add(this.m_actor.MoveFromBoardSquare.GetGridPos());
+			list.Add(chaseTarget.GetCurrentBoardSquare().GetGridPos());
 		}
 		else if (path != null)
 		{
@@ -2214,11 +2214,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 						break;
 					}
 					MovementPathStart movePathStart = inst.m_movePathStart;
-					GridPos u001D = inst.m_positions[inst.m_positions.Count - 1];
-					BoardSquare characterMovementPanel = Board.\u000E().\u000E(u001D);
+					GridPos gridPos = inst.m_positions[inst.m_positions.Count - 1];
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
 					if (movePathStart != null)
 					{
-						movePathStart.SetCharacterMovementPanel(characterMovementPanel);
+						movePathStart.SetCharacterMovementPanel(boardSquareSafe);
 					}
 				}
 			}

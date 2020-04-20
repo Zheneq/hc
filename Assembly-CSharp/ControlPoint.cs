@@ -462,8 +462,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 
 	public List<BoardSquare> GetSquaresForVision()
 	{
-		List<BoardSquare> list = this.m_visionRegionOverride.\u001D();
-		if (list.Count > 0)
+		List<BoardSquare> squaresInRegion = this.m_visionRegionOverride.GetSquaresInRegion();
+		if (squaresInRegion.Count > 0)
 		{
 			for (;;)
 			{
@@ -478,9 +478,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetSquaresForVision()).MethodHandle;
 			}
-			return list;
+			return squaresInRegion;
 		}
-		return this.m_region.\u001D();
+		return this.m_region.GetSquaresInRegion();
 	}
 
 	protected void HookSetCurrentState(ControlPoint.State newState)
@@ -795,7 +795,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					this.m_autoBoundary = HighlightUtils.Get().CreateBoundaryHighlight(this.m_region.\u001D(), Color.yellow, false);
+					this.m_autoBoundary = HighlightUtils.Get().CreateBoundaryHighlight(this.m_region.GetSquaresInRegion(), Color.yellow, false);
 					this.m_autoBoundary.name = this.m_displayName + " Auto-Boundary";
 					UnityEngine.Object.DontDestroyOnLoad(this.m_autoBoundary);
 					this.m_autoBoundaryHeight = this.m_autoBoundary.transform.position.y;
@@ -1036,7 +1036,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		else
 		{
-			vector = this.m_region.\u001D();
+			vector = this.m_region.GetCenter();
 		}
 		Vector3 b2;
 		if (Camera.main != null)
@@ -1522,7 +1522,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (activeOwnedActorData.\u000E() == capturedByTeam)
+					if (activeOwnedActorData.GetTeam() == capturedByTeam)
 					{
 						for (;;)
 						{
@@ -1537,7 +1537,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						goto IL_260;
 					}
 				}
-				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyCapture && activeOwnedActorData.\u000E() != capturedByTeam)
+				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyCapture && activeOwnedActorData.GetTeam() != capturedByTeam)
 				{
 					InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 				}
@@ -1554,7 +1554,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() == capturedByTeam)
+						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
 							for (;;)
 							{
@@ -1592,7 +1592,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() != capturedByTeam)
+						if (activeOwnedActorData.GetTeam() != capturedByTeam)
 						{
 							for (;;)
 							{
@@ -1630,7 +1630,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() == capturedByTeam)
+						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
 							for (;;)
 							{
@@ -1657,7 +1657,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							}
 						}
 					}
-					if (captureMessage.condition != ControlPoint.CaptureMessageCondition.OnEnemyTeamBCapture || activeOwnedActorData.\u000E() == capturedByTeam)
+					if (captureMessage.condition != ControlPoint.CaptureMessageCondition.OnEnemyTeamBCapture || activeOwnedActorData.GetTeam() == capturedByTeam)
 					{
 						goto IL_249;
 					}
@@ -2050,7 +2050,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						actorData.\u000E().MarkForRecalculateVisibility();
+						actorData.GetFogOfWar().MarkForRecalculateVisibility();
 					}
 					for (;;)
 					{
@@ -2087,7 +2087,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamB);
 			foreach (ActorData actorData in allTeamMembers)
 			{
-				actorData.\u000E().MarkForRecalculateVisibility();
+				actorData.GetFogOfWar().MarkForRecalculateVisibility();
 			}
 		}
 	}

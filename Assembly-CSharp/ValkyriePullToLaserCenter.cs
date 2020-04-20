@@ -122,7 +122,7 @@ public class ValkyriePullToLaserCenter : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		int num = this.GetDamage();
 		int extraDamageIfKnockedInPlace = this.GetExtraDamageIfKnockedInPlace();
-		if (extraDamageIfKnockedInPlace != 0 && !targetActor.\u000E().IsMovementDebuffImmune(true))
+		if (extraDamageIfKnockedInPlace != 0 && !targetActor.GetActorStatus().IsMovementDebuffImmune(true))
 		{
 			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
 			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
@@ -177,7 +177,7 @@ public class ValkyriePullToLaserCenter : Ability
 		if (extraDamageForCenterHits > 0 && base.Targeter is AbilityUtil_Targeter_KnockbackLaser)
 		{
 			AbilityUtil_Targeter_KnockbackLaser abilityUtil_Targeter_KnockbackLaser = base.Targeter as AbilityUtil_Targeter_KnockbackLaser;
-			bool flag = AreaEffectUtils.IsSquareInBoxByActorRadius(targetActor.\u0012(), base.ActorData.\u0015(), abilityUtil_Targeter_KnockbackLaser.GetLastLaserEndPos(), this.GetCenterHitWidth());
+			bool flag = AreaEffectUtils.IsSquareInBoxByActorRadius(targetActor.GetCurrentBoardSquare(), base.ActorData.GetTravelBoardSquareWorldPositionForLos(), abilityUtil_Targeter_KnockbackLaser.GetLastLaserEndPos(), this.GetCenterHitWidth());
 			if (flag)
 			{
 				for (;;)

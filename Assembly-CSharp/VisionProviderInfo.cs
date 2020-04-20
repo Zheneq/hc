@@ -70,7 +70,7 @@ public struct VisionProviderInfo
 	{
 		if (this.m_actorIndex == ActorData.s_invalidActorIndex)
 		{
-			return Board.\u000E().\u0016(this.m_boardX, this.m_boardY);
+			return Board.Get().GetBoardSquare(this.m_boardX, this.m_boardY);
 		}
 		for (;;)
 		{
@@ -102,7 +102,7 @@ public struct VisionProviderInfo
 				}
 				break;
 			}
-			if (!actorData.\u000E())
+			if (!actorData.IsDead())
 			{
 				for (;;)
 				{
@@ -113,7 +113,7 @@ public struct VisionProviderInfo
 					}
 					break;
 				}
-				result = actorData.\u0012();
+				result = actorData.GetCurrentBoardSquare();
 			}
 		}
 		else
@@ -140,7 +140,7 @@ public struct VisionProviderInfo
 			PersistentSatellite persistentSatellite2 = persistentSatellite;
 			if (persistentSatellite2 != null && persistentSatellite2.IsVisible())
 			{
-				result = Board.\u000E().\u000E(persistentSatellite2.transform.position);
+				result = Board.Get().GetBoardSquare(persistentSatellite2.transform.position);
 			}
 		}
 		return result;

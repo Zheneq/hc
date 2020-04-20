@@ -13,17 +13,17 @@ namespace Theatrics
 	{
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		[CompilerGenerated]
-		private AbilityPriority \u001D;
+		private AbilityPriority abilityPriority;
 
-		internal List<ActorAnimation> \u000E = new List<ActorAnimation>();
+		internal List<ActorAnimation> animations = new List<ActorAnimation>();
 
-		private Dictionary<int, int> \u0012 = new Dictionary<int, int>();
+		private Dictionary<int, int> actorIndexToDeltaHP = new Dictionary<int, int>();
 
 		private Dictionary<int, int> \u0015 = new Dictionary<int, int>();
 
-		private List<int> \u0016 = new List<int>();
+		private List<int> participants = new List<int>();
 
-		private int \u0013 = -1;
+		private int playOrderIndex = -1;
 
 		private int \u0018 = -1;
 
@@ -33,7 +33,7 @@ namespace Theatrics
 
 		private int \u0011 = -1;
 
-		private float \u001A;
+		private float maxCamStartDelay;
 
 		private int \u0004 = -1;
 
@@ -51,7 +51,7 @@ namespace Theatrics
 
 		private bool \u0002;
 
-		private float \u000A = -1f;
+		private float evadeStartTime = -1f;
 
 		private bool \u0006;
 
@@ -82,28 +82,28 @@ namespace Theatrics
 
 		internal AbilityPriority Index { get; private set; }
 
-		internal Dictionary<int, int> \u001C
+		internal Dictionary<int, int> ActorIndexToDeltaHP
 		{
 			get
 			{
-				return this.\u0012;
+				return this.actorIndexToDeltaHP;
 			}
 			private set
 			{
-				this.\u0012 = value;
+				this.actorIndexToDeltaHP = value;
 			}
 		}
 
-		public void \u001C()
+		public void SetSymbol0006ToTrue()
 		{
 			this.\u0006 = true;
 		}
 
 		internal void \u001D\u000E()
 		{
-			for (int i = 0; i < this.\u000E.Count; i++)
+			for (int i = 0; i < this.animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = this.\u000E[i];
+				ActorAnimation actorAnimation = this.animations[i];
 				if (!actorAnimation.\u0006\u000E())
 				{
 					for (;;)
@@ -120,7 +120,7 @@ namespace Theatrics
 						RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001D\u000E()).MethodHandle;
 					}
 					float b = actorAnimation.\u000D\u000E(this.Index == AbilityPriority.Evasion && actorAnimation.\u0002\u000E());
-					this.\u001A = Mathf.Max(this.\u001A, b);
+					this.maxCamStartDelay = Mathf.Max(this.maxCamStartDelay, b);
 				}
 				if (this.\u0011 == -1)
 				{
@@ -133,7 +133,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					if (!actorAnimation.\u0008)
+					if (!actorAnimation.cinematicCamera)
 					{
 						for (;;)
 						{
@@ -144,7 +144,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						this.\u0011 = (int)actorAnimation.\u000A;
+						this.\u0011 = (int)actorAnimation.playOrderIndex;
 					}
 				}
 			}
@@ -162,7 +162,7 @@ namespace Theatrics
 		internal bool \u001C(ActorData \u001D)
 		{
 			bool result = false;
-			if (this.\u000E != null)
+			if (this.animations != null)
 			{
 				for (;;)
 				{
@@ -177,10 +177,10 @@ namespace Theatrics
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(ActorData)).MethodHandle;
 				}
-				for (int i = 0; i < this.\u000E.Count; i++)
+				for (int i = 0; i < this.animations.Count; i++)
 				{
-					ActorAnimation actorAnimation = this.\u000E[i];
-					if (actorAnimation.\u000D\u000E == \u001D)
+					ActorAnimation actorAnimation = this.animations[i];
+					if (actorAnimation.Actor == \u001D)
 					{
 						for (;;)
 						{
@@ -202,7 +202,7 @@ namespace Theatrics
 								}
 								break;
 							}
-							bool flag = actorAnimation.\u000D\u000E >= ActorAnimation.PlaybackState.\u0016;
+							bool flag = actorAnimation.State >= ActorAnimation.PlaybackState.\u0016;
 							bool flag2 = ClientResolutionManager.Get().HitsDoneExecuting(actorAnimation.SeqSource);
 							if (flag2)
 							{
@@ -281,7 +281,7 @@ namespace Theatrics
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u000E\u000E(ActorData)).MethodHandle;
 				}
-				if (this.\u0016 != null)
+				if (this.participants != null)
 				{
 					for (;;)
 					{
@@ -292,7 +292,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					return this.\u0016.Contains(\u001D.ActorIndex);
+					return this.participants.Contains(\u001D.ActorIndex);
 				}
 			}
 			return false;
@@ -301,10 +301,10 @@ namespace Theatrics
 		internal bool \u001C()
 		{
 			bool result = false;
-			for (int i = 0; i < this.\u000E.Count; i++)
+			for (int i = 0; i < this.animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = this.\u000E[i];
-				if (actorAnimation.\u000D\u000E != ActorAnimation.PlaybackState.\u0018 && actorAnimation.\u000D\u000E != ActorAnimation.PlaybackState.\u0013)
+				ActorAnimation actorAnimation = this.animations[i];
+				if (actorAnimation.State != ActorAnimation.PlaybackState.\u0018 && actorAnimation.State != ActorAnimation.PlaybackState.\u0013)
 				{
 					result = true;
 					break;
@@ -313,14 +313,14 @@ namespace Theatrics
 			return result;
 		}
 
-		internal void \u001C(IBitStream \u001D)
+		internal void OnSerializeHelper(IBitStream stream)
 		{
 			sbyte b = (sbyte)this.Index;
-			\u001D.Serialize(ref b);
+			stream.Serialize(ref b);
 			this.Index = (AbilityPriority)b;
-			sbyte b2 = (sbyte)this.\u000E.Count;
+			sbyte b2 = (sbyte)this.animations.Count;
 			bool flag;
-			if (\u001D.isWriting)
+			if (stream.isWriting)
 			{
 				for (;;)
 				{
@@ -333,7 +333,7 @@ namespace Theatrics
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(IBitStream)).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.OnSerializeHelper(IBitStream)).MethodHandle;
 				}
 				if (!this.\u0006)
 				{
@@ -358,7 +358,7 @@ namespace Theatrics
 				flag = false;
 			}
 			bool flag2 = flag;
-			if (\u001D.isWriting)
+			if (stream.isWriting)
 			{
 				for (;;)
 				{
@@ -374,12 +374,12 @@ namespace Theatrics
 					b2 = 0;
 				}
 			}
-			\u001D.Serialize(ref b2);
+			stream.Serialize(ref b2);
 			for (int i = 0; i < (int)b2; i++)
 			{
-				while (i >= this.\u000E.Count)
+				while (i >= this.animations.Count)
 				{
-					this.\u000E.Add(new ActorAnimation(this.\u000F));
+					this.animations.Add(new ActorAnimation(this.\u000F));
 				}
 				for (;;)
 				{
@@ -390,7 +390,7 @@ namespace Theatrics
 					}
 					break;
 				}
-				this.\u000E[i].\u000D\u000E(\u001D);
+				this.animations[i].OnSerializeHelper(stream);
 			}
 			for (;;)
 			{
@@ -401,7 +401,7 @@ namespace Theatrics
 				}
 				break;
 			}
-			if (\u001D.isWriting)
+			if (stream.isWriting)
 			{
 				for (;;)
 				{
@@ -412,17 +412,17 @@ namespace Theatrics
 					}
 					break;
 				}
-				sbyte b3 = (sbyte)this.\u0012.Count;
-				\u001D.Serialize(ref b3);
-				using (Dictionary<int, int>.Enumerator enumerator = this.\u0012.GetEnumerator())
+				sbyte b3 = (sbyte)this.actorIndexToDeltaHP.Count;
+				stream.Serialize(ref b3);
+				using (Dictionary<int, int>.Enumerator enumerator = this.actorIndexToDeltaHP.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
 						KeyValuePair<int, int> keyValuePair = enumerator.Current;
 						sbyte b4 = (sbyte)keyValuePair.Key;
 						short num = (short)keyValuePair.Value;
-						\u001D.Serialize(ref b4);
-						\u001D.Serialize(ref num);
+						stream.Serialize(ref b4);
+						stream.Serialize(ref num);
 					}
 					for (;;)
 					{
@@ -438,15 +438,15 @@ namespace Theatrics
 			else
 			{
 				sbyte b5 = -1;
-				\u001D.Serialize(ref b5);
-				this.\u0012 = new Dictionary<int, int>();
+				stream.Serialize(ref b5);
+				this.actorIndexToDeltaHP = new Dictionary<int, int>();
 				for (int j = 0; j < (int)b5; j++)
 				{
 					sbyte b6 = (sbyte)ActorData.s_invalidActorIndex;
 					short value = -1;
-					\u001D.Serialize(ref b6);
-					\u001D.Serialize(ref value);
-					this.\u0012.Add((int)b6, (int)value);
+					stream.Serialize(ref b6);
+					stream.Serialize(ref value);
+					this.actorIndexToDeltaHP.Add((int)b6, (int)value);
 				}
 				for (;;)
 				{
@@ -460,7 +460,7 @@ namespace Theatrics
 			}
 			if ((int)b == 5)
 			{
-				if (\u001D.isWriting)
+				if (stream.isWriting)
 				{
 					for (;;)
 					{
@@ -484,31 +484,31 @@ namespace Theatrics
 							break;
 						}
 						b7 = 0;
-						\u001D.Serialize(ref b7);
+						stream.Serialize(ref b7);
 					}
 					else
 					{
-						\u001D.Serialize(ref b7);
+						stream.Serialize(ref b7);
 						foreach (KeyValuePair<int, int> keyValuePair2 in this.\u0015)
 						{
 							sbyte b8 = (sbyte)keyValuePair2.Key;
 							sbyte b9 = (sbyte)keyValuePair2.Value;
-							\u001D.Serialize(ref b8);
-							\u001D.Serialize(ref b9);
+							stream.Serialize(ref b8);
+							stream.Serialize(ref b9);
 						}
 					}
 				}
 				else
 				{
 					sbyte b10 = -1;
-					\u001D.Serialize(ref b10);
+					stream.Serialize(ref b10);
 					this.\u0015 = new Dictionary<int, int>();
 					for (int k = 0; k < (int)b10; k++)
 					{
 						sbyte b11 = (sbyte)ActorData.s_invalidActorIndex;
 						sbyte b12 = -1;
-						\u001D.Serialize(ref b11);
-						\u001D.Serialize(ref b12);
+						stream.Serialize(ref b11);
+						stream.Serialize(ref b12);
 						this.\u0015.Add((int)b11, (int)b12);
 					}
 					for (;;)
@@ -522,7 +522,7 @@ namespace Theatrics
 					}
 				}
 			}
-			if (\u001D.isWriting)
+			if (stream.isWriting)
 			{
 				for (;;)
 				{
@@ -533,13 +533,13 @@ namespace Theatrics
 					}
 					break;
 				}
-				sbyte b13 = (sbyte)this.\u0016.Count;
-				\u001D.Serialize(ref b13);
+				sbyte b13 = (sbyte)this.participants.Count;
+				stream.Serialize(ref b13);
 				sbyte b14 = 0;
 				while ((int)b14 < (int)b13)
 				{
-					sbyte b15 = (sbyte)this.\u0016[(int)b14];
-					\u001D.Serialize(ref b15);
+					sbyte b15 = (sbyte)this.participants[(int)b14];
+					stream.Serialize(ref b15);
 					b14 = (sbyte)((int)b14 + 1);
 				}
 				for (;;)
@@ -555,14 +555,14 @@ namespace Theatrics
 			else
 			{
 				sbyte b16 = -1;
-				\u001D.Serialize(ref b16);
-				this.\u0016 = new List<int>();
+				stream.Serialize(ref b16);
+				this.participants = new List<int>();
 				sbyte b17 = 0;
 				while ((int)b17 < (int)b16)
 				{
 					sbyte b18 = -1;
-					\u001D.Serialize(ref b18);
-					this.\u0016.Add((int)b18);
+					stream.Serialize(ref b18);
+					this.participants.Add((int)b18);
 					b17 = (sbyte)((int)b17 + 1);
 				}
 				for (;;)
@@ -600,7 +600,7 @@ namespace Theatrics
 					for (int i = 0; i < \u001D.Count; i++)
 					{
 						ActorAnimation actorAnimation = \u001D[i];
-						theatricsAbilityHighlightStartArgs.m_casters.Add(actorAnimation.\u000D\u000E);
+						theatricsAbilityHighlightStartArgs.m_casters.Add(actorAnimation.Actor);
 						if (actorAnimation.HitActorsToDeltaHP != null)
 						{
 							for (;;)
@@ -678,9 +678,9 @@ namespace Theatrics
 		private unsafe ActorData \u001C(int \u001D, out bool \u000E)
 		{
 			\u000E = false;
-			for (int i = 0; i < this.\u000E.Count; i++)
+			for (int i = 0; i < this.animations.Count; i++)
 			{
-				if ((int)this.\u000E[i].\u000A == \u001D)
+				if ((int)this.animations[i].playOrderIndex == \u001D)
 				{
 					for (;;)
 					{
@@ -695,8 +695,8 @@ namespace Theatrics
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(int, bool*)).MethodHandle;
 					}
-					\u000E = this.\u000E[i].\u0008;
-					return this.\u000E[i].\u000D\u000E;
+					\u000E = this.animations[i].cinematicCamera;
+					return this.animations[i].Actor;
 				}
 			}
 			return null;
@@ -705,9 +705,9 @@ namespace Theatrics
 		private bool \u001C(int \u001D)
 		{
 			bool flag = false;
-			for (int i = 0; i < this.\u000E.Count; i++)
+			for (int i = 0; i < this.animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = this.\u000E[i];
+				ActorAnimation actorAnimation = this.animations[i];
 				if (actorAnimation != null)
 				{
 					for (;;)
@@ -723,7 +723,7 @@ namespace Theatrics
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(int)).MethodHandle;
 					}
-					if (actorAnimation.HitActorsToDeltaHP != null && (int)actorAnimation.\u000A == \u001D)
+					if (actorAnimation.HitActorsToDeltaHP != null && (int)actorAnimation.playOrderIndex == \u001D)
 					{
 						if (!actorAnimation.\u0002\u000E())
 						{
@@ -743,10 +743,10 @@ namespace Theatrics
 									KeyValuePair<ActorData, int> keyValuePair = enumerator.Current;
 									ActorData key = keyValuePair.Key;
 									int value = keyValuePair.Value;
-									int num = key.\u0009();
-									int num2 = key.\u000E(value);
+									int hitPointsAfterResolution = key.GetHitPointsAfterResolution();
+									int hitPointsAfterResolutionWithDelta = key.GetHitPointsAfterResolutionWithDelta(value);
 									bool flag2;
-									if (value < 0 && num > 0)
+									if (value < 0 && hitPointsAfterResolution > 0)
 									{
 										for (;;)
 										{
@@ -757,7 +757,7 @@ namespace Theatrics
 											}
 											break;
 										}
-										flag2 = (num2 <= 0);
+										flag2 = (hitPointsAfterResolutionWithDelta <= 0);
 									}
 									else
 									{
@@ -779,7 +779,7 @@ namespace Theatrics
 									}
 									else
 									{
-										if (value > 0 && num <= 0)
+										if (value > 0 && hitPointsAfterResolution <= 0)
 										{
 											for (;;)
 											{
@@ -790,7 +790,7 @@ namespace Theatrics
 												}
 												break;
 											}
-											if (num2 > 0)
+											if (hitPointsAfterResolutionWithDelta > 0)
 											{
 												for (;;)
 												{
@@ -862,9 +862,9 @@ namespace Theatrics
 												"\nhpDelta: ",
 												value,
 												" | hpForDisplay: ",
-												num,
+												hitPointsAfterResolution,
 												" | expectedHpAfterHit: ",
-												num2
+												hitPointsAfterResolutionWithDelta
 											}), CameraManager.CameraLogType.None);
 										}
 									}
@@ -997,15 +997,15 @@ namespace Theatrics
 		{
 			this.\u0017 += GameTime.deltaTime;
 			this.\u000D += GameTime.deltaTime;
-			bool flag = (this.\u000E.Count != 0 & this.Index == AbilityPriority.Evasion) && !this.\u0002;
+			bool flag = (this.animations.Count != 0 & this.Index == AbilityPriority.Evasion) && !this.\u0002;
 			bool flag2 = true;
-			for (int i = 0; i < this.\u000E.Count; i++)
+			for (int i = 0; i < this.animations.Count; i++)
 			{
-				ActorAnimation actorAnimation = this.\u000E[i];
+				ActorAnimation actorAnimation = this.animations[i];
 				if (actorAnimation.\u000D\u000E(\u001D))
 				{
 					flag = true;
-					if ((int)actorAnimation.\u000A <= this.\u0013)
+					if ((int)actorAnimation.playOrderIndex <= this.playOrderIndex)
 					{
 						for (;;)
 						{
@@ -1040,7 +1040,7 @@ namespace Theatrics
 						}
 						flag2 = flag3;
 					}
-					if ((int)actorAnimation.\u000A == this.\u0013)
+					if ((int)actorAnimation.playOrderIndex == this.playOrderIndex)
 					{
 						bool flag4 = actorAnimation.\u000C\u000E();
 						bool flag5;
@@ -1136,9 +1136,9 @@ namespace Theatrics
 			}
 			int num = int.MaxValue;
 			int num2 = int.MaxValue;
-			for (int j = 0; j < this.\u000E.Count; j++)
+			for (int j = 0; j < this.animations.Count; j++)
 			{
-				ActorAnimation actorAnimation2 = this.\u000E[j];
+				ActorAnimation actorAnimation2 = this.animations[j];
 				if (actorAnimation2 != null)
 				{
 					for (;;)
@@ -1150,7 +1150,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					if (actorAnimation2.\u000D\u000E == ActorAnimation.PlaybackState.\u001D)
+					if (actorAnimation2.State == ActorAnimation.PlaybackState.\u001D)
 					{
 						for (;;)
 						{
@@ -1161,7 +1161,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						if ((int)actorAnimation2.\u000A < num)
+						if ((int)actorAnimation2.playOrderIndex < num)
 						{
 							for (;;)
 							{
@@ -1172,8 +1172,8 @@ namespace Theatrics
 								}
 								break;
 							}
-							num = (int)actorAnimation2.\u000A;
-							num2 = (int)actorAnimation2.\u0006;
+							num = (int)actorAnimation2.playOrderIndex;
+							num2 = (int)actorAnimation2.groupIndex;
 						}
 					}
 				}
@@ -1250,7 +1250,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					if (num != this.\u0013)
+					if (num != this.playOrderIndex)
 					{
 						for (;;)
 						{
@@ -1342,7 +1342,7 @@ namespace Theatrics
 						"\nminNotStartedPLayOrderIndex: ",
 						num,
 						"\nplayOrderIndex: ",
-						this.\u0013
+						this.playOrderIndex
 					}), new object[0]);
 					flag10 = true;
 				}
@@ -1365,9 +1365,9 @@ namespace Theatrics
 				list = new List<ActorAnimation>();
 				bool flag14 = true;
 				int k = 0;
-				while (k < this.\u000E.Count)
+				while (k < this.animations.Count)
 				{
-					ActorAnimation actorAnimation3 = this.\u000E[k];
+					ActorAnimation actorAnimation3 = this.animations[k];
 					if (actorAnimation3 == null)
 					{
 						goto IL_3EB;
@@ -1382,7 +1382,7 @@ namespace Theatrics
 						break;
 					}
 					ActorModelData actorModelData;
-					if (actorAnimation3.\u000D\u000E == null)
+					if (actorAnimation3.Actor == null)
 					{
 						for (;;)
 						{
@@ -1396,7 +1396,7 @@ namespace Theatrics
 					}
 					else
 					{
-						actorModelData = actorAnimation3.\u000D\u000E.\u000E();
+						actorModelData = actorAnimation3.Actor.GetActorModelData();
 					}
 					IL_3FC:
 					ActorModelData actorModelData2 = actorModelData;
@@ -1420,7 +1420,7 @@ namespace Theatrics
 					}
 					Animator animator2 = animator;
 					bool flag15 = false;
-					if (actorAnimation3.\u000D\u000E != null)
+					if (actorAnimation3.Actor != null)
 					{
 						for (;;)
 						{
@@ -1431,9 +1431,9 @@ namespace Theatrics
 							}
 							break;
 						}
-						if (actorAnimation3.\u0002\u000E() <= 0)
+						if (actorAnimation3.GetAnimationIndex() <= 0)
 						{
-							flag15 = actorAnimation3.\u000D\u000E.\u0012();
+							flag15 = actorAnimation3.Actor.IsModelAnimatorDisabled();
 						}
 					}
 					if (actorAnimation3 != null)
@@ -1447,7 +1447,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						if (actorAnimation3.\u000D\u000E == ActorAnimation.PlaybackState.\u001D)
+						if (actorAnimation3.State == ActorAnimation.PlaybackState.\u001D)
 						{
 							for (;;)
 							{
@@ -1458,7 +1458,7 @@ namespace Theatrics
 								}
 								break;
 							}
-							if ((int)actorAnimation3.\u000A == num)
+							if ((int)actorAnimation3.playOrderIndex == num)
 							{
 								for (;;)
 								{
@@ -1481,7 +1481,7 @@ namespace Theatrics
 										}
 										break;
 									}
-									if (!actorAnimation3.\u000D\u000E(this.Index, false))
+									if (!actorAnimation3.IsReadyToPlay_zq(this.Index, false))
 									{
 										goto IL_550;
 									}
@@ -1711,7 +1711,7 @@ namespace Theatrics
 											array[0xA] = integer;
 											array[0xB] = ", animator layer count: ";
 											array[0xC] = ((!(animator2 == null)) ? animator2.layerCount.ToString() : "NULL");
-											array[0xD] = ((actorAnimation3.\u000D\u000E == ActorAnimation.PlaybackState.\u001D) ? (", sequences ready: " + actorAnimation3.\u000D\u000E(this.Index, true)) : string.Empty);
+											array[0xD] = ((actorAnimation3.State == ActorAnimation.PlaybackState.\u001D) ? (", sequences ready: " + actorAnimation3.IsReadyToPlay_zq(this.Index, true)) : string.Empty);
 											Log.Error(string.Concat(array), new object[0]);
 										}
 										if (this.\u0017 > 8f)
@@ -2006,7 +2006,7 @@ namespace Theatrics
 						{
 							this.\u000E\u000E();
 						}
-						if (TheatricsManager.\u000E)
+						if (TheatricsManager.DebugLog)
 						{
 							for (;;)
 							{
@@ -2034,11 +2034,11 @@ namespace Theatrics
 				}
 				if (flag14)
 				{
-					this.\u0013 = num;
+					this.playOrderIndex = num;
 					this.\u0018 = num2;
 					flag2 = false;
 					GameEventManager.TheatricsAbilityAnimationStartArgs theatricsAbilityAnimationStartArgs = new GameEventManager.TheatricsAbilityAnimationStartArgs();
-					theatricsAbilityAnimationStartArgs.lastInPhase = (this.\u0013 >= this.\u0019);
+					theatricsAbilityAnimationStartArgs.lastInPhase = (this.playOrderIndex >= this.\u0019);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilityAnimationStart, theatricsAbilityAnimationStartArgs);
 				}
 			}
@@ -2112,9 +2112,9 @@ namespace Theatrics
 				}
 				IL_106F:
 				float num8 = (this.\u000B > 0f) ? (this.\u000B + num7) : 0f;
-				for (int l = 0; l < this.\u000E.Count; l++)
+				for (int l = 0; l < this.animations.Count; l++)
 				{
-					ActorAnimation actorAnimation4 = this.\u000E[l];
+					ActorAnimation actorAnimation4 = this.animations[l];
 					if (actorAnimation4 != null)
 					{
 						for (;;)
@@ -2126,7 +2126,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						if (actorAnimation4.\u000D\u000E == ActorAnimation.PlaybackState.\u001D && (int)actorAnimation4.\u000A == this.\u0013)
+						if (actorAnimation4.State == ActorAnimation.PlaybackState.\u001D && (int)actorAnimation4.playOrderIndex == this.playOrderIndex)
 						{
 							for (;;)
 							{
@@ -2138,7 +2138,7 @@ namespace Theatrics
 								break;
 							}
 							float num9 = Mathf.Max(0f, num8 - GameTime.time);
-							if (actorAnimation4.\u000A\u000E())
+							if (actorAnimation4.GetSymbol0013())
 							{
 								for (;;)
 								{
@@ -2152,7 +2152,7 @@ namespace Theatrics
 								num9 = 0f;
 							}
 							float num10 = actorAnimation4.\u000D\u000E(false);
-							if (actorAnimation4.\u0002\u000E() == 0)
+							if (actorAnimation4.GetAnimationIndex() == 0)
 							{
 								for (;;)
 								{
@@ -2190,7 +2190,7 @@ namespace Theatrics
 									}
 									break;
 								}
-								if (TheatricsManager.\u000E)
+								if (TheatricsManager.DebugLog)
 								{
 									for (;;)
 									{
@@ -2206,7 +2206,7 @@ namespace Theatrics
 										"Queued ",
 										actorAnimation4,
 										"\ngroup ",
-										actorAnimation4.\u0006,
+										actorAnimation4.groupIndex,
 										" camStartEventDelay: ",
 										num10,
 										" easeInTime: ",
@@ -2217,10 +2217,10 @@ namespace Theatrics
 										this.Index.ToString()
 									}));
 								}
-								actorAnimation4.\u000D\u000E(\u001D);
+								actorAnimation4.method000D000E(\u001D);
 								this.\u0017 = 0f;
 								this.\u000C = false;
-								this.\u001E = ((!(actorAnimation4.\u000D\u000E != null)) ? -1 : actorAnimation4.\u000D\u000E.ActorIndex);
+								this.\u001E = ((!(actorAnimation4.Actor != null)) ? -1 : actorAnimation4.Actor.ActorIndex);
 								if (this.Index != AbilityPriority.Evasion)
 								{
 									for (;;)
@@ -2243,7 +2243,7 @@ namespace Theatrics
 											}
 											break;
 										}
-										if (!actorAnimation4.\u000A\u000E())
+										if (!actorAnimation4.GetSymbol0013())
 										{
 											this.\u001C(new List<ActorAnimation>
 											{
@@ -2257,7 +2257,7 @@ namespace Theatrics
 					}
 				}
 			}
-			else if (this.\u0013 < this.\u0011)
+			else if (this.playOrderIndex < this.\u0011)
 			{
 				for (;;)
 				{
@@ -2268,9 +2268,9 @@ namespace Theatrics
 					}
 					break;
 				}
-				for (int m = 0; m < this.\u000E.Count; m++)
+				for (int m = 0; m < this.animations.Count; m++)
 				{
-					ActorAnimation actorAnimation5 = this.\u000E[m];
+					ActorAnimation actorAnimation5 = this.animations[m];
 					if (actorAnimation5 != null)
 					{
 						for (;;)
@@ -2282,7 +2282,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						if (actorAnimation5.\u000D\u000E == ActorAnimation.PlaybackState.\u001D)
+						if (actorAnimation5.State == ActorAnimation.PlaybackState.\u001D)
 						{
 							for (;;)
 							{
@@ -2293,9 +2293,9 @@ namespace Theatrics
 								}
 								break;
 							}
-							if ((int)actorAnimation5.\u000A == this.\u0013)
+							if ((int)actorAnimation5.playOrderIndex == this.playOrderIndex)
 							{
-								actorAnimation5.\u000D\u000E(\u001D);
+								actorAnimation5.method000D000E(\u001D);
 								this.\u0017 = 0f;
 								this.\u000C = false;
 							}
@@ -2314,8 +2314,8 @@ namespace Theatrics
 					}
 					break;
 				}
-				float num11 = Mathf.Max(0.8f, this.\u001A);
-				if (this.\u000A < 0f)
+				float num11 = Mathf.Max(0.8f, this.maxCamStartDelay);
+				if (this.evadeStartTime < 0f)
 				{
 					for (;;)
 					{
@@ -2326,22 +2326,22 @@ namespace Theatrics
 						}
 						break;
 					}
-					this.\u000A = GameTime.time + num11;
-					if (TheatricsManager.\u000E)
+					this.evadeStartTime = GameTime.time + num11;
+					if (TheatricsManager.DebugLog)
 					{
 						TheatricsManager.LogForDebugging(string.Concat(new object[]
 						{
 							"Setting evade start time: ",
-							this.\u000A,
+							this.evadeStartTime,
 							" maxEvadeStartDelay: ",
 							num11
 						}));
 					}
 				}
-				float u000A = this.\u000A;
-				for (int n = 0; n < this.\u000E.Count; n++)
+				float num12 = this.evadeStartTime;
+				for (int n = 0; n < this.animations.Count; n++)
 				{
-					ActorAnimation actorAnimation6 = this.\u000E[n];
+					ActorAnimation actorAnimation6 = this.animations[n];
 					if (actorAnimation6 != null)
 					{
 						for (;;)
@@ -2353,7 +2353,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						if (actorAnimation6.\u000D\u000E == ActorAnimation.PlaybackState.\u001D)
+						if (actorAnimation6.State == ActorAnimation.PlaybackState.\u001D)
 						{
 							for (;;)
 							{
@@ -2364,7 +2364,7 @@ namespace Theatrics
 								}
 								break;
 							}
-							if ((int)actorAnimation6.\u000A == this.\u0013)
+							if ((int)actorAnimation6.playOrderIndex == this.playOrderIndex)
 							{
 								for (;;)
 								{
@@ -2394,7 +2394,7 @@ namespace Theatrics
 									flag25 = false;
 								}
 								bool u001D = flag25;
-								if (u000A <= GameTime.time + Mathf.Max(1.401298E-45f, GameTime.smoothDeltaTime) + actorAnimation6.\u000D\u000E(u001D))
+								if (num12 <= GameTime.time + Mathf.Max(1.401298E-45f, GameTime.smoothDeltaTime) + actorAnimation6.\u000D\u000E(u001D))
 								{
 									for (;;)
 									{
@@ -2405,7 +2405,7 @@ namespace Theatrics
 										}
 										break;
 									}
-									actorAnimation6.\u000D\u000E(\u001D);
+									actorAnimation6.method000D000E(\u001D);
 									this.\u0017 = 0f;
 									this.\u000C = false;
 									if (this.\u0003 == 0f)
@@ -2424,13 +2424,13 @@ namespace Theatrics
 								}
 								if (actorAnimation6.\u0020\u000E())
 								{
-									actorAnimation6.\u000D\u000E.CurrentlyVisibleForAbilityCast = true;
+									actorAnimation6.Actor.CurrentlyVisibleForAbilityCast = true;
 								}
 							}
 						}
 					}
 				}
-				if (u000A > 0f && u000A <= GameTime.time)
+				if (num12 > 0f && num12 <= GameTime.time)
 				{
 					for (;;)
 					{
@@ -2441,18 +2441,18 @@ namespace Theatrics
 						}
 						break;
 					}
-					for (int num12 = 0; num12 < this.\u000E.Count; num12++)
+					for (int num13 = 0; num13 < this.animations.Count; num13++)
 					{
-						ActorAnimation actorAnimation7 = this.\u000E[num12];
-						if (actorAnimation7.\u000D\u000E() != null)
+						ActorAnimation actorAnimation7 = this.animations[num13];
+						if (actorAnimation7.GetAbility() != null)
 						{
-							actorAnimation7.\u000D\u000E().OnEvasionMoveStartEvent(actorAnimation7.\u000D\u000E);
+							actorAnimation7.GetAbility().OnEvasionMoveStartEvent(actorAnimation7.Actor);
 						}
 					}
 					List<ActorData> actors = GameFlowData.Get().GetActors();
-					for (int num13 = 0; num13 < actors.Count; num13++)
+					for (int num14 = 0; num14 < actors.Count; num14++)
 					{
-						actors[num13].CurrentlyVisibleForAbilityCast = false;
+						actors[num14].CurrentlyVisibleForAbilityCast = false;
 					}
 					for (;;)
 					{
@@ -2463,9 +2463,9 @@ namespace Theatrics
 						}
 						break;
 					}
-					for (int num14 = 0; num14 < actors.Count; num14++)
+					for (int num15 = 0; num15 < actors.Count; num15++)
 					{
-						actors[num14].ForceUpdateIsVisibleToClientCache();
+						actors[num15].ForceUpdateIsVisibleToClientCache();
 					}
 					for (;;)
 					{
@@ -2478,9 +2478,9 @@ namespace Theatrics
 					}
 					this.\u0002 = true;
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsEvasionMoveStart, null);
-					for (int num15 = 0; num15 < actors.Count; num15++)
+					for (int num16 = 0; num16 < actors.Count; num16++)
 					{
-						actors[num15].ForceUpdateIsVisibleToClientCache();
+						actors[num16].ForceUpdateIsVisibleToClientCache();
 					}
 					for (;;)
 					{
@@ -2491,7 +2491,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					if (TheatricsManager.\u000E)
+					if (TheatricsManager.DebugLog)
 					{
 						for (;;)
 						{
@@ -2502,7 +2502,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						TheatricsManager.LogForDebugging("Evasion Move Start, MaxCamStartDelay= " + this.\u001A);
+						TheatricsManager.LogForDebugging("Evasion Move Start, MaxCamStartDelay= " + this.maxCamStartDelay);
 					}
 				}
 			}

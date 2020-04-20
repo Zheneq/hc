@@ -74,7 +74,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 
 	internal static Blaster_SyncComponent.HitAreaIndicatorHighlight CreateHitAreaTemplate(float widthInSquares, Color color, bool dotted, float lineWidth = 0.1f)
 	{
-		float num = widthInSquares * Board.\u000E().squareSize;
+		float num = widthInSquares * Board.Get().squareSize;
 		GameObject gameObject = new GameObject("Blaster_RangeIndicator");
 		gameObject.transform.position = Vector3.zero;
 		gameObject.transform.localRotation = Quaternion.identity;
@@ -130,7 +130,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				if (this.m_actorData.\u0012() != null)
+				if (this.m_actorData.GetCurrentBoardSquare() != null)
 				{
 					for (;;)
 					{
@@ -191,7 +191,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				bool visible = activeOwnedActorData.\u000E() == this.m_actorData.\u000E();
+				bool visible = activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam();
 				Vector3 vector = this.m_delayedLaserAimDir;
 				if (this.m_delayedLaserAbility.TriggerAimAtBlaster())
 				{
@@ -204,7 +204,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					Vector3 vector2 = this.m_actorData.\u0012().ToVector3() - this.m_delayedLaserStartPos;
+					Vector3 vector2 = this.m_actorData.GetCurrentBoardSquare().ToVector3() - this.m_delayedLaserStartPos;
 					vector2.y = 0f;
 					vector2.Normalize();
 					if (vector2.magnitude > 0f)
@@ -221,16 +221,16 @@ public class Blaster_SyncComponent : NetworkBehaviour
 						vector = vector2;
 					}
 				}
-				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(this.m_delayedLaserStartPos, vector, this.m_delayedLaserAbility.GetLength() * Board.\u000E().squareSize, this.m_delayedLaserAbility.m_penetrateLineOfSight, this.m_actorData, null, true);
+				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(this.m_delayedLaserStartPos, vector, this.m_delayedLaserAbility.GetLength() * Board.Get().squareSize, this.m_delayedLaserAbility.m_penetrateLineOfSight, this.m_actorData, null, true);
 				Vector3 vector3 = this.m_delayedLaserStartPos;
 				float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
 				vector3 = VectorUtils.GetAdjustedStartPosWithOffset(vector3, laserEndPoint, laserInitialOffsetInSquares);
-				vector3.y = (float)Board.\u000E().BaselineHeight + 0.01f;
+				vector3.y = (float)Board.Get().BaselineHeight + 0.01f;
 				Vector3 vector4 = laserEndPoint - vector3;
 				vector4.y = 0f;
 				float magnitude = vector4.magnitude;
 				this.m_laserRangeMarkerForAlly.SetPose(vector3, vector);
-				this.m_laserRangeMarkerForAlly.AdjustSize(this.m_delayedLaserAbility.GetWidth(), magnitude / Board.\u000E().squareSize);
+				this.m_laserRangeMarkerForAlly.AdjustSize(this.m_delayedLaserAbility.GetWidth(), magnitude / Board.Get().squareSize);
 				this.m_laserRangeMarkerForAlly.SetVisible(visible);
 			}
 			else
@@ -680,14 +680,14 @@ public class Blaster_SyncComponent : NetworkBehaviour
 					break;
 				}
 				Vector3 localPosition = this.m_front.transform.localPosition;
-				localPosition.z = lengthInSquares * Board.\u000E().squareSize;
+				localPosition.z = lengthInSquares * Board.Get().squareSize;
 				this.m_front.transform.localPosition = localPosition;
 			}
 		}
 
 		public void AdjustSize(float widthInSquares, float lengthInSquares)
 		{
-			float num = widthInSquares * Board.\u000E().squareSize;
+			float num = widthInSquares * Board.Get().squareSize;
 			if (this.m_sideA != null)
 			{
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_sideA, lengthInSquares, this.m_color);
@@ -723,7 +723,7 @@ public class Blaster_SyncComponent : NetworkBehaviour
 					break;
 				}
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_front, widthInSquares, this.m_color);
-				this.m_front.transform.localPosition = new Vector3(-0.5f * num, 0f, lengthInSquares * Board.\u000E().squareSize);
+				this.m_front.transform.localPosition = new Vector3(-0.5f * num, 0f, lengthInSquares * Board.Get().squareSize);
 			}
 		}
 

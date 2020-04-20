@@ -46,12 +46,12 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0019.\u0012(), "on every hit actor, number of cone hits on target", true);
+		return base.GetContextUsageStr(ContextKeys.\u0019.GetName(), "on every hit actor, number of cone hits on target", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0019.\u0012());
+		names.Add(ContextKeys.\u0019.GetName());
 	}
 
 	public override void Initialize()
@@ -339,7 +339,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	private Vector3 GetDamageOriginForTargeter(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster)
 	{
-		return caster.\u0016();
+		return caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	public Vector3 GetFreePosForAim(AbilityTarget currentTarget, ActorData caster)
@@ -350,7 +350,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 	public virtual List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 a = caster.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		Vector3 normalized = Vector3.Cross(aimDirection, Vector3.up).normalized;
 		int coneCount = this.GetConeCount();
@@ -445,7 +445,7 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 					vector += (float)(i - num) * num3 * normalized;
 				}
 			}
-			list.Add(a + vector);
+			list.Add(travelBoardSquareWorldPositionForLos + vector);
 		}
 		if (this.GetConeStartOffsetInConeDir() > 0f)
 		{

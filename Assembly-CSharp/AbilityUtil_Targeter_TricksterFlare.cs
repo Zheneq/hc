@@ -45,7 +45,7 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterFlare.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
 			}
-			list.Add(targetingActor.\u0012());
+			list.Add(targetingActor.GetCurrentBoardSquare());
 		}
 		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
@@ -64,7 +64,7 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (actorData.\u0012() != null)
+					if (actorData.GetCurrentBoardSquare() != null)
 					{
 						for (;;)
 						{
@@ -75,7 +75,7 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 							}
 							break;
 						}
-						list.Add(actorData.\u0012());
+						list.Add(actorData.GetCurrentBoardSquare());
 					}
 				}
 			}
@@ -141,7 +141,7 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 				while (enumerator2.MoveNext())
 				{
 					ActorData actorData2 = enumerator2.Current;
-					bool flag = actorData2.\u000E() == targetingActor.\u000E();
+					bool flag = actorData2.GetTeam() == targetingActor.GetTeam();
 					if (!flag)
 					{
 						for (;;)
@@ -213,7 +213,7 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 						Dictionary<ActorData, int> dictionary3;
 						ActorData key;
 						(dictionary3 = dictionary2)[key = actorData2] = dictionary3[key] + 1;
-						ActorCover actorCover = actorData2.\u000E();
+						ActorCover actorCover = actorData2.GetActorCover();
 						if (actorCover != null && actorCover.IsInCoverWrt(dictionary[actorData2]))
 						{
 							for (;;)
@@ -268,7 +268,7 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 				for (int k = 0; k < dictionary2[key2]; k++)
 				{
 					AbilityTooltipSubject abilityTooltipSubject;
-					if (key2.\u000E() == targetingActor.\u000E())
+					if (key2.GetTeam() == targetingActor.GetTeam())
 					{
 						for (;;)
 						{

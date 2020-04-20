@@ -299,7 +299,7 @@ public class PowerUpManager : MonoBehaviour
 									}
 									break;
 								}
-								GridPos gridPos2 = activePowerUps[i].boardSquare.\u001D();
+								GridPos gridPos2 = activePowerUps[i].boardSquare.GetGridPos();
 								if (gridPos2.x == gridPos.x)
 								{
 									for (;;)

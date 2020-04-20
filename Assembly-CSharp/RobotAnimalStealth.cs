@@ -98,8 +98,8 @@ public class RobotAnimalStealth : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -110,7 +110,7 @@ public class RobotAnimalStealth : Ability
 					}
 					break;
 				}
-				if (boardSquare.\u0016())
+				if (boardSquareSafe.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -121,14 +121,14 @@ public class RobotAnimalStealth : Ability
 						}
 						break;
 					}
-					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare) != null;
+					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 				}
 			}
 			return false;
 		}
-		BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[0].GridPos);
-		BoardSquare boardSquare3 = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare3 != null)
+		BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
+		BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe3 != null)
 		{
 			for (;;)
 			{
@@ -139,7 +139,7 @@ public class RobotAnimalStealth : Ability
 				}
 				break;
 			}
-			if (boardSquare2 != boardSquare3)
+			if (boardSquareSafe2 != boardSquareSafe3)
 			{
 				for (;;)
 				{
@@ -150,7 +150,7 @@ public class RobotAnimalStealth : Ability
 					}
 					break;
 				}
-				if (boardSquare3.\u0016() && KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare3, boardSquare2, false) != null)
+				if (boardSquareSafe3.IsBaselineHeight() && KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false) != null)
 				{
 					for (;;)
 					{

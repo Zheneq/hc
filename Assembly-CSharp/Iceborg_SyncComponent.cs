@@ -154,7 +154,7 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 
 	public void SetHasCoreContext_Client(Dictionary<ActorData, ActorHitContext> actorHitContext, ActorData targetActor, ActorData caster)
 	{
-		if (actorHitContext.ContainsKey(targetActor) && caster.\u000E() != targetActor.\u000E())
+		if (actorHitContext.ContainsKey(targetActor) && caster.GetTeam() != targetActor.GetTeam())
 		{
 			for (;;)
 			{
@@ -171,8 +171,8 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 			}
 			bool flag = this.HasNovaCore(targetActor);
 			ContextVars u = actorHitContext[targetActor].\u0015;
-			int u001D = Iceborg_SyncComponent.s_cvarHasNova.\u0012();
-			int u000E;
+			int hash = Iceborg_SyncComponent.s_cvarHasNova.GetHash();
+			int value;
 			if (flag)
 			{
 				for (;;)
@@ -184,13 +184,13 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				u000E = 1;
+				value = 1;
 			}
 			else
 			{
-				u000E = 0;
+				value = 0;
 			}
-			u.\u0016(u001D, u000E);
+			u.SetInt(hash, value);
 		}
 	}
 

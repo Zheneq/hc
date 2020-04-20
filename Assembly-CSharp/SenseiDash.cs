@@ -87,7 +87,7 @@ public class SenseiDash : Ability
 						{
 							RuntimeMethodHandle runtimeMethodHandle2 = methodof(SenseiDash.<SetupTargeter>m__0(ActorData, AbilityTarget, List<ActorData>, ActorData, Ability)).MethodHandle;
 						}
-						if (senseiDash.CanHitEnemy() && actorToConsider.\u000E() != caster.\u000E())
+						if (senseiDash.CanHitEnemy() && actorToConsider.GetTeam() != caster.GetTeam())
 						{
 							for (;;)
 							{
@@ -111,7 +111,7 @@ public class SenseiDash : Ability
 								}
 								break;
 							}
-							if (actorToConsider.\u000E() == caster.\u000E())
+							if (actorToConsider.GetTeam() == caster.GetTeam())
 							{
 								for (;;)
 								{
@@ -392,8 +392,8 @@ public class SenseiDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -408,7 +408,7 @@ public class SenseiDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -419,7 +419,7 @@ public class SenseiDash : Ability
 					}
 					break;
 				}
-				if (!(boardSquare == caster.\u0012()))
+				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					bool flag = false;
 					bool flag2 = false;
@@ -455,8 +455,8 @@ public class SenseiDash : Ability
 						}
 					}
 					IL_F1:
-					BoardSquare boardSquare2 = Board.\u000E().\u000E(target.GridPos);
-					if (boardSquare2 != null)
+					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+					if (boardSquareSafe2 != null)
 					{
 						for (;;)
 						{
@@ -467,7 +467,7 @@ public class SenseiDash : Ability
 							}
 							break;
 						}
-						if (boardSquare2.\u0016())
+						if (boardSquareSafe2.IsBaselineHeight())
 						{
 							for (;;)
 							{
@@ -478,7 +478,7 @@ public class SenseiDash : Ability
 								}
 								break;
 							}
-							if (boardSquare2 != caster.\u0012())
+							if (boardSquareSafe2 != caster.GetCurrentBoardSquare())
 							{
 								for (;;)
 								{
@@ -490,7 +490,7 @@ public class SenseiDash : Ability
 									break;
 								}
 								int num;
-								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare2, caster.\u0012(), false, out num);
+								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe2, caster.GetCurrentBoardSquare(), false, out num);
 							}
 						}
 					}

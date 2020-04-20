@@ -30,8 +30,8 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.ClearActorsInRange();
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 vector2;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector;
 		if (currentTarget == null)
 		{
 			for (;;)
@@ -47,16 +47,16 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AnvilSlam.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
 			}
-			vector2 = targetingActor.transform.forward;
+			vector = targetingActor.transform.forward;
 		}
 		else
 		{
-			vector2 = currentTarget.AimDirection;
+			vector = currentTarget.AimDirection;
 		}
-		Vector3 vector3 = vector2;
+		Vector3 vector2 = vector;
 		VectorUtils.LaserCoords laserCoords;
-		laserCoords.start = vector;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector3, this.m_dashRangeInSquares, this.m_dashWidthInSquares, targetingActor, targetingActor.\u0015(), false, 1, false, false, out laserCoords.end, null, null, false, true);
+		laserCoords.start = travelBoardSquareWorldPositionForLos;
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, this.m_dashRangeInSquares, this.m_dashWidthInSquares, targetingActor, targetingActor.GetOpposingTeams(), false, 1, false, false, out laserCoords.end, null, null, false, true);
 		Vector3 a;
 		if (actorsInLaser.Count > 0)
 		{
@@ -69,20 +69,20 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 				}
 				break;
 			}
-			a = actorsInLaser[0].\u0016();
+			a = actorsInLaser[0].GetTravelBoardSquareWorldPosition();
 		}
 		else
 		{
-			float d = this.m_dashRangeInSquares * Board.\u000E().squareSize;
-			Vector3 endPos = vector + vector3 * d;
-			a = TargeterUtils.GetEndPointAndLimitToFurthestSquare(vector, endPos, this.m_dashWidthInSquares, this.m_dashRangeInSquares, false, targetingActor, 0.71f);
+			float d = this.m_dashRangeInSquares * Board.Get().squareSize;
+			Vector3 endPos = travelBoardSquareWorldPositionForLos + vector2 * d;
+			a = TargeterUtils.GetEndPointAndLimitToFurthestSquare(travelBoardSquareWorldPositionForLos, endPos, this.m_dashWidthInSquares, this.m_dashRangeInSquares, false, targetingActor, 0.71f);
 		}
 		using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				ActorData actor = enumerator.Current;
-				base.AddActorInRange(actor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Primary, false);
+				base.AddActorInRange(actor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, false);
 			}
 			for (;;)
 			{
@@ -135,12 +135,12 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 			break;
 		}
 		IL_1E5:
-		Vector3 vector4 = a - targetingActor.\u0016();
-		vector4.y = 0f;
-		float magnitude = vector4.magnitude;
-		this.m_highlights[0].transform.position = targetingActor.\u0016() + new Vector3(0f, 0.1f, 0f);
-		this.m_highlights[0].transform.rotation = Quaternion.LookRotation(vector3);
-		HighlightUtils.Get().ResizeRectangularCursor(this.m_dashWidthInSquares * Board.\u000E().squareSize, magnitude, this.m_highlights[0]);
+		Vector3 vector3 = a - targetingActor.GetTravelBoardSquareWorldPosition();
+		vector3.y = 0f;
+		float magnitude = vector3.magnitude;
+		this.m_highlights[0].transform.position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, 0.1f, 0f);
+		this.m_highlights[0].transform.rotation = Quaternion.LookRotation(vector2);
+		HighlightUtils.Get().ResizeRectangularCursor(this.m_dashWidthInSquares * Board.Get().squareSize, magnitude, this.m_highlights[0]);
 		if (actorsInLaser.Count > 0)
 		{
 			for (;;)
@@ -154,7 +154,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 			}
 			if (this.m_boltCount > 0)
 			{
-				Vector3 vector5 = actorsInLaser[0].\u0015();
+				Vector3 travelBoardSquareWorldPositionForLos2 = actorsInLaser[0].GetTravelBoardSquareWorldPositionForLos();
 				float num = this.m_boltAngleOffset;
 				if (this.m_relativeToAim)
 				{
@@ -170,21 +170,21 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 					num += VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
 				}
 				float num2 = 360f / (float)this.m_boltCount;
-				float squareSize = Board.\u000E().squareSize;
+				float squareSize = Board.Get().squareSize;
 				float maxDistanceInWorld = this.m_boltInfo.range * squareSize;
 				float widthInWorld = this.m_boltInfo.width * squareSize;
 				for (int j = 0; j < this.m_boltCount; j++)
 				{
-					Vector3 vector6 = VectorUtils.AngleDegreesToVector(num + (float)j * num2);
+					Vector3 vector4 = VectorUtils.AngleDegreesToVector(num + (float)j * num2);
 					VectorUtils.LaserCoords laserCoords2;
-					List<ActorData> actorsHitByBolt = this.m_boltInfo.GetActorsHitByBolt(vector5, vector6, targetingActor, AbilityPriority.Combat_Damage, out laserCoords2, null, false, false, false);
+					List<ActorData> actorsHitByBolt = this.m_boltInfo.GetActorsHitByBolt(travelBoardSquareWorldPositionForLos2, vector4, targetingActor, AbilityPriority.Combat_Damage, out laserCoords2, null, false, false, false);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actorsHitByBolt);
 					using (List<ActorData>.Enumerator enumerator2 = actorsHitByBolt.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
 						{
 							ActorData actorData = enumerator2.Current;
-							if (actorData.\u000E() == targetingActor.\u000E())
+							if (actorData.GetTeam() == targetingActor.GetTeam())
 							{
 								for (;;)
 								{
@@ -195,11 +195,11 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 									}
 									break;
 								}
-								base.AddActorInRange(actorData, vector5, targetingActor, AbilityTooltipSubject.Ally, false);
+								base.AddActorInRange(actorData, travelBoardSquareWorldPositionForLos2, targetingActor, AbilityTooltipSubject.Ally, false);
 							}
 							else
 							{
-								base.AddActorInRange(actorData, vector5, targetingActor, AbilityTooltipSubject.Secondary, false);
+								base.AddActorInRange(actorData, travelBoardSquareWorldPositionForLos2, targetingActor, AbilityTooltipSubject.Secondary, false);
 							}
 						}
 						for (;;)
@@ -212,7 +212,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 							break;
 						}
 					}
-					VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(vector5, vector6, maxDistanceInWorld, widthInWorld, this.m_boltInfo.penetrateLineOfSight, targetingActor, null);
+					VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(travelBoardSquareWorldPositionForLos2, vector4, maxDistanceInWorld, widthInWorld, this.m_boltInfo.penetrateLineOfSight, targetingActor, null);
 					VectorUtils.LaserCoords laserCoords3 = laserCoordinates;
 					if (actorsHitByBolt.Count > 0)
 					{
@@ -221,8 +221,8 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 					float magnitude2 = (laserCoords3.end - laserCoords3.start).magnitude;
 					int index = j + 1;
 					this.m_highlights[index].SetActive(true);
-					this.m_highlights[index].transform.position = actorsInLaser[0].\u0016() + new Vector3(0f, 0.1f, 0f);
-					this.m_highlights[index].transform.rotation = Quaternion.LookRotation(vector6);
+					this.m_highlights[index].transform.position = actorsInLaser[0].GetTravelBoardSquareWorldPosition() + new Vector3(0f, 0.1f, 0f);
+					this.m_highlights[index].transform.rotation = Quaternion.LookRotation(vector4);
 					HighlightUtils.Get().ResizeRectangularCursor(this.m_boltInfo.width * squareSize, magnitude2, this.m_highlights[index]);
 				}
 				return;
@@ -246,9 +246,9 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 
 	public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float maxDistanceInWorld = this.m_dashRangeInSquares * Board.\u000E().squareSize;
-		float num = this.m_dashWidthInSquares * Board.\u000E().squareSize;
-		VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(targetingActor.\u0015(), currentTarget.AimDirection, maxDistanceInWorld, num, false, targetingActor, null);
+		float maxDistanceInWorld = this.m_dashRangeInSquares * Board.Get().squareSize;
+		float num = this.m_dashWidthInSquares * Board.Get().squareSize;
+		VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(targetingActor.GetTravelBoardSquareWorldPositionForLos(), currentTarget.AimDirection, maxDistanceInWorld, num, false, targetingActor, null);
 		float num2 = 0.1f;
 		Vector3 vector = laserCoordinates.start + new Vector3(0f, num2, 0f);
 		Vector3 vector2 = laserCoordinates.end + new Vector3(0f, num2, 0f);
@@ -257,7 +257,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		vector3.Normalize();
 		Vector3 a = Vector3.Cross(vector3, Vector3.up);
 		Vector3 a2 = (vector + vector2) * 0.5f;
-		a2.y = (float)Board.\u000E().BaselineHeight + num2;
+		a2.y = (float)Board.Get().BaselineHeight + num2;
 		Vector3 b = a * (num / 2f);
 		Vector3 b2 = vector3 * (magnitude / 2f);
 		Vector3 vector4 = a2 - b - b2;
@@ -273,7 +273,7 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(laserCoordinates.start, laserCoordinates.end, this.m_dashWidthInSquares / 2f, false, targetingActor);
 		foreach (BoardSquare boardSquare in squaresInBox)
 		{
-			if (boardSquare.\u0016())
+			if (boardSquare.IsBaselineHeight())
 			{
 				for (;;)
 				{

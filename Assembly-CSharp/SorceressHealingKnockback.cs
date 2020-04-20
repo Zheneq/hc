@@ -293,7 +293,7 @@ public class SorceressHealingKnockback : Ability
 		int result = this.m_onCastHealAmount;
 		if (this.m_abilityMod != null)
 		{
-			float num = (float)target.HitPoints / (float)target.\u0012();
+			float num = (float)target.HitPoints / (float)target.GetMaxHitPoints();
 			if (num < this.m_abilityMod.m_lowHealthThreshold)
 			{
 				for (;;)

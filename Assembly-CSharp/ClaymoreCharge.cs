@@ -582,7 +582,7 @@ public class ClaymoreCharge : Ability
 							}
 							break;
 						}
-						if (!relevantTeams.Contains(occupantActor.\u000E()))
+						if (!relevantTeams.Contains(occupantActor.GetTeam()))
 						{
 							goto IL_69;
 						}
@@ -608,7 +608,7 @@ public class ClaymoreCharge : Ability
 	{
 		float result = laserMaxDistInWorld;
 		pathEndSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startPos, endPos, false, false, laserMaxDistInWorld + 0.5f);
-		BoardSquare y = Board.\u000E().\u000E(startPos);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(startPos);
 		if (pathEndSquare != null)
 		{
 			for (;;)
@@ -624,7 +624,7 @@ public class ClaymoreCharge : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetMaxPotentialChargeDistance(Vector3, Vector3, Vector3, float, ActorData, BoardSquare*)).MethodHandle;
 			}
-			if (pathEndSquare != y)
+			if (pathEndSquare != boardSquare)
 			{
 				for (;;)
 				{
@@ -748,7 +748,7 @@ public class ClaymoreCharge : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetChargeDestinationSquare(Vector3, Vector3, ActorData, BoardSquare, ActorData, bool)).MethodHandle;
 			}
-			boardSquare = lastChargeHitActor.\u0012();
+			boardSquare = lastChargeHitActor.GetCurrentBoardSquare();
 		}
 		else
 		{
@@ -769,8 +769,8 @@ public class ClaymoreCharge : Ability
 			{
 				boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startPos, chargeDestPos, true, false, float.MaxValue);
 			}
-			BoardSquare startSquare = Board.\u000E().\u000E(startPos);
-			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, startSquare, true);
+			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(startPos);
+			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, true);
 			if (boardSquarePathInfo != null && trimBeforeFirstInvalid)
 			{
 				for (;;)

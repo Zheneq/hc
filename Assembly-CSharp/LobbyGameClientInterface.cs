@@ -552,7 +552,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 			};
 		}
 		this.OnLobbySeasonQuestDataNotification = LobbyGameClientInterface.<>f__am$cache25;
-		base..ctor(Factory.\u000E());
+		base..ctor(Factory.Get());
 		this.m_registered = false;
 		this.m_sessionInfo = new LobbySessionInfo();
 		base.ConnectionTimeout = 30f;
@@ -2262,7 +2262,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		this.m_lobbyServerAddress = null;
 		this.m_directoryServerAddress = directoryServerAddress;
 		this.m_sessionInfo.BuildVersion = BuildVersion.ShortVersionString;
-		this.m_sessionInfo.ProtocolVersion = Factory.\u000E().ProtocolVersion;
+		this.m_sessionInfo.ProtocolVersion = Factory.Get().ProtocolVersion;
 		this.m_sessionInfo.AccountId = ticket.AccountId;
 		this.m_sessionInfo.UserName = ticket.UserName;
 		this.m_sessionInfo.Handle = ticket.Handle;

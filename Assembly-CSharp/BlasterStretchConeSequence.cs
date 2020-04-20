@@ -117,7 +117,7 @@ public class BlasterStretchConeSequence : Sequence
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
 				}
-				this.m_maxDistInWorld = extraParams2.lengthInSquares * Board.\u000E().squareSize;
+				this.m_maxDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
 				this.m_angleRangeDegrees = extraParams2.angleInDegrees;
 				this.m_aimForwardDir = VectorUtils.AngleDegreesToVector(extraParams2.forwardAngle);
 				this.m_useStartPosOverride = extraParams2.useStartPosOverride;
@@ -201,12 +201,12 @@ public class BlasterStretchConeSequence : Sequence
 	private float GetProjectileDistanceWithActorCollisions(Vector3 start, Vector3 forward, float maxDist, int projectileNum)
 	{
 		Vector3 vector = start;
-		vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		Vector3 startPos = vector;
-		float laserRangeInSquares = maxDist / Board.\u000E().squareSize;
+		float laserRangeInSquares = maxDist / Board.Get().squareSize;
 		float laserWidthInSquares = 0.1f;
 		ActorData caster = base.Caster;
-		List<Team> validTeams = base.Caster.\u0015();
+		List<Team> opposingTeams = base.Caster.GetOpposingTeams();
 		bool penetrateLos = false;
 		int maxTargets;
 		if (this.m_projectilesStopOnEnemy)
@@ -231,14 +231,14 @@ public class BlasterStretchConeSequence : Sequence
 			maxTargets = 4;
 		}
 		Vector3 b;
-		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, laserWidthInSquares, caster, validTeams, penetrateLos, maxTargets, false, true, out b, null, null, false, true);
+		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, laserWidthInSquares, caster, opposingTeams, penetrateLos, maxTargets, false, true, out b, null, null, false, true);
 		return (vector - b).magnitude;
 	}
 
 	private float GetProjectileDistance(Vector3 start, Vector3 forward, float maxDist, int projectileNum)
 	{
 		Vector3 vector = start;
-		vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster, null, true);
 		float magnitude = (vector - laserEndPoint).magnitude;
 		bool flag;
@@ -311,7 +311,7 @@ public class BlasterStretchConeSequence : Sequence
 		{
 			return this.m_fxJoint.m_jointObject.transform.position;
 		}
-		return base.Caster.\u0016();
+		return base.Caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	private void SpawnFX()
@@ -379,14 +379,14 @@ public class BlasterStretchConeSequence : Sequence
 					}
 					break;
 				}
-				component.Setup(base.Caster.\u000E());
+				component.Setup(base.Caster.GetTeam());
 				component.SetAttribute("angleControl", value);
-				component.SetAttribute("lengthControl", this.m_maxDistInWorld / Board.\u000E().squareSize);
+				component.SetAttribute("lengthControl", this.m_maxDistInWorld / Board.Get().squareSize);
 			}
 			else
 			{
 				Sequence.SetAttribute(this.m_blastFxInstance, "angleControl", value);
-				Sequence.SetAttribute(this.m_blastFxInstance, "lengthControl", this.m_maxDistInWorld / Board.\u000E().squareSize);
+				Sequence.SetAttribute(this.m_blastFxInstance, "lengthControl", this.m_maxDistInWorld / Board.Get().squareSize);
 			}
 		}
 		if (this.m_staggerProjectiles)
@@ -453,10 +453,10 @@ public class BlasterStretchConeSequence : Sequence
 			while (k < targets.Length)
 			{
 				ActorData actorData = targets[k];
-				float num4 = (actorData.\u0015() - base.Caster.\u0015()).magnitude;
+				float num4 = (actorData.GetTravelBoardSquareWorldPositionForLos() - base.Caster.GetTravelBoardSquareWorldPositionForLos()).magnitude;
 				if (GameWideData.Get().UseActorRadiusForCone())
 				{
-					num4 += GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+					num4 += GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 				}
 				float num5 = GameTime.time + num4 / this.m_projectileSpeed;
 				if (!this.m_projectileActorImpacts.ContainsKey(actorData))
@@ -557,7 +557,7 @@ public class BlasterStretchConeSequence : Sequence
 					}
 					break;
 				}
-				Vector3 lhs = this.m_fxJoint.m_jointObject.transform.position - base.Caster.\u0015();
+				Vector3 lhs = this.m_fxJoint.m_jointObject.transform.position - base.Caster.GetTravelBoardSquareWorldPositionForLos();
 				lhs = Vector3.Dot(lhs, vector) * vector.normalized;
 				value = this.GetProjectileDistanceWithActorCollisions(coneStartPos, vector, this.m_maxDistInWorld - lhs.magnitude, projectileIndex);
 			}
@@ -677,7 +677,7 @@ public class BlasterStretchConeSequence : Sequence
 								}
 								break;
 							}
-							component.Setup(base.Caster.\u000E());
+							component.Setup(base.Caster.GetTeam());
 						}
 						this.m_impactFxInstances.Add(gameObject);
 					}

@@ -116,7 +116,7 @@ public class OverconSelectBtn : MonoBehaviour
 	public void OverconClicked(BaseEventData data)
 	{
 		ActorData actorData = (!(GameFlowData.Get() != null)) ? null : GameFlowData.Get().activeOwnedActorData;
-		if (actorData != null && actorData.\u000E() != null)
+		if (actorData != null && actorData.GetActorController() != null)
 		{
 			for (;;)
 			{

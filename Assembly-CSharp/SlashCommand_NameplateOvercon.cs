@@ -9,7 +9,7 @@ public class SlashCommand_NameplateOvercon : SlashCommand
 	public override void OnSlashCommand(string arguments)
 	{
 		ActorData actorData = (!(GameFlowData.Get() != null)) ? null : GameFlowData.Get().activeOwnedActorData;
-		if (actorData != null && actorData.\u000E() != null && HUD_UI.Get() != null)
+		if (actorData != null && actorData.GetActorController() != null && HUD_UI.Get() != null)
 		{
 			for (;;)
 			{

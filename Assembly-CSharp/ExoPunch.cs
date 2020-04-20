@@ -343,7 +343,7 @@ public class ExoPunch : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		float num = this.GetNearDistThreshold() * Board.\u000E().squareSize;
+		float num = this.GetNearDistThreshold() * Board.Get().squareSize;
 		if (num > 0f)
 		{
 			for (;;)
@@ -360,7 +360,7 @@ public class ExoPunch : Ability
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
 			}
 			ActorData actorData = base.ActorData;
-			Vector3 vector = targetActor.\u0016() - actorData.\u0016();
+			Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - actorData.GetTravelBoardSquareWorldPosition();
 			vector.y = 0f;
 			if (vector.magnitude < num)
 			{

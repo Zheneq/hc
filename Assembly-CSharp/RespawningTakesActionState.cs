@@ -24,7 +24,7 @@ public class RespawningTakesActionState : TurnState
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(RespawningTakesActionState.Update()).MethodHandle;
 			}
-			if (!component.\u000E())
+			if (!component.IsDead())
 			{
 				for (;;)
 				{

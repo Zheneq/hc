@@ -58,7 +58,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		this.m_angleToTargetActor.Clear();
 		if (base.Caster != null && base.Targets != null)
 		{
-			Vector3 b = base.Caster.\u0016();
+			Vector3 travelBoardSquareWorldPosition = base.Caster.GetTravelBoardSquareWorldPosition();
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
 				ActorData actorData = base.Targets[i];
@@ -77,7 +77,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.FinishSetup()).MethodHandle;
 					}
-					Vector3 a = actorData.\u0016();
+					Vector3 travelBoardSquareWorldPosition2 = actorData.GetTravelBoardSquareWorldPosition();
 					if (actorData != base.Caster)
 					{
 						for (;;)
@@ -90,7 +90,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 							break;
 						}
 						num++;
-						Vector3 vec = a - b;
+						Vector3 vec = travelBoardSquareWorldPosition2 - travelBoardSquareWorldPosition;
 						vec.y = 0f;
 						float horizontalAngle = VectorUtils.HorizontalAngle_Deg(vec);
 						this.m_angleToTargetActor.Add(new NinjaSetRotationToTargetSequence.AngleToActor(horizontalAngle, actorData));
@@ -177,8 +177,8 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					}
 					break;
 				}
-				Animator animator = base.Caster.\u000E();
-				if (animator != null)
+				Animator modelAnimator = base.Caster.GetModelAnimator();
+				if (modelAnimator != null)
 				{
 					for (;;)
 					{
@@ -208,7 +208,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 						num2 = 0;
 					}
 					int value = num2;
-					animator.SetInteger(this.m_chargeEndParamName, value);
+					modelAnimator.SetInteger(this.m_chargeEndParamName, value);
 					if (num == 0)
 					{
 						for (;;)
@@ -309,7 +309,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					this.m_currRotateTargetIndex++;
 					this.m_currRotateTargetIndex %= this.m_angleToTargetActor.Count;
 					ActorData actor = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_actor;
-					base.Caster.TurnToPositionInstant(actor.\u0016());
+					base.Caster.TurnToPositionInstant(actor.GetTravelBoardSquareWorldPosition());
 				}
 			}
 			else
@@ -356,7 +356,7 @@ public class NinjaSetRotationToTargetSequence : Sequence
 							break;
 						}
 						ActorData actor2 = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_actor;
-						base.Caster.TurnToPositionInstant(actor2.\u0016());
+						base.Caster.TurnToPositionInstant(actor2.GetTravelBoardSquareWorldPosition());
 					}
 				}
 			}

@@ -119,7 +119,7 @@ public class AdditionalVfxContainerBase : MonoBehaviour
 				}
 				if (caster != null)
 				{
-					this.m_fofSelector.Setup(caster.\u000E());
+					this.m_fofSelector.Setup(caster.GetTeam());
 				}
 			}
 		}

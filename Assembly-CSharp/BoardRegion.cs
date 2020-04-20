@@ -77,12 +77,12 @@ public class BoardRegion
 
 	public virtual void InitializeAsRect(Vector3 worldCorner1, Vector3 worldCorner2)
 	{
-		BoardSquare u001D = Board.\u000E().\u0012(worldCorner1.x, worldCorner1.z);
-		BoardSquare u000E = Board.\u000E().\u0012(worldCorner2.x, worldCorner2.z);
-		this.m_squaresInRegion = Board.\u000E().\u000E(u001D, u000E);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(worldCorner1.x, worldCorner1.z);
+		BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(worldCorner2.x, worldCorner2.z);
+		this.m_squaresInRegion = Board.Get().GetSquaresInRect(boardSquareSafe, boardSquareSafe2);
 	}
 
-	public List<BoardSquare> \u001D()
+	public List<BoardSquare> GetSquaresInRegion()
 	{
 		if (this.m_squaresInRegion == null)
 		{
@@ -97,7 +97,7 @@ public class BoardRegion
 			}
 			if (!true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.\u001D()).MethodHandle;
+				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetSquaresInRegion()).MethodHandle;
 			}
 			Log.Error("Did not call CacheSquaresInRegion before calling GetSquaresInRegion.  This will cause slowdowns", new object[0]);
 			this.CacheSquaresInRegion();
@@ -105,20 +105,20 @@ public class BoardRegion
 		return this.m_squaresInRegion;
 	}
 
-	public BoardSquare \u001D()
+	public BoardSquare GetClosestToCenter()
 	{
 		BoardSquare result = null;
-		BoardSquare other = this.\u000E();
-		List<BoardSquare> list = this.\u001D();
+		BoardSquare centerSquare = this.GetCenterSquare();
+		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
 		float num = 100000f;
-		using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+		using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				BoardSquare boardSquare = enumerator.Current;
-				if (boardSquare.\u0016())
+				if (boardSquare.IsBaselineHeight())
 				{
-					float num2 = boardSquare.HorizontalDistanceInSquaresTo(other);
+					float num2 = boardSquare.HorizontalDistanceInSquaresTo(centerSquare);
 					if (num2 < num)
 					{
 						for (;;)
@@ -132,7 +132,7 @@ public class BoardRegion
 						}
 						if (!true)
 						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.\u001D()).MethodHandle;
+							RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetClosestToCenter()).MethodHandle;
 						}
 						num = num2;
 						result = boardSquare;
@@ -152,11 +152,11 @@ public class BoardRegion
 		return result;
 	}
 
-	public List<ActorData> \u001D()
+	public List<ActorData> GetOccupantActors()
 	{
 		List<ActorData> list = new List<ActorData>();
-		List<BoardSquare> list2 = this.\u001D();
-		using (List<BoardSquare>.Enumerator enumerator = list2.GetEnumerator())
+		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
+		using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
@@ -175,7 +175,7 @@ public class BoardRegion
 					}
 					if (!true)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.\u001D()).MethodHandle;
+						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetOccupantActors()).MethodHandle;
 					}
 					if (!list.Contains(occupantActor))
 					{
@@ -205,19 +205,19 @@ public class BoardRegion
 		return list;
 	}
 
-	public bool \u001D(ActorData \u001D)
+	public bool IsActorInRegion(ActorData actor)
 	{
-		if (\u001D == null)
+		if (actor == null)
 		{
 			return false;
 		}
-		List<BoardSquare> list = this.\u001D();
-		using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
+		using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				BoardSquare boardSquare = enumerator.Current;
-				if (boardSquare.OccupantActor == \u001D)
+				if (boardSquare.OccupantActor == actor)
 				{
 					for (;;)
 					{
@@ -230,7 +230,7 @@ public class BoardRegion
 					}
 					if (!true)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.\u001D(ActorData)).MethodHandle;
+						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.IsActorInRegion(ActorData)).MethodHandle;
 					}
 					return true;
 				}
@@ -248,7 +248,7 @@ public class BoardRegion
 		return false;
 	}
 
-	public Vector3 \u001D()
+	public Vector3 GetCenter()
 	{
 		Vector3 vector = Vector3.zero;
 		if (this.m_quads.Length > 0)
@@ -264,7 +264,7 @@ public class BoardRegion
 			}
 			if (!true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.\u001D()).MethodHandle;
+				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetCenter()).MethodHandle;
 			}
 			foreach (BoardQuad boardQuad in this.m_quads)
 			{
@@ -300,16 +300,16 @@ public class BoardRegion
 		return vector;
 	}
 
-	public BoardSquare \u000E()
+	public BoardSquare GetCenterSquare()
 	{
-		Vector3 u001D = this.\u001D();
-		return Board.\u000E().\u000E(u001D);
+		Vector3 center = this.GetCenter();
+		return Board.Get().GetBoardSquare(center);
 	}
 
 	public bool Contains(int x, int y)
 	{
-		List<BoardSquare> list = this.\u001D();
-		foreach (BoardSquare boardSquare in list)
+		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
+		foreach (BoardSquare boardSquare in squaresInRegion)
 		{
 			if (boardSquare.x == x)
 			{
@@ -354,8 +354,8 @@ public class BoardRegion
 			}
 			return 0f;
 		}
-		List<BoardSquare> list = this.\u001D();
-		if (list != null)
+		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
+		if (squaresInRegion != null)
 		{
 			for (;;)
 			{
@@ -366,12 +366,12 @@ public class BoardRegion
 				}
 				break;
 			}
-			if (list.Count != 0)
+			if (squaresInRegion.Count != 0)
 			{
 				BoardSquare boardSquare = null;
-				for (int i = 0; i < list.Count; i++)
+				for (int i = 0; i < squaresInRegion.Count; i++)
 				{
-					BoardSquare boardSquare2 = list[i];
+					BoardSquare boardSquare2 = squaresInRegion[i];
 					if (boardSquare2 == null)
 					{
 						for (;;)
@@ -461,8 +461,8 @@ public class BoardRegion
 	public void GizmosDrawRegion(Color color)
 	{
 		Gizmos.color = color;
-		List<BoardSquare> list = this.\u001D();
-		foreach (BoardSquare boardSquare in list)
+		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
+		foreach (BoardSquare boardSquare in squaresInRegion)
 		{
 			if (boardSquare.WorldBounds != null)
 			{
@@ -492,7 +492,7 @@ public class BoardRegion
 		return this.m_quads.Length > 0;
 	}
 
-	public Sprite \u001D()
+	public Sprite GetTurnInRegionIcon()
 	{
 		if (CaptureTheFlag.Get() != null)
 		{
@@ -507,7 +507,7 @@ public class BoardRegion
 			}
 			if (!true)
 			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.\u001D()).MethodHandle;
+				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetTurnInRegionIcon()).MethodHandle;
 			}
 			return CaptureTheFlag.Get().m_turnInRegionIcon;
 		}

@@ -383,7 +383,7 @@ public class ClientIdleTimer : MonoBehaviour
 			if (flag2)
 			{
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-				if (GameFlowData.Get().gameState == GameState.BothTeams_Decision && activeOwnedActorData != null && activeOwnedActorData.\u000E() != null)
+				if (GameFlowData.Get().gameState == GameState.BothTeams_Decision && activeOwnedActorData != null && activeOwnedActorData.GetActorTurnSM() != null)
 				{
 					for (;;)
 					{
@@ -394,7 +394,7 @@ public class ClientIdleTimer : MonoBehaviour
 						}
 						break;
 					}
-					if (!activeOwnedActorData.\u000E().GetRequestStackForUndo().IsNullOrEmpty<ActorTurnSM.ActionRequestForUndo>())
+					if (!activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo().IsNullOrEmpty<ActorTurnSM.ActionRequestForUndo>())
 					{
 						for (;;)
 						{
@@ -408,7 +408,7 @@ public class ClientIdleTimer : MonoBehaviour
 						return;
 					}
 				}
-				if (activeOwnedActorData == null || activeOwnedActorData.\u000E())
+				if (activeOwnedActorData == null || activeOwnedActorData.IsDead())
 				{
 					return;
 				}

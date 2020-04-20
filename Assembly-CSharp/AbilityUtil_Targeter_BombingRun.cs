@@ -20,9 +20,9 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		base.ClearActorsInRange();
-		if (boardSquare == null)
+		if (boardSquareSafe == null)
 		{
 			for (;;)
 			{
@@ -40,7 +40,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 			this.DisableHighlightCursors();
 			return;
 		}
-		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare);
+		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
 		base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
 		if (this.m_highlights != null)
 		{
@@ -93,7 +93,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 					}
 					Vector3 freePos = boardSquarePathInfo2.square.ToVector3();
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_explosionShape, freePos, boardSquarePathInfo2.square);
-					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, freePos, boardSquarePathInfo2.square, false, targetingActor, targetingActor.\u0015(), null);
+					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, freePos, boardSquarePathInfo2.square, false, targetingActor, targetingActor.GetOpposingTeams(), null);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 					using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
 					{
@@ -112,7 +112,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 							break;
 						}
 					}
-					centerOfShape.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+					centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
 					this.m_highlights[num2].transform.position = centerOfShape;
 					this.m_highlights[num2].SetActive(true);
 					num2++;
@@ -145,16 +145,16 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 		}
 		else
 		{
-			Vector3 freePos2 = targetingActor.\u0016();
-			BoardSquare centerSquare = targetingActor.\u0012();
-			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(this.m_explosionShape, freePos2, centerSquare);
-			List<ActorData> actorsInShape2 = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, freePos2, centerSquare, false, targetingActor, targetingActor.\u0012(), null);
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
+			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(this.m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare);
+			List<ActorData> actorsInShape2 = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape2);
 			foreach (ActorData actor2 in actorsInShape2)
 			{
 				base.AddActorInRange(actor2, centerOfShape2, targetingActor, AbilityTooltipSubject.Primary, false);
 			}
-			centerOfShape2.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+			centerOfShape2.y = (float)Board.Get().BaselineHeight + 0.1f;
 			this.m_highlights[0].transform.position = centerOfShape2;
 			this.m_highlights[0].SetActive(true);
 			for (int k = 1; k < this.m_maxExplosions; k++)
@@ -175,9 +175,9 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		base.ClearActorsInRange();
-		if (boardSquare == null)
+		if (boardSquareSafe == null)
 		{
 			for (;;)
 			{
@@ -260,10 +260,10 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 				}
 				break;
 			}
-			Vector3 freePos = targetingActor.\u0016();
-			BoardSquare centerSquare = targetingActor.\u0012();
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_explosionShape, freePos, centerSquare);
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, freePos, centerSquare, false, targetingActor, targetingActor.\u0012(), null);
+			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+			BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, travelBoardSquareWorldPosition, currentBoardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 			using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
 			{
@@ -282,7 +282,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 					break;
 				}
 			}
-			centerOfShape.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+			centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
 			this.m_highlights[0].transform.position = centerOfShape;
 			this.m_highlights[0].SetActive(true);
 		}
@@ -298,22 +298,22 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 				}
 				break;
 			}
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
 		}
 		else
 		{
-			BoardSquare startSquare = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, startSquare, false);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, false);
 		}
 		int num2 = 0;
 		base.EnableAllMovementArrows();
 		if (boardSquarePathInfo != null)
 		{
 			num2 = base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Movement, num2, false);
-			Vector3 freePos2 = boardSquare.ToVector3();
-			BoardSquare centerSquare2 = boardSquare;
-			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(this.m_explosionShape, freePos2, centerSquare2);
-			List<ActorData> actorsInShape2 = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, centerOfShape2, centerSquare2, false, targetingActor, targetingActor.\u0012(), null);
+			Vector3 freePos = boardSquareSafe.ToVector3();
+			BoardSquare centerSquare = boardSquareSafe;
+			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(this.m_explosionShape, freePos, centerSquare);
+			List<ActorData> actorsInShape2 = AreaEffectUtils.GetActorsInShape(this.m_explosionShape, centerOfShape2, centerSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape2);
 			using (List<ActorData>.Enumerator enumerator2 = actorsInShape2.GetEnumerator())
 			{
@@ -332,7 +332,7 @@ public class AbilityUtil_Targeter_BombingRun : AbilityUtil_Targeter
 					break;
 				}
 			}
-			centerOfShape2.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+			centerOfShape2.y = (float)Board.Get().BaselineHeight + 0.1f;
 			this.m_highlights[num - 1].transform.position = centerOfShape2;
 			this.m_highlights[num - 1].SetActive(true);
 		}

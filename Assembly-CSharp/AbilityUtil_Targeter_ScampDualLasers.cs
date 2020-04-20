@@ -77,7 +77,7 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 		list.Add(this.m_squarePosCheckerList[0] as SquareInsideChecker_Box);
 		list.Add(this.m_squarePosCheckerList[1] as SquareInsideChecker_Box);
 		SquareInsideChecker_Cone squareInsideChecker_Cone = this.m_squarePosCheckerList[2] as SquareInsideChecker_Cone;
-		Vector3 vector = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		int num = 2;
 		if (this.m_delegateLaserCount != null)
 		{
@@ -108,17 +108,17 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 				}
 				break;
 			}
-			list2 = AbilityCommon_DualMeetingLasers.CalcStartingPositions(vector, currentTarget.FreePos, this.m_laserStartForwardOffset, this.m_laserStartSideOffset);
+			list2 = AbilityCommon_DualMeetingLasers.CalcStartingPositions(travelBoardSquareWorldPositionForLos, currentTarget.FreePos, this.m_laserStartForwardOffset, this.m_laserStartSideOffset);
 		}
 		else
 		{
 			list2 = new List<Vector3>
 			{
-				vector
+				travelBoardSquareWorldPositionForLos
 			};
 		}
-		Vector3 vector2 = AbilityCommon_DualMeetingLasers.CalcClampedMeetingPos(vector, currentTarget.FreePos, this.m_minMeetingDistFromCaster, this.m_maxMeetingDistFromCaster);
-		float num2 = AbilityCommon_DualMeetingLasers.CalcAoeRadius(vector, vector2, this.m_aoeBaseRadius, this.m_minMeetingDistFromCaster, this.m_aoeRadiusChangePerUnitFromMin, this.m_aoeMinRadius, this.m_aoeMaxRadius);
+		Vector3 vector = AbilityCommon_DualMeetingLasers.CalcClampedMeetingPos(travelBoardSquareWorldPositionForLos, currentTarget.FreePos, this.m_minMeetingDistFromCaster, this.m_maxMeetingDistFromCaster);
+		float num2 = AbilityCommon_DualMeetingLasers.CalcAoeRadius(travelBoardSquareWorldPositionForLos, vector, this.m_aoeBaseRadius, this.m_minMeetingDistFromCaster, this.m_aoeRadiusChangePerUnitFromMin, this.m_aoeMinRadius, this.m_aoeMaxRadius);
 		if (this.m_delegateExtraAoeRadius != null)
 		{
 			for (;;)
@@ -136,8 +136,8 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 		List<List<ActorData>> list3;
 		List<Vector3> list4;
 		List<ActorData> list5;
-		AbilityCommon_DualMeetingLasers.CalcHitActors(vector2, list2, this.m_laserWidth, num2, this.m_aoeRadiusMultIfPartialBlock, targetingActor, base.GetAffectedTeams(targetingActor), false, null, out list3, out list4, out num3, out num2, out list5);
-		Vector3 vector3 = vector2;
+		AbilityCommon_DualMeetingLasers.CalcHitActors(vector, list2, this.m_laserWidth, num2, this.m_aoeRadiusMultIfPartialBlock, targetingActor, base.GetAffectedTeams(targetingActor), false, null, out list3, out list4, out num3, out num2, out list5);
+		Vector3 vector2 = vector;
 		if (list2.Count < 2)
 		{
 			for (;;)
@@ -149,9 +149,9 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 				}
 				break;
 			}
-			vector3 = list4[0];
+			vector2 = list4[0];
 		}
-		float u000E = AbilityCommon_DualMeetingLasers.CalcMeetingPosDistFromMin(targetingActor.\u0015(), vector2, this.m_minMeetingDistFromCaster);
+		float value = AbilityCommon_DualMeetingLasers.CalcMeetingPosDistFromMin(targetingActor.GetTravelBoardSquareWorldPositionForLos(), vector, this.m_minMeetingDistFromCaster);
 		if (num3 >= 0)
 		{
 			for (;;)
@@ -168,7 +168,7 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					base.AddActorInRange(actorData, vector3, targetingActor, AbilityTooltipSubject.Primary, false);
+					base.AddActorInRange(actorData, vector2, targetingActor, AbilityTooltipSubject.Primary, false);
 					if (this.m_aoeIgnoreMinCoverDist)
 					{
 						for (;;)
@@ -183,8 +183,8 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 						base.SetIgnoreCoverMinDist(actorData, this.m_aoeIgnoreMinCoverDist);
 					}
 					ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-					actorHitContext.\u0015.\u0015(ContextKeys.\u0013.\u0012(), u000E);
-					actorHitContext.\u0015.\u0016(ContextKeys.\u001A.\u0012(), 1);
+					actorHitContext.\u0015.SetFloat(ContextKeys.\u0013.GetHash(), value);
+					actorHitContext.\u0015.SetInt(ContextKeys.\u001A.GetHash(), 1);
 				}
 				for (;;)
 				{
@@ -197,13 +197,13 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 				}
 			}
 			HighlightUtils.Get().AdjustDynamicConeMesh(gameObject, num2, 360f);
-			Vector3 position = vector3;
+			Vector3 position = vector2;
 			position.y = HighlightUtils.GetHighlightHeight();
 			gameObject.transform.position = position;
 			gameObject.SetActive(true);
 			this.LasersMetLastUpdate = true;
-			this.LaserMeetPosLastUpdate = vector3;
-			squareInsideChecker_Cone.UpdateConeProperties(vector3, 360f, num2, 0f, 0f, targetingActor);
+			this.LaserMeetPosLastUpdate = vector2;
+			squareInsideChecker_Cone.UpdateConeProperties(vector2, 360f, num2, 0f, 0f, targetingActor);
 		}
 		else
 		{
@@ -229,8 +229,8 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 							break;
 						}
 						ActorHitContext actorHitContext2 = this.m_actorContextVars[actorData2];
-						actorHitContext2.\u0015.\u0015(ContextKeys.\u0013.\u0012(), u000E);
-						actorHitContext2.\u0015.\u0016(ContextKeys.\u001A.\u0012(), 0);
+						actorHitContext2.\u0015.SetFloat(ContextKeys.\u0013.GetHash(), value);
+						actorHitContext2.\u0015.SetInt(ContextKeys.\u001A.GetHash(), 0);
 					}
 				}
 				for (;;)
@@ -312,7 +312,7 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 				}
 				break;
 			}
-			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, vector3, 0f, 360f, num2, 0f, targetingActor, false, this.m_squarePosCheckerList);
+			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, vector2, 0f, 360f, num2, 0f, targetingActor, false, this.m_squarePosCheckerList);
 		}
 		base.HideUnusedSquareIndicators();
 	}

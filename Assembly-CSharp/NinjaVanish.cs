@@ -585,8 +585,8 @@ public class NinjaVanish : Ability
 			return true;
 		}
 		bool result = false;
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -597,7 +597,7 @@ public class NinjaVanish : Ability
 				}
 				break;
 			}
-			if (boardSquare.\u0016() && boardSquare != caster.\u0012())
+			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
 				for (;;)
 				{
@@ -616,8 +616,8 @@ public class NinjaVanish : Ability
 
 	private Vector3 GetCenterPosForTargeter(ActorData caster, AbilityTarget currentTarget)
 	{
-		Vector3 result = caster.\u0016();
-		if (caster.\u000E() != null)
+		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
+		if (caster.GetActorTargeting() != null)
 		{
 			for (;;)
 			{
@@ -643,7 +643,7 @@ public class NinjaVanish : Ability
 					}
 					break;
 				}
-				BoardSquare evadeDestinationForTargeter = caster.\u000E().GetEvadeDestinationForTargeter();
+				BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 				if (evadeDestinationForTargeter != null)
 				{
 					for (;;)

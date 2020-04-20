@@ -24,7 +24,7 @@ public class NPCLocation : MonoBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCLocation.get_boardSquare()).MethodHandle;
 				}
-				this.m_boardSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+				this.m_boardSquare = Board.Get().GetBoardSquareSafe(base.transform.position.x, base.transform.position.z);
 			}
 			return this.m_boardSquare;
 		}

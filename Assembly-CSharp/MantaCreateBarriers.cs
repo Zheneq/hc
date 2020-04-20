@@ -630,10 +630,10 @@ public class MantaCreateBarriers : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (this.m_requireCasterInShape && caster.\u0012() != null)
+		if (this.m_requireCasterInShape && caster.GetCurrentBoardSquare() != null)
 		{
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-			return boardSquare != null && AreaEffectUtils.IsSquareInShape(caster.\u0012(), this.GetTargetAreaShape(), target.FreePos, boardSquare, true, caster);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			return boardSquareSafe != null && AreaEffectUtils.IsSquareInShape(caster.GetCurrentBoardSquare(), this.GetTargetAreaShape(), target.FreePos, boardSquareSafe, true, caster);
 		}
 		return true;
 	}

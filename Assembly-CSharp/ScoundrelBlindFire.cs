@@ -198,8 +198,8 @@ public class ScoundrelBlindFire : Ability
 	{
 		List<Vector3> list = new List<Vector3>();
 		Vector3 aimDirection = targets[0].AimDirection;
-		Vector3 a = caster.\u0015();
-		list.Add(a + this.m_coneLength * Board.\u000E().squareSize * aimDirection);
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		list.Add(travelBoardSquareWorldPositionForLos + this.m_coneLength * Board.Get().squareSize * aimDirection);
 		return list;
 	}
 }

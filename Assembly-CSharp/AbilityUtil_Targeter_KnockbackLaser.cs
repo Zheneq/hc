@@ -54,8 +54,8 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		Vector3 vector = targetingActor.\u0016();
-		float knockbackDist = this.GetKnockbackDist(currentTarget, vector, this.m_lastCalculatedLaserEndPos);
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		float knockbackDist = this.GetKnockbackDist(currentTarget, travelBoardSquareWorldPosition, this.m_lastCalculatedLaserEndPos);
 		int num = 0;
 		base.EnableAllMovementArrows();
 		List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
@@ -64,7 +64,7 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				if (actorData.\u000E() != targetingActor.\u000E())
+				if (actorData.GetTeam() != targetingActor.GetTeam())
 				{
 					for (;;)
 					{
@@ -79,7 +79,7 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
 					}
-					BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, vector, knockbackDist);
+					BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, travelBoardSquareWorldPosition, knockbackDist);
 					if (boardSquarePathInfo.FindMoveCostToEnd() < 0.5f)
 					{
 						for (;;)
@@ -91,7 +91,7 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 							}
 							break;
 						}
-						base.AddActorInRange(actorData, vector, targetingActor, AbilityTooltipSubject.HighHP, true);
+						base.AddActorInRange(actorData, travelBoardSquareWorldPosition, targetingActor, AbilityTooltipSubject.HighHP, true);
 					}
 					num = base.AddMovementArrowWithPrevious(actorData, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 				}

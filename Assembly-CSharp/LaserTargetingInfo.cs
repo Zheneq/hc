@@ -50,7 +50,7 @@ public class LaserTargetingInfo
 				}
 				break;
 			}
-			list.Add(caster.\u0012());
+			list.Add(caster.GetOpposingTeam());
 		}
 		if (this.affectsAllies)
 		{
@@ -63,7 +63,7 @@ public class LaserTargetingInfo
 				}
 				break;
 			}
-			list.Add(caster.\u000E());
+			list.Add(caster.GetTeam());
 		}
 		return list;
 	}

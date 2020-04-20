@@ -68,13 +68,13 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 b = targetingActor.\u0015();
-		float magnitude = (currentTarget.FreePos - b).magnitude;
-		if (magnitude < this.m_minDistanceBeforeBend * Board.\u000E().squareSize)
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
+		if (magnitude < this.m_minDistanceBeforeBend * Board.Get().squareSize)
 		{
 			return this.m_minDistanceBeforeBend;
 		}
-		if (magnitude > this.m_maxDistanceBeforeBend * Board.\u000E().squareSize)
+		if (magnitude > this.m_maxDistanceBeforeBend * Board.Get().squareSize)
 		{
 			for (;;)
 			{
@@ -91,13 +91,13 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 			}
 			return this.m_maxDistanceBeforeBend;
 		}
-		return magnitude / Board.\u000E().squareSize;
+		return magnitude / Board.Get().squareSize;
 	}
 
 	private unsafe float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 vector = targetingActor.\u0015();
-		bendPos = vector;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		bendPos = travelBoardSquareWorldPositionForLos;
 		if (this.m_stoppedShort)
 		{
 			for (;;)
@@ -116,7 +116,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 			return 0f;
 		}
 		float clampedRangeInSquares = this.GetClampedRangeInSquares(targetingActor, previousTarget);
-		bendPos = vector + previousTarget.AimDirection * clampedRangeInSquares * Board.\u000E().squareSize;
+		bendPos = travelBoardSquareWorldPositionForLos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
 		return this.m_maxTotalDistance - clampedRangeInSquares;
 	}
 
@@ -142,7 +142,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
-		float num = this.m_width * Board.\u000E().squareSize;
+		float num = this.m_width * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		base.ClearActorsInRange();
 		this.m_ordererdHitActors.Clear();
@@ -187,7 +187,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			laserCoords.start = targetingActor.\u0015();
+			laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			num2 = this.GetClampedRangeInSquares(targetingActor, currentTarget);
 			vector = currentTarget.AimDirection;
 			num3 = GameWideData.Get().m_laserInitialOffsetInSquares;
@@ -342,7 +342,7 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (num5 < num2 * Board.\u000E().squareSize - 0.1f)
+			if (num5 < num2 * Board.Get().squareSize - 0.1f)
 			{
 				for (;;)
 				{
@@ -424,9 +424,9 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			Vector3 a2 = actorsInLaser[actorsInLaser.Count - 1].\u0016();
-			a2.y = laserCoords.start.y;
-			num6 = (a2 - laserCoords.start).magnitude;
+			Vector3 travelBoardSquareWorldPosition = actorsInLaser[actorsInLaser.Count - 1].GetTravelBoardSquareWorldPosition();
+			travelBoardSquareWorldPosition.y = laserCoords.start.y;
+			num6 = (travelBoardSquareWorldPosition - laserCoords.start).magnitude;
 			if (this.m_startFadeAtActorRadius)
 			{
 				for (;;)
@@ -521,9 +521,9 @@ public class AbilityUtil_Targeter_BendingLaser : AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (Board.\u000E().\u000E(vector2) == actorData.\u0012())
+					if (Board.Get().GetBoardSquare(vector2) == actorData.GetCurrentBoardSquare())
 					{
-						vector2 = targetingActor.\u0015();
+						vector2 = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 					}
 				}
 				base.AddActorInRange(actorData, vector2, targetingActor, AbilityTooltipSubject.Primary, false);

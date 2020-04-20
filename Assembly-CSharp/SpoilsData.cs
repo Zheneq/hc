@@ -43,7 +43,7 @@ public class SpoilsData : MonoBehaviour
 				{
 					return;
 				}
-				List<BoardSquare> list = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSquare, component.\u0012(), 1, true, true, 3, null);
+				List<BoardSquare> list = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSquare, component.GetOpposingTeam(), 1, true, true, 3, null);
 				if (list.Count > 0)
 				{
 					for (;;)
@@ -57,11 +57,11 @@ public class SpoilsData : MonoBehaviour
 					}
 					if (this.m_overrideSpoils != null)
 					{
-						this.m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], this.m_overrideSpoils, component.\u0012(), false);
+						this.m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], this.m_overrideSpoils, component.GetOpposingTeam(), false);
 					}
 					else
 					{
-						this.m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], this.m_spoilsType, component.\u0012());
+						this.m_spawnedPowerUp = SpoilsManager.Get().SpawnSpoils(list[0], this.m_spoilsType, component.GetOpposingTeam());
 					}
 				}
 				if (this.m_spawnedPowerUp)

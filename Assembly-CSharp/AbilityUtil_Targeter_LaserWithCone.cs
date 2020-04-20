@@ -230,8 +230,8 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		}
 		Vector3 vector2 = vector;
 		Vector3 b = currentTarget.FreePos;
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (this.SnapToTargetSquare() && boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (this.SnapToTargetSquare() && boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -242,7 +242,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (boardSquare != targetingActor.\u0012())
+			if (boardSquareSafe != targetingActor.GetCurrentBoardSquare())
 			{
 				for (;;)
 				{
@@ -253,17 +253,17 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 					}
 					break;
 				}
-				vector2 = boardSquare.ToVector3() - targetingActor.\u0016();
+				vector2 = boardSquareSafe.ToVector3() - targetingActor.GetTravelBoardSquareWorldPosition();
 				vector2.y = 0f;
 				vector2.Normalize();
-				b = boardSquare.ToVector3();
+				b = boardSquareSafe.ToVector3();
 			}
 		}
-		Vector3 vector3 = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		float num = this.GetDistance();
 		if (this.m_clampToCursorPos)
 		{
-			float num2 = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.\u0016(), b);
+			float num2 = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.GetTravelBoardSquareWorldPosition(), b);
 			if (this.m_minRangeIfClampToCursor > 0f)
 			{
 				for (;;)
@@ -292,14 +292,14 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 			num = Mathf.Min(num2, num);
 		}
 		VectorUtils.LaserCoords adjustedCoords;
-		adjustedCoords.start = targetingActor.\u0015();
+		adjustedCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(adjustedCoords.start, vector2, num, this.GetWidth(), targetingActor, base.GetAffectedTeams(), this.GetPenetrateLoS(), this.GetLaserMaxTargets(), false, false, out adjustedCoords.end, null, null, false, true);
 		bool flag = AreaEffectUtils.LaserHitWorldGeo(num, adjustedCoords, this.GetPenetrateLoS(), actorsInLaser);
-		float widthInWorld = this.GetWidth() * Board.\u000E().squareSize;
+		float widthInWorld = this.GetWidth() * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 start = adjustedCoords.start;
 		Vector3 end = adjustedCoords.end;
-		float magnitude = (end - vector3).magnitude;
+		float magnitude = (end - travelBoardSquareWorldPositionForLos).magnitude;
 		if (base.Highlight == null)
 		{
 			for (;;)
@@ -332,7 +332,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 			}
 			foreach (ActorData actorData in actorsInLaser)
 			{
-				Vector3 vector4;
+				Vector3 vector3;
 				if (this.m_laserIgnoreCover)
 				{
 					for (;;)
@@ -344,19 +344,19 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 						}
 						break;
 					}
-					vector4 = actorData.\u0016();
+					vector3 = actorData.GetTravelBoardSquareWorldPosition();
 				}
 				else
 				{
-					vector4 = vector3;
+					vector3 = travelBoardSquareWorldPositionForLos;
 				}
-				Vector3 damageOrigin = vector4;
+				Vector3 damageOrigin = vector3;
 				this.AddTargetedActor(actorData, damageOrigin, targetingActor, AbilityTooltipSubject.Primary);
 			}
 		}
 		this.m_lastLaserEndPos = end;
-		Vector3 vector5 = end;
-		Vector3 vector6 = vector5;
+		Vector3 vector4 = end;
+		Vector3 vector5 = vector4;
 		float num3 = VectorUtils.HorizontalAngle_Deg(vector2);
 		bool flag2;
 		if (!this.m_explodeOnPathEnd)
@@ -404,7 +404,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 		bool flag3 = flag2;
 		if (flag3)
 		{
-			this.CreateConeHighlights(vector5, num3);
+			this.CreateConeHighlights(vector4, num3);
 			if (!this.m_explosionPenetrateLos)
 			{
 				for (;;)
@@ -416,9 +416,9 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 					}
 					break;
 				}
-				vector6 = AbilityCommon_LaserWithCone.GetConeLosCheckPos(adjustedCoords.start, vector5);
+				vector5 = AbilityCommon_LaserWithCone.GetConeLosCheckPos(adjustedCoords.start, vector4);
 			}
-			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector5, num3, this.GetConeWidthAngle(), this.GetConeRadius(), this.m_coneBackwardOffsetInSquares, this.m_explosionPenetrateLos, targetingActor, null, null, true, vector6);
+			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector4, num3, this.GetConeWidthAngle(), this.GetConeRadius(), this.m_coneBackwardOffsetInSquares, this.m_explosionPenetrateLos, targetingActor, null, null, true, vector5);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 			using (List<ActorData>.Enumerator enumerator2 = actorsInCone.GetEnumerator())
 			{
@@ -427,7 +427,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 					ActorData actorData2 = enumerator2.Current;
 					if (actorData2 != null && this.GetConeAffectsTarget(actorData2, targetingActor))
 					{
-						Vector3 vector7;
+						Vector3 vector6;
 						if (this.m_explosionIgnoreCover)
 						{
 							for (;;)
@@ -439,13 +439,13 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 								}
 								break;
 							}
-							vector7 = actorData2.\u0016();
+							vector6 = actorData2.GetTravelBoardSquareWorldPosition();
 						}
 						else
 						{
-							vector7 = vector5;
+							vector6 = vector4;
 						}
-						Vector3 damageOrigin2 = vector7;
+						Vector3 damageOrigin2 = vector6;
 						this.AddTargetedActor(actorData2, damageOrigin2, targetingActor, AbilityTooltipSubject.Secondary);
 					}
 				}
@@ -476,7 +476,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 				break;
 			}
 			this.m_laserChecker.UpdateBoxProperties(adjustedCoords.start, adjustedCoords.end, targetingActor);
-			this.m_coneChecker.UpdateConeProperties(vector5, this.GetConeWidthAngle(), this.GetConeRadius(), this.m_coneBackwardOffsetInSquares, num3, targetingActor);
+			this.m_coneChecker.UpdateConeProperties(vector4, this.GetConeWidthAngle(), this.GetConeRadius(), this.m_coneBackwardOffsetInSquares, num3, targetingActor);
 			if (!this.GetPenetrateLoS())
 			{
 				for (;;)
@@ -488,7 +488,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 					}
 					break;
 				}
-				this.m_coneChecker.SetLosPosOverride(true, vector6, true);
+				this.m_coneChecker.SetLosPosOverride(true, vector5, true);
 			}
 			base.ResetSquareIndicatorIndexToUse();
 			bool flag4 = this.GetWidth() > 0f;
@@ -541,7 +541,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 					break;
 				}
 				IOperationOnSquare indicatorHandler2 = this.m_indicatorHandler;
-				Vector3 coneStart = vector5;
+				Vector3 coneStart = vector4;
 				float coneCenterAngleDegrees = num3;
 				float coneWidthAngle = this.GetConeWidthAngle();
 				float coneRadius = this.GetConeRadius();
@@ -574,7 +574,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 	private void CreateConeHighlights(Vector3 coneOrigin, float aimDir_degrees)
 	{
 		Vector3 vector = VectorUtils.AngleDegreesToVector(aimDir_degrees);
-		float d = this.m_coneBackwardOffsetInSquares * Board.\u000E().squareSize;
+		float d = this.m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 position = coneOrigin + new Vector3(0f, y, 0f) - vector * d;
 		this.AllocateConeHighlights();
@@ -603,7 +603,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithCone.AllocateConeHighlights()).MethodHandle;
 			}
-			float radiusInWorld = (this.GetConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.\u000E().squareSize;
+			float radiusInWorld = (this.GetConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			GameObject item = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.GetConeWidthAngle());
 			this.m_highlights.Add(item);
 		}

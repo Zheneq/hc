@@ -268,7 +268,7 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.OnAnimationEvent(UnityEngine.Object)).MethodHandle;
 			}
-			if (!this.m_owningSequence.Caster.\u0012())
+			if (!this.m_owningSequence.Caster.IsModelAnimatorDisabled())
 			{
 				for (;;)
 				{
@@ -279,7 +279,7 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 					}
 					break;
 				}
-				flag = this.m_owningSequence.Caster.\u000E();
+				flag = this.m_owningSequence.Caster.IsDead();
 				goto IL_52;
 			}
 		}

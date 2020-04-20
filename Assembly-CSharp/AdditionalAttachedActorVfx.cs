@@ -160,7 +160,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalAttachedActorVfx.Update()).MethodHandle;
 			}
 			bool flag;
-			if (this.m_actorData.\u0018())
+			if (this.m_actorData.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -171,14 +171,14 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 					}
 					break;
 				}
-				flag = (this.m_actorData.\u000E() == null || this.m_actorData.\u000E().enabled);
+				flag = (this.m_actorData.GetActorModelDataRenderer() == null || this.m_actorData.GetActorModelDataRenderer().enabled);
 			}
 			else
 			{
 				flag = false;
 			}
 			bool flag2 = flag;
-			bool flag3 = this.m_actorData.\u0012();
+			bool flag3 = this.m_actorData.IsModelAnimatorDisabled();
 			bool flag4;
 			if (GameFlowData.Get() != null)
 			{
@@ -202,7 +202,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 						}
 						break;
 					}
-					flag4 = (GameFlowData.Get().activeOwnedActorData.\u000E() == this.m_actorData.\u000E());
+					flag4 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam());
 					goto IL_E1;
 				}
 			}

@@ -111,7 +111,7 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 	{
 		for (int i = 0; i < this.m_freelancerImages.Length; i++)
 		{
-			this.m_freelancerImages[i].sprite = data.\u000E();
+			this.m_freelancerImages[i].sprite = data.GetAliveHUDIcon();
 		}
 		for (;;)
 		{
@@ -200,7 +200,7 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 				}
 				else
 				{
-					if (this.TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.\u000E()))
+					if (this.TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetTeam()))
 					{
 						for (;;)
 						{
@@ -215,7 +215,7 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 						flag2 = false;
 						goto IL_CF;
 					}
-					if (this.TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.\u0012()))
+					if (this.TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetOpposingTeam()))
 					{
 						flag = false;
 						flag2 = true;

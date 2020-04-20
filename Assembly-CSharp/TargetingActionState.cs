@@ -58,7 +58,7 @@ public class TargetingActionState : TurnState
 				BoardSquare autoSelectTarget = component2.GetAutoSelectTarget();
 				if (autoSelectTarget != null)
 				{
-					AbilityTarget newTarget = AbilityTarget.CreateAbilityTargetFromBoardSquare(autoSelectTarget, component.\u0016());
+					AbilityTarget newTarget = AbilityTarget.CreateAbilityTargetFromBoardSquare(autoSelectTarget, component.GetTravelBoardSquareWorldPosition());
 					this.m_SM.AddAbilityTarget(newTarget);
 					AbilityData.ActionType selectedActionType = component2.GetSelectedActionType();
 					this.m_SM.OnQueueAbilityRequest(selectedActionType);

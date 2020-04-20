@@ -54,11 +54,11 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 
 	public static Vector3 GetClampedFreePos(Vector3 freePos, ActorData caster, float minDistInSquares, float maxDistInSquares)
 	{
-		float squareSize = Board.\u000E().squareSize;
-		Vector3 vector = caster.\u0015();
-		Vector3 vector2 = freePos - vector;
-		vector2.y = 0f;
-		float magnitude = vector2.magnitude;
+		float squareSize = Board.Get().squareSize;
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector = freePos - travelBoardSquareWorldPositionForLos;
+		vector.y = 0f;
+		float magnitude = vector.magnitude;
 		float num = minDistInSquares * squareSize;
 		float num2 = maxDistInSquares * squareSize;
 		if (magnitude < num)
@@ -76,7 +76,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth_FixedOffset.GetClampedFreePos(Vector3, ActorData, float, float)).MethodHandle;
 			}
-			return vector + vector2.normalized * num;
+			return travelBoardSquareWorldPositionForLos + vector.normalized * num;
 		}
 		if (magnitude > num2)
 		{
@@ -89,7 +89,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 				}
 				break;
 			}
-			return vector + vector2.normalized * num2;
+			return travelBoardSquareWorldPositionForLos + vector.normalized * num2;
 		}
 		return freePos;
 	}
@@ -101,7 +101,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 
 	protected override Vector3 GetDamageOrigin(AbilityTarget currentTarget, ActorData targetingActor, float range)
 	{
-		return targetingActor.\u0015();
+		return targetingActor.GetTravelBoardSquareWorldPositionForLos();
 	}
 
 	public override void CreateHighlightObjectsIfNeeded(float radiusInSquares, ActorData targetingActor)
@@ -193,13 +193,13 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 				}
 				break;
 			}
-			Vector3 vector = targetingActor.\u0015();
-			Vector3 vector2 = refPos2;
-			vector2.y = vector.y;
-			Vector3 dir = vector2 - vector;
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 vector = refPos2;
+			vector.y = travelBoardSquareWorldPositionForLos.y;
+			Vector3 dir = vector - travelBoardSquareWorldPositionForLos;
 			float num2 = dir.magnitude / Board.SquareSizeStatic;
 			float num3 = num2 - this.m_radius;
-			laserEnd = vector + Board.SquareSizeStatic * num3 * dir.normalized;
+			laserEnd = travelBoardSquareWorldPositionForLos + Board.SquareSizeStatic * num3 * dir.normalized;
 			if (num3 > 0f)
 			{
 				for (;;)
@@ -211,7 +211,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 					}
 					break;
 				}
-				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(vector, dir, num3, this.m_connectLaserWidth, targetingActor, base.GetAffectedTeams(), false, -1, true, false, out vector2, null, null, false, true);
+				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, dir, num3, this.m_connectLaserWidth, targetingActor, base.GetAffectedTeams(), false, -1, true, false, out vector, null, null, false, true);
 				using (List<ActorData>.Enumerator enumerator2 = actorsInLaser.GetEnumerator())
 				{
 					while (enumerator2.MoveNext())
@@ -228,7 +228,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 								}
 								break;
 							}
-							base.AddActorInRange(actorData2, vector, targetingActor, AbilityTooltipSubject.Secondary, false);
+							base.AddActorInRange(actorData2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Secondary, false);
 						}
 					}
 					for (;;)
@@ -241,7 +241,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 						break;
 					}
 				}
-				this.m_laserPart.AdjustHighlight(this.m_highlights[1], vector, vector2, false);
+				this.m_laserPart.AdjustHighlight(this.m_highlights[1], travelBoardSquareWorldPositionForLos, vector, false);
 				this.m_highlights[1].SetActiveIfNeeded(true);
 			}
 			else
@@ -249,7 +249,7 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 				this.m_highlights[1].SetActiveIfNeeded(false);
 			}
 		}
-		this.CustomHandleHiddenSquareIndicators(targetingActor, refPos2, targetingActor.\u0015(), laserEnd);
+		this.CustomHandleHiddenSquareIndicators(targetingActor, refPos2, targetingActor.GetTravelBoardSquareWorldPositionForLos(), laserEnd);
 	}
 
 	protected override void HandleHiddenSquareIndicators(ActorData targetingActor, Vector3 centerPos)

@@ -359,7 +359,7 @@ public class SniperPenetratingRound : Ability
 				{
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					int num;
-					if (targetActor.\u0012() < this.GetLowHealthThreshold())
+					if (targetActor.GetHitPointShareOfMax() < this.GetLowHealthThreshold())
 					{
 						for (;;)
 						{

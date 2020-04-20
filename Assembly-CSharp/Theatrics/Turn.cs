@@ -43,9 +43,9 @@ namespace Theatrics
 
 		internal float TimeInResolve { get; private set; }
 
-		internal static bool \u0011(AbilityPriority \u001D)
+		internal static bool IsEvasionOrKnockback(AbilityPriority priority)
 		{
-			return \u001D == AbilityPriority.Evasion || \u001D == AbilityPriority.Combat_Knockback;
+			return priority == AbilityPriority.Evasion || priority == AbilityPriority.Combat_Knockback;
 		}
 
 		internal void \u0011(IBitStream \u001D)
@@ -74,7 +74,7 @@ namespace Theatrics
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(Turn.\u0011(IBitStream)).MethodHandle;
 				}
-				this.\u000E[i].\u001C(\u001D);
+				this.\u000E[i].OnSerializeHelper(\u001D);
 			}
 			for (;;)
 			{
@@ -150,7 +150,7 @@ namespace Theatrics
 								}
 								break;
 							}
-							if (actorData.\u0009() <= 0)
+							if (actorData.GetHitPointsAfterResolution() <= 0)
 							{
 								for (;;)
 								{
@@ -161,7 +161,7 @@ namespace Theatrics
 									}
 									break;
 								}
-								if (!actorData.\u0012())
+								if (!actorData.IsModelAnimatorDisabled())
 								{
 									for (;;)
 									{
@@ -373,7 +373,7 @@ namespace Theatrics
 									}
 									break;
 								}
-								if (!GameFlowData.Get().activeOwnedActorData.\u000E())
+								if (!GameFlowData.Get().activeOwnedActorData.IsDead())
 								{
 									for (;;)
 									{
@@ -422,7 +422,7 @@ namespace Theatrics
 				}
 			}
 			flag5 = false;
-			TheatricsManager.Get().\u000E(string.Concat(new object[]
+			TheatricsManager.Get().no_op(string.Concat(new object[]
 			{
 				"Theatrics: finished timeline index ",
 				this.\u0012,
@@ -431,7 +431,7 @@ namespace Theatrics
 				" @absolute time ",
 				GameTime.time
 			}));
-			if (TheatricsManager.\u000E)
+			if (TheatricsManager.DebugLog)
 			{
 				for (;;)
 				{
@@ -518,10 +518,10 @@ namespace Theatrics
 					}
 					break;
 				}
-				for (int i = 0; i < phase.\u000E.Count; i++)
+				for (int i = 0; i < phase.animations.Count; i++)
 				{
-					ActorAnimation actorAnimation = phase.\u000E[i];
-					if (actorAnimation.\u000D\u000E == \u001D)
+					ActorAnimation actorAnimation = phase.animations[i];
+					if (actorAnimation.Actor == \u001D)
 					{
 						for (;;)
 						{
@@ -532,7 +532,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						if (actorAnimation.\u000D\u000E)
+						if (actorAnimation.PlaybackState2OrLater_zq)
 						{
 							for (;;)
 							{
@@ -621,10 +621,10 @@ namespace Theatrics
 				if (phase != null)
 				{
 					int i = 0;
-					while (i < phase.\u000E.Count)
+					while (i < phase.animations.Count)
 					{
-						ActorAnimation actorAnimation = phase.\u000E[i];
-						if (!(actorAnimation.\u000D\u000E == \u001D.Caster))
+						ActorAnimation actorAnimation = phase.animations[i];
+						if (!(actorAnimation.Actor == \u001D.Caster))
 						{
 							goto IL_BC;
 						}
@@ -637,7 +637,7 @@ namespace Theatrics
 							}
 							break;
 						}
-						if (!actorAnimation.\u000D\u000E(\u001D))
+						if (!actorAnimation.HasSameSequenceSource(\u001D))
 						{
 							goto IL_BC;
 						}
@@ -668,7 +668,7 @@ namespace Theatrics
 						i++;
 						continue;
 						IL_BC:
-						if (actorAnimation.\u000D\u000E == \u000E && !actorAnimation.\u0014\u000E() && actorAnimation.\u000D\u000E)
+						if (actorAnimation.Actor == \u000E && !actorAnimation.\u0014\u000E() && actorAnimation.PlaybackState2OrLater_zq)
 						{
 							flag2 = true;
 							goto IL_E7;
@@ -709,7 +709,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					ActorModelData actorModelData = \u000E.\u000E();
+					ActorModelData actorModelData = \u000E.GetActorModelData();
 					if (actorModelData != null)
 					{
 						if (flag2)
@@ -823,7 +823,7 @@ namespace Theatrics
 				return default(Bounds);
 			}
 			IL_87:
-			BoardSquare boardSquare = Board.\u000E().\u000E(actorData.transform.position);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(actorData.transform.position);
 			Bounds cameraBounds = boardSquare.CameraBounds;
 			cameraBounds.center.y = 0f;
 			Bounds result = cameraBounds;
@@ -862,9 +862,9 @@ namespace Theatrics
 				continue;
 				IL_103:
 				int j = 0;
-				while (j < phase.\u000E.Count)
+				while (j < phase.animations.Count)
 				{
-					ActorAnimation actorAnimation = phase.\u000E[j];
+					ActorAnimation actorAnimation = phase.animations[j];
 					if (\u000E < 0)
 					{
 						goto IL_137;
@@ -878,7 +878,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					if ((int)actorAnimation.\u000A == \u000E)
+					if ((int)actorAnimation.playOrderIndex == \u000E)
 					{
 						goto IL_137;
 					}
@@ -912,7 +912,7 @@ namespace Theatrics
 						}
 						break;
 					}
-					if (!actorAnimation.\u000A\u000E())
+					if (!actorAnimation.GetSymbol0013())
 					{
 						for (;;)
 						{
@@ -924,7 +924,7 @@ namespace Theatrics
 							break;
 						}
 						Bounds u = actorAnimation.\u0020;
-						if (\u001D.Index == AbilityPriority.Evasion && actorAnimation.\u000D\u000E != null)
+						if (\u001D.Index == AbilityPriority.Evasion && actorAnimation.Actor != null)
 						{
 							for (;;)
 							{
@@ -935,7 +935,7 @@ namespace Theatrics
 								}
 								break;
 							}
-							ActorTeamSensitiveData teamSensitiveData_authority = actorAnimation.\u000D\u000E.TeamSensitiveData_authority;
+							ActorTeamSensitiveData teamSensitiveData_authority = actorAnimation.Actor.TeamSensitiveData_authority;
 							if (teamSensitiveData_authority != null)
 							{
 								for (;;)
@@ -1052,7 +1052,7 @@ namespace Theatrics
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(Turn.\u000B(AbilityPriority)).MethodHandle;
 				}
-				result = (this.\u000E[(int)\u001D].\u000E.Count > 0);
+				result = (this.\u000E[(int)\u001D].animations.Count > 0);
 			}
 			else
 			{
@@ -1112,12 +1112,12 @@ namespace Theatrics
 			}
 			if (\u000E >= 7)
 			{
-				return \u001D.\u0009() <= 0;
+				return \u001D.GetHitPointsAfterResolution() <= 0;
 			}
 			int num = 0;
 			for (int i = 0; i <= \u000E; i++)
 			{
-				Dictionary<int, int> u001C = this.\u000E[i].\u001C;
+				Dictionary<int, int> u001C = this.\u000E[i].ActorIndexToDeltaHP;
 				if (u001C != null)
 				{
 					for (;;)
@@ -1158,7 +1158,7 @@ namespace Theatrics
 
 		internal bool \u001A(ActorData \u001D)
 		{
-			if (\u001D.\u0012())
+			if (\u001D.IsModelAnimatorDisabled())
 			{
 				for (;;)
 				{
@@ -1197,11 +1197,11 @@ namespace Theatrics
 						}
 						break;
 					}
-					List<ActorAnimation> u000E = this.\u000E[this.\u0012].\u000E;
-					for (int i = 0; i < u000E.Count; i++)
+					List<ActorAnimation> animations = this.\u000E[this.\u0012].animations;
+					for (int i = 0; i < animations.Count; i++)
 					{
-						ActorAnimation actorAnimation = u000E[i];
-						if (actorAnimation.\u000D\u000E == \u001D)
+						ActorAnimation actorAnimation = animations[i];
+						if (actorAnimation.Actor == \u001D)
 						{
 							for (;;)
 							{
@@ -1212,7 +1212,7 @@ namespace Theatrics
 								}
 								break;
 							}
-							if (actorAnimation.\u000D\u000E)
+							if (actorAnimation.PlaybackState2OrLater_zq)
 							{
 								for (;;)
 								{
@@ -1255,7 +1255,7 @@ namespace Theatrics
 
 		internal bool \u0004(ActorData \u001D, int \u000E = 0, int \u0012 = -1)
 		{
-			if (\u001D.\u0009() + \u000E <= 0)
+			if (\u001D.GetHitPointsAfterResolution() + \u000E <= 0)
 			{
 				for (;;)
 				{
@@ -1270,7 +1270,7 @@ namespace Theatrics
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(Turn.\u0004(ActorData, int, int)).MethodHandle;
 				}
-				if (!\u001D.\u0012())
+				if (!\u001D.IsModelAnimatorDisabled())
 				{
 					for (;;)
 					{
@@ -1324,11 +1324,11 @@ namespace Theatrics
 										{
 											goto IL_A8;
 										}
-										List<ActorAnimation> u000E = this.\u000E[num].\u000E;
+										List<ActorAnimation> animations = this.\u000E[num].animations;
 										int i = 0;
-										while (i < u000E.Count)
+										while (i < animations.Count)
 										{
-											ActorAnimation actorAnimation = u000E[i];
+											ActorAnimation actorAnimation = animations[i];
 											if (\u0012 < 0)
 											{
 												goto IL_F2;
@@ -1349,7 +1349,7 @@ namespace Theatrics
 											i++;
 											continue;
 											IL_F2:
-											if (actorAnimation.\u000D\u000E == \u001D)
+											if (actorAnimation.Actor == \u001D)
 											{
 												for (;;)
 												{
@@ -1508,12 +1508,12 @@ namespace Theatrics
 						}
 						break;
 					}
-					List<ActorAnimation> u000E = this.\u000E[this.\u0012].\u000E;
-					for (int i = 0; i < u000E.Count; i++)
+					List<ActorAnimation> animations = this.\u000E[this.\u0012].animations;
+					for (int i = 0; i < animations.Count; i++)
 					{
-						if (u000E[i].\u0008)
+						if (animations[i].cinematicCamera)
 						{
-							if (u000E[i].\u000D\u000E != ActorAnimation.PlaybackState.\u0012)
+							if (animations[i].State != ActorAnimation.PlaybackState.\u0012)
 							{
 								for (;;)
 								{
@@ -1524,7 +1524,7 @@ namespace Theatrics
 									}
 									break;
 								}
-								if (u000E[i].\u000D\u000E != ActorAnimation.PlaybackState.\u0015)
+								if (animations[i].State != ActorAnimation.PlaybackState.\u0015)
 								{
 									for (;;)
 									{
@@ -1535,7 +1535,7 @@ namespace Theatrics
 										}
 										break;
 									}
-									if (u000E[i].\u000D\u000E != ActorAnimation.PlaybackState.\u0016)
+									if (animations[i].State != ActorAnimation.PlaybackState.\u0016)
 									{
 										goto IL_C3;
 									}

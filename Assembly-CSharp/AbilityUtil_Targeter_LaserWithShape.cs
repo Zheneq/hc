@@ -204,7 +204,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		}
 		Vector3 dir = vector;
 		Vector3 b = currentTarget.FreePos;
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (this.SnapAimDirection())
 		{
 			for (;;)
@@ -216,7 +216,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (boardSquare != null)
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -227,7 +227,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (boardSquare != targetingActor.\u0012())
+				if (boardSquareSafe != targetingActor.GetCurrentBoardSquare())
 				{
 					for (;;)
 					{
@@ -238,7 +238,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 						}
 						break;
 					}
-					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquare.ToVector3(), boardSquare);
+					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquareSafe.ToVector3(), boardSquareSafe);
 					Vector3 vector2;
 					if (this.SnapToTargetShapeCenter())
 					{
@@ -255,10 +255,10 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 					}
 					else
 					{
-						vector2 = boardSquare.ToVector3();
+						vector2 = boardSquareSafe.ToVector3();
 					}
 					Vector3 vector3 = vector2;
-					dir = vector3 - targetingActor.\u0016();
+					dir = vector3 - targetingActor.GetTravelBoardSquareWorldPosition();
 					dir.y = 0f;
 					dir.Normalize();
 					b = vector3;
@@ -268,12 +268,12 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		float num = this.m_laserInfo.range;
 		if (this.m_clampToCursorPos)
 		{
-			float a = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.\u0016(), b);
+			float a = VectorUtils.HorizontalPlaneDistInSquares(targetingActor.GetTravelBoardSquareWorldPosition(), b);
 			num = Mathf.Min(a, num);
 		}
-		float widthInWorld = this.m_laserInfo.width * Board.\u000E().squareSize;
+		float widthInWorld = this.m_laserInfo.width * Board.Get().squareSize;
 		VectorUtils.LaserCoords adjustedCoords;
-		adjustedCoords.start = targetingActor.\u0015();
+		adjustedCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(adjustedCoords.start, dir, num, this.m_laserInfo.width, targetingActor, base.GetAffectedTeams(), this.m_laserInfo.penetrateLos, this.m_laserInfo.maxTargets, false, false, out adjustedCoords.end, null, null, false, true);
 		this.m_lastLaserHitActors = actorsInLaser;
 		bool flag = AreaEffectUtils.LaserHitWorldGeo(num, adjustedCoords, this.m_laserInfo.penetrateLos, actorsInLaser);
@@ -419,9 +419,9 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 			}
 			Vector3 vector4;
 			AreaEffectUtils.GetEndPointForValidGameplaySquare(adjustedCoords.start, adjustedCoords.end, out vector4);
-			BoardSquare centerSquare = Board.\u000E().\u000E(vector4);
-			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(this.m_shape, vector4, centerSquare);
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, centerOfShape2, centerSquare, false, targetingActor, targetingActor.\u0012(), null);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(vector4);
+			Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(this.m_shape, vector4, boardSquare);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, centerOfShape2, boardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 			using (List<ActorData>.Enumerator enumerator2 = actorsInShape.GetEnumerator())
 			{
@@ -470,7 +470,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 			{
 				position = TargeterUtils.MoveHighlightTowards(centerOfShape2, gameObject2, ref this.m_cursorSpeed);
 			}
-			position.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+			position.y = (float)Board.Get().BaselineHeight + 0.1f;
 			gameObject2.transform.position = position;
 			gameObject2.SetActive(true);
 		}
@@ -490,7 +490,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (boardSquare != null)
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -501,8 +501,8 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 					}
 					break;
 				}
-				Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquare.ToVector3(), boardSquare);
-				float num3 = (float)Board.\u000E().BaselineHeight;
+				Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquareSafe.ToVector3(), boardSquareSafe);
+				float num3 = (float)Board.Get().BaselineHeight;
 				float num4;
 				if (this.SnapAimDirection())
 				{
@@ -539,7 +539,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 				}
 				else
 				{
-					vector5 = boardSquare.ToVector3();
+					vector5 = boardSquareSafe.ToVector3();
 				}
 				a2 = vector5;
 				a2.y = adjustedCoords.start.y;

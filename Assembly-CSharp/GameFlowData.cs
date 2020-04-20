@@ -1149,7 +1149,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			return;
 		}
-		if (actorData.\u000E() != Team.TeamA)
+		if (actorData.GetTeam() != Team.TeamA)
 		{
 			for (;;)
 			{
@@ -1237,7 +1237,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			foreach (ActorData actorData in this.m_ownedActorDatas)
 			{
-				if (actorData != null && !actorData.\u000E())
+				if (actorData != null && !actorData.IsDead())
 				{
 					for (;;)
 					{
@@ -1407,7 +1407,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 								}
 								break;
 							}
-							if (actorData.\u000E() == this.activeOwnedActorData.\u000E())
+							if (actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
 							{
 								ActorTurnSM component = actorData.GetComponent<ActorTurnSM>();
 								if (component.CurrentState != TurnStateEnum.CONFIRMED)
@@ -1570,7 +1570,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				foreach (ActorData actorData in this.m_ownedActorDatas)
 				{
-					if (actorData.\u000E() == this.activeOwnedActorData.\u000E())
+					if (actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
 					{
 						for (;;)
 						{
@@ -1615,7 +1615,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						if (actorData.\u000E() != this.activeOwnedActorData.\u000E())
+						if (actorData.GetTeam() != this.activeOwnedActorData.GetTeam())
 						{
 							return actorData;
 						}
@@ -1681,7 +1681,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					flag3 = (value.\u0012() == this.m_activeOwnedActorData.\u000E());
+					flag3 = (value.GetOpposingTeam() == this.m_activeOwnedActorData.GetTeam());
 				}
 				else
 				{
@@ -1761,7 +1761,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetActiveOwnedActorDataDebugNameString()).MethodHandle;
 			}
-			return this.activeOwnedActorData.\u0018();
+			return this.activeOwnedActorData.GetDebugName();
 		}
 		return "(no owned actor)";
 	}
@@ -1793,7 +1793,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.AddToTeam(ActorData)).MethodHandle;
 			}
-			if (actorData.\u000E() == Team.TeamA)
+			if (actorData.GetTeam() == Team.TeamA)
 			{
 				for (;;)
 				{
@@ -1821,7 +1821,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 					goto IL_119;
 				}
 			}
-			if (actorData.\u000E() == Team.TeamB && !this.m_teamBPlayerAndBots.Contains(actorData))
+			if (actorData.GetTeam() == Team.TeamB && !this.m_teamBPlayerAndBots.Contains(actorData))
 			{
 				for (;;)
 				{
@@ -1836,7 +1836,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				this.m_teamObjectsPlayerAndBots.Remove(actorData);
 				this.m_teamBPlayerAndBots.Add(actorData);
 			}
-			else if (actorData.\u000E() == Team.Objects)
+			else if (actorData.GetTeam() == Team.Objects)
 			{
 				for (;;)
 				{
@@ -1865,7 +1865,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 		}
 		IL_119:
-		if (actorData.\u000E() == Team.TeamA)
+		if (actorData.GetTeam() == Team.TeamA)
 		{
 			for (;;)
 			{
@@ -1893,7 +1893,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				return;
 			}
 		}
-		if (actorData.\u000E() == Team.TeamB && !this.m_teamB.Contains(actorData))
+		if (actorData.GetTeam() == Team.TeamB && !this.m_teamB.Contains(actorData))
 		{
 			for (;;)
 			{
@@ -1908,7 +1908,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			this.m_teamObjects.Remove(actorData);
 			this.m_teamB.Add(actorData);
 		}
-		else if (actorData.\u000E() == Team.Objects)
+		else if (actorData.GetTeam() == Team.Objects)
 		{
 			for (;;)
 			{
@@ -2039,7 +2039,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
 						for (;;)
 						{
@@ -2050,7 +2050,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (actorData.\u000E(observer, false))
+						if (actorData.IsActorVisibleToActor(observer, false))
 						{
 							for (;;)
 							{
@@ -2634,7 +2634,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			this.CurrentTurn
 		});
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -2649,7 +2649,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IncrementTurn()).MethodHandle;
 			}
-			Board.\u000E().MarkForUpdateValidSquares(true);
+			Board.Get().MarkForUpdateValidSquares(true);
 		}
 	}
 
@@ -2826,7 +2826,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			ObjectivePoints.Get().OnTurnTick();
 		}
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
 			for (;;)
 			{
@@ -3580,7 +3580,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.IsOwnedActorsTurn()).MethodHandle;
 			}
-			result = this.IsTeamsTurn(this.activeOwnedActorData.\u000E());
+			result = this.IsTeamsTurn(this.activeOwnedActorData.GetTeam());
 		}
 		return result;
 	}
@@ -4056,12 +4056,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				else if (GameplayData.Get().m_participationlessBountiesGoToTeam)
 				{
-					this.RewardTeam(killedActor.\u0012(), num);
+					this.RewardTeam(killedActor.GetOpposingTeam(), num);
 				}
 			}
 			else
 			{
-				this.RewardTeam(killedActor.\u0012(), num);
+				this.RewardTeam(killedActor.GetOpposingTeam(), num);
 			}
 		}
 	}
@@ -4087,7 +4087,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			foreach (ActorData actorData in allTeamMembers)
 			{
-				if (actorData.\u000E() != null)
+				if (actorData.GetActorBehavior() != null)
 				{
 					for (;;)
 					{
@@ -4098,7 +4098,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					num += actorData.\u000E().totalDeathsOnTurnStart;
+					num += actorData.GetActorBehavior().totalDeathsOnTurnStart;
 				}
 			}
 		}
@@ -4117,7 +4117,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public List<ActorData> GetContributorsToKillOnClient(ActorData killedActor, bool onlyDirectDamagers = false)
 	{
 		List<ActorData> list = new List<ActorData>();
-		List<ActorData> allTeamMembers = this.GetAllTeamMembers(killedActor.\u0012());
+		List<ActorData> allTeamMembers = this.GetAllTeamMembers(killedActor.GetOpposingTeam());
 		if (allTeamMembers != null)
 		{
 			for (;;)
@@ -4133,7 +4133,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetContributorsToKillOnClient(ActorData, bool)).MethodHandle;
 			}
-			ActorBehavior actorBehavior = killedActor.\u000E();
+			ActorBehavior actorBehavior = killedActor.GetActorBehavior();
 			foreach (ActorData actorData in allTeamMembers)
 			{
 				if (!GameplayUtils.IsPlayerControlled(actorData))
@@ -4226,7 +4226,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 									}
 									else
 									{
-										ActorBehavior actorBehavior2 = actorData3.\u000E();
+										ActorBehavior actorBehavior2 = actorData3.GetActorBehavior();
 										if (!actorBehavior2.Client_ActorHealedOrBuffedByActor(actorData2))
 										{
 											continue;
@@ -4395,7 +4395,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetDeathCountOfTeam(Team)).MethodHandle;
 				}
-				if (actorData.\u000E() == team)
+				if (actorData.GetTeam() == team)
 				{
 					for (;;)
 					{
@@ -4406,7 +4406,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (actorData.\u000E() != null)
+					if (actorData.GetActorBehavior() != null)
 					{
 						for (;;)
 						{
@@ -4417,7 +4417,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						num += actorData.\u000E().totalDeaths;
+						num += actorData.GetActorBehavior().totalDeaths;
 					}
 				}
 			}
@@ -4440,7 +4440,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < this.m_actors.Count; i++)
 		{
 			ActorData actorData = this.m_actors[i];
-			if (actorData != null && actorData.\u000E() == team && actorData.\u000E() != null)
+			if (actorData != null && actorData.GetTeam() == team && actorData.GetActorBehavior() != null)
 			{
 				for (;;)
 				{
@@ -4455,7 +4455,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlowData.GetTotalTeamDamageReceived(Team)).MethodHandle;
 				}
-				num += actorData.\u000E().totalPlayerDamageReceived;
+				num += actorData.GetActorBehavior().totalPlayerDamageReceived;
 			}
 		}
 		for (;;)
@@ -4475,9 +4475,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < this.m_actors.Count; i++)
 		{
 			ActorData actorData = this.m_actors[i];
-			if (actorData.\u000E() != null)
+			if (actorData.GetActorCover() != null)
 			{
-				actorData.\u000E().UpdateCoverFromBarriers();
+				actorData.GetActorCover().UpdateCoverFromBarriers();
 			}
 		}
 	}

@@ -100,7 +100,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 
 	public virtual Vector3 GetStartLosPos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return targetingActor.\u0015();
+		return targetingActor.GetTravelBoardSquareWorldPositionForLos();
 	}
 
 	public virtual Vector3 GetAimDirection(AbilityTarget currentTarget, ActorData targetingActor)
@@ -167,8 +167,8 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		this.m_laserPart.AdjustHighlight(base.Highlight, laserCoords.start, laserCoords.end, true);
 		List<ActorData> list = new List<ActorData>();
 		int num = 0;
-		Vector3 b = targetingActor.\u0016();
-		float squareSize = Board.\u000E().squareSize;
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		float squareSize = Board.Get().squareSize;
 		using (List<ActorData>.Enumerator enumerator = hitActors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
@@ -176,7 +176,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				ActorData actorData = enumerator.Current;
 				base.AddActorInRange(actorData, laserCoords.start, targetingActor, AbilityTooltipSubject.Primary, false);
 				list.Add(actorData);
-				float num2 = (actorData.\u0016() - b).magnitude / squareSize;
+				float num2 = (actorData.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSize;
 				AbilityUtil_Targeter_Laser.HitActorContext item;
 				item.actor = actorData;
 				item.hitOrderIndex = num;
@@ -184,8 +184,8 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				this.m_hitActorContext.Add(item);
 				ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
 				actorHitContext.\u001D = laserCoords.start;
-				actorHitContext.\u0015.\u0016(ContextKeys.\u0011.\u0012(), num);
-				actorHitContext.\u0015.\u0015(ContextKeys.\u0018.\u0012(), num2);
+				actorHitContext.\u0015.SetInt(ContextKeys.\u0011.GetHash(), num);
+				actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), num2);
 				num++;
 			}
 			for (;;)
@@ -263,8 +263,8 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 	{
 		Vector3 startLosPos = this.GetStartLosPos(currentTarget, targetingActor);
 		Vector3 aimDirection = this.GetAimDirection(currentTarget, targetingActor);
-		float maxDistanceInWorld = this.GetDistance() * Board.\u000E().squareSize;
-		float widthInWorld = this.GetWidth() * Board.\u000E().squareSize;
+		float maxDistanceInWorld = this.GetDistance() * Board.Get().squareSize;
+		float widthInWorld = this.GetWidth() * Board.Get().squareSize;
 		bool penetrateLoS = this.GetPenetrateLoS() || this.m_lengthIgnoreWorldGeo;
 		VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(startLosPos, aimDirection, maxDistanceInWorld, widthInWorld, penetrateLoS, targetingActor, null);
 		float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
@@ -278,7 +278,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 	public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		VectorUtils.LaserCoords laserCoords = this.CurrentLaserCoordinatesForGizmo(currentTarget, targetingActor);
-		float widthInWorld = this.GetWidth() * Board.\u000E().squareSize;
+		float widthInWorld = this.GetWidth() * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 vector = laserCoords.start + new Vector3(0f, y, 0f);
 		Vector3 vector2 = laserCoords.end + new Vector3(0f, y, 0f);
@@ -290,7 +290,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 			while (enumerator.MoveNext())
 			{
 				BoardSquare boardSquare = enumerator.Current;
-				if (boardSquare.\u0016())
+				if (boardSquare.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -343,7 +343,7 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 			while (enumerator2.MoveNext())
 			{
 				BoardSquare boardSquare2 = enumerator2.Current;
-				if (boardSquare2.\u0016())
+				if (boardSquare2.IsBaselineHeight())
 				{
 					Gizmos.DrawWireSphere(boardSquare2.ToVector3(), 0.2f);
 				}

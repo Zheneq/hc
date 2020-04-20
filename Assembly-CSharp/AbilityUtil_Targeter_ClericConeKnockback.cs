@@ -37,14 +37,14 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 		else
 		{
 			base.InitKnockbackData(this.m_knockbackDistanceLastTargeter, this.m_knockbackTypeLastTargeter, 0f, KnockbackType.AwayFromSource);
-			Vector3 vector = targetingActor.\u0015();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			Vector3 freePos = targets[currentTargetIndex - 1].FreePos;
-			Vector3 vector2 = freePos - vector;
-			vector2.y = 0f;
-			vector2.Normalize();
-			Vector3 vector3 = Vector3.Cross(vector2, Vector3.up);
-			float num = Vector3.Dot(vector3, currentTarget.AimDirection.normalized);
-			Vector3 vector4 = Vector3.RotateTowards(vector2, (num <= 0f) ? (-vector3) : vector3, this.m_maxAngleDegrees * 0.5f * 0.0174532924f, 0f);
+			Vector3 vector = freePos - travelBoardSquareWorldPositionForLos;
+			vector.y = 0f;
+			vector.Normalize();
+			Vector3 vector2 = Vector3.Cross(vector, Vector3.up);
+			float num = Vector3.Dot(vector2, currentTarget.AimDirection.normalized);
+			Vector3 vector3 = Vector3.RotateTowards(vector, (num <= 0f) ? (-vector2) : vector2, this.m_maxAngleDegrees * 0.5f * 0.0174532924f, 0f);
 			if (this.m_highlights != null && this.m_highlights.Count < 1)
 			{
 				for (;;)
@@ -59,9 +59,9 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 				GameObject item = AbilityUtil_Targeter_SoldierCardinalLines.CreateArrowPointerHighlight(1.5f);
 				this.m_highlights.Add(item);
 			}
-			Vector3 position = vector + vector2.normalized * 0.5f * this.m_maxLengthSquares * Board.\u000E().squareSize;
+			Vector3 position = travelBoardSquareWorldPositionForLos + vector.normalized * 0.5f * this.m_maxLengthSquares * Board.Get().squareSize;
 			position.y = HighlightUtils.GetHighlightHeight();
-			Vector3 forward = -1f * Vector3.Cross(vector4, (num <= 0f) ? Vector3.up : (-Vector3.up));
+			Vector3 forward = -1f * Vector3.Cross(vector3, (num <= 0f) ? Vector3.up : (-Vector3.up));
 			this.m_highlights[this.m_highlights.Count - 1].transform.position = position;
 			this.m_highlights[this.m_highlights.Count - 1].transform.rotation = Quaternion.LookRotation(forward);
 			int num2 = 0;
@@ -80,7 +80,7 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 				List<ActorData> visibleActorsInRange = (this.m_ability.Targeters[0] as AbilityUtil_Targeter_ClericConeKnockback).GetVisibleActorsInRange();
 				foreach (ActorData actorData in visibleActorsInRange)
 				{
-					if (actorData.\u000E() != targetingActor.\u000E())
+					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
 						for (;;)
 						{
@@ -91,7 +91,7 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 							}
 							break;
 						}
-						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector4, vector, this.m_knockbackDistance);
+						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector3, travelBoardSquareWorldPositionForLos, this.m_knockbackDistance);
 						num2 = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num2, false);
 					}
 				}

@@ -108,7 +108,7 @@ public abstract class UIBaseIndicator : MonoBehaviour
 
 	protected virtual void SetupCharacterIcons(ActorData actorData)
 	{
-		this.m_characterIcon.sprite = actorData.\u000E();
+		this.m_characterIcon.sprite = actorData.GetAliveHUDIcon();
 	}
 
 	public ActorData GetAttachedActor()
@@ -244,7 +244,7 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		}
 		else
 		{
-			this.m_characterIcon.sprite = boardRegion.\u001D();
+			this.m_characterIcon.sprite = boardRegion.GetTurnInRegionIcon();
 			this.m_characterIcon.transform.localScale = Vector3.one;
 		}
 	}
@@ -279,7 +279,7 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup(UIWorldPing, ActorController.PingType, ActorData, UIOffscreenIndicatorPanel)).MethodHandle;
 			}
-			this.m_pingCharacterIcon.sprite = pingerActorData.\u000E();
+			this.m_pingCharacterIcon.sprite = pingerActorData.GetAliveHUDIcon();
 		}
 	}
 
@@ -590,9 +590,9 @@ public abstract class UIBaseIndicator : MonoBehaviour
 						}
 						break;
 					}
-					team = gameFlowData.activeOwnedActorData.\u000E();
+					team = gameFlowData.activeOwnedActorData.GetTeam();
 				}
-				flag = (team == this.m_attachedToActor.\u000E());
+				flag = (team == this.m_attachedToActor.GetTeam());
 			}
 			if (team == this.m_curTeam)
 			{

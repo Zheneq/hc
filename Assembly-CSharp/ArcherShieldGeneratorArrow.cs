@@ -461,7 +461,7 @@ public class ArcherShieldGeneratorArrow : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
 			}
-			if (targetActor.\u000E() == base.ActorData.\u000E())
+			if (targetActor.GetTeam() == base.ActorData.GetTeam())
 			{
 				int num = this.m_syncComp.m_extraAbsorbForShieldGenerator;
 				List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
@@ -476,7 +476,7 @@ public class ArcherShieldGeneratorArrow : Ability
 						}
 						break;
 					}
-					int num2 = actorsInRange.Count((AbilityUtil_Targeter.ActorTarget t) => t.m_actor.\u000E() != base.ActorData.\u000E());
+					int num2 = actorsInRange.Count((AbilityUtil_Targeter.ActorTarget t) => t.m_actor.GetTeam() != base.ActorData.GetTeam());
 					if (actorsInRange.Count - num2 == 1)
 					{
 						for (;;)

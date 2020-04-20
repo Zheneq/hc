@@ -124,10 +124,10 @@ public class InterfaceManager : NetworkBehaviour
 				break;
 			}
 			List<ActorData> ownedActorDatas = GameFlowData.Get().m_ownedActorDatas;
-			Team team = activeOwnedActorData.\u000E();
+			Team team = activeOwnedActorData.GetTeam();
 			for (int i = 0; i < ownedActorDatas.Count; i++)
 			{
-				if (ownedActorDatas[i].\u000E() == team)
+				if (ownedActorDatas[i].GetTeam() == team)
 				{
 					for (;;)
 					{

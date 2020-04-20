@@ -83,7 +83,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.GetPrimaryLaserAffectedTeams(ActorData)).MethodHandle;
 				}
-				list.Add(caster.\u0012());
+				list.Add(caster.GetOpposingTeam());
 			}
 			if (this.m_primaryLaserAffectsAllies)
 			{
@@ -96,7 +96,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u000E());
+				list.Add(caster.GetTeam());
 			}
 		}
 		return list;
@@ -131,7 +131,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u0012());
+				list.Add(caster.GetOpposingTeam());
 			}
 			if (this.m_splitLaserAffectsAllies)
 			{
@@ -144,7 +144,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u000E());
+				list.Add(caster.GetTeam());
 			}
 		}
 		return list;
@@ -154,13 +154,13 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 	{
 		base.ClearActorsInRange();
 		VectorUtils.LaserCoords laserCoords;
-		laserCoords.start = targetingActor.\u0015();
+		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, this.m_primaryLaserLengthInSquares, this.m_primaryLaserWidthInSquares, targetingActor, this.GetPrimaryLaserAffectedTeams(targetingActor), this.m_primaryLaserPenetratesLoS, this.m_primaryLaserMaxTargets, false, false, out laserCoords.end, null, null, false, true);
 		List<ActorData> list = new List<ActorData>();
 		List<ActorData> list2 = new List<ActorData>();
 		for (int i = 0; i < actorsInLaser.Count; i++)
 		{
-			if (actorsInLaser[i].\u000E() == targetingActor.\u000E())
+			if (actorsInLaser[i].GetTeam() == targetingActor.GetTeam())
 			{
 				list2.Add(actorsInLaser[i]);
 			}
@@ -234,7 +234,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 			List<ActorData> list4 = new List<ActorData>();
 			for (int l = 0; l < actorsInLaser2.Count; l++)
 			{
-				if (actorsInLaser2[l].\u000E() == targetingActor.\u000E())
+				if (actorsInLaser2[l].GetTeam() == targetingActor.GetTeam())
 				{
 					for (;;)
 					{
@@ -265,7 +265,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 			List<ActorData> list6 = new List<ActorData>();
 			for (int m = 0; m < actorsInLaser3.Count; m++)
 			{
-				if (actorsInLaser3[m].\u000E() == targetingActor.\u000E())
+				if (actorsInLaser3[m].GetTeam() == targetingActor.GetTeam())
 				{
 					for (;;)
 					{
@@ -336,7 +336,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		{
 			num = this.m_splitLaserWidthInSquares;
 		}
-		float widthInWorld = num * Board.\u000E().squareSize;
+		float widthInWorld = num * Board.Get().squareSize;
 		Vector3 normalized = (laserCoords.end - laserCoords.start).normalized;
 		while (this.m_highlights.Count <= highlightIndex)
 		{
@@ -399,7 +399,7 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 			}
 			return this.m_minAngle;
 		}
-		float value = (currentTarget.FreePos - targetingActor.\u0016()).magnitude / Board.\u000E().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
 		float num2 = Mathf.Clamp(value, this.m_interpMinDistanceInSquares, this.m_interpMaxDistanceInSquares) - this.m_interpMinDistanceInSquares;
 		float num3 = num2 / num;
 		float num4 = 1f - num3;

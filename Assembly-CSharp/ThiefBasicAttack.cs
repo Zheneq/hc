@@ -959,14 +959,14 @@ public class ThiefBasicAttack : Ability
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		min = this.m_targeterMinInterpDistance * Board.\u000E().squareSize;
-		max = this.m_targeterMaxInterpDistance * Board.\u000E().squareSize;
+		min = this.m_targeterMinInterpDistance * Board.Get().squareSize;
+		max = this.m_targeterMaxInterpDistance * Board.Get().squareSize;
 		return true;
 	}
 
 	private List<ActorData> GetHitActorsInDirection(Vector3 direction, ActorData caster, HashSet<PowerUp> powerupsHitPreviously, out VectorUtils.LaserCoords endPoints, out List<PowerUp> powerupsHit, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		return ThiefBasicAttack.GetHitActorsInDirectionStatic(caster.\u0015(), direction, caster, this.GetLaserRange(), this.GetLaserWidth(), this.LaserPenetrateLos(), this.GetLaserMaxTargets(), false, true, true, this.c_maxPowerupPerLaser, true, this.StopOnPowerupHit(), this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), powerupsHitPreviously, out endPoints, out powerupsHit, nonActorTargetInfo, false, true);
+		return ThiefBasicAttack.GetHitActorsInDirectionStatic(caster.GetTravelBoardSquareWorldPositionForLos(), direction, caster, this.GetLaserRange(), this.GetLaserWidth(), this.LaserPenetrateLos(), this.GetLaserMaxTargets(), false, true, true, this.c_maxPowerupPerLaser, true, this.StopOnPowerupHit(), this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), powerupsHitPreviously, out endPoints, out powerupsHit, nonActorTargetInfo, false, true);
 	}
 
 	public unsafe static List<ActorData> GetHitActorsInDirectionStatic(Vector3 startLosCheckPos, Vector3 direction, ActorData caster, float distanceInSquares, float widthInSquares, bool penetrateLos, int maxActorTargets, bool includeAllies, bool includeEnemies, bool includeInvisibles, int maxPowerupsCount, bool shouldIncludePowerups, bool stopOnPowerupHit, bool includeSpoils, bool ignoreTeamRestriction, HashSet<PowerUp> powerupsHitSoFar, out VectorUtils.LaserCoords outEndPoints, out List<PowerUp> outPowerupsHit, List<NonActorTargetInfo> nonActorTargetInfo, bool forClient, bool stopEndPosOnHitActor = true)
@@ -1004,7 +1004,7 @@ public class ThiefBasicAttack : Ability
 					}
 					break;
 				}
-				laserCoords.end = actorsInLaser[actorsInLaser.Count - 1].\u0015();
+				laserCoords.end = actorsInLaser[actorsInLaser.Count - 1].GetTravelBoardSquareWorldPositionForLos();
 			}
 		}
 		if (shouldIncludePowerups)
@@ -1161,7 +1161,7 @@ public class ThiefBasicAttack : Ability
 							}
 							break;
 						}
-						float magnitude2 = (list2[0].\u0015() - startLosCheckPos).magnitude;
+						float magnitude2 = (list2[0].GetTravelBoardSquareWorldPositionForLos() - startLosCheckPos).magnitude;
 						if (magnitude < magnitude2)
 						{
 							list2.Clear();
@@ -1199,7 +1199,7 @@ public class ThiefBasicAttack : Ability
 			}
 			else
 			{
-				if (!ignoreTeamRestriction && !powerUp.TeamAllowedForPickUp(thief.\u000E()))
+				if (!ignoreTeamRestriction && !powerUp.TeamAllowedForPickUp(thief.GetTeam()))
 				{
 					return false;
 				}
@@ -1237,7 +1237,7 @@ public class ThiefBasicAttack : Ability
 
 	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float value = (currentTarget.FreePos - targetingActor.\u0016()).magnitude / Board.\u000E().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
 		float num = Mathf.Clamp(value, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance) - this.m_targeterMinInterpDistance;
 		return this.GetTargeterMaxAngle() * (1f - num / (this.m_targeterMaxInterpDistance - this.m_targeterMinInterpDistance));
 	}

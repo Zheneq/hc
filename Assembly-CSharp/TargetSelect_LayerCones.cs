@@ -21,13 +21,13 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0003.\u0012(), "on every hit actor, 0-based index of smallest cone with a hit, with smallest cone first", true) + base.GetContextUsageStr(ContextKeys.\u000F.\u0012(), "Non-actor specific context, number of layers active", false);
+		return base.GetContextUsageStr(ContextKeys.\u0003.GetName(), "on every hit actor, 0-based index of smallest cone with a hit, with smallest cone first", true) + base.GetContextUsageStr(ContextKeys.\u000F.GetName(), "Non-actor specific context, number of layers active", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0003.\u0012());
-		names.Add(ContextKeys.\u000F.\u0012());
+		names.Add(ContextKeys.\u0003.GetName());
+		names.Add(ContextKeys.\u000F.GetName());
 	}
 
 	public override void Initialize()

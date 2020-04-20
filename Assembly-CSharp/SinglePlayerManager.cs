@@ -181,7 +181,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			ActorData localPlayer = this.GetLocalPlayer();
 			if (localPlayer)
 			{
-				ActorMovement actorMovement = localPlayer.\u000E();
+				ActorMovement actorMovement = localPlayer.GetActorMovement();
 				if (actorMovement)
 				{
 					actorMovement.UpdateSquaresCanMoveTo();
@@ -614,7 +614,7 @@ public class SinglePlayerManager : NetworkBehaviour
 					}
 					break;
 				}
-				if (actor.\u0019())
+				if (actor.GetIsHumanControlled())
 				{
 					return SinglePlayerManager.s_instance.GetCanEndTurnFlag();
 				}
@@ -726,7 +726,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				if (actorData.\u0019())
+				if (actorData.GetIsHumanControlled())
 				{
 					for (;;)
 					{
@@ -829,7 +829,7 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						break;
 					}
-					flag4 = (localPlayer.\u000E() == actor.\u000E());
+					flag4 = (localPlayer.GetTeam() == actor.GetTeam());
 				}
 				else
 				{
@@ -852,7 +852,7 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						break;
 					}
-					flag5 = (localPlayer.\u000E() != actor.\u000E());
+					flag5 = (localPlayer.GetTeam() != actor.GetTeam());
 				}
 				else
 				{
@@ -1299,7 +1299,7 @@ public class SinglePlayerManager : NetworkBehaviour
 							}
 							break;
 						}
-						if (actor.\u0012() != actor.MoveFromBoardSquare)
+						if (actor.GetCurrentBoardSquare() != actor.MoveFromBoardSquare)
 						{
 							this.m_errorTriggered = true;
 						}
@@ -1312,7 +1312,7 @@ public class SinglePlayerManager : NetworkBehaviour
 	public void OnEndTurnRequested(ActorData requestingActor)
 	{
 		this.RecalcCanEndTurn();
-		if (requestingActor.\u0019())
+		if (requestingActor.GetIsHumanControlled())
 		{
 			for (;;)
 			{
@@ -1614,7 +1614,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			return true;
 		}
-		if (caster.\u0019())
+		if (caster.GetIsHumanControlled())
 		{
 			bool result = false;
 			SinglePlayerState currentState = SinglePlayerManager.s_instance.GetCurrentState();
@@ -1670,7 +1670,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			break;
 		}
-		Ability abilityOfActionType = caster.\u000E().GetAbilityOfActionType(action);
+		Ability abilityOfActionType = caster.GetAbilityData().GetAbilityOfActionType(action);
 		if (abilityOfActionType == null)
 		{
 			for (;;)
@@ -1737,7 +1737,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			return true;
 		}
 		SinglePlayerState currentState = SinglePlayerManager.s_instance.GetCurrentState();
-		bool flag = currentState.m_allowedDestinations.m_quads.Length == 0 || currentState.m_allowedDestinations.\u001D().Contains(square);
+		bool flag = currentState.m_allowedDestinations.m_quads.Length == 0 || currentState.m_allowedDestinations.GetSquaresInRegion().Contains(square);
 		bool flag2;
 		if (!currentState.m_onlyAllowWaypointMovement)
 		{
@@ -1809,7 +1809,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			return false;
 		}
-		if (!mover.\u0019())
+		if (!mover.GetIsHumanControlled())
 		{
 			for (;;)
 			{
@@ -1840,7 +1840,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			else
 			{
-				result = SinglePlayerCoordinator.Get().m_forbiddenSquares.\u001D().Contains(square);
+				result = SinglePlayerCoordinator.Get().m_forbiddenSquares.GetSquaresInRegion().Contains(square);
 			}
 		}
 		return result;
@@ -1954,7 +1954,7 @@ public class SinglePlayerManager : NetworkBehaviour
 						break;
 					}
 					ActorData localPlayer = this.GetLocalPlayer();
-					AbilityData abilityData = localPlayer.\u000E();
+					AbilityData abilityData = localPlayer.GetAbilityData();
 					bool flag = abilityData.HasQueuedAbilities();
 					if (flag)
 					{
@@ -2105,9 +2105,9 @@ public class SinglePlayerManager : NetworkBehaviour
 								{
 									while (enumerator.MoveNext())
 									{
-										GridPos u001D = enumerator.Current;
-										BoardSquare item = Board.\u000E().\u000E(u001D);
-										if (SinglePlayerCoordinator.Get().m_forbiddenSquares.\u001D().Contains(item))
+										GridPos gridPos = enumerator.Current;
+										BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+										if (SinglePlayerCoordinator.Get().m_forbiddenSquares.GetSquaresInRegion().Contains(boardSquareSafe))
 										{
 											for (;;)
 											{
@@ -2137,7 +2137,7 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						else
 						{
-							result = !SinglePlayerCoordinator.Get().m_forbiddenSquares.\u001D().Contains(localPlayer2.\u0012());
+							result = !SinglePlayerCoordinator.Get().m_forbiddenSquares.GetSquaresInRegion().Contains(localPlayer2.GetCurrentBoardSquare());
 						}
 					}
 				}
@@ -2199,7 +2199,7 @@ public class SinglePlayerManager : NetworkBehaviour
 					}
 					if (gridPosPath.Count > 0)
 					{
-						item = Board.\u000E().\u000E(gridPosPath[gridPosPath.Count - 1]);
+						item = Board.Get().GetBoardSquareSafe(gridPosPath[gridPosPath.Count - 1]);
 					}
 				}
 			}
@@ -2322,7 +2322,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			flag2 = false;
 			IL_A0:
 			bool flag3 = flag2;
-			AbilityData abilityData = localPlayer.\u000E();
+			AbilityData abilityData = localPlayer.GetAbilityData();
 			bool flag4 = abilityData.HasQueuedAbilities();
 			result = (flag3 && flag4);
 		}
@@ -2371,7 +2371,7 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			int num = this.GetCurrentState().m_allowedAbilities.Length;
 			ActorData localPlayer = this.GetLocalPlayer();
-			AbilityData abilityData = localPlayer.\u000E();
+			AbilityData abilityData = localPlayer.GetAbilityData();
 			int numQueuedAbilities = abilityData.GetNumQueuedAbilities();
 			result = (num == numQueuedAbilities);
 		}
@@ -2401,7 +2401,7 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			return true;
 		}
-		if (!aimer.\u0019())
+		if (!aimer.GetIsHumanControlled())
 		{
 			for (;;)
 			{
@@ -2502,13 +2502,13 @@ public class SinglePlayerManager : NetworkBehaviour
 			{
 				ActorTurnSM component2 = aimer.GetComponent<ActorTurnSM>();
 				int targetSelectionIndex = component2.GetTargetSelectionIndex();
-				List<BoardSquare> list = currentState.m_allowedTargets.\u001D();
+				List<BoardSquare> squaresInRegion = currentState.m_allowedTargets.GetSquaresInRegion();
 				Ability.TargetingParadigm targetingParadigm = selectedAbility.GetTargetingParadigm(targetSelectionIndex);
 				BoardSquare boardSquare;
 				if (targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 				{
 					AbilityTarget abilityTarget = AbilityTarget.CreateAbilityTargetFromInterface();
-					boardSquare = Board.\u000E().\u000E(abilityTarget.GridPos);
+					boardSquare = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 				}
 				else if (targetingParadigm == Ability.TargetingParadigm.Position)
 				{
@@ -2522,7 +2522,7 @@ public class SinglePlayerManager : NetworkBehaviour
 						break;
 					}
 					AbilityTarget abilityTarget2 = AbilityTarget.CreateAbilityTargetFromInterface();
-					boardSquare = Board.\u000E().\u000E(abilityTarget2.FreePos);
+					boardSquare = Board.Get().GetBoardSquare(abilityTarget2.FreePos);
 				}
 				else
 				{
@@ -2540,7 +2540,7 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						break;
 					}
-					flag3 = list.Contains(boardSquare);
+					flag3 = squaresInRegion.Contains(boardSquare);
 				}
 				else
 				{
@@ -2559,10 +2559,10 @@ public class SinglePlayerManager : NetworkBehaviour
 						break;
 					}
 					AbilityTarget abilityTarget3 = AbilityTarget.CreateAbilityTargetFromInterface();
-					Vector3 vector = currentState.m_allowedTargets.\u001D();
-					float f = vector.x - abilityTarget3.FreePos.x;
-					float f2 = vector.z - abilityTarget3.FreePos.z;
-					float num = 0.45f * Board.\u000E().squareSize;
+					Vector3 center = currentState.m_allowedTargets.GetCenter();
+					float f = center.x - abilityTarget3.FreePos.x;
+					float f2 = center.z - abilityTarget3.FreePos.z;
+					float num = 0.45f * Board.Get().squareSize;
 					if (Mathf.Abs(f) < num)
 					{
 						for (;;)
@@ -2658,8 +2658,8 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						if (currentState.m_leftClickHighlight != null)
 						{
-							List<BoardSquare> list = currentState.m_leftClickHighlight.\u001D();
-							if (list.Count > 0)
+							List<BoardSquare> squaresInRegion = currentState.m_leftClickHighlight.GetSquaresInRegion();
+							if (squaresInRegion.Count > 0)
 							{
 								for (;;)
 								{
@@ -2689,7 +2689,7 @@ public class SinglePlayerManager : NetworkBehaviour
 								{
 									rectTransform = (componentInParent.transform as RectTransform);
 								}
-								Vector3 position = new Vector3(list[0].worldX, 1.5f + currentState.m_leftClickHeight, list[0].worldY);
+								Vector3 position = new Vector3(squaresInRegion[0].worldX, 1.5f + currentState.m_leftClickHeight, squaresInRegion[0].worldY);
 								Vector2 vector = Camera.main.WorldToViewportPoint(position);
 								Vector2 anchoredPosition = new Vector2(vector.x * rectTransform.sizeDelta.x - rectTransform.sizeDelta.x * 0.5f, vector.y * rectTransform.sizeDelta.y - rectTransform.sizeDelta.y * 0.5f);
 								(leftClick.transform as RectTransform).anchoredPosition = anchoredPosition;
@@ -2737,8 +2737,8 @@ public class SinglePlayerManager : NetworkBehaviour
 								}
 								UIManager.SetGameObjectActive(leftClick, false, null);
 							}
-							List<BoardSquare> list2 = currentState.m_rightClickHighlight.\u001D();
-							if (list2.Count > 0)
+							List<BoardSquare> squaresInRegion2 = currentState.m_rightClickHighlight.GetSquaresInRegion();
+							if (squaresInRegion2.Count > 0)
 							{
 								for (;;)
 								{
@@ -2768,7 +2768,7 @@ public class SinglePlayerManager : NetworkBehaviour
 								{
 									rectTransform2 = (componentInParent2.transform as RectTransform);
 								}
-								Vector3 position2 = new Vector3(list2[0].worldX, 1.5f + currentState.m_rightClickHeight, list2[0].worldY);
+								Vector3 position2 = new Vector3(squaresInRegion2[0].worldX, 1.5f + currentState.m_rightClickHeight, squaresInRegion2[0].worldY);
 								Vector2 vector2 = Camera.main.WorldToViewportPoint(position2);
 								Vector2 anchoredPosition2 = new Vector2(vector2.x * rectTransform2.sizeDelta.x - rectTransform2.sizeDelta.x * 0.5f, vector2.y * rectTransform2.sizeDelta.y - rectTransform2.sizeDelta.y * 0.5f);
 								(rightClick.transform as RectTransform).anchoredPosition = anchoredPosition2;
@@ -2833,8 +2833,8 @@ public class SinglePlayerManager : NetworkBehaviour
 							flag = false;
 							IL_442:
 							bool flag2 = flag;
-							List<BoardSquare> list3 = currentState.m_shiftRightClickHighlight.\u001D();
-							if (list3.Count > 0)
+							List<BoardSquare> squaresInRegion3 = currentState.m_shiftRightClickHighlight.GetSquaresInRegion();
+							if (squaresInRegion3.Count > 0)
 							{
 								for (;;)
 								{
@@ -2884,7 +2884,7 @@ public class SinglePlayerManager : NetworkBehaviour
 										}
 										rectTransform3 = (componentInParent3.transform as RectTransform);
 									}
-									Vector3 position3 = new Vector3(list3[0].worldX, 1.5f + currentState.m_shiftRightClickHeight, list3[0].worldY);
+									Vector3 position3 = new Vector3(squaresInRegion3[0].worldX, 1.5f + currentState.m_shiftRightClickHeight, squaresInRegion3[0].worldY);
 									Vector2 vector3 = Camera.main.WorldToViewportPoint(position3);
 									Vector2 anchoredPosition3 = new Vector2(vector3.x * rectTransform3.sizeDelta.x - rectTransform3.sizeDelta.x * 0.5f, vector3.y * rectTransform3.sizeDelta.y - rectTransform3.sizeDelta.y * 0.5f);
 									(shiftRightClick.transform as RectTransform).anchoredPosition = anchoredPosition3;
@@ -2940,7 +2940,7 @@ public class SinglePlayerManager : NetworkBehaviour
 										}
 										rectTransform4 = (componentInParent4.transform as RectTransform);
 									}
-									Vector3 position4 = new Vector3(list3[0].worldX, 1.5f + currentState.m_rightClickHeight, list3[0].worldY);
+									Vector3 position4 = new Vector3(squaresInRegion3[0].worldX, 1.5f + currentState.m_rightClickHeight, squaresInRegion3[0].worldY);
 									Vector2 vector4 = Camera.main.WorldToViewportPoint(position4);
 									Vector2 anchoredPosition4 = new Vector2(vector4.x * rectTransform4.sizeDelta.x - rectTransform4.sizeDelta.x * 0.5f, vector4.y * rectTransform4.sizeDelta.y - rectTransform4.sizeDelta.y * 0.5f);
 									(rightClick.transform as RectTransform).anchoredPosition = anchoredPosition4;
@@ -2985,9 +2985,9 @@ public class SinglePlayerManager : NetworkBehaviour
 									}
 								}
 							}
-							if (list2.Count == 0)
+							if (squaresInRegion2.Count == 0)
 							{
-								if (list3.Count != 0)
+								if (squaresInRegion3.Count != 0)
 								{
 									for (;;)
 									{
@@ -3027,7 +3027,7 @@ public class SinglePlayerManager : NetworkBehaviour
 								}
 							}
 							IL_7FA:
-							if (list3.Count != 0)
+							if (squaresInRegion3.Count != 0)
 							{
 								for (;;)
 								{

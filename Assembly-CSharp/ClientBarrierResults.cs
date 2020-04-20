@@ -70,7 +70,7 @@ public class ClientBarrierResults
 		}
 		else
 		{
-			Debug.LogError("ClientBarrierResults error-- Sequence hitting actor " + target.\u0018() + ", but that actor isn't in our hit results.");
+			Debug.LogError("ClientBarrierResults error-- Sequence hitting actor " + target.GetDebugName() + ", but that actor isn't in our hit results.");
 		}
 	}
 
@@ -125,7 +125,7 @@ public class ClientBarrierResults
 
 	public string GetDebugDescription()
 	{
-		return this.m_barrierCaster.\u0018() + "'s barrier, guid = " + this.m_barrierGUID;
+		return this.m_barrierCaster.GetDebugName() + "'s barrier, guid = " + this.m_barrierGUID;
 	}
 
 	internal string UnexecutedHitsDebugStr()

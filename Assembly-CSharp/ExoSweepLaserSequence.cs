@@ -87,7 +87,7 @@ public class ExoSweepLaserSequence : Sequence
 						}
 						break;
 					}
-					this.m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.\u000E().squareSize;
+					this.m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
 				}
 				if (extraParams2.rotationDuration > 0f)
 				{
@@ -279,7 +279,7 @@ public class ExoSweepLaserSequence : Sequence
 							}
 							break;
 						}
-						component.Setup(base.Caster.\u000E());
+						component.Setup(base.Caster.GetTeam());
 					}
 				}
 				base.ProcessSequenceVisibility();
@@ -316,13 +316,13 @@ public class ExoSweepLaserSequence : Sequence
 						float num = Vector3.Angle(this.m_lastLaserDir, forward2);
 						Vector3 vec = this.m_lastLaserDir + forward2;
 						float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
-						float coneLengthRadiusInSquares = this.m_maxProjectileDistInWorld / Board.\u000E().squareSize + 2f;
+						float coneLengthRadiusInSquares = this.m_maxProjectileDistInWorld / Board.Get().squareSize + 2f;
 						for (int i = this.m_actorsToHit.Count - 1; i >= 0; i--)
 						{
-							BoardSquare boardSquare = this.m_actorsToHit[i].\u0012();
-							if (boardSquare != null)
+							BoardSquare currentBoardSquare = this.m_actorsToHit[i].GetCurrentBoardSquare();
+							if (currentBoardSquare != null)
 							{
-								bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquare, base.Caster.\u0015(), coneCenterAngleDegrees, num + 1f, coneLengthRadiusInSquares, 0f, true, base.Caster, false, default(Vector3));
+								bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare, base.Caster.GetTravelBoardSquareWorldPositionForLos(), coneCenterAngleDegrees, num + 1f, coneLengthRadiusInSquares, 0f, true, base.Caster, false, default(Vector3));
 								if (flag)
 								{
 									for (;;)
@@ -361,8 +361,8 @@ public class ExoSweepLaserSequence : Sequence
 							}
 							break;
 						}
-						Animator animator = base.Caster.\u000E();
-						animator.SetFloat(ExoSweepLaserSequence.animTimeToRotationGoal, base.Caster.\u0016());
+						Animator modelAnimator = base.Caster.GetModelAnimator();
+						modelAnimator.SetFloat(ExoSweepLaserSequence.animTimeToRotationGoal, base.Caster.GetRotationTimeRemaining());
 					}
 				}
 			}
@@ -372,7 +372,7 @@ public class ExoSweepLaserSequence : Sequence
 	private float GetProjectileDistance(Vector3 start, Vector3 forward, float maxDist)
 	{
 		Vector3 vector = start;
-		vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster, null, true);
 		return (vector - laserEndPoint).magnitude;
 	}

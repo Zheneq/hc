@@ -678,8 +678,8 @@ public class SoldierDashAndOverwatch : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierDashAndOverwatch.HasAimingOriginOverride(ActorData, int, List<AbilityTarget>, Vector3*)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targetsSoFar[0].GridPos);
-			overridePos = boardSquare.\u001D();
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+			overridePos = boardSquareSafe.GetWorldPosition();
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
@@ -736,7 +736,7 @@ public class SoldierDashAndOverwatch : Ability
 					}
 					AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[0];
 					AbilityUtil_Targeter abilityUtil_Targeter2 = base.Targeters[currentTargeterIndex];
-					BoardSquare boardSquare = Board.\u000E().\u000E(abilityUtil_Targeter.LastUpdatingGridPos);
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityUtil_Targeter.LastUpdatingGridPos);
 					if (abilityUtil_Targeter2.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 					{
 						for (;;)
@@ -853,9 +853,9 @@ public class SoldierDashAndOverwatch : Ability
 									}
 									break;
 								}
-								Vector3 vector = boardSquare.ToVector3() - targetActor.\u0016();
+								Vector3 vector = boardSquareSafe.ToVector3() - targetActor.GetTravelBoardSquareWorldPosition();
 								vector.y = 0f;
-								if (vector.magnitude <= this.GetNearDistThreshold() * Board.\u000E().squareSize)
+								if (vector.magnitude <= this.GetNearDistThreshold() * Board.Get().squareSize)
 								{
 									for (;;)
 									{
@@ -1011,8 +1011,8 @@ public class SoldierDashAndOverwatch : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierDashAndOverwatch.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare != null && boardSquare.\u0016())
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -1023,7 +1023,7 @@ public class SoldierDashAndOverwatch : Ability
 					}
 					break;
 				}
-				if (boardSquare != caster.\u0012())
+				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
 					for (;;)
 					{
@@ -1047,7 +1047,7 @@ public class SoldierDashAndOverwatch : Ability
 							break;
 						}
 						bool[] array;
-						ActorCover.CalcCoverLevelGeoOnly(out array, boardSquare);
+						ActorCover.CalcCoverLevelGeoOnly(out array, boardSquareSafe);
 						for (int i = 0; i < array.Length; i++)
 						{
 							if (array[i])
@@ -1078,7 +1078,7 @@ public class SoldierDashAndOverwatch : Ability
 							break;
 						}
 						int num;
-						return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num);
+						return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 					}
 				}
 			}

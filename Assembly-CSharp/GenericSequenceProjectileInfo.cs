@@ -210,7 +210,7 @@ public class GenericSequenceProjectileInfo
 						}
 						else
 						{
-							vector = target.\u0016();
+							vector = target.GetTravelBoardSquareWorldPosition();
 						}
 						Vector3 position = vector;
 						GameObject gameObject2 = this.m_parentSequence.InstantiateFX(this.m_authoredInfo.m_targetHitFxPrefab, position, this.m_fx.transform.rotation, true, true);

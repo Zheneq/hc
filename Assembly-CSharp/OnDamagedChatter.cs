@@ -77,10 +77,10 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 		this.GetCommonData().ClearAudioEventOverride();
 		if (this.m_onSelfDamage && flag && !string.IsNullOrEmpty(this.m_closeCallAudioEvent))
 		{
-			int num = actorHitHealthChangeArgs.m_target.\u0009();
-			int num2 = actorHitHealthChangeArgs.m_target.\u0012();
+			int hitPointsAfterResolution = actorHitHealthChangeArgs.m_target.GetHitPointsAfterResolution();
+			int maxHitPoints = actorHitHealthChangeArgs.m_target.GetMaxHitPoints();
 			bool flag2 = false;
-			if (num > 0)
+			if (hitPointsAfterResolution > 0)
 			{
 				if (this.m_healthThresholdMode == OnDamagedChatter.HealthThreshMode.UseDirectValue)
 				{
@@ -93,7 +93,7 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 						}
 						break;
 					}
-					if (num < this.m_healthThresholdDirect)
+					if (hitPointsAfterResolution < this.m_healthThresholdDirect)
 					{
 						flag2 = true;
 						goto IL_109;
@@ -110,7 +110,7 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 						}
 						break;
 					}
-					if (num2 > 0)
+					if (maxHitPoints > 0)
 					{
 						for (;;)
 						{
@@ -121,7 +121,7 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 							}
 							break;
 						}
-						flag2 = ((float)num / (float)num2 < this.m_healthThresholdPct);
+						flag2 = ((float)hitPointsAfterResolution / (float)maxHitPoints < this.m_healthThresholdPct);
 					}
 				}
 				IL_109:

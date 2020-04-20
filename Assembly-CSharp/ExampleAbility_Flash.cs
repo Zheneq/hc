@@ -142,7 +142,7 @@ public class ExampleAbility_Flash : Ability
 			{
 				num = 50f;
 			}
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.\u0016(), num, true, caster, relevantTeams, null, false, default(Vector3));
+			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), num, true, caster, relevantTeams, null, false, default(Vector3));
 			actorsInRadius.Remove(caster);
 			if (NetworkClient.active)
 			{
@@ -169,8 +169,8 @@ public class ExampleAbility_Flash : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = false;
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -185,7 +185,7 @@ public class ExampleAbility_Flash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ExampleAbility_Flash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -196,7 +196,7 @@ public class ExampleAbility_Flash : Ability
 					}
 					break;
 				}
-				if (boardSquare != caster.\u0012())
+				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
 					for (;;)
 					{
@@ -237,7 +237,7 @@ public class ExampleAbility_Flash : Ability
 							actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData, true);
 						}
 						List<ActorData> list = actorsVisibleToActor;
-						Vector3 coneStart = caster.\u0012().ToVector3();
+						Vector3 coneStart = caster.GetCurrentBoardSquare().ToVector3();
 						int i = 0;
 						while (i < list.Count)
 						{
@@ -268,7 +268,7 @@ public class ExampleAbility_Flash : Ability
 								bool flag2 = true;
 								if (this.m_dashToTargetSelectRange > 0f)
 								{
-									flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(actorData.\u0012(), coneStart, 0f, 360f, this.m_dashToTargetSelectRange, 0f, true, caster, false, default(Vector3));
+									flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(actorData.GetCurrentBoardSquare(), coneStart, 0f, 360f, this.m_dashToTargetSelectRange, 0f, true, caster, false, default(Vector3));
 								}
 								if (flag2)
 								{
@@ -281,8 +281,8 @@ public class ExampleAbility_Flash : Ability
 										}
 										break;
 									}
-									bool flag3 = (!NetworkClient.active) ? actorData.\u000E(caster, false) : actorData.\u0018();
-									bool flag4 = actorData.\u000E() == caster.\u000E();
+									bool flag3 = (!NetworkClient.active) ? actorData.IsActorVisibleToActor(caster, false) : actorData.IsVisibleToClient();
+									bool flag4 = actorData.GetTeam() == caster.GetTeam();
 									if (flag3 && actorData != caster)
 									{
 										for (;;)
@@ -324,7 +324,7 @@ public class ExampleAbility_Flash : Ability
 											break;
 										}
 										IL_1B8:
-										bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquare, actorData.\u0016(), 0f, 360f, this.m_dashToOtherRange, 0f, true, caster, false, default(Vector3));
+										bool flag5 = AreaEffectUtils.IsSquareInConeByActorRadius(boardSquareSafe, actorData.GetTravelBoardSquareWorldPosition(), 0f, 360f, this.m_dashToOtherRange, 0f, true, caster, false, default(Vector3));
 										flag = (flag || flag5);
 									}
 								}

@@ -591,7 +591,7 @@ public class BlasterKnockbackCone : Ability
 
 	public override Ability.MovementAdjustment GetMovementAdjustment()
 	{
-		if (base.ActorData.\u000E().IsKnockbackImmune(true))
+		if (base.ActorData.GetActorStatus().IsKnockbackImmune(true))
 		{
 			for (;;)
 			{
@@ -608,7 +608,7 @@ public class BlasterKnockbackCone : Ability
 			}
 			return Ability.MovementAdjustment.ReducedMovement;
 		}
-		AbilityData abilityData = base.ActorData.\u000E();
+		AbilityData abilityData = base.ActorData.GetAbilityData();
 		List<AbilityData.AbilityEntry> queuedOrAimingAbilities = abilityData.GetQueuedOrAimingAbilities();
 		using (List<AbilityData.AbilityEntry>.Enumerator enumerator = queuedOrAimingAbilities.GetEnumerator())
 		{

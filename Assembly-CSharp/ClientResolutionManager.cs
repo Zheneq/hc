@@ -528,7 +528,7 @@ public class ClientResolutionManager : MonoBehaviour
 			}
 			ClientKnockbackManager.Get().InitKnockbacksFromActions(this.m_resolutionActions);
 		}
-		if (!ClientAbilityResults.\u001D)
+		if (!ClientAbilityResults.LogMissingSequences)
 		{
 			for (;;)
 			{
@@ -623,7 +623,7 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			ClientResolutionAction clientResolutionAction = this.m_resolutionActions[i];
 			ActorData caster = clientResolutionAction.GetCaster();
-			if (caster != null && caster.\u000E() != null)
+			if (caster != null && caster.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -649,7 +649,7 @@ public class ClientResolutionManager : MonoBehaviour
 						}
 						break;
 					}
-					caster.\u000E().OnClientCombatPhasePlayDataReceived(this.m_resolutionActions);
+					caster.GetAbilityData().OnClientCombatPhasePlayDataReceived(this.m_resolutionActions);
 					this.m_tempCombatPhaseDataReceivedActors.Add(caster);
 				}
 			}
@@ -743,7 +743,7 @@ public class ClientResolutionManager : MonoBehaviour
 				if (actorData != null)
 				{
 					list.Add(actorData);
-					text = text + "\n\t" + actorData.\u0018();
+					text = text + "\n\t" + actorData.GetDebugName();
 				}
 			}
 		}
@@ -1408,7 +1408,7 @@ public class ClientResolutionManager : MonoBehaviour
 
 	internal void SendResolutionPhaseCompleted(AbilityPriority abilityPhase, bool asFailsafe, bool asResend)
 	{
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
 			for (;;)
 			{
@@ -1468,7 +1468,7 @@ public class ClientResolutionManager : MonoBehaviour
 		networkWriter.Write(knockbackedTarget.ActorIndex);
 		networkWriter.Write(sendingPlayer.ActorIndex);
 		networkWriter.FinishMessage();
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
 			for (;;)
 			{
@@ -1487,9 +1487,9 @@ public class ClientResolutionManager : MonoBehaviour
 			{
 				ClientAbilityResults.s_clientResolutionNetMsgHeader,
 				"Sending <color=white>ResolveKnockbackForActor</color>, Caster: ",
-				sendingPlayer.\u0018(),
+				sendingPlayer.GetDebugName(),
 				", KnockedBackActor: ",
-				knockbackedTarget.\u0018()
+				knockbackedTarget.GetDebugName()
 			}), new object[0]);
 		}
 		ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
@@ -1609,10 +1609,10 @@ public class ClientResolutionManager : MonoBehaviour
 				}
 				this.m_actorsToKillOnLastHitExecution.Remove(targetActor);
 				Vector3 position = targetActor.transform.position;
-				Vector3 currentMovementDir = targetActor.\u000E().GetCurrentMovementDir();
+				Vector3 currentMovementDir = targetActor.GetActorMovement().GetCurrentMovementDir();
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, currentMovementDir);
 				targetActor.DoVisualDeath(impulseInfo);
-				targetActor.\u000E().OnMidMovementDeath();
+				targetActor.GetActorMovement().OnMidMovementDeath();
 			}
 		}
 	}

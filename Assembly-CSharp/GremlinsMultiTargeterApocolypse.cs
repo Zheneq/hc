@@ -287,7 +287,7 @@ public class GremlinsMultiTargeterApocolypse : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		BoardSquare y = Board.\u000E().\u000E(base.Targeters[0].LastUpdatingGridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeters[0].LastUpdatingGridPos);
 		int i = 0;
 		while (i <= currentTargeterIndex)
 		{
@@ -308,8 +308,8 @@ public class GremlinsMultiTargeterApocolypse : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterApocolypse.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
 			}
-			BoardSquare x = Board.\u000E().\u000E(base.Targeters[i].LastUpdatingGridPos);
-			if (!(x == null))
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
+			if (!(boardSquareSafe2 == null))
 			{
 				for (;;)
 				{
@@ -320,7 +320,7 @@ public class GremlinsMultiTargeterApocolypse : Ability
 					}
 					break;
 				}
-				if (!(x == y))
+				if (!(boardSquareSafe2 == boardSquareSafe))
 				{
 					goto IL_98;
 				}
@@ -382,7 +382,7 @@ public class GremlinsMultiTargeterApocolypse : Ability
 					}
 					break;
 				}
-				BoardSquare y = Board.\u000E().\u000E(base.Targeters[0].LastUpdatingGridPos);
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeters[0].LastUpdatingGridPos);
 				int i = 0;
 				while (i <= currentTargeterIndex)
 				{
@@ -432,10 +432,10 @@ public class GremlinsMultiTargeterApocolypse : Ability
 									}
 									break;
 								}
-								BoardSquare x = Board.\u000E().\u000E(abilityUtil_Targeter.LastUpdatingGridPos);
-								if (!(x == null))
+								BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(abilityUtil_Targeter.LastUpdatingGridPos);
+								if (!(boardSquareSafe2 == null))
 								{
-									if (!(x == y))
+									if (!(boardSquareSafe2 == boardSquareSafe))
 									{
 										goto IL_CA;
 									}
@@ -482,8 +482,8 @@ public class GremlinsMultiTargeterApocolypse : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null) && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
 			for (;;)
 			{
@@ -498,13 +498,13 @@ public class GremlinsMultiTargeterApocolypse : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsMultiTargeterApocolypse.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (!(boardSquare == caster.\u0012()))
+			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				if (targetIndex > 0)
 				{
 					bool flag = true;
-					Vector3 from = Board.\u000E().\u000E(currentTargets[0].GridPos).ToVector3() - caster.\u0016();
-					Vector3 to = boardSquare.ToVector3() - caster.\u0016();
+					Vector3 from = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos).ToVector3() - caster.GetTravelBoardSquareWorldPosition();
+					Vector3 to = boardSquareSafe.ToVector3() - caster.GetTravelBoardSquareWorldPosition();
 					if (Mathf.RoundToInt(Vector3.Angle(from, to)) > (int)this.GetMaxAngleWithFirstSegment())
 					{
 						for (;;)
@@ -529,11 +529,11 @@ public class GremlinsMultiTargeterApocolypse : Ability
 							}
 							break;
 						}
-						float num = this.GetMinDistBetweenBombs() * Board.\u000E().squareSize;
+						float num = this.GetMinDistBetweenBombs() * Board.Get().squareSize;
 						for (int i = 0; i < targetIndex; i++)
 						{
-							BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[i].GridPos);
-							Vector3 vector = boardSquare.ToVector3() - boardSquare2.ToVector3();
+							BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
+							Vector3 vector = boardSquareSafe.ToVector3() - boardSquareSafe2.ToVector3();
 							vector.y = 0f;
 							float magnitude = vector.magnitude;
 							if (magnitude < num)

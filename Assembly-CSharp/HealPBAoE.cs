@@ -47,7 +47,7 @@ public class HealPBAoE : Ability
 			num = this.m_teamHitPointsPercentOfMax;
 		}
 		float num2 = num;
-		int num3 = Mathf.RoundToInt(num2 * aoeTarget.\u000E().GetModifiedStatFloat(StatType.MaxHitPoints));
+		int num3 = Mathf.RoundToInt(num2 * aoeTarget.GetActorStats().GetModifiedStatFloat(StatType.MaxHitPoints));
 		int num4;
 		if (flag)
 		{
@@ -72,6 +72,6 @@ public class HealPBAoE : Ability
 
 	private List<ActorData> GetTargets(List<AbilityTarget> targets, ActorData caster)
 	{
-		return AreaEffectUtils.GetActorsInShape(this.m_shape, caster.\u0016(), caster.\u0012(), true, caster, caster.\u0012(), null);
+		return AreaEffectUtils.GetActorsInShape(this.m_shape, caster.GetTravelBoardSquareWorldPosition(), caster.GetCurrentBoardSquare(), true, caster, caster.GetTeams(), null);
 	}
 }

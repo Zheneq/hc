@@ -49,7 +49,7 @@ public class FireborgDamageAura : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.\u0012());
+		contextNamesForEditor.Add(Fireborg_SyncComponent.s_cvarSuperheated.GetName());
 		return contextNamesForEditor;
 	}
 
@@ -248,7 +248,7 @@ public class FireborgDamageAura : GenericAbility_Container
 
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
-		if (targetActor.\u000E() == caster.\u000E())
+		if (targetActor.GetTeam() == caster.GetTeam())
 		{
 			StandardEffectInfo onCastTargetAllyEffect = this.GetOnCastTargetAllyEffect();
 			if (onCastTargetAllyEffect.m_applyEffect && onCastTargetAllyEffect.m_effectData.m_absorbAmount > 0)
@@ -266,8 +266,8 @@ public class FireborgDamageAura : GenericAbility_Container
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
 				}
-				BoardSquare x = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-				if (x != null)
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+				if (boardSquareSafe != null)
 				{
 					for (;;)
 					{
@@ -278,7 +278,7 @@ public class FireborgDamageAura : GenericAbility_Container
 						}
 						break;
 					}
-					if (x == targetActor.\u0012())
+					if (boardSquareSafe == targetActor.GetCurrentBoardSquare())
 					{
 						for (;;)
 						{
@@ -312,8 +312,8 @@ public class FireborgDamageAura : GenericAbility_Container
 				}
 				break;
 			}
-			BoardSquare x2 = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-			if (x2 != null)
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+			if (boardSquareSafe2 != null)
 			{
 				for (;;)
 				{
@@ -324,7 +324,7 @@ public class FireborgDamageAura : GenericAbility_Container
 					}
 					break;
 				}
-				if (x2 == targetActor.\u0012())
+				if (boardSquareSafe2 == targetActor.GetCurrentBoardSquare())
 				{
 					for (;;)
 					{
@@ -358,7 +358,7 @@ public class FireborgDamageAura : GenericAbility_Container
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.ActorCountTowardsEnergyGain(ActorData, ActorData)).MethodHandle;
 			}
-			if (target.\u000E() != caster.\u000E())
+			if (target.GetTeam() != caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -369,8 +369,8 @@ public class FireborgDamageAura : GenericAbility_Container
 					}
 					break;
 				}
-				BoardSquare x = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-				if (x != null)
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+				if (boardSquareSafe != null)
 				{
 					for (;;)
 					{
@@ -381,7 +381,7 @@ public class FireborgDamageAura : GenericAbility_Container
 						}
 						break;
 					}
-					if (x == target.\u0012())
+					if (boardSquareSafe == target.GetCurrentBoardSquare())
 					{
 						for (;;)
 						{

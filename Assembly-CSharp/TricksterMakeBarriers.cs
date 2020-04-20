@@ -186,10 +186,10 @@ public class TricksterMakeBarriers : Ability
 		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
 		for (int i = 0; i < validAfterImages.Count; i++)
 		{
-			Animator animator = validAfterImages[i].\u000E();
-			animator.SetInteger("Attack", animationIndex);
-			animator.SetBool("CinematicCam", cinecam);
-			animator.SetTrigger("StartAttack");
+			Animator modelAnimator = validAfterImages[i].GetModelAnimator();
+			modelAnimator.SetInteger("Attack", animationIndex);
+			modelAnimator.SetBool("CinematicCam", cinecam);
+			modelAnimator.SetTrigger("StartAttack");
 		}
 		for (;;)
 		{
@@ -229,11 +229,11 @@ public class TricksterMakeBarriers : Ability
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
 					}
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
-						Animator animator = actorData.\u000E();
-						animator.SetInteger("Attack", 0);
-						animator.SetBool("CinematicCam", false);
+						Animator modelAnimator = actorData.GetModelAnimator();
+						modelAnimator.SetInteger("Attack", 0);
+						modelAnimator.SetBool("CinematicCam", false);
 					}
 				}
 			}

@@ -127,7 +127,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 			Vector3 damageOrigin = Vector3.zero;
 			if (actorData != null)
 			{
-				Vector3 vector;
+				Vector3 travelBoardSquareWorldPosition;
 				if (this.m_directHitIgnoreCover)
 				{
 					for (;;)
@@ -139,20 +139,20 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 						}
 						break;
 					}
-					vector = actorData.\u0016();
+					travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
 				}
 				else
 				{
-					vector = targetingActor.\u0016();
+					travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 				}
-				Vector3 damageOrigin2 = vector;
+				Vector3 damageOrigin2 = travelBoardSquareWorldPosition;
 				base.AddActorInRange(actorData, damageOrigin2, targetingActor, AbilityTooltipSubject.Primary, false);
-				BoardSquare boardSquare2 = actorData.\u0012();
+				BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
 				active = true;
-				Vector3 position = boardSquare2.ToVector3();
+				Vector3 position = currentBoardSquare.ToVector3();
 				position.y = HighlightUtils.GetHighlightHeight();
 				gameObject2.transform.position = position;
-				damageOrigin = actorData.\u0012().ToVector3();
+				damageOrigin = actorData.GetCurrentBoardSquare().ToVector3();
 			}
 			else if (!flag)
 			{
@@ -210,16 +210,16 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 						}
 						break;
 					}
-					base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+					base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 				}
 			}
 			gameObject2.SetActive(active);
-			Vector3 vector2 = targetingActor.\u0015();
-			Vector3 vector3 = boardSquare.ToVector3();
-			Vector3 aimDir = vector3 - vector2;
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			Vector3 vector = boardSquare.ToVector3();
+			Vector3 aimDir = vector - travelBoardSquareWorldPositionForLos;
 			aimDir.y = 0f;
 			float distance = aimDir.magnitude / Board.SquareSizeStatic;
-			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(targetingActor, KnockbackType.ForwardAlongAimDir, aimDir, vector3, distance);
+			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(targetingActor, KnockbackType.ForwardAlongAimDir, aimDir, vector, distance);
 			int num = 0;
 			base.EnableAllMovementArrows();
 			num = base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
@@ -264,7 +264,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					while (enumerator2.MoveNext())
 					{
 						ActorData actorData2 = enumerator2.Current;
-						Vector3 aimDir2 = actorData2.\u0016() - vector3;
+						Vector3 aimDir2 = actorData2.GetTravelBoardSquareWorldPosition() - vector;
 						aimDir.y = 0f;
 						if (aimDir.sqrMagnitude > 0f)
 						{
@@ -279,7 +279,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 							}
 							aimDir.Normalize();
 						}
-						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData2, this.m_enemyKnockbackType, aimDir2, vector3, this.m_enemyKnockbackDist);
+						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData2, this.m_enemyKnockbackType, aimDir2, vector, this.m_enemyKnockbackDist);
 						num = base.AddMovementArrowWithPrevious(actorData2, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 					}
 					for (;;)
@@ -318,7 +318,7 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					}
 					break;
 				}
-				Vector3 a = vector3;
+				Vector3 a = vector;
 				if (boardSquarePathInfo != null)
 				{
 					for (;;)
@@ -333,12 +333,12 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					BoardSquarePathInfo pathEndpoint = boardSquarePathInfo.GetPathEndpoint();
 					a = pathEndpoint.square.ToVector3();
 				}
-				Vector3 lhs = a - vector2;
+				Vector3 lhs = a - travelBoardSquareWorldPositionForLos;
 				lhs.y = 0f;
 				float d = Vector3.Dot(lhs, currentTarget.AimDirection) + 0.5f;
-				Vector3 endPos = vector2 + d * currentTarget.AimDirection;
+				Vector3 endPos = travelBoardSquareWorldPositionForLos + d * currentTarget.AimDirection;
 				endPos.y = HighlightUtils.GetHighlightHeight();
-				HighlightUtils.Get().RotateAndResizeRectangularCursor(gameObject, vector2, endPos, this.m_dashWidthInSquares);
+				HighlightUtils.Get().RotateAndResizeRectangularCursor(gameObject, travelBoardSquareWorldPositionForLos, endPos, this.m_dashWidthInSquares);
 			}
 			else
 			{
@@ -351,8 +351,8 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		{
 			gameObject.SetActive(false);
 			gameObject2.SetActive(false);
-			BoardSquare boardSquare3 = Board.\u000E().\u000E(currentTarget.GridPos);
-			if (boardSquare3 != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -363,11 +363,11 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					}
 					break;
 				}
-				Vector3 position3 = boardSquare3.ToVector3();
+				Vector3 position3 = boardSquareSafe.ToVector3();
 				position3.y = HighlightUtils.GetHighlightHeight();
 				gameObject3.transform.position = position3;
 				gameObject3.SetActive(true);
-				BoardSquarePathInfo path2 = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare3, targetingActor.\u0012(), false);
+				BoardSquarePathInfo path2 = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, targetingActor.GetCurrentBoardSquare(), false);
 				base.EnableAllMovementArrows();
 				int fromIndex = base.AddMovementArrowWithPrevious(targetingActor, path2, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
 				base.SetMovementArrowEnabledFromIndex(fromIndex, false);

@@ -180,7 +180,7 @@ public class ActorTurnSM : NetworkBehaviour
 				num2
 			});
 			IL_F2:
-			selectedAbility.Targeter.AbilityCasted(component.\u000E(), abilityTarget2.GridPos);
+			selectedAbility.Targeter.AbilityCasted(component.GetGridPosWithIncrementedHeight(), abilityTarget2.GridPos);
 		}
 		if (this.GetAbilityTargets().Count < num)
 		{
@@ -315,7 +315,7 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 		}
 		IL_2BB:
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -326,7 +326,7 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				break;
 			}
-			Board.\u000E().MarkForUpdateValidSquares(true);
+			Board.Get().MarkForUpdateValidSquares(true);
 		}
 		return result;
 	}
@@ -530,9 +530,9 @@ public class ActorTurnSM : NetworkBehaviour
 								}
 								break;
 							}
-							if (Board.\u000E().PlayerFreeSquare != null)
+							if (Board.Get().PlayerFreeSquare != null)
 							{
-								this.m_worldPositionPingDown = Board.\u000E().PlayerFreeSquare.ToVector3();
+								this.m_worldPositionPingDown = Board.Get().PlayerFreeSquare.ToVector3();
 								this.m_mousePositionPingDown = Input.mousePosition;
 								this.m_timePingDown = GameTime.time;
 								UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_bigPingPanel, true, null);
@@ -659,18 +659,18 @@ public class ActorTurnSM : NetworkBehaviour
 						}
 						break;
 					}
-					if (HUD_UI.Get() != null && Board.\u000E().PlayerFreeSquare != null)
+					if (HUD_UI.Get() != null && Board.Get().PlayerFreeSquare != null)
 					{
 						this.m_timePingDown = GameTime.time;
 						HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.Init();
 						UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad, true, null);
-						this.m_worldPositionPingDown = Board.\u000E().PlayerFreeSquare.ToVector3();
+						this.m_worldPositionPingDown = Board.Get().PlayerFreeSquare.ToVector3();
 						Canvas componentInParent = HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.GetComponentInParent<Canvas>();
 						Vector2 sizeDelta = (componentInParent.transform as RectTransform).sizeDelta;
-						Vector3 position = Board.\u000E().PlayerClampedSquare.ToVector3();
-						if (Board.\u000E().PlayerClampedSquare.height < 0)
+						Vector3 position = Board.Get().PlayerClampedSquare.ToVector3();
+						if (Board.Get().PlayerClampedSquare.height < 0)
 						{
-							position.y = (float)Board.\u000E().BaselineHeight;
+							position.y = (float)Board.Get().BaselineHeight;
 						}
 						Canvas x = (!(HUD_UI.Get() != null)) ? null : HUD_UI.Get().GetTopLevelCanvas();
 						if (x != null)
@@ -952,7 +952,7 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			if (currentState == TurnStateEnum.CONFIRMED)
 			{
-				if (this.m_actorData.\u000E().AllowUnconfirm())
+				if (this.m_actorData.GetTimeBank().AllowUnconfirm())
 				{
 					for (;;)
 					{
@@ -964,7 +964,7 @@ public class ActorTurnSM : NetworkBehaviour
 						break;
 					}
 					this.LastConfirmedCancelTurn = GameFlowData.Get().CurrentTurn;
-					this.m_actorData.\u000E().OnActionsUnconfirmed();
+					this.m_actorData.GetTimeBank().OnActionsUnconfirmed();
 					this.BackToDecidingState();
 					if (Options_UI.Get() != null)
 					{
@@ -1074,7 +1074,7 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 			}
 		}
-		Board.\u000E().MarkForUpdateValidSquares(true);
+		Board.Get().MarkForUpdateValidSquares(true);
 	}
 
 	public void BackToDecidingState()
@@ -1546,7 +1546,7 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RequestEndTurn()).MethodHandle;
 			}
-			Ability selectedAbility = component.\u000E().GetSelectedAbility();
+			Ability selectedAbility = component.GetAbilityData().GetSelectedAbility();
 			do
 			{
 				if (this.SelectTarget(null, true))
@@ -1617,7 +1617,7 @@ public class ActorTurnSM : NetworkBehaviour
 				GameFlowData.Get().SetActiveNextNonConfirmedOwnedActorData();
 			}
 		}
-		Board.\u000E().MarkForUpdateValidSquares(true);
+		Board.Get().MarkForUpdateValidSquares(true);
 	}
 
 	public void RequestCancelMovement()
@@ -1668,7 +1668,7 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				break;
 			}
-			if (component.\u0015())
+			if (component.ShouldPickRespawn_zq())
 			{
 				for (;;)
 				{
@@ -1845,7 +1845,7 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				CameraManager.Get().OnNewTurnSMState();
 			}
-			if (Board.\u000E() != null)
+			if (Board.Get() != null)
 			{
 				for (;;)
 				{
@@ -1856,7 +1856,7 @@ public class ActorTurnSM : NetworkBehaviour
 					}
 					break;
 				}
-				Board.\u000E().MarkForUpdateValidSquares(true);
+				Board.Get().MarkForUpdateValidSquares(true);
 			}
 		}
 	}
@@ -2347,15 +2347,15 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public void OnActionsConfirmed()
 	{
-		if (this.m_actorData.\u000E() != null)
+		if (this.m_actorData.GetTimeBank() != null)
 		{
-			this.m_actorData.\u000E().OnActionsConfirmed();
+			this.m_actorData.GetTimeBank().OnActionsConfirmed();
 		}
 	}
 
 	public void OnActionsUnconfirmed()
 	{
-		if (this.m_actorData.\u000E() != null)
+		if (this.m_actorData.GetTimeBank() != null)
 		{
 			for (;;)
 			{
@@ -2370,7 +2370,7 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.OnActionsUnconfirmed()).MethodHandle;
 			}
-			this.m_actorData.\u000E().OnActionsUnconfirmed();
+			this.m_actorData.GetTimeBank().OnActionsUnconfirmed();
 		}
 	}
 
@@ -2418,7 +2418,7 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 		}
 		this.GetState().OnSelectedAbilityChanged();
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -2429,13 +2429,13 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				break;
 			}
-			Board.\u000E().MarkForUpdateValidSquares(true);
+			Board.Get().MarkForUpdateValidSquares(true);
 		}
 	}
 
 	public void SelectMovementSquare()
 	{
-		BoardSquare playerClampedSquare = Board.\u000E().PlayerClampedSquare;
+		BoardSquare playerClampedSquare = Board.Get().PlayerClampedSquare;
 		ActorData component = base.GetComponent<ActorData>();
 		BoardSquare boardSquare = null;
 		if (component != null)
@@ -2541,7 +2541,7 @@ public class ActorTurnSM : NetworkBehaviour
 						}
 						break;
 					}
-					if (playerClampedSquare == this.m_actorData.\u0012().\u0012())
+					if (playerClampedSquare == this.m_actorData.GetQueuedChaseTarget().GetCurrentBoardSquare())
 					{
 						for (;;)
 						{
@@ -2656,7 +2656,7 @@ public class ActorTurnSM : NetworkBehaviour
 					}
 					break;
 				}
-				flag = (this.m_actorData.\u0012() == component2);
+				flag = (this.m_actorData.GetQueuedChaseTarget() == component2);
 			}
 			else
 			{
@@ -2773,7 +2773,7 @@ public class ActorTurnSM : NetworkBehaviour
 							}
 							break;
 						}
-						if (component.\u0019() && SinglePlayerManager.Get().GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
+						if (component.GetIsHumanControlled() && SinglePlayerManager.Get().GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
 						{
 							for (;;)
 							{
@@ -2807,7 +2807,7 @@ public class ActorTurnSM : NetworkBehaviour
 								}
 								break;
 							}
-							boardSquare2 = component.\u000E().GetClosestMoveableSquareTo(boardSquare2, false);
+							boardSquare2 = component.GetActorMovement().GetClosestMoveableSquareTo(boardSquare2, false);
 						}
 						if (boardSquare2 != null)
 						{
@@ -2833,7 +2833,7 @@ public class ActorTurnSM : NetworkBehaviour
 										}
 										break;
 									}
-									if (component.\u000E().SquaresCanMoveTo.Count > 0)
+									if (component.GetActorMovement().SquaresCanMoveTo.Count > 0)
 									{
 										for (;;)
 										{
@@ -2932,7 +2932,7 @@ public class ActorTurnSM : NetworkBehaviour
 						}
 					}
 				}
-				Board.\u000E().MarkForUpdateValidSquares(true);
+				Board.Get().MarkForUpdateValidSquares(true);
 				return;
 			}
 			for (;;)
@@ -2970,7 +2970,7 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RpcTurnMessage(int, int)).MethodHandle;
 			}
-			if (this.m_actorData == GameFlowData.Get().activeOwnedActorData && !this.m_actorData.\u000E())
+			if (this.m_actorData == GameFlowData.Get().activeOwnedActorData && !this.m_actorData.IsDead())
 			{
 				for (;;)
 				{
@@ -3042,7 +3042,7 @@ public class ActorTurnSM : NetworkBehaviour
 										{
 											int num = -1;
 											string text = "(none)";
-											ActorController actorController = this.m_actorData.\u000E();
+											ActorController actorController = this.m_actorData.GetActorController();
 											if (actorController != null)
 											{
 												for (;;)
@@ -3222,7 +3222,7 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.GetSelectedTargetingParadigm()).MethodHandle;
 			}
-			if (activeOwnedActorData.\u000E() == this)
+			if (activeOwnedActorData.GetActorTurnSM() == this)
 			{
 				for (;;)
 				{
@@ -3233,7 +3233,7 @@ public class ActorTurnSM : NetworkBehaviour
 					}
 					break;
 				}
-				AbilityData abilityData = activeOwnedActorData.\u000E();
+				AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 				Ability selectedAbility = abilityData.GetSelectedAbility();
 				if (selectedAbility != null)
 				{
@@ -3285,7 +3285,7 @@ public class ActorTurnSM : NetworkBehaviour
 						}
 						break;
 					}
-					result = (this.m_actorData.\u000E().AllowUnconfirm() ? 1 : 0);
+					result = (this.m_actorData.GetTimeBank().AllowUnconfirm() ? 1 : 0);
 				}
 				else
 				{
@@ -3329,7 +3329,7 @@ public class ActorTurnSM : NetworkBehaviour
 						}
 						break;
 					}
-					result = (this.m_actorData.\u000E().AllowUnconfirm() ? 1 : 0);
+					result = (this.m_actorData.GetTimeBank().AllowUnconfirm() ? 1 : 0);
 				}
 				else
 				{
@@ -3407,7 +3407,7 @@ public class ActorTurnSM : NetworkBehaviour
 						}
 						break;
 					}
-					result = (this.m_actorData.\u000E().AllowUnconfirm() ? 1 : 0);
+					result = (this.m_actorData.GetTimeBank().AllowUnconfirm() ? 1 : 0);
 				}
 				else
 				{
@@ -3454,7 +3454,7 @@ public class ActorTurnSM : NetworkBehaviour
 					}
 					break;
 				}
-				ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.\u000E();
+				ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM();
 				if (actorTurnSM != null)
 				{
 					for (;;)
@@ -3763,13 +3763,13 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.MouseOverCursorType);
 		}
-		component.\u000E().ResetTurn();
+		component.GetTimeBank().ResetTurn();
 		this.ClearAbilityTargets();
 		this.m_requestStackForUndo.Clear();
 		this.m_autoQueuedRequestActionTypes.Clear();
 		if (!NetworkServer.active)
 		{
-			ActorMovement actorMovement = component.\u000E();
+			ActorMovement actorMovement = component.GetActorMovement();
 			if (actorMovement && !GameplayUtils.IsMinion(this))
 			{
 				for (;;)

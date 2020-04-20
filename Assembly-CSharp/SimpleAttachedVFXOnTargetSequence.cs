@@ -291,7 +291,7 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 							}
 							break;
 						}
-						this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+						this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 					}
 				}
 				if (this.m_useRootOrientation)
@@ -456,7 +456,7 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 					}
 					break;
 				}
-				component.Setup(base.Caster.\u000E());
+				component.Setup(base.Caster.GetTeam());
 			}
 			if (this.m_fxJoint.m_jointObject != null && this.m_fxJoint.m_jointObject.transform.localScale != Vector3.zero)
 			{
@@ -587,7 +587,7 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 						this.m_fx = base.InstantiateFX(this.m_fxPrefab, position, rotation, true, true);
 						Sequence.SetAttribute(this.m_fx, "abilityAreaLength", (base.TargetPos - position).magnitude);
 					}
-					Sequence.SetAttribute(this.m_fx, "targetDiameter", base.Targets[0].\u000E().GetModelSize());
+					Sequence.SetAttribute(this.m_fx, "targetDiameter", base.Targets[0].GetActorModelData().GetModelSize());
 					this.m_despawnCheckStartTime = GameTime.time + 2f;
 				}
 				if (!string.IsNullOrEmpty(this.m_audioEvent))

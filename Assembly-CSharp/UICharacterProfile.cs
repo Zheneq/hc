@@ -597,7 +597,7 @@ public class UICharacterProfile : MonoBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.CanTaunt(ActorData)).MethodHandle;
 				}
-				TurnStateEnum currentState = activeOwnedActorData.\u000E().CurrentState;
+				TurnStateEnum currentState = activeOwnedActorData.GetActorTurnSM().CurrentState;
 				if (currentState != TurnStateEnum.DECIDING && currentState != TurnStateEnum.CONFIRMED)
 				{
 					for (;;)
@@ -636,8 +636,8 @@ public class UICharacterProfile : MonoBehaviour
 					}
 				}
 				ActorCinematicRequests component = activeOwnedActorData.GetComponent<ActorCinematicRequests>();
-				AbilityData abilityData = activeOwnedActorData.\u000E();
-				List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.\u000E().GetAutoQueuedRequestActionTypes();
+				AbilityData abilityData = activeOwnedActorData.GetAbilityData();
+				List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.GetActorTurnSM().GetAutoQueuedRequestActionTypes();
 				int num = 0;
 				while (!flag)
 				{
@@ -680,7 +680,7 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.\u000E().GetRequestStackForUndo();
+					List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 					int num2 = 0;
 					while (!flag)
 					{
@@ -720,7 +720,7 @@ public class UICharacterProfile : MonoBehaviour
 	public static bool CanTauntForAction(ActorData actor, AbilityData abilityData, ActorCinematicRequests cinematicRequests, AbilityData.ActionType actionType)
 	{
 		Ability abilityOfActionType = abilityData.GetAbilityOfActionType(actionType);
-		CharacterResourceLink character = GameFlowData.Get().activeOwnedActorData.\u000E();
+		CharacterResourceLink characterResourceLink = GameFlowData.Get().activeOwnedActorData.GetCharacterResourceLink();
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(actor.m_characterType);
 		if (abilityOfActionType != null)
 		{
@@ -787,7 +787,7 @@ public class UICharacterProfile : MonoBehaviour
 										}
 										break;
 									}
-									if (AbilityData.CanTauntForActionTypeForPlayer(playerCharacterData, character, actionType, true, cameraShotSequence.m_uniqueTauntID))
+									if (AbilityData.CanTauntForActionTypeForPlayer(playerCharacterData, characterResourceLink, actionType, true, cameraShotSequence.m_uniqueTauntID))
 									{
 										return true;
 									}
@@ -861,7 +861,7 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			if (!(this.m_debuffGrid == null))
 			{
-				ActorStatus actorStatus = GameFlowData.Get().activeOwnedActorData.\u000E();
+				ActorStatus actorStatus = GameFlowData.Get().activeOwnedActorData.GetActorStatus();
 				List<StatusType> list = new List<StatusType>();
 				bool flag = false;
 				if (actorStatus != null)
@@ -1135,9 +1135,9 @@ public class UICharacterProfile : MonoBehaviour
 						UIManager.SetGameObjectActive(this.m_visualObject, true, null);
 					}
 				}
-				this.m_aliveProfileImage.sprite = activeOwnedActorData.\u000E();
-				this.m_deadProfileImage.sprite = activeOwnedActorData.\u0012();
-				if (activeOwnedActorData.\u000E())
+				this.m_aliveProfileImage.sprite = activeOwnedActorData.GetAliveHUDIcon();
+				this.m_deadProfileImage.sprite = activeOwnedActorData.GetDeadHUDIcon();
+				if (activeOwnedActorData.IsDead())
 				{
 					for (;;)
 					{
@@ -1154,13 +1154,13 @@ public class UICharacterProfile : MonoBehaviour
 				{
 					doActive = true;
 				}
-				int num = activeOwnedActorData.\u0009();
-				int num2 = activeOwnedActorData.\u0012();
-				int num3 = activeOwnedActorData.\u0019();
-				int num4 = activeOwnedActorData.\u0016();
-				int num5 = activeOwnedActorData.\u0004();
-				int num6 = activeOwnedActorData.\u0011();
-				if (num6 > 0)
+				int hitPointsAfterResolution = activeOwnedActorData.GetHitPointsAfterResolution();
+				int maxHitPoints = activeOwnedActorData.GetMaxHitPoints();
+				int energyToDisplay = activeOwnedActorData.GetEnergyToDisplay();
+				int actualMaxTechPoints = activeOwnedActorData.GetActualMaxTechPoints();
+				int num = activeOwnedActorData.\u0004();
+				int clientUnappliedHoTTotal_ToDisplay_zq = activeOwnedActorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
+				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
 					for (;;)
 					{
@@ -1171,13 +1171,13 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					this.m_pendingHealthText.text = "+" + num6.ToString();
+					this.m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq.ToString();
 				}
 				else
 				{
 					this.m_pendingHealthText.text = string.Empty;
 				}
-				if (num5 > 0)
+				if (num > 0)
 				{
 					for (;;)
 					{
@@ -1188,18 +1188,18 @@ public class UICharacterProfile : MonoBehaviour
 						}
 						break;
 					}
-					this.m_shieldText.text = "+" + num5.ToString();
+					this.m_shieldText.text = "+" + num.ToString();
 				}
 				else
 				{
 					this.m_shieldText.text = string.Empty;
 				}
-				this.m_healthText.text = num.ToString();
-				this.m_energyText.text = num3.ToString();
-				this.m_healthPercent = (float)num / (float)(num2 + num5);
-				this.m_shieldPercent = (float)(num + num5) / (float)(num2 + num5);
-				this.m_pendingHPPercent = (float)(num + num5 + num6) / (float)(num2 + num5);
-				this.m_energyPercent = (float)num3 / (float)num4;
+				this.m_healthText.text = hitPointsAfterResolution.ToString();
+				this.m_energyText.text = energyToDisplay.ToString();
+				this.m_healthPercent = (float)hitPointsAfterResolution / (float)(maxHitPoints + num);
+				this.m_shieldPercent = (float)(hitPointsAfterResolution + num) / (float)(maxHitPoints + num);
+				this.m_pendingHPPercent = (float)(hitPointsAfterResolution + num + clientUnappliedHoTTotal_ToDisplay_zq) / (float)(maxHitPoints + num);
+				this.m_energyPercent = (float)energyToDisplay / (float)actualMaxTechPoints;
 				if (this.CanTaunt(activeOwnedActorData))
 				{
 					this.ShowTaunt(true);
@@ -1229,13 +1229,13 @@ public class UICharacterProfile : MonoBehaviour
 		this.UpdateHealthBar();
 		this.UpdateShieldBar();
 		this.UpdatePendingHealthBar();
-		float num7 = 1f;
+		float num2 = 1f;
 		if (this.m_ggPackTimeLastUsed > 0f)
 		{
-			float num8 = Time.unscaledTime - this.m_ggPackTimeLastUsed;
-			num7 = Mathf.Clamp01(num8 / GameBalanceVars.Get().GGPackInGameCooldownTimer);
+			float num3 = Time.unscaledTime - this.m_ggPackTimeLastUsed;
+			num2 = Mathf.Clamp01(num3 / GameBalanceVars.Get().GGPackInGameCooldownTimer);
 		}
-		this.m_ggPackCooldown.fillAmount = 1f - num7;
+		this.m_ggPackCooldown.fillAmount = 1f - num2;
 	}
 
 	private void OnEnable()

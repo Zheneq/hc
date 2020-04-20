@@ -251,8 +251,8 @@ public static class AbilityUtils
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.GetCurrentRangeInSquares(Ability, ActorData, int)).MethodHandle;
 			}
-			ActorStats actorStats = caster.\u000E();
-			ActorMovement actorMovement = caster.\u000E();
+			ActorStats actorStats = caster.GetActorStats();
+			ActorMovement actorMovement = caster.GetActorMovement();
 			if (actorStats != null)
 			{
 				for (;;)
@@ -311,7 +311,7 @@ public static class AbilityUtils
 	public static HashSet<BoardSquare> GetTargetableSquaresForAbility(Ability ability, AbilityData abilityData, ActorData caster, int targetIndex)
 	{
 		HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
-		Board board = Board.\u000E();
+		Board board = Board.Get();
 		float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(ability, caster, targetIndex);
 		Ability.TargetingParadigm targetingParadigm = ability.GetTargetingParadigm(targetIndex);
 		if (currentRangeInSquares >= 0f)
@@ -345,10 +345,10 @@ public static class AbilityUtils
 					break;
 				}
 			}
-			int num = Mathf.Max(0, Mathf.FloorToInt((float)caster.\u000E().x - currentRangeInSquares));
-			int num2 = Mathf.Min(board.\u000E(), Mathf.CeilToInt((float)caster.\u000E().x + currentRangeInSquares) + 1);
-			int num3 = Mathf.Max(0, Mathf.FloorToInt((float)caster.\u000E().y - currentRangeInSquares));
-			int num4 = Mathf.Min(board.\u0012(), Mathf.CeilToInt((float)caster.\u000E().y + currentRangeInSquares) + 1);
+			int num = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPosWithIncrementedHeight().x - currentRangeInSquares));
+			int num2 = Mathf.Min(board.GetMaxX(), Mathf.CeilToInt((float)caster.GetGridPosWithIncrementedHeight().x + currentRangeInSquares) + 1);
+			int num3 = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPosWithIncrementedHeight().y - currentRangeInSquares));
+			int num4 = Mathf.Min(board.GetMaxY(), Mathf.CeilToInt((float)caster.GetGridPosWithIncrementedHeight().y + currentRangeInSquares) + 1);
 			float currentMinRangeInSquares = AbilityUtils.GetCurrentMinRangeInSquares(ability, caster, targetIndex);
 			float currentRangeInSquares2 = AbilityUtils.GetCurrentRangeInSquares(ability, caster, targetIndex);
 			AbilityTarget abilityTarget = AbilityTarget.CreateSimpleAbilityTarget(caster);
@@ -356,8 +356,8 @@ public static class AbilityUtils
 			{
 				for (int j = num3; j < num4; j++)
 				{
-					BoardSquare boardSquare = board.\u0016(i, j);
-					abilityTarget.SetValuesFromBoardSquare(boardSquare, caster.\u0016());
+					BoardSquare boardSquare = board.GetBoardSquare(i, j);
+					abilityTarget.SetValuesFromBoardSquare(boardSquare, caster.GetTravelBoardSquareWorldPosition());
 					if (abilityData.ValidateAbilityOnTarget(ability, abilityTarget, targetIndex, currentMinRangeInSquares, currentRangeInSquares2))
 					{
 						for (;;)
@@ -632,7 +632,7 @@ public static class AbilityUtils
 		}
 		bool flag3 = flag2;
 		bool flag4 = ability.IsDamageUnpreventable();
-		ActorStatus actorStatus = target.\u000E();
+		ActorStatus actorStatus = target.GetActorStatus();
 		if (actorStatus.HasStatus(StatusType.DamageImmune, true))
 		{
 			for (;;)
@@ -650,7 +650,7 @@ public static class AbilityUtils
 			}
 		}
 		int result;
-		if (actorStatus.HasStatus(StatusType.ImmuneToPlayerDamage, true) && caster.\u0019() && !flag4)
+		if (actorStatus.HasStatus(StatusType.ImmuneToPlayerDamage, true) && caster.GetIsHumanControlled() && !flag4)
 		{
 			for (;;)
 			{
@@ -665,8 +665,8 @@ public static class AbilityUtils
 		}
 		else
 		{
-			ActorStats actorStats = caster.\u000E();
-			ActorStats actorStats2 = target.\u000E();
+			ActorStats actorStats = caster.GetActorStats();
+			ActorStats actorStats2 = target.GetActorStats();
 			if (GameplayMutators.Get() != null)
 			{
 				for (;;)
@@ -707,7 +707,7 @@ public static class AbilityUtils
 	public static int CalculateHealingForTargeter(ActorData caster, ActorData target, Ability ability, int baseHeal)
 	{
 		int result;
-		if (target.\u000E().HasStatus(StatusType.HealImmune, true))
+		if (target.GetActorStatus().HasStatus(StatusType.HealImmune, true))
 		{
 			for (;;)
 			{
@@ -737,7 +737,7 @@ public static class AbilityUtils
 					}
 					break;
 				}
-				if (caster.\u000E() == target.\u000E())
+				if (caster.GetTeam() == target.GetTeam())
 				{
 					for (;;)
 					{
@@ -748,13 +748,13 @@ public static class AbilityUtils
 						}
 						break;
 					}
-					if (target.\u000E().HasStatus(StatusType.CantBeHelpedByTeam, true))
+					if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam, true))
 					{
 						return 0;
 					}
 				}
 			}
-			ActorStats actorStats = caster.\u000E();
+			ActorStats actorStats = caster.GetActorStats();
 			if (GameplayMutators.Get() != null)
 			{
 				baseHeal = Mathf.RoundToInt((float)baseHeal * GameplayMutators.GetHealingMultiplier());
@@ -787,7 +787,7 @@ public static class AbilityUtils
 	public static int CalculateAbsorbForTargeter(ActorData caster, ActorData target, Ability ability, int baseAbsorb)
 	{
 		int result;
-		if (target.\u000E().HasStatus(StatusType.BuffImmune, true))
+		if (target.GetActorStatus().HasStatus(StatusType.BuffImmune, true))
 		{
 			result = 0;
 		}
@@ -808,7 +808,7 @@ public static class AbilityUtils
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.CalculateAbsorbForTargeter(ActorData, ActorData, Ability, int)).MethodHandle;
 				}
-				if (caster.\u000E() == target.\u000E())
+				if (caster.GetTeam() == target.GetTeam())
 				{
 					for (;;)
 					{
@@ -819,7 +819,7 @@ public static class AbilityUtils
 						}
 						break;
 					}
-					if (target.\u000E().HasStatus(StatusType.CantBeHelpedByTeam, true))
+					if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam, true))
 					{
 						for (;;)
 						{
@@ -834,7 +834,7 @@ public static class AbilityUtils
 					}
 				}
 			}
-			ActorStats actorStats = caster.\u000E();
+			ActorStats actorStats = caster.GetActorStats();
 			if (GameplayMutators.Get() != null)
 			{
 				baseAbsorb = Mathf.RoundToInt((float)baseAbsorb * GameplayMutators.GetAbsorbMultiplier());
@@ -884,7 +884,7 @@ public static class AbilityUtils
 			baseGain = MathUtil.RoundToIntPadded((float)baseGain * GameplayMutators.GetEnergyGainMultiplier());
 		}
 		int a = baseGain;
-		ActorStatus actorStatus = target.\u000E();
+		ActorStatus actorStatus = target.GetActorStatus();
 		bool flag = actorStatus.IsEnergized(true);
 		bool flag2 = actorStatus.HasStatus(StatusType.SlowEnergyGain, true);
 		if (flag)
@@ -1035,7 +1035,7 @@ public static class AbilityUtils
 			for (int i = 0; i < actorsToConsider.Count; i++)
 			{
 				ActorData actorData = actorsToConsider[i];
-				if (actorData.\u000E() != observingActor.\u000E())
+				if (actorData.GetTeam() != observingActor.GetTeam())
 				{
 					for (;;)
 					{
@@ -1061,7 +1061,7 @@ public static class AbilityUtils
 			for (int i = 0; i < actorsToConsider.Count; i++)
 			{
 				ActorData actorData = actorsToConsider[i];
-				if (actorData.\u000E() == observingActor.\u000E())
+				if (actorData.GetTeam() == observingActor.GetTeam())
 				{
 					for (;;)
 					{

@@ -378,7 +378,7 @@ public class BazookaGirlDelayedBombDrops : Ability
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData2 = enumerator.Current;
-					list.Add(actorData2.\u0012());
+					list.Add(actorData2.GetCurrentBoardSquare());
 				}
 				for (;;)
 				{
@@ -425,7 +425,7 @@ public class BazookaGirlDelayedBombDrops : Ability
 			foreach (BoardSquare boardSquare in list)
 			{
 				Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_bombInfo.m_shape, boardSquare.ToVector3(), boardSquare);
-				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_bombInfo.m_shape, centerOfShape, boardSquare, this.PenetrateLos(), actorData, actorData.\u0012(), null);
+				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_bombInfo.m_shape, centerOfShape, boardSquare, this.PenetrateLos(), actorData, actorData.GetOpposingTeam(), null);
 				foreach (ActorData x in actorsInShape)
 				{
 					if (x == targetActor)
@@ -580,10 +580,10 @@ public class BazookaGirlDelayedBombDrops : Ability
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> result = new List<Vector3>();
-		Vector3 vector = caster.\u0016();
+		Vector3 travelBoardSquareWorldPosition = caster.GetTravelBoardSquareWorldPosition();
 		if (this.TargetAllEnemies())
 		{
-			AreaEffectUtils.AddRadiusExtremaToList(ref result, vector, 5f);
+			AreaEffectUtils.AddRadiusExtremaToList(ref result, travelBoardSquareWorldPosition, 5f);
 		}
 		else if (this.m_targetingType == BazookaGirlDelayedBombDrops.TargetingType.Shape)
 		{
@@ -605,7 +605,7 @@ public class BazookaGirlDelayedBombDrops : Ability
 		else if (this.m_targetingType == BazookaGirlDelayedBombDrops.TargetingType.Cone)
 		{
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
-			AreaEffectUtils.AddConeExtremaToList(ref result, vector, coneCenterAngleDegrees, this.GetConeAngle(), this.GetConeLength(), this.m_coneBackwardOffset);
+			AreaEffectUtils.AddConeExtremaToList(ref result, travelBoardSquareWorldPosition, coneCenterAngleDegrees, this.GetConeAngle(), this.GetConeLength(), this.m_coneBackwardOffset);
 		}
 		return result;
 	}

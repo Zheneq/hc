@@ -104,7 +104,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		base.ClearActorsInRange();
-		Vector3 vector = targetingActor.\u0015();
+		Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (currentTargetIndex > 0 && targets != null)
 		{
@@ -121,8 +121,8 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DirectionCone.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -135,7 +135,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 				}
 				if (!this.m_useCasterLocationForAllMultiTargets)
 				{
-					vector = boardSquare.\u000E();
+					vector = boardSquareSafe.GetWorldPositionForLoS();
 				}
 				vector2 = currentTarget.FreePos - vector;
 				vector2.y = 0f;
@@ -248,8 +248,8 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 				}
 				base.AddActorInRange(actorData, vector, targetingActor, AbilityTooltipSubject.Primary, false);
 				ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-				float u000E = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.\u0016());
-				actorHitContext.\u0015.\u0015(ContextKeys.\u0018.\u0012(), u000E);
+				float value = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetTravelBoardSquareWorldPosition());
+				actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
 			}
 		}
 		for (;;)
@@ -286,7 +286,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 		}
 		else
 		{
-			if (actor.\u000E() == caster.\u000E())
+			if (actor.GetTeam() == caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -311,7 +311,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 					return true;
 				}
 			}
-			if (actor.\u000E() != caster.\u000E())
+			if (actor.GetTeam() != caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -343,7 +343,7 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 	public void CreateConeHighlightsWithLines(Vector3 casterPos, float aimDir_degrees)
 	{
 		Vector3 a = VectorUtils.AngleDegreesToVector(aimDir_degrees);
-		float d = this.m_coneBackwardOffsetInSquares * Board.\u000E().squareSize;
+		float d = this.m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 a2 = casterPos + new Vector3(0f, y, 0f) - a * d;
 		float num = this.m_coneAngleDegrees / 2f;
@@ -404,14 +404,14 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 
 	public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		Vector3 vector = targetingActor.\u0016();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 		float num = VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
 		Vector3 a = VectorUtils.AngleDegreesToVector(num + 0.5f * this.m_coneAngleDegrees);
 		Vector3 a2 = VectorUtils.AngleDegreesToVector(num - 0.5f * this.m_coneAngleDegrees);
-		float d = Board.\u000E().squareSize * this.m_coneLengthRadius;
+		float d = Board.Get().squareSize * this.m_coneLengthRadius;
 		Gizmos.color = Color.red;
-		Gizmos.DrawLine(vector, vector + d * a);
-		Gizmos.DrawLine(vector, vector + d * a2);
+		Gizmos.DrawLine(travelBoardSquareWorldPosition, travelBoardSquareWorldPosition + d * a);
+		Gizmos.DrawLine(travelBoardSquareWorldPosition, travelBoardSquareWorldPosition + d * a2);
 	}
 
 	public delegate Vector3 ClampedAimDirectionDelegate(Vector3 currentAimDir, Vector3 prevAimDir);

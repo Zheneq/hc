@@ -130,7 +130,7 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 					}
 					break;
 				}
-				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_enemyShape, currentTarget.FreePos, gameplayRefSquare, this.m_enemyShapePenetratesLoS, targetingActor, targetingActor.\u0012(), null);
+				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_enemyShape, currentTarget.FreePos, gameplayRefSquare, this.m_enemyShapePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 				Vector3 highlightGoalPos = base.GetHighlightGoalPos(currentTarget, targetingActor);
 				foreach (ActorData actorData in actorsInShape)
@@ -164,19 +164,19 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 				}
 			}
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		BoardSquare boardSquare2 = targetingActor.\u0012();
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
 		BoardSquarePathInfo boardSquarePathInfo;
 		if (this.m_groundBasedMovement)
 		{
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, boardSquare2, this.m_allowChargeThroughInvalidSquares);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, currentBoardSquare, this.m_allowChargeThroughInvalidSquares);
 		}
 		else
 		{
 			boardSquarePathInfo = new BoardSquarePathInfo();
-			boardSquarePathInfo.square = boardSquare2;
+			boardSquarePathInfo.square = currentBoardSquare;
 			BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo();
-			boardSquarePathInfo2.square = boardSquare;
+			boardSquarePathInfo2.square = boardSquareSafe;
 			boardSquarePathInfo.next = boardSquarePathInfo2;
 			boardSquarePathInfo2.prev = boardSquarePathInfo;
 		}
@@ -185,6 +185,6 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 
 	protected override bool HandleAddActorInShape(ActorData potentialTarget, ActorData targetingActor, AbilityTarget currentTarget, Vector3 damageOrigin, ActorData bestTarget)
 	{
-		return potentialTarget.\u000E() == targetingActor.\u000E() && base.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin, bestTarget);
+		return potentialTarget.GetTeam() == targetingActor.GetTeam() && base.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin, bestTarget);
 	}
 }

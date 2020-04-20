@@ -236,7 +236,7 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 			if (playersOriginalActorData != null)
 			{
-				return new int?(playersOriginalActorData.\u000E().totalPlayerTurns);
+				return new int?(playersOriginalActorData.GetActorBehavior().totalPlayerTurns);
 			}
 		}
 		return null;
@@ -271,7 +271,7 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 					}
 					break;
 				}
-				return new int?(playersOriginalActorData.\u000E().totalDeaths + 1);
+				return new int?(playersOriginalActorData.GetActorBehavior().totalDeaths + 1);
 			}
 		}
 		return null;

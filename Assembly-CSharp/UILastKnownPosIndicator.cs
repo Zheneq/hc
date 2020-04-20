@@ -17,7 +17,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 
 	protected override void SetupCharacterIcons(ActorData actorData)
 	{
-		this.m_characterIcon.sprite = actorData.\u0015();
+		this.m_characterIcon.sprite = actorData.GetScreenIndicatorIcon();
 		if (this.m_grayCharacterIcon != null)
 		{
 			for (;;)
@@ -33,14 +33,14 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.SetupCharacterIcons(ActorData)).MethodHandle;
 			}
-			this.m_grayCharacterIcon.sprite = actorData.\u0016();
+			this.m_grayCharacterIcon.sprite = actorData.GetScreenIndicatorBWIcon();
 		}
 	}
 
 	protected override bool ShouldGrayOutIndicator()
 	{
 		int num = 1;
-		return this.m_attachedToActor.\u000E() < GameFlowData.Get().CurrentTurn - num;
+		return this.m_attachedToActor.GetLastVisibleTurnToClient() < GameFlowData.Get().CurrentTurn - num;
 	}
 
 	protected override bool CalculateVisibility()
@@ -52,7 +52,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		}
 		else
 		{
-			if (!this.m_attachedToActor.\u000E())
+			if (!this.m_attachedToActor.IsDead())
 			{
 				for (;;)
 				{
@@ -67,7 +67,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.CalculateVisibility()).MethodHandle;
 				}
-				if (this.m_attachedToActor.\u0012())
+				if (this.m_attachedToActor.IsModelAnimatorDisabled())
 				{
 					for (;;)
 					{
@@ -109,7 +109,7 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 						result = false;
 						goto IL_AD;
 					}
-					result = !this.m_attachedToActor.\u0018();
+					result = !this.m_attachedToActor.IsVisibleToClient();
 					goto IL_AD;
 				}
 			}
@@ -159,8 +159,8 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 
 	protected override Vector2 CalculateScreenPos()
 	{
-		Vector3 worldPos = this.m_attachedToActor.\u000E();
-		return base.ScreenPosFromWorldPos(worldPos);
+		Vector3 clientLastKnownPos = this.m_attachedToActor.GetClientLastKnownPos();
+		return base.ScreenPosFromWorldPos(clientLastKnownPos);
 	}
 
 	protected override bool IsVisibleWhenOnScreen()

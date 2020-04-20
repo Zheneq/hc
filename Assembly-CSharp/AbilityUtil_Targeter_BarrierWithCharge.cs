@@ -9,9 +9,9 @@ public class AbilityUtil_Targeter_BarrierWithCharge : AbilityUtil_Targeter_Barri
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		int fromIndex = 0;
-		if (boardSquare != null)
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -26,7 +26,7 @@ public class AbilityUtil_Targeter_BarrierWithCharge : AbilityUtil_Targeter_Barri
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BarrierWithCharge.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
 			}
-			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare);
+			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
 			fromIndex = base.AddMovementArrowWithPrevious(targetingActor, path, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
 		}
 		base.SetMovementArrowEnabledFromIndex(fromIndex, false);

@@ -237,7 +237,7 @@ public class DinoTargetedKnockback : GenericAbility_Container
 						{
 							RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
 						}
-						if (key.\u000E() != caster.\u000E())
+						if (key.GetTeam() != caster.GetTeam())
 						{
 							for (;;)
 							{

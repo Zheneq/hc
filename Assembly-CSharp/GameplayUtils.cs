@@ -300,7 +300,7 @@ public static class GameplayUtils
 		bool result = false;
 		if (actor != null)
 		{
-			result = actor.\u0019();
+			result = actor.GetIsHumanControlled();
 		}
 		return result;
 	}
@@ -407,7 +407,7 @@ public static class GameplayUtils
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.GetTotalTeamDeaths(Team)).MethodHandle;
 					}
-					ActorBehavior actorBehavior = actorData.\u000E();
+					ActorBehavior actorBehavior = actorData.GetActorBehavior();
 					num += actorBehavior.totalDeaths;
 				}
 			}
@@ -678,15 +678,15 @@ public static class GameplayUtils
 		}
 		LobbyTeamInfo teamInfo = GameManager.Get().TeamInfo;
 		LobbyPlayerInfo lobbyPlayerInfo = teamInfo.TeamPlayerInfo.FirstOrDefault((LobbyPlayerInfo element) => element.PlayerId == lobbyPlayerInfoId);
-		ActorBehavior actorBehavior = actorData.\u000E();
-		AbilityData abilityData = actorData.\u000E();
+		ActorBehavior actorBehavior = actorData.GetActorBehavior();
+		AbilityData abilityData = actorData.GetAbilityData();
 		MatchResultsStatline matchResultsStatline = new MatchResultsStatline();
 		matchResultsStatline.Actor = actorData;
 		matchResultsStatline.PlayerId = lobbyPlayerInfoId;
-		matchResultsStatline.DisplayName = actorData.\u000E();
+		matchResultsStatline.DisplayName = actorData.GetFancyDisplayName();
 		matchResultsStatline.Character = actorData.m_characterType;
 		matchResultsStatline.IsPerspective = (lobbyPlayerInfoId == perspectivePlayerId);
-		matchResultsStatline.IsAlly = (perspectiveTeam == actorData.\u000E());
+		matchResultsStatline.IsAlly = (perspectiveTeam == actorData.GetTeam());
 		MatchResultsStatline matchResultsStatline2 = matchResultsStatline;
 		bool isHumanControlled;
 		if (playerDetails != null)
@@ -728,7 +728,7 @@ public static class GameplayUtils
 			humanReplacedByBot = false;
 		}
 		matchResultsStatline3.HumanReplacedByBot = humanReplacedByBot;
-		matchResultsStatline.AccountID = actorData.\u0012();
+		matchResultsStatline.AccountID = actorData.GetAccountIdWithSomeConditionB_zq();
 		MatchResultsStatline matchResultsStatline4 = matchResultsStatline;
 		int titleID;
 		if (lobbyPlayerInfo != null)

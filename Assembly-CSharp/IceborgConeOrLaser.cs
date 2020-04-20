@@ -28,15 +28,15 @@ public class IceborgConeOrLaser : GenericAbility_Container
 	public override string GetUsageForEditor()
 	{
 		string str = base.GetUsageForEditor();
-		str += ContextVars.\u0015(IceborgConeOrLaser.s_cvarHasSlow.\u0012(), "Set on enemies hit, 1 if has Slow, 0 otherwise", true);
-		return str + ContextVars.\u0015(Iceborg_SyncComponent.s_cvarHasNova.\u0012(), "set to 1 if target has nova core on start of turn, 0 otherwise", true);
+		str += ContextVars.GetDebugString(IceborgConeOrLaser.s_cvarHasSlow.GetName(), "Set on enemies hit, 1 if has Slow, 0 otherwise", true);
+		return str + ContextVars.GetDebugString(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise", true);
 	}
 
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(IceborgConeOrLaser.s_cvarHasSlow.\u0012());
-		contextNamesForEditor.Add(Iceborg_SyncComponent.s_cvarHasNova.\u0012());
+		contextNamesForEditor.Add(IceborgConeOrLaser.s_cvarHasSlow.GetName());
+		contextNamesForEditor.Add(Iceborg_SyncComponent.s_cvarHasNova.GetName());
 		return contextNamesForEditor;
 	}
 
@@ -299,7 +299,7 @@ public class IceborgConeOrLaser : GenericAbility_Container
 					{
 						KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
 						ActorData key = keyValuePair.Key;
-						if (key.\u000E() != caster.\u000E())
+						if (key.GetTeam() != caster.GetTeam())
 						{
 							for (;;)
 							{

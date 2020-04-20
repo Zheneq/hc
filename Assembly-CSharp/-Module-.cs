@@ -5,6 +5,6 @@ internal class <Module>
 {
 	static <Module>()
 	{
-		\u0019.\u0016();
+		kernel.method0016();
 	}
 }

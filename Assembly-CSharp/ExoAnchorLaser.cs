@@ -810,11 +810,11 @@ public class ExoAnchorLaser : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
 			}
-			totalDamage = this.GetTotalDamage(actorData.\u0016(), targetActor.\u0016(), this.GetSweepDamageAmount(), true);
+			totalDamage = this.GetTotalDamage(actorData.GetTravelBoardSquareWorldPosition(), targetActor.GetTravelBoardSquareWorldPosition(), this.GetSweepDamageAmount(), true);
 		}
 		else
 		{
-			totalDamage = this.GetTotalDamage(actorData.\u0016(), targetActor.\u0016(), this.GetLaserDamageAmount(), false);
+			totalDamage = this.GetTotalDamage(actorData.GetTravelBoardSquareWorldPosition(), targetActor.GetTravelBoardSquareWorldPosition(), this.GetLaserDamageAmount(), false);
 		}
 		Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, totalDamage, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
 		return result;
@@ -1170,7 +1170,7 @@ public class ExoAnchorLaser : Ability
 					}
 					break;
 				}
-				if (!owner.\u000E().HasQueuedAction(AbilityData.ActionType.ABILITY_4))
+				if (!owner.GetAbilityData().HasQueuedAction(AbilityData.ActionType.ABILITY_4))
 				{
 					for (;;)
 					{

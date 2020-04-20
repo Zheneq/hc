@@ -35,7 +35,7 @@ public class ClientPositionHitResults
 		{
 			return;
 		}
-		if (ClientAbilityResults.\u001D)
+		if (ClientAbilityResults.LogMissingSequences)
 		{
 			for (;;)
 			{

@@ -106,15 +106,15 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			abilityTarget = targets[0];
 		}
 		AbilityTarget abilityTarget2 = abilityTarget;
-		Vector3 vector = targetingActor.\u000E(Board.\u000E().\u000E(abilityTarget2.GridPos));
+		Vector3 vector = targetingActor.GetSquareWorldPositionForLoS(Board.Get().GetBoardSquareSafe(abilityTarget2.GridPos));
 		Vector3 vector2;
 		if (this.m_aimBackward)
 		{
-			vector2 = targetingActor.\u0015() - vector;
+			vector2 = targetingActor.GetTravelBoardSquareWorldPositionForLos() - vector;
 		}
 		else
 		{
-			vector2 = vector - targetingActor.\u0015();
+			vector2 = vector - targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		}
 		if (vector2.magnitude > 0.5f)
 		{
@@ -123,7 +123,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			float num2 = VectorUtils.HorizontalAngle_Deg(vector2);
 			float angle = num2 + this.m_maxAngleForLaser;
 			float angle2 = num2 - this.m_maxAngleForLaser;
-			vector -= vector2.normalized * 0.5f * this.m_laserWidth * Board.\u000E().squareSize;
+			vector -= vector2.normalized * 0.5f * this.m_laserWidth * Board.Get().squareSize;
 			vector.y = HighlightUtils.GetHighlightHeight();
 			gameObject.transform.position = vector;
 			gameObject2.transform.position = vector;
@@ -147,16 +147,16 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 				break;
 			}
 			float laserRange = this.m_laserRange;
-			float widthInWorld = this.m_laserWidth * Board.\u000E().squareSize;
+			float widthInWorld = this.m_laserWidth * Board.Get().squareSize;
 			Vector3 vector3 = this.getClampedLaserDirection(targets[0], currentTarget, vector2);
 			vector3.y = 0f;
 			if (vector3 != Vector3.zero)
 			{
 				vector3.Normalize();
 			}
-			BoardSquare u001D = Board.\u000E().\u000E(targets[0].GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 			VectorUtils.LaserCoords laserCoords;
-			laserCoords.start = targetingActor.\u000E(u001D);
+			laserCoords.start = targetingActor.GetSquareWorldPositionForLoS(boardSquareSafe);
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector3, laserRange, this.m_laserWidth, targetingActor, base.GetAffectedTeams(), false, this.m_maxTargets, false, false, out laserCoords.end, null, null, false, true);
 			using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
 			{
@@ -188,7 +188,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 					break;
 				}
 				this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f, null));
-				this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_aoeRadius * Board.\u000E().squareSize, 360f));
+				this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_aoeRadius * Board.Get().squareSize, 360f));
 				flag = true;
 			}
 			GameObject gameObject3 = this.m_highlights[num];
@@ -208,7 +208,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 				}
 				vector4 = AbilityCommon_LaserWithCone.GetConeLosCheckPos(laserCoords.start, laserCoords.end);
 			}
-			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(end, 0f, 360f, this.m_aoeRadius, 0f, this.m_aoePenetratesLoS, targetingActor, targetingActor.\u0012(), null, true, vector4);
+			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(end, 0f, 360f, this.m_aoeRadius, 0f, this.m_aoePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null, true, vector4);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 			using (List<ActorData>.Enumerator enumerator2 = actorsInCone.GetEnumerator())
 			{
@@ -253,7 +253,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 				}
 				position = TargeterUtils.MoveHighlightTowards(end, gameObject4, ref this.m_cursorSpeed);
 			}
-			position.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+			position.y = (float)Board.Get().BaselineHeight + 0.1f;
 			gameObject4.transform.position = position;
 			gameObject4.SetActive(this.m_aoeRadius > 0f);
 			float magnitude = (laserCoords.end - laserCoords.start).magnitude;
@@ -299,7 +299,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 				}
 				break;
 			}
-			BoardSquare boardSquare;
+			BoardSquare boardSquareSafe2;
 			if (currentTargetIndex == 0)
 			{
 				for (;;)
@@ -311,13 +311,13 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 					}
 					break;
 				}
-				boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+				boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 			}
 			else
 			{
-				boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
+				boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 			}
-			if (boardSquare != null)
+			if (boardSquareSafe2 != null)
 			{
 				for (;;)
 				{
@@ -332,14 +332,14 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 				if (this.m_teleportPath)
 				{
 					boardSquarePathInfo = new BoardSquarePathInfo();
-					boardSquarePathInfo.square = targetingActor.\u0012();
+					boardSquarePathInfo.square = targetingActor.GetCurrentBoardSquare();
 					boardSquarePathInfo.next = new BoardSquarePathInfo();
 					boardSquarePathInfo.next.prev = boardSquarePathInfo;
-					boardSquarePathInfo.next.square = boardSquare;
+					boardSquarePathInfo.next.square = boardSquareSafe2;
 				}
 				else
 				{
-					boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.\u0012(), this.AllowChargeThroughInvalidSquares);
+					boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe2, targetingActor.GetCurrentBoardSquare(), this.AllowChargeThroughInvalidSquares);
 				}
 				base.EnableAllMovementArrows();
 				int fromIndex = base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
@@ -357,7 +357,7 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 	}
 

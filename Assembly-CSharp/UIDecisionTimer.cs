@@ -533,7 +533,7 @@ public class UIDecisionTimer : MonoBehaviour
 					}
 					break;
 				}
-				if (GameFlowData.Get().activeOwnedActorData.\u000E().CurrentState != TurnStateEnum.CONFIRMED)
+				if (GameFlowData.Get().activeOwnedActorData.GetActorTurnSM().CurrentState != TurnStateEnum.CONFIRMED)
 				{
 					for (;;)
 					{

@@ -334,7 +334,7 @@ public class RampartAoeBuffDebuff : Ability
 				int num2 = 0;
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
-					if (visibleActorsInRangeByTooltipSubject[i].\u000E() != targetActor.\u000E())
+					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
 					{
 						for (;;)
 						{

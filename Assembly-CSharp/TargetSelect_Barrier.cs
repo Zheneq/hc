@@ -23,14 +23,14 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "For placing a barrier, with optional laser templates in front and back.\n" + base.GetContextUsageStr(ContextKeys.\u000E.\u0012(), "non-actor specific context, set as width of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0015.\u0012(), "non-actor specific context, center position of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0009.\u0012(), "non-actor specific context, facing direction of barrier", false);
+		return "For placing a barrier, with optional laser templates in front and back.\n" + base.GetContextUsageStr(ContextKeys.\u000E.GetName(), "non-actor specific context, set as width of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0015.GetName(), "non-actor specific context, center position of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0009.GetName(), "non-actor specific context, facing direction of barrier", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
 	{
-		keys.Add(ContextKeys.\u000E.\u0012());
-		keys.Add(ContextKeys.\u0015.\u0012());
-		keys.Add(ContextKeys.\u0009.\u0012());
+		keys.Add(ContextKeys.\u000E.GetName());
+		keys.Add(ContextKeys.\u0015.GetName());
+		keys.Add(ContextKeys.\u0009.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
@@ -92,8 +92,8 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Barrier.GetBarrierPositionAndFacing(List<AbilityTarget>, bool, Vector3*, Vector3*)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -118,8 +118,8 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 					}
 					freePos = targets[1].FreePos;
 				}
-				facing = VectorUtils.GetDirectionToClosestSide(boardSquare, freePos);
-				position = boardSquare.ToVector3() + 0.5f * Board.\u000E().squareSize * facing;
+				facing = VectorUtils.GetDirectionToClosestSide(boardSquareSafe, freePos);
+				position = boardSquareSafe.ToVector3() + 0.5f * Board.Get().squareSize * facing;
 			}
 		}
 	}
@@ -128,7 +128,7 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 	{
 		List<ActorData> list = new List<ActorData>();
 		Vector3 startPos = barrierPos;
-		startPos.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		startPos.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		if (laserRangeFront > 0f)
 		{
 			for (;;)

@@ -147,9 +147,9 @@ public class DinoVfxController : CopyableVfxControllerComponent
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoVfxController.LateUpdate()).MethodHandle;
 			}
-			flag = (owner.\u0018() && (owner.\u000E() == null || owner.\u000E().IsVisibleToClient()));
+			flag = (owner.IsVisibleToClient() && (owner.GetActorModelData() == null || owner.GetActorModelData().IsVisibleToClient()));
 		}
-		bool flag2 = owner != null && owner.\u0012();
+		bool flag2 = owner != null && owner.IsModelAnimatorDisabled();
 		int num = 0;
 		if (this.m_syncComp != null)
 		{

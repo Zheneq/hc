@@ -717,7 +717,7 @@ public class UIPlayerDisplay : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerDisplay.ProcessTeams()).MethodHandle;
 			}
-			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.\u000E());
+			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam());
 			int num = 0;
 			using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
 			{
@@ -757,7 +757,7 @@ public class UIPlayerDisplay : MonoBehaviour
 				}
 			}
 			IL_DB:
-			playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.\u0012());
+			playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetOpposingTeam());
 			num = 0;
 			using (List<ActorData>.Enumerator enumerator2 = playerAndBotTeamMembers.GetEnumerator())
 			{

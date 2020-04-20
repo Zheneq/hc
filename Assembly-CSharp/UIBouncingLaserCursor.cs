@@ -359,7 +359,7 @@ public class UIBouncingLaserCursor : MonoBehaviour
 
 		public void UpdateSegment(Vector3 start, Vector3 end, bool isFirst, bool isLast)
 		{
-			float y = (float)Board.\u000E().BaselineHeight + this.m_parent.m_heightOffset;
+			float y = (float)Board.Get().BaselineHeight + this.m_parent.m_heightOffset;
 			this.m_start = new Vector3(start.x, y, start.z);
 			this.m_end = new Vector3(end.x, y, end.z);
 			Vector3 vector = this.m_end - this.m_start;

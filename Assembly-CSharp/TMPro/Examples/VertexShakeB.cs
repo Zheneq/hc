@@ -33,7 +33,7 @@ namespace TMPro.Examples
 
 		private void \u0019()
 		{
-			base.StartCoroutine(this.\u0013());
+			base.StartCoroutine(this.coroutine0013());
 		}
 
 		private void \u0013(UnityEngine.Object \u001D)
@@ -44,7 +44,7 @@ namespace TMPro.Examples
 			}
 		}
 
-		private IEnumerator \u0013()
+		private IEnumerator coroutine0013()
 		{
 			this.\u0015.ForceMeshUpdate();
 			TMP_TextInfo textInfo = this.\u0015.textInfo;

@@ -105,7 +105,7 @@ public class SetScaleSequence : Sequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SetScaleSequence.Update()).MethodHandle;
 			}
-			if (base.Caster.\u000E() != null)
+			if (base.Caster.GetActorModelData() != null)
 			{
 				for (;;)
 				{
@@ -116,7 +116,7 @@ public class SetScaleSequence : Sequence
 					}
 					break;
 				}
-				GameObject gameObject = base.Caster.\u000E().gameObject;
+				GameObject gameObject = base.Caster.GetActorModelData().gameObject;
 				float x = gameObject.transform.localScale.x;
 				if (this.m_scalingState == SetScaleSequence.ScalingState.ScalingToTarget)
 				{
@@ -164,7 +164,7 @@ public class SetScaleSequence : Sequence
 							num2 = Mathf.Max(this.m_targetScale, x - GameTime.deltaTime * this.m_toTargetScaleSpeed);
 						}
 						float d = num2;
-						base.Caster.\u000E().gameObject.transform.localScale = d * Vector3.one;
+						base.Caster.GetActorModelData().gameObject.transform.localScale = d * Vector3.one;
 					}
 				}
 				else if (this.m_scalingState == SetScaleSequence.ScalingState.RestoringScale)
@@ -204,7 +204,7 @@ public class SetScaleSequence : Sequence
 							num4 = Mathf.Max(1f, x - GameTime.deltaTime * this.m_restoreScaleSpeed);
 						}
 						float d2 = num4;
-						base.Caster.\u000E().gameObject.transform.localScale = d2 * Vector3.one;
+						base.Caster.GetActorModelData().gameObject.transform.localScale = d2 * Vector3.one;
 					}
 				}
 			}
@@ -262,9 +262,9 @@ public class SetScaleSequence : Sequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SetScaleSequence.SetToTargetScale()).MethodHandle;
 			}
-			if (base.Caster.\u000E() != null)
+			if (base.Caster.GetActorModelData() != null)
 			{
-				base.Caster.\u000E().gameObject.transform.localScale = this.m_targetScale * Vector3.one;
+				base.Caster.GetActorModelData().gameObject.transform.localScale = this.m_targetScale * Vector3.one;
 			}
 		}
 	}
@@ -277,7 +277,7 @@ public class SetScaleSequence : Sequence
 	private void RestoreScale()
 	{
 		this.m_scalingState = SetScaleSequence.ScalingState.None;
-		if (base.Caster != null && base.Caster.\u000E() != null)
+		if (base.Caster != null && base.Caster.GetActorModelData() != null)
 		{
 			for (;;)
 			{
@@ -292,7 +292,7 @@ public class SetScaleSequence : Sequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SetScaleSequence.RestoreScale()).MethodHandle;
 			}
-			base.Caster.\u000E().gameObject.transform.localScale = Vector3.one;
+			base.Caster.GetActorModelData().gameObject.transform.localScale = Vector3.one;
 		}
 	}
 

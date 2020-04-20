@@ -159,7 +159,7 @@ public class ClientReactionResults
 			}
 			else
 			{
-				if (ClientAbilityResults.\u001D)
+				if (ClientAbilityResults.LogMissingSequences)
 				{
 					for (;;)
 					{

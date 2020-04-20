@@ -797,7 +797,7 @@ public class ClaymoreSlam : Ability
 					}
 					break;
 				}
-				if (targetActor.\u0012() < this.GetLowHealthThreshold())
+				if (targetActor.GetHitPointShareOfMax() < this.GetLowHealthThreshold())
 				{
 					for (;;)
 					{

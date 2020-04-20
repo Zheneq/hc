@@ -21,8 +21,8 @@ public class BounceBombInfo
 
 	public Vector3 GetAdjustedStartPosition(Vector3 aimDirection, ActorData caster)
 	{
-		Vector3 vector = caster.\u0015();
-		float num = this.startOffsetDistance * Board.\u000E().squareSize;
+		Vector3 vector = caster.GetTravelBoardSquareWorldPositionForLos();
+		float num = this.startOffsetDistance * Board.Get().squareSize;
 		if (!this.startPosIgnoreLos)
 		{
 			for (;;)
@@ -49,7 +49,7 @@ public class BounceBombInfo
 					}
 					break;
 				}
-				float totalMaxDistanceInSquares = num + Board.\u000E().squareSize;
+				float totalMaxDistanceInSquares = num + Board.Get().squareSize;
 				Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary;
 				List<ActorData> list2;
 				List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(vector, aimDirection, num, totalMaxDistanceInSquares, 1, caster, this.width, -1, true, null, false, out dictionary, out list2, null, false, true);
@@ -101,7 +101,7 @@ public class BounceBombInfo
 		float maxDistancePerBounceInSquares = num;
 		float totalMaxDistanceInSquares = (maxTotalDistanceOverride <= 0f) ? this.maxTotalDistance : maxTotalDistanceOverride;
 		List<Team> list = new List<Team>();
-		list.Add(caster.\u0012());
+		list.Add(caster.GetOpposingTeam());
 		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> result;
 		List<ActorData> list2;
 		bounceEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(adjustedStartPosition, aimDirection, maxDistancePerBounceInSquares, totalMaxDistanceInSquares, this.maxBounces, caster, this.width, 1, includeInvisibles, list, false, out result, out list2, nonActorTargetInfoInSegment, false, true);

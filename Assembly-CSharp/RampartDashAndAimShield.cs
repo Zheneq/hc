@@ -983,8 +983,8 @@ public class RampartDashAndAimShield : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -999,9 +999,9 @@ public class RampartDashAndAimShield : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
-				if (!(boardSquare == caster.\u0012()))
+				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					bool result = false;
 					if (targetIndex == 0)
@@ -1015,7 +1015,7 @@ public class RampartDashAndAimShield : Ability
 							}
 							break;
 						}
-						BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare);
+						BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe);
 						if (boardSquarePathInfo != null)
 						{
 							for (;;)
@@ -1062,8 +1062,8 @@ public class RampartDashAndAimShield : Ability
 					}
 					else
 					{
-						BoardSquare x = Board.\u000E().\u000E(currentTargets[0].GridPos);
-						result = (x == boardSquare);
+						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
+						result = (boardSquareSafe2 == boardSquareSafe);
 					}
 					return result;
 				}

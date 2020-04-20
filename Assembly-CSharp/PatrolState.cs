@@ -97,12 +97,12 @@ public class PatrolState : FSMState
 					yield break;
 				}
 				WayPoint wayPoint = this.m_PatrolPath.m_currentWayPoint;
-				BoardSquare boardSquare = Board.\u000E().\u0012(wayPoint.transform.position.x, wayPoint.transform.position.z);
-				BoardSquare x2 = component2.\u0012();
+				BoardSquare boardSquare = Board.Get().GetBoardSquareSafe(wayPoint.transform.position.x, wayPoint.transform.position.z);
+				BoardSquare currentBoardSquare = component2.GetCurrentBoardSquare();
 				int num = 0xA;
-				float num2 = boardSquare.HorizontalDistanceInSquaresTo(base.MyActorData.\u0012());
+				float num2 = boardSquare.HorizontalDistanceInSquaresTo(base.MyActorData.GetCurrentBoardSquare());
 				float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
-				if (!wayPoint.MustArriveAtWayPointToContinue && x2 != boardSquare)
+				if (!wayPoint.MustArriveAtWayPointToContinue && currentBoardSquare != boardSquare)
 				{
 					for (;;)
 					{
@@ -148,15 +148,15 @@ public class PatrolState : FSMState
 								{
 									break;
 								}
-								boardSquare = Board.\u000E().\u0018(boardSquare, boardSquare);
+								boardSquare = Board.Get().\u0018(boardSquare, boardSquare);
 								this.m_PatrolPath.m_AlternateDestination = boardSquare;
 							}
 						}
 					}
 				}
-				if (!(x2 == boardSquare))
+				if (!(currentBoardSquare == boardSquare))
 				{
-					if (!(x2 == this.m_PatrolPath.m_AlternateDestination))
+					if (!(currentBoardSquare == this.m_PatrolPath.m_AlternateDestination))
 					{
 						component3.SelectMovementSquareForMovement(boardSquare);
 						yield break;
@@ -218,7 +218,7 @@ public class PatrolState : FSMState
 					GameEventManager.PatrolPointArgs args2 = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, wayPoint, this.m_PatrolPath.mWayPoints.IndexOf(wayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args2);
 					this.m_PatrolPath.m_AlternateDestination = null;
-					BoardSquare boardSquare2 = Board.\u000E().\u0013(wayPoint.transform.position.x, wayPoint.transform.position.z);
+					BoardSquare boardSquare2 = Board.Get().\u0013(wayPoint.transform.position.x, wayPoint.transform.position.z);
 					Debug.Log("Traveling to: " + boardSquare2);
 					component3.SelectMovementSquareForMovement(boardSquare2);
 				}

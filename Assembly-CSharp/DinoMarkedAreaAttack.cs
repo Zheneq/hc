@@ -34,7 +34,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.\u0015("InCenter", "value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise", true);
+		return base.GetUsageForEditor() + ContextVars.GetDebugString("InCenter", "value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise", true);
 	}
 
 	public override List<string> GetContextNamesForEditor()
@@ -51,7 +51,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 
 	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext)
 	{
-		if (base.ActorData.\u000E() != targetActor.\u000E())
+		if (base.ActorData.GetTeam() != targetActor.GetTeam())
 		{
 			for (;;)
 			{
@@ -77,7 +77,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 					}
 					break;
 				}
-				actorHitContext[targetActor].\u0015.\u0016(DinoMarkedAreaAttack.s_cvarInCenter.\u0012(), 1);
+				actorHitContext[targetActor].\u0015.SetInt(DinoMarkedAreaAttack.s_cvarInCenter.GetHash(), 1);
 			}
 		}
 	}
@@ -99,7 +99,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
 			}
-			if (targetActor.\u000E() != caster.\u000E())
+			if (targetActor.GetTeam() != caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -143,7 +143,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 									}
 									break;
 								}
-								if (key.\u000E() != caster.\u000E())
+								if (key.GetTeam() != caster.GetTeam())
 								{
 									for (;;)
 									{

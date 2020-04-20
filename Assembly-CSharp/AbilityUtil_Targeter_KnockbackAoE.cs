@@ -115,7 +115,7 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 				}
 				foreach (ActorData actorData in visibleActorsInRange)
 				{
-					if (actorData.\u000E() != targetingActor.\u000E())
+					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
 						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector, centerOfShape, this.m_knockbackDistance);
 						num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);

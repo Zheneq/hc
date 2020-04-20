@@ -41,7 +41,7 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.\u0012(), "whether this is a direct charge hit or not (if not, it's a cone hit)", true);
+		return base.GetContextUsageStr(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetName(), "whether this is a direct charge hit or not (if not, it's a cone hit)", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
@@ -343,9 +343,9 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 
 	public static bool CustomLosForCone(ActorData actor, ActorData caster, Vector3 chargeEndPos, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		BoardSquare dest = actor.\u0012();
+		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
 		bool result = false;
-		BoardSquare boardSquare = Board.\u000E().\u000E(chargeEndPos);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(chargeEndPos);
 		if (boardSquare != null)
 		{
 			for (;;)
@@ -361,7 +361,7 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.CustomLosForCone(ActorData, ActorData, Vector3, List<NonActorTargetInfo>)).MethodHandle;
 			}
-			result = AreaEffectUtils.SquaresHaveLoSForAbilities(boardSquare, dest, caster, true, nonActorTargetInfo);
+			result = AreaEffectUtils.SquaresHaveLoSForAbilities(boardSquare, currentBoardSquare, caster, true, nonActorTargetInfo);
 		}
 		return result;
 	}

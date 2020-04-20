@@ -28,7 +28,7 @@ public class BoardRegionEditorDefinition : MonoBehaviour
 
 	private void CreateRegion()
 	{
-		Board board = Board.\u000E();
+		Board board = Board.Get();
 		if (board != null)
 		{
 			for (;;)

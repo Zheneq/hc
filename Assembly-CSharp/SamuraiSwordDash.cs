@@ -880,9 +880,9 @@ public class SamuraiSwordDash : Ability
 					}
 					(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + this.m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
 				}
-				BoardSquare endSquare = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 				BoardSquare currentBoardSquare = base.ActorData.CurrentBoardSquare;
-				(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + this.CalcExtraDamageForDashDist(currentBoardSquare, endSquare);
+				(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + this.CalcExtraDamageForDashDist(currentBoardSquare, boardSquareSafe);
 			}
 			else
 			{
@@ -948,8 +948,8 @@ public class SamuraiSwordDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -964,7 +964,7 @@ public class SamuraiSwordDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -975,9 +975,9 @@ public class SamuraiSwordDash : Ability
 					}
 					break;
 				}
-				if (!(boardSquare == caster.\u0012()))
+				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
-					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false) != null;
+					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false) != null;
 				}
 			}
 		}

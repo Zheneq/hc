@@ -34,7 +34,7 @@ public class Manta_SyncComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.Start()).MethodHandle;
 			}
-			if (component.\u000E() != null)
+			if (component.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -45,7 +45,7 @@ public class Manta_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				this.m_dirtyFightingAbility = (component.\u000E().GetAbilityOfType(typeof(MantaConeDirtyFighting)) as MantaConeDirtyFighting);
+				this.m_dirtyFightingAbility = (component.GetAbilityData().GetAbilityOfType(typeof(MantaConeDirtyFighting)) as MantaConeDirtyFighting);
 			}
 		}
 	}

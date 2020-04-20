@@ -420,7 +420,7 @@ public class UIQueueListPanel : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			AbilityData abilityData = activeOwnedActorData.\u000E();
+			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 			List<AbilityData.AbilityEntry> queuedOrAimingAbilities = abilityData.GetQueuedOrAimingAbilities();
 			for (int i = 0; i < queuedOrAimingAbilities.Count; i++)
 			{
@@ -563,10 +563,10 @@ public class UIQueueListPanel : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.UpdateQueuedAbilities()).MethodHandle;
 			}
-			AbilityData abilityData = activeOwnedActorData.\u000E();
+			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 			List<AbilityData.AbilityEntry> list = new List<AbilityData.AbilityEntry>();
 			int num = 0;
-			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.\u000E().GetAutoQueuedRequestActionTypes();
+			List<AbilityData.ActionType> autoQueuedRequestActionTypes = activeOwnedActorData.GetActorTurnSM().GetAutoQueuedRequestActionTypes();
 			for (int i = 0; i < autoQueuedRequestActionTypes.Count; i++)
 			{
 				if (abilityData.GetAbilityEntryOfActionType(autoQueuedRequestActionTypes[i]) != null)
@@ -593,7 +593,7 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				break;
 			}
-			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.\u000E().GetRequestStackForUndo();
+			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 			for (int j = 0; j < requestStackForUndo.Count; j++)
 			{
 				if (abilityData.GetAbilityEntryOfActionType(requestStackForUndo[j].m_action) != null)

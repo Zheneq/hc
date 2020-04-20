@@ -246,17 +246,17 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		bool flag = false;
 		bool flag2 = false;
 		for (int j = 0; j < this.m_count; j++)
 		{
 			Vector3 vector = VectorUtils.AngleDegreesToVector(num6 + (float)j * num);
-			Vector3 vector2 = targetingActor.\u0015();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			VectorUtils.LaserCoords laserCoords;
 			List<PowerUp> list;
-			List<ActorData> laserHitActors = this.GetLaserHitActors(vector2, vector, targetingActor, out laserCoords, out list);
+			List<ActorData> laserHitActors = this.GetLaserHitActors(travelBoardSquareWorldPositionForLos, vector, targetingActor, out laserCoords, out list);
 			flag2 = (laserHitActors.Count > 0);
 			flag = (list.Count > 0);
 			using (List<ActorData>.Enumerator enumerator = laserHitActors.GetEnumerator())
@@ -264,7 +264,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					if (actorData.\u000E() == targetingActor.\u000E())
+					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
 						for (;;)
 						{
@@ -281,7 +281,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 					{
 						this.m_lastNumEnemiesHit++;
 					}
-					Vector3 vector3 = laserCoords.start;
+					Vector3 vector2 = laserCoords.start;
 					if (this.m_customDamageOriginDelegate != null)
 					{
 						for (;;)
@@ -293,11 +293,11 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 							}
 							break;
 						}
-						vector3 = this.m_customDamageOriginDelegate(actorData, targetingActor, vector3);
+						vector2 = this.m_customDamageOriginDelegate(actorData, targetingActor, vector2);
 					}
-					base.AddActorInRange(actorData, vector3, targetingActor, AbilityTooltipSubject.Primary, true);
+					base.AddActorInRange(actorData, vector2, targetingActor, AbilityTooltipSubject.Primary, true);
 					ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-					actorHitContext.\u001D = vector3;
+					actorHitContext.\u001D = vector2;
 					if (this.m_actorToHitCount.ContainsKey(actorData))
 					{
 						for (;;)
@@ -333,7 +333,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			this.m_laserEndPoints[j] = laserCoords.end;
 			GameObject highlightObj = this.m_highlights[j];
 			float magnitude = (laserCoords.end - laserCoords.start).magnitude;
-			this.m_laserPart.AdjustHighlight(highlightObj, vector2, vector2 + magnitude * vector, true);
+			this.m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, travelBoardSquareWorldPositionForLos + magnitude * vector, true);
 			this.UpdateLaserEndPointsForHiddenSquares(laserCoords.start, laserCoords.end, j, targetingActor);
 		}
 		for (;;)
@@ -345,16 +345,16 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			}
 			break;
 		}
-		int u001D = ContextKeys.\u0019.\u0012();
-		int u001D2 = ContextKeys.\u001A.\u0012();
+		int hash = ContextKeys.\u0019.GetHash();
+		int hash2 = ContextKeys.\u001A.GetHash();
 		using (Dictionary<ActorData, int>.Enumerator enumerator2 = this.m_actorToHitCount.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
 				KeyValuePair<ActorData, int> keyValuePair = enumerator2.Current;
 				ActorHitContext actorHitContext2 = this.m_actorContextVars[keyValuePair.Key];
-				actorHitContext2.\u0015.\u0016(u001D, keyValuePair.Value);
-				actorHitContext2.\u0015.\u0016(u001D2, 0);
+				actorHitContext2.\u0015.SetInt(hash, keyValuePair.Value);
+				actorHitContext2.\u0015.SetInt(hash2, 0);
 			}
 			for (;;)
 			{
@@ -387,7 +387,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		}
 		if (flag3)
 		{
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, true);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, true);
 		}
 		if (this.ShouldShowHiddenSquareIndicator(targetingActor))
 		{
@@ -502,10 +502,10 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 				}
 			}
 		}
-		Vector3 vector2 = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		VectorUtils.LaserCoords laserCoords;
 		List<PowerUp> list;
-		List<ActorData> laserHitActors = this.GetLaserHitActors(vector2, vector, targetingActor, out laserCoords, out list);
+		List<ActorData> laserHitActors = this.GetLaserHitActors(travelBoardSquareWorldPositionForLos, vector, targetingActor, out laserCoords, out list);
 		using (List<ActorData>.Enumerator enumerator = laserHitActors.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
@@ -543,7 +543,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		}
 		if (flag)
 		{
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, true);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, true);
 		}
 		this.m_hitActorInLaser.Add(laserHitActors.Count > 0);
 		this.m_hitPowerupInLaser.Add(list.Count > 0);
@@ -578,7 +578,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		this.m_laserPart.UpdateDimensions(num3, num2);
 		GameObject highlightObj = this.m_highlights[0];
 		float magnitude = (laserCoords.end - laserCoords.start).magnitude;
-		this.m_laserPart.AdjustHighlight(highlightObj, vector2, vector2 + magnitude * vector, true);
+		this.m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, travelBoardSquareWorldPositionForLos + magnitude * vector, true);
 		this.HandlePowerupHighlight(targetingActor, 1);
 		if (this.ShouldShowHiddenSquareIndicator(targetingActor))
 		{
@@ -599,7 +599,7 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 
 	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor, float interpStep)
 	{
-		float value = (currentTarget.FreePos - targetingActor.\u0016()).magnitude / Board.\u000E().squareSize;
+		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;
 		float num = Mathf.Clamp(value, this.m_interpMinDistanceInSquares, this.m_interpMaxDistanceInSquares) - this.m_interpMinDistanceInSquares;
 		if (interpStep > 0f)
 		{

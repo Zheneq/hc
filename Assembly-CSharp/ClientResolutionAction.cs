@@ -1022,7 +1022,7 @@ public class ClientResolutionAction : IComparable
 						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionAction.ExecuteUnexecutedHits(Dictionary<ActorData, ClientActorHitResults>, Dictionary<Vector3, ClientPositionHitResults>, ActorData)).MethodHandle;
 					}
 					ActorData key = keyValuePair.Key;
-					if (ClientAbilityResults.\u001D)
+					if (ClientAbilityResults.LogMissingSequences)
 					{
 						for (;;)
 						{
@@ -1037,9 +1037,9 @@ public class ClientResolutionAction : IComparable
 						{
 							ClientAbilityResults.s_clientHitResultHeader,
 							"Executing unexecuted actor hit on ",
-							key.\u0018(),
+							key.GetDebugName(),
 							" from ",
-							caster.\u0018()
+							caster.GetDebugName()
 						}), new object[0]);
 					}
 					keyValuePair.Value.ExecuteActorHit(keyValuePair.Key, caster);
@@ -1071,7 +1071,7 @@ public class ClientResolutionAction : IComparable
 						}
 						break;
 					}
-					if (ClientAbilityResults.\u001D)
+					if (ClientAbilityResults.LogMissingSequences)
 					{
 						for (;;)
 						{
@@ -1088,7 +1088,7 @@ public class ClientResolutionAction : IComparable
 							"Executing unexecuted position hit on ",
 							keyValuePair2.Key.ToString(),
 							" from ",
-							caster.\u0018()
+							caster.GetDebugName()
 						}), new object[0]);
 					}
 					keyValuePair2.Value.ExecutePositionHit();
@@ -1599,7 +1599,7 @@ public class ClientResolutionAction : IComparable
 						"\n\t\t",
 						num,
 						". ActorHit on ",
-						key.\u0018()
+						key.GetDebugName()
 					});
 				}
 				else
@@ -1612,7 +1612,7 @@ public class ClientResolutionAction : IComparable
 						"\n\t\t",
 						num2,
 						". ActorHit on ",
-						key.\u0018()
+						key.GetDebugName()
 					});
 				}
 			}

@@ -289,7 +289,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			}
 			this.m_initialized = true;
 			PowerUpManager.AddListenerStatic(this);
-			this.m_boardSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+			this.m_boardSquare = Board.Get().GetBoardSquareSafe(base.transform.position.x, base.transform.position.z);
 			this.PlayBaseSequence();
 			base.transform.parent = PowerUpManager.Get().GetSpawnerRoot().transform;
 		}

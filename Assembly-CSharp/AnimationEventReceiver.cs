@@ -233,7 +233,7 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 						}
 						break;
 					}
-					result = this.GetActorData().\u0018();
+					result = this.GetActorData().IsVisibleToClient();
 				}
 				else
 				{
@@ -281,8 +281,8 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 			}
 			if (Application.isEditor)
 			{
-				string text = (!(this.GetActorData() == null) && !(this.GetActorData().\u000E() == null)) ? this.GetActorData().\u000E().GetCurrentAnimatorStateName() : "NULL";
-				string text2 = (!(this.GetActorData() != null)) ? "UNKNOWN" : this.GetActorData().\u0018();
+				string text = (!(this.GetActorData() == null) && !(this.GetActorData().GetActorModelData() == null)) ? this.GetActorData().GetActorModelData().GetCurrentAnimatorStateName() : "NULL";
+				string text2 = (!(this.GetActorData() != null)) ? "UNKNOWN" : this.GetActorData().GetDebugName();
 				Log.Error("Animation event on {0}'s animation state {1} is missing an Object in  the Unity Editor window for an animation event.  Please set the Object field to one of the scripts in the EventObjects folder, or change  the function name to AudioEvent, if the string field has an audio event name.", new object[]
 				{
 					text2,

@@ -1122,7 +1122,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			GameObject gameObject = this.CreateDynamicConeMesh(component.m_currentRadiusInWorld / Board.\u000E().squareSize, component.m_currentAngleInWorld, component.m_forceHideSides, targeter.GetTemplateSwapData());
+			GameObject gameObject = this.CreateDynamicConeMesh(component.m_currentRadiusInWorld / Board.Get().squareSize, component.m_currentAngleInWorld, component.m_forceHideSides, targeter.GetTemplateSwapData());
 			gameObject.transform.position = source.transform.position;
 			gameObject.transform.rotation = source.transform.rotation;
 			gameObject.transform.localScale = source.transform.localScale;
@@ -1140,7 +1140,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			GameObject gameObject2 = this.CreateDynamicLineSegmentMesh(component2.m_currentLengthInWorld / Board.\u000E().squareSize, component2.m_currentWidthInWorld, component2.m_dotted, component2.m_currentColor);
+			GameObject gameObject2 = this.CreateDynamicLineSegmentMesh(component2.m_currentLengthInWorld / Board.Get().squareSize, component2.m_currentWidthInWorld, component2.m_dotted, component2.m_currentColor);
 			gameObject2.transform.position = source.transform.position;
 			gameObject2.transform.rotation = source.transform.rotation;
 			gameObject2.transform.localScale = source.transform.localScale;
@@ -1267,7 +1267,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	{
 		startPos.y = HighlightUtils.GetHighlightHeight();
 		endPos.y = startPos.y;
-		float widthInWorld = widthInSquares * Board.\u000E().squareSize;
+		float widthInWorld = widthInSquares * Board.Get().squareSize;
 		Vector3 vector = endPos - startPos;
 		float magnitude = vector.magnitude;
 		HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, highlightObj);
@@ -1278,7 +1278,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public GameObject CreateConeCursor(float radiusInWorld, float arcDegrees)
 	{
-		return this.CreateDynamicConeMesh(radiusInWorld / Board.\u000E().squareSize, arcDegrees, false, null);
+		return this.CreateDynamicConeMesh(radiusInWorld / Board.Get().squareSize, arcDegrees, false, null);
 	}
 
 	public GameObject CreateConeCursor_FixedSize(float radiusInWorld, float arcDegrees)
@@ -1455,7 +1455,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			UIDynamicCone component = highlight.GetComponent<UIDynamicCone>();
 			if (component != null)
 			{
-				component.AdjustConeMeshVertices(angleDeg, radiusInSquares * Board.\u000E().squareSize);
+				component.AdjustConeMeshVertices(angleDeg, radiusInSquares * Board.Get().squareSize);
 			}
 		}
 	}
@@ -1507,7 +1507,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.CreateDynamicLineSegmentMesh(float, float, bool, Color)).MethodHandle;
 				}
-				float lengthInWorld = lengthInSquares * Board.\u000E().squareSize;
+				float lengthInWorld = lengthInSquares * Board.Get().squareSize;
 				component.CreateSegmentMesh(widthInWorld, dotted, color);
 				component.AdjustDynamicLineSegmentMesh(lengthInWorld, color);
 			}
@@ -1540,7 +1540,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			UIDynamicLineSegment component = highlight.GetComponent<UIDynamicLineSegment>();
 			if (component != null)
 			{
-				component.AdjustDynamicLineSegmentMesh(lengthInSquares * Board.\u000E().squareSize, color);
+				component.AdjustDynamicLineSegmentMesh(lengthInSquares * Board.Get().squareSize, color);
 			}
 		}
 	}
@@ -1565,7 +1565,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.AdjustDynamicLineSegmentLength(GameObject, float)).MethodHandle;
 				}
-				component.AdjustSegmentLength(lengthInSquares * Board.\u000E().squareSize);
+				component.AdjustSegmentLength(lengthInSquares * Board.Get().squareSize);
 			}
 		}
 	}
@@ -1707,14 +1707,14 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		{
 			x = -1f;
 		}
-		float z = lengthInSquares * Board.\u000E().squareSize / this.m_targeterBoundaryLineLength;
+		float z = lengthInSquares * Board.Get().squareSize / this.m_targeterBoundaryLineLength;
 		gameObject.transform.localScale = new Vector3(x, 1f, z);
 		return gameObject;
 	}
 
 	public void ResizeBoundaryLine(float lengthInSquares, GameObject highlight)
 	{
-		float z = lengthInSquares * Board.\u000E().squareSize / this.m_targeterBoundaryLineLength;
+		float z = lengthInSquares * Board.Get().squareSize / this.m_targeterBoundaryLineLength;
 		highlight.transform.localScale = new Vector3(highlight.transform.localScale.x, 1f, z);
 	}
 
@@ -1730,12 +1730,12 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			}
 			else
 			{
-				list = this.CreatePlusPatternObjects(scale * Board.\u000E().squareSize * 4f);
+				list = this.CreatePlusPatternObjects(scale * Board.Get().squareSize * 4f);
 			}
 		}
 		else
 		{
-			list = this.CreatePlusPatternObjects(scale * Board.\u000E().squareSize * 2f);
+			list = this.CreatePlusPatternObjects(scale * Board.Get().squareSize * 2f);
 		}
 		using (List<GameObject>.Enumerator enumerator = list.GetEnumerator())
 		{
@@ -1806,7 +1806,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			while (enumerator3.MoveNext())
 			{
 				GameObject highlight = enumerator3.Current;
-				HighlightUtils.Get().ResizeBoundaryLine(scale / Board.\u000E().squareSize, highlight);
+				HighlightUtils.Get().ResizeBoundaryLine(scale / Board.Get().squareSize, highlight);
 			}
 			for (;;)
 			{
@@ -1977,7 +1977,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.ShouldShowSprintingCursor()).MethodHandle;
 			}
-			actorMovement = activeOwnedActorData.\u000E();
+			actorMovement = activeOwnedActorData.GetActorMovement();
 		}
 		else
 		{
@@ -1996,7 +1996,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			actorTurnSM = activeOwnedActorData.\u000E();
+			actorTurnSM = activeOwnedActorData.GetActorTurnSM();
 		}
 		else
 		{
@@ -2019,7 +2019,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			}
 			else
 			{
-				if (actorMovement2.SquaresCanMoveToWithQueuedAbility.Contains(Board.\u000E().PlayerClampedSquare))
+				if (actorMovement2.SquaresCanMoveToWithQueuedAbility.Contains(Board.Get().PlayerClampedSquare))
 				{
 					return false;
 				}
@@ -2036,7 +2036,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					return false;
 				}
-				if (activeOwnedActorData.MoveFromBoardSquare == Board.\u000E().PlayerClampedSquare)
+				if (activeOwnedActorData.MoveFromBoardSquare == Board.Get().PlayerClampedSquare)
 				{
 					for (;;)
 					{
@@ -2062,7 +2062,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					return false;
 				}
-				if (activeOwnedActorData.\u000E())
+				if (activeOwnedActorData.IsDead())
 				{
 					return false;
 				}
@@ -2079,7 +2079,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					return false;
 				}
-				if (!activeOwnedActorData.\u000E().GetQueuedAbilitiesAllowSprinting())
+				if (!activeOwnedActorData.GetAbilityData().GetQueuedAbilitiesAllowSprinting())
 				{
 					for (;;)
 					{
@@ -2141,7 +2141,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.RefreshCursorVisibility()).MethodHandle;
 			}
-			if (!(Board.\u000E() == null) && !(GameFlowData.Get() == null))
+			if (!(Board.Get() == null) && !(GameFlowData.Get() == null))
 			{
 				for (;;)
 				{
@@ -2167,7 +2167,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						actorMovement = activeOwnedActorData.\u000E();
+						actorMovement = activeOwnedActorData.GetActorMovement();
 					}
 					else
 					{
@@ -2187,7 +2187,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						flag2 = ActorData.WouldSquareBeChasedByClient(Board.\u000E().PlayerFreeSquare, false);
+						flag2 = ActorData.WouldSquareBeChasedByClient(Board.Get().PlayerFreeSquare, false);
 					}
 					else
 					{
@@ -2195,7 +2195,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					bool flag3 = flag2;
 					bool flag4;
-					if (Board.\u000E().PlayerClampedSquare != null)
+					if (Board.Get().PlayerClampedSquare != null)
 					{
 						for (;;)
 						{
@@ -2206,7 +2206,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						flag4 = Board.\u000E().PlayerClampedSquare.\u0016();
+						flag4 = Board.Get().PlayerClampedSquare.IsBaselineHeight();
 					}
 					else
 					{
@@ -2320,7 +2320,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								{
 									flag14 = false;
 								}
-								if (Board.\u000E().PlayerFreeSquare != null)
+								if (Board.Get().PlayerFreeSquare != null)
 								{
 									for (;;)
 									{
@@ -2373,7 +2373,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 											}
 											break;
 										}
-										if (activeOwnedActorData.\u000E().AmStillDeciding())
+										if (activeOwnedActorData.GetActorTurnSM().AmStillDeciding())
 										{
 											break;
 										}
@@ -2432,7 +2432,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								}
 								break;
 							}
-							ActorCover actorCover = activeOwnedActorData.\u000E();
+							ActorCover actorCover = activeOwnedActorData.GetActorCover();
 							if (!(actorCover != null))
 							{
 								goto IL_367;
@@ -2457,7 +2457,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 									}
 									break;
 								}
-								actorCover.UpdateCoverHighlights(Board.\u000E().PlayerFreeSquare);
+								actorCover.UpdateCoverHighlights(Board.Get().PlayerFreeSquare);
 								goto IL_367;
 							}
 							actorCover.UpdateCoverHighlights(null);
@@ -2472,7 +2472,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					flag15 = false;
 					if (GameFlowData.Get().activeOwnedActorData != null)
 					{
-						ActorCover actorCover2 = GameFlowData.Get().activeOwnedActorData.\u000E();
+						ActorCover actorCover2 = GameFlowData.Get().activeOwnedActorData.GetActorCover();
 						if (actorCover2 != null)
 						{
 							for (;;)
@@ -2499,9 +2499,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E().GetSelectedAbility() != null)
+						if (activeOwnedActorData.GetAbilityData().GetSelectedAbility() != null)
 						{
-							if (activeOwnedActorData.\u000E().GetSelectedAbility().Targeter is AbilityUtil_Targeter_Shape)
+							if (activeOwnedActorData.GetAbilityData().GetSelectedAbility().Targeter is AbilityUtil_Targeter_Shape)
 							{
 								for (;;)
 								{
@@ -2529,7 +2529,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 								flag14 = false;
 							}
 						}
-						else if (activeOwnedActorData.\u000E().CurrentState == TurnStateEnum.PICKING_RESPAWN)
+						else if (activeOwnedActorData.GetActorTurnSM().CurrentState == TurnStateEnum.PICKING_RESPAWN)
 						{
 							for (;;)
 							{
@@ -2774,8 +2774,8 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 	{
 		Vector3 vector = Vector3.zero;
 		Vector3 vector2 = Vector3.zero;
-		Vector3 vector3 = Board.\u000E().PlayerFreeCornerPos;
-		if (Board.\u000E().PlayerClampedSquare != null)
+		Vector3 vector3 = Board.Get().PlayerFreeCornerPos;
+		if (Board.Get().PlayerClampedSquare != null)
 		{
 			for (;;)
 			{
@@ -2790,13 +2790,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(HighlightUtils.UpdateCursorPositions()).MethodHandle;
 			}
-			vector = Board.\u000E().PlayerClampedSquare.ToVector3();
-			if (Board.\u000E().PlayerClampedSquare.height < 0)
+			vector = Board.Get().PlayerClampedSquare.ToVector3();
+			if (Board.Get().PlayerClampedSquare.height < 0)
 			{
-				vector.y = (float)Board.\u000E().BaselineHeight;
+				vector.y = (float)Board.Get().BaselineHeight;
 			}
 		}
-		if (Board.\u000E().PlayerFreeSquare != null)
+		if (Board.Get().PlayerFreeSquare != null)
 		{
 			for (;;)
 			{
@@ -2807,8 +2807,8 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			vector2 = Board.\u000E().PlayerFreeSquare.ToVector3();
-			if (Board.\u000E().PlayerFreeSquare.height < 0)
+			vector2 = Board.Get().PlayerFreeSquare.ToVector3();
+			if (Board.Get().PlayerFreeSquare.height < 0)
 			{
 				for (;;)
 				{
@@ -2819,7 +2819,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				vector2.y = (float)Board.\u000E().BaselineHeight;
+				vector2.y = (float)Board.Get().BaselineHeight;
 			}
 		}
 		if (this.RespawnSelectionCursor != null)
@@ -2920,13 +2920,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private unsafe void ProcessUpperLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y + 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y + 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y + 1);
+		bool flag = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y);
+		bool flag2 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y + 1);
+		bool flag3 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag && !flag2)
 		{
 			for (;;)
@@ -3028,13 +3028,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private unsafe void ProcessUpperRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y + 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y + 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y + 1);
+		bool flag = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y);
+		bool flag2 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y + 1);
+		bool flag3 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag)
 		{
 			for (;;)
@@ -3137,13 +3137,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private unsafe void ProcessLowerLeftCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y - 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x - 1, square.y - 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y - 1);
+		bool flag = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y);
+		bool flag2 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x - 1, square.y - 1);
+		bool flag3 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag)
 		{
 			for (;;)
@@ -3248,13 +3248,13 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private unsafe void ProcessLowerRightCorner(BoardSquare square, HashSet<BoardSquare> squaresSet, HashSet<BoardSquare> borderSet, ref HighlightUtils.HighlightMesh highlighMesh, bool includeInternalBorders)
 	{
-		Board board = Board.\u000E();
-		BoardSquare testSquare = board.\u0016(square.x, square.y - 1);
-		bool flag = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y);
-		bool flag2 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
-		testSquare = board.\u0016(square.x + 1, square.y - 1);
-		bool flag3 = this.IsSquareConnected(square, testSquare, squaresSet, borderSet, includeInternalBorders);
+		Board board = Board.Get();
+		BoardSquare boardSquare = board.GetBoardSquare(square.x, square.y - 1);
+		bool flag = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y);
+		bool flag2 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
+		boardSquare = board.GetBoardSquare(square.x + 1, square.y - 1);
+		bool flag3 = this.IsSquareConnected(square, boardSquare, squaresSet, borderSet, includeInternalBorders);
 		if (!flag)
 		{
 			for (;;)
@@ -3411,8 +3411,8 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	private bool BoardSquareIsInSet(int x, int y, HashSet<BoardSquare> squaresSet)
 	{
-		BoardSquare item = Board.\u000E().\u0016(x, y);
-		return squaresSet.Contains(item);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
+		return squaresSet.Contains(boardSquare);
 	}
 
 	private bool IsSquareSurrounded(BoardSquare square, HashSet<BoardSquare> squaresSet)
@@ -3562,10 +3562,10 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		num2++;
 		num3--;
 		num4++;
-		Board board = Board.\u000E();
+		Board board = Board.Get();
 		for (int i = num; i <= num2; i++)
 		{
-			BoardSquare boardSquare2 = board.\u0016(i, num3);
+			BoardSquare boardSquare2 = board.GetBoardSquare(i, num3);
 			if (boardSquare2 != null)
 			{
 				for (;;)
@@ -3591,7 +3591,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					hashSet.Add(boardSquare2);
 				}
 			}
-			BoardSquare boardSquare3 = board.\u0016(i, num4);
+			BoardSquare boardSquare3 = board.GetBoardSquare(i, num4);
 			if (boardSquare3 != null)
 			{
 				for (;;)
@@ -3629,7 +3629,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 		}
 		for (int j = num3; j <= num4; j++)
 		{
-			BoardSquare boardSquare4 = board.\u0016(num, j);
+			BoardSquare boardSquare4 = board.GetBoardSquare(num, j);
 			if (boardSquare4 != null)
 			{
 				for (;;)
@@ -3646,7 +3646,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					hashSet.Add(boardSquare4);
 				}
 			}
-			BoardSquare boardSquare5 = board.\u0016(num2, j);
+			BoardSquare boardSquare5 = board.GetBoardSquare(num2, j);
 			if (boardSquare5 != null)
 			{
 				for (;;)
@@ -3764,7 +3764,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 										}
 										break;
 									}
-									BoardSquare boardSquare7 = board.\u0016(num5, num6);
+									BoardSquare boardSquare7 = board.GetBoardSquare(num5, num6);
 									if (boardSquare7 != null)
 									{
 										for (;;)
@@ -4066,7 +4066,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public static float GetHighlightHeight()
 	{
-		return (float)Board.\u000E().BaselineHeight + 0.1f;
+		return (float)Board.Get().BaselineHeight + 0.1f;
 	}
 
 	public void SetScrollCursor(HighlightUtils.ScrollCursorDirection direction)
@@ -4228,7 +4228,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			}
 		}
 		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_highlightFloodFillSquare);
-		gameObject.transform.localScale *= Board.\u000E().squareSize / 1.5f;
+		gameObject.transform.localScale *= Board.Get().squareSize / 1.5f;
 		if (HighlightUtils.s_instance != null)
 		{
 			for (;;)
@@ -4282,7 +4282,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			return null;
 		}
 		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.s_instance.m_hiddenSquarePrefab);
-		gameObject.transform.localScale *= Board.\u000E().squareSize / 1.5f;
+		gameObject.transform.localScale *= Board.Get().squareSize / 1.5f;
 		gameObject.transform.parent = HighlightUtils.s_instance.m_hiddenSquareIndicatorParent.transform;
 		return gameObject;
 	}
@@ -4333,7 +4333,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 			return null;
 		}
 		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.s_instance.m_affectedSquarePrefab);
-		gameObject.transform.localScale *= Board.\u000E().squareSize / 1.5f;
+		gameObject.transform.localScale *= Board.Get().squareSize / 1.5f;
 		gameObject.transform.parent = HighlightUtils.s_instance.m_affectedSquareIndicatorParent.transform;
 		return gameObject;
 	}
@@ -4562,7 +4562,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (actorData2 != null && actorData2.\u000E() != null)
+			if (actorData2 != null && actorData2.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -4573,7 +4573,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				if (actorData2.\u000E() != null)
+				if (actorData2.GetActorTurnSM() != null)
 				{
 					for (;;)
 					{
@@ -4584,9 +4584,9 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					AbilityData abilityData = actorData2.\u000E();
+					AbilityData abilityData = actorData2.GetAbilityData();
 					bool flag = false;
-					if (!actorData2.\u000E())
+					if (!actorData2.IsDead())
 					{
 						for (;;)
 						{
@@ -4597,7 +4597,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (actorData2.\u000E().CurrentState == TurnStateEnum.TARGETING_ACTION)
+						if (actorData2.GetActorTurnSM().CurrentState == TurnStateEnum.TARGETING_ACTION)
 						{
 							for (;;)
 							{
@@ -4634,7 +4634,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 									float targetableRadius = abilityData.GetTargetableRadius(selectedActionTypeForTargeting, actorData2);
 									if (targetableRadius > 0f)
 									{
-										this.AdjustAndShowRangeIndicator(actorData2.\u0016(), targetableRadius);
+										this.AdjustAndShowRangeIndicator(actorData2.GetTravelBoardSquareWorldPosition(), targetableRadius);
 										flag = true;
 									}
 								}
@@ -4642,7 +4642,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							goto IL_1D7;
 						}
 					}
-					if (!actorData2.\u000E())
+					if (!actorData2.IsDead())
 					{
 						for (;;)
 						{
@@ -4653,7 +4653,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (actorData2.\u000E().CurrentState == TurnStateEnum.DECIDING)
+						if (actorData2.GetActorTurnSM().CurrentState == TurnStateEnum.DECIDING)
 						{
 							List<bool> rangeIndicatorMouseOverFlags = this.m_rangeIndicatorMouseOverFlags;
 							for (int i = 0; i < rangeIndicatorMouseOverFlags.Count; i++)
@@ -4681,7 +4681,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 											}
 											break;
 										}
-										this.AdjustAndShowRangeIndicator(actorData2.\u0016(), targetableRadius2);
+										this.AdjustAndShowRangeIndicator(actorData2.GetTravelBoardSquareWorldPosition(), targetableRadius2);
 										flag = true;
 									}
 									break;
@@ -4780,7 +4780,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (actorData2.\u000E() != null)
+			if (actorData2.GetActorCover() != null)
 			{
 				for (;;)
 				{
@@ -4791,8 +4791,8 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				ActorCover x = actorData2.\u000E();
-				if (x != null)
+				ActorCover actorCover = actorData2.GetActorCover();
+				if (actorCover != null)
 				{
 					for (;;)
 					{
@@ -4805,7 +4805,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					}
 					if (this.m_currentCursorType == HighlightUtils.CursorType.MouseOverCursorType)
 					{
-						this.m_mouseoverCoverManager.UpdateCoverAroundSquare(Board.\u000E().PlayerFreeSquare);
+						this.m_mouseoverCoverManager.UpdateCoverAroundSquare(Board.Get().PlayerFreeSquare);
 					}
 					else
 					{
@@ -4885,14 +4885,14 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 		private unsafe void ApplySlope(HighlightUtils.PieceType pieceType, ref Vector3[] positions, BoardSquare square)
 		{
-			float num = square.\u001D(BoardSquare.CornerType.UpperRight).y;
-			float num2 = square.\u001D(BoardSquare.CornerType.UpperLeft).y;
-			float num3 = square.\u001D(BoardSquare.CornerType.LowerRight).y;
-			float num4 = square.\u001D(BoardSquare.CornerType.LowerLeft).y;
-			if (!square.\u0016())
+			float num = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight).y;
+			float num2 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft).y;
+			float num3 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerRight).y;
+			float num4 = square.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerLeft).y;
+			if (!square.IsBaselineHeight())
 			{
-				float num5 = (float)Board.\u000E().BaselineHeight;
-				float num6 = num5 + square.\u001D();
+				float num5 = (float)Board.Get().BaselineHeight;
+				float num6 = num5 + square.GetHighlightOffset();
 				num = num6;
 				num2 = num6;
 				num3 = num6;
@@ -5180,7 +5180,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 		public void ProcessVerticalConnectors()
 		{
-			float num = Board.\u000E().squareSize * 0.5f;
+			float num = Board.Get().squareSize * 0.5f;
 			float num2 = num - 0.1f;
 			float num3 = 0.5f;
 			using (Dictionary<BoardSquare, int>.Enumerator enumerator = this.m_borderSquares.GetEnumerator())
@@ -5189,7 +5189,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 				{
 					KeyValuePair<BoardSquare, int> keyValuePair = enumerator.Current;
 					BoardSquare key = keyValuePair.Key;
-					BoardSquare boardSquare = Board.\u000E().\u0016(key.x, key.y + 1);
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(key.x, key.y + 1);
 					int value = keyValuePair.Value;
 					if (boardSquare != null)
 					{
@@ -5270,7 +5270,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 					}
 					IL_26A:
-					BoardSquare boardSquare2 = Board.\u000E().\u0016(key.x - 1, key.y);
+					BoardSquare boardSquare2 = Board.Get().GetBoardSquare(key.x - 1, key.y);
 					if (boardSquare2 != null && this.m_borderSquares.ContainsKey(boardSquare2))
 					{
 						for (;;)
@@ -5360,7 +5360,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 					}
 					IL_485:
-					BoardSquare boardSquare3 = Board.\u000E().\u0016(key.x, key.y - 1);
+					BoardSquare boardSquare3 = Board.Get().GetBoardSquare(key.x, key.y - 1);
 					if (boardSquare3 != null)
 					{
 						for (;;)
@@ -5427,7 +5427,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 						}
 					}
 					IL_67C:
-					BoardSquare boardSquare4 = Board.\u000E().\u0016(key.x + 1, key.y);
+					BoardSquare boardSquare4 = Board.Get().GetBoardSquare(key.x + 1, key.y);
 					if (boardSquare4 != null)
 					{
 						for (;;)

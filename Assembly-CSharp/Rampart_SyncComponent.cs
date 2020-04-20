@@ -27,7 +27,7 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	private void Start()
 	{
 		ActorData owner = this.GetOwner();
-		if (owner != null && owner.\u000E() != null)
+		if (owner != null && owner.GetActorModelData() != null)
 		{
 			for (;;)
 			{
@@ -42,9 +42,9 @@ public class Rampart_SyncComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.Start()).MethodHandle;
 			}
-			this.m_colliderForShield = owner.\u000E().gameObject.AddComponent<BoxCollider>();
+			this.m_colliderForShield = owner.GetActorModelData().gameObject.AddComponent<BoxCollider>();
 			this.m_colliderForShield.center = new Vector3(0f, 0.8f, 1f);
-			this.m_colliderForShield.size = new Vector3(3.1f * Board.\u000E().squareSize, 3f, 0.3f);
+			this.m_colliderForShield.size = new Vector3(3.1f * Board.Get().squareSize, 3f, 0.3f);
 			this.m_colliderForShield.enabled = false;
 		}
 	}
@@ -77,12 +77,12 @@ public class Rampart_SyncComponent : NetworkBehaviour
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.RpcSetIdleType(int)).MethodHandle;
 			}
 			ActorData owner = this.GetOwner();
-			if (owner != null && owner.\u000E() != null)
+			if (owner != null && owner.GetModelAnimator() != null)
 			{
-				int integer = owner.\u000E().GetInteger(Rampart_SyncComponent.animIdleType);
+				int integer = owner.GetModelAnimator().GetInteger(Rampart_SyncComponent.animIdleType);
 				if (integer != idleType)
 				{
-					owner.\u000E().SetInteger(Rampart_SyncComponent.animIdleType, idleType);
+					owner.GetModelAnimator().SetInteger(Rampart_SyncComponent.animIdleType, idleType);
 					if (idleType != 0)
 					{
 						for (;;)
@@ -94,7 +94,7 @@ public class Rampart_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						owner.\u000E().SetTrigger(Rampart_SyncComponent.animForceIdle);
+						owner.GetModelAnimator().SetTrigger(Rampart_SyncComponent.animForceIdle);
 					}
 				}
 			}

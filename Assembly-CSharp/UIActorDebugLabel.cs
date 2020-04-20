@@ -67,8 +67,8 @@ public class UIActorDebugLabel : MonoBehaviour
 		this.m_label.text = text;
 		Canvas componentInParent = base.GetComponentInParent<Canvas>();
 		RectTransform rectTransform = componentInParent.transform as RectTransform;
-		Vector3 position = this.m_actorData.\u000E(-10f);
-		Vector2 vector = Camera.main.WorldToViewportPoint(position);
+		Vector3 nameplatePosition = this.m_actorData.GetNameplatePosition(-10f);
+		Vector2 vector = Camera.main.WorldToViewportPoint(nameplatePosition);
 		Vector2 anchoredPosition = new Vector2(vector.x * rectTransform.sizeDelta.x - rectTransform.sizeDelta.x * 0.5f, vector.y * rectTransform.sizeDelta.y - rectTransform.sizeDelta.y * 0.5f);
 		(base.gameObject.transform as RectTransform).anchoredPosition = anchoredPosition;
 		this.m_shouldKeep.Clear();

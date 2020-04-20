@@ -452,9 +452,9 @@ public class Targeting : MonoBehaviour
 					gameObject3.transform.position = points[points.Count - 1];
 					gameObject3.transform.forward = vector2;
 					List<Vector3> list;
-					(list = points)[0] = list[0] - vector * Board.\u000E().squareSize * 0.4f;
+					(list = points)[0] = list[0] - vector * Board.Get().squareSize * 0.4f;
 					int index;
-					(list = points)[index = points.Count - 1] = list[index] - vector2 * Board.\u000E().squareSize * 0.4f;
+					(list = points)[index = points.Count - 1] = list[index] - vector2 * Board.Get().squareSize * 0.4f;
 					GameObject gameObject4 = this.CreateLineMesh(points, width, color, isChasing, material, previousLine.linePiece, false);
 					previousLine.AddLinePiece(gameObject4, gameObject);
 					gameObject2.transform.parent = gameObject.transform;
@@ -490,9 +490,9 @@ public class Targeting : MonoBehaviour
 					gameObject6.transform.forward = vector2;
 					movementPathStart.endPiece = movementPathEnd;
 					List<Vector3> list;
-					(list = points)[0] = list[0] - vector * Board.\u000E().squareSize * startOffset;
+					(list = points)[0] = list[0] - vector * Board.Get().squareSize * startOffset;
 					int index2;
-					(list = points)[index2 = points.Count - 1] = list[index2] - vector2 * Board.\u000E().squareSize * endOffset;
+					(list = points)[index2 = points.Count - 1] = list[index2] - vector2 * Board.Get().squareSize * endOffset;
 					GameObject gameObject7 = this.CreateLineMesh(points, width, color, isChasing, material, null, false);
 					movementPathStart.AddLinePiece(gameObject7, gameObject);
 					gameObject5.transform.parent = gameObject.transform;

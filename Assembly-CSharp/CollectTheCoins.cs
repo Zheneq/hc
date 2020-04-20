@@ -177,8 +177,8 @@ public class CollectTheCoins : NetworkBehaviour
 			sbyte b7 = reader.ReadSByte();
 			sbyte b8 = reader.ReadSByte();
 			sbyte b9 = reader.ReadSByte();
-			BoardSquare key2 = Board.\u000E().\u0016((int)b7, (int)b8);
-			dictionary2.Add(key2, (int)b9);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)b7, (int)b8);
+			dictionary2.Add(boardSquare, (int)b9);
 			b6 = (sbyte)((int)b6 + 1);
 		}
 		for (;;)
@@ -296,7 +296,7 @@ public class CollectTheCoins : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.OnActorGainedCoins_Client(ActorData, int)).MethodHandle;
 			}
-			Debug.LogError(string.Format("CollectTheCoins (client)-- trying to assign 0 spawn coins to actor {0}.", actor.\u0018()));
+			Debug.LogError(string.Format("CollectTheCoins (client)-- trying to assign 0 spawn coins to actor {0}.", actor.GetDebugName()));
 			return;
 		}
 		if (!this.m_clientData.m_actorsToCoins_unresolved.ContainsKey(actor))
@@ -328,8 +328,8 @@ public class CollectTheCoins : NetworkBehaviour
 				}
 				break;
 			}
-			Team teamToAdjust = actor.\u000E();
-			ObjectivePoints.Get().AdjustUnresolvedPoints(numCoins, teamToAdjust);
+			Team team = actor.GetTeam();
+			ObjectivePoints.Get().AdjustUnresolvedPoints(numCoins, team);
 		}
 	}
 
@@ -364,7 +364,7 @@ public class CollectTheCoins : NetworkBehaviour
 				}
 				break;
 			}
-			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on a null square.", actor.\u0018()));
+			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on a null square.", actor.GetDebugName()));
 			return;
 		}
 		if (!this.m_clientData.m_actorsToCoins_unresolved.ContainsKey(actor))
@@ -378,7 +378,7 @@ public class CollectTheCoins : NetworkBehaviour
 				}
 				break;
 			}
-			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor isn't in m_clientData.m_actorsToCoins_unresolved.", actor.\u0018(), BoardSquare.\u001D(square, false)));
+			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor isn't in m_clientData.m_actorsToCoins_unresolved.", actor.GetDebugName(), BoardSquare.\u001D(square, false)));
 			return;
 		}
 		int num = this.m_clientData.m_actorsToCoins_unresolved[actor];
@@ -395,7 +395,7 @@ public class CollectTheCoins : NetworkBehaviour
 				}
 				break;
 			}
-			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor has 0 coins.", actor.\u0018(), BoardSquare.\u001D(square, false)));
+			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor has 0 coins.", actor.GetDebugName(), BoardSquare.\u001D(square, false)));
 			return;
 		}
 		this.AddCoinSpillVisualToSquare(square, num);
@@ -410,8 +410,8 @@ public class CollectTheCoins : NetworkBehaviour
 				}
 				break;
 			}
-			Team teamToAdjust = actor.\u000E();
-			ObjectivePoints.Get().AdjustUnresolvedPoints(-num, teamToAdjust);
+			Team team = actor.GetTeam();
+			ObjectivePoints.Get().AdjustUnresolvedPoints(-num, team);
 		}
 	}
 
@@ -698,8 +698,8 @@ public class CollectTheCoins : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.Client_OnActorDeath(ActorData)).MethodHandle;
 			}
-			BoardSquare square = actor.\u000E();
-			this.OnActorDroppedCoins_Client(actor, square);
+			BoardSquare travelBoardSquare = actor.GetTravelBoardSquare();
+			this.OnActorDroppedCoins_Client(actor, travelBoardSquare);
 		}
 	}
 
@@ -740,7 +740,7 @@ public class CollectTheCoins : NetworkBehaviour
 					KeyValuePair<ActorData, int> keyValuePair = enumerator.Current;
 					if (keyValuePair.Value != 0)
 					{
-						if (keyValuePair.Key.\u000E() == Team.TeamA)
+						if (keyValuePair.Key.GetTeam() == Team.TeamA)
 						{
 							for (;;)
 							{
@@ -753,7 +753,7 @@ public class CollectTheCoins : NetworkBehaviour
 							}
 							coinsTeamA += keyValuePair.Value;
 						}
-						else if (keyValuePair.Key.\u000E() == Team.TeamB)
+						else if (keyValuePair.Key.GetTeam() == Team.TeamB)
 						{
 							for (;;)
 							{

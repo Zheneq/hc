@@ -109,8 +109,8 @@ public class ClericRangedHeal : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null && boardSquare.OccupantActor != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null && boardSquareSafe.OccupantActor != null)
 		{
 			for (;;)
 			{
@@ -125,7 +125,7 @@ public class ClericRangedHeal : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericRangedHeal.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.OccupantActor.\u000E() == caster.\u000E() && !boardSquare.OccupantActor.IgnoreForAbilityHits)
+			if (boardSquareSafe.OccupantActor.GetTeam() == caster.GetTeam() && !boardSquareSafe.OccupantActor.IgnoreForAbilityHits)
 			{
 				for (;;)
 				{
@@ -630,9 +630,9 @@ public class ClericRangedHeal : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericRangedHeal.CalcExtraHealFromMissingHealth(ActorData)).MethodHandle;
 			}
-			if (healTarget.HitPoints < healTarget.\u0012())
+			if (healTarget.HitPoints < healTarget.GetMaxHitPoints())
 			{
-				int num = Mathf.CeilToInt((1f - healTarget.\u0012()) * 100f);
+				int num = Mathf.CeilToInt((1f - healTarget.GetHitPointShareOfMax()) * 100f);
 				result = Mathf.RoundToInt(this.GetHealPerPercentHealthLost() * (float)num);
 			}
 		}
@@ -701,7 +701,7 @@ public class ClericRangedHeal : Ability
 					}
 					break;
 				}
-				float num4 = actorOnTargetedSquare.\u0012().HorizontalDistanceInSquaresTo(caster.\u0012());
+				float num4 = actorOnTargetedSquare.GetCurrentBoardSquare().HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
 				if (num4 > 0f)
 				{
 					for (;;)
@@ -814,7 +814,7 @@ public class ClericRangedHeal : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericRangedHeal.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
 			}
-			if (actorData.\u000E() == targetActor.\u000E())
+			if (actorData.GetTeam() == targetActor.GetTeam())
 			{
 				for (;;)
 				{

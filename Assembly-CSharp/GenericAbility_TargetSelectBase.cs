@@ -68,7 +68,7 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	public string GetContextUsageStr(string contextName, string usage, bool actorSpecific = true)
 	{
-		return ContextVars.\u0015(contextName, usage, actorSpecific);
+		return ContextVars.GetDebugString(contextName, usage, actorSpecific);
 	}
 
 	public virtual void ListContextNamesForEditor(List<string> names)
@@ -316,16 +316,16 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	public bool GetPropFloat(int key, out float value)
 	{
-		return this.m_commonProperties.\u000E.TryGetValue(key, out value);
+		return this.m_commonProperties.FloatVars.TryGetValue(key, out value);
 	}
 
 	public bool GetPropInt(int key, out int value)
 	{
-		return this.m_commonProperties.\u001D.TryGetValue(key, out value);
+		return this.m_commonProperties.IntVars.TryGetValue(key, out value);
 	}
 
 	public bool GetPropVec3(int key, out Vector3 value)
 	{
-		return this.m_commonProperties.\u0012.TryGetValue(key, out value);
+		return this.m_commonProperties.VectorVars.TryGetValue(key, out value);
 	}
 }

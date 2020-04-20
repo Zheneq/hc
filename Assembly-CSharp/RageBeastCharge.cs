@@ -144,8 +144,8 @@ public class RageBeastCharge : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -160,7 +160,7 @@ public class RageBeastCharge : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastCharge.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016() && boardSquare != caster.\u0012())
+			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
 				for (;;)
 				{
@@ -171,7 +171,7 @@ public class RageBeastCharge : Ability
 					}
 					break;
 				}
-				return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare) != null;
+				return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 			}
 		}
 		return false;

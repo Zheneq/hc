@@ -46,7 +46,7 @@ public class SlashCommand_CustomGamePause : SlashCommand
 						}
 						break;
 					}
-					if (actorData.\u000E() != null)
+					if (actorData.GetActorController() != null)
 					{
 						for (;;)
 						{
@@ -88,7 +88,7 @@ public class SlashCommand_CustomGamePause : SlashCommand
 								}
 							}
 						}
-						actorData.\u000E().RequestCustomGamePause(desiredPause, actorData.ActorIndex);
+						actorData.GetActorController().RequestCustomGamePause(desiredPause, actorData.ActorIndex);
 						goto IL_121;
 					}
 				}

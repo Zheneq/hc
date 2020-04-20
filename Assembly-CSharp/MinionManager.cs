@@ -103,7 +103,7 @@ public class MinionManager : MonoBehaviour
 		{
 			Log.Error("MinionManager being told to add already-known minion.", new object[0]);
 		}
-		if (minionActor.\u000E() == Team.TeamA)
+		if (minionActor.GetTeam() == Team.TeamA)
 		{
 			if (!this.m_teamAMinions.Contains(minionActor))
 			{
@@ -114,7 +114,7 @@ public class MinionManager : MonoBehaviour
 				Log.Error("MinionManager being told to add (to Team A) an already-known (by Team A) minion.", new object[0]);
 			}
 		}
-		else if (minionActor.\u000E() == Team.TeamB)
+		else if (minionActor.GetTeam() == Team.TeamB)
 		{
 			for (;;)
 			{
@@ -173,7 +173,7 @@ public class MinionManager : MonoBehaviour
 		{
 			Log.Error("MinionManager being told to remove a missing minion.", new object[0]);
 		}
-		if (minionActor.\u000E() == Team.TeamA)
+		if (minionActor.GetTeam() == Team.TeamA)
 		{
 			if (this.m_teamAMinions.Contains(minionActor))
 			{
@@ -193,7 +193,7 @@ public class MinionManager : MonoBehaviour
 				Log.Error("MinionManager being told to remove (from Team A) a missing (from Team A) minion.", new object[0]);
 			}
 		}
-		else if (minionActor.\u000E() == Team.TeamB)
+		else if (minionActor.GetTeam() == Team.TeamB)
 		{
 			for (;;)
 			{

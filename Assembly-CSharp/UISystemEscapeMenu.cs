@@ -450,7 +450,7 @@ public class UISystemEscapeMenu : UIScene
 							}
 							break;
 						}
-						if (actorData2.\u000E() != null)
+						if (actorData2.GetActorController() != null)
 						{
 							for (;;)
 							{
@@ -461,7 +461,7 @@ public class UISystemEscapeMenu : UIScene
 								}
 								break;
 							}
-							actorData2.\u000E().RequestCustomGamePause(desiredPause, actorData2.ActorIndex);
+							actorData2.GetActorController().RequestCustomGamePause(desiredPause, actorData2.ActorIndex);
 							goto IL_EF;
 						}
 					}
@@ -532,7 +532,7 @@ public class UISystemEscapeMenu : UIScene
 						goto IL_A7;
 					}
 				}
-				if (activeOwnedActorData.\u000E().CurrentState == TurnStateEnum.DECIDING)
+				if (activeOwnedActorData.GetActorTurnSM().CurrentState == TurnStateEnum.DECIDING)
 				{
 					goto IL_B6;
 				}

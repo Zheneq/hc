@@ -276,7 +276,7 @@ public class NekoSuperDisc : Ability
 					}
 					break;
 				}
-				return Board.\u000E().\u0016(this.m_syncComp.m_superDiscBoardX, this.m_syncComp.m_superDiscBoardY);
+				return Board.Get().GetBoardSquare(this.m_syncComp.m_superDiscBoardX, this.m_syncComp.m_superDiscBoardY);
 			}
 		}
 		return null;

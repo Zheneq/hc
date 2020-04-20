@@ -165,7 +165,7 @@ public class UINameplatePanel : MonoBehaviour
 				KeyValuePair<ActorData, UINameplateItem> keyValuePair = enumerator.Current;
 				ActorData key = keyValuePair.Key;
 				UINameplateItem value = keyValuePair.Value;
-				value.SetDebugText("State: " + key.\u000E().CurrentState.ToString());
+				value.SetDebugText("State: " + key.GetActorTurnSM().CurrentState.ToString());
 			}
 			for (;;)
 			{

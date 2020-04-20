@@ -52,7 +52,7 @@ public class ClientAbilityResults
 		}
 		else
 		{
-			this.m_castedAbility = this.m_casterActor.\u000E().GetAbilityOfActionType((AbilityData.ActionType)abilityAction);
+			this.m_castedAbility = this.m_casterActor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)abilityAction);
 			this.m_actionType = (AbilityData.ActionType)abilityAction;
 		}
 		this.m_seqStartDataList = seqStartDataList;
@@ -256,7 +256,7 @@ public class ClientAbilityResults
 		}
 		else
 		{
-			if (ClientAbilityResults.\u001D)
+			if (ClientAbilityResults.LogMissingSequences)
 			{
 				for (;;)
 				{
@@ -323,7 +323,7 @@ public class ClientAbilityResults
 		}
 		else
 		{
-			Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.\u0018() + ", but that actor isn't in our hit results.");
+			Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.GetDebugName() + ", but that actor isn't in our hit results.");
 		}
 	}
 
@@ -493,7 +493,7 @@ public class ClientAbilityResults
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientAbilityResults.GetDebugDescription()).MethodHandle;
 			}
-			text = this.m_casterActor.\u0018();
+			text = this.m_casterActor.GetDebugName();
 		}
 		else
 		{
@@ -522,7 +522,7 @@ public class ClientAbilityResults
 		return str + "'s " + str2;
 	}
 
-	public static bool \u001D
+	public static bool LogMissingSequences
 	{
 		get
 		{

@@ -76,7 +76,7 @@ public class ConversationManager : MonoBehaviour
 			}
 			if (!(GameFlowData.Get().activeOwnedActorData == null))
 			{
-				if (GameFlowData.Get().activeOwnedActorData.\u000E() != Team.TeamA)
+				if (GameFlowData.Get().activeOwnedActorData.GetTeam() != Team.TeamA)
 				{
 					for (;;)
 					{
@@ -87,7 +87,7 @@ public class ConversationManager : MonoBehaviour
 						}
 						break;
 					}
-					if (GameFlowData.Get().activeOwnedActorData.\u000E() != Team.TeamB)
+					if (GameFlowData.Get().activeOwnedActorData.GetTeam() != Team.TeamB)
 					{
 						for (;;)
 						{
@@ -121,7 +121,7 @@ public class ConversationManager : MonoBehaviour
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						if (actorData.\u000E() == GameFlowData.Get().activeOwnedActorData.\u000E())
+						if (actorData.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 						{
 							for (;;)
 							{

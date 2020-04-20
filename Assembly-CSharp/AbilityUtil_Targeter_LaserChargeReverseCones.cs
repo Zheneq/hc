@@ -120,17 +120,17 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 			break;
 		}
 		IL_BF:
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 vector2 = VectorUtils.GetLaserEndPoint(vector, currentTarget.AimDirection, this.m_dashRangeInSquares * Board.\u000E().squareSize, false, targetingActor, null, true);
-		float num = (vector2 - vector).magnitude;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, this.m_dashRangeInSquares * Board.Get().squareSize, false, targetingActor, null, true);
+		float num = (vector - travelBoardSquareWorldPositionForLos).magnitude;
 		BoardSquare destination;
-		num = ClaymoreCharge.GetMaxPotentialChargeDistance(vector, vector2, currentTarget.AimDirection, num, targetingActor, out destination);
-		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, destination, targetingActor.\u0012(), true);
-		List<ActorData> actorsOnPath = ClaymoreCharge.GetActorsOnPath(path, targetingActor.\u0015(), targetingActor);
+		num = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, vector, currentTarget.AimDirection, num, targetingActor, out destination);
+		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, destination, targetingActor.GetCurrentBoardSquare(), true);
+		List<ActorData> actorsOnPath = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetOpposingTeams(), targetingActor);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsOnPath);
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(vector, currentTarget.AimDirection, num / Board.\u000E().squareSize, this.m_dashWidthInSquares, targetingActor, targetingActor.\u0015(), false, 1, true, false, out vector2, null, null, false, true);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, num / Board.Get().squareSize, this.m_dashWidthInSquares, targetingActor, targetingActor.GetOpposingTeams(), false, 1, true, false, out vector, null, null, false, true);
 		actorsInLaser.AddRange(actorsOnPath);
-		TargeterUtils.SortActorsByDistanceToPos(ref actorsInLaser, vector);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInLaser, travelBoardSquareWorldPositionForLos);
 		ActorData actorData = null;
 		if (actorsInLaser.Count > 0)
 		{
@@ -144,24 +144,24 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 				break;
 			}
 			actorData = actorsInLaser[0];
-			Vector3 vector3 = actorData.\u0016();
-			base.AddActorInRange(actorData, vector3, targetingActor, AbilityTooltipSubject.Primary, false);
-			Vector3 lhs = vector3 - vector;
+			Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+			base.AddActorInRange(actorData, travelBoardSquareWorldPosition, targetingActor, AbilityTooltipSubject.Primary, false);
+			Vector3 lhs = travelBoardSquareWorldPosition - travelBoardSquareWorldPositionForLos;
 			lhs.y = 0f;
-			Vector3 vector4 = vector + Vector3.Dot(lhs, currentTarget.AimDirection) * currentTarget.AimDirection;
-			vector2 = vector4;
+			Vector3 vector2 = travelBoardSquareWorldPositionForLos + Vector3.Dot(lhs, currentTarget.AimDirection) * currentTarget.AimDirection;
+			vector = vector2;
 			ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-			actorHitContext.\u0015.\u0016(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.\u0012(), 1);
+			actorHitContext.\u0015.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetHash(), 1);
 		}
-		this.m_laserLosChecker.UpdateBoxProperties(vector, vector2, targetingActor);
-		Vector3 a = vector2 - vector;
+		this.m_laserLosChecker.UpdateBoxProperties(travelBoardSquareWorldPositionForLos, vector, targetingActor);
+		Vector3 a = vector - travelBoardSquareWorldPositionForLos;
 		a.y = 0f;
 		float magnitude = a.magnitude;
 		a.Normalize();
-		Vector3 vector5 = vector2 - Mathf.Min(0.5f, magnitude / 2f) * a;
-		HighlightUtils.Get().RotateAndResizeRectangularCursor(this.m_highlights[0], vector, vector5, this.m_dashWidthInSquares);
-		BoardSquare boardSquare = ClaymoreCharge.GetChargeDestinationSquare(vector, vector5, actorData, null, targetingActor, false);
-		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.\u0012(), true);
+		Vector3 vector3 = vector - Mathf.Min(0.5f, magnitude / 2f) * a;
+		HighlightUtils.Get().RotateAndResizeRectangularCursor(this.m_highlights[0], travelBoardSquareWorldPositionForLos, vector3, this.m_dashWidthInSquares);
+		BoardSquare boardSquare = ClaymoreCharge.GetChargeDestinationSquare(travelBoardSquareWorldPositionForLos, vector3, actorData, null, targetingActor, false);
+		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.GetCurrentBoardSquare(), true);
 		bool flag = false;
 		if (boardSquare != null)
 		{
@@ -196,7 +196,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (boardSquare.OccupantActor.\u0018())
+					if (boardSquare.OccupantActor.IsVisibleToClient())
 					{
 						for (;;)
 						{
@@ -228,25 +228,25 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 				}
 				break;
 			}
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.\u0012(), true);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.GetCurrentBoardSquare(), true);
 		}
 		int num2 = 0;
 		base.EnableAllMovementArrows();
 		num2 = base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Movement, num2, false);
 		base.SetMovementArrowEnabledFromIndex(num2, false);
 		this.m_pathLosChecker.UpdateSquaresInPath(boardSquarePathInfo);
-		Vector3 freeTargetPos = vector5;
+		Vector3 freeTargetPos = vector3;
 		List<Vector3> list = this.GetConeOrigins(currentTarget, freeTargetPos, targetingActor);
 		List<Vector3> list2 = this.GetConeDirections(currentTarget, freeTargetPos, targetingActor);
 		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
 		for (int j = 0; j < this.m_numCones; j++)
 		{
-			Vector3 vector6 = list[j];
-			Vector3 vector7 = list2[j];
-			vector7.y = 0f;
-			vector7.Normalize();
-			float num3 = VectorUtils.HorizontalAngle_Deg(vector7);
-			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector6, num3, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, true, targetingActor, base.GetAffectedTeams(), null, false, default(Vector3));
+			Vector3 vector4 = list[j];
+			Vector3 vector5 = list2[j];
+			vector5.y = 0f;
+			vector5.Normalize();
+			float num3 = VectorUtils.HorizontalAngle_Deg(vector5);
+			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector4, num3, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, true, targetingActor, base.GetAffectedTeams(), null, false, default(Vector3));
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 			if (!actorsInLaser.IsNullOrEmpty<ActorData>())
 			{
@@ -265,7 +265,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 				}
 				actorsInCone.Remove(targetingActor);
 			}
-			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(vector, vector5);
+			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, vector3);
 			if (this.m_coneLosCheckDelegate != null)
 			{
 				for (;;)
@@ -303,7 +303,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 					break;
 				}
 			}
-			base.AddActorsInRange(actorsInCone, vector5, targetingActor, AbilityTooltipSubject.Primary, false);
+			base.AddActorsInRange(actorsInCone, vector3, targetingActor, AbilityTooltipSubject.Primary, false);
 			using (List<ActorData>.Enumerator enumerator = actorsInCone.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -339,12 +339,12 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 					break;
 				}
 			}
-			Vector3 position = vector6;
+			Vector3 position = vector4;
 			position.y = HighlightUtils.GetHighlightHeight();
 			this.m_highlights[1 + j].transform.position = position;
-			this.m_highlights[1 + j].transform.rotation = Quaternion.LookRotation(vector7);
+			this.m_highlights[1 + j].transform.rotation = Quaternion.LookRotation(vector5);
 			SquareInsideChecker_Cone squareInsideChecker_Cone = this.m_squarePosCheckerList[2 + j] as SquareInsideChecker_Cone;
-			squareInsideChecker_Cone.UpdateConeProperties(vector6, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, num3, targetingActor);
+			squareInsideChecker_Cone.UpdateConeProperties(vector4, this.m_coneInfo.m_widthAngleDeg, this.m_coneInfo.m_radiusInSquares, this.m_coneInfo.m_backwardsOffset, num3, targetingActor);
 			squareInsideChecker_Cone.SetLosPosOverride(true, coneLosCheckPos, false);
 		}
 		for (;;)
@@ -392,7 +392,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 					break;
 				}
 			}
-			base.AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Tertiary, false);
+			base.AddActorInRange(targetingActor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Tertiary, false);
 		}
 		IL_6A7:
 		using (Dictionary<ActorData, int>.Enumerator enumerator2 = dictionary.GetEnumerator())
@@ -401,8 +401,8 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 			{
 				KeyValuePair<ActorData, int> keyValuePair = enumerator2.Current;
 				ActorHitContext actorHitContext2 = this.m_actorContextVars[keyValuePair.Key];
-				actorHitContext2.\u0015.\u0016(ContextKeys.\u0019.\u0012(), keyValuePair.Value);
-				actorHitContext2.\u0015.\u0016(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.\u0012(), 0);
+				actorHitContext2.\u0015.SetInt(ContextKeys.\u0019.GetHash(), keyValuePair.Value);
+				actorHitContext2.\u0015.SetInt(TargetSelect_LaserChargeWithReverseCones.s_cvarDirectChargeHit.GetHash(), 0);
 			}
 			for (;;)
 			{
@@ -417,7 +417,7 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
 			base.ResetSquareIndicatorIndexToUse();
-			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, vector, vector2, this.m_dashWidthInSquares, targetingActor, false, null, this.m_squarePosCheckerList, true);
+			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, vector, this.m_dashWidthInSquares, targetingActor, false, null, this.m_squarePosCheckerList, true);
 			for (int l = 0; l < this.m_numCones; l++)
 			{
 				Vector3 coneStart = list[l];

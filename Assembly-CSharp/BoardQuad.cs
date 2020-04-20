@@ -30,7 +30,7 @@ public class BoardQuad
 			}
 			if (!(this.m_corner2 == null))
 			{
-				BoardSquare u001D;
+				BoardSquare a;
 				if (this.m_corner1.GetComponent<BoardSquare>() == null)
 				{
 					for (;;)
@@ -42,22 +42,22 @@ public class BoardQuad
 						}
 						break;
 					}
-					u001D = Board.\u000E().\u000E(this.m_corner1);
+					a = Board.Get().GetBoardSquare(this.m_corner1);
 				}
 				else
 				{
-					u001D = this.m_corner1.GetComponent<BoardSquare>();
+					a = this.m_corner1.GetComponent<BoardSquare>();
 				}
-				BoardSquare u000E;
+				BoardSquare b;
 				if (this.m_corner2.GetComponent<BoardSquare>() == null)
 				{
-					u000E = Board.\u000E().\u000E(this.m_corner2);
+					b = Board.Get().GetBoardSquare(this.m_corner2);
 				}
 				else
 				{
-					u000E = this.m_corner2.GetComponent<BoardSquare>();
+					b = this.m_corner2.GetComponent<BoardSquare>();
 				}
-				return Board.\u000E().\u000E(u001D, u000E);
+				return Board.Get().GetSquaresInRect(a, b);
 			}
 		}
 		List<BoardSquare> result = new List<BoardSquare>();

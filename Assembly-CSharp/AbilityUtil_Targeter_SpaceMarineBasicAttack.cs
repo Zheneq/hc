@@ -84,16 +84,16 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		IL_76:
 		GameObject highlightObj = this.m_highlights[0];
 		GameObject gameObject = this.m_highlights[1];
-		Vector3 vector = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		List<Team> affectedTeams = base.GetAffectedTeams();
 		this.m_laserPart.m_lengthIgnoreWorldGeo = this.LengthIgnoreWorldGeo;
-		Vector3 vector2;
-		List<ActorData> hitActors = this.m_laserPart.GetHitActors(vector, aimDirection, targetingActor, affectedTeams, out vector2);
+		Vector3 vector;
+		List<ActorData> hitActors = this.m_laserPart.GetHitActors(travelBoardSquareWorldPositionForLos, aimDirection, targetingActor, affectedTeams, out vector);
 		this.m_lastAddedLaserHitActors = hitActors;
 		for (int i = 0; i < hitActors.Count; i++)
 		{
-			base.AddActorInRange(hitActors[i], vector, targetingActor, AbilityTooltipSubject.Primary, false);
+			base.AddActorInRange(hitActors[i], travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 		}
 		for (;;)
 		{
@@ -104,10 +104,10 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 			}
 			break;
 		}
-		this.m_laserPart.AdjustHighlight(highlightObj, vector, vector2, true);
+		this.m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, vector, true);
 		bool showCone = false;
-		Vector3 vector3 = Vector3.zero;
-		Vector3 vector4 = Vector3.forward;
+		Vector3 vector2 = Vector3.zero;
+		Vector3 vector3 = Vector3.forward;
 		if (hitActors.Count > 0)
 		{
 			for (;;)
@@ -131,21 +131,21 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 					break;
 				}
 				showCone = true;
-				vector3 = hitActors[0].\u0015();
-				vector4 = currentTarget.AimDirection;
-				List<ActorData> hitActors2 = this.m_conePart.GetHitActors(vector3, vector4, targetingActor, affectedTeams);
+				vector2 = hitActors[0].GetTravelBoardSquareWorldPositionForLos();
+				vector3 = currentTarget.AimDirection;
+				List<ActorData> hitActors2 = this.m_conePart.GetHitActors(vector2, vector3, targetingActor, affectedTeams);
 				for (int j = 0; j < hitActors2.Count; j++)
 				{
-					base.AddActorInRange(hitActors2[j], vector3, targetingActor, AbilityTooltipSubject.Secondary, false);
+					base.AddActorInRange(hitActors2[j], vector2, targetingActor, AbilityTooltipSubject.Secondary, false);
 				}
-				this.m_conePart.AdjustHighlight(gameObject, vector3, vector4);
+				this.m_conePart.AdjustHighlight(gameObject, vector2, vector3);
 				gameObject.SetActive(true);
 				goto IL_1E5;
 			}
 		}
 		gameObject.SetActive(false);
 		IL_1E5:
-		this.HandleHiddenSquareIndicators(targetingActor, vector, vector2, showCone, vector3, VectorUtils.HorizontalAngle_Deg(vector4));
+		this.HandleHiddenSquareIndicators(targetingActor, travelBoardSquareWorldPositionForLos, vector, showCone, vector2, VectorUtils.HorizontalAngle_Deg(vector3));
 	}
 
 	private void HandleHiddenSquareIndicators(ActorData targetingActor, Vector3 laserStartPos, Vector3 laserEndPos, bool showCone, Vector3 coneStartPos, float forwardAngle)

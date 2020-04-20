@@ -65,7 +65,7 @@ public class TargeterPart_Cone
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterPart_Cone.AdjustHighlight(GameObject, Vector3, Vector3)).MethodHandle;
 			}
 			aimDir.Normalize();
-			float d = this.m_backwardOffsetInSquares * Board.\u000E().squareSize;
+			float d = this.m_backwardOffsetInSquares * Board.Get().squareSize;
 			Vector3 position = coneStartPos - aimDir * d;
 			position.y = HighlightUtils.GetHighlightHeight();
 			HighlightUtils.Get().AdjustDynamicConeMesh(highlightObj, this.m_radiusInSquares, this.m_widthAngleDeg);

@@ -115,7 +115,7 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 					}
 				}
 				this.m_setFinishTrigger = true;
-				base.Caster.\u000E().GetModelAnimator().SetTrigger("FinishAttack");
+				base.Caster.GetActorModelData().GetModelAnimator().SetTrigger("FinishAttack");
 			}
 		}
 	}

@@ -282,8 +282,8 @@ public class NanoSmithBlastShield : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBlastShield.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -294,7 +294,7 @@ public class NanoSmithBlastShield : Ability
 					}
 					break;
 				}
-				if (boardSquare.OccupantActor == caster)
+				if (boardSquareSafe.OccupantActor == caster)
 				{
 					for (;;)
 					{

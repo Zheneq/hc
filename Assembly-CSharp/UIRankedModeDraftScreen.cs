@@ -4494,7 +4494,7 @@ public class UIRankedModeDraftScreen : UIScene
 					if (flag5)
 					{
 						SelectedCharacterText.text = value.GetDisplayName();
-						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value).ActorDataPrefab.GetComponent<ActorData>().\u000E();
+						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value).ActorDataPrefab.GetComponent<ActorData>().GetAliveHUDIcon();
 						UIManager.SetGameObjectActive(NoCharacter, false, null);
 						UIManager.SetGameObjectActive(BrowseCharacter, false, null);
 						UIManager.SetGameObjectActive(SelectedCharacter, true, null);
@@ -4737,7 +4737,7 @@ public class UIRankedModeDraftScreen : UIScene
 							break;
 						}
 						SelectedCharacterText.text = value2.GetDisplayName();
-						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value2).ActorDataPrefab.GetComponent<ActorData>().\u000E();
+						SelectedCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(value2).ActorDataPrefab.GetComponent<ActorData>().GetAliveHUDIcon();
 						UIManager.SetGameObjectActive(NoCharacter, false, null);
 						UIManager.SetGameObjectActive(BrowseCharacter, false, null);
 						UIManager.SetGameObjectActive(SelectedCharacter, true, null);
@@ -4926,7 +4926,7 @@ public class UIRankedModeDraftScreen : UIScene
 					}
 					break;
 				}
-				BrowseCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(selectedChar.Value).ActorDataPrefab.GetComponent<ActorData>().\u000E();
+				BrowseCharacter.sprite = GameWideData.Get().GetCharacterResourceLink(selectedChar.Value).ActorDataPrefab.GetComponent<ActorData>().GetAliveHUDIcon();
 				UIManager.SetGameObjectActive(NoCharacter, false, null);
 				UIManager.SetGameObjectActive(BrowseCharacter, true, null);
 				UIManager.SetGameObjectActive(SelectedCharacter, false, null);

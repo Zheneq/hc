@@ -276,7 +276,7 @@ public class ObjectivePoints : NetworkBehaviour
 					}
 					break;
 				}
-				if (activeOwnedActorData.\u000E() == Team.TeamB)
+				if (activeOwnedActorData.GetTeam() == Team.TeamB)
 				{
 					for (;;)
 					{
@@ -364,7 +364,7 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		else
 		{
-			team = activeOwnedActorData.\u000E();
+			team = activeOwnedActorData.GetTeam();
 		}
 		Team team2 = team;
 		Team team3;
@@ -383,7 +383,7 @@ public class ObjectivePoints : NetworkBehaviour
 		}
 		else
 		{
-			team3 = activeOwnedActorData.\u0012();
+			team3 = activeOwnedActorData.GetOpposingTeam();
 		}
 		Team team4 = team3;
 		if (activeOwnedActorData != null)
@@ -397,7 +397,7 @@ public class ObjectivePoints : NetworkBehaviour
 				}
 				break;
 			}
-			if (activeOwnedActorData.\u000E() == Team.Spectator)
+			if (activeOwnedActorData.GetTeam() == Team.Spectator)
 			{
 				for (;;)
 				{
@@ -734,8 +734,8 @@ public class ObjectivePoints : NetworkBehaviour
 	protected string GetInfoString()
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		Team team = (!(activeOwnedActorData == null)) ? activeOwnedActorData.\u000E() : Team.TeamA;
-		Team team2 = (!(activeOwnedActorData == null)) ? activeOwnedActorData.\u0012() : Team.TeamB;
+		Team team = (!(activeOwnedActorData == null)) ? activeOwnedActorData.GetTeam() : Team.TeamA;
+		Team team2 = (!(activeOwnedActorData == null)) ? activeOwnedActorData.GetOpposingTeam() : Team.TeamB;
 		string text = UIUtils.ColorToNGUIRichTextTag(ActorData.s_friendlyPlayerColor);
 		string text2 = UIUtils.ColorToNGUIRichTextTag(ActorData.s_hostilePlayerColor);
 		string result = string.Empty;
@@ -1030,8 +1030,8 @@ public class ObjectivePoints : NetworkBehaviour
 						}
 						break;
 					}
-					int num = (int)actor.\u000E();
-					if (num >= 0)
+					int team = (int)actor.GetTeam();
+					if (team >= 0)
 					{
 						for (;;)
 						{
@@ -1042,7 +1042,7 @@ public class ObjectivePoints : NetworkBehaviour
 							}
 							break;
 						}
-						if (num < this.m_clientNumDeathInTurn.Count)
+						if (team < this.m_clientNumDeathInTurn.Count)
 						{
 							for (;;)
 							{
@@ -1055,7 +1055,7 @@ public class ObjectivePoints : NetworkBehaviour
 							}
 							List<int> clientNumDeathInTurn;
 							int index;
-							(clientNumDeathInTurn = this.m_clientNumDeathInTurn)[index = num] = clientNumDeathInTurn[index] + 1;
+							(clientNumDeathInTurn = this.m_clientNumDeathInTurn)[index = team] = clientNumDeathInTurn[index] + 1;
 						}
 					}
 				}
@@ -1105,7 +1105,7 @@ public class ObjectivePoints : NetworkBehaviour
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				if (actorData.\u000E() == team)
+				if (actorData.GetTeam() == team)
 				{
 					return true;
 				}

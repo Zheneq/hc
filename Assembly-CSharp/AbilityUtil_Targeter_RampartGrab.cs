@@ -59,7 +59,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 		if (squareFromAbilityTarget != null)
 		{
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			centerOfShape.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -67,7 +67,7 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 
 	protected BoardSquare GetSquareFromAbilityTarget(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return Board.\u000E().\u000E(currentTarget.GridPos);
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
@@ -90,8 +90,8 @@ public class AbilityUtil_Targeter_RampartGrab : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartGrab.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
 			}
 			VectorUtils.LaserCoords laserCoords;
-			laserCoords.start = targetingActor.\u0015();
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, this.m_laserRange, this.m_laserWidth, targetingActor, targetingActor.\u0015(), this.m_penetrateLos, this.m_maxTargets, false, false, out laserCoords.end, null, null, false, true);
+			laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, targets[currentTargetIndex - 1].AimDirection, this.m_laserRange, this.m_laserWidth, targetingActor, targetingActor.GetOpposingTeams(), this.m_penetrateLos, this.m_maxTargets, false, false, out laserCoords.end, null, null, false, true);
 			int num = 0;
 			base.EnableAllMovementArrows();
 			BoardSquare squareFromAbilityTarget = this.GetSquareFromAbilityTarget(currentTarget, targetingActor);

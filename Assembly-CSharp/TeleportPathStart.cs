@@ -103,9 +103,9 @@ public class TeleportPathStart : PathStart
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TeleportPathStart.AbilityCasted(GridPos, GridPos)).MethodHandle;
 			}
 			this.m_arrowPointTo.SetActive(true);
-			Vector3 a = Board.\u000E().\u000E(startPosition).\u001D();
-			Vector3 b = Board.\u000E().\u000E(endPosition).\u001D();
-			Vector3 forward = a - b;
+			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(startPosition).GetWorldPosition();
+			Vector3 worldPosition2 = Board.Get().GetBoardSquareSafe(endPosition).GetWorldPosition();
+			Vector3 forward = worldPosition - worldPosition2;
 			this.m_arrowPointTo.transform.forward = forward;
 		}
 	}

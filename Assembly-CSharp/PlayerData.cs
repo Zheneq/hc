@@ -486,9 +486,9 @@ public class PlayerData : NetworkBehaviour
 					}
 					break;
 				}
-				List<BoardSquare> list = SpawnPointManager.Get().m_initialSpawnPointsTeamA.\u001D();
-				List<BoardSquare> list2 = SpawnPointManager.Get().m_initialSpawnPointsTeamB.\u001D();
-				if (list.Count > 0 && list2.Count > 0)
+				List<BoardSquare> squaresInRegion = SpawnPointManager.Get().m_initialSpawnPointsTeamA.GetSquaresInRegion();
+				List<BoardSquare> squaresInRegion2 = SpawnPointManager.Get().m_initialSpawnPointsTeamB.GetSquaresInRegion();
+				if (squaresInRegion.Count > 0 && squaresInRegion2.Count > 0)
 				{
 					for (;;)
 					{
@@ -499,8 +499,8 @@ public class PlayerData : NetworkBehaviour
 						}
 						break;
 					}
-					Vector3 position = list[0].transform.position;
-					Vector3 position2 = list2[0].transform.position;
+					Vector3 position = squaresInRegion[0].transform.position;
+					Vector3 position2 = squaresInRegion2[0].transform.position;
 					Vector3 lhs = position - position2;
 					lhs.y = 0f;
 					if (Mathf.Abs(lhs.x) > Mathf.Abs(lhs.z))
@@ -689,7 +689,7 @@ public class PlayerData : NetworkBehaviour
 							}
 							break;
 						}
-						component.\u000E().SpawnAndSetupCardsOnReconnect();
+						component.GetAbilityData().SpawnAndSetupCardsOnReconnect();
 						component.SetupAbilityModOnReconnect();
 						component.SetupForRespawnOnReconnect();
 					}
@@ -741,12 +741,12 @@ public class PlayerData : NetworkBehaviour
 					}
 					break;
 				}
-				return GameFlowData.Get().activeOwnedActorData.\u000E();
+				return GameFlowData.Get().activeOwnedActorData.GetTeam();
 			}
 		}
 		if (this.ActorData != null)
 		{
-			return this.ActorData.\u000E();
+			return this.ActorData.GetTeam();
 		}
 		return this.m_spectatingTeam;
 	}

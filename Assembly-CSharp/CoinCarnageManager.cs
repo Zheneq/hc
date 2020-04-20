@@ -181,9 +181,9 @@ public class CoinCarnageManager : NetworkBehaviour
 			while (enumerator.MoveNext())
 			{
 				CoinSpawnInfo coinSpawnInfo = enumerator.Current;
-				foreach (Transform u001D in coinSpawnInfo.m_spawnLocations)
+				foreach (Transform transform in coinSpawnInfo.m_spawnLocations)
 				{
-					BoardSquare boardSquare = Board.\u000E().\u000E(u001D);
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(transform);
 					if (boardSquare != null)
 					{
 						for (;;)
@@ -199,7 +199,7 @@ public class CoinCarnageManager : NetworkBehaviour
 						{
 							RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.Start()).MethodHandle;
 						}
-						if (boardSquare.\u0016())
+						if (boardSquare.IsBaselineHeight())
 						{
 							for (;;)
 							{
@@ -333,7 +333,7 @@ public class CoinCarnageManager : NetworkBehaviour
 							}
 							this.m_coinToSpawnPoint[coinCarnageCoin].TurnOfLastPickup = GameFlowData.Get().CurrentTurn;
 						}
-						this.CheckTurninAvailability(mover.\u000E());
+						this.CheckTurninAvailability(mover.GetTeam());
 					}
 				}
 			}
@@ -386,8 +386,8 @@ public class CoinCarnageManager : NetworkBehaviour
 		int num = this.GetCoinCountForActor(actor) + this.m_coinAdditionalSpawnOnDeath;
 		int num2 = 0;
 		this.ClearCoinsFromActor(actor);
-		BoardSquare boardSquare = actor.\u0012();
-		if (boardSquare == null)
+		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
+		if (currentBoardSquare == null)
 		{
 			for (;;)
 			{
@@ -428,7 +428,7 @@ public class CoinCarnageManager : NetworkBehaviour
 			}
 			else
 			{
-				List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(boardSquare, i, true);
+				List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(currentBoardSquare, i, true);
 				int j = 0;
 				while (j < squaresInBorderLayer.Count)
 				{
@@ -446,7 +446,7 @@ public class CoinCarnageManager : NetworkBehaviour
 					}
 					else
 					{
-						if (squaresInBorderLayer[j].\u0016() && !coinOccupiedSquares.Contains(squaresInBorderLayer[j]))
+						if (squaresInBorderLayer[j].IsBaselineHeight() && !coinOccupiedSquares.Contains(squaresInBorderLayer[j]))
 						{
 							for (;;)
 							{
@@ -702,7 +702,7 @@ public class CoinCarnageManager : NetworkBehaviour
 			}
 		}
 		int num;
-		if (actor.\u000E() == Team.TeamA)
+		if (actor.GetTeam() == Team.TeamA)
 		{
 			for (;;)
 			{
@@ -746,12 +746,12 @@ public class CoinCarnageManager : NetworkBehaviour
 						break;
 					}
 					BoardRegion boardRegion = this.m_coinTurninLocations[num2];
-					if (boardRegion.\u001D(actor))
+					if (boardRegion.IsActorInRegion(actor))
 					{
 						ObjectivePoints objectivePoints = ObjectivePoints.Get();
 						if (objectivePoints != null)
 						{
-							objectivePoints.AdjustPoints(coinCountForActor, actor.\u000E());
+							objectivePoints.AdjustPoints(coinCountForActor, actor.GetTeam());
 						}
 						this.ClearCoinsFromActor(actor);
 					}
@@ -917,7 +917,7 @@ public class CoinCarnageManager : NetworkBehaviour
 							}
 							else
 							{
-								flag = (team == GameFlowData.Get().activeOwnedActorData.\u000E());
+								flag = (team == GameFlowData.Get().activeOwnedActorData.GetTeam());
 							}
 							GameObject gameObject2;
 							if (flag)
@@ -977,8 +977,8 @@ public class CoinCarnageManager : NetworkBehaviour
 							{
 								boardRegion.Initialize();
 								GameObject gameObject4 = new GameObject();
-								List<BoardSquare> list = boardRegion.\u001D();
-								using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+								List<BoardSquare> squaresInRegion = boardRegion.GetSquaresInRegion();
+								using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
 								{
 									while (enumerator.MoveNext())
 									{
@@ -1633,7 +1633,7 @@ public class CoinCarnageManager : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageManager.SpawnCoinOnSquare(BoardSquare)).MethodHandle;
 			}
-			if (square.\u0016())
+			if (square.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -1801,7 +1801,7 @@ public class CoinCarnageManager : NetworkBehaviour
 						KeyValuePair<ActorData, int> keyValuePair = enumerator2.Current;
 						ActorData key = keyValuePair.Key;
 						int value = keyValuePair.Value;
-						if (key.\u000E() == Team.TeamA)
+						if (key.GetTeam() == Team.TeamA)
 						{
 							for (;;)
 							{
@@ -1822,7 +1822,7 @@ public class CoinCarnageManager : NetworkBehaviour
 								"\n"
 							});
 						}
-						else if (key.\u000E() == Team.TeamB)
+						else if (key.GetTeam() == Team.TeamB)
 						{
 							for (;;)
 							{

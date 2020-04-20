@@ -265,7 +265,7 @@ public class ActorCover : NetworkBehaviour
 
 	public static Vector3 GetCoverOffsetStatic(ActorCover.CoverDirections dir)
 	{
-		float num = Board.\u000E().squareSize * 0.5f;
+		float num = Board.Get().squareSize * 0.5f;
 		Vector3 zero = Vector3.zero;
 		if (dir == ActorCover.CoverDirections.X_POS)
 		{
@@ -359,7 +359,7 @@ public class ActorCover : NetworkBehaviour
 	public bool HasNonThinCover(BoardSquare currentSquare, int xDelta, int yDelta, bool halfHeight)
 	{
 		bool result = false;
-		BoardSquare boardSquare = Board.\u000E().\u0016(currentSquare.x + xDelta, currentSquare.y + yDelta);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(currentSquare.x + xDelta, currentSquare.y + yDelta);
 		if (boardSquare != null)
 		{
 			int num = boardSquare.height - currentSquare.height;
@@ -377,11 +377,11 @@ public class ActorCover : NetworkBehaviour
 
 	public float CoverRating(BoardSquare square)
 	{
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(this.m_owner.\u0012());
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(this.m_owner.GetOpposingTeam());
 		float num = 0f;
 		foreach (ActorData actorData in allTeamMembers)
 		{
-			if (!actorData.\u000E())
+			if (!actorData.IsDead())
 			{
 				for (;;)
 				{
@@ -396,10 +396,10 @@ public class ActorCover : NetworkBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorCover.CoverRating(BoardSquare)).MethodHandle;
 				}
-				if (actorData.\u0012() != null)
+				if (actorData.GetCurrentBoardSquare() != null)
 				{
-					Vector3 vector = actorData.\u0012().transform.position - square.transform.position;
-					if (vector.magnitude > Board.\u000E().squareSize * 1.5f)
+					Vector3 vector = actorData.GetCurrentBoardSquare().transform.position - square.transform.position;
+					if (vector.magnitude > Board.Get().squareSize * 1.5f)
 					{
 						if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
 						{
@@ -429,7 +429,7 @@ public class ActorCover : NetworkBehaviour
 								}
 								break;
 							}
-							if (square.\u001D(ActorCover.CoverDirections.X_NEG) == ThinCover.CoverType.Half)
+							if (square.GetCoverInDirection(ActorCover.CoverDirections.X_NEG) == ThinCover.CoverType.Half)
 							{
 								goto IL_162;
 							}
@@ -468,7 +468,7 @@ public class ActorCover : NetworkBehaviour
 									}
 									break;
 								}
-								if (square.\u001D(ActorCover.CoverDirections.X_POS) == ThinCover.CoverType.Half)
+								if (square.GetCoverInDirection(ActorCover.CoverDirections.X_POS) == ThinCover.CoverType.Half)
 								{
 									for (;;)
 									{
@@ -505,7 +505,7 @@ public class ActorCover : NetworkBehaviour
 									}
 									break;
 								}
-								if (square.\u001D(ActorCover.CoverDirections.X_NEG) != ThinCover.CoverType.Full)
+								if (square.GetCoverInDirection(ActorCover.CoverDirections.X_NEG) != ThinCover.CoverType.Full)
 								{
 									for (;;)
 									{
@@ -548,7 +548,7 @@ public class ActorCover : NetworkBehaviour
 								}
 								break;
 							}
-							if (square.\u001D(ActorCover.CoverDirections.X_POS) != ThinCover.CoverType.Full)
+							if (square.GetCoverInDirection(ActorCover.CoverDirections.X_POS) != ThinCover.CoverType.Full)
 							{
 								continue;
 							}
@@ -579,7 +579,7 @@ public class ActorCover : NetworkBehaviour
 								}
 								break;
 							}
-							if (!this.HasNonThinCover(square, 0, -1, true) && square.\u001D(ActorCover.CoverDirections.Y_NEG) != ThinCover.CoverType.Half)
+							if (!this.HasNonThinCover(square, 0, -1, true) && square.GetCoverInDirection(ActorCover.CoverDirections.Y_NEG) != ThinCover.CoverType.Half)
 							{
 								for (;;)
 								{
@@ -610,7 +610,7 @@ public class ActorCover : NetworkBehaviour
 								{
 									goto IL_280;
 								}
-								if (square.\u001D(ActorCover.CoverDirections.Y_POS) == ThinCover.CoverType.Half)
+								if (square.GetCoverInDirection(ActorCover.CoverDirections.Y_POS) == ThinCover.CoverType.Half)
 								{
 									for (;;)
 									{
@@ -638,7 +638,7 @@ public class ActorCover : NetworkBehaviour
 									}
 									break;
 								}
-								if (square.\u001D(ActorCover.CoverDirections.Y_NEG) == ThinCover.CoverType.Full)
+								if (square.GetCoverInDirection(ActorCover.CoverDirections.Y_NEG) == ThinCover.CoverType.Full)
 								{
 									goto IL_303;
 								}
@@ -667,7 +667,7 @@ public class ActorCover : NetworkBehaviour
 									}
 									break;
 								}
-								if (square.\u001D(ActorCover.CoverDirections.Y_POS) != ThinCover.CoverType.Full)
+								if (square.GetCoverInDirection(ActorCover.CoverDirections.Y_POS) != ThinCover.CoverType.Full)
 								{
 									continue;
 								}
@@ -694,9 +694,9 @@ public class ActorCover : NetworkBehaviour
 	internal void UpdateCoverHighlights(BoardSquare currentSquare)
 	{
 		ActorData owner = this.m_owner;
-		if (currentSquare != null && currentSquare.\u0016())
+		if (currentSquare != null && currentSquare.IsBaselineHeight())
 		{
-			ActorTurnSM actorTurnSM = owner.\u000E();
+			ActorTurnSM actorTurnSM = owner.GetActorTurnSM();
 			if (actorTurnSM != null)
 			{
 				for (;;)
@@ -714,7 +714,7 @@ public class ActorCover : NetworkBehaviour
 				}
 				bool flag = actorTurnSM.AmTargetingAction();
 				List<BoardSquare> list = null;
-				Board.\u000E().\u000E(currentSquare.x, currentSquare.y, ref list);
+				Board.Get().GetStraightAdjacentSquares(currentSquare.x, currentSquare.y, ref list);
 				if (list != null)
 				{
 					for (;;)
@@ -786,7 +786,7 @@ public class ActorCover : NetworkBehaviour
 										}
 										break;
 									}
-									if (currentSquare.\u001D(coverDirection) == ThinCover.CoverType.None)
+									if (currentSquare.GetCoverInDirection(coverDirection) == ThinCover.CoverType.None)
 									{
 										goto IL_1E5;
 									}
@@ -1045,7 +1045,7 @@ public class ActorCover : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorCover.ShowRelevantCover(Vector3)).MethodHandle;
 			}
-			BoardSquare boardSquare = this.m_owner.\u0012();
+			BoardSquare currentBoardSquare = this.m_owner.GetCurrentBoardSquare();
 			for (int i = 0; i < 4; i++)
 			{
 				ActorCover.CoverDirections coverDirections = (ActorCover.CoverDirections)i;
@@ -1060,7 +1060,7 @@ public class ActorCover : NetworkBehaviour
 						}
 						break;
 					}
-					Vector3 a = new Vector3(boardSquare.worldX, (float)boardSquare.height + this.m_coverHeight, boardSquare.worldY);
+					Vector3 a = new Vector3(currentBoardSquare.worldX, (float)currentBoardSquare.height + this.m_coverHeight, currentBoardSquare.worldY);
 					this.m_actorCoverObjs[i].transform.position = a + this.GetCoverOffset(coverDirections);
 					this.m_actorCoverObjs[i].SetActive(true);
 				}
@@ -1365,7 +1365,7 @@ public class ActorCover : NetworkBehaviour
 
 	private void ShowCoverIndicatorForDirection(ActorCover.CoverDirections dir)
 	{
-		BoardSquare boardSquare = (!(this.m_owner != null)) ? null : this.m_owner.\u0012();
+		BoardSquare boardSquare = (!(this.m_owner != null)) ? null : this.m_owner.GetCurrentBoardSquare();
 		if (boardSquare != null)
 		{
 			for (;;)
@@ -1467,7 +1467,7 @@ public class ActorCover : NetworkBehaviour
 				}
 				break;
 			}
-			boardSquare = this.m_owner.\u0012();
+			boardSquare = this.m_owner.GetCurrentBoardSquare();
 		}
 		else
 		{
@@ -1714,8 +1714,8 @@ public class ActorCover : NetworkBehaviour
 	{
 		ActorData owner = this.m_owner;
 		this.UpdateCoverFromBarriers();
-		BoardSquare square = owner.\u0012();
-		ActorCover.CalcCover(out this.m_hasCover, square, this.m_tempCoverProviders, this.m_tempCoverIgnoreMinDist, this.m_cachedHasCoverFromBarriers, true);
+		BoardSquare currentBoardSquare = owner.GetCurrentBoardSquare();
+		ActorCover.CalcCover(out this.m_hasCover, currentBoardSquare, this.m_tempCoverProviders, this.m_tempCoverIgnoreMinDist, this.m_cachedHasCoverFromBarriers, true);
 	}
 
 	private void ResetTempCoverListFromSyncList()
@@ -1776,7 +1776,7 @@ public class ActorCover : NetworkBehaviour
 		{
 			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorCover.UpdateCoverFromBarriers()).MethodHandle;
 		}
-		BoardSquare boardSquare = this.m_owner.\u0012();
+		BoardSquare currentBoardSquare = this.m_owner.GetCurrentBoardSquare();
 		if (BarrierManager.Get() != null)
 		{
 			for (;;)
@@ -1788,7 +1788,7 @@ public class ActorCover : NetworkBehaviour
 				}
 				break;
 			}
-			if (boardSquare != null)
+			if (currentBoardSquare != null)
 			{
 				for (;;)
 				{
@@ -1799,7 +1799,7 @@ public class ActorCover : NetworkBehaviour
 					}
 					break;
 				}
-				BarrierManager.Get().UpdateCachedCoverDirections(this.m_owner, boardSquare, ref this.m_cachedHasCoverFromBarriers);
+				BarrierManager.Get().UpdateCachedCoverDirections(this.m_owner, currentBoardSquare, ref this.m_cachedHasCoverFromBarriers);
 			}
 		}
 	}
@@ -1829,7 +1829,7 @@ public class ActorCover : NetworkBehaviour
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorCover.CalcCover(bool[]*, BoardSquare, List<ActorCover.CoverDirections>, List<ActorCover.CoverDirections>, bool[], bool)).MethodHandle;
 			}
 			List<BoardSquare> list = null;
-			Board.\u000E().\u000E(square.x, square.y, ref list);
+			Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref list);
 			foreach (BoardSquare boardSquare in list)
 			{
 				ActorCover.CoverDirections coverDirection = ActorCover.GetCoverDirection(square, boardSquare);
@@ -1871,7 +1871,7 @@ public class ActorCover : NetworkBehaviour
 							}
 							break;
 						}
-						if (square.\u001D(coverDirection) == ThinCover.CoverType.None)
+						if (square.GetCoverInDirection(coverDirection) == ThinCover.CoverType.None)
 						{
 							for (;;)
 							{
@@ -2041,8 +2041,8 @@ public class ActorCover : NetworkBehaviour
 	public bool IsInCoverWrt(Vector3 damageOrigin, ref List<ActorCover.CoverDirections> coverDirections)
 	{
 		ActorData component = base.GetComponent<ActorData>();
-		BoardSquare targetSquare = component.\u0012();
-		return ActorCover.IsInCoverWrt(damageOrigin, targetSquare, ref coverDirections, this.m_tempCoverProviders, this.m_tempCoverIgnoreMinDist, this.m_cachedHasCoverFromBarriers);
+		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
+		return ActorCover.IsInCoverWrt(damageOrigin, currentBoardSquare, ref coverDirections, this.m_tempCoverProviders, this.m_tempCoverIgnoreMinDist, this.m_cachedHasCoverFromBarriers);
 	}
 
 	public bool IsInCoverForDirection(ActorCover.CoverDirections dir)
@@ -2073,7 +2073,7 @@ public class ActorCover : NetworkBehaviour
 		Vector3 vector = damageOrigin - b;
 		vector.y = 0f;
 		float sqrMagnitude = vector.sqrMagnitude;
-		float num = GameplayData.Get().m_coverMinDistance * Board.\u000E().squareSize;
+		float num = GameplayData.Get().m_coverMinDistance * Board.Get().squareSize;
 		float num2 = num * num;
 		bool flag = sqrMagnitude >= num2;
 		if (!flag)
@@ -2135,7 +2135,7 @@ public class ActorCover : NetworkBehaviour
 		bool flag4 = damageOrigin.z > vector.z;
 		Vector2 vector2 = new Vector2(damageOrigin.x - vector.x, damageOrigin.z - vector.z);
 		Vector2 normalized = vector2.normalized;
-		float num2 = 0.5f * Board.\u000E().squareSize;
+		float num2 = 0.5f * Board.Get().squareSize;
 		float num3 = GameplayData.Get().m_coverProtectionAngle / 2f;
 		bool[] array;
 		ActorCover.CalcCover(out array, targetSquare, tempCoverProviders, tempCoverIgnoreMinDist, coverDirFromBarriers, minDistOk);
@@ -2415,7 +2415,7 @@ public class ActorCover : NetworkBehaviour
 			Debug.LogError("Trying to get the covered regions for a null actor.");
 			return list;
 		}
-		if (owner.\u000E())
+		if (owner.IsDead())
 		{
 			for (;;)
 			{
@@ -2436,7 +2436,7 @@ public class ActorCover : NetworkBehaviour
 			}));
 			return list;
 		}
-		if (owner.\u0012() == null)
+		if (owner.GetCurrentBoardSquare() == null)
 		{
 			Debug.LogError(string.Concat(new string[]
 			{
@@ -2448,8 +2448,8 @@ public class ActorCover : NetworkBehaviour
 			}));
 			return list;
 		}
-		BoardSquare boardSquare = owner.\u0012();
-		Vector3 center = boardSquare.ToVector3();
+		BoardSquare currentBoardSquare = owner.GetCurrentBoardSquare();
+		Vector3 center = currentBoardSquare.ToVector3();
 		float num = GameplayData.Get().m_coverProtectionAngle / 2f;
 		for (int i = 0; i < 4; i++)
 		{

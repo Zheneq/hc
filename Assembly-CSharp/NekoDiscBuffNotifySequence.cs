@@ -63,7 +63,7 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 					}
 					break;
 				}
-				BoardSquare boardSquare = Board.\u000E().\u000E(base.TargetPos);
+				BoardSquare boardSquare = Board.Get().GetBoardSquare(base.TargetPos);
 				if (boardSquare != null)
 				{
 					for (;;)

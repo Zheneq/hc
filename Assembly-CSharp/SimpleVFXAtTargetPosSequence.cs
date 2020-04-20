@@ -393,7 +393,7 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 					}
 					break;
 				}
-				fxSpawnPosition.y = (float)Board.\u000E().BaselineHeight;
+				fxSpawnPosition.y = (float)Board.Get().BaselineHeight;
 			}
 			fxSpawnPosition.y += this.m_yOffset;
 			Quaternion targetRotation = base.TargetRotation;
@@ -422,7 +422,7 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 						}
 						break;
 					}
-					this.m_fxFoFSelectComp.Setup(base.Caster.\u000E());
+					this.m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
 				}
 			}
 			if (!this.m_sequenceHitCalled && this.m_callOnHitForGameplay)
@@ -728,7 +728,7 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 								}
 								break;
 							}
-							this.m_fxFoFSelectComp.Setup(base.Caster.\u000E());
+							this.m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
 						}
 					}
 				}

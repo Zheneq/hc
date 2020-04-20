@@ -27,7 +27,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 	protected override Vector3 GetRefPos(AbilityTarget currentTarget, ActorData targetingActor, float range)
 	{
 		Vector3 result = base.GetRefPos(currentTarget, targetingActor, range);
-		if (this.m_lockToGridPos && Board.\u000E() != null && currentTarget != null)
+		if (this.m_lockToGridPos && Board.Get() != null && currentTarget != null)
 		{
 			for (;;)
 			{
@@ -42,10 +42,10 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_AroundActor.GetRefPos(AbilityTarget, ActorData, float)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+			if (boardSquareSafe != null)
 			{
-				result = boardSquare.ToVector3();
+				result = boardSquareSafe.ToVector3();
 			}
 		}
 		return result;
@@ -55,7 +55,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
 		this.m_lastCenterActor = null;
-		BoardSquare boardSquare = Board.\u000E().\u000E(this.GetRefPos(currentTarget, targetingActor, this.GetCurrentRangeInSquares()));
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(this.GetRefPos(currentTarget, targetingActor, this.GetCurrentRangeInSquares()));
 		ActorData occupantActor = boardSquare.OccupantActor;
 		if (occupantActor != null)
 		{
@@ -94,12 +94,12 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 						}
 						break;
 					}
-					base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, this.m_allyOccupantSubject, false);
+					base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, this.m_allyOccupantSubject, false);
 					this.m_lastCenterActor = occupantActor;
 					return;
 				}
 			}
-			if (occupantActor.\u000E() == targetingActor.\u000E())
+			if (occupantActor.GetTeam() == targetingActor.GetTeam())
 			{
 				for (;;)
 				{
@@ -121,12 +121,12 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 						}
 						break;
 					}
-					base.AddActorInRange(occupantActor, targetingActor.\u0016(), targetingActor, this.m_allyOccupantSubject, false);
+					base.AddActorInRange(occupantActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, this.m_allyOccupantSubject, false);
 					this.m_lastCenterActor = occupantActor;
 					return;
 				}
 			}
-			if (occupantActor.\u000E() != targetingActor.\u000E() && this.m_canTargetOnEnemy)
+			if (occupantActor.GetTeam() != targetingActor.GetTeam() && this.m_canTargetOnEnemy)
 			{
 				for (;;)
 				{
@@ -137,7 +137,7 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 					}
 					break;
 				}
-				base.AddActorInRange(occupantActor, targetingActor.\u0016(), targetingActor, this.m_enemyOccupantSubject, false);
+				base.AddActorInRange(occupantActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, this.m_enemyOccupantSubject, false);
 				this.m_lastCenterActor = occupantActor;
 			}
 		}

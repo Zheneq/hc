@@ -443,7 +443,7 @@ public class ThiefOnTheRun : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
 			}
-			if (actorData.\u0012() != null)
+			if (actorData.GetCurrentBoardSquare() != null)
 			{
 				for (;;)
 				{
@@ -469,9 +469,9 @@ public class ThiefOnTheRun : Ability
 					{
 						break;
 					}
-					BoardSquare y = (i <= 0) ? actorData.\u0012() : Board.\u000E().\u000E(base.Targeters[i - 1].LastUpdatingGridPos);
+					BoardSquare y = (i <= 0) ? actorData.GetCurrentBoardSquare() : Board.Get().GetBoardSquareSafe(base.Targeters[i - 1].LastUpdatingGridPos);
 					int subsequentAmount = this.GetSubsequentDamage();
-					if (targetActor.\u0012() == y)
+					if (targetActor.GetCurrentBoardSquare() == y)
 					{
 						subsequentAmount = 0;
 					}
@@ -556,8 +556,8 @@ public class ThiefOnTheRun : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare == null || !boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe == null || !boardSquareSafe.IsBaselineHeight())
 		{
 			return false;
 		}
@@ -577,11 +577,11 @@ public class ThiefOnTheRun : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefOnTheRun.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			result = (KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare) != null);
+			result = (KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null);
 		}
 		else
 		{
-			BoardSquare boardSquare2;
+			BoardSquare boardSquare;
 			if (targetIndex == 0)
 			{
 				for (;;)
@@ -593,15 +593,15 @@ public class ThiefOnTheRun : Ability
 					}
 					break;
 				}
-				boardSquare2 = caster.\u0012();
+				boardSquare = caster.GetCurrentBoardSquare();
 			}
 			else
 			{
-				boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
+				boardSquare = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
 			}
-			bool flag = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, false) != null;
-			float squareSize = Board.\u000E().squareSize;
-			float num = Vector3.Distance(boardSquare2.ToVector3(), boardSquare.ToVector3());
+			bool flag = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, boardSquare, false) != null;
+			float squareSize = Board.Get().squareSize;
+			float num = Vector3.Distance(boardSquare.ToVector3(), boardSquareSafe.ToVector3());
 			bool flag2;
 			if (num >= this.GetMinDistanceBetweenSteps() * squareSize)
 			{
@@ -645,8 +645,8 @@ public class ThiefOnTheRun : Ability
 					}
 					for (int i = 0; i < targetIndex; i++)
 					{
-						BoardSquare boardSquare3 = Board.\u000E().\u000E(currentTargets[i].GridPos);
-						flag3 &= (Vector3.Distance(boardSquare3.ToVector3(), boardSquare.ToVector3()) >= this.GetMinDistanceBetweenAnySteps() * squareSize);
+						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
+						flag3 &= (Vector3.Distance(boardSquareSafe2.ToVector3(), boardSquareSafe.ToVector3()) >= this.GetMinDistanceBetweenAnySteps() * squareSize);
 					}
 					for (;;)
 					{

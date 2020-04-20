@@ -192,10 +192,10 @@ public class RunState : MoveState
 	{
 		BoardSquare square = this.m_pathSquareInfo.square;
 		Vector3 position = this.m_owner.m_actor.transform.position;
-		Vector3 vector = square.\u001D();
-		Vector3 vector2 = vector - position;
-		vector2.y = 0f;
-		float sqrMagnitude = vector2.sqrMagnitude;
+		Vector3 worldPosition = square.GetWorldPosition();
+		Vector3 vector = worldPosition - position;
+		vector.y = 0f;
+		float sqrMagnitude = vector.sqrMagnitude;
 		float num = Time.deltaTime;
 		if (Application.isEditor)
 		{
@@ -269,11 +269,11 @@ public class RunState : MoveState
 				}
 				break;
 			}
-			vector2.Normalize();
-			Vector3 transformPositionToVector = position + vector2 * num3;
-			transformPositionToVector.y = (float)Board.\u000E().BaselineHeight;
+			vector.Normalize();
+			Vector3 transformPositionToVector = position + vector * num3;
+			transformPositionToVector.y = (float)Board.Get().BaselineHeight;
 			this.m_owner.m_actor.SetTransformPositionToVector(transformPositionToVector);
-			Vector3 dir = vector2;
+			Vector3 dir = vector;
 			dir.y = 0f;
 			if (dir.magnitude > 0.01f)
 			{
@@ -292,7 +292,7 @@ public class RunState : MoveState
 		else
 		{
 			this.m_updatePath = true;
-			this.m_owner.m_actor.SetTransformPositionToVector(this.m_owner.GetGroundPosition(vector));
+			this.m_owner.m_actor.SetTransformPositionToVector(this.m_owner.GetGroundPosition(worldPosition));
 			this.m_done = true;
 		}
 	}

@@ -25,7 +25,7 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 		List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
 		foreach (ActorData actorData in visibleActorsInRange)
 		{
-			if (actorData.\u000E() != targetingActor.\u000E())
+			if (actorData.GetTeam() != targetingActor.GetTeam())
 			{
 				for (;;)
 				{
@@ -49,8 +49,8 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 
 	protected override bool HandleAddActorInShape(ActorData potentialTarget, ActorData targetingActor, AbilityTarget currentTarget, Vector3 damageOrigin, ActorData bestTarget)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -65,7 +65,7 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_HealingKnockback.HandleAddActorInShape(ActorData, ActorData, AbilityTarget, Vector3, ActorData)).MethodHandle;
 			}
-			if (boardSquare.occupant != null)
+			if (boardSquareSafe.occupant != null)
 			{
 				for (;;)
 				{
@@ -76,7 +76,7 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 					}
 					break;
 				}
-				bool flag = potentialTarget.\u000E() == targetingActor.\u000E();
+				bool flag = potentialTarget.GetTeam() == targetingActor.GetTeam();
 				if (flag)
 				{
 					for (;;)
@@ -88,7 +88,7 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 						}
 						break;
 					}
-					if (boardSquare.occupant == potentialTarget.gameObject)
+					if (boardSquareSafe.occupant == potentialTarget.gameObject)
 					{
 						base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
 						return true;

@@ -25,7 +25,7 @@ public class NPCBrain_Tutorial : NPCBrain
 	public bool IsPlayerInLoS()
 	{
 		ActorData component = base.GetComponent<ActorData>();
-		bool flag = component.\u0009();
+		bool flag = component.IsVisibleToOpposingTeam();
 		ActorData localPlayer = SinglePlayerManager.Get().GetLocalPlayer();
 		if (localPlayer == null)
 		{
@@ -46,7 +46,7 @@ public class NPCBrain_Tutorial : NPCBrain
 		}
 		ActorStatus component2 = localPlayer.GetComponent<ActorStatus>();
 		bool flag2;
-		if (localPlayer.\u0016())
+		if (localPlayer.IsHiddenInBrush())
 		{
 			for (;;)
 			{
@@ -100,7 +100,7 @@ public class NPCBrain_Tutorial : NPCBrain
 	{
 		ActorData result = null;
 		ActorData component = base.GetComponent<ActorData>();
-		BoardSquare boardSquare = component.\u0012();
+		BoardSquare currentBoardSquare = component.GetCurrentBoardSquare();
 		float num = float.MaxValue;
 		List<ActorData> actors = GameFlowData.Get().GetActors();
 		using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
@@ -108,10 +108,10 @@ public class NPCBrain_Tutorial : NPCBrain
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				if (actorData.\u000E() != component.\u000E())
+				if (actorData.GetTeam() != component.GetTeam())
 				{
-					BoardSquare boardSquare2 = actorData.\u0012();
-					if (boardSquare2 != null)
+					BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
+					if (currentBoardSquare2 != null)
 					{
 						for (;;)
 						{
@@ -126,7 +126,7 @@ public class NPCBrain_Tutorial : NPCBrain
 						{
 							RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain_Tutorial.FindNearestEnemy()).MethodHandle;
 						}
-						float num2 = boardSquare.HorizontalDistanceOnBoardTo(boardSquare2);
+						float num2 = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
 						if (num2 < num)
 						{
 							for (;;)
@@ -164,7 +164,7 @@ public class NPCBrain_Tutorial : NPCBrain
 			ActorData component = base.GetComponent<ActorData>();
 			ActorMovement component2 = base.GetComponent<ActorMovement>();
 			ActorTurnSM component3 = base.GetComponent<ActorTurnSM>();
-			BoardSquare boardSquare = Board.\u000E().\u000E(this.m_destination);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_destination);
 			if (component != null)
 			{
 				for (;;)
@@ -216,7 +216,7 @@ public class NPCBrain_Tutorial : NPCBrain
 									}
 									break;
 								}
-								if (closestMoveableSquareTo != component.\u0012())
+								if (closestMoveableSquareTo != component.GetCurrentBoardSquare())
 								{
 									for (;;)
 									{

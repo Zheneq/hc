@@ -231,7 +231,7 @@ public class UIOverconData : MonoBehaviour
 							}
 							break;
 						}
-						if (actorData2.\u0018())
+						if (actorData2.IsVisibleToClient())
 						{
 							for (;;)
 							{

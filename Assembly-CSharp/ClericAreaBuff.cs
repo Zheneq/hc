@@ -690,7 +690,7 @@ public class ClericAreaBuff : Ability
 					}
 					break;
 				}
-				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.GetShape(), targetActor.\u0016(), targetActor.\u0012(), true, targetActor, targetActor.\u0012(), null);
+				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.GetShape(), targetActor.GetTravelBoardSquareWorldPosition(), targetActor.GetCurrentBoardSquare(), true, targetActor, targetActor.GetOpposingTeam(), null);
 				num += actorsInShape.Count * this.GetExtraSelfShieldsPerEnemyInShape();
 			}
 		}
@@ -870,10 +870,10 @@ public class ClericAreaBuff : Ability
 
 	public bool IsActorInBuffShape(ActorData targetActor)
 	{
-		if (base.ActorData.\u000E().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+		if (base.ActorData.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.GetShape(), base.ActorData.\u0016(), base.ActorData.\u0012());
-			return AreaEffectUtils.GetActorsInShape(this.GetShape(), centerOfShape, base.ActorData.\u0012(), this.PenetrateLoS(), base.ActorData, base.ActorData.\u000E(), null).Contains(targetActor);
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.GetShape(), base.ActorData.GetTravelBoardSquareWorldPosition(), base.ActorData.GetCurrentBoardSquare());
+			return AreaEffectUtils.GetActorsInShape(this.GetShape(), centerOfShape, base.ActorData.GetCurrentBoardSquare(), this.PenetrateLoS(), base.ActorData, base.ActorData.GetTeam(), null).Contains(targetActor);
 		}
 		return false;
 	}
@@ -945,7 +945,7 @@ public class ClericAreaBuff : Ability
 					}
 					break;
 				}
-				AbilityData abilityData = base.ActorData.\u000E();
+				AbilityData abilityData = base.ActorData.GetAbilityData();
 				if (abilityData != null)
 				{
 					for (;;)

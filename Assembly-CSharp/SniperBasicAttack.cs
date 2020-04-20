@@ -109,7 +109,7 @@ public class SniperBasicAttack : Ability
 							break;
 						}
 						Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-						if (targetActor.\u000E() != component.\u000E())
+						if (targetActor.GetTeam() != component.GetTeam())
 						{
 							for (;;)
 							{

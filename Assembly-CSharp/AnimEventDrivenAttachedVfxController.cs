@@ -109,7 +109,7 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 				}
 				break;
 			}
-			if (actorData2.\u0018())
+			if (actorData2.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -120,7 +120,7 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 					}
 					break;
 				}
-				if (!(actorData2.\u000E() == null))
+				if (!(actorData2.GetActorModelDataRenderer() == null))
 				{
 					for (;;)
 					{
@@ -131,7 +131,7 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 						}
 						break;
 					}
-					flag = actorData2.\u000E().enabled;
+					flag = actorData2.GetActorModelDataRenderer().enabled;
 				}
 				else
 				{
@@ -160,7 +160,7 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 				}
 				break;
 			}
-			flag3 = actorData2.\u0012();
+			flag3 = actorData2.IsModelAnimatorDisabled();
 		}
 		else
 		{
@@ -183,7 +183,7 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					flag5 = (GameFlowData.Get().activeOwnedActorData.\u000E() == actorData2.\u000E());
+					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData2.GetTeam());
 					goto IL_10D;
 				}
 			}

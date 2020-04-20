@@ -430,7 +430,7 @@ public class ClericHammerThrow : Ability
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
 			}
 			AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
-			ClericHammerThrow.RadiusToHitData bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData<ClericHammerThrow.RadiusToHitData>(this.m_cachedRadiusToHitData, targetActor.\u0012(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, base.ActorData, true);
+			ClericHammerThrow.RadiusToHitData bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData<ClericHammerThrow.RadiusToHitData>(this.m_cachedRadiusToHitData, targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, base.ActorData, true);
 			if (bestMatchingData != null)
 			{
 				int num = 0;
@@ -456,7 +456,7 @@ public class ClericHammerThrow : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (caster.\u000E().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+		if (caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
 			for (;;)
 			{

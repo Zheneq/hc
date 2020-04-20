@@ -775,8 +775,8 @@ public class ThiefSpoilLaserUlt : Ability
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		min = this.m_targeterMinInterpDistance * Board.\u000E().squareSize;
-		max = this.m_targeterMaxInterpDistance * Board.\u000E().squareSize;
+		min = this.m_targeterMinInterpDistance * Board.Get().squareSize;
+		max = this.m_targeterMaxInterpDistance * Board.Get().squareSize;
 		return true;
 	}
 

@@ -23,20 +23,20 @@ namespace TMPro.Examples
 
 		private void \u0018()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.\u0013));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.coroutine0013));
 		}
 
 		private void \u0009()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.\u0013));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.coroutine0013));
 		}
 
 		private void \u0019()
 		{
-			base.StartCoroutine(this.\u0013());
+			base.StartCoroutine(this.coroutine0013_2());
 		}
 
-		private void \u0013(UnityEngine.Object \u001D)
+		private void coroutine0013(UnityEngine.Object \u001D)
 		{
 			if (\u001D == this.\u0015)
 			{
@@ -51,13 +51,13 @@ namespace TMPro.Examples
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VertexJitter.\u0013(UnityEngine.Object)).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(VertexJitter.coroutine0013(UnityEngine.Object)).MethodHandle;
 				}
 				this.\u0016 = true;
 			}
 		}
 
-		private IEnumerator \u0013()
+		private IEnumerator coroutine0013_2()
 		{
 			this.\u0015.ForceMeshUpdate();
 			TMP_TextInfo textInfo = this.\u0015.textInfo;

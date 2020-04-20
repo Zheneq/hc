@@ -672,7 +672,7 @@ public class MantaDashThroughWall : Ability
 
 	internal unsafe static BoardSquare GetSquareBeyondWall(Vector3 startPos, Vector3 endPos, ActorData targetingActor, float penetrationDistance, ref Vector3 coneStartPos, ref Vector3 perpendicularFromWall)
 	{
-		float num = 0.25f * Board.\u000E().squareSize;
+		float num = 0.25f * Board.Get().squareSize;
 		int num2 = Mathf.CeilToInt(penetrationDistance / num);
 		Vector3 vector = endPos - startPos;
 		float magnitude = vector.magnitude;
@@ -684,7 +684,7 @@ public class MantaDashThroughWall : Ability
 		while (boardSquare == null)
 		{
 			vector2 += num * vector;
-			boardSquare = Board.\u000E().\u000E(vector2);
+			boardSquare = Board.Get().GetBoardSquare(vector2);
 			if (boardSquare != null)
 			{
 				for (;;)
@@ -700,7 +700,7 @@ public class MantaDashThroughWall : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetSquareBeyondWall(Vector3, Vector3, ActorData, float, Vector3*, Vector3*)).MethodHandle;
 				}
-				if (!boardSquare.\u0016())
+				if (!boardSquare.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -728,7 +728,7 @@ public class MantaDashThroughWall : Ability
 						}
 						break;
 					}
-					if (boardSquare.\u0016())
+					if (boardSquare.IsBaselineHeight())
 					{
 						goto IL_113;
 					}
@@ -742,7 +742,7 @@ public class MantaDashThroughWall : Ability
 						break;
 					}
 				}
-				boardSquare = Board.\u000E().\u000E(laserEndPoint);
+				boardSquare = Board.Get().GetBoardSquare(laserEndPoint);
 				coneStartPos = endPos;
 				IL_113:
 				if (boardSquare != null)
@@ -756,8 +756,8 @@ public class MantaDashThroughWall : Ability
 						}
 						break;
 					}
-					Vector3 vector3 = boardSquare.\u000E();
-					Vector3 normalized = (vector3 - startPos).normalized;
+					Vector3 worldPositionForLoS = boardSquare.GetWorldPositionForLoS();
+					Vector3 normalized = (worldPositionForLoS - startPos).normalized;
 					normalized.y = 0f;
 					if (Mathf.Abs(normalized.x) > 0.3f)
 					{
@@ -775,7 +775,7 @@ public class MantaDashThroughWall : Ability
 							float x = normalized.x;
 							normalized.x = 0f;
 							RaycastHit raycastHit;
-							if (!VectorUtils.RaycastInDirection(vector3, -1f * normalized.normalized, Board.\u000E().squareSize, out raycastHit))
+							if (!VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit))
 							{
 								for (;;)
 								{
@@ -788,13 +788,13 @@ public class MantaDashThroughWall : Ability
 								}
 								normalized.z = 0f;
 								normalized.x = x;
-								bool flag = VectorUtils.RaycastInDirection(vector3, -1f * normalized.normalized, Board.\u000E().squareSize, out raycastHit);
+								bool flag = VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit);
 							}
 						}
 					}
 					int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(normalized));
 					perpendicularFromWall = VectorUtils.HorizontalAngleToClosestCardinalDirection(angleWithHorizontal);
-					coneStartPos = vector3 - perpendicularFromWall * 0.5f;
+					coneStartPos = worldPositionForLoS - perpendicularFromWall * 0.5f;
 				}
 				return boardSquare;
 			}

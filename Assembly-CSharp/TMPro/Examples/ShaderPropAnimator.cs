@@ -6,33 +6,33 @@ namespace TMPro.Examples
 {
 	public class ShaderPropAnimator : MonoBehaviour
 	{
-		private Renderer \u001D;
+		private Renderer renderer;
 
-		private Material \u000E;
+		private Material material;
 
-		public AnimationCurve \u0012;
+		public AnimationCurve curve;
 
-		public float \u0015;
+		public float alpha;
 
 		private void \u0016()
 		{
-			this.\u001D = base.GetComponent<Renderer>();
-			this.\u000E = this.\u001D.material;
+			this.renderer = base.GetComponent<Renderer>();
+			this.material = this.renderer.material;
 		}
 
-		private void \u0013()
+		private void Start()
 		{
-			base.StartCoroutine(this.\u0016());
+			base.StartCoroutine(this.Animate());
 		}
 
-		private IEnumerator \u0016()
+		private IEnumerator Animate()
 		{
-			this.\u0015 = UnityEngine.Random.Range(0f, 1f);
+			this.alpha = UnityEngine.Random.Range(0f, 1f);
 			for (;;)
 			{
-				float value = this.\u0012.Evaluate(this.\u0015);
-				this.\u000E.SetFloat(ShaderUtilities.ID_GlowPower, value);
-				this.\u0015 += Time.deltaTime * UnityEngine.Random.Range(0.2f, 0.3f);
+				float value = this.curve.Evaluate(this.alpha);
+				this.material.SetFloat(ShaderUtilities.ID_GlowPower, value);
+				this.alpha += Time.deltaTime * UnityEngine.Random.Range(0.2f, 0.3f);
 				yield return new WaitForEndOfFrame();
 				for (;;)
 				{

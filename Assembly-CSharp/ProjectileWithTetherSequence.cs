@@ -494,7 +494,7 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 							}
 							break;
 						}
-						this.m_lineFoFComp.Setup(base.Caster.\u000E());
+						this.m_lineFoFComp.Setup(base.Caster.GetTeam());
 					}
 				}
 			}
@@ -554,7 +554,7 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 									}
 									break;
 								}
-								value.y = (float)Board.\u000E().BaselineHeight;
+								value.y = (float)Board.Get().BaselineHeight;
 							}
 							Sequence.SetAttribute(this.m_lineFx, "startPoint", value);
 							goto IL_1DA;
@@ -566,7 +566,7 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 					Vector3 vector = this.m_startJointToUse.m_jointObject.transform.position;
 					if (this.m_lineStartPosUseGroundHeight)
 					{
-						vector.y = (float)Board.\u000E().BaselineHeight;
+						vector.y = (float)Board.Get().BaselineHeight;
 					}
 					if (this.m_lineStartYOffsetFromJoint != 0f)
 					{
@@ -633,7 +633,7 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 						}
 						break;
 					}
-					value2.y = (float)Board.\u000E().BaselineHeight;
+					value2.y = (float)Board.Get().BaselineHeight;
 				}
 				if (flag)
 				{

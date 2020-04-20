@@ -234,7 +234,7 @@ public class ScoundrelBlindFireSequence : Sequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFireSequence.GetProjectileDistance(Vector3, Vector3, float)).MethodHandle;
 			}
-			vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+			vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		}
 		else
 		{

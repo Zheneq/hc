@@ -24,7 +24,7 @@ public class CameraFaceShot
 	{
 		this.m_time = 0f;
 		this.Actor = actor;
-		this.m_cameraAnimationObj = actor.\u000E().gameObject.FindInChildren("camera0", 0);
+		this.m_cameraAnimationObj = actor.GetActorModelData().gameObject.FindInChildren("camera0", 0);
 		if (faceCam != null)
 		{
 			faceCam.fieldOfView = this.m_fieldOfView;
@@ -46,7 +46,7 @@ public class CameraFaceShot
 				faceCam.gameObject.SetActive(true);
 			}
 		}
-		ActorModelData actorModelData = actor.\u000E();
+		ActorModelData actorModelData = actor.GetActorModelData();
 		Animator animator = (!(actorModelData == null)) ? actorModelData.GetModelAnimator() : null;
 		if (animator != null)
 		{
@@ -56,11 +56,11 @@ public class CameraFaceShot
 
 	internal bool Update(Camera faceCam)
 	{
-		ActorModelData actorModelData = this.Actor.\u0012();
-		if (actorModelData != null && !actorModelData.IsPlayingIdleAnim(false))
+		ActorModelData faceActorModelData = this.Actor.GetFaceActorModelData();
+		if (faceActorModelData != null && !faceActorModelData.IsPlayingIdleAnim(false))
 		{
 			Animator animator;
-			if (actorModelData == null)
+			if (faceActorModelData == null)
 			{
 				for (;;)
 				{
@@ -79,7 +79,7 @@ public class CameraFaceShot
 			}
 			else
 			{
-				animator = actorModelData.GetModelAnimator();
+				animator = faceActorModelData.GetModelAnimator();
 			}
 			Animator animator2 = animator;
 			if (animator2 != null)

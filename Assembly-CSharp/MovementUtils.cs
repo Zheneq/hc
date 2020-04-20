@@ -445,7 +445,7 @@ public static class MovementUtils
 			{
 				stream.Serialize(ref segmentMovementDuration);
 			}
-			BoardSquare boardSquare = Board.\u000E().\u0016((int)b, (int)b2);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)b, (int)b2);
 			if (boardSquare == null)
 			{
 				for (;;)
@@ -641,7 +641,7 @@ public static class MovementUtils
 				}
 				segmentMovementDuration = reader.ReadSingle();
 			}
-			BoardSquare boardSquare = Board.\u000E().\u0016((int)b3, (int)b4);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)b3, (int)b4);
 			if (boardSquare == null)
 			{
 				for (;;)
@@ -961,7 +961,7 @@ public static class MovementUtils
 					}
 					else
 					{
-						square = Board.\u000E().\u0016((int)num, (int)num2);
+						square = Board.Get().GetBoardSquare((int)num, (int)num2);
 					}
 					BoardSquarePathInfo boardSquarePathInfo3 = new BoardSquarePathInfo();
 					boardSquarePathInfo3.square = square;
@@ -1029,7 +1029,7 @@ public static class MovementUtils
 					j++;
 					continue;
 					IL_135:
-					square2 = Board.\u000E().\u0016((int)num3, (int)num4);
+					square2 = Board.Get().GetBoardSquare((int)num3, (int)num4);
 					goto IL_147;
 				}
 			}
@@ -1125,11 +1125,11 @@ public static class MovementUtils
 	public static bool ShouldVault(BoardSquare srcSquare, BoardSquare destSquare)
 	{
 		bool result = false;
-		if (Board.\u000E().\u0015(srcSquare, destSquare))
+		if (Board.Get().\u0015(srcSquare, destSquare))
 		{
-			BoardSquare destSquare2 = Board.\u000E().\u0016(srcSquare.\u001D().x, destSquare.\u001D().y);
-			BoardSquare destSquare3 = Board.\u000E().\u0016(destSquare.\u001D().x, srcSquare.\u001D().y);
-			if (srcSquare.\u001D(VectorUtils.GetCoverDirection(srcSquare, destSquare2)) == ThinCover.CoverType.Half)
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(srcSquare.GetGridPos().x, destSquare.GetGridPos().y);
+			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(destSquare.GetGridPos().x, srcSquare.GetGridPos().y);
+			if (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, boardSquare)) == ThinCover.CoverType.Half)
 			{
 				for (;;)
 				{
@@ -1146,11 +1146,11 @@ public static class MovementUtils
 				}
 				result = true;
 			}
-			else if (srcSquare.\u001D(VectorUtils.GetCoverDirection(srcSquare, destSquare3)) == ThinCover.CoverType.Half)
+			else if (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, boardSquare2)) == ThinCover.CoverType.Half)
 			{
 				result = true;
 			}
-			else if (destSquare.\u001D(VectorUtils.GetCoverDirection(destSquare, destSquare2)) == ThinCover.CoverType.Half)
+			else if (destSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(destSquare, boardSquare)) == ThinCover.CoverType.Half)
 			{
 				for (;;)
 				{
@@ -1163,7 +1163,7 @@ public static class MovementUtils
 				}
 				result = true;
 			}
-			else if (destSquare.\u001D(VectorUtils.GetCoverDirection(destSquare, destSquare3)) == ThinCover.CoverType.Half)
+			else if (destSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(destSquare, boardSquare2)) == ThinCover.CoverType.Half)
 			{
 				for (;;)
 				{
@@ -1179,7 +1179,7 @@ public static class MovementUtils
 		}
 		else
 		{
-			result = (srcSquare.\u001D(VectorUtils.GetCoverDirection(srcSquare, destSquare)) == ThinCover.CoverType.Half);
+			result = (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, destSquare)) == ThinCover.CoverType.Half);
 		}
 		return result;
 	}
@@ -1243,13 +1243,13 @@ public static class MovementUtils
 	public static bool MovingOverHole(BoardSquare src, BoardSquare dst)
 	{
 		bool result = false;
-		List<BoardSquare> list = Board.\u000E().\u000E(src, dst);
-		using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+		List<BoardSquare> squaresInRect = Board.Get().GetSquaresInRect(src, dst);
+		using (List<BoardSquare>.Enumerator enumerator = squaresInRect.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				BoardSquare boardSquare = enumerator.Current;
-				if (boardSquare.height < Board.\u000E().BaselineHeight)
+				if (boardSquare.height < Board.Get().BaselineHeight)
 				{
 					for (;;)
 					{
@@ -1766,8 +1766,8 @@ public static class MovementUtils
 
 	public static BoardSquarePathInfo Build2PointTeleportPath(ActorData mover, BoardSquare destination)
 	{
-		BoardSquare start = mover.\u0012();
-		return MovementUtils.Build2PointTeleportPath(start, destination);
+		BoardSquare currentBoardSquare = mover.GetCurrentBoardSquare();
+		return MovementUtils.Build2PointTeleportPath(currentBoardSquare, destination);
 	}
 
 	public static BoardSquarePathInfo Build2PointTeleportPath(BoardSquare start, BoardSquare destination)
@@ -1850,7 +1850,7 @@ public static class MovementUtils
 				j++;
 				continue;
 				IL_8C:
-				BoardSquare boardSquare = Board.\u000E().\u0016(currentSquare.x + i, currentSquare.y + j);
+				BoardSquare boardSquare = Board.Get().GetBoardSquare(currentSquare.x + i, currentSquare.y + j);
 				if (!(boardSquare != null))
 				{
 					goto IL_10F;

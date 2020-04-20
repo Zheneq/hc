@@ -166,7 +166,7 @@ public class FlyThroughCamera : MonoBehaviour
 						}
 						break;
 					}
-					componentInChildren.SetInteger("team", (int)activeOwnedActorData.\u000E());
+					componentInChildren.SetInteger("team", (int)activeOwnedActorData.GetTeam());
 				}
 				componentInChildren.SetTrigger(SceneManager.GetActiveScene().name.ToLower());
 				this.m_cameraBoneTransform = this.m_cameraBoneInstance.FindInChildren("camera0", 0).transform;

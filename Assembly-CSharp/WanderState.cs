@@ -50,15 +50,15 @@ public class WanderState : FSMState
 
 	private bool PickNewWanderPoint(NPCBrain thisBrain)
 	{
-		BoardSquare boardSquare = base.MyActorData.\u0012();
+		BoardSquare currentBoardSquare = base.MyActorData.GetCurrentBoardSquare();
 		GameObject gameObject = (!(this.WanderData.WanderRealativeTo != null)) ? thisBrain.gameObject : this.WanderData.WanderRealativeTo;
-		Vector3 size = new Vector3((float)this.WanderData.MinWanderDistanceInSquares * Board.\u000E().squareSize * 2f, 2f, (float)this.WanderData.MinWanderDistanceInSquares * Board.\u000E().squareSize * 2f);
-		Vector3 size2 = new Vector3((float)this.WanderData.MaxWanderDistanceInSquares * Board.\u000E().squareSize * 2f, 2f, (float)this.WanderData.MaxWanderDistanceInSquares * Board.\u000E().squareSize * 2f);
+		Vector3 size = new Vector3((float)this.WanderData.MinWanderDistanceInSquares * Board.Get().squareSize * 2f, 2f, (float)this.WanderData.MinWanderDistanceInSquares * Board.Get().squareSize * 2f);
+		Vector3 size2 = new Vector3((float)this.WanderData.MaxWanderDistanceInSquares * Board.Get().squareSize * 2f, 2f, (float)this.WanderData.MaxWanderDistanceInSquares * Board.Get().squareSize * 2f);
 		Vector3 position = gameObject.transform.position;
 		position.y = 0f;
 		Bounds minBounds = new Bounds(position, size);
 		Bounds u001D = new Bounds(position, size2);
-		List<BoardSquare> list = Board.\u000E().\u000E(u001D, delegate(BoardSquare x)
+		List<BoardSquare> list = Board.Get().\u000E(u001D, delegate(BoardSquare x)
 		{
 			if (x.OccupantActor == null)
 			{
@@ -75,7 +75,7 @@ public class WanderState : FSMState
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(WanderState.<PickNewWanderPoint>c__AnonStorey1.<>m__0(BoardSquare)).MethodHandle;
 				}
-				if (x.\u0016())
+				if (x.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -98,7 +98,7 @@ public class WanderState : FSMState
 				characterActor = base.MyActorData
 			};
 			this.currentDestination = list[GameplayRandom.Range(0, list.Count)];
-			wanderStateArgs.pathLength = boardSquare.HorizontalDistanceInSquaresTo(this.currentDestination);
+			wanderStateArgs.pathLength = currentBoardSquare.HorizontalDistanceInSquaresTo(this.currentDestination);
 			this.totalLengthTravelled += wanderStateArgs.pathLength;
 			wanderStateArgs.totalLengthTravelled = this.totalLengthTravelled;
 			wanderStateArgs.turnsWandering = this.totalTurnsTravelling;
@@ -117,7 +117,7 @@ public class WanderState : FSMState
 
 	public override IEnumerator OnTurn(NPCBrain thisBrain)
 	{
-		BoardSquare x = base.MyActorData.\u0012();
+		BoardSquare currentBoardSquare = base.MyActorData.GetCurrentBoardSquare();
 		if (this.currentDestination == null)
 		{
 			for (;;)
@@ -154,7 +154,7 @@ public class WanderState : FSMState
 				yield break;
 			}
 		}
-		float num = this.currentDestination.HorizontalDistanceInSquaresTo(base.MyActorData.\u0012());
+		float num = this.currentDestination.HorizontalDistanceInSquaresTo(base.MyActorData.GetCurrentBoardSquare());
 		float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
 		if (this.turnsToDelayRemaining == -1)
 		{
@@ -167,7 +167,7 @@ public class WanderState : FSMState
 				}
 				break;
 			}
-			if (!(x == this.currentDestination))
+			if (!(currentBoardSquare == this.currentDestination))
 			{
 				for (;;)
 				{

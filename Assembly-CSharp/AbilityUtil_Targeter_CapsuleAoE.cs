@@ -59,8 +59,8 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
 	{
 		base.ClearActorsInRange();
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		BoardSquare boardSquare2;
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		BoardSquare boardSquare;
 		if (currentTargetIndex > 0)
 		{
 			for (;;)
@@ -76,16 +76,16 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CapsuleAoE.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
 			}
-			boardSquare2 = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
+			boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 		}
 		else
 		{
-			boardSquare2 = boardSquare;
+			boardSquare = boardSquareSafe;
 		}
-		BoardSquare boardSquare3 = boardSquare2;
+		BoardSquare boardSquare2 = boardSquare;
 		if (this.m_ability.GetExpectedNumberOfTargeters() == 1)
 		{
-			boardSquare3 = targetingActor.\u0012();
+			boardSquare2 = targetingActor.GetCurrentBoardSquare();
 		}
 		else if (this.m_ability.GetExpectedNumberOfTargeters() == 0)
 		{
@@ -109,11 +109,11 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 					}
 					break;
 				}
-				boardSquare3 = this.GetDefaultStartSquare();
+				boardSquare2 = this.GetDefaultStartSquare();
 			}
 		}
-		Vector3 vector = boardSquare3.ToVector3();
-		Vector3 vector2 = boardSquare.ToVector3();
+		Vector3 vector = boardSquare2.ToVector3();
+		Vector3 vector2 = boardSquareSafe.ToVector3();
 		bool flag = this.m_rangeFromLine > 0f;
 		bool flag2 = this.m_radiusAroundStart > 0f;
 		bool flag3 = this.m_radiusAroundEnd > 0f;
@@ -360,7 +360,7 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		}
 		List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(vector, vector2, this.m_radiusAroundStart, this.m_radiusAroundEnd, this.m_rangeFromLine, this.m_penetrateLoS, targetingActor, null, null);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadiusOfLine);
-		TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadiusOfLine, targetingActor.\u0016());
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadiusOfLine, targetingActor.GetTravelBoardSquareWorldPosition());
 		foreach (ActorData actorData in actorsInRadiusOfLine)
 		{
 			if (base.GetAffectsTarget(actorData, targetingActor))
@@ -386,9 +386,9 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 						}
 						break;
 					}
-					Vector3 a = actorData.\u0016();
-					a.y = vector2.y;
-					if ((a - vector2).sqrMagnitude <= Mathf.Epsilon)
+					Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
+					travelBoardSquareWorldPosition.y = vector2.y;
+					if ((travelBoardSquareWorldPosition - vector2).sqrMagnitude <= Mathf.Epsilon)
 					{
 						damageOrigin = vector2;
 					}
@@ -405,8 +405,8 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 						}
 						break;
 					}
-					float num2 = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.\u0016());
-					if (num2 <= this.m_radiusAroundStart * Board.\u000E().squareSize)
+					float num2 = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetTravelBoardSquareWorldPosition());
+					if (num2 <= this.m_radiusAroundStart * Board.Get().squareSize)
 					{
 						for (;;)
 						{
@@ -431,8 +431,8 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 						}
 						break;
 					}
-					float num3 = VectorUtils.HorizontalPlaneDistInSquares(vector2, actorData.\u0016());
-					if (num3 <= this.m_radiusAroundEnd * Board.\u000E().squareSize)
+					float num3 = VectorUtils.HorizontalPlaneDistInSquares(vector2, actorData.GetTravelBoardSquareWorldPosition());
+					if (num3 <= this.m_radiusAroundEnd * Board.Get().squareSize)
 					{
 						for (;;)
 						{

@@ -31,7 +31,7 @@ public class Cleric_SyncComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.MeleeKnockbackAnimRangeChanged(int)).MethodHandle;
 			}
-			if (component.\u000E() != null)
+			if (component.GetActorModelData() != null)
 			{
 				for (;;)
 				{
@@ -42,7 +42,7 @@ public class Cleric_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				if (component.\u000E().HasAnimatorControllerParamater("AttackRange"))
+				if (component.GetActorModelData().HasAnimatorControllerParamater("AttackRange"))
 				{
 					for (;;)
 					{
@@ -53,7 +53,7 @@ public class Cleric_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					Animator modelAnimator = component.\u000E().GetModelAnimator();
+					Animator modelAnimator = component.GetActorModelData().GetModelAnimator();
 					modelAnimator.SetInteger(Cleric_SyncComponent.animAttackRange, value);
 				}
 			}

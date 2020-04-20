@@ -467,7 +467,7 @@ public class ClericMeleeKnockback : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (targetActor.\u000E() != base.ActorData.\u000E())
+		if (targetActor.GetTeam() != base.ActorData.GetTeam())
 		{
 			for (;;)
 			{
@@ -507,7 +507,7 @@ public class ClericMeleeKnockback : Ability
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
 		int num = base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
-		AbilityData abilityData = caster.\u000E();
+		AbilityData abilityData = caster.GetAbilityData();
 		if (abilityData != null && abilityData.HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
 			for (;;)
@@ -547,10 +547,10 @@ public class ClericMeleeKnockback : Ability
 			}
 			return false;
 		}
-		Vector3 vector = targetingActor.\u0015();
-		centerPos.y = vector.y;
-		Vector3 vector2 = centerPos - vector;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, vector2.normalized, vector2.magnitude, false, targetingActor, null, true);
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		centerPos.y = travelBoardSquareWorldPositionForLos.y;
+		Vector3 vector = centerPos - travelBoardSquareWorldPositionForLos;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, vector.normalized, vector.magnitude, false, targetingActor, null, true);
 		if (Vector3.Distance(laserEndPoint, centerPos) > 0.1f)
 		{
 			for (;;)
@@ -566,11 +566,11 @@ public class ClericMeleeKnockback : Ability
 		}
 		if (!this.PenetrateLineOfSight())
 		{
-			Vector3 vector3 = testSquare.ToVector3();
-			vector3.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
-			Vector3 vector4 = vector3 - centerPos;
-			laserEndPoint = VectorUtils.GetLaserEndPoint(centerPos, vector4.normalized, vector4.magnitude, false, targetingActor, null, true);
-			if (Vector3.Distance(laserEndPoint, vector3) > 0.1f)
+			Vector3 vector2 = testSquare.ToVector3();
+			vector2.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+			Vector3 vector3 = vector2 - centerPos;
+			laserEndPoint = VectorUtils.GetLaserEndPoint(centerPos, vector3.normalized, vector3.magnitude, false, targetingActor, null, true);
+			if (Vector3.Distance(laserEndPoint, vector2) > 0.1f)
 			{
 				return false;
 			}
@@ -580,6 +580,6 @@ public class ClericMeleeKnockback : Ability
 
 	public bool ShouldIncludeAoEActor(ActorData potentialActor, Vector3 centerPos, ActorData targetingActor)
 	{
-		return !(potentialActor == null) && this.IsSquareInLosForCone(potentialActor.\u0012(), centerPos, targetingActor);
+		return !(potentialActor == null) && this.IsSquareInLosForCone(potentialActor.GetCurrentBoardSquare(), centerPos, targetingActor);
 	}
 }

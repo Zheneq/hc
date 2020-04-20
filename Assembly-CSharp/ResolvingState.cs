@@ -36,7 +36,7 @@ public class ResolvingState : TurnState
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateNameplateUntargeted(component, true);
 		}
 		HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.NoCursorType);
-		ActorMovement actorMovement = component.\u000E();
+		ActorMovement actorMovement = component.GetActorMovement();
 		actorMovement.OnGameStateChange(false);
 		this.m_stateTime = 0f;
 		bool flag = component.HasQueuedMovement();
@@ -109,7 +109,7 @@ public class ResolvingState : TurnState
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.OnMsg(TurnMessage, int)).MethodHandle;
 				}
-				str = component.\u0018();
+				str = component.GetDebugName();
 			}
 			else
 			{
@@ -186,7 +186,7 @@ public class ResolvingState : TurnState
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.Update()).MethodHandle;
 			}
-			if (component.\u000E())
+			if (component.IsDead())
 			{
 				this.m_SM.NextState = TurnStateEnum.WAITING;
 			}

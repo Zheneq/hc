@@ -82,7 +82,7 @@ public class Dino_SyncComponent : NetworkBehaviour
 
 	public void SetDashReadyStanceAnimParams(int idleType, bool forceIdle)
 	{
-		Animator animator = this.m_actor.\u000E();
+		Animator modelAnimator = this.m_actor.GetModelAnimator();
 		if (NetworkClient.active)
 		{
 			for (;;)
@@ -98,9 +98,9 @@ public class Dino_SyncComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Dino_SyncComponent.SetDashReadyStanceAnimParams(int, bool)).MethodHandle;
 			}
-			if (animator != null)
+			if (modelAnimator != null)
 			{
-				animator.SetInteger(Dino_SyncComponent.s_aHashIdleType, idleType);
+				modelAnimator.SetInteger(Dino_SyncComponent.s_aHashIdleType, idleType);
 				if (forceIdle)
 				{
 					for (;;)
@@ -112,7 +112,7 @@ public class Dino_SyncComponent : NetworkBehaviour
 						}
 						break;
 					}
-					animator.SetTrigger(Dino_SyncComponent.s_aHashForceIdle);
+					modelAnimator.SetTrigger(Dino_SyncComponent.s_aHashForceIdle);
 				}
 			}
 		}

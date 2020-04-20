@@ -80,7 +80,7 @@ public class GrydCardinalSegmentInfo
 				KeyValuePair<ActorData, AreaEffectUtils.BouncingLaserInfo> keyValuePair = enumerator.Current;
 				ActorData key = keyValuePair.Key;
 				Vector3 segmentOrigin = keyValuePair.Value.m_segmentOrigin;
-				ActorCover actorCover = key.\u000E();
+				ActorCover actorCover = key.GetActorCover();
 				bool flag = actorCover.IsInCoverWrt(segmentOrigin);
 				if (actorToHitContext.ContainsKey(key))
 				{
@@ -165,7 +165,7 @@ public class GrydCardinalSegmentInfo
 	{
 		Vector3 vector = parentSegment.m_startSquare.ToVector3();
 		parentSegment.m_segmentIndex = segmentIndex;
-		vector.y = Board.\u000E().LosCheckHeight;
+		vector.y = Board.Get().LosCheckHeight;
 		float num = maxDistInSquares * Board.SquareSizeStatic;
 		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, parentSegment.m_direction, num, false, caster, nonActorTargetInfo, true);
 		Vector3 vector2 = laserEndPoint - vector;
@@ -251,13 +251,13 @@ public class GrydCardinalSegmentInfo
 						}
 						break;
 					}
-					startSquare = actorsInLaser[0].\u0012();
+					startSquare = actorsInLaser[0].GetCurrentBoardSquare();
 					flag3 = true;
 				}
 			}
 			if (actorsInLaser.Count > 0 && !continueAfterActorHit)
 			{
-				boardSquare = actorsInLaser[0].\u0012();
+				boardSquare = actorsInLaser[0].GetCurrentBoardSquare();
 			}
 			for (int i = 0; i < actorsInLaser.Count; i++)
 			{

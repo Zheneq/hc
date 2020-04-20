@@ -176,24 +176,24 @@ public class ArcherBendingArrow : Ability
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 b = targetingActor.\u0015();
-		float magnitude = (currentTarget.FreePos - b).magnitude;
-		if (magnitude < this.GetMinRangeBeforeBend() * Board.\u000E().squareSize)
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
+		if (magnitude < this.GetMinRangeBeforeBend() * Board.Get().squareSize)
 		{
 			return this.GetMinRangeBeforeBend();
 		}
-		if (magnitude > this.GetMaxRangeBeforeBend() * Board.\u000E().squareSize)
+		if (magnitude > this.GetMaxRangeBeforeBend() * Board.Get().squareSize)
 		{
 			return this.GetMaxRangeBeforeBend();
 		}
-		return magnitude / Board.\u000E().squareSize;
+		return magnitude / Board.Get().squareSize;
 	}
 
 	private float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 a = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		float clampedRangeInSquares = this.GetClampedRangeInSquares(targetingActor, previousTarget);
-		bendPos = a + previousTarget.AimDirection * clampedRangeInSquares * Board.\u000E().squareSize;
+		bendPos = travelBoardSquareWorldPositionForLos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
 		return this.GetMaxTotalRange() - clampedRangeInSquares;
 	}
 
@@ -401,8 +401,8 @@ public class ArcherBendingArrow : Ability
 							}
 							break;
 						}
-						BoardSquare square = Board.\u000E().\u000E(abilityTargetsInRequest[0].GridPos);
-						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(square, true, false, base.ActorData);
+						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
+						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{
 							for (;;)
@@ -447,8 +447,8 @@ public class ArcherBendingArrow : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
 			}
-			min = this.GetMinRangeBeforeBend() * Board.\u000E().squareSize;
-			max = this.GetMaxRangeBeforeBend() * Board.\u000E().squareSize;
+			min = this.GetMinRangeBeforeBend() * Board.Get().squareSize;
+			max = this.GetMaxRangeBeforeBend() * Board.Get().squareSize;
 			return true;
 		}
 		if (targetIndex == 1)
@@ -500,10 +500,10 @@ public class ArcherBendingArrow : Ability
 		if (targetIndex == 1)
 		{
 			AbilityTarget abilityTarget = targetsSoFar[0];
-			Vector3 vector = aimingActor.\u0015();
-			float magnitude = (abilityTarget.FreePos - vector).magnitude;
+			Vector3 travelBoardSquareWorldPositionForLos = aimingActor.GetTravelBoardSquareWorldPositionForLos();
+			float magnitude = (abilityTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
 			float d;
-			if (magnitude < this.GetMinRangeBeforeBend() * Board.\u000E().squareSize)
+			if (magnitude < this.GetMinRangeBeforeBend() * Board.Get().squareSize)
 			{
 				for (;;)
 				{
@@ -518,9 +518,9 @@ public class ArcherBendingArrow : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.HasAimingOriginOverride(ActorData, int, List<AbilityTarget>, Vector3*)).MethodHandle;
 				}
-				d = this.GetMinRangeBeforeBend() * Board.\u000E().squareSize;
+				d = this.GetMinRangeBeforeBend() * Board.Get().squareSize;
 			}
-			else if (magnitude > this.GetMaxRangeBeforeBend() * Board.\u000E().squareSize)
+			else if (magnitude > this.GetMaxRangeBeforeBend() * Board.Get().squareSize)
 			{
 				for (;;)
 				{
@@ -531,14 +531,14 @@ public class ArcherBendingArrow : Ability
 					}
 					break;
 				}
-				d = this.GetMaxRangeBeforeBend() * Board.\u000E().squareSize;
+				d = this.GetMaxRangeBeforeBend() * Board.Get().squareSize;
 			}
 			else
 			{
 				d = magnitude;
 			}
-			Vector3 vector2 = vector + abilityTarget.AimDirection * d;
-			overridePos = vector2;
+			Vector3 vector = travelBoardSquareWorldPositionForLos + abilityTarget.AimDirection * d;
+			overridePos = vector;
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);

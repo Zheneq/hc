@@ -608,7 +608,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 				int num2 = 0;
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
-					if (visibleActorsInRangeByTooltipSubject[i].\u000E() != targetActor.\u000E())
+					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
 					{
 						for (;;)
 						{
@@ -674,7 +674,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 						Dictionary<AbilityTooltipSymbol, int> dictionary2 = dictionary;
 						AbilityTooltipSymbol key = AbilityTooltipSymbol.Energy;
 						int value2;
-						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.\u0012()))
+						if (AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams()))
 						{
 							for (;;)
 							{
@@ -717,7 +717,7 @@ public class ClaymoreAoeBuffDebuff : Ability
 							}
 							break;
 						}
-						dictionary[AbilityTooltipSymbol.Energy] = ((!AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.\u0012())) ? 0 : this.GetAllyEnergyGain());
+						dictionary[AbilityTooltipSymbol.Energy] = ((!AreaEffectUtils.HasAdjacentActorOfTeam(targetActor, targetActor.GetTeams())) ? 0 : this.GetAllyEnergyGain());
 					}
 				}
 			}

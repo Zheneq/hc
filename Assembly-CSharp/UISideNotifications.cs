@@ -242,9 +242,9 @@ public class UISideNotifications : MonoBehaviour
 							}
 							break;
 						}
-						if (gameFlowData.activeOwnedActorData.\u000E() != this.m_currentTeam)
+						if (gameFlowData.activeOwnedActorData.GetTeam() != this.m_currentTeam)
 						{
-							this.SetupSideProfiles(gameFlowData.activeOwnedActorData.\u000E());
+							this.SetupSideProfiles(gameFlowData.activeOwnedActorData.GetTeam());
 						}
 					}
 				}
@@ -677,7 +677,7 @@ public class UISideNotifications : MonoBehaviour
 		GameFlowData gameFlowData = GameFlowData.Get();
 		ActorData currentActor = GameFlowData.Get().firstOwnedFriendlyActorData;
 		List<ActorData> list = (from x in gameFlowData.m_ownedActorDatas
-		where x.\u000E() == currentActor.\u000E()
+		where x.GetTeam() == currentActor.GetTeam()
 		select x).ToList<ActorData>();
 		if (list.Count > 1)
 		{

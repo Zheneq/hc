@@ -49,10 +49,10 @@ public class BrushRegion : BoardRegion
 				if (!(this.m_quads[0].m_corner2 == null))
 				{
 					Vector3 position = this.m_quads[0].m_corner1.position;
-					BoardSquare boardSquare = Board.\u000E().\u0015(position.x, position.z);
+					BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(position.x, position.z);
 					Vector3 position2 = this.m_quads[0].m_corner2.position;
-					BoardSquare boardSquare2 = Board.\u000E().\u0015(position2.x, position2.z);
-					if (!(boardSquare != null))
+					BoardSquare boardSquareUnsafe2 = Board.Get().GetBoardSquareUnsafe(position2.x, position2.z);
+					if (!(boardSquareUnsafe != null))
 					{
 						goto IL_16D;
 					}
@@ -65,7 +65,7 @@ public class BrushRegion : BoardRegion
 						}
 						break;
 					}
-					if (!(boardSquare2 != null))
+					if (!(boardSquareUnsafe2 != null))
 					{
 						goto IL_16D;
 					}
@@ -78,7 +78,7 @@ public class BrushRegion : BoardRegion
 						}
 						break;
 					}
-					Vector3 position3 = (boardSquare.ToVector3() + boardSquare2.ToVector3()) * 0.5f;
+					Vector3 position3 = (boardSquareUnsafe.ToVector3() + boardSquareUnsafe2.ToVector3()) * 0.5f;
 					if (this.m_functioningVFX != null)
 					{
 						this.m_functioningVFX.transform.position = position3;
@@ -106,13 +106,13 @@ public class BrushRegion : BoardRegion
 		this.m_perSquareFunctioningVFX = new List<GameObject>();
 		this.m_perSquareDisruptedVFX = new List<GameObject>();
 		this.m_exteriorSquareFlags = new Dictionary<BoardSquare, byte>();
-		List<BoardSquare> list = base.\u001D();
-		using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+		List<BoardSquare> squaresInRegion = base.GetSquaresInRegion();
+		using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
-				BoardSquare boardSquare3 = enumerator.Current;
-				if (boardSquare3.\u0016())
+				BoardSquare boardSquare = enumerator.Current;
+				if (boardSquare.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -123,7 +123,7 @@ public class BrushRegion : BoardRegion
 						}
 						break;
 					}
-					Vector3 position4 = boardSquare3.ToVector3();
+					Vector3 position4 = boardSquare.ToVector3();
 					if (HighlightUtils.Get() != null)
 					{
 						for (;;)
@@ -169,7 +169,7 @@ public class BrushRegion : BoardRegion
 						}
 					}
 					byte b = 0;
-					BrushRegion.MaskSideFlagForSquare(ref b, boardSquare3, list);
+					BrushRegion.MaskSideFlagForSquare(ref b, boardSquare, squaresInRegion);
 					if (b != 0)
 					{
 						for (;;)
@@ -181,7 +181,7 @@ public class BrushRegion : BoardRegion
 							}
 							break;
 						}
-						this.m_exteriorSquareFlags[boardSquare3] = b;
+						this.m_exteriorSquareFlags[boardSquare] = b;
 					}
 				}
 			}
@@ -338,7 +338,7 @@ public class BrushRegion : BoardRegion
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					if (actorData.\u0018() == regionIndex)
+					if (actorData.GetTravelBoardSquareBrushRegion() == regionIndex)
 					{
 						for (;;)
 						{
@@ -603,14 +603,14 @@ public class BrushRegion : BoardRegion
 
 	private static void MaskSideFlagForSquare(ref byte sideFlags, BoardSquare centerSquare, List<BoardSquare> squaresInSet)
 	{
-		BoardSquare squareToTest = Board.\u000E().\u0016(centerSquare.x, centerSquare.y + 1);
-		BoardSquare squareToTest2 = Board.\u000E().\u0016(centerSquare.x, centerSquare.y - 1);
-		BoardSquare squareToTest3 = Board.\u000E().\u0016(centerSquare.x - 1, centerSquare.y);
-		BoardSquare squareToTest4 = Board.\u000E().\u0016(centerSquare.x + 1, centerSquare.y);
-		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Up, squareToTest, squaresInSet);
-		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Down, squareToTest2, squaresInSet);
-		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Left, squareToTest3, squaresInSet);
-		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Right, squareToTest4, squaresInSet);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(centerSquare.x, centerSquare.y + 1);
+		BoardSquare boardSquare2 = Board.Get().GetBoardSquare(centerSquare.x, centerSquare.y - 1);
+		BoardSquare boardSquare3 = Board.Get().GetBoardSquare(centerSquare.x - 1, centerSquare.y);
+		BoardSquare boardSquare4 = Board.Get().GetBoardSquare(centerSquare.x + 1, centerSquare.y);
+		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Up, boardSquare, squaresInSet);
+		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Down, boardSquare2, squaresInSet);
+		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Left, boardSquare3, squaresInSet);
+		BrushRegion.ApplyMarkForSide(ref sideFlags, SideFlags.Right, boardSquare4, squaresInSet);
 	}
 
 	private unsafe static void ApplyMarkForSide(ref byte sideFlags, SideFlags mask, BoardSquare squareToTest, List<BoardSquare> squaresInSet)
@@ -630,7 +630,7 @@ public class BrushRegion : BoardRegion
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.ApplyMarkForSide(byte*, SideFlags, BoardSquare, List<BoardSquare>)).MethodHandle;
 			}
-			if (squareToTest.\u0016())
+			if (squareToTest.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -836,8 +836,8 @@ public class BrushRegion : BoardRegion
 		if (square != null)
 		{
 			Vector3 a = square.ToVector3();
-			Vector3 b = new Vector3(0f, 0f, 0.5f * Board.\u000E().squareSize);
-			Vector3 b2 = new Vector3(0.5f * Board.\u000E().squareSize, 0f, 0f);
+			Vector3 b = new Vector3(0f, 0f, 0.5f * Board.Get().squareSize);
+			Vector3 b2 = new Vector3(0.5f * Board.Get().squareSize, 0f, 0f);
 			if ((sideFlags & 1) != 0)
 			{
 				for (;;)

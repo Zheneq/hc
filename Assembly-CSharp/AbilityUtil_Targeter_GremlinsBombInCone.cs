@@ -61,7 +61,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		GridPos u001D;
+		GridPos gridPos;
 		if (this.GetCurrentRangeInSquares() != 0f)
 		{
 			for (;;)
@@ -77,13 +77,13 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_GremlinsBombInCone.GetGameplayRefSquare(AbilityTarget, ActorData)).MethodHandle;
 			}
-			u001D = currentTarget.GridPos;
+			gridPos = currentTarget.GridPos;
 		}
 		else
 		{
-			u001D = targetingActor.\u000E();
+			gridPos = targetingActor.GetGridPosWithIncrementedHeight();
 		}
-		return Board.\u000E().\u000E(u001D);
+		return Board.Get().GetBoardSquareSafe(gridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
@@ -105,7 +105,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_GremlinsBombInCone.GetHighlightGoalPos(AbilityTarget, ActorData)).MethodHandle;
 			}
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			centerOfShape.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -164,7 +164,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				return false;
 			}
 		}
-		if (targetActor.\u000E() == caster.\u000E())
+		if (targetActor.GetTeam() == caster.GetTeam())
 		{
 			return this.m_affectsAllies;
 		}
@@ -322,7 +322,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 					}
 					break;
 				}
-				damageOrigin = targetingActor.\u0015();
+				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			}
 			else
 			{
@@ -340,7 +340,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (this.MatchesTeam(occupantActor, targetingActor) && occupantActor.\u0018())
+				if (this.MatchesTeam(occupantActor, targetingActor) && occupantActor.IsVisibleToClient())
 				{
 					for (;;)
 					{
@@ -431,7 +431,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 		{
 			GameObject gameObject = this.m_highlights[2];
 			GameObject gameObject2 = this.m_highlights[3];
-			Vector3 vec = targetSquare.ToVector3() - targetingActor.\u0016();
+			Vector3 vec = targetSquare.ToVector3() - targetingActor.GetTravelBoardSquareWorldPosition();
 			vec.y = 0f;
 			if (vec.magnitude > 0f)
 			{
@@ -440,10 +440,10 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				float num = VectorUtils.HorizontalAngle_Deg(vec);
 				float angle = num + this.m_angleWithCenter;
 				float angle2 = num - this.m_angleWithCenter;
-				Vector3 position = targetingActor.\u0016();
-				position.y = HighlightUtils.GetHighlightHeight();
-				gameObject.transform.position = position;
-				gameObject2.transform.position = position;
+				Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+				travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
+				gameObject.transform.position = travelBoardSquareWorldPosition;
+				gameObject2.transform.position = travelBoardSquareWorldPosition;
 				gameObject.transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(angle));
 				gameObject2.transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(angle2));
 			}
@@ -486,7 +486,7 @@ public class AbilityUtil_Targeter_GremlinsBombInCone : AbilityUtil_Targeter
 				break;
 			}
 		}
-		if (potentialTarget.\u000E() == targetingActor.\u000E())
+		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{
 			base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, this.m_allyTooltipSubject, false);
 		}

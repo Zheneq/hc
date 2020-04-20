@@ -153,7 +153,7 @@ public class UICharacterMovementItem : MonoBehaviour
 							}
 							break;
 						}
-						flag3 = (this.actorDataRef[i].\u000E() == Team.TeamA);
+						flag3 = (this.actorDataRef[i].GetTeam() == Team.TeamA);
 					}
 					else if (GameFlowData.Get().activeOwnedActorData != null)
 					{
@@ -166,7 +166,7 @@ public class UICharacterMovementItem : MonoBehaviour
 							}
 							break;
 						}
-						flag3 = (this.actorDataRef[i].\u000E() == GameFlowData.Get().activeOwnedActorData.\u000E());
+						flag3 = (this.actorDataRef[i].GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam());
 					}
 					else
 					{
@@ -199,7 +199,7 @@ public class UICharacterMovementItem : MonoBehaviour
 							if (uicharacterMovementMarker.gameObject != null)
 							{
 								UIManager.SetGameObjectActive(uicharacterMovementMarker, true, null);
-								uicharacterMovementMarker.m_characterImage.sprite = this.actorDataRef[i].\u0015();
+								uicharacterMovementMarker.m_characterImage.sprite = this.actorDataRef[i].GetScreenIndicatorIcon();
 								num++;
 							}
 						}
@@ -218,7 +218,7 @@ public class UICharacterMovementItem : MonoBehaviour
 							break;
 						}
 						UIManager.SetGameObjectActive(uicharacterMovementMarker2, true, null);
-						uicharacterMovementMarker2.m_characterImage.sprite = this.actorDataRef[i].\u0015();
+						uicharacterMovementMarker2.m_characterImage.sprite = this.actorDataRef[i].GetScreenIndicatorIcon();
 						num2++;
 						goto IL_220;
 					}

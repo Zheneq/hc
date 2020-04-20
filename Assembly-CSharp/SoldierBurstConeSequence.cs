@@ -90,7 +90,7 @@ public class SoldierBurstConeSequence : Sequence
 						}
 						break;
 					}
-					this.m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.\u000E().squareSize;
+					this.m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
 				}
 			}
 		}
@@ -126,7 +126,7 @@ public class SoldierBurstConeSequence : Sequence
 			this.m_aimDirection = base.Caster.transform.forward;
 			this.m_aimDirection.y = 0f;
 		}
-		Vector3 a = base.Caster.\u0016();
+		Vector3 travelBoardSquareWorldPosition = base.Caster.GetTravelBoardSquareWorldPosition();
 		float num = VectorUtils.HorizontalAngle_Deg(this.m_aimDirection);
 		float num2 = this.m_coneAngle / 3f;
 		float num3 = num + num2 * 1f;
@@ -172,7 +172,7 @@ public class SoldierBurstConeSequence : Sequence
 					}
 					break;
 				}
-				if (list2[j].\u0012() == null)
+				if (list2[j].GetCurrentBoardSquare() == null)
 				{
 					goto IL_187;
 				}
@@ -185,7 +185,7 @@ public class SoldierBurstConeSequence : Sequence
 					}
 					break;
 				}
-				bool flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(list2[j].\u0012(), base.Caster.\u0016(), num4, num2 + 5f, this.m_maxProjectileDistInWorld, 0f, true, base.Caster, false, default(Vector3));
+				bool flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(list2[j].GetCurrentBoardSquare(), base.Caster.GetTravelBoardSquareWorldPosition(), num4, num2 + 5f, this.m_maxProjectileDistInWorld, 0f, true, base.Caster, false, default(Vector3));
 				IL_188:
 				bool flag3 = flag2;
 				if (flag3)
@@ -230,8 +230,8 @@ public class SoldierBurstConeSequence : Sequence
 				float angle = num5 - (float)k * num6;
 				Vector3 vector = VectorUtils.AngleDegreesToVector(angle);
 				float maxProjectileDistInWorld = this.m_maxProjectileDistInWorld;
-				Vector3 vector2 = a + maxProjectileDistInWorld * vector;
-				vector2.y = a.y;
+				Vector3 vector2 = travelBoardSquareWorldPosition + maxProjectileDistInWorld * vector;
+				vector2.y = travelBoardSquareWorldPosition.y;
 				bool flag4 = k == this.m_projectilePerBurst - 1;
 				SoldierBurstConeSequence.BurstVfxAuthoredData projectileInfo = this.m_projectileInfo;
 				Vector3 impactDir = vector;
@@ -649,7 +649,7 @@ public class SoldierBurstConeSequence : Sequence
 		private float GetProjectileDistance(Vector3 start, Vector3 forward, float maxDist)
 		{
 			Vector3 vector = start;
-			vector.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+			vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 			Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, this.m_caster, null, true);
 			return (vector - laserEndPoint).magnitude;
 		}

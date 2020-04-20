@@ -167,7 +167,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPlayerEntry.CanPlayerReport()).MethodHandle;
 			}
-			if (this.m_actor.\u0012() != -1L)
+			if (this.m_actor.GetAccountIdWithSomeConditionB_zq() != -1L)
 			{
 				for (;;)
 				{
@@ -178,7 +178,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				if (this.m_actor.\u000E() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
+				if (this.m_actor.GetAccountIdWithSomeConditionA_zq() != ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
 					for (;;)
 					{
@@ -189,7 +189,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						}
 						break;
 					}
-					if (!this.m_actor.\u0019())
+					if (!this.m_actor.GetIsHumanControlled())
 					{
 						for (;;)
 						{
@@ -200,9 +200,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 							}
 							break;
 						}
-						if (!this.m_actor.\u000E().m_botsMasqueradeAsHumans)
+						if (!this.m_actor.GetPlayerDetails().m_botsMasqueradeAsHumans)
 						{
-							result = (this.m_actor.\u000E().ReplacedWithBots ? 1 : 0);
+							result = (this.m_actor.GetPlayerDetails().ReplacedWithBots ? 1 : 0);
 							goto IL_B0;
 						}
 					}
@@ -313,7 +313,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				ActorBehavior actorBehavior = this.m_actor.\u000E();
+				ActorBehavior actorBehavior = this.m_actor.GetActorBehavior();
 				uicontributionTooltip.Setup(StringUtil.TR("Contribution", "GameOver"), actorBehavior.GetContributionBreakdownForUI());
 				return true;
 			}
@@ -546,7 +546,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		ActorData actorData3 = actorData2;
 		if (actorData3 != null)
 		{
-			team = actorData3.\u000E();
+			team = actorData3.GetTeam();
 		}
 		UIManager.SetGameObjectActive(this.m_reportPlayerBtn, this.CanPlayerReport(), null);
 		this.m_reportPlayerBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ReportPlayerBtnClicked);
@@ -616,7 +616,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					}
 					break;
 				}
-				if (team != this.m_actor.\u000E())
+				if (team != this.m_actor.GetTeam())
 				{
 					for (;;)
 					{
@@ -703,7 +703,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		if (team == Team.Spectator)
 		{
-			bool flag3 = this.m_actor == null || this.m_actor.\u000E() == Team.TeamA;
+			bool flag3 = this.m_actor == null || this.m_actor.GetTeam() == Team.TeamA;
 			UIManager.SetGameObjectActive(this.m_teamAImage, flag3, null);
 			UIManager.SetGameObjectActive(this.m_DebugTeamAImage, flag3, null);
 			UIManager.SetGameObjectActive(this.m_teamBImage, !flag3, null);
@@ -932,7 +932,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			}
 		}
 		IL_916:
-		AbilityData abilityData2 = (!(actorData != null)) ? null : actorData.\u000E();
+		AbilityData abilityData2 = (!(actorData != null)) ? null : actorData.GetAbilityData();
 		for (int i = 0; i < statline.AbilityEntries.Length; i++)
 		{
 			if (i < this.m_abilityBtns.Length)
@@ -1089,7 +1089,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 									if (abilityEntry2.GetCooldownRemaining() > 0)
 									{
 										bool flag7;
-										if (num2 >= actorData.\u0016())
+										if (num2 >= actorData.GetActualMaxTechPoints())
 										{
 											for (;;)
 											{

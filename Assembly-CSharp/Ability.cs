@@ -713,7 +713,7 @@ public class Ability : MonoBehaviour
 
 	public virtual bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
 	{
-		overridePos = aimingActor.\u0016();
+		overridePos = aimingActor.GetTravelBoardSquareWorldPosition();
 		return false;
 	}
 
@@ -1434,7 +1434,7 @@ public class Ability : MonoBehaviour
 							}
 							break;
 						}
-						if (teamViewing != this.ActorData.\u000E())
+						if (teamViewing != this.ActorData.GetTeam())
 						{
 							goto IL_ED;
 						}
@@ -1454,7 +1454,7 @@ public class Ability : MonoBehaviour
 						break;
 					}
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-					ActorTurnSM actorTurnSM = this.ActorData.\u000E();
+					ActorTurnSM actorTurnSM = this.ActorData.GetActorTurnSM();
 					if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
 						for (;;)
@@ -1692,7 +1692,7 @@ public class Ability : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CanTargetActorInDecision(ActorData, ActorData, bool, bool, bool, Ability.ValidateCheckPath, bool, bool, bool)).MethodHandle;
 			}
-			if (!caster.\u000E() && caster.\u0012() != null && targetActor != null)
+			if (!caster.IsDead() && caster.GetCurrentBoardSquare() != null && targetActor != null)
 			{
 				for (;;)
 				{
@@ -1703,7 +1703,7 @@ public class Ability : MonoBehaviour
 					}
 					break;
 				}
-				if (!targetActor.\u000E())
+				if (!targetActor.IsDead())
 				{
 					for (;;)
 					{
@@ -1714,7 +1714,7 @@ public class Ability : MonoBehaviour
 						}
 						break;
 					}
-					if (targetActor.\u0012() != null)
+					if (targetActor.GetCurrentBoardSquare() != null)
 					{
 						for (;;)
 						{
@@ -1736,9 +1736,9 @@ public class Ability : MonoBehaviour
 								}
 								break;
 							}
-							BoardSquare boardSquare = targetActor.\u0012();
-							bool flag = (!NetworkClient.active) ? targetActor.\u000E(caster, false) : targetActor.\u0018();
-							bool flag2 = caster.\u000E() == targetActor.\u000E();
+							BoardSquare currentBoardSquare = targetActor.GetCurrentBoardSquare();
+							bool flag = (!NetworkClient.active) ? targetActor.IsActorVisibleToActor(caster, false) : targetActor.IsVisibleToClient();
+							bool flag2 = caster.GetTeam() == targetActor.GetTeam();
 							if (flag)
 							{
 								for (;;)
@@ -1820,7 +1820,7 @@ public class Ability : MonoBehaviour
 								}
 								float currentMinRangeInSquares = AbilityUtils.GetCurrentMinRangeInSquares(this, caster, 0);
 								float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(this, caster, 0);
-								bool flag3 = caster.\u000E().IsTargetSquareInRangeOfAbilityFromSquare(targetActor.\u0012(), caster.\u0012(), currentRangeInSquares, currentMinRangeInSquares);
+								bool flag3 = caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), currentRangeInSquares, currentMinRangeInSquares);
 								if (checkLineOfSight)
 								{
 									if (ignoreLosSettingOnTargetData)
@@ -1834,15 +1834,15 @@ public class Ability : MonoBehaviour
 											}
 											break;
 										}
-										flag3 = (flag3 && caster.\u0012().\u0013(boardSquare.x, boardSquare.y));
+										flag3 = (flag3 && caster.GetCurrentBoardSquare().\u0013(currentBoardSquare.x, currentBoardSquare.y));
 									}
 									else
 									{
-										flag3 = (flag3 && (!this.GetCheckLoS(0) || caster.\u0012().\u0013(boardSquare.x, boardSquare.y)));
+										flag3 = (flag3 && (!this.GetCheckLoS(0) || caster.GetCurrentBoardSquare().\u0013(currentBoardSquare.x, currentBoardSquare.y)));
 									}
 								}
 								bool flag4 = true;
-								ActorStatus actorStatus = targetActor.\u000E();
+								ActorStatus actorStatus = targetActor.GetActorStatus();
 								if (checkStatusImmunities && actorStatus != null)
 								{
 									for (;;)
@@ -1958,7 +1958,7 @@ public class Ability : MonoBehaviour
 										{
 											bool passThroughInvalidSquares = checkPath == Ability.ValidateCheckPath.CanBuildPathAllowThroughInvalid;
 											int num;
-											result = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.\u0012(), caster.\u0012(), passThroughInvalidSquares, out num);
+											result = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), passThroughInvalidSquares, out num);
 										}
 									}
 								}
@@ -2272,7 +2272,7 @@ public class Ability : MonoBehaviour
 		}
 		else
 		{
-			abilityData = this.ActorData.\u000E();
+			abilityData = this.ActorData.GetAbilityData();
 		}
 		AbilityData abilityData2 = abilityData;
 		bool result;
@@ -2501,7 +2501,7 @@ public class Ability : MonoBehaviour
 		else
 		{
 			Log.Warning("Ability " + this.m_abilityName + " has no targeter, but we're checking actors in its range.", new object[0]);
-			flag = (Board.\u000E().PlayerClampedSquare == actor.\u0012());
+			flag = (Board.Get().PlayerClampedSquare == actor.GetCurrentBoardSquare());
 			inCover = false;
 		}
 		return flag;
@@ -2580,7 +2580,7 @@ public class Ability : MonoBehaviour
 							hashSet.Add(actorTarget.m_actor.ActorIndex);
 							if (!actorTarget.m_actor.IgnoreForEnergyOnHit)
 							{
-								if (caster.\u000E() == actorTarget.m_actor.\u000E())
+								if (caster.GetTeam() == actorTarget.m_actor.GetTeam())
 								{
 									for (;;)
 									{
@@ -2877,7 +2877,7 @@ public class Ability : MonoBehaviour
 							}
 							break;
 						}
-						result = (activeOwnedActorData.\u000E() == actorData.\u000E());
+						result = (activeOwnedActorData.GetTeam() == actorData.GetTeam());
 					}
 				}
 			}
@@ -2942,8 +2942,8 @@ public class Ability : MonoBehaviour
 				}
 				if (targetData[0].m_targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 				{
-					BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-					if (boardSquare != null)
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+					if (boardSquareSafe != null)
 					{
 						for (;;)
 						{
@@ -2954,7 +2954,7 @@ public class Ability : MonoBehaviour
 							}
 							break;
 						}
-						return boardSquare.ToVector3();
+						return boardSquareSafe.ToVector3();
 					}
 				}
 			}
@@ -3363,7 +3363,7 @@ public class Ability : MonoBehaviour
 						}
 						break;
 					}
-					result = Board.\u000E().\u000E(targets[targets.Count - 1].GridPos);
+					result = Board.Get().GetBoardSquareSafe(targets[targets.Count - 1].GridPos);
 				}
 			}
 		}
@@ -3646,7 +3646,7 @@ public class Ability : MonoBehaviour
 		if (abilityMod.GetTargetAbilityType() == base.GetType())
 		{
 			this.ResetAbilityTargeters();
-			ActorTargeting actorTargeting = actor.\u000E();
+			ActorTargeting actorTargeting = actor.GetActorTargeting();
 			if (actorTargeting != null)
 			{
 				for (;;)
@@ -3746,7 +3746,7 @@ public class Ability : MonoBehaviour
 						}
 						break;
 					}
-					ActorTurnSM actorTurnSM = activeOwnedActorData.\u000E();
+					ActorTurnSM actorTurnSM = activeOwnedActorData.GetActorTurnSM();
 					if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
 						for (;;)

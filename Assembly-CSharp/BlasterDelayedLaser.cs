@@ -405,7 +405,7 @@ public class BlasterDelayedLaser : Ability
 					}
 					else
 					{
-						vector = actorData.\u0016();
+						vector = actorData.GetTravelBoardSquareWorldPosition();
 					}
 					Vector3 b = vector;
 					if (this.GetExtraDamageToNearEnemy() > 0 && this.GetNearDistance() > 0f)
@@ -419,8 +419,8 @@ public class BlasterDelayedLaser : Ability
 							}
 							break;
 						}
-						float num2 = this.GetNearDistance() * Board.\u000E().squareSize;
-						Vector3 vector2 = targetActor.\u0016() - b;
+						float num2 = this.GetNearDistance() * Board.Get().squareSize;
+						Vector3 vector2 = targetActor.GetTravelBoardSquareWorldPosition() - b;
 						vector2.y = 0f;
 						if (vector2.magnitude <= num2)
 						{

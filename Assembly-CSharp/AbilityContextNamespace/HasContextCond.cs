@@ -28,7 +28,7 @@ namespace AbilityContextNamespace
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(HasContextCond.\u001D()).MethodHandle;
 				}
-				this.m_contextKey = ContextVars.\u0015(this.m_contextName);
+				this.m_contextKey = ContextVars.GetHash(this.m_contextName);
 			}
 			return this.m_contextKey;
 		}

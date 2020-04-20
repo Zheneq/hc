@@ -61,7 +61,7 @@ public class KnockbackState : MoveState
 		{
 			KnockbackState.m_tagHashKnockdownImpact = Animator.StringToHash("KnockdownImpact");
 		}
-		float magnitude = (this.m_pathSquareInfo.square.\u001D() - this.m_owner.m_actor.transform.position).magnitude;
+		float magnitude = (this.m_pathSquareInfo.square.GetWorldPosition() - this.m_owner.m_actor.transform.position).magnitude;
 		this.m_travelTime = magnitude / this.m_ownerActorData.m_knockbackSpeed;
 		if (this.m_travelTime == 0f)
 		{
@@ -78,7 +78,7 @@ public class KnockbackState : MoveState
 		}
 		this.m_initialYVelocity = -0.5f * KnockbackState.s_gravity * this.m_travelTime;
 		this.m_startTime = Time.time;
-		if (!NetworkClient.active && this.m_owner.m_actor.\u000E() == null)
+		if (!NetworkClient.active && this.m_owner.m_actor.GetModelAnimator() == null)
 		{
 			this.m_startedExitAnim = true;
 			this.m_endedExitAnim = true;
@@ -153,8 +153,8 @@ public class KnockbackState : MoveState
 	{
 		BoardSquare square = this.m_pathSquareInfo.square;
 		Vector3 position = this.m_owner.m_actor.transform.position;
-		Vector3 vector = square.\u001D();
-		Vector3 a = vector - position;
+		Vector3 worldPosition = square.GetWorldPosition();
+		Vector3 a = worldPosition - position;
 		a.y = 0f;
 		bool flag = false;
 		if (a.magnitude < 0.01f)
@@ -237,7 +237,7 @@ public class KnockbackState : MoveState
 					}
 					this.m_updatePath = true;
 				}
-				if (this.m_owner.m_actor.\u0012())
+				if (this.m_owner.m_actor.IsModelAnimatorDisabled())
 				{
 					for (;;)
 					{
@@ -253,7 +253,7 @@ public class KnockbackState : MoveState
 				}
 				else
 				{
-					this.m_owner.m_actor.SetTransformPositionToVector(vector);
+					this.m_owner.m_actor.SetTransformPositionToVector(worldPosition);
 				}
 				if (!this.m_endedExitAnim)
 				{
@@ -301,8 +301,8 @@ public class KnockbackState : MoveState
 			d = Mathf.Min(num3, num2);
 		}
 		Vector3 groundPosition = this.m_owner.GetGroundPosition(position + a * d);
-		groundPosition.y = (float)Board.\u000E().m_baselineHeight + num6;
-		if (this.m_owner.m_actor.\u0012())
+		groundPosition.y = (float)Board.Get().m_baselineHeight + num6;
+		if (this.m_owner.m_actor.IsModelAnimatorDisabled())
 		{
 			this.m_updatePath = true;
 			this.m_done = true;
@@ -324,7 +324,7 @@ public class KnockbackState : MoveState
 				}
 				break;
 			}
-			if (!this.m_owner.m_actor.\u0012())
+			if (!this.m_owner.m_actor.IsModelAnimatorDisabled())
 			{
 				for (;;)
 				{

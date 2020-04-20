@@ -540,7 +540,7 @@ public class RageBeastBasicAttack : Ability
 		}
 		int num = 0;
 		List<BoardSquare> list = new List<BoardSquare>();
-		Board.\u000E().\u0015(base.ActorData.\u0012().x, base.ActorData.\u0012().y, ref list);
+		Board.Get().GetAllAdjacentSquares(base.ActorData.GetCurrentBoardSquare().x, base.ActorData.GetCurrentBoardSquare().y, ref list);
 		using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
@@ -557,7 +557,7 @@ public class RageBeastBasicAttack : Ability
 						}
 						break;
 					}
-					if (boardSquare.OccupantActor.\u000E() != base.ActorData.\u000E())
+					if (boardSquare.OccupantActor.GetTeam() != base.ActorData.GetTeam())
 					{
 						for (;;)
 						{
@@ -581,7 +581,7 @@ public class RageBeastBasicAttack : Ability
 							}
 							if (visibleActorsOnly)
 							{
-								if (!boardSquare.OccupantActor.\u0018())
+								if (!boardSquare.OccupantActor.IsVisibleToClient())
 								{
 									continue;
 								}
@@ -698,13 +698,13 @@ public class RageBeastBasicAttack : Ability
 				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
 			}
 		}
-		float num = this.ModdedInnerRadius() * Board.\u000E().squareSize;
-		Vector3 vector = targetActor.\u0016() - damageOrigin;
+		float num = this.ModdedInnerRadius() * Board.Get().squareSize;
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
 		vector.y = 0f;
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		bool flag;
 		if (num2 > num)

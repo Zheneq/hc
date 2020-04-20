@@ -16,7 +16,7 @@ public class RespawningState : TurnState
 	public override void Update()
 	{
 		ActorData component = this.m_SM.GetComponent<ActorData>();
-		if (component != null && !component.\u000E())
+		if (component != null && !component.IsDead())
 		{
 			for (;;)
 			{
@@ -31,7 +31,7 @@ public class RespawningState : TurnState
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(RespawningState.Update()).MethodHandle;
 			}
-			if (GameFlowData.Get().IsTeamsTurn(component.\u000E()))
+			if (GameFlowData.Get().IsTeamsTurn(component.GetTeam()))
 			{
 				if (GameFlowData.Get().IsInDecisionState())
 				{

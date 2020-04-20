@@ -173,7 +173,7 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 			}
 			return this.m_coneAffectsCaster;
 		}
-		if (potentialTarget.\u000E() == targetingActor.\u000E())
+		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{
 			for (;;)
 			{
@@ -192,9 +192,9 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 	public override void AddTargetedActor(ActorData actor, Vector3 damageOrigin, ActorData targetingActor, AbilityTooltipSubject subjectType = AbilityTooltipSubject.Primary)
 	{
 		base.AddTargetedActor(actor, damageOrigin, targetingActor, subjectType);
-		Vector3 vector = damageOrigin - actor.\u0016();
+		Vector3 vector = damageOrigin - actor.GetTravelBoardSquareWorldPosition();
 		vector.y = 0f;
-		float num = (this.GetInnerConeRadius() + GameWideData.Get().m_actorTargetingRadiusInSquares) * Board.\u000E().squareSize;
+		float num = (this.GetInnerConeRadius() + GameWideData.Get().m_actorTargetingRadiusInSquares) * Board.Get().squareSize;
 		if (num < vector.magnitude)
 		{
 			for (;;)
@@ -231,7 +231,7 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.AllocateConeHighlights()).MethodHandle;
 			}
-			float radiusInWorld = (this.GetConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.\u000E().squareSize;
+			float radiusInWorld = (this.GetConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			GameObject item = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.GetConeWidthAngle());
 			this.m_highlights.Add(item);
 			if (this.GetInnerConeRadius() > 0f)
@@ -245,7 +245,7 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 					}
 					break;
 				}
-				float radiusInWorld2 = (this.GetInnerConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.\u000E().squareSize;
+				float radiusInWorld2 = (this.GetInnerConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 				GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld2, this.GetConeWidthAngle());
 				UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
 				if (component != null)

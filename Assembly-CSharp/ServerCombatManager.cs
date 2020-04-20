@@ -25,8 +25,8 @@ public class ServerCombatManager : MonoBehaviour
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
 		if (objectivePoints)
 		{
-			Team teamToAdjust = target.\u000E();
-			objectivePoints.AdjustPoints(finalChange, teamToAdjust);
+			Team team = target.GetTeam();
+			objectivePoints.AdjustPoints(finalChange, team);
 		}
 	}
 

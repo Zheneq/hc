@@ -22,8 +22,8 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 	{
 		base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
 		BoardSquarePathInfo path = null;
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (boardSquareSafe != null)
 		{
 			if (currentTargetIndex != 0)
 			{
@@ -57,11 +57,11 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 					}
 				}
 			}
-			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, targetingActor.\u0012(), this.AllowChargeThroughInvalidSquares);
+			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, targetingActor.GetCurrentBoardSquare(), this.AllowChargeThroughInvalidSquares);
 			goto IL_BB;
 		}
 		IL_77:
-		if (boardSquare != null)
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -72,8 +72,8 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 				}
 				break;
 			}
-			BoardSquare startSquare = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
-			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare, startSquare, this.AllowChargeThroughInvalidSquares);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
+			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, this.AllowChargeThroughInvalidSquares);
 		}
 		IL_BB:
 		base.EnableAllMovementArrows();

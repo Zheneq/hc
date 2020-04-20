@@ -87,7 +87,7 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					}
 					break;
 				}
-				if (owner.\u0012() == GameFlowData.Get().activeOwnedActorData.\u000E())
+				if (owner.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
 					for (;;)
 					{
@@ -290,7 +290,7 @@ public class BlasterLurkerMineSatellite : TempSatellite
 						}
 						break;
 					}
-					flag = (actorData2.\u000E() == owner.\u000E());
+					flag = (actorData2.GetTeam() == owner.GetTeam());
 				}
 				else
 				{

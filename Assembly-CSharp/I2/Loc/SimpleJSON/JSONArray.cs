@@ -9,7 +9,7 @@ namespace I2.Loc.SimpleJSON
 	[DefaultMember("Item")]
 	public class JSONArray : JSONNode, IEnumerable
 	{
-		private List<JSONNode> \u001D = new List<JSONNode>();
+		private List<JSONNode> nodes = new List<JSONNode>();
 
 		public override JSONNode \u0018
 		{
@@ -30,9 +30,9 @@ namespace I2.Loc.SimpleJSON
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.get_\u0018(int)).MethodHandle;
 					}
-					if (\u001D < this.\u001D.Count)
+					if (\u001D < this.nodes.Count)
 					{
-						return this.\u001D[\u001D];
+						return this.nodes[\u001D];
 					}
 				}
 				return new JSONLazyCreator(this);
@@ -54,17 +54,17 @@ namespace I2.Loc.SimpleJSON
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.set_\u0018(int, JSONNode)).MethodHandle;
 					}
-					if (\u001D < this.\u001D.Count)
+					if (\u001D < this.nodes.Count)
 					{
-						this.\u001D[\u001D] = value;
+						this.nodes[\u001D] = value;
 						return;
 					}
 				}
-				this.\u001D.Add(value);
+				this.nodes.Add(value);
 			}
 		}
 
-		public override JSONNode \u0018
+		public override JSONNode symbol_0018_2
 		{
 			get
 			{
@@ -72,7 +72,7 @@ namespace I2.Loc.SimpleJSON
 			}
 			set
 			{
-				this.\u001D.Add(value);
+				this.nodes.Add(value);
 			}
 		}
 
@@ -80,29 +80,29 @@ namespace I2.Loc.SimpleJSON
 		{
 			get
 			{
-				return this.\u001D.Count;
+				return this.nodes.Count;
 			}
 		}
 
 		public override void \u0013(string \u001D, JSONNode \u000E)
 		{
-			this.\u001D.Add(\u000E);
+			this.nodes.Add(\u000E);
 		}
 
 		public override JSONNode \u0011(int \u001D)
 		{
-			if (\u001D < 0 || \u001D >= this.\u001D.Count)
+			if (\u001D < 0 || \u001D >= this.nodes.Count)
 			{
 				return null;
 			}
-			JSONNode result = this.\u001D[\u001D];
-			this.\u001D.RemoveAt(\u001D);
+			JSONNode result = this.nodes[\u001D];
+			this.nodes.RemoveAt(\u001D);
 			return result;
 		}
 
 		public override JSONNode \u0011(JSONNode \u001D)
 		{
-			this.\u001D.Remove(\u001D);
+			this.nodes.Remove(\u001D);
 			return \u001D;
 		}
 
@@ -116,7 +116,7 @@ namespace I2.Loc.SimpleJSON
 				switch (num)
 				{
 				case 0U:
-					enumerator = this.\u001D.GetEnumerator();
+					enumerator = this.nodes.GetEnumerator();
 					break;
 				case 1U:
 					break;
@@ -185,7 +185,7 @@ namespace I2.Loc.SimpleJSON
 			switch (num)
 			{
 			case 0U:
-				enumerator = this.\u001D.GetEnumerator();
+				enumerator = this.nodes.GetEnumerator();
 				break;
 			case 1U:
 				break;
@@ -239,7 +239,7 @@ namespace I2.Loc.SimpleJSON
 		public override string ToString()
 		{
 			string text = "[ ";
-			using (List<JSONNode>.Enumerator enumerator = this.\u001D.GetEnumerator())
+			using (List<JSONNode>.Enumerator enumerator = this.nodes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
@@ -271,7 +271,7 @@ namespace I2.Loc.SimpleJSON
 		public override string \u0004(string \u001D)
 		{
 			string text = "[ ";
-			foreach (JSONNode jsonnode in this.\u001D)
+			foreach (JSONNode jsonnode in this.nodes)
 			{
 				if (text.Length > 3)
 				{
@@ -300,10 +300,10 @@ namespace I2.Loc.SimpleJSON
 		public override void \u0002(BinaryWriter \u001D)
 		{
 			\u001D.Write(1);
-			\u001D.Write(this.\u001D.Count);
-			for (int i = 0; i < this.\u001D.Count; i++)
+			\u001D.Write(this.nodes.Count);
+			for (int i = 0; i < this.nodes.Count; i++)
 			{
-				this.\u001D[i].\u0002(\u001D);
+				this.nodes[i].\u0002(\u001D);
 			}
 			for (;;)
 			{

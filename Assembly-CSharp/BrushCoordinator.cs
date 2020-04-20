@@ -189,7 +189,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.TrySetupBrushSquares()).MethodHandle;
 			}
-			if (Board.\u000E() != null)
+			if (Board.Get() != null)
 			{
 				for (;;)
 				{
@@ -306,8 +306,8 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			}
 			else
 			{
-				List<BoardSquare> list = this.m_regions[i].\u001D();
-				foreach (BoardSquare boardSquare in list)
+				List<BoardSquare> squaresInRegion = this.m_regions[i].GetSquaresInRegion();
+				foreach (BoardSquare boardSquare in squaresInRegion)
 				{
 					if (boardSquare.BrushRegion == -1)
 					{
@@ -610,7 +610,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					break;
 				}
 				BrushRegion brushRegion = this.m_regions[regionIndex];
-				result = brushRegion.\u001D();
+				result = brushRegion.GetOccupantActors();
 			}
 		}
 		return result;
@@ -724,7 +724,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					flag = false;
 					goto IL_D1;
 				}
-				if (subjectSquare.\u0012())
+				if (subjectSquare.IsInBrushRegion())
 				{
 					for (;;)
 					{
@@ -797,7 +797,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			}
 			if (!(subjectSquare.OccupantActor == null))
 			{
-				ActorStatus actorStatus = subjectSquare.OccupantActor.\u000E();
+				ActorStatus actorStatus = subjectSquare.OccupantActor.GetActorStatus();
 				if (!actorStatus.HasStatus(StatusType.Revealed, true))
 				{
 					if (!actorStatus.HasStatus(StatusType.CantHideInBrush, true))
@@ -855,7 +855,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		List<Plane> list = new List<Plane>(4);
 		Bounds u001D = new Bounds(new Vector3(bounds.center.x, 0f, bounds.center.z), bounds.size);
-		List<BoardSquare> list2 = Board.\u000E().\u000E(u001D, null);
+		List<BoardSquare> list2 = Board.Get().\u000E(u001D, null);
 		for (int i = 0; i < list2.Count; i++)
 		{
 			BoardSquare boardSquare = list2[i];

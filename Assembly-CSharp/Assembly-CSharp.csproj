@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E4AC8948-CBC4-4D79-99E5-6C9A20411E72}</ProjectGuid>
+    <ProjectGuid>{443C9412-E53F-404F-9AFD-ECD4C1E69969}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Assembly-CSharp</RootNamespace>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -518,8 +518,8 @@
     <Compile Include="AuthTicket.cs" />
     <Compile Include="AuthType.cs" />
     <Compile Include="AutoLaunchGameConfig.cs" />
-    <Compile Include="A\-.cs" />
     <Compile Include="A\AssemblyInfoAttribute.cs" />
+    <Compile Include="A\kernel.cs" />
     <Compile Include="BackgroundScroller.cs" />
     <Compile Include="BadgeAndParticipantInfo.cs" />
     <Compile Include="BadgeInfo.cs" />

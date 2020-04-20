@@ -48,8 +48,8 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.ExecuteEffectStart(ClientEffectStartData)).MethodHandle;
 			}
-			bool flag2 = effectTarget.\u000E() == caster.\u000E();
-			ActorStatus actorStatus = effectTarget.\u000E();
+			bool flag2 = effectTarget.GetTeam() == caster.GetTeam();
+			ActorStatus actorStatus = effectTarget.GetActorStatus();
 			if (actorStatus.HasStatus(StatusType.EffectImmune, true))
 			{
 				for (;;)
@@ -223,7 +223,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 				}
 				break;
 			}
-			if (effectData.m_effectTarget.\u000E() != null)
+			if (effectData.m_effectTarget.GetActorBehavior() != null)
 			{
 				for (;;)
 				{
@@ -234,7 +234,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					}
 					break;
 				}
-				effectData.m_effectTarget.\u000E().Client_RecordEffectFromActor(effectData.m_caster);
+				effectData.m_effectTarget.GetActorBehavior().Client_RecordEffectFromActor(effectData.m_caster);
 			}
 		}
 		bool flag3 = ClientResolutionManager.Get().IsInResolutionState();
@@ -273,7 +273,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					}
 					if (effectData.m_statuses.Count > 0)
 					{
-						ActorStatus actorStatus2 = effectData.m_effectTarget.\u000E();
+						ActorStatus actorStatus2 = effectData.m_effectTarget.GetActorStatus();
 						using (List<StatusType>.Enumerator enumerator3 = effectData.m_statuses.GetEnumerator())
 						{
 							while (enumerator3.MoveNext())
@@ -448,7 +448,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					}
 					if (clientEffectData.m_statuses != null)
 					{
-						ActorStatus actorStatus = clientEffectData.m_target.\u000E();
+						ActorStatus actorStatus = clientEffectData.m_target.GetActorStatus();
 						foreach (StatusType status in clientEffectData.m_statuses)
 						{
 							actorStatus.ClientRemoveStatus(status);

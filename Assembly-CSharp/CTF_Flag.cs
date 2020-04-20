@@ -605,7 +605,7 @@ public class CTF_Flag : NetworkBehaviour
 				result = this.ClientIdleSquare.ToVector3();
 			}
 		}
-		else if (this.ClientHolderActor.\u0018())
+		else if (this.ClientHolderActor.IsVisibleToClient())
 		{
 			for (;;)
 			{
@@ -696,7 +696,7 @@ public class CTF_Flag : NetworkBehaviour
 				}
 				break;
 			}
-			if (this.ClientHolderActor.\u000E() == Team.TeamA)
+			if (this.ClientHolderActor.GetTeam() == Team.TeamA)
 			{
 				for (;;)
 				{
@@ -710,7 +710,7 @@ public class CTF_Flag : NetworkBehaviour
 				return Team.TeamA;
 			}
 		}
-		if (this.ClientHolderActor != null && this.ClientHolderActor.\u000E() == Team.TeamB)
+		if (this.ClientHolderActor != null && this.ClientHolderActor.GetTeam() == Team.TeamB)
 		{
 			for (;;)
 			{
@@ -783,7 +783,7 @@ public class CTF_Flag : NetworkBehaviour
 		matchObjectiveEventArgs.objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.CasePickedUp_Client;
 		matchObjectiveEventArgs.controlPoint = null;
 		matchObjectiveEventArgs.activatingActor = newHolder;
-		matchObjectiveEventArgs.team = newHolder.\u000E();
+		matchObjectiveEventArgs.team = newHolder.GetTeam();
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, matchObjectiveEventArgs);
 	}
 
@@ -893,7 +893,7 @@ public class CTF_Flag : NetworkBehaviour
 		matchObjectiveEventArgs.objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.FlagTurnedIn_Client;
 		matchObjectiveEventArgs.controlPoint = null;
 		matchObjectiveEventArgs.activatingActor = capturingActor;
-		matchObjectiveEventArgs.team = capturingActor.\u000E();
+		matchObjectiveEventArgs.team = capturingActor.GetTeam();
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, matchObjectiveEventArgs);
 	}
 
@@ -1014,7 +1014,7 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		else
 		{
-			this.ClientIdleSquare = Board.\u000E().\u0016((int)b2, (int)b3);
+			this.ClientIdleSquare = Board.Get().GetBoardSquare((int)b2, (int)b3);
 		}
 		if (clientHolderActor != this.ClientHolderActor)
 		{

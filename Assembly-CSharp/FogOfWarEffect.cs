@@ -674,9 +674,9 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 					}
 					break;
 				}
-				if (!(Board.\u000E() == null))
+				if (!(Board.Get() == null))
 				{
-					num = (float)Board.\u000E().BaselineHeight;
+					num = (float)Board.Get().BaselineHeight;
 					goto IL_93;
 				}
 				for (;;)

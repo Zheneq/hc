@@ -323,7 +323,7 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 			while (i < actors.Count)
 			{
 				ActorData actorData = actors[i];
-				if (actorData.\u000E())
+				if (actorData.IsDead())
 				{
 					goto IL_A9;
 				}
@@ -378,7 +378,7 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 					break;
 				}
 				this.m_characterRespawning.Add(actorData.m_characterType);
-				Sprite value = actorData.\u000E();
+				Sprite aliveHUDIcon = actorData.GetAliveHUDIcon();
 				if (!this.m_characterSprites.ContainsKey(actorData.m_characterType))
 				{
 					for (;;)
@@ -390,7 +390,7 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 						}
 						break;
 					}
-					this.m_characterSprites.Add(actorData.m_characterType, value);
+					this.m_characterSprites.Add(actorData.m_characterType, aliveHUDIcon);
 					goto IL_111;
 				}
 				goto IL_111;
@@ -430,7 +430,7 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 			for (int j = 0; j < actors2.Count; j++)
 			{
 				ActorData actorData2 = actors2[j];
-				if (actorData2.\u000E())
+				if (actorData2.IsDead())
 				{
 					for (;;)
 					{
@@ -453,7 +453,7 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 							break;
 						}
 						this.m_characterRespawning.Add(actorData2.m_characterType);
-						Sprite value2 = actorData2.\u000E();
+						Sprite aliveHUDIcon2 = actorData2.GetAliveHUDIcon();
 						if (!this.m_characterSprites.ContainsKey(actorData2.m_characterType))
 						{
 							for (;;)
@@ -465,7 +465,7 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 								}
 								break;
 							}
-							this.m_characterSprites.Add(actorData2.m_characterType, value2);
+							this.m_characterSprites.Add(actorData2.m_characterType, aliveHUDIcon2);
 						}
 					}
 				}

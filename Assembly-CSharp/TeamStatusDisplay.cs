@@ -38,7 +38,7 @@ public class TeamStatusDisplay : NetworkBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData)
 		{
-			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.\u000E());
+			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam());
 			using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -138,7 +138,7 @@ public class TeamStatusDisplay : NetworkBehaviour
 					}
 					break;
 				}
-				if (actorData.\u000E() == GameFlowData.Get().activeOwnedActorData.\u000E())
+				if (actorData.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
 					for (;;)
 					{

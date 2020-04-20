@@ -56,7 +56,7 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 			abilityTarget = targets[0];
 		}
 		this.m_barrierCenterPos = abilityTarget.FreePos;
-		Vector3 vector = this.m_barrierCenterPos - targetingActor.\u0016();
+		Vector3 vector = this.m_barrierCenterPos - targetingActor.GetTravelBoardSquareWorldPosition();
 		bool flag = false;
 		bool active = false;
 		Vector3 vector2 = this.m_barrierCenterPos;
@@ -85,8 +85,8 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 				flag = true;
 			}
 			this.m_lastFreePos = this.m_barrierCenterPos;
-			BoardSquare boardSquare = Board.\u000E().\u000E(abilityTarget.GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -98,7 +98,7 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 					break;
 				}
 				active = true;
-				vector2 = boardSquare.ToVector3();
+				vector2 = boardSquareSafe.ToVector3();
 				Vector3 freePos = abilityTarget.FreePos;
 				if (currentTargetIndex > 0)
 				{
@@ -114,7 +114,7 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 					freePos = currentTarget.FreePos;
 				}
 				Vector3 b;
-				vector = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquare, freePos, this.m_allowAimAtDiagonals, out b);
+				vector = VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, freePos, this.m_allowAimAtDiagonals, out b);
 				this.m_barrierCenterPos = vector2 + b;
 			}
 		}
@@ -122,7 +122,7 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		vector.Normalize();
 		this.m_barrierDir = vector;
 		this.m_barrierOutwardFacing = -vector;
-		float x = this.m_width * Board.\u000E().squareSize;
+		float x = this.m_width * Board.Get().squareSize;
 		if (base.Highlight == null)
 		{
 			for (;;)

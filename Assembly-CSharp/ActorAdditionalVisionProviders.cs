@@ -49,7 +49,7 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorAdditionalVisionProviders.SyncListCallbackVisionProviders(SyncList<VisionProviderInfo>.Operation, int)).MethodHandle;
 			}
-			this.m_actorData.\u000E().MarkForRecalculateVisibility();
+			this.m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
 		}
 	}
 
@@ -75,7 +75,7 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			return;
 		}
 		this.m_visionProviders.Add(new VisionProviderInfo(gridPos, radius, useSraightLineDist, brushRevealType, ignoreLos, canFunctionInGlobalBlind, flag));
-		this.m_actorData.\u000E().MarkForRecalculateVisibility();
+		this.m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
 	}
 
 	[Server]
@@ -155,7 +155,7 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			return;
 		}
 		this.m_visionProviders.Add(new VisionProviderInfo(actorIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, canFunctionInGlobalBlind, flag));
-		this.m_actorData.\u000E().MarkForRecalculateVisibility();
+		this.m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
 	}
 
 	[Server]
@@ -291,7 +291,7 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 			return;
 		}
 		this.m_visionProviders.Add(new VisionProviderInfo(actorIndex, satelliteIndex, radius, useSraightLineDist, brushRevealType, ignoreLos, canFunctionInGlobalBlind, flag));
-		this.m_actorData.\u000E().MarkForRecalculateVisibility();
+		this.m_actorData.GetFogOfWar().MarkForRecalculateVisibility();
 	}
 
 	[Server]

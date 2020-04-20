@@ -548,7 +548,7 @@ public class NinjaShurikenOrDash : Ability
 	public int CalcDamageOnActor(ActorData target, ActorData caster)
 	{
 		int num = 0;
-		if (target.\u000E() != caster.\u000E())
+		if (target.GetTeam() != caster.GetTeam())
 		{
 			for (;;)
 			{
@@ -636,9 +636,9 @@ public class NinjaShurikenOrDash : Ability
 	{
 		results.m_damage = 0;
 		results.m_healing = 0;
-		BoardSquare boardSquare = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 		bool flag;
-		if (boardSquare)
+		if (boardSquareSafe)
 		{
 			for (;;)
 			{
@@ -653,7 +653,7 @@ public class NinjaShurikenOrDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
 			}
-			flag = (boardSquare == targetActor.\u0012());
+			flag = (boardSquareSafe == targetActor.GetCurrentBoardSquare());
 		}
 		else
 		{
@@ -832,17 +832,17 @@ public class NinjaShurikenOrDash : Ability
 				}
 				break;
 			}
-			float num = this.GetDashToUnmarkedRange() * Board.\u000E().squareSize;
+			float num = this.GetDashToUnmarkedRange() * Board.Get().squareSize;
 			using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					Vector3 vector = actorData.\u0016() - caster.\u0016();
+					Vector3 vector = actorData.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 					vector.y = 0f;
 					float magnitude = vector.magnitude;
 					bool flag = this.IsActorMarked(actorData);
-					float squareSize = Board.\u000E().squareSize;
+					float squareSize = Board.Get().squareSize;
 					float num2;
 					if (flag)
 					{
@@ -965,8 +965,8 @@ public class NinjaShurikenOrDash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -981,7 +981,7 @@ public class NinjaShurikenOrDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaShurikenOrDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				bool flag = false;
 				bool flag2 = false;
@@ -996,7 +996,7 @@ public class NinjaShurikenOrDash : Ability
 						}
 						break;
 					}
-					ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, this.CanDashToEnemy(), this.CanDashToAlly(), caster);
+					ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, this.CanDashToEnemy(), this.CanDashToAlly(), caster);
 					if (targetableActorOnSquare != null)
 					{
 						for (;;)
@@ -1030,11 +1030,11 @@ public class NinjaShurikenOrDash : Ability
 									}
 									break;
 								}
-								Vector3 vector = targetableActorOnSquare.\u0016() - caster.\u0016();
+								Vector3 vector = targetableActorOnSquare.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 								vector.y = 0f;
 								float magnitude = vector.magnitude;
 								bool flag3 = this.IsActorMarked(targetableActorOnSquare);
-								float squareSize = Board.\u000E().squareSize;
+								float squareSize = Board.Get().squareSize;
 								float num;
 								if (flag3)
 								{
@@ -1079,7 +1079,7 @@ public class NinjaShurikenOrDash : Ability
 										break;
 									}
 								}
-								float num3 = this.GetDashToUnmarkedRange() * Board.\u000E().squareSize;
+								float num3 = this.GetDashToUnmarkedRange() * Board.Get().squareSize;
 								bool flag4;
 								if (this.DashRequireDeathmark())
 								{
@@ -1175,9 +1175,9 @@ public class NinjaShurikenOrDash : Ability
 				else
 				{
 					flag = true;
-					BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-					BoardSquare boardSquare3 = Board.\u000E().\u000E(target.GridPos);
-					if (boardSquare3 != null)
+					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+					BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
+					if (boardSquareSafe3 != null)
 					{
 						for (;;)
 						{
@@ -1188,7 +1188,7 @@ public class NinjaShurikenOrDash : Ability
 							}
 							break;
 						}
-						if (boardSquare3.\u0016())
+						if (boardSquareSafe3.IsBaselineHeight())
 						{
 							for (;;)
 							{
@@ -1199,7 +1199,7 @@ public class NinjaShurikenOrDash : Ability
 								}
 								break;
 							}
-							if (boardSquare3 != boardSquare2)
+							if (boardSquareSafe3 != boardSquareSafe2)
 							{
 								for (;;)
 								{
@@ -1210,7 +1210,7 @@ public class NinjaShurikenOrDash : Ability
 									}
 									break;
 								}
-								if (boardSquare3 != caster.\u0012())
+								if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
 								{
 									for (;;)
 									{
@@ -1233,7 +1233,7 @@ public class NinjaShurikenOrDash : Ability
 											}
 											break;
 										}
-										flag6 = AreaEffectUtils.IsSquareInShape(boardSquare3, this.GetDashDestShape(), target.FreePos, boardSquare2, false, caster);
+										flag6 = AreaEffectUtils.IsSquareInShape(boardSquareSafe3, this.GetDashDestShape(), target.FreePos, boardSquareSafe2, false, caster);
 									}
 									if (flag6)
 									{
@@ -1250,7 +1250,7 @@ public class NinjaShurikenOrDash : Ability
 												break;
 											}
 											int num4;
-											flag7 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare3, boardSquare2, false, out num4);
+											flag7 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out num4);
 										}
 										else
 										{

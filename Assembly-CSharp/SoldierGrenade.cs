@@ -444,7 +444,7 @@ public class SoldierGrenade : Ability
 				List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
 				foreach (AbilityUtil_Targeter_MultipleShapes.HitActorContext hitActorContext2 in hitActorContext)
 				{
-					if (hitActorContext2.m_actor == targetActor && targetActor.\u000E() != actorData.\u000E())
+					if (hitActorContext2.m_actor == targetActor && targetActor.GetTeam() != actorData.GetTeam())
 					{
 						for (;;)
 						{

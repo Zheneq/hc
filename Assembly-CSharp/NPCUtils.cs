@@ -50,7 +50,7 @@ public static class NPCUtils
 				else if (list.Count + list2.Count < 0x31)
 				{
 					List<BoardSquare> list3 = new List<BoardSquare>();
-					Board.\u000E().\u0015(boardSquare2.x, boardSquare2.y, ref list3);
+					Board.Get().GetAllAdjacentSquares(boardSquare2.x, boardSquare2.y, ref list3);
 					using (List<BoardSquare>.Enumerator enumerator = list3.GetEnumerator())
 					{
 						while (enumerator.MoveNext())

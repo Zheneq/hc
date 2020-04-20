@@ -16,7 +16,7 @@ namespace AbilityContextNamespace
 			targetFilterConditions.m_numCompareConditions = new List<NumericContextValueCompareCond>();
 			for (int i = 0; i < this.m_numCompareConditions.Count; i++)
 			{
-				NumericContextValueCompareCond item = this.m_numCompareConditions[i].\u001D();
+				NumericContextValueCompareCond item = this.m_numCompareConditions[i].Clone();
 				targetFilterConditions.m_numCompareConditions.Add(item);
 			}
 			for (;;)

@@ -117,7 +117,7 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		bool flag;
 		if (!(actorData2 == null))
 		{
-			if (actorData2.\u0018())
+			if (actorData2.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -128,7 +128,7 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				if (!(actorData2.\u000E() == null))
+				if (!(actorData2.GetActorModelData() == null))
 				{
 					for (;;)
 					{
@@ -139,7 +139,7 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 						}
 						break;
 					}
-					flag = actorData2.\u000E().IsVisibleToClient();
+					flag = actorData2.GetActorModelData().IsVisibleToClient();
 				}
 				else
 				{
@@ -168,7 +168,7 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 				}
 				break;
 			}
-			flag3 = actorData2.\u0012();
+			flag3 = actorData2.IsModelAnimatorDisabled();
 		}
 		else
 		{
@@ -200,7 +200,7 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					flag5 = (GameFlowData.Get().activeOwnedActorData.\u000E() == actorData2.\u000E());
+					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData2.GetTeam());
 					goto IL_10B;
 				}
 			}
@@ -362,6 +362,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 				return instancePosition;
 			}
 		}
-		return this.m_owner.\u0015();
+		return this.m_owner.GetTravelBoardSquareWorldPositionForLos();
 	}
 }

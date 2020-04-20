@@ -226,7 +226,7 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UITargetingAbilityIndicator.Setup(ActorData, Ability, AbilityData.ActionType)).MethodHandle;
 			}
-			if (actor.\u000E() != null)
+			if (actor.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -248,8 +248,8 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 						}
 						break;
 					}
-					AbilityData abilityData = actor.\u000E();
-					bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(actor.\u000E());
+					AbilityData abilityData = actor.GetAbilityData();
+					bool flag = GameFlowData.Get().LocalPlayerData.IsViewingTeam(actor.GetTeam());
 					bool flag2;
 					if (ClientGameManager.Get().PlayerInfo != null)
 					{
@@ -313,7 +313,7 @@ public class UITargetingAbilityIndicator : MonoBehaviour
 					int cooldownRemaining = abilityData.GetCooldownRemaining(action);
 					int stocksRemaining = abilityData.GetStocksRemaining(action);
 					int stockRefreshCountdown = abilityData.GetStockRefreshCountdown(action);
-					bool flag9 = ability.GetModdedCost() <= actor.\u0019();
+					bool flag9 = ability.GetModdedCost() <= actor.GetEnergyToDisplay();
 					if (this.m_ability == ability && this.m_cachedIsQueued == flag5)
 					{
 						for (;;)

@@ -345,7 +345,7 @@ public class HealLaserSequence : Sequence
 	private void SpawnHitFX(ActorData actorData, Vector3 curDelta)
 	{
 		Vector3 hitPosition = this.GetHitPosition(actorData);
-		bool flag = actorData.\u000E() == base.Caster.\u000E();
+		bool flag = actorData.GetTeam() == base.Caster.GetTeam();
 		this.m_hitFx[actorData] = null;
 		if (this.m_hitFxPrefab)
 		{

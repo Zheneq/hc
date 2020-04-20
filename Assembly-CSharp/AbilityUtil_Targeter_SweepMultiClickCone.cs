@@ -128,7 +128,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		{
 			if (this.m_maxTargets > 0)
 			{
-				TargeterUtils.SortActorsByDistanceToPos(ref list, targetingActor.\u0015());
+				TargeterUtils.SortActorsByDistanceToPos(ref list, targetingActor.GetTravelBoardSquareWorldPositionForLos());
 				TargeterUtils.LimitActorsToMaxNumber(ref list, this.m_maxTargets);
 			}
 			using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
@@ -136,7 +136,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData actor = enumerator.Current;
-					base.AddActorInRange(actor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Primary, true);
+					base.AddActorInRange(actor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, true);
 				}
 				for (;;)
 				{
@@ -153,7 +153,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 
 	public List<ActorData> UpdateHighlightLine(ActorData targetingActor, Vector3 aimDirection, bool useAngleRestrictions, Vector3 sweepStartAimDirection)
 	{
-		float squareSize = Board.\u000E().squareSize;
+		float squareSize = Board.Get().squareSize;
 		float y = 0.1f;
 		if (this.m_highlights != null)
 		{
@@ -186,10 +186,10 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		}
 		this.m_highlights = new List<GameObject>();
 		this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f, null));
-		this.m_highlights[0].transform.position = targetingActor.\u0016() + new Vector3(0f, y, 0f);
+		this.m_highlights[0].transform.position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, y, 0f);
 		IL_AE:
 		Vector3 vector = aimDirection;
-		Vector3 vector2 = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		List<ActorData> result;
 		if (useAngleRestrictions)
 		{
@@ -202,8 +202,8 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 				}
 				break;
 			}
-			Vector3 vector3;
-			result = this.GetSweepHitActorsAndAngles(sweepStartAimDirection, ref vector, targetingActor, out this.m_sweepAngle, out vector3);
+			Vector3 vector2;
+			result = this.GetSweepHitActorsAndAngles(sweepStartAimDirection, ref vector, targetingActor, out this.m_sweepAngle, out vector2);
 			if (this.m_highlights.Count < 2)
 			{
 				for (;;)
@@ -217,21 +217,21 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 				}
 				this.m_highlights.Add(HighlightUtils.Get().CreateDynamicConeMesh(this.m_rangeInSquares, this.m_sweepAngle, true, null));
 				this.m_highlights[1].SetActive(true);
-				this.m_highlights[1].transform.position = targetingActor.\u0016() + new Vector3(0f, y, 0f);
+				this.m_highlights[1].transform.position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, y, 0f);
 			}
-			this.m_highlights[1].transform.rotation = Quaternion.LookRotation(vector3);
+			this.m_highlights[1].transform.rotation = Quaternion.LookRotation(vector2);
 			HighlightUtils.Get().AdjustDynamicConeMesh(this.m_highlights[1], this.m_rangeInSquares, this.m_sweepAngle);
-			this.DrawSquareIndicators_ConeSweep(targetingActor, this.m_sweepAngle, vector3);
-			Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector2, vector, this.m_rangeInSquares * Board.\u000E().squareSize, !this.ClampBorderLineForSweep, targetingActor, null, true);
-			laserEndPoint.y = vector2.y;
-			HighlightUtils.Get().ResizeRectangularCursor(this.GetLineWidth() * squareSize, (laserEndPoint - vector2).magnitude, this.m_highlights[0]);
+			this.DrawSquareIndicators_ConeSweep(targetingActor, this.m_sweepAngle, vector2);
+			Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, vector, this.m_rangeInSquares * Board.Get().squareSize, !this.ClampBorderLineForSweep, targetingActor, null, true);
+			laserEndPoint.y = travelBoardSquareWorldPositionForLos.y;
+			HighlightUtils.Get().ResizeRectangularCursor(this.GetLineWidth() * squareSize, (laserEndPoint - travelBoardSquareWorldPositionForLos).magnitude, this.m_highlights[0]);
 		}
 		else
 		{
-			Vector3 vector4;
-			result = AreaEffectUtils.GetActorsInLaser(vector2, aimDirection, this.GetLineRange(), this.GetLineWidth(), targetingActor, base.GetAffectedTeams(), this.m_penetrateLos, this.GetLineMaxTargets(), this.m_penetrateLos, false, out vector4, null, null, false, true);
-			HighlightUtils.Get().ResizeRectangularCursor(this.GetLineWidth() * squareSize, (vector4 - vector2).magnitude, this.m_highlights[0]);
-			this.DrawSquareIndicators_Line(targetingActor, vector2, vector4, this.GetLineWidth(), this.m_penetrateLos);
+			Vector3 vector3;
+			result = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, aimDirection, this.GetLineRange(), this.GetLineWidth(), targetingActor, base.GetAffectedTeams(), this.m_penetrateLos, this.GetLineMaxTargets(), this.m_penetrateLos, false, out vector3, null, null, false, true);
+			HighlightUtils.Get().ResizeRectangularCursor(this.GetLineWidth() * squareSize, (vector3 - travelBoardSquareWorldPositionForLos).magnitude, this.m_highlights[0]);
+			this.DrawSquareIndicators_Line(targetingActor, travelBoardSquareWorldPositionForLos, vector3, this.GetLineWidth(), this.m_penetrateLos);
 		}
 		this.m_highlights[0].transform.rotation = Quaternion.LookRotation(vector);
 		return result;
@@ -310,7 +310,7 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 			num2 += sweepAngle * 0.5f;
 		}
 		coneCenterAngle = Vector3.RotateTowards(startAimDirection, endAimDirection, 0.0174532924f * (sweepAngle * 0.5f), 0f);
-		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(caster.\u0016(), num2, sweepAngle, this.m_rangeInSquares, this.m_coneBackwardOffset, this.m_penetrateLos, caster, base.GetAffectedTeams(caster), null, false, default(Vector3));
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(caster.GetTravelBoardSquareWorldPosition(), num2, sweepAngle, this.m_rangeInSquares, this.m_coneBackwardOffset, this.m_penetrateLos, caster, base.GetAffectedTeams(caster), null, false, default(Vector3));
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 		return actorsInCone;
 	}
@@ -333,9 +333,9 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SweepMultiClickCone.DrawSquareIndicators_ConeSweep(ActorData, float, Vector3)).MethodHandle;
 			}
 			base.ResetSquareIndicatorIndexToUse();
-			Vector3 coneStart = targetingActor.\u0015();
+			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(coneCenterAngle);
-			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStart, coneCenterAngleDegrees, sweepAngle, this.m_rangeInSquares, this.m_coneBackwardOffset, targetingActor, this.m_penetrateLos, null);
+			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, sweepAngle, this.m_rangeInSquares, this.m_coneBackwardOffset, targetingActor, this.m_penetrateLos, null);
 			base.HideUnusedSquareIndicators();
 		}
 	}

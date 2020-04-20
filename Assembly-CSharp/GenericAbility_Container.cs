@@ -350,7 +350,7 @@ public class GenericAbility_Container : Ability
 				}
 				this.PreProcessTargetingNumbers(targetActor, currentTargeterIndex, dictionary, abilityContext);
 				this.m_calculatedValuesForTargeter.Reset();
-				if (actorData.\u000E() == targetActor.\u000E())
+				if (actorData.GetTeam() == targetActor.GetTeam())
 				{
 					for (;;)
 					{

@@ -216,7 +216,7 @@ public class TricksterFlare : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
 				}
-				if (!actorData.\u000E())
+				if (!actorData.IsDead())
 				{
 					for (;;)
 					{
@@ -228,10 +228,10 @@ public class TricksterFlare : Ability
 						break;
 					}
 					this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
-					Animator animator = actorData.\u000E();
-					animator.SetInteger("Attack", animationIndex);
-					animator.SetBool("CinematicCam", cinecam);
-					animator.SetTrigger("StartAttack");
+					Animator modelAnimator = actorData.GetModelAnimator();
+					modelAnimator.SetInteger("Attack", animationIndex);
+					modelAnimator.SetBool("CinematicCam", cinecam);
+					modelAnimator.SetTrigger("StartAttack");
 				}
 			}
 		}
@@ -242,7 +242,7 @@ public class TricksterFlare : Ability
 		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
 		foreach (ActorData actorData in validAfterImages)
 		{
-			if (actorData != null && !actorData.\u000E())
+			if (actorData != null && !actorData.IsDead())
 			{
 				for (;;)
 				{
@@ -257,9 +257,9 @@ public class TricksterFlare : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
 				}
-				Animator animator = actorData.\u000E();
-				animator.SetInteger("Attack", 0);
-				animator.SetBool("CinematicCam", false);
+				Animator modelAnimator = actorData.GetModelAnimator();
+				modelAnimator.SetInteger("Attack", 0);
+				modelAnimator.SetBool("CinematicCam", false);
 			}
 		}
 	}

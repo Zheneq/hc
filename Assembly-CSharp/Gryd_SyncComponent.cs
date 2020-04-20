@@ -66,7 +66,7 @@ public class Gryd_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				this.m_bombLocation = new GridPos(num, num2, Board.\u000E().BaselineHeight);
+				this.m_bombLocation = new GridPos(num, num2, Board.Get().BaselineHeight);
 				return;
 			}
 		}

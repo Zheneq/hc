@@ -162,7 +162,7 @@ public class ActorController : NetworkBehaviour
 					}
 					break;
 				}
-				BoardSquare playerClampedSquare = Board.\u000E().PlayerClampedSquare;
+				BoardSquare playerClampedSquare = Board.Get().PlayerClampedSquare;
 				bool flag = actor.respawnSquares.Contains(playerClampedSquare);
 				if (playerClampedSquare != null)
 				{
@@ -199,7 +199,7 @@ public class ActorController : NetworkBehaviour
 		ActorData actor = this.m_actor;
 		if (actor == GameFlowData.Get().activeOwnedActorData)
 		{
-			BoardSquare playerFreeSquare = Board.\u000E().PlayerFreeSquare;
+			BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
 			if (playerFreeSquare != null)
 			{
 				for (;;)
@@ -215,7 +215,7 @@ public class ActorController : NetworkBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorController.HandleDebugTeleport()).MethodHandle;
 				}
-				if (playerFreeSquare.\u0016())
+				if (playerFreeSquare.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -389,7 +389,7 @@ public class ActorController : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorController.Update()).MethodHandle;
 			}
-			ActorTurnSM actorTurnSM = actor.\u000E();
+			ActorTurnSM actorTurnSM = actor.GetActorTurnSM();
 			if (actorTurnSM.CanPickRespawnLocation())
 			{
 				for (;;)
@@ -447,7 +447,7 @@ public class ActorController : NetworkBehaviour
 
 	public HashSet<BoardSquare> GetSquaresToClampTo()
 	{
-		ActorTurnSM actorTurnSM = this.m_actor.\u000E();
+		ActorTurnSM actorTurnSM = this.m_actor.GetActorTurnSM();
 		if (actorTurnSM.AmDecidingMovement())
 		{
 			for (;;)
@@ -463,7 +463,7 @@ public class ActorController : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorController.GetSquaresToClampTo()).MethodHandle;
 			}
-			return this.m_actor.\u000E().SquaresCanMoveTo;
+			return this.m_actor.GetActorMovement().SquaresCanMoveTo;
 		}
 		if (actorTurnSM.AmTargetingAction())
 		{
@@ -496,19 +496,19 @@ public class ActorController : NetworkBehaviour
 
 	public void RecalcAndHighlightValidSquares()
 	{
-		Board board = Board.\u000E();
+		Board board = Board.Get();
 		ActorData actor = this.m_actor;
-		AbilityData abilityData = actor.\u000E();
-		ActorMovement actorMovement = actor.\u000E();
+		AbilityData abilityData = actor.GetAbilityData();
+		ActorMovement actorMovement = actor.GetActorMovement();
 		this.m_canMoveToSquaresScratch.Clear();
 		this.m_canMoveToWithQueuedAbilityScratch.Clear();
 		this.m_targetingSquaresScratch.Clear();
 		bool flag = false;
 		bool flag2 = false;
-		bool flag3 = this.m_actor.\u000E().AmDecidingMovement();
-		bool flag4 = this.m_actor.\u000E().CurrentState == TurnStateEnum.TARGETING_ACTION;
-		bool markedForUpdateValidSquares = Board.\u000E().MarkedForUpdateValidSquares;
-		bool flag5 = actor.\u000E() > 0f;
+		bool flag3 = this.m_actor.GetActorTurnSM().AmDecidingMovement();
+		bool flag4 = this.m_actor.GetActorTurnSM().CurrentState == TurnStateEnum.TARGETING_ACTION;
+		bool markedForUpdateValidSquares = Board.Get().MarkedForUpdateValidSquares;
+		bool flag5 = actor.GetPostAbilityHorizontalMovementChange() > 0f;
 		bool flag6 = abilityData.GetQueuedAbilitiesMovementAdjust() < 0f;
 		if (flag3)
 		{
@@ -614,7 +614,7 @@ public class ActorController : NetworkBehaviour
 					}
 				}
 				IL_1B1:
-				Board.\u000E().MarkForUpdateValidSquares(false);
+				Board.Get().MarkForUpdateValidSquares(false);
 			}
 			else
 			{
@@ -634,7 +634,7 @@ public class ActorController : NetworkBehaviour
 				break;
 			}
 			Ability selectedAbility = abilityData.GetSelectedAbility();
-			int targetSelectionIndex = this.m_actor.\u000E().GetTargetSelectionIndex();
+			int targetSelectionIndex = this.m_actor.GetActorTurnSM().GetTargetSelectionIndex();
 			if (!(selectedAbility != this.m_lastTargetedAbility))
 			{
 				for (;;)
@@ -800,7 +800,7 @@ public class ActorController : NetworkBehaviour
 		else
 		{
 			HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
-			if (actor.\u0012() != null)
+			if (actor.GetCurrentBoardSquare() != null)
 			{
 				for (;;)
 				{
@@ -811,7 +811,7 @@ public class ActorController : NetworkBehaviour
 					}
 					break;
 				}
-				hashSet.Add(actor.\u0012());
+				hashSet.Add(actor.GetCurrentBoardSquare());
 				if (this.m_lastTargetedAbility != null)
 				{
 					for (;;)
@@ -850,8 +850,8 @@ public class ActorController : NetworkBehaviour
 										}
 										break;
 									}
-									BoardSquare boardSquare = Board.\u000E().\u000E(abilityUtil_Targeter.LastUpdatingGridPos);
-									if (boardSquare != null)
+									BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityUtil_Targeter.LastUpdatingGridPos);
+									if (boardSquareSafe != null)
 									{
 										for (;;)
 										{
@@ -862,7 +862,7 @@ public class ActorController : NetworkBehaviour
 											}
 											break;
 										}
-										hashSet.Add(boardSquare);
+										hashSet.Add(boardSquareSafe);
 									}
 								}
 							}
@@ -927,7 +927,7 @@ public class ActorController : NetworkBehaviour
 		}
 		IL_58A:
 		bool flag7;
-		if (GameFlowData.Get().IsInDecisionState() && this.m_actor.\u000E() && SpawnPointManager.Get() != null)
+		if (GameFlowData.Get().IsInDecisionState() && this.m_actor.IsDead() && SpawnPointManager.Get() != null)
 		{
 			for (;;)
 			{
@@ -957,7 +957,7 @@ public class ActorController : NetworkBehaviour
 				}
 				break;
 			}
-			if (actor.\u000E() && !respawnSquares.IsNullOrEmpty<BoardSquare>())
+			if (actor.IsDead() && !respawnSquares.IsNullOrEmpty<BoardSquare>())
 			{
 				for (;;)
 				{
@@ -1075,8 +1075,8 @@ public class ActorController : NetworkBehaviour
 					break;
 				}
 				Vector3 position = HighlightUtils.Get().MovementMouseOverCursor.transform.position;
-				BoardSquare item3 = board.\u0012(position.x, position.z);
-				if (this.m_canMoveToWithQueuedAbilityScratch.Contains(item3))
+				BoardSquare boardSquareSafe2 = board.GetBoardSquareSafe(position.x, position.z);
+				if (this.m_canMoveToWithQueuedAbilityScratch.Contains(boardSquareSafe2))
 				{
 					for (;;)
 					{
@@ -1228,7 +1228,7 @@ public class ActorController : NetworkBehaviour
 				}
 				break;
 			}
-			if (x != null && this.m_actor.\u0018())
+			if (x != null && this.m_actor.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -1317,7 +1317,7 @@ public class ActorController : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorController.SendQueueSimpleActionRequest(AbilityData.ActionType)).MethodHandle;
 			}
-			if (actor.\u000E() != null)
+			if (actor.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -1328,7 +1328,7 @@ public class ActorController : NetworkBehaviour
 					}
 					break;
 				}
-				actor.\u000E().SetLastSelectedAbility(actor.\u000E().GetAbilityOfActionType(actionType));
+				actor.GetAbilityData().SetLastSelectedAbility(actor.GetAbilityData().GetAbilityOfActionType(actionType));
 			}
 		}
 		this.CallCmdQueueSimpleActionRequest((int)actionType);
@@ -1443,7 +1443,7 @@ public class ActorController : NetworkBehaviour
 						}
 						break;
 					}
-					this.m_actor.\u000E().UpdateSquaresCanMoveTo();
+					this.m_actor.GetActorMovement().UpdateSquaresCanMoveTo();
 				}
 			}
 		}

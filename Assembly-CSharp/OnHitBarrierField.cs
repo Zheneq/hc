@@ -60,7 +60,7 @@ public class OnHitBarrierField
 				break;
 			}
 		}
-		this.m_centerPosContextKey = ContextVars.\u0015(this.m_centerPosContextName);
+		this.m_centerPosContextKey = ContextVars.GetHash(this.m_centerPosContextName);
 		IL_3B:
 		return this.m_centerPosContextKey;
 	}
@@ -96,7 +96,7 @@ public class OnHitBarrierField
 				break;
 			}
 		}
-		this.m_facingDirContextKey = ContextVars.\u0015(this.m_facingDirContextName);
+		this.m_facingDirContextKey = ContextVars.GetHash(this.m_facingDirContextName);
 		IL_3B:
 		return this.m_facingDirContextKey;
 	}
@@ -132,7 +132,7 @@ public class OnHitBarrierField
 				break;
 			}
 		}
-		this.m_barrierWidthContextKey = ContextVars.\u0015(this.m_barrierWidthContextName);
+		this.m_barrierWidthContextKey = ContextVars.GetHash(this.m_barrierWidthContextName);
 		IL_39:
 		return this.m_barrierWidthContextKey;
 	}

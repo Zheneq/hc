@@ -304,7 +304,7 @@ public class NinjaMultiAttackSequence : Sequence
 			int j = -i;
 			while (j <= i)
 			{
-				BoardSquare boardSquare2 = Board.\u000E().\u0016(center.x + j, center.y);
+				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(center.x + j, center.y);
 				if (this.CanUseSquareForTempSatellite(boardSquare2))
 				{
 					for (;;)
@@ -325,7 +325,7 @@ public class NinjaMultiAttackSequence : Sequence
 					int k = -i;
 					while (k <= i)
 					{
-						BoardSquare boardSquare3 = Board.\u000E().\u0016(center.x, center.y + k);
+						BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + k);
 						if (this.CanUseSquareForTempSatellite(boardSquare3))
 						{
 							for (;;)
@@ -419,7 +419,7 @@ public class NinjaMultiAttackSequence : Sequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.CanUseSquareForTempSatellite(BoardSquare)).MethodHandle;
 			}
-			if (square.\u0016() && square.occupant == null)
+			if (square.IsBaselineHeight() && square.occupant == null)
 			{
 				for (;;)
 				{
@@ -484,9 +484,9 @@ public class NinjaMultiAttackSequence : Sequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.SpawnTempSatellite()).MethodHandle;
 			}
-			BoardSquare closestUnoccupiedSquare = this.GetClosestUnoccupiedSquare(nextTarget.m_target.\u0012());
+			BoardSquare closestUnoccupiedSquare = this.GetClosestUnoccupiedSquare(nextTarget.m_target.GetCurrentBoardSquare());
 			Vector3 forward = Vector3.forward;
-			if (closestUnoccupiedSquare != nextTarget.m_target.\u0012())
+			if (closestUnoccupiedSquare != nextTarget.m_target.GetCurrentBoardSquare())
 			{
 				for (;;)
 				{
@@ -497,7 +497,7 @@ public class NinjaMultiAttackSequence : Sequence
 					}
 					break;
 				}
-				forward = nextTarget.m_target.\u0012().ToVector3() - closestUnoccupiedSquare.ToVector3();
+				forward = nextTarget.m_target.GetCurrentBoardSquare().ToVector3() - closestUnoccupiedSquare.ToVector3();
 			}
 			GameObject gameObject = base.InstantiateFX(this.m_tempSatellitePrefab, closestUnoccupiedSquare.ToVector3(), Quaternion.LookRotation(forward), true, true);
 			gameObject.GetComponent<NinjaCloneSatellite>().Setup(this);

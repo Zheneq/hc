@@ -192,10 +192,10 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 					}
 					else
 					{
-						ActorTurnSM actorTurnSM = this.m_actorData.\u000E();
+						ActorTurnSM actorTurnSM = this.m_actorData.GetActorTurnSM();
 						if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 						{
-							AbilityData abilityData = this.m_actorData.\u000E();
+							AbilityData abilityData = this.m_actorData.GetAbilityData();
 							Ability ability;
 							if (abilityData)
 							{
@@ -378,7 +378,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.HasBothTethers()).MethodHandle;
 				}
-				if (actorData.\u000E() == this.m_actorData.\u000E())
+				if (actorData.GetTeam() == this.m_actorData.GetTeam())
 				{
 					flag = true;
 				}
@@ -450,7 +450,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 						}
 						break;
 					}
-					component.Setup(GameFlowData.Get().activeOwnedActorData.\u000E());
+					component.Setup(GameFlowData.Get().activeOwnedActorData.GetTeam());
 				}
 			}
 			if (flag)

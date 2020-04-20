@@ -44,8 +44,8 @@ public class SetIdleTypeSequence : Sequence
 
 	private void SetIdleType()
 	{
-		Animator animator = base.Caster.\u000E();
-		if (animator != null)
+		Animator modelAnimator = base.Caster.GetModelAnimator();
+		if (modelAnimator != null)
 		{
 			for (;;)
 			{
@@ -90,7 +90,7 @@ public class SetIdleTypeSequence : Sequence
 					}
 					break;
 				}
-				animator.SetInteger(this.m_animParameter, value);
+				modelAnimator.SetInteger(this.m_animParameter, value);
 			}
 			if (!this.m_triggerAnimParameter.IsNullOrEmpty())
 			{
@@ -103,17 +103,17 @@ public class SetIdleTypeSequence : Sequence
 					}
 					break;
 				}
-				animator.SetTrigger(this.m_triggerAnimParameter);
+				modelAnimator.SetTrigger(this.m_triggerAnimParameter);
 			}
 		}
 	}
 
 	private void RestoreIdleType()
 	{
-		Animator animator = base.Caster.\u000E();
-		if (animator != null && !this.m_animParameter.IsNullOrEmpty())
+		Animator modelAnimator = base.Caster.GetModelAnimator();
+		if (modelAnimator != null && !this.m_animParameter.IsNullOrEmpty())
 		{
-			animator.SetInteger(this.m_animParameter, 0);
+			modelAnimator.SetInteger(this.m_animParameter, 0);
 		}
 	}
 

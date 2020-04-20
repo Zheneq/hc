@@ -5,7 +5,7 @@ public class SenseiOrbProjectileSequence : ArcingProjectileSequence
 {
 	internal override Vector3 GetStartPos()
 	{
-		if (base.Caster.\u000E() != null)
+		if (base.Caster.GetActorModelData() != null)
 		{
 			for (;;)
 			{
@@ -20,7 +20,7 @@ public class SenseiOrbProjectileSequence : ArcingProjectileSequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbProjectileSequence.GetStartPos()).MethodHandle;
 			}
-			SenseiOrbVfxController component = base.Caster.\u000E().gameObject.GetComponent<SenseiOrbVfxController>();
+			SenseiOrbVfxController component = base.Caster.GetActorModelData().gameObject.GetComponent<SenseiOrbVfxController>();
 			if (component != null)
 			{
 				for (;;)

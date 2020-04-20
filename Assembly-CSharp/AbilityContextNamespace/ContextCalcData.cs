@@ -13,7 +13,7 @@ namespace AbilityContextNamespace
 		public void \u0012()
 		{
 			this.\u000E.Clear();
-			this.\u001D.\u0015();
+			this.\u001D.Clear();
 		}
 
 		public void \u0012(ActorData \u001D, Vector3 \u000E, bool \u0012 = false)
@@ -73,7 +73,7 @@ namespace AbilityContextNamespace
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ContextCalcData.\u0012(ActorData, int, int)).MethodHandle;
 				}
-				this.\u000E[\u001D].\u0015.\u0016(\u000E, \u0012);
+				this.\u000E[\u001D].\u0015.SetInt(\u000E, \u0012);
 			}
 			else if (Application.isEditor)
 			{
@@ -98,7 +98,7 @@ namespace AbilityContextNamespace
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ContextCalcData.\u0012(ActorData, int, float)).MethodHandle;
 				}
-				this.\u000E[\u001D].\u0015.\u0015(\u000E, \u0012);
+				this.\u000E[\u001D].\u0015.SetFloat(\u000E, \u0012);
 			}
 			else if (Application.isEditor)
 			{
@@ -132,7 +132,7 @@ namespace AbilityContextNamespace
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ContextCalcData.\u0012(ActorData, int, Vector3)).MethodHandle;
 				}
-				this.\u000E[\u001D].\u0015.\u0015(\u000E, \u0012);
+				this.\u000E[\u001D].\u0015.SetVector(\u000E, \u0012);
 			}
 			else if (Application.isEditor)
 			{

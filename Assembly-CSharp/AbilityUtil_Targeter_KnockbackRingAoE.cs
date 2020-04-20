@@ -66,7 +66,7 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackRingAoE.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
 					}
-					if (!Board.\u000E().\u000E(actorData.\u0012(), targetingActor.\u0012()))
+					if (!Board.Get().\u000E(actorData.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 					{
 						goto IL_119;
 					}
@@ -79,10 +79,10 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 						}
 						break;
 					}
-					Vector3 aimDir = targetingActor.\u0016() - actorData.\u0016();
+					Vector3 aimDir = targetingActor.GetTravelBoardSquareWorldPosition() - actorData.GetTravelBoardSquareWorldPosition();
 					aimDir.y = 0f;
 					float distance = 2f;
-					if (Board.\u000E().\u0015(actorData.\u0012(), targetingActor.\u0012()))
+					if (Board.Get().\u0015(actorData.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 					{
 						distance = 2.82f;
 					}

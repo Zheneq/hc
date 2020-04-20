@@ -116,7 +116,7 @@ public class MatchObjectiveKill : MatchObjective
 				int adjustAmount;
 				int adjustAmount2;
 				this.GetPointAdjusts(actor, out adjustAmount, out adjustAmount2);
-				Team team = actor.\u000E();
+				Team team = actor.GetTeam();
 				objectivePoints.AdjustPoints(adjustAmount, team);
 				objectivePoints.AdjustPoints(adjustAmount2, (team != Team.TeamA) ? Team.TeamA : Team.TeamB);
 			}
@@ -144,7 +144,7 @@ public class MatchObjectiveKill : MatchObjective
 			int adjustAmount;
 			int num;
 			this.GetPointAdjusts(actor, out adjustAmount, out num);
-			Team team = actor.\u000E();
+			Team team = actor.GetTeam();
 			objectivePoints.AdjustUnresolvedPoints(adjustAmount, team);
 			ObjectivePoints objectivePoints2 = objectivePoints;
 			int adjustAmount2 = num;
@@ -183,9 +183,9 @@ public class MatchObjectiveKill : MatchObjective
 		{
 			if (!(actor == null))
 			{
-				if (!(actor.\u000E() == null))
+				if (!(actor.GetCharacterResourceLink() == null))
 				{
-					return this.m_killedCharacterTypes.Contains(actor.\u000E().m_characterType);
+					return this.m_killedCharacterTypes.Contains(actor.GetCharacterResourceLink().m_characterType);
 				}
 				for (;;)
 				{

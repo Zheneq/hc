@@ -101,9 +101,9 @@ public class NanoSmithBarrier : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare y = Board.\u000E().\u000E(target.GridPos);
-			BoardSquare x = Board.\u000E().\u000E(currentTargets[0].GridPos);
-			return x == y;
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
+			return boardSquareSafe2 == boardSquareSafe;
 		}
 		return true;
 	}

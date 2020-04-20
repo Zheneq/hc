@@ -82,8 +82,8 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		Vector3 vector = targetingActor.\u0015();
-		List<BoardSquare> discSquaresFromEndPositions = NekoFanOfDiscs.GetDiscSquaresFromEndPositions(this.m_laserEndPoints, vector);
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		List<BoardSquare> discSquaresFromEndPositions = NekoFanOfDiscs.GetDiscSquaresFromEndPositions(this.m_laserEndPoints, travelBoardSquareWorldPositionForLos);
 		for (int i = 0; i < this.m_count; i++)
 		{
 			if (this.m_highlights.Count <= this.m_count + 2 * i)
@@ -106,18 +106,18 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 			}
 			GameObject gameObject = this.m_highlights[2 * i + this.m_count];
 			GameObject gameObject2 = this.m_highlights[2 * i + 1 + this.m_count];
-			Vector3 vector2 = new Vector3(this.m_laserEndPoints[i].x, HighlightUtils.GetHighlightHeight(), this.m_laserEndPoints[i].z);
-			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(vector, this.m_laserEndPoints[i]);
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector2, this.m_aoeRadiusAtEnd, false, targetingActor, targetingActor.\u0012(), null, true, coneLosCheckPos);
+			Vector3 vector = new Vector3(this.m_laserEndPoints[i].x, HighlightUtils.GetHighlightHeight(), this.m_laserEndPoints[i].z);
+			Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(travelBoardSquareWorldPositionForLos, this.m_laserEndPoints[i]);
+			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(vector, this.m_aoeRadiusAtEnd, false, targetingActor, targetingActor.GetOpposingTeam(), null, true, coneLosCheckPos);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadius);
-			base.AddActorsInRange(actorsInRadius, vector, targetingActor, AbilityTooltipSubject.Primary, false);
-			int u001D = ContextKeys.\u001A.\u0012();
+			base.AddActorsInRange(actorsInRadius, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
+			int hash = ContextKeys.\u001A.GetHash();
 			for (int j = 0; j < actorsInRadius.Count; j++)
 			{
 				ActorData key = actorsInRadius[j];
 				ActorHitContext actorHitContext = this.m_actorContextVars[key];
-				actorHitContext.\u001D = vector;
-				actorHitContext.\u0015.\u0016(u001D, 1);
+				actorHitContext.\u001D = travelBoardSquareWorldPositionForLos;
+				actorHitContext.\u0015.SetInt(hash, 1);
 			}
 			for (;;)
 			{
@@ -129,10 +129,10 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 				break;
 			}
 			BoardSquare boardSquare = discSquaresFromEndPositions[i];
-			Vector3 position = boardSquare.\u0012();
-			position.y = HighlightUtils.GetHighlightHeight();
-			gameObject.transform.position = position;
-			gameObject2.transform.position = vector2;
+			Vector3 baselineHeight = boardSquare.GetBaselineHeight();
+			baselineHeight.y = HighlightUtils.GetHighlightHeight();
+			gameObject.transform.position = baselineHeight;
+			gameObject2.transform.position = vector;
 			if (gameObject.activeSelf != this.m_showEndSquareHighlights)
 			{
 				for (;;)
@@ -181,7 +181,7 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 				float z = (this.m_interpStep + this.m_interpMinDistanceInSquares) * Board.SquareSizeStatic;
 				float num = 1.2f;
 				GameObject gameObject3 = HighlightUtils.Get().CreateDynamicLineSegmentMesh(num, 0.5f, false, Color.cyan);
-				gameObject3.transform.localPosition = new Vector3(-0.5f * Board.\u000E().squareSize * num, 0f, z);
+				gameObject3.transform.localPosition = new Vector3(-0.5f * Board.Get().squareSize * num, 0f, z);
 				gameObject3.transform.localRotation = Quaternion.LookRotation(new Vector3(1f, 0f, 0f));
 				GameObject gameObject4 = new GameObject();
 				gameObject4.transform.localPosition = Vector3.zero;
@@ -190,9 +190,9 @@ public class AbilityUtil_Targeter_NekoDiscsFan : AbilityUtil_Targeter_ThiefFanLa
 				this.m_highlights.Add(gameObject4);
 			}
 			GameObject gameObject5 = this.m_highlights[this.m_highlights.Count - 1];
-			Vector3 position2 = vector;
-			position2.y = HighlightUtils.GetHighlightHeight();
-			gameObject5.transform.position = position2;
+			Vector3 position = travelBoardSquareWorldPositionForLos;
+			position.y = HighlightUtils.GetHighlightHeight();
+			gameObject5.transform.position = position;
 			gameObject5.transform.rotation = Quaternion.LookRotation(currentTarget.AimDirection);
 		}
 	}

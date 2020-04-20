@@ -45,13 +45,13 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u001A.\u0012(), "on every hit actor, 1 if in AoE, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.\u0013.\u0012(), "on every actor, distance of cursor pos from min distance, for interpolation", true);
+		return base.GetContextUsageStr(ContextKeys.\u001A.GetName(), "on every hit actor, 1 if in AoE, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.\u0013.GetName(), "on every actor, distance of cursor pos from min distance, for interpolation", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u001A.\u0012());
-		names.Add(ContextKeys.\u0013.\u0012());
+		names.Add(ContextKeys.\u001A.GetName());
+		names.Add(ContextKeys.\u0013.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)

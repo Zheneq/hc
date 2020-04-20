@@ -49,7 +49,7 @@ public class KnockbackStatusIndicatorVFX : AttachedActorVFXInfo
 						}
 						break;
 					}
-					if (this.m_actor.\u000E() != null)
+					if (this.m_actor.GetActorStatus() != null)
 					{
 						for (;;)
 						{
@@ -60,7 +60,7 @@ public class KnockbackStatusIndicatorVFX : AttachedActorVFXInfo
 							}
 							break;
 						}
-						if (this.m_actor.\u000E() != null)
+						if (this.m_actor.GetActorMovement() != null)
 						{
 							for (;;)
 							{
@@ -71,8 +71,8 @@ public class KnockbackStatusIndicatorVFX : AttachedActorVFXInfo
 								}
 								break;
 							}
-							bool flag = this.m_actor != null && !this.m_actor.\u0012();
-							bool flag2 = this.m_actor.\u000E().HasStatus(this.m_status, false);
+							bool flag = this.m_actor != null && !this.m_actor.IsModelAnimatorDisabled();
+							bool flag2 = this.m_actor.GetActorStatus().HasStatus(this.m_status, false);
 							bool flag3;
 							if (actorVisible)
 							{
@@ -107,7 +107,7 @@ public class KnockbackStatusIndicatorVFX : AttachedActorVFXInfo
 											}
 											break;
 										}
-										flag3 = !this.m_actor.\u000E().AmMoving();
+										flag3 = !this.m_actor.GetActorMovement().AmMoving();
 										goto IL_12C;
 									}
 								}

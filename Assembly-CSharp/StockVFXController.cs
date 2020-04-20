@@ -146,7 +146,7 @@ public class StockVFXController : CopyableVfxControllerComponent
 					break;
 				}
 				flag = this.m_actorModelData.IsVisibleToClient();
-				flag2 = (this.m_actorModelData.m_parentActorData == null || !this.m_actorModelData.m_parentActorData.\u000E());
+				flag2 = (this.m_actorModelData.m_parentActorData == null || !this.m_actorModelData.m_parentActorData.IsDead());
 			}
 			this.m_vfxInstance.SetActive(flag && flag2);
 			this.m_vfxInstance.transform.position = base.transform.position;

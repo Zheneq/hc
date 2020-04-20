@@ -12,11 +12,11 @@ public class AbilityUtil_Targeter_NekoCharge : AbilityUtil_Targeter_ChargeAoE
 
 	protected override bool UseRadiusAroundEnd(AbilityTarget currentTarget)
 	{
-		BoardSquare item = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (this.m_syncComp != null)
 		{
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Contains(item))
+			if (activeDiscSquares.Contains(boardSquareSafe))
 			{
 				for (;;)
 				{

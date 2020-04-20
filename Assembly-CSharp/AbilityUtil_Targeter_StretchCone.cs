@@ -89,8 +89,8 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		BoardSquare coneStartSquare = targetingActor.\u0012();
-		this.UpdateTargetingAsIfFromSquare(currentTarget, targetingActor, coneStartSquare);
+		BoardSquare currentBoardSquare = targetingActor.GetCurrentBoardSquare();
+		this.UpdateTargetingAsIfFromSquare(currentTarget, targetingActor, currentBoardSquare);
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> targets)
@@ -114,7 +114,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 			if (targets[currentTargetIndex - 1] != null)
 			{
 				AbilityTarget abilityTarget = targets[currentTargetIndex - 1];
-				coneStartSquare = Board.\u000E().\u000E(abilityTarget.GridPos);
+				coneStartSquare = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 				goto IL_66;
 			}
 			for (;;)
@@ -127,7 +127,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 				break;
 			}
 		}
-		coneStartSquare = targetingActor.\u0012();
+		coneStartSquare = targetingActor.GetCurrentBoardSquare();
 		IL_66:
 		this.UpdateTargetingAsIfFromSquare(currentTarget, targetingActor, coneStartSquare);
 	}
@@ -135,15 +135,15 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 	public void UpdateTargetingAsIfFromSquare(AbilityTarget currentTarget, ActorData targetingActor, BoardSquare coneStartSquare)
 	{
 		base.ClearActorsInRange();
-		Vector3 vector = coneStartSquare.\u000E();
+		Vector3 worldPositionForLoS = coneStartSquare.GetWorldPositionForLoS();
 		Vector3 freePos = currentTarget.FreePos;
-		Vector3 vector2 = freePos - vector;
-		vector2.y = 0f;
-		vector2.Normalize();
-		float forwardDir_degrees = VectorUtils.HorizontalAngle_Deg(vector2);
+		Vector3 vector = freePos - worldPositionForLoS;
+		vector.y = 0f;
+		vector.Normalize();
+		float forwardDir_degrees = VectorUtils.HorizontalAngle_Deg(vector);
 		float num;
 		float num2;
-		AreaEffectUtils.GatherStretchConeDimensions(freePos, vector, this.m_minLengthSquares, this.m_maxLengthSquares, this.m_minAngleDegrees, this.m_maxAngleDegrees, this.m_stretchStyle, out num, out num2, this.m_discreteWidthAngleChange, this.m_numDiscreteWidthChanges, this.m_interpMinDistOverride, this.m_interpRangeOverride);
+		AreaEffectUtils.GatherStretchConeDimensions(freePos, worldPositionForLoS, this.m_minLengthSquares, this.m_maxLengthSquares, this.m_minAngleDegrees, this.m_maxAngleDegrees, this.m_stretchStyle, out num, out num2, this.m_discreteWidthAngleChange, this.m_numDiscreteWidthChanges, this.m_interpMinDistOverride, this.m_interpRangeOverride);
 		if (this.m_coneLengthSquaresOverrideDelegate != null)
 		{
 			for (;;)
@@ -184,8 +184,8 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		GameObject item = this.m_conePart.CreateHighlightObject(this);
 		this.m_highlights.Add(item);
 		IL_10E:
-		this.m_conePart.AdjustHighlight(this.m_highlights[0], vector, vector2);
-		List<ActorData> hitActors = this.m_conePart.GetHitActors(vector, vector2, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_includeAllies, this.m_includeEnemies));
+		this.m_conePart.AdjustHighlight(this.m_highlights[0], worldPositionForLoS, vector);
+		List<ActorData> hitActors = this.m_conePart.GetHitActors(worldPositionForLoS, vector, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_includeAllies, this.m_includeEnemies));
 		if (this.m_knockbackDistance <= 0f)
 		{
 			for (;;)
@@ -213,7 +213,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		}
 		int num3 = 0;
 		base.EnableAllMovementArrows();
-		Vector3 sourcePos = vector;
+		Vector3 sourcePos = worldPositionForLoS;
 		if (this.m_knockbackDistance > 0f)
 		{
 			float num4 = this.m_knockbackDistance;
@@ -250,7 +250,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					if (actorData.\u000E() != targetingActor.\u000E())
+					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
 						for (;;)
 						{
@@ -261,7 +261,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 							}
 							break;
 						}
-						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector2, sourcePos, num4);
+						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector, sourcePos, num4);
 						num3 = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num3, false);
 					}
 				}
@@ -287,7 +287,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 				}
 				break;
 			}
-			BoardSquarePathInfo path2 = KnockbackUtils.BuildKnockbackPath(targetingActor, this.m_knockbackTypeOnSelf, vector2, sourcePos, this.m_knockbackDistanceOnSelf);
+			BoardSquarePathInfo path2 = KnockbackUtils.BuildKnockbackPath(targetingActor, this.m_knockbackTypeOnSelf, vector, sourcePos, this.m_knockbackDistanceOnSelf);
 			num3 = base.AddMovementArrowWithPrevious(targetingActor, path2, AbilityUtil_Targeter.TargeterMovementType.Knockback, num3, false);
 		}
 		base.SetMovementArrowEnabledFromIndex(num3, false);
@@ -322,7 +322,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 			ActorData actor = hitActors[i];
 			if (this.ShouldAddActor(actor, targetingActor))
 			{
-				base.AddActorInRange(actor, vector, targetingActor, AbilityTooltipSubject.Primary, false);
+				base.AddActorInRange(actor, worldPositionForLoS, targetingActor, AbilityTooltipSubject.Primary, false);
 			}
 		}
 		for (;;)
@@ -334,7 +334,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 			}
 			break;
 		}
-		this.DrawInvalidSquareIndicators(targetingActor, vector, forwardDir_degrees, num, num2);
+		this.DrawInvalidSquareIndicators(targetingActor, worldPositionForLoS, forwardDir_degrees, num, num2);
 	}
 
 	private void DrawInvalidSquareIndicators(ActorData targetingActor, Vector3 coneStartPos, float forwardDir_degrees, float coneLengthSquares, float coneWidthDegrees)
@@ -356,7 +356,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		}
 		else
 		{
-			if (actor.\u000E() == caster.\u000E())
+			if (actor.GetTeam() == caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -385,7 +385,7 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 					return true;
 				}
 			}
-			if (actor.\u000E() != caster.\u000E())
+			if (actor.GetTeam() != caster.GetTeam())
 			{
 				for (;;)
 				{

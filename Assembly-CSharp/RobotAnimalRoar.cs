@@ -305,7 +305,7 @@ public class RobotAnimalRoar : Ability
 					}
 					break;
 				}
-				if (targetActor.\u0012() != null)
+				if (targetActor.GetCurrentBoardSquare() != null)
 				{
 					for (;;)
 					{
@@ -319,7 +319,7 @@ public class RobotAnimalRoar : Ability
 					if (tooltipSubjectTypes2 != null && tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Enemy))
 					{
 						dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-						bool flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.\u0012(), actorData.\u0016(), 0f, 360f, this.GetInnerRadius(), 0f, this.GetPenetrateLos(), actorData, false, default(Vector3));
+						bool flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), actorData.GetTravelBoardSquareWorldPosition(), 0f, 360f, this.GetInnerRadius(), 0f, this.GetPenetrateLos(), actorData, false, default(Vector3));
 						Dictionary<AbilityTooltipSymbol, int> dictionary3 = dictionary;
 						AbilityTooltipSymbol key2 = AbilityTooltipSymbol.Damage;
 						int value2;

@@ -15,10 +15,10 @@ namespace TMPro.Examples
 
 		private void \u0012()
 		{
-			base.StartCoroutine(this.\u000E());
+			base.StartCoroutine(this.coroutine000E());
 		}
 
-		private IEnumerator \u000E()
+		private IEnumerator coroutine000E()
 		{
 			TMP_TextInfo textInfo = this.\u001D.textInfo;
 			int num = 0;

@@ -93,7 +93,7 @@ public class AppState_InGameDeployment : AppStateInGame
 			}
 			UIFrontendLoadingScreen.Get().StartDisplayFadeOut();
 		}
-		Board.\u000E().SetLOSVisualEffect(false);
+		Board.Get().SetLOSVisualEffect(false);
 		if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 		{
 			for (;;)
@@ -133,7 +133,7 @@ public class AppState_InGameDeployment : AppStateInGame
 				}
 				break;
 			}
-			GameFlowData.Get().activeOwnedActorData.\u000E().SetMovementDistanceLinesVisible(false);
+			GameFlowData.Get().activeOwnedActorData.GetActorController().SetMovementDistanceLinesVisible(false);
 		}
 		base.RegisterGameStoppedHandler();
 		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
@@ -171,7 +171,7 @@ public class AppState_InGameDeployment : AppStateInGame
 			}
 			BrushCoordinator.Get().EnableBrushVisibility();
 		}
-		Board.\u000E().SetLOSVisualEffect(true);
+		Board.Get().SetLOSVisualEffect(true);
 		if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 		{
 			for (;;)
@@ -194,7 +194,7 @@ public class AppState_InGameDeployment : AppStateInGame
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					actorData.\u000E().SetMovementDistanceLinesVisible(true);
+					actorData.GetActorController().SetMovementDistanceLinesVisible(true);
 				}
 				for (;;)
 				{

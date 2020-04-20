@@ -85,7 +85,7 @@ public class UINotificationDisplay : MonoBehaviour
 
 	public void Setup(ActorData actorDied)
 	{
-		this.m_secondaryCharacterIcon.sprite = actorDied.\u000E();
+		this.m_secondaryCharacterIcon.sprite = actorDied.GetAliveHUDIcon();
 		bool flag = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
@@ -102,7 +102,7 @@ public class UINotificationDisplay : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UINotificationDisplay.Setup(ActorData)).MethodHandle;
 			}
-			flag = (actorDied.\u000E() == GameFlowData.Get().activeOwnedActorData.\u000E());
+			flag = (actorDied.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam());
 		}
 		if (flag)
 		{

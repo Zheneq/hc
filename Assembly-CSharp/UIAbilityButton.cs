@@ -821,7 +821,7 @@ public class UIAbilityButton : MonoBehaviour
 				UIManager.SetGameObjectActive(this.m_default, flag7, null);
 			}
 			bool flag15 = true;
-			if (!actorData.\u000E())
+			if (!actorData.IsDead())
 			{
 				for (;;)
 				{
@@ -873,7 +873,7 @@ public class UIAbilityButton : MonoBehaviour
 						}
 						break;
 					}
-					if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.\u0016() || !AbilityUtils.AbilityHasTag(this.m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
+					if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.GetActualMaxTechPoints() || !AbilityUtils.AbilityHasTag(this.m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
 					{
 						for (;;)
 						{

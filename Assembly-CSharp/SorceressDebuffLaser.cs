@@ -370,11 +370,11 @@ public class SorceressDebuffLaser : Ability
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> result = new List<Vector3>();
-		Vector3 startPos = caster.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 aimDirection = targets[0].AimDirection;
-		float maxDistanceInWorld = this.GetLaserRange() * Board.\u000E().squareSize;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, aimDirection, maxDistanceInWorld, this.m_penetrateLineOfSight, caster, null, true);
-		AreaEffectUtils.AddBoxExtremaToList(ref result, startPos, laserEndPoint, this.GetLaserWidth());
+		float maxDistanceInWorld = this.GetLaserRange() * Board.Get().squareSize;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, aimDirection, maxDistanceInWorld, this.m_penetrateLineOfSight, caster, null, true);
+		AreaEffectUtils.AddBoxExtremaToList(ref result, travelBoardSquareWorldPositionForLos, laserEndPoint, this.GetLaserWidth());
 		return result;
 	}
 }

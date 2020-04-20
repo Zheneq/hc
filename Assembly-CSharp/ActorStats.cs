@@ -703,13 +703,13 @@ public class ActorStats : NetworkBehaviour
 			}
 			this.MarkAllForUpdate();
 		}
-		Board.\u000E().MarkForUpdateValidSquares(true);
+		Board.Get().MarkForUpdateValidSquares(true);
 	}
 
 	public int CalculateOutgoingDamageForTargeter(int baseDamage)
 	{
 		int b = baseDamage;
-		ActorStatus actorStatus = this.m_actorData.\u000E();
+		ActorStatus actorStatus = this.m_actorData.GetActorStatus();
 		bool flag;
 		if (!actorStatus.HasStatus(StatusType.Empowered, true))
 		{
@@ -726,7 +726,7 @@ public class ActorStats : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStats.CalculateOutgoingDamageForTargeter(int)).MethodHandle;
 			}
-			if (this.m_actorData.\u000E() != null)
+			if (this.m_actorData.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -737,7 +737,7 @@ public class ActorStats : NetworkBehaviour
 					}
 					break;
 				}
-				flag = this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Empowered);
+				flag = this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered);
 			}
 			else
 			{
@@ -837,7 +837,7 @@ public class ActorStats : NetworkBehaviour
 	public int CalculateOutgoingHealForTargeter(int baseHeal)
 	{
 		int b = baseHeal;
-		ActorStatus actorStatus = this.m_actorData.\u000E();
+		ActorStatus actorStatus = this.m_actorData.GetActorStatus();
 		bool flag;
 		if (!actorStatus.HasStatus(StatusType.Empowered, true))
 		{
@@ -854,7 +854,7 @@ public class ActorStats : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStats.CalculateOutgoingHealForTargeter(int)).MethodHandle;
 			}
-			flag = (this.m_actorData.\u000E() != null && this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Empowered));
+			flag = (this.m_actorData.GetAbilityData() != null && this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered));
 		}
 		else
 		{
@@ -949,11 +949,11 @@ public class ActorStats : NetworkBehaviour
 	public int CalculateOutgoingAbsorbForTargeter(int baseAbsorb)
 	{
 		int b = baseAbsorb;
-		ActorStatus actorStatus = this.m_actorData.\u000E();
+		ActorStatus actorStatus = this.m_actorData.GetActorStatus();
 		bool flag;
 		if (!actorStatus.HasStatus(StatusType.Empowered, true))
 		{
-			if (this.m_actorData.\u000E() != null)
+			if (this.m_actorData.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -968,7 +968,7 @@ public class ActorStats : NetworkBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStats.CalculateOutgoingAbsorbForTargeter(int)).MethodHandle;
 				}
-				flag = this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Empowered);
+				flag = this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Empowered);
 			}
 			else
 			{

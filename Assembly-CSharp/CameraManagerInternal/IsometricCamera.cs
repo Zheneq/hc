@@ -309,7 +309,7 @@ namespace CameraManagerInternal
 			ActorData actorData2 = actorData;
 			if (actorData2 != null)
 			{
-				if (this.m_targetWithBoardSquareWasNeverSet && actorData2.\u0012() != null)
+				if (this.m_targetWithBoardSquareWasNeverSet && actorData2.GetCurrentBoardSquare() != null)
 				{
 					for (;;)
 					{
@@ -777,7 +777,7 @@ namespace CameraManagerInternal
 									}
 									break;
 								}
-								bool flag6 = this.m_targetObjectActor.\u000E().AmMoving();
+								bool flag6 = this.m_targetObjectActor.GetActorMovement().AmMoving();
 								if (flag6)
 								{
 									for (;;)
@@ -789,7 +789,7 @@ namespace CameraManagerInternal
 										}
 										break;
 									}
-									BoardSquarePathInfo aestheticPath = this.m_targetObjectActor.\u000E().GetAestheticPath();
+									BoardSquarePathInfo aestheticPath = this.m_targetObjectActor.GetActorMovement().GetAestheticPath();
 									if (aestheticPath != null)
 									{
 										for (;;)
@@ -814,7 +814,7 @@ namespace CameraManagerInternal
 													}
 													break;
 												}
-												vector = aestheticPath.square.\u001D() + this.m_targetObjectOffset;
+												vector = aestheticPath.square.GetWorldPosition() + this.m_targetObjectOffset;
 												Vector3 startValue = (vector - this.m_targetPosition) * Time.deltaTime * this.m_movementCatchUpMult + this.m_targetPosition;
 												this.m_targetPosition = new EasedOutVector3(startValue);
 												flag5 = false;
@@ -824,7 +824,7 @@ namespace CameraManagerInternal
 												BoardSquarePathInfo pathEndpoint = aestheticPath.GetPathEndpoint();
 												if (pathEndpoint != null && pathEndpoint.square != null)
 												{
-													vector = pathEndpoint.square.\u001D() + this.m_targetObjectOffset;
+													vector = pathEndpoint.square.GetWorldPosition() + this.m_targetObjectOffset;
 												}
 											}
 										}
@@ -1112,8 +1112,8 @@ namespace CameraManagerInternal
 
 		internal void ForceTransformAtDefaultAngle(Vector3 targetPos, float yEuler)
 		{
-			BoardSquare boardSquare = Board.\u000E().\u0012(targetPos.x, targetPos.z);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetPos.x, targetPos.z);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -1128,11 +1128,11 @@ namespace CameraManagerInternal
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.ForceTransformAtDefaultAngle(Vector3, float)).MethodHandle;
 				}
-				targetPos.y = (float)boardSquare.height;
+				targetPos.y = (float)boardSquareSafe.height;
 			}
 			else
 			{
-				targetPos.y = (float)Board.\u000E().BaselineHeight;
+				targetPos.y = (float)Board.Get().BaselineHeight;
 			}
 			this.m_targetPosition.EaseTo(targetPos, 0.0166666675f);
 			CameraControls.Get().m_desiredRotationEulerAngles.y = yEuler;
@@ -1174,7 +1174,7 @@ namespace CameraManagerInternal
 						}
 						Vector3 b = this.CalcZoomOffsetForActiveAnimatedActor(base.transform.rotation);
 						Vector3 startValue = base.transform.position - b;
-						startValue.y = (float)Board.\u000E().BaselineHeight + this.m_targetObjectOffset.y;
+						startValue.y = (float)Board.Get().BaselineHeight + this.m_targetObjectOffset.y;
 						this.m_targetPosition = new EasedOutVector3(startValue);
 					}
 					this.m_transitionInTimeLeft = this.m_transitionInTime;
@@ -1231,7 +1231,7 @@ namespace CameraManagerInternal
 		private float GetHorzOffsetForActiveActor()
 		{
 			float result = 1.5f;
-			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().activeOwnedActorData.\u000E() != null)
+			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().activeOwnedActorData.GetActorModelData() != null)
 			{
 				for (;;)
 				{
@@ -1246,7 +1246,7 @@ namespace CameraManagerInternal
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.GetHorzOffsetForActiveActor()).MethodHandle;
 				}
-				result = GameFlowData.Get().activeOwnedActorData.\u000E().GetCameraHorzOffset();
+				result = GameFlowData.Get().activeOwnedActorData.GetActorModelData().GetCameraHorzOffset();
 			}
 			return result;
 		}
@@ -1306,7 +1306,7 @@ namespace CameraManagerInternal
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.GetZoomVertOffsetForActiveAnimatedActor(bool)).MethodHandle;
 				}
-				result = GameFlowData.Get().activeOwnedActorData.\u000E().GetCameraVertOffset(forceStandingOffset);
+				result = GameFlowData.Get().activeOwnedActorData.GetActorModelData().GetCameraVertOffset(forceStandingOffset);
 			}
 			else
 			{

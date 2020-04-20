@@ -240,7 +240,7 @@ public class SparkDash : Ability
 						}
 						break;
 					}
-					if (actorsSoFar[i].\u000E() == caster.\u000E())
+					if (actorsSoFar[i].GetTeam() == caster.GetTeam())
 					{
 						for (;;)
 						{
@@ -266,7 +266,7 @@ public class SparkDash : Ability
 						}
 						break;
 					}
-					if (actorsSoFar[i].\u000E() != caster.\u000E())
+					if (actorsSoFar[i].GetTeam() != caster.GetTeam())
 					{
 						for (;;)
 						{
@@ -290,7 +290,7 @@ public class SparkDash : Ability
 	{
 		bool result = false;
 		SparkDash sparkDash = ability as SparkDash;
-		BoardSquare boardSquare = Board.\u000E().\u000E(abilityTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 		if (sparkDash != null)
 		{
 			for (;;)
@@ -306,7 +306,7 @@ public class SparkDash : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkDash.TargeterAddActorInbetweenDelegate(ActorData, AbilityTarget, List<ActorData>, ActorData, Ability)).MethodHandle;
 			}
-			if (boardSquare != null)
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -317,7 +317,7 @@ public class SparkDash : Ability
 					}
 					break;
 				}
-				if (actorToConsider.\u0012() == boardSquare)
+				if (actorToConsider.GetCurrentBoardSquare() == boardSquareSafe)
 				{
 					for (;;)
 					{
@@ -343,7 +343,7 @@ public class SparkDash : Ability
 							}
 							break;
 						}
-						if (actorToConsider.\u000E() != caster.\u000E())
+						if (actorToConsider.GetTeam() != caster.GetTeam())
 						{
 							result = true;
 						}
@@ -359,7 +359,7 @@ public class SparkDash : Ability
 							}
 							break;
 						}
-						if (actorToConsider.\u000E() == caster.\u000E())
+						if (actorToConsider.GetTeam() == caster.GetTeam())
 						{
 							for (;;)
 							{
@@ -750,8 +750,8 @@ public class SparkDash : Ability
 		if (tooltipSubjectTypes != null)
 		{
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			BoardSquare boardSquare = Board.\u000E().\u000E(base.Targeter.LastUpdatingGridPos);
-			bool flag = boardSquare && boardSquare == targetActor.\u0012();
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
+			bool flag = boardSquareSafe && boardSquareSafe == targetActor.GetCurrentBoardSquare();
 			int age = 0;
 			if (this.m_beamSyncComp != null)
 			{
@@ -991,8 +991,8 @@ public class SparkDash : Ability
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
 			List<Team> list = new List<Team>();
-			list.Add(caster.\u0012());
-			list.Add(caster.\u000E());
+			list.Add(caster.GetOpposingTeam());
+			list.Add(caster.GetTeam());
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_targetShape, target, this.m_targetShapePenetratesLoS, caster, list, null);
 			SparkBeamTrackerComponent component = caster.GetComponent<SparkBeamTrackerComponent>();
 			using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
@@ -1056,9 +1056,9 @@ public class SparkDash : Ability
 		else
 		{
 			flag = true;
-			BoardSquare boardSquare = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare2 != null && boardSquare2.\u0016())
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe2 != null && boardSquareSafe2.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -1069,7 +1069,7 @@ public class SparkDash : Ability
 					}
 					break;
 				}
-				if (boardSquare2 != boardSquare && boardSquare2 != caster.\u0012())
+				if (boardSquareSafe2 != boardSquareSafe && boardSquareSafe2 != caster.GetCurrentBoardSquare())
 				{
 					for (;;)
 					{
@@ -1080,7 +1080,7 @@ public class SparkDash : Ability
 						}
 						break;
 					}
-					if (AreaEffectUtils.IsSquareInShape(boardSquare2, this.GetChooseDestShape(), target.FreePos, boardSquare, false, caster))
+					if (AreaEffectUtils.IsSquareInShape(boardSquareSafe2, this.GetChooseDestShape(), target.FreePos, boardSquareSafe, false, caster))
 					{
 						for (;;)
 						{
@@ -1092,7 +1092,7 @@ public class SparkDash : Ability
 							break;
 						}
 						int num;
-						flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare2, boardSquare, false, out num);
+						flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe2, boardSquareSafe, false, out num);
 					}
 				}
 			}

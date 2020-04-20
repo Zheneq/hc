@@ -1317,7 +1317,7 @@ public class UILandingPageFullScreenMenus : UIScene
 							break;
 						}
 						ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-						activeOwnedActorData.\u000E().RequestCustomGamePause(visible, activeOwnedActorData.ActorIndex);
+						activeOwnedActorData.GetActorController().RequestCustomGamePause(visible, activeOwnedActorData.ActorIndex);
 					}
 				}
 			}

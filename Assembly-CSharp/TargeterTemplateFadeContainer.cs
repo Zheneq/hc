@@ -113,7 +113,7 @@ public class TargeterTemplateFadeContainer
 						}
 						break;
 					}
-					flag = (GameFlowData.Get().activeOwnedActorData.\u000E() == targetingActor.\u000E());
+					flag = (GameFlowData.Get().activeOwnedActorData.GetTeam() == targetingActor.GetTeam());
 					goto IL_88;
 				}
 			}

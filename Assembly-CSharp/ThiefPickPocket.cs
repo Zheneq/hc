@@ -68,7 +68,7 @@ public class ThiefPickPocket : Ability
 			this.m_abilityName = "Pick Pocket";
 		}
 		this.m_sequencePrefab = this.m_castSequencePrefab;
-		this.m_actionType = base.GetComponent<ActorData>().\u000E().GetActionTypeOfAbility(this);
+		this.m_actionType = base.GetComponent<ActorData>().GetAbilityData().GetActionTypeOfAbility(this);
 		this.SetupTargeter();
 	}
 
@@ -122,7 +122,7 @@ public class ThiefPickPocket : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		int stocksRemaining = caster.\u000E().GetStocksRemaining(this.m_actionType);
+		int stocksRemaining = caster.GetAbilityData().GetStocksRemaining(this.m_actionType);
 		int stockConsumedOnCast = this.m_stockConsumedOnCast;
 		bool result;
 		if (this.m_castableStockThreshold < 0)

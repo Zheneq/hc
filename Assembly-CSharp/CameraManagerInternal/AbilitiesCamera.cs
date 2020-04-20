@@ -426,7 +426,7 @@ namespace CameraManagerInternal
 					}
 					break;
 				}
-				this.m_READ_ONLY_Height = base.transform.position.y - (float)Board.\u000E().BaselineHeight;
+				this.m_READ_ONLY_Height = base.transform.position.y - (float)Board.Get().BaselineHeight;
 				this.m_READ_ONLY_Distance = (base.transform.position - this.m_target.center).magnitude;
 			}
 			Vector3 b;
@@ -1229,7 +1229,7 @@ namespace CameraManagerInternal
 			Vector3 a = vector7;
 			if (Vector3.Dot(Vector3.up, vector6) > 0f)
 			{
-				float num3 = vector5.y + a.y * this.m_defaultExtraDistance - (float)Board.\u000E().BaselineHeight;
+				float num3 = vector5.y + a.y * this.m_defaultExtraDistance - (float)Board.Get().BaselineHeight;
 				float num4 = (!useLowPosition) ? this.m_defaultXRotation : this.m_lowPositionXRotation;
 				if (num3 < this.m_minAutoHeight)
 				{

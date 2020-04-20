@@ -70,11 +70,11 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 	{
 		base.ClearActorsInRange();
 		this.AllocateHighlights();
-		Vector3 vector = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 aimDirection = currentTarget.AimDirection;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies);
 		VectorUtils.LaserCoords laserCoords;
-		laserCoords.start = targetingActor.\u0015();
+		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, aimDirection, this.m_laserRange, this.m_laserWidth, targetingActor, relevantTeams, this.m_penetrateLos, this.m_laserMaxTargets, false, false, out laserCoords.end, null, null, false, true);
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;
 		if (this.m_affectsTargetingActor)
@@ -103,11 +103,11 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					}
 					break;
 				}
-				base.AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Self, false);
+				base.AddActorInRange(targetingActor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Self, false);
 			}
 		}
 		int num = 0;
-		Vector3 b = targetingActor.\u0016();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 		float squareSizeStatic = Board.SquareSizeStatic;
 		using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
 		{
@@ -125,12 +125,12 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 						}
 						break;
 					}
-					float u000E = (actorData.\u0016() - b).magnitude / squareSizeStatic;
-					base.AddActorInRange(actorData, vector, targetingActor, AbilityTooltipSubject.Primary, false);
+					float value = (actorData.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
+					base.AddActorInRange(actorData, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 					ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
 					actorHitContext.\u001D = laserCoords2.start;
-					actorHitContext.\u0015.\u0016(ContextKeys.\u0011.\u0012(), num);
-					actorHitContext.\u0015.\u0015(ContextKeys.\u0018.\u0012(), u000E);
+					actorHitContext.\u0015.SetInt(ContextKeys.\u0011.GetHash(), num);
+					actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
 					num++;
 				}
 			}
@@ -145,7 +145,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 			}
 		}
 		float num2 = VectorUtils.HorizontalAngle_Deg(aimDirection);
-		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector, num2, this.m_coneAngleDegrees, this.m_coneLengthRadius, this.m_coneBackwardOffsetInSquares, this.m_penetrateLos, targetingActor, targetingActor.\u0012(), null, false, default(Vector3));
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(travelBoardSquareWorldPositionForLos, num2, this.m_coneAngleDegrees, this.m_coneLengthRadius, this.m_coneBackwardOffsetInSquares, this.m_penetrateLos, targetingActor, targetingActor.GetOpposingTeam(), null, false, default(Vector3));
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 		using (List<ActorData>.Enumerator enumerator2 = actorsInCone.GetEnumerator())
 		{
@@ -154,7 +154,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 				ActorData actorData2 = enumerator2.Current;
 				if (this.ShouldAddActor(actorData2, targetingActor))
 				{
-					base.AddActorInRange(actorData2, vector, targetingActor, AbilityTooltipSubject.Secondary, this.m_appendTooltipForDuplicates);
+					base.AddActorInRange(actorData2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Secondary, this.m_appendTooltipForDuplicates);
 					if (!actorsInLaser.Contains(actorData2))
 					{
 						for (;;)
@@ -177,10 +177,10 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 								}
 								break;
 							}
-							float u000E2 = (actorData2.\u0016() - b).magnitude / squareSizeStatic;
+							float value2 = (actorData2.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 							ActorHitContext actorHitContext2 = this.m_actorContextVars[actorData2];
 							actorHitContext2.\u001D = laserCoords2.start;
-							actorHitContext2.\u0015.\u0015(ContextKeys.\u0018.\u0012(), u000E2);
+							actorHitContext2.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value2);
 						}
 					}
 				}
@@ -196,12 +196,12 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 			}
 		}
 		GameObject gameObject = this.m_highlights[0];
-		float d = this.m_coneBackwardOffsetInSquares * Board.\u000E().squareSize;
+		float d = this.m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
-		Vector3 position = vector + new Vector3(0f, y, 0f) - aimDirection * d;
+		Vector3 position = travelBoardSquareWorldPositionForLos + new Vector3(0f, y, 0f) - aimDirection * d;
 		gameObject.transform.position = position;
 		gameObject.transform.rotation = Quaternion.LookRotation(aimDirection);
-		HighlightUtils.Get().RotateAndResizeRectangularCursor(this.m_highlights[1], vector, laserCoords2.end, this.m_laserWidth);
+		HighlightUtils.Get().RotateAndResizeRectangularCursor(this.m_highlights[1], travelBoardSquareWorldPositionForLos, laserCoords2.end, this.m_laserWidth);
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
 			for (;;)
@@ -215,11 +215,11 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 			}
 			SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[0] as SquareInsideChecker_Box;
 			SquareInsideChecker_Cone squareInsideChecker_Cone = this.m_squarePosCheckerList[1] as SquareInsideChecker_Cone;
-			squareInsideChecker_Box.UpdateBoxProperties(vector, laserCoords2.end, targetingActor);
-			squareInsideChecker_Cone.UpdateConeProperties(vector, this.m_coneAngleDegrees, this.m_coneLengthRadius, this.m_coneBackwardOffsetInSquares, num2, targetingActor);
+			squareInsideChecker_Box.UpdateBoxProperties(travelBoardSquareWorldPositionForLos, laserCoords2.end, targetingActor);
+			squareInsideChecker_Cone.UpdateConeProperties(travelBoardSquareWorldPositionForLos, this.m_coneAngleDegrees, this.m_coneLengthRadius, this.m_coneBackwardOffsetInSquares, num2, targetingActor);
 			base.ResetSquareIndicatorIndexToUse();
-			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, vector, laserCoords2.end, this.m_laserWidth, targetingActor, this.m_penetrateLos, null, this.m_squarePosCheckerList, true);
-			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, vector, num2, this.m_coneAngleDegrees, this.m_coneLengthRadius, this.m_coneBackwardOffsetInSquares, targetingActor, this.m_penetrateLos, this.m_squarePosCheckerList);
+			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, laserCoords2.end, this.m_laserWidth, targetingActor, this.m_penetrateLos, null, this.m_squarePosCheckerList, true);
+			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, num2, this.m_coneAngleDegrees, this.m_coneLengthRadius, this.m_coneBackwardOffsetInSquares, targetingActor, this.m_penetrateLos, this.m_squarePosCheckerList);
 			base.HideUnusedSquareIndicators();
 		}
 	}
@@ -233,7 +233,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		}
 		else
 		{
-			if (actor.\u000E() == caster.\u000E())
+			if (actor.GetTeam() == caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -262,7 +262,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					return true;
 				}
 			}
-			if (actor.\u000E() != caster.\u000E() && this.m_affectsEnemies)
+			if (actor.GetTeam() != caster.GetTeam() && this.m_affectsEnemies)
 			{
 				for (;;)
 				{
@@ -311,7 +311,7 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 			}
 		}
 		this.m_highlights = new List<GameObject>();
-		float radiusInWorld = (this.m_coneLengthRadius + this.m_coneBackwardOffsetInSquares) * Board.\u000E().squareSize;
+		float radiusInWorld = (this.m_coneLengthRadius + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 		this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.m_coneAngleDegrees));
 		this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(this.m_laserWidth, 1f, null));
 	}

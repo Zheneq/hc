@@ -86,7 +86,7 @@ public class AbilityUtil_Targeter_BarrierWithLasers : AbilityUtil_Targeter_Barri
 			base.ResetSquareIndicatorIndexToUse();
 		}
 		Vector3 barrierCenterPos = this.m_barrierCenterPos;
-		barrierCenterPos.y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		barrierCenterPos.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies);
 		if (this.m_laserRangeFront > 0f)
 		{

@@ -151,7 +151,7 @@ public class TrackerFlewTheCoop : Ability
 		}
 		bool flag = this.m_droneTracker.DroneIsActive();
 		bool flag2 = false;
-		if (!caster.\u000E())
+		if (!caster.IsDead())
 		{
 			for (;;)
 			{
@@ -166,7 +166,7 @@ public class TrackerFlewTheCoop : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.CustomCanCastValidation(ActorData)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u0016(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
 			if (boardSquare != null)
 			{
 				float rangeInSquares = this.GetRangeInSquares(0);
@@ -181,7 +181,7 @@ public class TrackerFlewTheCoop : Ability
 						}
 						break;
 					}
-					if (VectorUtils.HorizontalPlaneDistInSquares(caster.\u0016(), boardSquare.ToVector3()) > rangeInSquares)
+					if (VectorUtils.HorizontalPlaneDistInSquares(caster.GetTravelBoardSquareWorldPosition(), boardSquare.ToVector3()) > rangeInSquares)
 					{
 						goto IL_AC;
 					}
@@ -218,8 +218,8 @@ public class TrackerFlewTheCoop : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null) && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
 			for (;;)
 			{
@@ -234,7 +234,7 @@ public class TrackerFlewTheCoop : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerFlewTheCoop.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (!(boardSquare == caster.\u0012()))
+			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				if (this.m_droneTracker != null)
 				{
@@ -247,8 +247,8 @@ public class TrackerFlewTheCoop : Ability
 						}
 						break;
 					}
-					BoardSquare boardSquare2 = Board.\u000E().\u0016(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
-					if (boardSquare2 != null)
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
+					if (boardSquare != null)
 					{
 						for (;;)
 						{
@@ -270,7 +270,7 @@ public class TrackerFlewTheCoop : Ability
 								}
 								break;
 							}
-							if (boardSquare2 == boardSquare)
+							if (boardSquare == boardSquareSafe)
 							{
 								for (;;)
 								{
@@ -284,8 +284,8 @@ public class TrackerFlewTheCoop : Ability
 								return false;
 							}
 						}
-						List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(this.GetLandingShape(), boardSquare2.ToVector3(), boardSquare2, true, caster);
-						if (squaresInShape.Contains(boardSquare))
+						List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(this.GetLandingShape(), boardSquare.ToVector3(), boardSquare, true, caster);
+						if (squaresInShape.Contains(boardSquareSafe))
 						{
 							for (;;)
 							{

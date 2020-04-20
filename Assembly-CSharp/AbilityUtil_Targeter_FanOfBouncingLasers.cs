@@ -58,7 +58,7 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 vector = originalStart + new Vector3(0f, y, 0f);
 		Vector3 originalStart2 = vector;
-		float num = this.m_widthInSquares * Board.\u000E().squareSize;
+		float num = this.m_widthInSquares * Board.Get().squareSize;
 		if (this.m_highlights.Count <= laserIndex)
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateBouncingLaserCursor(originalStart2, laserAnglePoints, num));
@@ -120,15 +120,15 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		this.m_hitActorInLaser.Clear();
 		if (this.m_affectsTargetingActor)
 		{
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
-		Vector3 vector = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		for (int i = 0; i < this.m_count; i++)
 		{
 			Vector3 forwardDirection = VectorUtils.AngleDegreesToVector(num5 + (float)i * num4);
 			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary;
 			List<ActorData> list;
-			List<Vector3> laserAnglePoints = VectorUtils.CalculateBouncingLaserEndpoints(vector, forwardDirection, this.m_distancePerBounce, this.m_totalDistance, this.m_bounces, targetingActor, this.m_widthInSquares, this.m_maxTargets, false, base.GetAffectedTeams(), false, out dictionary, out list, null, false, true);
+			List<Vector3> laserAnglePoints = VectorUtils.CalculateBouncingLaserEndpoints(travelBoardSquareWorldPositionForLos, forwardDirection, this.m_distancePerBounce, this.m_totalDistance, this.m_bounces, targetingActor, this.m_widthInSquares, this.m_maxTargets, false, base.GetAffectedTeams(), false, out dictionary, out list, null, false, true);
 			foreach (ActorData actorData in list)
 			{
 				base.AddActorInRange(actorData, dictionary[actorData].m_segmentOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
@@ -152,7 +152,7 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 				this.m_hitActorContext.Add(item);
 			}
 			this.m_hitActorInLaser.Add(list.Count > 0);
-			this.CreateLaserHighlights(vector, laserAnglePoints, i);
+			this.CreateLaserHighlights(travelBoardSquareWorldPositionForLos, laserAnglePoints, i);
 			if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 			{
 				for (;;)
@@ -165,7 +165,7 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 					break;
 				}
 				base.ResetSquareIndicatorIndexToUse();
-				AreaEffectUtils.OperateOnSquaresInBounceLaser(this.m_indicatorHandler, vector, laserAnglePoints, this.m_widthInSquares, targetingActor, false);
+				AreaEffectUtils.OperateOnSquaresInBounceLaser(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, laserAnglePoints, this.m_widthInSquares, targetingActor, false);
 				base.HideUnusedSquareIndicators();
 			}
 		}

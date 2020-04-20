@@ -515,9 +515,9 @@ public class ThiefSmokeBomb : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		Board board = Board.\u000E();
-		BoardSquare boardSquare = board.\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		Board board = Board.Get();
+		BoardSquare boardSquareSafe = board.GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -532,7 +532,7 @@ public class ThiefSmokeBomb : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (targetIndex == 0)
 				{
@@ -545,7 +545,7 @@ public class ThiefSmokeBomb : Ability
 						}
 						break;
 					}
-					if (boardSquare == caster.\u0012())
+					if (boardSquareSafe == caster.GetCurrentBoardSquare())
 					{
 						for (;;)
 						{
@@ -558,8 +558,8 @@ public class ThiefSmokeBomb : Ability
 						}
 					}
 				}
-				Vector3 vector = boardSquare.ToVector3();
-				Vector3 firstSegEndPos = (targetIndex <= 0) ? vector : board.\u000E(currentTargets[0].GridPos).ToVector3();
+				Vector3 vector = boardSquareSafe.ToVector3();
+				Vector3 firstSegEndPos = (targetIndex <= 0) ? vector : board.GetBoardSquareSafe(currentTargets[0].GridPos).ToVector3();
 				AbilityAreaShape shape = this.GetSmokeFieldInfo().shape;
 				bool flag = true;
 				if (targetIndex > 0)
@@ -573,7 +573,7 @@ public class ThiefSmokeBomb : Ability
 						}
 						break;
 					}
-					Vector3 to = vector - caster.\u0016();
+					Vector3 to = vector - caster.GetTravelBoardSquareWorldPosition();
 					to.y = 0f;
 					bool flag2 = true;
 					if (this.GetMaxAngleWithFirstSegment() > 0)
@@ -587,15 +587,15 @@ public class ThiefSmokeBomb : Ability
 							}
 							break;
 						}
-						BoardSquare centerSquare = Board.\u000E().\u000E(currentTargets[0].GridPos);
-						Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTargets[0].FreePos, centerSquare);
-						Vector3 from = centerOfShape - caster.\u0016();
+						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
+						Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTargets[0].FreePos, boardSquareSafe2);
+						Vector3 from = centerOfShape - caster.GetTravelBoardSquareWorldPosition();
 						from.y = 0f;
 						int num = Mathf.RoundToInt(Vector3.Angle(from, to));
 						flag2 = (num <= this.GetMaxAngleWithFirstSegment());
 					}
-					Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(shape, vector, boardSquare);
-					Vector3 vector2 = centerOfShape2 - caster.\u0016();
+					Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(shape, vector, boardSquareSafe);
+					Vector3 vector2 = centerOfShape2 - caster.GetTravelBoardSquareWorldPosition();
 					vector2.y = 0f;
 					float magnitude = vector2.magnitude;
 					bool flag3;
@@ -675,9 +675,9 @@ public class ThiefSmokeBomb : Ability
 						}
 						else
 						{
-							BoardSquare centerSquare2 = board.\u000E(currentTargets[i].GridPos);
-							Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(shape, currentTargets[i].FreePos, centerSquare2);
-							flag = this.CheckMinDistConstraint(centerOfShape3, boardSquare, shape, shapeCenterMinDistInWorld, minDistInWorld);
+							BoardSquare boardSquareSafe3 = board.GetBoardSquareSafe(currentTargets[i].GridPos);
+							Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(shape, currentTargets[i].FreePos, boardSquareSafe3);
+							flag = this.CheckMinDistConstraint(centerOfShape3, boardSquareSafe, shape, shapeCenterMinDistInWorld, minDistInWorld);
 							i++;
 						}
 					}
@@ -721,7 +721,7 @@ public class ThiefSmokeBomb : Ability
 							}
 							break;
 						}
-						list[targetIndex].SetPosAndDir(boardSquare.\u001D(), target.FreePos, Vector3.forward);
+						list[targetIndex].SetPosAndDir(boardSquareSafe.GetGridPos(), target.FreePos, Vector3.forward);
 						float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(this, caster, 0);
 						flag = this.CanTargetFutureClicks(caster, firstSegEndPos, targetIndex, list, targetIndex, expectedNumberOfTargeters, currentRangeInSquares);
 					}
@@ -751,17 +751,17 @@ public class ThiefSmokeBomb : Ability
 			}
 			return true;
 		}
-		Vector3 vec = firstSegEndPos - caster.\u0016();
+		Vector3 vec = firstSegEndPos - caster.GetTravelBoardSquareWorldPosition();
 		float coneWidthDegrees = Mathf.Min(360f, 2f * (float)this.GetMaxAngleWithFirstSegment() + 25f);
 		int num;
 		int num2;
 		int num3;
 		int num4;
-		AreaEffectUtils.GetMaxConeBounds(caster.\u0016(), VectorUtils.HorizontalAngle_Deg(vec), coneWidthDegrees, abilityMaxRange, 0f, out num, out num2, out num3, out num4);
-		Board board = Board.\u000E();
+		AreaEffectUtils.GetMaxConeBounds(caster.GetTravelBoardSquareWorldPosition(), VectorUtils.HorizontalAngle_Deg(vec), coneWidthDegrees, abilityMaxRange, 0f, out num, out num2, out num3, out num4);
+		Board board = Board.Get();
 		AbilityAreaShape shape = this.GetSmokeFieldInfo().shape;
-		AbilityData abilityData = caster.\u000E();
-		BoardSquare boardSquare = caster.\u0012();
+		AbilityData abilityData = caster.GetAbilityData();
+		BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
 		float shapeCenterMinDistInWorld = 0.71f * board.squareSize;
 		float minDistInWorld = this.GetMinDistanceBetweenBombs() * board.squareSize;
 		bool flag = false;
@@ -817,8 +817,8 @@ public class ThiefSmokeBomb : Ability
 					}
 					else
 					{
-						BoardSquare boardSquare2 = board.\u0016(i, j);
-						if (boardSquare2 != null)
+						BoardSquare boardSquare = board.GetBoardSquare(i, j);
+						if (boardSquare != null)
 						{
 							for (;;)
 							{
@@ -829,7 +829,7 @@ public class ThiefSmokeBomb : Ability
 								}
 								break;
 							}
-							if (boardSquare2.\u0016())
+							if (boardSquare.IsBaselineHeight())
 							{
 								for (;;)
 								{
@@ -840,7 +840,7 @@ public class ThiefSmokeBomb : Ability
 									}
 									break;
 								}
-								if (boardSquare.\u0013(boardSquare2.x, boardSquare2.y))
+								if (currentBoardSquare.\u0013(boardSquare.x, boardSquare.y))
 								{
 									for (;;)
 									{
@@ -851,7 +851,7 @@ public class ThiefSmokeBomb : Ability
 										}
 										break;
 									}
-									if (abilityData.IsTargetSquareInRangeOfAbilityFromSquare(boardSquare2, boardSquare, abilityMaxRange, 0f))
+									if (abilityData.IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, currentBoardSquare, abilityMaxRange, 0f))
 									{
 										for (;;)
 										{
@@ -862,7 +862,7 @@ public class ThiefSmokeBomb : Ability
 											}
 											break;
 										}
-										Vector3 vector = boardSquare2.ToVector3();
+										Vector3 vector = boardSquare.ToVector3();
 										bool flag2 = true;
 										bool flag3 = true;
 										int maxAngleWithFirstSegment = this.GetMaxAngleWithFirstSegment();
@@ -877,12 +877,12 @@ public class ThiefSmokeBomb : Ability
 												}
 												break;
 											}
-											BoardSquare boardSquare3 = Board.\u000E().\u000E(targetEntries[0].GridPos);
+											BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetEntries[0].GridPos);
 											if (numTargetsFromPlayerInput > 0)
 											{
-												Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, targetEntries[0].FreePos, boardSquare3);
-												Vector3 from = centerOfShape - caster.\u0016();
-												Vector3 to = vector - caster.\u0016();
+												Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, targetEntries[0].FreePos, boardSquareSafe);
+												Vector3 from = centerOfShape - caster.GetTravelBoardSquareWorldPosition();
+												Vector3 to = vector - caster.GetTravelBoardSquareWorldPosition();
 												int num5 = Mathf.RoundToInt(Vector3.Angle(from, to));
 												flag3 = (num5 <= maxAngleWithFirstSegment);
 											}
@@ -903,11 +903,11 @@ public class ThiefSmokeBomb : Ability
 													{
 														break;
 													}
-													Vector3 vector2 = boardSquare3.ToVector3();
+													Vector3 vector2 = boardSquareSafe.ToVector3();
 													vector2 += 0.1f * VectorUtils.AngleDegreesToVector(45f + (float)k * 90f);
-													Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(shape, vector2, boardSquare3);
-													Vector3 from2 = centerOfShape2 - caster.\u0016();
-													Vector3 to2 = vector - caster.\u0016();
+													Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(shape, vector2, boardSquareSafe);
+													Vector3 from2 = centerOfShape2 - caster.GetTravelBoardSquareWorldPosition();
+													Vector3 to2 = vector - caster.GetTravelBoardSquareWorldPosition();
 													int num6 = Mathf.RoundToInt(Vector3.Angle(from2, to2));
 													bool flag4;
 													if (flag3)
@@ -931,8 +931,8 @@ public class ThiefSmokeBomb : Ability
 												}
 											}
 										}
-										Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(shape, vector, boardSquare2);
-										Vector3 vector3 = centerOfShape3 - caster.\u0016();
+										Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(shape, vector, boardSquare);
+										Vector3 vector3 = centerOfShape3 - caster.GetTravelBoardSquareWorldPosition();
 										vector3.y = 0f;
 										float magnitude = vector3.magnitude;
 										bool flag5;
@@ -995,16 +995,16 @@ public class ThiefSmokeBomb : Ability
 												}
 												else
 												{
-													BoardSquare boardSquare4 = board.\u000E(targetEntries[l].GridPos);
-													if (boardSquare4 == boardSquare2)
+													BoardSquare boardSquareSafe2 = board.GetBoardSquareSafe(targetEntries[l].GridPos);
+													if (boardSquareSafe2 == boardSquare)
 													{
 														flag2 = false;
 													}
 													else if (l < numTargetsFromPlayerInput)
 													{
 														Vector3 freePos = targetEntries[l].FreePos;
-														Vector3 centerOfShape4 = AreaEffectUtils.GetCenterOfShape(shape, freePos, boardSquare4);
-														flag2 = this.CheckMinDistConstraint(centerOfShape4, boardSquare2, shape, shapeCenterMinDistInWorld, minDistInWorld);
+														Vector3 centerOfShape4 = AreaEffectUtils.GetCenterOfShape(shape, freePos, boardSquareSafe2);
+														flag2 = this.CheckMinDistConstraint(centerOfShape4, boardSquare, shape, shapeCenterMinDistInWorld, minDistInWorld);
 													}
 													else
 													{
@@ -1025,10 +1025,10 @@ public class ThiefSmokeBomb : Ability
 															}
 															else
 															{
-																Vector3 vector4 = boardSquare4.ToVector3();
+																Vector3 vector4 = boardSquareSafe2.ToVector3();
 																vector4 += 0.1f * VectorUtils.AngleDegreesToVector(45f + (float)m * 90f);
-																Vector3 centerOfShape5 = AreaEffectUtils.GetCenterOfShape(shape, vector4, boardSquare4);
-																flag2 = this.CheckMinDistConstraint(centerOfShape5, boardSquare2, shape, shapeCenterMinDistInWorld, minDistInWorld);
+																Vector3 centerOfShape5 = AreaEffectUtils.GetCenterOfShape(shape, vector4, boardSquareSafe2);
+																flag2 = this.CheckMinDistConstraint(centerOfShape5, boardSquare, shape, shapeCenterMinDistInWorld, minDistInWorld);
 																m++;
 															}
 														}
@@ -1061,7 +1061,7 @@ public class ThiefSmokeBomb : Ability
 													}
 													break;
 												}
-												targetEntries[lastSelectedTargetIndex + 1].SetPosAndDir(boardSquare2.\u001D(), vector, Vector3.forward);
+												targetEntries[lastSelectedTargetIndex + 1].SetPosAndDir(boardSquare.GetGridPos(), vector, Vector3.forward);
 												flag2 = this.CanTargetFutureClicks(caster, firstSegEndPos, lastSelectedTargetIndex + 1, targetEntries, numTargetsFromPlayerInput, numClicks, abilityMaxRange);
 											}
 										}
@@ -1162,7 +1162,7 @@ public class ThiefSmokeBomb : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
-		BoardSquare y = Board.\u000E().\u000E(base.Targeters[0].LastUpdatingGridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeters[0].LastUpdatingGridPos);
 		int damageAmount = this.GetSmokeFieldInfo().damageAmount;
 		int subsequentDamageAmount = this.GetSmokeFieldInfo().subsequentDamageAmount;
 		int i = 0;
@@ -1185,8 +1185,8 @@ public class ThiefSmokeBomb : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
 			}
-			BoardSquare x = Board.\u000E().\u000E(base.Targeters[i].LastUpdatingGridPos);
-			if (!(x == null))
+			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
+			if (!(boardSquareSafe2 == null))
 			{
 				for (;;)
 				{
@@ -1197,7 +1197,7 @@ public class ThiefSmokeBomb : Ability
 					}
 					break;
 				}
-				if (!(x == y))
+				if (!(boardSquareSafe2 == boardSquareSafe))
 				{
 					goto IL_B0;
 				}

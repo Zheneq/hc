@@ -77,7 +77,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 			}
 			return this.m_centerSquareDelegate(currentTarget, targetingActor);
 		}
-		return Board.\u000E().\u000E(currentTarget.GridPos);
+		return Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 	}
 
 	private Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor, AbilityAreaShape shape)
@@ -99,7 +99,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.GetHighlightGoalPos(AbilityTarget, ActorData, AbilityAreaShape)).MethodHandle;
 			}
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTarget.FreePos, targetSquare);
-			centerOfShape.y = targetingActor.\u0016().y + 0.1f;
+			centerOfShape.y = targetingActor.GetTravelBoardSquareWorldPosition().y + 0.1f;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -253,7 +253,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 								}
 								break;
 							}
-							if (actorData.\u000E() != targetingActor.\u000E())
+							if (actorData.GetTeam() != targetingActor.GetTeam())
 							{
 								for (;;)
 								{
@@ -352,7 +352,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 					break;
 				}
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Primary, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, false);
 			list.Add(targetingActor);
 			num2 = Mathf.Max(0, num2);
 			this.m_hitActorContext.Add(new AbilityUtil_Targeter_MultipleShapes.HitActorContext(targetingActor, num2));
@@ -382,7 +382,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 					}
 					if (!list.Contains(occupantActor))
 					{
-						base.AddActorInRange(occupantActor, occupantActor.\u0016(), targetingActor, AbilityTooltipSubject.Primary, false);
+						base.AddActorInRange(occupantActor, occupantActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, false);
 						list.Add(occupantActor);
 						this.m_hitActorContext.Add(new AbilityUtil_Targeter_MultipleShapes.HitActorContext(occupantActor, 0));
 					}
@@ -461,7 +461,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 		{
 			AbilityUtil_Targeter_MultipleShapes.HitActorContext hitActorContext = this.m_hitActorContext[l];
 			ActorHitContext actorHitContext = this.m_actorContextVars[hitActorContext.m_actor];
-			actorHitContext.\u0015.\u0016(TargetSelect_Shape.s_cvarShapeLayer.\u0012(), hitActorContext.m_hitShapeIndex);
+			actorHitContext.\u0015.SetInt(TargetSelect_Shape.s_cvarShapeLayer.GetHash(), hitActorContext.m_hitShapeIndex);
 		}
 		for (;;)
 		{
@@ -525,7 +525,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleShapes.MultiShapeData.GetAffectedTeams(ActorData)).MethodHandle;
 				}
-				list.Add(caster.\u0012());
+				list.Add(caster.GetOpposingTeam());
 			}
 			if (this.m_affectAllies)
 			{
@@ -538,7 +538,7 @@ public class AbilityUtil_Targeter_MultipleShapes : AbilityUtil_Targeter
 					}
 					break;
 				}
-				list.Add(caster.\u000E());
+				list.Add(caster.GetTeam());
 			}
 			return list;
 		}

@@ -53,7 +53,7 @@ public class FadeObject : MonoBehaviour
 
 	private bool ShouldDoHeightFade()
 	{
-		return Camera.main.transform.position.y - (float)Board.\u000E().BaselineHeight <= FadeObjectsCameraComponent.Get().m_cameraHeightForVerticalFade;
+		return Camera.main.transform.position.y - (float)Board.Get().BaselineHeight <= FadeObjectsCameraComponent.Get().m_cameraHeightForVerticalFade;
 	}
 
 	internal void SetTargetTransparency(float transparency, float fadeOutDuration, float fadeInDuration, Shader transparentShader)
@@ -204,7 +204,7 @@ public class FadeObject : MonoBehaviour
 
 	private void Update()
 	{
-		if (!(Board.\u000E() == null) && !(this.m_rendererComponent == null))
+		if (!(Board.Get() == null) && !(this.m_rendererComponent == null))
 		{
 			if (!(FadeObjectsCameraComponent.Get() == null))
 			{
@@ -270,7 +270,7 @@ public class FadeObject : MonoBehaviour
 										}
 										break;
 									}
-									value = (float)Board.\u000E().BaselineHeight + fadeObjectsCameraComponent.m_fadeEndFloorOffset;
+									value = (float)Board.Get().BaselineHeight + fadeObjectsCameraComponent.m_fadeEndFloorOffset;
 								}
 								else
 								{

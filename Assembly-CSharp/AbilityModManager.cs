@@ -317,7 +317,7 @@ public class AbilityModManager : NetworkBehaviour
 
 	private void LoadAvailableModsForActor(ActorData actor)
 	{
-		if (actor != null && actor.\u000E() != null)
+		if (actor != null && actor.GetAbilityData() != null)
 		{
 			for (;;)
 			{
@@ -334,7 +334,7 @@ public class AbilityModManager : NetworkBehaviour
 			}
 			for (int i = 0; i <= 4; i++)
 			{
-				Ability abilityOfActionType = actor.\u000E().GetAbilityOfActionType((AbilityData.ActionType)i);
+				Ability abilityOfActionType = actor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)i);
 				this.LoadAvailableModsForAbility(abilityOfActionType);
 			}
 		}

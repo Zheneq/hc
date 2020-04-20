@@ -139,7 +139,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 
 	private BoardSquare GetSquareForDisc(int index)
 	{
-		return Board.\u000E().\u0016(this.m_boardX[index], this.m_boardY[index]);
+		return Board.Get().GetBoardSquare(this.m_boardX[index], this.m_boardY[index]);
 	}
 
 	public bool ShouldForceShowOutline(ActorData forActor)
@@ -159,7 +159,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.ShouldForceShowOutline(ActorData)).MethodHandle;
 			}
-			ActorTurnSM actorTurnSM = this.m_actorData.\u000E();
+			ActorTurnSM actorTurnSM = this.m_actorData.GetActorTurnSM();
 			bool flag = true;
 			if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 			{
@@ -255,7 +255,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	private void Start()
 	{
 		this.m_actorData = base.GetComponent<ActorData>();
-		this.m_abilityData = this.m_actorData.\u000E();
+		this.m_abilityData = this.m_actorData.GetAbilityData();
 		if (this.m_abilityData != null)
 		{
 			for (;;)
@@ -276,7 +276,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			this.m_enlargeDiscAbility = this.m_abilityData.GetAbilityOfType<NekoEnlargeDisc>();
 			this.m_enlargeDiscActionType = this.m_abilityData.GetActionTypeOfAbility(this.m_enlargeDiscAbility);
 		}
-		this.m_actorTargeting = this.m_actorData.\u000E();
+		this.m_actorTargeting = this.m_actorData.GetActorTargeting();
 		if (NetworkClient.active)
 		{
 			this.m_laserRangeMarkerForAlly = new List<Blaster_SyncComponent.HitAreaIndicatorHighlight>(0xA);
@@ -383,7 +383,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		if (this.m_actorData != null)
 		{
 			BoardSquare boardSquare = null;
-			if (this.m_actorData.\u0012() != null)
+			if (this.m_actorData.GetCurrentBoardSquare() != null)
 			{
 				for (;;)
 				{
@@ -398,7 +398,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.GetCasterPos(bool*)).MethodHandle;
 				}
-				boardSquare = this.m_actorData.\u0012();
+				boardSquare = this.m_actorData.GetCurrentBoardSquare();
 				List<AbilityData.AbilityEntry> queuedOrAimingAbilitiesForPhase = this.m_abilityData.GetQueuedOrAimingAbilitiesForPhase(UIQueueListPanel.UIPhase.Evasion);
 				using (List<AbilityData.AbilityEntry>.Enumerator enumerator = queuedOrAimingAbilitiesForPhase.GetEnumerator())
 				{
@@ -418,9 +418,9 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 								}
 								break;
 							}
-							boardSquare = Board.\u000E().\u000E(abilityTargetsInRequest[abilityTargetsInRequest.Count - 1].GridPos);
+							boardSquare = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[abilityTargetsInRequest.Count - 1].GridPos);
 						}
-						else if (this.m_actorData.\u000E().GetAbilityTargets().Count == abilityEntry.ability.GetNumTargets() - 1)
+						else if (this.m_actorData.GetActorTurnSM().GetAbilityTargets().Count == abilityEntry.ability.GetNumTargets() - 1)
 						{
 							for (;;)
 							{
@@ -432,7 +432,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 								break;
 							}
 							AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
-							boardSquare = Board.\u000E().\u000E(abilityTargetForTargeterUpdate.GridPos);
+							boardSquare = Board.Get().GetBoardSquareSafe(abilityTargetForTargeterUpdate.GridPos);
 						}
 					}
 					for (;;)
@@ -447,7 +447,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				}
 				hasQueuedEvades = (queuedOrAimingAbilitiesForPhase.Count > 0);
 			}
-			else if (this.m_actorData.\u0015())
+			else if (this.m_actorData.GetMostResetDeathSquare())
 			{
 				for (;;)
 				{
@@ -458,7 +458,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					}
 					break;
 				}
-				boardSquare = this.m_actorData.\u0015();
+				boardSquare = this.m_actorData.GetMostResetDeathSquare();
 			}
 			if (boardSquare != null)
 			{
@@ -508,8 +508,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				}
 				break;
 			}
-			BoardSquare boardSquare = actorData.\u0012();
-			if (actorData.\u000E())
+			BoardSquare boardSquare = actorData.GetCurrentBoardSquare();
+			if (actorData.IsDead())
 			{
 				for (;;)
 				{
@@ -520,7 +520,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					}
 					break;
 				}
-				boardSquare = actorData.\u0015();
+				boardSquare = actorData.GetMostResetDeathSquare();
 			}
 			if (boardSquare != null)
 			{
@@ -672,7 +672,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					}
 					break;
 				}
-				if (this.m_actorData.\u0012() != null)
+				if (this.m_actorData.GetCurrentBoardSquare() != null)
 				{
 					for (;;)
 					{
@@ -710,11 +710,11 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					break;
 				}
 				int count = this.m_boardX.Count;
-				float y = (float)Board.\u000E().BaselineHeight + BoardSquare.s_LoSHeightOffset;
-				bool flag2 = activeOwnedActorData.\u000E() == this.m_actorData.\u000E();
+				float y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+				bool flag2 = activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam();
 				bool flag3;
 				Vector3 vector = this.GetCasterPos(out flag3);
-				bool flag4 = this.m_actorData.\u000E().CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST;
+				bool flag4 = this.m_actorData.GetActorTurnSM().CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST;
 				if (flag4)
 				{
 					for (;;)
@@ -856,7 +856,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						}
 						break;
 					}
-					if (actorData2.\u000E() != this.m_actorData.\u000E())
+					if (actorData2.GetTeam() != this.m_actorData.GetTeam())
 					{
 						for (;;)
 						{
@@ -868,7 +868,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 							break;
 						}
 						bool flag10;
-						if (actorData2.\u0012() != null)
+						if (actorData2.GetCurrentBoardSquare() != null)
 						{
 							for (;;)
 							{
@@ -879,7 +879,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 								}
 								break;
 							}
-							flag10 = actorData2.\u0018();
+							flag10 = actorData2.IsVisibleToClient();
 						}
 						else
 						{
@@ -1153,10 +1153,10 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 							}
 							float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
 							Vector3 adjustedStartPosWithOffset = VectorUtils.GetAdjustedStartPosWithOffset(vector2, vector3, laserInitialOffsetInSquares);
-							adjustedStartPosWithOffset.y = (float)Board.\u000E().BaselineHeight + 0.01f;
+							adjustedStartPosWithOffset.y = (float)Board.Get().BaselineHeight + 0.01f;
 							Vector3 vector4 = vector3 - vector2;
 							vector4.y = 0f;
-							float num3 = vector4.magnitude / Board.\u000E().squareSize;
+							float num3 = vector4.magnitude / Board.Get().squareSize;
 							if (count <= 1)
 							{
 								goto IL_680;
@@ -1287,7 +1287,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	{
 		if (this.m_showTargetedGlowOnActorsInReturnDiscPath)
 		{
-			List<Team> list = this.m_actorData.\u0015();
+			List<Team> opposingTeams = this.m_actorData.GetOpposingTeams();
 			if (usingEnlargeDiscAbility)
 			{
 				for (;;)
@@ -1325,14 +1325,14 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 							}
 							break;
 						}
-						list.Add(this.m_actorData.\u000E());
+						opposingTeams.Add(this.m_actorData.GetTeam());
 					}
 				}
 			}
 			Vector3 dir = endLosPos - startLosPos;
 			dir.y = 0f;
-			float num = dir.magnitude / Board.\u000E().squareSize;
-			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(startLosPos, aoeStartRadius, true, this.m_actorData, list, null, false, default(Vector3));
+			float num = dir.magnitude / Board.Get().squareSize;
+			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(startLosPos, aoeStartRadius, true, this.m_actorData, opposingTeams, null, false, default(Vector3));
 			using (List<ActorData>.Enumerator enumerator = actorsInRadius.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -1374,7 +1374,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					break;
 				}
 				Vector3 vector;
-				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startLosPos, dir, num, laserWidth, this.m_actorData, list, true, 0, true, false, out vector, null, null, false, true);
+				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startLosPos, dir, num, laserWidth, this.m_actorData, opposingTeams, true, 0, true, false, out vector, null, null, false, true);
 				foreach (ActorData item2 in actorsInLaser)
 				{
 					if (!this.m_actorsTargetedByReturningDiscs.Contains(item2))
@@ -1402,7 +1402,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						}
 						break;
 					}
-					List<ActorData> actorsInRadius2 = AreaEffectUtils.GetActorsInRadius(endLosPos, aoeEndRadius, true, this.m_actorData, list, null, false, default(Vector3));
+					List<ActorData> actorsInRadius2 = AreaEffectUtils.GetActorsInRadius(endLosPos, aoeEndRadius, true, this.m_actorData, opposingTeams, null, false, default(Vector3));
 					foreach (ActorData item3 in actorsInRadius2)
 					{
 						if (!this.m_actorsTargetedByReturningDiscs.Contains(item3))

@@ -32,7 +32,7 @@ public class DecidingState : TurnState
 			component2.ClearSelectedAbility();
 		}
 		ActorData component3 = this.m_SM.GetComponent<ActorData>();
-		if (component3.\u000E())
+		if (component3.IsDead())
 		{
 			if (SpawnPointManager.Get().m_playersSelectRespawn && component3.NextRespawnTurn > GameFlowData.Get().CurrentTurn)
 			{

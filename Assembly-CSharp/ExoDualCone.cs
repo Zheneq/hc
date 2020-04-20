@@ -120,7 +120,7 @@ public class ExoDualCone : Ability
 
 	private Vector3 GetDamageOriginForTargeter(AbilityTarget currentTarget, Vector3 defaultOrigin, ActorData actorToAdd, ActorData caster)
 	{
-		return caster.\u0016();
+		return caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	public int GetNumCones()
@@ -531,17 +531,17 @@ public class ExoDualCone : Ability
 
 	public Vector3 GetFreePosForAim(AbilityTarget currentTarget, ActorData caster)
 	{
-		return caster.\u0015() + currentTarget.AimDirection.normalized;
+		return caster.GetTravelBoardSquareWorldPositionForLos() + currentTarget.AimDirection.normalized;
 	}
 
 	public List<Vector3> GetConeOrigins(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 vector = caster.\u0015();
-		Vector3 vector2 = targeterFreePos - vector;
-		vector2.Normalize();
-		Vector3 normalized = Vector3.Cross(vector2, Vector3.up).normalized;
-		Vector3 a = vector + this.GetConeForwardOffset() * vector2;
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector = targeterFreePos - travelBoardSquareWorldPositionForLos;
+		vector.Normalize();
+		Vector3 normalized = Vector3.Cross(vector, Vector3.up).normalized;
+		Vector3 a = travelBoardSquareWorldPositionForLos + this.GetConeForwardOffset() * vector;
 		list.Add(a + normalized * this.GetRightConeHorizontalOffset());
 		list.Add(a - normalized * this.GetLeftConeHorizontalOffset());
 		return list;
@@ -550,8 +550,8 @@ public class ExoDualCone : Ability
 	public List<Vector3> GetConeDirections(AbilityTarget currentTarget, Vector3 targeterFreePos, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 b = caster.\u0015();
-		Vector3 vector = targeterFreePos - b;
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector = targeterFreePos - travelBoardSquareWorldPositionForLos;
 		float num = this.GetLeftConeDegreesFromForward();
 		float num2 = this.GetRightConeDegreesFromForward();
 		if (this.InterpolateAngle())
@@ -600,9 +600,9 @@ public class ExoDualCone : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoDualCone.CalculateAngleFromCenter(AbilityTarget, ActorData)).MethodHandle;
 			}
-			Vector3 vector = currentTarget.FreePos - targetingActor.\u0016();
+			Vector3 vector = currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition();
 			vector.y = 0f;
-			float value = vector.magnitude / Board.\u000E().squareSize;
+			float value = vector.magnitude / Board.Get().squareSize;
 			float num = Mathf.Clamp(value, interpolateMinDist, interpolateMaxDist) - interpolateMinDist;
 			float num2 = 1f - num / (interpolateMaxDist - interpolateMinDist);
 			float num3 = Mathf.Max(0f, interpolateMaxAngle - interpolateMinAngle);

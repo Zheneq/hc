@@ -130,7 +130,7 @@ public class TricksterCones : Ability
 		list2.AddRange(this.m_afterImageSyncComp.GetValidAfterImages(true));
 		foreach (ActorData actorData in list2)
 		{
-			list.Add(actorData.\u0015());
+			list.Add(actorData.GetTravelBoardSquareWorldPositionForLos());
 		}
 		return list;
 	}
@@ -146,7 +146,7 @@ public class TricksterCones : Ability
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				list.Add(targeterFreePos - actorData.\u0016());
+				list.Add(targeterFreePos - actorData.GetTravelBoardSquareWorldPosition());
 			}
 			for (;;)
 			{
@@ -829,7 +829,7 @@ public class TricksterCones : Ability
 				{
 					int num = abilityUtil_Targeter_TricksterCones.m_actorToHitCount[targetActor];
 					int numFromCover = abilityUtil_Targeter_TricksterCones.m_actorToCoverCount[targetActor];
-					if (actorData.\u000E() != targetActor.\u000E())
+					if (actorData.GetTeam() != targetActor.GetTeam())
 					{
 						int value = this.CalcDamageFromNumHits(num, numFromCover);
 						dictionary[AbilityTooltipSymbol.Damage] = value;
@@ -1089,7 +1089,7 @@ public class TricksterCones : Ability
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
 					}
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
 						for (;;)
 						{
@@ -1101,10 +1101,10 @@ public class TricksterCones : Ability
 							break;
 						}
 						this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
-						Animator animator = actorData.\u000E();
-						animator.SetInteger("Attack", animationIndex);
-						animator.SetBool("CinematicCam", cinecam);
-						animator.SetTrigger("StartAttack");
+						Animator modelAnimator = actorData.GetModelAnimator();
+						modelAnimator.SetInteger("Attack", animationIndex);
+						modelAnimator.SetBool("CinematicCam", cinecam);
+						modelAnimator.SetTrigger("StartAttack");
 					}
 				}
 			}
@@ -1140,7 +1140,7 @@ public class TricksterCones : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
 				}
-				if (!actorData.\u000E())
+				if (!actorData.IsDead())
 				{
 					for (;;)
 					{
@@ -1151,9 +1151,9 @@ public class TricksterCones : Ability
 						}
 						break;
 					}
-					Animator animator = actorData.\u000E();
-					animator.SetInteger("Attack", 0);
-					animator.SetBool("CinematicCam", false);
+					Animator modelAnimator = actorData.GetModelAnimator();
+					modelAnimator.SetInteger("Attack", 0);
+					modelAnimator.SetBool("CinematicCam", false);
 				}
 			}
 		}

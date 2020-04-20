@@ -124,7 +124,7 @@ public class OverwatchScanSequence : Sequence
 				}
 				if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
-					this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.\u000E());
+					this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 				}
 			}
 			if (this.m_fxCasterJoint.IsInitialized())

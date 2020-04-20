@@ -39,8 +39,8 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
 			}
 			base.ClearActorsInRange();
 			base.SetShowArcToShape(false);
-			Vector3 vector = Board.\u000E().\u000E(this.m_bombAbility.GetPlacedBomb()).\u000E();
-			Vector3 vector2 = currentTarget.FreePos - vector;
+			Vector3 worldPositionForLoS = Board.Get().GetBoardSquareSafe(this.m_bombAbility.GetPlacedBomb()).GetWorldPositionForLoS();
+			Vector3 vector = currentTarget.FreePos - worldPositionForLoS;
 			if (this.m_lockToCardinalDirs)
 			{
 				for (;;)
@@ -52,19 +52,19 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
 					}
 					break;
 				}
-				vector2 = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector2)));
+				vector = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector)));
 			}
 			if (this.m_highlights != null && this.m_highlights.Count < 1)
 			{
-				this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(Board.\u000E().squareSize * 0.75f, this.m_bombMoveRange * Board.\u000E().squareSize, null));
+				this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(Board.Get().squareSize * 0.75f, this.m_bombMoveRange * Board.Get().squareSize, null));
 			}
-			Vector3 position = vector;
+			Vector3 position = worldPositionForLoS;
 			position.y = HighlightUtils.GetHighlightHeight();
 			this.m_highlights[0].transform.position = position;
-			this.m_highlights[0].transform.rotation = Quaternion.LookRotation(vector2);
-			Vector3 vector3;
-			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(vector, vector2, this.m_bombMoveRange, 0.75f, targetingActor, targetingActor.\u0015(), false, 1, false, false, out vector3, null, null, false, true);
-			base.AddActorsInRange(actorsInLaser, vector, targetingActor, AbilityTooltipSubject.Primary, false);
+			this.m_highlights[0].transform.rotation = Quaternion.LookRotation(vector);
+			Vector3 vector2;
+			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(worldPositionForLoS, vector, this.m_bombMoveRange, 0.75f, targetingActor, targetingActor.GetOpposingTeams(), false, 1, false, false, out vector2, null, null, false, true);
+			base.AddActorsInRange(actorsInLaser, worldPositionForLoS, targetingActor, AbilityTooltipSubject.Primary, false);
 		}
 		else
 		{

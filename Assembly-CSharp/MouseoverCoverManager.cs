@@ -166,9 +166,9 @@ public class MouseoverCoverManager
 								}
 								break;
 							}
-							if (coverCenterSquare.\u0016())
+							if (coverCenterSquare.IsBaselineHeight())
 							{
-								ActorTurnSM actorTurnSM = actorData2.\u000E();
+								ActorTurnSM actorTurnSM = actorData2.GetActorTurnSM();
 								if (actorTurnSM != null)
 								{
 									for (;;)
@@ -467,7 +467,7 @@ public class MouseoverCoverManager
 						Vector3 from = currentSquare.ToVector3() - this.m_startSquare.ToVector3();
 						from.y = 0f;
 						List<BoardSquare> list = null;
-						Board.\u000E().\u000E(currentSquare.x, currentSquare.y, ref list);
+						Board.Get().GetStraightAdjacentSquares(currentSquare.x, currentSquare.y, ref list);
 						if (list != null)
 						{
 							for (;;)
@@ -513,7 +513,7 @@ public class MouseoverCoverManager
 										ActorCover.CoverDirections coverDirection = ActorCover.GetCoverDirection(currentSquare, boardSquare);
 										int num2 = boardSquare.height - currentSquare.height;
 										bool flag = num2 >= 1;
-										bool flag2 = currentSquare.\u001D(coverDirection) != ThinCover.CoverType.None;
+										bool flag2 = currentSquare.GetCoverInDirection(coverDirection) != ThinCover.CoverType.None;
 										if (!flag)
 										{
 											if (!flag2)

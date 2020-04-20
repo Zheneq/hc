@@ -101,13 +101,13 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 					}
 					break;
 				}
-				this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_coneRadiusInSquares * Board.\u000E().squareSize, this.m_coneWidthAngle));
+				this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_coneRadiusInSquares * Board.Get().squareSize, this.m_coneWidthAngle));
 			}
 		}
 		Vector3 barrierCenterPos = this.m_barrierCenterPos;
 		float num5 = 0.5f * GameplayData.Get().m_coverProtectionAngle;
 		float num6 = VectorUtils.HorizontalAngle_Deg(this.m_barrierOutwardFacing);
-		float d = 0.5f * this.m_width * Board.\u000E().squareSize;
+		float d = 0.5f * this.m_width * Board.Get().squareSize;
 		Vector3 normalized = Vector3.Cross(this.m_barrierOutwardFacing, Vector3.up).normalized;
 		this.m_highlights[num2].transform.position = barrierCenterPos - normalized * d;
 		this.m_highlights[num2].transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(num6 + num5));
@@ -126,11 +126,11 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 			}
 			this.m_highlights[num2].SetActive(false);
 			this.m_highlights[num2 + 1].SetActive(false);
-			Vector3 vector = targetingActor.\u0015();
+			Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			if (currentTargetIndex > 0)
 			{
-				BoardSquare boardSquare = Board.\u000E().\u000E(targets[0].GridPos);
-				if (boardSquare != null)
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
+				if (boardSquareSafe != null)
 				{
 					for (;;)
 					{
@@ -141,7 +141,7 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 						}
 						break;
 					}
-					vector = boardSquare.ToVector3();
+					vector = boardSquareSafe.ToVector3();
 				}
 			}
 			Vector3 vector2 = -1f * this.m_barrierOutwardFacing;
@@ -183,7 +183,7 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 				}
 				break;
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0015(), targetingActor, AbilityTooltipSubject.Self, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 	}
 

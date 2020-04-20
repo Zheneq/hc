@@ -71,7 +71,7 @@ public class CombatText : MonoBehaviour
 			return;
 		}
 		ActorData component = base.GetComponent<ActorData>();
-		if (component.\u0018())
+		if (component.IsVisibleToClient())
 		{
 			for (;;)
 			{

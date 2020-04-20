@@ -55,7 +55,7 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 	{
 		base.ClearActorsInRange();
 		Vector3 vector = currentTarget.FreePos;
-		Vector3 vector2 = vector - targetingActor.\u0016();
+		Vector3 vector2 = vector - targetingActor.GetTravelBoardSquareWorldPosition();
 		bool active = false;
 		Vector3 vector3 = vector;
 		BoardSquare boardSquare = null;
@@ -85,11 +85,11 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 					}
 					break;
 				}
-				boardSquare = Board.\u000E().\u000E(targets[currentTargetIndex - 1].GridPos);
+				boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 			}
 			else
 			{
-				boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+				boardSquare = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 			}
 			if (boardSquare != null)
 			{
@@ -111,8 +111,8 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		}
 		vector2.y = 0f;
 		vector2.Normalize();
-		float num = this.m_width * Board.\u000E().squareSize;
-		float num2 = this.m_laserRange * Board.\u000E().squareSize;
+		float num = this.m_width * Board.Get().squareSize;
+		float num2 = this.m_laserRange * Board.Get().squareSize;
 		if (this.m_highlights != null)
 		{
 			if (this.m_highlights.Count >= 2)
@@ -142,9 +142,9 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		Vector3 a2 = vector - 0.5f * num * a;
 		gameObject.transform.position = a2 + new Vector3(0f, 0.1f, 0f);
 		gameObject.transform.rotation = Quaternion.LookRotation(-a);
-		Vector3 vector4 = targetingActor.\u0015();
-		Vector3 start = (!(boardSquare != null)) ? vector4 : boardSquare.ToVector3();
-		start.y = vector4.y;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 start = (!(boardSquare != null)) ? travelBoardSquareWorldPositionForLos : boardSquare.ToVector3();
+		start.y = travelBoardSquareWorldPositionForLos.y;
 		VectorUtils.LaserCoords laserCoords;
 		laserCoords.start = start;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies);
@@ -180,8 +180,8 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 				}
 				break;
 			}
-			Vector3 vector5;
-			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * vector2, 2f, this.m_width, targetingActor, relevantTeams, true, -1, true, true, out vector5, null, null, true, true);
+			Vector3 vector4;
+			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * vector2, 2f, this.m_width, targetingActor, relevantTeams, true, -1, true, true, out vector4, null, null, true, true);
 			for (int i = actorsInLaser.Count - 1; i >= 0; i--)
 			{
 				if (actorsInLaser2.Contains(actorsInLaser[i]))
@@ -220,9 +220,9 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 				}
 				break;
 			}
-			Vector3 vector6 = laserCoords.end - vector;
-			vector6.y = 0f;
-			lengthInWorld = vector6.magnitude;
+			Vector3 vector5 = laserCoords.end - vector;
+			vector5.y = 0f;
+			lengthInWorld = vector5.magnitude;
 		}
 		gameObject2.transform.position = vector + new Vector3(0f, y, 0f);
 		gameObject2.transform.rotation = Quaternion.LookRotation(vector2);
@@ -260,7 +260,7 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		if (this.m_snapToBorder)
 		{

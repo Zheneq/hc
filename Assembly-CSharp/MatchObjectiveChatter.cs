@@ -124,7 +124,7 @@ public class MatchObjectiveChatter : ScriptableObject, IChatterData
 					}
 					break;
 				}
-				if (matchObjectiveEventArgs.team == component2.\u000E())
+				if (matchObjectiveEventArgs.team == component2.GetTeam())
 				{
 					return true;
 				}

@@ -260,7 +260,7 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.Setup(Team)).MethodHandle;
 			}
-			cachedLocalPlayerTeam = GameFlowData.Get().activeOwnedActorData.\u000E();
+			cachedLocalPlayerTeam = GameFlowData.Get().activeOwnedActorData.GetTeam();
 		}
 		else
 		{
@@ -356,7 +356,7 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 					}
 					break;
 				}
-				team = GameFlowData.Get().activeOwnedActorData.\u000E();
+				team = GameFlowData.Get().activeOwnedActorData.GetTeam();
 			}
 			else
 			{

@@ -96,7 +96,7 @@ public class SimpleVerticalProjectileSequence : Sequence
 				}
 				break;
 			}
-			if (!base.Caster.\u000E())
+			if (!base.Caster.IsDead())
 			{
 				return;
 			}
@@ -358,7 +358,7 @@ public class SimpleVerticalProjectileSequence : Sequence
 							}
 							break;
 						}
-						if (!base.Caster.\u000E())
+						if (!base.Caster.IsDead())
 						{
 							for (;;)
 							{
@@ -399,7 +399,7 @@ public class SimpleVerticalProjectileSequence : Sequence
 					FriendlyEnemyVFXSelector component = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 					if (component != null)
 					{
-						component.Setup(base.Caster.\u000E());
+						component.Setup(base.Caster.GetTeam());
 					}
 				}
 				if (!string.IsNullOrEmpty(this.m_audioEvent))

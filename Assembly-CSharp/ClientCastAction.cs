@@ -37,7 +37,7 @@ public class ClientCastAction
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCastAction.ClientCastAction_DeSerializeFromReader(NetworkReader*)).MethodHandle;
 			}
 			AbilityData.ActionType type = (AbilityData.ActionType)b;
-			clientCastAction.m_ability = clientCastAction.m_caster.\u000E().GetAbilityOfActionType(type);
+			clientCastAction.m_ability = clientCastAction.m_caster.GetAbilityData().GetAbilityOfActionType(type);
 		}
 		clientCastAction.m_techPointGain = techPointGain;
 		clientCastAction.m_techPointLoss = techPointLoss;

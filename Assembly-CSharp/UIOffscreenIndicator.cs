@@ -36,7 +36,7 @@ public class UIOffscreenIndicator : UIBaseIndicator
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicator.CalculateVisibility()).MethodHandle;
 			}
 			bool flag;
-			if (this.m_attachedToActor.\u000E() != null)
+			if (this.m_attachedToActor.GetActorMovement() != null)
 			{
 				for (;;)
 				{
@@ -47,7 +47,7 @@ public class UIOffscreenIndicator : UIBaseIndicator
 					}
 					break;
 				}
-				flag = this.m_attachedToActor.\u000E().InChargeState();
+				flag = this.m_attachedToActor.GetActorMovement().InChargeState();
 			}
 			else
 			{
@@ -65,7 +65,7 @@ public class UIOffscreenIndicator : UIBaseIndicator
 					}
 					break;
 				}
-				result = this.m_attachedToActor.\u0013();
+				result = this.m_attachedToActor.ShouldShowNameplate();
 			}
 			else
 			{
@@ -146,8 +146,8 @@ public class UIOffscreenIndicator : UIBaseIndicator
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicator.CalculateScreenPos()).MethodHandle;
 			}
-			worldPos = this.m_attachedToActor.\u000E(0f);
-			float num = (float)Board.\u000E().BaselineHeight;
+			worldPos = this.m_attachedToActor.GetNameplatePosition(0f);
+			float num = (float)Board.Get().BaselineHeight;
 			worldPos.y = Mathf.Clamp(worldPos.y, num, num + 2f);
 		}
 		else if (this.m_attachedToControlPoint != null)
@@ -161,7 +161,7 @@ public class UIOffscreenIndicator : UIBaseIndicator
 				}
 				break;
 			}
-			worldPos = this.m_attachedToControlPoint.m_region.\u001D();
+			worldPos = this.m_attachedToControlPoint.m_region.GetCenter();
 		}
 		else if (this.m_attachedToFlag != null)
 		{
@@ -169,7 +169,7 @@ public class UIOffscreenIndicator : UIBaseIndicator
 		}
 		else if (this.m_attachedToBoardRegion != null)
 		{
-			worldPos = this.m_attachedToBoardRegion.\u001D();
+			worldPos = this.m_attachedToBoardRegion.GetCenter();
 		}
 		else if (this.m_attachedToPing != null)
 		{

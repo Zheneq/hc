@@ -429,8 +429,8 @@ public class TrackerTranquilizerDarts : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
 			}
-			min = this.m_targeterMinInterpDistance * Board.\u000E().squareSize;
-			max = this.m_targeterMaxInterpDistance * Board.\u000E().squareSize;
+			min = this.m_targeterMinInterpDistance * Board.Get().squareSize;
+			max = this.m_targeterMaxInterpDistance * Board.Get().squareSize;
 			return true;
 		}
 		return base.HasRestrictedFreePosDistance(aimingActor, targetIndex, targetsSoFar, out min, out max);

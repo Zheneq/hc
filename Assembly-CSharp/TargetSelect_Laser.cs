@@ -24,13 +24,13 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0011.\u0012(), "on every non-caster hit actor, order in which they are hit in laser", true) + base.GetContextUsageStr(ContextKeys.\u0018.\u0012(), "on every non-caster hit actor, distance from caster", true);
+		return base.GetContextUsageStr(ContextKeys.\u0011.GetName(), "on every non-caster hit actor, order in which they are hit in laser", true) + base.GetContextUsageStr(ContextKeys.\u0018.GetName(), "on every non-caster hit actor, distance from caster", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0011.\u0012());
-		names.Add(ContextKeys.\u0018.\u0012());
+		names.Add(ContextKeys.\u0011.GetName());
+		names.Add(ContextKeys.\u0018.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)

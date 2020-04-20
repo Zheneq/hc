@@ -326,10 +326,10 @@ public class TricksterMadeYouLook : Ability
 					}
 					break;
 				}
-				if (!(caster.\u000E() == null))
+				if (!(caster.GetAbilityData() == null))
 				{
 					List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
-					return validAfterImages.Count > 0 && !caster.\u000E().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
+					return validAfterImages.Count > 0 && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
 				}
 				for (;;)
 				{
@@ -352,8 +352,8 @@ public class TricksterMadeYouLook : Ability
 		{
 			return true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -368,14 +368,14 @@ public class TricksterMadeYouLook : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						if (actorData.\u0012() == boardSquare)
+						if (actorData.GetCurrentBoardSquare() == boardSquareSafe)
 						{
 							for (;;)
 							{
@@ -519,7 +519,7 @@ public class TricksterMadeYouLook : Ability
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
 		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(false);
-		BoardSquare y = Board.\u000E().\u000E(targetPos);
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(targetPos);
 		bool flag = validAfterImages.Count > 1;
 		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
 		{
@@ -541,7 +541,7 @@ public class TricksterMadeYouLook : Ability
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
 					}
-					if (!actorData.\u000E())
+					if (!actorData.IsDead())
 					{
 						for (;;)
 						{
@@ -552,7 +552,7 @@ public class TricksterMadeYouLook : Ability
 							}
 							break;
 						}
-						if (actorData.\u0012() != null)
+						if (actorData.GetCurrentBoardSquare() != null)
 						{
 							for (;;)
 							{
@@ -574,7 +574,7 @@ public class TricksterMadeYouLook : Ability
 									}
 									break;
 								}
-								if (!(actorData.\u0012() == y))
+								if (!(actorData.GetCurrentBoardSquare() == boardSquare))
 								{
 									continue;
 								}
@@ -588,13 +588,13 @@ public class TricksterMadeYouLook : Ability
 									break;
 								}
 							}
-							this.m_afterImageSyncComp.TurnToPosition(actorData, caster.\u0016());
-							Animator animator = actorData.\u000E();
-							animator.SetFloat(TricksterMadeYouLook.animDistToGoal, 10f);
-							animator.ResetTrigger(TricksterMadeYouLook.animStartDamageReaction);
-							animator.SetInteger(TricksterMadeYouLook.animAttack, animationIndex);
-							animator.SetBool(TricksterMadeYouLook.animCinematicCam, false);
-							animator.SetTrigger(TricksterMadeYouLook.animStartAttack);
+							this.m_afterImageSyncComp.TurnToPosition(actorData, caster.GetTravelBoardSquareWorldPosition());
+							Animator modelAnimator = actorData.GetModelAnimator();
+							modelAnimator.SetFloat(TricksterMadeYouLook.animDistToGoal, 10f);
+							modelAnimator.ResetTrigger(TricksterMadeYouLook.animStartDamageReaction);
+							modelAnimator.SetInteger(TricksterMadeYouLook.animAttack, animationIndex);
+							modelAnimator.SetBool(TricksterMadeYouLook.animCinematicCam, false);
+							modelAnimator.SetTrigger(TricksterMadeYouLook.animStartAttack);
 						}
 					}
 				}
@@ -619,11 +619,11 @@ public class TricksterMadeYouLook : Ability
 			while (enumerator.MoveNext())
 			{
 				ActorData actorData = enumerator.Current;
-				if (actorData != null && !actorData.\u000E())
+				if (actorData != null && !actorData.IsDead())
 				{
-					Animator animator = actorData.\u000E();
-					animator.SetInteger(TricksterMadeYouLook.animAttack, 0);
-					animator.SetBool(TricksterMadeYouLook.animCinematicCam, false);
+					Animator modelAnimator = actorData.GetModelAnimator();
+					modelAnimator.SetInteger(TricksterMadeYouLook.animAttack, 0);
+					modelAnimator.SetBool(TricksterMadeYouLook.animCinematicCam, false);
 				}
 			}
 			for (;;)

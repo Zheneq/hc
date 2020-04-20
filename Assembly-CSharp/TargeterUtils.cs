@@ -28,7 +28,7 @@ public static class TargeterUtils
 
 	public static GameObject CreateLaserBoxHighlight(Vector3 start, Vector3 end, float widthInSquares, TargeterUtils.HeightAdjustType adjustType)
 	{
-		float widthInWorld = widthInSquares * Board.\u000E().squareSize;
+		float widthInWorld = widthInSquares * Board.Get().squareSize;
 		float magnitude = (start - end).magnitude;
 		GameObject gameObject = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude, null);
 		TargeterUtils.RefreshLaserBoxHighlight(gameObject, start, end, widthInSquares, adjustType);
@@ -37,7 +37,7 @@ public static class TargeterUtils
 
 	public static void RefreshLaserBoxHighlight(GameObject boxHighlight, Vector3 start, Vector3 end, float widthInSquares, TargeterUtils.HeightAdjustType adjustType)
 	{
-		float widthInWorld = widthInSquares * Board.\u000E().squareSize;
+		float widthInWorld = widthInSquares * Board.Get().squareSize;
 		float magnitude = (start - end).magnitude;
 		HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, boxHighlight);
 		float heightAdjustDelta = TargeterUtils.GetHeightAdjustDelta(adjustType);
@@ -48,7 +48,7 @@ public static class TargeterUtils
 
 	public static GameObject CreateCircleHighlight(Vector3 pos, float radiusInSquares, TargeterUtils.HeightAdjustType adjustType, bool isForLocalPlayer)
 	{
-		float radiusInWorld = radiusInSquares * Board.\u000E().squareSize;
+		float radiusInWorld = radiusInSquares * Board.Get().squareSize;
 		GameObject gameObject = HighlightUtils.Get().CreateAoECursor(radiusInWorld, isForLocalPlayer);
 		TargeterUtils.RefreshCircleHighlight(gameObject, pos, adjustType);
 		return gameObject;
@@ -165,8 +165,8 @@ public static class TargeterUtils
 				}
 				return 1;
 			}
-			float sqrMagnitude = (x.\u0016() - pos).sqrMagnitude;
-			float sqrMagnitude2 = (y.\u0016() - pos).sqrMagnitude;
+			float sqrMagnitude = (x.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
+			float sqrMagnitude2 = (y.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
 			{
 				for (;;)
@@ -178,9 +178,9 @@ public static class TargeterUtils
 					}
 					break;
 				}
-				GridPos gridPos = x.\u000E();
-				GridPos gridPos2 = y.\u000E();
-				if (gridPos.x != gridPos2.x)
+				GridPos gridPosWithIncrementedHeight = x.GetGridPosWithIncrementedHeight();
+				GridPos gridPosWithIncrementedHeight2 = y.GetGridPosWithIncrementedHeight();
+				if (gridPosWithIncrementedHeight.x != gridPosWithIncrementedHeight2.x)
 				{
 					for (;;)
 					{
@@ -191,9 +191,9 @@ public static class TargeterUtils
 						}
 						break;
 					}
-					return gridPos.x.CompareTo(gridPos2.x);
+					return gridPosWithIncrementedHeight.x.CompareTo(gridPosWithIncrementedHeight2.x);
 				}
-				if (gridPos.y != gridPos2.y)
+				if (gridPosWithIncrementedHeight.y != gridPosWithIncrementedHeight2.y)
 				{
 					for (;;)
 					{
@@ -204,7 +204,7 @@ public static class TargeterUtils
 						}
 						break;
 					}
-					return gridPos.y.CompareTo(gridPos2.y);
+					return gridPosWithIncrementedHeight.y.CompareTo(gridPosWithIncrementedHeight2.y);
 				}
 			}
 			return sqrMagnitude.CompareTo(sqrMagnitude2);
@@ -249,8 +249,8 @@ public static class TargeterUtils
 				}
 				return 1;
 			}
-			Vector3 to = x.\u0016() - pos;
-			Vector3 to2 = y.\u0016() - pos;
+			Vector3 to = x.GetTravelBoardSquareWorldPosition() - pos;
+			Vector3 to2 = y.GetTravelBoardSquareWorldPosition() - pos;
 			float sqrMagnitude = to.sqrMagnitude;
 			float sqrMagnitude2 = to2.sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
@@ -326,7 +326,7 @@ public static class TargeterUtils
 
 	public static float GetSignedDistanceAlongLaser(ActorData actor, Vector3 laserStart, Vector3 laserDir)
 	{
-		Vector3 lhs = new Vector3(actor.\u0016().x - laserStart.x, 0f, actor.\u0016().z - laserStart.z);
+		Vector3 lhs = new Vector3(actor.GetTravelBoardSquareWorldPosition().x - laserStart.x, 0f, actor.GetTravelBoardSquareWorldPosition().z - laserStart.z);
 		return Vector3.Dot(lhs, laserDir);
 	}
 
@@ -334,7 +334,7 @@ public static class TargeterUtils
 	{
 		for (int i = actors.Count - 1; i >= 0; i--)
 		{
-			if (!actors[i].\u0018())
+			if (!actors[i].IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -382,7 +382,7 @@ public static class TargeterUtils
 			}
 			for (int i = actors.Count - 1; i >= 0; i--)
 			{
-				if (!actors[i].\u000E(observer, false))
+				if (!actors[i].IsActorVisibleToActor(observer, false))
 				{
 					actors.RemoveAt(i);
 				}
@@ -440,8 +440,8 @@ public static class TargeterUtils
 					}
 					for (int i = actors.Count - 1; i >= 0; i--)
 					{
-						BoardSquare boardSquare = actors[i].\u0012();
-						if (boardSquare != null && !AreaEffectUtils.SquaresHaveLoSForAbilities(sourceSquare, boardSquare, caster, true, null))
+						BoardSquare currentBoardSquare = actors[i].GetCurrentBoardSquare();
+						if (currentBoardSquare != null && !AreaEffectUtils.SquaresHaveLoSForAbilities(sourceSquare, currentBoardSquare, caster, true, null))
 						{
 							for (;;)
 							{
@@ -621,7 +621,7 @@ public static class TargeterUtils
 			}
 			return startPos;
 		}
-		float squareSize = Board.\u000E().squareSize;
+		float squareSize = Board.Get().squareSize;
 		Vector3 normalized = (endPos - startPos).normalized;
 		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, normalized, maxDistanceInSquares * squareSize, penetrateLos, targetingActor, null, true);
 		Vector3 result = laserEndPoint;
@@ -630,7 +630,7 @@ public static class TargeterUtils
 		bool flag = false;
 		for (int i = squaresInBox.Count - 1; i >= 0; i--)
 		{
-			if (squaresInBox[i].\u0016())
+			if (squaresInBox[i].IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -654,7 +654,7 @@ public static class TargeterUtils
 					}
 					break;
 				}
-				if (squaresInBox[i - 1].\u0016())
+				if (squaresInBox[i - 1].IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -751,7 +751,7 @@ public static class TargeterUtils
 				float d = 0.5f * squareSize;
 				float a = Mathf.Min(magnitude, num2);
 				BoardSquare boardSquare2 = squaresInBox[squaresInBox.Count - 2];
-				if (boardSquare2.\u0016())
+				if (boardSquare2.IsBaselineHeight())
 				{
 					bool flag3 = false;
 					Vector3 a2 = Vector3.zero;
@@ -965,7 +965,7 @@ public static class TargeterUtils
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetRelevantTeams(ActorData, bool, bool)).MethodHandle;
 			}
-			list.Add(allyActor.\u000E());
+			list.Add(allyActor.GetTeam());
 		}
 		if (includeEnemies)
 		{
@@ -978,7 +978,7 @@ public static class TargeterUtils
 				}
 				break;
 			}
-			list.Add(allyActor.\u0012());
+			list.Add(allyActor.GetOpposingTeam());
 		}
 		return list;
 	}
@@ -1042,8 +1042,8 @@ public static class TargeterUtils
 
 	public static void DrawGizmo_LaserBox(Vector3 startPos, Vector3 endPos, float widthInWorld, Color color)
 	{
-		startPos.y = (float)Board.\u000E().BaselineHeight;
-		endPos.y = (float)Board.\u000E().BaselineHeight;
+		startPos.y = (float)Board.Get().BaselineHeight;
+		endPos.y = (float)Board.Get().BaselineHeight;
 		Vector3 vector = endPos - startPos;
 		float magnitude = vector.magnitude;
 		vector.Normalize();

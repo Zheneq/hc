@@ -52,7 +52,7 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						if (actorData.\u000E() != targetingActor.\u000E())
+						if (actorData.GetTeam() != targetingActor.GetTeam())
 						{
 							for (;;)
 							{
@@ -74,7 +74,7 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 									}
 									break;
 								}
-								float num2 = VectorUtils.HorizontalPlaneDistInSquares(actorData.\u0016(), targetingActor.\u0016());
+								float num2 = VectorUtils.HorizontalPlaneDistInSquares(actorData.GetTravelBoardSquareWorldPosition(), targetingActor.GetTravelBoardSquareWorldPosition());
 								bool flag;
 								if (this.m_knockbackThresholdDistance > 0f)
 								{
@@ -105,7 +105,7 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 										}
 										break;
 									}
-									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, targetingActor.\u0016(), this.m_knockbackDistance);
+									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), this.m_knockbackDistance);
 									num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 								}
 							}
@@ -143,7 +143,7 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SniperPenetratingRound.ActorMeetKnockbackConditions(ActorData, ActorData)).MethodHandle;
 			}
-			return this.m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.\u0016(), caster.\u0016()) < this.m_knockbackThresholdDistance;
+			return this.m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < this.m_knockbackThresholdDistance;
 		}
 		return false;
 	}

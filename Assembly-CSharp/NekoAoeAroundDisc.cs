@@ -134,7 +134,7 @@ public class NekoAoeAroundDisc : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (this.m_syncComp != null && caster.\u0012() != null)
+		if (this.m_syncComp != null && caster.GetCurrentBoardSquare() != null)
 		{
 			for (;;)
 			{
@@ -154,7 +154,7 @@ public class NekoAoeAroundDisc : Ability
 			{
 				float minRange = this.m_targetData[0].m_minRange;
 				float range = this.m_targetData[0].m_range;
-				bool flag = caster.\u000E().IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, caster.\u0012(), range, minRange);
+				bool flag = caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, caster.GetCurrentBoardSquare(), range, minRange);
 				bool flag2;
 				if (flag)
 				{
@@ -178,7 +178,7 @@ public class NekoAoeAroundDisc : Ability
 							}
 							break;
 						}
-						flag2 = caster.\u0012().\u0013(boardSquare.x, boardSquare.y);
+						flag2 = caster.GetCurrentBoardSquare().\u0013(boardSquare.x, boardSquare.y);
 					}
 					else
 					{
@@ -211,11 +211,11 @@ public class NekoAoeAroundDisc : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare item = Board.\u000E().\u000E(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (this.m_syncComp != null)
 		{
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Contains(item))
+			if (activeDiscSquares.Contains(boardSquareSafe))
 			{
 				return true;
 			}
@@ -292,7 +292,7 @@ public class NekoAoeAroundDisc : Ability
 					}
 					break;
 				}
-				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].\u000E());
+				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
 			}
 		}
 		return abilityTarget;
@@ -300,7 +300,7 @@ public class NekoAoeAroundDisc : Ability
 
 	public Vector3 ClampToSquareCenter(ActorData caster, AbilityTarget currentTarget)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		return boardSquare.\u000E();
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return boardSquareSafe.GetWorldPositionForLoS();
 	}
 }

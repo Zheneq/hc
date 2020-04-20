@@ -99,7 +99,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		}
 		else
 		{
-			result = targetingActor.\u0016();
+			result = targetingActor.GetTravelBoardSquareWorldPosition();
 		}
 		return result;
 	}
@@ -126,7 +126,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth.CreateHighlightObjectsIfNeeded(float, ActorData)).MethodHandle;
 			}
-			base.Highlight = HighlightUtils.Get().CreateAoECursor(radiusInSquares * Board.\u000E().squareSize, targetingActor == GameFlowData.Get().activeOwnedActorData);
+			base.Highlight = HighlightUtils.Get().CreateAoECursor(radiusInSquares * Board.Get().squareSize, targetingActor == GameFlowData.Get().activeOwnedActorData);
 			base.Highlight.SetActive(true);
 		}
 	}
@@ -179,7 +179,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		float currentRangeInSquares = this.GetCurrentRangeInSquares();
 		Vector3 refPos = this.GetRefPos(currentTarget, targetingActor, currentRangeInSquares);
 		base.Highlight.SetActive(true);
-		refPos.y = targetingActor.\u0016().y + this.m_heightOffset;
+		refPos.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 		base.Highlight.transform.position = refPos;
 		this.m_lastUpdatedCenterPos = refPos;
 		if (this.m_penetrateEnemyBarriers)
@@ -257,8 +257,8 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		{
 			base.AddActorInRange(actorData, this.GetDamageOrigin(currentTarget, targetingActor, currentRangeInSquares), targetingActor, AbilityTooltipSubject.Primary, false);
 			ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-			float u000E = VectorUtils.HorizontalPlaneDistInSquares(refPos, actorData.\u0016());
-			actorHitContext.\u0015.\u0015(ContextKeys.\u0018.\u0012(), u000E);
+			float value = VectorUtils.HorizontalPlaneDistInSquares(refPos, actorData.GetTravelBoardSquareWorldPosition());
+			actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
 		}
 		if (!this.m_affectsTargetingActor)
 		{
@@ -301,10 +301,10 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 				break;
 			}
 		}
-		base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, (!flag) ? AbilityTooltipSubject.Self : AbilityTooltipSubject.Primary, false);
+		base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, (!flag) ? AbilityTooltipSubject.Self : AbilityTooltipSubject.Primary, false);
 		ActorHitContext actorHitContext2 = this.m_actorContextVars[targetingActor];
-		float u000E2 = VectorUtils.HorizontalPlaneDistInSquares(refPos, targetingActor.\u0016());
-		actorHitContext2.\u0015.\u0015(ContextKeys.\u0018.\u0012(), u000E2);
+		float value2 = VectorUtils.HorizontalPlaneDistInSquares(refPos, targetingActor.GetTravelBoardSquareWorldPosition());
+		actorHitContext2.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value2);
 		IL_2A8:
 		int num = 0;
 		if (this.m_knockbackDistance > 0f)
@@ -324,7 +324,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 				while (enumerator2.MoveNext())
 				{
 					ActorData actorData2 = enumerator2.Current;
-					if (actorData2.\u000E() != targetingActor.\u000E())
+					if (actorData2.GetTeam() != targetingActor.GetTeam())
 					{
 						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData2, this.m_knockbackType, currentTarget.AimDirection, refPos, this.m_knockbackDistance);
 						num = base.AddMovementArrowWithPrevious(actorData2, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);

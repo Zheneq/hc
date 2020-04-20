@@ -575,15 +575,15 @@ public class MantaBasicAttack : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.ForceIgnoreCover(ActorData)).MethodHandle;
 			}
-			return this.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.\u0016(), base.ActorData);
+			return this.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.GetTravelBoardSquareWorldPosition(), base.ActorData);
 		}
 		return false;
 	}
 
 	private bool InsideNearRadius(ActorData targetActor, Vector3 damageOrigin)
 	{
-		float num = this.GetConeLengthInner() * Board.\u000E().squareSize;
-		Vector3 vector = targetActor.\u0016() - damageOrigin;
+		float num = this.GetConeLengthInner() * Board.Get().squareSize;
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
 		vector.y = 0f;
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
@@ -601,7 +601,7 @@ public class MantaBasicAttack : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.InsideNearRadius(ActorData, Vector3)).MethodHandle;
 			}
-			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize;
+			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		return num2 <= num;
 	}

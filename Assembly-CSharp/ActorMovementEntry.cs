@@ -17,10 +17,10 @@ public class ActorMovementEntry
 
 	public override string ToString()
 	{
-		string str = this.m_actor.\u0018();
-		string str2 = this.m_progressState.ToString();
-		string str3 = (!this.m_doomed) ? string.Empty : " (doomed)";
-		return str + ": " + str2 + str3;
+		string debugName = this.m_actor.GetDebugName();
+		string str = this.m_progressState.ToString();
+		string str2 = (!this.m_doomed) ? string.Empty : " (doomed)";
+		return debugName + ": " + str + str2;
 	}
 
 	public enum MovementProgressState

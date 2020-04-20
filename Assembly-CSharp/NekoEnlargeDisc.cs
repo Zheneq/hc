@@ -339,7 +339,7 @@ public class NekoEnlargeDisc : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CustomCanCastValidation(ActorData)).MethodHandle;
 			}
-			if (caster.\u0012() != null)
+			if (caster.GetCurrentBoardSquare() != null)
 			{
 				for (;;)
 				{
@@ -358,7 +358,7 @@ public class NekoEnlargeDisc : Ability
 						BoardSquare boardSquare = enumerator.Current;
 						float minRange = this.m_targetData[0].m_minRange;
 						float range = this.m_targetData[0].m_range;
-						bool flag = caster.\u000E().IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, caster.\u0012(), range, minRange);
+						bool flag = caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, caster.GetCurrentBoardSquare(), range, minRange);
 						bool flag2;
 						if (flag)
 						{
@@ -382,7 +382,7 @@ public class NekoEnlargeDisc : Ability
 									}
 									break;
 								}
-								flag2 = caster.\u0012().\u0013(boardSquare.x, boardSquare.y);
+								flag2 = caster.GetCurrentBoardSquare().\u0013(boardSquare.x, boardSquare.y);
 							}
 							else
 							{
@@ -417,7 +417,7 @@ public class NekoEnlargeDisc : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare item = Board.\u000E().\u000E(target.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (this.m_syncComp != null)
 		{
 			for (;;)
@@ -434,7 +434,7 @@ public class NekoEnlargeDisc : Ability
 				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Contains(item))
+			if (activeDiscSquares.Contains(boardSquareSafe))
 			{
 				for (;;)
 				{
@@ -538,7 +538,7 @@ public class NekoEnlargeDisc : Ability
 					}
 					break;
 				}
-				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].\u000E());
+				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
 			}
 		}
 		return abilityTarget;
@@ -584,9 +584,9 @@ public class NekoEnlargeDisc : Ability
 						}
 						break;
 					}
-					if (caster.\u000E() != null)
+					if (caster.GetActorTargeting() != null)
 					{
-						BoardSquare evadeDestinationForTargeter = caster.\u000E().GetEvadeDestinationForTargeter();
+						BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 						if (evadeDestinationForTargeter != null)
 						{
 							for (;;)
@@ -609,8 +609,8 @@ public class NekoEnlargeDisc : Ability
 
 	public Vector3 ClampToSquareCenter(ActorData caster, AbilityTarget currentTarget)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		return boardSquare.\u000E();
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		return boardSquareSafe.GetWorldPositionForLoS();
 	}
 
 	public override int GetTheatricsSortPriority(AbilityData.ActionType actionType)

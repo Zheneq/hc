@@ -74,7 +74,7 @@ namespace AbilityContextNamespace
 			return copy;
 		}
 
-		public string \u001D(OnHitIntField \u001D)
+		public string GetDesc(OnHitIntField \u001D)
 		{
 			string text = string.Empty;
 			if (\u001D != null)
@@ -90,7 +90,7 @@ namespace AbilityContextNamespace
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SingleOnHitIntFieldMod.\u001D(OnHitIntField)).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(SingleOnHitIntFieldMod.GetDesc(OnHitIntField)).MethodHandle;
 				}
 				if (this.m_useConditionOverride)
 				{
@@ -140,7 +140,7 @@ namespace AbilityContextNamespace
 			return text;
 		}
 
-		public void \u001D(List<TooltipTokenEntry> \u001D, OnHitIntField \u000E, string \u0012)
+		public void AddTokens_zq(List<TooltipTokenEntry> \u001D, OnHitIntField \u000E, string \u0012)
 		{
 			if (\u000E != null)
 			{
@@ -155,7 +155,7 @@ namespace AbilityContextNamespace
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SingleOnHitIntFieldMod.\u001D(List<TooltipTokenEntry>, OnHitIntField, string)).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(SingleOnHitIntFieldMod.AddTokens_zq(List<TooltipTokenEntry>, OnHitIntField, string)).MethodHandle;
 				}
 				AbilityMod.AddToken(\u001D, this.m_baseValueMod, \u0012 + "_Base", string.Empty, \u000E.m_baseValue, true, false);
 				AbilityMod.AddToken(\u001D, this.m_minValueMod, \u0012 + "_Min", string.Empty, \u000E.m_minValue, true, false);

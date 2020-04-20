@@ -116,7 +116,7 @@ public class IceborgWall : GenericAbility_Container
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgWall.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
 			}
-			if (targetActor.\u000E() != caster.\u000E())
+			if (targetActor.GetTeam() != caster.GetTeam())
 			{
 				for (;;)
 				{

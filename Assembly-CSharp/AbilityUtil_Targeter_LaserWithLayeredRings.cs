@@ -117,15 +117,15 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 				}
 				break;
 			}
-			actorHitContext.\u0015.\u0016(ContextKeys.\u001A.\u0012(), 0);
+			actorHitContext.\u0015.SetInt(ContextKeys.\u001A.GetHash(), 0);
 		}
 		else
 		{
-			RadiusToLayerIndex bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData<RadiusToLayerIndex>(this.m_coneRadiusList, actor.\u0012(), damageOrigin, targetingActor, true);
-			float u000E = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.\u0016());
-			actorHitContext.\u0015.\u0016(ContextKeys.\u001A.\u0012(), 1);
-			actorHitContext.\u0015.\u0016(ContextKeys.\u0003.\u0012(), bestMatchingData.m_index);
-			actorHitContext.\u0015.\u0015(ContextKeys.\u0018.\u0012(), u000E);
+			RadiusToLayerIndex bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData<RadiusToLayerIndex>(this.m_coneRadiusList, actor.GetCurrentBoardSquare(), damageOrigin, targetingActor, true);
+			float value = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.GetTravelBoardSquareWorldPosition());
+			actorHitContext.\u0015.SetInt(ContextKeys.\u001A.GetHash(), 1);
+			actorHitContext.\u0015.SetInt(ContextKeys.\u0003.GetHash(), bestMatchingData.m_index);
+			actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
 		}
 	}
 }

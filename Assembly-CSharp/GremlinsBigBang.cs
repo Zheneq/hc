@@ -210,7 +210,7 @@ public class GremlinsBigBang : Ability
 		int num = 0;
 		foreach (AbilityUtil_Targeter.ActorTarget actorTarget in actorsInRange)
 		{
-			if (actorTarget.m_actor.\u0018())
+			if (actorTarget.m_actor.IsVisibleToClient())
 			{
 				for (;;)
 				{

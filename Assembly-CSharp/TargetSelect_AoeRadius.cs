@@ -18,17 +18,17 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0018.\u0012(), "on every hit actor, distance from center of AoE, in squares", true);
+		return base.GetContextUsageStr(ContextKeys.\u0018.GetName(), "on every hit actor, distance from center of AoE, in squares", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0018.\u0012());
+		names.Add(ContextKeys.\u0018.GetName());
 	}
 
 	public override void Initialize()
 	{
-		this.m_commonProperties.\u0015(ContextKeys.\u000D.\u0012(), this.GetRadius());
+		this.m_commonProperties.SetFloat(ContextKeys.\u000D.GetHash(), this.GetRadius());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
@@ -48,8 +48,8 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 	{
 		if (this.UseSquareCenterPos())
 		{
-			BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-			if (boardSquare != null)
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -64,7 +64,7 @@ public class TargetSelect_AoeRadius : GenericAbility_TargetSelectBase
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_AoeRadius.GetCenterPos(ActorData, AbilityTarget)).MethodHandle;
 				}
-				return boardSquare.ToVector3();
+				return boardSquareSafe.ToVector3();
 			}
 		}
 		return currentTarget.FreePos;

@@ -634,7 +634,7 @@ public static class AbilityResultsUtils
 				goto IL_96;
 			}
 		}
-		square = Board.\u000E().\u0016((int)b4, (int)b5);
+		square = Board.Get().GetBoardSquare((int)b4, (int)b5);
 		IL_96:
 		ActorData primaryActor;
 		if ((int)b2 == ActorData.s_invalidActorIndex)

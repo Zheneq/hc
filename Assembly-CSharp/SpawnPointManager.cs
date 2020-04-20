@@ -91,16 +91,16 @@ public class SpawnPointManager : MonoBehaviour
 		if (!this.m_playersSelectRespawn && this.m_respawnMethod == SpawnPointManager.RespawnMethod.RespawnAnywhere)
 		{
 			this.ClearSpawnPoints();
-			Board board = Board.\u000E();
+			Board board = Board.Get();
 			PowerUpManager powerUpManager = PowerUpManager.Get();
-			int num = (int)((float)board.\u000E() * this.m_generatePerimeterSize);
-			int num2 = board.\u000E() - num;
-			int num3 = (int)((float)board.\u0012() * this.m_generatePerimeterSize);
-			int num4 = board.\u0012() - num3;
-			for (int i = 0; i < board.\u000E(); i++)
+			int num = (int)((float)board.GetMaxX() * this.m_generatePerimeterSize);
+			int num2 = board.GetMaxX() - num;
+			int num3 = (int)((float)board.GetMaxY() * this.m_generatePerimeterSize);
+			int num4 = board.GetMaxY() - num3;
+			for (int i = 0; i < board.GetMaxX(); i++)
 			{
 				int j = 0;
-				while (j < board.\u0012())
+				while (j < board.GetMaxY())
 				{
 					if (i < num)
 					{
@@ -149,7 +149,7 @@ public class SpawnPointManager : MonoBehaviour
 					j++;
 					continue;
 					IL_E3:
-					BoardSquare boardSquare = board.\u0016(i, j);
+					BoardSquare boardSquare = board.GetBoardSquare(i, j);
 					if (!(boardSquare != null))
 					{
 						goto IL_17B;
@@ -163,7 +163,7 @@ public class SpawnPointManager : MonoBehaviour
 						}
 						break;
 					}
-					if (!boardSquare.\u0016() || boardSquare.\u0012() || (float)(boardSquare.height - board.BaselineHeight) >= 0.5f)
+					if (!boardSquare.IsBaselineHeight() || boardSquare.IsInBrushRegion() || (float)(boardSquare.height - board.BaselineHeight) >= 0.5f)
 					{
 						goto IL_17B;
 					}
@@ -378,11 +378,11 @@ public class SpawnPointManager : MonoBehaviour
 					}
 					break;
 				}
-				list = this.m_initialSpawnPointsTeamA.\u001D();
+				list = this.m_initialSpawnPointsTeamA.GetSquaresInRegion();
 			}
 			else
 			{
-				list = this.m_initialSpawnPointsTeamB.\u001D();
+				list = this.m_initialSpawnPointsTeamB.GetSquaresInRegion();
 			}
 		}
 		else if (respawnMethod == SpawnPointManager.RespawnMethod.RespawnInGraveyards)
@@ -398,11 +398,11 @@ public class SpawnPointManager : MonoBehaviour
 					}
 					break;
 				}
-				list = this.m_spawnRegionsTeamA.\u001D();
+				list = this.m_spawnRegionsTeamA.GetSquaresInRegion();
 			}
 			else
 			{
-				list = this.m_spawnRegionsTeamB.\u001D();
+				list = this.m_spawnRegionsTeamB.GetSquaresInRegion();
 			}
 			List<BoardSquare> list2 = list;
 			if (SpawnPointManager.<>f__am$cache0 == null)
@@ -416,7 +416,7 @@ public class SpawnPointManager : MonoBehaviour
 					}
 					break;
 				}
-				SpawnPointManager.<>f__am$cache0 = ((BoardSquare s) => !s.\u0016());
+				SpawnPointManager.<>f__am$cache0 = ((BoardSquare s) => !s.IsBaselineHeight());
 			}
 			list2.RemoveAll(SpawnPointManager.<>f__am$cache0);
 		}
@@ -437,8 +437,8 @@ public class SpawnPointManager : MonoBehaviour
 				{
 					if (this.m_spawnPointsTeamA[i] != null)
 					{
-						BoardSquare item = Board.\u000E().\u0016(this.m_spawnPointsTeamA[i].x, this.m_spawnPointsTeamA[i].y);
-						list.Add(item);
+						BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_spawnPointsTeamA[i].x, this.m_spawnPointsTeamA[i].y);
+						list.Add(boardSquare);
 					}
 				}
 				for (;;)
@@ -476,8 +476,8 @@ public class SpawnPointManager : MonoBehaviour
 						}
 						break;
 					}
-					BoardSquare boardSquare = Board.\u000E().\u0016(this.m_spawnPointsTeamB[j].x, this.m_spawnPointsTeamB[j].y);
-					if (boardSquare)
+					BoardSquare boardSquare2 = Board.Get().GetBoardSquare(this.m_spawnPointsTeamB[j].x, this.m_spawnPointsTeamB[j].y);
+					if (boardSquare2)
 					{
 						for (;;)
 						{
@@ -488,7 +488,7 @@ public class SpawnPointManager : MonoBehaviour
 							}
 							break;
 						}
-						list.Add(boardSquare);
+						list.Add(boardSquare2);
 					}
 				}
 			}
@@ -611,7 +611,7 @@ public class SpawnPointManager : MonoBehaviour
 	internal BoardSquare GetSpawnSquare(ActorData spawner, bool avoidLastDeathPosition = true, List<ActorData> spawnedActors = null, HashSet<BoardSquare> squaresToAvoid = null)
 	{
 		BoardSquare boardSquare = null;
-		List<BoardSquare> spawnSquaresList = this.GetSpawnSquaresList(spawner.\u000E(), this.m_respawnMethod);
+		List<BoardSquare> spawnSquaresList = this.GetSpawnSquaresList(spawner.GetTeam(), this.m_respawnMethod);
 		int num = this.SortByProximityWeights(spawnSquaresList, spawner, avoidLastDeathPosition, spawnedActors, null, squaresToAvoid, false, false, 0);
 		if (num > 0)
 		{
@@ -680,7 +680,7 @@ public class SpawnPointManager : MonoBehaviour
 		else
 		{
 			SpawnPointManager.SpawnPointCoord[] array;
-			if (spawner.\u000E() == Team.TeamA)
+			if (spawner.GetTeam() == Team.TeamA)
 			{
 				for (;;)
 				{
@@ -700,7 +700,7 @@ public class SpawnPointManager : MonoBehaviour
 			foreach (SpawnPointManager.SpawnPointCoord spawnPointCoord in array)
 			{
 				List<BoardSquare> list = new List<BoardSquare>(8);
-				Board.\u000E().\u0015(spawnPointCoord.x, spawnPointCoord.y, ref list);
+				Board.Get().GetAllAdjacentSquares(spawnPointCoord.x, spawnPointCoord.y, ref list);
 				using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -757,12 +757,12 @@ public class SpawnPointManager : MonoBehaviour
 				}
 				break;
 			}
-			Board board = Board.\u000E();
-			for (int k = 0; k < board.\u000E(); k++)
+			Board board = Board.Get();
+			for (int k = 0; k < board.GetMaxX(); k++)
 			{
-				for (int l = 0; l < board.\u0012(); l++)
+				for (int l = 0; l < board.GetMaxY(); l++)
 				{
-					BoardSquare boardSquare3 = board.\u0016(k, l);
+					BoardSquare boardSquare3 = board.GetBoardSquare(k, l);
 					if (this.CanSpawnOnSquare(spawner, boardSquare3, false))
 					{
 						spawnSquaresList.Add(boardSquare3);
@@ -825,8 +825,8 @@ public class SpawnPointManager : MonoBehaviour
 	internal BoardSquare GetInitialSpawnSquare(ActorData spawner, List<ActorData> spawnedActors)
 	{
 		BoardSquare boardSquare = null;
-		List<BoardSquare> list;
-		if (spawner.\u000E() == Team.TeamA)
+		List<BoardSquare> squaresInRegion;
+		if (spawner.GetTeam() == Team.TeamA)
 		{
 			for (;;)
 			{
@@ -841,13 +841,13 @@ public class SpawnPointManager : MonoBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SpawnPointManager.GetInitialSpawnSquare(ActorData, List<ActorData>)).MethodHandle;
 			}
-			list = this.m_initialSpawnPointsTeamA.\u001D();
+			squaresInRegion = this.m_initialSpawnPointsTeamA.GetSquaresInRegion();
 		}
 		else
 		{
-			list = this.m_initialSpawnPointsTeamB.\u001D();
+			squaresInRegion = this.m_initialSpawnPointsTeamB.GetSquaresInRegion();
 		}
-		if (list != null)
+		if (squaresInRegion != null)
 		{
 			for (;;)
 			{
@@ -858,9 +858,9 @@ public class SpawnPointManager : MonoBehaviour
 				}
 				break;
 			}
-			if (list.Count != 0)
+			if (squaresInRegion.Count != 0)
 			{
-				using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
+				using (List<BoardSquare>.Enumerator enumerator = squaresInRegion.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
@@ -893,12 +893,12 @@ public class SpawnPointManager : MonoBehaviour
 				IL_BC:
 				if (boardSquare == null)
 				{
-					Log.Error("Couldn't find an initial spawn square for actor on team " + spawner.\u000E().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
-					foreach (BoardSquare boardSquare3 in list)
+					Log.Error("Couldn't find an initial spawn square for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
+					foreach (BoardSquare boardSquare3 in squaresInRegion)
 					{
-						List<BoardSquare> list2 = new List<BoardSquare>(8);
-						Board.\u000E().\u0015(boardSquare3.x, boardSquare3.y, ref list2);
-						foreach (BoardSquare boardSquare4 in list2)
+						List<BoardSquare> list = new List<BoardSquare>(8);
+						Board.Get().GetAllAdjacentSquares(boardSquare3.x, boardSquare3.y, ref list);
+						foreach (BoardSquare boardSquare4 in list)
 						{
 							if (this.CanSpawnOnSquare(spawner, boardSquare4, false))
 							{
@@ -932,7 +932,7 @@ public class SpawnPointManager : MonoBehaviour
 						}
 						break;
 					}
-					Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.\u000E().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
+					Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.", new object[0]);
 					int i = 0;
 					while (i < 0x80)
 					{
@@ -959,10 +959,10 @@ public class SpawnPointManager : MonoBehaviour
 						}
 						else
 						{
-							Board board = Board.\u000E();
-							int u001D = GameplayRandom.Range(0, board.\u000E());
-							int u000E = GameplayRandom.Range(0, board.\u0012());
-							BoardSquare boardSquare5 = board.\u0016(u001D, u000E);
+							Board board = Board.Get();
+							int x = GameplayRandom.Range(0, board.GetMaxX());
+							int y = GameplayRandom.Range(0, board.GetMaxY());
+							BoardSquare boardSquare5 = board.GetBoardSquare(x, y);
 							if (this.CanSpawnOnSquare(spawner, boardSquare5, false))
 							{
 								for (;;)
@@ -1019,7 +1019,7 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			foreach (SpawnPointManager.SpawnPointCoord spawnPointCoord in this.m_spawnPointsTeamA)
 			{
-				BoardSquare boardSquare = (!(Board.\u000E() == null)) ? Board.\u000E().\u0016(spawnPointCoord.x, spawnPointCoord.y) : null;
+				BoardSquare boardSquare = (!(Board.Get() == null)) ? Board.Get().GetBoardSquare(spawnPointCoord.x, spawnPointCoord.y) : null;
 				if (boardSquare != null)
 				{
 					for (;;)
@@ -1050,7 +1050,7 @@ public class SpawnPointManager : MonoBehaviour
 			foreach (SpawnPointManager.SpawnPointCoord spawnPointCoord2 in this.m_spawnPointsTeamB)
 			{
 				BoardSquare boardSquare2;
-				if (Board.\u000E() == null)
+				if (Board.Get() == null)
 				{
 					for (;;)
 					{
@@ -1065,7 +1065,7 @@ public class SpawnPointManager : MonoBehaviour
 				}
 				else
 				{
-					boardSquare2 = Board.\u000E().\u0016(spawnPointCoord2.x, spawnPointCoord2.y);
+					boardSquare2 = Board.Get().GetBoardSquare(spawnPointCoord2.x, spawnPointCoord2.y);
 				}
 				BoardSquare boardSquare3 = boardSquare2;
 				if (boardSquare3 != null)
@@ -1105,7 +1105,7 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (!(GameFlowData.Get().activeOwnedActorData == null))
 			{
-				List<BoardSquare> spawnSquaresList = this.GetSpawnSquaresList(GameFlowData.Get().activeOwnedActorData.\u000E(), this.m_respawnMethod);
+				List<BoardSquare> spawnSquaresList = this.GetSpawnSquaresList(GameFlowData.Get().activeOwnedActorData.GetTeam(), this.m_respawnMethod);
 				int num = this.SortByProximityWeights(spawnSquaresList, GameFlowData.Get().activeOwnedActorData, true, null, null, null, false, false, 0);
 				Gizmos.color = ActorData.s_teamBColor;
 				for (int k = 0; k < spawnSquaresList.Count; k++)
@@ -1195,8 +1195,8 @@ public class SpawnPointManager : MonoBehaviour
 			SpawnPointManager spawnPointManager = SpawnPointManager.Get();
 			float chooseWeightEnemyProximity = spawnPointManager.m_chooseWeightEnemyProximity;
 			float chooseWeightFriendProximity = spawnPointManager.m_chooseWeightFriendProximity;
-			float num = spawnPointManager.m_chooseDontCareDistance * Board.\u000E().squareSize;
-			float num2 = (spawnedActors == null) ? (spawnPointManager.m_minDistToFriend * Board.\u000E().squareSize) : (spawnPointManager.m_startMinDistToFriend * Board.\u000E().squareSize);
+			float num = spawnPointManager.m_chooseDontCareDistance * Board.Get().squareSize;
+			float num2 = (spawnedActors == null) ? (spawnPointManager.m_minDistToFriend * Board.Get().squareSize) : (spawnPointManager.m_startMinDistToFriend * Board.Get().squareSize);
 			num2 *= num2;
 			float num3;
 			if (spawnedActors != null)
@@ -1214,11 +1214,11 @@ public class SpawnPointManager : MonoBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(SpawnPointManager.SpawnSquareComparer..ctor(List<BoardSquare>, ActorData, bool, List<ActorData>, BoardSquare, HashSet<BoardSquare>, HashSet<BoardSquare>, bool, bool)).MethodHandle;
 				}
-				num3 = spawnPointManager.m_startMinDistToEnemy * Board.\u000E().squareSize;
+				num3 = spawnPointManager.m_startMinDistToEnemy * Board.Get().squareSize;
 			}
 			else
 			{
-				num3 = spawnPointManager.m_minDistToEnemy * Board.\u000E().squareSize;
+				num3 = spawnPointManager.m_minDistToEnemy * Board.Get().squareSize;
 			}
 			float num4 = num3;
 			num4 *= num4;
@@ -1341,7 +1341,7 @@ public class SpawnPointManager : MonoBehaviour
 							}
 							break;
 						}
-						if (!actorData.\u000E())
+						if (!actorData.IsDead())
 						{
 							for (;;)
 							{
@@ -1363,11 +1363,11 @@ public class SpawnPointManager : MonoBehaviour
 									}
 									break;
 								}
-								if (actorData.\u0012() != null)
+								if (actorData.GetCurrentBoardSquare() != null)
 								{
-									BoardSquare boardSquare2 = actorData.\u0012();
-									float sqrMagnitude2 = (boardSquare2.ToVector3() - b).sqrMagnitude;
-									bool flag = actorData.\u000E() == this.m_actorSpawning.\u000E();
+									BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+									float sqrMagnitude2 = (currentBoardSquare.ToVector3() - b).sqrMagnitude;
+									bool flag = actorData.GetTeam() == this.m_actorSpawning.GetTeam();
 									if (flag)
 									{
 										for (;;)
@@ -1426,7 +1426,7 @@ public class SpawnPointManager : MonoBehaviour
 													}
 													break;
 												}
-												if (!actorData.\u0009())
+												if (!actorData.IsVisibleToOpposingTeam())
 												{
 													goto IL_379;
 												}
@@ -1438,7 +1438,7 @@ public class SpawnPointManager : MonoBehaviour
 									else
 									{
 										float num7 = Mathf.Max(0f, num - Mathf.Sqrt(sqrMagnitude2));
-										float num8 = num7 * ((actorData.\u000E() != this.m_actorSpawning.\u000E()) ? chooseWeightEnemyProximity : chooseWeightFriendProximity);
+										float num8 = num7 * ((actorData.GetTeam() != this.m_actorSpawning.GetTeam()) ? chooseWeightEnemyProximity : chooseWeightFriendProximity);
 										if (num7 < 0f && num8 > 0f)
 										{
 											for (;;)

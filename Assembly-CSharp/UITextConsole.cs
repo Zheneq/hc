@@ -4265,7 +4265,7 @@ public class UITextConsole : MonoBehaviour
 								}
 								break;
 							}
-							team = GameFlowData.Get().activeOwnedActorData.\u000E();
+							team = GameFlowData.Get().activeOwnedActorData.GetTeam();
 						}
 						else if (ClientGameManager.Get().PlayerInfo != null)
 						{

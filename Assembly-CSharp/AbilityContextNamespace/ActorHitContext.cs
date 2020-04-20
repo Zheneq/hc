@@ -16,7 +16,7 @@ namespace AbilityContextNamespace
 		public void \u0016()
 		{
 			this.\u001D = Vector3.zero;
-			this.\u0015.\u0015();
+			this.\u0015.Clear();
 			this.\u0012 = false;
 			this.\u000E = false;
 		}

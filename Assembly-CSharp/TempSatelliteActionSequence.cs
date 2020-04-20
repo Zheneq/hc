@@ -67,7 +67,7 @@ public class TempSatelliteActionSequence : Sequence
 				}
 				break;
 			}
-			flag = (base.Caster.\u0012() || base.Caster.\u000E());
+			flag = (base.Caster.IsModelAnimatorDisabled() || base.Caster.IsDead());
 		}
 		else
 		{

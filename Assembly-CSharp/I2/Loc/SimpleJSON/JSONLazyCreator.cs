@@ -22,7 +22,7 @@ namespace I2.Loc.SimpleJSON
 			this.\u0016 = \u000E;
 		}
 
-		private new void \u000A(JSONNode \u001D)
+		private void \u000A(JSONNode \u001D)
 		{
 			if (this.\u0016 == null)
 			{
@@ -62,7 +62,7 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public override JSONNode \u0018
+		public override JSONNode symbol_0018_2
 		{
 			get
 			{
@@ -90,7 +90,7 @@ namespace I2.Loc.SimpleJSON
 			this.\u000A(jsonclass);
 		}
 
-		public new static bool \u000A(JSONLazyCreator \u001D, object \u000E)
+		public static bool \u000A(JSONLazyCreator \u001D, object \u000E)
 		{
 			if (\u000E == null)
 			{

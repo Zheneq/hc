@@ -360,7 +360,7 @@ public class HUD_UI : UIScene
 													}
 													if (GameWideData.Get().m_gameBalanceVars != null)
 													{
-														this.m_tauntPlayerBanner.m_playerName.text = actorData.\u000E();
+														this.m_tauntPlayerBanner.m_playerName.text = actorData.GetFancyDisplayName();
 														PlayerDetails playerDetails = GameFlow.Get().playerDetails[playerData.GetPlayer()];
 														if (playerDetails == null)
 														{

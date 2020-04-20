@@ -74,7 +74,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 	private void Start()
 	{
 		this.m_owner = base.GetComponent<ActorData>();
-		if (this.m_owner != null && this.m_owner.\u000E() != null)
+		if (this.m_owner != null && this.m_owner.GetAbilityData() != null)
 		{
 			for (;;)
 			{
@@ -89,9 +89,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja_SyncComponent.Start()).MethodHandle;
 			}
-			this.m_shurikenOrDashAbility = (this.m_owner.\u000E().GetAbilityOfType(typeof(NinjaShurikenOrDash)) as NinjaShurikenOrDash);
-			this.m_shurikenOrDashActionType = this.m_owner.\u000E().GetActionTypeOfAbility(this.m_shurikenOrDashAbility);
-			this.m_rewindAbility = (this.m_owner.\u000E().GetAbilityOfType(typeof(NinjaRewind)) as NinjaRewind);
+			this.m_shurikenOrDashAbility = (this.m_owner.GetAbilityData().GetAbilityOfType(typeof(NinjaShurikenOrDash)) as NinjaShurikenOrDash);
+			this.m_shurikenOrDashActionType = this.m_owner.GetAbilityData().GetActionTypeOfAbility(this.m_shurikenOrDashAbility);
+			this.m_rewindAbility = (this.m_owner.GetAbilityData().GetAbilityOfType(typeof(NinjaRewind)) as NinjaRewind);
 		}
 		if (HighlightUtils.Get() != null)
 		{
@@ -143,7 +143,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 
 	public BoardSquare GetSquareForRewind()
 	{
-		return Board.\u000E().\u0016((int)this.m_rewindToSquareX, (int)this.m_rewindToSquareY);
+		return Board.Get().GetBoardSquare((int)this.m_rewindToSquareX, (int)this.m_rewindToSquareY);
 	}
 
 	public void ClearSquareForRewind()
@@ -233,7 +233,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						if (this.m_owner.\u0018())
+						if (this.m_owner.IsVisibleToClient())
 						{
 							for (;;)
 							{
@@ -245,7 +245,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 								break;
 							}
 							bool flag;
-							if (this.m_owner.\u000E() == activeOwnedActorData.\u000E())
+							if (this.m_owner.GetTeam() == activeOwnedActorData.GetTeam())
 							{
 								for (;;)
 								{
@@ -256,11 +256,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 									}
 									break;
 								}
-								flag = this.m_owner.\u000E().ValidateActionIsRequestable(this.m_shurikenOrDashActionType);
+								flag = this.m_owner.GetAbilityData().ValidateActionIsRequestable(this.m_shurikenOrDashActionType);
 							}
 							else
 							{
-								flag = (this.m_owner.\u000E().GetCooldownRemaining(this.m_shurikenOrDashActionType) <= 0);
+								flag = (this.m_owner.GetAbilityData().GetCooldownRemaining(this.m_shurikenOrDashActionType) <= 0);
 							}
 							if (flag)
 							{
@@ -326,7 +326,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 							}
 							break;
 						}
-						if (!this.m_owner.\u000E() && FogOfWar.GetClientFog() != null)
+						if (!this.m_owner.IsDead() && FogOfWar.GetClientFog() != null)
 						{
 							for (;;)
 							{
@@ -362,7 +362,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 											}
 											break;
 										}
-										if (GameFlowData.Get().LocalPlayerData.GetTeamViewing() == this.m_owner.\u000E())
+										if (GameFlowData.Get().LocalPlayerData.GetTeamViewing() == this.m_owner.GetTeam())
 										{
 											goto IL_130;
 										}
@@ -446,9 +446,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 						}
 						this.m_rangeIndicatorObj.SetActive(true);
 						HighlightUtils.Get().AdjustDynamicConeMesh(this.m_rangeIndicatorObj, radiusInSquares, 360f);
-						Vector3 position = this.m_owner.\u0016();
-						position.y = HighlightUtils.GetHighlightHeight();
-						this.m_rangeIndicatorObj.transform.position = position;
+						Vector3 travelBoardSquareWorldPosition = this.m_owner.GetTravelBoardSquareWorldPosition();
+						travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
+						this.m_rangeIndicatorObj.transform.position = travelBoardSquareWorldPosition;
 						goto IL_EE;
 					}
 				}
@@ -492,7 +492,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 				}
 				if (this.m_rewindIndicatorFoFComp != null)
 				{
-					this.m_rewindIndicatorFoFComp.Setup(this.m_owner.\u000E());
+					this.m_rewindIndicatorFoFComp.Setup(this.m_owner.GetTeam());
 				}
 				bool flag2 = this.ShouldShowRevindIndicator();
 				if (flag2)
@@ -518,9 +518,9 @@ public class Ninja_SyncComponent : NetworkBehaviour
 							break;
 						}
 						BoardSquare squareForRewind = this.GetSquareForRewind();
-						Vector3 position2 = squareForRewind.ToVector3();
-						position2.y = HighlightUtils.GetHighlightHeight();
-						this.m_rewindIndicatorObj.transform.position = position2;
+						Vector3 position = squareForRewind.ToVector3();
+						position.y = HighlightUtils.GetHighlightHeight();
+						this.m_rewindIndicatorObj.transform.position = position;
 						this.m_rewindIndicatorObj.SetActive(true);
 						return;
 					}

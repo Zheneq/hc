@@ -76,7 +76,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 	private void Start()
 	{
 		this.m_actor = base.GetComponent<ActorData>();
-		if (this.m_actor != null && this.m_actor.\u000E() != null)
+		if (this.m_actor != null && this.m_actor.GetModelAnimator() != null)
 		{
 			for (;;)
 			{
@@ -91,7 +91,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.Start()).MethodHandle;
 			}
-			this.m_actor.\u000E().SetInteger(this.m_suitActiveAnimHash, 1);
+			this.m_actor.GetModelAnimator().SetInteger(this.m_suitActiveAnimHash, 1);
 		}
 		AbilityData component = base.GetComponent<AbilityData>();
 		if (component != null)
@@ -165,7 +165,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public void SetAnimParamForSuit(bool activeNow)
 	{
-		if (NetworkClient.active && this.m_actor != null && this.m_actor.\u000E() != null)
+		if (NetworkClient.active && this.m_actor != null && this.m_actor.GetModelAnimator() != null)
 		{
 			for (;;)
 			{
@@ -180,7 +180,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_SyncComponent.SetAnimParamForSuit(bool)).MethodHandle;
 			}
-			Animator animator = this.m_actor.\u000E();
+			Animator modelAnimator = this.m_actor.GetModelAnimator();
 			int suitActiveAnimHash = this.m_suitActiveAnimHash;
 			int value;
 			if (activeNow)
@@ -200,7 +200,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 			{
 				value = 0;
 			}
-			animator.SetInteger(suitActiveAnimHash, value);
+			modelAnimator.SetInteger(suitActiveAnimHash, value);
 		}
 	}
 
@@ -212,8 +212,8 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public void PlayShieldRemoveAnim()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (animator != null)
+		Animator modelAnimator = this.m_actor.GetModelAnimator();
+		if (modelAnimator != null)
 		{
 			for (;;)
 			{
@@ -239,10 +239,10 @@ public class Scamp_SyncComponent : NetworkBehaviour
 					}
 					break;
 				}
-				animator.SetInteger(Scamp_SyncComponent.s_aHashAttack, this.m_shieldRemoveAnimIndex);
-				animator.SetInteger(Scamp_SyncComponent.s_aHashIdleType, 0);
-				animator.SetBool(Scamp_SyncComponent.s_aHashCinematicCam, false);
-				animator.SetTrigger(Scamp_SyncComponent.s_aHashStartAttack);
+				modelAnimator.SetInteger(Scamp_SyncComponent.s_aHashAttack, this.m_shieldRemoveAnimIndex);
+				modelAnimator.SetInteger(Scamp_SyncComponent.s_aHashIdleType, 0);
+				modelAnimator.SetBool(Scamp_SyncComponent.s_aHashCinematicCam, false);
+				modelAnimator.SetTrigger(Scamp_SyncComponent.s_aHashStartAttack);
 				this.SetAnimParamForSuit(false);
 			}
 		}
@@ -256,11 +256,11 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public void ResetAttackParam()
 	{
-		Animator animator = this.m_actor.\u000E();
-		if (animator != null)
+		Animator modelAnimator = this.m_actor.GetModelAnimator();
+		if (modelAnimator != null)
 		{
-			animator.SetInteger(Scamp_SyncComponent.s_aHashAttack, 0);
-			animator.SetBool(Scamp_SyncComponent.s_aHashCinematicCam, false);
+			modelAnimator.SetInteger(Scamp_SyncComponent.s_aHashAttack, 0);
+			modelAnimator.SetBool(Scamp_SyncComponent.s_aHashCinematicCam, false);
 		}
 	}
 

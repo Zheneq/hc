@@ -163,7 +163,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				{
 					int actorIndex = this.m_afterImages[i];
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
-					if (actorData != null && actorData.\u000E() != null)
+					if (actorData != null && actorData.GetActorModelData() != null)
 					{
 						for (;;)
 						{
@@ -174,7 +174,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 							}
 							break;
 						}
-						TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(actorData.\u000E(), activeActor.\u000E() == this.m_owner.\u000E(), this.m_afterImageAlpha, this.m_afterImageShader, true);
+						TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(actorData.GetActorModelData(), activeActor.GetTeam() == this.m_owner.GetTeam(), this.m_afterImageAlpha, this.m_afterImageShader, true);
 					}
 				}
 			}
@@ -185,7 +185,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 		freePosForAim = inputFreePos;
 		centerOfFreePosLimit = this.CalcTargetingFreePosCenter(caster, allTargetingActors, useCasterSquareAtResolveStart);
-		float num = this.m_targeterFreePosMaxRange * Board.\u000E().squareSize;
+		float num = this.m_targeterFreePosMaxRange * Board.Get().squareSize;
 		if (num > 0f)
 		{
 			for (;;)
@@ -223,7 +223,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 
 	public Vector3 CalcTargetingFreePosCenter(ActorData caster, List<ActorData> allTargetingActors, bool useSquareAtResolveStart)
 	{
-		Vector3 result = caster.\u0016();
+		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
 		if (this.m_targeterFreePosUseAvgPos)
 		{
 			for (;;)
@@ -245,7 +245,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					vector += actorData.\u0016();
+					vector += actorData.GetTravelBoardSquareWorldPosition();
 				}
 				for (;;)
 				{
@@ -305,7 +305,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 						}
 						break;
 					}
-					ActorTurnSM actorTurnSM = this.m_owner.\u000E();
+					ActorTurnSM actorTurnSM = this.m_owner.GetActorTurnSM();
 					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
 						for (;;)
@@ -317,7 +317,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 							}
 							break;
 						}
-						AbilityData abilityData = this.m_owner.\u000E();
+						AbilityData abilityData = this.m_owner.GetAbilityData();
 						Ability ability;
 						if (abilityData)
 						{
@@ -585,7 +585,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 					}
 					actorData.transform.position = position;
 					actorData.transform.rotation = Quaternion.LookRotation(forward);
-					if (actorData.\u000E() != null)
+					if (actorData.GetActorModelData() != null)
 					{
 						for (;;)
 						{
@@ -607,11 +607,11 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 								}
 								break;
 							}
-							actorData.\u000E().EnableRendererAndUpdateVisibility();
+							actorData.GetActorModelData().EnableRendererAndUpdateVisibility();
 						}
 						else
 						{
-							actorData.\u000E().DisableAndHideRenderers();
+							actorData.GetActorModelData().DisableAndHideRenderers();
 						}
 						TricksterAfterImageNetworkBehaviour.SetMaterialEnabledForAfterImage(this.m_owner, actorData, enableRenderer);
 					}
@@ -679,13 +679,13 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 		if (actor != null)
 		{
-			if (actor.\u0012() != null)
+			if (actor.GetCurrentBoardSquare() != null)
 			{
 				actor.UnoccupyCurrentBoardSquare();
 				actor.ClearCurrentBoardSquare();
 			}
 			actor.transform.position = new Vector3(10000f, -100f, 10000f);
-			actor.\u000E().DisableAndHideRenderers();
+			actor.GetActorModelData().DisableAndHideRenderers();
 			actor.SetNameplateAlwaysInvisible(true);
 			actor.IgnoreForEnergyOnHit = true;
 			actor.IgnoreForAbilityHits = true;
@@ -734,8 +734,8 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 						break;
 					}
 					actorData.EnableRendererAndUpdateVisibility();
-					Animator animator = actorData.\u000E();
-					if (animator != null)
+					Animator modelAnimator = actorData.GetModelAnimator();
+					if (modelAnimator != null)
 					{
 						for (;;)
 						{
@@ -746,10 +746,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 							}
 							break;
 						}
-						animator.SetInteger(TricksterAfterImageNetworkBehaviour.animAttack, unfreezeAnimIndex);
-						animator.SetInteger(TricksterAfterImageNetworkBehaviour.animIdleType, 0);
-						animator.SetBool(TricksterAfterImageNetworkBehaviour.animCinematicCam, false);
-						animator.SetTrigger(TricksterAfterImageNetworkBehaviour.animStartAttack);
+						modelAnimator.SetInteger(TricksterAfterImageNetworkBehaviour.animAttack, unfreezeAnimIndex);
+						modelAnimator.SetInteger(TricksterAfterImageNetworkBehaviour.animIdleType, 0);
+						modelAnimator.SetBool(TricksterAfterImageNetworkBehaviour.animCinematicCam, false);
+						modelAnimator.SetTrigger(TricksterAfterImageNetworkBehaviour.animStartAttack);
 					}
 					Team team;
 					if (GameFlowData.Get().LocalPlayerData != null)
@@ -770,7 +770,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 						team = Team.Invalid;
 					}
 					Team team2 = team;
-					if (actorData.\u000E() != null)
+					if (actorData.GetActorModelData() != null)
 					{
 						for (;;)
 						{
@@ -783,8 +783,8 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 						}
 						if (this.m_owner != null)
 						{
-							bool sameTeamAsClientActor = team2 == this.m_owner.\u000E();
-							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(actorData.\u000E(), sameTeamAsClientActor, this.m_afterImageAlpha, this.m_afterImageShader, true);
+							bool sameTeamAsClientActor = team2 == this.m_owner.GetTeam();
+							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(actorData.GetActorModelData(), sameTeamAsClientActor, this.m_afterImageAlpha, this.m_afterImageShader, true);
 						}
 					}
 				}
@@ -883,7 +883,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			Team team2 = team;
 			if (desiredEnable)
 			{
-				if (afterImage.\u000E() != null)
+				if (afterImage.GetActorModelData() != null)
 				{
 					for (;;)
 					{
@@ -905,18 +905,18 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 							}
 							break;
 						}
-						bool sameTeamAsClientActor = team2 == realTrickster.\u000E();
+						bool sameTeamAsClientActor = team2 == realTrickster.GetTeam();
 						TricksterAfterImageNetworkBehaviour component = realTrickster.GetComponent<TricksterAfterImageNetworkBehaviour>();
 						if (component != null)
 						{
-							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(afterImage.\u000E(), sameTeamAsClientActor, component.m_afterImageAlpha, component.m_afterImageShader, true);
+							TricksterAfterImageNetworkBehaviour.InitializeAfterImageMaterial(afterImage.GetActorModelData(), sameTeamAsClientActor, component.m_afterImageAlpha, component.m_afterImageShader, true);
 						}
 					}
 				}
 			}
 			else
 			{
-				TricksterAfterImageNetworkBehaviour.DisableAfterImageMaterial(afterImage.\u000E());
+				TricksterAfterImageNetworkBehaviour.DisableAfterImageMaterial(afterImage.GetActorModelData());
 			}
 		}
 	}
@@ -1011,7 +1011,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 							}
 							break;
 						}
-						if (!actorData.\u000E())
+						if (!actorData.IsDead())
 						{
 							for (;;)
 							{
@@ -1022,7 +1022,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 								}
 								break;
 							}
-							if (!requireCurrentSquare || actorData.\u0012() != null)
+							if (!requireCurrentSquare || actorData.GetCurrentBoardSquare() != null)
 							{
 								list.Add(actorData);
 							}
@@ -1078,7 +1078,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 							}
 							break;
 						}
-						if (!actorData.\u000E())
+						if (!actorData.IsDead())
 						{
 							for (;;)
 							{
@@ -1089,7 +1089,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 								}
 								break;
 							}
-							if (actorData.\u0012() != null)
+							if (actorData.GetCurrentBoardSquare() != null)
 							{
 								for (;;)
 								{

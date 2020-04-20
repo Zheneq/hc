@@ -509,9 +509,9 @@ public class SamuraiWindBlade : Ability
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 b = targetingActor.\u0015();
-		float magnitude = (currentTarget.FreePos - b).magnitude;
-		if (magnitude < this.GetMinRangeBeforeBend() * Board.\u000E().squareSize)
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
+		if (magnitude < this.GetMinRangeBeforeBend() * Board.Get().squareSize)
 		{
 			for (;;)
 			{
@@ -528,7 +528,7 @@ public class SamuraiWindBlade : Ability
 			}
 			return this.GetMinRangeBeforeBend();
 		}
-		if (magnitude > this.GetMaxRangeBeforeBend() * Board.\u000E().squareSize)
+		if (magnitude > this.GetMaxRangeBeforeBend() * Board.Get().squareSize)
 		{
 			for (;;)
 			{
@@ -541,14 +541,14 @@ public class SamuraiWindBlade : Ability
 			}
 			return this.GetMaxRangeBeforeBend();
 		}
-		return magnitude / Board.\u000E().squareSize;
+		return magnitude / Board.Get().squareSize;
 	}
 
 	private float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 a = targetingActor.\u0015();
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 		float clampedRangeInSquares = this.GetClampedRangeInSquares(targetingActor, previousTarget);
-		bendPos = a + previousTarget.AimDirection * clampedRangeInSquares * Board.\u000E().squareSize;
+		bendPos = travelBoardSquareWorldPositionForLos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
 		return this.GetMaxTotalRange() - clampedRangeInSquares;
 	}
 

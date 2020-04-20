@@ -169,7 +169,7 @@ namespace AbilityContextNamespace
 									if (onHitIntField2.GetIdentifier().Equals(text2, StringComparison.OrdinalIgnoreCase))
 									{
 										flag = true;
-										text += intFieldOverride.m_fieldOverride.\u001D(onHitIntField2);
+										text += intFieldOverride.m_fieldOverride.GetDesc(onHitIntField2);
 										break;
 									}
 								}
@@ -456,7 +456,7 @@ namespace AbilityContextNamespace
 								}
 								break;
 							}
-							intFieldOverride.m_fieldOverride.\u001D(\u001D, onHitIntField2, text);
+							intFieldOverride.m_fieldOverride.AddTokens_zq(\u001D, onHitIntField2, text);
 						}
 					}
 				}

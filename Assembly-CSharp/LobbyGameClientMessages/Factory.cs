@@ -5,20 +5,20 @@ namespace LobbyGameClientMessages
 {
 	public static class Factory
 	{
-		private static WebSocketMessageFactory \u001D;
+		private static WebSocketMessageFactory s_instance;
 
-		public static WebSocketMessageFactory \u000E()
+		public static WebSocketMessageFactory Get()
 		{
-			if (Factory.\u001D == null)
+			if (Factory.s_instance == null)
 			{
-				Factory.\u001D = new WebSocketMessageFactory();
-				Factory.\u001D.AddMessageTypes(Factory.\u000E);
-				Factory.\u001D.AddMessageTypes(QueueRequirement.MessageTypes);
+				Factory.s_instance = new WebSocketMessageFactory();
+				Factory.s_instance.AddMessageTypes(Factory.MessageTypes);
+				Factory.s_instance.AddMessageTypes(QueueRequirement.MessageTypes);
 			}
-			return Factory.\u001D;
+			return Factory.s_instance;
 		}
 
-		public static IEnumerable<Type> \u000E
+		public static IEnumerable<Type> MessageTypes
 		{
 			get
 			{

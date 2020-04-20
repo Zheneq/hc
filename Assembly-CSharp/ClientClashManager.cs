@@ -323,7 +323,7 @@ public class ClientClashManager : MonoBehaviour
 		{
 			sbyte b2 = reader.ReadSByte();
 			sbyte b3 = reader.ReadSByte();
-			BoardSquare clashSquare = Board.\u000E().\u0016((int)b2, (int)b3);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)b2, (int)b3);
 			List<ActorData> list = new List<ActorData>();
 			sbyte b4 = reader.ReadSByte();
 			for (int j = 0; j < (int)b4; j++)
@@ -357,7 +357,7 @@ public class ClientClashManager : MonoBehaviour
 				}
 				break;
 			}
-			ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, clashSquare);
+			ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, boardSquare);
 			this.m_postEvadeClashes.Add(item);
 		}
 		for (;;)

@@ -378,7 +378,7 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 					else
 					{
 						BoardSquare boardSquare = squaresInBorderLayer[j];
-						if (boardSquare.\u0016())
+						if (boardSquare.IsBaselineHeight())
 						{
 							for (;;)
 							{
@@ -457,7 +457,7 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 											}
 											break;
 										}
-										if (component.\u000E() != forTeam)
+										if (component.GetTeam() != forTeam)
 										{
 											goto IL_13E;
 										}
@@ -483,7 +483,7 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 											}
 											break;
 										}
-										flag = (component.\u000E() == forTeam);
+										flag = (component.GetTeam() == forTeam);
 									}
 									else
 									{

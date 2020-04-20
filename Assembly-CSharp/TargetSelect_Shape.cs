@@ -315,9 +315,9 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 		if (this.RequireTargetingOnActor())
 		{
 			bool result = false;
-			BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			ActorData actorData;
-			if (boardSquare != null)
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -332,7 +332,7 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Shape.HandleCustomTargetValidation(Ability, ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 				}
-				actorData = boardSquare.OccupantActor;
+				actorData = boardSquareSafe.OccupantActor;
 			}
 			else
 			{
@@ -404,7 +404,7 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 			}
 			return this.m_centerSquareDelegate(target, caster);
 		}
-		return Board.\u000E().\u000E(target.GridPos);
+		return Board.Get().GetBoardSquareSafe(target.GridPos);
 	}
 
 	public bool IsMovingShape(ActorData caster)
@@ -448,7 +448,7 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 			}
 			return this.m_moveStartSquareDelegate(target, caster);
 		}
-		return caster.\u0012();
+		return caster.GetCurrentBoardSquare();
 	}
 
 	public Vector3 GetMoveStartFreePos(AbilityTarget target, ActorData caster)
@@ -470,7 +470,7 @@ public class TargetSelect_Shape : GenericAbility_TargetSelectBase
 			}
 			return this.m_moveStartFreePosDelegate(target, caster);
 		}
-		return caster.\u0016();
+		return caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	public delegate BoardSquare CenterSquareDelegate(AbilityTarget currentTarget, ActorData caster);

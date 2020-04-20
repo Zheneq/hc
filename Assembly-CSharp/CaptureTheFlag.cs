@@ -1362,7 +1362,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 							break;
 						}
 						flag = true;
-						ctf_Flag.OnDropped_Client(actor.\u0015(), -1);
+						ctf_Flag.OnDropped_Client(actor.GetMostResetDeathSquare(), -1);
 					}
 					if (contributorsToKillOnClient.Contains(ctf_Flag.ClientHolderActor))
 					{
@@ -1415,8 +1415,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathOfFlagHolder, actor.\u000E());
-				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder, actor.\u0012());
+				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathOfFlagHolder, actor.GetTeam());
+				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder, actor.GetOpposingTeam());
 			}
 		}
 		foreach (ActorData actorData in list)
@@ -1432,8 +1432,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					}
 					break;
 				}
-				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathblowByFlagHolder, actorData.\u000E());
-				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_otherTeam.m_pointsPerDeathblowByFlagHolder, actorData.\u0012());
+				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathblowByFlagHolder, actorData.GetTeam());
+				ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_otherTeam.m_pointsPerDeathblowByFlagHolder, actorData.GetOpposingTeam());
 			}
 		}
 		using (List<ActorData>.Enumerator enumerator3 = list2.GetEnumerator())
@@ -1452,8 +1452,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_flagHoldersTeam.m_pointsPerTakedownByFlagHolder, actorData2.\u000E());
-					ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_otherTeam.m_pointsPerTakedownByFlagHolder, actorData2.\u0012());
+					ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_flagHoldersTeam.m_pointsPerTakedownByFlagHolder, actorData2.GetTeam());
+					ObjectivePoints.Get().AdjustUnresolvedPoints(this.m_objectivePointsData_otherTeam.m_pointsPerTakedownByFlagHolder, actorData2.GetOpposingTeam());
 				}
 			}
 			for (;;)
@@ -1553,7 +1553,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 
 	private void TurnInFlag_Client(CTF_Flag flag, ActorData capturingActor, BoardSquare captureSquare, int eventGuid)
 	{
-		Team team = capturingActor.\u000E();
+		Team team = capturingActor.GetTeam();
 		if (team == Team.TeamA)
 		{
 			for (;;)
@@ -1980,14 +1980,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			}
 			if (actorHitHealthChangeArgs.m_caster != null)
 			{
-				Team team = actorHitHealthChangeArgs.m_caster.\u000E();
-				Team team2 = actorHitHealthChangeArgs.m_caster.\u0012();
+				Team team = actorHitHealthChangeArgs.m_caster.GetTeam();
+				Team opposingTeam = actorHitHealthChangeArgs.m_caster.GetOpposingTeam();
 				float pointsPerHealthChange = this.GetPointsPerHealthChange(this.m_objectivePointsData_flagHoldersTeam, actorHitHealthChangeArgs.m_type, true, fromCharacterSpecificAbility);
 				float pointsPerHealthChange2 = this.GetPointsPerHealthChange(this.m_objectivePointsData_otherTeam, actorHitHealthChangeArgs.m_type, true, fromCharacterSpecificAbility);
 				int points = Mathf.RoundToInt(pointsPerHealthChange * (float)actorHitHealthChangeArgs.m_amount);
 				int points2 = Mathf.RoundToInt(pointsPerHealthChange2 * (float)actorHitHealthChangeArgs.m_amount);
 				this.AdjustObjectivePoints(points, team, clientMode);
-				this.AdjustObjectivePoints(points2, team2, clientMode);
+				this.AdjustObjectivePoints(points2, opposingTeam, clientMode);
 			}
 		}
 		List<CTF_Flag> flagsHeldByActor_Client2 = this.GetFlagsHeldByActor_Client(actorHitHealthChangeArgs.m_target);
@@ -2004,14 +2004,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			}
 			if (flagsHeldByActor_Client2.Count > 0)
 			{
-				Team team3 = actorHitHealthChangeArgs.m_target.\u000E();
-				Team team4 = actorHitHealthChangeArgs.m_target.\u0012();
+				Team team2 = actorHitHealthChangeArgs.m_target.GetTeam();
+				Team opposingTeam2 = actorHitHealthChangeArgs.m_target.GetOpposingTeam();
 				float pointsPerHealthChange3 = this.GetPointsPerHealthChange(this.m_objectivePointsData_flagHoldersTeam, actorHitHealthChangeArgs.m_type, false, fromCharacterSpecificAbility);
 				float pointsPerHealthChange4 = this.GetPointsPerHealthChange(this.m_objectivePointsData_otherTeam, actorHitHealthChangeArgs.m_type, false, fromCharacterSpecificAbility);
 				int points3 = Mathf.RoundToInt(pointsPerHealthChange3 * (float)actorHitHealthChangeArgs.m_amount);
 				int points4 = Mathf.RoundToInt(pointsPerHealthChange4 * (float)actorHitHealthChangeArgs.m_amount);
-				this.AdjustObjectivePoints(points3, team3, clientMode);
-				this.AdjustObjectivePoints(points4, team4, clientMode);
+				this.AdjustObjectivePoints(points3, team2, clientMode);
+				this.AdjustObjectivePoints(points4, opposingTeam2, clientMode);
 			}
 		}
 	}
@@ -2204,7 +2204,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				{
 					if (ctf_Flag.ServerHolderActor != null)
 					{
-						if (ctf_Flag.ServerHolderActor.\u000E() == checkTeam)
+						if (ctf_Flag.ServerHolderActor.GetTeam() == checkTeam)
 						{
 							for (;;)
 							{
@@ -2702,7 +2702,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					flag5 = (GameFlowData.Get().activeOwnedActorData.\u000E() == Team.TeamA);
+					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == Team.TeamA);
 				}
 				if (flag)
 				{
@@ -2827,7 +2827,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					flag5 = (GameFlowData.Get().activeOwnedActorData.\u000E() == Team.TeamB);
+					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == Team.TeamB);
 				}
 				if (flag)
 				{
@@ -2959,9 +2959,9 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(CaptureTheFlag.InstantiateBoundaryObject(BoardRegion, string)).MethodHandle;
 			}
-			if (region.\u001D().Count > 0)
+			if (region.GetSquaresInRegion().Count > 0)
 			{
-				GameObject gameObject = HighlightUtils.Get().CreateBoundaryHighlight(region.\u001D(), Color.yellow, false);
+				GameObject gameObject = HighlightUtils.Get().CreateBoundaryHighlight(region.GetSquaresInRegion(), Color.yellow, false);
 				gameObject.name = base.name + " " + boundaryName;
 				UnityEngine.Object.DontDestroyOnLoad(gameObject);
 				this.m_autoBoundaryHeight = gameObject.transform.position.y;
@@ -3435,14 +3435,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (this.FlagTurninRegion_TeamA.\u000E() != null)
+						if (this.FlagTurninRegion_TeamA.GetCenterSquare() != null)
 						{
-							CameraManager.Get().SetTargetObject(this.FlagTurninRegion_TeamA.\u000E().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
+							CameraManager.Get().SetTargetObject(this.FlagTurninRegion_TeamA.GetCenterSquare().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
 						}
 					}
 				}
 				this.m_timeToFocusCameraOnTurninTeamA = -1f;
-				this.CreateTurninRegionActivatedSequence(Team.TeamA, this.FlagTurninRegion_TeamA.\u001D());
+				this.CreateTurninRegionActivatedSequence(Team.TeamA, this.FlagTurninRegion_TeamA.GetCenter());
 			}
 		}
 		if (this.m_timeToFocusCameraOnTurninTeamB > 0f)
@@ -3489,14 +3489,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (this.FlagTurninRegion_TeamB.\u000E() != null)
+						if (this.FlagTurninRegion_TeamB.GetCenterSquare() != null)
 						{
-							CameraManager.Get().SetTargetObject(this.FlagTurninRegion_TeamB.\u000E().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
+							CameraManager.Get().SetTargetObject(this.FlagTurninRegion_TeamB.GetCenterSquare().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
 						}
 					}
 				}
 				this.m_timeToFocusCameraOnTurninTeamB = -1f;
-				this.CreateTurninRegionActivatedSequence(Team.TeamB, this.FlagTurninRegion_TeamB.\u001D());
+				this.CreateTurninRegionActivatedSequence(Team.TeamB, this.FlagTurninRegion_TeamB.GetCenter());
 			}
 		}
 		if (this.m_timeToFocusCameraOnTurninNeutral > 0f)
@@ -3532,7 +3532,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (this.FlagTurninRegion_Neutral != null && this.FlagTurninRegion_Neutral.\u000E() != null)
+					if (this.FlagTurninRegion_Neutral != null && this.FlagTurninRegion_Neutral.GetCenterSquare() != null)
 					{
 						for (;;)
 						{
@@ -3543,11 +3543,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						CameraManager.Get().SetTargetObject(this.FlagTurninRegion_Neutral.\u000E().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
+						CameraManager.Get().SetTargetObject(this.FlagTurninRegion_Neutral.GetCenterSquare().gameObject, CameraManager.CameraTargetReason.CtfTurninRegionSpawned);
 					}
 				}
 				this.m_timeToFocusCameraOnTurninNeutral = -1f;
-				this.CreateTurninRegionActivatedSequence(Team.Invalid, this.FlagTurninRegion_Neutral.\u001D());
+				this.CreateTurninRegionActivatedSequence(Team.Invalid, this.FlagTurninRegion_Neutral.GetCenter());
 			}
 		}
 		if (this.m_timeToFocusCameraOnExtraction > 0f)

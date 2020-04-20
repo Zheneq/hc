@@ -143,7 +143,7 @@ public class UIPlayerStatus : MonoBehaviour
 				Ability ability = enumerator.Current;
 				AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(ability);
 				bool flag = actionTypeOfAbility == AbilityData.ActionType.ABILITY_0;
-				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && ability.GetModdedCost() >= this.m_actor.\u0016();
+				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && ability.GetModdedCost() >= this.m_actor.GetActualMaxTechPoints();
 				if (!component.HasQueuedAction(actionTypeOfAbility))
 				{
 					for (;;)
@@ -371,7 +371,7 @@ public class UIPlayerStatus : MonoBehaviour
 					}
 					UIManager.SetGameObjectActive(this.m_lockIcon, false, null);
 				}
-				else if (this.m_actor.\u000E())
+				else if (this.m_actor.IsDead())
 				{
 					UIManager.SetGameObjectActive(this.m_lockIcon, false, null);
 				}
@@ -423,7 +423,7 @@ public class UIPlayerStatus : MonoBehaviour
 			}
 			return Team.Invalid;
 		}
-		return this.m_actor.\u000E();
+		return this.m_actor.GetTeam();
 	}
 
 	private void Update()
@@ -446,7 +446,7 @@ public class UIPlayerStatus : MonoBehaviour
 			UIManager.SetGameObjectActive(this, false, null);
 			return;
 		}
-		if (this.m_actor.\u000E())
+		if (this.m_actor.IsDead())
 		{
 			for (;;)
 			{
@@ -476,7 +476,7 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (this.m_actor != null)
 		{
-			this.m_characterIcon.sprite = this.m_actor.\u000E().GetCharacterSelectIcon();
+			this.m_characterIcon.sprite = this.m_actor.GetCharacterResourceLink().GetCharacterSelectIcon();
 			bool hasBotController = this.m_actor.HasBotController;
 			UIManager.SetGameObjectActive(this.m_botIndicator, hasBotController, null);
 		}

@@ -557,8 +557,8 @@ public class ValkyrieStab : Ability
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		min = this.GetConeMinLength() * Board.\u000E().squareSize;
-		max = this.GetConeMaxLength() * Board.\u000E().squareSize;
+		min = this.GetConeMinLength() * Board.Get().squareSize;
+		max = this.GetConeMaxLength() * Board.Get().squareSize;
 		return true;
 	}
 }

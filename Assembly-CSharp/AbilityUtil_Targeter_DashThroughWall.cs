@@ -110,18 +110,18 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		}
 		this.m_highlights = new List<GameObject>();
 		this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f, null));
-		this.m_highlights.Add(HighlightUtils.Get().CreateDynamicConeMesh(this.m_coneWidth, this.m_coneLength * Board.\u000E().squareSize, false, null));
+		this.m_highlights.Add(HighlightUtils.Get().CreateDynamicConeMesh(this.m_coneWidth, this.m_coneLength * Board.Get().squareSize, false, null));
 		this.m_coneHighlightMesh = this.m_highlights[1].GetComponent<UIDynamicCone>();
 		IL_C1:
 		GameObject gameObject = this.m_highlights[0];
 		GameObject gameObject2 = this.m_highlights[1];
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 vector2;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector;
 		bool flag;
-		List<ActorData> chargeHitActors = this.GetChargeHitActors(currentTarget.AimDirection, vector, targetingActor, out vector2, out flag);
-		Vector3 vector3 = vector2 - vector;
-		float magnitude = vector3.magnitude;
-		vector3.Normalize();
+		List<ActorData> chargeHitActors = this.GetChargeHitActors(currentTarget.AimDirection, travelBoardSquareWorldPositionForLos, targetingActor, out vector, out flag);
+		Vector3 vector2 = vector - travelBoardSquareWorldPositionForLos;
+		float magnitude = vector2.magnitude;
+		vector2.Normalize();
 		BoardSquare boardSquare = null;
 		bool flag2;
 		if (chargeHitActors.Count == 0)
@@ -181,8 +181,8 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				}
 			}
 			float d = Mathf.Min(0.5f, magnitude / 2f);
-			Vector3 vector4 = vector2 - vector3 * d;
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(vector4);
+			Vector3 vector3 = vector - vector2 * d;
+			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(vector3);
 			if (chargeHitActors.Count > 0)
 			{
 				for (;;)
@@ -194,7 +194,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 					}
 					break;
 				}
-				Vector3 vector5;
+				Vector3 travelBoardSquareWorldPosition;
 				if (this.m_directHitIgnoreCover)
 				{
 					for (;;)
@@ -206,22 +206,22 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 						}
 						break;
 					}
-					vector5 = chargeHitActors[0].\u0016();
+					travelBoardSquareWorldPosition = chargeHitActors[0].GetTravelBoardSquareWorldPosition();
 				}
 				else
 				{
-					vector5 = targetingActor.\u0016();
+					travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 				}
-				Vector3 damageOrigin = vector5;
+				Vector3 damageOrigin = travelBoardSquareWorldPosition;
 				base.AddActorInRange(chargeHitActors[0], damageOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
-				BoardSquarePathInfo pathToDesired = KnockbackUtils.BuildStraightLineChargePath(targetingActor, chargeHitActors[0].\u0012(), targetingActor.\u0012(), true);
-				boardSquare2 = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, chargeHitActors[0].\u0012(), pathToDesired);
+				BoardSquarePathInfo pathToDesired = KnockbackUtils.BuildStraightLineChargePath(targetingActor, chargeHitActors[0].GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare(), true);
+				boardSquare2 = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, chargeHitActors[0].GetCurrentBoardSquare(), pathToDesired);
 			}
 			else
 			{
-				boardSquare2 = KnockbackUtils.GetLastValidBoardSquareInLine(vector, vector4, true, false, float.MaxValue);
-				BoardSquare x = Board.\u000E().\u000E(vector4);
-				if (x == null)
+				boardSquare2 = KnockbackUtils.GetLastValidBoardSquareInLine(travelBoardSquareWorldPositionForLos, vector3, true, false, float.MaxValue);
+				BoardSquare boardSquare3 = Board.Get().GetBoardSquare(vector3);
+				if (boardSquare3 == null)
 				{
 					for (;;)
 					{
@@ -237,13 +237,13 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			}
 			if (boardSquare2 != null)
 			{
-				Vector3 vector6 = vector2 - vector3.normalized * this.m_coneBackwardOffset * Board.\u000E().squareSize;
+				Vector3 vector4 = vector - vector2.normalized * this.m_coneBackwardOffset * Board.Get().squareSize;
 				if (flag4)
 				{
-					vector6 = boardSquare2.ToVector3();
+					vector4 = boardSquare2.ToVector3();
 				}
-				float num = VectorUtils.HorizontalAngle_Deg(vector3);
-				List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector6, num, this.m_coneWidth, this.m_coneLength, 0f, false, targetingActor, targetingActor.\u0012(), null, false, default(Vector3));
+				float num = VectorUtils.HorizontalAngle_Deg(vector2);
+				List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector4, num, this.m_coneWidth, this.m_coneLength, 0f, false, targetingActor, targetingActor.GetOpposingTeam(), null, false, default(Vector3));
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 				using (List<ActorData>.Enumerator enumerator = actorsInCone.GetEnumerator())
 				{
@@ -263,19 +263,19 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 					}
 				}
 				active = true;
-				vector6.y = HighlightUtils.GetHighlightHeight();
-				gameObject2.transform.position = vector6;
-				gameObject2.transform.rotation = Quaternion.LookRotation(vector3);
+				vector4.y = HighlightUtils.GetHighlightHeight();
+				gameObject2.transform.position = vector4;
+				gameObject2.transform.rotation = Quaternion.LookRotation(vector2);
 				if (this.m_coneHighlightMesh != null)
 				{
-					this.m_coneHighlightMesh.AdjustConeMeshVertices(this.m_coneWidth, this.m_coneLength * Board.\u000E().squareSize);
+					this.m_coneHighlightMesh.AdjustConeMeshVertices(this.m_coneWidth, this.m_coneLength * Board.Get().squareSize);
 				}
 				boardSquare = boardSquare2;
-				this.DrawInvalidSquareIndicators(targetingActor, vector6, num, this.m_coneLength, this.m_coneWidth);
+				this.DrawInvalidSquareIndicators(targetingActor, vector4, num, this.m_coneLength, this.m_coneWidth);
 			}
 		}
 		IL_3F1:
-		BoardSquare boardSquare3 = null;
+		BoardSquare boardSquare4 = null;
 		if (flag3)
 		{
 			for (;;)
@@ -287,13 +287,13 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				}
 				break;
 			}
-			float num2 = this.m_maxWallThicknessInSquares * Board.\u000E().squareSize;
-			num2 = Mathf.Min(num2, (this.m_dashRangeInSquares + this.m_extraTotalDistanceIfThroughWalls) * Board.\u000E().squareSize - magnitude);
-			Vector3 vector7 = vector2 + vector3 * num2;
+			float num2 = this.m_maxWallThicknessInSquares * Board.Get().squareSize;
+			num2 = Mathf.Min(num2, (this.m_dashRangeInSquares + this.m_extraTotalDistanceIfThroughWalls) * Board.Get().squareSize - magnitude);
+			Vector3 vector5 = vector + vector2 * num2;
+			Vector3 vector6 = vector5;
+			Vector3 vector7 = vector2;
 			Vector3 vector8 = vector7;
-			Vector3 vector9 = vector3;
-			Vector3 vector10 = vector9;
-			boardSquare3 = MantaDashThroughWall.GetSquareBeyondWall(vector, vector7, targetingActor, num2, ref vector8, ref vector10);
+			boardSquare4 = MantaDashThroughWall.GetSquareBeyondWall(travelBoardSquareWorldPositionForLos, vector5, targetingActor, num2, ref vector6, ref vector8);
 			if (this.m_throughWallConeClampedToWall)
 			{
 				for (;;)
@@ -305,12 +305,12 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 					}
 					break;
 				}
-				vector9 = vector10;
+				vector7 = vector8;
 			}
-			if (boardSquare3 != null)
+			if (boardSquare4 != null)
 			{
-				float num3 = VectorUtils.HorizontalAngle_Deg(vector9);
-				List<ActorData> actorsInCone2 = AreaEffectUtils.GetActorsInCone(vector8, num3, this.m_throughWallConeWidth, this.m_throughWallConeLength, 0f, false, targetingActor, targetingActor.\u0012(), null, false, default(Vector3));
+				float num3 = VectorUtils.HorizontalAngle_Deg(vector7);
+				List<ActorData> actorsInCone2 = AreaEffectUtils.GetActorsInCone(vector6, num3, this.m_throughWallConeWidth, this.m_throughWallConeLength, 0f, false, targetingActor, targetingActor.GetOpposingTeam(), null, false, default(Vector3));
 				if (actorsInCone2 != null)
 				{
 					for (;;)
@@ -328,7 +328,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 						while (enumerator2.MoveNext())
 						{
 							ActorData actor2 = enumerator2.Current;
-							base.AddActorInRange(actor2, boardSquare3.ToVector3(), targetingActor, AbilityTooltipSubject.Tertiary, false);
+							base.AddActorInRange(actor2, boardSquare4.ToVector3(), targetingActor, AbilityTooltipSubject.Tertiary, false);
 						}
 						for (;;)
 						{
@@ -342,15 +342,15 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 					}
 				}
 				active = true;
-				vector8.y = HighlightUtils.GetHighlightHeight();
-				gameObject2.transform.position = vector8;
-				gameObject2.transform.rotation = Quaternion.LookRotation(vector9);
+				vector6.y = HighlightUtils.GetHighlightHeight();
+				gameObject2.transform.position = vector6;
+				gameObject2.transform.rotation = Quaternion.LookRotation(vector7);
 				if (this.m_coneHighlightMesh != null)
 				{
-					this.m_coneHighlightMesh.AdjustConeMeshVertices(this.m_throughWallConeWidth, this.m_throughWallConeLength * Board.\u000E().squareSize);
+					this.m_coneHighlightMesh.AdjustConeMeshVertices(this.m_throughWallConeWidth, this.m_throughWallConeLength * Board.Get().squareSize);
 				}
 				this.SetHighlightColor(gameObject, this.m_throughWallsHighlightColor);
-				this.DrawInvalidSquareIndicators(targetingActor, vector8, num3, this.m_throughWallConeLength, this.m_throughWallConeWidth);
+				this.DrawInvalidSquareIndicators(targetingActor, vector6, num3, this.m_throughWallConeLength, this.m_throughWallConeWidth);
 			}
 			else
 			{
@@ -362,7 +362,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			this.SetHighlightColor(gameObject, this.m_normalHighlightColor);
 		}
 		gameObject2.SetActive(active);
-		if (boardSquare3 == null)
+		if (boardSquare4 == null)
 		{
 			for (;;)
 			{
@@ -374,15 +374,15 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				break;
 			}
 			float d2 = Mathf.Min(0.5f, magnitude / 2f);
-			vector2 -= vector3 * d2;
+			vector -= vector2 * d2;
 			if (boardSquare != null)
 			{
-				boardSquare3 = boardSquare;
+				boardSquare4 = boardSquare;
 			}
 			else
 			{
-				boardSquare3 = KnockbackUtils.GetLastValidBoardSquareInLine(vector, vector2, true, false, float.MaxValue);
-				if (boardSquare3 == null)
+				boardSquare4 = KnockbackUtils.GetLastValidBoardSquareInLine(travelBoardSquareWorldPositionForLos, vector, true, false, float.MaxValue);
+				if (boardSquare4 == null)
 				{
 					for (;;)
 					{
@@ -393,7 +393,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 						}
 						break;
 					}
-					boardSquare3 = targetingActor.\u0012();
+					boardSquare4 = targetingActor.GetCurrentBoardSquare();
 				}
 			}
 		}
@@ -408,11 +408,11 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				}
 				break;
 			}
-			boardSquare3 = chargeHitActors[0].\u0012();
+			boardSquare4 = chargeHitActors[0].GetCurrentBoardSquare();
 		}
-		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare3, targetingActor.\u0012(), true);
+		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare4, targetingActor.GetCurrentBoardSquare(), true);
 		bool flag5 = false;
-		if (boardSquare3 != null)
+		if (boardSquare4 != null)
 		{
 			for (;;)
 			{
@@ -423,7 +423,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				}
 				break;
 			}
-			if (boardSquare3.OccupantActor != null)
+			if (boardSquare4.OccupantActor != null)
 			{
 				for (;;)
 				{
@@ -434,7 +434,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (boardSquare3.OccupantActor != targetingActor)
+				if (boardSquare4.OccupantActor != targetingActor)
 				{
 					for (;;)
 					{
@@ -445,7 +445,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 						}
 						break;
 					}
-					if (boardSquare3.OccupantActor.\u0018())
+					if (boardSquare4.OccupantActor.IsVisibleToClient())
 					{
 						for (;;)
 						{
@@ -456,8 +456,8 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 							}
 							break;
 						}
-						BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, boardSquare3, boardSquarePathInfo);
-						if (chargeDestination != boardSquare3)
+						BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, boardSquare4, boardSquarePathInfo);
+						if (chargeDestination != boardSquare4)
 						{
 							for (;;)
 							{
@@ -468,7 +468,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 								}
 								break;
 							}
-							boardSquare3 = chargeDestination;
+							boardSquare4 = chargeDestination;
 							flag5 = true;
 						}
 					}
@@ -486,7 +486,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				}
 				break;
 			}
-			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare3, targetingActor.\u0012(), true);
+			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare4, targetingActor.GetCurrentBoardSquare(), true);
 		}
 		int num4 = 0;
 		base.EnableAllMovementArrows();
@@ -505,7 +505,7 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			}
 			this.LastUpdatePathSquareCount = boardSquarePathInfo.GetNumSquaresToEnd(true);
 		}
-		Vector3 a = vector2;
+		Vector3 a = vector;
 		if (flag3)
 		{
 			for (;;)
@@ -543,20 +543,20 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				}
 				break;
 			}
-			a = boardSquare3.ToVector3();
+			a = boardSquare4.ToVector3();
 		}
-		Vector3 lhs = a - vector;
+		Vector3 lhs = a - travelBoardSquareWorldPositionForLos;
 		lhs.y = 0f;
 		float d3 = Vector3.Dot(lhs, currentTarget.AimDirection) + 0.5f;
-		Vector3 endPos = vector + d3 * currentTarget.AimDirection;
+		Vector3 endPos = travelBoardSquareWorldPositionForLos + d3 * currentTarget.AimDirection;
 		endPos.y = HighlightUtils.GetHighlightHeight();
-		HighlightUtils.Get().RotateAndResizeRectangularCursor(gameObject, vector, endPos, this.m_dashWidthInSquares);
+		HighlightUtils.Get().RotateAndResizeRectangularCursor(gameObject, travelBoardSquareWorldPositionForLos, endPos, this.m_dashWidthInSquares);
 	}
 
 	private List<ActorData> GetChargeHitActors(Vector3 aimDir, Vector3 startPos, ActorData caster, out Vector3 chargeEndPoint, out bool traveledFullDistance)
 	{
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, aimDir, this.m_dashRangeInSquares, this.m_dashWidthInSquares, caster, caster.\u0015(), false, 1, false, false, out chargeEndPoint, null, null, true, true);
-		float num = (this.m_dashRangeInSquares - 0.25f) * Board.\u000E().squareSize;
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, aimDir, this.m_dashRangeInSquares, this.m_dashWidthInSquares, caster, caster.GetOpposingTeams(), false, 1, false, false, out chargeEndPoint, null, null, true, true);
+		float num = (this.m_dashRangeInSquares - 0.25f) * Board.Get().squareSize;
 		traveledFullDistance = ((startPos - chargeEndPoint).magnitude >= num);
 		return actorsInLaser;
 	}

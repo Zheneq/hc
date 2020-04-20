@@ -89,14 +89,14 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 	private void UpdateBoardSquare()
 	{
 		Vector3 position = base.transform.position;
-		float squareSize = Board.\u000E().squareSize;
+		float squareSize = Board.Get().squareSize;
 		float num = position.x / squareSize;
 		float num2 = position.z / squareSize;
 		int num3 = Mathf.RoundToInt(num);
 		int num4 = Mathf.RoundToInt(num2);
 		float num5 = num - (float)num3;
 		float num6 = num2 - (float)num4;
-		Board board = Board.\u000E();
+		Board board = Board.Get();
 		if (Mathf.Abs(num5) > Mathf.Abs(num6))
 		{
 			for (;;)
@@ -115,7 +115,7 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 			if (num5 > 0f)
 			{
 				board.SetThinCover(num3, num4, ActorCover.CoverDirections.X_POS, this.m_coverType);
-				if (num4 + 1 < board.\u0012())
+				if (num4 + 1 < board.GetMaxY())
 				{
 					for (;;)
 					{
@@ -159,7 +159,7 @@ public class ThinCover : MonoBehaviour, IGameEventListener
 				break;
 			}
 			board.SetThinCover(num3, num4, ActorCover.CoverDirections.Y_POS, this.m_coverType);
-			if (num4 + 1 < board.\u0012())
+			if (num4 + 1 < board.GetMaxY())
 			{
 				for (;;)
 				{

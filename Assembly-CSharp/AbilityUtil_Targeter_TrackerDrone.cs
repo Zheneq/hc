@@ -91,8 +91,8 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.ClearActorsInRange();
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
-		if (boardSquare == null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
+		if (boardSquareSafe == null)
 		{
 			for (;;)
 			{
@@ -109,8 +109,8 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 			}
 			return;
 		}
-		Vector3 vector = boardSquare.ToVector3();
-		Vector3 vector2 = targetingActor.\u0016();
+		Vector3 vector = boardSquareSafe.ToVector3();
+		Vector3 vector2 = targetingActor.GetTravelBoardSquareWorldPosition();
 		if (this.m_droneTrackerComponent != null && this.m_droneTrackerComponent.DroneIsActive())
 		{
 			for (;;)
@@ -122,8 +122,8 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 				}
 				break;
 			}
-			BoardSquare boardSquare2 = Board.\u000E().\u0016(this.m_droneTrackerComponent.BoardX(), this.m_droneTrackerComponent.BoardY());
-			vector2 = boardSquare2.ToVector3();
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_droneTrackerComponent.BoardX(), this.m_droneTrackerComponent.BoardY());
+			vector2 = boardSquare.ToVector3();
 		}
 		bool flag = this.m_droneTrackerComponent != null && this.m_droneTrackerComponent.DroneIsActive();
 		float num;
@@ -182,7 +182,7 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 						flag2 = false;
 					}
 					bool flag3 = flag2;
-					if (actorData.\u000E() != targetingActor.\u000E())
+					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
 						for (;;)
 						{

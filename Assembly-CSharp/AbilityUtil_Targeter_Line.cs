@@ -17,8 +17,8 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		float maxDistanceInWorld = this.m_lineRange * Board.\u000E().squareSize;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(targetingActor.\u0015(), currentTarget.AimDirection, maxDistanceInWorld, this.m_linePenetrateLos, targetingActor, null, true);
+		float maxDistanceInWorld = this.m_lineRange * Board.Get().squareSize;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(targetingActor.GetTravelBoardSquareWorldPositionForLos(), currentTarget.AimDirection, maxDistanceInWorld, this.m_linePenetrateLos, targetingActor, null, true);
 		if (this.m_highlights != null)
 		{
 			for (;;)
@@ -52,14 +52,14 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 		this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, false));
 		this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
 		IL_B9:
-		float magnitude = (laserEndPoint - targetingActor.\u0016()).magnitude;
-		Vector3 position = targetingActor.\u0016() + new Vector3(0f, 0.1f, 0f);
+		float magnitude = (laserEndPoint - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude;
+		Vector3 position = targetingActor.GetTravelBoardSquareWorldPosition() + new Vector3(0f, 0.1f, 0f);
 		using (List<GameObject>.Enumerator enumerator = this.m_highlights.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				GameObject gameObject = enumerator.Current;
-				HighlightUtils.Get().ResizeBoundaryLine(magnitude / Board.\u000E().squareSize, gameObject);
+				HighlightUtils.Get().ResizeBoundaryLine(magnitude / Board.Get().squareSize, gameObject);
 				gameObject.transform.position = position;
 				gameObject.transform.rotation = Quaternion.LookRotation(-currentTarget.AimDirection);
 			}

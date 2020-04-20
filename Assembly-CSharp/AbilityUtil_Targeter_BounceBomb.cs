@@ -52,7 +52,7 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			vector = currentTarget.AimDirection;
 		}
 		Vector3 vec = vector;
-		float num = this.m_bombInfo.width * Board.\u000E().squareSize;
+		float num = this.m_bombInfo.width * Board.Get().squareSize;
 		if (this.m_highlights != null)
 		{
 			for (;;)
@@ -123,7 +123,7 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 				}
 				break;
 			}
-			float a = (targetingActor.\u0016() - currentTarget.FreePos).magnitude / Board.\u000E().squareSize;
+			float a = (targetingActor.GetTravelBoardSquareWorldPosition() - currentTarget.FreePos).magnitude / Board.Get().squareSize;
 			num2 = Mathf.Min(a, num2);
 		}
 		float num3 = VectorUtils.HorizontalAngle_Deg(vec);
@@ -201,9 +201,9 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			continue;
 			IL_2D8:
 			Vector3 vector2 = list[list.Count - 1];
-			BoardSquare boardSquare = Board.\u000E().\u000E(vector2);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare(vector2);
 			Vector3 vector3 = vector2;
-			if (boardSquare != null && boardSquare.\u0016())
+			if (boardSquare != null && boardSquare.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -217,14 +217,14 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 				vector2 = boardSquare.ToVector3();
 				vector3 = AreaEffectUtils.GetCenterOfShape(this.m_bombInfo.shape, vector2, boardSquare);
 			}
-			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_bombInfo.shape, vector3, boardSquare, false, targetingActor, targetingActor.\u0012(), null);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_bombInfo.shape, vector3, boardSquare, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 			Vector3 damageOrigin = vector3;
 			foreach (ActorData actor in actorsInShape)
 			{
 				base.AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
 			}
-			vector3.y = (float)Board.\u000E().BaselineHeight + 0.1f;
+			vector3.y = (float)Board.Get().BaselineHeight + 0.1f;
 			this.m_highlights[index].transform.position = vector3;
 			this.m_highlights[index].SetActive(true);
 			goto IL_411;

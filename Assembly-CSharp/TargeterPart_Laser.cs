@@ -82,7 +82,7 @@ public class TargeterPart_Laser
 			Vector3 forward = endPos - startPos;
 			forward.y = 0f;
 			float magnitude = forward.magnitude;
-			float widthInWorld = this.m_widthInSquares * Board.\u000E().squareSize;
+			float widthInWorld = this.m_widthInSquares * Board.Get().squareSize;
 			HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, highlightObj);
 			startPos.y = HighlightUtils.GetHighlightHeight();
 			highlightObj.transform.position = startPos;

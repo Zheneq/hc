@@ -7,8 +7,8 @@ public class AbilityCommon_LaserWithCone
 	{
 		Vector3 vector;
 		AreaEffectUtils.GetEndPointForValidGameplaySquare(startPos, endPos, out vector);
-		BoardSquare boardSquare = Board.\u000E().\u000E(vector);
-		if (boardSquare != null && boardSquare.\u000E())
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(vector);
+		if (boardSquare != null && boardSquare.HasFullCoverFromAnyDirection_zq())
 		{
 			for (;;)
 			{

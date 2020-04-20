@@ -33,9 +33,9 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 		this.m_useAoeHits = useAoeHits;
 		this.m_aoeShape = aoeShape;
 		this.m_shouldShowActorRadius = true;
-		int a = Board.\u000E().\u000E();
-		int b = Board.\u000E().\u0012();
-		this.m_targetLineLengthInSquares = (float)Mathf.Max(a, b) + 10f;
+		int maxX = Board.Get().GetMaxX();
+		int maxY = Board.Get().GetMaxY();
+		this.m_targetLineLengthInSquares = (float)Mathf.Max(maxX, maxY) + 10f;
 		int numDirs;
 		if (this.m_useBothCardinalDirs)
 		{
@@ -108,7 +108,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 						break;
 					}
 					this.CreateHighlights();
-					float num = this.m_targetLineLengthInSquares * Board.\u000E().squareSize;
+					float num = this.m_targetLineLengthInSquares * Board.Get().squareSize;
 					AbilityTarget target = targets[currentTargetIndex - 1];
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_positionShape, target);
 					Vector3 vector = currentTarget.FreePos - centerOfShape;
@@ -187,7 +187,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 						vector2.x = Mathf.Abs(vector2.x);
 						vector2.z = Mathf.Abs(vector2.z);
 						Vector3 a = new Vector3(vector2.z, 0f, vector2.x);
-						float d = 0.5f * this.m_lineWidthInSquares * Board.\u000E().squareSize;
+						float d = 0.5f * this.m_lineWidthInSquares * Board.Get().squareSize;
 						Vector3 a2 = centerOfShape - a * d;
 						Vector3 a3 = centerOfShape + a * d;
 						b = 0.5f * num * vector2;
@@ -237,9 +237,9 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 								}
 								this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_aoeShape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 							}
-							Vector3 position2 = keyValuePair.Key.\u0016();
-							position2.y = HighlightUtils.GetHighlightHeight();
-							this.m_highlights[num3].transform.position = position2;
+							Vector3 travelBoardSquareWorldPosition = keyValuePair.Key.GetTravelBoardSquareWorldPosition();
+							travelBoardSquareWorldPosition.y = HighlightUtils.GetHighlightHeight();
+							this.m_highlights[num3].transform.position = travelBoardSquareWorldPosition;
 							this.m_highlights[num3].SetActive(true);
 							num3++;
 						}
@@ -316,8 +316,8 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 
 	public static GameObject CreateArrowPointerHighlight(float centerLineLenInSquares = 1.5f)
 	{
-		float num = Board.\u000E().squareSize * 0.5f;
-		float num2 = Board.\u000E().squareSize * centerLineLenInSquares;
+		float num = Board.Get().squareSize * 0.5f;
+		float num2 = Board.Get().squareSize * centerLineLenInSquares;
 		GameObject gameObject = HighlightUtils.Get().CreateDynamicLineSegmentMesh(centerLineLenInSquares, 0.2f, false, Color.cyan);
 		gameObject.transform.localPosition = new Vector3(0f, 0f, num);
 		float lengthInSquares = 0.3f;
@@ -347,24 +347,24 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 		dirEndPosList = new List<Vector3>();
 		directHitActorToWorldDist = new Dictionary<ActorData, float>();
 		aoeHitActorsInDirs = new HashSet<ActorData>();
-		int num = Board.\u000E().\u000E();
-		int num2 = Board.\u000E().\u0012();
-		float num3 = (float)Mathf.Max(num, num2) + 10f;
-		float squareSize = Board.\u000E().squareSize;
-		float num4 = num3 * squareSize;
+		int maxX = Board.Get().GetMaxX();
+		int maxY = Board.Get().GetMaxY();
+		float num = (float)Mathf.Max(maxX, maxY) + 10f;
+		float squareSize = Board.Get().squareSize;
+		float num2 = num * squareSize;
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, false, true);
 		for (int i = 0; i < lineDirs.Count; i++)
 		{
 			Vector3 a = lineDirs[i];
-			Vector3 b = 0.5f * num4 * a;
+			Vector3 b = 0.5f * num2 * a;
 			Vector3 vector = shapeCenter - b;
 			List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(vector, shapeCenter + b, 0f, 0f, 0.5f * this.m_lineWidthInSquares, this.m_penetrateLos, caster, relevantTeams, null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadiusOfLine);
-			vector.x = Mathf.Clamp(vector.x, 0f, (float)num * squareSize);
-			vector.z = Mathf.Clamp(vector.z, 0f, (float)num2 * squareSize);
+			vector.x = Mathf.Clamp(vector.x, 0f, (float)maxX * squareSize);
+			vector.z = Mathf.Clamp(vector.z, 0f, (float)maxY * squareSize);
 			Vector3 vector2 = shapeCenter + b;
-			vector2.x = Mathf.Clamp(vector2.x, -1f, (float)num * squareSize + 1f);
-			vector2.z = Mathf.Clamp(vector2.z, -1f, (float)num2 * squareSize + 1f);
+			vector2.x = Mathf.Clamp(vector2.x, -1f, (float)maxX * squareSize + 1f);
+			vector2.z = Mathf.Clamp(vector2.z, -1f, (float)maxY * squareSize + 1f);
 			actorsInDirsDirect.Add(new List<ActorData>(actorsInRadiusOfLine));
 			dirStartPosList.Add(vector);
 			dirEndPosList.Add(vector2);
@@ -373,7 +373,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 				while (enumerator.MoveNext())
 				{
 					ActorData actorData = enumerator.Current;
-					float num5 = AreaEffectUtils.PointToLineDistance2D(actorData.\u0016(), vector, vector2);
+					float num3 = AreaEffectUtils.PointToLineDistance2D(actorData.GetTravelBoardSquareWorldPosition(), vector, vector2);
 					if (!directHitActorToWorldDist.ContainsKey(actorData))
 					{
 						goto IL_1F9;
@@ -391,7 +391,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					{
 						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SoldierCardinalLines.GetHitActors(List<Vector3>, Vector3, ActorData, Dictionary<ActorData, Vector3>*, List<List<ActorData>>*, List<Vector3>*, List<Vector3>*, Dictionary<ActorData, float>*, HashSet<ActorData>*)).MethodHandle;
 					}
-					if (directHitActorToWorldDist[actorData] > num5)
+					if (directHitActorToWorldDist[actorData] > num3)
 					{
 						for (;;)
 						{
@@ -418,7 +418,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 						actorToHitOrigin[actorData] = vector;
 						continue;
 					}
-					if (actorData.\u000E().IsInCoverWrt(actorToHitOrigin[actorData]))
+					if (actorData.GetActorCover().IsInCoverWrt(actorToHitOrigin[actorData]))
 					{
 						for (;;)
 						{
@@ -434,7 +434,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					}
 					continue;
 					IL_1F9:
-					directHitActorToWorldDist[actorData] = num5;
+					directHitActorToWorldDist[actorData] = num3;
 					goto IL_205;
 				}
 				for (;;)
@@ -451,7 +451,7 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 			{
 				foreach (ActorData actorData2 in actorsInRadiusOfLine)
 				{
-					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_aoeShape, actorData2.\u0016(), actorData2.\u0012(), this.m_penetrateLos, caster, relevantTeams, null);
+					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_aoeShape, actorData2.GetTravelBoardSquareWorldPosition(), actorData2.GetCurrentBoardSquare(), this.m_penetrateLos, caster, relevantTeams, null);
 					actorsInShape.Remove(actorData2);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 					using (List<ActorData>.Enumerator enumerator3 = actorsInShape.GetEnumerator())

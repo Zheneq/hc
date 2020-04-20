@@ -182,7 +182,7 @@ public class SorceressHealingLaser : Ability
 							int value = this.ModdedBaseHealOnSelf();
 							dictionary[AbilityTooltipSymbol.Healing] = value;
 						}
-						else if (targetActor.\u000E() == component.\u000E())
+						else if (targetActor.GetTeam() == component.GetTeam())
 						{
 							for (;;)
 							{

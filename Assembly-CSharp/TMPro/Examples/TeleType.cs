@@ -20,7 +20,7 @@ namespace TMPro.Examples
 			this.\u0012.alignment = TextAlignmentOptions.Top;
 		}
 
-		private IEnumerator \u0015()
+		private IEnumerator coroutine0015()
 		{
 			this.\u0012.ForceMeshUpdate();
 			int characterCount = this.\u0012.textInfo.characterCount;

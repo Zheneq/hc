@@ -33,16 +33,16 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 		base.ClearActorsInRange();
 		this.m_actorToHitContext.Clear();
 		List<GrydCardinalSegmentInfo> list = new List<GrydCardinalSegmentInfo>();
-		BoardSquare boardSquare = Board.\u000E().\u000E(currentTarget.GridPos);
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		int num = 0;
-		if (boardSquare != null)
+		if (boardSquareSafe != null)
 		{
-			list.Add(new GrydCardinalSegmentInfo(boardSquare, Vector3.forward));
-			list.Add(new GrydCardinalSegmentInfo(boardSquare, Vector3.back));
-			list.Add(new GrydCardinalSegmentInfo(boardSquare, Vector3.left));
-			list.Add(new GrydCardinalSegmentInfo(boardSquare, Vector3.right));
-			ActorData actorData = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, true, false, targetingActor);
-			if (actorData != null && !actorData.\u0018())
+			list.Add(new GrydCardinalSegmentInfo(boardSquareSafe, Vector3.forward));
+			list.Add(new GrydCardinalSegmentInfo(boardSquareSafe, Vector3.back));
+			list.Add(new GrydCardinalSegmentInfo(boardSquareSafe, Vector3.left));
+			list.Add(new GrydCardinalSegmentInfo(boardSquareSafe, Vector3.right));
+			ActorData actorData = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, targetingActor);
+			if (actorData != null && !actorData.IsVisibleToClient())
 			{
 				actorData = null;
 			}
@@ -51,7 +51,7 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 			{
 				list[i].m_hitActorsMap = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
 				list2.Clear();
-				GrydCardinalSegmentInfo.CalculateSegmentInfo(list[i], this.m_maxTrunkDist, this.m_maxBranchDist, this.m_maxNumSplits, this.m_splitOnWall, this.m_splitOnActor, this.m_trunkContinueAfterActorHit, false, 0, targetingActor, targetingActor.\u0015(), null, list[i].m_hitActorsMap, list2);
+				GrydCardinalSegmentInfo.CalculateSegmentInfo(list[i], this.m_maxTrunkDist, this.m_maxBranchDist, this.m_maxNumSplits, this.m_splitOnWall, this.m_splitOnActor, this.m_trunkContinueAfterActorHit, false, 0, targetingActor, targetingActor.GetOpposingTeams(), null, list[i].m_hitActorsMap, list2);
 				GrydCardinalSegmentInfo.HandleTargeterHighlights(list[i], false, this.m_highlights, ref num);
 				list[i].TrackActorHitInfo(this.m_actorToHitContext);
 			}
@@ -79,7 +79,7 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 					ActorMultiHitContext actorMultiHitContext = new ActorMultiHitContext();
 					actorMultiHitContext.m_numHits = 1;
 					actorMultiHitContext.m_numHitsFromCover = 0;
-					actorMultiHitContext.m_hitOrigin = actorData.\u0016();
+					actorMultiHitContext.m_hitOrigin = actorData.GetTravelBoardSquareWorldPosition();
 					this.m_actorToHitContext[actorData] = actorMultiHitContext;
 				}
 			}

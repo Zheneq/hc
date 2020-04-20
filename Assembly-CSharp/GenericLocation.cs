@@ -15,7 +15,7 @@ public class GenericLocation : MonoBehaviour
 
 	public void Initialize()
 	{
-		this.m_boardSquare = Board.\u000E().\u0012(base.transform.position.x, base.transform.position.z);
+		this.m_boardSquare = Board.Get().GetBoardSquareSafe(base.transform.position.x, base.transform.position.z);
 	}
 
 	private void OnDrawGizmos()

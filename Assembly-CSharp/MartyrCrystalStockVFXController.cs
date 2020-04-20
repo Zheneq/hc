@@ -228,7 +228,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 				}
 				break;
 			}
-			if (actorData2.\u0018())
+			if (actorData2.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -239,7 +239,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 					}
 					break;
 				}
-				flag = (actorData2.\u000E() == null || actorData2.\u000E().enabled);
+				flag = (actorData2.GetActorModelDataRenderer() == null || actorData2.GetActorModelDataRenderer().enabled);
 			}
 			else
 			{
@@ -263,7 +263,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 				}
 				break;
 			}
-			flag3 = actorData2.\u0012();
+			flag3 = actorData2.IsModelAnimatorDisabled();
 		}
 		else
 		{
@@ -293,7 +293,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 					}
 					break;
 				}
-				flag5 = (GameFlowData.Get().activeOwnedActorData.\u000E() == actorData2.\u000E());
+				flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData2.GetTeam());
 			}
 			else
 			{
@@ -586,9 +586,9 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 							}
 							break;
 						}
-						int num3 = actor.\u0019();
-						int num4 = num3 / this.m_martyrPassive.m_energyToCrystalConversion;
-						if (num4 > num)
+						int energyToDisplay = actor.GetEnergyToDisplay();
+						int num3 = energyToDisplay / this.m_martyrPassive.m_energyToCrystalConversion;
+						if (num3 > num)
 						{
 							for (;;)
 							{
@@ -599,7 +599,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 								}
 								break;
 							}
-							num = num4;
+							num = num3;
 						}
 					}
 				}

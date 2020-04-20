@@ -215,19 +215,19 @@ public class ScoundrelRunAndGun : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null) && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			if (!(boardSquare == caster.\u0012()))
+			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				bool result;
 				if (this.GetExpectedNumberOfTargeters() < 2)
 				{
-					result = (KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false) != null);
+					result = (KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false) != null);
 				}
 				else
 				{
-					BoardSquare boardSquare2;
+					BoardSquare boardSquare;
 					if (targetIndex == 0)
 					{
 						for (;;)
@@ -239,15 +239,15 @@ public class ScoundrelRunAndGun : Ability
 							}
 							break;
 						}
-						boardSquare2 = caster.\u0012();
+						boardSquare = caster.GetCurrentBoardSquare();
 					}
 					else
 					{
-						boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
+						boardSquare = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
 					}
-					bool flag = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, false) != null;
-					float squareSize = Board.\u000E().squareSize;
-					float num = Vector3.Distance(boardSquare2.ToVector3(), boardSquare.ToVector3());
+					bool flag = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, boardSquare, false) != null;
+					float squareSize = Board.Get().squareSize;
+					float num = Vector3.Distance(boardSquare.ToVector3(), boardSquareSafe.ToVector3());
 					bool flag2;
 					if (num >= this.m_abilityMod.m_minDistanceBetweenSteps * squareSize)
 					{
@@ -291,8 +291,8 @@ public class ScoundrelRunAndGun : Ability
 							}
 							for (int i = 0; i < targetIndex; i++)
 							{
-								BoardSquare boardSquare3 = Board.\u000E().\u000E(currentTargets[i].GridPos);
-								flag3 &= (Vector3.Distance(boardSquare3.ToVector3(), boardSquare.ToVector3()) >= this.m_abilityMod.m_minDistanceBetweenAnySteps * squareSize);
+								BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos);
+								flag3 &= (Vector3.Distance(boardSquareSafe2.ToVector3(), boardSquareSafe.ToVector3()) >= this.m_abilityMod.m_minDistanceBetweenAnySteps * squareSize);
 							}
 							for (;;)
 							{

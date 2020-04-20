@@ -85,7 +85,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 vector = originalStart + new Vector3(0f, y, 0f);
 		Vector3 originalStart2 = vector;
-		float num = this.m_width * Board.\u000E().squareSize;
+		float num = this.m_width * Board.Get().squareSize;
 		if (base.Highlight == null)
 		{
 			for (;;)
@@ -119,8 +119,8 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 	{
 		base.ClearActorsInRange();
 		this.m_hitActorContext.Clear();
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 vector2;
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 vector;
 		if (currentTarget == null)
 		{
 			for (;;)
@@ -136,13 +136,13 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceLaser.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
 			}
-			vector2 = targetingActor.transform.forward;
+			vector = targetingActor.transform.forward;
 		}
 		else
 		{
-			vector2 = currentTarget.AimDirection;
+			vector = currentTarget.AimDirection;
 		}
-		Vector3 forwardDirection = vector2;
+		Vector3 forwardDirection = vector;
 		float num = this.m_maxDistancePerBounce;
 		if (this.m_extraDistancePerBounceDelegate != null)
 		{
@@ -200,7 +200,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		bool penetrateTargetsAndHitCaster = this.m_penetrateTargetsAndHitCaster;
 		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary;
 		List<ActorData> list2;
-		List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(vector, forwardDirection, num, num2, num3, targetingActor, this.m_width, num4, false, base.GetAffectedTeams(), this.m_bounceOnActors, out dictionary, out list2, null, penetrateTargetsAndHitCaster, true);
+		List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(travelBoardSquareWorldPositionForLos, forwardDirection, num, num2, num3, targetingActor, this.m_width, num4, false, base.GetAffectedTeams(), this.m_bounceOnActors, out dictionary, out list2, null, penetrateTargetsAndHitCaster, true);
 		if (penetrateTargetsAndHitCaster)
 		{
 			for (;;)
@@ -214,15 +214,15 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			}
 			if (list.Count > 1)
 			{
-				float totalMaxDistanceInSquares = num2 - (list[0] - vector).magnitude / Board.\u000E().squareSize;
+				float totalMaxDistanceInSquares = num2 - (list[0] - travelBoardSquareWorldPositionForLos).magnitude / Board.Get().squareSize;
 				Vector3 normalized = (list[1] - list[0]).normalized;
 				Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary2;
 				List<ActorData> list3;
-				VectorUtils.CalculateBouncingLaserEndpoints(list[0], normalized, num, totalMaxDistanceInSquares, num3, targetingActor, this.m_width, 0, false, targetingActor.\u0012(), this.m_bounceOnActors, out dictionary2, out list3, null, false, false);
+				VectorUtils.CalculateBouncingLaserEndpoints(list[0], normalized, num, totalMaxDistanceInSquares, num3, targetingActor, this.m_width, 0, false, targetingActor.GetTeams(), this.m_bounceOnActors, out dictionary2, out list3, null, false, false);
 				bool flag = list3.Contains(targetingActor);
 				if (flag)
 				{
-					base.AddActorInRange(targetingActor, targetingActor.\u0015(), targetingActor, AbilityTooltipSubject.Self, false);
+					base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self, false);
 				}
 			}
 		}
@@ -267,9 +267,9 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			item.segmentIndex = endpointIndex2;
 			this.m_hitActorContext.Add(item);
 			ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-			actorHitContext.\u001D = targetingActor.\u0015();
-			actorHitContext.\u0015.\u0016(TargetSelect_BouncingLaser.s_cvarEndpointIndex.\u0012(), endpointIndex2);
-			actorHitContext.\u0015.\u0016(TargetSelect_BouncingLaser.s_cvarHitOrder.\u0012(), i);
+			actorHitContext.\u001D = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			actorHitContext.\u0015.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetHash(), endpointIndex2);
+			actorHitContext.\u0015.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetHash(), i);
 		}
 		for (;;)
 		{
@@ -280,11 +280,11 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			}
 			break;
 		}
-		this.CreateLaserHighlights(vector, list);
+		this.CreateLaserHighlights(travelBoardSquareWorldPositionForLos, list);
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
 			base.ResetSquareIndicatorIndexToUse();
-			AreaEffectUtils.OperateOnSquaresInBounceLaser(this.m_indicatorHandler, vector, list, this.m_width, targetingActor, false);
+			AreaEffectUtils.OperateOnSquaresInBounceLaser(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, list, this.m_width, targetingActor, false);
 			base.HideUnusedSquareIndicators();
 		}
 		if (this.m_knockbackDistance > 0f)
@@ -303,7 +303,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			for (int j = 0; j < list2.Count; j++)
 			{
 				ActorData actorData2 = list2[j];
-				if (actorData2.\u000E() != targetingActor.\u000E())
+				if (actorData2.GetTeam() != targetingActor.GetTeam())
 				{
 					for (;;)
 					{

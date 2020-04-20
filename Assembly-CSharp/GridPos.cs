@@ -84,8 +84,8 @@ public struct GridPos
 	{
 		return new GridPos
 		{
-			x = Mathf.RoundToInt(vec.x / Board.\u000E().squareSize),
-			y = Mathf.RoundToInt(vec.z / Board.\u000E().squareSize)
+			x = Mathf.RoundToInt(vec.x / Board.Get().squareSize),
+			y = Mathf.RoundToInt(vec.z / Board.Get().squareSize)
 		};
 	}
 

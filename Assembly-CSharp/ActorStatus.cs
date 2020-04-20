@@ -280,14 +280,14 @@ public class ActorStatus : NetworkBehaviour
 		}
 		num += this.m_clientStatusCountAdjustments[(int)status];
 		this.m_clientStatusCountAdjustments[(int)status] = 0;
-		if (ActorStatus.\u001D)
+		if (ActorStatus.DebugLog)
 		{
 			Log.Warning(string.Concat(new object[]
 			{
 				"<color=cyan>ActorStatus</color>: ADD ",
 				ActorStatus.GetColoredStatusName(status, "yellow"),
 				" to ",
-				this.m_actorData.\u0012("white"),
+				this.m_actorData.GetColoredDebugName("white"),
 				", Count = ",
 				this.m_statusCounts[(int)status],
 				", PrevCount = ",
@@ -327,7 +327,7 @@ public class ActorStatus : NetworkBehaviour
 			this.m_statusCounts[(int)status] = (uint)Mathf.Max(0, num - 1);
 			num += this.m_clientStatusCountAdjustments[(int)status];
 			this.m_clientStatusCountAdjustments[(int)status] = 0;
-			if (ActorStatus.\u001D)
+			if (ActorStatus.DebugLog)
 			{
 				for (;;)
 				{
@@ -343,7 +343,7 @@ public class ActorStatus : NetworkBehaviour
 					"<color=cyan>ActorStatus</color>: REMOVE ",
 					ActorStatus.GetColoredStatusName(status, "yellow"),
 					" from ",
-					this.m_actorData.\u0012("white"),
+					this.m_actorData.GetColoredDebugName("white"),
 					", Count = ",
 					this.m_statusCounts[(int)status],
 					", PrevCount: ",
@@ -380,7 +380,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 		int num = this.m_clientStatusCountAdjustments[(int)status];
 		this.m_clientStatusCountAdjustments[(int)status] = num + 1;
-		if (ActorStatus.\u001D)
+		if (ActorStatus.DebugLog)
 		{
 			for (;;)
 			{
@@ -400,7 +400,7 @@ public class ActorStatus : NetworkBehaviour
 				"<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> ",
 				ActorStatus.GetColoredStatusName(status, "yellow"),
 				" to ",
-				this.m_actorData.\u0012("white"),
+				this.m_actorData.GetColoredDebugName("white"),
 				", ClientAdjust = ",
 				this.m_clientStatusCountAdjustments[(int)status],
 				", SyncCount = ",
@@ -449,14 +449,14 @@ public class ActorStatus : NetworkBehaviour
 			}
 			this.m_clientStatusCountAdjustments[(int)status] = 0;
 		}
-		if (ActorStatus.\u001D)
+		if (ActorStatus.DebugLog)
 		{
 			Log.Warning(string.Concat(new object[]
 			{
 				"<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> ",
 				ActorStatus.GetColoredStatusName(status, "yellow"),
 				" from ",
-				this.m_actorData.\u0012("white"),
+				this.m_actorData.GetColoredDebugName("white"),
 				", ClientAdjust = ",
 				this.m_clientStatusCountAdjustments[(int)status],
 				", SyncCount = ",
@@ -702,7 +702,7 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (this.m_actorData.\u000E() != null)
+			if (this.m_actorData.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -724,7 +724,7 @@ public class ActorStatus : NetworkBehaviour
 						}
 						break;
 					}
-					flag2 = (this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable) || this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.KnockbackImmune));
+					flag2 = (this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable) || this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.KnockbackImmune));
 				}
 			}
 		}
@@ -767,7 +767,7 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (this.m_actorData.\u000E() != null)
+			if (this.m_actorData.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -790,7 +790,7 @@ public class ActorStatus : NetworkBehaviour
 						break;
 					}
 					bool flag3;
-					if (!this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable))
+					if (!this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable))
 					{
 						for (;;)
 						{
@@ -801,7 +801,7 @@ public class ActorStatus : NetworkBehaviour
 							}
 							break;
 						}
-						flag3 = this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.MovementDebuffImmunity);
+						flag3 = this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.MovementDebuffImmunity);
 					}
 					else
 					{
@@ -832,7 +832,7 @@ public class ActorStatus : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsEnergized(bool)).MethodHandle;
 			}
-			if (!flag && this.m_actorData.\u000E() != null)
+			if (!flag && this.m_actorData.GetAbilityData() != null)
 			{
 				for (;;)
 				{
@@ -843,7 +843,7 @@ public class ActorStatus : NetworkBehaviour
 					}
 					break;
 				}
-				flag = this.m_actorData.\u000E().HasPendingStatusFromQueuedAbilities(StatusType.Energized);
+				flag = this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Energized);
 			}
 		}
 		return flag;
@@ -851,7 +851,7 @@ public class ActorStatus : NetworkBehaviour
 
 	public void OnStatusChanged(StatusType status, bool statusGained)
 	{
-		if (ActorStatus.\u001D)
+		if (ActorStatus.DebugLog)
 		{
 			string[] array = new string[5];
 			array[0] = "<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>";
@@ -930,7 +930,7 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			if (actorData.\u0018())
+			if (actorData.IsVisibleToClient())
 			{
 				for (;;)
 				{
@@ -981,7 +981,7 @@ public class ActorStatus : NetworkBehaviour
 			{
 			case StatusType.Revealed:
 			case StatusType.CantHideInBrush:
-				FogOfWar.CalculateFogOfWarForTeam(actorData.\u0012());
+				FogOfWar.CalculateFogOfWarForTeam(actorData.GetOpposingTeam());
 				goto IL_395;
 			case StatusType.CantSprint_UnlessUnstoppable:
 			case StatusType.CantSprint_Absolute:
@@ -1119,9 +1119,9 @@ public class ActorStatus : NetworkBehaviour
 		IL_30B:
 		goto IL_395;
 		IL_310:
-		FogOfWar.CalculateFogOfWarForTeam(actorData.\u000E());
+		FogOfWar.CalculateFogOfWarForTeam(actorData.GetTeam());
 		IL_395:
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -1132,13 +1132,13 @@ public class ActorStatus : NetworkBehaviour
 				}
 				break;
 			}
-			Board.\u000E().MarkForUpdateValidSquares(true);
+			Board.Get().MarkForUpdateValidSquares(true);
 		}
 	}
 
 	private void UpdateSquaresCanMoveTo()
 	{
-		if (this.m_actorData.\u000E() != null)
+		if (this.m_actorData.GetActorMovement() != null)
 		{
 			for (;;)
 			{
@@ -1153,7 +1153,7 @@ public class ActorStatus : NetworkBehaviour
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.UpdateSquaresCanMoveTo()).MethodHandle;
 			}
-			this.m_actorData.\u000E().UpdateSquaresCanMoveTo();
+			this.m_actorData.GetActorMovement().UpdateSquaresCanMoveTo();
 		}
 	}
 
@@ -1214,14 +1214,14 @@ public class ActorStatus : NetworkBehaviour
 			if (this.HasStatus(StatusType.ProximityBasedInvisibility, includePendingStatus))
 			{
 				bool flag2 = false;
-				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(actorData.\u0012());
+				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(actorData.GetOpposingTeam());
 				using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData2 = enumerator.Current;
-						BoardSquare boardSquare = Board.\u000E().\u000E(actorData.\u0016());
-						BoardSquare boardSquare2 = Board.\u000E().\u000E(actorData2.\u0016());
+						BoardSquare boardSquare = Board.Get().GetBoardSquare(actorData.GetTravelBoardSquareWorldPosition());
+						BoardSquare boardSquare2 = Board.Get().GetBoardSquare(actorData2.GetTravelBoardSquareWorldPosition());
 						if (!(boardSquare == null))
 						{
 							if (boardSquare2 == null)
@@ -1261,7 +1261,7 @@ public class ActorStatus : NetworkBehaviour
 											}
 											break;
 										}
-										if (!(actorData2.\u000E() != null) || actorData2.\u000E().HasStatus(StatusType.Blind, includePendingStatus))
+										if (!(actorData2.GetActorStatus() != null) || actorData2.GetActorStatus().HasStatus(StatusType.Blind, includePendingStatus))
 										{
 											continue;
 										}
@@ -1572,7 +1572,7 @@ public class ActorStatus : NetworkBehaviour
 		});
 	}
 
-	public static bool \u001D
+	public static bool DebugLog
 	{
 		get
 		{

@@ -58,7 +58,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.ClearActorsInRange();
-		Vector3 vector = targetingActor.\u0012().\u000E();
+		Vector3 vector = targetingActor.GetCurrentBoardSquare().GetWorldPositionForLoS();
 		Vector3 freePos = currentTarget.FreePos;
 		Vector3 vector2 = vector - freePos;
 		vector2.y = 0f;
@@ -67,10 +67,10 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		float num2;
 		float coneWidthDegrees;
 		AreaEffectUtils.GatherStretchConeDimensions(freePos, vector, this.m_minLengthSquares, this.m_maxLengthSquares, this.m_minAngleDegrees, this.m_maxAngleDegrees, this.m_stretchStyle, out num2, out coneWidthDegrees, this.m_discreteWidthAngleChange, this.m_numDiscreteWidthChanges, this.m_interpMinDistOverride, this.m_interpRangeOverride);
-		vector -= num2 * Board.\u000E().squareSize * vector2;
+		vector -= num2 * Board.Get().squareSize * vector2;
 		this.CreateConeCursorHighlights(vector, vector2, num2, coneWidthDegrees);
 		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector, num, coneWidthDegrees, num2 - this.m_coneBackwardOffsetInSquares, this.m_coneBackwardOffsetInSquares, true, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_includeAllies, this.m_includeEnemies), null, false, default(Vector3));
-		TargeterUtils.SortActorsByDistanceToPos(ref actorsInCone, targetingActor.\u0015() - vector2);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInCone, targetingActor.GetTravelBoardSquareWorldPositionForLos() - vector2);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 		if (this.m_includeCaster)
 		{
@@ -101,15 +101,15 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 				actorsInCone.Add(targetingActor);
 			}
 		}
-		float num3 = GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize * (GameWideData.Get().m_actorTargetingRadiusInSquares * Board.\u000E().squareSize);
-		Vector3 a = vector - vector2 * this.m_coneBackwardOffsetInSquares * Board.\u000E().squareSize;
+		float num3 = GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize * (GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize);
+		Vector3 a = vector - vector2 * this.m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		for (int i = 0; i < actorsInCone.Count; i++)
 		{
 			ActorData actorData = actorsInCone[i];
 			if (this.ShouldAddActor(actorData, targetingActor))
 			{
-				base.AddActorInRange(actorData, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Primary, false);
-				if ((a - actorData.\u0015()).sqrMagnitude <= num3)
+				base.AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, false);
+				if ((a - actorData.GetTravelBoardSquareWorldPositionForLos()).sqrMagnitude <= num3)
 				{
 					for (;;)
 					{
@@ -120,7 +120,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 						}
 						break;
 					}
-					base.AddActorInRange(actorData, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Far, true);
+					base.AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Far, true);
 				}
 			}
 		}
@@ -129,7 +129,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 
 	public void CreateConeCursorHighlights(Vector3 coneStartPos, Vector3 centerAimDir, float coneLengthSquares, float coneWidthDegrees)
 	{
-		float d = this.m_coneBackwardOffsetInSquares * Board.\u000E().squareSize;
+		float d = this.m_coneBackwardOffsetInSquares * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		Vector3 position = coneStartPos + new Vector3(0f, y, 0f) - centerAimDir * d;
 		if (this.m_highlights != null)
@@ -179,7 +179,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ReverseStretchCone.DrawInvalidSquareIndicators(ActorData, Vector3, float, float, float)).MethodHandle;
 			}
 			this.m_coneChecker.UpdateConeProperties(coneStartPos, coneWidthDegrees, coneLengthSquares - this.m_coneBackwardOffsetInSquares, this.m_coneBackwardOffsetInSquares, forwardDir_degrees, targetingActor);
-			this.m_coneChecker.SetLosPosOverride(true, targetingActor.\u0015(), false);
+			this.m_coneChecker.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), false);
 			base.ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStartPos, forwardDir_degrees, coneWidthDegrees, coneLengthSquares - this.m_coneBackwardOffsetInSquares, this.m_coneBackwardOffsetInSquares, targetingActor, this.m_penetrateLoS, this.m_squarePosCheckerList);
 			base.HideUnusedSquareIndicators();
@@ -208,7 +208,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		}
 		else
 		{
-			if (actor.\u000E() == caster.\u000E())
+			if (actor.GetTeam() == caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -234,7 +234,7 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 					goto IL_7F;
 				}
 			}
-			if (actor.\u000E() != caster.\u000E())
+			if (actor.GetTeam() != caster.GetTeam())
 			{
 				for (;;)
 				{
@@ -254,8 +254,8 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		IL_7F:
 		if (!this.m_penetrateLoS)
 		{
-			BoardSquare boardSquare = actor.\u0012();
-			if (!caster.\u0012().\u0013(boardSquare.x, boardSquare.y))
+			BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
+			if (!caster.GetCurrentBoardSquare().\u0013(currentBoardSquare.x, currentBoardSquare.y))
 			{
 				for (;;)
 				{

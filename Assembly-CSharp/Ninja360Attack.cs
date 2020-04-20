@@ -822,7 +822,7 @@ public class Ninja360Attack : Ability
 					break;
 				}
 				ConeTargetingInfo coneInfo = this.GetConeInfo();
-				return AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.\u0012(), caster.\u0016(), coneForwardAngle, this.GetInnerConeAngle(), coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, this.PenetrateLineOfSight(), caster, false, default(Vector3));
+				return AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), caster.GetTravelBoardSquareWorldPosition(), coneForwardAngle, this.GetInnerConeAngle(), coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, this.PenetrateLineOfSight(), caster, false, default(Vector3));
 			}
 		}
 		return false;

@@ -63,7 +63,7 @@ public class ConfirmedState : TurnState
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ConfirmedState.OnMsg(TurnMessage, int)).MethodHandle;
 			}
 			ActorData component = this.m_SM.GetComponent<ActorData>();
-			if (component != null && !component.\u000E())
+			if (component != null && !component.IsDead())
 			{
 				for (;;)
 				{
@@ -74,7 +74,7 @@ public class ConfirmedState : TurnState
 					}
 					break;
 				}
-				Log.Error(component.\u0018() + " handling TURN_START message in Confirmed state", new object[0]);
+				Log.Error(component.GetDebugName() + " handling TURN_START message in Confirmed state", new object[0]);
 				this.m_SM.SetupForNewTurn();
 				this.m_SM.NextState = TurnStateEnum.DECIDING;
 			}
@@ -128,7 +128,7 @@ public class ConfirmedState : TurnState
 					}
 					break;
 				}
-				if (!component2.\u0015())
+				if (!component2.ShouldPickRespawn_zq())
 				{
 					for (;;)
 					{
@@ -159,7 +159,7 @@ public class ConfirmedState : TurnState
 				break;
 			}
 			ActorData component3 = this.m_SM.GetComponent<ActorData>();
-			if (component3.\u000E().AllowUnconfirm())
+			if (component3.GetTimeBank().AllowUnconfirm())
 			{
 				this.m_SM.OnActionsUnconfirmed();
 				this.m_SM.NextState = TurnStateEnum.DECIDING;
@@ -263,7 +263,7 @@ public class ConfirmedState : TurnState
 						}
 						break;
 					}
-					if (component.\u000E().AllowUnconfirm())
+					if (component.GetTimeBank().AllowUnconfirm())
 					{
 						this.m_SM.OnActionsUnconfirmed();
 						this.m_SM.HandledMouseInput = true;

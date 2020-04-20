@@ -682,8 +682,8 @@ public class SparkEnergized : Ability
 		{
 			return true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -698,7 +698,7 @@ public class SparkEnergized : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkEnergized.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				List<ActorData> beamActors = caster.GetComponent<SparkBeamTrackerComponent>().GetBeamActors();
 				List<BoardSquare> list = new List<BoardSquare>();
@@ -707,7 +707,7 @@ public class SparkEnergized : Ability
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						if (actorData.\u0012() != null)
+						if (actorData.GetCurrentBoardSquare() != null)
 						{
 							for (;;)
 							{
@@ -718,7 +718,7 @@ public class SparkEnergized : Ability
 								}
 								break;
 							}
-							list.Add(actorData.\u0012());
+							list.Add(actorData.GetCurrentBoardSquare());
 						}
 					}
 					for (;;)
@@ -731,7 +731,7 @@ public class SparkEnergized : Ability
 						break;
 					}
 				}
-				return list.Contains(boardSquare);
+				return list.Contains(boardSquareSafe);
 			}
 		}
 		return false;
@@ -886,7 +886,7 @@ public class SparkEnergized : Ability
 									}
 									break;
 								}
-								if (actorData2.\u000E() == actorData.\u000E())
+								if (actorData2.GetTeam() == actorData.GetTeam())
 								{
 									for (;;)
 									{

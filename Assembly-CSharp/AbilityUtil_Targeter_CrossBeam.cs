@@ -77,7 +77,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
 			}
 			this.ClearHighlightCursors(true);
-			float squareSize = Board.\u000E().squareSize;
+			float squareSize = Board.Get().squareSize;
 			float lengthInWorld = this.m_distanceInSquares * squareSize;
 			float widthInWorld = this.m_widthInSquares * squareSize;
 			for (int i = 0; i < this.GetNumLasers(); i++)
@@ -95,13 +95,13 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 			}
 		}
 		List<Vector3> laserEndPoints = this.GetLaserEndPoints(currentTarget, targetingActor);
-		Vector3 vector = targetingActor.\u0015();
-		Vector3 a = targetingActor.\u0016();
-		Vector3 position = a + new Vector3(0f, 0.1f, 0f);
+		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
+		Vector3 position = travelBoardSquareWorldPosition + new Vector3(0f, 0.1f, 0f);
 		for (int j = 0; j < laserEndPoints.Count; j++)
 		{
 			this.m_highlights[j].transform.position = position;
-			this.m_highlights[j].transform.rotation = Quaternion.LookRotation(laserEndPoints[j] - vector);
+			this.m_highlights[j].transform.rotation = Quaternion.LookRotation(laserEndPoints[j] - travelBoardSquareWorldPositionForLos);
 		}
 		for (;;)
 		{
@@ -115,12 +115,12 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 		HashSet<ActorData> hashSet = new HashSet<ActorData>();
 		for (int k = 0; k < laserEndPoints.Count; k++)
 		{
-			Vector3 vector2 = laserEndPoints[k];
-			Vector3 a2 = vector2 - vector;
-			a2.y = 0f;
-			a2.Normalize();
-			Vector3 startPos = vector + Board.\u000E().squareSize * a2;
-			List<ActorData> actorsInBoxByActorRadius = AreaEffectUtils.GetActorsInBoxByActorRadius(startPos, vector2, this.m_widthInSquares, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null, null);
+			Vector3 vector = laserEndPoints[k];
+			Vector3 a = vector - travelBoardSquareWorldPositionForLos;
+			a.y = 0f;
+			a.Normalize();
+			Vector3 startPos = travelBoardSquareWorldPositionForLos + Board.Get().squareSize * a;
+			List<ActorData> actorsInBoxByActorRadius = AreaEffectUtils.GetActorsInBoxByActorRadius(startPos, vector, this.m_widthInSquares, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null, null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInBoxByActorRadius);
 			List<ActorData> list = new List<ActorData>();
 			using (List<ActorData>.Enumerator enumerator = actorsInBoxByActorRadius.GetEnumerator())
@@ -181,7 +181,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 							}
 							break;
 						}
-						base.AddActorInRange(actorData2, vector, targetingActor, AbilityTooltipSubject.Primary, false);
+						base.AddActorInRange(actorData2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 						AbilityUtil_Targeter_CrossBeam.HitActorContext item;
 						item.actor = actorData2;
 						item.totalTargetsInLaser = list.Count;
@@ -199,7 +199,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 					break;
 				}
 			}
-			this.UpdateLaserEndPointsForHiddenSquares(startPos, vector2, k, targetingActor);
+			this.UpdateLaserEndPointsForHiddenSquares(startPos, vector, k, targetingActor);
 		}
 		if (this.m_affectsTargetingActor)
 		{
@@ -212,7 +212,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0015(), targetingActor, AbilityTooltipSubject.Primary, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Primary, false);
 		}
 		if (this.m_knockbackDistance > 0f)
 		{
@@ -233,7 +233,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 				while (enumerator3.MoveNext())
 				{
 					ActorData actorData3 = enumerator3.Current;
-					if (actorData3.\u000E() != targetingActor.\u000E())
+					if (actorData3.GetTeam() != targetingActor.GetTeam())
 					{
 						for (;;)
 						{
@@ -255,7 +255,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 								}
 								break;
 							}
-							BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData3, this.m_knockbackType, currentTarget.AimDirection, targetingActor.\u0016(), this.m_knockbackDistance);
+							BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData3, this.m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), this.m_knockbackDistance);
 							num = base.AddMovementArrowWithPrevious(actorData3, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 						}
 					}
@@ -316,7 +316,7 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 					}
 					break;
 				}
-				result = (VectorUtils.HorizontalPlaneDistInSquares(target.\u0016(), caster.\u0016()) < this.m_knockbackThresholdDistance);
+				result = (VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < this.m_knockbackThresholdDistance);
 			}
 			else
 			{
@@ -357,15 +357,15 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 	private List<Vector3> GetLaserEndPoints(AbilityTarget target, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		Vector3 startPos = caster.\u0015();
-		float maxDistanceInWorld = this.m_distanceInSquares * Board.\u000E().squareSize;
+		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
+		float maxDistanceInWorld = this.m_distanceInSquares * Board.Get().squareSize;
 		List<Vector3> laserDirections = this.GetLaserDirections(target, caster);
 		using (List<Vector3>.Enumerator enumerator = laserDirections.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				Vector3 dir = enumerator.Current;
-				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, dir, maxDistanceInWorld, this.m_penetrateLoS, caster, null, true);
+				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, dir, maxDistanceInWorld, this.m_penetrateLoS, caster, null, true);
 				list.Add(laserEndPoint);
 			}
 			for (;;)

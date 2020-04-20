@@ -43,14 +43,14 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float num = this.m_laserWidth * Board.\u000E().squareSize;
-		float num2 = this.m_laserMiddleWidth * Board.\u000E().squareSize;
+		float num = this.m_laserWidth * Board.Get().squareSize;
+		float num2 = this.m_laserMiddleWidth * Board.Get().squareSize;
 		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
 		base.ClearActorsInRange();
 		VectorUtils.LaserCoords laserCoords;
-		laserCoords.start = targetingActor.\u0015();
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, this.m_laserRange, this.m_laserWidth, targetingActor, targetingActor.\u0015(), this.m_penetrateLos, this.m_maxTargets, this.m_lengthIgnoreGeo, false, out laserCoords.end, null, null, false, true);
-		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, this.m_laserRange, this.m_laserMiddleWidth, targetingActor, targetingActor.\u0015(), this.m_penetrateLos, this.m_maxTargets, this.m_lengthIgnoreGeo, false, out laserCoords.end, null, null, false, true);
+		laserCoords.start = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, this.m_laserRange, this.m_laserWidth, targetingActor, targetingActor.GetOpposingTeams(), this.m_penetrateLos, this.m_maxTargets, this.m_lengthIgnoreGeo, false, out laserCoords.end, null, null, false, true);
+		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, currentTarget.AimDirection, this.m_laserRange, this.m_laserMiddleWidth, targetingActor, targetingActor.GetOpposingTeams(), this.m_penetrateLos, this.m_maxTargets, this.m_lengthIgnoreGeo, false, out laserCoords.end, null, null, false, true);
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;
 		using (List<ActorData>.Enumerator enumerator = actorsInLaser2.GetEnumerator())
 		{
@@ -75,15 +75,15 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		}
 		int num3 = 0;
 		base.EnableAllMovementArrows();
-		Vector3 sourcePos = targetingActor.\u0016();
+		Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 		foreach (ActorData actorData in actorsInLaser)
 		{
 			if (!actorsInLaser2.Contains(actorData))
 			{
 				base.AddActorInRange(actorData, laserCoords2.start, targetingActor, AbilityTooltipSubject.Secondary, false);
-				if (targetingActor.TechPoints + targetingActor.ReservedTechPoints >= targetingActor.\u0016())
+				if (targetingActor.TechPoints + targetingActor.ReservedTechPoints >= targetingActor.GetActualMaxTechPoints())
 				{
-					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, sourcePos, this.m_knockbackDistance);
+					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, travelBoardSquareWorldPosition, this.m_knockbackDistance);
 					num3 = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num3, false);
 				}
 			}
@@ -99,7 +99,7 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 				}
 				break;
 			}
-			base.AddActorInRange(targetingActor, targetingActor.\u0016(), targetingActor, AbilityTooltipSubject.Self, false);
+			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		base.SetMovementArrowEnabledFromIndex(num3, false);
 		if (this.m_highlights != null)

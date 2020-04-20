@@ -102,7 +102,7 @@ public class SpoilsSequence : Sequence
 					}
 					if (!(this.m_inaccessibleFxPrefab == null))
 					{
-						flag = (this.m_pickupTeam != GameFlowData.Get().activeOwnedActorData.\u000E());
+						flag = (this.m_pickupTeam != GameFlowData.Get().activeOwnedActorData.GetTeam());
 						goto IL_1F2;
 					}
 					for (;;)

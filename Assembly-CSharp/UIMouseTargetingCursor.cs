@@ -126,8 +126,8 @@ public class UIMouseTargetingCursor : MonoBehaviour
 						}
 						break;
 					}
-					AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.\u000E();
-					ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.\u000E();
+					AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.GetAbilityData();
+					ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM();
 					Ability selectedAbility = abilityData.GetSelectedAbility();
 					if (abilityData != null)
 					{

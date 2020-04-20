@@ -193,7 +193,7 @@ public class ChatterData
 						}
 						break;
 					}
-					if (activeOwnedActorData.\u000E() != component2.\u000E())
+					if (activeOwnedActorData.GetTeam() != component2.GetTeam())
 					{
 						return false;
 					}

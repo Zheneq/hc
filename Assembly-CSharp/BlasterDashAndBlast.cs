@@ -175,8 +175,8 @@ public class BlasterDashAndBlast : Ability
 	{
 		if (targetIndex == 1)
 		{
-			min = this.GetMinLength() * Board.\u000E().squareSize;
-			max = this.GetMaxLength() * Board.\u000E().squareSize;
+			min = this.GetMinLength() * Board.Get().squareSize;
+			max = this.GetMaxLength() * Board.Get().squareSize;
 			return true;
 		}
 		return base.HasRestrictedFreePosDistance(aimingActor, targetIndex, targetsSoFar, out min, out max);
@@ -199,8 +199,8 @@ public class BlasterDashAndBlast : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.HasAimingOriginOverride(ActorData, int, List<AbilityTarget>, Vector3*)).MethodHandle;
 			}
-			BoardSquare boardSquare = Board.\u000E().\u000E(targetsSoFar[0].GridPos);
-			overridePos = boardSquare.\u001D();
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetsSoFar[0].GridPos);
+			overridePos = boardSquareSafe.GetWorldPosition();
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
@@ -853,9 +853,9 @@ public class BlasterDashAndBlast : Ability
 	{
 		if (targetIndex < base.GetNumTargets() - 1)
 		{
-			BoardSquare boardSquare = caster.\u0012();
-			BoardSquare boardSquare2 = Board.\u000E().\u000E(target.GridPos);
-			if (boardSquare2 != null)
+			BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -870,7 +870,7 @@ public class BlasterDashAndBlast : Ability
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDashAndBlast.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 				}
-				if (boardSquare2.\u0016() && boardSquare2 != boardSquare)
+				if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != currentBoardSquare)
 				{
 					for (;;)
 					{
@@ -893,10 +893,10 @@ public class BlasterDashAndBlast : Ability
 							}
 							break;
 						}
-						int stocksRemaining = caster.\u000E().GetStocksRemaining(this.m_myActionType);
+						int stocksRemaining = caster.GetAbilityData().GetStocksRemaining(this.m_myActionType);
 						if (this.StockBasedDistUseSquareCoordDist())
 						{
-							int maxCoordDiff = this.GetMaxCoordDiff(boardSquare, boardSquare2);
+							int maxCoordDiff = this.GetMaxCoordDiff(currentBoardSquare, boardSquareSafe);
 							int num = Mathf.Max(1, stocksRemaining);
 							if (this.GetStockBasedDistMaxSquareCoordDist() > 0)
 							{
@@ -906,10 +906,10 @@ public class BlasterDashAndBlast : Ability
 						}
 						else
 						{
-							Vector3 vector = boardSquare2.ToVector3() - boardSquare.ToVector3();
+							Vector3 vector = boardSquareSafe.ToVector3() - currentBoardSquare.ToVector3();
 							vector.y = 0f;
 							float magnitude = vector.magnitude;
-							float num2 = (float)stocksRemaining * this.GetDistancePerStock() * Board.\u000E().squareSize + 0.05f;
+							float num2 = (float)stocksRemaining * this.GetDistancePerStock() * Board.Get().squareSize + 0.05f;
 							flag = (magnitude <= num2);
 						}
 					}
@@ -926,7 +926,7 @@ public class BlasterDashAndBlast : Ability
 							break;
 						}
 						int num3;
-						result = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare2, boardSquare, false, out num3);
+						result = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, currentBoardSquare, false, out num3);
 					}
 					else
 					{

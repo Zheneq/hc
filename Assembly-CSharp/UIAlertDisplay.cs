@@ -228,10 +228,10 @@ public class UIAlertDisplay : MonoBehaviour
 
 	public void TriggerLowTimePulse(UIAlertDisplay.LowTimePulseType type)
 	{
-		TurnStateEnum currentState = GameFlowData.Get().activeOwnedActorData.\u000E().CurrentState;
+		TurnStateEnum currentState = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM().CurrentState;
 		if (currentState != TurnStateEnum.CONFIRMED)
 		{
-			if (GameFlowData.Get().activeOwnedActorData.\u000E())
+			if (GameFlowData.Get().activeOwnedActorData.IsDead())
 			{
 				for (;;)
 				{
@@ -347,7 +347,7 @@ public class UIAlertDisplay : MonoBehaviour
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAlertDisplay.Update()).MethodHandle;
 				}
-				if (activeOwnedActorData.\u000E())
+				if (activeOwnedActorData.IsDead())
 				{
 					for (;;)
 					{
@@ -358,7 +358,7 @@ public class UIAlertDisplay : MonoBehaviour
 						}
 						break;
 					}
-					if (activeOwnedActorData.\u0012())
+					if (activeOwnedActorData.IsModelAnimatorDisabled())
 					{
 						for (;;)
 						{

@@ -5,48 +5,48 @@ using System.Text;
 
 namespace A
 {
-	internal class \u0019
+	internal class kernel
 	{
-		internal const uint \u001D = 0x400U;
+		internal const uint const001D = 0x400U;
 
-		internal const uint \u000E = 0x40U;
+		internal const uint const000E = 0x40U;
 
-		internal const int \u0012 = 0;
+		internal const int const0012 = 0;
 
-		private static bool \u0015;
+		private static bool staticFlag0015;
 
-		[DllImport("kernel32.dll", EntryPoint = "SetLastError", ExactSpelling = true)]
-		internal static extern void \u0016(uint \u001D);
+		[DllImport("kernel32.dll", ExactSpelling = true)]
+		internal static extern void SetLastError(uint \u001D);
 
-		[DllImport("kernel32.dll", EntryPoint = "CloseHandle", ExactSpelling = true)]
-		internal static extern int \u0016(IntPtr \u001D);
+		[DllImport("kernel32.dll", ExactSpelling = true)]
+		internal static extern int CloseHandle(IntPtr \u001D);
 
-		[DllImport("kernel32.dll", EntryPoint = "OpenProcess", ExactSpelling = true)]
-		internal static extern IntPtr \u0013(uint \u001D, int \u000E, uint \u0012);
+		[DllImport("kernel32.dll", ExactSpelling = true)]
+		internal static extern IntPtr OpenProcess(uint \u001D, int \u000E, uint \u0012);
 
-		[DllImport("kernel32.dll", EntryPoint = "GetCurrentProcessId", ExactSpelling = true)]
-		internal static extern uint \u0016();
+		[DllImport("kernel32.dll", ExactSpelling = true)]
+		internal static extern uint GetCurrentProcessId();
 
-		[DllImport("kernel32.dll", CharSet = CharSet.Auto, EntryPoint = "LoadLibrary", SetLastError = true)]
-		internal static extern IntPtr \u0016(string \u001D);
-
-		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
-		internal static extern \u0019.\u000E \u0016(IntPtr \u001D, string \u000E);
+		[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+		internal static extern IntPtr LoadLibrary(string \u001D);
 
 		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
-		internal static extern \u0019.\u0012 \u0016(IntPtr \u001D, string \u000E);
+		internal static extern kernel.delegate000E GetProcAddress000E(IntPtr \u001D, string \u000E);
 
 		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
-		internal static extern \u0019.\u0013 \u0016(IntPtr \u001D, string \u000E);
+		internal static extern kernel.delegate0012 GetProcAddress0012(IntPtr \u001D, string \u000E);
 
 		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
-		internal static extern \u0019.\u0015 \u0016(IntPtr \u001D, string \u000E);
+		internal static extern kernel.delegate0013 GetProcAddress0013(IntPtr \u001D, string \u000E);
 
 		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
-		internal static extern \u0019.\u0016 \u0016(IntPtr \u001D, string \u000E);
+		internal static extern kernel.delegateIntNoParam GetProcAddress0015(IntPtr \u001D, string \u000E);
 
 		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
-		internal static extern \u0019.\u0009 \u0016(IntPtr \u001D, string \u000E);
+		internal static extern kernel.delegateVoidParamString GetProcAddress0016(IntPtr \u001D, string \u000E);
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
+		internal static extern kernel.delegate0009 GetProcAddress0009(IntPtr \u001D, string \u000E);
 
 		private static int \u0016(IntPtr \u001D, IntPtr \u000E)
 		{
@@ -54,7 +54,7 @@ namespace A
 			{
 				"OLLYDBG"
 			};
-			string strA = \u0019.\u0013(\u001D);
+			string strA = kernel.\u0013(\u001D);
 			foreach (string strB in array)
 			{
 				if (string.Compare(strA, strB, true) == 0)
@@ -70,9 +70,9 @@ namespace A
 					}
 					if (!true)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(\u0019.\u0016(IntPtr, IntPtr)).MethodHandle;
+						RuntimeMethodHandle runtimeMethodHandle = methodof(kernel.\u0016(IntPtr, IntPtr)).MethodHandle;
 					}
-					\u0019.\u0015 = true;
+					kernel.staticFlag0015 = true;
 					return 0;
 				}
 			}
@@ -94,13 +94,13 @@ namespace A
 		internal static string \u0013(IntPtr \u001D)
 		{
 			StringBuilder stringBuilder = new StringBuilder(0x104);
-			\u0019.\u0016(\u001D, stringBuilder, stringBuilder.Capacity);
+			kernel.\u0016(\u001D, stringBuilder, stringBuilder.Capacity);
 			return stringBuilder.ToString();
 		}
 
-		internal static void \u0016()
+		internal static void method0016()
 		{
-			if (\u0019.\u0016())
+			if (kernel.\u0016())
 			{
 				for (;;)
 				{
@@ -113,7 +113,7 @@ namespace A
 				}
 				if (!true)
 				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(\u0019.\u0016()).MethodHandle;
+					RuntimeMethodHandle runtimeMethodHandle = methodof(kernel.method0016()).MethodHandle;
 				}
 				string arg = "Debugger";
 				throw new Exception(string.Format("{0} was found - this software cannot be executed under the {0}.", arg));
@@ -137,24 +137,24 @@ namespace A
 					}
 					if (!true)
 					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(\u0019.\u0016()).MethodHandle;
+						RuntimeMethodHandle runtimeMethodHandle = methodof(kernel.\u0016()).MethodHandle;
 					}
 					return true;
 				}
-				IntPtr u001D = \u0019.\u0016("kernel32.dll");
-				\u0019.\u0015 u = \u0019.\u0016(u001D, "IsDebuggerPresent");
-				if (u != null && u() != 0)
+				IntPtr u001D = kernel.LoadLibrary("kernel32.dll");
+				kernel.delegateIntNoParam procAddress = kernel.GetProcAddress0015(u001D, "IsDebuggerPresent");
+				if (procAddress != null && procAddress() != 0)
 				{
 					return true;
 				}
-				uint u2 = \u0019.\u0016();
-				IntPtr intPtr = \u0019.\u0013(0x400U, 0, u2);
+				uint currentProcessId = kernel.GetCurrentProcessId();
+				IntPtr intPtr = kernel.OpenProcess(0x400U, 0, currentProcessId);
 				if (intPtr != IntPtr.Zero)
 				{
 					try
 					{
-						\u0019.\u0013 u3 = \u0019.\u0016(u001D, "CheckRemoteDebuggerPresent");
-						if (u3 != null)
+						kernel.delegate0013 procAddress2 = kernel.GetProcAddress0013(u001D, "CheckRemoteDebuggerPresent");
+						if (procAddress2 != null)
 						{
 							for (;;)
 							{
@@ -166,7 +166,7 @@ namespace A
 								break;
 							}
 							int num = 0;
-							if (u3(intPtr, ref num) != 0)
+							if (procAddress2(intPtr, ref num) != 0)
 							{
 								for (;;)
 								{
@@ -195,13 +195,13 @@ namespace A
 					}
 					finally
 					{
-						\u0019.\u0016(intPtr);
+						kernel.CloseHandle(intPtr);
 					}
 				}
 				bool flag = false;
 				try
 				{
-					\u0019.\u0016(new IntPtr(0x12345678));
+					kernel.CloseHandle(new IntPtr(0x12345678));
 				}
 				catch
 				{
@@ -222,9 +222,9 @@ namespace A
 				}
 				try
 				{
-					IntPtr u001D2 = \u0019.\u0016("user32.dll");
-					\u0019.\u0009 u4 = \u0019.\u0016(u001D2, "EnumWindows");
-					if (u4 != null)
+					IntPtr u001D2 = kernel.LoadLibrary("user32.dll");
+					kernel.delegate0009 procAddress3 = kernel.GetProcAddress0009(u001D2, "EnumWindows");
+					if (procAddress3 != null)
 					{
 						for (;;)
 						{
@@ -235,9 +235,9 @@ namespace A
 							}
 							break;
 						}
-						\u0019.\u0015 = false;
-						u4(new \u0019.\u0018(\u0019.\u0016), IntPtr.Zero);
-						if (\u0019.\u0015)
+						kernel.staticFlag0015 = false;
+						procAddress3(new kernel.delegate0018(kernel.\u0016), IntPtr.Zero);
+						if (kernel.staticFlag0015)
 						{
 							for (;;)
 							{
@@ -263,7 +263,7 @@ namespace A
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
-		internal class \u001D
+		internal class type001D
 		{
 			internal IntPtr \u001D;
 
@@ -278,18 +278,18 @@ namespace A
 			internal IntPtr \u0013;
 		}
 
-		internal delegate int \u000E(IntPtr ProcessHandle, int ProcessInformationClass, \u0019.\u001D ProcessInformation, uint ProcessInformationLength, out uint ReturnLength);
+		internal delegate int delegate000E(IntPtr ProcessHandle, int ProcessInformationClass, kernel.type001D ProcessInformation, uint ProcessInformationLength, out uint ReturnLength);
 
-		internal delegate int \u0012(IntPtr ProcessHandle, int ProcessInformationClass, out uint debugPort, uint ProcessInformationLength, out uint ReturnLength);
+		internal delegate int delegate0012(IntPtr ProcessHandle, int ProcessInformationClass, out uint debugPort, uint ProcessInformationLength, out uint ReturnLength);
 
-		internal delegate int \u0015();
+		internal delegate int delegateIntNoParam();
 
-		internal delegate void \u0016([MarshalAs(UnmanagedType.LPStr)] string lpOutputString);
+		internal delegate void delegateVoidParamString([MarshalAs(UnmanagedType.LPStr)] string lpOutputString);
 
-		internal delegate int \u0013(IntPtr hProcess, ref int pbDebuggerPresent);
+		internal delegate int delegate0013(IntPtr hProcess, ref int pbDebuggerPresent);
 
-		internal delegate int \u0018(IntPtr wnd, IntPtr lParam);
+		internal delegate int delegate0018(IntPtr wnd, IntPtr lParam);
 
-		internal delegate int \u0009(\u0019.\u0018 lpEnumFunc, IntPtr lParam);
+		internal delegate int delegate0009(kernel.delegate0018 lpEnumFunc, IntPtr lParam);
 	}
 }

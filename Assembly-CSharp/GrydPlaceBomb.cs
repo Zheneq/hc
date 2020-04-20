@@ -58,7 +58,7 @@ public class GrydPlaceBomb : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydPlaceBomb.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			start = caster.\u000E();
+			start = caster.GetGridPosWithIncrementedHeight();
 		}
 		else
 		{
@@ -68,8 +68,8 @@ public class GrydPlaceBomb : Ability
 		{
 			return false;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -80,7 +80,7 @@ public class GrydPlaceBomb : Ability
 				}
 				break;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 			}

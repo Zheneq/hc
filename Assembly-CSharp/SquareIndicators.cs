@@ -71,7 +71,7 @@ public class SquareIndicators
 
 	public int ShowIndicatorForSquare(BoardSquare square)
 	{
-		if (!(square == null) && square.\u0016())
+		if (!(square == null) && square.IsBaselineHeight())
 		{
 			if (HighlightUtils.Get() == null)
 			{

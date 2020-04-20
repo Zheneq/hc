@@ -525,9 +525,9 @@ public class SoldierConeOrLaser : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.ShouldUseExtraDamageForNearTarget(ActorData, ActorData)).MethodHandle;
 			}
-			Vector3 vector = target.\u0016() - caster.\u0016();
+			Vector3 vector = target.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 			vector.y = 0f;
-			return vector.magnitude < this.GetCloseDistThreshold() * Board.\u000E().squareSize;
+			return vector.magnitude < this.GetCloseDistThreshold() * Board.Get().squareSize;
 		}
 		return false;
 	}
@@ -796,7 +796,7 @@ public class SoldierConeOrLaser : Ability
 							}
 							break;
 						}
-						if (actorData.\u000E().HasAnyCover(false))
+						if (actorData.GetActorCover().HasAnyCover(false))
 						{
 							num += this.GetExtraDamageForFromCover();
 						}
@@ -942,7 +942,7 @@ public class SoldierConeOrLaser : Ability
 
 	private bool ShouldUseCone(Vector3 freePos, ActorData caster)
 	{
-		Vector3 vector = freePos - caster.\u0016();
+		Vector3 vector = freePos - caster.GetTravelBoardSquareWorldPosition();
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
 		return magnitude <= this.m_coneDistThreshold;

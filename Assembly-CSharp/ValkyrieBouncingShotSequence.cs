@@ -36,8 +36,8 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieBouncingShotSequence.UpdateProjectileFX()).MethodHandle;
 			}
-			Animator animator = base.Caster.\u000E();
-			animator.SetFloat(ValkyrieBouncingShotSequence.animDistToGoal, this.m_totalTravelDistance - this.m_distanceTraveled);
+			Animator modelAnimator = base.Caster.GetModelAnimator();
+			modelAnimator.SetFloat(ValkyrieBouncingShotSequence.animDistToGoal, this.m_totalTravelDistance - this.m_distanceTraveled);
 			if (this.m_curSegment != curSegment && this.m_curSegment == this.m_segmentPts.Count - 2)
 			{
 				for (;;)

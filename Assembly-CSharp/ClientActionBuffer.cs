@@ -382,7 +382,7 @@ public class ClientActionBuffer : MonoBehaviour
 						break;
 					}
 				}
-				if (ClientAbilityResults.\u001D)
+				if (ClientAbilityResults.LogMissingSequences)
 				{
 					for (;;)
 					{

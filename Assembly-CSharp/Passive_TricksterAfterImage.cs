@@ -40,7 +40,7 @@ public class Passive_TricksterAfterImage : Passive
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(Passive_TricksterAfterImage.GetFromActor(ActorData)).MethodHandle;
 			}
-			PassiveData passiveData = actor.\u000E();
+			PassiveData passiveData = actor.GetPassiveData();
 			if (passiveData != null)
 			{
 				for (;;)

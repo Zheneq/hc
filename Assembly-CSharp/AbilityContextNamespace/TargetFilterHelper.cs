@@ -40,7 +40,7 @@ namespace AbilityContextNamespace
 						}
 						break;
 					}
-					bool flag = \u000E.\u000E() == \u0012.\u000E();
+					bool flag = \u000E.GetTeam() == \u0012.GetTeam();
 					bool flag2 = \u000E == \u0012;
 					bool flag3;
 					if (\u001D != TeamFilter.\u001D)
@@ -184,7 +184,7 @@ namespace AbilityContextNamespace
 							}
 							else
 							{
-								int u001D = numericContextValueCompareCond.\u001D();
+								int contextKey = numericContextValueCompareCond.GetContextKey();
 								bool flag2 = false;
 								float num = 0f;
 								ContextVars contextVars = \u000E.\u0015;
@@ -201,7 +201,7 @@ namespace AbilityContextNamespace
 									}
 									contextVars = \u0012;
 								}
-								if (contextVars.\u0015(u001D, ContextValueType.\u001D))
+								if (contextVars.Contains(contextKey, ContextValueType.INT))
 								{
 									for (;;)
 									{
@@ -212,10 +212,10 @@ namespace AbilityContextNamespace
 										}
 										break;
 									}
-									num = (float)contextVars.\u0015(u001D);
+									num = (float)contextVars.GetInt(contextKey);
 									flag2 = true;
 								}
-								else if (contextVars.\u0015(u001D, ContextValueType.\u000E))
+								else if (contextVars.Contains(contextKey, ContextValueType.FLOAT))
 								{
 									for (;;)
 									{
@@ -226,7 +226,7 @@ namespace AbilityContextNamespace
 										}
 										break;
 									}
-									num = contextVars.\u0015(u001D);
+									num = contextVars.GetFloat(contextKey);
 									flag2 = true;
 								}
 								float testValue = numericContextValueCompareCond.m_testValue;

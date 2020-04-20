@@ -364,7 +364,7 @@ public class GameFlow : NetworkBehaviour
 				}
 				break;
 			}
-			if (GameFlowData.Get().activeOwnedActorData.\u000E() != message.RestrictVisibiltyToTeam)
+			if (GameFlowData.Get().activeOwnedActorData.GetTeam() != message.RestrictVisibiltyToTeam)
 			{
 				return;
 			}

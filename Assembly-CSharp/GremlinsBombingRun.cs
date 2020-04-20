@@ -262,8 +262,8 @@ public class GremlinsBombingRun : Ability
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
 		bool flag = true;
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (!(boardSquare == null))
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (!(boardSquareSafe == null))
 		{
 			for (;;)
 			{
@@ -278,7 +278,7 @@ public class GremlinsBombingRun : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (this.m_numSteps < 2)
 				{
@@ -292,7 +292,7 @@ public class GremlinsBombingRun : Ability
 						break;
 					}
 					int num = 0;
-					flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num);
+					flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 				}
 				else
 				{
@@ -307,8 +307,8 @@ public class GremlinsBombingRun : Ability
 							}
 							break;
 						}
-						BoardSquare boardSquare2 = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos);
-						if (boardSquare == boardSquare2)
+						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
+						if (boardSquareSafe == boardSquareSafe2)
 						{
 							flag = false;
 						}
@@ -335,17 +335,17 @@ public class GremlinsBombingRun : Ability
 									}
 									break;
 								}
-								vector = Board.\u000E().\u000E(currentTargets[targetIndex - 2].GridPos).ToVector3();
+								vector = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 2].GridPos).ToVector3();
 							}
 							else
 							{
-								vector = caster.\u0016();
+								vector = caster.GetTravelBoardSquareWorldPosition();
 							}
 							Vector3 b = vector;
-							Vector3 a = Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos).ToVector3();
+							Vector3 a = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos).ToVector3();
 							Vector3 from = a - b;
 							from.y = 0f;
-							Vector3 to = boardSquare.ToVector3() - boardSquare2.ToVector3();
+							Vector3 to = boardSquareSafe.ToVector3() - boardSquareSafe2.ToVector3();
 							int num2 = Mathf.RoundToInt(Vector3.Angle(from, to));
 							if (num2 > Mathf.RoundToInt(this.GetMaxAngleWithFirstSegment()))
 							{
@@ -368,11 +368,11 @@ public class GremlinsBombingRun : Ability
 								}
 								break;
 							}
-							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num3);
+							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num3);
 						}
 						else
 						{
-							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, Board.\u000E().\u000E(currentTargets[targetIndex - 1].GridPos), false, out num3);
+							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos), false, out num3);
 						}
 						if (flag2)
 						{
@@ -458,7 +458,7 @@ public class GremlinsBombingRun : Ability
 							if (targetIndex < this.m_numSteps - 1)
 							{
 								List<BoardSquare> list = new List<BoardSquare>();
-								list.Add(caster.\u0012());
+								list.Add(caster.GetCurrentBoardSquare());
 								int i = 0;
 								while (i < targetIndex)
 								{
@@ -485,12 +485,12 @@ public class GremlinsBombingRun : Ability
 									}
 									else
 									{
-										list.Add(Board.\u000E().\u000E(currentTargets[i].GridPos));
+										list.Add(Board.Get().GetBoardSquareSafe(currentTargets[i].GridPos));
 										i++;
 									}
 								}
 								IL_2CF:
-								flag = this.CanTargetForNextClick(boardSquare, targetIndex + 1, list, caster);
+								flag = this.CanTargetForNextClick(boardSquareSafe, targetIndex + 1, list, caster);
 							}
 						}
 					}
@@ -566,7 +566,7 @@ public class GremlinsBombingRun : Ability
 					}
 					float coneLengthRadiusInSquares = (float)this.GetMaxSquaresPerJump() * 1.42f;
 					List<BoardSquare> squaresInCone = AreaEffectUtils.GetSquaresInCone(fromSquare.ToVector3(), coneCenterAngleDegrees, coneWidthDegrees, coneLengthRadiusInSquares, 0f, false, caster);
-					float num = (float)this.GetMinSquaresPerJump() * Board.\u000E().squareSize;
+					float num = (float)this.GetMinSquaresPerJump() * Board.Get().squareSize;
 					int i = 0;
 					while (i < squaresInCone.Count)
 					{
@@ -585,7 +585,7 @@ public class GremlinsBombingRun : Ability
 						else
 						{
 							BoardSquare boardSquare = squaresInCone[i];
-							if (boardSquare.\u0016())
+							if (boardSquare.IsBaselineHeight())
 							{
 								for (;;)
 								{

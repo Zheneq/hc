@@ -116,9 +116,9 @@ public class ScampVfxController : CopyableVfxControllerComponent
 					}
 					break;
 				}
-				if (actorData2.\u0018())
+				if (actorData2.IsVisibleToClient())
 				{
-					if (!(actorData2.\u000E() == null))
+					if (!(actorData2.GetActorModelData() == null))
 					{
 						for (;;)
 						{
@@ -129,7 +129,7 @@ public class ScampVfxController : CopyableVfxControllerComponent
 							}
 							break;
 						}
-						flag2 = actorData2.\u000E().IsVisibleToClient();
+						flag2 = actorData2.GetActorModelData().IsVisibleToClient();
 					}
 					else
 					{

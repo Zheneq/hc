@@ -150,7 +150,7 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 			}
 			if (this.m_destPosAlwaysUseGroundHeight)
 			{
-				vector2.y = (float)Board.\u000E().BaselineHeight + this.m_yOffset;
+				vector2.y = (float)Board.Get().BaselineHeight + this.m_yOffset;
 			}
 			else
 			{
@@ -185,7 +185,7 @@ public class ArcingProjectileSequence : SplineProjectileSequence
 						}
 						break;
 					}
-					vector2.y = (float)Board.\u000E().BaselineHeight + this.m_yOffset;
+					vector2.y = (float)Board.Get().BaselineHeight + this.m_yOffset;
 				}
 			}
 			IL_168:

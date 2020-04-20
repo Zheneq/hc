@@ -102,7 +102,7 @@ public class ClientPowerupResults
 		}
 		else
 		{
-			if (ClientAbilityResults.\u001D)
+			if (ClientAbilityResults.LogMissingSequences)
 			{
 				for (;;)
 				{

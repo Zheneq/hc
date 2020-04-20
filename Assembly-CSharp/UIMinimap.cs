@@ -132,18 +132,18 @@ public class UIMinimap : MonoBehaviour
 			return;
 		}
 		Color[] pixels = this.fogTexture.GetPixels(0, 0, this.fogXPixelSize, this.fogYPixelSize);
-		float num = (float)this.fogXPixelSize / (float)Board.\u000E().\u000E();
-		float num2 = (float)this.fogYPixelSize / (float)Board.\u000E().\u0012();
+		float num = (float)this.fogXPixelSize / (float)Board.Get().GetMaxX();
+		float num2 = (float)this.fogYPixelSize / (float)Board.Get().GetMaxY();
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		for (int i = 0; i < pixels.Length; i++)
 		{
 			int x = Mathf.FloorToInt((float)(i % this.fogXPixelSize) / num);
 			int y = Mathf.FloorToInt((float)(i / this.fogXPixelSize) / num2);
-			GridPos u001D = default(GridPos);
-			u001D.x = x;
-			u001D.y = y;
-			BoardSquare boardSquare = Board.\u000E().\u000E(u001D);
-			if (boardSquare != null)
+			GridPos gridPos = default(GridPos);
+			gridPos.x = x;
+			gridPos.y = y;
+			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+			if (boardSquareSafe != null)
 			{
 				for (;;)
 				{
@@ -154,7 +154,7 @@ public class UIMinimap : MonoBehaviour
 					}
 					break;
 				}
-				if (boardSquare.\u0016())
+				if (boardSquareSafe.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -165,7 +165,7 @@ public class UIMinimap : MonoBehaviour
 						}
 						break;
 					}
-					if (activeOwnedActorData.\u000E().IsVisible(boardSquare))
+					if (activeOwnedActorData.GetFogOfWar().IsVisible(boardSquareSafe))
 					{
 						for (;;)
 						{
@@ -224,14 +224,14 @@ public class UIMinimap : MonoBehaviour
 
 	private Vector3 GetMinimapPositionFromWorldPosition(Vector3 worldPosition)
 	{
-		GridPos u001D = default(GridPos);
-		u001D.x = 0;
-		u001D.y = 0;
-		Vector3 b = Board.\u000E().\u000E(u001D).ToVector3();
+		GridPos gridPos = default(GridPos);
+		gridPos.x = 0;
+		gridPos.y = 0;
+		Vector3 b = Board.Get().GetBoardSquareSafe(gridPos).ToVector3();
 		Vector3 vector = worldPosition - b;
-		u001D.x = this.m_maxX - 1;
-		u001D.y = this.m_maxY - 1;
-		Vector3 a = Board.\u000E().\u000E(u001D).ToVector3();
+		gridPos.x = this.m_maxX - 1;
+		gridPos.y = this.m_maxY - 1;
+		Vector3 a = Board.Get().GetBoardSquareSafe(gridPos).ToVector3();
 		Vector3 vector2 = a - b;
 		float num = vector.x / vector2.x;
 		float num2 = vector.z / vector2.z;
@@ -300,7 +300,7 @@ public class UIMinimap : MonoBehaviour
 					}
 					break;
 				}
-				if (GameFlowData.Get().activeOwnedActorData.\u000E() != null)
+				if (GameFlowData.Get().activeOwnedActorData.GetActorController() != null)
 				{
 					for (;;)
 					{
@@ -323,7 +323,7 @@ public class UIMinimap : MonoBehaviour
 							break;
 						}
 						this.m_lastPingSendTime = Time.time;
-						GameFlowData.Get().activeOwnedActorData.SendPingRequestToServer((int)GameFlowData.Get().activeOwnedActorData.\u000E(), worldPosition, pingType);
+						GameFlowData.Get().activeOwnedActorData.SendPingRequestToServer((int)GameFlowData.Get().activeOwnedActorData.GetTeam(), worldPosition, pingType);
 					}
 				}
 			}
@@ -441,7 +441,7 @@ public class UIMinimap : MonoBehaviour
 			}
 			return;
 		}
-		if (Board.\u000E() == null)
+		if (Board.Get() == null)
 		{
 			for (;;)
 			{
@@ -454,8 +454,8 @@ public class UIMinimap : MonoBehaviour
 			}
 			return;
 		}
-		this.m_maxX = Board.\u000E().\u000E();
-		this.m_maxY = Board.\u000E().\u0012();
+		this.m_maxX = Board.Get().GetMaxX();
+		this.m_maxY = Board.Get().GetMaxY();
 		Transform[] componentsInChildren = this.m_gridLayout.GetComponentsInChildren<Transform>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
@@ -500,10 +500,10 @@ public class UIMinimap : MonoBehaviour
 		{
 			for (int k = 0; k < this.m_maxY; k++)
 			{
-				GridPos u001D = default(GridPos);
-				u001D.x = j;
-				u001D.y = k;
-				BoardSquare boardSquare = Board.\u000E().\u000E(u001D);
+				GridPos gridPos = default(GridPos);
+				gridPos.x = j;
+				gridPos.y = k;
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
 				RectTransform rectTransform = UnityEngine.Object.Instantiate<RectTransform>(this.m_tilePrefab);
 				this.m_tiles[j, k] = rectTransform;
 				rectTransform.transform.SetParent(this.m_gridLayout.transform, false);
@@ -521,7 +521,7 @@ public class UIMinimap : MonoBehaviour
 					}
 					rectTransform.gameObject.name = "ControlPoint minimap image";
 				}
-				else if (boardSquare.\u0016())
+				else if (boardSquareSafe.IsBaselineHeight())
 				{
 					for (;;)
 					{
@@ -629,7 +629,7 @@ public class UIMinimap : MonoBehaviour
 				item.m_uiPlayerIcon.transform.SetAsLastSibling();
 				item.m_uiPlayerIcon.transform.localEulerAngles = Vector3.zero;
 				item.m_uiPlayerIcon.transform.localScale = Vector3.one;
-				item.m_uiPlayerIcon.transform.position = this.m_tiles[actorData.\u000E().x, actorData.\u000E().y].transform.position;
+				item.m_uiPlayerIcon.transform.position = this.m_tiles[actorData.GetGridPosWithIncrementedHeight().x, actorData.GetGridPosWithIncrementedHeight().y].transform.position;
 				item.m_uiPlayerIcon.Setup(item.m_actorData);
 				this.m_minimapActors.Add(item);
 				this.m_buttonHitBox.transform.SetAsLastSibling();
@@ -677,7 +677,7 @@ public class UIMinimap : MonoBehaviour
 		for (int j = 0; j < this.m_minimapActors.Count; j++)
 		{
 			UIMinimap.MinimapActor minimapActor2 = this.m_minimapActors[j];
-			Vector3 minimapPositionFromWorldPosition = this.GetMinimapPositionFromWorldPosition(minimapActor2.m_actorData.\u000E(0f));
+			Vector3 minimapPositionFromWorldPosition = this.GetMinimapPositionFromWorldPosition(minimapActor2.m_actorData.GetNameplatePosition(0f));
 			if (minimapPositionFromWorldPosition != minimapActor2.m_uiPlayerIcon.transform.position)
 			{
 				for (;;)
@@ -719,15 +719,15 @@ public class UIMinimap : MonoBehaviour
 
 	private void CheckMinimapOrientation()
 	{
-		GridPos u001D = default(GridPos);
-		u001D.x = 0;
-		u001D.y = 0;
-		BoardSquare boardSquare = Board.\u000E().\u000E(u001D);
-		GridPos u001D2 = default(GridPos);
-		u001D2.x = 0;
-		u001D2.y = this.m_maxY - 1;
-		BoardSquare boardSquare2 = Board.\u000E().\u000E(u001D2);
-		Vector3 vector = boardSquare2.gameObject.transform.position - boardSquare.gameObject.transform.position;
+		GridPos gridPos = default(GridPos);
+		gridPos.x = 0;
+		gridPos.y = 0;
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+		GridPos gridPos2 = default(GridPos);
+		gridPos2.x = 0;
+		gridPos2.y = this.m_maxY - 1;
+		BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(gridPos2);
+		Vector3 vector = boardSquareSafe2.gameObject.transform.position - boardSquareSafe.gameObject.transform.position;
 		Vector3 forward = Camera.main.transform.forward;
 		forward.y = 0f;
 		vector.y = 0f;
@@ -769,7 +769,7 @@ public class UIMinimap : MonoBehaviour
 		{
 			return;
 		}
-		if (Board.\u000E() != null)
+		if (Board.Get() != null)
 		{
 			for (;;)
 			{
@@ -807,15 +807,15 @@ public class UIMinimap : MonoBehaviour
 				num2 = Mathf.Clamp01(num2);
 				int num3 = Mathf.FloorToInt((float)this.m_maxX * num);
 				int num4 = Mathf.FloorToInt((float)this.m_maxY * num2);
-				GridPos u001D = default(GridPos);
-				u001D.x = num3;
-				u001D.y = num4;
-				BoardSquare boardSquare = Board.\u000E().\u000E(u001D);
+				GridPos gridPos = default(GridPos);
+				gridPos.x = num3;
+				gridPos.y = num4;
+				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
 				IsometricCamera component = Camera.main.GetComponent<IsometricCamera>();
-				if (boardSquare != null)
+				if (boardSquareSafe != null)
 				{
-					Vector3 vector = boardSquare.ToVector3();
-					vector += new Vector3(((float)(this.m_maxX - 1) * num - (float)num3) * Board.\u000E().squareSize, 0f, ((float)(this.m_maxY - 1) * num2 - (float)num4) * Board.\u000E().squareSize);
+					Vector3 vector = boardSquareSafe.ToVector3();
+					vector += new Vector3(((float)(this.m_maxX - 1) * num - (float)num3) * Board.Get().squareSize, 0f, ((float)(this.m_maxY - 1) * num2 - (float)num4) * Board.Get().squareSize);
 					this.m_lastWorldPositionClicked = vector;
 					if (component)
 					{

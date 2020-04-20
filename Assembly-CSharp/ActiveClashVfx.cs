@@ -14,7 +14,7 @@ public class ActiveClashVfx
 	public ActiveClashVfx(BoardSquare square, GameObject vfxPrefab, float timeToExpire, string audioEvent)
 	{
 		this.m_square = square;
-		this.m_vfxObj = UnityEngine.Object.Instantiate<GameObject>(vfxPrefab, square.\u001D(), Quaternion.identity);
+		this.m_vfxObj = UnityEngine.Object.Instantiate<GameObject>(vfxPrefab, square.GetWorldPosition(), Quaternion.identity);
 		this.m_timeCreated = Time.time;
 		this.m_timeToExpire = timeToExpire;
 		if (square != null)

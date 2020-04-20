@@ -70,15 +70,15 @@ public class IceborgDamageArea : GenericAbility_Container
 	public override string GetUsageForEditor()
 	{
 		string str = base.GetUsageForEditor();
-		str += ContextVars.\u0015(IceborgConeOrLaser.s_cvarHasSlow.\u0012(), "Set on enemies hit, 1 if has Slow, 0 otherwise", true);
-		return str + ContextVars.\u0015(IceborgDamageArea.s_cvarTurnsSinceInitialCast.\u0012(), "turns since initial cast, 0 on first turn", false);
+		str += ContextVars.GetDebugString(IceborgConeOrLaser.s_cvarHasSlow.GetName(), "Set on enemies hit, 1 if has Slow, 0 otherwise", true);
+		return str + ContextVars.GetDebugString(IceborgDamageArea.s_cvarTurnsSinceInitialCast.GetName(), "turns since initial cast, 0 on first turn", false);
 	}
 
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(IceborgConeOrLaser.s_cvarHasSlow.\u0012());
-		contextNamesForEditor.Add(IceborgDamageArea.s_cvarTurnsSinceInitialCast.\u0012());
+		contextNamesForEditor.Add(IceborgConeOrLaser.s_cvarHasSlow.GetName());
+		contextNamesForEditor.Add(IceborgDamageArea.s_cvarTurnsSinceInitialCast.GetName());
 		return contextNamesForEditor;
 	}
 
@@ -540,7 +540,7 @@ public class IceborgDamageArea : GenericAbility_Container
 	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
 	{
 		IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, this.GetShieldPerEnemyHit(), actorHitContext, results);
-		if (targetActor.\u000E() != caster.\u000E())
+		if (targetActor.GetTeam() != caster.GetTeam())
 		{
 			if (!this.CanCastToMoveArea())
 			{
@@ -634,10 +634,10 @@ public class IceborgDamageArea : GenericAbility_Container
 
 	public BoardSquare GetMoveStartSquare(AbilityTarget target, ActorData caster)
 	{
-		BoardSquare result = caster.\u0012();
+		BoardSquare result = caster.GetCurrentBoardSquare();
 		if (this.IsMovingShape(caster))
 		{
-			BoardSquare boardSquare = Board.\u000E().\u0016((int)this.m_syncComp.m_damageAreaCenterX, (int)this.m_syncComp.m_damageAreaCenterY);
+			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)this.m_syncComp.m_damageAreaCenterX, (int)this.m_syncComp.m_damageAreaCenterY);
 			if (boardSquare != null)
 			{
 				for (;;)
@@ -678,7 +678,7 @@ public class IceborgDamageArea : GenericAbility_Container
 			}
 			return this.m_syncComp.m_damageAreaFreePos;
 		}
-		return caster.\u0016();
+		return caster.GetTravelBoardSquareWorldPosition();
 	}
 
 	public bool CanCastToMoveArea()
@@ -757,8 +757,8 @@ public class IceborgDamageArea : GenericAbility_Container
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
 			for (;;)
 			{
@@ -773,14 +773,14 @@ public class IceborgDamageArea : GenericAbility_Container
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			BoardSquare boardSquare2 = caster.\u0012();
-			Vector3 b = boardSquare2.ToVector3();
+			BoardSquare boardSquare = caster.GetCurrentBoardSquare();
+			Vector3 b = boardSquare.ToVector3();
 			float num = this.GetInitialCastMaxRange();
 			bool flag = this.TargetingAreaCheckLos();
 			if (this.CanCastToMoveArea())
 			{
-				BoardSquare boardSquare3 = Board.\u000E().\u0016((int)this.m_syncComp.m_damageAreaCenterX, (int)this.m_syncComp.m_damageAreaCenterY);
-				if (boardSquare3 != null)
+				BoardSquare boardSquare2 = Board.Get().GetBoardSquare((int)this.m_syncComp.m_damageAreaCenterX, (int)this.m_syncComp.m_damageAreaCenterY);
+				if (boardSquare2 != null)
 				{
 					for (;;)
 					{
@@ -791,7 +791,7 @@ public class IceborgDamageArea : GenericAbility_Container
 						}
 						break;
 					}
-					if (boardSquare == boardSquare3)
+					if (boardSquareSafe == boardSquare2)
 					{
 						for (;;)
 						{
@@ -804,14 +804,14 @@ public class IceborgDamageArea : GenericAbility_Container
 						}
 						return false;
 					}
-					boardSquare2 = boardSquare3;
+					boardSquare = boardSquare2;
 					num = this.GetMoveAreaCastMaxRange();
 					GroundEffectField groundFieldData = this.GetGroundFieldData();
-					b = AreaEffectUtils.GetCenterOfShape(groundFieldData.shape, this.m_syncComp.m_damageAreaFreePos, boardSquare3);
+					b = AreaEffectUtils.GetCenterOfShape(groundFieldData.shape, this.m_syncComp.m_damageAreaFreePos, boardSquare2);
 				}
 				flag = this.m_moveAreaTargetingCheckLos;
 			}
-			float num2 = VectorUtils.HorizontalPlaneDistInSquares(boardSquare.ToVector3(), b);
+			float num2 = VectorUtils.HorizontalPlaneDistInSquares(boardSquareSafe.ToVector3(), b);
 			bool flag2 = num2 <= num;
 			bool flag3 = true;
 			if (flag2)
@@ -827,7 +827,7 @@ public class IceborgDamageArea : GenericAbility_Container
 				}
 				if (flag)
 				{
-					flag3 = boardSquare2.\u0013(boardSquare.x, boardSquare.y);
+					flag3 = boardSquare.\u0013(boardSquareSafe.x, boardSquareSafe.y);
 				}
 			}
 			bool result;

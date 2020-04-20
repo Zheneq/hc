@@ -69,7 +69,7 @@ public class AbilityTarget
 		Vector3 dir = targetSquare.ToVector3() - currentWorldPos;
 		dir.y = 0f;
 		dir.Normalize();
-		this.SetPosAndDir(targetSquare.\u001D(), targetSquare.ToVector3(), dir);
+		this.SetPosAndDir(targetSquare.GetGridPos(), targetSquare.ToVector3(), dir);
 	}
 
 	internal void OnSerializeHelper(IBitStream stream)
@@ -91,10 +91,10 @@ public class AbilityTarget
 
 	public static AbilityTarget CreateAbilityTargetFromInterface()
 	{
-		Vector3 playerClampedPos = Board.\u000E().PlayerClampedPos;
-		Vector3 playerLookDir = Board.\u000E().PlayerLookDir;
+		Vector3 playerClampedPos = Board.Get().PlayerClampedPos;
+		Vector3 playerLookDir = Board.Get().PlayerLookDir;
 		GridPos targetPos;
-		if (Board.\u000E().PlayerClampedSquare != null)
+		if (Board.Get().PlayerClampedSquare != null)
 		{
 			for (;;)
 			{
@@ -109,7 +109,7 @@ public class AbilityTarget
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.CreateAbilityTargetFromInterface()).MethodHandle;
 			}
-			targetPos = Board.\u000E().PlayerClampedSquare.\u001D();
+			targetPos = Board.Get().PlayerClampedSquare.GetGridPos();
 		}
 		else
 		{
@@ -133,10 +133,10 @@ public class AbilityTarget
 
 	public static void UpdateAbilityTargetForForTargeterUpdate()
 	{
-		Vector3 playerClampedPos = Board.\u000E().PlayerClampedPos;
-		Vector3 playerLookDir = Board.\u000E().PlayerLookDir;
+		Vector3 playerClampedPos = Board.Get().PlayerClampedPos;
+		Vector3 playerLookDir = Board.Get().PlayerLookDir;
 		GridPos gridPos;
-		if (Board.\u000E().PlayerClampedSquare != null)
+		if (Board.Get().PlayerClampedSquare != null)
 		{
 			for (;;)
 			{
@@ -151,7 +151,7 @@ public class AbilityTarget
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.UpdateAbilityTargetForForTargeterUpdate()).MethodHandle;
 			}
-			gridPos = Board.\u000E().PlayerClampedSquare.\u001D();
+			gridPos = Board.Get().PlayerClampedSquare.GetGridPos();
 		}
 		else
 		{
@@ -165,7 +165,7 @@ public class AbilityTarget
 
 	public static AbilityTarget CreateAbilityTargetFromActor(ActorData targetActor, ActorData casterActor)
 	{
-		Vector3 vector = targetActor.\u0016() - casterActor.\u0016();
+		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - casterActor.GetTravelBoardSquareWorldPosition();
 		if (vector != Vector3.zero)
 		{
 			for (;;)
@@ -183,12 +183,12 @@ public class AbilityTarget
 			}
 			vector.Normalize();
 		}
-		return new AbilityTarget(targetActor.\u000E(), targetActor.\u0016(), vector);
+		return new AbilityTarget(targetActor.GetGridPosWithIncrementedHeight(), targetActor.GetTravelBoardSquareWorldPosition(), vector);
 	}
 
 	public static AbilityTarget CreateSimpleAbilityTarget(ActorData casterActor)
 	{
-		return new AbilityTarget(casterActor.\u000E(), casterActor.\u0016(), Vector3.zero);
+		return new AbilityTarget(casterActor.GetGridPosWithIncrementedHeight(), casterActor.GetTravelBoardSquareWorldPosition(), Vector3.zero);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromBoardSquare(BoardSquare targetSquare, Vector3 currentWorldPos)
@@ -196,7 +196,7 @@ public class AbilityTarget
 		Vector3 dir = targetSquare.ToVector3() - currentWorldPos;
 		dir.y = 0f;
 		dir.Normalize();
-		return new AbilityTarget(targetSquare.\u001D(), targetSquare.ToVector3(), dir);
+		return new AbilityTarget(targetSquare.GetGridPos(), targetSquare.ToVector3(), dir);
 	}
 
 	public static AbilityTarget CreateAbilityTargetFromTwoBoardSquares(BoardSquare targetSquare, BoardSquare targetSquare2, Vector3 currentWorldPos)
@@ -234,7 +234,7 @@ public class AbilityTarget
 			}
 			dir.Normalize();
 		}
-		BoardSquare boardSquare = Board.\u000E().\u0013(targetWorldPos.x, targetWorldPos.z);
+		BoardSquare boardSquare = Board.Get().\u0013(targetWorldPos.x, targetWorldPos.z);
 		GridPos targetPos;
 		if (boardSquare)
 		{
@@ -247,7 +247,7 @@ public class AbilityTarget
 				}
 				break;
 			}
-			targetPos = boardSquare.\u001D();
+			targetPos = boardSquare.GetGridPos();
 		}
 		else
 		{
@@ -264,23 +264,23 @@ public class AbilityTarget
 		Vector3 vector = new Vector3(0f, 0f, 0f);
 		foreach (ActorData actorData in playerList)
 		{
-			vector += actorData.\u0016();
+			vector += actorData.GetTravelBoardSquareWorldPosition();
 		}
 		vector /= (float)playerList.Count;
-		Vector3 vector2 = vector - casterActor.\u0016();
+		Vector3 vector2 = vector - casterActor.GetTravelBoardSquareWorldPosition();
 		vector2.y = 0f;
 		vector2.Normalize();
 		bool flag = false;
 		if (vector2 == Vector3.zero)
 		{
-			Vector3 rhs = playerList[0].\u0016() - casterActor.\u0016();
+			Vector3 rhs = playerList[0].GetTravelBoardSquareWorldPosition() - casterActor.GetTravelBoardSquareWorldPosition();
 			rhs.Normalize();
 			vector2 = Vector3.Cross(Vector3.up, rhs);
 			flag = true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u0015(vector.x, vector.z);
+		BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector.x, vector.z);
 		List<AbilityTarget> list = new List<AbilityTarget>();
-		AbilityTarget item = new AbilityTarget(boardSquare.\u001D(), vector, vector2);
+		AbilityTarget item = new AbilityTarget(boardSquareUnsafe.GetGridPos(), vector, vector2);
 		list.Add(item);
 		if (flag)
 		{
@@ -297,7 +297,7 @@ public class AbilityTarget
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.CreateAbilityTargetsFromActorDataList(List<ActorData>, ActorData)).MethodHandle;
 			}
-			AbilityTarget item2 = new AbilityTarget(boardSquare.\u001D(), vector, -vector2);
+			AbilityTarget item2 = new AbilityTarget(boardSquareUnsafe.GetGridPos(), vector, -vector2);
 			list.Add(item2);
 		}
 		return list;
@@ -369,19 +369,19 @@ public class AbilityTarget
 		stream.Serialize(ref b);
 		for (int i = 0; i < (int)b; i++)
 		{
-			short num = -1;
-			short num2 = -1;
+			short x = -1;
+			short y = -1;
 			Vector3 zero = Vector3.zero;
 			Vector3 zero2 = Vector3.zero;
-			stream.Serialize(ref num);
-			stream.Serialize(ref num2);
+			stream.Serialize(ref x);
+			stream.Serialize(ref y);
 			stream.Serialize(ref zero);
 			stream.Serialize(ref zero2);
 			AbilityTarget item = new AbilityTarget(new GridPos
 			{
-				x = (int)num,
-				y = (int)num2,
-				height = (int)Board.\u000E().\u000E((int)num, (int)num2)
+				x = (int)x,
+				y = (int)y,
+				height = (int)Board.Get().GetSquareHeight((int)x, (int)y)
 			}, zero2, zero);
 			list.Add(item);
 		}
@@ -392,8 +392,8 @@ public class AbilityTarget
 	{
 		ActorData result = null;
 		GridPos gridPos = this.GridPos;
-		BoardSquare boardSquare = Board.\u000E().\u000E(gridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -408,9 +408,9 @@ public class AbilityTarget
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTarget.GetCurrentBestActorTarget()).MethodHandle;
 			}
-			if (boardSquare.occupant != null)
+			if (boardSquareSafe.occupant != null)
 			{
-				result = boardSquare.occupant.GetComponent<ActorData>();
+				result = boardSquareSafe.occupant.GetComponent<ActorData>();
 			}
 		}
 		return result;

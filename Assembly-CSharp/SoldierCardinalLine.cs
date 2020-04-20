@@ -506,7 +506,7 @@ public class SoldierCardinalLine : Ability
 									}
 									break;
 								}
-								if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist[targetActor] <= this.GetNearCenterDistThreshold() * Board.\u000E().squareSize)
+								if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist[targetActor] <= this.GetNearCenterDistThreshold() * Board.Get().squareSize)
 								{
 									for (;;)
 									{

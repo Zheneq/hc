@@ -228,9 +228,9 @@ public class ControlPointCoordinator : MonoBehaviour
 							break;
 						}
 					}
-					Vector3 vector = this.m_controlPointSpawnInfo[index].m_boardRegion.\u001D();
-					BoardSquare boardSquare = Board.\u000E().\u0012(vector.x, vector.z);
-					GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_controlPointSpawnInfo[index].m_controlPointPrefab, boardSquare.ToVector3(), Quaternion.identity);
+					Vector3 center = this.m_controlPointSpawnInfo[index].m_boardRegion.GetCenter();
+					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(center.x, center.z);
+					GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_controlPointSpawnInfo[index].m_controlPointPrefab, boardSquareSafe.ToVector3(), Quaternion.identity);
 					ControlPoint component = gameObject.GetComponent<ControlPoint>();
 					if (component == null)
 					{

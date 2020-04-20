@@ -346,7 +346,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 					Debug.LogError("For some reason, there's an entry with a null actor in m_movingActors.");
 					flag = true;
 				}
-				else if (actor.\u000E())
+				else if (actor.IsDead())
 				{
 					for (;;)
 					{
@@ -368,11 +368,11 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						Debug.LogError("One of the actors claimed to be moving is dead (" + actor.\u0018() + "), but the server doesn't consider him doomed.");
+						Debug.LogError("One of the actors claimed to be moving is dead (" + actor.GetDebugName() + "), but the server doesn't consider him doomed.");
 					}
 					flag = true;
 				}
-				else if (actor.\u0012())
+				else if (actor.IsModelAnimatorDisabled())
 				{
 					for (;;)
 					{
@@ -410,7 +410,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 								break;
 							}
 						}
-						Debug.LogError("One of the actors claimed to be moving is ragdolled (" + actor.\u0018() + "), but the server doesn't consider him doomed.");
+						Debug.LogError("One of the actors claimed to be moving is ragdolled (" + actor.GetDebugName() + "), but the server doesn't consider him doomed.");
 					}
 					IL_127:
 					flag = true;
@@ -430,7 +430,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				}
 				else
 				{
-					if (actor.\u0012() != null)
+					if (actor.GetCurrentBoardSquare() != null)
 					{
 						for (;;)
 						{
@@ -441,13 +441,13 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (actor.\u0012() != actor.\u000E())
+						if (actor.GetCurrentBoardSquare() != actor.GetTravelBoardSquare())
 						{
 							flag = false;
 							goto IL_1A5;
 						}
 					}
-					if (actor.\u000E().AmMoving())
+					if (actor.GetActorMovement().AmMoving())
 					{
 						for (;;)
 						{
@@ -690,7 +690,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 				}
 				else
 				{
-					if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(mover.\u000E()))
+					if (GameFlowData.Get().LocalPlayerData.IsViewingTeam(mover.GetTeam()))
 					{
 						string text;
 						if (dest == null)
@@ -721,7 +721,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						Debug.LogError(string.Concat(new string[]
 						{
 							"Friendly-to-client actor ",
-							mover.\u0018(),
+							mover.GetDebugName(),
 							" started moving to boardsquare ",
 							text2,
 							" with MovementType ",
@@ -745,7 +745,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						}
 						break;
 					}
-					if (!(dest != mover.\u0012()))
+					if (!(dest != mover.GetCurrentBoardSquare()))
 					{
 						for (;;)
 						{
@@ -907,7 +907,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			string str = "There were " + this.m_movedButUnhandledActors.Count.ToString() + " actor(s) with unhandled movement even after examining new movement.  Unhandled actors:";
 			for (int k = 0; k < this.m_movedButUnhandledActors.Count; k++)
 			{
-				str = str + "\n\t" + this.m_movedButUnhandledActors[k].\u0018();
+				str = str + "\n\t" + this.m_movedButUnhandledActors[k].GetDebugName();
 			}
 			for (;;)
 			{
@@ -983,7 +983,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementManager.MsgFailsafeHurryMovementPhase(NetworkMessage)).MethodHandle;
 					}
 					list.Add(actorData);
-					text = text + "\n\t" + actorData.\u0018();
+					text = text + "\n\t" + actorData.GetDebugName();
 				}
 			}
 		}

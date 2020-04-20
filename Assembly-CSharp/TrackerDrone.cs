@@ -273,8 +273,8 @@ public class TrackerDrone : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null)
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null)
 		{
 			for (;;)
 			{
@@ -289,7 +289,7 @@ public class TrackerDrone : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 			}
-			if (boardSquare.\u0016())
+			if (boardSquareSafe.IsBaselineHeight())
 			{
 				for (;;)
 				{
@@ -300,11 +300,11 @@ public class TrackerDrone : Ability
 					}
 					break;
 				}
-				if (caster.\u0012() != null)
+				if (caster.GetCurrentBoardSquare() != null)
 				{
-					float num = this.m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.\u000E().squareSize;
-					float num2 = this.m_droneInfoComp.GetTargeterMaxRangeFromCaster(false) * Board.\u000E().squareSize;
-					Vector3 b = caster.\u0016();
+					float num = this.m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
+					float num2 = this.m_droneInfoComp.GetTargeterMaxRangeFromCaster(false) * Board.Get().squareSize;
+					Vector3 b = caster.GetTravelBoardSquareWorldPosition();
 					if (this.m_droneTracker.DroneIsActive())
 					{
 						for (;;)
@@ -316,8 +316,8 @@ public class TrackerDrone : Ability
 							}
 							break;
 						}
-						BoardSquare boardSquare2 = Board.\u000E().\u0016(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
-						if (boardSquare2 != null)
+						BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
+						if (boardSquare != null)
 						{
 							for (;;)
 							{
@@ -328,7 +328,7 @@ public class TrackerDrone : Ability
 								}
 								break;
 							}
-							if (boardSquare == boardSquare2)
+							if (boardSquareSafe == boardSquare)
 							{
 								for (;;)
 								{
@@ -341,12 +341,12 @@ public class TrackerDrone : Ability
 								}
 								return false;
 							}
-							b = boardSquare2.ToVector3();
+							b = boardSquare.ToVector3();
 						}
 					}
 					if (num > 0f)
 					{
-						if (Vector3.Distance(boardSquare.ToVector3(), b) > num)
+						if (Vector3.Distance(boardSquareSafe.ToVector3(), b) > num)
 						{
 							return false;
 						}
@@ -372,7 +372,7 @@ public class TrackerDrone : Ability
 							}
 							break;
 						}
-						result = (Vector3.Distance(boardSquare.ToVector3(), caster.\u0012().ToVector3()) <= num2);
+						result = (Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2);
 					}
 					else
 					{

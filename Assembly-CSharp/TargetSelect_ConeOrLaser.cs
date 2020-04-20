@@ -29,14 +29,14 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0018.\u0012(), "distance from start of cone position, in squares", true) + base.GetContextUsageStr(TargetSelect_ConeOrLaser.s_cvarInCone.\u0012(), "Whether the target hit is in cone", true) + base.GetContextUsageStr(ContextKeys.\u001D.\u0012(), "angle from center of cone", true);
+		return base.GetContextUsageStr(ContextKeys.\u0018.GetName(), "distance from start of cone position, in squares", true) + base.GetContextUsageStr(TargetSelect_ConeOrLaser.s_cvarInCone.GetName(), "Whether the target hit is in cone", true) + base.GetContextUsageStr(ContextKeys.\u001D.GetName(), "angle from center of cone", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
 	{
-		keys.Add(ContextKeys.\u0018.\u0012());
-		keys.Add(TargetSelect_ConeOrLaser.s_cvarInCone.\u0012());
-		keys.Add(ContextKeys.\u001D.\u0012());
+		keys.Add(ContextKeys.\u0018.GetName());
+		keys.Add(TargetSelect_ConeOrLaser.s_cvarInCone.GetName());
+		keys.Add(ContextKeys.\u001D.GetName());
 	}
 
 	public override void Initialize()
@@ -64,7 +64,7 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 
 	public bool ShouldUseCone(Vector3 freePos, ActorData caster)
 	{
-		Vector3 vector = freePos - caster.\u0016();
+		Vector3 vector = freePos - caster.GetTravelBoardSquareWorldPosition();
 		vector.y = 0f;
 		float magnitude = vector.magnitude;
 		return magnitude <= this.GetConeDistThreshold();

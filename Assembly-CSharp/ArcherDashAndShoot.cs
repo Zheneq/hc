@@ -177,8 +177,8 @@ public class ArcherDashAndShoot : Ability
 		{
 			RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null && boardSquare.\u0016() && boardSquare != caster.\u0012())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 		{
 			for (;;)
 			{
@@ -190,7 +190,7 @@ public class ArcherDashAndShoot : Ability
 				break;
 			}
 			int num;
-			return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, caster.\u0012(), false, out num);
+			return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 		}
 		return false;
 	}
@@ -373,8 +373,8 @@ public class ArcherDashAndShoot : Ability
 							}
 							break;
 						}
-						BoardSquare square = Board.\u000E().\u000E(abilityTargetsInRequest[0].GridPos);
-						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(square, true, false, base.ActorData);
+						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
+						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{
 							for (;;)
@@ -422,7 +422,7 @@ public class ArcherDashAndShoot : Ability
 			}
 			Vector3 b;
 			this.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out b);
-			Vector3 vec = aimingActor.\u0016() - b;
+			Vector3 vec = aimingActor.GetTravelBoardSquareWorldPosition() - b;
 			vec.Normalize();
 			float num = VectorUtils.HorizontalAngle_Deg(vec);
 			min = num - this.GetMaxAngleForLaser();
@@ -448,7 +448,7 @@ public class ArcherDashAndShoot : Ability
 		if (targetIndex == 1)
 		{
 			AbilityTarget abilityTarget = targetsSoFar[0];
-			overridePos = aimingActor.\u0012(Board.\u000E().\u000E(abilityTarget.GridPos));
+			overridePos = aimingActor.GetSquareWorldPosition(Board.Get().GetBoardSquareSafe(abilityTarget.GridPos));
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);

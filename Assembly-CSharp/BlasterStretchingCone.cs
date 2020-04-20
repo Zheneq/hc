@@ -747,7 +747,7 @@ public class BlasterStretchingCone : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchingCone.GetExtraDamageForEnemy(ActorData, ActorData)).MethodHandle;
 			}
-			float num = VectorUtils.HorizontalPlaneDistInSquares(caster.\u0016(), target.\u0016()) - 1.4f;
+			float num = VectorUtils.HorizontalPlaneDistInSquares(caster.GetTravelBoardSquareWorldPosition(), target.GetTravelBoardSquareWorldPosition()) - 1.4f;
 			return Mathf.RoundToInt(this.GetExtraDamagePerSquareDistanceFromEnemy() * num);
 		}
 		return 0;
@@ -935,8 +935,8 @@ public class BlasterStretchingCone : Ability
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		min = this.GetMinLength() * Board.\u000E().squareSize;
-		max = this.GetMaxLength() * Board.\u000E().squareSize;
+		min = this.GetMinLength() * Board.Get().squareSize;
+		max = this.GetMaxLength() * Board.Get().squareSize;
 		return true;
 	}
 

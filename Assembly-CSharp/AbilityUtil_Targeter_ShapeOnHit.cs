@@ -47,16 +47,16 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 
 	protected BoardSquare GetGameplayRefSquare(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		GridPos u001D;
+		GridPos gridPos;
 		if (this.GetCurrentRangeInSquares() != 0f)
 		{
-			u001D = currentTarget.GridPos;
+			gridPos = currentTarget.GridPos;
 		}
 		else
 		{
-			u001D = targetingActor.\u000E();
+			gridPos = targetingActor.GetGridPosWithIncrementedHeight();
 		}
-		return Board.\u000E().\u000E(u001D);
+		return Board.Get().GetBoardSquareSafe(gridPos);
 	}
 
 	protected Vector3 GetHighlightGoalPos(AbilityTarget currentTarget, ActorData targetingActor)
@@ -65,7 +65,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 		if (gameplayRefSquare != null)
 		{
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, currentTarget);
-			centerOfShape.y = targetingActor.\u0016().y + this.m_heightOffset;
+			centerOfShape.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfShape;
 		}
 		return Vector3.zero;
@@ -107,7 +107,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ShapeOnHit.MatchesTeam(ActorData, ActorData)).MethodHandle;
 			}
 		}
-		if (targetActor.\u000E() == caster.\u000E())
+		if (targetActor.GetTeam() == caster.GetTeam())
 		{
 			return this.m_affectsAllies;
 		}
@@ -180,7 +180,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 					}
 					break;
 				}
-				damageOrigin = targetingActor.\u0015();
+				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			}
 			else
 			{
@@ -198,7 +198,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 					}
 					break;
 				}
-				if (this.MatchesTeam(occupantActor, targetingActor) && occupantActor.\u0018())
+				if (this.MatchesTeam(occupantActor, targetingActor) && occupantActor.IsVisibleToClient())
 				{
 					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, currentTarget.FreePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
@@ -265,7 +265,7 @@ public class AbilityUtil_Targeter_ShapeOnHit : AbilityUtil_Targeter
 				break;
 			}
 		}
-		if (potentialTarget.\u000E() == targetingActor.\u000E())
+		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{
 			for (;;)
 			{

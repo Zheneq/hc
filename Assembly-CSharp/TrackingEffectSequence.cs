@@ -39,8 +39,8 @@ public class TrackingEffectSequence : Sequence
 					}
 					break;
 				}
-				Vector3 position = base.Target.\u000E("upperRoot_JNT");
-				this.m_trackingEffectVFX = UnityEngine.Object.Instantiate<Transform>(this.m_trackingEffectPrefab, position, Quaternion.identity);
+				Vector3 bonePosition = base.Target.GetBonePosition("upperRoot_JNT");
+				this.m_trackingEffectVFX = UnityEngine.Object.Instantiate<Transform>(this.m_trackingEffectPrefab, bonePosition, Quaternion.identity);
 				this.m_trackingEffectVFX.transform.parent = base.transform;
 				base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_trackingStart);
 			}
@@ -61,7 +61,7 @@ public class TrackingEffectSequence : Sequence
 				Renderer[] componentsInChildren = this.m_trackingEffectVFX.GetComponentsInChildren<Renderer>();
 				foreach (Renderer renderer in componentsInChildren)
 				{
-					renderer.enabled = base.Target.\u000E().enabled;
+					renderer.enabled = base.Target.GetActorModelDataRenderer().enabled;
 				}
 				for (;;)
 				{
@@ -72,8 +72,8 @@ public class TrackingEffectSequence : Sequence
 					}
 					break;
 				}
-				Vector3 position2 = base.Target.\u000E("upperRoot_JNT");
-				this.m_trackingEffectVFX.position = position2;
+				Vector3 bonePosition2 = base.Target.GetBonePosition("upperRoot_JNT");
+				this.m_trackingEffectVFX.position = bonePosition2;
 			}
 		}
 	}

@@ -172,7 +172,7 @@ public class NinjaDarts : Ability
 					}
 					break;
 				}
-				return potentialActor.\u0016();
+				return potentialActor.GetTravelBoardSquareWorldPosition();
 			}
 		}
 		return defaultPos;
@@ -945,8 +945,8 @@ public class NinjaDarts : Ability
 
 	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
 	{
-		min = this.GetTargeterMinInterpDistance() * Board.\u000E().squareSize;
-		max = this.GetTargeterMaxInterpDistance() * Board.\u000E().squareSize;
+		min = this.GetTargeterMinInterpDistance() * Board.Get().squareSize;
+		max = this.GetTargeterMaxInterpDistance() * Board.Get().squareSize;
 		return true;
 	}
 

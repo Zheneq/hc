@@ -451,8 +451,8 @@ public class TrackerTeslaPrison : TrackerDrone
 			}
 			return true;
 		}
-		BoardSquare boardSquare = Board.\u000E().\u000E(target.GridPos);
-		if (boardSquare != null && boardSquare.\u0016())
+		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
+		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
 			for (;;)
 			{
@@ -463,11 +463,11 @@ public class TrackerTeslaPrison : TrackerDrone
 				}
 				break;
 			}
-			if (caster.\u0012() != null)
+			if (caster.GetCurrentBoardSquare() != null)
 			{
-				float num = this.m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.\u000E().squareSize;
-				float num2 = this.m_droneInfoComp.GetTargeterMaxRangeFromCaster(true) * Board.\u000E().squareSize;
-				Vector3 b = caster.\u0016();
+				float num = this.m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
+				float num2 = this.m_droneInfoComp.GetTargeterMaxRangeFromCaster(true) * Board.Get().squareSize;
+				Vector3 b = caster.GetTravelBoardSquareWorldPosition();
 				if (this.m_droneTracker.DroneIsActive())
 				{
 					for (;;)
@@ -479,14 +479,14 @@ public class TrackerTeslaPrison : TrackerDrone
 						}
 						break;
 					}
-					BoardSquare boardSquare2 = Board.\u000E().\u0016(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
-					if (boardSquare2 != null)
+					BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
+					if (boardSquare != null)
 					{
-						if (boardSquare2 == boardSquare)
+						if (boardSquare == boardSquareSafe)
 						{
 							return false;
 						}
-						b = boardSquare2.ToVector3();
+						b = boardSquare.ToVector3();
 					}
 				}
 				if (num > 0f)
@@ -500,7 +500,7 @@ public class TrackerTeslaPrison : TrackerDrone
 						}
 						break;
 					}
-					if (Vector3.Distance(boardSquare.ToVector3(), b) > num)
+					if (Vector3.Distance(boardSquareSafe.ToVector3(), b) > num)
 					{
 						return false;
 					}
@@ -526,7 +526,7 @@ public class TrackerTeslaPrison : TrackerDrone
 						}
 						break;
 					}
-					result = (Vector3.Distance(boardSquare.ToVector3(), caster.\u0012().ToVector3()) <= num2);
+					result = (Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2);
 				}
 				else
 				{

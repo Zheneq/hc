@@ -144,8 +144,8 @@ public class SenseiHealAoE : Ability
 
 	private Vector3 GetCenterPosForTargeter(ActorData caster, AbilityTarget currentTarget)
 	{
-		Vector3 result = caster.\u0016();
-		if (caster.\u000E() != null && this.GetRunPriority() > AbilityPriority.Evasion)
+		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
+		if (caster.GetActorTargeting() != null && this.GetRunPriority() > AbilityPriority.Evasion)
 		{
 			for (;;)
 			{
@@ -160,7 +160,7 @@ public class SenseiHealAoE : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHealAoE.GetCenterPosForTargeter(ActorData, AbilityTarget)).MethodHandle;
 			}
-			BoardSquare evadeDestinationForTargeter = caster.\u000E().GetEvadeDestinationForTargeter();
+			BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 			if (evadeDestinationForTargeter != null)
 			{
 				for (;;)
@@ -691,13 +691,13 @@ public class SenseiHealAoE : Ability
 			{
 				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHealAoE.CalcExtraHealFromDist(ActorData, Vector3)).MethodHandle;
 			}
-			Vector3 vector = targetActor.\u0016() - centerPos;
+			Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - centerPos;
 			vector.y = 0f;
 			float num = vector.magnitude;
 			if (this.GetHealChangeStartDist() > 0f)
 			{
 				num -= this.GetHealChangeStartDist();
-				num = Mathf.Max(0f, num / Board.\u000E().squareSize);
+				num = Mathf.Max(0f, num / Board.Get().squareSize);
 			}
 			int num2 = Mathf.RoundToInt(this.GetHealChangePerDist() * num);
 			return Mathf.Max(0, this.GetExtraHealForAdjacent() + num2);
@@ -796,7 +796,7 @@ public class SenseiHealAoE : Ability
 					}
 					break;
 				}
-				if (targetActor.\u0012() < this.GetAllyLowHealthThresh())
+				if (targetActor.GetHitPointShareOfMax() < this.GetAllyLowHealthThresh())
 				{
 					for (;;)
 					{
@@ -844,7 +844,7 @@ public class SenseiHealAoE : Ability
 					}
 					break;
 				}
-				if (caster.\u0012() < this.GetSelfLowHealthThresh())
+				if (caster.GetHitPointShareOfMax() < this.GetSelfLowHealthThresh())
 				{
 					for (;;)
 					{

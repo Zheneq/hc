@@ -222,7 +222,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				}
 				break;
 			}
-			this.m_playerConnectionIdsInUpdatePhase.Add(GameFlowData.Get().activeOwnedActorData.\u000E().m_accountId);
+			this.m_playerConnectionIdsInUpdatePhase.Add(GameFlowData.Get().activeOwnedActorData.GetPlayerDetails().m_accountId);
 		}
 		this.m_numConnectionIdsAddedForPhase = this.m_playerConnectionIdsInUpdatePhase.Count;
 		this.m_turn.\u0011(phaseIndex);
@@ -544,7 +544,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				for (int i = 0; i < actors.Count; i++)
 				{
 					ActorData actorData = actors[i];
-					if (actorData.\u000E().AmMoving())
+					if (actorData.GetActorMovement().AmMoving())
 					{
 						for (;;)
 						{
@@ -555,7 +555,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						bool flag3 = clientFog.IsVisible(actorData.\u000E());
+						bool flag3 = clientFog.IsVisible(actorData.GetTravelBoardSquare());
 						bool flag4;
 						if (!flag)
 						{
@@ -691,9 +691,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					while (enumerator.MoveNext())
 					{
 						ActorData actorData = enumerator.Current;
-						if (actorData.\u0015())
+						if (actorData.ShouldPickRespawn_zq())
 						{
-							ActorModelData actorModelData = actorData.\u000E();
+							ActorModelData actorModelData = actorData.GetActorModelData();
 							if (actorModelData != null)
 							{
 								for (;;)
@@ -706,7 +706,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 									break;
 								}
 								actorData.ShowRespawnFlare(null, true);
-								if (localPlayerData.GetTeamViewing() == actorData.\u000E())
+								if (localPlayerData.GetTeamViewing() == actorData.GetTeam())
 								{
 									goto IL_C7;
 								}
@@ -735,7 +735,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 								actorModelData.EnableRendererAndUpdateVisibility();
 								continue;
 								IL_C7:
-								actorData.\u000E().ShowOnRespawnVfx();
+								actorData.GetActorVFX().ShowOnRespawnVfx();
 								goto IL_D4;
 							}
 						}
@@ -775,7 +775,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(TheatricsManager.SetAnimatorParamOnAllActors(string, bool)).MethodHandle;
 				}
-				if (actorData.\u000E() != null)
+				if (actorData.GetModelAnimator() != null)
 				{
 					for (;;)
 					{
@@ -786,7 +786,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					actorData.\u000E().SetBool(paramName, value);
+					actorData.GetModelAnimator().SetBool(paramName, value);
 				}
 			}
 		}
@@ -807,7 +807,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < actors.Count; i++)
 		{
 			ActorData actorData = actors[i];
-			if (actorData != null && actorData.\u000E() != null)
+			if (actorData != null && actorData.GetModelAnimator() != null)
 			{
 				for (;;)
 				{
@@ -822,7 +822,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(TheatricsManager.SetAnimatorParamOnAllActors(string, int)).MethodHandle;
 				}
-				actorData.\u000E().SetInteger(paramName, value);
+				actorData.GetModelAnimator().SetInteger(paramName, value);
 			}
 		}
 		for (;;)
@@ -867,7 +867,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	internal void \u000E(string \u001D)
+	internal void no_op(string \u001D)
 	{
 	}
 
@@ -972,10 +972,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 									break;
 								}
 								Phase phase = this.m_turn.\u000E[phaseToUpdate];
-								for (int i = 0; i < phase.\u000E.Count; i++)
+								for (int i = 0; i < phase.animations.Count; i++)
 								{
-									ActorAnimation actorAnimation = phase.\u000E[i];
-									if (actorAnimation.\u000D\u000E == actor && actorAnimation.\u000D\u000E() != null)
+									ActorAnimation actorAnimation = phase.animations[i];
+									if (actorAnimation.Actor == actor && actorAnimation.GetAbility() != null)
 									{
 										for (;;)
 										{
@@ -986,7 +986,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 											}
 											break;
 										}
-										if (actorAnimation.\u000D\u000E().GetType() == ability.GetType())
+										if (actorAnimation.GetAbility().GetType() == ability.GetType())
 										{
 											for (;;)
 											{
@@ -1088,7 +1088,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (activeOwnedActorData.\u000E() == mover.\u000E())
+						if (activeOwnedActorData.GetTeam() == mover.GetTeam())
 						{
 							goto IL_B1;
 						}
@@ -1164,12 +1164,12 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					break;
 				}
 				Phase phase2 = this.m_turn.\u000E[(int)phase];
-				for (int i = 0; i < phase2.\u000E.Count; i++)
+				for (int i = 0; i < phase2.animations.Count; i++)
 				{
-					ActorAnimation actorAnimation = phase2.\u000E[i];
+					ActorAnimation actorAnimation = phase2.animations[i];
 					if (action.ContainsSequenceSource(actorAnimation.SeqSource))
 					{
-						return (int)actorAnimation.\u000A;
+						return (int)actorAnimation.playOrderIndex;
 					}
 				}
 				for (;;)
@@ -1216,9 +1216,9 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					break;
 				}
 				Phase phase2 = this.m_turn.\u000E[(int)phase];
-				for (int i = 0; i < phase2.\u000E.Count; i++)
+				for (int i = 0; i < phase2.animations.Count; i++)
 				{
-					ActorAnimation actorAnimation = phase2.\u000E[i];
+					ActorAnimation actorAnimation = phase2.animations[i];
 					if (actorAnimation.HitActorsToDeltaHP != null)
 					{
 						for (;;)
@@ -1243,7 +1243,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 									}
 									break;
 								}
-								if ((int)actorAnimation.\u000A >= num)
+								if ((int)actorAnimation.playOrderIndex >= num)
 								{
 									goto IL_D1;
 								}
@@ -1257,7 +1257,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 									break;
 								}
 							}
-							num = (int)actorAnimation.\u000A;
+							num = (int)actorAnimation.playOrderIndex;
 						}
 					}
 					IL_D1:;
@@ -1296,10 +1296,10 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		{
 			string text3 = string.Empty;
 			Phase phase = this.m_turn.\u000E[i];
-			for (int j = 0; j < phase.\u000E.Count; j++)
+			for (int j = 0; j < phase.animations.Count; j++)
 			{
-				ActorAnimation actorAnimation = phase.\u000E[j];
-				if (actorAnimation.\u000D\u000E != ActorAnimation.PlaybackState.\u0013)
+				ActorAnimation actorAnimation = phase.animations[j];
+				if (actorAnimation.State != ActorAnimation.PlaybackState.\u0013)
 				{
 					for (;;)
 					{
@@ -1315,7 +1315,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 						RuntimeMethodHandle runtimeMethodHandle = methodof(TheatricsManager.GetTheatricsStateString()).MethodHandle;
 					}
 					text3 = text3 + "\t" + actorAnimation.ToString() + "\n";
-					if (!list.Contains(actorAnimation.\u000D\u000E))
+					if (!list.Contains(actorAnimation.Actor))
 					{
 						for (;;)
 						{
@@ -1326,7 +1326,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						list.Add(actorAnimation.\u000D\u000E);
+						list.Add(actorAnimation.Actor);
 					}
 				}
 			}
@@ -1377,8 +1377,8 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 						}
 						break;
 					}
-					ActorModelData actorModelData = actorData.\u000E();
-					Animator animator = actorData.\u000E();
+					ActorModelData actorModelData = actorData.GetActorModelData();
+					Animator modelAnimator = actorData.GetModelAnimator();
 					if (actorModelData != null)
 					{
 						for (;;)
@@ -1390,19 +1390,19 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 							}
 							break;
 						}
-						if (animator != null)
+						if (modelAnimator != null)
 						{
 							text2 = text;
 							text = string.Concat(new object[]
 							{
 								text2,
-								actorData.\u0018(),
+								actorData.GetDebugName(),
 								" InIdle=",
 								actorModelData.IsPlayingIdleAnim(false),
 								", DamageAnim=",
 								actorModelData.IsPlayingDamageAnim(),
 								", AttackParam=",
-								animator.GetInteger("Attack"),
+								modelAnimator.GetInteger("Attack"),
 								"\n"
 							});
 						}
@@ -1422,7 +1422,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 		return text;
 	}
 
-	internal static bool \u000E
+	internal static bool DebugLog
 	{
 		get
 		{

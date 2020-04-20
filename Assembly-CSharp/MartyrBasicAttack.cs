@@ -659,7 +659,7 @@ public class MartyrBasicAttack : MartyrLaserBase
 						break;
 					}
 					AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
-					flag = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.\u0012(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, 0f, 360f, currentInnerExplosionRadius, 0f, true, actorData, false, default(Vector3));
+					flag = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, 0f, 360f, currentInnerExplosionRadius, 0f, true, actorData, false, default(Vector3));
 				}
 			}
 			int num2;

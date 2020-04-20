@@ -29,7 +29,7 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 				{
 					RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDirectionalShieldSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
 				}
-				this.m_aimDirection = base.Caster.\u000E().GetCoverOffset((ActorCover.CoverDirections)extraParams2.m_aimDirection);
+				this.m_aimDirection = base.Caster.GetActorCover().GetCoverOffset((ActorCover.CoverDirections)extraParams2.m_aimDirection);
 			}
 		}
 		for (;;)
@@ -68,7 +68,7 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 			this.m_placeholderShieldIndicator.transform.localRotation = Quaternion.identity;
 			GameObject gameObject = HighlightUtils.Get().CreateConeCursor(0.7f, 360f);
 			gameObject.transform.parent = this.m_placeholderShieldIndicator.transform;
-			gameObject.transform.localPosition = 0.45f * Board.\u000E().squareSize * Vector3.forward;
+			gameObject.transform.localPosition = 0.45f * Board.Get().squareSize * Vector3.forward;
 			gameObject.transform.localRotation = Quaternion.LookRotation(Vector3.up);
 		}
 	}
