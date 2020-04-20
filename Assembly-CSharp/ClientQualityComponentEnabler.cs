@@ -90,17 +90,7 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 				if (behaviour != null)
 				{
 					bool[] behaviourEnabledInPrefab = this.m_behaviourEnabledInPrefab;
-					int num = i;
-					int num2;
-					if (!behaviour.enabled)
-					{
-						num2 = (this.m_componentsAndMinGraphicsQuality[i].m_enableEvenIfDisabled ? 1 : 0);
-					}
-					else
-					{
-						num2 = 1;
-					}
-					behaviourEnabledInPrefab[num] = num2;
+					behaviourEnabledInPrefab[i] = behaviour.enabled || this.m_componentsAndMinGraphicsQuality[i].m_enableEvenIfDisabled;
 				}
 			}
 		}
