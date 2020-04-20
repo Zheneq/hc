@@ -635,7 +635,7 @@ public class UIStorePanel : UIScene
 		{
 			this.m_charResponseCallback = callback;
 		}
-		this.OpenPurchaseDialog(item, null);
+		this.OpenPurchaseDialog(item);
 	}
 
 	public void OpenPurchaseDialog(UIPurchaseableItem item, UIStorePurchaseItemDialogBox.PurchaseCloseDialogCallback callback = null)
@@ -1079,28 +1079,18 @@ public class UIStorePanel : UIScene
 				if (GameBalanceVars.Get().PlayerTitles[i].ID == item.m_titleID)
 				{
 					playerTitle = GameBalanceVars.Get().PlayerTitles[i];
-					IL_138:
-					if (playerTitle == null)
-					{
-						throw new Exception("Invalid title item: ID " + item.m_titleID);
-					}
-					uistoreBaseInventoryPanel = this.OpenAndGetPanel(playerTitle.m_relatedCharacter, typeof(UIStoreAccountBannerPanel));
-					goto IL_25F;
+							break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			if (playerTitle == null)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_138;
+				throw new Exception("Invalid title item: ID " + item.m_titleID);
 			}
+			uistoreBaseInventoryPanel = this.OpenAndGetPanel(playerTitle.m_relatedCharacter, typeof(UIStoreAccountBannerPanel));
 			break;
 		}
 		case PurchaseItemType.Emoticon:
@@ -1138,7 +1128,6 @@ public class UIStorePanel : UIScene
 			}
 			break;
 		}
-		IL_25F:
 		if (uistoreBaseInventoryPanel != null)
 		{
 			uistoreBaseInventoryPanel.SelectItem(item);
