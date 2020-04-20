@@ -92,42 +92,33 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			if (this.Data[i].Type == currencyType)
 			{
 				currencyData = this.Data[i];
-				IL_5A:
-				if (currencyData == null)
-				{
-					currencyData = new CurrencyData
-					{
-						Type = currencyType,
-						Amount = amount
-					};
-					this.Data.Add(currencyData);
-				}
-				else
-				{
-					int num = currencyData.Amount + amount;
-					if (num < 0)
-					{
-						Log.Error(string.Format("Cannot withdraw {0} amount {1}, insufficient amount available.", currencyType, amount), new object[0]);
-						return null;
-					}
-					currencyData.Amount = num;
-					if (amount < 0)
-					{
-						currencyData.m_TotalSpent -= amount;
-					}
-				}
-				return currencyData;
+				break;
 			}
 		}
-		for (;;)
+		if (currencyData == null)
 		{
-			switch (3)
+			currencyData = new CurrencyData
 			{
-			case 0:
-				continue;
-			}
-			goto IL_5A;
+				Type = currencyType,
+				Amount = amount
+			};
+			this.Data.Add(currencyData);
 		}
+		else
+		{
+			int num = currencyData.Amount + amount;
+			if (num < 0)
+			{
+				Log.Error(string.Format("Cannot withdraw {0} amount {1}, insufficient amount available.", currencyType, amount), new object[0]);
+				return null;
+			}
+			currencyData.Amount = num;
+			if (amount < 0)
+			{
+				currencyData.m_TotalSpent -= amount;
+			}
+		}
+		return currencyData;
 	}
 
 	private class JsonConverter : Newtonsoft.Json.JsonConverter
