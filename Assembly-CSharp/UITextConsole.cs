@@ -1614,7 +1614,7 @@ public class UITextConsole : MonoBehaviour
 		int num = Mathf.Clamp(this.m_textInput.caretPosition, 0, this.m_textInput.text.Length);
 		string text2 = this.m_textInput.text.Substring(0, num).ToLower();
 		string text3 = this.m_textInput.text.Substring(num);
-		string[] array = text2.Split(null, 2, StringSplitOptions.RemoveEmptyEntries);
+		string[] array = text2.Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 		if (text2.EndsWith(" "))
 		{
 			if (array.Length < 2)
@@ -1641,7 +1641,7 @@ public class UITextConsole : MonoBehaviour
 		{
 			if (UITextConsole.m_friendCommand.IsSlashCommand(array[0]))
 			{
-				string[] array3 = array[1].Split(null, 2, StringSplitOptions.RemoveEmptyEntries);
+				string[] array3 = array[1].Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 				if (text2.EndsWith(" "))
 				{
 					if (array3.Length < 2)
@@ -1945,7 +1945,7 @@ public class UITextConsole : MonoBehaviour
 							num = 1;
 						}
 					}
-					string text = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>{1}", (int)(CharacterType.BazookaGirl * characterType + num), textEntry);
+					string text = string.Format("<size=36><sprite=\"CharacterSprites\" index={0}>​</size>{1}", 2 * (int)characterType + num, textEntry);
 					textEntry = text;
 				}
 			}
@@ -2772,7 +2772,7 @@ public class UITextConsole : MonoBehaviour
 			flag3 = false;
 		}
 		bool flag4 = flag3;
-		string[] array = chatText.Split(null, 3, StringSplitOptions.RemoveEmptyEntries);
+		string[] array = chatText.Split((string[])null, 3, StringSplitOptions.RemoveEmptyEntries);
 		if (array.Length <= 1)
 		{
 			if (!chatText.EndsWith(" "))
@@ -2804,7 +2804,7 @@ public class UITextConsole : MonoBehaviour
 								goto IL_1D3;
 							}
 						}
-						array = chatText.Split(null, 3, StringSplitOptions.RemoveEmptyEntries);
+						array = chatText.Split((string[])null, 3, StringSplitOptions.RemoveEmptyEntries);
 						this.m_chatCommand = slashCommand.Command + " " + array[1];
 						if (array.Length >= 3)
 						{
