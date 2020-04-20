@@ -139,7 +139,6 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		BoardSquare boardSquare = null;
 		int i = 1;
-		IL_D7:
 		while (i < 3)
 		{
 			int j = -i;
@@ -149,53 +148,34 @@ public class NinjaMultiAttackSequence : Sequence
 				if (this.CanUseSquareForTempSatellite(boardSquare2))
 				{
 					boardSquare = boardSquare2;
-					IL_65:
-					int k = -i;
-					while (k <= i)
-					{
-						BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + k);
-						if (this.CanUseSquareForTempSatellite(boardSquare3))
-						{
-							boardSquare = boardSquare3;
-							IL_BC:
-							if (boardSquare != null)
-							{
-								goto IL_DE;
-							}
-							i++;
-							goto IL_D7;
-						}
-						else
-						{
-							k += i * 2;
-						}
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_BC;
-					}
+					break;
+					
 				}
 				else
 				{
 					j += i * 2;
 				}
 			}
-			for (;;)
+			int k = -i;
+			while (k <= i)
 			{
-				switch (1)
+				BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + k);
+				if (this.CanUseSquareForTempSatellite(boardSquare3))
 				{
-				case 0:
-					continue;
+					boardSquare = boardSquare3;
+					break;
 				}
-				goto IL_65;
+				else
+				{
+					k += i * 2;
+				}
 			}
+			if (boardSquare != null)
+			{
+				break;
+			}
+			i++;
 		}
-		IL_DE:
 		if (boardSquare == null)
 		{
 			boardSquare = center;
