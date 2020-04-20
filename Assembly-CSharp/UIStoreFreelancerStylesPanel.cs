@@ -136,6 +136,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		{
 			uipurchaseableItem.m_currencyType = type;
 		}
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 }
