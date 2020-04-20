@@ -94,7 +94,7 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 				else
 				{
 					this.m_characterType = CharacterType.None;
-					this.m_characterRole = (CharacterRole)(-(CharacterRole)charTypeInt);
+					this.m_characterRole = (CharacterRole)(-charTypeInt);
 				}
 				this.Setup();
 			}, this.m_freelancerDropdownSlot, true, this.m_characterRole);
@@ -460,31 +460,18 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 		{
 			string text = StringUtil.TR_FreelancerStatName(this.m_characterType.ToString(), i);
 			string text2 = StringUtil.TR_FreelancerStatDescription(this.m_characterType.ToString(), i);
-			if (text.IsNullOrEmpty())
+			if (text.IsNullOrEmpty() && text2.IsNullOrEmpty())
 			{
-				if (text2.IsNullOrEmpty())
+				while (i < this.m_freelancerItems.Length)
 				{
-					IL_D4:
-					while (i < this.m_freelancerItems.Length)
-					{
-						UIManager.SetGameObjectActive(this.m_freelancerItems[i], false, null);
-						i++;
-					}
-					return;
+					UIManager.SetGameObjectActive(this.m_freelancerItems[i], false, null);
+					i++;
 				}
+				return;
 			}
 			UIManager.SetGameObjectActive(this.m_freelancerItems[i], true, null);
 			AbilityData component = GameWideData.Get().GetCharacterResourceLink(this.m_characterType).ActorDataPrefab.GetComponent<AbilityData>();
 			this.m_freelancerItems[i].SetupFreelancerTotalledStats(stats, text, text2, i, component, this.m_characterType);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_D4;
 		}
 	}
 
