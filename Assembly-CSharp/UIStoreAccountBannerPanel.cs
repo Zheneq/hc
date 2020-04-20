@@ -406,7 +406,7 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		uipurchaseableItem.m_bannerID = item.ID;
 		uipurchaseableItem.m_titleID = item.ID;
 		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 
 	private void SetupTooltip(Toggle toggle, string text)
