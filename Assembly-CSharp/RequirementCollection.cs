@@ -21,22 +21,11 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 	private IEnumerator<QueueRequirement> InternalEnumerator()
 	{
 		bool flag = false;
-		uint num;
-		List<byte[]>.Enumerator enumerator;
-		switch (num)
+		if (this.RequirementsAsBinaryData.IsNullOrEmpty<byte[]>())
 		{
-		case 0U:
-			if (this.RequirementsAsBinaryData.IsNullOrEmpty<byte[]>())
-			{
-				goto IL_13A;
-			}
-			enumerator = this.RequirementsAsBinaryData.GetEnumerator();
-			break;
-		case 1U:
-			break;
-		default:
 			yield break;
 		}
+		List<byte[]>.Enumerator enumerator = this.RequirementsAsBinaryData.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
@@ -65,7 +54,6 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 				((IDisposable)enumerator).Dispose();
 			}
 		}
-		IL_13A:
 		yield break;
 	}
 
