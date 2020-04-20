@@ -80,6 +80,6 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 		uipurchaseableItem.m_itemType = PurchaseItemType.Emoticon;
 		uipurchaseableItem.m_emoticonID = item.ID;
 		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 }
