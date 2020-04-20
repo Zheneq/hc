@@ -176,68 +176,40 @@ public class MatchmakingQueueConfig
 	{
 		for (;;)
 		{
-			bool flag = false;
-			uint num;
 			byte groupSize;
-			switch (num)
+			if (!this.IsMatchmakingGroupSizeDependant)
 			{
-			case 0U:
-				if (!this.IsMatchmakingGroupSizeDependant)
+				yield break;
+			}
+			if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
+			{
+				if (maxGroupSize == null)
 				{
-					goto IL_18A;
+					maxGroupSize = new byte?(4);
 				}
-				if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
+				groupSize = 1;
+				if (groupSize > maxGroupSize.Value)
 				{
-					if (maxGroupSize == null)
-					{
-						maxGroupSize = new byte?(4);
-					}
-					groupSize = 1;
-					goto IL_C0;
+					yield break;
 				}
-				goto IL_E2;
-			case 1U:
-				groupSize += 1;
-				goto IL_C0;
-			case 2U:
-				goto IL_104;
+				yield return groupSize;
 			}
-			goto Block_0;
-			IL_C0:
-			if (groupSize > maxGroupSize.Value)
+			Dictionary<int, GroupSizeSpecification>.KeyCollection.Enumerator enumerator = this.GroupRules.Keys.GetEnumerator();
+			try
 			{
-				break;
+				while (enumerator.MoveNext())
+				{
+					int groupSize2 = enumerator.Current;
+					yield return (byte)groupSize2;
+				}
 			}
-			yield return groupSize;
-		}
-		goto IL_18A;
-		Block_0:
-		yield break;
-		IL_E2:
-		Dictionary<int, GroupSizeSpecification>.KeyCollection.Enumerator enumerator = this.GroupRules.Keys.GetEnumerator();
-		try
-		{
-			IL_104:
-			while (enumerator.MoveNext())
+			finally
 			{
-				int groupSize2 = enumerator.Current;
-				yield return (byte)groupSize2;
-				bool flag = true;
-			}
-		}
-		finally
-		{
-			bool flag;
-			if (flag)
-			{
-			}
-			else
-			{
+				// TODO BUG ? can dispose while iterating?
 				((IDisposable)enumerator).Dispose();
 			}
+			yield break;
 		}
-		IL_18A:
-		yield break;
 	}
 
 	public IEnumerable<string> GetAllEloKeysForEachRelivantGroupSize(LobbyGameConfig gameConfig, bool isCasual)
@@ -247,43 +219,18 @@ public class MatchmakingQueueConfig
 		for (;;)
 		{
 			flag = false;
-			uint num;
-			switch (num)
+			key = ELOPlayerKey.FromConfig(gameConfig.GameType, this, isCasual);
+			if (this.IsMatchmakingGroupSizeDependant)
 			{
-			case 0U:
-				key = ELOPlayerKey.FromConfig(gameConfig.GameType, this, isCasual);
-				if (this.IsMatchmakingGroupSizeDependant)
-				{
-					goto IL_5B;
-				}
-				yield return key.KeyText;
-				continue;
-			case 1U:
-				goto IL_A8;
-			case 2U:
-				goto IL_178;
+				break;
 			}
-			goto Block_0;
-		}
-		for (;;)
-		{
-			IL_5B:
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			yield return key.KeyText;
+			continue;
 		}
 		byte maxGroupSize = (byte)gameConfig.MaxGroupSize;
 		IEnumerator<byte> enumerator = this.GetAllEloRelivantGroupSizes(new byte?(maxGroupSize)).GetEnumerator();
-		goto Block_3;
-		Block_0:
-		yield break;
-		Block_3:
 		try
 		{
-			IL_A8:
 			while (enumerator.MoveNext())
 			{
 				byte groupSize = enumerator.Current;
@@ -294,15 +241,11 @@ public class MatchmakingQueueConfig
 		}
 		finally
 		{
-			if (flag)
-			{
-			}
-			else if (enumerator != null)
+			if (!flag && enumerator != null)
 			{
 				enumerator.Dispose();
 			}
 		}
-		IL_178:
 		yield break;
 	}
 
