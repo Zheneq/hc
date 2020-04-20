@@ -216,7 +216,7 @@ public class BestSolutions
 					{
 						num8 = 0x10;
 					}
-					dictionary12[key2] = (num7 | num8);
+					dictionary12[key2] = (ushort)(num7 | num8);
 				}
 				else
 				{
