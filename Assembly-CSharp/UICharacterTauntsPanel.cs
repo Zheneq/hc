@@ -126,7 +126,7 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		uipurchaseableItem.m_charLink = this.m_lastButtonClicked.m_charLink;
 		uipurchaseableItem.m_tauntIndex = this.m_lastButtonClicked.m_tauntIndex;
 		uipurchaseableItem.m_currencyType = currencyType;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 	}
 
