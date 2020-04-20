@@ -54,6 +54,6 @@ public class UIStoreFreelancerTauntsPanel : UIStoreBaseInventoryPanel
 		uipurchaseableItem.m_charLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)item.Index1);
 		uipurchaseableItem.m_tauntIndex = item.ID;
 		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 }
