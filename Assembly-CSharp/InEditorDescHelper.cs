@@ -245,9 +245,7 @@ public static class InEditorDescHelper
 		{
 			if (num2 == num4)
 			{
-				int i = 0;
-				IL_E5:
-				while (i < myObjList.Length)
+				for (int i = 0; i < myObjList.Length; i++)
 				{
 					T x = myObjList[i];
 					bool flag = false;
@@ -258,27 +256,16 @@ public static class InEditorDescHelper
 						if (EqualityComparer<T>.Default.Equals(x, y))
 						{
 							flag = true;
-							IL_CD:
-							if (!flag)
-							{
-								return true;
-							}
-							i++;
-							goto IL_E5;
+							break;
 						}
 						else
 						{
 							j++;
 						}
 					}
-					for (;;)
+					if (!flag)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_CD;
+						return true;
 					}
 				}
 			}
