@@ -725,19 +725,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 						if (this.m_ownedActorDatas[i] == this.activeOwnedActorData)
 						{
 							num = i;
-							IL_9E:
-							return this.m_ownedActorDatas[(num + 1) % this.m_ownedActorDatas.Count];
+							break;
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_9E;
-					}
+					return this.m_ownedActorDatas[(num + 1) % this.m_ownedActorDatas.Count];
 				}
 			}
 			return result;
@@ -760,68 +751,47 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				if (this.m_ownedActorDatas[i] == this.activeOwnedActorData)
 				{
 					num = i;
-					IL_87:
-					for (int j = 0; j < this.m_ownedActorDatas.Count; j++)
-					{
-						int index = (num + j) % this.m_ownedActorDatas.Count;
-						ActorData actorData = this.m_ownedActorDatas[index];
-						if (actorData != this.activeOwnedActorData && this.activeOwnedActorData != null)
-						{
-							if (actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
-							{
-								ActorTurnSM component = actorData.GetComponent<ActorTurnSM>();
-								if (component.CurrentState != TurnStateEnum.CONFIRMED)
-								{
-									flag = true;
-									this.activeOwnedActorData = actorData;
-									IL_141:
-									if (!flag)
-									{
-										for (int k = 0; k < this.m_ownedActorDatas.Count; k++)
-										{
-											int index2 = (num + k) % this.m_ownedActorDatas.Count;
-											ActorData actorData2 = this.m_ownedActorDatas[index2];
-											if (actorData2 != this.activeOwnedActorData)
-											{
-												ActorTurnSM component2 = actorData2.GetComponent<ActorTurnSM>();
-												if (component2.CurrentState != TurnStateEnum.CONFIRMED)
-												{
-													this.activeOwnedActorData = actorData2;
-													break;
-												}
-											}
-										}
-										return;
-									}
-									return;
-								}
-							}
-						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_141;
-					}
+					break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			for (int j = 0; j < this.m_ownedActorDatas.Count; j++)
 			{
-				switch (3)
+				int index = (num + j) % this.m_ownedActorDatas.Count;
+				ActorData actorData = this.m_ownedActorDatas[index];
+				if (actorData != this.activeOwnedActorData && this.activeOwnedActorData != null && actorData.GetTeam() == this.activeOwnedActorData.GetTeam())
 				{
-				case 0:
-					continue;
+					ActorTurnSM component = actorData.GetComponent<ActorTurnSM>();
+					if (component.CurrentState != TurnStateEnum.CONFIRMED)
+					{
+						flag = true;
+						this.activeOwnedActorData = actorData;
+						break;
+					}
 				}
-				goto IL_87;
 			}
+			if (!flag)
+			{
+				for (int k = 0; k < this.m_ownedActorDatas.Count; k++)
+				{
+					int index2 = (num + k) % this.m_ownedActorDatas.Count;
+					ActorData actorData2 = this.m_ownedActorDatas[index2];
+					if (actorData2 != this.activeOwnedActorData)
+					{
+						ActorTurnSM component2 = actorData2.GetComponent<ActorTurnSM>();
+						if (component2.CurrentState != TurnStateEnum.CONFIRMED)
+						{
+							this.activeOwnedActorData = actorData2;
+							break;
+						}
+					}
+				}
+				return;
+			}
+			return;
 		}
 	}
 
@@ -1146,39 +1116,30 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			if (actorData2.ActorIndex == actorIndex)
 			{
 				actorData = actorData2;
-				IL_53:
-				if (actorData == null)
+				break;
+			}
+		}
+		if (actorData == null)
+		{
+			if (actorIndex > 0 && this.CurrentTurn > 0)
+			{
+				if (GameManager.Get() != null)
 				{
-					if (actorIndex > 0 && this.CurrentTurn > 0)
+					if (GameManager.Get().GameConfig != null)
 					{
-						if (GameManager.Get() != null)
+						GameType gameType = GameManager.Get().GameConfig.GameType;
+						if (gameType != GameType.Tutorial)
 						{
-							if (GameManager.Get().GameConfig != null)
+							Log.Warning("Failed to find actor index {0}", new object[]
 							{
-								GameType gameType = GameManager.Get().GameConfig.GameType;
-								if (gameType != GameType.Tutorial)
-								{
-									Log.Warning("Failed to find actor index {0}", new object[]
-									{
 										actorIndex
-									});
-								}
-							}
+							});
 						}
 					}
 				}
-				return actorData;
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_53;
-		}
+		return actorData;
 	}
 
 	internal ActorData FindActorByPlayerIndex(int playerIndex)
