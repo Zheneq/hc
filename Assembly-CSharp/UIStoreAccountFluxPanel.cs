@@ -368,6 +368,6 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 			this.m_newItemToPurchase.m_itemType = PurchaseItemType.LoadingScreenBackground;
 			this.m_newItemToPurchase.m_loadingScreenBackgroundId = item.ID;
 		}
-		UIStorePanel.Get().OpenPurchaseDialog(this.m_newItemToPurchase, null);
+		UIStorePanel.Get().OpenPurchaseDialog(this.m_newItemToPurchase);
 	}
 }
