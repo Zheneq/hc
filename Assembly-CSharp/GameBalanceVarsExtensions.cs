@@ -741,27 +741,18 @@ public static class GameBalanceVarsExtensions
 				if (UIOverconData.Get().m_nameToOverconEntry[i].m_overconId == unlockable.ID)
 				{
 					nameToOverconEntry = UIOverconData.Get().m_nameToOverconEntry[i];
-					IL_10F:
-					if (nameToOverconEntry == null)
-					{
-						throw new Exception("Overcon doesn't exist for " + unlockable.ID);
-					}
-					return nameToOverconEntry.m_iconSpritePath;
+					break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			if (nameToOverconEntry == null)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_10F;
+				throw new Exception("Overcon doesn't exist for " + unlockable.ID);
 			}
+			return nameToOverconEntry.m_iconSpritePath;
 		}
 		else if (unlockable is GameBalanceVars.StoreItemForPurchase)
 		{
