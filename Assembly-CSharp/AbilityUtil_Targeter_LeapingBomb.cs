@@ -72,104 +72,78 @@ public class AbilityUtil_Targeter_LeapingBomb : AbilityUtil_Targeter
 			if (squaresInBox[l].IsBaselineHeight())
 			{
 				boardSquare2 = squaresInBox[l];
-				IL_249:
-				if (boardSquare2 != null)
-				{
-					int num3 = 0;
-					for (BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare2, boardSquareSafe, true); boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
-					{
-						if (boardSquarePathInfo.square.IsBaselineHeight())
-						{
-							if (num3 >= this.m_minSeparationInSquares)
-							{
-								if (num3 <= this.m_maxSeparationInSquares)
-								{
-									boardSquare = boardSquarePathInfo.square;
-									goto IL_2E0;
-								}
-							}
-						}
-						num3++;
-					}
-				}
-				IL_2E0:
-				if (boardSquare != null)
-				{
-					list.Add(boardSquare);
-					VectorUtils.LaserCoords item2;
-					item2.start = item.end;
-					item2.end = boardSquare.ToVector3();
-					list2.Add(item2);
-				}
-				int num4 = 0;
-				foreach (BoardSquare boardSquare3 in list)
-				{
-					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquare3.ToVector3(), boardSquare3);
-					ActorData actorData = null;
-					if (boardSquare3.occupant != null)
-					{
-						actorData = boardSquare3.occupant.GetComponent<ActorData>();
-					}
-					centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
-					if (!(actorData != null))
-					{
-						goto IL_4AC;
-					}
-					if (actorData.GetTeam() == targetingActor.GetTeam())
-					{
-						goto IL_4AC;
-					}
-					if (!actorData.IsVisibleToClient())
-					{
-						goto IL_4AC;
-					}
-					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, centerOfShape, boardSquare3, false, targetingActor, targetingActor.GetOpposingTeam(), null);
-					TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
-					Vector3 damageOrigin = centerOfShape;
-					using (List<ActorData>.Enumerator enumerator2 = actorsInShape.GetEnumerator())
-					{
-						while (enumerator2.MoveNext())
-						{
-							ActorData actor = enumerator2.Current;
-							base.AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
-						}
-					}
-					this.m_highlights[num4].transform.position = centerOfShape;
-					this.m_highlights[num4].SetActive(true);
-					this.m_highlights[num4 + num2].SetActive(false);
-					IL_4F7:
-					GameObject gameObject = this.m_highlights[num4 + num];
-					HighlightUtils.Get().ResizeRectangularCursor(0.5f, list2[num4].Length(), gameObject);
-					Vector3 start = list2[num4].start;
-					start.y = (float)Board.Get().BaselineHeight + 0.1f;
-					gameObject.transform.position = start;
-					gameObject.transform.rotation = Quaternion.LookRotation(list2[num4].Direction());
-					gameObject.SetActive(true);
-					num4++;
-					continue;
-					IL_4AC:
-					this.m_highlights[num4 + num2].transform.position = centerOfShape;
-					this.m_highlights[num4 + num2].SetActive(true);
-					this.m_highlights[num4].SetActive(false);
-					goto IL_4F7;
-				}
-				for (int m = num4; m < 2; m++)
-				{
-					this.m_highlights[m].SetActive(false);
-					this.m_highlights[m + num].SetActive(false);
-					this.m_highlights[m + num2].SetActive(false);
-				}
-				return;
+				break;
 			}
 		}
-		for (;;)
+		if (boardSquare2 != null)
 		{
-			switch (6)
+			int num3 = 0;
+			for (BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare2, boardSquareSafe, true); boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 			{
-			case 0:
-				continue;
+				if (boardSquarePathInfo.square.IsBaselineHeight() && num3 >= this.m_minSeparationInSquares && num3 <= this.m_maxSeparationInSquares)
+				{
+					boardSquare = boardSquarePathInfo.square;
+					break;
+
+				}
+				num3++;
 			}
-			goto IL_249;
+		}
+		if (boardSquare != null)
+		{
+			list.Add(boardSquare);
+			VectorUtils.LaserCoords item2;
+			item2.start = item.end;
+			item2.end = boardSquare.ToVector3();
+			list2.Add(item2);
+		}
+		int num4 = 0;
+		foreach (BoardSquare boardSquare3 in list)
+		{
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquare3.ToVector3(), boardSquare3);
+			ActorData actorData = null;
+			if (boardSquare3.occupant != null)
+			{
+				actorData = boardSquare3.occupant.GetComponent<ActorData>();
+			}
+			centerOfShape.y = (float)Board.Get().BaselineHeight + 0.1f;
+			if (actorData == null || actorData.GetTeam() == targetingActor.GetTeam() || !actorData.IsVisibleToClient())
+			{
+				this.m_highlights[num4 + num2].transform.position = centerOfShape;
+				this.m_highlights[num4 + num2].SetActive(true);
+				this.m_highlights[num4].SetActive(false);
+			}
+			else
+			{
+				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, centerOfShape, boardSquare3, false, targetingActor, targetingActor.GetOpposingTeam(), null);
+				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
+				Vector3 damageOrigin = centerOfShape;
+				using (List<ActorData>.Enumerator enumerator2 = actorsInShape.GetEnumerator())
+				{
+					while (enumerator2.MoveNext())
+					{
+						ActorData actor = enumerator2.Current;
+						base.AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
+					}
+				}
+				this.m_highlights[num4].transform.position = centerOfShape;
+				this.m_highlights[num4].SetActive(true);
+				this.m_highlights[num4 + num2].SetActive(false);
+			}
+			GameObject gameObject = this.m_highlights[num4 + num];
+			HighlightUtils.Get().ResizeRectangularCursor(0.5f, list2[num4].Length(), gameObject);
+			Vector3 start = list2[num4].start;
+			start.y = (float)Board.Get().BaselineHeight + 0.1f;
+			gameObject.transform.position = start;
+			gameObject.transform.rotation = Quaternion.LookRotation(list2[num4].Direction());
+			gameObject.SetActive(true);
+			num4++;
+		}
+		for (int m = num4; m < 2; m++)
+		{
+			this.m_highlights[m].SetActive(false);
+			this.m_highlights[m + num].SetActive(false);
+			this.m_highlights[m + num2].SetActive(false);
 		}
 	}
 }
