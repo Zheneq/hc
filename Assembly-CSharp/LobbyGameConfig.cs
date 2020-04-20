@@ -205,22 +205,10 @@ public class LobbyGameConfig
 	public IEnumerable<GameSubType> GetSubTypes(ushort subTypeMask)
 	{
 		bool flag = false;
-		uint num;
-		ushort bit;
-		bool bFoundSomething;
-		List<GameSubType>.Enumerator enumerator;
-		switch (num)
-		{
-		case 0U:
-			bit = 1;
-			bFoundSomething = false;
-			enumerator = this.SubTypes.GetEnumerator();
-			break;
-		case 1U:
-			break;
-		default:
-			yield break;
-		}
+
+		ushort bit = 1;
+		bool bFoundSomething = false;
+		List<GameSubType>.Enumerator enumerator = this.SubTypes.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
