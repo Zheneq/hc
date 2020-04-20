@@ -16,7 +16,7 @@ public static class UNetUtil
 	{
 		ushort num = 0;
 		num |= (ushort)buf[offset];
-		return num | (ushort)(buf[offset + 1] << 8);
+		return (ushort)(num | (ushort)(buf[offset + 1] << 8));
 	}
 
 	public static uint ReadUInt32(byte[] buf, int offset)
