@@ -166,10 +166,8 @@ public class UISystemEscapeMenu : UIScene
 
 	public void OnLeaveGameClick(BaseEventData data)
 	{
-		UISystemEscapeMenu.OnLeaveGameClick_c__AnonStorey0 OnLeaveGameClick_c__AnonStorey = new UISystemEscapeMenu.OnLeaveGameClick_c__AnonStorey0();
 		this.SetParent(false);
 		LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
-		UISystemEscapeMenu.OnLeaveGameClick_c__AnonStorey0 OnLeaveGameClick_c__AnonStorey2 = OnLeaveGameClick_c__AnonStorey;
 		bool allowsReconnect;
 		if (gameInfo.GameConfig.GameType.AllowsReconnect())
 		{
@@ -179,7 +177,6 @@ public class UISystemEscapeMenu : UIScene
 		{
 			allowsReconnect = false;
 		}
-		OnLeaveGameClick_c__AnonStorey2.allowsReconnect = allowsReconnect;
 		if (ReplayPlayManager.Get() != null)
 		{
 			if (ReplayPlayManager.Get().IsPlayback())
@@ -223,7 +220,7 @@ public class UISystemEscapeMenu : UIScene
 		IL_1C2:
 		UIDialogPopupManager.OpenTwoButtonDialog(title, description, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate(UIDialogBox dialogReference)
 		{
-			ClientGameManager.Get().LeaveGame(!OnLeaveGameClick_c__AnonStorey.allowsReconnect, GameResult.ClientLeft);
+			ClientGameManager.Get().LeaveGame(!allowsReconnect, GameResult.ClientLeft);
 			if (UITutorialFullscreenPanel.Get() != null)
 			{
 				if (UITutorialFullscreenPanel.Get().IsAnyPanelVisible())

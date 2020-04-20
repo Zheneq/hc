@@ -267,132 +267,122 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 
 	public void LoadCharacterIntoSlot(CharacterResourceLink characterLink, int slotIndex, string characterName, CharacterVisualInfo visualInfo, bool isBot, bool playSelectionChatterCue)
 	{
-		UICharacterWorldObjects.LoadCharacterIntoSlot_c__AnonStorey0 LoadCharacterIntoSlot_c__AnonStorey = new UICharacterWorldObjects.LoadCharacterIntoSlot_c__AnonStorey0();
-		LoadCharacterIntoSlot_c__AnonStorey.slotIndex = slotIndex;
-		LoadCharacterIntoSlot_c__AnonStorey.characterLink = characterLink;
-		LoadCharacterIntoSlot_c__AnonStorey.visualInfo = visualInfo;
-		LoadCharacterIntoSlot_c__AnonStorey.isBot = isBot;
-		LoadCharacterIntoSlot_c__AnonStorey.playSelectionChatterCue = playSelectionChatterCue;
-		LoadCharacterIntoSlot_c__AnonStorey._this = this;
 		if (!(UIFrontEnd.Get() == null))
 		{
 			if (!(UICharacterSelectWorldObjects.Get() == null))
 			{
-				if (LoadCharacterIntoSlot_c__AnonStorey.characterLink != null && LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType == this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].type)
+				if (characterLink != null && characterLink.m_characterType == this.m_loadedCharacters[slotIndex].type)
 				{
-					if (LoadCharacterIntoSlot_c__AnonStorey.visualInfo.Equals(this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].skin))
+					if (visualInfo.Equals(this.m_loadedCharacters[slotIndex].skin))
 					{
-						if (this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].instantiatedCharacter != null)
+						if (this.m_loadedCharacters[slotIndex].instantiatedCharacter != null)
 						{
-							Animator componentInChildren = this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].instantiatedCharacter.GetComponentInChildren<Animator>();
+							Animator componentInChildren = this.m_loadedCharacters[slotIndex].instantiatedCharacter.GetComponentInChildren<Animator>();
 							UIActorModelData.SetCharSelectTrigger(componentInChildren, false, false);
 						}
 						return;
 					}
 				}
-				if (LoadCharacterIntoSlot_c__AnonStorey.characterLink != null)
+				if (characterLink != null)
 				{
-					if (!LoadCharacterIntoSlot_c__AnonStorey.characterLink.IsVisualInfoSelectionValid(LoadCharacterIntoSlot_c__AnonStorey.visualInfo))
+					if (!characterLink.IsVisualInfoSelectionValid(visualInfo))
 					{
-						Log.Error(string.Format("Character {0} could not find Actor Skin resource link for {1}", LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_displayName, LoadCharacterIntoSlot_c__AnonStorey.visualInfo.ToString()), new object[0]);
-						LoadCharacterIntoSlot_c__AnonStorey.visualInfo = default(CharacterVisualInfo);
+						Log.Error(string.Format("Character {0} could not find Actor Skin resource link for {1}", characterLink.m_displayName, visualInfo.ToString()), new object[0]);
+						visualInfo = default(CharacterVisualInfo);
 					}
 				}
-				GameObject instantiatedCharacter = this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].instantiatedCharacter;
-				LoadCharacterIntoSlot_c__AnonStorey.prevCharacterLoaded = (instantiatedCharacter != null);
-				LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoName = string.Empty;
-				LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoNormalizedTime = 0f;
-				LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoStateHash = 0;
-				LoadCharacterIntoSlot_c__AnonStorey.prevAnimInCharSelState = false;
-				if (LoadCharacterIntoSlot_c__AnonStorey.prevCharacterLoaded)
+				GameObject instantiatedCharacter = this.m_loadedCharacters[slotIndex].instantiatedCharacter;
+				bool prevCharacterLoaded = (instantiatedCharacter != null);
+				string prevAnimInfoName = string.Empty;
+				float prevAnimInfoNormalizedTime = 0f;
+				int prevAnimInfoStateHash = 0;
+				bool prevAnimInCharSelState = false;
+				if (prevCharacterLoaded)
 				{
 					Animator componentInChildren2 = instantiatedCharacter.GetComponentInChildren<Animator>();
 					AnimatorStateInfo currentAnimatorStateInfo = componentInChildren2.GetCurrentAnimatorStateInfo(0);
-					LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoName = componentInChildren2.name;
+					prevAnimInfoName = componentInChildren2.name;
 					if (componentInChildren2.runtimeAnimatorController != null)
 					{
-						LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoName = componentInChildren2.runtimeAnimatorController.name;
+						prevAnimInfoName = componentInChildren2.runtimeAnimatorController.name;
 					}
-					LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoStateHash = currentAnimatorStateInfo.fullPathHash;
-					LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoNormalizedTime = currentAnimatorStateInfo.normalizedTime;
-					LoadCharacterIntoSlot_c__AnonStorey.prevAnimInCharSelState = UIActorModelData.IsInCharSelectAnimState(componentInChildren2);
+					prevAnimInfoStateHash = currentAnimatorStateInfo.fullPathHash;
+					prevAnimInfoNormalizedTime = currentAnimatorStateInfo.normalizedTime;
+					prevAnimInCharSelState = UIActorModelData.IsInCharSelectAnimState(componentInChildren2);
 				}
-				LoadCharacterIntoSlot_c__AnonStorey.ResetRotation = false;
-				if (LoadCharacterIntoSlot_c__AnonStorey.slotIndex == 0)
+				bool ResetRotation = false;
+				if (slotIndex == 0)
 				{
-					if (LoadCharacterIntoSlot_c__AnonStorey.characterLink != null)
+					if (characterLink != null)
 					{
-						if (this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].type != LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType)
+						if (this.m_loadedCharacters[slotIndex].type != characterLink.m_characterType)
 						{
-							LoadCharacterIntoSlot_c__AnonStorey.ResetRotation = true;
+							ResetRotation = true;
 						}
 					}
 				}
-				LoadCharacterIntoSlot_c__AnonStorey.prevCharType = CharacterType.None;
-				if (this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].instantiatedCharacter != null)
+				CharacterType prevCharType = CharacterType.None;
+				if (this.m_loadedCharacters[slotIndex].instantiatedCharacter != null)
 				{
-					LoadCharacterIntoSlot_c__AnonStorey.prevCharType = this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].type;
+					prevCharType = this.m_loadedCharacters[slotIndex].type;
 				}
-				UICharacterWorldObjects.LoadCharacterIntoSlot_c__AnonStorey0 LoadCharacterIntoSlot_c__AnonStorey2 = LoadCharacterIntoSlot_c__AnonStorey;
 				bool preUnloadChar;
-				if (!(LoadCharacterIntoSlot_c__AnonStorey.characterLink == null))
+				if (!(characterLink == null))
 				{
-					if (this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].type == LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType)
+					if (this.m_loadedCharacters[slotIndex].type == characterLink.m_characterType)
 					{
-						preUnloadChar = (this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].skin.skinIndex != LoadCharacterIntoSlot_c__AnonStorey.visualInfo.skinIndex);
+						preUnloadChar = (this.m_loadedCharacters[slotIndex].skin.skinIndex != visualInfo.skinIndex);
 						goto IL_390;
 					}
 				}
 				preUnloadChar = true;
 				IL_390:
-				LoadCharacterIntoSlot_c__AnonStorey2.preUnloadChar = preUnloadChar;
-				if (LoadCharacterIntoSlot_c__AnonStorey.preUnloadChar)
+				if (preUnloadChar)
 				{
-					this.UnloadCharacter(LoadCharacterIntoSlot_c__AnonStorey.slotIndex, !LoadCharacterIntoSlot_c__AnonStorey.prevCharacterLoaded || LoadCharacterIntoSlot_c__AnonStorey.characterLink == null);
+					this.UnloadCharacter(slotIndex, !prevCharacterLoaded || characterLink == null);
 				}
-				if (LoadCharacterIntoSlot_c__AnonStorey.characterLink == null)
+				if (characterLink == null)
 				{
-					this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].PlayAnimation("ReadyOut");
+					this.m_ringAnimations[slotIndex].PlayAnimation("ReadyOut");
 				}
-				if (LoadCharacterIntoSlot_c__AnonStorey.characterLink != null)
+				if (characterLink != null)
 				{
-					this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].resourceLink = LoadCharacterIntoSlot_c__AnonStorey.characterLink;
-					this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].type = LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType;
-					this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].skin = LoadCharacterIntoSlot_c__AnonStorey.visualInfo;
-					this.m_characterIsLoading[LoadCharacterIntoSlot_c__AnonStorey.slotIndex] = true;
+					this.m_loadedCharacters[slotIndex].resourceLink = characterLink;
+					this.m_loadedCharacters[slotIndex].type = characterLink.m_characterType;
+					this.m_loadedCharacters[slotIndex].skin = visualInfo;
+					this.m_characterIsLoading[slotIndex] = true;
 					if (AsyncManager.Get() != null)
 					{
-						LoadCharacterIntoSlot_c__AnonStorey.characterLink.LoadAsync(LoadCharacterIntoSlot_c__AnonStorey.visualInfo, out this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].loadingTicket, (float)LoadCharacterIntoSlot_c__AnonStorey.slotIndex * 0.1f, delegate(LoadedCharacterSelection loadedCharacter)
+						characterLink.LoadAsync(visualInfo, out this.m_loadedCharacters[slotIndex].loadingTicket, (float)slotIndex * 0.1f, delegate(LoadedCharacterSelection loadedCharacter)
 						{
 							if (!(UIFrontEnd.Get() == null))
 							{
 								if (UIManager.Get().CurrentState != UIManager.ClientState.InGame)
 								{
-									if (!LoadCharacterIntoSlot_c__AnonStorey.preUnloadChar)
+									if (!preUnloadChar)
 									{
-										UICharacterWorldObjects _this = LoadCharacterIntoSlot_c__AnonStorey._this;
-										int slotIndex2 = LoadCharacterIntoSlot_c__AnonStorey.slotIndex;
+										int slotIndex2 = slotIndex;
 										bool playAnimation;
-										if (LoadCharacterIntoSlot_c__AnonStorey.prevCharacterLoaded)
+										if (prevCharacterLoaded)
 										{
-											playAnimation = (LoadCharacterIntoSlot_c__AnonStorey.characterLink == null);
+											playAnimation = (characterLink == null);
 										}
 										else
 										{
 											playAnimation = true;
 										}
-										_this.UnloadCharacter(slotIndex2, playAnimation);
+										this.UnloadCharacter(slotIndex2, playAnimation);
 									}
-									else if (LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].m_charSelectSpawnVFX != null)
+									else if (this.m_ringAnimations[slotIndex].m_charSelectSpawnVFX != null)
 									{
-										UIManager.SetGameObjectActive(LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].m_charSelectSpawnVFX, true, null);
+										UIManager.SetGameObjectActive(this.m_ringAnimations[slotIndex].m_charSelectSpawnVFX, true, null);
 									}
-									LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].loadingTicket = -1;
-									if (!LoadCharacterIntoSlot_c__AnonStorey._this.m_characterIsLoading[LoadCharacterIntoSlot_c__AnonStorey.slotIndex])
+									this.m_loadedCharacters[slotIndex].loadingTicket = -1;
+									if (!this.m_characterIsLoading[slotIndex])
 									{
-										LoadCharacterIntoSlot_c__AnonStorey._this.UnloadCharacter(LoadCharacterIntoSlot_c__AnonStorey.slotIndex, false);
+										this.UnloadCharacter(slotIndex, false);
 									}
-									LoadCharacterIntoSlot_c__AnonStorey._this.m_characterIsLoading[LoadCharacterIntoSlot_c__AnonStorey.slotIndex] = false;
+									this.m_characterIsLoading[slotIndex] = false;
 									if (loadedCharacter.heroPrefabLink != null)
 									{
 										if (!loadedCharacter.heroPrefabLink.IsEmpty)
@@ -400,53 +390,53 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 											GameObject gameObject = loadedCharacter.heroPrefabLink.InstantiatePrefab(false);
 											if (gameObject == null)
 											{
-												throw new ApplicationException(string.Format("Failed to instantiate prefab for {0} {1}", LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType, LoadCharacterIntoSlot_c__AnonStorey.visualInfo.ToString()));
+												throw new ApplicationException(string.Format("Failed to instantiate prefab for {0} {1}", characterLink.m_characterType, visualInfo.ToString()));
 											}
 											ActorModelData component = gameObject.GetComponent<ActorModelData>();
 											bool flag = false;
 											if (MasterSkinVfxData.Get() != null && MasterSkinVfxData.Get().m_addMasterSkinVfx)
 											{
-												if (LoadCharacterIntoSlot_c__AnonStorey.characterLink.IsVisualInfoSelectionValid(LoadCharacterIntoSlot_c__AnonStorey.visualInfo))
+												if (characterLink.IsVisualInfoSelectionValid(visualInfo))
 												{
-													CharacterColor characterColor = LoadCharacterIntoSlot_c__AnonStorey.characterLink.GetCharacterColor(LoadCharacterIntoSlot_c__AnonStorey.visualInfo);
+													CharacterColor characterColor = characterLink.GetCharacterColor(visualInfo);
 													flag = (characterColor.m_styleLevel == StyleLevelType.Mastery);
 												}
 											}
 											if (flag)
 											{
-												MasterSkinVfxData.Get().AddMasterSkinVfxOnCharacterObject(component.gameObject, LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType, LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenScale);
+												MasterSkinVfxData.Get().AddMasterSkinVfxOnCharacterObject(component.gameObject, characterLink.m_characterType, characterLink.m_loadScreenScale);
 											}
 											component.EnableRagdoll(false, null);
 											Dictionary<int, string> animatorStateNameHashToNameMap = component.GetAnimatorStateNameHashToNameMap();
-											gameObject.transform.position = LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].transform.position;
-											gameObject.transform.SetParent(LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].GetContainerTransform());
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].instantiatedCharacter = gameObject;
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].uiActorModelData = gameObject.GetComponent<UIActorModelData>();
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].resourceLink = LoadCharacterIntoSlot_c__AnonStorey.characterLink;
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].type = LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType;
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].skin = LoadCharacterIntoSlot_c__AnonStorey.visualInfo;
-											Vector3 loadScreenPosition = LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenPosition;
-											if (LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenDistTowardsCamera != 0f)
+											gameObject.transform.position = this.m_ringAnimations[slotIndex].transform.position;
+											gameObject.transform.SetParent(this.m_ringAnimations[slotIndex].GetContainerTransform());
+											this.m_loadedCharacters[slotIndex].instantiatedCharacter = gameObject;
+											this.m_loadedCharacters[slotIndex].uiActorModelData = gameObject.GetComponent<UIActorModelData>();
+											this.m_loadedCharacters[slotIndex].resourceLink = characterLink;
+											this.m_loadedCharacters[slotIndex].type = characterLink.m_characterType;
+											this.m_loadedCharacters[slotIndex].skin = visualInfo;
+											Vector3 loadScreenPosition = characterLink.m_loadScreenPosition;
+											if (characterLink.m_loadScreenDistTowardsCamera != 0f)
 											{
 												loadScreenPosition.x = 0f;
 												loadScreenPosition.z = 0f;
 											}
-											if (LoadCharacterIntoSlot_c__AnonStorey.slotIndex > 0)
+											if (slotIndex > 0)
 											{
 												loadScreenPosition.y = Mathf.Min(loadScreenPosition.y, 0.15f);
 											}
 											gameObject.transform.localPosition = loadScreenPosition;
-											gameObject.transform.localScale = new Vector3(LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenScale, LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenScale, LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenScale);
+											gameObject.transform.localScale = new Vector3(characterLink.m_loadScreenScale, characterLink.m_loadScreenScale, characterLink.m_loadScreenScale);
 											gameObject.transform.localRotation = Quaternion.identity;
-											if (!LoadCharacterIntoSlot_c__AnonStorey.prevCharacterLoaded && !LoadCharacterIntoSlot_c__AnonStorey.isBot)
+											if (!prevCharacterLoaded && !isBot)
 											{
-												if (LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].ready)
+												if (this.m_loadedCharacters[slotIndex].ready)
 												{
-													LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].PlayAnimation("ReadyIn");
+													this.m_ringAnimations[slotIndex].PlayAnimation("ReadyIn");
 												}
 												else
 												{
-													LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].PlayAnimation("TransitionIn");
+													this.m_ringAnimations[slotIndex].PlayAnimation("TransitionIn");
 												}
 											}
 											GameObject gameObject2 = gameObject.transform.GetChild(0).gameObject;
@@ -464,58 +454,58 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 													{
 														name = componentInChildren3.runtimeAnimatorController.name;
 													}
-													if (name == LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoName)
+													if (name == prevAnimInfoName)
 													{
-														if (LoadCharacterIntoSlot_c__AnonStorey.prevAnimInCharSelState)
+														if (prevAnimInCharSelState)
 														{
-															componentInChildren3.Play(LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoStateHash, -1, LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoNormalizedTime);
+															componentInChildren3.Play(prevAnimInfoStateHash, -1, prevAnimInfoNormalizedTime);
 														}
 													}
-													if (!(name != LoadCharacterIntoSlot_c__AnonStorey.prevAnimInfoName))
+													if (!(name != prevAnimInfoName))
 													{
-														if (LoadCharacterIntoSlot_c__AnonStorey.prevAnimInCharSelState)
+														if (prevAnimInCharSelState)
 														{
 															goto IL_58F;
 														}
 													}
-													UIActorModelData.SetCharSelectTrigger(componentInChildren3, LoadCharacterIntoSlot_c__AnonStorey.prevCharType != LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_characterType, true);
+													UIActorModelData.SetCharSelectTrigger(componentInChildren3, prevCharType != characterLink.m_characterType, true);
 													IL_58F:
-													componentInChildren3.SetBool("DecisionPhase", !LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].ready);
-													if (LoadCharacterIntoSlot_c__AnonStorey._this.ParamExists(componentInChildren3, "SkinIndex"))
+													componentInChildren3.SetBool("DecisionPhase", !this.m_loadedCharacters[slotIndex].ready);
+													if (this.ParamExists(componentInChildren3, "SkinIndex"))
 													{
-														componentInChildren3.SetInteger("SkinIndex", LoadCharacterIntoSlot_c__AnonStorey.visualInfo.skinIndex);
+														componentInChildren3.SetInteger("SkinIndex", visualInfo.skinIndex);
 													}
-													if (LoadCharacterIntoSlot_c__AnonStorey._this.ParamExists(componentInChildren3, "PatternIndex"))
+													if (this.ParamExists(componentInChildren3, "PatternIndex"))
 													{
-														componentInChildren3.SetInteger("PatternIndex", LoadCharacterIntoSlot_c__AnonStorey.visualInfo.patternIndex);
+														componentInChildren3.SetInteger("PatternIndex", visualInfo.patternIndex);
 													}
-													if (LoadCharacterIntoSlot_c__AnonStorey._this.ParamExists(componentInChildren3, "ColorIndex"))
+													if (this.ParamExists(componentInChildren3, "ColorIndex"))
 													{
-														componentInChildren3.SetInteger("ColorIndex", LoadCharacterIntoSlot_c__AnonStorey.visualInfo.colorIndex);
+														componentInChildren3.SetInteger("ColorIndex", visualInfo.colorIndex);
 													}
 												}
 											}
-											if (LoadCharacterIntoSlot_c__AnonStorey.slotIndex == 0)
+											if (slotIndex == 0)
 											{
-												if (LoadCharacterIntoSlot_c__AnonStorey.ResetRotation)
+												if (ResetRotation)
 												{
 													UIFrontEnd.Get().ResetCharacterRotation();
 												}
 											}
-											if (LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[0].instantiatedCharacter != null)
+											if (this.m_loadedCharacters[0].instantiatedCharacter != null)
 											{
-												if (LoadCharacterIntoSlot_c__AnonStorey._this.GetCharacterLookAtCamera() != null)
+												if (this.GetCharacterLookAtCamera() != null)
 												{
-													if (LoadCharacterIntoSlot_c__AnonStorey._this.m_characterLookAtLocation == null)
+													if (this.m_characterLookAtLocation == null)
 													{
-														LoadCharacterIntoSlot_c__AnonStorey._this.m_characterLookAtLocation = new GameObject();
+														this.m_characterLookAtLocation = new GameObject();
 													}
-													LoadCharacterIntoSlot_c__AnonStorey._this.m_characterLookAtLocation.transform.position = new Vector3(LoadCharacterIntoSlot_c__AnonStorey._this.GetCharacterLookAtCamera().transform.position.x, LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[0].instantiatedCharacter.transform.position.y, LoadCharacterIntoSlot_c__AnonStorey._this.GetCharacterLookAtCamera().transform.position.z);
-													LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[0].instantiatedCharacter.transform.LookAt(LoadCharacterIntoSlot_c__AnonStorey._this.m_characterLookAtLocation.transform);
-													LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[0].instantiatedCharacter.transform.localEulerAngles += UIFrontEnd.Get().GetRotationOffset();
+													this.m_characterLookAtLocation.transform.position = new Vector3(this.GetCharacterLookAtCamera().transform.position.x, this.m_loadedCharacters[0].instantiatedCharacter.transform.position.y, this.GetCharacterLookAtCamera().transform.position.z);
+													this.m_loadedCharacters[0].instantiatedCharacter.transform.LookAt(this.m_characterLookAtLocation.transform);
+													this.m_loadedCharacters[0].instantiatedCharacter.transform.localEulerAngles += UIFrontEnd.Get().GetRotationOffset();
 												}
 											}
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].PlayBaseObjectAnimation("SlotIN");
+											this.m_ringAnimations[slotIndex].PlayBaseObjectAnimation("SlotIN");
 											UnityEngine.Object.Destroy(component);
 											Joint[] componentsInChildren = gameObject.GetComponentsInChildren<Joint>(true);
 											foreach (Joint obj in componentsInChildren)
@@ -527,7 +517,7 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 											{
 												UnityEngine.Object.Destroy(obj2);
 											}
-											LoadCharacterIntoSlot_c__AnonStorey._this.ChangeLayersRecursively(gameObject.transform, "UIInWorld");
+											this.ChangeLayersRecursively(gameObject.transform, "UIInWorld");
 											Collider[] componentsInChildren3 = gameObject.GetComponentsInChildren<Collider>();
 											for (int k = 0; k < componentsInChildren3.Length; k++)
 											{
@@ -536,29 +526,29 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 													componentsInChildren3[k].enabled = true;
 												}
 											}
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].uiActorModelData = gameObject.AddComponent<UIActorModelData>();
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].uiActorModelData.DelayEnablingOfShroudInstances();
-											LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].uiActorModelData.SetStateNameHashToNameMap(animatorStateNameHashToNameMap);
-											if (LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenDistTowardsCamera != 0f)
+											this.m_loadedCharacters[slotIndex].uiActorModelData = gameObject.AddComponent<UIActorModelData>();
+											this.m_loadedCharacters[slotIndex].uiActorModelData.DelayEnablingOfShroudInstances();
+											this.m_loadedCharacters[slotIndex].uiActorModelData.SetStateNameHashToNameMap(animatorStateNameHashToNameMap);
+											if (characterLink.m_loadScreenDistTowardsCamera != 0f)
 											{
-												float num = LoadCharacterIntoSlot_c__AnonStorey.characterLink.m_loadScreenDistTowardsCamera;
-												if (LoadCharacterIntoSlot_c__AnonStorey.slotIndex > 0)
+												float num = characterLink.m_loadScreenDistTowardsCamera;
+												if (slotIndex > 0)
 												{
 													num = Mathf.Min(0.85f, num);
 												}
-												LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].uiActorModelData.m_setOffsetTowardsCamera = true;
-												LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].uiActorModelData.m_offsetDistanceTowardsCamera = num;
-												LoadCharacterIntoSlot_c__AnonStorey._this.m_loadedCharacters[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].uiActorModelData.SetParentLocalPositionOffset();
+												this.m_loadedCharacters[slotIndex].uiActorModelData.m_setOffsetTowardsCamera = true;
+												this.m_loadedCharacters[slotIndex].uiActorModelData.m_offsetDistanceTowardsCamera = num;
+												this.m_loadedCharacters[slotIndex].uiActorModelData.SetParentLocalPositionOffset();
 											}
 											else
 											{
-												LoadCharacterIntoSlot_c__AnonStorey._this.m_ringAnimations[LoadCharacterIntoSlot_c__AnonStorey.slotIndex].GetContainerTransform().localPosition = Vector3.zero;
+												this.m_ringAnimations[slotIndex].GetContainerTransform().localPosition = Vector3.zero;
 											}
-											if (LoadCharacterIntoSlot_c__AnonStorey.slotIndex == 0)
+											if (slotIndex == 0)
 											{
 												UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectNotifyCharLoaded);
 												UICharacterSelectScreenController.Get().NotifyCharacterDoneLoading();
-												if (LoadCharacterIntoSlot_c__AnonStorey.playSelectionChatterCue)
+												if (playSelectionChatterCue)
 												{
 													GameEventManager.Get().FireEvent(GameEventManager.EventType.FrontEndSelectionChatterCue, null);
 												}

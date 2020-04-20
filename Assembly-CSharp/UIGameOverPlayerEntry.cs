@@ -498,10 +498,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				{
 					if (i < list.Count)
 					{
-						UIGameOverPlayerEntry.Setup_c__AnonStorey1 Setup_c__AnonStorey2 = new UIGameOverPlayerEntry.Setup_c__AnonStorey1();
 						MatchResultsStatline.AbilityEntry abilityEntry = statline.AbilityEntries[i];
 						AbilityData.AbilityEntry abilityEntry2 = (!(abilityData2 != null)) ? null : abilityData2.abilityEntries[i];
-						UIGameOverPlayerEntry.Setup_c__AnonStorey1 Setup_c__AnonStorey3 = Setup_c__AnonStorey2;
 						Ability theAbility;
 						if (abilityEntry2 != null)
 						{
@@ -511,19 +509,18 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 						{
 							theAbility = list[i];
 						}
-						Setup_c__AnonStorey3.theAbility = theAbility;
-						if (Setup_c__AnonStorey2.theAbility != null)
+						if (theAbility != null)
 						{
-							AbilityMod abilityMod = AbilityModHelper.GetModForAbility(Setup_c__AnonStorey2.theAbility, abilityEntry.AbilityModId);
-							this.m_abilityReferences.Add(Setup_c__AnonStorey2.theAbility);
+							AbilityMod abilityMod = AbilityModHelper.GetModForAbility(theAbility, abilityEntry.AbilityModId);
+							this.m_abilityReferences.Add(theAbility);
 							this.m_abilityBtns[i].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, delegate(UITooltipBase tooltip)
 							{
-								this.ShowAbilityTooltip(Setup_c__AnonStorey2.theAbility, abilityMod, (UIAbilityTooltip)tooltip);
+								this.ShowAbilityTooltip(theAbility, abilityMod, (UIAbilityTooltip)tooltip);
 								return true;
 							}, null);
 							this.m_modIcons[i].material = null;
-							this.m_abilityIcons[i].sprite = Setup_c__AnonStorey2.theAbility.sprite;
-							UIManager.SetGameObjectActive(this.m_freeActionLabel[i], Setup_c__AnonStorey2.theAbility.IsFreeAction(), null);
+							this.m_abilityIcons[i].sprite = theAbility.sprite;
+							UIManager.SetGameObjectActive(this.m_freeActionLabel[i], theAbility.IsFreeAction(), null);
 							if (abilityMod != null)
 							{
 								this.m_abilityModReferences.Add(abilityMod);
@@ -540,7 +537,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 								int num2 = actorData.TechPoints + actorData.ReservedTechPoints;
 								bool flag4 = abilityData2.HasQueuedAction((AbilityData.ActionType)i);
 								bool flag5;
-								if (Setup_c__AnonStorey2.theAbility.GetModdedCost() > num2)
+								if (theAbility.GetModdedCost() > num2)
 								{
 									flag5 = flag4;
 								}
@@ -550,7 +547,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 								}
 								bool flag6 = flag5;
 								string text = string.Empty;
-								if (Setup_c__AnonStorey2.theAbility.GetModdedMaxStocks() <= 0)
+								if (theAbility.GetModdedMaxStocks() <= 0)
 								{
 									if (abilityEntry2.GetCooldownRemaining() != 0)
 									{
@@ -567,7 +564,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 										bool flag7;
 										if (num2 >= actorData.GetActualMaxTechPoints())
 										{
-											flag7 = AbilityUtils.AbilityHasTag(Setup_c__AnonStorey2.theAbility, AbilityTags.IgnoreCooldownIfFullEnergy);
+											flag7 = AbilityUtils.AbilityHasTag(theAbility, AbilityTags.IgnoreCooldownIfFullEnergy);
 										}
 										else
 										{
@@ -585,9 +582,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 								}
 								else
 								{
-									int moddedMaxStocks = Setup_c__AnonStorey2.theAbility.GetModdedMaxStocks();
+									int moddedMaxStocks = theAbility.GetModdedMaxStocks();
 									AbilityData component = actorData.GetComponent<AbilityData>();
-									AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(Setup_c__AnonStorey2.theAbility);
+									AbilityData.ActionType actionTypeOfAbility = component.GetActionTypeOfAbility(theAbility);
 									if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
 									{
 										int consumedStocksCount = component.GetConsumedStocksCount(actionTypeOfAbility);
@@ -601,7 +598,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 										{
 											if (num3 != 0)
 											{
-												if (!Setup_c__AnonStorey2.theAbility.RefillAllStockOnRefresh())
+												if (!theAbility.RefillAllStockOnRefresh())
 												{
 													goto IL_D1F;
 												}
@@ -611,9 +608,9 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 									}
 								}
 								IL_D1F:
-								if (Setup_c__AnonStorey2.theAbility.GetModdedCost() > 0)
+								if (theAbility.GetModdedCost() > 0)
 								{
-									bool flag8 = Setup_c__AnonStorey2.theAbility.GetModdedCost() <= num2;
+									bool flag8 = theAbility.GetModdedCost() <= num2;
 									UIManager.SetGameObjectActive(this.m_disableContainer[i], !flag8, null);
 									this.m_cooldownLabel[i].text = string.Empty;
 								}
@@ -639,15 +636,15 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 								this.m_cooldownLabel[i].text = string.Empty;
 							}
 							Color color;
-							if (Setup_c__AnonStorey2.theAbility.GetPhaseString() == StringUtil.TR("Blast", "Global"))
+							if (theAbility.GetPhaseString() == StringUtil.TR("Blast", "Global"))
 							{
 								color = this.m_blastColor;
 							}
-							else if (Setup_c__AnonStorey2.theAbility.GetPhaseString() == StringUtil.TR("Dash", "Global"))
+							else if (theAbility.GetPhaseString() == StringUtil.TR("Dash", "Global"))
 							{
 								color = this.m_dashColor;
 							}
-							else if (Setup_c__AnonStorey2.theAbility.GetPhaseString() == StringUtil.TR("Prep", "Global"))
+							else if (theAbility.GetPhaseString() == StringUtil.TR("Prep", "Global"))
 							{
 								color = this.m_prepColor;
 							}
