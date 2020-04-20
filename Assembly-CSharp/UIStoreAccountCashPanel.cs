@@ -182,6 +182,6 @@ public class UIStoreAccountCashPanel : UIStoreBaseInventoryPanel
 		{
 			this.m_newItemToPurchase.m_currencyType = type;
 		}
-		UIStorePanel.Get().OpenPurchaseDialog(this.m_newItemToPurchase, null);
+		UIStorePanel.Get().OpenPurchaseDialog(this.m_newItemToPurchase);
 	}
 }
