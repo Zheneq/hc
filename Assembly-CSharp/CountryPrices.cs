@@ -44,7 +44,6 @@ public class CountryPrices
 		list.AddRange(this.Prices);
 		list2.AddRange(countryPrices.Prices);
 		int i = list.Count - 1;
-		IL_D8:
 		while (i >= 0)
 		{
 			bool flag = false;
@@ -55,27 +54,17 @@ public class CountryPrices
 					list.RemoveAt(i);
 					list2.RemoveAt(j);
 					flag = true;
-					IL_A5:
-					if (!flag)
-					{
-						if (list[i].Price > 0f)
-						{
-							return false;
-						}
-					}
-					i--;
-					goto IL_D8;
+					break;
 				}
 			}
-			for (;;)
+			if (!flag)
 			{
-				switch (1)
+				if (list[i].Price > 0f)
 				{
-				case 0:
-					continue;
+					return false;
 				}
-				goto IL_A5;
 			}
+			i--;
 		}
 		bool flag2 = false;
 		for (int k = 0; k < list.Count; k++)
@@ -83,27 +72,18 @@ public class CountryPrices
 			if (list[k].Price > 0f)
 			{
 				flag2 = true;
-				IL_128:
-				for (int l = 0; l < list2.Count; l++)
-				{
-					if (list2[l].Price > 0f)
-					{
-						flag2 = true;
-						break;
-					}
-				}
-				return !flag2;
+				break;
 			}
 		}
-		for (;;)
+		for (int l = 0; l < list2.Count; l++)
 		{
-			switch (3)
+			if (list2[l].Price > 0f)
 			{
-			case 0:
-				continue;
+				flag2 = true;
+				break;
 			}
-			goto IL_128;
 		}
+		return !flag2;
 	}
 
 	public override int GetHashCode()
