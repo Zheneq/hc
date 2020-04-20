@@ -2061,7 +2061,6 @@ public static class AreaEffectUtils
 		int num2 = -1;
 		Vector3 value = originalStart;
 		int i = 0;
-		IL_211:
 		while (i < laserAnglePoints.Count)
 		{
 			Vector3 vector2 = laserAnglePoints[i];
@@ -2092,71 +2091,45 @@ public static class AreaEffectUtils
 			for (int j = 0; j < list2.Count; j++)
 			{
 				ActorData actorData = list2[j];
-				if (!dictionary.ContainsKey(actorData))
+				if (!dictionary.ContainsKey(actorData) && (includeInvisibles || actorData.IsVisibleToClient()))
 				{
-					if (!includeInvisibles && !actorData.IsVisibleToClient())
+					AreaEffectUtils.BouncingLaserInfo value2 = new AreaEffectUtils.BouncingLaserInfo(vector, i);
+					dictionary.Add(actorData, value2);
+					if (orderedHitActors != null)
 					{
+						orderedHitActors.Add(actorData);
 					}
-					else
+					num++;
+					if (num >= maxTargetsHit && maxTargetsHit > 0)
 					{
-						AreaEffectUtils.BouncingLaserInfo value2 = new AreaEffectUtils.BouncingLaserInfo(vector, i);
-						dictionary.Add(actorData, value2);
-						if (orderedHitActors != null)
-						{
-							orderedHitActors.Add(actorData);
-						}
-						num++;
-						if (num >= maxTargetsHit)
-						{
-							if (maxTargetsHit > 0)
-							{
-								num2 = i;
-								Vector3 normalized = (vector2 - vector).normalized;
-								Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector;
-								value = vector + Vector3.Dot(normalized, rhs) * normalized;
-								IL_1F8:
-								if (num2 != -1)
-								{
-									goto IL_22B;
-								}
-								vector = vector2;
-								i++;
-								goto IL_211;
-							}
-						}
+						num2 = i;
+						Vector3 normalized = (vector2 - vector).normalized;
+						Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector;
+						value = vector + Vector3.Dot(normalized, rhs) * normalized;
+						break;
+							
 					}
 				}
+				
 			}
-			for (;;)
+			if (num2 != -1)
 			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_1F8;
+				break;
 			}
-			IL_22B:
-			if (num2 != -1 && maxTargetsHit > 0)
-			{
-				laserAnglePoints[num2] = value;
-				int num3 = laserAnglePoints.Count - 1 - num2;
-				if (num3 > 0)
-				{
-					laserAnglePoints.RemoveRange(num2 + 1, num3);
-				}
-			}
-			return dictionary;
+			vector = vector2;
+			i++;
 		}
-		for (;;)
+		if (num2 != -1 && maxTargetsHit > 0)
 		{
-			switch (1)
+			laserAnglePoints[num2] = value;
+			int num3 = laserAnglePoints.Count - 1 - num2;
+			if (num3 > 0)
 			{
-			case 0:
-				continue;
+				laserAnglePoints.RemoveRange(num2 + 1, num3);
 			}
-			goto IL_22B;
 		}
+		return dictionary;
+
 	}
 
 	public static void OperateOnSquaresInBounceLaser(IOperationOnSquare operationObj, Vector3 originalStart, List<Vector3> laserAnglePoints, float widthInSquares, ActorData caster, bool ignoreLos)
