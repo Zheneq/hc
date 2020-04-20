@@ -24,7 +24,8 @@ public struct Player
 	{
 		this.m_valid = true;
 		byte b = Player.s_nextId;
-		Player.s_nextId = checked(b + 1);
+		byte nextId = b;
+		Player.s_nextId = checked(nextId++);
 		this.m_id = b;
 		int connectionId;
 		if (connection == null)
