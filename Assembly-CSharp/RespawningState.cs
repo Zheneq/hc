@@ -18,19 +18,6 @@ public class RespawningState : TurnState
 		ActorData component = this.m_SM.GetComponent<ActorData>();
 		if (component != null && !component.IsDead())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RespawningState.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get().IsTeamsTurn(component.GetTeam()))
 			{
 				if (GameFlowData.Get().IsInDecisionState())
@@ -40,26 +27,8 @@ public class RespawningState : TurnState
 				}
 				else if (GameFlowData.Get().IsInResolveState())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_timeToWait <= 0f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SM.NextState = TurnStateEnum.RESOLVING;
 					}
 				}

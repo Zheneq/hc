@@ -23,83 +23,25 @@ public static class UIUtils
 	{
 		if (Time.time == UIUtils.s_inputHasFocusLastSetTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.InputFieldHasFocus()).MethodHandle;
-			}
 			return UIUtils.s_inputHasFocusValueThisFrame;
 		}
 		bool flag = false;
 		if (EventSystem.current != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
 			if (currentSelectedGameObject != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIUtils.s_prevSelectedGameObject == currentSelectedGameObject)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = UIUtils.s_prevHasInputField;
 					goto IL_D2;
 				}
 			}
 			if (currentSelectedGameObject != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (currentSelectedGameObject.GetComponent<TMP_InputField>() != null);
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (currentSelectedGameObject.GetComponent<InputField>() != null);
 				}
 				UIUtils.s_prevSelectedGameObject = currentSelectedGameObject;
@@ -108,37 +50,10 @@ public static class UIUtils
 			IL_D2:
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get() != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (HUD_UI.Get().m_textConsole != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = HUD_UI.Get().m_textConsole.EscapeJustPressed();
 					}
 				}
@@ -153,55 +68,15 @@ public static class UIUtils
 	{
 		if (KeyBinding_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.SettingKeybindCommand()).MethodHandle;
-			}
 			if (KeyBinding_UI.Get().IsSettingKeybindCommand())
 			{
 				return true;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (UIFrontEnd.Get())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return UIFrontEnd.Get().m_frontEndNavPanel.m_voiceListMenu.m_pushToTalkClickBlocker.gameObject.activeSelf;
 			}
 		}
@@ -218,70 +93,21 @@ public static class UIUtils
 	{
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.IsFullScreenTakeoverVisible()).MethodHandle;
-			}
 			if (Options_UI.Get().IsVisible())
 			{
 				goto IL_9B;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (KeyBinding_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (KeyBinding_UI.Get().IsVisible())
 			{
 				goto IL_9B;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int result;
 		if (UISystemEscapeMenu.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (UISystemEscapeMenu.Get().IsOpen() ? 1 : 0);
 		}
 		else
@@ -298,68 +124,19 @@ public static class UIUtils
 	{
 		if (UIUtils.IsFullScreenTakeoverVisible())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.IsMouseOnGUI()).MethodHandle;
-			}
 			return true;
 		}
 		bool result = false;
 		if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Button componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<Button>();
 					if (componentInParent != null && UIEventTriggerUtils.HasTriggerOfType(componentInParent.gameObject, EventTriggerType.PointerClick))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 				}
@@ -418,19 +195,6 @@ public static class UIUtils
 		string text2 = Mathf.RoundToInt(color.r * 255f).ToString("X");
 		if (text2.Length == 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.ColorToRichTextTag(Color)).MethodHandle;
-			}
 			text2 = "0" + text2;
 		}
 		string text3 = Mathf.RoundToInt(color.g * 255f).ToString("X");
@@ -441,15 +205,6 @@ public static class UIUtils
 		string text4 = Mathf.RoundToInt(color.b * 255f).ToString("X");
 		if (text4.Length == 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text4 = "0" + text4;
 		}
 		string text5 = Mathf.RoundToInt(color.a * 255f).ToString("X");
@@ -480,19 +235,6 @@ public static class UIUtils
 		string text3 = Mathf.RoundToInt(color.g * 255f).ToString("X");
 		if (text3.Length == 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.ColorToNGUIRichTextTag(Color)).MethodHandle;
-			}
 			text3 = "0" + text3;
 		}
 		string text4 = Mathf.RoundToInt(color.b * 255f).ToString("X");
@@ -516,43 +258,12 @@ public static class UIUtils
 		float num = float.MaxValue;
 		if (velocity.x > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.SweepRectRect(Rect, Rect, Vector2, float*)).MethodHandle;
-			}
 			if (rectA.xMax < rectB.xMin)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, rectB.xMin - rectA.xMax);
 			}
 			else if (rectA.xMax < rectB.xMax)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, rectB.xMax - rectA.xMax);
 			}
 		}
@@ -560,15 +271,6 @@ public static class UIUtils
 		{
 			if (rectA.xMin > rectB.xMax)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, rectA.xMin - rectB.xMax);
 			}
 			else if (rectA.xMin > rectB.xMin)
@@ -579,15 +281,6 @@ public static class UIUtils
 		float num2 = float.MaxValue;
 		if (velocity.y > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (rectA.yMax < rectB.yMin)
 			{
 				num2 = Mathf.Min(num2, rectB.yMin - rectA.yMax);
@@ -601,28 +294,10 @@ public static class UIUtils
 		{
 			if (rectA.yMin > rectB.yMax)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = Mathf.Min(num2, rectA.yMin - rectB.yMax);
 			}
 			else if (rectA.yMin > rectB.yMin)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = Mathf.Min(num2, rectA.yMin - rectB.yMin);
 			}
 		}
@@ -633,15 +308,6 @@ public static class UIUtils
 		}
 		if (velocity.y != 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			hitTime = Mathf.Min(hitTime, num2 / Mathf.Abs(velocity.y));
 		}
 	}
@@ -650,30 +316,8 @@ public static class UIUtils
 	{
 		if (transform != null && transform.parent != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIUtils.SetAsLastSiblingIfNeeded(Transform)).MethodHandle;
-			}
 			if (transform.GetSiblingIndex() != transform.parent.childCount - 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				transform.SetAsLastSibling();
 			}
 		}

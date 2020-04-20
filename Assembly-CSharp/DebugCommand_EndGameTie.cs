@@ -27,19 +27,6 @@ public class DebugCommand_EndGameTie : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("tie"))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameTie.OnSlashCommand(string)).MethodHandle;
-			}
 			this.OnIncreaseClick();
 			return true;
 		}

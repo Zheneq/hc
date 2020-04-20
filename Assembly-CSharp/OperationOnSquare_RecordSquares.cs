@@ -21,31 +21,9 @@ public class OperationOnSquare_RecordSquares : IOperationOnSquare
 	{
 		if (!this.IgnoreLos)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OperationOnSquare_RecordSquares.OperateOnSquare(BoardSquare, ActorData, bool)).MethodHandle;
-			}
 			if (!squareHasLos)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_squares.Add(square);

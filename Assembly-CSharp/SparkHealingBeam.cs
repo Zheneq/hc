@@ -72,59 +72,19 @@ public class SparkHealingBeam : Ability
 		this.SetCachedFields();
 		if (this.m_energizedAbility == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.Setup()).MethodHandle;
-			}
 			AbilityData component = base.GetComponent<AbilityData>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
 			}
 		}
 		if (base.Targeter != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Targeter.ResetTargeter(true);
 		}
 		bool flag = this.m_healSelfOnInitialAttach && this.GetHealOnSelfPerTurn() > 0;
 		if (this.m_targetingMode == SparkHealingBeam.TargetingMode.Laser)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = new AbilityUtil_Targeter_Laser(this, this.GetLaserInfo());
 			abilityUtil_Targeter_Laser.SetAffectedGroups(false, true, flag);
 			abilityUtil_Targeter_Laser.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
@@ -132,27 +92,9 @@ public class SparkHealingBeam : Ability
 		}
 		if (this.m_targetingMode == SparkHealingBeam.TargetingMode.BoardSquare)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityUtil_Targeter.AffectsActor affectsActor;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				affectsActor = AbilityUtil_Targeter.AffectsActor.Possible;
 			}
 			else
@@ -187,19 +129,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetHealingOnAttach()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_initialHealingMod.GetModifiedValue(this.m_laserHealingAmount);
 		}
 		else
@@ -214,19 +143,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetAdditionalHealOnRadiated()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_additionalHealOnRadiatedMod.GetModifiedValue(this.m_additionalEnergizedHealing);
 		}
 		else
@@ -241,19 +157,6 @@ public class SparkHealingBeam : Ability
 		int num;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetEnergyOnCasterPerTurn()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(this.m_energyOnCasterPerTurn);
 		}
 		else
@@ -263,15 +166,6 @@ public class SparkHealingBeam : Ability
 		int num2 = num;
 		if (this.m_energizedAbility != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.m_energizedAbility.CalcEnergyOnSelfPerTurn(num2);
 		}
 		return num2;
@@ -282,19 +176,6 @@ public class SparkHealingBeam : Ability
 		int num = (!this.m_abilityMod) ? this.m_healOnSelfOnTick : this.m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(this.m_healOnSelfOnTick);
 		if (this.m_energizedAbility != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetHealOnSelfPerTurn()).MethodHandle;
-			}
 			num = this.m_energizedAbility.CalcHealOnSelfPerTurn(num);
 		}
 		return num;
@@ -305,19 +186,6 @@ public class SparkHealingBeam : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetTetherDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherDistanceMod.GetModifiedValue(this.m_tetherDistance);
 		}
 		else
@@ -332,19 +200,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetTetherDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherDurationMod.GetModifiedValue(this.m_tetherDuration);
 		}
 		else
@@ -369,19 +224,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetMaxBonusHealing()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxAllyBonusHealAmount.GetModifiedValue(0);
 		}
 		else
@@ -404,19 +246,6 @@ public class SparkHealingBeam : Ability
 			}
 			if (maxBonusHealing > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetBonusHealFromTetherAge(int)).MethodHandle;
-				}
 				num = Mathf.Min(maxBonusHealing, num);
 			}
 		}
@@ -428,19 +257,6 @@ public class SparkHealingBeam : Ability
 		bool result;
 		if (this.GetXDamageThreshold() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.ShouldApplyTargetEffectForXDamage()).MethodHandle;
-			}
 			result = (this.GetTargetEffectForXDamage() != null);
 		}
 		else
@@ -460,19 +276,6 @@ public class SparkHealingBeam : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetTargetEffectForXDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_effectOnTargetForTakingXDamage;
 		}
 		else
@@ -488,19 +291,6 @@ public class SparkHealingBeam : Ability
 		AbilityModPropertyLaserInfo mod;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.SetCachedFields()).MethodHandle;
-			}
 			mod = this.m_abilityMod.m_laserInfoMod;
 		}
 		else
@@ -522,19 +312,6 @@ public class SparkHealingBeam : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedAllyEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetAllyTetherEffectData()).MethodHandle;
-			}
 			result = this.m_cachedAllyEffect;
 		}
 		else
@@ -549,19 +326,6 @@ public class SparkHealingBeam : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -575,34 +339,12 @@ public class SparkHealingBeam : Ability
 	{
 		if (this.m_targetingMode == SparkHealingBeam.TargetingMode.Laser)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			return true;
 		}
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		ActorData actorData;
 		if (boardSquareSafe)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorData = boardSquareSafe.OccupantActor;
 		}
 		else
@@ -617,19 +359,6 @@ public class SparkHealingBeam : Ability
 	{
 		if (this.m_targetingMode == SparkHealingBeam.TargetingMode.Laser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			return true;
 		}
 		Ability.TargetingParadigm targetingParadigm = base.GetTargetingParadigm(0);
@@ -638,15 +367,6 @@ public class SparkHealingBeam : Ability
 			if (targetingParadigm != Ability.TargetingParadigm.Position)
 			{
 				return true;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return base.HasTargetableActorsInDecision(caster, false, true, false, Ability.ValidateCheckPath.Ignore, true, false, false);
@@ -669,30 +389,8 @@ public class SparkHealingBeam : Ability
 		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, healingOnAttach);
 		if (this.m_healSelfOnInitialAttach)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			if (this.GetHealOnSelfPerTurn() > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetHealOnSelfPerTurn());
 			}
 		}
@@ -705,19 +403,6 @@ public class SparkHealingBeam : Ability
 		int result;
 		if (visibleActorsCountByTooltipSubject > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			result = this.GetEnergyOnCasterPerTurn();
 		}
 		else
@@ -727,9 +412,9 @@ public class SparkHealingBeam : Ability
 		return result;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
-		List<int> list = base.\u001D();
+		List<int> list = base.symbol_001D();
 		list.Add(this.m_laserHitEffect.m_effectData.m_healingPerTurn);
 		return list;
 	}
@@ -738,19 +423,6 @@ public class SparkHealingBeam : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SparkHealingBeam))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkHealingBeam.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SparkHealingBeam);
 			this.Setup();
 		}

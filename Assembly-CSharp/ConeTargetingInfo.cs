@@ -24,58 +24,18 @@ public class ConeTargetingInfo
 	{
 		if (this.m_affectsEnemies)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConeTargetingInfo.GetAffectedTeams(ActorData)).MethodHandle;
-			}
 			if (this.m_affectsAllies)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return null;
 			}
 		}
 		List<Team> list = new List<Team>();
 		if (this.m_affectsEnemies)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(caster.GetOpposingTeam());
 		}
 		if (this.m_affectsAllies)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(caster.GetTeam());
 		}
 		return list;
@@ -86,30 +46,8 @@ public class ConeTargetingInfo
 		ConeTargetingInfo coneTargetingInfo = new ConeTargetingInfo();
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConeTargetingInfo.GetModifiedCopy(AbilityModPropertyConeInfo)).MethodHandle;
-			}
 			if (modProp.m_radiusMod == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Application.isEditor)
 				{
 					Debug.LogError("mod property not initialized, probably not yet serialized. Inspect the selected mod and save");
@@ -121,15 +59,6 @@ public class ConeTargetingInfo
 		float radiusInSquares;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			radiusInSquares = modProp.m_radiusMod.GetModifiedValue(this.m_radiusInSquares);
 		}
 		else
@@ -141,15 +70,6 @@ public class ConeTargetingInfo
 		float widthAngleDeg;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			widthAngleDeg = modProp.m_widthAngleMod.GetModifiedValue(this.m_widthAngleDeg);
 		}
 		else
@@ -163,15 +83,6 @@ public class ConeTargetingInfo
 		bool affectsCaster;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsCaster = modProp.m_affectsCasterOverride.GetModifiedValue(this.m_affectsCaster);
 		}
 		else
@@ -183,15 +94,6 @@ public class ConeTargetingInfo
 		bool affectsAllies;
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsAllies = modProp.m_affectsAllyOverride.GetModifiedValue(this.m_affectsAllies);
 		}
 		else

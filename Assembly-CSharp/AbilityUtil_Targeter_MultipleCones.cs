@@ -39,30 +39,8 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 			}
 			if (this.m_coneDimensions[i].m_coneAngle > this.m_maxConeAngle)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleCones..ctor(Ability, List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>, float, bool, bool, bool, bool, bool)).MethodHandle;
-				}
 				this.m_maxConeAngle = this.m_coneDimensions[i].m_coneAngle;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_penetrateLoS = penetrateLoS;
 		this.m_coneBackwardOffsetInSquares = coneBackwardOffsetInSquares;
@@ -82,19 +60,6 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleCones.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -111,27 +76,9 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		{
 			if (this.m_affectCasterDelegate != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_affectCasterDelegate(targetingActor, actorsInCone))
 				{
 					goto IL_DE;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			actorsInCone.Add(targetingActor);
@@ -144,26 +91,8 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 				ActorData actor = enumerator.Current;
 				if (this.ShouldAddActor(actor, targetingActor))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.AddActorInRange(actor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.DrawInvalidSquareIndicators(currentTarget, targetingActor);
@@ -174,45 +103,14 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		bool result = false;
 		if (actor == caster)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleCones.ShouldAddActor(ActorData, ActorData)).MethodHandle;
-			}
 			result = this.m_includeCaster;
 		}
 		else
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_includeAllies)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -244,19 +142,6 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 				}
 				this.m_highlights.Add(gameObject);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleCones.CreateConeCursorHighlights(Vector3, float)).MethodHandle;
-			}
 		}
 		for (int j = 0; j < this.m_highlights.Count; j++)
 		{
@@ -274,19 +159,6 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 			Vector3 vector;
 			if (currentTarget == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MultipleCones.DrawInvalidSquareIndicators(AbilityTarget, ActorData)).MethodHandle;
-				}
 				vector = targetingActor.transform.forward;
 			}
 			else

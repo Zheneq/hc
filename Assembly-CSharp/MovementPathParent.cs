@@ -10,19 +10,6 @@ public class MovementPathParent : MonoBehaviour
 		{
 			UnityEngine.Object.Destroy(meshRenderer.material);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathParent.OnDestroy()).MethodHandle;
-		}
 		HighlightUtils.DestroyMeshesOnObject(base.gameObject);
 	}
 }

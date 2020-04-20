@@ -19,65 +19,65 @@ namespace Theatrics
 
 		private Dictionary<int, int> actorIndexToDeltaHP = new Dictionary<int, int>();
 
-		private Dictionary<int, int> \u0015 = new Dictionary<int, int>();
+		private Dictionary<int, int> symbol_0015 = new Dictionary<int, int>();
 
 		private List<int> participants = new List<int>();
 
 		private int playOrderIndex = -1;
 
-		private int \u0018 = -1;
+		private int symbol_0018 = -1;
 
-		private bool \u0009 = true;
+		private bool symbol_0009 = true;
 
-		private int \u0019 = -1;
+		private int symbol_0019 = -1;
 
-		private int \u0011 = -1;
+		private int symbol_0011 = -1;
 
 		private float maxCamStartDelay;
 
-		private int \u0004 = -1;
+		private int symbol_0004 = -1;
 
-		private float \u000B;
+		private float symbol_000B;
 
-		private float \u0003;
+		private float symbol_0003;
 
-		private Turn \u000F;
+		private Turn symbol_000F;
 
-		private float \u0017;
+		private float symbol_0017;
 
-		private float \u000D;
+		private float symbol_000D;
 
-		private bool \u0008;
+		private bool symbol_0008;
 
-		private bool \u0002;
+		private bool symbol_0002;
 
 		private float evadeStartTime = -1f;
 
-		private bool \u0006;
+		private bool symbol_0006;
 
-		private bool \u0020;
+		private bool symbol_0020;
 
-		private bool \u000C;
+		private bool symbol_000C;
 
-		private bool \u0014;
+		private bool symbol_0014;
 
-		private bool \u0005;
+		private bool symbol_0005;
 
-		private bool \u001B;
+		private bool symbol_001B;
 
-		private int \u001E = -1;
+		private int symbol_001E = -1;
 
-		private bool \u0001;
+		private bool symbol_0001;
 
-		private const float \u001F = 0.7f;
+		private const float symbol_001F = 0.7f;
 
-		private const float \u0010 = 0.3f;
+		private const float symbol_0010 = 0.3f;
 
-		private const float \u0007 = 0.35f;
+		private const float symbol_0007 = 0.35f;
 
-		internal Phase(Turn \u001D)
+		internal Phase(Turn symbol_001D)
 		{
-			this.\u000F = \u001D;
+			this.symbol_000F = symbol_001D;
 		}
 
 		internal AbilityPriority Index { get; private set; }
@@ -96,137 +96,48 @@ namespace Theatrics
 
 		public void SetSymbol0006ToTrue()
 		{
-			this.\u0006 = true;
+			this.symbol_0006 = true;
 		}
 
-		internal void \u001D\u000E()
+		internal void symbol_001Dsymbol_000E()
 		{
 			for (int i = 0; i < this.animations.Count; i++)
 			{
 				ActorAnimation actorAnimation = this.animations[i];
-				if (!actorAnimation.\u0006\u000E())
+				if (!actorAnimation.symbol_0006symbol_000E())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001D\u000E()).MethodHandle;
-					}
-					float b = actorAnimation.\u000D\u000E(this.Index == AbilityPriority.Evasion && actorAnimation.\u0002\u000E());
+					float b = actorAnimation.symbol_000Dsymbol_000E(this.Index == AbilityPriority.Evasion && actorAnimation.symbol_0002symbol_000E());
 					this.maxCamStartDelay = Mathf.Max(this.maxCamStartDelay, b);
 				}
-				if (this.\u0011 == -1)
+				if (this.symbol_0011 == -1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!actorAnimation.cinematicCamera)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						this.\u0011 = (int)actorAnimation.playOrderIndex;
+						this.symbol_0011 = (int)actorAnimation.playOrderIndex;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
-		internal bool \u001C(ActorData \u001D)
+		internal bool symbol_001C(ActorData symbol_001D)
 		{
 			bool result = false;
 			if (this.animations != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(ActorData)).MethodHandle;
-				}
 				for (int i = 0; i < this.animations.Count; i++)
 				{
 					ActorAnimation actorAnimation = this.animations[i];
-					if (actorAnimation.Actor == \u001D)
+					if (actorAnimation.Actor == symbol_001D)
 					{
-						for (;;)
+						if (!actorAnimation.symbol_0006symbol_000E())
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!actorAnimation.\u0006\u000E())
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							bool flag = actorAnimation.State >= ActorAnimation.PlaybackState.\u0016;
+							bool flag = actorAnimation.State >= ActorAnimation.PlaybackState.symbol_0016;
 							bool flag2 = ClientResolutionManager.Get().HitsDoneExecuting(actorAnimation.SeqSource);
 							if (flag2)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag)
 								{
 									goto IL_AA;
-								}
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							result = true;
@@ -239,72 +150,37 @@ namespace Theatrics
 			return result;
 		}
 
-		internal bool \u001D\u000E(ActorData \u001D)
+		internal bool symbol_001Dsymbol_000E(ActorData symbol_001D)
 		{
-			if (this.\u0015 != null)
+			if (this.symbol_0015 != null)
 			{
-				for (;;)
+				if (this.symbol_0015.ContainsKey(symbol_001D.ActorIndex))
 				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001D\u000E(ActorData)).MethodHandle;
-				}
-				if (this.\u0015.ContainsKey(\u001D.ActorIndex))
-				{
-					return this.\u0015[\u001D.ActorIndex] > 0;
+					return this.symbol_0015[symbol_001D.ActorIndex] > 0;
 				}
 			}
 			return false;
 		}
 
-		internal bool \u000E\u000E(ActorData \u001D)
+		internal bool symbol_000Esymbol_000E(ActorData symbol_001D)
 		{
-			if (\u001D != null)
+			if (symbol_001D != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u000E\u000E(ActorData)).MethodHandle;
-				}
 				if (this.participants != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					return this.participants.Contains(\u001D.ActorIndex);
+					return this.participants.Contains(symbol_001D.ActorIndex);
 				}
 			}
 			return false;
 		}
 
-		internal bool \u001C()
+		internal bool symbol_001C()
 		{
 			bool result = false;
 			for (int i = 0; i < this.animations.Count; i++)
 			{
 				ActorAnimation actorAnimation = this.animations[i];
-				if (actorAnimation.State != ActorAnimation.PlaybackState.\u0018 && actorAnimation.State != ActorAnimation.PlaybackState.\u0013)
+				if (actorAnimation.State != ActorAnimation.PlaybackState.symbol_0018 && actorAnimation.State != ActorAnimation.PlaybackState.symbol_0013)
 				{
 					result = true;
 					break;
@@ -322,30 +198,8 @@ namespace Theatrics
 			bool flag;
 			if (stream.isWriting)
 			{
-				for (;;)
+				if (!this.symbol_0006)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.OnSerializeHelper(IBitStream)).MethodHandle;
-				}
-				if (!this.\u0006)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = ((int)b < (int)((sbyte)ServerClientUtils.GetCurrentAbilityPhase()));
 				}
 				else
@@ -360,15 +214,6 @@ namespace Theatrics
 			bool flag2 = flag;
 			if (stream.isWriting)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
 					b2 = 0;
@@ -379,39 +224,12 @@ namespace Theatrics
 			{
 				while (i >= this.animations.Count)
 				{
-					this.animations.Add(new ActorAnimation(this.\u000F));
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					this.animations.Add(new ActorAnimation(this.symbol_000F));
 				}
 				this.animations[i].OnSerializeHelper(stream);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (stream.isWriting)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sbyte b3 = (sbyte)this.actorIndexToDeltaHP.Count;
 				stream.Serialize(ref b3);
 				using (Dictionary<int, int>.Enumerator enumerator = this.actorIndexToDeltaHP.GetEnumerator())
@@ -423,15 +241,6 @@ namespace Theatrics
 						short num = (short)keyValuePair.Value;
 						stream.Serialize(ref b4);
 						stream.Serialize(ref num);
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -448,48 +257,21 @@ namespace Theatrics
 					stream.Serialize(ref value);
 					this.actorIndexToDeltaHP.Add((int)b6, (int)value);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if ((int)b == 5)
 			{
 				if (stream.isWriting)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					sbyte b7 = (sbyte)this.\u0015.Count;
+					sbyte b7 = (sbyte)this.symbol_0015.Count;
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						b7 = 0;
 						stream.Serialize(ref b7);
 					}
 					else
 					{
 						stream.Serialize(ref b7);
-						foreach (KeyValuePair<int, int> keyValuePair2 in this.\u0015)
+						foreach (KeyValuePair<int, int> keyValuePair2 in this.symbol_0015)
 						{
 							sbyte b8 = (sbyte)keyValuePair2.Key;
 							sbyte b9 = (sbyte)keyValuePair2.Value;
@@ -502,37 +284,19 @@ namespace Theatrics
 				{
 					sbyte b10 = -1;
 					stream.Serialize(ref b10);
-					this.\u0015 = new Dictionary<int, int>();
+					this.symbol_0015 = new Dictionary<int, int>();
 					for (int k = 0; k < (int)b10; k++)
 					{
 						sbyte b11 = (sbyte)ActorData.s_invalidActorIndex;
 						sbyte b12 = -1;
 						stream.Serialize(ref b11);
 						stream.Serialize(ref b12);
-						this.\u0015.Add((int)b11, (int)b12);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						this.symbol_0015.Add((int)b11, (int)b12);
 					}
 				}
 			}
 			if (stream.isWriting)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sbyte b13 = (sbyte)this.participants.Count;
 				stream.Serialize(ref b13);
 				sbyte b14 = 0;
@@ -541,15 +305,6 @@ namespace Theatrics
 					sbyte b15 = (sbyte)this.participants[(int)b14];
 					stream.Serialize(ref b15);
 					b14 = (sbyte)((int)b14 + 1);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -565,144 +320,64 @@ namespace Theatrics
 					this.participants.Add((int)b18);
 					b17 = (sbyte)((int)b17 + 1);
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 
-		private void \u001C(List<ActorAnimation> \u001D)
+		private void symbol_001C(List<ActorAnimation> symbol_001D)
 		{
-			if (\u001D != null)
+			if (symbol_001D != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(List<ActorAnimation>)).MethodHandle;
-				}
-				if (\u001D.Count > 0)
+				if (symbol_001D.Count > 0)
 				{
 					GameEventManager.TheatricsAbilityHighlightStartArgs theatricsAbilityHighlightStartArgs = new GameEventManager.TheatricsAbilityHighlightStartArgs();
-					for (int i = 0; i < \u001D.Count; i++)
+					for (int i = 0; i < symbol_001D.Count; i++)
 					{
-						ActorAnimation actorAnimation = \u001D[i];
+						ActorAnimation actorAnimation = symbol_001D[i];
 						theatricsAbilityHighlightStartArgs.m_casters.Add(actorAnimation.Actor);
 						if (actorAnimation.HitActorsToDeltaHP != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							for (int j = 0; j < actorAnimation.HitActorsToDeltaHP.Keys.Count; j++)
 							{
 								theatricsAbilityHighlightStartArgs.m_targets.Add(actorAnimation.HitActorsToDeltaHP.Keys.ElementAt(j));
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					List<ActorData> actorsWithMovementHits = ClientResolutionManager.Get().GetActorsWithMovementHits();
 					for (int k = 0; k < actorsWithMovementHits.Count; k++)
 					{
 						if (!theatricsAbilityHighlightStartArgs.m_targets.Contains(actorsWithMovementHits[k]))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							theatricsAbilityHighlightStartArgs.m_targets.Add(actorsWithMovementHits[k]);
 						}
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilityHighlightStart, theatricsAbilityHighlightStartArgs);
-					this.\u0001 = true;
+					this.symbol_0001 = true;
 				}
 			}
 		}
 
-		private void \u000E\u000E()
+		private void symbol_000Esymbol_000E()
 		{
 			GameEventManager.TheatricsAbilityHighlightStartArgs args = new GameEventManager.TheatricsAbilityHighlightStartArgs();
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilityHighlightStart, args);
-			this.\u0001 = false;
+			this.symbol_0001 = false;
 		}
 
-		private unsafe ActorData \u001C(int \u001D, out bool \u000E)
+		private unsafe ActorData symbol_001C(int symbol_001D, out bool symbol_000E)
 		{
-			\u000E = false;
+			symbol_000E = false;
 			for (int i = 0; i < this.animations.Count; i++)
 			{
-				if ((int)this.animations[i].playOrderIndex == \u001D)
+				if ((int)this.animations[i].playOrderIndex == symbol_001D)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(int, bool*)).MethodHandle;
-					}
-					\u000E = this.animations[i].cinematicCamera;
+					symbol_000E = this.animations[i].cinematicCamera;
 					return this.animations[i].Actor;
 				}
 			}
 			return null;
 		}
 
-		private bool \u001C(int \u001D)
+		private bool symbol_001C(int symbol_001D)
 		{
 			bool flag = false;
 			for (int i = 0; i < this.animations.Count; i++)
@@ -710,32 +385,10 @@ namespace Theatrics
 				ActorAnimation actorAnimation = this.animations[i];
 				if (actorAnimation != null)
 				{
-					for (;;)
+					if (actorAnimation.HitActorsToDeltaHP != null && (int)actorAnimation.playOrderIndex == symbol_001D)
 					{
-						switch (7)
+						if (!actorAnimation.symbol_0002symbol_000E())
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(int)).MethodHandle;
-					}
-					if (actorAnimation.HitActorsToDeltaHP != null && (int)actorAnimation.playOrderIndex == \u001D)
-					{
-						if (!actorAnimation.\u0002\u000E())
-						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							using (Dictionary<ActorData, int>.Enumerator enumerator = actorAnimation.HitActorsToDeltaHP.GetEnumerator())
 							{
 								while (enumerator.MoveNext())
@@ -748,15 +401,6 @@ namespace Theatrics
 									bool flag2;
 									if (value < 0 && hitPointsAfterResolution > 0)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag2 = (hitPointsAfterResolutionWithDelta <= 0);
 									}
 									else
@@ -766,68 +410,23 @@ namespace Theatrics
 									bool flag3 = flag2;
 									if (flag3)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = true;
 									}
 									else
 									{
 										if (value > 0 && hitPointsAfterResolution <= 0)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (hitPointsAfterResolutionWithDelta > 0)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag = true;
 												goto IL_15A;
 											}
 										}
-										if (this.\u000F.\u0004(key, value, (int)actorAnimation.SeqSource.RootID))
+										if (this.symbol_000F.symbol_0004(key, value, (int)actorAnimation.SeqSource.RootID))
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = true;
 											if (CameraManager.CamDebugTraceOn)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												CameraManager.LogForDebugging("Ragdolling hit on " + key + " when HP is already 0", CameraManager.CameraLogType.None);
 											}
 										}
@@ -835,26 +434,8 @@ namespace Theatrics
 									IL_15A:
 									if (flag)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (CameraManager.CamDebugTraceOn)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											CameraManager.LogForDebugging(string.Concat(new object[]
 											{
 												"Using Low Position for ",
@@ -868,15 +449,6 @@ namespace Theatrics
 											}), CameraManager.CameraLogType.None);
 										}
 									}
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -895,59 +467,28 @@ namespace Theatrics
 			}
 		}
 
-		private bool \u001C(Bounds \u001D, Bounds \u000E, float \u0012, float \u0015, bool \u0016)
+		private bool symbol_001C(Bounds symbol_001D, Bounds symbol_000E, float symbol_0012, float symbol_0015, bool symbol_0016)
 		{
-			Vector3 center = \u001D.center;
-			Vector3 center2 = \u000E.center;
+			Vector3 center = symbol_001D.center;
+			Vector3 center2 = symbol_000E.center;
 			Vector3 vector = center2 - center;
 			vector.y = 0f;
 			float magnitude = vector.magnitude;
-			if (magnitude <= \u0012)
+			if (magnitude <= symbol_0012)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(Bounds, Bounds, float, float, bool)).MethodHandle;
-				}
 				bool flag = false;
 				Vector3 vector2;
 				Vector3 vector3;
-				bool flag2 = CameraManager.BoundSidesWithinDistance(\u001D, \u000E, \u0015, out vector2, out vector3);
-				if (\u0016)
+				bool flag2 = CameraManager.BoundSidesWithinDistance(symbol_001D, symbol_000E, symbol_0015, out vector2, out vector3);
+				if (symbol_0016)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag2)
 					{
-						Bounds bounds = \u001D;
+						Bounds bounds = symbol_001D;
 						bounds.Expand(new Vector3(1.5f, 100f, 1.5f));
-						if (bounds.Contains(\u000E.center + \u000E.extents))
+						if (bounds.Contains(symbol_000E.center + symbol_000E.extents))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (bounds.Contains(\u000E.center - \u000E.extents))
+							if (bounds.Contains(symbol_000E.center - symbol_000E.extents))
 							{
 								flag2 = true;
 								flag = true;
@@ -970,69 +511,38 @@ namespace Theatrics
 						" | used inflated bounds: ",
 						flag,
 						"\nPrev Bound: ",
-						\u001D,
+						symbol_001D,
 						"\nCompare to Bound: ",
-						\u000E
+						symbol_000E
 					}), CameraManager.CameraLogType.SimilarBounds);
 				}
 				return flag2;
 			}
 			if (CameraManager.CamDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.LogForDebugging("Not merging bounds, centerDist too far: " + magnitude, CameraManager.CameraLogType.SimilarBounds);
 			}
 			return false;
 		}
 
-		internal unsafe bool \u001C(Turn \u001D, ref bool \u000E, ref bool \u0012)
+		internal unsafe bool symbol_001C(Turn symbol_001D, ref bool symbol_000E, ref bool symbol_0012)
 		{
-			this.\u0017 += GameTime.deltaTime;
-			this.\u000D += GameTime.deltaTime;
-			bool flag = (this.animations.Count != 0 & this.Index == AbilityPriority.Evasion) && !this.\u0002;
+			this.symbol_0017 += GameTime.deltaTime;
+			this.symbol_000D += GameTime.deltaTime;
+			bool flag = (this.animations.Count != 0 & this.Index == AbilityPriority.Evasion) && !this.symbol_0002;
 			bool flag2 = true;
 			for (int i = 0; i < this.animations.Count; i++)
 			{
 				ActorAnimation actorAnimation = this.animations[i];
-				if (actorAnimation.\u000D\u000E(\u001D))
+				if (actorAnimation.symbol_000Dsymbol_000E(symbol_001D))
 				{
 					flag = true;
 					if ((int)actorAnimation.playOrderIndex <= this.playOrderIndex)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(Phase.\u001C(Turn, bool*, bool*)).MethodHandle;
-						}
 						bool flag3;
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							flag3 = actorAnimation.\u0005\u000E();
+							flag3 = actorAnimation.symbol_0005symbol_000E();
 						}
 						else
 						{
@@ -1042,96 +552,42 @@ namespace Theatrics
 					}
 					if ((int)actorAnimation.playOrderIndex == this.playOrderIndex)
 					{
-						bool flag4 = actorAnimation.\u000C\u000E();
+						bool flag4 = actorAnimation.symbol_000Csymbol_000E();
 						bool flag5;
-						if (!\u000E)
+						if (!symbol_000E)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag5 = flag4;
 						}
 						else
 						{
 							flag5 = true;
 						}
-						\u000E = flag5;
+						symbol_000E = flag5;
 						bool flag6;
-						if (!\u0012)
+						if (!symbol_0012)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag6 = !flag4;
 						}
 						else
 						{
 							flag6 = true;
 						}
-						\u0012 = flag6;
+						symbol_0012 = flag6;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (CameraManager.Get().IsPlayingShotSequence())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.\u0008 = true;
+				this.symbol_0008 = true;
 				return true;
 			}
-			if (this.\u0008)
+			if (this.symbol_0008)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.\u0017 = 0f;
-				this.\u0008 = false;
+				this.symbol_0017 = 0f;
+				this.symbol_0008 = false;
 			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 			int num = int.MaxValue;
@@ -1141,66 +597,21 @@ namespace Theatrics
 				ActorAnimation actorAnimation2 = this.animations[j];
 				if (actorAnimation2 != null)
 				{
-					for (;;)
+					if (actorAnimation2.State == ActorAnimation.PlaybackState.symbol_001D)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (actorAnimation2.State == ActorAnimation.PlaybackState.\u001D)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((int)actorAnimation2.playOrderIndex < num)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (int)actorAnimation2.playOrderIndex;
 							num2 = (int)actorAnimation2.groupIndex;
 						}
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilitiesCamera abilitiesCamera = AbilitiesCamera.Get();
 			List<ActorAnimation> list = null;
 			float num3;
 			if (this.Index == AbilityPriority.Evasion)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = 0.7f;
 			}
 			else
@@ -1209,18 +620,9 @@ namespace Theatrics
 			}
 			float num4 = num3;
 			bool flag7;
-			if (\u001D.TimeInResolve < num4)
+			if (symbol_001D.TimeInResolve < num4)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag7 = (this.\u0017 >= num4);
+				flag7 = (this.symbol_0017 >= num4);
 			}
 			else
 			{
@@ -1230,37 +632,10 @@ namespace Theatrics
 			bool flag9;
 			if (flag8)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num != this.playOrderIndex)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag9 = (num != int.MaxValue);
 					}
 					else
@@ -1276,15 +651,6 @@ namespace Theatrics
 			bool flag11;
 			if (!(GameFlowData.Get() == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag11 = GameFlowData.Get().IsResolutionPaused();
 			}
 			else
@@ -1295,15 +661,6 @@ namespace Theatrics
 			bool flag13;
 			if (flag10)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag13 = !flag12;
 			}
 			else
@@ -1311,28 +668,10 @@ namespace Theatrics
 				flag13 = false;
 			}
 			flag10 = flag13;
-			if (!flag10 && this.\u0017 > 20f)
+			if (!flag10 && this.symbol_0017 > 20f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag12)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error(string.Concat(new object[]
 					{
 						"Stuck when trying to advance to next actor anim entry, \nplay order release focus: ",
@@ -1349,18 +688,9 @@ namespace Theatrics
 			}
 			if (flag10)
 			{
-				for (;;)
+				if (this.symbol_0001)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (this.\u0001)
-				{
-					this.\u000E\u000E();
+					this.symbol_000Esymbol_000E();
 				}
 				list = new List<ActorAnimation>();
 				bool flag14 = true;
@@ -1371,15 +701,6 @@ namespace Theatrics
 					if (actorAnimation3 == null)
 					{
 						goto IL_3EB;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					ActorModelData actorModelData;
 					if (actorAnimation3.Actor == null)
@@ -1403,15 +724,6 @@ namespace Theatrics
 					Animator animator;
 					if (actorModelData2 == null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						animator = null;
 					}
 					else
@@ -1422,15 +734,6 @@ namespace Theatrics
 					bool flag15 = false;
 					if (actorAnimation3.Actor != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorAnimation3.GetAnimationIndex() <= 0)
 						{
 							flag15 = actorAnimation3.Actor.IsModelAnimatorDisabled();
@@ -1438,111 +741,30 @@ namespace Theatrics
 					}
 					if (actorAnimation3 != null)
 					{
-						for (;;)
+						if (actorAnimation3.State == ActorAnimation.PlaybackState.symbol_001D)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (actorAnimation3.State == ActorAnimation.PlaybackState.\u001D)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((int)actorAnimation3.playOrderIndex == num)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								bool flag16 = false;
 								if (NetworkClient.active)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!actorAnimation3.IsReadyToPlay_zq(this.Index, false))
 									{
 										goto IL_550;
-									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (animator2 == null || animator2.layerCount < 1)
 									{
 										goto IL_550;
 									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag15 && !actorModelData2.IsPlayingIdleAnim(false))
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!actorModelData2.IsPlayingDamageAnim())
 										{
 											goto IL_550;
 										}
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!TheatricsManager.Get().m_allowAbilityAnimationInterruptHitReaction)
 										{
 											goto IL_550;
-										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									bool flag17 = animator2.GetInteger("Attack") != 0;
@@ -1556,109 +778,37 @@ namespace Theatrics
 								IL_553:
 								if (flag16)
 								{
-									for (;;)
+									if (this.symbol_0017 > 1f)
 									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (this.\u0017 > 1f)
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (actorModelData2.IsPlayingKnockdownAnim())
 										{
-											for (;;)
+											if (!this.symbol_000C)
 											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											if (!this.\u000C)
-											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												string message = actorAnimation3 + " is stuck in knockdown when trying to play animation for ability, forcing idle";
 												if (Application.isEditor)
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													Log.Error(message, new object[0]);
 												}
 												else
 												{
 													Log.Warning(message, new object[0]);
 												}
-												this.\u000C = true;
+												this.symbol_000C = true;
 											}
 											animator2.SetBool("TurnStart", true);
 											animator2.SetTrigger("ForceIdle");
 										}
 									}
-									if (this.\u0017 > 5f)
+									if (this.symbol_0017 > 5f)
 									{
-										for (;;)
+										if (!this.symbol_0020)
 										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!this.\u0020)
-										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											this.\u0020 = true;
+											this.symbol_0020 = true;
 											bool flag18 = animator2.GetCurrentAnimatorStateInfo(0).IsName("Damage");
 											int integer = animator2.GetInteger("Attack");
 											string text = string.Empty;
 											if (actorAnimation3.HitActorsToDeltaHP != null)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												using (Dictionary<ActorData, int>.Enumerator enumerator = actorAnimation3.HitActorsToDeltaHP.GetEnumerator())
 												{
 													while (enumerator.MoveNext())
@@ -1666,15 +816,6 @@ namespace Theatrics
 														KeyValuePair<ActorData, int> keyValuePair = enumerator.Current;
 														text += keyValuePair.Key.ToString();
 														text += ", ";
-													}
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
 													}
 												}
 											}
@@ -1685,15 +826,6 @@ namespace Theatrics
 											object obj;
 											if (actorModelData2 == null)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												obj = "NULL actor model data";
 											}
 											else
@@ -1711,33 +843,15 @@ namespace Theatrics
 											array[0xA] = integer;
 											array[0xB] = ", animator layer count: ";
 											array[0xC] = ((!(animator2 == null)) ? animator2.layerCount.ToString() : "NULL");
-											array[0xD] = ((actorAnimation3.State == ActorAnimation.PlaybackState.\u001D) ? (", sequences ready: " + actorAnimation3.IsReadyToPlay_zq(this.Index, true)) : string.Empty);
+											array[0xD] = ((actorAnimation3.State == ActorAnimation.PlaybackState.symbol_001D) ? (", sequences ready: " + actorAnimation3.IsReadyToPlay_zq(this.Index, true)) : string.Empty);
 											Log.Error(string.Concat(array), new object[0]);
 										}
-										if (this.\u0017 > 8f)
+										if (this.symbol_0017 > 8f)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											Log.Error(actorAnimation3 + " timed out, skipping", new object[0]);
-											this.\u0020 = false;
+											this.symbol_0020 = false;
 											if (ClientResolutionManager.Get() != null)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												ClientResolutionManager.Get().UpdateLastEventTime();
 											}
 											goto IL_885;
@@ -1756,52 +870,16 @@ namespace Theatrics
 					actorModelData = null;
 					goto IL_3FC;
 				}
-				for (;;)
+				this.symbol_0009 = (this.symbol_0018 != num2);
+				if (this.symbol_0004 != num)
 				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.\u0009 = (this.\u0018 != num2);
-				if (this.\u0004 != num)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag19;
-						Bounds bounds = \u001D.\u0011(this, num, out flag19);
+						Bounds bounds = symbol_001D.symbol_0011(this, num, out flag19);
 						bool flag20;
 						if (this.Index != AbilityPriority.Evasion)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag20 = (this.Index == AbilityPriority.Combat_Knockback);
 						}
 						else
@@ -1809,110 +887,38 @@ namespace Theatrics
 							flag20 = true;
 						}
 						bool flag21 = flag20;
-						this.\u001B = false;
-						this.\u0005 = false;
+						this.symbol_001B = false;
+						this.symbol_0005 = false;
 						bool useLowPosition = false;
 						if (!flag21)
 						{
-							useLowPosition = this.\u001C(num);
-							ActorData actorData = this.\u001C(num, out this.\u0005);
+							useLowPosition = this.symbol_001C(num);
+							ActorData actorData = this.symbol_001C(num, out this.symbol_0005);
 							int num6 = (!(actorData != null)) ? -1 : actorData.ActorIndex;
-							if (this.\u001E > 0)
+							if (this.symbol_001E > 0)
 							{
-								for (;;)
+								if (num6 == this.symbol_001E)
 								{
-									switch (2)
+									if (!this.symbol_0005)
 									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (num6 == this.\u001E)
-								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!this.\u0005)
-									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										this.\u001B = true;
+										this.symbol_001B = true;
 									}
 								}
 							}
 						}
 						if (!flag19)
 						{
-							for (;;)
+							bool flag22 = this.symbol_000F.symbol_0018 > 0 && this.symbol_000F.symbol_0013 == bounds;
+							if (this.symbol_000F.symbol_0018 > 0)
 							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							bool flag22 = this.\u000F.\u0018 > 0 && this.\u000F.\u0013 == bounds;
-							if (this.\u000F.\u0018 > 0)
-							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag22)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag21)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										bool flag23 = this.\u001C(this.\u000F.\u0013, bounds, abilitiesCamera.m_similarCenterDistThreshold, abilitiesCamera.m_similarBoundSideMaxDiff, abilitiesCamera.m_considerFramingSimilarIfInsidePrevious);
+										bool flag23 = this.symbol_001C(this.symbol_000F.symbol_0013, bounds, abilitiesCamera.m_similarCenterDistThreshold, abilitiesCamera.m_similarBoundSideMaxDiff, abilitiesCamera.m_considerFramingSimilarIfInsidePrevious);
 										if (flag23)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											bounds = this.\u000F.\u0013;
+											bounds = this.symbol_000F.symbol_0013;
 										}
 									}
 								}
@@ -1920,16 +926,7 @@ namespace Theatrics
 							bool flag24;
 							if (this.Index != AbilityPriority.Evasion)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag24 = !this.\u0009;
+								flag24 = !this.symbol_0009;
 							}
 							else
 							{
@@ -1937,86 +934,41 @@ namespace Theatrics
 							}
 							bool quickerTransition = flag24;
 							CameraManager.Get().SetTarget(bounds, quickerTransition, useLowPosition);
-							this.\u000F.\u0009 = true;
-							if (this.\u000F.\u0013 == bounds)
+							this.symbol_000F.symbol_0009 = true;
+							if (this.symbol_000F.symbol_0013 == bounds)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.\u0014 = true;
+								this.symbol_0014 = true;
 							}
 							else
 							{
-								this.\u0014 = false;
+								this.symbol_0014 = false;
 							}
-							this.\u000F.\u0013 = bounds;
+							this.symbol_000F.symbol_0013 = bounds;
 							if (flag21)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								this.\u000F.\u0018 = 0;
+								this.symbol_000F.symbol_0018 = 0;
 							}
 							else
 							{
-								this.\u000F.\u0018++;
+								this.symbol_000F.symbol_0018++;
 							}
 						}
 						if (num == 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							CameraManager.Get().OnActionPhaseChange(ActionBufferPhase.Abilities, true);
 						}
-						this.\u0004 = num;
-						this.\u000B = GameTime.time;
+						this.symbol_0004 = num;
+						this.symbol_000B = GameTime.time;
 						if (flag21)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							this.\u001C(list);
+							this.symbol_001C(list);
 						}
 						else
 						{
-							this.\u000E\u000E();
+							this.symbol_000Esymbol_000E();
 						}
 						if (TheatricsManager.DebugLog)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							TheatricsManager.LogForDebugging(string.Concat(new object[]
 							{
 								"Cam set target for player order index ",
@@ -2024,9 +976,9 @@ namespace Theatrics
 								" group ",
 								num2,
 								" group changed ",
-								this.\u0009,
+								this.symbol_0009,
 								" timeInResolve = ",
-								this.\u000F.TimeInResolve,
+								this.symbol_000F.TimeInResolve,
 								" anticipating CamStartEvent..."
 							}));
 						}
@@ -2035,172 +987,64 @@ namespace Theatrics
 				if (flag14)
 				{
 					this.playOrderIndex = num;
-					this.\u0018 = num2;
+					this.symbol_0018 = num2;
 					flag2 = false;
 					GameEventManager.TheatricsAbilityAnimationStartArgs theatricsAbilityAnimationStartArgs = new GameEventManager.TheatricsAbilityAnimationStartArgs();
-					theatricsAbilityAnimationStartArgs.lastInPhase = (this.playOrderIndex >= this.\u0019);
+					theatricsAbilityAnimationStartArgs.lastInPhase = (this.playOrderIndex >= this.symbol_0019);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsAbilityAnimationStart, theatricsAbilityAnimationStartArgs);
 				}
 			}
 			AbilityPriority index = this.Index;
 			if (index != AbilityPriority.Evasion)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num7 = abilitiesCamera.m_easeInTime;
-				if (!this.\u0005)
+				if (!this.symbol_0005)
 				{
-					for (;;)
+					if (this.symbol_001B)
 					{
-						switch (5)
+						if (this.symbol_0014)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.\u001B)
-					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.\u0014)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num7 = 0f;
 							goto IL_106F;
 						}
 					}
-					if (this.\u0014)
+					if (this.symbol_0014)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num7 = abilitiesCamera.m_easeInTimeForSimilarBounds;
 					}
-					else if (!this.\u0009)
+					else if (!this.symbol_0009)
 					{
 						num7 = abilitiesCamera.m_easeInTimeWithinGroup;
 					}
 				}
 				IL_106F:
-				float num8 = (this.\u000B > 0f) ? (this.\u000B + num7) : 0f;
+				float num8 = (this.symbol_000B > 0f) ? (this.symbol_000B + num7) : 0f;
 				for (int l = 0; l < this.animations.Count; l++)
 				{
 					ActorAnimation actorAnimation4 = this.animations[l];
 					if (actorAnimation4 != null)
 					{
-						for (;;)
+						if (actorAnimation4.State == ActorAnimation.PlaybackState.symbol_001D && (int)actorAnimation4.playOrderIndex == this.playOrderIndex)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (actorAnimation4.State == ActorAnimation.PlaybackState.\u001D && (int)actorAnimation4.playOrderIndex == this.playOrderIndex)
-						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num9 = Mathf.Max(0f, num8 - GameTime.time);
 							if (actorAnimation4.GetSymbol0013())
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num9 = 0f;
 							}
-							float num10 = actorAnimation4.\u000D\u000E(false);
+							float num10 = actorAnimation4.symbol_000Dsymbol_000E(false);
 							if (actorAnimation4.GetAnimationIndex() == 0)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num10 = 0.35f;
 							}
 							if (num10 < 0f)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Error("Camera start event delay is negative", new object[0]);
 								num10 = 0f;
 							}
 							if (num9 <= num10)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (TheatricsManager.DebugLog)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									TheatricsManager.LogForDebugging(string.Concat(new object[]
 									{
 										"Queued ",
@@ -2212,40 +1056,22 @@ namespace Theatrics
 										" easeInTime: ",
 										num7,
 										" camera bounds similar as last: ",
-										this.\u0014,
+										this.symbol_0014,
 										" phase ",
 										this.Index.ToString()
 									}));
 								}
-								actorAnimation4.method000D000E(\u001D);
-								this.\u0017 = 0f;
-								this.\u000C = false;
-								this.\u001E = ((!(actorAnimation4.Actor != null)) ? -1 : actorAnimation4.Actor.ActorIndex);
+								actorAnimation4.method000D000E(symbol_001D);
+								this.symbol_0017 = 0f;
+								this.symbol_000C = false;
+								this.symbol_001E = ((!(actorAnimation4.Actor != null)) ? -1 : actorAnimation4.Actor.ActorIndex);
 								if (this.Index != AbilityPriority.Evasion)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.Index != AbilityPriority.Combat_Knockback)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!actorAnimation4.GetSymbol0013())
 										{
-											this.\u001C(new List<ActorAnimation>
+											this.symbol_001C(new List<ActorAnimation>
 											{
 												actorAnimation4
 											});
@@ -2257,75 +1083,30 @@ namespace Theatrics
 					}
 				}
 			}
-			else if (this.playOrderIndex < this.\u0011)
+			else if (this.playOrderIndex < this.symbol_0011)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int m = 0; m < this.animations.Count; m++)
 				{
 					ActorAnimation actorAnimation5 = this.animations[m];
 					if (actorAnimation5 != null)
 					{
-						for (;;)
+						if (actorAnimation5.State == ActorAnimation.PlaybackState.symbol_001D)
 						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (actorAnimation5.State == ActorAnimation.PlaybackState.\u001D)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((int)actorAnimation5.playOrderIndex == this.playOrderIndex)
 							{
-								actorAnimation5.method000D000E(\u001D);
-								this.\u0017 = 0f;
-								this.\u000C = false;
+								actorAnimation5.method000D000E(symbol_001D);
+								this.symbol_0017 = 0f;
+								this.symbol_000C = false;
 							}
 						}
 					}
 				}
 			}
-			else if (!this.\u0002)
+			else if (!this.symbol_0002)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num11 = Mathf.Max(0.8f, this.maxCamStartDelay);
 				if (this.evadeStartTime < 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.evadeStartTime = GameTime.time + num11;
 					if (TheatricsManager.DebugLog)
 					{
@@ -2344,85 +1125,31 @@ namespace Theatrics
 					ActorAnimation actorAnimation6 = this.animations[n];
 					if (actorAnimation6 != null)
 					{
-						for (;;)
+						if (actorAnimation6.State == ActorAnimation.PlaybackState.symbol_001D)
 						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (actorAnimation6.State == ActorAnimation.PlaybackState.\u001D)
-						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((int)actorAnimation6.playOrderIndex == this.playOrderIndex)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								bool flag25;
 								if (this.Index == AbilityPriority.Evasion)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									flag25 = actorAnimation6.\u0002\u000E();
+									flag25 = actorAnimation6.symbol_0002symbol_000E();
 								}
 								else
 								{
 									flag25 = false;
 								}
 								bool u001D = flag25;
-								if (num12 <= GameTime.time + Mathf.Max(1.401298E-45f, GameTime.smoothDeltaTime) + actorAnimation6.\u000D\u000E(u001D))
+								if (num12 <= GameTime.time + Mathf.Max(1.401298E-45f, GameTime.smoothDeltaTime) + actorAnimation6.symbol_000Dsymbol_000E(u001D))
 								{
-									for (;;)
+									actorAnimation6.method000D000E(symbol_001D);
+									this.symbol_0017 = 0f;
+									this.symbol_000C = false;
+									if (this.symbol_0003 == 0f)
 									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									actorAnimation6.method000D000E(\u001D);
-									this.\u0017 = 0f;
-									this.\u000C = false;
-									if (this.\u0003 == 0f)
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										this.\u0003 = GameTime.time;
+										this.symbol_0003 = GameTime.time;
 									}
 								}
-								if (actorAnimation6.\u0020\u000E())
+								if (actorAnimation6.symbol_0020symbol_000E())
 								{
 									actorAnimation6.Actor.CurrentlyVisibleForAbilityCast = true;
 								}
@@ -2432,15 +1159,6 @@ namespace Theatrics
 				}
 				if (num12 > 0f && num12 <= GameTime.time)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int num13 = 0; num13 < this.animations.Count; num13++)
 					{
 						ActorAnimation actorAnimation7 = this.animations[num13];
@@ -2454,54 +1172,18 @@ namespace Theatrics
 					{
 						actors[num14].CurrentlyVisibleForAbilityCast = false;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int num15 = 0; num15 < actors.Count; num15++)
 					{
 						actors[num15].ForceUpdateIsVisibleToClientCache();
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.\u0002 = true;
+					this.symbol_0002 = true;
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.TheatricsEvasionMoveStart, null);
 					for (int num16 = 0; num16 < actors.Count; num16++)
 					{
 						actors[num16].ForceUpdateIsVisibleToClientCache();
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TheatricsManager.DebugLog)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TheatricsManager.LogForDebugging("Evasion Move Start, MaxCamStartDelay= " + this.maxCamStartDelay);
 					}
 				}

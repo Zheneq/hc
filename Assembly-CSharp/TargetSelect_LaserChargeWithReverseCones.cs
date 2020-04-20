@@ -37,7 +37,7 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 	private ConeTargetingInfo m_cachedConeInfo;
 
 	[CompilerGenerated]
-	private static AbilityUtil_Targeter_LaserChargeReverseCones.ConeLosCheckerDelegate <>f__mg$cache0;
+	private static AbilityUtil_Targeter_LaserChargeReverseCones.ConeLosCheckerDelegate f__mg_cache0;
 
 	public override string GetUsageForEditor()
 	{
@@ -64,11 +64,8 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		List<AbilityUtil_Targeter> list = new List<AbilityUtil_Targeter>();
 		AbilityUtil_Targeter_LaserChargeReverseCones abilityUtil_Targeter_LaserChargeReverseCones = new AbilityUtil_Targeter_LaserChargeReverseCones(ability, this.GetLaserWidth(), this.GetLaserRange(), this.GetConeInfo(), this.GetConeCount(), this.GetConeStartOffset(), this.GetPerConeHorizontalOffset(), this.GetAngleInBetween(), new AbilityUtil_Targeter_LaserChargeReverseCones.GetConeInfoDelegate(this.GetConeOrigins), new AbilityUtil_Targeter_LaserChargeReverseCones.GetConeInfoDelegate(this.GetConeDirections));
 		AbilityUtil_Targeter_LaserChargeReverseCones abilityUtil_Targeter_LaserChargeReverseCones2 = abilityUtil_Targeter_LaserChargeReverseCones;
-		if (TargetSelect_LaserChargeWithReverseCones.<>f__mg$cache0 == null)
-		{
-			TargetSelect_LaserChargeWithReverseCones.<>f__mg$cache0 = new AbilityUtil_Targeter_LaserChargeReverseCones.ConeLosCheckerDelegate(TargetSelect_LaserChargeWithReverseCones.CustomLosForCone);
-		}
-		abilityUtil_Targeter_LaserChargeReverseCones2.m_coneLosCheckDelegate = TargetSelect_LaserChargeWithReverseCones.<>f__mg$cache0;
+		
+		abilityUtil_Targeter_LaserChargeReverseCones2.m_coneLosCheckDelegate = new AbilityUtil_Targeter_LaserChargeReverseCones.ConeLosCheckerDelegate(TargetSelect_LaserChargeWithReverseCones.CustomLosForCone);
 		list.Add(abilityUtil_Targeter_LaserChargeReverseCones);
 		return list;
 	}
@@ -88,19 +85,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		ConeTargetingInfo cachedConeInfo;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.SetCachedFields()).MethodHandle;
-			}
 			cachedConeInfo = this.m_targetSelMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo);
 		}
 		else
@@ -115,19 +99,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -142,19 +113,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -169,19 +127,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		ConeTargetingInfo result;
 		if (this.m_cachedConeInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetConeInfo()).MethodHandle;
-			}
 			result = this.m_cachedConeInfo;
 		}
 		else
@@ -201,19 +146,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetConeStartOffset()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_coneStartOffsetMod.GetModifiedValue(this.m_coneStartOffset);
 		}
 		else
@@ -228,19 +160,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetPerConeHorizontalOffset()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_perConeHorizontalOffsetMod.GetModifiedValue(this.m_perConeHorizontalOffset);
 		}
 		else
@@ -255,19 +174,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetAngleInBetween()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_angleInBetweenMod.GetModifiedValue(this.m_angleInBetween);
 		}
 		else
@@ -298,19 +204,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 			vector2 -= this.GetConeInfo().m_radiusInSquares * Board.SquareSizeStatic * coneDirections[i];
 			list.Add(vector2);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetConeOrigins(AbilityTarget, Vector3, ActorData)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -325,19 +218,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		{
 			list.Add(-VectorUtils.AngleDegreesToVector(num2 - (float)i * angleInBetween));
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.GetConeDirections(AbilityTarget, Vector3, ActorData)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -348,19 +228,6 @@ public class TargetSelect_LaserChargeWithReverseCones : GenericAbility_TargetSel
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(chargeEndPos);
 		if (boardSquare != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserChargeWithReverseCones.CustomLosForCone(ActorData, ActorData, Vector3, List<NonActorTargetInfo>)).MethodHandle;
-			}
 			result = AreaEffectUtils.SquaresHaveLoSForAbilities(boardSquare, currentBoardSquare, caster, true, nonActorTargetInfo);
 		}
 		return result;

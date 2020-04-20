@@ -10,19 +10,6 @@ public class AbilityCommon_DualMeetingLasers
 		vector.y = 0f;
 		if (vector.magnitude > 1E-05f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcStartingPositions(Vector3, Vector3, float, float)).MethodHandle;
-			}
 			vector.Normalize();
 		}
 		else
@@ -54,19 +41,6 @@ public class AbilityCommon_DualMeetingLasers
 		Vector3 result = freePos;
 		if (num3 < num)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcClampedMeetingPos(Vector3, Vector3, float, float)).MethodHandle;
-			}
 			Vector3 normalized = vector.normalized;
 			result = casterPos + num * normalized;
 		}
@@ -93,43 +67,12 @@ public class AbilityCommon_DualMeetingLasers
 		float num2 = baseRadius + changePerDistFromMin * num;
 		if (num2 < minRadius)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcAoeRadius(Vector3, Vector3, float, float, float, float, float)).MethodHandle;
-			}
 			num2 = minRadius;
 		}
 		else if (num2 > maxRadius)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (maxRadius > 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = maxRadius;
 			}
 		}
@@ -165,19 +108,6 @@ public class AbilityCommon_DualMeetingLasers
 				bool flag2;
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_DualMeetingLasers.CalcHitActors(Vector3, List<Vector3>, float, float, float, ActorData, List<Team>, bool, List<NonActorTargetInfo>, List<List<ActorData>>*, List<Vector3>*, int*, float*, List<ActorData>*)).MethodHandle;
-					}
 					flag2 = (num3 < num2 - 0.1f);
 				}
 				else
@@ -186,15 +116,6 @@ public class AbilityCommon_DualMeetingLasers
 				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					aoeEndPosIndex = i;
 					num++;
 				}
@@ -208,53 +129,17 @@ public class AbilityCommon_DualMeetingLasers
 			laserHitActorsList.Add(actorsInLaser);
 			laserEndPosList.Add(vector2);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		bool flag3 = aoeEndPosIndex >= 0;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			finalRadius = aoeRadius;
 			if (num < laserStartPosList.Count && radiusMultIfPartialBlock >= 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				finalRadius *= radiusMultIfPartialBlock;
 			}
 			aoeHitActors = AreaEffectUtils.GetActorsInRadius(centerPos, finalRadius, false, caster, relevantTeams, nonActorTargetInfo, false, default(Vector3));
 			if (!includeInvisibles)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TargeterUtils.RemoveActorsInvisibleToClient(ref aoeHitActors);
 			}
 		}

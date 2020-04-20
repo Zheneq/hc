@@ -22,19 +22,6 @@ public class UICharacterSelectWorldObjects : UICharacterWorldObjects
 	{
 		if (UICharacterSelectWorldObjects.s_instance == this)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectWorldObjects.OnDestroy()).MethodHandle;
-			}
 			Log.Info(base.GetType() + " OnDestroy, clearing singleton reference", new object[0]);
 			UICharacterSelectWorldObjects.s_instance = null;
 		}
@@ -49,30 +36,8 @@ public class UICharacterSelectWorldObjects : UICharacterWorldObjects
 	{
 		if (this.m_LobbyCameraAnimator != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectWorldObjects.OnVisibleChange()).MethodHandle;
-			}
 			if (base.IsVisible())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UIPlayCategoryMenu.Get().IsVisible() || UIPlayCategoryMenu.Get().GetGameTypeForSelectedButton() != GameType.Ranked)
 				{
 					this.PlayCameraAnimation("CamIN");

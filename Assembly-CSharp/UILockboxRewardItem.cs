@@ -54,19 +54,6 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (this.m_rewardName != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.Awake()).MethodHandle;
-			}
 			this.m_rewardName.raycastTarget = false;
 		}
 		if (this.m_rewardType != null)
@@ -75,15 +62,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		if (this.m_rewardAmount != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_rewardAmount.raycastTarget = false;
 		}
 		if (this.m_circleHitbox != null)
@@ -107,19 +85,6 @@ public class UILockboxRewardItem : MonoBehaviour
 			this.m_rewardName.text = template.GetDisplayName();
 			if (template.Type == InventoryItemType.Currency)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.Setup(InventoryItem, InventoryItemTemplate, bool, int)).MethodHandle;
-				}
 				CurrencyType currencyType = (CurrencyType)template.TypeSpecificData[0];
 				if (currencyType == CurrencyType.Dust)
 				{
@@ -130,37 +95,10 @@ public class UILockboxRewardItem : MonoBehaviour
 				ActiveAlertMission currentAlert = ClientGameManager.Get().AlertMissionsData.CurrentAlert;
 				if (currentAlert != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAlert.Type == AlertMissionType.Bonus)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currencyType == currentAlert.BonusType)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num3 = (float)currentAlert.BonusMultiplier / 100f;
 							num = (int)((float)template.TypeSpecificData[1] * num3);
 						}
@@ -169,37 +107,10 @@ public class UILockboxRewardItem : MonoBehaviour
 				GameManager gameManager = GameManager.Get();
 				if (gameManager != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.GetIsEligibleForEventBonus(gameManager.GameplayOverrides))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameManager.GameplayOverrides.EventISOBonusPercent > 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (currencyType == CurrencyType.ISO)
 							{
 								num2 = (int)((double)(template.TypeSpecificData[1] * gameManager.GameplayOverrides.EventISOBonusPercent) / 100.0);
@@ -210,15 +121,6 @@ public class UILockboxRewardItem : MonoBehaviour
 				int num4 = num + num2;
 				if (num4 > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TextMeshProUGUI rewardName = this.m_rewardName;
 					string text = rewardName.text;
 					rewardName.text = string.Concat(new object[]
@@ -238,39 +140,12 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		if (this.m_rewardType != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_rewardType.text = InventoryWideData.GetTypeString(template, item.Count);
 		}
 		if (this.m_rewardIcon != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_rewardBanner != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type == InventoryItemType.BannerID && GameBalanceVars.Get().GetBanner(template.TypeSpecificData[0]).m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 				{
 					this.m_rewardBanner.sprite = (Sprite)Resources.Load(InventoryWideData.GetSpritePath(template), typeof(Sprite));
@@ -278,15 +153,6 @@ public class UILockboxRewardItem : MonoBehaviour
 					UIManager.SetGameObjectActive(this.m_rewardBanner, true, null);
 					if (this.m_bannerShadow != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_bannerShadow, true, null);
 					}
 				}
@@ -297,15 +163,6 @@ public class UILockboxRewardItem : MonoBehaviour
 					UIManager.SetGameObjectActive(this.m_rewardBanner, false, null);
 					if (this.m_bannerShadow != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_bannerShadow, false, null);
 					}
 				}
@@ -313,39 +170,12 @@ public class UILockboxRewardItem : MonoBehaviour
 		}
 		if (this.m_rewardIcons != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_rewardBanners != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sprite sprite = (Sprite)Resources.Load(InventoryWideData.GetSpritePath(template), typeof(Sprite));
 				bool flag;
 				if (template.Type == InventoryItemType.BannerID)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (GameBalanceVars.Get().GetBanner(template.TypeSpecificData[0]).m_type == GameBalanceVars.PlayerBanner.BannerType.Background);
 				}
 				else
@@ -358,28 +188,10 @@ public class UILockboxRewardItem : MonoBehaviour
 					this.m_rewardIcons[i].sprite = sprite;
 					UIManager.SetGameObjectActive(this.m_rewardIcons[i], !flag2, null);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < this.m_rewardBanners.Length; j++)
 				{
 					this.m_rewardBanners[j].sprite = sprite;
 					UIManager.SetGameObjectActive(this.m_rewardBanners[j], flag2, null);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -390,56 +202,20 @@ public class UILockboxRewardItem : MonoBehaviour
 				this.m_rewardFgs[k].sprite = InventoryWideData.GetItemFg(template);
 				UIManager.SetGameObjectActive(this.m_rewardFgs[k], this.m_rewardFgs[k].sprite != null, null);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_rewardFg != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_rewardFg.sprite = InventoryWideData.GetItemFg(template);
 			UIManager.SetGameObjectActive(this.m_rewardFg, this.m_rewardFg.sprite != null, null);
 		}
 		if (this.m_ownedIcon != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_ownedIcon, isDuplicate, null);
 		}
 		if (this.m_isoCountText != null)
 		{
 			if (isoCount > template.Value)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num5 = isoCount - template.Value;
 				this.m_isoCountText.text = string.Concat(new object[]
 				{
@@ -459,15 +235,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		this.PlayDuplicateAnimation();
 		if (this.m_rewardType != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_rewardType, template.Type != InventoryItemType.Currency, null);
 		}
 		this.m_template = template;
@@ -484,19 +251,6 @@ public class UILockboxRewardItem : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(indicators[i], isVisible, null);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.SetIndicatorVisibility(bool, Image[])).MethodHandle;
-		}
 	}
 
 	public void SetSize(float width)
@@ -511,43 +265,12 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (this.m_duplicateAnimator != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.PlayDuplicateAnimation()).MethodHandle;
-			}
 			if (this.m_duplicateAnimator.isInitialized)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string str = "LockboxRewardDuplicate";
 				string str2;
 				if (this.m_isDuplicate)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str2 = "DefaultIN";
 				}
 				else
@@ -568,19 +291,6 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (this.m_duplicateAnimator != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.OnEnable()).MethodHandle;
-			}
 			this.m_duplicateAnimator.Update(Time.deltaTime);
 		}
 	}
@@ -589,94 +299,27 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (this.m_template != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.OnClick(BaseEventData)).MethodHandle;
-			}
 			if (!(UIStorePanel.Get() == null))
 			{
 				if (this.m_template.Type != InventoryItemType.Currency)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_template.Type != InventoryItemType.Experience)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_template.Type != InventoryItemType.Faction)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_template.Type != InventoryItemType.Unlock && this.m_template.Type != InventoryItemType.Conveyance)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_template.Type != InventoryItemType.FreelancerExpBonus)
 								{
 									UIFrontEnd.Get().m_frontEndNavPanel.CollectionsBtnClicked(null);
 									UIStorePanel.Get().SelectItem(this.m_template);
 									return;
 								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 						}
 					}
 				}
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -685,45 +328,14 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (this.m_duplicateAnimator != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.OnHoverEnter(BaseEventData)).MethodHandle;
-			}
 			if (this.m_isDuplicate)
 			{
 				if (!this.m_animationFinishedOnce)
 				{
 					if (this.m_duplicateAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_duplicateAnimator.IsInTransition(0))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_animationFinishedOnce = true;
 							goto IL_83;
 						}
@@ -740,41 +352,10 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (this.m_duplicateAnimator != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.OnHoverExit(BaseEventData)).MethodHandle;
-			}
 			if (this.m_isDuplicate)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_animationFinishedOnce)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_duplicateAnimator.Play("LockboxRewardDuplicateDefaultIDLE", -1, 0f);
 				}
 			}
@@ -785,54 +366,14 @@ public class UILockboxRewardItem : MonoBehaviour
 	{
 		if (gameplayOverrides != null && gameplayOverrides.EnableEventBonus)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockboxRewardItem.GetIsEligibleForEventBonus(LobbyGameplayOverrides)).MethodHandle;
-			}
 			if (!(gameplayOverrides.EventBonusStartDate > ClientGameManager.Get().UtcNow()))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(gameplayOverrides.EventBonusEndDate < ClientGameManager.Get().UtcNow()))
 				{
 					if (!gameplayOverrides.RequiredEventBonusEntitlement.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameplayOverrides.RequiredEventBonusEntitlement != "*")
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetAppliedEntitlementCount(gameplayOverrides.RequiredEventBonusEntitlement) == 0)
 							{
 								return false;
@@ -840,15 +381,6 @@ public class UILockboxRewardItem : MonoBehaviour
 						}
 					}
 					return true;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

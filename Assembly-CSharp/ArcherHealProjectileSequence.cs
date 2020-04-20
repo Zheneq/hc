@@ -11,19 +11,6 @@ public class ArcherHealProjectileSequence : ArcingProjectileSequence
 		{
 			if (extraSequenceParams is Sequence.ActorIndexExtraParam)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealProjectileSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				Sequence.ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as Sequence.ActorIndexExtraParam;
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)actorIndexExtraParam.m_actorIndex);
 				if (actorData != null)
@@ -40,30 +27,8 @@ public class ArcherHealProjectileSequence : ArcingProjectileSequence
 		base.SpawnFX();
 		if (base.Target != null && this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealProjectileSequence.SpawnFX()).MethodHandle;
-			}
 			if (this.m_syncComp.ActorHasExpendedHealReaction(base.Target))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_syncComp.ChangeVfxForHealReaction(base.Target);
 			}
 		}

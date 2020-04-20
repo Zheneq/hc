@@ -32,42 +32,11 @@ public class StockVFXController : CopyableVfxControllerComponent
 	{
 		if (this.m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StockVFXController.UpdateForStocks()).MethodHandle;
-			}
 			if (this.m_actorModelData.m_parentActorData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int stockAmount = this.GetStockAmount(this.m_actorModelData.m_parentActorData);
 				if (stockAmount != this.m_prevStockAmount)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_prevStockAmount = stockAmount;
 					if (this.m_vfxInstance != null)
 					{
@@ -75,26 +44,8 @@ public class StockVFXController : CopyableVfxControllerComponent
 					}
 					if (stockAmount > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_vfxs.Length > stockAmount - 1)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_vfxs[stockAmount - 1], Vector3.zero, Quaternion.identity);
 							this.m_vfxInstance.transform.parent = base.transform;
 						}
@@ -105,15 +56,6 @@ public class StockVFXController : CopyableVfxControllerComponent
 		}
 		if (this.m_actorModelData == null && this.m_vfxInstance == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_vfxs.Length > 0)
 			{
 				this.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_vfxs[this.m_vfxs.Length - 1], Vector3.zero, Quaternion.identity);
@@ -123,28 +65,10 @@ public class StockVFXController : CopyableVfxControllerComponent
 		IL_16E:
 		if (this.m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag = true;
 			bool flag2 = true;
 			if (this.m_actorModelData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = this.m_actorModelData.IsVisibleToClient();
 				flag2 = (this.m_actorModelData.m_parentActorData == null || !this.m_actorModelData.m_parentActorData.IsDead());
 			}

@@ -51,31 +51,9 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		base.ClearActorsInRange();
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SpaceMarineBasicAttack.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 2)
 			{
 				goto IL_76;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -95,41 +73,14 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		{
 			base.AddActorInRange(hitActors[i], travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, vector, true);
 		bool showCone = false;
 		Vector3 vector2 = Vector3.zero;
 		Vector3 vector3 = Vector3.forward;
 		if (hitActors.Count > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.AddConeOnFirstLaserHit)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				showCone = true;
 				vector2 = hitActors[0].GetTravelBoardSquareWorldPositionForLos();
 				vector3 = currentTarget.AimDirection;
@@ -152,32 +103,10 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SpaceMarineBasicAttack.HandleHiddenSquareIndicators(ActorData, Vector3, Vector3, bool, Vector3, float)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			this.m_laserPart.ShowHiddenSquares(this.m_indicatorHandler, laserStartPos, laserEndPos, targetingActor, this.m_ignoreLos);
 			if (showCone)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_conePart.ShowHiddenSquares(this.m_indicatorHandler, coneStartPos, forwardAngle, targetingActor, this.m_ignoreLos);
 			}
 			base.HideUnusedSquareIndicators();

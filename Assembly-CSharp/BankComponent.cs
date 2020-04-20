@@ -56,19 +56,6 @@ public class BankComponent
 		{
 			this.Transactions.Dequeue();
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BankComponent.ChangeValue(CurrencyType, int, string)).MethodHandle;
-		}
 		return currencyData;
 	}
 

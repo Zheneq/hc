@@ -186,19 +186,6 @@ public class MartyrRedirectDamageFromAlly : MartyrLaserBase
 				MartyrProtectAllyThreshold item = enumerator.Current;
 				list.Add(item);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromAlly.GetThresholdBasedCrystalBonusList()).MethodHandle;
-			}
 		}
 		return list;
 	}
@@ -209,19 +196,6 @@ public class MartyrRedirectDamageFromAlly : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromAlly.GetCurrentAbsorb(ActorData)).MethodHandle;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorb;
 		}
 		else

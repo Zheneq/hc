@@ -29,19 +29,6 @@ public class UITutorialInterstitial : UIScene
 	{
 		if (UITutorialInterstitial.s_instance != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialInterstitial.Get()).MethodHandle;
-			}
 			return UITutorialInterstitial.s_instance;
 		}
 		return null;
@@ -80,19 +67,6 @@ public class UITutorialInterstitial : UIScene
 	{
 		if (Time.realtimeSinceStartup > this.m_welcomeDisplayTime + 2f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialInterstitial.WelcomeClicked(BaseEventData)).MethodHandle;
-			}
 			this.m_welcomeContainer.GetComponent<Animator>().Play("TutorialFadeDefaultOUT");
 			UIManager.SetGameObjectActive(this.m_choiceContainer, true, null);
 			ClientGameManager.Get().SendUIActionNotification("TutorialInterstitialWelcomeClick");

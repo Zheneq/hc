@@ -89,19 +89,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		this.SetCachedFields();
 		if (this.GetTargetSelectComp() is TargetSelect_Shape)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.SetupTargetersAndCachedVars()).MethodHandle;
-			}
 			TargetSelect_Shape targetSelect_Shape = this.GetTargetSelectComp() as TargetSelect_Shape;
 			targetSelect_Shape.m_isMovingShapeDelegate = new TargetSelect_Shape.IsMovingShapeDelegate(this.IsMovingShape);
 			targetSelect_Shape.m_moveStartSquareDelegate = new TargetSelect_Shape.GetMoveStartSquareDelegate(this.GetMoveStartSquare);
@@ -116,15 +103,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		}
 		if (this.m_animationIndexForMoveArea < 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_animationIndexForMoveArea = 0;
 		}
 	}
@@ -140,32 +118,10 @@ public class IceborgDamageArea : GenericAbility_Container
 		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnEnemyIfHitPreviousTurn, "EffectOnEnemyIfHitPreviousTurn", this.m_effectOnEnemyIfHitPreviousTurn, true);
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
 		}
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncComp.AddTooltipTokens(tokens);
 		}
 	}
@@ -175,19 +131,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		GroundEffectField cachedGroundFieldData;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.SetCachedFields()).MethodHandle;
-			}
 			cachedGroundFieldData = this.m_abilityMod.m_groundFieldDataMod.GetModifiedValue(this.m_groundFieldData);
 		}
 		else
@@ -203,19 +146,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		float result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetInitialCastMaxRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_initialCastMaxRangeMod.GetModifiedValue(this.m_initialCastMaxRange);
 		}
 		else
@@ -230,19 +160,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		float result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetMoveAreaCastMaxRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_moveAreaCastMaxRangeMod.GetModifiedValue(this.m_moveAreaCastMaxRange);
 		}
 		else
@@ -262,19 +179,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.AddGroundField()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_addGroundFieldMod.GetModifiedValue(this.m_addGroundField);
 		}
 		else
@@ -289,19 +193,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.StopMoversWithSlowStatus()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_stopMoversWithSlowStatusMod.GetModifiedValue(this.m_stopMoversWithSlowStatus);
 		}
 		else
@@ -316,19 +207,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.StopMoverIfHitPreviousTurn()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_stopMoverIfHitPreviousTurnMod.GetModifiedValue(this.m_stopMoverIfHitPreviousTurn);
 		}
 		else
@@ -343,19 +221,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		GroundEffectField result;
 		if (this.m_cachedGroundFieldData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetGroundFieldData()).MethodHandle;
-			}
 			result = this.m_cachedGroundFieldData;
 		}
 		else
@@ -370,19 +235,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetExtraDamageOnInitialCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageOnInitialCastMod.GetModifiedValue(this.m_extraDamageOnInitialCast);
 		}
 		else
@@ -402,19 +254,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetMinDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minDamageMod.GetModifiedValue(this.m_minDamage);
 		}
 		else
@@ -429,19 +268,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetShieldPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(this.m_shieldPerEnemyHit);
 		}
 		else
@@ -456,19 +282,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetShieldDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldDurationMod.GetModifiedValue(this.m_shieldDuration);
 		}
 		else
@@ -483,19 +296,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnEnemyIfHitPreviousTurn != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetEffectOnEnemyIfHitPreviousTurn()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnEnemyIfHitPreviousTurn;
 		}
 		else
@@ -510,19 +310,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.ApplyDelayedAoeEffect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(this.m_applyDelayedAoeEffect);
 		}
 		else
@@ -544,55 +331,15 @@ public class IceborgDamageArea : GenericAbility_Container
 		{
 			if (!this.CanCastToMoveArea())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-				}
 				if (this.GetExtraDamageOnInitialCast() > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_damage += this.GetExtraDamageOnInitialCast();
 				}
 			}
 			if (this.CanCastToMoveArea())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetGroundFieldDamageChangePerTurn() != 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int turnsSinceInitialCast = this.m_syncComp.GetTurnsSinceInitialCast();
 					results.m_damage += turnsSinceInitialCast * this.GetGroundFieldDamageChangePerTurn();
 				}
@@ -605,19 +352,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		string result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			result = this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else
@@ -640,19 +374,6 @@ public class IceborgDamageArea : GenericAbility_Container
 			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)this.m_syncComp.m_damageAreaCenterX, (int)this.m_syncComp.m_damageAreaCenterY);
 			if (boardSquare != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetMoveStartSquare(AbilityTarget, ActorData)).MethodHandle;
-				}
 				result = boardSquare;
 			}
 		}
@@ -663,19 +384,6 @@ public class IceborgDamageArea : GenericAbility_Container
 	{
 		if (this.IsMovingShape(caster))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetMoveStartFreePos(AbilityTarget, ActorData)).MethodHandle;
-			}
 			return this.m_syncComp.m_damageAreaFreePos;
 		}
 		return caster.GetTravelBoardSquareWorldPosition();
@@ -685,19 +393,6 @@ public class IceborgDamageArea : GenericAbility_Container
 	{
 		if (this.m_syncComp != null && this.m_syncComp.m_damageAreaCanMoveThisTurn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.CanCastToMoveArea()).MethodHandle;
-			}
 			if (this.m_syncComp.m_damageAreaCenterX >= 0)
 			{
 				return this.m_syncComp.m_damageAreaCenterY >= 0;
@@ -715,19 +410,6 @@ public class IceborgDamageArea : GenericAbility_Container
 	{
 		if (this.CanCastToMoveArea())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetModdedCost()).MethodHandle;
-			}
 			return 0;
 		}
 		return base.GetModdedCost();
@@ -737,19 +419,6 @@ public class IceborgDamageArea : GenericAbility_Container
 	{
 		if (this.CanCastToMoveArea())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetMovementAdjustment()).MethodHandle;
-			}
 			return this.m_moveAreaMovementAdjustType;
 		}
 		return base.GetMovementAdjustment();
@@ -760,19 +429,6 @@ public class IceborgDamageArea : GenericAbility_Container
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			BoardSquare boardSquare = caster.GetCurrentBoardSquare();
 			Vector3 b = boardSquare.ToVector3();
 			float num = this.GetInitialCastMaxRange();
@@ -782,26 +438,8 @@ public class IceborgDamageArea : GenericAbility_Container
 				BoardSquare boardSquare2 = Board.Get().GetBoardSquare((int)this.m_syncComp.m_damageAreaCenterX, (int)this.m_syncComp.m_damageAreaCenterY);
 				if (boardSquare2 != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe == boardSquare2)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 					boardSquare = boardSquare2;
@@ -816,32 +454,14 @@ public class IceborgDamageArea : GenericAbility_Container
 			bool flag3 = true;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					flag3 = boardSquare.\u0013(boardSquareSafe.x, boardSquareSafe.y);
+					flag3 = boardSquare.symbol_0013(boardSquareSafe.x, boardSquareSafe.y);
 				}
 			}
 			bool result;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = flag3;
 			}
 			else
@@ -857,19 +477,6 @@ public class IceborgDamageArea : GenericAbility_Container
 	{
 		if (this.CanCastToMoveArea())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageArea.GetActionAnimType()).MethodHandle;
-			}
 			return (ActorModelData.ActionAnimationType)this.m_animationIndexForMoveArea;
 		}
 		return base.GetActionAnimType();

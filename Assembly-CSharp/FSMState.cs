@@ -10,7 +10,7 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	protected StateID stateID;
 
 	[Tooltip("Turn on to enable logging (OnEnter, OnExit, OnTurn) for this state")]
-	public bool \u001D;
+	public bool symbol_001D;
 
 	protected Dictionary<Transition, TransitionTable> transitionTableMap = new Dictionary<Transition, TransitionTable>();
 
@@ -32,32 +32,10 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		{
 			if (!this._myBrainCached.enabled)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyFSM()).MethodHandle;
-				}
 				int num = 0;
 				num++;
 				if (this.MyFSMBrain.fsm == this._myFSMCached)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
@@ -75,77 +53,19 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		{
 			if (!this._myBrainCached.enabled)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyBrain()).MethodHandle;
-				}
 				if (base.transform)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.transform.gameObject)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						NPCBrain[] components = base.transform.gameObject.GetComponents<NPCBrain>();
 						if (components != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							foreach (NPCBrain npcbrain in components)
 							{
 								if (npcbrain.enabled)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return npcbrain;
 								}
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -174,19 +94,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			AbilityData result;
 			if (this.MyBrain)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyAbilityData()).MethodHandle;
-				}
 				result = this.MyBrain.GetComponent<AbilityData>();
 			}
 			else
@@ -212,19 +119,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			ActorTurnSM result;
 			if (this.MyBrain)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyActorTurnSM()).MethodHandle;
-				}
 				result = this.MyBrain.GetComponent<ActorTurnSM>();
 			}
 			else
@@ -242,19 +136,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			BotController result;
 			if (this.MyBrain)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.get_MyBOTController()).MethodHandle;
-				}
 				result = this.MyBrain.GetComponent<BotController>();
 			}
 			else
@@ -284,33 +165,11 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			{
 				if (scriptCommunicationArgs.popBrain)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-					}
 				}
 				else
 				{
 					if (scriptCommunicationArgs.TransistionMessage != Transition.NullTransition)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetPendingTransition(scriptCommunicationArgs.TransistionMessage);
 						goto IL_6F;
 					}
@@ -326,31 +185,9 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (this.MyFSM.CanTransistion(trans))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.SetPendingTransition(Transition)).MethodHandle;
-			}
 			Transition pendingTransition = this.MyFSM.GetPendingTransition();
 			if (pendingTransition != Transition.NullTransition && pendingTransition != trans)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log(string.Concat(new object[]
 				{
 					"NPC: ",
@@ -374,41 +211,10 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (trans != Transition.NullTransition)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.AddTransition(Transition, TransitionTable)).MethodHandle;
-			}
 			if (inTable != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (inTable.StateID == StateID.NullStateID && inTable.BrainToPush == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!inTable.PopBrain)
 					{
 						for (;;)
@@ -424,15 +230,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 				}
 				if (this.transitionTableMap.ContainsKey(trans))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError(string.Concat(new string[]
 					{
 						"FSMState ERROR: Assign State - State ",
@@ -455,33 +252,11 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (trans == Transition.NullTransition)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.DeleteTransition(Transition)).MethodHandle;
-			}
 			Debug.LogWarning("FSMState ERROR: NullTransition and NULL brain can not be removed");
 			return;
 		}
 		if (this.MyFSM.GetPendingTransition() == trans)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning("Ack - tried to remove a transition of " + trans + " that I have a pending change to. Deleting pending transition");
 			this.MyFSM.SetPendingTransition(Transition.NullTransition);
 		}
@@ -492,19 +267,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (this.transitionTableMap.ContainsKey(trans))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.GetOutputState(Transition)).MethodHandle;
-			}
 			return this.transitionTableMap[trans].StateID;
 		}
 		return StateID.NullStateID;
@@ -514,19 +276,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (this.transitionTableMap.ContainsKey(trans))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.GetOutputBrain(Transition)).MethodHandle;
-			}
 			return this.transitionTableMap[trans].BrainToPush;
 		}
 		return null;
@@ -536,19 +285,6 @@ public class FSMState : MonoBehaviour, IGameEventListener
 	{
 		if (this.transitionTableMap.ContainsKey(trans))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.GetPopBrain(Transition)).MethodHandle;
-			}
 			return new bool?(this.transitionTableMap[trans].PopBrain);
 		}
 		return null;
@@ -561,21 +297,8 @@ public class FSMState : MonoBehaviour, IGameEventListener
 
 	public virtual void OnEnter(NPCBrain npc, StateID previousState)
 	{
-		if (this.\u001D)
+		if (this.symbol_001D)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.OnEnter(NPCBrain, StateID)).MethodHandle;
-			}
 			Log.Info(string.Concat(new object[]
 			{
 				"OnEnter(): '",
@@ -591,21 +314,8 @@ public class FSMState : MonoBehaviour, IGameEventListener
 
 	public virtual void OnExit(NPCBrain npc, StateID nextState)
 	{
-		if (this.\u001D)
+		if (this.symbol_001D)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMState.OnExit(NPCBrain, StateID)).MethodHandle;
-			}
 			Log.Info(string.Concat(new object[]
 			{
 				"OnExit(): '",

@@ -85,19 +85,6 @@ public class FishManRoamingDebuff : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -108,15 +95,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo cachedEffectWhileOnEnemy;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectWhileOnEnemy = this.m_abilityMod.m_effectWhileOnEnemyMod.GetModifiedValue(this.m_effectWhileOnEnemy);
 		}
 		else
@@ -127,15 +105,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo cachedEffectWhileOnAlly;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectWhileOnAlly = this.m_abilityMod.m_effectWhileOnAllyMod.GetModifiedValue(this.m_effectWhileOnAlly);
 		}
 		else
@@ -150,19 +119,6 @@ public class FishManRoamingDebuff : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -177,19 +133,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectWhileOnEnemy != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.GetEffectWhileOnEnemy()).MethodHandle;
-			}
 			result = this.m_cachedEffectWhileOnEnemy;
 		}
 		else
@@ -214,19 +157,6 @@ public class FishManRoamingDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.GetJumpIgnoresLoS()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_jumpIgnoresLineOfSightMod.GetModifiedValue(this.m_jumpIgnoresLineOfSight);
 		}
 		else
@@ -241,19 +171,6 @@ public class FishManRoamingDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.GetNumJumps()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_numJumpsMod.GetModifiedValue(this.m_numJumps);
 		}
 		else
@@ -273,19 +190,6 @@ public class FishManRoamingDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.CanJumpToAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canJumpToAlliesMod.GetModifiedValue(this.m_canJumpToAllies);
 		}
 		else
@@ -310,19 +214,6 @@ public class FishManRoamingDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.GetHealingToAlliesOnJump()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healingToAlliesOnJumpMod.GetModifiedValue(this.m_healingToAlliesOnJump);
 		}
 		else
@@ -337,19 +228,6 @@ public class FishManRoamingDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.GetDamageIncreasePerJump()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageIncreasePerJumpMod.GetModifiedValue(this.m_damageIncreasePerJump);
 		}
 		else
@@ -378,19 +256,6 @@ public class FishManRoamingDebuff : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_FishManRoamingDebuff))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_FishManRoamingDebuff);
 			this.Setup();
 		}
@@ -413,19 +278,6 @@ public class FishManRoamingDebuff : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_FishManRoamingDebuff)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_FishManRoamingDebuff.m_effectWhileOnAllyMod.GetModifiedValue(this.m_effectWhileOnAlly);
 		}
 		else
@@ -439,15 +291,6 @@ public class FishManRoamingDebuff : Ability
 		int val;
 		if (abilityMod_FishManRoamingDebuff)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_FishManRoamingDebuff.m_healingToAlliesOnJumpMod.GetModifiedValue(this.m_healingToAlliesOnJump);
 		}
 		else
@@ -460,15 +303,6 @@ public class FishManRoamingDebuff : Ability
 		int val2;
 		if (abilityMod_FishManRoamingDebuff)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_FishManRoamingDebuff.m_damageToEnemyOnInitialHitMod.GetModifiedValue(this.m_damageToEnemyOnInitialHit);
 		}
 		else
@@ -481,15 +315,6 @@ public class FishManRoamingDebuff : Ability
 		int val3;
 		if (abilityMod_FishManRoamingDebuff)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_FishManRoamingDebuff.m_healingToAllyOnInitialHitMod.GetModifiedValue(this.m_healingToAllyOnInitialHit);
 		}
 		else
@@ -502,15 +327,6 @@ public class FishManRoamingDebuff : Ability
 		float val4;
 		if (abilityMod_FishManRoamingDebuff)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_FishManRoamingDebuff.m_jumpRadiusMod.GetModifiedValue(this.m_jumpRadius);
 		}
 		else
@@ -525,19 +341,6 @@ public class FishManRoamingDebuff : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.GetDamageToEnemyOnInitialHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManRoamingDebuff.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetDamageToEnemyOnInitialHit());
 		}
 		if (this.GetHealingToAllyOnInitialHit() > 0)

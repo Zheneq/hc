@@ -27,19 +27,6 @@ public class DebugCommand_EndGameNoResult : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("noresult"))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameNoResult.OnSlashCommand(string)).MethodHandle;
-			}
 			this.OnIncreaseClick();
 			return true;
 		}

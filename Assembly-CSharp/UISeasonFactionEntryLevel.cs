@@ -16,19 +16,6 @@ public class UISeasonFactionEntryLevel : MonoBehaviour
 		float fillAmount;
 		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionEntryLevel.Setup(Faction, int, long, bool)).MethodHandle;
-			}
 			levelState = this.m_completed;
 			levelState2 = this.m_notCompleted;
 			fillAmount = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;

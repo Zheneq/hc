@@ -60,19 +60,6 @@ public class FadeObject : MonoBehaviour
 	{
 		if (this.m_rendererComponent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.SetTargetTransparency(float, float, float, Shader)).MethodHandle;
-			}
 			this.m_rendererComponent = base.GetComponent<Renderer>();
 		}
 		this.m_setTargetTransparencyTime = Time.time;
@@ -81,15 +68,6 @@ public class FadeObject : MonoBehaviour
 		float endValue;
 		if (this.ShouldDoHeightFade())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			endValue = 0f;
 		}
 		else
@@ -102,15 +80,6 @@ public class FadeObject : MonoBehaviour
 		{
 			if (this.m_originalMaterials == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_originalMaterials = (Material[])this.m_rendererComponent.sharedMaterials.Clone();
 			}
 			if (this.m_originalAlphas == null)
@@ -122,15 +91,6 @@ public class FadeObject : MonoBehaviour
 					if (!(this.m_rendererComponent.sharedMaterials[i] != null))
 					{
 						goto IL_154;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!this.m_rendererComponent.sharedMaterials[i].HasProperty(FadeObject.materialColorProperty))
 					{
@@ -144,15 +104,6 @@ public class FadeObject : MonoBehaviour
 					this.m_originalAlphas[i] = 1f;
 					goto IL_161;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_fadeMaterials == null)
 			{
@@ -161,15 +112,6 @@ public class FadeObject : MonoBehaviour
 				{
 					if (this.m_rendererComponent.sharedMaterials[j] != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Material material = new Material(this.m_rendererComponent.sharedMaterials[j]);
 						material.shader = transparentShader;
 						material.SetOverrideTag("RenderType", "Transparent");
@@ -187,15 +129,6 @@ public class FadeObject : MonoBehaviour
 						this.m_fadeMaterials[j] = material;
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_rendererComponent.materials = this.m_fadeMaterials;
 		}
@@ -210,15 +143,6 @@ public class FadeObject : MonoBehaviour
 			{
 				if (this.m_alphaMultBottom < 1f && this.m_originalAlphas != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Time.time - this.m_setTargetTransparencyTime > 0.25f)
 					{
 						this.m_alphaMultBottom.EaseTo(1f, this.m_fadeInDuration);
@@ -231,15 +155,6 @@ public class FadeObject : MonoBehaviour
 						Material material = this.m_rendererComponent.materials[i];
 						if (material == null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -247,29 +162,11 @@ public class FadeObject : MonoBehaviour
 							material.SetFloat(FadeObject.materialAlphaProperty, this.m_alphaMultTop * this.m_originalAlphas[i]);
 							if (fadeObjectsCameraComponent != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Material material2 = material;
 								int nameID = FadeObject.materialMaxWorldYProperty;
 								float value;
 								if (this.m_alphaMultTop <= fadeObjectsCameraComponent.m_minAlphaTopDepth)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									value = (float)Board.Get().BaselineHeight + fadeObjectsCameraComponent.m_fadeEndFloorOffset;
 								}
 								else
@@ -280,53 +177,17 @@ public class FadeObject : MonoBehaviour
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (this.m_alphaMultBottom.EaseFinished())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_originalMaterials != null)
 					{
 						Material[] materials = this.m_rendererComponent.materials;
 						this.m_rendererComponent.materials = this.m_originalMaterials;
 						if (this.m_needToDestroyOldMaterials)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (materials != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.DestroyMaterials(materials);
 							}
 							this.m_needToDestroyOldMaterials = false;
@@ -336,60 +197,20 @@ public class FadeObject : MonoBehaviour
 				}
 				if (this.m_alphaMultBottom == 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_rendererComponent.enabled)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_rendererComponent.enabled = false;
 						return;
 					}
 				}
 				if (this.m_alphaMultBottom != 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_rendererComponent.enabled)
 					{
 						this.m_rendererComponent.enabled = true;
 					}
 				}
 				return;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.Update()).MethodHandle;
 			}
 		}
 	}
@@ -398,31 +219,9 @@ public class FadeObject : MonoBehaviour
 	{
 		if (mats != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.DestroyMaterials(Material[])).MethodHandle;
-			}
 			foreach (Material obj in mats)
 			{
 				UnityEngine.Object.Destroy(obj);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -431,31 +230,9 @@ public class FadeObject : MonoBehaviour
 	{
 		if (this.m_fadeMaterials != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObject.OnDestroy()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_fadeMaterials.Length; i++)
 			{
 				UnityEngine.Object.Destroy(this.m_fadeMaterials[i]);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_fadeMaterials = null;
 		}

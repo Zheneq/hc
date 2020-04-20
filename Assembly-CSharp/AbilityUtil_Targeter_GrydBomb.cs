@@ -24,34 +24,12 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
 	{
 		if (this.m_bombAbility != null && this.m_bombAbility.HasPlacedBomb())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_GrydBomb.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			base.ClearActorsInRange();
 			base.SetShowArcToShape(false);
 			Vector3 worldPositionForLoS = Board.Get().GetBoardSquareSafe(this.m_bombAbility.GetPlacedBomb()).GetWorldPositionForLoS();
 			Vector3 vector = currentTarget.FreePos - worldPositionForLoS;
 			if (this.m_lockToCardinalDirs)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector)));
 			}
 			if (this.m_highlights != null && this.m_highlights.Count < 1)

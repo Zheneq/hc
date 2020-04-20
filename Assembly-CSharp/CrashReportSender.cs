@@ -37,19 +37,6 @@ public static class CrashReportSender
 				object obj;
 				if (array == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportSender.Send(string)).MethodHandle;
-					}
 					obj = "NULL";
 				}
 				else
@@ -70,15 +57,6 @@ public static class CrashReportSender
 			{
 				if (webClient != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					((IDisposable)webClient).Dispose();
 				}
 			}
@@ -88,15 +66,6 @@ public static class CrashReportSender
 			string arg = string.Empty;
 			if (ex != null && ex.Response != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Stream responseStream = ex.Response.GetResponseStream();
 				try
 				{
@@ -111,15 +80,6 @@ public static class CrashReportSender
 						{
 							if (streamReader != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								((IDisposable)streamReader).Dispose();
 							}
 						}
@@ -129,15 +89,6 @@ public static class CrashReportSender
 				{
 					if (responseStream != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						((IDisposable)responseStream).Dispose();
 					}
 				}

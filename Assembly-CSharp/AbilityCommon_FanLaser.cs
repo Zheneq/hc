@@ -8,19 +8,6 @@ public class AbilityCommon_FanLaser
 	{
 		if (changeAngleByCursorDist)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_FanLaser.CreateTargeter_SingleClick(Ability, int, LaserTargetingInfo, float, bool, float, float, float, float)).MethodHandle;
-			}
 			AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = new AbilityUtil_Targeter_ThiefFanLaser(ability, minAngle, maxAngle, minInterpDist, maxInterpDist, laserInfo.range, laserInfo.width, laserInfo.maxTargets, numLasers, laserInfo.penetrateLos, false, false, false, true, 0, 0f, 0f);
 			abilityUtil_Targeter_ThiefFanLaser.SetAffectedGroups(laserInfo.affectsEnemies, laserInfo.affectsAllies, false);
 			return abilityUtil_Targeter_ThiefFanLaser;
@@ -42,19 +29,6 @@ public class AbilityCommon_FanLaser
 			float num2;
 			if (numLasers > 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_FanLaser.GetHitActorsAndHitCount(List<AbilityTarget>, ActorData, LaserTargetingInfo, int, float, bool, float, float, float, float, List<List<ActorData>>*, List<Vector3>*, int*, List<NonActorTargetInfo>, bool, float, float)).MethodHandle;
-				}
 				num2 = AbilityCommon_FanLaser.CalculateFanAngleDegrees(targets[0], caster, minAngle, maxAngle, minInterpDist, maxInterpDist, interpStep);
 			}
 			else
@@ -65,15 +39,6 @@ public class AbilityCommon_FanLaser
 			float num4;
 			if (numLasers > 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = num3 / (float)(numLasers - 1);
 			}
 			else
@@ -95,26 +60,8 @@ public class AbilityCommon_FanLaser
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, laserInfo.range, laserInfo.width, caster, relevantTeams, laserInfo.penetrateLos, maxTargets, false, true, out laserCoords.end, nonActorTargetInfo, null, false, true);
 			if (i == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (laserInfo.affectsCaster)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsInLaser.Add(caster);
 				}
 			}
@@ -126,15 +73,6 @@ public class AbilityCommon_FanLaser
 					ActorData actorData = enumerator.Current;
 					if (dictionary.ContainsKey(actorData))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Dictionary<ActorData, int> dictionary2;
 						ActorData key;
 						(dictionary2 = dictionary)[key = actorData] = dictionary2[key] + 1;
@@ -144,27 +82,9 @@ public class AbilityCommon_FanLaser
 						dictionary[actorData] = 1;
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (actorsInLaser.Count > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numLasersWithHits++;
 			}
 			int count = actorsForSequence[i].Count;
@@ -172,27 +92,9 @@ public class AbilityCommon_FanLaser
 			{
 				goto IL_232;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!stopEndPosOnHitActor)
 			{
 				goto IL_232;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			targetPosForSequences.Add(actorsForSequence[i][count - 1].GetTravelBoardSquareWorldPosition());
 			IL_241:
@@ -223,19 +125,6 @@ public class AbilityCommon_FanLaser
 	{
 		if (float.IsNaN(fanAngleDegrees))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(float, float, float, float)).MethodHandle;
-			}
 			fanAngleDegrees = 0f;
 		}
 		maxAngle = Mathf.Max(maxAngle, 1f);

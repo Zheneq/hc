@@ -57,42 +57,11 @@ public class LineSequence : Sequence
 		{
 			base.OverridePhaseTimingParams(this.m_phaseTimingParameters, iParams);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-		}
 		this.m_fixedStartPos = base.TargetPos;
 		if (this.m_fixedTargetPosUseGroundHeight)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Board.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fixedStartPos.y = (float)Board.Get().BaselineHeight;
 			}
 		}
@@ -117,66 +86,17 @@ public class LineSequence : Sequence
 		this.m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnFX();
 			}
 		}
 		if (this.m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fx.SetActive(false);
 					this.m_despawnTime = GameTime.time;
 				}
@@ -193,63 +113,14 @@ public class LineSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.OnUpdate()).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Caster != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_fx != null && this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 						}
 					}
@@ -262,15 +133,6 @@ public class LineSequence : Sequence
 					bool flag4;
 					if (!flag2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag4 = !flag3;
 					}
 					else
@@ -289,38 +151,11 @@ public class LineSequence : Sequence
 				}
 				if (this.m_fx != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_useTargetPosAsStartPosition)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(this.m_fxCasterJoint.m_jointObject != null))
 						{
 							goto IL_176;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					Vector3 lineStartPos = this.GetLineStartPos();
@@ -328,41 +163,14 @@ public class LineSequence : Sequence
 					IL_176:
 					if (this.m_fxTargetJoint.m_jointObject != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 lineEndPos = this.GetLineEndPos();
 						Sequence.SetAttribute(this.m_fx, "endPoint", lineEndPos);
 					}
 				}
 				if (this.m_despawnTime < GameTime.time)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_despawnTime > 0f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(this.m_fx);
 						this.m_fx = null;
 					}
@@ -375,32 +183,10 @@ public class LineSequence : Sequence
 	{
 		if (this.m_useTargetPosAsStartPosition)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.GetLineStartPos()).MethodHandle;
-			}
 			return this.m_fixedStartPos;
 		}
 		if (this.m_fxCasterJoint.m_jointObject != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_fxCasterJoint.m_jointObject.transform.position;
 		}
 		return Vector3.zero;
@@ -410,32 +196,10 @@ public class LineSequence : Sequence
 	{
 		if (this.m_fxTargetJoint.m_jointObject != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.GetLineEndPos()).MethodHandle;
-			}
 			Vector3 result = this.m_fxTargetJoint.m_jointObject.transform.position;
 			bool flag = base.Target.IsModelAnimatorDisabled();
 			if (this.m_useTargetDeathPosIfRagdolled)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					result = base.Target.LastDeathPosition;
@@ -452,19 +216,6 @@ public class LineSequence : Sequence
 		bool result;
 		if (!this.m_useTargetPosAsStartPosition && this.m_fxCasterJointReferenceType == Sequence.ReferenceModelType.Actor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.ShouldHideForCaster()).MethodHandle;
-			}
 			result = base.ShouldHideForActorIfAttached(base.Caster);
 		}
 		else
@@ -483,31 +234,9 @@ public class LineSequence : Sequence
 	{
 		if (!this.m_fxCasterJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.SpawnFX()).MethodHandle;
-			}
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
@@ -516,65 +245,20 @@ public class LineSequence : Sequence
 			GameObject referenceModel2 = base.GetReferenceModel(base.Target, this.m_fxTargetJointReferenceType);
 			if (referenceModel2 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fxTargetJoint.Initialize(referenceModel2);
 			}
 		}
 		if (this.m_fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_useTargetPosAsStartPosition)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Quaternion rotation = default(Quaternion);
 				this.m_fx = base.InstantiateFX(this.m_fxPrefab, this.m_fixedStartPos, rotation, true, true);
 			}
 			else if (this.m_fxCasterJoint != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxCasterJoint.m_jointObject != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position = this.m_fxCasterJoint.m_jointObject.transform.position;
 					Quaternion rotation2 = default(Quaternion);
 					this.m_fx = base.InstantiateFX(this.m_fxPrefab, position, rotation2, true, true);
@@ -601,15 +285,6 @@ public class LineSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -618,39 +293,12 @@ public class LineSequence : Sequence
 				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 		}
 		if (this.m_duration > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_despawnTime = GameTime.time + this.m_duration;
 		}
 		else
@@ -663,19 +311,6 @@ public class LineSequence : Sequence
 	{
 		if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (this.m_startEvent == parameter)
 			{
 				this.SpawnFX();
@@ -692,19 +327,6 @@ public class LineSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineSequence.DestroyFx()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx.gameObject);
 			this.m_fx = null;
 		}

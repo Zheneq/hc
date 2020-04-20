@@ -44,19 +44,6 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelTrapWire.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scoundrelTrapWire.m_barrierData.m_width;
 		}
 		else
@@ -66,53 +53,17 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		text = str + AbilityModHelper.GetModPropertyDesc(barrierScaleMod, prefix, showBaseVal, baseVal);
 		if (this.m_barrierSequence != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_barrierSequence.Count > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Has Sequence Prefab overrides for Barrier\n";
 			}
 		}
 		if (this.m_useEnemyMovedThroughOverride)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += this.m_enemyMovedThroughOverride.GetInEditorDescription("{ Enemy Moved Through Override }", "    ", flag, (!flag) ? null : scoundrelTrapWire.m_barrierData.m_onEnemyMovedThrough);
 		}
 		if (this.m_useAllyMovedThroughOverride)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str2 = text;
 			GameplayResponseForActor allyMovedThroughOverride = this.m_allyMovedThroughOverride;
 			string header = "{ Ally Moved Through Override }";
@@ -121,15 +72,6 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 			GameplayResponseForActor other;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				other = scoundrelTrapWire.m_barrierData.m_onAllyMovedThrough;
 			}
 			else
@@ -144,15 +86,6 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		StandardBarrierData baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scoundrelTrapWire.m_barrierData;
 		}
 		else
@@ -176,19 +109,6 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		StandardBarrierData baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelTrapWire.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			baseVal = scoundrelTrapWire.m_barrierData;
 		}
 		else

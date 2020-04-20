@@ -54,79 +54,21 @@ public class UIQueueListPanel : MonoBehaviour
 		UIQueueListPanel.UIPhase result = UIQueueListPanel.UIPhase.None;
 		if (priority != AbilityPriority.Prep_Defense)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.GetUIPhaseFromAbilityPriority(AbilityPriority)).MethodHandle;
-			}
 			if (priority != AbilityPriority.Prep_Offense)
 			{
 				if (priority == AbilityPriority.Evasion)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return UIQueueListPanel.UIPhase.Evasion;
 				}
 				if (priority != AbilityPriority.Combat_Damage)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (priority != AbilityPriority.DEPRICATED_Combat_Charge)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (priority != AbilityPriority.Combat_Knockback)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (priority != AbilityPriority.Combat_Final)
 							{
 								return result;
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -160,34 +102,12 @@ public class UIQueueListPanel : MonoBehaviour
 	{
 		if (this.m_CancelAllButton != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.m_CancelAllButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnCancelAllClick));
 			UIEventTriggerUtils.AddListener(this.m_CancelAllButton.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnCancelAllMouseEnter));
 			UIEventTriggerUtils.AddListener(this.m_CancelAllButton.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnCancelAllMouseExit));
 		}
 		if (this.m_CancelAllHover != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_CancelAllHover, false, null);
 		}
 		this.DoneQueueFadeAnim();
@@ -203,30 +123,8 @@ public class UIQueueListPanel : MonoBehaviour
 	{
 		if (GameFlowData.Get().IsInDecisionState())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.OnCancelAllClick(BaseEventData)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData component = GameFlowData.Get().activeOwnedActorData.GetComponent<AbilityData>();
 				ActorTurnSM component2 = component.GetComponent<ActorTurnSM>();
 				for (int i = 0; i < 0xE; i++)
@@ -238,15 +136,6 @@ public class UIQueueListPanel : MonoBehaviour
 						HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.RemovedAbility(actionType);
 						component2.RequestCancelAction(actionType, false);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				component2.RequestCancelMovement();
 			}
@@ -270,19 +159,6 @@ public class UIQueueListPanel : MonoBehaviour
 		{
 			if (!this.m_queuedActions[i].IsActiveQueued())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.AddMovementToQueue()).MethodHandle;
-				}
 				this.m_queuedActions[i].SetUpMovement(this.m_clickCancelled);
 				this.m_movementQueueIndex = i;
 				this.m_movementQueueIndexToChangeTo = i;
@@ -307,31 +183,9 @@ public class UIQueueListPanel : MonoBehaviour
 		{
 			if (this.m_queuedActions[i].IsMovement())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.RemoveMovementFromQueue()).MethodHandle;
-				}
 				bool flag;
 				if (i != 5)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = !this.m_queuedActions[i + 1].IsActiveQueued();
 				}
 				else
@@ -356,41 +210,10 @@ public class UIQueueListPanel : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.UpdateQueuedMovement()).MethodHandle;
-			}
 			if (activeOwnedActorData.HasQueuedMovement())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_isMovementQueued)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.AddMovementToQueue();
 				}
 				this.m_isMovementQueued = true;
@@ -399,15 +222,6 @@ public class UIQueueListPanel : MonoBehaviour
 			{
 				if (this.m_isMovementQueued)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.RemoveMovementFromQueue();
 				}
 				this.m_isMovementQueued = false;
@@ -428,30 +242,8 @@ public class UIQueueListPanel : MonoBehaviour
 				{
 					if (this.m_isMovementQueued)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.RemovedAbility(AbilityData.ActionType)).MethodHandle;
-						}
 						if (i < this.m_movementQueueIndex)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_movementQueueIndexToChangeTo = this.m_movementQueueIndex - 1;
 						}
 					}
@@ -486,19 +278,6 @@ public class UIQueueListPanel : MonoBehaviour
 		{
 			if (this.m_queuedActions[i].IsActiveQueued())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.SelectedTaunt(AbilityData.ActionType)).MethodHandle;
-				}
 				if (this.m_queuedActions[i].GetActionType() == entry)
 				{
 					this.m_queuedActions[i].EnabledCancelTauntButton(true);
@@ -525,19 +304,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		if (this.m_isMovementQueued)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.RefreshQueueList()).MethodHandle;
-			}
 			this.m_queuedActions[this.m_movementQueueIndex].SetUpMovement(this.m_clickCancelled);
 		}
 		this.m_clickCancelled = false;
@@ -550,19 +316,6 @@ public class UIQueueListPanel : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.UpdateQueuedAbilities()).MethodHandle;
-			}
 			AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 			List<AbilityData.AbilityEntry> list = new List<AbilityData.AbilityEntry>();
 			int num = 0;
@@ -571,27 +324,9 @@ public class UIQueueListPanel : MonoBehaviour
 			{
 				if (abilityData.GetAbilityEntryOfActionType(autoQueuedRequestActionTypes[i]) != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(abilityData.GetAbilityEntryOfActionType(autoQueuedRequestActionTypes[i]));
 				}
 				num++;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 			for (int j = 0; j < requestStackForUndo.Count; j++)
@@ -601,65 +336,20 @@ public class UIQueueListPanel : MonoBehaviour
 					list.Add(abilityData.GetAbilityEntryOfActionType(requestStackForUndo[j].m_action));
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2 = 0;
 			for (int k = 0; k < 6; k++)
 			{
 				if (this.m_queuedActions[k].IsMovement())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (num2 < list.Count)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_queuedActions[k].GetQueuedAbility() != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_queuedActions[k].GetQueuedAbility().ability == list[num2].ability)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2++;
 								goto IL_2FC;
 							}
@@ -670,15 +360,6 @@ public class UIQueueListPanel : MonoBehaviour
 						if (this.m_queuedActions[k].GetQueuedAbility() == null)
 						{
 							goto IL_211;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (this.m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability)
 						{
@@ -694,15 +375,6 @@ public class UIQueueListPanel : MonoBehaviour
 						}
 						else if (this.m_queuedActions[k].GetQueuedAbility().ability != list[num2].ability)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_queuedActions[k].ClearAction(true, this.m_abilityListRefreshed);
 							this.m_changedDisplay = true;
 						}
@@ -715,15 +387,6 @@ public class UIQueueListPanel : MonoBehaviour
 					}
 					else if (this.m_queuedActions[k].IsActiveQueued())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_changedDisplay = true;
 						this.m_queuedActions[k].ClearAction(true, this.m_abilityListRefreshed);
 					}
@@ -766,19 +429,6 @@ public class UIQueueListPanel : MonoBehaviour
 		this.m_abilityListRefreshed = true;
 		if (this.m_movementQueueIndexToChangeTo != this.m_movementQueueIndex)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.AbilityCancelAnimDone()).MethodHandle;
-			}
 			this.m_queuedActions[this.m_movementQueueIndex].ClearAction(false, true);
 			this.m_queuedActions[this.m_movementQueueIndex].SetCardTransformVisible(false);
 			this.m_queuedActions[this.m_movementQueueIndex].SetAbilityTransformVisible(false);
@@ -786,42 +436,15 @@ public class UIQueueListPanel : MonoBehaviour
 			bool flag = false;
 			if (this.m_movementQueueIndexToChangeTo != this.m_queuedActions.Length - 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_queuedActions[this.m_movementQueueIndexToChangeTo + 1].IsActiveQueued())
 				{
 					goto IL_C1;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag = true;
 			IL_C1:
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_queuedActions[this.m_movementQueueIndexToChangeTo].SetGlow(true);
 			}
 			this.m_movementQueueIndex = this.m_movementQueueIndexToChangeTo;
@@ -846,43 +469,12 @@ public class UIQueueListPanel : MonoBehaviour
 			this.m_queuedActions[i].SetGlow(false);
 			if (this.m_queuedActions[i].IsActiveQueued())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.CancelAbilityRequest(AbilityData.ActionType)).MethodHandle;
-				}
 				if (this.m_queuedActions[i].GetActionType() == actionType)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_queuedActions[i].m_animationController.Play("QueueItem_LeaveQueue");
 					this.SetCancelAnimPlaying(true);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.RemovedAbility(actionType);
 		this.m_abilityCancelRequested = true;
@@ -892,30 +484,8 @@ public class UIQueueListPanel : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null && GameFlowData.Get().IsInDecisionState())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueueListPanel.Update()).MethodHandle;
-			}
 			if (this.m_changedDisplay)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_changedDisplay = false;
 				bool flag = false;
 				int num = 0;
@@ -924,51 +494,15 @@ public class UIQueueListPanel : MonoBehaviour
 					this.m_queuedActions[i].SetGlow(false);
 					if (this.m_queuedActions[i].IsActiveQueued())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i != num + 1)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (i == 0)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								if (!this.m_cancelAnimationPlaying)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_queuedActions[i].ClearAction();
 									goto IL_C5;
 								}
@@ -980,15 +514,6 @@ public class UIQueueListPanel : MonoBehaviour
 					}
 					IL_C5:;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_queuedActions[num].SetGlow(true);
 				if (!flag)
 				{
@@ -999,15 +524,6 @@ public class UIQueueListPanel : MonoBehaviour
 				}
 				else if (!this.m_queueLabel.gameObject.activeSelf)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_queueLabel, true, null);
 					this.queueLabelOpacity = 0f;
 					this.m_labelVisible = true;
@@ -1019,15 +535,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		if (this.m_labelVisible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetQueueLineOpacity(this.queueLabelOpacity + Time.deltaTime);
 		}
 		else
@@ -1036,15 +543,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		if (this.m_lockedIn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_colorDistance != 0f)
 			{
 				Vector3 a = new Vector3(this.queueLabelColor.r, this.queueLabelColor.g, this.queueLabelColor.b);
@@ -1059,15 +557,6 @@ public class UIQueueListPanel : MonoBehaviour
 		}
 		else if (this.m_colorDistance != 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 a2 = new Vector3(this.queueLabelColor.r, this.queueLabelColor.g, this.queueLabelColor.b);
 			float num3 = Time.time - this.m_colorchangeStartTime;
 			float t2 = num3 / this.m_colorDistance;

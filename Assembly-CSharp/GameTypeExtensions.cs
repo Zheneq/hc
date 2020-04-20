@@ -6,30 +6,8 @@ public static class GameTypeExtensions
 	{
 		if (gameType != GameType.PvP)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.IsHumanVsHumanGame()).MethodHandle;
-			}
 			if (gameType != GameType.Ranked)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return gameType == GameType.NewPlayerPvP;
 			}
 		}
@@ -40,41 +18,10 @@ public static class GameTypeExtensions
 	{
 		if (gameType != GameType.Coop)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.IsQueueable()).MethodHandle;
-			}
 			if (gameType != GameType.PvP)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameType != GameType.Ranked)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return gameType == GameType.NewPlayerPvP;
 				}
 			}
@@ -87,19 +34,6 @@ public static class GameTypeExtensions
 		bool result;
 		if (gameType != GameType.Custom && gameType != GameType.Practice)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.IsAutoLaunchable()).MethodHandle;
-			}
 			result = (gameType == GameType.Tutorial);
 		}
 		else
@@ -113,30 +47,8 @@ public static class GameTypeExtensions
 	{
 		if (gameType != GameType.PvP)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.TracksElo()).MethodHandle;
-			}
 			if (gameType != GameType.Ranked)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return gameType == GameType.NewPlayerPvP;
 			}
 		}
@@ -147,30 +59,8 @@ public static class GameTypeExtensions
 	{
 		if (gameType != GameType.Practice)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.AllowsLockedCharacters()).MethodHandle;
-			}
 			if (gameType != GameType.Tutorial)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return gameType == GameType.NewPlayerSolo;
 			}
 		}
@@ -181,52 +71,12 @@ public static class GameTypeExtensions
 	{
 		if (gameType != GameType.Coop)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameType.AllowsReconnect()).MethodHandle;
-			}
 			if (gameType != GameType.PvP)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameType != GameType.Ranked)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameType != GameType.NewPlayerPvP)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return gameType == GameType.Custom;
 					}
 				}

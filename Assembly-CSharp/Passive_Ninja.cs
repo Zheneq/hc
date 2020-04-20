@@ -24,19 +24,6 @@ public class Passive_Ninja : Passive
 			int squareX;
 			if (square != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Passive_Ninja.NinjaRewindMemoryEntry..ctor(int, int, BoardSquare, AbilityData)).MethodHandle;
-				}
 				squareX = square.x;
 			}
 			else
@@ -47,15 +34,6 @@ public class Passive_Ninja : Passive
 			int squareY;
 			if (square != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				squareY = square.y;
 			}
 			else
@@ -69,15 +47,6 @@ public class Passive_Ninja : Passive
 				int item;
 				if (abilityData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					item = abilityData.GetCooldownRemaining((AbilityData.ActionType)i);
 				}
 				else
@@ -85,15 +54,6 @@ public class Passive_Ninja : Passive
 					item = 0;
 				}
 				abilityCooldowns.Add(item);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

@@ -70,19 +70,6 @@ public class MantaDashThroughWall : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Dash Through Wall";
 		}
 		this.m_syncComp = base.GetComponent<Manta_SyncComponent>();
@@ -111,19 +98,6 @@ public class MantaDashThroughWall : Ability
 		StandardEffectInfo cachedAoeEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.SetCachedFields()).MethodHandle;
-			}
 			cachedAoeEnemyHitEffect = this.m_abilityMod.m_aoeEnemyHitEffectMod.GetModifiedValue(this.m_aoeEnemyHitEffect);
 		}
 		else
@@ -154,19 +128,6 @@ public class MantaDashThroughWall : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAoeThroughWallConeLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeThroughWallConeLengthMod.GetModifiedValue(this.m_aoeThroughWallConeLength);
 		}
 		else
@@ -181,19 +142,6 @@ public class MantaDashThroughWall : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_widthMod.GetModifiedValue(this.m_width);
 		}
 		else
@@ -218,19 +166,6 @@ public class MantaDashThroughWall : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetExtraTotalDistanceIfThroughWalls()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraTotalDistanceIfThroughWallsMod.GetModifiedValue(this.m_extraTotalDistanceIfThroughWalls);
 		}
 		else
@@ -245,19 +180,6 @@ public class MantaDashThroughWall : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.ClampConeToWall()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_clampConeToWallMod.GetModifiedValue(this.m_clampConeToWall);
 		}
 		else
@@ -272,19 +194,6 @@ public class MantaDashThroughWall : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.AoeWithMiss()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeWithMissMod.GetModifiedValue(this.m_aoeWithMiss);
 		}
 		else
@@ -299,19 +208,6 @@ public class MantaDashThroughWall : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -326,19 +222,6 @@ public class MantaDashThroughWall : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetDirectHitDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_directHitDamageMod.GetModifiedValue(this.m_directHitDamage);
 		}
 		else
@@ -353,19 +236,6 @@ public class MantaDashThroughWall : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedDirectEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetDirectEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedDirectEnemyHitEffect;
 		}
 		else
@@ -380,19 +250,6 @@ public class MantaDashThroughWall : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.DirectHitIgnoreCover()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_directHitIgnoreCoverMod.GetModifiedValue(this.m_directHitIgnoreCover);
 		}
 		else
@@ -407,19 +264,6 @@ public class MantaDashThroughWall : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAoeDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeDamageMod.GetModifiedValue(this.m_aoeDamage);
 		}
 		else
@@ -434,19 +278,6 @@ public class MantaDashThroughWall : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAoeEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAoeEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAoeEnemyHitEffect;
 		}
 		else
@@ -470,19 +301,6 @@ public class MantaDashThroughWall : Ability
 	{
 		if (this.m_abilityMod && this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAdditionalDirtyFightingExplosionEffect()).MethodHandle;
-			}
 			return this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
 		}
 		return null;
@@ -497,19 +315,6 @@ public class MantaDashThroughWall : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MantaDashThroughWall))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_MantaDashThroughWall);
 			this.SetupTargeter();
 		}
@@ -549,45 +354,14 @@ public class MantaDashThroughWall : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int num = 0;
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetDirectHitDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetAoeDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Tertiary))
@@ -603,19 +377,6 @@ public class MantaDashThroughWall : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			int num = 0;
 			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
 			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
@@ -624,15 +385,6 @@ public class MantaDashThroughWall : Ability
 				{
 					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 					num += this.m_syncComp.GetDirtyFightingExtraTP(actorTarget.m_actor);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return num;
@@ -644,19 +396,6 @@ public class MantaDashThroughWall : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
 				return this.m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
@@ -687,30 +426,8 @@ public class MantaDashThroughWall : Ability
 			boardSquare = Board.Get().GetBoardSquare(vector2);
 			if (boardSquare != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MantaDashThroughWall.GetSquareBeyondWall(Vector3, Vector3, ActorData, float, Vector3*, Vector3*)).MethodHandle;
-				}
 				if (!boardSquare.IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare = null;
 				}
 			}
@@ -719,27 +436,9 @@ public class MantaDashThroughWall : Ability
 				IL_D0:
 				if (!(boardSquare == null))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare.IsBaselineHeight())
 					{
 						goto IL_113;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				boardSquare = Board.Get().GetBoardSquare(laserEndPoint);
@@ -747,29 +446,11 @@ public class MantaDashThroughWall : Ability
 				IL_113:
 				if (boardSquare != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 worldPositionForLoS = boardSquare.GetWorldPositionForLoS();
 					Vector3 normalized = (worldPositionForLoS - startPos).normalized;
 					normalized.y = 0f;
 					if (Mathf.Abs(normalized.x) > 0.3f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Mathf.Abs(normalized.z) > 0.3f)
 						{
 							float x = normalized.x;
@@ -777,15 +458,6 @@ public class MantaDashThroughWall : Ability
 							RaycastHit raycastHit;
 							if (!VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								normalized.z = 0f;
 								normalized.x = x;
 								bool flag = VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out raycastHit);

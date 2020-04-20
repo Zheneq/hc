@@ -40,19 +40,6 @@ public class TierInfo
 		}
 		if (mmr >= (float)this.MinMMRForBonus)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TierInfo.CalculatePointsForWin(int, float, float)).MethodHandle;
-			}
 			float num = mmr - (float)this.MinMMRForBonus;
 			num = Math.Min(num, eloDeltaNeededForMaxBonus);
 			num = Math.Max(1f, num);
@@ -70,19 +57,6 @@ public class TierInfo
 		TierPoints tierPoints;
 		if (this.Points.TryGetValue(groupSize, out tierPoints))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TierInfo.CalculatePointsPerLoss(int)).MethodHandle;
-			}
 			return tierPoints.PerLoss;
 		}
 		throw new Exception(string.Format("Bad groups size {0} playing in tier {1}", groupSize, this.Name));
@@ -95,19 +69,6 @@ public class TierInfo
 		{
 			if (this.NameLocalizationReference.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TierInfo.get_Name()).MethodHandle;
-				}
 				return null;
 			}
 			return this.NameLocalizationReference.Split("@".ToCharArray(), 2).First<string>();

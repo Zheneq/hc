@@ -68,19 +68,6 @@ namespace TMPro
 		{
 			if (!this.ValidTarget())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FloatTween.TweenValue(float)).MethodHandle;
-				}
 				return;
 			}
 			float arg = Mathf.Lerp(this.m_StartValue, this.m_TargetValue, floatPercentage);

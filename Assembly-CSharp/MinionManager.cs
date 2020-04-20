@@ -70,33 +70,11 @@ public class MinionManager : MonoBehaviour
 	{
 		if (minionActor == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MinionManager.AddMinion(ActorData)).MethodHandle;
-			}
 			Log.Error("MinionManager trying to add a null actor.", new object[0]);
 			return;
 		}
 		if (!this.m_allMinions.Contains(minionActor))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMinions.Add(minionActor);
 		}
 		else
@@ -116,15 +94,6 @@ public class MinionManager : MonoBehaviour
 		}
 		else if (minionActor.GetTeam() == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_teamBMinions.Contains(minionActor))
 			{
 				this.m_teamBMinions.Add(minionActor);
@@ -140,33 +109,11 @@ public class MinionManager : MonoBehaviour
 	{
 		if (minionActor == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MinionManager.RemoveMinion(ActorData)).MethodHandle;
-			}
 			Log.Error("MinionManager trying to remove a null actor.", new object[0]);
 			return;
 		}
 		if (this.m_allMinions.Contains(minionActor))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMinions.Remove(minionActor);
 		}
 		else
@@ -177,15 +124,6 @@ public class MinionManager : MonoBehaviour
 		{
 			if (this.m_teamAMinions.Contains(minionActor))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamAMinions.Remove(minionActor);
 			}
 			else
@@ -195,26 +133,8 @@ public class MinionManager : MonoBehaviour
 		}
 		else if (minionActor.GetTeam() == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_teamBMinions.Contains(minionActor))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_teamBMinions.Remove(minionActor);
 			}
 			else

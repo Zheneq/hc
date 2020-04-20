@@ -63,19 +63,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.GetSequencePos()).MethodHandle;
-			}
 			return this.m_fx.transform.position;
 		}
 		return Vector3.zero;
@@ -90,93 +77,26 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			SimpleVFXAtTargetPosSequence.IgnoreStartEventExtraParam ignoreStartEventExtraParam = extraSequenceParams as SimpleVFXAtTargetPosSequence.IgnoreStartEventExtraParam;
 			if (ignoreStartEventExtraParam != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				this.m_ignoreStartEvent = ignoreStartEventExtraParam.ignoreStartEvent;
 			}
 			if (extraSequenceParams is SimpleVFXAtTargetPosSequence.PositionOverrideParam)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SimpleVFXAtTargetPosSequence.PositionOverrideParam positionOverrideParam = extraSequenceParams as SimpleVFXAtTargetPosSequence.PositionOverrideParam;
 				this.m_fxSpawnPosition = positionOverrideParam.m_positionOverride;
 			}
 			if (extraSequenceParams is Sequence.FxAttributeParam)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sequence.FxAttributeParam fxAttributeParam = extraSequenceParams as Sequence.FxAttributeParam;
 				if (fxAttributeParam != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (fxAttributeParam.m_paramNameCode != Sequence.FxAttributeParam.ParamNameCode.None)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string attributeName = fxAttributeParam.GetAttributeName();
 						float paramValue = fxAttributeParam.m_paramValue;
 						if (fxAttributeParam.m_paramTarget == Sequence.FxAttributeParam.ParamTarget.MainVfx)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.m_fxAttributes.ContainsKey(attributeName))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_fxAttributes.Add(attributeName, paramValue);
 							}
 						}
@@ -186,15 +106,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		if (this.m_additionalFxAtTargetPos != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_additionalFxAtTargetPos.Initialize(this);
 		}
 	}
@@ -203,30 +114,8 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if (!(this.m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.FinishSetup()).MethodHandle;
-			}
 			if (!this.m_ignoreStartEvent)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ClientGameManager.Get().IsFastForward)
 				{
 					return;
@@ -235,26 +124,8 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_startDelayTime <= 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnFX();
 			}
 			else
@@ -278,30 +149,8 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.SetTimerController(int)).MethodHandle;
-			}
 			if (value != this.m_timeControllerValueNow)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_timeControllerValueNow = value;
 				if (value >= 4)
 				{
@@ -312,15 +161,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				}
 				else if (value == 3)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Sequence.SetAttribute(this.m_fx, "timerControl01", 0);
 					Sequence.SetAttribute(this.m_fx, "timerControl02", 0);
 					Sequence.SetAttribute(this.m_fx, "timerControl03", 0);
@@ -342,15 +182,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				}
 				else if (value <= 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Sequence.SetAttribute(this.m_fx, "timerControl01", 1);
 					Sequence.SetAttribute(this.m_fx, "timerControl02", 1);
 					Sequence.SetAttribute(this.m_fx, "timerControl03", 1);
@@ -368,31 +199,9 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if (this.m_fxPrefab)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.SpawnFX()).MethodHandle;
-			}
 			Vector3 fxSpawnPosition = this.m_fxSpawnPosition;
 			if (this.m_useGroundHeight)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fxSpawnPosition.y = (float)Board.Get().BaselineHeight;
 			}
 			fxSpawnPosition.y += this.m_yOffset;
@@ -402,79 +211,25 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			this.m_fxFoFSelectComp = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 			if (this.m_fxFoFSelectComp != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Caster != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
 				}
 			}
 			if (!this.m_sequenceHitCalled && this.m_callOnHitForGameplay)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_hitDelayTime > 0f && this.m_timeToHit < 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeToHit = GameTime.time + this.m_hitDelayTime;
 				}
 				else if (this.m_hitDelayTime <= 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.CallHitSequenceOnTargets(base.TargetPos, 1f, null, true);
 					this.m_sequenceHitCalled = true;
 				}
 			}
 			if (this.m_fx != null && this.m_fxAttributes != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (Dictionary<string, float>.Enumerator enumerator = this.m_fxAttributes.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -482,28 +237,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 						KeyValuePair<string, float> keyValuePair = enumerator.Current;
 						Sequence.SetAttribute(this.m_fx, keyValuePair.Key, keyValuePair.Value);
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			if (this.m_fx != null && this.m_additionalFxAtTargetPos != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_additionalFxAtTargetPos.SpawnFX(this.m_fx.transform.position, this.m_fx.transform.rotation, this);
 			}
 		}
@@ -512,28 +249,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			GameObject gameObject = null;
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = this.m_fx;
 			}
 			else if (base.Caster != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = base.Caster.gameObject;
 			}
 			if (gameObject != null)
@@ -551,19 +270,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		if (this.m_additionalFxAtTargetPos)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.StopFX()).MethodHandle;
-			}
 			this.m_additionalFxAtTargetPos.SetAsInactive();
 		}
 	}
@@ -577,41 +283,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.OnUpdate()).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_timeToSpawnVfx > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameTime.time >= this.m_timeToSpawnVfx)
 					{
 						this.m_timeToSpawnVfx = -1f;
@@ -620,73 +295,19 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				}
 				if (this.m_callOnHitForGameplay)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_sequenceHitCalled)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_initialized)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(this.m_fxPrefab == null))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_timeToHit <= 0f)
 								{
 									goto IL_113;
 								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameTime.time < this.m_timeToHit)
 								{
 									goto IL_113;
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							base.CallHitSequenceOnTargets(base.TargetPos, 1f, null, true);
@@ -697,37 +318,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				IL_113:
 				if (this.m_fx != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fxFoFSelectComp != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Caster != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
 						}
 					}
@@ -735,15 +329,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				base.ProcessSequenceVisibility();
 				if (this.m_additionalFxAtTargetPos != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_additionalFxAtTargetPos.OnUpdate(base.LastDesiredVisible(), base.Caster);
 				}
 			}
@@ -758,30 +343,8 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (this.m_startEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnFX();
 			}
 			else if (this.m_stopEvent == parameter)
@@ -800,19 +363,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		if (this.m_additionalFxAtTargetPos != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.OnDisable()).MethodHandle;
-			}
 			this.m_additionalFxAtTargetPos.DestroyFX();
 		}
 	}
@@ -834,19 +384,6 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			text += "<color=cyan>Can do Gameplay Hits</color>\n";
 			if (this.m_hitDelayTime > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVFXAtTargetPosSequence.GetSequenceSpecificDescription()).MethodHandle;
-				}
 				string text2 = text;
 				text = string.Concat(new object[]
 				{
@@ -863,40 +400,13 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		if (this.m_startEvent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_startDelayTime > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "<color=yellow>WARNING: </color>Start Delay Time is ignored, will use StartEvent.\n\n";
 			}
 		}
 		else if (this.m_startDelayTime > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{

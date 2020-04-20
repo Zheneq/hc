@@ -71,30 +71,8 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 		bool result;
 		if (this.m_includeAllies)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_Standard_Shape_Aoe_Ability.IncludeAllies()).MethodHandle;
-			}
 			if (this.m_healAmount <= 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_techPointGain <= 0)
 				{
 					result = this.m_allyHitEffect.m_applyEffect;
@@ -118,30 +96,8 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 		{
 			if (this.m_damageAmount <= 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Card_Standard_Shape_Aoe_Ability.IncludeEnemies()).MethodHandle;
-				}
 				if (this.m_techPointLoss <= 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = this.m_enemyHitEffect.m_applyEffect;
 					goto IL_45;
 				}
@@ -174,19 +130,6 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 	{
 		if (this.m_requireTargetingOnActor)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_Standard_Shape_Aoe_Ability.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			bool result = false;
 			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.IncludeAllies(), this.IncludeEnemies());
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_targeterValidationShape, target, this.m_penetrateLos, caster, relevantTeams, null);
@@ -200,15 +143,6 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 					{
 						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return result;

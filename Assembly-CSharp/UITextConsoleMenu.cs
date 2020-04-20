@@ -34,32 +34,10 @@ public class UITextConsoleMenu : MonoBehaviour
 			UITextConsoleMenu.UITextConsoleButtonAction action = (UITextConsoleMenu.UITextConsoleButtonAction)i;
 			if (this.IsValidButtonAction(action, true))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsoleMenu.Start()).MethodHandle;
-				}
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnMenuMouseOver));
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnMenuMouseExit));
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnMenuMouseClicked));
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -83,19 +61,6 @@ public class UITextConsoleMenu : MonoBehaviour
 		{
 			if (this.IsValidButtonAction((UITextConsoleMenu.UITextConsoleButtonAction)i, false))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsoleMenu.OnMenuMouseClicked(BaseEventData)).MethodHandle;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
 					switch (i)
@@ -149,19 +114,6 @@ public class UITextConsoleMenu : MonoBehaviour
 		UIManager.SetGameObjectActive(base.gameObject, visible, null);
 		if (!visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsoleMenu.SetVisible(bool)).MethodHandle;
-			}
 			this.m_handle = string.Empty;
 		}
 	}
@@ -173,30 +125,8 @@ public class UITextConsoleMenu : MonoBehaviour
 			UITextConsoleMenu.UITextConsoleButtonAction action = (UITextConsoleMenu.UITextConsoleButtonAction)i;
 			if (this.IsValidButtonAction(action, false))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsoleMenu.OnMenuMouseOver(BaseEventData)).MethodHandle;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_menuButtons[i].m_icon.color = Color.white;
 					this.m_menuButtons[i].m_label.color = Color.white;
 				}
@@ -211,15 +141,6 @@ public class UITextConsoleMenu : MonoBehaviour
 				this.m_menuButtons[i].m_icon.color = Color.gray;
 				this.m_menuButtons[i].m_label.color = Color.gray;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -236,19 +157,6 @@ public class UITextConsoleMenu : MonoBehaviour
 			UITextConsoleMenu.UITextConsoleButtonAction action = (UITextConsoleMenu.UITextConsoleButtonAction)i;
 			if (this.IsValidButtonAction(action, false))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsoleMenu.Setup(string, bool)).MethodHandle;
-				}
 				this.m_menuButtons[i].m_icon.color = this.m_unhighlightedMenuItemColor;
 				this.m_menuButtons[i].m_label.color = this.m_unhighlightedMenuItemColor;
 			}
@@ -261,15 +169,6 @@ public class UITextConsoleMenu : MonoBehaviour
 			bool doActive;
 			if (inGame)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = this.IsValidInGame(action);
 			}
 			else
@@ -277,15 +176,6 @@ public class UITextConsoleMenu : MonoBehaviour
 				doActive = true;
 			}
 			UIManager.SetGameObjectActive(container, doActive, null);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -303,31 +193,9 @@ public class UITextConsoleMenu : MonoBehaviour
 		{
 			if (!(EventSystem.current.currentSelectedGameObject == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITextConsoleMenu.Update()).MethodHandle;
-				}
 				if (!(EventSystem.current.currentSelectedGameObject.GetComponentInParent<UITextConsoleMenu>() == null))
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UITextConsoleMenu.Get().SetVisible(false);

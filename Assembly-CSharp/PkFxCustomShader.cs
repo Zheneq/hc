@@ -44,19 +44,6 @@ public class PkFxCustomShader : ScriptableObject
 	{
 		if (!this.ShaderConstantExist(constant.m_Descriptor))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PkFxCustomShader.SetConstant(PKFxManager.ShaderConstant)).MethodHandle;
-			}
 			Debug.LogError("[PKFX] CustomShader.SetConstant : " + constant.m_Descriptor.Name + " doesn't exist");
 		}
 		else
@@ -65,15 +52,6 @@ public class PkFxCustomShader : ScriptableObject
 			{
 				if (this.m_ShaderConstantList[i].m_Descriptor.Name == constant.m_Descriptor.Name)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_ShaderConstantList[i].m_Value0 = constant.m_Value0;
 					this.m_ShaderConstantList[i].m_Value1 = constant.m_Value1;
 					this.m_ShaderConstantList[i].m_Value2 = constant.m_Value2;
@@ -94,19 +72,6 @@ public class PkFxCustomShader : ScriptableObject
 		{
 			if (!this.ShaderConstantExist(desc))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PkFxCustomShader.LoadShaderConstants(List<PKFxManager.ShaderConstantDesc>, bool)).MethodHandle;
-				}
 				list.Add(new PKFxManager.ShaderConstant(desc));
 			}
 			else
@@ -121,31 +86,9 @@ public class PkFxCustomShader : ScriptableObject
 	{
 		if (this.m_ShaderConstantsCache != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PkFxCustomShader.AllocAttributesCacheIFN()).MethodHandle;
-			}
 			if (this.m_ShaderConstantsCache.Length >= this.m_ShaderConstantList.Count)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_ShaderConstantsCache = new PkFxCustomShader.SShaderConstantPinned[this.m_ShaderConstantList.Count];
@@ -173,59 +116,19 @@ public class PkFxCustomShader : ScriptableObject
 			{
 				goto IL_C1;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PkFxCustomShader.UpdateShaderConstants(bool)).MethodHandle;
-			}
 			if (this.m_ShaderConstantsCache[i].m_Value1 != shaderConstant.m_Value1)
 			{
 				goto IL_C1;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_ShaderConstantsCache[i].m_Value2 != shaderConstant.m_Value2)
 			{
 				goto IL_C1;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag = this.m_ShaderConstantsCache[i].m_Value3 != shaderConstant.m_Value3;
 			IL_C2:
 			if (flag)
 			{
 				goto IL_D6;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (forceUpdate)
 			{
@@ -248,26 +151,8 @@ public class PkFxCustomShader : ScriptableObject
 		}
 		if (num >= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!PKFxManager.ShaderSetConstant(this.m_LoadedShaderId, num + 1, this.m_ShaderConstantsHandler))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("[PKFX] Shader constant through pinned memory failed.");
 				Debug.LogError("[PKFX] Did you try to change an FX without stopping it beforehand?");
 			}
@@ -278,34 +163,12 @@ public class PkFxCustomShader : ScriptableObject
 	{
 		if (this.m_ShaderConstantList == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PkFxCustomShader.GetShaderConstantFromDesc(PKFxManager.ShaderConstantDesc)).MethodHandle;
-			}
 			return null;
 		}
 		foreach (PKFxManager.ShaderConstant shaderConstant in this.m_ShaderConstantList)
 		{
 			if (shaderConstant.m_Descriptor.Name == desc.Name && shaderConstant.m_Descriptor.Type == desc.Type)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return shaderConstant;
 			}
 		}
@@ -316,19 +179,6 @@ public class PkFxCustomShader : ScriptableObject
 	{
 		if (this.m_ShaderConstantList == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PkFxCustomShader.ShaderConstantExist(PKFxManager.ShaderConstantDesc)).MethodHandle;
-			}
 			return false;
 		}
 		using (List<PKFxManager.ShaderConstant>.Enumerator enumerator = this.m_ShaderConstantList.GetEnumerator())
@@ -340,15 +190,6 @@ public class PkFxCustomShader : ScriptableObject
 				{
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -377,32 +218,10 @@ public class PkFxCustomShader : ScriptableObject
 		}
 		if (this.m_Api == PkFxCustomShader.EShaderApi.DX11)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PkFxCustomShader.ApiInUse()).MethodHandle;
-			}
 			return SystemInfo.graphicsDeviceVersion.StartsWith("Direct3D 11");
 		}
 		if (this.m_Api == PkFxCustomShader.EShaderApi.GLES)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return SystemInfo.graphicsDeviceVersion.StartsWith("OpenGL ES");
 		}
 		Debug.LogError("Invalid API");

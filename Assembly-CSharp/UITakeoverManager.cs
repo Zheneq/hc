@@ -40,19 +40,6 @@ public class UITakeoverManager : UIScene
 		UITakeoverManager.s_instance = null;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITakeoverManager.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= this.HandleAccessLevelChange;
 		}
 	}
@@ -81,33 +68,11 @@ public class UITakeoverManager : UIScene
 	{
 		if (this.TakeOverTimeStart > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITakeoverManager.Update()).MethodHandle;
-			}
 			if (Time.time < this.TakeOverTimeStart)
 			{
 				if (ClientGameManager.Get().ClientAccessLevel <= ClientAccessLevel.Free)
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.TakeOverTimeStart = -1f;

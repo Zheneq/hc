@@ -71,19 +71,6 @@ public class SenseiAppendStatus : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.Start()).MethodHandle;
-			}
 			this.m_abilityName = "SenseiAppendStatus";
 		}
 		this.Setup();
@@ -94,31 +81,9 @@ public class SenseiAppendStatus : Ability
 		this.SetCachedFields();
 		if (this.m_targetingMode == SenseiAppendStatus.TargetingMode.ActorSquare)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.Setup()).MethodHandle;
-			}
 			AbilityUtil_Targeter.AffectsActor affectsActor;
 			if (this.CanTagetSelf())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				affectsActor = AbilityUtil_Targeter.AffectsActor.Possible;
 			}
 			else
@@ -161,19 +126,6 @@ public class SenseiAppendStatus : Ability
 		StandardActorEffectData cachedEnemyCastHitEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyCastHitEffectData = this.m_abilityMod.m_enemyCastHitEffectDataMod.GetModifiedValue(this.m_enemyCastHitEffectData);
 		}
 		else
@@ -184,15 +136,6 @@ public class SenseiAppendStatus : Ability
 		StandardActorEffectData cachedAllyCastHitEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyCastHitEffectData = this.m_abilityMod.m_allyCastHitEffectDataMod.GetModifiedValue(this.m_allyCastHitEffectData);
 		}
 		else
@@ -204,15 +147,6 @@ public class SenseiAppendStatus : Ability
 		StandardEffectInfo cachedEffectAddedOnAllyAttack;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectAddedOnAllyAttack = this.m_abilityMod.m_effectAddedOnAllyAttackMod.GetModifiedValue(this.m_effectAddedOnAllyAttack);
 		}
 		else
@@ -232,19 +166,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.CanTargetEnemy()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(this.m_canTargetEnemy);
 		}
 		else
@@ -259,19 +180,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.CanTagetSelf()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canTagetSelfMod.GetModifiedValue(this.m_canTagetSelf);
 		}
 		else
@@ -286,19 +194,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.TargetingIgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(this.m_targetingIgnoreLos);
 		}
 		else
@@ -318,19 +213,6 @@ public class SenseiAppendStatus : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedEnemyCastHitEffectData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.GetEnemyCastHitEffectData()).MethodHandle;
-			}
 			result = this.m_cachedEnemyCastHitEffectData;
 		}
 		else
@@ -350,19 +232,6 @@ public class SenseiAppendStatus : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.GetEnergyToAllyTargetOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyToAllyTargetOnCastMod.GetModifiedValue(this.m_energyToAllyTargetOnCast);
 		}
 		else
@@ -377,19 +246,6 @@ public class SenseiAppendStatus : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.EndEffectIfAppendedStatus()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_endEffectIfAppendedStatusMod.GetModifiedValue(this.m_endEffectIfAppendedStatus);
 		}
 		else
@@ -404,19 +260,6 @@ public class SenseiAppendStatus : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectAddedOnEnemyAttack != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.GetEffectAddedOnEnemyAttack()).MethodHandle;
-			}
 			result = this.m_cachedEffectAddedOnEnemyAttack;
 		}
 		else
@@ -431,19 +274,6 @@ public class SenseiAppendStatus : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectAddedOnAllyAttack != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.GetEffectAddedOnAllyAttack()).MethodHandle;
-			}
 			result = this.m_cachedEffectAddedOnAllyAttack;
 		}
 		else
@@ -458,19 +288,6 @@ public class SenseiAppendStatus : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.GetEnergyGainOnAllyAppendHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyGainOnAllyAppendHitMod.GetModifiedValue(this.m_energyGainOnAllyAppendHit);
 		}
 		else
@@ -491,19 +308,6 @@ public class SenseiAppendStatus : Ability
 	{
 		if (this.m_targetingMode == SenseiAppendStatus.TargetingMode.ActorSquare)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
 			return base.CanTargetActorInDecision(caster, currentBestActorTarget, this.CanTargetEnemy(), this.CanTargetAlly(), this.CanTagetSelf(), Ability.ValidateCheckPath.Ignore, !this.TargetingIgnoreLos(), true, false);
 		}
@@ -514,19 +318,6 @@ public class SenseiAppendStatus : Ability
 	{
 		if (this.m_targetingMode == SenseiAppendStatus.TargetingMode.ActorSquare)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			return base.HasTargetableActorsInDecision(caster, this.CanTargetEnemy(), this.CanTargetAlly(), this.CanTagetSelf(), Ability.ValidateCheckPath.Ignore, !this.TargetingIgnoreLos(), true, false);
 		}
 		return true;
@@ -546,19 +337,6 @@ public class SenseiAppendStatus : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SenseiAppendStatus))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAppendStatus.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SenseiAppendStatus);
 			this.Setup();
 		}

@@ -21,19 +21,6 @@ public class FullScreenMovie : UIScene
 	{
 		if (UIManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FullScreenMovie.Start()).MethodHandle;
-			}
 			UIManager.Get().RegisterUIScene(this);
 		}
 	}

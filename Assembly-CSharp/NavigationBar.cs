@@ -65,31 +65,9 @@ public class NavigationBar : UIScene
 	{
 		if (this.m_timeInQueueLabel != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NavigationBar.UpdateTimeInQueueLabel(string)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_timeInQueueLabel.Length; i++)
 			{
 				this.m_timeInQueueLabel[i].text = newText;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -110,19 +88,6 @@ public class NavigationBar : UIScene
 	{
 		if (this.m_cancelBtn.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NavigationBar.UpdateSearchQueueTooltipLabels()).MethodHandle;
-			}
 			this.m_cancelHitbox.GetComponent<UITooltipHoverObject>().Refresh();
 		}
 	}
@@ -144,30 +109,8 @@ public class NavigationBar : UIScene
 		string newText = string.Empty;
 		if (!isWaitingForGroup)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NavigationBar.UpdateStatusMessage()).MethodHandle;
-			}
 			if (!isInCustomGame)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TimeSpan timeInQueue = SceneStateParameters.TimeInQueue;
 				newText = string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)timeInQueue.TotalSeconds);
 			}
@@ -175,64 +118,19 @@ public class NavigationBar : UIScene
 		this.UpdateTimeInQueueLabel(newText);
 		if (this.m_searchQueueText != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_queueStatusDisplayString = ClientGameManager.Get().GenerateQueueLabel();
 			if (!this.m_searchQueueText.text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_queueStatusDisplayString.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = this.m_queueStatusDisplayString != this.m_searchQueueText.text;
 					string value = StringUtil.TR("Searching", "Frontend");
 					if (this.m_queueStatusDisplayString.Contains(value) && this.m_searchQueueText.text.Contains(value))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						try
 						{
 							AnimatorStateInfo currentAnimatorStateInfo = this.m_cancelBtnAnimator.GetCurrentAnimatorStateInfo(0);
@@ -242,15 +140,6 @@ public class NavigationBar : UIScene
 								if (!(animatorClipInfo.clip.name == "CancelBtnStatusChange") || currentAnimatorStateInfo.normalizedTime < currentAnimatorStateInfo.length)
 								{
 									goto IL_1D7;
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							this.m_cancelBtnAnimator.Play("CancelBtnStatusChange", 0, 0f);
@@ -270,15 +159,6 @@ public class NavigationBar : UIScene
 			}
 			if (!this.m_searchQueueText.text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_queueStatusDisplayString.IsNullOrEmpty())
 				{
 					return;
@@ -292,30 +172,8 @@ public class NavigationBar : UIScene
 	{
 		if (!(AppState_CharacterSelect.Get() == AppState.GetCurrent()))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NavigationBar.Update()).MethodHandle;
-			}
 			if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState_LandingPage.Get() == AppState.GetCurrent()))
 				{
 					return;
@@ -324,15 +182,6 @@ public class NavigationBar : UIScene
 		}
 		if (!UIGameSettingsPanel.Get().m_lastVisible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateStatusMessage();
 			this.UpdateSearchQueueTooltipLabels();
 		}

@@ -56,19 +56,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		TricksterCatchMeIfYouCan tricksterCatchMeIfYouCan = targetAbility as TricksterCatchMeIfYouCan;
 		if (tricksterCatchMeIfYouCan != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCatchMeIfYouCan.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_pathRadiusMod, "PathRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathRadius, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_pathStartRadiusMod, "PathStartRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathStartRadius, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_pathEndRadiusMod, "PathEndRadius", string.Empty, tricksterCatchMeIfYouCan.m_pathEndRadius, true, false, false);
@@ -98,19 +85,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCatchMeIfYouCan.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = tricksterCatchMeIfYouCan.m_hitActorsInPath;
 		}
 		else
@@ -126,15 +100,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = tricksterCatchMeIfYouCan.m_pathStartRadius;
 		}
 		else
@@ -149,15 +114,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = tricksterCatchMeIfYouCan.m_pathEndRadius;
 		}
 		else
@@ -172,15 +128,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = tricksterCatchMeIfYouCan.m_penetrateLos;
 		}
 		else
@@ -195,15 +142,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = tricksterCatchMeIfYouCan.m_damageAmount;
 		}
 		else
@@ -218,15 +156,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = tricksterCatchMeIfYouCan.m_subsequentDamageAmount;
 		}
 		else
@@ -241,15 +170,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = tricksterCatchMeIfYouCan.m_enemyHitEffect;
 		}
 		else
@@ -264,15 +184,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		bool baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = tricksterCatchMeIfYouCan.m_useEnemyMultiHitEffect;
 		}
 		else
@@ -287,15 +198,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		StandardEffectInfo baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = tricksterCatchMeIfYouCan.m_enemyMultipleHitEffect;
 		}
 		else
@@ -310,15 +212,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = tricksterCatchMeIfYouCan.m_allyHealingAmount;
 		}
 		else
@@ -334,15 +227,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = tricksterCatchMeIfYouCan.m_subsequentHealingAmount;
 		}
 		else
@@ -357,15 +241,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		StandardEffectInfo baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = tricksterCatchMeIfYouCan.m_allyHitEffect;
 		}
 		else
@@ -381,15 +256,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		StandardEffectInfo baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = tricksterCatchMeIfYouCan.m_allyMultipleHitEffect;
 		}
 		else
@@ -404,15 +270,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = tricksterCatchMeIfYouCan.m_selfHealingAmount;
 		}
 		else
@@ -427,15 +284,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		StandardEffectInfo baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = tricksterCatchMeIfYouCan.m_selfHitEffect;
 		}
 		else

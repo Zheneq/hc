@@ -50,20 +50,6 @@ public class Claymore_SyncComponent : NetworkBehaviour
 				return result;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.GetDirtyFightingDamageOnActor(ActorData)).MethodHandle;
-			return result;
-		}
 		return result;
 	}
 
@@ -88,19 +74,6 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.InvokeSyncListm_dirtyFightingActorIndexList(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_dirtyFightingActorIndexList called on server.");
 			return;
 		}
@@ -111,19 +84,6 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.InvokeSyncListm_dirtyFightingDamageList(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_dirtyFightingDamageList called on server.");
 			return;
 		}
@@ -140,19 +100,6 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingActorIndexList);
 			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingDamageList);
 			return true;
@@ -160,26 +107,8 @@ public class Claymore_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -187,26 +116,8 @@ public class Claymore_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -214,15 +125,6 @@ public class Claymore_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -232,19 +134,6 @@ public class Claymore_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Claymore_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndexList);
 			SyncListUInt.ReadReference(reader, this.m_dirtyFightingDamageList);
 			return;
@@ -252,28 +141,10 @@ public class Claymore_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndexList);
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, this.m_dirtyFightingDamageList);
 		}
 	}

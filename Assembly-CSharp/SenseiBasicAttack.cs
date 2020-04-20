@@ -74,19 +74,6 @@ public class SenseiBasicAttack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Sensei Circle Or Laser";
 		}
 		this.Setup();
@@ -96,19 +83,6 @@ public class SenseiBasicAttack : Ability
 	{
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.Setup()).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Sensei_SyncComponent>();
 		}
 		this.SetCachedFields();
@@ -119,15 +93,6 @@ public class SenseiBasicAttack : Ability
 		bool affectsCaster;
 		if (this.GetHealPerEnemyHit() <= 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsCaster = (this.GetAbsorbAmountIfTriggeredHitCount() > 0);
 		}
 		else
@@ -158,45 +123,14 @@ public class SenseiBasicAttack : Ability
 	{
 		if (this.GetHealPerEnemyHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.ShouldAddCasterForTargeter(ActorData, List<ActorData>)).MethodHandle;
-			}
 			if (actorsSoFar.Count > 0)
 			{
 				return true;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		bool result;
 		if (this.GetAbsorbAmountIfTriggeredHitCount() > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (actorsSoFar.Count >= this.GetCdrMinTriggerHitCount());
 		}
 		else
@@ -211,19 +145,6 @@ public class SenseiBasicAttack : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -234,15 +155,6 @@ public class SenseiBasicAttack : Ability
 		StandardEffectInfo cachedCircleEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedCircleEnemyHitEffect = this.m_abilityMod.m_circleEnemyHitEffectMod.GetModifiedValue(this.m_circleEnemyHitEffect);
 		}
 		else
@@ -253,15 +165,6 @@ public class SenseiBasicAttack : Ability
 		StandardEffectInfo cachedLaserEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserEnemyHitEffect = this.m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(this.m_laserEnemyHitEffect);
 		}
 		else
@@ -276,19 +179,6 @@ public class SenseiBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetCircleDistThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_circleDistThresholdMod.GetModifiedValue(this.m_circleDistThreshold);
 		}
 		else
@@ -303,19 +193,6 @@ public class SenseiBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetCircleRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_circleRadiusMod.GetModifiedValue(this.m_circleRadius);
 		}
 		else
@@ -330,19 +207,6 @@ public class SenseiBasicAttack : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -357,19 +221,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetCircleDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_circleDamageMod.GetModifiedValue(this.m_circleDamage);
 		}
 		else
@@ -394,19 +245,6 @@ public class SenseiBasicAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedLaserEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetLaserEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserEnemyHitEffect;
 		}
 		else
@@ -431,19 +269,6 @@ public class SenseiBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetLaserFarDistThresh()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserFarDistThreshMod.GetModifiedValue(this.m_laserFarDistThresh);
 		}
 		else
@@ -468,19 +293,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetCdrOnAbility()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnAbilityMod.GetModifiedValue(this.m_cdrOnAbility);
 		}
 		else
@@ -495,19 +307,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetCdrMinTriggerHitCount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrMinTriggerHitCountMod.GetModifiedValue(this.m_cdrMinTriggerHitCount);
 		}
 		else
@@ -522,19 +321,6 @@ public class SenseiBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetAbsorbPerEnemyHitOnTurnStart()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_absorbPerEnemyHitOnTurnStartMod.GetModifiedValue(this.m_absorbPerEnemyHitOnTurnStart);
 		}
 		else
@@ -554,19 +340,6 @@ public class SenseiBasicAttack : Ability
 		float num;
 		if (forCone)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetExtraDamageForFarTarget(ActorData, ActorData, bool)).MethodHandle;
-			}
 			num = this.GetCircleFarDistThresh();
 		}
 		else
@@ -576,40 +349,13 @@ public class SenseiBasicAttack : Ability
 		float num2 = num;
 		if (num2 > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetExtraDamageForFarTarget() > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 				vector.y = 0f;
 				float magnitude = vector.magnitude;
 				if (magnitude >= num2 * Board.Get().squareSize)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.GetExtraDamageForFarTarget();
 				}
 			}
@@ -645,19 +391,6 @@ public class SenseiBasicAttack : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			bool flag = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0;
 			int num;
 			if (flag)
@@ -665,26 +398,8 @@ public class SenseiBasicAttack : Ability
 				num = this.GetCircleDamage();
 				if (this.GetExtraDamageForAlternating() > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_syncComp && (int)this.m_syncComp.m_lastPrimaryUsedMode == 2)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += this.GetExtraDamageForAlternating();
 					}
 				}
@@ -694,37 +409,10 @@ public class SenseiBasicAttack : Ability
 				num = this.GetLaserDamage();
 				if (this.GetExtraDamageForAlternating() > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_syncComp)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((int)this.m_syncComp.m_lastPrimaryUsedMode == 1)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += this.GetExtraDamageForAlternating();
 						}
 					}
@@ -736,54 +424,18 @@ public class SenseiBasicAttack : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int healing = 0;
 			if (this.GetHealPerEnemyHit() > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				healing = visibleActorsCountByTooltipSubject * this.GetHealPerEnemyHit();
 			}
 			results.m_healing = healing;
 			if (this.GetAbsorbAmountIfTriggeredHitCount() > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				if (visibleActorsCountByTooltipSubject2 >= this.GetCdrMinTriggerHitCount())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_absorb = this.GetAbsorbAmountIfTriggeredHitCount();
 				}
 			}
@@ -815,34 +467,12 @@ public class SenseiBasicAttack : Ability
 	{
 		if (targets != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBasicAttack.GetActionAnimType(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			if (caster != null)
 			{
 				bool flag = this.ShouldUseCircle(targets[0].FreePos, caster);
 				ActorModelData.ActionAnimationType result;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (ActorModelData.ActionAnimationType)this.m_onCastCircleAnimIndex;
 				}
 				else

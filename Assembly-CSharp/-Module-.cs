@@ -1,9 +1,9 @@
 ﻿using System;
 using A;
 
-internal class <Module>
+internal class _Module
 {
-	static <Module>()
+	static _Module()
 	{
 		kernel.method0016();
 	}

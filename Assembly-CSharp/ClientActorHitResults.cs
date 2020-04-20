@@ -93,102 +93,35 @@ public class ClientActorHitResults
 		short finalTechPointGainOnCaster = 0;
 		if (this.m_hasDamage)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults..ctor(IBitStream*)).MethodHandle;
-			}
 			stream.Serialize(ref finalDamage);
 			this.m_finalDamage = (int)finalDamage;
 		}
 		if (this.m_hasHealing)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref finalHealing);
 			this.m_finalHealing = (int)finalHealing;
 		}
 		if (this.m_hasTechPointGain)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref finalTechPointsGain);
 			this.m_finalTechPointsGain = (int)finalTechPointsGain;
 		}
 		if (this.m_hasTechPointLoss)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref finalTechPointsLoss);
 			this.m_finalTechPointsLoss = (int)finalTechPointsLoss;
 		}
 		if (this.m_hasTechPointGainOnCaster)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref finalTechPointGainOnCaster);
 			this.m_finalTechPointGainOnCaster = (int)finalTechPointGainOnCaster;
 		}
 		if (this.m_hasKnockback)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			short num = (short)ActorData.s_invalidActorIndex;
 			stream.Serialize(ref num);
 			if ((int)num != ActorData.s_invalidActorIndex)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_knockbackSourceActor = GameFlowData.Get().FindActorByActorIndex((int)num);
 			}
 			else
@@ -199,28 +132,10 @@ public class ClientActorHitResults
 		bool flag;
 		if (this.m_hasDamage)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_targetInCoverWrtDamage)
 			{
 				flag = true;
 				goto IL_1CB;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag = this.m_hasKnockback;
@@ -242,15 +157,6 @@ public class ClientActorHitResults
 			stream.Serialize(ref num2);
 			if ((int)num2 != ActorData.s_invalidActorIndex)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_effectHolderActor = GameFlowData.Get().FindActorByActorIndex((int)num2);
 			}
 			else
@@ -260,15 +166,6 @@ public class ClientActorHitResults
 		}
 		if (this.m_updateOtherLastKnownPos)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			byte b = 0;
 			stream.Serialize(ref b);
 			this.m_otherActorsToUpdateVisibility = new List<ActorData>((int)b);
@@ -278,30 +175,12 @@ public class ClientActorHitResults
 				stream.Serialize(ref num3);
 				if ((int)num3 != ActorData.s_invalidActorIndex)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)num3);
 					if (actorData != null)
 					{
 						this.m_otherActorsToUpdateVisibility.Add(actorData);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		bool flag3 = false;
@@ -325,15 +204,6 @@ public class ClientActorHitResults
 		List<ClientEffectStartData> effectsToStart;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectsToStart = AbilityResultsUtils.DeSerializeEffectsToStartFromStream(ref stream);
 		}
 		else
@@ -345,15 +215,6 @@ public class ClientActorHitResults
 		List<ClientBarrierStartData> barriersToAdd;
 		if (flag5)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			barriersToAdd = AbilityResultsUtils.DeSerializeBarriersToStartFromStream(ref stream);
 		}
 		else
@@ -364,15 +225,6 @@ public class ClientActorHitResults
 		List<int> barriersToRemove;
 		if (flag6)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			barriersToRemove = AbilityResultsUtils.DeSerializeBarriersForRemovalFromStream(ref stream);
 		}
 		else
@@ -383,15 +235,6 @@ public class ClientActorHitResults
 		List<ServerClientUtils.SequenceEndData> sequencesToEnd;
 		if (flag7)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sequencesToEnd = AbilityResultsUtils.DeSerializeSequenceEndDataListFromStream(ref stream);
 		}
 		else
@@ -402,15 +245,6 @@ public class ClientActorHitResults
 		List<ClientReactionResults> reactions;
 		if (flag8)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			reactions = AbilityResultsUtils.DeSerializeClientReactionResultsFromStream(ref stream);
 		}
 		else
@@ -422,15 +256,6 @@ public class ClientActorHitResults
 		List<ClientPowerupStealData> powerupsToSteal;
 		if (flag10)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			powerupsToSteal = AbilityResultsUtils.DeSerializePowerupsToStealFromStream(ref stream);
 		}
 		else
@@ -441,15 +266,6 @@ public class ClientActorHitResults
 		List<ClientMovementResults> directPowerupHits;
 		if (flag11)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			directPowerupHits = AbilityResultsUtils.DeSerializeClientMovementResultsListFromStream(ref stream);
 		}
 		else
@@ -460,15 +276,6 @@ public class ClientActorHitResults
 		List<ClientGameModeEvent> gameModeEvents;
 		if (flag12)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameModeEvents = AbilityResultsUtils.DeSerializeClientGameModeEventListFromStream(ref stream);
 		}
 		else
@@ -526,19 +333,6 @@ public class ClientActorHitResults
 		int i = 0;
 		while (i < this.m_reactions.Count)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.HasUnexecutedReactionHits()).MethodHandle;
-			}
 			if (flag)
 			{
 				for (;;)
@@ -566,30 +360,8 @@ public class ClientActorHitResults
 		{
 			if (this.m_reactions[i].GetCaster() == caster)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.HasReactionHitByCaster(ActorData)).MethodHandle;
-				}
 				return true;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return false;
 	}
@@ -602,19 +374,6 @@ public class ClientActorHitResults
 		{
 			if (this.m_reactions[i].GetCaster() == caster)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.GetReactionHitResultsByCaster(ActorData, Dictionary<ActorData, ClientActorHitResults>*, Dictionary<Vector3, ClientPositionHitResults>*)).MethodHandle;
-				}
 				actorHits = this.m_reactions[i].GetActorHitResults();
 				posHits = this.m_reactions[i].GetPosHitResults();
 				return;
@@ -639,84 +398,26 @@ public class ClientActorHitResults
 			byte extraFlags = clientReactionResults.GetExtraFlags();
 			if (!clientReactionResults.PlayedReaction())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.ExecuteReactionHitsWithExtraFlagsOnActor(ActorData, ActorData, bool, bool)).MethodHandle;
-				}
 				if ((extraFlags & 1) == 0)
 				{
 					goto IL_62;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!hasDamage)
 				{
 					goto IL_62;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				bool flag = clientReactionResults.HasUnexecutedReactionOnActor(targetActor);
 				IL_63:
 				bool flag2;
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((extraFlags & 2) == 0)
 					{
 						goto IL_98;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!hasDamage)
 					{
 						goto IL_98;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag2 = clientReactionResults.HasUnexecutedReactionOnActor(caster);
 					goto IL_9C;
@@ -735,27 +436,9 @@ public class ClientActorHitResults
 					{
 						goto IL_CC;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!hasDamage)
 					{
 						goto IL_CC;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag3 = (clientReactionResults.GetCaster() == targetActor);
 					goto IL_D0;
@@ -770,15 +453,6 @@ public class ClientActorHitResults
 				bool flag4 = flag3;
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientAbilityResults.LogMissingSequences)
 					{
 						Log.Warning(ClientAbilityResults.s_clientHitResultHeader + clientReactionResults.GetDebugDescription() + " executing reaction hit on first damaging hit", new object[0]);
@@ -793,47 +467,16 @@ public class ClientActorHitResults
 			}
 			IL_111:;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void ExecuteActorHit(ActorData target, ActorData caster)
 	{
 		if (this.ExecutedHit)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientActorHitResults.ExecuteActorHit(ActorData, ActorData)).MethodHandle;
-			}
 			return;
 		}
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning(string.Concat(new string[]
 			{
 				ClientAbilityResults.s_executeActorHitHeader,
@@ -846,102 +489,30 @@ public class ClientActorHitResults
 		bool flag = ClientResolutionManager.Get().IsInResolutionState();
 		if (this.m_triggerCasterVisOnHitVisualOnly)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_updateCasterLastKnownPos)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				caster.TriggerVisibilityForHit(this.IsMovementHit, false);
 			}
 		}
 		if (this.m_updateCasterLastKnownPos)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			caster.TriggerVisibilityForHit(this.IsMovementHit, true);
 		}
 		if (this.m_updateTargetLastKnownPos)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			target.TriggerVisibilityForHit(this.IsMovementHit, true);
 		}
 		if (this.m_updateEffectHolderLastKnownPos)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_effectHolderActor != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_effectHolderActor.TriggerVisibilityForHit(this.IsMovementHit, true);
 			}
 		}
 		if (this.m_updateOtherLastKnownPos)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_otherActorsToUpdateVisibility != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_otherActorsToUpdateVisibility.Count; i++)
 				{
 					this.m_otherActorsToUpdateVisibility[i].TriggerVisibilityForHit(this.IsMovementHit, true);
@@ -950,41 +521,14 @@ public class ClientActorHitResults
 		}
 		if (this.m_hasDamage)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				target.ClientUnresolvedDamage += this.m_finalDamage;
 				CaptureTheFlag.OnActorDamaged_Client(target, this.m_finalDamage);
 			}
 			string text;
 			if (this.m_targetInCoverWrtDamage)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "|C";
 			}
 			else
@@ -999,42 +543,15 @@ public class ClientActorHitResults
 			}
 			else if (this.m_damageReduced)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				icon = BuffIconToDisplay.ReducedDamage;
 			}
 			target.AddCombatText(this.m_finalDamage.ToString() + str, string.Empty, CombatTextCategory.Damage, icon);
 			if (this.m_targetInCoverWrtDamage)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				target.OnHitWhileInCover(this.m_damageHitOrigin, caster);
 			}
 			if (target.GetActorBehavior() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				target.GetActorBehavior().Client_RecordDamageFromActor(caster);
 			}
 			GameEventManager.ActorHitHealthChangeArgs args = new GameEventManager.ActorHitHealthChangeArgs(GameEventManager.ActorHitHealthChangeArgs.ChangeType.Damage, this.m_finalDamage, target, caster, this.m_isCharacterSpecificAbility);
@@ -1042,26 +559,8 @@ public class ClientActorHitResults
 		}
 		if (this.m_hasHealing)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				target.ClientUnresolvedHealing += this.m_finalHealing;
 				if (this.m_isPartOfHealOverTime)
 				{
@@ -1085,41 +584,14 @@ public class ClientActorHitResults
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				target.ClientUnresolvedTechPointGain += this.m_finalTechPointsGain;
 			}
 			target.AddCombatText(this.m_finalTechPointsGain.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
 		}
 		if (this.m_hasTechPointLoss)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				target.ClientUnresolvedTechPointLoss += this.m_finalTechPointsLoss;
 			}
 			target.AddCombatText(this.m_finalTechPointsLoss.ToString(), string.Empty, CombatTextCategory.TP_Damage, BuffIconToDisplay.None);
@@ -1128,42 +600,15 @@ public class ClientActorHitResults
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				caster.ClientUnresolvedTechPointGain += this.m_finalTechPointGainOnCaster;
 			}
 			caster.AddCombatText(this.m_finalTechPointGainOnCaster.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
 		}
 		if (this.m_hasKnockback)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientKnockbackManager.Get().OnKnockbackHit(this.m_knockbackSourceActor, target);
 			if (caster != target)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (target.GetActorStatus() != null && target.GetActorStatus().IsKnockbackImmune(true))
 				{
 					target.OnKnockbackWhileUnstoppable(this.m_damageHitOrigin, caster);
@@ -1178,15 +623,6 @@ public class ClientActorHitResults
 				ClientEffectStartData clientEffectStartData = enumerator.Current;
 				num += clientEffectStartData.m_absorb;
 				ClientEffectBarrierManager.Get().ExecuteEffectStart(clientEffectStartData);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (num > 0)
@@ -1210,15 +646,6 @@ public class ClientActorHitResults
 				int barrierGuid = enumerator4.Current;
 				ClientEffectBarrierManager.Get().EndBarrier(barrierGuid);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ServerClientUtils.SequenceEndData>.Enumerator enumerator5 = this.m_sequencesToEnd.GetEnumerator())
 		{
@@ -1227,15 +654,6 @@ public class ClientActorHitResults
 				ServerClientUtils.SequenceEndData sequenceEndData = enumerator5.Current;
 				sequenceEndData.EndClientSequences();
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ClientReactionResults>.Enumerator enumerator6 = this.m_reactions.GetEnumerator())
 		{
@@ -1243,15 +661,6 @@ public class ClientActorHitResults
 			{
 				ClientReactionResults clientReactionResults = enumerator6.Current;
 				clientReactionResults.PlayReaction();
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (List<int>.Enumerator enumerator7 = this.m_powerupsToRemove.GetEnumerator())
@@ -1262,26 +671,8 @@ public class ClientActorHitResults
 				PowerUp powerUpOfGuid = PowerUpManager.Get().GetPowerUpOfGuid(guid);
 				if (powerUpOfGuid != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					powerUpOfGuid.Client_OnPickedUp(target.ActorIndex);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (List<ClientPowerupStealData>.Enumerator enumerator8 = this.m_powerupsToSteal.GetEnumerator())
@@ -1296,15 +687,6 @@ public class ClientActorHitResults
 					powerUpOfGuid2.Client_OnSteal(target.ActorIndex);
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ClientMovementResults>.Enumerator enumerator9 = this.m_directPowerupHits.GetEnumerator())
 		{
@@ -1313,15 +695,6 @@ public class ClientActorHitResults
 				ClientMovementResults clientMovementResults = enumerator9.Current;
 				clientMovementResults.ReactToMovement();
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ClientGameModeEvent>.Enumerator enumerator10 = this.m_gameModeEvents.GetEnumerator())
 		{
@@ -1329,15 +702,6 @@ public class ClientActorHitResults
 			{
 				ClientGameModeEvent clientGameModeEvent = enumerator10.Current;
 				clientGameModeEvent.ExecuteClientGameModeEvent();
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (List<int>.Enumerator enumerator11 = this.m_overconIds.GetEnumerator())
@@ -1349,15 +713,6 @@ public class ClientActorHitResults
 				{
 					UIOverconData.Get().UseOvercon(overconId, caster.ActorIndex, true);
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.ExecutedHit = true;

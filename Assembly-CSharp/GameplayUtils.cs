@@ -10,31 +10,9 @@ public static class GameplayUtils
 	{
 		if (layerBitMask == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameObject.FindInChildren(string, int)).MethodHandle;
-			}
 			int num;
 			if (Camera.main == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = -1;
 			}
 			else
@@ -47,26 +25,8 @@ public static class GameplayUtils
 		GameObject gameObject = go.FindInChildrenRecursive(name, layerBitMask, false, list);
 		if (gameObject == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return list[0];
 			}
 		}
@@ -91,19 +51,6 @@ public static class GameplayUtils
 		bool flag2;
 		if (!ignoreRootJnt)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameObject.FindInChildrenRecursive(string, int, bool, List<GameObject>)).MethodHandle;
-			}
 			flag2 = flag;
 		}
 		else
@@ -130,15 +77,6 @@ public static class GameplayUtils
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disposable.Dispose();
 			}
 		}
@@ -157,34 +95,12 @@ public static class GameplayUtils
 				Transform transform = (Transform)obj2;
 				transform.gameObject.SetLayerRecursively(layer);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameObject.SetLayerRecursively(LayerMask)).MethodHandle;
-			}
 		}
 		finally
 		{
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disposable.Dispose();
 			}
 		}
@@ -213,19 +129,6 @@ public static class GameplayUtils
 		bool result = false;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.IsBot(ActorData)).MethodHandle;
-			}
 			result = (actor.GetComponent<BotController>() != null);
 		}
 		return result;
@@ -247,19 +150,6 @@ public static class GameplayUtils
 		bool result = false;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.IsPlayerControlled(ActorData)).MethodHandle;
-			}
 			result = (actor.PlayerIndex != PlayerData.s_invalidPlayerIndex);
 		}
 		return result;
@@ -271,19 +161,6 @@ public static class GameplayUtils
 		ActorData component = entity.GetComponent<ActorData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.IsPlayerControlled(MonoBehaviour)).MethodHandle;
-			}
 			result = (component.PlayerIndex != PlayerData.s_invalidPlayerIndex);
 		}
 		return result;
@@ -321,19 +198,6 @@ public static class GameplayUtils
 		bool result;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.IsValidPlayer(ActorData)).MethodHandle;
-			}
 			result = (actor.PlayerIndex != PlayerData.s_invalidPlayerIndex);
 		}
 		else
@@ -348,19 +212,6 @@ public static class GameplayUtils
 		List<Team> list = new List<Team>();
 		if (team != Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.GetOtherTeamsThan(Team)).MethodHandle;
-			}
 			list.Add(Team.TeamA);
 		}
 		if (team != Team.TeamB)
@@ -369,15 +220,6 @@ public static class GameplayUtils
 		}
 		if (team != Team.Objects)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(Team.Objects);
 		}
 		return list;
@@ -394,31 +236,9 @@ public static class GameplayUtils
 				ActorData actorData = enumerator.Current;
 				if (GameplayUtils.IsPlayerControlled(actorData))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.GetTotalTeamDeaths(Team)).MethodHandle;
-					}
 					ActorBehavior actorBehavior = actorData.GetActorBehavior();
 					num += actorBehavior.totalDeaths;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -435,31 +255,9 @@ public static class GameplayUtils
 				ActorData actorData = enumerator.Current;
 				if (GameplayUtils.IsPlayerControlled(actorData))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.GetTotalTeamCredits(Team)).MethodHandle;
-					}
 					ItemData component = actorData.GetComponent<ItemData>();
 					num += component.GetNetWorth();
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -505,19 +303,6 @@ public static class GameplayUtils
 		ActorData result;
 		if (actorIndex == ActorData.s_invalidActorIndex)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.GetActorOfActorIndex(int)).MethodHandle;
-			}
 			result = null;
 		}
 		else
@@ -533,19 +318,6 @@ public static class GameplayUtils
 		Team team2;
 		if (perspectiveTeam == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.GenerateStatsFromGame(Team, int)).MethodHandle;
-			}
 			team2 = Team.TeamA;
 		}
 		else
@@ -562,15 +334,6 @@ public static class GameplayUtils
 		int redScore;
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			redScore = ObjectivePoints.Get().GetPointsForTeam(Team.TeamA);
 		}
 		else
@@ -582,15 +345,6 @@ public static class GameplayUtils
 		int blueScore;
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			blueScore = ObjectivePoints.Get().GetPointsForTeam(Team.TeamB);
 		}
 		else
@@ -603,15 +357,6 @@ public static class GameplayUtils
 		string victoryCondition;
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			victoryCondition = ObjectivePoints.Get().m_victoryCondition;
 		}
 		else
@@ -623,15 +368,6 @@ public static class GameplayUtils
 		int victoryConditionTurns;
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			victoryConditionTurns = ObjectivePoints.Get().m_timeLimitTurns;
 		}
 		else
@@ -647,33 +383,11 @@ public static class GameplayUtils
 		PlayerDetails playerDetails = null;
 		if (actorData.PlayerData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayUtils.GenerateStatlineFromGame(ActorData, Team, int)).MethodHandle;
-			}
 			playerDetails = GameFlow.Get().playerDetails.TryGetValue(actorData.PlayerData.GetPlayer());
 		}
 		int lobbyPlayerInfoId = -1;
 		if (playerDetails != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			lobbyPlayerInfoId = playerDetails.m_lobbyPlayerInfoId;
 		}
 		LobbyTeamInfo teamInfo = GameManager.Get().TeamInfo;
@@ -691,15 +405,6 @@ public static class GameplayUtils
 		bool isHumanControlled;
 		if (playerDetails != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			isHumanControlled = playerDetails.IsHumanControlled;
 		}
 		else
@@ -712,15 +417,6 @@ public static class GameplayUtils
 		bool humanReplacedByBot;
 		if (playerDetails != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			humanReplacedByBot = playerDetails.ReplacedWithBots;
 		}
 		else
@@ -733,15 +429,6 @@ public static class GameplayUtils
 		int titleID;
 		if (lobbyPlayerInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			titleID = lobbyPlayerInfo.TitleID;
 		}
 		else
@@ -755,15 +442,6 @@ public static class GameplayUtils
 		int emblemID;
 		if (lobbyPlayerInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			emblemID = lobbyPlayerInfo.EmblemID;
 		}
 		else
@@ -775,15 +453,6 @@ public static class GameplayUtils
 		int ribbonID;
 		if (lobbyPlayerInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ribbonID = lobbyPlayerInfo.RibbonID;
 		}
 		else
@@ -793,58 +462,17 @@ public static class GameplayUtils
 		matchResultsStatline6.RibbonID = ribbonID;
 		MatchResultsStatline matchResultsStatline7 = matchResultsStatline;
 		IEnumerable<AbilityData.AbilityEntry> abilityEntries = abilityData.abilityEntries;
-		if (GameplayUtils.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameplayUtils.<>f__am$cache0 = delegate(AbilityData.AbilityEntry entry)
+		
+		matchResultsStatline7.AbilityEntries = abilityEntries.Select(delegate(AbilityData.AbilityEntry entry)
 			{
 				MatchResultsStatline.AbilityEntry result = default(MatchResultsStatline.AbilityEntry);
 				int abilityModId;
 				if (entry != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(GameplayUtils.<GenerateStatlineFromGame>m__0(AbilityData.AbilityEntry)).MethodHandle;
-					}
 					if (entry.ability != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (entry.ability.CurrentAbilityMod != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							abilityModId = entry.ability.CurrentAbilityMod.m_abilityScopeId;
 							goto IL_6E;
 						}
@@ -854,40 +482,15 @@ public static class GameplayUtils
 				IL_6E:
 				result.AbilityModId = abilityModId;
 				return result;
-			};
-		}
-		matchResultsStatline7.AbilityEntries = abilityEntries.Select(GameplayUtils.<>f__am$cache0).ToArray<MatchResultsStatline.AbilityEntry>();
+			}).ToArray<MatchResultsStatline.AbilityEntry>();
 		MatchResultsStatline matchResultsStatline8 = matchResultsStatline;
 		IEnumerable<Card> activeCards = abilityData.GetActiveCards();
-		if (GameplayUtils.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameplayUtils.<>f__am$cache1 = delegate(Card card)
+		
+		matchResultsStatline8.CatalystHasPrepPhase = activeCards.ContainsWhere(delegate(Card card)
 			{
 				bool result;
 				if (card != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(GameplayUtils.<GenerateStatlineFromGame>m__1(Card)).MethodHandle;
-					}
 					result = (card.GetAbilityRunPhase() == AbilityRunPhase.Prep);
 				}
 				else
@@ -895,27 +498,12 @@ public static class GameplayUtils
 					result = false;
 				}
 				return result;
-			};
-		}
-		matchResultsStatline8.CatalystHasPrepPhase = activeCards.ContainsWhere(GameplayUtils.<>f__am$cache1);
+			});
 		matchResultsStatline.CatalystHasDashPhase = abilityData.GetActiveCards().ContainsWhere(delegate(Card card)
 		{
 			bool result;
 			if (card != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(GameplayUtils.<GenerateStatlineFromGame>m__2(Card)).MethodHandle;
-				}
 				result = (card.GetAbilityRunPhase() == AbilityRunPhase.Dash);
 			}
 			else
@@ -929,19 +517,6 @@ public static class GameplayUtils
 			bool result;
 			if (card != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(GameplayUtils.<GenerateStatlineFromGame>m__3(Card)).MethodHandle;
-				}
 				result = (card.GetAbilityRunPhase() == AbilityRunPhase.Combat);
 			}
 			else

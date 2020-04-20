@@ -48,60 +48,20 @@ public class DebugCommands
 				DebugCommand debugCommand = enumerator.Current;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.RunDebugCommand(string, string)).MethodHandle;
-					}
 					if (!debugCommand.AvailableInFrontEnd())
 					{
 						continue;
 					}
 				}
-				if (debugCommand.\u0018().Contains(command.ToLower()))
+				if (debugCommand.symbol_0018().Contains(command.ToLower()))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = debugCommand.OnSlashCommand(arguments);
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						ClientGameManager.Get().\u001D(command, arguments);
+						ClientGameManager.Get().symbol_001D(command, arguments);
 						return flag2;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return flag2;
@@ -122,19 +82,6 @@ public class DebugCommands
 		{
 			if (inFrontEnd)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.GetAvailableCommandNames(string, bool)).MethodHandle;
-				}
 				if (!debugCommand.AvailableInFrontEnd())
 				{
 					continue;
@@ -143,51 +90,15 @@ public class DebugCommands
 			string slashCommand = debugCommand.GetSlashCommand();
 			if (!string.IsNullOrEmpty(slashCommand))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (slashCommand.IndexOf(searchStr, StringComparison.OrdinalIgnoreCase) < 0)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!list.Contains(slashCommand))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(slashCommand);
 				}
 			}
@@ -201,20 +112,7 @@ public class DebugCommands
 		command.OnIncreaseClick();
 		if (command.GetType() != typeof(DebugCommand_Category) && command.GetType() != typeof(DebugCommand_Back))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.OnIncreaseClick(DebugCommand)).MethodHandle;
-			}
-			ClientGameManager.Get().\u001D(command.GetDebugItemName(), command.GetDebugItemValue());
+			ClientGameManager.Get().symbol_001D(command.GetDebugItemName(), command.GetDebugItemValue());
 		}
 	}
 
@@ -223,20 +121,7 @@ public class DebugCommands
 		command.OnDecreaseClick();
 		if (command.GetType() != typeof(DebugCommand_Category) && command.GetType() != typeof(DebugCommand_Back))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommands.OnDecreaseClick(DebugCommand)).MethodHandle;
-			}
-			ClientGameManager.Get().\u001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
+			ClientGameManager.Get().symbol_001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
 		}
 	}
 }

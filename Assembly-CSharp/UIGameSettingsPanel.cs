@@ -92,19 +92,6 @@ public class UIGameSettingsPanel : UIScene
 		this.m_roundTime.onValueChanged.AddListener(new UnityAction<string>(this.EditRoundTime));
 		if (this.m_maxRoundTime != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.Awake()).MethodHandle;
-			}
 			if (this.m_maxRoundTime.transform.parent != null)
 			{
 				UIManager.SetGameObjectActive(this.m_maxRoundTime.transform.parent, false, null);
@@ -149,15 +136,6 @@ public class UIGameSettingsPanel : UIScene
 			this.m_teamBPlayersButtons[k].SetIndex(k);
 			this.m_teamBPlayersButtons[k].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int l = 0; l < this.m_spectatorButtons.Length; l++)
 		{
 			this.m_spectatorButtons[l].SetChecked(false);
@@ -165,27 +143,9 @@ public class UIGameSettingsPanel : UIScene
 			this.m_spectatorButtons[l].SetIndex(l);
 			this.m_spectatorButtons[l].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int m = 0; m < this.m_teamAMemberEntries.Length; m++)
 		{
 			this.m_teamAMemberEntries[m].SetTeamId(Team.TeamA);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int n = 0; n < this.m_teamBMemberEntries.Length; n++)
 		{
@@ -194,15 +154,6 @@ public class UIGameSettingsPanel : UIScene
 		for (int num = 0; num < this.m_spectatorMemberEntries.Length; num++)
 		{
 			this.m_spectatorMemberEntries[num].SetTeamId(Team.Spectator);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		UIManager.SetGameObjectActive(this.m_teamBPlayersButtons[0], false, null);
 		UIManager.SetGameObjectActive(this.m_teamAPlayersButtons[0], false, null);
@@ -214,19 +165,6 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (this.m_gameNameInputField.text.Length > UICreateGameScreen.MAX_GAMENAME_SIZE)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.EditGameName(string)).MethodHandle;
-			}
 			this.m_gameNameInputField.text = this.m_gameNameInputField.text.Substring(0, UICreateGameScreen.MAX_GAMENAME_SIZE);
 		}
 	}
@@ -235,19 +173,6 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (this.m_roundTime.text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.EditRoundTime(string)).MethodHandle;
-			}
 			return;
 		}
 		try
@@ -265,19 +190,6 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (this.m_maxRoundTime.text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.EditMaxRoundTime(string)).MethodHandle;
-			}
 			return;
 		}
 		try
@@ -294,32 +206,10 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (GameSubtype.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetupOptionRestrictions(GameSubType)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_teamAPlayersButtons.Length; i++)
 			{
 				this.m_teamAPlayersButtons[i].SetChecked(i == 4);
 				this.m_teamAPlayersButtons[i].Clickable = false;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			for (int j = 0; j < this.m_teamBPlayersButtons.Length; j++)
 			{
@@ -333,27 +223,9 @@ public class UIGameSettingsPanel : UIScene
 			{
 				this.m_teamAPlayersButtons[k].Clickable = true;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int l = 0; l < this.m_teamBPlayersButtons.Length; l++)
 			{
 				this.m_teamBPlayersButtons[l].Clickable = true;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -371,42 +243,11 @@ public class UIGameSettingsPanel : UIScene
 				{
 					if (this.m_theMapList[i].MapConfig != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetVisible(bool)).MethodHandle;
-						}
 						bool flag;
 						if (clientGameManager.IsMapInGameType(GameType.Custom, this.m_theMapList[i].MapConfig.Map, out flag))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_theMapList[i].ToggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
 								goto IL_10C;
 							}
@@ -423,37 +264,10 @@ public class UIGameSettingsPanel : UIScene
 		{
 			UIManager.SetGameObjectActive(this.m_containers[j], visible, null);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (UICharacterSelectScreenController.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (visible)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
 				if (UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
 				{
@@ -463,15 +277,6 @@ public class UIGameSettingsPanel : UIScene
 				UICharacterSelectScreenController.Get().m_charSettingsPanel.SetVisible(false, UICharacterSelectCharacterSettingsPanel.TabPanel.None);
 				if (UIPlayerProgressPanel.Get().IsVisible())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIPlayerProgressPanel.Get().SetVisible(false, true);
 				}
 			}
@@ -479,15 +284,6 @@ public class UIGameSettingsPanel : UIScene
 			{
 				if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!UICharacterSelectScreenController.Get().m_changeFreelancerBtn.gameObject.activeSelf)
 					{
 						UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, true, null);
@@ -498,15 +294,6 @@ public class UIGameSettingsPanel : UIScene
 		}
 		if (UICharacterScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterScreen.Get().DoRefreshFunctions(1);
 		}
 	}
@@ -521,43 +308,12 @@ public class UIGameSettingsPanel : UIScene
 			GameMapConfig gameMapConfig = instanceSubType.GameMapConfigs[i];
 			if (gameMapConfig.IsActive)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetupMapButtons(LobbyGameConfig)).MethodHandle;
-				}
 				GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
 				if (num >= this.m_theMapList.Count)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_ToggleSwap toggleSwap = UnityEngine.Object.Instantiate<_ToggleSwap>(this.m_mapItemPrefab);
 					if (scrollRect != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_MouseEventPasser mouseEventPasser = toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>();
 						mouseEventPasser.AddNewHandler(scrollRect);
 						_MouseEventPasser mouseEventPasser2 = toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>();
@@ -585,40 +341,13 @@ public class UIGameSettingsPanel : UIScene
 				bool flag;
 				if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out flag))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
 					}
 				}
 				num++;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		int count = instanceSubType.GameMapConfigs.Count;
 		float y = (this.m_mapListContainer.cellSize.y + this.m_mapListContainer.spacing.y) * (float)count * -1f;
@@ -628,15 +357,6 @@ public class UIGameSettingsPanel : UIScene
 		{
 			UIManager.SetGameObjectActive(this.m_theMapList[j].ToggleBtn, false, null);
 			this.m_theMapList[j].MapConfig = null;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -655,19 +375,6 @@ public class UIGameSettingsPanel : UIScene
 		string text;
 		if ((text = gameConfig.RoomName) == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.Setup(LobbyGameConfig, LobbyTeamInfo, LobbyPlayerInfo)).MethodHandle;
-			}
 			text = string.Empty;
 		}
 		gameNameInputField.text = text;
@@ -677,38 +384,11 @@ public class UIGameSettingsPanel : UIScene
 		bool isOn = true;
 		if (gameConfig.InstanceSubType.GameOverrides != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 			if (initialTimeBankConsumables != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables <= 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					isOn = false;
 				}
 			}
@@ -737,42 +417,11 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (this.m_theMapList[i].ToggleBtn == btn)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.MapClicked(_ToggleSwap)).MethodHandle;
-				}
 				bool flag;
 				if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, this.m_theMapList[i].MapConfig.Map, out flag))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_theMapList[i].ToggleBtn.SetOn(false, false);
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.NotifyWarning);
 						return;
@@ -812,15 +461,6 @@ public class UIGameSettingsPanel : UIScene
 				lobbyGameConfig.InstanceSubTypeBit = GameManager.Get().GameConfig.InstanceSubTypeBit;
 				if (lobbyGameConfig.InstanceSubType.GameOverrides == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					lobbyGameConfig.InstanceSubType.GameOverrides = new GameValueOverrides();
 				}
 				try
@@ -833,15 +473,6 @@ public class UIGameSettingsPanel : UIScene
 				}
 				if (this.m_allowDuplicateCharacters.isOn)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowDuplicateCharacters);
 				}
 				if (this.m_allowPausing.isOn)
@@ -852,15 +483,6 @@ public class UIGameSettingsPanel : UIScene
 				{
 					if (this.m_useTimeBank.isOn)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, null);
 					}
 					else
@@ -879,28 +501,10 @@ public class UIGameSettingsPanel : UIScene
 					LobbyPlayerInfo playerInfo = uiteamMemberEntry.GetPlayerInfo();
 					if (playerInfo != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						playerInfo.CustomGameVisualSlot = num;
 						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo);
 					}
 					num++;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				num = 1;
 				foreach (UITeamMemberEntry uiteamMemberEntry2 in this.m_teamBMemberEntries)
@@ -908,15 +512,6 @@ public class UIGameSettingsPanel : UIScene
 					LobbyPlayerInfo playerInfo2 = uiteamMemberEntry2.GetPlayerInfo();
 					if (playerInfo2 != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						playerInfo2.CustomGameVisualSlot = num;
 						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo2);
 					}
@@ -928,46 +523,14 @@ public class UIGameSettingsPanel : UIScene
 					LobbyPlayerInfo playerInfo3 = uiteamMemberEntry3.GetPlayerInfo();
 					if (playerInfo3 != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						playerInfo3.CustomGameVisualSlot = num;
 						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo3);
 					}
 					num++;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, this.m_teamInfo, closeSettingsWindow);
 				return;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.UpdateClickedHelper(bool)).MethodHandle;
-			goto IL_6E;
 		}
 		goto IL_6E;
 	}
@@ -990,30 +553,8 @@ public class UIGameSettingsPanel : UIScene
 				LobbyPlayerInfo playerInfo = uiteamMemberEntry.GetPlayerInfo();
 				if (playerInfo != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.BalanceTeamsClicked(BaseEventData)).MethodHandle;
-					}
 					if (!playerInfo.IsSpectator)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						request.Slots.Add(new BalanceTeamSlot
 						{
 							Team = uiteamMemberEntry.GetTeamId(),
@@ -1025,29 +566,11 @@ public class UIGameSettingsPanel : UIScene
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -1055,32 +578,10 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (!response.Success)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameSettingsPanel.<BalanceTeamsClicked>c__AnonStorey2.<>m__0(BalancedTeamResponse)).MethodHandle;
-				}
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsCancel);
 				string text;
 				if (response.LocalizedFailure != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = response.LocalizedFailure.ToString();
 				}
 				else
@@ -1105,34 +606,12 @@ public class UIGameSettingsPanel : UIScene
 					BalanceTeamSlot slot = enumerator2.Current;
 					if (request.Slots.Exists((BalanceTeamSlot p) => p.PlayerId == slot.PlayerId && p.Team != slot.Team))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						IEnumerable<UITeamMemberEntry> source = this.m_teamAMemberEntries.Union(this.m_teamBMemberEntries);
 						UITeamMemberEntry uiteamMemberEntry2 = source.FirstOrDefault(delegate(UITeamMemberEntry p)
 						{
 							bool result;
 							if (p.GetPlayerInfo() != null)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!true)
-								{
-									RuntimeMethodHandle runtimeMethodHandle3 = methodof(UIGameSettingsPanel.<BalanceTeamsClicked>c__AnonStorey2.<BalanceTeamsClicked>c__AnonStorey3.<>m__1(UITeamMemberEntry)).MethodHandle;
-								}
 								result = (p.GetPlayerInfo().PlayerId == slot.PlayerId);
 							}
 							else
@@ -1143,27 +622,9 @@ public class UIGameSettingsPanel : UIScene
 						});
 						if (uiteamMemberEntry2 != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							LobbyPlayerInfo playerInfo2 = uiteamMemberEntry2.GetPlayerInfo();
 							if (playerInfo2 != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.RemovePlayer(playerInfo2);
 								if (slot.Team == Team.TeamA)
 								{
@@ -1176,15 +637,6 @@ public class UIGameSettingsPanel : UIScene
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			foreach (LobbyPlayerInfo lobbyPlayerInfo in list)
@@ -1211,32 +663,10 @@ public class UIGameSettingsPanel : UIScene
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 		if (btnClicked.GetTeam() == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.TeamSizeButtonClicked(UITeamSizeButton)).MethodHandle;
-			}
 			this.UpdateTeamSize(this.m_teamAMemberEntries, this.m_teamAPlayersButtons, btnClicked);
 		}
 		else if (btnClicked.GetTeam() == 1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateTeamSize(this.m_teamBMemberEntries, this.m_teamBPlayersButtons, btnClicked);
 		}
 		else if (btnClicked.GetTeam() == 2)
@@ -1251,19 +681,6 @@ public class UIGameSettingsPanel : UIScene
 		{
 			buttons[i].SetChecked(i == index);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetChecked(UITeamSizeButton[], int)).MethodHandle;
-		}
 	}
 
 	private int GetChecked(UITeamSizeButton[] buttons)
@@ -1272,30 +689,8 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (buttons[i].IsChecked())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetChecked(UITeamSizeButton[])).MethodHandle;
-				}
 				return i;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return 0;
 	}
@@ -1304,33 +699,11 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (teamSize > teamMemberEntries.Length)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.PopulateTeam(int, IEnumerable<LobbyPlayerInfo>, UITeamMemberEntry[])).MethodHandle;
-			}
 			teamSize = teamMemberEntries.Length;
 		}
 		bool[] array = new bool[teamSize];
 		if (teamPlayerInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IEnumerator<LobbyPlayerInfo> enumerator = teamPlayerInfo.GetEnumerator();
 			try
 			{
@@ -1342,65 +715,20 @@ public class UIGameSettingsPanel : UIScene
 					{
 						if (!array[i])
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = i;
 							break;
 						}
 					}
 					if (num < teamSize)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (lobbyPlayerInfo.IsGameOwner)
 						{
 							if (lobbyPlayerInfo.CustomGameVisualSlot != 0)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (0 < lobbyPlayerInfo.CustomGameVisualSlot)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (lobbyPlayerInfo.CustomGameVisualSlot < array.Length + 1)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!array[lobbyPlayerInfo.CustomGameVisualSlot - 1])
 										{
 											num = lobbyPlayerInfo.CustomGameVisualSlot - 1;
@@ -1415,29 +743,11 @@ public class UIGameSettingsPanel : UIScene
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			finally
 			{
 				if (enumerator != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator.Dispose();
 				}
 			}
@@ -1455,87 +765,24 @@ public class UIGameSettingsPanel : UIScene
 					{
 						if (!array[j])
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = j;
 							IL_176:
 							if (num2 >= teamSize)
 							{
 								goto IL_226;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (lobbyPlayerInfo2.IsNPCBot)
 							{
 								goto IL_226;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!lobbyPlayerInfo2.IsGameOwner)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (lobbyPlayerInfo2.CustomGameVisualSlot != 0)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (0 < lobbyPlayerInfo2.CustomGameVisualSlot)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (lobbyPlayerInfo2.CustomGameVisualSlot < array.Length + 1 && !array[lobbyPlayerInfo2.CustomGameVisualSlot - 1])
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num2 = lobbyPlayerInfo2.CustomGameVisualSlot - 1;
 										}
 									}
@@ -1562,29 +809,11 @@ public class UIGameSettingsPanel : UIScene
 						goto IL_176;
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			finally
 			{
 				if (enumerator2 != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator2.Dispose();
 				}
 			}
@@ -1601,76 +830,22 @@ public class UIGameSettingsPanel : UIScene
 					{
 						if (!array[k])
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = k;
 							IL_2A5:
 							if (num3 >= teamSize)
 							{
 								goto IL_33F;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (lobbyPlayerInfo3.IsNPCBot)
 							{
 								if (lobbyPlayerInfo3.CustomGameVisualSlot != 0)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (0 < lobbyPlayerInfo3.CustomGameVisualSlot)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (lobbyPlayerInfo3.CustomGameVisualSlot < array.Length + 1)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!array[lobbyPlayerInfo3.CustomGameVisualSlot - 1])
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num3 = lobbyPlayerInfo3.CustomGameVisualSlot - 1;
 											}
 										}
@@ -1698,29 +873,11 @@ public class UIGameSettingsPanel : UIScene
 						goto IL_2A5;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			finally
 			{
 				if (enumerator3 != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator3.Dispose();
 				}
 			}
@@ -1729,26 +886,8 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (l < teamSize)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!array[l])
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					teamMemberEntries[l].SetTeamPlayerInfo(null);
 				}
 				UIManager.SetGameObjectActive(teamMemberEntries[l], true, null);
@@ -1759,15 +898,6 @@ public class UIGameSettingsPanel : UIScene
 				UIManager.SetGameObjectActive(teamMemberEntries[l], false, null);
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void SetInteractable(bool interactable)
@@ -1776,44 +906,13 @@ public class UIGameSettingsPanel : UIScene
 		{
 			this.m_theMapList[i].ToggleBtn.SetClickable(interactable);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetInteractable(bool)).MethodHandle;
-		}
 		for (int j = 0; j < this.m_teamAPlayersButtons.Length; j++)
 		{
 			this.m_teamAPlayersButtons[j].m_btnHitBox.interactable = interactable;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int k = 0; k < this.m_teamBPlayersButtons.Length; k++)
 		{
 			this.m_teamBPlayersButtons[k].m_btnHitBox.interactable = interactable;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int l = 0; l < this.m_spectatorButtons.Length; l++)
 		{
@@ -1827,19 +926,6 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (characterType == CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.AddBot(UITeamMemberEntry, CharacterType)).MethodHandle;
-			}
 			characterType = this.GetUnusedBotCharacter(teamMemberEntry.GetTeamId());
 		}
 		LobbyPlayerInfo lobbyPlayerInfo = new LobbyPlayerInfo();
@@ -1863,33 +949,11 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (teamMemberEntry.m_playerInfo.IsRemoteControlled)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SetControllingPlayerInfo(UITeamMemberEntry, LobbyPlayerInfo)).MethodHandle;
-			}
 			teamMemberEntry.m_playerInfo.ControllingPlayerId = 0;
 			teamMemberEntry.m_playerInfo.IsNPCBot = true;
 		}
 		if (controllingPlayerInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			LobbyPlayerInfo lobbyPlayerInfo = controllingPlayerInfo.Clone();
 			lobbyPlayerInfo.IsGameOwner = false;
 			lobbyPlayerInfo.Handle = string.Format("{0}", controllingPlayerInfo.GetHandle());
@@ -1924,34 +988,12 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (teamMemberEntries[i].GetPlayerInfo() == playerInfo)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.RemovePlayer(LobbyPlayerInfo)).MethodHandle;
-				}
 				flag = true;
 			}
 			if (flag)
 			{
 				if (i + 1 < teamMemberEntries.Length)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					teamMemberEntries[i].SetTeamPlayerInfo(teamMemberEntries[i + 1].GetPlayerInfo());
 					teamMemberEntries[i + 1].SetTeamPlayerInfo(null);
 				}
@@ -1960,15 +1002,6 @@ public class UIGameSettingsPanel : UIScene
 					teamMemberEntries[i].SetTeamPlayerInfo(null);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1980,32 +1013,10 @@ public class UIGameSettingsPanel : UIScene
 		}
 		if (team == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetTeamMemberEntries(Team)).MethodHandle;
-			}
 			return this.m_teamBMemberEntries;
 		}
 		if (team == Team.Spectator)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_spectatorMemberEntries;
 		}
 		throw new Exception("unrecognized team");
@@ -2018,19 +1029,6 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (uiteamMemberEntry.m_playerInfo != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetNumValidTeamMemberEntries(Team)).MethodHandle;
-				}
 				num++;
 			}
 		}
@@ -2041,19 +1039,6 @@ public class UIGameSettingsPanel : UIScene
 	{
 		if (playerInfo == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.AddPlayer(LobbyPlayerInfo)).MethodHandle;
-			}
 			return;
 		}
 		UITeamMemberEntry[] teamMemberEntries = this.GetTeamMemberEntries(playerInfo.TeamId);
@@ -2061,15 +1046,6 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (teamMemberEntries[i].GetPlayerInfo() == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				teamMemberEntries[i].SetTeamPlayerInfo(playerInfo);
 				return;
 			}
@@ -2095,19 +1071,6 @@ public class UIGameSettingsPanel : UIScene
 		Team team;
 		if (playerInfo.TeamId == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SwapTeam(UITeamMemberEntry)).MethodHandle;
-			}
 			team = Team.TeamB;
 		}
 		else
@@ -2119,15 +1082,6 @@ public class UIGameSettingsPanel : UIScene
 		int @checked;
 		if (team2 == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			@checked = this.GetChecked(this.m_teamAPlayersButtons);
 		}
 		else
@@ -2150,19 +1104,6 @@ public class UIGameSettingsPanel : UIScene
 		LobbyPlayerInfo playerInfo = teamMemberEntry.GetPlayerInfo();
 		if (playerInfo == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.SwapSpectator(UITeamMemberEntry)).MethodHandle;
-			}
 			return;
 		}
 		for (int i = 0; i < this.m_teamAMemberEntries.Length; i++)
@@ -2170,26 +1111,8 @@ public class UIGameSettingsPanel : UIScene
 			LobbyPlayerInfo playerInfo2 = this.m_teamAMemberEntries[i].GetPlayerInfo();
 			if (playerInfo2 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (playerInfo2.IsRemoteControlled)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playerInfo2.ControllingPlayerId == playerInfo.PlayerId)
 					{
 						return;
@@ -2202,50 +1125,14 @@ public class UIGameSettingsPanel : UIScene
 			LobbyPlayerInfo playerInfo3 = this.m_teamBMemberEntries[j].GetPlayerInfo();
 			if (playerInfo3 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (playerInfo3.IsRemoteControlled)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playerInfo3.ControllingPlayerId == playerInfo.PlayerId)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		int numValidTeamMemberEntries = this.GetNumValidTeamMemberEntries(Team.TeamA);
 		int numValidTeamMemberEntries2 = this.GetNumValidTeamMemberEntries(Team.TeamB);
@@ -2256,26 +1143,8 @@ public class UIGameSettingsPanel : UIScene
 		Team teamId = playerInfo.TeamId;
 		if (playerInfo.TeamId == Team.Spectator)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numValidTeamMemberEntries < @checked)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				teamId = Team.TeamA;
 			}
 			else
@@ -2292,15 +1161,6 @@ public class UIGameSettingsPanel : UIScene
 			if (numValidTeamMemberEntries3 >= checked3)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			teamId = Team.Spectator;
 		}
@@ -2320,85 +1180,27 @@ public class UIGameSettingsPanel : UIScene
 			{
 				if (teamMemberEntries[i].GetPlayerInfo() != null && teamMemberEntries[i - 1].GetPlayerInfo() == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.UpdateTeamSize(UITeamMemberEntry[], UITeamSizeButton[], UITeamSizeButton)).MethodHandle;
-					}
 					teamMemberEntries[i - 1].SetTeamPlayerInfo(teamMemberEntries[i].GetPlayerInfo());
 					teamMemberEntries[i].SetTeamPlayerInfo(null);
 					flag = true;
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		int num = 0;
 		for (int j = 0; j < teamMemberEntries.Length; j++)
 		{
 			if (teamMemberEntries[j].GetPlayerInfo() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num++;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		int num2 = Mathf.Max(btnClicked.GetIndex(), num);
 		for (int k = 0; k < teamMemberEntries.Length; k++)
 		{
 			if (k < num2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!teamMemberEntries[k].gameObject.activeInHierarchy)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					teamMemberEntries[k].SetTeamPlayerInfo(null);
 				}
 				UIManager.SetGameObjectActive(teamMemberEntries[k], true, null);
@@ -2408,27 +1210,9 @@ public class UIGameSettingsPanel : UIScene
 				UIManager.SetGameObjectActive(teamMemberEntries[k], false, null);
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int l = 0; l < teamPlayersButtons.Length; l++)
 		{
 			teamPlayersButtons[l].SetChecked(l == num2);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.UpdateClickedHelper(false);
 	}
@@ -2447,42 +1231,11 @@ public class UIGameSettingsPanel : UIScene
 				CharacterConfig characterConfig = gameManager.GameplayOverrides.GetCharacterConfig(characterType);
 				if (gameManager.GameplayOverrides.IsCharacterAllowedForBots(characterConfig.CharacterType) && gameManager.GameplayOverrides.IsCharacterAllowedForGameType(characterConfig.CharacterType, gameType, null, null))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.GetUnusedBotCharacter(Team)).MethodHandle;
-					}
 					if (!this.IsCharacterTaken(team, characterConfig.CharacterType))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return characterConfig.CharacterType;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new Exception("Could not find a bot character type");
@@ -2495,33 +1248,11 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (uiteamMemberEntry.GetPlayerInfo() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingsPanel.IsCharacterTaken(Team, CharacterType)).MethodHandle;
-				}
 				if (uiteamMemberEntry.GetPlayerInfo().CharacterType == character)
 				{
 					return true;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return false;
 	}

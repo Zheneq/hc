@@ -14,19 +14,6 @@ public class AbilityUtil_Targeter_KnockbackRingAOE_SingleTargetBoost : AbilityUt
 	{
 		if (knockbackTargets.Count == 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackRingAOE_SingleTargetBoost.GetKnockbackDistance(List<ActorData>)).MethodHandle;
-			}
 			return this.m_knockbackDistanceIfSingleTarget;
 		}
 		return base.GetKnockbackDistance(knockbackTargets);

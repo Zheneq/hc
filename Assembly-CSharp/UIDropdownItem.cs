@@ -19,18 +19,5 @@ public class UIDropdownItem : MonoBehaviour
 		{
 			textMeshProUGUI.text = newText;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIDropdownItem.SetText(string)).MethodHandle;
-		}
 	}
 }

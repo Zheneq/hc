@@ -81,55 +81,15 @@ public struct CharacterModInfo
 	{
 		if (!(obj is CharacterModInfo))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterModInfo.Equals(object)).MethodHandle;
-			}
 			return false;
 		}
 		CharacterModInfo characterModInfo = (CharacterModInfo)obj;
 		if (this.ModForAbility0 == characterModInfo.ModForAbility0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.ModForAbility1 == characterModInfo.ModForAbility1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.ModForAbility2 == characterModInfo.ModForAbility2 && this.ModForAbility3 == characterModInfo.ModForAbility3)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.ModForAbility4 == characterModInfo.ModForAbility4;
 				}
 			}

@@ -26,19 +26,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 		base.Start();
 		if (this.theButton != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAbilityButton.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnPointerDown));
 			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnPointerClick));
 			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnPointerEnter));
@@ -63,19 +50,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 		this.m_parentReference = reference;
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAbilityButton.Setup(AbilityData.AbilityEntry, AbilityData.ActionType, AbilityData, UIQueuedAction)).MethodHandle;
-			}
 			if (this.m_abilityEntry.ability != null)
 			{
 				UIManager.SetGameObjectActive(this.m_theSprite, true, null);
@@ -85,15 +59,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 		}
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_theSprite, false, null);
 			this.theButton.enabled = false;
 		}
@@ -110,15 +75,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 			bool doActive;
 			if (i == num)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = (num != -1);
 			}
 			else
@@ -126,15 +82,6 @@ public class UIQueuedAbilityButton : UIBaseButton
 				doActive = false;
 			}
 			UIManager.SetGameObjectActive(component, doActive, null);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		UIManager.SetGameObjectActive(this.m_freeActionSprite, abilityEntry.ability.IsFreeAction(), null);
 		UIManager.SetGameObjectActive(this.m_phaseIndicatorContainer, true, null);
@@ -163,30 +110,8 @@ public class UIQueuedAbilityButton : UIBaseButton
 	{
 		if (this.m_canCancel)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAbilityButton.OnPointerEnter(BaseEventData)).MethodHandle;
-			}
 			if (!SinglePlayerManager.IsCancelDisabled())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_close, true, null);
 				UIManager.SetGameObjectActive(this.m_closeHover, true, null);
 				UIManager.SetGameObjectActive(this.m_closeDown, false, null);
@@ -198,30 +123,8 @@ public class UIQueuedAbilityButton : UIBaseButton
 	{
 		if (this.m_canCancel)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAbilityButton.OnPointerDown(BaseEventData)).MethodHandle;
-			}
 			if (!SinglePlayerManager.IsCancelDisabled())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_close, true, null);
 				UIManager.SetGameObjectActive(this.m_closeHover, false, null);
 				UIManager.SetGameObjectActive(this.m_closeDown, true, null);
@@ -233,57 +136,17 @@ public class UIQueuedAbilityButton : UIBaseButton
 	{
 		if (SinglePlayerManager.IsCancelDisabled())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAbilityButton.DoCancel()).MethodHandle;
-			}
 			return;
 		}
 		if (GameFlowData.Get().IsInDecisionState())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityData component = GameFlowData.Get().activeOwnedActorData.GetComponent<AbilityData>();
 			ActorTurnSM component2 = component.GetComponent<ActorTurnSM>();
 			if (this.m_abilityEntry != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = component.HasQueuedAction(this.m_actionType);
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.RemovedAbility(this.m_actionType);
 					component2.RequestCancelAction(this.m_actionType, false);
 				}
@@ -304,30 +167,8 @@ public class UIQueuedAbilityButton : UIBaseButton
 	{
 		if (this.m_canCancel)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAbilityButton.OnPointerClick(BaseEventData)).MethodHandle;
-			}
 			if (!SinglePlayerManager.IsCancelDisabled())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.IsAnimCancelPlaying() && !this.m_isLockedIn)
 				{
 					this.m_parentReference.AbilityCanceled();

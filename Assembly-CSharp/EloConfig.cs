@@ -38,19 +38,6 @@ public class EloConfig
 	{
 		if (matches < minPlacementMatches)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloConfig.GetHandicappedElo(float, int, int)).MethodHandle;
-			}
 			return this.PlacementElo;
 		}
 		if (matches < this.NewPlayerHandicapPeriodInGames)
@@ -61,15 +48,6 @@ public class EloConfig
 				float num2 = (float)(this.NewPlayerHandicapPeriodInGames - matches) * this.MatchMakingInitialValue;
 				return (num + num2) / (float)this.NewPlayerHandicapPeriodInGames;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return elo;
 	}
@@ -78,19 +56,6 @@ public class EloConfig
 	{
 		if (matches >= this.NewPlayerHandicapPeriodInGames)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloConfig.GetHandicappedOrHighestElo(float, float, float, int)).MethodHandle;
-			}
 			return Math.Max(accountElo, characterElo);
 		}
 		return handicappedElo;

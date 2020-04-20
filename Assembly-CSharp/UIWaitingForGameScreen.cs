@@ -28,31 +28,9 @@ public class UIWaitingForGameScreen : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_containers[i], visible, null);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIWaitingForGameScreen.SetVisible(bool)).MethodHandle;
-		}
 		UIManager.SetGameObjectActive(this.m_circleWidgetAnimController, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_circleWidgetAnimController.Play("searchingForMatchesAnimationLoop");
 		}
 		else
@@ -107,83 +85,25 @@ public class UIWaitingForGameScreen : MonoBehaviour
 	{
 		if (this.m_statusLabel)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIWaitingForGameScreen.UpdateGameStatus(LobbyGameInfo)).MethodHandle;
-			}
 			if (gameInfo.GameStatus != GameStatus.Assembling)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameInfo.GameStatus == GameStatus.FreelancerSelecting)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (gameInfo.GameStatus == GameStatus.LoadoutSelecting)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_statusLabel.text = StringUtil.TR("SelectingLoadouts", "Global");
 						return;
 					}
 					if (gameInfo.GameStatus == GameStatus.Launching)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_statusLabel.text = StringUtil.TR("GameServerStarting", "Global");
 						return;
 					}
 					if (gameInfo.GameStatus == GameStatus.Launched)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_statusLabel.text = StringUtil.TR("GameServerReady", "Global");
 						return;
 					}
@@ -192,15 +112,6 @@ public class UIWaitingForGameScreen : MonoBehaviour
 			}
 			if (gameInfo.ActivePlayers >= gameInfo.GameConfig.TotalHumanPlayers)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_statusLabel.text = StringUtil.TR("CreatingGame", "Global");
 			}
 			else

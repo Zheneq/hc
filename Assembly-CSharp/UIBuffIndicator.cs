@@ -28,19 +28,6 @@ public class UIBuffIndicator : MonoBehaviour
 	{
 		if (this.m_tooltipObject != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBuffIndicator.Start()).MethodHandle;
-			}
 			this.m_tooltipObject.Setup(TooltipType.StatusEffect, new TooltipPopulateCall(this.PopulateTooltip), null);
 		}
 	}
@@ -63,19 +50,6 @@ public class UIBuffIndicator : MonoBehaviour
 		HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(statusType);
 		if (iconForStatusType.displayIcon)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBuffIndicator.Setup(StatusType, int)).MethodHandle;
-			}
 			this.m_buffGainedIcon.sprite = iconForStatusType.icon;
 			this.m_debuffGainedIcon.sprite = iconForStatusType.icon;
 			UIManager.SetGameObjectActive(this.m_buffContainer, !iconForStatusType.isDebuff, null);

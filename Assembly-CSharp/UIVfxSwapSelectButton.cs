@@ -51,32 +51,10 @@ public class UIVfxSwapSelectButton : MonoBehaviour
 	{
 		if (this.m_SelectedContainer != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVfxSwapSelectButton.SetSelected(bool, bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_SelectedContainer, selected, null);
 		}
 		if (this.m_selectBtn != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
 		}
 	}

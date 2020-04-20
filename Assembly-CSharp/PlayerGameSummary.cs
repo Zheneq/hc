@@ -193,19 +193,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		GameResult result;
 		if (this.IsInTeamA())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.ResultForWin()).MethodHandle;
-			}
 			result = GameResult.TeamAWon;
 		}
 		else
@@ -243,43 +230,14 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	public int GetTotalHealingFromAbility()
 	{
 		IEnumerable<AbilityGameSummary> abilityGameSummaryList = this.AbilityGameSummaryList;
-		if (PlayerGameSummary.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTotalHealingFromAbility()).MethodHandle;
-			}
-			PlayerGameSummary.<>f__am$cache0 = ((AbilityGameSummary a) => a.TotalHealing);
-		}
-		return abilityGameSummaryList.Select(PlayerGameSummary.<>f__am$cache0).Sum();
+		
+		return abilityGameSummaryList.Select(((AbilityGameSummary a) => a.TotalHealing)).Sum();
 	}
 
 	public float? GetNumLives()
 	{
 		if (this.TotalGameTurns > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetNumLives()).MethodHandle;
-			}
 			return new float?(Math.Max(1f, (float)(this.NumDeaths + 1)));
 		}
 		return null;
@@ -289,19 +247,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (this.TotalGameTurns > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetDamageDealtPerTurn()).MethodHandle;
-			}
 			return new float?((float)this.TotalPlayerDamage / (float)this.TotalGameTurns);
 		}
 		return null;
@@ -311,19 +256,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (this.TotalGameTurns > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTeamEnergyBoostedByMePerTurn()).MethodHandle;
-			}
 			return new float?((float)this.TeamExtraEnergyByEnergizedFromMe / (float)this.TotalGameTurns);
 		}
 		return null;
@@ -333,19 +265,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (this.TotalGameTurns > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTeamDamageSwingByMePerTurn()).MethodHandle;
-			}
 			return new float?((float)this.GetTotalTeamDamageAdjustedByMe() / (float)this.TotalGameTurns);
 		}
 		return null;
@@ -365,19 +284,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (this.TotalGameTurns > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetBoostedDamagePerTurn()).MethodHandle;
-			}
 			return (float)this.MyOutgoingExtraDamageFromEmpowered / (float)this.TotalGameTurns;
 		}
 		return 0f;
@@ -405,19 +311,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		float? numLives = this.GetNumLives();
 		if (numLives != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTankingPerLife()).MethodHandle;
-			}
 			return new float?((float)(this.TotalPlayerDamageReceived + this.NetDamageAvoidedByEvades + this.MyIncomingDamageReducedByCover) / numLives.Value);
 		}
 		return null;
@@ -428,19 +321,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		float num = (float)(this.TeamIncomingDamageReducedByWeakenedFromMe + this.TotalTeamDamageReceived);
 		if (num == 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetTeamMitigation()).MethodHandle;
-			}
 			return null;
 		}
 		float num2 = (float)(this.EffectiveHealing + this.TotalPlayerAbsorb + this.TeamIncomingDamageReducedByWeakenedFromMe);
@@ -453,19 +333,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		float num2 = (float)this.TotalGameTurns;
 		if (num2 == 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetSupportPerTurn()).MethodHandle;
-			}
 			return null;
 		}
 		return new float?(num / num2);
@@ -476,19 +343,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		float? numLives = this.GetNumLives();
 		if (numLives != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetDamageDonePerLife()).MethodHandle;
-			}
 			return new float?((float)this.TotalPlayerDamage / numLives.Value);
 		}
 		return null;
@@ -499,19 +353,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		float? numLives = this.GetNumLives();
 		if (numLives != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetNetDamageDodgedPerLife()).MethodHandle;
-			}
 			return new float?((float)this.NetDamageAvoidedByEvades / numLives.Value);
 		}
 		return null;
@@ -532,19 +373,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		float? numLives = this.GetNumLives();
 		if (numLives != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetAvgLifeSpan()).MethodHandle;
-			}
 			return new float?((float)Math.Max(1, this.TotalGameTurns) / numLives.Value);
 		}
 		return null;
@@ -554,19 +382,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (this.TotalGameTurns > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetDamageTakenPerTurn()).MethodHandle;
-			}
 			return new float?((float)this.TotalPlayerDamageReceived / (float)this.TotalGameTurns);
 		}
 		return null;
@@ -576,19 +391,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (this.TotalGameTurns > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetMovementDeniedPerTurn()).MethodHandle;
-			}
 			return this.MovementDeniedByMe / (float)this.TotalGameTurns;
 		}
 		return 0f;
@@ -602,84 +404,26 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageReducedByCover)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetStat(StatDisplaySettings.StatType)).MethodHandle;
-			}
 			return this.GetIncomingDamageMitigatedByCoverPerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalAssists)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?((float)this.NumAssists);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalDeaths)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?((float)this.NumDeaths);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalBadgePoints)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?(this.TotalBadgePoints);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.MovementDenied)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?(this.GetMovementDeniedPerTurn());
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnergyGainPerTurn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?(this.EnergyGainPerTurn);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamagePerTurn)
@@ -688,28 +432,10 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.NetBoostedOutgoingDamage)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?(this.GetBoostedDamagePerTurn());
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageEfficiency)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?(this.DamageEfficiency);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.KillParticipation)
@@ -718,28 +444,10 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EffectiveHealAndAbsorb)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetSupportPerTurn();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamDamageAdjustedByMe)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetTeamDamageSwingByMePerTurn();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe)
@@ -748,15 +456,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerLife)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetDamageTakenPerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnemiesSightedPerLife)
@@ -765,15 +464,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalTurns)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new float?((float)this.TotalGameTurns);
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalTeamDamageReceived)
@@ -782,15 +472,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TankingPerLife)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetTankingPerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamMitigation)
@@ -803,15 +484,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageDonePerLife)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetDamageDonePerLife();
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerTurn)
@@ -820,15 +492,6 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.AvgLifeSpan)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetAvgLifeSpan();
 		}
 		return null;
@@ -838,30 +501,8 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 	{
 		if (-1 < FreelancerStatIndex)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerGameSummary.GetFreelancerStat(int)).MethodHandle;
-			}
 			if (FreelancerStatIndex < this.FreelancerStats.Count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new float?((float)this.FreelancerStats[FreelancerStatIndex]);
 			}
 		}

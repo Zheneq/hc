@@ -209,19 +209,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (!this.m_hasRandomValueParameter)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Awake()).MethodHandle;
-				}
 				if (parameters[i].name == "RandomValue")
 				{
 					this.m_hasRandomValueParameter = true;
@@ -229,38 +216,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (!this.m_hasTurnStartParameter)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (parameters[i].name == "TurnStart")
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_hasTurnStartParameter = true;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (this.m_savedAnimData != null)
 		{
@@ -270,26 +230,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			List<string> savedAnimatorStateNames = this.m_savedAnimData.m_savedAnimatorStateNames;
 			if (savedCamStartEventDelays != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (savedCamStartEventDelays.Length == 0x15)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_camStartEventDelays = new float[0x15];
 					Array.Copy(savedCamStartEventDelays, this.m_camStartEventDelays, 0x15);
 					goto IL_153;
@@ -308,15 +250,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (savedAnimatorStateNameHashes != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_animatorStateNameHashes = new List<int>(savedAnimatorStateNameHashes);
 			}
 			if (savedAnimatorStateNames != null)
@@ -329,43 +262,16 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_animatorStateNameHashToName = new Dictionary<int, string>(this.m_animatorStateNameHashes.Count);
 		for (int k = 0; k < this.m_animatorStateNameHashes.Count; k++)
 		{
 			this.m_animatorStateNameHashToName[this.m_animatorStateNameHashes[k]] = this.m_animatorStateNames[k];
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_projector = base.gameObject.GetComponentInChildren<Projector>();
 		foreach (ActorModelData.PersistentVFXInfo persistentVFXInfo in this.m_persistentVFX)
 		{
 			if (persistentVFXInfo.m_vfxPrefab != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				persistentVFXInfo.m_fxJoint.Initialize(base.gameObject);
 				persistentVFXInfo.m_vfxInstance = UnityEngine.Object.Instantiate<GameObject>(persistentVFXInfo.m_vfxPrefab);
 				persistentVFXInfo.m_vfxInstance.transform.parent = persistentVFXInfo.m_fxJoint.m_jointObject.transform;
@@ -374,27 +280,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				persistentVFXInfo.m_vfxInstance.transform.localScale = Vector3.one;
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
 		if (ActorModelData.s_stealthMaterialPlaneVectorIDs[0] == 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorModelData.s_stealthMaterialPlaneVectorIDs[0] = Shader.PropertyToID("_StealthPlane0");
 			ActorModelData.s_stealthMaterialPlaneVectorIDs[1] = Shader.PropertyToID("_StealthPlane1");
 			ActorModelData.s_stealthMaterialPlaneVectorIDs[2] = Shader.PropertyToID("_StealthPlane2");
@@ -427,43 +315,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		PKFxFX[] componentsInChildren = base.GetComponentsInChildren<PKFxFX>();
 		if (componentsInChildren != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Start()).MethodHandle;
-			}
 			foreach (PKFxFX pkfxFX in componentsInChildren)
 			{
 				if (pkfxFX.m_PlayOnStart)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_popcornFXPlayOnStartComponents.Add(pkfxFX);
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TheatricsAbilitiesEnd);
@@ -474,15 +331,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			object arg;
 			if (this.m_parentActorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = this.m_parentActorData.name;
 			}
 			else
@@ -501,41 +349,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float num;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialFloatTeam()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_parentActorData.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
 					goto IL_76;
 				}
@@ -556,19 +373,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			this.m_shroudInstancesToEnable[i] = componentsInChildren[i].enabled;
 			componentsInChildren[i].enabled = false;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DelayEnablingOfShroudInstances()).MethodHandle;
-		}
 	}
 
 	public void ImpartWindImpulse(Vector3 direction)
@@ -576,19 +380,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		for (int i = 0; i < this.m_shroudInstances.Length; i++)
 		{
 			this.m_shroudInstances[i].ImpartWindImpulse(direction);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ImpartWindImpulse(Vector3)).MethodHandle;
 		}
 	}
 
@@ -599,32 +390,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			joint.enablePreprocessing = this.m_enableRagdollPreprocessing;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.InitJointsAndRigidBodies()).MethodHandle;
-		}
 		Rigidbody[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Rigidbody>();
 		foreach (Rigidbody rigidbody in componentsInChildren2)
 		{
 			rigidbody.maxDepenetrationVelocity = this.m_maxDepenetrationVelocity;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -643,34 +412,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (rigidbody2.mass > num)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.InitCachedJointForRagdoll()).MethodHandle;
-				}
 				rigidbody = rigidbody2;
 				num = rigidbody2.mass;
 			}
 		}
 		if (rigidbody != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_cachedRigidbodyForRagdollImpulse = rigidbody;
 		}
 	}
@@ -679,32 +426,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.OnDestroy()).MethodHandle;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TheatricsAbilitiesEnd);
 		}
 		if (this.m_appearanceNameToCachedRendererMaterials != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_appearanceNameToCachedRendererMaterials.Count; i++)
 			{
 				List<Material[]> list = this.m_appearanceNameToCachedRendererMaterials.Values.ElementAt(i);
@@ -715,24 +440,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						UnityEngine.Object.Destroy(array[k]);
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_appearanceNameToCachedRendererMaterials.Clear();
@@ -744,19 +451,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (eventType != GameEventManager.EventType.TheatricsAbilitiesEnd)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 		}
 		else
 		{
@@ -770,55 +464,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (!(GameFlowData.Get().activeOwnedActorData == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.OnMovementAnimatorUpdate(BoardSquarePathInfo.ConnectionType)).MethodHandle;
-				}
 				if (GameFlowData.Get().activeOwnedActorData.GetOpposingTeam() == this.m_parentActorData.GetTeam())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (movementType == BoardSquarePathInfo.ConnectionType.Flight)
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (movementType == BoardSquarePathInfo.ConnectionType.Teleport)
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -827,15 +481,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			bool flag2;
 			if (previousTravelBoardSquarePathInfo != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = (previousTravelBoardSquarePathInfo.m_visibleToEnemies || previousTravelBoardSquarePathInfo.m_moverHasGameplayHitHere);
 			}
 			else
@@ -845,30 +490,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			bool flag3 = flag2;
 			if (flag3 && flag && this.m_stealthBrushTransitionParameter.EaseFinished())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_stealthBrushTransitionParameter = new EasedOutFloatQuad(1f);
 				Eased<float> stealthBrushTransitionParameter = this.m_stealthBrushTransitionParameter;
 				float endValue = 0f;
 				float duration;
 				if (this.m_parentActorData.GetActorMovement().IsPast2ndToLastSquare())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					duration = this.m_stealthMoveStoppedHightlightFadeDuration;
 				}
 				else
@@ -883,15 +510,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				BoardSquare boardSquare;
 				if (nextTravelBoardSquarePathInfo == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare = null;
 				}
 				else
@@ -902,15 +520,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				bool flag4;
 				if (boardSquare2 != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare2.BrushRegion);
 				}
 				else
@@ -920,15 +529,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				bool flag5 = flag4;
 				if (flag && !flag5)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_stealthBrushTransitionParameter.GetEndValue() == 0f)
 					{
 						this.m_stealthBrushTransitionParameter = new EasedInFloatQuad(this.m_stealthBrushTransitionParameter);
@@ -949,67 +549,18 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool result = true;
 		if (this.m_characterPortrait != other.m_characterPortrait)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DiffForSyncCharacterPrefab(ActorModelData, List<string>*)).MethodHandle;
-			}
 			diffDescriptions.Add("\tCharacter Portrait different");
 			result = false;
 		}
 		if (this.m_cameraVertOffset == other.m_cameraVertOffset)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_cameraVertCoverOffset == other.m_cameraVertCoverOffset)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_cameraHorzOffset == other.m_cameraHorzOffset)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_stealthParameterStopPKFX == other.m_stealthParameterStopPKFX)
 					{
 						goto IL_A4;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1029,15 +580,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (!(this.m_persistentVFX[i].m_vfxPrefab.name != other.m_persistentVFX[i].m_vfxPrefab.name) && !(this.m_persistentVFX[i].m_fxJoint.m_joint != other.m_persistentVFX[i].m_fxJoint.m_joint))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(this.m_persistentVFX[i].m_fxJoint.m_jointCharacter != other.m_persistentVFX[i].m_fxJoint.m_jointCharacter))
 					{
 						i++;
@@ -1046,15 +588,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				diffDescriptions.Add("\tPersistent VFX different");
 				return false;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -1074,19 +607,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (parameters[i].name == paramName)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.HasAnimatorControllerParamater(string)).MethodHandle;
-				}
 				result = true;
 				return result;
 			}
@@ -1126,19 +646,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		this.m_dirtyRenderersCache = false;
 		if (this.m_renderers == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.CacheRenderers()).MethodHandle;
-			}
 			this.m_renderers = base.gameObject.GetComponentsInChildren<Renderer>();
 		}
 		else
@@ -1148,40 +655,13 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				list2.Add(this.m_renderers[i]);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Renderer[] componentsInChildren = base.gameObject.GetComponentsInChildren<Renderer>();
 			for (int j = 0; j < componentsInChildren.Length; j++)
 			{
 				if (!list2.Contains(componentsInChildren[j]))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list2.Add(componentsInChildren[j]);
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_renderers = list2.ToArray();
 		}
@@ -1191,15 +671,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (renderer == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -1208,26 +679,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					if (renderer.sharedMaterials[l] != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (renderer.sharedMaterials[l].HasProperty(ActorModelData.materialColorProperty))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							array[l] = renderer.sharedMaterials[l].color;
 						}
 						else
@@ -1236,27 +689,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						}
 						if (!list.Contains(renderer.sharedMaterials[l].shader.name))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							string stealthReplacementShaderStr;
 							if (base.gameObject.name.Contains("trickster"))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								stealthReplacementShaderStr = "Hydrogen/Trickster";
 							}
 							else
@@ -1271,15 +706,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						array[l] = Color.white;
 					}
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rendererDefaultColors.Add(array);
 				Material[] array2 = new Material[renderer.sharedMaterials.Length];
 				for (int m = 0; m < array2.Length; m++)
@@ -1291,27 +717,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				list3.Add(array2);
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_appearanceNameToCachedRendererMaterials[this.m_rendererDefaultMaterialsCacheKey] = list3;
 		if (!string.IsNullOrEmpty(this.m_stealthReplacementShaderStr))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_stealthReplacementShader = Shader.Find(this.m_stealthReplacementShaderStr);
 		}
 		this.m_alphaUpdateMarkedDirty = true;
@@ -1326,46 +734,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			transform.gameObject.layer = layer;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.InitializeFaceActorModelData()).MethodHandle;
-		}
 		foreach (SkinnedMeshRenderer skinnedMeshRenderer in base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true))
 		{
 			skinnedMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
 			skinnedMeshRenderer.receiveShadows = false;
 			skinnedMeshRenderer.lightProbeUsage = LightProbeUsage.Off;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		base.gameObject.layer = layer;
 		if (this.m_projector != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_projector.enabled = false;
 		}
 		base.gameObject.SetActive(false);
@@ -1380,19 +757,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (!forceStandingOffset)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCameraVertOffset(bool)).MethodHandle;
-			}
 			if (this.m_parentActorData.GetActorCover().HasAnyCover(false))
 			{
 				return this.m_cameraVertCoverOffset;
@@ -1412,42 +776,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					if (renderer != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bounds.Encapsulate(renderer.bounds);
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 size = bounds.size;
 				return Mathf.Max(size.x, Mathf.Max(size.y, size.z));
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetModelSize()).MethodHandle;
 			}
 		}
 		return 2f;
@@ -1460,46 +793,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			UnityEngine.Object.Destroy(obj);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DestroyRagdoll()).MethodHandle;
-		}
 		Collider[] componentsInChildren2 = base.gameObject.GetComponentsInChildren<Collider>();
 		foreach (Collider obj2 in componentsInChildren2)
 		{
 			UnityEngine.Object.Destroy(obj2);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		Rigidbody[] componentsInChildren3 = base.gameObject.GetComponentsInChildren<Rigidbody>();
 		foreach (Rigidbody obj3 in componentsInChildren3)
 		{
 			UnityEngine.Object.Destroy(obj3);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1509,43 +811,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCurrentAnimatorStateName()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				string text;
 				if (this.m_animatorStateNameHashToName.TryGetValue(currentAnimatorStateInfo.shortNameHash, out text))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = text;
 				}
 			}
@@ -1558,30 +829,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCurrentAnimatorStateHash()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return modelAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash;
 			}
 		}
@@ -1593,19 +842,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		string result;
 		if (this.m_animatorStateNameHashToName.TryGetValue(hash, out result))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetAnimatorHashToString(int)).MethodHandle;
-			}
 			return result;
 		}
 		return "UNKNOWN";
@@ -1623,30 +859,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingChargeEnd()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == ActorModelData.s_animHashChargeEnd);
 			}
 		}
@@ -1659,46 +873,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingAttackAnim(bool*)).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				bool flag = modelAnimator.IsInTransition(0);
 				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashAttack)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashChargeEnd)
 					{
 						return false;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				endingAttack = flag;
@@ -1713,19 +896,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (modelAnimator == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingIdleAnim(bool)).MethodHandle;
-			}
 			return true;
 		}
 		if (modelAnimator.layerCount < 1)
@@ -1738,15 +908,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (excludeCover)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = !this.m_parentActorData.GetActorCover().HasAnyCover(false);
 			}
 			else
@@ -1766,34 +927,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingDamageAnim()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				bool result;
 				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashDamage && currentAnimatorStateInfo.shortNameHash != ActorModelData.s_animHashDamage)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (currentAnimatorStateInfo.tagHash == ActorModelData.s_animHashDamageNoInterrupt);
 				}
 				else
@@ -1801,15 +940,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					result = true;
 				}
 				return result;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -1826,15 +956,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				bool flag;
 				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashIdle)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (currentAnimatorStateInfo.shortNameHash == ActorModelData.s_animHashIdle);
 				}
 				else
@@ -1845,15 +966,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				bool flag3;
 				if (currentAnimatorStateInfo.tagHash != ActorModelData.s_animHashDamage)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = (currentAnimatorStateInfo.shortNameHash == ActorModelData.s_animHashDamage);
 				}
 				else
@@ -1867,28 +979,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						return false;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				bool result;
 				if (!flag4)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = !modelAnimator.IsInTransition(0);
 				}
 				else
@@ -1896,19 +990,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					result = true;
 				}
 				return result;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.CanPlayDamageReactAnim()).MethodHandle;
 			}
 		}
 		return false;
@@ -1919,31 +1000,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsPlayingKnockdownAnim()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				return modelAnimator.GetCurrentAnimatorStateInfo(0).tagHash == ActorModelData.s_animHashKnockdown;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -1957,19 +1016,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			this.m_initialBoneOffsetMap[rigidbody.gameObject] = rigidbody.transform.localPosition;
 			this.m_initialBoneRotationOffsetMap[rigidbody.gameObject] = rigidbody.transform.localRotation;
 			this.m_initialBoneScaleOffsetMap[rigidbody.gameObject] = rigidbody.transform.localScale;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.StoreRigidBodyOffsets()).MethodHandle;
 		}
 	}
 
@@ -1985,19 +1031,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				rigidbody.transform.localScale = this.m_initialBoneScaleOffsetMap[rigidbody.gameObject];
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ResetRigidBodyOffsets()).MethodHandle;
-		}
 	}
 
 	internal Renderer GetModelRenderer(int index = 0)
@@ -2008,19 +1041,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				return this.m_renderers[index];
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetModelRenderer(int)).MethodHandle;
-			}
 		}
 		return null;
 	}
@@ -2030,19 +1050,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int result;
 		if (this.m_renderers == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetNumModelRenderers()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -2058,46 +1065,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetModelAnimator()).MethodHandle;
-				}
 				Log.Error(this + " has a NULL model Animator", new object[0]);
 			}
 		}
 		else if (this.m_modelAnimator.layerCount == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_modelAnimator = base.GetComponentInChildren<Animator>();
 			string str;
 			if (this.m_parentActorData == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = "NULL";
 			}
 			else
@@ -2108,15 +1084,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			string str3;
 			if (this.m_modelAnimator == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str3 = "NULL";
 			}
 			else
@@ -2138,19 +1105,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		GameObject gameObject = base.gameObject.FindInChildren("root_JNT", 0);
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Setup(ActorData)).MethodHandle;
-			}
 			this.m_rootBoneTransform = gameObject.transform;
 		}
 		gameObject = base.gameObject.FindInChildren("hip_JNT", 0);
@@ -2161,15 +1115,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		gameObject = base.gameObject.FindInChildren("floor_JNT", 0);
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_floorBoneTransform = gameObject.transform;
 		}
 		this.StoreRigidBodyOffsets();
@@ -2179,30 +1124,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_rootBoneTransform != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateFloorBone()).MethodHandle;
-			}
 			if (this.m_hipBoneTransform != null && this.m_floorBoneTransform != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position = this.m_floorBoneTransform.position;
 				position.y = Mathf.Min(this.m_rootBoneTransform.transform.position.y, this.m_hipBoneTransform.transform.position.y);
 				this.m_floorBoneTransform.position = position;
@@ -2215,30 +1138,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float num = 0.25f;
 		if (this.m_modelAnimator != null && this.m_lastAnimatorRandomSetTime + num < Time.time)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateRandomValueForAnimator()).MethodHandle;
-			}
 			if (this.m_hasRandomValueParameter)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lastAnimatorRandomSetTime = Time.time;
 				this.m_modelAnimator.SetFloat("RandomValue", UnityEngine.Random.value);
 			}
@@ -2253,19 +1154,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (CameraManager.Get().ShotSequence == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsInCinematicCam()).MethodHandle;
-			}
 			return false;
 		}
 		return !(CameraManager.Get().ShotSequence.Actor != this.m_parentActorData);
@@ -2287,32 +1175,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				this.m_shroudInstances[i].enabled = this.m_shroudInstancesToEnable[i];
 				flag = true;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.Update()).MethodHandle;
-			}
 			this.m_shroudInstancesToEnable = null;
 		}
 		if (this.m_dirtyRenderersCache && !flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CacheRenderers();
 		}
 		if (this.m_parentActorData == null)
@@ -2322,42 +1188,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (!this.m_attemptedToCreateBaseCircle)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorVFX actorVFX = this.m_parentActorData.GetActorVFX();
 			if (actorVFX != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorVFX.SpawnBaseCircles();
 			}
 			this.m_attemptedToCreateBaseCircle = true;
 		}
 		if (!this.m_parentActorData.IsModelAnimatorDisabled())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateFloorBone();
 		}
 		this.UpdateRandomValueForAnimator();
@@ -2371,54 +1210,18 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag2 = this.IsPlayingIdleAnim(true);
 		if (this.m_needsStandingIdleBoundingBox)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				goto IL_176;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!(this.m_rendererBoundsApprox.size == Vector3.zero))
 		{
 			goto IL_280;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		IL_176:
 		if (this.GetNumModelRenderers() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_needsStandingIdleBoundingBox = !flag2;
 			float num = 0.95f * Board.Get().squareSize;
 			float num2 = 4f;
@@ -2435,39 +1238,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				collider.gameObject.layer = ActorData.Layer;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		IL_280:
 		if (this.m_activeRigidbodies != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Camera.main != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position = Camera.main.transform.position;
 				float num3 = Camera.main.farClipPlane * Camera.main.farClipPlane;
 				for (int k = 0; k < this.m_activeRigidbodies.Length; k++)
@@ -2475,26 +1251,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					Rigidbody rigidbody = this.m_activeRigidbodies[k];
 					if (rigidbody != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!rigidbody.IsSleeping())
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (float.IsNaN(rigidbody.position.x))
 							{
 								rigidbody.isKinematic = true;
@@ -2507,15 +1265,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 								float num4 = Vector3.SqrMagnitude(rigidbody.position - position);
 								if (num4 > num3)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									rigidbody.isKinematic = true;
 									rigidbody.detectCollisions = false;
 									rigidbody.Sleep();
@@ -2523,15 +1272,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2546,19 +1286,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (this.m_appearanceNameToCachedRendererMaterials.ContainsKey(name))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialShader(Shader, bool)).MethodHandle;
-			}
 			List<Material[]> list = this.m_appearanceNameToCachedRendererMaterials[name];
 			for (int i = 0; i < this.m_renderers.Length; i++)
 			{
@@ -2569,25 +1296,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					array[j].shaderKeywords = renderer.materials[j].shaderKeywords;
 					UnityEngine.Object.Destroy(renderer.materials[j]);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				renderer.materials = array;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -2605,39 +1314,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						shaderKeywords = renderer2.sharedMaterials[l].shaderKeywords
 					};
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(array2);
 				for (int m = 0; m < renderer2.materials.Length; m++)
 				{
 					UnityEngine.Object.Destroy(renderer2.materials[m]);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				renderer2.materials = array2;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_appearanceNameToCachedRendererMaterials[name] = list;
 		}
@@ -2648,19 +1330,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_appearanceNameToCachedRendererMaterials.ContainsKey(this.m_rendererDefaultMaterialsCacheKey))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ResetMaterialsToDefaults()).MethodHandle;
-			}
 			List<Material[]> list = this.m_appearanceNameToCachedRendererMaterials[this.m_rendererDefaultMaterialsCacheKey];
 			for (int i = 0; i < this.m_renderers.Length; i++)
 			{
@@ -2672,65 +1341,20 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						UnityEngine.Object.Destroy(renderer.materials[j]);
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					renderer.materials = materials;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.DisableMaterialKeyword(this.c_stealthShaderKeyword);
 			this.SetMaterialFloatTeam();
 			if (this.m_stealthShaderCullModeSettings != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int k = 0; k < this.m_stealthShaderCullModeSettings.Count; k++)
 				{
 					ActorModelData.CullModeSettings cullModeSettings = this.m_stealthShaderCullModeSettings[k];
 					if (!cullModeSettings.m_forStealth)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetMaterialFloatByNameMatch(ActorModelData.s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2744,19 +1368,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			Renderer renderer = this.m_renderers[i];
 			if (renderer.gameObject.layer == oldLayer)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetLayer(int, int)).MethodHandle;
-				}
 				renderer.gameObject.layer = newLayer;
 			}
 		}
@@ -2771,28 +1382,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				material.SetFloat(propertyID, value);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialFloat(int, float)).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -2812,20 +1401,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				if (material.name.IndexOf(searchPtn) >= 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialFloatByNameMatch(int, float, string)).MethodHandle;
-						goto IL_4E;
-					}
 					goto IL_4E;
 				}
 				IL_57:
@@ -2834,15 +1409,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				IL_4E:
 				material.SetFloat(propertyID, value);
 				goto IL_57;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2868,28 +1434,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				material.SetVector(id, value);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialVector(int, Vector4)).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -2902,28 +1446,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				material.EnableKeyword(keyword);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.EnableMaterialKeyword(string)).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -2936,28 +1458,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				material.DisableKeyword(keyword);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DisableMaterialKeyword(string)).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -2974,19 +1474,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					{
 						if (enable)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialKeywordOnAllCachedMaterials(string, bool)).MethodHandle;
-							}
 							material.EnableKeyword(keyword);
 						}
 						else
@@ -2995,24 +1482,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -3030,19 +1499,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				int renderQueue2;
 				if (renderQueue < -1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMaterialRenderQueue(int)).MethodHandle;
-					}
 					renderQueue2 = renderer.sharedMaterials[j].renderQueue;
 				}
 				else
@@ -3051,15 +1507,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				material2.renderQueue = renderQueue2;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -3074,19 +1521,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				float maxColorComponent = color.maxColorComponent;
 				if (maxColorComponent > 1f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ScaleMaterialColorToSDR(int)).MethodHandle;
-					}
 					material.SetColor(propertyId, color * 1f / maxColorComponent);
 				}
 			}
@@ -3107,33 +1541,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_visibleToClient)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.RestartPopcornFXPlayOnStart()).MethodHandle;
-			}
 			this.m_stealthPKFXStopped = false;
 			for (int i = 0; i < this.m_popcornFXPlayOnStartComponents.Count; i++)
 			{
 				PKFxFX pkfxFX = this.m_popcornFXPlayOnStartComponents.ElementAt(i);
 				pkfxFX.StartEffect();
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -3144,45 +1556,14 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (renderer != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.EnableRendererAndUpdateVisibility()).MethodHandle;
-				}
 				renderer.enabled = true;
 			}
 		}
 		if (this.m_shroudInstances != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (ShroudInstance shroudInstance in this.m_shroudInstances)
 			{
 				shroudInstance.enabled = true;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_visibleToClient = true;
@@ -3190,15 +1571,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		this.UpdateVisibility();
 		if (this.m_visibleToClient)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetPersistentVfxActive(true);
 		}
 	}
@@ -3212,42 +1584,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				renderer.enabled = false;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.DisableAndHideRenderers()).MethodHandle;
-		}
 		if (this.m_shroudInstances != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (ShroudInstance shroudInstance in this.m_shroudInstances)
 			{
 				shroudInstance.enabled = false;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_forceHideRenderers = true;
@@ -3257,43 +1598,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_rendererDefaultColors != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetDefaultRendererAlpha(float)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_rendererDefaultColors.Count; i++)
 			{
 				for (int j = 0; j < this.m_rendererDefaultColors[i].Length; j++)
 				{
 					this.m_rendererDefaultColors[i][j].a = alpha;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -3309,19 +1619,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					this.m_cachedRendererAlphas.Add(this.m_rendererDefaultColors[i][j].a);
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.CacheDefaultRendererAlphas()).MethodHandle;
-				}
 			}
 		}
 	}
@@ -3330,19 +1627,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_rendererDefaultColors != null && this.m_cachedRendererAlphas != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.RestoreDefaultRendererAlphas()).MethodHandle;
-			}
 			int num = 0;
 			for (int i = 0; i < this.m_rendererDefaultColors.Count; i++)
 			{
@@ -3350,24 +1634,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					this.m_rendererDefaultColors[i][j].a = this.m_cachedRendererAlphas[num++];
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_cachedRendererAlphas = null;
@@ -3385,19 +1651,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_masterSkinVfxInst != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetMasterSkinVfxInst(GameObject)).MethodHandle;
-			}
 			Log.Warning("Setting master skin vfx instance when there is existing entry", new object[0]);
 		}
 		this.m_masterSkinVfxInst = vfxInst;
@@ -3411,19 +1664,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			bool flag;
 			if (CameraManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateVisibility()).MethodHandle;
-				}
 				flag = CameraManager.Get().InFaceShot(this.m_parentActorData);
 			}
 			else
@@ -3438,15 +1678,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (this.m_visibleToClient == flag2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_forceUpdateVisibility)
 			{
 				return;
@@ -3460,15 +1691,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (shroudInstance != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					shroudInstance.enabled = flag2;
 				}
 			}
@@ -3479,30 +1701,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (renderer != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					renderer.enabled = flag2;
 				}
 			}
 		}
 		if (this.m_projector != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_projector.enabled = flag2;
 		}
 		ParticleSystem[] componentsInChildren = base.GetComponentsInChildren<ParticleSystem>();
@@ -3510,27 +1714,9 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				particleSystem.Clear();
 			}
 			particleSystem.emission.enabled = flag2;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.SetPersistentVfxActive(flag2);
 	}
@@ -3541,30 +1727,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (persistentVFXInfo != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.SetPersistentVfxActive(bool)).MethodHandle;
-				}
 				if (persistentVFXInfo.m_vfxInstance != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (persistentVFXInfo.m_vfxInstance.activeSelf != active)
 					{
 						persistentVFXInfo.m_vfxInstance.SetActive(active);
@@ -3574,15 +1738,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (this.m_masterSkinVfxInst != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_masterSkinVfxInst.gameObject.SetActiveIfNeeded(active);
 		}
 	}
@@ -3596,30 +1751,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (!this.m_parentActorData.GetActorStatus().HasStatus(StatusType.Revealed, false))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateStealth()).MethodHandle;
-			}
 			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(this.m_parentActorData))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = this.m_parentActorData.VisibleTillEndOfPhase;
 				goto IL_5D;
 			}
@@ -3631,53 +1764,17 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		List<Plane> list = null;
 		if (this.m_stealthBrushTransitionParameter <= 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_stealthBrushTransitionParameter.GetEndValue() != 1f)
 			{
 				goto IL_14A;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (BrushCoordinator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare travelBoardSquare = this.m_parentActorData.GetTravelBoardSquare();
 			Vector3 vector;
 			if (travelBoardSquare)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = travelBoardSquare.ToVector3();
 			}
 			else
@@ -3693,15 +1790,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		int num;
 		if (list != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = list.Count;
 		}
 		else
@@ -3715,15 +1803,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag6;
 		if (flag4 && BrushCoordinator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag6 = !BrushCoordinator.Get().IsRegionFunctioning(travelBoardSquareBrushRegion);
 		}
 		else
@@ -3734,15 +1813,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag8;
 		if (!flag5)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag8 = (num2 > 0);
 		}
 		else
@@ -3752,64 +1822,19 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag9 = flag8;
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag3 && !flag5)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (this.m_stealthBrokenParameter.GetEndValue() == 1f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_stealthBrokenParameter.EaseTo(0f, 0.0166666675f);
 				}
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_stealthFadeParameter.GetEndValue() == 0f)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_stealthFadeParameter.EaseTo(1f, this.m_stealthFadeDuration);
 					}
 				}
@@ -3817,26 +1842,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					goto IL_3DD;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_stealthBrushParameter.GetEndValue() == 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_stealthBrushParameter.EaseTo(1f, 0.0166666675f);
 					goto IL_3DD;
 				}
@@ -3847,30 +1854,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (flag7)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (flag9)
 				{
 					goto IL_323;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.m_stealthBrushParameter.GetEndValue() == 1f)
 				{
@@ -3882,51 +1871,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (this.m_stealthShaderEnabled)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_stealthBrokenParameter.GetEndValue() == 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_stealthBrokenParameter.EaseTo(1f, this.m_stealthBrokenEaseDuration);
 				if (this.m_stealthFadeParameter.GetEndValue() == 1f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_stealthFadeParameter.EaseTo(0f, this.m_stealthBrokenEaseDuration);
 				}
 				if (this.m_stealthBrushParameter.GetEndValue() == 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_stealthBrushParameter.EaseTo(0f, this.m_stealthBrokenEaseDuration);
 				}
 			}
@@ -3936,15 +1889,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag10;
 		if (this.m_stealthBrushParameter.GetEndValue() == 1f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag10 = (this.m_stealthBrokenParameter <= 0.99f);
 		}
 		else
@@ -3955,81 +1899,27 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool flag12 = this.m_stealthFadeParameter.GetEndValue() == 1f;
 		if (!flag12)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag11)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (this.m_stealthShaderEnabled && this.m_stealthFadeParameter.GetEndValue() == 0f && this.m_stealthFadeParameter.EaseFinished())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_stealthBrushParameter.GetEndValue() == 0f)
 					{
 						if (this.m_stealthBrushParameter.EaseFinished())
 						{
 							goto IL_6E4;
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (this.m_stealthBrokenParameter.GetEndValue() != 1f)
 					{
 						goto IL_6F1;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_stealthBrushParameter.EaseFinished())
 					{
 						goto IL_6F1;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					IL_6E4:
 					this.ResetMaterialsToDefaults();
@@ -4038,15 +1928,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				IL_6F1:
 				if (Mathf.Min(this.m_stealthFadeParameter, 1f - this.m_stealthBrushTransitionParameter) <= this.m_stealthParameterStartPKFX && this.m_stealthPKFXStopped)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.RestartPopcornFXPlayOnStart();
 					goto IL_734;
 				}
@@ -4055,26 +1936,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (!this.m_stealthShaderEnabled)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_stealthReplacementShader != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetMaterialShader(this.m_stealthReplacementShader, false);
 				this.ScaleMaterialColorToSDR(ActorModelData.materialOutlineColorProperty);
 				this.SetMinMaterialFloat(ActorModelData.materialOutlineProperty, 1E-05f);
@@ -4084,29 +1947,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			this.SetMaterialFloatTeam();
 			if (this.m_stealthShaderCullModeSettings != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_stealthShaderCullModeSettings.Count; i++)
 				{
 					ActorModelData.CullModeSettings cullModeSettings = this.m_stealthShaderCullModeSettings[i];
 					if (cullModeSettings.m_forStealth)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetMaterialFloatByNameMatch(ActorModelData.s_materialPropertyIDCullMode, (float)cullModeSettings.m_desiredCullMode, cullModeSettings.m_targetMaterialSearchPtn);
 					}
 				}
@@ -4115,51 +1960,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (Mathf.Max(this.m_stealthFadeParameter, 1f - this.m_stealthBrushTransitionParameter) >= this.m_stealthParameterStopPKFX)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag12)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_parentActorData.IsHiddenInBrush())
 				{
 					goto IL_5AC;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!this.m_stealthPKFXStopped)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.KillPopcornFXPlayOnStart();
 				goto IL_63D;
 			}
@@ -4167,51 +1976,15 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		IL_5AC:
 		if (this.m_stealthPKFXStopped && !flag12)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_stealthBrushTransitionParameter.GetEndValue() != 1f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_stealthBrokenParameter.GetEndValue() != 1f)
 				{
 					goto IL_63D;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (1f - Mathf.Max(this.m_stealthBrushTransitionParameter, this.m_stealthBrokenParameter) <= this.m_stealthParameterStartPKFX)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.RestartPopcornFXPlayOnStart();
 			}
 		}
@@ -4219,15 +1992,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		IL_734:
 		if (this.m_stealthShaderEnabled)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDStealthFade, this.m_stealthFadeParameter);
 			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDBrush, this.m_stealthBrushParameter);
 			this.SetMaterialFloat(ActorModelData.s_materialPropertyIDStealthMoving, this.m_stealthBrushTransitionParameter);
@@ -4236,15 +2000,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			float value;
 			if (this.m_parentActorData.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = 1f;
 			}
 			else
@@ -4264,15 +2019,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					this.SetMaterialVector(ActorModelData.s_stealthMaterialPlaneVectorIDs[j], Vector4.zero);
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -4281,43 +2027,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool result;
 		if (this.m_stealthShaderEnabled)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.IsAnimatingStealthActivation()).MethodHandle;
-			}
 			if (!this.m_parentActorData.IsHiddenInBrush() && this.m_stealthFadeParameter.GetEndValue() == 1f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Mathf.Approximately(this.m_stealthFadeParameter, 1f))
 				{
 					result = true;
 					goto IL_8B;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			result = !Mathf.Approximately(this.m_stealthBrushTransitionParameter, 0f);
@@ -4338,57 +2053,17 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		bool drawingInConfirm = false;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateSelectionOutline()).MethodHandle;
-			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_renderers != null)
 				{
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 					bool flag4;
 					if (!this.m_parentActorData.BeingTargetedByClientAbility(out flag4, out drawingInConfirm))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(activeOwnedActorData != null))
 						{
 							goto IL_9F;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (!activeOwnedActorData.ShouldForceTargetOutlineForActor(this.m_parentActorData))
 						{
@@ -4402,38 +2077,11 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		IL_9F:
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Camera.main != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerSelectionEffect component = Camera.main.GetComponent<PlayerSelectionEffect>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.m_drawSelection = true;
 					component.SetDrawingInConfirm(drawingInConfirm);
 				}
@@ -4441,28 +2089,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (flag != this.m_showingOutline)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = LayerMask.NameToLayer("ActorSelected");
 			int num2 = LayerMask.NameToLayer("Actor");
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetMaterialFloatTeam();
 				this.SetLayer(num, num2);
 			}
@@ -4474,15 +2104,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			PlayerSelectionEffect playerSelectionEffect;
 			if (Camera.main != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				playerSelectionEffect = Camera.main.GetComponent<PlayerSelectionEffect>();
 			}
 			else
@@ -4492,15 +2113,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			PlayerSelectionEffect playerSelectionEffect2 = playerSelectionEffect;
 			if (playerSelectionEffect2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				playerSelectionEffect2.SetDrawingInConfirm(drawingInConfirm);
 			}
 		}
@@ -4510,30 +2122,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (!(curRenderer == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateAlphaForRenderer(Renderer, int)).MethodHandle;
-			}
 			if (this.m_rendererDefaultColors == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -4546,50 +2136,14 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				{
 					if (this.m_rendererDefaultColors.Count <= curRendererIndex)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else if (materials[i] != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (materials[i].HasProperty(ActorModelData.materialColorProperty))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Color color = this.m_rendererDefaultColors[curRendererIndex][i];
 							if (this.m_rendererDefaultColors[curRendererIndex][i].a == 1f)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								color.a = this.Alpha;
 							}
 							else
@@ -4614,19 +2168,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (this.Alpha != this.m_cameraTransparency)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.UpdateCameraTransparency()).MethodHandle;
-			}
 			if (this.m_alphaUpdateMarkedDirty)
 			{
 				this.Alpha = this.m_cameraTransparency;
@@ -4634,15 +2175,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				for (int i = 0; i < this.m_renderers.Length; i++)
 				{
 					this.UpdateAlphaForRenderer(this.m_renderers[i], i);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -4652,52 +2184,12 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (useTauntCamAltTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.GetCamStartEventDelay(int, bool)).MethodHandle;
-			}
 			if (this.m_tauntCamStartEventDelays != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animationIndex >= 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (animationIndex < this.m_tauntCamStartEventDelays.Length)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_tauntCamStartEventDelays[animationIndex] > 0f)
 						{
 							return this.m_tauntCamStartEventDelays[animationIndex];
@@ -4709,15 +2201,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		float result;
 		if (animationIndex >= 0 && animationIndex < this.m_camStartEventDelays.Length)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_camStartEventDelays[animationIndex];
 		}
 		else
@@ -4732,45 +2215,14 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.EnableRagdoll(bool, ActorModelData.ImpulseInfo)).MethodHandle;
-			}
 			modelAnimator.enabled = !ragDollOn;
 		}
 		foreach (SkinnedMeshRenderer skinnedMeshRenderer in base.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>())
 		{
 			if (skinnedMeshRenderer.enabled)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				skinnedMeshRenderer.updateWhenOffscreen = ragDollOn;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		int layer = LayerMask.NameToLayer("DeadActor");
 		int layer2 = LayerMask.NameToLayer("Actor");
@@ -4791,15 +2243,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		Rigidbody[] activeRigidbodies;
 		if (ragDollOn)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			activeRigidbodies = componentsInChildren2;
 		}
 		else
@@ -4820,26 +2263,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				collider.gameObject.layer = layer2;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_rendererBoundsApproxCollider != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_rendererBoundsApproxCollider.enabled = !ragDollOn;
 		}
 		if (ragDollOn)
@@ -4856,30 +2281,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		if (impulseInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ApplyImpulseOnRagdoll(ActorModelData.ImpulseInfo, Rigidbody[])).MethodHandle;
-			}
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info("Applying impulse on " + base.gameObject.name + ", impulse info:" + impulseInfo.GetDebugString(), new object[0]);
 			}
 			if (rigidBodies == null)
@@ -4888,15 +2291,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			if (impulseInfo.IsExplosion)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint() && this.m_cachedRigidbodyForRagdollImpulse != null)
 				{
 					Vector3 a = this.m_parentActorData.GetHipJointRigidBodyPosition() - impulseInfo.ExplosionCenter;
@@ -4904,15 +2298,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					float magnitude = a.magnitude;
 					if (magnitude > 0.1f)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						a.Normalize();
 					}
 					else
@@ -4930,15 +2315,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					float num;
 					if (rigidBodies.Length > 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = 1f / (float)rigidBodies.Length;
 					}
 					else
@@ -4964,15 +2340,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						float d = Mathf.Clamp(num2 * num3 * impulseInfo.ExplosionMagnitude, 1f, 3000f);
 						rigidbody.AddForceAtPosition(a2 * d, vector, ForceMode.Impulse);
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Application.isEditor)
 					{
 						Log.Info(string.Concat(new object[]
@@ -4990,37 +2357,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				if (TheatricsManager.RagdollOnlyApplyForceAtSingleJoint())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_cachedRigidbodyForRagdollImpulse != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Application.isEditor)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Info("Applying impulse on " + this.m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString(), new object[0]);
 						}
 						this.m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.HitImpulse, ForceMode.Impulse);
@@ -5031,15 +2371,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				Rigidbody rigidbody2;
 				if (rigidBodies.Length > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					rigidbody2 = rigidBodies[0];
 				}
 				else
@@ -5055,15 +2386,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 					float sqrMagnitude2 = (vector2 - hitPosition).sqrMagnitude;
 					if (sqrMagnitude2 < num4)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num4 = sqrMagnitude2;
 						rigidbody3 = rigidbody4;
 						position = vector2;
@@ -5071,15 +2393,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				}
 				if (rigidbody3 != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					rigidbody3.AddForceAtPosition(impulseInfo.HitImpulse, position, ForceMode.Impulse);
 					if (Application.isEditor)
 					{
@@ -5176,19 +2489,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			float d = TheatricsManager.GetRagdollImpactForce();
 			if (hitDirection.sqrMagnitude > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ImpulseInfo..ctor(Vector3, Vector3)).MethodHandle;
-				}
 				hitDirection.Normalize();
 			}
 			else
@@ -5209,19 +2509,6 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			string text = string.Empty;
 			if (this.IsExplosion)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorModelData.ImpulseInfo.GetDebugString()).MethodHandle;
-				}
 				string text2 = text;
 				text = string.Concat(new object[]
 				{

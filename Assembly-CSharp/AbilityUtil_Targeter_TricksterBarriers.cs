@@ -27,19 +27,6 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 		bool shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterBarriers..ctor(Ability, TricksterAfterImageNetworkBehaviour, float, float, float, bool, bool)).MethodHandle;
-			}
 			shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
 		}
 		else
@@ -57,19 +44,6 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 		int num2;
 		if (validAfterImages.Count > 1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterBarriers.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			num2 = validAfterImages.Count + 1;
 		}
 		else
@@ -82,15 +56,6 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 		int num4;
 		if (this.m_drawBarriers)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = num3;
 		}
 		else
@@ -103,15 +68,6 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 		int num8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num8 = num3 * 2;
 		}
 		else
@@ -126,41 +82,14 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 			{
 				goto IL_1E6;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.m_highlights = new List<GameObject>();
 		for (int i = 0; i < num5; i++)
 		{
 			this.m_highlights.Add(UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_rectangleCursorPrefab.GetComponent<UIRectangleCursor>().m_endWidthLine));
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < num3; j++)
 			{
 				this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(1f, false, true));
@@ -169,27 +98,9 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 		}
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int k = 0; k < num; k++)
 			{
 				this.m_highlights.Add(TargeterUtils.CreateCircleHighlight(Vector3.zero, this.m_radiusAroundStart, TargeterUtils.HeightAdjustType.DontAdjustHeight, targetingActor == GameFlowData.Get().activeOwnedActorData));
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_1E6:
@@ -204,15 +115,6 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 			}
 			else if (l == validAfterImages.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = validAfterImages[l - 1].GetCurrentBoardSquare();
 				boardSquare2 = targetingActor.GetCurrentBoardSquare();
 			}
@@ -236,15 +138,6 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 					ActorData actor = enumerator.Current;
 					base.AddActorInRange(actor, boardSquare.ToVector3(), targetingActor, AbilityTooltipSubject.Primary, false);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(boardSquare.ToVector3(), this.m_radiusAroundStart, this.m_penetrateLos, targetingActor, targetingActor.GetOpposingTeam(), null, false, default(Vector3));
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadius);
@@ -255,27 +148,9 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 					ActorData actor2 = enumerator2.Current;
 					base.AddActorInRange(actor2, boardSquare.ToVector3(), targetingActor, AbilityTooltipSubject.Primary, false);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_drawBarriers)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num11 = magnitude;
 				Vector3 a = boardSquare.ToVector3() + 0.5f * num11 * vector;
 				a.y = (float)Board.Get().BaselineHeight;
@@ -286,15 +161,6 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 a2 = vector2;
 				a2.y = (float)Board.Get().BaselineHeight + 0.1f;
 				Vector3 vector4 = vector3;
@@ -313,26 +179,8 @@ public class AbilityUtil_Targeter_TricksterBarriers : AbilityUtil_Targeter
 				gameObject2.transform.rotation = Quaternion.LookRotation(-vector);
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 			travelBoardSquareWorldPosition.y = (float)Board.Get().BaselineHeight + 0.1f;
 			TargeterUtils.RefreshCircleHighlight(this.m_highlights[num9], travelBoardSquareWorldPosition, TargeterUtils.HeightAdjustType.DontAdjustHeight);

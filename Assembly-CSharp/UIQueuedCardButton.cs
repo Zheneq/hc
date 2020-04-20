@@ -22,19 +22,6 @@ public class UIQueuedCardButton : UIBaseButton
 		base.Start();
 		if (this.theButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedCardButton.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnPointerDown));
 			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnPointerClick));
 			UIEventTriggerUtils.AddListener(this.theButton.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnPointerEnter));
@@ -72,32 +59,10 @@ public class UIQueuedCardButton : UIBaseButton
 	{
 		if (GameFlowData.Get().IsInDecisionState())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedCardButton.DoCancel()).MethodHandle;
-			}
 			AbilityData component = GameFlowData.Get().activeOwnedActorData.GetComponent<AbilityData>();
 			ActorTurnSM component2 = component.GetComponent<ActorTurnSM>();
 			if (this.m_abilityEntry != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = component.HasQueuedAction(this.m_actionType);
 				if (flag)
 				{
@@ -121,52 +86,12 @@ public class UIQueuedCardButton : UIBaseButton
 	{
 		if (this.m_canCancel)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedCardButton.OnPointerClick(BaseEventData)).MethodHandle;
-			}
 			if (!SinglePlayerManager.IsCancelDisabled())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.IsAnimCancelPlaying())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_isLockedIn)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_parentReference.CardCanceled();
 					}
 				}
@@ -183,30 +108,8 @@ public class UIQueuedCardButton : UIBaseButton
 		this.m_parentReference = reference;
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedCardButton.Setup(AbilityData.AbilityEntry, AbilityData.ActionType, AbilityData, UIQueuedAction)).MethodHandle;
-			}
 			if (this.m_abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_theSprite, true, null);
 				this.m_theSprite.sprite = this.m_abilityEntry.ability.sprite;
 				goto IL_D2;
@@ -230,15 +133,6 @@ public class UIQueuedCardButton : UIBaseButton
 			bool doActive;
 			if (i == num)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive = (num != -1);
 			}
 			else

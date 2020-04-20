@@ -62,19 +62,6 @@ public class Ninja360Attack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Ninja Basic Attack";
 		}
 		this.Setup();
@@ -85,19 +72,6 @@ public class Ninja360Attack : Ability
 		this.SetCachedFields();
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.Setup()).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Ninja_SyncComponent>();
 		}
 		if (this.m_targetingMode == Ninja360Attack.TargetingMode.Laser)
@@ -107,15 +81,6 @@ public class Ninja360Attack : Ability
 		}
 		else if (this.m_targetingMode == Ninja360Attack.TargetingMode.Cone)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ConeTargetingInfo coneInfo = this.GetConeInfo();
 			float radiusInSquares = coneInfo.m_radiusInSquares;
 			List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
@@ -127,15 +92,6 @@ public class Ninja360Attack : Ability
 			AbilityUtil_Targeter_MultipleCones abilityUtil_Targeter_MultipleCones = new AbilityUtil_Targeter_MultipleCones(this, list, coneInfo.m_backwardsOffset, this.PenetrateLineOfSight(), true, true, false, this.GetSelfHealOnMarkedHit() > 0);
 			if (this.GetSelfHealOnMarkedHit() > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityUtil_Targeter_MultipleCones.m_affectCasterDelegate = new AbilityUtil_Targeter_MultipleCones.IsAffectingCasterDelegate(this.IncludeCasterForTargeter);
 			}
 			base.Targeter = abilityUtil_Targeter_MultipleCones;
@@ -150,43 +106,12 @@ public class Ninja360Attack : Ability
 	{
 		if (this.GetSelfHealOnMarkedHit() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.IncludeCasterForTargeter(ActorData, List<ActorData>)).MethodHandle;
-			}
 			for (int i = 0; i < addedSoFar.Count; i++)
 			{
 				if (this.IsActorMarked(addedSoFar[i]))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -206,32 +131,10 @@ public class Ninja360Attack : Ability
 	{
 		if (this.m_targetingMode == Ninja360Attack.TargetingMode.Laser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetTargetableRadiusInSquares(ActorData)).MethodHandle;
-			}
 			return this.GetLaserInfo().range;
 		}
 		if (this.m_targetingMode == Ninja360Attack.TargetingMode.Cone)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetConeInfo().m_radiusInSquares;
 		}
 		return 0f;
@@ -242,19 +145,6 @@ public class Ninja360Attack : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -266,15 +156,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -285,15 +166,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo cachedInnerConeEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedInnerConeEnemyHitEffect = this.m_abilityMod.m_innerConeEnemyHitEffectMod.GetModifiedValue(this.m_innerConeEnemyHitEffect);
 		}
 		else
@@ -308,19 +180,6 @@ public class Ninja360Attack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.PenetrateLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
 		else
@@ -335,19 +194,6 @@ public class Ninja360Attack : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -372,19 +218,6 @@ public class Ninja360Attack : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetTargeterShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_targeterShapeMod.GetModifiedValue(this.m_targeterShape);
 		}
 		else
@@ -399,19 +232,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -426,19 +246,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetInnerAreaDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_innerAreaDamageMod.GetModifiedValue(this.m_innerAreaDamage);
 		}
 		else
@@ -453,19 +260,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -485,19 +279,6 @@ public class Ninja360Attack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedInnerConeEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetInnerConeEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedInnerConeEnemyHitEffect;
 		}
 		else
@@ -512,19 +293,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetEnergyGainOnMarkedHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyGainOnMarkedHitMod.GetModifiedValue(this.m_energyGainOnMarkedHit);
 		}
 		else
@@ -539,19 +307,6 @@ public class Ninja360Attack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetSelfHealOnMarkedHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealOnMarkedHitMod.GetModifiedValue(this.m_selfHealOnMarkedHit);
 		}
 		else
@@ -566,19 +321,6 @@ public class Ninja360Attack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.ApplyDeathmarkEffect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(this.m_applyDeathmarkEffect);
 		}
 		else
@@ -600,42 +342,11 @@ public class Ninja360Attack : Ability
 	{
 		if (this.m_targetingMode == Ninja360Attack.TargetingMode.Cone)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int damage = this.GetDamageAmount();
 				if (this.GetInnerAreaDamage() > 0 && this.GetInnerConeAngle() > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData actorData = base.ActorData;
 					Vector3 lastUpdateAimDir = base.Targeter.LastUpdateAimDir;
 					float coneForwardAngle = VectorUtils.HorizontalAngle_Deg(lastUpdateAimDir);
@@ -650,15 +361,6 @@ public class Ninja360Attack : Ability
 			}
 			if (targetActor == base.ActorData && this.GetSelfHealOnMarkedHit() > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
@@ -668,15 +370,6 @@ public class Ninja360Attack : Ability
 					{
 						num += this.GetSelfHealOnMarkedHit();
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				results.m_healing = num;
 				return true;
@@ -689,19 +382,6 @@ public class Ninja360Attack : Ability
 	{
 		if (this.GetEnergyGainOnMarkedHit() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			int num = 0;
 			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 			for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
@@ -709,26 +389,8 @@ public class Ninja360Attack : Ability
 				ActorData targetActor = visibleActorsInRangeByTooltipSubject[i];
 				if (this.IsActorMarked(targetActor))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += this.GetEnergyGainOnMarkedHit();
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -739,52 +401,12 @@ public class Ninja360Attack : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp.m_deathmarkOnTriggerDamage > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsActorMarked(targetActor))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, this.m_syncComp.m_deathmarkOnTriggerDamage, false).ToString();
 					}
 				}
@@ -797,30 +419,8 @@ public class Ninja360Attack : Ability
 	{
 		if (this.m_targetingMode == Ninja360Attack.TargetingMode.Cone)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.IsActorInInnerCone(ActorData, ActorData, float)).MethodHandle;
-			}
 			if (this.GetInnerConeAngle() > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ConeTargetingInfo coneInfo = this.GetConeInfo();
 				return AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), caster.GetTravelBoardSquareWorldPosition(), coneForwardAngle, this.GetInnerConeAngle(), coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, this.PenetrateLineOfSight(), caster, false, default(Vector3));
 			}
@@ -833,19 +433,6 @@ public class Ninja360Attack : Ability
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ninja360Attack.IsActorMarked(ActorData)).MethodHandle;
-			}
 			result = this.m_syncComp.ActorHasDeathmark(targetActor);
 		}
 		else

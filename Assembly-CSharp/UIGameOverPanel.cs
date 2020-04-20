@@ -121,30 +121,8 @@ public class UIGameOverPanel : UIScene
 		UIRatingDialogBox uiratingDialogBox = boxReference as UIRatingDialogBox;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.RatingCallback(UIDialogBox)).MethodHandle;
-			}
 			if (uiratingDialogBox.GetRating() > -1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerFeedbackData playerFeedbackData = new PlayerFeedbackData();
 				playerFeedbackData.CharacterType = GameManager.Get().PlayerInfo.CharacterType;
 				playerFeedbackData.Rating = uiratingDialogBox.GetRating() + 1;
@@ -175,19 +153,6 @@ public class UIGameOverPanel : UIScene
 			{
 				goto IL_41;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.GetRewardToUseForIconDisplay(List<RewardUtils.RewardData>, int)).MethodHandle;
-			}
 			if (possibleRewards[i].isRepeating)
 			{
 				goto IL_41;
@@ -209,41 +174,14 @@ public class UIGameOverPanel : UIScene
 			}
 			goto IL_89;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < GameBalanceVars.Get().RewardDisplayPriorityOrder.Length; j++)
 		{
 			for (int k = 0; k < list.Count; k++)
 			{
 				if (GameBalanceVars.Get().RewardDisplayPriorityOrder[j] == list[k].Type)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return list[k];
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (list.Count > 0)
@@ -264,31 +202,9 @@ public class UIGameOverPanel : UIScene
 		{
 			UIManager.SetGameObjectActive(this.m_seasonLevelContainer[i], this.m_IsLevellingSeasons, null);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.DelaySetup(GameType, GameResult, int, int)).MethodHandle;
-		}
 		for (int j = 0; j < this.m_accountLevelContainers.Length; j++)
 		{
 			UIManager.SetGameObjectActive(this.m_accountLevelContainers[j], !this.m_IsLevellingSeasons, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -309,19 +225,6 @@ public class UIGameOverPanel : UIScene
 		Team team2;
 		if (team == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.Setup(GameType, GameResult, int, int)).MethodHandle;
-			}
 			team2 = Team.TeamB;
 		}
 		else
@@ -336,41 +239,14 @@ public class UIGameOverPanel : UIScene
 			{
 				goto IL_7B;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (gameResult != GameResult.TeamBWon)
 		{
 			goto IL_7D;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (team3 != Team.TeamB)
 		{
 			goto IL_7D;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_7B:
 		wonMatch = true;
@@ -383,19 +259,6 @@ public class UIGameOverPanel : UIScene
 	{
 		if (!this.m_isSetup)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.Update()).MethodHandle;
-			}
 			return;
 		}
 		bool flag;
@@ -403,27 +266,9 @@ public class UIGameOverPanel : UIScene
 		{
 			if (!(UINewReward.Get() == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UINewReward.Get().RewardIsBeingAnnounced())
 				{
 					goto IL_69;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag = (Time.unscaledTime >= this.m_continueBtnFailsafeTime);
@@ -435,74 +280,20 @@ public class UIGameOverPanel : UIScene
 		bool flag2 = flag;
 		if (this.m_updateXpStage < UIGameOverPanel.UpdateXPStage.Done)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.failsafeTriggered = true;
 			}
 		}
 		if (!UINewReward.Get().RewardIsBeingAnnounced() && this.m_updateXpStage < UIGameOverPanel.UpdateXPStage.Done)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_waitingForXpBonusAnimFinished)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Animator animator = null;
 				if (this.m_waitingForXpBonusAnimFinished)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (animator == null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_isXpBonusAnimPlaying = false;
 						this.m_updateXpStage++;
 						this.m_continueBtnFailsafeTime = Time.unscaledTime + 10f;
@@ -533,37 +324,10 @@ public class UIGameOverPanel : UIScene
 				bool flag5 = false;
 				if (!flag5)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag3)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag4)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_waitingForXpBonusAnimFinished = true;
 							this.m_isXpBonusAnimPlaying = false;
 							this.m_updateXpStage++;
@@ -574,15 +338,6 @@ public class UIGameOverPanel : UIScene
 				}
 				if (this.failsafeTriggered)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.failsafeTriggered = false;
 					string format = "Fail safe for continue button triggered! charUpdating: {0}, playerUpdating: {1}, currencyUpdating: {2}, influenceupdating: {3}, rankpointsupdating: {4}, GameName: {5}, PlayerHandle: {6}, XPStage: {7}";
 					object[] array = new object[8];
@@ -595,15 +350,6 @@ public class UIGameOverPanel : UIScene
 					object obj;
 					if (GameManager.Get().GameInfo != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						obj = GameManager.Get().GameInfo.Name;
 					}
 					else
@@ -625,19 +371,6 @@ public class UIGameOverPanel : UIScene
 	{
 		if (info.m_levelUpAnimController != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.SetTooltipClickable(UIGameOverPanel.XPDisplayInfo, bool)).MethodHandle;
-			}
 			_SelectableBtn component = info.m_levelUpAnimController.GetComponent<_SelectableBtn>();
 			if (component != null)
 			{
@@ -684,54 +417,14 @@ public class UIGameOverPanel : UIScene
 					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
 					if (!lobbyPlayerInfo.IsNPCBot)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.HasFriendInMatch()).MethodHandle;
-						}
 						if (lobbyPlayerInfo.AccountId > 0L)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (playerInfo.AccountId != lobbyPlayerInfo.AccountId && friendList.Friends.ContainsKey(lobbyPlayerInfo.AccountId))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return true;
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -956,19 +649,6 @@ public class UIGameOverPanel : UIScene
 				float num = Mathf.Min(this.totalUs, this.totalThem);
 				if (num <= 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.TeamELOs.get_HTMLColor()).MethodHandle;
-					}
 					return "A0A0A0";
 				}
 				float num2 = Mathf.Max(this.totalUs, this.totalThem) / num;
@@ -977,15 +657,6 @@ public class UIGameOverPanel : UIScene
 				num2 = 2f - num2;
 				if (this.totalUs > this.totalThem)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.GetHTMLColorElement(0, 0xFF, num2) + "FF" + this.GetHTMLColorElement(0, 0xFF, num2);
 				}
 				return "FF" + this.GetHTMLColorElement(0, 0xFF, num2) + this.GetHTMLColorElement(0, 0xFF, num2);
@@ -996,41 +667,10 @@ public class UIGameOverPanel : UIScene
 		{
 			if (this.countUs > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.TeamELOs.ToHTML(string)).MethodHandle;
-				}
 				if (this.countThem > 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.totalUs > 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.totalThem > 0f)
 						{
 							return string.Format("{0}: <color=#{1}>{2:F0} v {3:F0}</color>", new object[]
@@ -1040,15 +680,6 @@ public class UIGameOverPanel : UIScene
 								this.totalUs / this.countUs,
 								this.totalThem / this.countThem
 							});
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1060,33 +691,11 @@ public class UIGameOverPanel : UIScene
 		{
 			if (team == this.ourTeam)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverPanel.TeamELOs.AddPlayer(Team, float)).MethodHandle;
-				}
 				this.totalUs += elo;
 				this.countUs += 1f;
 			}
 			else if (team == this.ourTeam.OtherTeam())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.totalThem += elo;
 				this.countThem += 1f;
 			}

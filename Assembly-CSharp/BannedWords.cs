@@ -15,19 +15,6 @@ public class BannedWords
 	{
 		if (phrase.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BannedWords.FilterPhrase(string, string)).MethodHandle;
-			}
 			return phrase;
 		}
 		StringBuilder stringBuilder = new StringBuilder(phrase);
@@ -39,15 +26,6 @@ public class BannedWords
 			int num2;
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = phrase.Length - i;
 			}
 			else
@@ -62,28 +40,10 @@ public class BannedWords
 				{
 					if (bannedWordsData.Name == languageCode)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (string b in bannedWordsData.m_fullStrings)
 						{
 							if (text == b)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.Mask(stringBuilder, i, num3);
 							}
 						}
@@ -115,15 +75,6 @@ public class BannedWords
 								goto IL_151;
 							}
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (string text3 in bannedWordsData.m_prefixStrings)
 						{
 							int length2 = text3.Length;
@@ -132,64 +83,19 @@ public class BannedWords
 								this.Mask(stringBuilder, i, length2);
 							}
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (string text4 in bannedWordsData.m_suffixStrings)
 						{
 							int length3 = text4.Length;
 							if (text.EndsWith(text4))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.Mask(stringBuilder, i + num3 - length3, length3);
 							}
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				IL_25A:
 				return stringBuilder.ToString();
 			}

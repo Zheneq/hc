@@ -24,42 +24,11 @@ public class BotController : MonoBehaviour
 		{
 			if (!(component.PlayerData == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.Start()).MethodHandle;
-				}
 				if (component.PlayerData.LookupDetails() == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (lobbyPlayerInfo.PlayerId == component.PlayerData.LookupDetails().m_lobbyPlayerInfoId)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					botDifficulty = lobbyPlayerInfo.Difficulty;
 					flag = lobbyPlayerInfo.BotCanTaunt;
 					break;
@@ -69,301 +38,58 @@ public class BotController : MonoBehaviour
 		this.previousBrainStack = new Stack<NPCBrain>();
 		if (base.GetComponent<NPCBrain>() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(component.GetName() == "Sniper") && !(component.GetName() == "RageBeast") && !(component.GetName() == "Scoundrel"))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(component.GetName() == "RobotAnimal"))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(component.GetName() == "NanoSmith"))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(component.GetName() == "Thief"))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(component.GetName() == "BattleMonk") && !(component.GetName() == "BazookaGirl"))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(component.GetName() == "SpaceMarine"))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(component.GetName() == "Gremlins"))
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!(component.GetName() == "Tracker"))
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!(component.GetName() == "DigitalSorceress"))
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!(component.GetName() == "Spark") && !(component.GetName() == "Claymore") && !(component.GetName() == "Rampart"))
 												{
-													for (;;)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!(component.GetName() == "Trickster"))
 													{
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (!(component.GetName() == "Blaster"))
 														{
-															for (;;)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (!(component.GetName() == "FishMan"))
 															{
-																for (;;)
-																{
-																	switch (2)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (!(component.GetName() == "Thief"))
 																{
-																	for (;;)
-																	{
-																		switch (4)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (!(component.GetName() == "Soldier"))
 																	{
-																		for (;;)
-																		{
-																			switch (1)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (!(component.GetName() == "Exo"))
 																		{
-																			for (;;)
-																			{
-																				switch (4)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
-																			}
 																			if (!(component.GetName() == "Martyr") && !(component.GetName() == "Sensei"))
 																			{
-																				for (;;)
-																				{
-																					switch (5)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
-																				}
 																				if (!(component.GetName() == "TeleportingNinja") && !(component.GetName() == "Manta"))
 																				{
-																					for (;;)
-																					{
-																						switch (6)
-																						{
-																						case 0:
-																							continue;
-																						}
-																						break;
-																					}
 																					if (!(component.GetName() == "Valkyrie"))
 																					{
-																						for (;;)
-																						{
-																							switch (5)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																						if (!(component.GetName() == "Archer"))
 																						{
-																							for (;;)
-																							{
-																								switch (3)
-																								{
-																								case 0:
-																									continue;
-																								}
-																								break;
-																							}
 																							if (!(component.GetName() == "Samurai"))
 																							{
-																								for (;;)
-																								{
-																									switch (6)
-																									{
-																									case 0:
-																										continue;
-																									}
-																									break;
-																								}
 																								if (!(component.GetName() == "Cleric"))
 																								{
-																									for (;;)
-																									{
-																										switch (4)
-																										{
-																										case 0:
-																											continue;
-																										}
-																										break;
-																									}
 																									if (!(component.GetName() == "Neko"))
 																									{
-																										for (;;)
-																										{
-																											switch (5)
-																											{
-																											case 0:
-																												continue;
-																											}
-																											break;
-																										}
 																										if (!(component.GetName() == "Scamp"))
 																										{
-																											for (;;)
-																											{
-																												switch (6)
-																												{
-																												case 0:
-																													continue;
-																												}
-																												break;
-																											}
 																											if (!(component.GetName() == "Dino"))
 																											{
-																												for (;;)
-																												{
-																													switch (7)
-																													{
-																													case 0:
-																														continue;
-																													}
-																													break;
-																												}
 																												if (!(component.GetName() == "Iceborg"))
 																												{
-																													for (;;)
-																													{
-																														switch (7)
-																														{
-																														case 0:
-																															continue;
-																														}
-																														break;
-																													}
 																													if (!(component.GetName() == "Fireborg"))
 																													{
 																														Log.Info("Using Generic AI for {0}", new object[]
@@ -371,15 +97,6 @@ public class BotController : MonoBehaviour
 																															component.GetName()
 																														});
 																														return;
-																													}
-																													for (;;)
-																													{
-																														switch (6)
-																														{
-																														case 0:
-																															continue;
-																														}
-																														break;
 																													}
 																												}
 																											}
@@ -416,15 +133,6 @@ public class BotController : MonoBehaviour
 			});
 			if (this.IAmTheOnlyBotOnATwoPlayerTeam(component))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.GetComponent<NPCBrain_Adaptive>().SendDecisionToTeamChat(true);
 			}
 		}
@@ -447,72 +155,23 @@ public class BotController : MonoBehaviour
 				{
 					if (currentBoardSquare2 == null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.GetClosestEnemyPlayerSquare(bool, int*)).MethodHandle;
-						}
 					}
 					else
 					{
 						float num = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
 						if (num <= this.m_combatRange)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							numEnemiesInRange++;
 						}
 						if (!includeInvisibles)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!component.GetFogOfWar().IsVisible(currentBoardSquare2))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 						}
 						if (boardSquare == null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquare = currentBoardSquare2;
 						}
 						else
@@ -520,29 +179,11 @@ public class BotController : MonoBehaviour
 							float num2 = currentBoardSquare.HorizontalDistanceOnBoardTo(boardSquare);
 							if (num < num2)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								boardSquare = currentBoardSquare2;
 							}
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return boardSquare;
@@ -564,34 +205,12 @@ public class BotController : MonoBehaviour
 				{
 					if (currentBoardSquare2 == null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.GetRetreatSquare()).MethodHandle;
-						}
 					}
 					else
 					{
 						float num = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
 						if (num <= this.m_retreatFromRange)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 b = currentBoardSquare2.ToVector3() - currentBoardSquare.ToVector3();
 							b.Normalize();
 							a += b;
@@ -599,20 +218,11 @@ public class BotController : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Vector3 a2 = -a;
 		a2.Normalize();
 		Vector3 vector = currentBoardSquare.ToVector3() + a2 * this.m_retreatFromRange;
-		return Board.Get().\u0013(vector.x, vector.z);
+		return Board.Get().symbol_0013(vector.x, vector.z);
 	}
 
 	public BoardSquare GetAdvanceSquare()
@@ -630,31 +240,9 @@ public class BotController : MonoBehaviour
 		Vector3 vector2 = a - vector;
 		if (num > 1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.GetAdvanceSquare()).MethodHandle;
-			}
 			float magnitude = vector2.magnitude;
 			if (magnitude > this.m_idealRange)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2.Normalize();
 				vector2 *= this.m_idealRange;
 			}
@@ -677,19 +265,10 @@ public class BotController : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Vector3 vector4 = vector + vector2 + vector3;
 		BoardSquare boardSquareUnsafe = Board.Get().GetBoardSquareUnsafe(vector4.x, vector4.z);
-		return Board.Get().\u0018(boardSquareUnsafe, null);
+		return Board.Get().symbol_0018(boardSquareUnsafe, null);
 	}
 
 	public void SelectBotAbilityMods()
@@ -697,19 +276,6 @@ public class BotController : MonoBehaviour
 		NPCBrain component = base.GetComponent<NPCBrain>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.SelectBotAbilityMods()).MethodHandle;
-			}
 			component.SelectBotAbilityMods();
 		}
 		else
@@ -723,19 +289,6 @@ public class BotController : MonoBehaviour
 		NPCBrain component = base.GetComponent<NPCBrain>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.SelectBotCards()).MethodHandle;
-			}
 			component.SelectBotCards();
 		}
 		else
@@ -760,19 +313,6 @@ public class BotController : MonoBehaviour
 				int num2;
 				if (defaultModForAbility != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.SelectBotAbilityMods_Brainless()).MethodHandle;
-					}
 					num2 = defaultModForAbility.m_abilityScopeId;
 				}
 				else
@@ -782,15 +322,6 @@ public class BotController : MonoBehaviour
 				int mod = num2;
 				selectedMods.SetModForAbility(num, mod);
 				num++;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		component.m_selectedMods = selectedMods;
@@ -811,19 +342,6 @@ public class BotController : MonoBehaviour
 		PlayerDetails playerDetails = actorData.PlayerData.LookupDetails();
 		if (playerDetails == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BotController.IAmTheOnlyBotOnATwoPlayerTeam(ActorData)).MethodHandle;
-			}
 			return false;
 		}
 		bool flag = false;
@@ -834,67 +352,22 @@ public class BotController : MonoBehaviour
 				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
 				if (lobbyPlayerInfo.TeamId != actorData.GetTeam())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (lobbyPlayerInfo.PlayerId == playerDetails.m_lobbyPlayerInfoId)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 					if (lobbyPlayerInfo.IsAIControlled)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 					flag = true;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;

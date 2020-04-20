@@ -14,19 +14,6 @@ namespace I2.Loc
 		{
 			if (this.Target)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(EventCallback.Execute(UnityEngine.Object)).MethodHandle;
-				}
 				if (Application.isPlaying)
 				{
 					this.Target.SendMessage(this.MethodName, Sender, SendMessageOptions.DontRequireReceiver);

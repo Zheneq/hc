@@ -20,19 +20,6 @@ public class RampartAimShield : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAimShield.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Aim Shield";
 		}
 		this.Setup();
@@ -43,19 +30,6 @@ public class RampartAimShield : Ability
 	{
 		if (this.m_passive == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAimShield.Setup()).MethodHandle;
-			}
 			this.m_passive = (base.GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Rampart)) as Passive_Rampart);
 		}
 		float width = (!(this.m_passive != null)) ? 3f : this.m_passive.GetShieldBarrierData().m_width;
@@ -67,19 +41,6 @@ public class RampartAimShield : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_passive != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAimShield.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			this.m_passive.GetShieldBarrierData().ReportAbilityTooltipNumbers(ref result);
 		}
 		return result;

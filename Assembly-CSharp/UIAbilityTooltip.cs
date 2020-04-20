@@ -69,32 +69,10 @@ public class UIAbilityTooltip : UITooltipBase
 	{
 		if (this.m_layoutGroup != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityTooltip.Awake()).MethodHandle;
-			}
 			AbilityStatusEffectEntry[] componentsInChildren = this.m_layoutGroup.GetComponentsInChildren<AbilityStatusEffectEntry>();
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
 				this.m_statusEffectDisplayList.Add(componentsInChildren[i]);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -115,19 +93,6 @@ public class UIAbilityTooltip : UITooltipBase
 		this.m_tooltipDescription.text = ability.GetToolTipString(false);
 		if (!ability.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityTooltip.Setup(Ability, AbilityMod, string)).MethodHandle;
-			}
 			TextMeshProUGUI tooltipDescription = this.m_tooltipDescription;
 			string text = tooltipDescription.text;
 			tooltipDescription.text = string.Concat(new string[]
@@ -142,40 +107,13 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		if (this.m_freeActionsLabelObj != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_freeActionsLabelObj, ability.IsFreeAction(), null);
 		}
 		if (this.m_cooldownText != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = ability.GetCooldownForUIDisplay();
 			if (ability.GetModdedMaxStocks() > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ability.GetModdedStockRefreshDuration() >= 0)
 				{
 					num = ability.GetModdedStockRefreshDuration();
@@ -201,43 +139,12 @@ public class UIAbilityTooltip : UITooltipBase
 	{
 		if (this.m_statusEffectTransform != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityTooltip.SetupStatusTooltip(AbilityMod, Ability)).MethodHandle;
-			}
 			if (ability != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<StatusType> statusTypesForTooltip = ability.GetStatusTypesForTooltip();
 				List<StatusType> list;
 				if (mod != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list = mod.GetStatusTypesForTooltip();
 				}
 				else
@@ -249,15 +156,6 @@ public class UIAbilityTooltip : UITooltipBase
 				{
 					if (i >= this.m_statusEffectDisplayList.Count)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityStatusEffectEntry abilityStatusEffectEntry = UnityEngine.Object.Instantiate<AbilityStatusEffectEntry>(this.m_statusEffectPrefab);
 						abilityStatusEffectEntry.transform.SetParent(this.m_layoutGroup.transform);
 						abilityStatusEffectEntry.transform.localPosition = Vector3.zero;
@@ -272,15 +170,6 @@ public class UIAbilityTooltip : UITooltipBase
 				{
 					if (!statusTypesForTooltip.Contains(list[k]))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i >= this.m_statusEffectDisplayList.Count)
 						{
 							AbilityStatusEffectEntry abilityStatusEffectEntry2 = UnityEngine.Object.Instantiate<AbilityStatusEffectEntry>(this.m_statusEffectPrefab);
@@ -308,19 +197,6 @@ public class UIAbilityTooltip : UITooltipBase
 	{
 		if (this.m_modTooltipParentTransform != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityTooltip.SetupModTooltip(AbilityMod, Ability)).MethodHandle;
-			}
 			if (mod != null)
 			{
 				this.m_modTitle.text = string.Format("{0} <#8E8E8E>", mod.GetName());
@@ -330,28 +206,10 @@ public class UIAbilityTooltip : UITooltipBase
 					{
 						UIManager.SetGameObjectActive(this.m_modCostNotches[i], i < mod.m_equipCost, null);
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				this.m_modTooltip.text = mod.GetFullTooltip(ability);
 				if (!this.m_modTooltipParentTransform.gameObject.activeSelf)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_modTooltipParentTransform, true, null);
 				}
 			}
@@ -366,19 +224,6 @@ public class UIAbilityTooltip : UITooltipBase
 	{
 		if (phaseIndex < this.m_perPhaseUIElements.Length)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityTooltip.SetupPhaseIndicators(int, string)).MethodHandle;
-			}
 			this.SetupPhaseUIElements(this.m_perPhaseUIElements[phaseIndex], phaseName);
 		}
 		else
@@ -387,26 +232,8 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		if (this.m_phaseGradient != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (phaseIndex < this.m_phaseGradientColors.Length)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_phaseGradient.color = this.m_phaseGradientColors[phaseIndex];
 			}
 			else
@@ -424,19 +251,6 @@ public class UIAbilityTooltip : UITooltipBase
 			string text;
 			if (phaseName != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityTooltip.SetupPhaseUIElements(UIAbilityTooltip.PhaseUIElementInfo, string)).MethodHandle;
-				}
 				text = phaseName;
 			}
 			else
@@ -447,28 +261,10 @@ public class UIAbilityTooltip : UITooltipBase
 		}
 		if (this.m_phaseIcon != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Image phaseIcon = this.m_phaseIcon;
 			Sprite sprite;
 			if (uiElementInfo != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = uiElementInfo.m_icon;
 			}
 			else
@@ -478,15 +274,6 @@ public class UIAbilityTooltip : UITooltipBase
 			phaseIcon.sprite = sprite;
 			if (!this.m_phaseIcon.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_phaseIcon, true, null);
 			}
 		}
@@ -494,26 +281,8 @@ public class UIAbilityTooltip : UITooltipBase
 		{
 			if (this.m_perPhaseUIElements[i].m_tickFill != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_perPhaseUIElements[i].m_tickFill, this.m_perPhaseUIElements[i] == uiElementInfo, null);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -521,30 +290,8 @@ public class UIAbilityTooltip : UITooltipBase
 	{
 		if (this.m_movieTexturePlayer != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityTooltip.SetupMoviePanel(string)).MethodHandle;
-			}
 			if (!movieAssetName.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_movieTexturePlayer.Play(movieAssetName, true, true, true);
 				UIManager.SetGameObjectActive(this.m_movieContainer, true, null);
 			}

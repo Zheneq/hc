@@ -63,58 +63,18 @@ public class UIStorePanel : UIScene
 			num++;
 			if (num == 3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.FormatIntToString(int, bool)).MethodHandle;
-				}
 				if (i + 1 != text.Length)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0;
 					string text2 = (!localize) ? "," : StringUtil.TR("ThousandsSeparator", "Global");
 					if (text2.Length > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text2 = ",";
 					}
 					text = text.Insert(i + 1, text2);
 					i++;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return text.Reverse();
 	}
@@ -129,33 +89,11 @@ public class UIStorePanel : UIScene
 		string text = num3.ToString();
 		if (num3 < 0xA)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.GetLocalizedPriceString(float, string)).MethodHandle;
-			}
 			text = "0" + text;
 		}
 		string arg2 = string.Empty;
 		if (currencyCode == "USD")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg2 = "$";
 		}
 		else if (currencyCode == "EUR")
@@ -164,41 +102,14 @@ public class UIStorePanel : UIScene
 		}
 		else if (currencyCode == "GBP")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg2 = "£";
 		}
 		else if (currencyCode == "BRL")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg2 = "R$";
 		}
 		else if (currencyCode == "RUB")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg2 = "RUB";
 		}
 		else
@@ -208,15 +119,6 @@ public class UIStorePanel : UIScene
 		string result;
 		if (num3 > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Format(StringUtil.TR("RealCurrencyDisplay", "Global"), arg2, arg, text);
 		}
 		else
@@ -293,31 +195,9 @@ public class UIStorePanel : UIScene
 	{
 		if (resultMsg.Details.purchaseType == PurchaseType.Game)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePendingPurchaseResult(PendingPurchaseResult)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_gamePurchaseDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_gamePurchaseDialogBox.NotifyPurchaseResponse(resultMsg.Result == PurchaseResult.Success);
 			}
 		}
@@ -325,60 +205,15 @@ public class UIStorePanel : UIScene
 		{
 			if (resultMsg.Details.purchaseType != PurchaseType.LootMatrixPack)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (resultMsg.Details.purchaseType != PurchaseType.Character)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (resultMsg.Details.purchaseType != PurchaseType.GGPack)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (resultMsg.Details.purchaseType != PurchaseType.Tint)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (resultMsg.Details.purchaseType != PurchaseType.InventoryItem)
 							{
 								return;
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -396,19 +231,6 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseGameResponse(PurchaseGameResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_gamePurchaseDialogBox != null)
 			{
@@ -431,19 +253,6 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseLootMatrixPackResponse(PurchaseLootMatrixPackResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_cashPurchaseDialogBox != null)
 			{
@@ -457,19 +266,6 @@ public class UIStorePanel : UIScene
 		this.m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.RequestToPurchaseLootMatrixPack(LootMatrixPack, PaymentMethod)).MethodHandle;
-			}
 			this.IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseLootMatrixPack(pack.Index, paymentInfo.id, new Action<PurchaseLootMatrixPackResponse>(this.HandlePurchaseLootMatrixPackResponse));
@@ -479,44 +275,13 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseCharacterForCashResponse(PurchaseCharacterForCashResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_cashPurchaseDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cashPurchaseDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 			if (this.m_charResponseCallback != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_charResponseCallback(response.Success, response.Result, response.CharacterType);
 				this.m_charResponseCallback = null;
 			}
@@ -528,19 +293,6 @@ public class UIStorePanel : UIScene
 		this.m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.RequestToPurchaseCharacterForCash(CharacterResourceLink, PaymentMethod)).MethodHandle;
-			}
 			this.IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseCharacterForCash(link.m_characterType, paymentInfo.id, new Action<PurchaseCharacterForCashResponse>(this.HandlePurchaseCharacterForCashResponse));
@@ -553,19 +305,6 @@ public class UIStorePanel : UIScene
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_cashPurchaseDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseGGPackResponse(PurchaseGGPackResponse)).MethodHandle;
-				}
 				this.m_cashPurchaseDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 		}
@@ -576,19 +315,6 @@ public class UIStorePanel : UIScene
 		this.m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.RequestToPurchaseGGPack(GGPack, PaymentMethod)).MethodHandle;
-			}
 			this.IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseGGPack(ggPack.Index, paymentInfo.id, new Action<PurchaseGGPackResponse>(this.HandlePurchaseGGPackResponse));
@@ -598,44 +324,13 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseSkinResponse(PurchaseSkinResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectScreenController.Get().PurchaseCharacterSkinResponseHandler(response);
 			}
 		}
@@ -648,19 +343,6 @@ public class UIStorePanel : UIScene
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseTextureResponse(PurchaseTextureResponse)).MethodHandle;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 		}
@@ -673,32 +355,10 @@ public class UIStorePanel : UIScene
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseTintResponse(PurchaseTintResponse)).MethodHandle;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectScreenController.Get().PurchaseCharacterTintResponseHandler(response);
 			}
 		}
@@ -708,19 +368,6 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseTintForCashResponse(PurchaseTintForCashResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_cashPurchaseDialogBox != null)
 			{
@@ -728,15 +375,6 @@ public class UIStorePanel : UIScene
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectScreenController.Get().PurchaseCharacterTintResponseHandler(response);
 			}
 		}
@@ -747,19 +385,6 @@ public class UIStorePanel : UIScene
 		this.m_waitingForPurchaseRequest = true;
 		if (SteamManager.UsingSteam)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.RequestToPurchaseTintForCash(CharacterType, int, int, int, PaymentMethod)).MethodHandle;
-			}
 			this.IsWaitingForSteamPurchaseResponse = true;
 		}
 		ClientGameManager.Get().PurchaseTintForCash(type, skin, texture, tint, paymentInfo.id, new Action<PurchaseTintForCashResponse>(this.HandlePurchaseTintForCashResponse));
@@ -769,19 +394,6 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseStoreItemsResponse(PurchaseStoreItemForCashResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_cashPurchaseDialogBox != null)
 			{
@@ -804,44 +416,13 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseCharacterResponse(PurchaseCharacterResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 			if (this.m_charResponseCallback != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_charResponseCallback(response.Success, response.Result, response.CharacterType);
 				this.m_charResponseCallback = null;
 			}
@@ -852,31 +433,9 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseTauntResponse(PurchaseTauntResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_itemDialogBox.NotifyTauntPurchaseResponse(response.Success);
 			}
 		}
@@ -889,60 +448,20 @@ public class UIStorePanel : UIScene
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseInventoryItemResponse(PurchaseInventoryItemResponse)).MethodHandle;
-				}
 				this.m_itemDialogBox.NotifyPurchaseInventoryItemResponse(response.Success);
 			}
 			if (InventoryWideData.Get().GetItemTemplate(response.InventoryItemID).Type != InventoryItemType.Skin)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (InventoryWideData.Get().GetItemTemplate(response.InventoryItemID).Type != InventoryItemType.Style)
 				{
 					if (InventoryWideData.Get().GetItemTemplate(response.InventoryItemID).Type != InventoryItemType.Texture)
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectScreenController.Get().UpdateSkinsPanel();
 			}
 		}
@@ -964,19 +483,6 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseBannerResponse(PurchaseBannerBackgroundResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
@@ -989,31 +495,9 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseEmblemResponse(PurchaseBannerForegroundResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 		}
@@ -1023,19 +507,6 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseEmoticonResponse(PurchaseChatEmojiResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
@@ -1048,31 +519,9 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseAbilityVfxResponse(PurchaseAbilityVfxResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 		}
@@ -1082,31 +531,9 @@ public class UIStorePanel : UIScene
 	{
 		if (response.Result != PurchaseResult.Processing)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseOverconResponse(PurchaseOverconResponse)).MethodHandle;
-			}
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 		}
@@ -1119,19 +546,6 @@ public class UIStorePanel : UIScene
 			this.m_waitingForPurchaseRequest = false;
 			if (this.m_itemDialogBox != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandlePurchaseLoadingScreenBackgroundResponse(PurchaseLoadingScreenBackgroundResponse)).MethodHandle;
-				}
 				this.m_itemDialogBox.NotifyPurchaseResponse(response.Success);
 			}
 		}
@@ -1219,19 +633,6 @@ public class UIStorePanel : UIScene
 	{
 		if (item.m_itemType == PurchaseItemType.Character)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.OpenPurchaseDialog(UIPurchaseableItem, UIStorePanel.PurchaseCharacterCallback)).MethodHandle;
-			}
 			this.m_charResponseCallback = callback;
 		}
 		this.OpenPurchaseDialog(item, null);
@@ -1245,19 +646,6 @@ public class UIStorePanel : UIScene
 		}
 		if (item.m_itemType == PurchaseItemType.Game)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.OpenPurchaseDialog(UIPurchaseableItem, UIStorePurchaseItemDialogBox.PurchaseCloseDialogCallback)).MethodHandle;
-			}
 			this.m_gamePurchaseDialogBox = UIDialogPopupManager.OpenPurchaseGameDialog(item, this.m_paymentResponse, null);
 			ClientGameManager.Get().RequestPaymentMethods(new Action<PaymentMethodsResponse>(UIStorePanel.Get().RefreshPayments));
 		}
@@ -1265,139 +653,31 @@ public class UIStorePanel : UIScene
 		{
 			if (item.m_itemType != PurchaseItemType.LootMatrixPack)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (item.m_itemType != PurchaseItemType.GGBoost)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!item.m_purchaseForCash)
 					{
 						if (item.m_itemType != PurchaseItemType.Skin)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (item.m_itemType != PurchaseItemType.Texture)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (item.m_itemType != PurchaseItemType.Tint)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (item.m_itemType != PurchaseItemType.Character)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (item.m_itemType != PurchaseItemType.Taunt && item.m_itemType != PurchaseItemType.InventoryItem)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (item.m_itemType != PurchaseItemType.Banner)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (item.m_itemType != PurchaseItemType.Title)
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (item.m_itemType != PurchaseItemType.Emoticon)
 													{
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (item.m_itemType != PurchaseItemType.AbilityVfx && item.m_itemType != PurchaseItemType.Overcon)
 														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (item.m_itemType != PurchaseItemType.LoadingScreenBackground)
 															{
 																return;
-															}
-															for (;;)
-															{
-																switch (5)
-																{
-																case 0:
-																	continue;
-																}
-																break;
 															}
 														}
 													}
@@ -1422,19 +702,6 @@ public class UIStorePanel : UIScene
 	{
 		if (this.m_gamePurchaseDialogBox != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.RefreshPayments(PaymentMethodsResponse)).MethodHandle;
-			}
 			this.m_gamePurchaseDialogBox.RefreshPayments(response);
 		}
 		if (this.m_cashPurchaseDialogBox != null)
@@ -1447,19 +714,6 @@ public class UIStorePanel : UIScene
 	{
 		if (this.IsStoreOpen())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.ToggleStore()).MethodHandle;
-			}
 			this.CloseStore();
 		}
 		else
@@ -1475,31 +729,9 @@ public class UIStorePanel : UIScene
 		UIManager.SetGameObjectActive(this.m_backgroundContainer, this.m_container.gameObject.activeSelf, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.SetMainPanelVisibility(bool)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_panels.Length; i++)
 			{
 				UIManager.SetGameObjectActive(this.m_panels[i], false, null);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			for (int j = 0; j < this.m_menuBtns.Length; j++)
 			{
@@ -1508,15 +740,6 @@ public class UIStorePanel : UIScene
 					this.SetScreenVisible(this.m_menuBtns[j]);
 					return;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1530,19 +753,6 @@ public class UIStorePanel : UIScene
 		ClientGameManager.Get().OnDisconnectedFromLobbyServer += this.HandleDisconnected;
 		if (UIStoreViewHeroPage.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.OpenStore()).MethodHandle;
-			}
 			UIStoreViewHeroPage.Get().SetVisible(false);
 		}
 		ClientGameManager.Get().NotifyStoreOpened();
@@ -1550,15 +760,6 @@ public class UIStorePanel : UIScene
 		CommerceClient.Get().RequestPrices();
 		if (UICharacterSelectWorldObjects.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterSelectWorldObjects.Get().SetVisible(false);
 		}
 		UINewUserFlowManager.OnDoneWithReadyButton();
@@ -1576,30 +777,8 @@ public class UIStorePanel : UIScene
 		ClientGameManager.Get().OnDisconnectedFromLobbyServer -= this.HandleDisconnected;
 		if (uistoreViewHeroPage != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.CloseStore()).MethodHandle;
-			}
 			if (uistoreViewHeroPage.IsVisible())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uistoreViewHeroPage.SetVisible(false);
 				this.m_isViewingHero = false;
 			}
@@ -1615,19 +794,6 @@ public class UIStorePanel : UIScene
 		UIManager.SetGameObjectActive(this.m_secondaryNavContainer, false, null);
 		if (this.m_isViewingHero)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.NotifyLoseFocus()).MethodHandle;
-			}
 			UIStoreViewHeroPage.Get().NotifyLoseFocus();
 		}
 		else
@@ -1641,33 +807,11 @@ public class UIStorePanel : UIScene
 	{
 		if (!this.m_isOpen)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.NotifyGetFocus()).MethodHandle;
-			}
 			return;
 		}
 		UIManager.SetGameObjectActive(this.m_secondaryNavContainer, true, null);
 		if (this.m_isViewingHero)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStoreViewHeroPage.Get().NotifyGetFocus();
 		}
 		else
@@ -1693,19 +837,6 @@ public class UIStorePanel : UIScene
 		{
 			this.m_panels[i].SetVisible(this.m_panels[i].ScreenType == screenToSee);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.ScreenToSetVisible(UIStorePanel.StorePanelScreen)).MethodHandle;
-		}
 	}
 
 	public void HandleDisconnected(string message)
@@ -1722,19 +853,6 @@ public class UIStorePanel : UIScene
 		}
 		if (this.m_cashPurchaseDialogBox != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.HandleRequestPaymentResponse(PaymentMethodsResponse)).MethodHandle;
-			}
 			this.m_cashPurchaseDialogBox.HandleRequestPaymentResponse(this.m_paymentResponse);
 		}
 	}
@@ -1743,32 +861,10 @@ public class UIStorePanel : UIScene
 	{
 		if (navBtnClicked == this.m_freelancerBtn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.SetScreenVisible(UIStoreNavBtn)).MethodHandle;
-			}
 			this.ScreenToSetVisible(UIStorePanel.StorePanelScreen.Freelancer);
 		}
 		else if (navBtnClicked == this.m_accountBtn)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ScreenToSetVisible(UIStorePanel.StorePanelScreen.Account);
 		}
 		else
@@ -1783,19 +879,6 @@ public class UIStorePanel : UIScene
 		{
 			if (this.m_menuBtns[i] == btnClicked)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.NotifyNavBtnClicked(UIStoreNavBtn)).MethodHandle;
-				}
 				this.m_menuBtns[i].SetSelected(true);
 				this.SetScreenVisible(this.m_menuBtns[i]);
 			}
@@ -1804,37 +887,10 @@ public class UIStorePanel : UIScene
 				this.m_menuBtns[i].SetSelected(false);
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (UIStoreViewHeroPage.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIStoreViewHeroPage.Get().IsVisible())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIStoreViewHeroPage.Get().SetVisible(false);
 				this.SetMainPanelVisibility(true);
 			}
@@ -1845,32 +901,10 @@ public class UIStorePanel : UIScene
 	{
 		if (this.IsPurchaseDialogOpen())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.CanOpenMenu()).MethodHandle;
-			}
 			return false;
 		}
 		if (!this.m_isOpen)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		return !this.m_isViewingHero;
@@ -1881,19 +915,6 @@ public class UIStorePanel : UIScene
 		bool result;
 		if (!(this.m_itemDialogBox != null) && !(this.m_gamePurchaseDialogBox != null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.IsPurchaseDialogOpen()).MethodHandle;
-			}
 			result = (this.m_cashPurchaseDialogBox != null);
 		}
 		else
@@ -1907,80 +928,22 @@ public class UIStorePanel : UIScene
 	{
 		if (Input.GetKeyUp(KeyCode.Escape))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.Update()).MethodHandle;
-			}
 			if (this.m_isOpen)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_waitingForPurchaseRequest)
 				{
 					if (this.IsPurchaseDialogOpen())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ClosePurchaseDialog();
 					}
 					else if (this.m_isViewingHero)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UIStoreViewHeroPage.Get().IsVisible())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIStoreViewHeroPage.Get().GoBackToStore();
 						}
 					}
 					return;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1990,32 +953,10 @@ public class UIStorePanel : UIScene
 	{
 		if (this.m_itemDialogBox != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.ClosePurchaseDialog()).MethodHandle;
-			}
 			this.m_itemDialogBox.Close();
 		}
 		else if (this.m_gamePurchaseDialogBox != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gamePurchaseDialogBox.Close();
 		}
 		else if (this.m_cashPurchaseDialogBox != null)
@@ -2028,19 +969,6 @@ public class UIStorePanel : UIScene
 	{
 		if (!this.IsStoreOpen())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.SelectItem(InventoryItemTemplate)).MethodHandle;
-			}
 			this.OpenStore();
 		}
 		InventoryItemType type = template.Type;
@@ -2054,30 +982,12 @@ public class UIStorePanel : UIScene
 			{
 				if (GameBalanceVars.Get().PlayerTitles[i].ID == template.TypeSpecificData[0])
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerTitle = GameBalanceVars.Get().PlayerTitles[i];
 					break;
 				}
 			}
 			if (playerTitle == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new Exception(string.Concat(new object[]
 				{
 					"Invalid title item: ",
@@ -2101,26 +1011,8 @@ public class UIStorePanel : UIScene
 				uistoreBaseInventoryPanel = this.OpenAndGetPanel(CharacterType.None, typeof(UIStoreAccountFluxPanel));
 				return;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (type != InventoryItemType.LoadingScreenBackground)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new Exception("Selecting this type of item is not supported");
 			}
 			uistoreBaseInventoryPanel = this.OpenAndGetPanel(CharacterType.None, typeof(UIStoreAccountLoadingScreenPanel));
@@ -2153,15 +1045,6 @@ public class UIStorePanel : UIScene
 		}
 		if (uistoreBaseInventoryPanel != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			uistoreBaseInventoryPanel.SelectItem(template);
 		}
 	}
@@ -2170,19 +1053,6 @@ public class UIStorePanel : UIScene
 	{
 		if (item.m_itemType == PurchaseItemType.InventoryItem)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.SelectItem(UIPurchaseableItem)).MethodHandle;
-			}
 			this.SelectItem(InventoryWideData.Get().GetItemTemplate(item.m_inventoryTemplateId));
 			return;
 		}
@@ -2208,28 +1078,10 @@ public class UIStorePanel : UIScene
 			{
 				if (GameBalanceVars.Get().PlayerTitles[i].ID == item.m_titleID)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					playerTitle = GameBalanceVars.Get().PlayerTitles[i];
 					IL_138:
 					if (playerTitle == null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						throw new Exception("Invalid title item: ID " + item.m_titleID);
 					}
 					uistoreBaseInventoryPanel = this.OpenAndGetPanel(playerTitle.m_relatedCharacter, typeof(UIStoreAccountBannerPanel));
@@ -2266,15 +1118,6 @@ public class UIStorePanel : UIScene
 			case PurchaseItemType.Tint:
 				if (item.m_charLink.m_characterType.IsValidForHumanGameplay())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uistoreBaseInventoryPanel = this.OpenAndGetPanel(item.m_charLink.m_characterType, typeof(UIStoreFreelancerStylesPanel));
 				}
 				else
@@ -2298,15 +1141,6 @@ public class UIStorePanel : UIScene
 		IL_25F:
 		if (uistoreBaseInventoryPanel != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			uistoreBaseInventoryPanel.SelectItem(item);
 		}
 	}
@@ -2316,19 +1150,6 @@ public class UIStorePanel : UIScene
 		StorePanelData[] panels;
 		if (!charType.IsValidForHumanGameplay())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePanel.OpenAndGetPanel(CharacterType, Type)).MethodHandle;
-			}
 			this.NotifyNavBtnClicked(this.m_accountBtn);
 			panels = this.m_accountPanel.m_panels;
 		}
@@ -2344,15 +1165,6 @@ public class UIStorePanel : UIScene
 			{
 				if (!charType.IsValidForHumanGameplay())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_accountPanel.SelectPanel(panels[i].Button);
 					this.m_accountPanel.DisableInitialSelectPanel();
 				}
@@ -2362,15 +1174,6 @@ public class UIStorePanel : UIScene
 				}
 				return panels[i].Panel;
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}

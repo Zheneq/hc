@@ -74,19 +74,6 @@ public class ExoPunch : Ability
 		StandardEffectInfo cachedNearEnemyExtraEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.SetCachedFields()).MethodHandle;
-			}
 			cachedNearEnemyExtraEffect = this.m_abilityMod.m_nearEnemyExtraEffectMod.GetModifiedValue(this.m_nearEnemyExtraEffect);
 		}
 		else
@@ -101,19 +88,6 @@ public class ExoPunch : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetConeWidthAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
 		}
 		else
@@ -128,19 +102,6 @@ public class ExoPunch : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -165,19 +126,6 @@ public class ExoPunch : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -197,19 +145,6 @@ public class ExoPunch : Ability
 		KnockbackType result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetKnockbackType()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackTypeMod.GetModifiedValue(this.m_knockbackType);
 		}
 		else
@@ -224,19 +159,6 @@ public class ExoPunch : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -251,19 +173,6 @@ public class ExoPunch : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedTargetHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetTargetHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedTargetHitEffect;
 		}
 		else
@@ -278,19 +187,6 @@ public class ExoPunch : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetNearDistThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_nearDistThresholdMod.GetModifiedValue(this.m_nearDistThreshold);
 		}
 		else
@@ -310,19 +206,6 @@ public class ExoPunch : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedNearEnemyExtraEffect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetNearEnemyExtraEffect()).MethodHandle;
-			}
 			result = this.m_cachedNearEnemyExtraEffect;
 		}
 		else
@@ -346,67 +229,18 @@ public class ExoPunch : Ability
 		float num = this.GetNearDistThreshold() * Board.Get().squareSize;
 		if (num > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			ActorData actorData = base.ActorData;
 			Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - actorData.GetTravelBoardSquareWorldPosition();
 			vector.y = 0f;
 			if (vector.magnitude < num)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 				if (tooltipSubjectTypes != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 							int num2 = this.GetDamageAmount();
 							if (this.GetNearEnemyExtraDamage() > 0)
@@ -434,19 +268,6 @@ public class ExoPunch : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ExoPunch))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoPunch.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ExoPunch);
 			this.SetupTargeter();
 		}

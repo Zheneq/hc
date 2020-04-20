@@ -42,19 +42,6 @@ public class AppState_GameTeardown : AppState
 		clientGameManager.LeaveGame(false, this.m_lastGameResult);
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTeardown.OnEnter()).MethodHandle;
-			}
 			HUD_UI.Get().m_mainScreenPanel.SetVisible(false);
 			UIManager.SetGameObjectActive(HUD_UI.Get().m_textConsole, false, null);
 		}
@@ -62,28 +49,10 @@ public class AppState_GameTeardown : AppState
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.GameTeardown, null);
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HUD_UI.Get().GameTeardown();
 		}
 		if (ClientGamePrefabInstantiator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGamePrefabInstantiator.Get().DestroyInstantiations();
 		}
 		else
@@ -92,15 +61,6 @@ public class AppState_GameTeardown : AppState
 		}
 		if (this.m_lastGameResult == GameResult.ServerCrashed)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("ServerShutDown", "Global"), StringUtil.TR("Ok", "Global"), delegate(UIDialogBox UIDialogBox)
 			{
 				this.GoToFrontend();
@@ -108,37 +68,10 @@ public class AppState_GameTeardown : AppState
 		}
 		else if (this.m_lastGameResult.IsConnectionErrorResult())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_lastLobbyErrorMessage.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientGameManager.AllowRelogin)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string empty = string.Empty;
 					string description = string.Format(StringUtil.TR("PressOkToReconnect", "Global"), this.m_lastLobbyErrorMessage);
 					string leftButtonLabel = StringUtil.TR("Ok", "Global");
@@ -147,23 +80,11 @@ public class AppState_GameTeardown : AppState
 					{
 						this.GoToFrontend();
 					};
-					if (AppState_GameTeardown.<>f__am$cache0 == null)
-					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						AppState_GameTeardown.<>f__am$cache0 = delegate(UIDialogBox UIDialogBox)
+					
+					this.m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, delegate(UIDialogBox UIDialogBox)
 						{
 							AppState_Shutdown.Get().Enter();
-						};
-					}
-					this.m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, AppState_GameTeardown.<>f__am$cache0, false, false);
+						}, false, false);
 				}
 				else
 				{
@@ -188,40 +109,13 @@ public class AppState_GameTeardown : AppState
 		this.m_lastLobbyErrorMessage = null;
 		if (!clientGameManager.PlayerObjectStartedOnClient)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!clientGameManager.InGameUIActivated)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!clientGameManager.VisualSceneLoaded)
 				{
 					if (!clientGameManager.DesignSceneStarted)
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -245,52 +139,12 @@ public class AppState_GameTeardown : AppState
 		AppState_FrontendLoadingScreen.NextState nextState;
 		if (this.m_lastGameInfo.GameConfig.GameType != GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTeardown.GoToFrontend()).MethodHandle;
-			}
 			if (this.m_lastGameInfo.GameConfig.GameType != GameType.Custom)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lastGameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_lastGameResult != GameResult.ClientIdleTimeout && this.m_lastGameResult != GameResult.SkippedTurnsIdleTimeout)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						nextState = AppState_FrontendLoadingScreen.NextState.GoToCharacterSelect;
 						goto IL_87;
 					}
@@ -306,19 +160,6 @@ public class AppState_GameTeardown : AppState
 	{
 		if (this.m_messageBox != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTeardown.OnLeave()).MethodHandle;
-			}
 			this.m_messageBox.Close();
 			this.m_messageBox = null;
 		}

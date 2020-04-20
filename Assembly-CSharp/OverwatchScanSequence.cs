@@ -41,19 +41,6 @@ public class OverwatchScanSequence : Sequence
 			GroundLineSequence.ExtraParams extraParams2 = extraSequenceParams as GroundLineSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				Vector3 b = new Vector3(0f, this.m_heightOffset, 0f);
 				Vector3 a = extraParams2.endPos - extraParams2.startPos;
 				a.Normalize();
@@ -61,34 +48,12 @@ public class OverwatchScanSequence : Sequence
 				this.m_endPos = extraParams2.endPos + b;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public override void FinishSetup()
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.FinishSetup()).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -97,31 +62,9 @@ public class OverwatchScanSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.Update()).MethodHandle;
-			}
 			base.ProcessSequenceVisibility();
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
 					this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
@@ -129,57 +72,21 @@ public class OverwatchScanSequence : Sequence
 			}
 			if (this.m_fxCasterJoint.IsInitialized())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxAttributeForJoint == OverwatchScanSequence.JointAttribute.StartPoint)
 				{
 					this.m_startPos = this.m_fxCasterJoint.m_jointObject.transform.position;
 				}
 				else if (this.m_fxAttributeForJoint == OverwatchScanSequence.JointAttribute.EndPoint)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_endPos = this.m_fxCasterJoint.m_jointObject.transform.position;
 				}
 				else if (this.m_fxAttributeForJoint == OverwatchScanSequence.JointAttribute.TopPoint)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Sequence.SetAttribute(this.m_fx, "topPoint", this.m_fxCasterJoint.m_jointObject.transform.position);
 				}
 			}
 			if (this.m_syncHeightOfEndToStart)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_endPos.y = this.m_startPos.y;
 			}
 			Sequence.SetAttribute(this.m_fx, "endPoint", this.m_endPos);
@@ -191,46 +98,15 @@ public class OverwatchScanSequence : Sequence
 	{
 		if (this.m_fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.SpawnFX()).MethodHandle;
-			}
 			Vector3 startPos = this.m_startPos;
 			Quaternion rotation = default(Quaternion);
 			this.m_fx = base.InstantiateFX(this.m_fxPrefab, startPos, rotation, true, true);
 		}
 		if (!this.m_fxCasterJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
@@ -238,15 +114,6 @@ public class OverwatchScanSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -255,26 +122,8 @@ public class OverwatchScanSequence : Sequence
 				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 		}
 	}
@@ -283,19 +132,6 @@ public class OverwatchScanSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -304,19 +140,6 @@ public class OverwatchScanSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverwatchScanSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx.gameObject);
 			this.m_fx = null;
 		}

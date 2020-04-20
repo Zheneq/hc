@@ -6,105 +6,65 @@ namespace TMPro.Examples
 {
 	public class TextConsoleSimulator : MonoBehaviour
 	{
-		private TMP_Text \u001D;
+		private TMP_Text symbol_001D;
 
-		private bool \u000E;
+		private bool symbol_000E;
 
-		private void \u0012()
+		private void symbol_0012()
 		{
-			this.\u001D = base.gameObject.GetComponent<TMP_Text>();
+			this.symbol_001D = base.gameObject.GetComponent<TMP_Text>();
 		}
 
-		private void \u0015()
+		private void symbol_0015()
 		{
-			base.StartCoroutine(this.\u0012(this.\u001D));
+			base.StartCoroutine(this.symbol_0012(this.symbol_001D));
 		}
 
-		private void \u0016()
+		private void symbol_0016()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.\u0012));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.symbol_0012));
 		}
 
-		private void \u0013()
+		private void symbol_0013()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.\u0012));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.symbol_0012));
 		}
 
-		private void \u0012(UnityEngine.Object \u001D)
+		private void symbol_0012(UnityEngine.Object symbol_001D)
 		{
-			this.\u000E = true;
+			this.symbol_000E = true;
 		}
 
-		private IEnumerator \u0012(TMP_Text \u001D)
+		private IEnumerator symbol_0012(TMP_Text symbol_001D)
 		{
-			\u001D.ForceMeshUpdate();
-			TMP_TextInfo textInfo = \u001D.textInfo;
+			symbol_001D.ForceMeshUpdate();
+			TMP_TextInfo textInfo = symbol_001D.textInfo;
 			int characterCount = textInfo.characterCount;
 			int num = 0;
 			for (;;)
 			{
-				if (this.\u000E)
+				if (this.symbol_000E)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextConsoleSimulator.<RevealCharacters>c__Iterator0.MoveNext()).MethodHandle;
-					}
 					characterCount = textInfo.characterCount;
-					this.\u000E = false;
+					this.symbol_000E = false;
 				}
 				if (num > characterCount)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					yield return new WaitForSeconds(1f);
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0;
 				}
-				\u001D.maxVisibleCharacters = num;
+				symbol_001D.maxVisibleCharacters = num;
 				num++;
 				yield return new WaitForSeconds(0f);
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			yield break;
 		}
 
-		private IEnumerator \u0015(TMP_Text \u001D)
+		private IEnumerator symbol_0015(TMP_Text symbol_001D)
 		{
-			\u001D.ForceMeshUpdate();
-			int wordCount = \u001D.textInfo.wordCount;
-			int characterCount = \u001D.textInfo.characterCount;
+			symbol_001D.ForceMeshUpdate();
+			int wordCount = symbol_001D.textInfo.wordCount;
+			int characterCount = symbol_001D.textInfo.characterCount;
 			int num = 0;
 			int num2 = 0;
 			int num3 = 0;
@@ -113,69 +73,20 @@ namespace TMPro.Examples
 				num2 = num % (wordCount + 1);
 				if (num2 == 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextConsoleSimulator.<RevealWords>c__Iterator1.MoveNext()).MethodHandle;
-					}
 					num3 = 0;
 				}
 				else if (num2 < wordCount)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					num3 = \u001D.textInfo.wordInfo[num2 - 1].lastCharacterIndex + 1;
+					num3 = symbol_001D.textInfo.wordInfo[num2 - 1].lastCharacterIndex + 1;
 				}
 				else if (num2 == wordCount)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = characterCount;
 				}
-				\u001D.maxVisibleCharacters = num3;
+				symbol_001D.maxVisibleCharacters = num3;
 				if (num3 >= characterCount)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					yield return new WaitForSeconds(1f);
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				num++;
 				yield return new WaitForSeconds(0.1f);

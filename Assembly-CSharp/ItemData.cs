@@ -27,44 +27,13 @@ public class ItemData : NetworkBehaviour
 	{
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ItemData.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.syncVarDirtyBits == 0U)
 			{
 				return false;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.OnSerializeHelper(new NetworkWriterAdapter(writer));
@@ -76,32 +45,10 @@ public class ItemData : NetworkBehaviour
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ItemData.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			num = reader.ReadPackedUInt32();
 		}
 		if (num != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnSerializeHelper(new NetworkReaderAdapter(reader));
 		}
 	}
@@ -110,30 +57,8 @@ public class ItemData : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ItemData.OnSerializeHelper(IBitStream)).MethodHandle;
-			}
 			if (stream.isReading)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
@@ -141,15 +66,6 @@ public class ItemData : NetworkBehaviour
 		int creditsSpent = 0;
 		if (stream.isWriting)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			credits = this.m_credits;
 			creditsSpent = this.m_creditsSpent;
 			stream.Serialize(ref credits);
@@ -169,33 +85,11 @@ public class ItemData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ItemData.OnTurnStart()).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ItemData::OnTurnStart()' called on client");
 			return;
 		}
 		if (GameFlowData.Get().CurrentTurn == 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_credits = GameplayData.Get().m_startingCredits;
 		}
 		else
@@ -212,19 +106,6 @@ public class ItemData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ItemData.GiveCredits(int)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ItemData::GiveCredits(System.Int32)' called on client");
 			return;
 		}
@@ -237,44 +118,13 @@ public class ItemData : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ItemData.SpendCredits(int)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ItemData::SpendCredits(System.Int32)' called on client");
 			return;
 		}
 		if (Debug.isDebugBuild)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (numCredits > this.m_credits)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = this.m_actorData;
 				Log.Error(string.Concat(new object[]
 				{

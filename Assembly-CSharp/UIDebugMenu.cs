@@ -30,19 +30,6 @@ public class UIDebugMenu : MonoBehaviour
 		this.m_scrollRect = base.GetComponentInChildren<ScrollRect>(true);
 		if (HydrogenConfig.Get().DevMode)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.Awake()).MethodHandle;
-			}
 			this.Init();
 		}
 		else
@@ -83,19 +70,6 @@ public class UIDebugMenu : MonoBehaviour
 		List<string> list = new List<string>();
 		if (DebugCommands.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.GetCategoriesToAdd(bool)).MethodHandle;
-			}
 			using (List<DebugCommand>.Enumerator enumerator = DebugCommands.Get().m_debugCommands.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -103,15 +77,6 @@ public class UIDebugMenu : MonoBehaviour
 					DebugCommand debugCommand = enumerator.Current;
 					if (inFrontEnd && !debugCommand.AvailableInFrontEnd())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -124,15 +89,6 @@ public class UIDebugMenu : MonoBehaviour
 								{
 									continue;
 								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							text = text.Remove(0, this.m_currentPath.Length);
 							string[] array = text.Split(new char[]
@@ -141,67 +97,27 @@ public class UIDebugMenu : MonoBehaviour
 							});
 							if (array[0] != string.Empty)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!list.Contains(array[0]))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(array[0]);
 								}
 							}
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		return list;
 	}
 
-	private bool \u001D(string \u001D)
+	private bool symbol_001D(string symbol_001D)
 	{
 		bool result = false;
-		if (\u001D == this.m_currentPath.TrimEnd(new char[]
+		if (symbol_001D == this.m_currentPath.TrimEnd(new char[]
 		{
 			'/'
 		}))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.\u001D(string)).MethodHandle;
-			}
 			result = true;
 		}
 		return result;
@@ -214,34 +130,12 @@ public class UIDebugMenu : MonoBehaviour
 		{
 			list.Add(this.m_debugMenuGrid.transform.GetChild(i));
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.ClearDebugItems()).MethodHandle;
-		}
 		using (List<Transform>.Enumerator enumerator = list.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				Transform transform = enumerator.Current;
 				UnityEngine.Object.DestroyImmediate(transform.gameObject);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -251,19 +145,6 @@ public class UIDebugMenu : MonoBehaviour
 		this.ClearDebugItems();
 		if (this.m_currentPath != string.Empty)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.CreateDebugItems()).MethodHandle;
-			}
 			this.CreateDebugItem(new DebugCommand_Back
 			{
 				m_debugMenu = this
@@ -272,15 +153,6 @@ public class UIDebugMenu : MonoBehaviour
 		this.m_inFrontEnd = (GameFlowData.Get() == null);
 		if (DebugCommands.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<DebugCommand>.Enumerator enumerator = DebugCommands.Get().m_debugCommands.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -288,45 +160,18 @@ public class UIDebugMenu : MonoBehaviour
 					DebugCommand debugCommand = enumerator.Current;
 					if (this.m_inFrontEnd)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!debugCommand.AvailableInFrontEnd())
 						{
 							continue;
 						}
 					}
-					if (this.\u001D(debugCommand.GetPath()))
+					if (this.symbol_001D(debugCommand.GetPath()))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (debugCommand.GetPath().Length > 0)
 						{
 							this.CreateDebugItem(debugCommand);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -341,15 +186,6 @@ public class UIDebugMenu : MonoBehaviour
 					m_category = category,
 					m_debugMenu = this
 				});
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_debugMenuGrid.cellSize = new Vector2(this.m_debugMenuGrid.GetComponent<RectTransform>().rect.width, this.m_debugMenuGrid.cellSize.y);
@@ -375,30 +211,8 @@ public class UIDebugMenu : MonoBehaviour
 	{
 		if (UISounds.GetUISounds() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.UpdateHotKeys()).MethodHandle;
-			}
 			if (!UIUtils.InputFieldHasFocus() && AccountPreferences.DoesApplicationHaveFocus() && DebugCommands.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = GameFlowData.Get() == null;
 				using (List<DebugCommand>.Enumerator enumerator = DebugCommands.Get().m_debugCommands.GetEnumerator())
 				{
@@ -407,42 +221,15 @@ public class UIDebugMenu : MonoBehaviour
 						DebugCommand debugCommand = enumerator.Current;
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!debugCommand.AvailableInFrontEnd())
 							{
 								continue;
 							}
 						}
-						if (debugCommand.\u001D() != KeyCode.None)
+						if (debugCommand.symbol_001D() != KeyCode.None)
 						{
-							for (;;)
+							if (Input.GetKeyDown(debugCommand.symbol_001D()))
 							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (Input.GetKeyDown(debugCommand.\u001D()))
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.HasRequiredModifierKeys(debugCommand))
 								{
 									UISounds.GetUISounds().Play("ui_btn_menu_click");
@@ -456,15 +243,6 @@ public class UIDebugMenu : MonoBehaviour
 							debugCommand.OnIncreaseClick();
 						}
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -474,31 +252,9 @@ public class UIDebugMenu : MonoBehaviour
 	{
 		if (listener != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.HasRequiredModifierKeys(DebugCommand)).MethodHandle;
-			}
 			bool flag;
-			if (listener.\u000E() && !Input.GetKey(KeyCode.LeftControl))
+			if (listener.symbol_000E() && !Input.GetKey(KeyCode.LeftControl))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = Input.GetKey(KeyCode.RightControl);
 			}
 			else
@@ -507,28 +263,10 @@ public class UIDebugMenu : MonoBehaviour
 			}
 			bool flag2 = flag;
 			bool flag3;
-			if (listener.\u0012())
+			if (listener.symbol_0012())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetKey(KeyCode.LeftAlt))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = Input.GetKey(KeyCode.RightAlt);
 					goto IL_86;
 				}
@@ -537,28 +275,10 @@ public class UIDebugMenu : MonoBehaviour
 			IL_86:
 			bool flag4 = flag3;
 			bool flag5;
-			if (listener.\u0015())
+			if (listener.symbol_0015())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetKey(KeyCode.LeftShift))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = Input.GetKey(KeyCode.RightShift);
 					goto IL_C0;
 				}
@@ -568,26 +288,8 @@ public class UIDebugMenu : MonoBehaviour
 			bool result = flag5;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return result;
 				}
 			}
@@ -604,19 +306,6 @@ public class UIDebugMenu : MonoBehaviour
 		}).LastIndexOf('/');
 		if (num > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugMenu.UpPathLevel()).MethodHandle;
-			}
 			this.m_currentPath = this.m_currentPath.Substring(0, num + 1);
 		}
 		else

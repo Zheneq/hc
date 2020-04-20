@@ -33,31 +33,9 @@ public class TricksterMakeBarriers : Ability
 		Ability[] chainAbilities = base.GetChainAbilities();
 		if (chainAbilities.Length > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.Start()).MethodHandle;
-			}
 			Ability ability = chainAbilities[0];
 			if (ability != null && ability is TricksterMakeBarriers_Damage)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_chainAbility = (ability as TricksterMakeBarriers_Damage);
 			}
 		}
@@ -70,19 +48,6 @@ public class TricksterMakeBarriers : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_chainAbility != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_chainAbility.m_damageAmount);
 			this.m_chainAbility.m_enemyOnHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
 		}
@@ -100,19 +65,6 @@ public class TricksterMakeBarriers : Ability
 		float result;
 		if (this.m_chainAbility == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.GetRangeFromLine()).MethodHandle;
-			}
 			result = 0f;
 		}
 		else
@@ -132,19 +84,6 @@ public class TricksterMakeBarriers : Ability
 		float result;
 		if (this.m_chainAbility == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.GetRadiusAroundOrigin()).MethodHandle;
-			}
 			result = 0f;
 		}
 		else
@@ -159,19 +98,6 @@ public class TricksterMakeBarriers : Ability
 		bool result;
 		if (this.m_chainAbility == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.GetCapsulePenetrateLos()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -191,19 +117,6 @@ public class TricksterMakeBarriers : Ability
 			modelAnimator.SetBool("CinematicCam", cinecam);
 			modelAnimator.SetTrigger("StartAttack");
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
-		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
@@ -216,19 +129,6 @@ public class TricksterMakeBarriers : Ability
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMakeBarriers.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
-					}
 					if (!actorData.IsDead())
 					{
 						Animator modelAnimator = actorData.GetModelAnimator();
@@ -236,15 +136,6 @@ public class TricksterMakeBarriers : Ability
 						modelAnimator.SetBool("CinematicCam", false);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

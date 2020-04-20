@@ -45,19 +45,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		MantaCreateBarriers mantaCreateBarriers = targetAbility as MantaCreateBarriers;
 		if (mantaCreateBarriers != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaCreateBarriers.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_prisonSidesMod, "PrisonSides", string.Empty, mantaCreateBarriers.m_prisonSides, true, false);
 			AbilityMod.AddToken(tokens, this.m_prisonRadiusMod, "PrisonRadius", string.Empty, mantaCreateBarriers.m_prisonRadius, true, false, false);
 			AbilityMod.AddToken_BarrierMod(tokens, this.m_prisonBarrierDataMod, "PrisonBarrierData", mantaCreateBarriers.m_prisonBarrierData);
@@ -79,19 +66,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaCreateBarriers.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = mantaCreateBarriers.m_requireCasterInShape;
 		}
 		else
@@ -108,15 +82,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaCreateBarriers.m_prisonSides;
 		}
 		else
@@ -131,15 +96,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = mantaCreateBarriers.m_prisonRadius;
 		}
 		else
@@ -155,15 +111,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		AbilityAreaShape baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = mantaCreateBarriers.m_shapeForTargeter;
 		}
 		else
@@ -178,15 +125,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = mantaCreateBarriers.m_createBarriersImmediately;
 		}
 		else
@@ -201,15 +139,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = mantaCreateBarriers.m_damageOnCast;
 		}
 		else
@@ -225,15 +154,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = mantaCreateBarriers.m_effectOnAlliesOnCast;
 		}
 		else

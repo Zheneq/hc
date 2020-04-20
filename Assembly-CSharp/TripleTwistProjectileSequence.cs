@@ -49,19 +49,6 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.FinishSetup()).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 		this.m_impactDuration = Sequence.GetFXDuration(this.m_fxImpactPrefab);
@@ -81,19 +68,6 @@ public class TripleTwistProjectileSequence : Sequence
 			Vector3 b = (rotation2 * Vector3.up).normalized * this.m_projectileOffset;
 			this.m_projectileFXs[i] = base.InstantiateFX(this.m_fxPrefab, this.m_startPos + b, rotation, true, true);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.SpawnFX()).MethodHandle;
-		}
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
@@ -104,19 +78,6 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (this.m_fxImpactPrefab)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.SpawnImpactFX()).MethodHandle;
-			}
 			this.m_fxImpact = base.InstantiateFX(this.m_fxImpactPrefab, base.TargetPos, Quaternion.identity, true, true);
 			this.m_impactDurationLeft = this.m_impactDuration;
 		}
@@ -131,31 +92,9 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (this.m_projectileFXs != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.DeactivateProjectiles()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_projectileFXs.Length; i++)
 			{
 				this.m_projectileFXs[i].SetActive(false);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -165,43 +104,12 @@ public class TripleTwistProjectileSequence : Sequence
 		bool result = false;
 		if (this.m_projectileFXs != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.ProjectilesActive()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_projectileFXs.Length; i++)
 			{
 				if (this.m_projectileFXs[i].activeSelf)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -211,43 +119,12 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (this.m_initialized && this.m_projectileFXs != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.Update()).MethodHandle;
-			}
 			if (this.ProjectilesActive())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_projectileTravelTime += GameTime.deltaTime;
 				Vector3 a = this.m_startPos + this.m_projectileDir * this.m_projectileTravelTime * this.m_projectileSpeed;
 				if (Vector3.Dot(a - this.m_startPos, a - base.TargetPos) <= 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < this.m_numProjectiles; i++)
 					{
 						float angle = (float)i * 360f / (float)this.m_numProjectiles + this.m_projectileTravelTime * this.m_rotationSpeed;
@@ -261,15 +138,6 @@ public class TripleTwistProjectileSequence : Sequence
 					this.DeactivateProjectiles();
 					if (this.m_fxImpactPrefab != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SpawnImpactFX();
 					}
 					else
@@ -280,37 +148,10 @@ public class TripleTwistProjectileSequence : Sequence
 			}
 			if (this.m_fxImpact != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxImpact.activeSelf)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_impactDurationLeft > 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_impactDurationLeft -= GameTime.deltaTime;
 					}
 					else
@@ -326,19 +167,6 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (parameter == this.m_startEvent)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -347,19 +175,6 @@ public class TripleTwistProjectileSequence : Sequence
 	{
 		if (this.m_projectileFXs != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TripleTwistProjectileSequence.OnDisable()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_projectileFXs.Length; i++)
 			{
 				if (this.m_projectileFXs[i] != null)
@@ -367,28 +182,10 @@ public class TripleTwistProjectileSequence : Sequence
 					UnityEngine.Object.Destroy(this.m_projectileFXs[i].gameObject);
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_projectileFXs = null;
 		}
 		if (this.m_fxImpact != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_fxImpact);
 			this.m_fxImpact = null;
 		}

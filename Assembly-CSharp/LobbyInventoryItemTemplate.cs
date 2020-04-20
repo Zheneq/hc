@@ -45,19 +45,6 @@ public class LobbyInventoryItemTemplate
 		List<InventoryItem> list = new List<InventoryItem>();
 		if (this.IsStackable)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyInventoryItemTemplate.Process(int)).MethodHandle;
-			}
 			InventoryItem item = new InventoryItem(this.Index, count, 0);
 			list.Add(item);
 		}
@@ -68,15 +55,6 @@ public class LobbyInventoryItemTemplate
 				InventoryItem item2 = this.Process();
 				list.Add(item2);
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return list;
 	}
@@ -85,19 +63,6 @@ public class LobbyInventoryItemTemplate
 	{
 		if (this.TypeSpecificData.IsNullOrEmpty<int>())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyInventoryItemTemplate.ToString()).MethodHandle;
-			}
 			return string.Format("[{0}] {1}, {2}", this.Index, this.DisplayName, this.Type);
 		}
 		string format = "[{0}] {1}, {2}, ({3})";
@@ -108,20 +73,8 @@ public class LobbyInventoryItemTemplate
 		int num = 3;
 		string separator = ",";
 		IEnumerable<int> typeSpecificData = this.TypeSpecificData;
-		if (LobbyInventoryItemTemplate.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyInventoryItemTemplate.<>f__am$cache0 = ((int p) => p.ToString());
-		}
-		array[num] = string.Join(separator, typeSpecificData.Select(LobbyInventoryItemTemplate.<>f__am$cache0).ToArray<string>());
+		
+		array[num] = string.Join(separator, typeSpecificData.Select(((int p) => p.ToString())).ToArray<string>());
 		return string.Format(format, array);
 	}
 }

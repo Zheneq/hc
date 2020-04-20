@@ -23,19 +23,6 @@ public class BattleMonkBuffCharge_Dash : Ability
 		AbilityData component = base.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Dash.Start()).MethodHandle;
-			}
 			List<Ability> abilitiesAsList = component.GetAbilitiesAsList();
 			using (List<Ability>.Enumerator enumerator = abilitiesAsList.GetEnumerator())
 			{
@@ -44,26 +31,8 @@ public class BattleMonkBuffCharge_Dash : Ability
 					Ability ability = enumerator.Current;
 					if (ability is BattleMonkBuffCharge_Prep)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_prepAbility = (ability as BattleMonkBuffCharge_Prep);
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -74,19 +43,6 @@ public class BattleMonkBuffCharge_Dash : Ability
 		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
 		if (this.m_damage != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Dash.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_damage));
 		}
 		this.m_enemyDebuff.ReportAbilityTooltipNumbers(ref list, AbilityTooltipSubject.Enemy);
@@ -108,19 +64,6 @@ public class BattleMonkBuffCharge_Dash : Ability
 		AbilityAreaShape result;
 		if (this.m_prepAbility == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Dash.GetEnemyHitShape()).MethodHandle;
-			}
 			result = this.m_damageEnemiesShape;
 		}
 		else

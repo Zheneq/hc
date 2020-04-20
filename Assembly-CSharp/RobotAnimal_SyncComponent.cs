@@ -44,19 +44,6 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimal_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_biteLastCastTurn);
 			writer.WritePackedUInt32((uint)this.m_biteLastHitTurn);
 			return true;
@@ -64,26 +51,8 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -91,15 +60,6 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -109,15 +69,6 @@ public class RobotAnimal_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;

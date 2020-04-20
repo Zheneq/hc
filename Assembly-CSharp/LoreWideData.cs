@@ -19,19 +19,6 @@ public class LoreWideData : MonoBehaviour
 	{
 		if (this.m_loreArticles[index].Index != index)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LoreWideData.GetArticleByIndex(int)).MethodHandle;
-			}
 		}
 		return this.m_loreArticles[index];
 	}

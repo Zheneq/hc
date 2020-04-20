@@ -18,19 +18,6 @@ public class TargetSelectMod_ChargeAoE : TargetSelectModBase
 		TargetSelect_ChargeAoE targetSelect_ChargeAoE = targetSelectBase as TargetSelect_ChargeAoE;
 		if (targetSelect_ChargeAoE != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_ChargeAoE.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(this.m_radiusAroundStartMod, "[RadiusAroundStart]", true, targetSelect_ChargeAoE.m_radiusAroundStart);
 			text += AbilityModHelper.GetModPropertyDesc(this.m_radiusAroundEndMod, "[RadiusAroundEnd]", true, targetSelect_ChargeAoE.m_radiusAroundEnd);
 			text += AbilityModHelper.GetModPropertyDesc(this.m_rangeFromLineMod, "[RangeFromLine]", true, targetSelect_ChargeAoE.m_rangeFromLine);

@@ -19,19 +19,6 @@ public class PlayerPatternData
 		{
 			this.Colors.Add(new PlayerColorData());
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerPatternData.GetColor(int)).MethodHandle;
-		}
 		return this.Colors[i];
 	}
 
@@ -45,19 +32,6 @@ public class PlayerPatternData
 			{
 				PlayerColorData playerColorData = enumerator.Current;
 				playerPatternData.Colors.Add(playerColorData.GetDeepCopy());
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerPatternData.GetDeepCopy()).MethodHandle;
 			}
 		}
 		return playerPatternData;

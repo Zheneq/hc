@@ -96,19 +96,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericAreaBuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = clericAreaBuff.m_penetrateLoS;
 		}
 		else
@@ -123,15 +110,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = clericAreaBuff.m_includeEnemies;
 		}
 		else
@@ -146,15 +124,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = clericAreaBuff.m_includeAllies;
 		}
 		else
@@ -170,15 +139,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = clericAreaBuff.m_extraTpCostPerTurnActive;
 		}
 		else
@@ -193,15 +153,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = clericAreaBuff.m_cooldownWhenBuffLapses;
 		}
 		else
@@ -216,15 +167,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = clericAreaBuff.m_effectDuration;
 		}
 		else
@@ -239,15 +181,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = clericAreaBuff.m_healAmount;
 		}
 		else
@@ -262,15 +195,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = clericAreaBuff.m_effectOnCaster;
 		}
 		else
@@ -285,15 +209,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		StandardEffectInfo baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = clericAreaBuff.m_effectOnAllies;
 		}
 		else
@@ -308,15 +223,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		StandardEffectInfo baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = clericAreaBuff.m_effectOnAllies;
 		}
 		else
@@ -332,15 +238,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = clericAreaBuff.m_effectOnEnemies;
 		}
 		else
@@ -356,15 +253,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		bool baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = clericAreaBuff.m_addVisionOnTargetSquare;
 		}
 		else
@@ -379,15 +267,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		float baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = clericAreaBuff.m_visionRadius;
 		}
 		else
@@ -402,15 +281,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = clericAreaBuff.m_visionDuration;
 		}
 		else

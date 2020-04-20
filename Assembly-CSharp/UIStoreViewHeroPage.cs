@@ -89,29 +89,13 @@ public class UIStoreViewHeroPage : UIScene
 			UIStorePanel.Get().NotifyGetFocus();
 		};
 		_ButtonSwapSprite restrictedIsoUseBuyGameBtn = this.m_restrictedIsoUseBuyGameBtn;
-		if (UIStoreViewHeroPage.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.Awake()).MethodHandle;
-			}
-			UIStoreViewHeroPage.<>f__am$cache0 = delegate(BaseEventData data)
+		
+		restrictedIsoUseBuyGameBtn.callback = delegate(BaseEventData data)
 			{
 				UIStoreViewHeroPage.Get().SetRestrictedISOUSePopVisible(false);
 				UIFrontEnd.Get().m_frontEndNavPanel.CashShopBtnClicked(null);
 				UICashShopPanel.Get().ButtonClicked(UICashShopPanel.Get().m_gameBtn);
 			};
-		}
-		restrictedIsoUseBuyGameBtn.callback = UIStoreViewHeroPage.<>f__am$cache0;
 		UIEventTriggerUtils.AddListener(this.m_modelHitbox.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.HighlightCharacter));
 		UIEventTriggerUtils.AddListener(this.m_modelHitbox.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.UnhighlightCharacter));
 		this.m_backBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BackBtnClicked);
@@ -133,19 +117,6 @@ public class UIStoreViewHeroPage : UIScene
 			storePanelData.Panel.SetParentContainer(base.gameObject);
 			UIManager.SetGameObjectActive(storePanelData.Panel, false, null);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.Start()).MethodHandle;
-		}
 		this.SelectPanel(this.m_defaultPanelBtn);
 		ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
 		ClientGameManager.Get().OnBankBalanceChange += this.HandleBankBalanceChange;
@@ -158,30 +129,8 @@ public class UIStoreViewHeroPage : UIScene
 		{
 			storePanelData.Panel.OnCountsRefreshed -= new Action<UIStoreBaseInventoryPanel, int, int>(this.CountChanged);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.OnDestroy()).MethodHandle;
-		}
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
 			ClientGameManager.Get().OnBankBalanceChange -= this.HandleBankBalanceChange;
 		}
@@ -202,19 +151,6 @@ public class UIStoreViewHeroPage : UIScene
 	{
 		if (data.selectedObject == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.NavButtonClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		_ButtonSwapSprite component = data.selectedObject.GetComponent<_ButtonSwapSprite>();
@@ -230,30 +166,8 @@ public class UIStoreViewHeroPage : UIScene
 			storePanelData.Panel.SetVisible(storePanelData.Button == btn);
 			if (storePanelData.Button == btn)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.SelectPanel(UIStoreSideNavButton)).MethodHandle;
-				}
 				storePanelData.Panel.RefreshPage();
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -276,19 +190,6 @@ public class UIStoreViewHeroPage : UIScene
 		{
 			this.m_panels[i].Panel.SetCharacter(charLink.m_characterType);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.Setup(CharacterResourceLink)).MethodHandle;
-		}
 		this.OnCharacterDataUpdated(playerCharacterData);
 	}
 
@@ -301,31 +202,9 @@ public class UIStoreViewHeroPage : UIScene
 	{
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.SetVisible(bool)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_panels.Length; i++)
 			{
 				UIManager.SetGameObjectActive(this.m_panels[i].Panel, false, null);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.SelectPanel(this.m_defaultPanelBtn);
 			UIManager.SetGameObjectActive(this.m_container, true, null);
@@ -362,19 +241,6 @@ public class UIStoreViewHeroPage : UIScene
 		UIActorModelData componentInChildren = UICharacterStoreAndProgressWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
 		if (componentInChildren != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.HighlightCharacter(BaseEventData)).MethodHandle;
-			}
 			componentInChildren.SetMouseIsOver(true);
 		}
 	}
@@ -384,19 +250,6 @@ public class UIStoreViewHeroPage : UIScene
 		UIActorModelData componentInChildren = UICharacterStoreAndProgressWorldObjects.Get().m_ringAnimations[0].GetComponentInChildren<UIActorModelData>();
 		if (componentInChildren != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.UnhighlightCharacter(BaseEventData)).MethodHandle;
-			}
 			componentInChildren.SetMouseIsOver(false);
 		}
 	}
@@ -405,19 +258,6 @@ public class UIStoreViewHeroPage : UIScene
 	{
 		if (this.m_charLink != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.GetCurrentCharacterType()).MethodHandle;
-			}
 			return this.m_charLink.m_characterType;
 		}
 		return CharacterType.None;
@@ -431,19 +271,6 @@ public class UIStoreViewHeroPage : UIScene
 		{
 			if (this.m_panels[i].Panel == panel)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.CountChanged(UIStoreBasePanel, int, int)).MethodHandle;
-				}
 				this.m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
 				this.m_panels[i].Button.m_totalCount.text = "/" + totalCount.ToString();
 			}
@@ -454,15 +281,6 @@ public class UIStoreViewHeroPage : UIScene
 		this.m_totalTotalText.text = "/" + num.ToString();
 		if (num == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_ownedProgressBar.fillAmount = 0f;
 			UIManager.SetGameObjectActive(this.m_ownedCompleteContainer, false, null);
 		}
@@ -503,30 +321,8 @@ public class UIStoreViewHeroPage : UIScene
 	{
 		if (success && result == PurchaseResult.Success)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.PurchaseCharacterResponseHandler(bool, PurchaseResult, CharacterType)).MethodHandle;
-			}
 			if (characterType == this.m_charLink.m_characterType)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
 			}
 		}
@@ -541,19 +337,6 @@ public class UIStoreViewHeroPage : UIScene
 	{
 		if (data.m_Type == CurrencyType.UnlockFreelancerToken)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.HandleBankBalanceChange(CurrencyData)).MethodHandle;
-			}
 			this.UpdateBuyButtons();
 		}
 	}
@@ -563,19 +346,6 @@ public class UIStoreViewHeroPage : UIScene
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (!(this.m_charLink == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreViewHeroPage.UpdateBuyButtons()).MethodHandle;
-			}
 			if (!(clientGameManager == null))
 			{
 				if (clientGameManager.IsPlayerCharacterDataAvailable(this.m_charLink.m_characterType))
@@ -583,26 +353,8 @@ public class UIStoreViewHeroPage : UIScene
 					PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_charLink.m_characterType);
 					if (!clientGameManager.HasPurchasedGame)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!playerCharacterData.CharacterComponent.Unlocked)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int unlockFreelancerCurrencyPrice = this.m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
 							this.m_buyInGameLabel.text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
 							UIManager.SetGameObjectActive(this.m_buyInGameButton, unlockFreelancerCurrencyPrice > 0, null);
@@ -616,26 +368,8 @@ public class UIStoreViewHeroPage : UIScene
 							bool doActive;
 							if (unlockFreelancerCurrencyPrice <= 0)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (freelancerPrice <= 0f)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									doActive = flag;
 									goto IL_194;
 								}
@@ -648,15 +382,6 @@ public class UIStoreViewHeroPage : UIScene
 					}
 					UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
 					return;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

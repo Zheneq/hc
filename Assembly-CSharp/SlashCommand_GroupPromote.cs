@@ -17,19 +17,6 @@ public class SlashCommand_GroupPromote : SlashCommand
 				{
 					if (!r.Success)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(SlashCommand_GroupPromote.<OnSlashCommand>m__0(GroupPromoteResponse)).MethodHandle;
-						}
 						if (r.LocalizedFailure != null)
 						{
 							r.ErrorMessage = r.LocalizedFailure.ToString();
@@ -43,19 +30,6 @@ public class SlashCommand_GroupPromote : SlashCommand
 					}
 				});
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_GroupPromote.OnSlashCommand(string)).MethodHandle;
 			}
 		}
 		TextConsole.Get().Write(new TextConsole.Message

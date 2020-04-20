@@ -9,19 +9,6 @@ public class ConstantLogicOpClass : LogicOpClass
 	{
 		if (this.myIndex >= 0 && this.myIndex < constantVals.Count)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConstantLogicOpClass.GetValue(List<bool>)).MethodHandle;
-			}
 			return constantVals[this.myIndex];
 		}
 		return false;

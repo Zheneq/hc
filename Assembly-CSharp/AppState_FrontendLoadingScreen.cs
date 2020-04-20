@@ -112,33 +112,11 @@ public class AppState_FrontendLoadingScreen : AppState
 		{
 			if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToLandingPage)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartLoading()).MethodHandle;
-				}
 			}
 			else
 			{
 				if (!this.m_isUILoaded)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.StartCoroutine(this.WaitForLoadUIBackground());
 					return;
 				}
@@ -151,15 +129,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		PKFxManager.DeepReset();
 		if (!this.m_isUILoaded)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.StartCoroutine(this.LoadUIAndFrontEndBackground());
 		}
 		else
@@ -172,19 +141,6 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (ClientGameManager.Get().IsServerLocked)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.ChooseNextAction()).MethodHandle;
-			}
 			if (!this.m_hasGoneToLandingPage)
 			{
 				this.StartServerLocked();
@@ -193,90 +149,27 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		if (ClientGameManager.Get().IsServerQueued)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.StartServerQueued();
 		}
 		else if (ClientGameManager.Get().IsReady)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.ShouldAutomaticallyEnterTutorial())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_nextState = AppState_FrontendLoadingScreen.NextState.GoToTutorial;
 				}
 				if (this.ShouldAutomaticallyEnterGame())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_nextState = AppState_FrontendLoadingScreen.NextState.GoToGame;
 				}
 				if (!this.m_isLoadingStarted)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_nextState != AppState_FrontendLoadingScreen.NextState.GoToGame)
 					{
 						if (this.m_nextState != AppState_FrontendLoadingScreen.NextState.GoToTutorial)
 						{
 							goto IL_106;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					UIManager.Get().SetGameState(UIManager.ClientState.InGame);
@@ -285,37 +178,10 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				else if (this.m_isLoadingComplete)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToTutorial)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_hasGoneToLandingPage)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UINewUserFlowManager.MarkShowPlayHighlight(true);
 							ClientGameManager.Get().GroupInfo.SelectedQueueType = GameType.Coop;
 							this.StartWaitingForKey();
@@ -332,19 +198,6 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (this.m_state != AppState_FrontendLoadingScreen.State.WaitingForKey)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartWaitingForKey()).MethodHandle;
-			}
 			this.m_state = AppState_FrontendLoadingScreen.State.WaitingForKey;
 			UIFrontendLoadingScreen.Get().StartDisplayPressKey();
 		}
@@ -354,19 +207,6 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (this.m_state != AppState_FrontendLoadingScreen.State.ServerLocked)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartServerLocked()).MethodHandle;
-			}
 			this.m_state = AppState_FrontendLoadingScreen.State.ServerLocked;
 			UIFrontendLoadingScreen.Get().StartDisplayServerLocked();
 			UIFrontendLoadingScreen.Get().SetServerLockButtonVisible(true);
@@ -384,31 +224,9 @@ public class AppState_FrontendLoadingScreen : AppState
 		string arg;
 		if (connectionQueueInfo.QueueEstimatedSeconds != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.StartServerQueued()).MethodHandle;
-			}
 			TimeSpan timeSpan = TimeSpan.FromSeconds((double)connectionQueueInfo.QueueEstimatedSeconds);
 			if (timeSpan.Hours >= 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = string.Format(StringUtil.TR("ETAhoursminutes", "Frontend"), timeSpan.Hours, timeSpan.Minutes);
 			}
 			else
@@ -440,52 +258,12 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (this.m_state == AppState_FrontendLoadingScreen.State.WaitingForKey)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.CheckEndWaitingForKey()).MethodHandle;
-			}
 			if (UIFrontendLoadingScreen.Get().gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIFrontendLoadingScreen.Get().DisplayState == UIFrontendLoadingScreen.DisplayStates.PressKey)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Input.anyKeyDown)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.StartFadingOut();
 					}
 				}
@@ -497,31 +275,9 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (this.m_state == AppState_FrontendLoadingScreen.State.FadingOut)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.CheckEndFadingOut()).MethodHandle;
-			}
 			HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 			if (UIFrontendLoadingScreen.Get().IsReadyToReveal())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TutorialVersion tutorialVersion = TutorialVersion.None;
 				if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToLandingPage)
 				{
@@ -531,30 +287,12 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				else if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToCharacterSelect)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AppState_LandingPage.Get().Enter(this.m_lastLobbyErrorMessage, true);
 					this.m_hasGoneToLandingPage = true;
 					this.m_lastLobbyErrorMessage = null;
 				}
 				else if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToTutorial && !ClientGameManager.Get().IsConnectedToGameServer && !ClientGameManager.Get().IsRegisteredToGameServer)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_hasEnteredMatch = true;
 					UIFrontendLoadingScreen.Get().StartDisplayLoading(null);
 					UIManager.Get().SetGameState(UIManager.ClientState.InGame);
@@ -563,73 +301,19 @@ public class AppState_FrontendLoadingScreen : AppState
 				}
 				else if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToGame)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!ClientGameManager.Get().IsConnectedToGameServer)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!ClientGameManager.Get().IsRegisteredToGameServer)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_hasEnteredMatch = true;
 							UIFrontendLoadingScreen.Get().StartDisplayLoading(null);
 							UIManager.Get().SetGameState(UIManager.ClientState.InGame);
 							if (hydrogenConfig.AutoLaunchGameType == GameType.Custom)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (hydrogenConfig.AutoLaunchCustomGameConfig.GameConfig != null)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (hydrogenConfig.AutoLaunchCustomGameConfig.TeamInfo != null)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										AppState_GameTypeSelect.Get().Enter(hydrogenConfig.AutoLaunchCustomGameConfig);
 										goto IL_1E4;
 									}
@@ -642,15 +326,6 @@ public class AppState_FrontendLoadingScreen : AppState
 				IL_1E4:
 				if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress < tutorialVersion)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress = tutorialVersion;
 				}
 			}
@@ -665,40 +340,9 @@ public class AppState_FrontendLoadingScreen : AppState
 		while (!UIManager.Get().DoneInitialLoading)
 		{
 			yield return 1;
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.<WaitForLoadUIBackground>c__Iterator0.MoveNext()).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (ClientQualityComponentEnabler.OptimizeForMemory())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Resources.UnloadUnusedAssets();
 		}
 		this.m_isLoadingComplete = true;
@@ -720,66 +364,17 @@ public class AppState_FrontendLoadingScreen : AppState
 		}
 		for (;;)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.<LoadUIAndFrontEndBackground>c__Iterator1.MoveNext()).MethodHandle;
-		}
-		for (;;)
-		{
 			if (!(UIFrontEnd.Get() == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(UIStorePanel.Get() == null))
 				{
 					break;
 				}
 			}
 			yield return null;
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		AppState_GroupCharacterSelect.ShowScreen();
 		yield return 0;
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_isLoadingComplete = true;
 		this.m_isUILoaded = true;
 		this.m_state = AppState_FrontendLoadingScreen.State.Loaded;
@@ -792,19 +387,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		this.m_state = AppState_FrontendLoadingScreen.State.Loading;
 		this.m_isLoadingComplete = false;
 		yield return null;
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.<LoadFrontEndBackground>c__Iterator2.MoveNext()).MethodHandle;
-		}
 		ClientGameManager.Get().UnloadAssets();
 		Application.backgroundLoadingPriority = ThreadPriority.Low;
 		if (ClientQualityComponentEnabler.OptimizeForMemory())
@@ -821,54 +403,18 @@ public class AppState_FrontendLoadingScreen : AppState
 			}
 			if (contiguousBlock == IntPtr.Zero)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Memory is fragmented, or too low, restarting application.", new object[0]);
 				string path = Application.dataPath;
 				if (Application.platform == RuntimePlatform.OSXPlayer)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					path += "/../../AtlasReactor";
 				}
 				else if (Application.platform == RuntimePlatform.WindowsPlayer)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					path += "/../AtlasReactor";
 				}
 				Process.Start(path, string.Join(" ", Environment.GetCommandLineArgs()));
 				yield return new WaitForSeconds(32f);
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Application.Quit();
 				yield return new WaitForSeconds(999f);
 			}
@@ -882,53 +428,17 @@ public class AppState_FrontendLoadingScreen : AppState
 		while (!UIManager.Get().DoneInitialLoading)
 		{
 			yield return 1;
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (;;)
 		{
 			if (!(UIFrontEnd.Get() == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(UIStorePanel.Get() == null))
 				{
 					break;
 				}
 			}
 			yield return null;
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		AppState_GroupCharacterSelect.ShowScreen();
 		yield return 0;
@@ -944,19 +454,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (!clientGameManager.IsConnectedToLobbyServer)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.ConnectToLobbyServer()).MethodHandle;
-			}
 			try
 			{
 				clientGameManager.ConnectToLobbyServer();
@@ -983,19 +480,6 @@ public class AppState_FrontendLoadingScreen : AppState
 			}
 			if (response.ErrorMessage.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.HandleConnectedToLobbyServer(RegisterGameClientResponse)).MethodHandle;
-				}
 				response.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 			}
 			string subErrorText;
@@ -1025,19 +509,6 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (this.m_state != AppState_FrontendLoadingScreen.State.Error)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.HandleDisconnectedFromLobbyServer(string)).MethodHandle;
-			}
 			this.StartError(lastLobbyErrorMessage, null);
 		}
 	}
@@ -1048,19 +519,6 @@ public class AppState_FrontendLoadingScreen : AppState
 		{
 			if (notification.ErrorMessage.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.HandleLobbyServerReadyNotification(LobbyServerReadyNotification)).MethodHandle;
-				}
 				notification.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 			}
 			this.StartError(StringUtil.TR("FailedToConnectToLobbyServer", "Frontend"), notification.ErrorMessage);
@@ -1083,107 +541,22 @@ public class AppState_FrontendLoadingScreen : AppState
 	{
 		if (HydrogenConfig.Get().AutoLaunchTutorial)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FrontendLoadingScreen.ShouldAutomaticallyEnterTutorial()).MethodHandle;
-			}
 			if (this.m_nextState == AppState_FrontendLoadingScreen.NextState.GoToLandingPage)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_hasEnteredMatch)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().IsConnectedToLobbyServer)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().IsReady && !ClientGameManager.Get().IsServerLocked)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!ClientGameManager.Get().IsServerQueued)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ClientGameManager.Get().IsPlayerAccountDataAvailable() && ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent != null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.TutorialProgress < TutorialVersion.CargoShip_Tutorial1)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (ClientGameManager.Get().GetPlayerAccountData().ExperienceComponent.Matches < 3)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											return true;
 										}
 									}

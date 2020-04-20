@@ -117,19 +117,6 @@ public class BarrierModData
 		shallowCopy.m_responseOnShotBlock.m_effectOnEnemyOnShot = this.m_effectOnEnemyForShotBlock.GetModifiedValue(input.m_responseOnShotBlock.m_effectOnEnemyOnShot);
 		if (this.m_useBarrierSequenceOverride)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierModData.GetModifiedCopy(StandardBarrierData)).MethodHandle;
-			}
 			shallowCopy.m_barrierSequencePrefabs = new List<GameObject>(this.m_barrierSequenceOverrides);
 		}
 		return shallowCopy;

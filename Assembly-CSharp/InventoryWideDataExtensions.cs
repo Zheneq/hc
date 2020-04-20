@@ -6,30 +6,8 @@ public static class InventoryWideDataExtensions
 	{
 		if (itemType != InventoryItemType.Material)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideDataExtensions.IsDefaultStackableType(InventoryItemType)).MethodHandle;
-			}
 			if (itemType != InventoryItemType.Currency && itemType != InventoryItemType.Experience)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return itemType == InventoryItemType.FreelancerExpBonus;
 			}
 		}
@@ -55,30 +33,8 @@ public static class InventoryWideDataExtensions
 	{
 		if (itemTemplate.Type != InventoryItemType.Material)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.IsCollectable()).MethodHandle;
-			}
 			if (itemTemplate.Type != InventoryItemType.Currency)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (itemTemplate.Type != InventoryItemType.Experience)
 				{
 					return itemTemplate.Type != InventoryItemType.FreelancerExpBonus;
@@ -103,68 +59,19 @@ public static class InventoryWideDataExtensions
 		}
 		if (itemTemplate.Type == InventoryItemType.TitleID)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.GetBindingCharacterType()).MethodHandle;
-			}
 			int num2 = itemTemplate.TypeSpecificData[0];
 			GameBalanceVars.PlayerTitle playerTitle = GameBalanceVars.Get().PlayerTitles[num2];
 			return playerTitle.m_relatedCharacter;
 		}
 		if (itemTemplate.Type != InventoryItemType.Skin)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (itemTemplate.Type != InventoryItemType.Texture)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (itemTemplate.Type != InventoryItemType.Style && itemTemplate.Type != InventoryItemType.Taunt && itemTemplate.Type != InventoryItemType.Mod)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (itemTemplate.Type != InventoryItemType.AbilityVfxSwap)
 					{
 						return CharacterType.None;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}

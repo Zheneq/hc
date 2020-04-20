@@ -26,32 +26,10 @@ public class UISeasonFactionPercentageBar : MonoBehaviour
 			num2 += rectTransform.sizeDelta.x;
 			if (rectTransform.anchorMin.x == rectTransform.anchorMax.x)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionPercentageBar.Setup(float, float, Color)).MethodHandle;
-				}
 				IL_D7:
 				float num3 = num * num2 / 100f;
 				if (this.m_percentageText.preferredWidth > num3)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = this.m_percentageText.preferredWidth / num2;
 					endPortion = startPortion + num3;
 					if (endPortion > 1f)
@@ -66,28 +44,10 @@ public class UISeasonFactionPercentageBar : MonoBehaviour
 				Vector2 zero2 = Vector2.zero;
 				if (startPortion > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					zero.x = -5f;
 				}
 				if (endPortion < 1f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					zero2.x = 5f;
 				}
 				this.m_bar.rectTransform.offsetMin = zero;

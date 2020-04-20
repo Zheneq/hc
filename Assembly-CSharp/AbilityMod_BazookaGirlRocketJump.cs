@@ -36,19 +36,6 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlRocketJump.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = bazookaGirlRocketJump.m_damageAmount;
 		}
 		else
@@ -58,15 +45,6 @@ public class AbilityMod_BazookaGirlRocketJump : AbilityMod
 		text = str + AbilityModHelper.GetModPropertyDesc(damageMod, prefix, showBaseVal, baseVal);
 		if (this.m_resetCooldownOnKill)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "Resets Cooldown on Kill (on beginning of next turn)\n";
 		}
 		return text;

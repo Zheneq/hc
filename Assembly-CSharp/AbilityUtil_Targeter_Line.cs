@@ -21,31 +21,9 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(targetingActor.GetTravelBoardSquareWorldPositionForLos(), currentTarget.AimDirection, maxDistanceInWorld, this.m_linePenetrateLos, targetingActor, null, true);
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Line.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count != 0)
 			{
 				goto IL_B9;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -62,15 +40,6 @@ public class AbilityUtil_Targeter_Line : AbilityUtil_Targeter
 				HighlightUtils.Get().ResizeBoundaryLine(magnitude / Board.Get().squareSize, gameObject);
 				gameObject.transform.position = position;
 				gameObject.transform.rotation = Quaternion.LookRotation(-currentTarget.AimDirection);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

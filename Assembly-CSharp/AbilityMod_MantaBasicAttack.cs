@@ -39,19 +39,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		MantaBasicAttack mantaBasicAttack = targetAbility as MantaBasicAttack;
 		if (mantaBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, mantaBasicAttack.m_coneWidthAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, mantaBasicAttack.m_coneBackwardOffset, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneLengthInnerMod, "ConeLengthInner", string.Empty, mantaBasicAttack.m_coneLengthInner, true, false, false);
@@ -77,19 +64,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = mantaBasicAttack.m_coneWidthAngle;
 		}
 		else
@@ -104,15 +78,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaBasicAttack.m_coneBackwardOffset;
 		}
 		else
@@ -127,15 +92,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = mantaBasicAttack.m_coneLengthInner;
 		}
 		else
@@ -152,15 +108,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = mantaBasicAttack.m_damageAmountThroughWalls;
 		}
 		else
@@ -177,15 +124,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = mantaBasicAttack.m_effectOuter;
 		}
 		else

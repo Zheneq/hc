@@ -44,31 +44,9 @@ public class RectangleHighlightWithLines
 	{
 		if (this.m_currentHeightInSquares == heightInSquares)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RectangleHighlightWithLines.AdjustSize(float, float)).MethodHandle;
-			}
 			if (this.m_currentWidthInSquares == widthInSquares)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_currentHeightInSquares = heightInSquares;
@@ -82,29 +60,11 @@ public class RectangleHighlightWithLines
 		}
 		if (this.m_right != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().AdjustDynamicLineSegmentLength(this.m_right, heightInSquares);
 			this.m_right.transform.localPosition = new Vector3(num2, 0f, -num);
 		}
 		if (this.m_top != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().AdjustDynamicLineSegmentLength(this.m_top, widthInSquares);
 			this.m_top.transform.localPosition = new Vector3(num2, 0f, num);
 		}

@@ -61,19 +61,6 @@ public class UIDialogPopupManager : UIScene
 				action = Interlocked.CompareExchange<Action>(ref UIDialogPopupManager.OnReady, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.add_OnReady(Action)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -85,19 +72,6 @@ public class UIDialogPopupManager : UIScene
 				action = Interlocked.CompareExchange<Action>(ref UIDialogPopupManager.OnReady, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.remove_OnReady(Action)).MethodHandle;
-			}
 		}
 	}
 
@@ -116,19 +90,6 @@ public class UIDialogPopupManager : UIScene
 		UIDialogPopupManager.s_instance = this;
 		if (base.gameObject.transform.parent == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.Awake()).MethodHandle;
-			}
 			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		}
 		base.Awake();
@@ -151,19 +112,6 @@ public class UIDialogPopupManager : UIScene
 		UIDialogPopupManager.Ready = true;
 		if (UIDialogPopupManager.OnReady != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.Start()).MethodHandle;
-			}
 			UIDialogPopupManager.OnReady();
 		}
 	}
@@ -207,7 +155,7 @@ public class UIDialogPopupManager : UIScene
 		case DialogBoxType.PurchaseItem:
 			uidialogBox = UnityEngine.Object.Instantiate<UIStorePurchaseItemDialogBox>(this.m_storePurchaseItemPrefab);
 			break;
-		case DialogBoxType.\u001D:
+		case DialogBoxType.symbol_001D:
 			uidialogBox = UnityEngine.Object.Instantiate<UIDebugModSelectionDialog>(this.m_debugMODSelectionPrefab);
 			break;
 		case DialogBoxType.PartyInvite:
@@ -228,19 +176,6 @@ public class UIDialogPopupManager : UIScene
 		}
 		if (uidialogBox != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.CreateNewDialogBox(DialogBoxType)).MethodHandle;
-			}
 			RectTransform rectTransform = uidialogBox.transform as RectTransform;
 			rectTransform.SetParent(this.m_allDialogs.transform);
 			rectTransform.SetAsLastSibling();
@@ -257,22 +192,9 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenDebugModSelectionDialog(AbilityData.AbilityEntry, int, UICharacterAbilitiesPanel, UIDialogBox.DialogButtonCallback)).MethodHandle;
-			}
 			return null;
 		}
-		UIDebugModSelectionDialog uidebugModSelectionDialog = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.\u001D) as UIDebugModSelectionDialog;
+		UIDebugModSelectionDialog uidebugModSelectionDialog = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.symbol_001D) as UIDebugModSelectionDialog;
 		uidebugModSelectionDialog.Setup(selectedAbility, inAbilityIndex, abilitiesPanel, OnAccept);
 		return uidebugModSelectionDialog;
 	}
@@ -281,19 +203,6 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenPartyInviteDialog(string, string, string, string, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback)).MethodHandle;
-			}
 			return null;
 		}
 		UIPartyInvitePopDialogBox uipartyInvitePopDialogBox = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.PartyInvite) as UIPartyInvitePopDialogBox;
@@ -305,19 +214,6 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenTwoButtonDialog(string, string, string, string, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback, bool, bool)).MethodHandle;
-			}
 			return null;
 		}
 		UITwoButtonDialog uitwoButtonDialog = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.TwoButton) as UITwoButtonDialog;
@@ -340,19 +236,6 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenPurchaseItemDialog(UIPurchaseableItem, UIDialogBox.DialogButtonCallback, UIStorePurchaseItemDialogBox.PurchaseCloseDialogCallback)).MethodHandle;
-			}
 			return null;
 		}
 		UIStorePurchaseItemDialogBox uistorePurchaseItemDialogBox = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.PurchaseItem) as UIStorePurchaseItemDialogBox;
@@ -390,19 +273,6 @@ public class UIDialogPopupManager : UIScene
 		}
 		if (!allowDuplicate)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenOneButtonDialog(string, string, string, UIDialogBox.DialogButtonCallback, int, bool)).MethodHandle;
-			}
 			using (List<UIDialogBox>.Enumerator enumerator = UIDialogPopupManager.Get().m_openBoxes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -411,38 +281,11 @@ public class UIDialogPopupManager : UIScene
 					UIOneButtonDialog uioneButtonDialog = uidialogBox as UIOneButtonDialog;
 					if (uioneButtonDialog != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (uioneButtonDialog.m_Title.text == Title && uioneButtonDialog.m_Desc.text == Description && uioneButtonDialog.m_ButtonLabel[0].text == ButtonLabelText && uioneButtonDialog.GetCallbackReference() == callback)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return null;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -450,15 +293,6 @@ public class UIDialogPopupManager : UIScene
 		uioneButtonDialog2.Setup(Title, Description, ButtonLabelText, callback);
 		if (fontSize > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			uioneButtonDialog2.m_Desc.fontSize = (float)fontSize;
 		}
 		return uioneButtonDialog2;
@@ -468,19 +302,6 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenReportBugDialog(string, string, string, string, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback)).MethodHandle;
-			}
 			return null;
 		}
 		UIReportBugDialogBox uireportBugDialogBox = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.ReportBug) as UIReportBugDialogBox;
@@ -492,19 +313,6 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenRatingDialog(string, string, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback)).MethodHandle;
-			}
 			return null;
 		}
 		UIRatingDialogBox uiratingDialogBox = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.Rating) as UIRatingDialogBox;
@@ -516,19 +324,6 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenTrustWarEndDialog()).MethodHandle;
-			}
 			return null;
 		}
 		using (List<UIDialogBox>.Enumerator enumerator = UIDialogPopupManager.Get().m_openBoxes.GetEnumerator())
@@ -541,15 +336,6 @@ public class UIDialogPopupManager : UIScene
 				{
 					return null;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UITrustWarEndDialog uitrustWarEndDialog = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.TrustWarEnd) as UITrustWarEndDialog;
@@ -564,19 +350,6 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (UIDialogPopupManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.OpenSingleLineInputDialog(string, string, string, string, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback)).MethodHandle;
-			}
 			return null;
 		}
 		UISingleInputLineInputDialogBox uisingleInputLineInputDialogBox = UIDialogPopupManager.Get().CreateNewDialogBox(DialogBoxType.SingleLineInput) as UISingleInputLineInputDialogBox;
@@ -588,32 +361,10 @@ public class UIDialogPopupManager : UIScene
 	{
 		if (this.m_openBoxes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogPopupManager.HideTopMenu()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_openBoxes.Count; i++)
 			{
 				this.m_openBoxes[i].DoCloseCallback();
 				UnityEngine.Object.Destroy(this.m_openBoxes[i].gameObject);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_openBoxes.Clear();
 		}

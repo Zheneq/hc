@@ -22,19 +22,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		ThiefHiddenTrap thiefHiddenTrap = targetAbility as ThiefHiddenTrap;
 		if (thiefHiddenTrap != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefHiddenTrap.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_GroundFieldMod(tokens, this.m_trapFieldInfoMod, "TrapFieldInfo", thiefHiddenTrap.m_trapFieldInfo);
 			AbilityMod.AddToken(tokens, this.m_extraDamagePerTurnMod, "ExtraDamagePerTurn", string.Empty, thiefHiddenTrap.m_extraDamagePerTurn, true, false);
 			AbilityMod.AddToken(tokens, this.m_maxExtraDamageMod, "MaxExtraDamage", string.Empty, thiefHiddenTrap.m_maxExtraDamage, true, false);
@@ -54,19 +41,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefHiddenTrap.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = thiefHiddenTrap.m_extraDamagePerTurn;
 		}
 		else
@@ -81,15 +55,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = thiefHiddenTrap.m_maxExtraDamage;
 		}
 		else

@@ -46,31 +46,9 @@ public class UIDebugModSelectionDialog : UIDialogBox
 	{
 		if (this.m_gridLayout != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.Update()).MethodHandle;
-			}
 			RectTransform component = this.m_gridLayout.GetComponent<RectTransform>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_gridLayout.cellSize = new Vector2(component.rect.width, this.m_gridLayout.cellSize.y);
 			}
 		}
@@ -89,19 +67,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 	{
 		if (this.onAcceptButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.OnAcceptClicked(BaseEventData)).MethodHandle;
-			}
 			this.onAcceptButton(this);
 		}
 		this.m_abilitiesPanel = null;
@@ -112,19 +77,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 	{
 		if (this.m_firstButton != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.m_firstButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnAcceptClicked));
 		}
 	}
@@ -143,19 +95,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			Button button = this.columnHeaderButtons[i];
 			if (button != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.Setup(AbilityData.AbilityEntry, int, UICharacterAbilitiesPanel, UIDialogBox.DialogButtonCallback)).MethodHandle;
-				}
 				int closureCopy = i;
 				UIEventTriggerUtils.AddListener(button.gameObject, EventTriggerType.PointerClick, delegate(BaseEventData x)
 				{
@@ -164,38 +103,17 @@ public class UIDebugModSelectionDialog : UIDialogBox
 				this.reverseSort.Insert(i, false);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(this.m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
 		List<AbilityMod> availableModsForAbility = AbilityModHelper.GetAvailableModsForAbility(inAbility.ability);
 		int selectedAbilitiesModIndex = this.m_abilitiesPanel.m_modInfo.GetModForAbility(inAbilityIndex);
 		float selectedY = 0f;
 		int counter = 0;
 		List<UIModSelectionGridEntry> list2 = list;
-		if (UIDebugModSelectionDialog.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIDebugModSelectionDialog.<>f__am$cache0 = delegate(UIModSelectionGridEntry x)
+		
+		list2.ForEach(delegate(UIModSelectionGridEntry x)
 			{
 				UnityEngine.Object.Destroy(x);
-			};
-		}
-		list2.ForEach(UIDebugModSelectionDialog.<>f__am$cache0);
+			});
 		availableModsForAbility.ForEach(delegate(AbilityMod x)
 		{
 			AbilityMod modForAbility = AbilityModHelper.GetModForAbility(inAbility.ability, selectedAbilitiesModIndex);
@@ -205,19 +123,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			uimodSelectionGridEntry.transform.localScale = Vector3.one;
 			if (characterData == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIDebugModSelectionDialog.<Setup>c__AnonStorey1.<>m__0(AbilityMod)).MethodHandle;
-				}
 			}
 			else
 			{
@@ -239,15 +144,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		Vector2 sizeDelta = new Vector2(component.sizeDelta.x, (float)availableModsForAbility.Count * this.m_gridLayout.cellSize.y);
 		if (sizeDelta.y > component.sizeDelta.y)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.sizeDelta = sizeDelta;
 			this.m_scrollBarRef.value = Mathf.Abs(selectedY / sizeDelta.y - 1f);
 		}
@@ -260,34 +156,9 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		List<UIModSelectionGridEntry> list2;
 		if (columnIndex == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.SortByColumn(BaseEventData, int)).MethodHandle;
-			}
 			IEnumerable<UIModSelectionGridEntry> source = list;
-			if (UIDebugModSelectionDialog.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIDebugModSelectionDialog.<>f__am$cache1 = ((UIModSelectionGridEntry element) => element.m_ModName.text);
-			}
-			IOrderedEnumerable<UIModSelectionGridEntry> source2 = source.OrderBy(UIDebugModSelectionDialog.<>f__am$cache1);
+			
+			IOrderedEnumerable<UIModSelectionGridEntry> source2 = source.OrderBy(((UIModSelectionGridEntry element) => element.m_ModName.text));
 			list2 = source2.ToList<UIModSelectionGridEntry>();
 		}
 		else
@@ -300,32 +171,11 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		bool flag = this.reverseSort[columnIndex];
 		if (this.reverseSort[columnIndex])
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2.Reverse();
 		}
 		IEnumerable<bool> source4 = this.reverseSort;
-		if (UIDebugModSelectionDialog.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIDebugModSelectionDialog.<>f__am$cache3 = ((bool x) => false);
-		}
-		source4.All(UIDebugModSelectionDialog.<>f__am$cache3);
+		
+		source4.All(((bool x) => false));
 		this.reverseSort[columnIndex] = !flag;
 		foreach (UIModSelectionGridEntry uimodSelectionGridEntry in list)
 		{
@@ -342,19 +192,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 		List<UIModSelectionGridEntry> list = new List<UIModSelectionGridEntry>(this.m_gridLayout.GetComponentsInChildren<UIModSelectionGridEntry>(true));
 		if (enabledSomething)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugModSelectionDialog.OnSelected(bool)).MethodHandle;
-			}
 			using (List<UIModSelectionGridEntry>.Enumerator enumerator = list.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -368,15 +205,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 						return;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (List<UIModSelectionGridEntry>.Enumerator enumerator2 = list.GetEnumerator())
 			{
@@ -386,26 +214,8 @@ public class UIDebugModSelectionDialog : UIDialogBox
 					uimodSelectionGridEntry2.m_ModEnabled.isOn = uimodSelectionGridEntry2.justSet;
 					if (uimodSelectionGridEntry2.m_ModEnabled.isOn)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!uimodSelectionGridEntry2.justSet)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Graphic modPoints = uimodSelectionGridEntry2.m_ModPoints;
 							Color color = new Color(uimodSelectionGridEntry2.m_NotSelectedColor.r, uimodSelectionGridEntry2.m_NotSelectedColor.g, uimodSelectionGridEntry2.m_NotSelectedColor.b, uimodSelectionGridEntry2.m_ModPoints.color.a);
 							uimodSelectionGridEntry2.m_ModName.color = color;
@@ -414,15 +224,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 					}
 					if (uimodSelectionGridEntry2.justSet)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_currentSelectionDetails.text = uimodSelectionGridEntry2.associatedAbilityMod.GetUnlocalizedFullTooltip(null);
 						this.m_currentSelectionTitle.text = uimodSelectionGridEntry2.associatedAbilityMod.m_name;
 						this.m_abilitiesPanel.m_selectedAbilityButton.SetSelectedMod(uimodSelectionGridEntry2.associatedAbilityMod);
@@ -434,15 +235,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 					}
 					uimodSelectionGridEntry2.justSet = false;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		else
@@ -451,15 +243,6 @@ public class UIDebugModSelectionDialog : UIDialogBox
 			{
 				if (uimodSelectionGridEntry3.m_ModEnabled.isOn)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 			}

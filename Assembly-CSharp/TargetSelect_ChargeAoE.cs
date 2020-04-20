@@ -25,13 +25,13 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "Intended for single click charge abilities, with line and AoE on either end.\n" + base.GetContextUsageStr(ContextKeys.\u0004.GetName(), "on hit actor, 1 if in AoE near end of laser, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.\u0016.GetName(), "non-actor specific, charge end position", false);
+		return "Intended for single click charge abilities, with line and AoE on either end.\n" + base.GetContextUsageStr(ContextKeys.symbol_0004.GetName(), "on hit actor, 1 if in AoE near end of laser, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.symbol_0016.GetName(), "non-actor specific, charge end position", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0004.GetName());
-		names.Add(ContextKeys.\u0016.GetName());
+		names.Add(ContextKeys.symbol_0004.GetName());
+		names.Add(ContextKeys.symbol_0016.GetName());
 	}
 
 	public float GetRadiusAroundStart()
@@ -39,19 +39,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeAoE.GetRadiusAroundStart()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_radiusAroundStartMod.GetModifiedValue(this.m_radiusAroundStart);
 		}
 		else
@@ -66,19 +53,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeAoE.GetRadiusAroundEnd()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_radiusAroundEndMod.GetModifiedValue(this.m_radiusAroundEnd);
 		}
 		else
@@ -93,19 +67,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeAoE.GetRangeFromLine()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_rangeFromLineMod.GetModifiedValue(this.m_rangeFromLine);
 		}
 		else
@@ -120,19 +81,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		bool result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeAoE.TrimPathOnTargetHit()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_trimPathOnTargetHitMod.GetModifiedValue(this.m_trimPathOnTargetHit);
 		}
 		else
@@ -159,30 +107,8 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeAoE.HandleCustomTargetValidation(Ability, ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num;
 				return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 			}
@@ -203,19 +129,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(caster, startSquare.ToVector3(), boardSquare.ToVector3(), out flag, out vector, null);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeAoE.GetTrimOnHitDestination(AbilityTarget, BoardSquare, float, ActorData, List<Team>, bool)).MethodHandle;
-			}
 			boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startSquare.ToVector3(), abilityLineEndpoint, false, false, float.MaxValue);
 		}
 		BoardSquarePathInfo chargePath = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, startSquare, false);
@@ -229,54 +142,14 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 		destSquare = startSquare;
 		if (chargePath == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeAoE.TrimChargePathOnActorHit(BoardSquarePathInfo, BoardSquare, float, ActorData, List<Team>, bool, BoardSquare*)).MethodHandle;
-			}
 			return;
 		}
 		if (chargePath != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (chargePath.next != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lineHalfWidthInSquares > 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					destSquare = chargePath.GetPathEndpoint().square;
 					Vector3 worldPositionForLoS = startSquare.GetWorldPositionForLoS();
 					Vector3 worldPositionForLoS2 = destSquare.GetWorldPositionForLoS();
@@ -284,15 +157,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 					actorsInBoxByActorRadius.Remove(caster);
 					if (forServer)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -304,15 +168,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 					TargeterUtils.SortActorsByDistanceToPos(ref actorsInBoxByActorRadius, worldPositionForLoS, vector);
 					if (actorsInBoxByActorRadius.Count > 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData actorData = actorsInBoxByActorRadius[0];
 						Vector3 projectionPoint = VectorUtils.GetProjectionPoint(vector, worldPositionForLoS, actorData.GetTravelBoardSquareWorldPositionForLos());
 						BoardSquarePathInfo next = chargePath.next;
@@ -322,15 +177,6 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 							float num2 = VectorUtils.HorizontalPlaneDistInWorld(projectionPoint, next.next.square.ToVector3());
 							if (num2 > num)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (next.square.IsBaselineHeight())
 								{
 									next.next.prev = null;

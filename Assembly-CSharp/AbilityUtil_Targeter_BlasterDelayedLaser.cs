@@ -17,19 +17,6 @@ public class AbilityUtil_Targeter_BlasterDelayedLaser : AbilityUtil_Targeter_Las
 	{
 		if (this.m_syncComp.m_canActivateDelayedLaser)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BlasterDelayedLaser.GetStartLosPos(AbilityTarget, ActorData)).MethodHandle;
-			}
 			return this.m_syncComp.m_delayedLaserStartPos;
 		}
 		return base.GetStartLosPos(currentTarget, targetingActor);
@@ -39,45 +26,14 @@ public class AbilityUtil_Targeter_BlasterDelayedLaser : AbilityUtil_Targeter_Las
 	{
 		if (this.m_syncComp.m_canActivateDelayedLaser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BlasterDelayedLaser.GetAimDirection(AbilityTarget, ActorData)).MethodHandle;
-			}
 			Vector3 result = this.m_syncComp.m_delayedLaserAimDir;
 			if (this.m_aimAtCasterOnDetonate && targetingActor.GetCurrentBoardSquare() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector = targetingActor.GetCurrentBoardSquare().ToVector3() - this.m_syncComp.m_delayedLaserStartPos;
 				vector.y = 0f;
 				vector.Normalize();
 				if (vector.magnitude > 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = vector;
 				}
 			}

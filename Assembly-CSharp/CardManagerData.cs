@@ -37,31 +37,9 @@ public class CardManagerData : MonoBehaviour
 		GameObject cardPrefab = this.GetCardPrefab(this.m_defaultPrepCardType);
 		if (!(cardPrefab == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.Awake()).MethodHandle;
-			}
 			if (cardPrefab.GetComponent<Card>().GetAbilityRunPhase() == AbilityRunPhase.Prep)
 			{
 				goto IL_57;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Debug.LogError("Did not find default Prep card or is in the wrong phase. Please check CardManagerData prefab");
@@ -73,15 +51,6 @@ public class CardManagerData : MonoBehaviour
 			{
 				goto IL_97;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Debug.LogError("Did not find default Dash card or is in the wrong phase. Please check CardManagerData prefab");
 		IL_97:
@@ -91,15 +60,6 @@ public class CardManagerData : MonoBehaviour
 			if (cardPrefab3.GetComponent<Card>().GetAbilityRunPhase() == AbilityRunPhase.Combat)
 			{
 				goto IL_D3;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Debug.LogError("Did not find default Combat card or is in the wrong phase. Please check CardManagerData prefab");
@@ -115,29 +75,11 @@ public class CardManagerData : MonoBehaviour
 				Card component = gameObject.GetComponent<Card>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!component.m_isHidden)
 					{
 						AbilityRunPhase abilityRunPhase = component.GetAbilityRunPhase();
 						if (this.m_phaseToCards.ContainsKey(abilityRunPhase))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_phaseToCards[abilityRunPhase].Add(component.m_cardType);
 						}
 					}
@@ -166,42 +108,11 @@ public class CardManagerData : MonoBehaviour
 		{
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetUsableCardsByPhase(AbilityRunPhase, bool)).MethodHandle;
-				}
 				Card component = gameObject.GetComponent<Card>();
 				if (component != null && component.GetAbilityRunPhase() == cardAbilityPhase)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ignoreHidden)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.m_isHidden)
 						{
 							goto IL_BA;
@@ -209,29 +120,11 @@ public class CardManagerData : MonoBehaviour
 					}
 					if (component.m_cardType != defaultCardType)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(component);
 					}
 				}
 			}
 			IL_BA:;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}
@@ -247,55 +140,15 @@ public class CardManagerData : MonoBehaviour
 		{
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetCardByTypeInt(int)).MethodHandle;
-				}
 				Card component = gameObject.GetComponent<Card>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.m_cardType == (CardType)cardTypeInt)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return component;
 					}
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -306,34 +159,12 @@ public class CardManagerData : MonoBehaviour
 		{
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetCardPrefab(CardType)).MethodHandle;
-				}
 				Card component = gameObject.GetComponent<Card>();
 				if (component.m_cardType == cardType)
 				{
 					return gameObject;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -343,19 +174,6 @@ public class CardManagerData : MonoBehaviour
 		List<GameObject> list = new List<GameObject>();
 		if (cardInfo.PrepCard != CardType.None)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetCardPrefabs(CharacterCardInfo)).MethodHandle;
-			}
 			list.Add(this.GetCardPrefab(cardInfo.PrepCard));
 		}
 		if (cardInfo.CombatCard != CardType.None)
@@ -364,15 +182,6 @@ public class CardManagerData : MonoBehaviour
 		}
 		if (cardInfo.DashCard != CardType.None)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(this.GetCardPrefab(cardInfo.DashCard));
 		}
 		return list;
@@ -399,43 +208,12 @@ public class CardManagerData : MonoBehaviour
 		{
 			return this.GetDefaultPrepCardType();
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.GetDefaultCardType(AbilityRunPhase)).MethodHandle;
-		}
 		if (phase == AbilityRunPhase.Dash)
 		{
 			return this.GetDefaultDashCardType();
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (phase != AbilityRunPhase.Combat)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return CardType.None;
 		}
 		return this.GetDefaultCombatCardType();
@@ -446,19 +224,6 @@ public class CardManagerData : MonoBehaviour
 		bool result = false;
 		if (this.m_phaseToCards.ContainsKey(cardPhase))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CardManagerData.IsCardTypePossibleInGame(CardType, AbilityRunPhase)).MethodHandle;
-			}
 			result = this.m_phaseToCards[cardPhase].Contains(cardType);
 		}
 		return result;

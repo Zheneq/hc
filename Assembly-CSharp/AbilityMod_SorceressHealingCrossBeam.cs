@@ -72,19 +72,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressHealingCrossBeam.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sorceressHealingCrossBeam.m_numLasers;
 		}
 		else
@@ -99,15 +86,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressHealingCrossBeam.m_width;
 		}
 		else
@@ -122,15 +100,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressHealingCrossBeam.m_distance;
 		}
 		else
@@ -145,15 +114,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sorceressHealingCrossBeam.m_damageAmount;
 		}
 		else
@@ -168,15 +128,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sorceressHealingCrossBeam.m_healAmount;
 		}
 		else
@@ -186,15 +137,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		text = str5 + AbilityModHelper.GetModPropertyDesc(normalHealingMod, prefix5, showBaseVal5, baseVal5);
 		if (this.m_useSingleTargetHitMods)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str6 = text;
 			AbilityModPropertyInt singleTargetDamageMod = this.m_singleTargetDamageMod;
 			string prefix6 = "[Damage if Target is only target in laser]";
@@ -202,15 +144,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 			int baseVal6;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal6 = sorceressHealingCrossBeam.m_damageAmount;
 			}
 			else
@@ -225,15 +158,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 			int baseVal7;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal7 = sorceressHealingCrossBeam.m_healAmount;
 			}
 			else
@@ -249,15 +173,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = sorceressHealingCrossBeam.m_enemyHitEffect;
 		}
 		else
@@ -272,15 +187,6 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		StandardEffectInfo baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = sorceressHealingCrossBeam.m_allyHitEffect;
 		}
 		else
@@ -290,27 +196,9 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		text = str9 + AbilityModHelper.GetModPropertyDesc(allyEffectOverride, prefix9, showBaseVal9, baseVal9);
 		if (this.m_knockbackDistance > 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2;
 			if (this.m_knockbackThresholdDistance <= 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = string.Empty;
 			}
 			else

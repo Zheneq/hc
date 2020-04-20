@@ -43,44 +43,13 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 				GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.GetConeWidthAngle());
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithLayeredRings.AllocateConeHighlights()).MethodHandle;
-					}
 					UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component.SetConeObjectActive(false);
 					}
 				}
 				this.m_highlights.Add(gameObject);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -89,43 +58,21 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 	{
 		if (this.IsActorInTargetRange(actor))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithLayeredRings.AddTargetedActor(ActorData, Vector3, ActorData, AbilityTooltipSubject)).MethodHandle;
-			}
 			return;
 		}
 		base.AddTargetedActor(actor, damageOrigin, targetingActor, subjectType);
 		ActorHitContext actorHitContext = this.m_actorContextVars[actor];
 		if (subjectType == AbilityTooltipSubject.Primary)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			actorHitContext.\u0015.SetInt(ContextKeys.\u001A.GetHash(), 0);
+			actorHitContext.symbol_0015.SetInt(ContextKeys.symbol_001A.GetHash(), 0);
 		}
 		else
 		{
 			RadiusToLayerIndex bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData<RadiusToLayerIndex>(this.m_coneRadiusList, actor.GetCurrentBoardSquare(), damageOrigin, targetingActor, true);
 			float value = VectorUtils.HorizontalPlaneDistInSquares(damageOrigin, actor.GetTravelBoardSquareWorldPosition());
-			actorHitContext.\u0015.SetInt(ContextKeys.\u001A.GetHash(), 1);
-			actorHitContext.\u0015.SetInt(ContextKeys.\u0003.GetHash(), bestMatchingData.m_index);
-			actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
+			actorHitContext.symbol_0015.SetInt(ContextKeys.symbol_001A.GetHash(), 1);
+			actorHitContext.symbol_0015.SetInt(ContextKeys.symbol_0003.GetHash(), bestMatchingData.m_index);
+			actorHitContext.symbol_0015.SetFloat(ContextKeys.symbol_0018.GetHash(), value);
 		}
 	}
 }

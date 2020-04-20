@@ -81,19 +81,6 @@ public class TricksterCones : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Trickster Cones";
 		}
 		this.Setup();
@@ -148,19 +135,6 @@ public class TricksterCones : Ability
 				ActorData actorData = enumerator.Current;
 				list.Add(targeterFreePos - actorData.GetTravelBoardSquareWorldPosition());
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetConeDirections(AbilityTarget, Vector3, ActorData)).MethodHandle;
-			}
 		}
 		return list;
 	}
@@ -186,19 +160,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -209,15 +170,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedEnemyMultipleHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyMultipleHitEffect = this.m_abilityMod.m_enemyMultipleHitEffectMod.GetModifiedValue(this.m_enemyMultipleHitEffect);
 		}
 		else
@@ -228,15 +180,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -247,15 +190,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedAllyMultipleHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyMultipleHitEffect = this.m_abilityMod.m_allyMultipleHitEffectMod.GetModifiedValue(this.m_allyMultipleHitEffect);
 		}
 		else
@@ -266,15 +200,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedSelfHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfHitEffect = this.m_abilityMod.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect);
 		}
 		else
@@ -285,15 +210,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo cachedSelfEffectForMultiHit;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfEffectForMultiHit = this.m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
 		}
 		else
@@ -304,15 +220,6 @@ public class TricksterCones : Ability
 		SpoilsSpawnData cachedSpoilSpawnInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSpoilSpawnInfo = this.m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(this.m_spoilSpawnInfo);
 		}
 		else
@@ -327,19 +234,6 @@ public class TricksterCones : Ability
 		ConeTargetingInfo result;
 		if (this.m_cachedConeInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetConeInfo()).MethodHandle;
-			}
 			result = this.m_cachedConeInfo;
 		}
 		else
@@ -354,19 +248,6 @@ public class TricksterCones : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -381,19 +262,6 @@ public class TricksterCones : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSubsequentDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_subsequentDamageAmountMod.GetModifiedValue(this.m_subsequentDamageAmount);
 		}
 		else
@@ -408,19 +276,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -435,19 +290,6 @@ public class TricksterCones : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.UseEnemyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_useEnemyMultiHitEffectMod.GetModifiedValue(this.m_useEnemyMultiHitEffect);
 		}
 		else
@@ -462,19 +304,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyMultipleHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetEnemyMultipleHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyMultipleHitEffect;
 		}
 		else
@@ -489,19 +318,6 @@ public class TricksterCones : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetAllyHealAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
 		}
 		else
@@ -521,19 +337,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyHitEffect;
 		}
 		else
@@ -548,19 +351,6 @@ public class TricksterCones : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.UseAllyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_useAllyMultiHitEffectMod.GetModifiedValue(this.m_useAllyMultiHitEffect);
 		}
 		else
@@ -575,19 +365,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyMultipleHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetAllyMultipleHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyMultipleHitEffect;
 		}
 		else
@@ -602,19 +379,6 @@ public class TricksterCones : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSelfHealAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealAmountMod.GetModifiedValue(this.m_selfHealAmount);
 		}
 		else
@@ -629,19 +393,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSelfHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedSelfHitEffect;
 		}
 		else
@@ -656,19 +407,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfEffectForMultiHit != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSelfEffectForMultiHit()).MethodHandle;
-			}
 			result = this.m_cachedSelfEffectForMultiHit;
 		}
 		else
@@ -683,19 +421,6 @@ public class TricksterCones : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetCooldownReductionPerHitByClone()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(this.m_cooldownReductionPerHitByClone);
 		}
 		else
@@ -720,19 +445,6 @@ public class TricksterCones : Ability
 		SpoilsSpawnData result;
 		if (this.m_cachedSpoilSpawnInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetSpoilSpawnInfo()).MethodHandle;
-			}
 			result = this.m_cachedSpoilSpawnInfo;
 		}
 		else
@@ -747,19 +459,6 @@ public class TricksterCones : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnlySpawnSpoilOnMultiHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(this.m_onlySpawnSpoilOnMultiHit);
 		}
 		else
@@ -786,9 +485,9 @@ public class TricksterCones : Ability
 		return result;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
-		List<int> list = base.\u001D();
+		List<int> list = base.symbol_001D();
 		list.Add(this.m_subsequentDamageAmount);
 		list.Add(this.m_allySubsequentHealAmount);
 		return list;
@@ -801,30 +500,8 @@ public class TricksterCones : Ability
 		ActorData actorData = base.ActorData;
 		if (abilityUtil_Targeter_TricksterCones != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityUtil_Targeter_TricksterCones.m_actorToHitCount.ContainsKey(targetActor))
 				{
 					int num = abilityUtil_Targeter_TricksterCones.m_actorToHitCount[targetActor];
@@ -853,19 +530,6 @@ public class TricksterCones : Ability
 		int val;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_TricksterCones.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -878,15 +542,6 @@ public class TricksterCones : Ability
 		int val2;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_TricksterCones.m_subsequentDamageAmountMod.GetModifiedValue(this.m_subsequentDamageAmount);
 		}
 		else
@@ -897,15 +552,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_TricksterCones.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -916,15 +562,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_TricksterCones.m_enemyMultipleHitEffectMod.GetModifiedValue(this.m_enemyMultipleHitEffect);
 		}
 		else
@@ -937,15 +574,6 @@ public class TricksterCones : Ability
 		int val3;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_TricksterCones.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
 		}
 		else
@@ -957,15 +585,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_TricksterCones.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -976,15 +595,6 @@ public class TricksterCones : Ability
 		StandardEffectInfo effectInfo4;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo4 = abilityMod_TricksterCones.m_allyMultipleHitEffectMod.GetModifiedValue(this.m_allyMultipleHitEffect);
 		}
 		else
@@ -997,15 +607,6 @@ public class TricksterCones : Ability
 		int val4;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_TricksterCones.m_selfHealAmountMod.GetModifiedValue(this.m_selfHealAmount);
 		}
 		else
@@ -1020,15 +621,6 @@ public class TricksterCones : Ability
 		int val5;
 		if (abilityMod_TricksterCones)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_TricksterCones.m_cooldownReductionPerHitByCloneMod.GetModifiedValue(this.m_cooldownReductionPerHitByClone);
 		}
 		else
@@ -1042,19 +634,6 @@ public class TricksterCones : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TricksterCones))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_TricksterCones);
 			this.Setup();
 		}
@@ -1076,30 +655,8 @@ public class TricksterCones : Ability
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
-					}
 					if (!actorData.IsDead())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
 						Animator modelAnimator = actorData.GetModelAnimator();
 						modelAnimator.SetInteger("Attack", animationIndex);
@@ -1107,15 +664,6 @@ public class TricksterCones : Ability
 						modelAnimator.SetTrigger("StartAttack");
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1127,30 +675,8 @@ public class TricksterCones : Ability
 		{
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCones.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
-				}
 				if (!actorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Animator modelAnimator = actorData.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", 0);
 					modelAnimator.SetBool("CinematicCam", false);

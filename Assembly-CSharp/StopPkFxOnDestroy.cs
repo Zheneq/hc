@@ -25,30 +25,8 @@ public class StopPkFxOnDestroy : MonoBehaviour
 			{
 				if (pkfxFX != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.OnDisable()).MethodHandle;
-					}
 					if (this.m_killEffect)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pkfxFX.KillEffect();
 					}
 					else
@@ -56,15 +34,6 @@ public class StopPkFxOnDestroy : MonoBehaviour
 						pkfxFX.TerminateEffect();
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -81,30 +50,8 @@ public class StopPkFxOnDestroy : MonoBehaviour
 		{
 			if (pkfxFX != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.StartEffects()).MethodHandle;
-				}
 				pkfxFX.StartEffect();
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -112,19 +59,6 @@ public class StopPkFxOnDestroy : MonoBehaviour
 	{
 		if (this.m_restartOnEnable)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StopPkFxOnDestroy.OnEnable()).MethodHandle;
-			}
 			if (this.m_hasStarted)
 			{
 				this.StartEffects();

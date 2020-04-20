@@ -103,30 +103,8 @@ public class FishManGeyser : Ability
 		this.SetCachedFields();
 		if (this.ApplyKnockbackOnCast())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.Setup()).MethodHandle;
-			}
 			if (base.RunPriority != AbilityPriority.Combat_Knockback)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Authoring error on FishManGeyser-- ability's run priority is " + base.RunPriority.ToString() + ", but it does knockback on cast.");
 			}
 		}
@@ -149,62 +127,22 @@ public class FishManGeyser : Ability
 		AbilityUtil_Targeter_MultipleShapes abilityUtil_Targeter_MultipleShapes = new AbilityUtil_Targeter_MultipleShapes(this, list);
 		if (this.GetHealOnCasterPerEnemyHit() > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityUtil_Targeter_MultipleShapes abilityUtil_Targeter_MultipleShapes2 = abilityUtil_Targeter_MultipleShapes;
-			if (FishManGeyser.<>f__am$cache0 == null)
+			if (FishManGeyser.f__am_cache0 == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				FishManGeyser.<>f__am$cache0 = delegate(ActorData caster, List<ActorData> actorsSoFar)
+				FishManGeyser.f__am_cache0 = delegate(ActorData caster, List<ActorData> actorsSoFar)
 				{
 					for (int j = 0; j < actorsSoFar.Count; j++)
 					{
 						if (caster.GetTeam() != actorsSoFar[j].GetTeam())
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(FishManGeyser.<Setup>m__0(ActorData, List<ActorData>)).MethodHandle;
-							}
 							return true;
 						}
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					return false;
 				};
 			}
-			abilityUtil_Targeter_MultipleShapes2.m_affectCasterDelegate = FishManGeyser.<>f__am$cache0;
+			abilityUtil_Targeter_MultipleShapes2.m_affectCasterDelegate = FishManGeyser.f__am_cache0;
 		}
 		else
 		{
@@ -218,19 +156,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo cachedEffectToEnemiesOnCast;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectToEnemiesOnCast = this.m_abilityMod.m_effectToEnemiesOnCastMod.GetModifiedValue(this.m_effectToEnemiesOnCast);
 		}
 		else
@@ -241,15 +166,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo cachedEffectToAlliesOnCast;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectToAlliesOnCast = this.m_abilityMod.m_effectToAlliesOnCastMod.GetModifiedValue(this.m_effectToAlliesOnCast);
 		}
 		else
@@ -260,15 +176,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo cachedEnemyEffectOnNextTurn;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyEffectOnNextTurn = this.m_abilityMod.m_enemyEffectOnNextTurnMod.GetModifiedValue(this.m_enemyEffectOnNextTurn);
 		}
 		else
@@ -279,15 +186,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo cachedEelEffectOnEnemies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEelEffectOnEnemies = this.m_abilityMod.m_eelEffectOnEnemiesMod.GetModifiedValue(this.m_eelEffectOnEnemies);
 		}
 		else
@@ -298,15 +196,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo cachedEffectToEnemiesOnExplode;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectToEnemiesOnExplode = this.m_abilityMod.m_effectToEnemiesOnExplodeMod.GetModifiedValue(this.m_effectToEnemiesOnExplode);
 		}
 		else
@@ -317,15 +206,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo cachedEffectToAlliesOnExplode;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectToAlliesOnExplode = this.m_abilityMod.m_effectToAlliesOnExplodeMod.GetModifiedValue(this.m_effectToAlliesOnExplode);
 		}
 		else
@@ -337,38 +217,11 @@ public class FishManGeyser : Ability
 		this.m_cachedShapeToDamage.Add(new FishManGeyser.ShapeToDamage(this.GetCastShape(), this.GetDamageToEnemiesOnCast()));
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_abilityMod.m_useAdditionalShapeOverride)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_abilityMod.m_additionalShapeToDamageOverride.Count; i++)
 				{
 					this.m_cachedShapeToDamage.Add(new FishManGeyser.ShapeToDamage(this.m_abilityMod.m_additionalShapeToDamageOverride[i].m_shape, this.m_abilityMod.m_additionalShapeToDamageOverride[i].m_damage));
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				goto IL_29F;
 			}
@@ -376,15 +229,6 @@ public class FishManGeyser : Ability
 		for (int j = 0; j < this.m_additionalShapeToDamage.Count; j++)
 		{
 			this.m_cachedShapeToDamage.Add(new FishManGeyser.ShapeToDamage(this.m_additionalShapeToDamage[j].m_shape, this.m_additionalShapeToDamage[j].m_damage));
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_29F:
 		this.m_cachedShapeToDamage.Sort();
@@ -394,30 +238,8 @@ public class FishManGeyser : Ability
 	{
 		if (this.m_cachedShapeToDamage != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetDamageForShapeIndex(int)).MethodHandle;
-			}
 			if (shapeIndex < this.m_cachedShapeToDamage.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_cachedShapeToDamage[shapeIndex].m_damage;
 			}
 		}
@@ -439,19 +261,6 @@ public class FishManGeyser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetDamageToEnemiesOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageToEnemiesOnCastMod.GetModifiedValue(this.m_damageToEnemiesOnCast);
 		}
 		else
@@ -466,19 +275,6 @@ public class FishManGeyser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetHealingToAlliesOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healingToAlliesOnCastMod.GetModifiedValue(this.m_healingToAlliesOnCast);
 		}
 		else
@@ -493,19 +289,6 @@ public class FishManGeyser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetHealOnCasterPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healOnCasterPerEnemyHitMod.GetModifiedValue(this.m_healOnCasterPerEnemyHit);
 		}
 		else
@@ -520,19 +303,6 @@ public class FishManGeyser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.ApplyKnockbackOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyKnockbackOnCastMod.GetModifiedValue(this.m_applyKnockbackOnCast);
 		}
 		else
@@ -552,19 +322,6 @@ public class FishManGeyser : Ability
 		KnockbackType result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetKnockbackTypeOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackTypeOnCastMod.GetModifiedValue(this.m_knockbackTypeOnCast);
 		}
 		else
@@ -579,19 +336,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectToEnemiesOnCast != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetEffectToEnemiesOnCast()).MethodHandle;
-			}
 			result = this.m_cachedEffectToEnemiesOnCast;
 		}
 		else
@@ -606,19 +350,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectToAlliesOnCast != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetEffectToAlliesOnCast()).MethodHandle;
-			}
 			result = this.m_cachedEffectToAlliesOnCast;
 		}
 		else
@@ -633,19 +364,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyEffectOnNextTurn != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetEnemyEffectOnNextTurn()).MethodHandle;
-			}
 			result = this.m_cachedEnemyEffectOnNextTurn;
 		}
 		else
@@ -660,19 +378,6 @@ public class FishManGeyser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.ApplyEelEffectOnEnemies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyEelEffectOnEnemiesMod.GetModifiedValue(this.m_applyEelEffectOnEnemies);
 		}
 		else
@@ -697,19 +402,6 @@ public class FishManGeyser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetEelRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_eelRadiusMod.GetModifiedValue(this.m_eelRadius);
 		}
 		else
@@ -724,19 +416,6 @@ public class FishManGeyser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetTurnsTillFirstExplosion()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_turnsTillFirstExplosionMod.GetModifiedValue(this.m_turnsTillFirstExplosion);
 		}
 		else
@@ -751,19 +430,6 @@ public class FishManGeyser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetNumExplosionsBeforeEnding()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_numExplosionsBeforeEndingMod.GetModifiedValue(this.m_numExplosionsBeforeEnding);
 		}
 		else
@@ -778,19 +444,6 @@ public class FishManGeyser : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetExplodeShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explodeShapeMod.GetModifiedValue(this.m_explodeShape);
 		}
 		else
@@ -810,19 +463,6 @@ public class FishManGeyser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetDamageToEnemiesOnExplode()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageToEnemiesOnExplodeMod.GetModifiedValue(this.m_damageToEnemiesOnExplode);
 		}
 		else
@@ -837,19 +477,6 @@ public class FishManGeyser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetHealingToAlliesOnExplode()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healingToAlliesOnExplodeMod.GetModifiedValue(this.m_healingToAlliesOnExplode);
 		}
 		else
@@ -869,19 +496,6 @@ public class FishManGeyser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetKnockbackDistOnExplode()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDistOnExplodeMod.GetModifiedValue(this.m_knockbackDistOnExplode);
 		}
 		else
@@ -901,19 +515,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectToAlliesOnExplode != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetEffectToAlliesOnExplode()).MethodHandle;
-			}
 			result = this.m_cachedEffectToAlliesOnExplode;
 		}
 		else
@@ -927,30 +528,8 @@ public class FishManGeyser : Ability
 	{
 		if (this.GetDamageToEnemiesOnCast() <= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.CastCanAffectEnemies()).MethodHandle;
-			}
 			if (!this.GetEffectToEnemiesOnCast().m_applyEffect)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.ApplyKnockbackOnCast();
 			}
 		}
@@ -962,19 +541,6 @@ public class FishManGeyser : Ability
 		bool result;
 		if (this.GetHealingToAlliesOnCast() <= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.CastCanAffectAllies()).MethodHandle;
-			}
 			result = this.GetEffectToAlliesOnCast().m_applyEffect;
 		}
 		else
@@ -989,19 +555,6 @@ public class FishManGeyser : Ability
 		bool result;
 		if (this.GetDamageToEnemiesOnExplode() <= 0 && !this.GetEffectToEnemiesOnExplode().m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.ExplosionCanAffectEnemies()).MethodHandle;
-			}
 			result = this.ApplyKnockbackOnExplode();
 		}
 		else
@@ -1016,19 +569,6 @@ public class FishManGeyser : Ability
 		bool result;
 		if (this.GetHealingToAlliesOnExplode() <= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.ExplosionCanAffectAllies()).MethodHandle;
-			}
 			result = this.GetEffectToAlliesOnExplode().m_applyEffect;
 		}
 		else
@@ -1046,19 +586,6 @@ public class FishManGeyser : Ability
 		int val;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_FishManGeyser.m_damageToEnemiesOnCastMod.GetModifiedValue(this.m_damageToEnemiesOnCast);
 		}
 		else
@@ -1072,15 +599,6 @@ public class FishManGeyser : Ability
 		int val2;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_FishManGeyser.m_healOnCasterPerEnemyHitMod.GetModifiedValue(this.m_healOnCasterPerEnemyHit);
 		}
 		else
@@ -1091,15 +609,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_FishManGeyser.m_effectToEnemiesOnCastMod.GetModifiedValue(this.m_effectToEnemiesOnCast);
 		}
 		else
@@ -1110,15 +619,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_FishManGeyser.m_effectToAlliesOnCastMod.GetModifiedValue(this.m_effectToAlliesOnCast);
 		}
 		else
@@ -1129,15 +629,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_FishManGeyser.m_enemyEffectOnNextTurnMod.GetModifiedValue(this.m_enemyEffectOnNextTurn);
 		}
 		else
@@ -1152,15 +643,6 @@ public class FishManGeyser : Ability
 		int val3;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_FishManGeyser.m_turnsTillFirstExplosionMod.GetModifiedValue(this.m_turnsTillFirstExplosion);
 		}
 		else
@@ -1173,15 +655,6 @@ public class FishManGeyser : Ability
 		int val4;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_FishManGeyser.m_numExplosionsBeforeEndingMod.GetModifiedValue(this.m_numExplosionsBeforeEnding);
 		}
 		else
@@ -1194,15 +667,6 @@ public class FishManGeyser : Ability
 		int val5;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_FishManGeyser.m_damageToEnemiesOnExplodeMod.GetModifiedValue(this.m_damageToEnemiesOnExplode);
 		}
 		else
@@ -1215,15 +679,6 @@ public class FishManGeyser : Ability
 		int val6;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_FishManGeyser.m_healingToAlliesOnExplodeMod.GetModifiedValue(this.m_healingToAlliesOnExplode);
 		}
 		else
@@ -1234,15 +689,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo effectInfo4;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo4 = abilityMod_FishManGeyser.m_effectToEnemiesOnExplodeMod.GetModifiedValue(this.m_effectToEnemiesOnExplode);
 		}
 		else
@@ -1253,15 +699,6 @@ public class FishManGeyser : Ability
 		StandardEffectInfo effectInfo5;
 		if (abilityMod_FishManGeyser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo5 = abilityMod_FishManGeyser.m_effectToAlliesOnExplodeMod.GetModifiedValue(this.m_effectToAlliesOnExplode);
 		}
 		else
@@ -1289,31 +726,9 @@ public class FishManGeyser : Ability
 		ActorData actorData = base.ActorData;
 		if (tooltipSubjectTypes != null && actorData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (base.Targeter is AbilityUtil_Targeter_MultipleShapes)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
 				using (List<AbilityUtil_Targeter_MultipleShapes.HitActorContext>.Enumerator enumerator = hitActorContext.GetEnumerator())
 				{
@@ -1322,27 +737,9 @@ public class FishManGeyser : Ability
 						AbilityUtil_Targeter_MultipleShapes.HitActorContext hitActorContext2 = enumerator.Current;
 						if (hitActorContext2.m_actor == targetActor && targetActor.GetTeam() != actorData.GetTeam())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageForShapeIndex(hitActorContext2.m_hitShapeIndex);
 							goto IL_FF;
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				IL_FF:;
@@ -1353,15 +750,6 @@ public class FishManGeyser : Ability
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				dictionary[AbilityTooltipSymbol.Healing] = visibleActorsCountByTooltipSubject * this.GetHealOnCasterPerEnemyHit();
 			}
@@ -1374,19 +762,6 @@ public class FishManGeyser : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_FishManGeyser))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManGeyser.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_FishManGeyser);
 			this.Setup();
 		}

@@ -52,19 +52,6 @@ public class InventoryWideData : MonoBehaviour
 		{
 			if (lootTableID == lootTable.Index)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetAllItemTemplateIDsFromLootTable(int, List<int>)).MethodHandle;
-				}
 				tablesChecked.Add(lootTableID);
 				using (List<LootTableEntry>.Enumerator enumerator2 = lootTable.Entries.GetEnumerator())
 				{
@@ -73,15 +60,6 @@ public class InventoryWideData : MonoBehaviour
 						LootTableEntry lootTableEntry = enumerator2.Current;
 						if (lootTableEntry.Type == LootTableEntryType.InventoryItemTemplate)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(lootTableEntry.Index);
 						}
 						else if (lootTableEntry.Type == LootTableEntryType.LootTable)
@@ -89,40 +67,13 @@ public class InventoryWideData : MonoBehaviour
 							list.AddRange(this.GetAllItemTemplateIDsFromLootTable(lootTableEntry.Index, tablesChecked));
 						}
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (lootTable.FallbackEntry.Type == LootTableEntryType.LootTable)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.AddRange(this.GetAllItemTemplateIDsFromLootTable(lootTable.FallbackEntry.Index, tablesChecked));
 				}
 				else if (lootTable.FallbackEntry.Type == LootTableEntryType.InventoryItemTemplate)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(lootTable.FallbackEntry.Index);
 				}
 				using (List<CheckKarma>.Enumerator enumerator3 = lootTable.CheckKarmas.GetEnumerator())
@@ -132,39 +83,12 @@ public class InventoryWideData : MonoBehaviour
 						CheckKarma checkKarma = enumerator3.Current;
 						if (checkKarma.KarmaRewardEntry.Type == LootTableEntryType.InventoryItemTemplate)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(checkKarma.KarmaRewardEntry.Index);
 						}
 						else if (checkKarma.KarmaRewardEntry.Type == LootTableEntryType.LootTable)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.AddRange(this.GetAllItemTemplateIDsFromLootTable(checkKarma.KarmaRewardEntry.Index, tablesChecked));
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -187,30 +111,8 @@ public class InventoryWideData : MonoBehaviour
 				InventoryItemTemplate inventoryItemTemplate = enumerator.Current;
 				if (num <= inventoryItemTemplate.Index)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetNextIDForInventoryItem()).MethodHandle;
-					}
 					num = inventoryItemTemplate.Index + 1;
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -226,30 +128,8 @@ public class InventoryWideData : MonoBehaviour
 				LootTable lootTable = enumerator.Current;
 				if (num <= lootTable.Index)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetNextIDForLootTable()).MethodHandle;
-					}
 					num = lootTable.Index + 1;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -265,30 +145,8 @@ public class InventoryWideData : MonoBehaviour
 				KarmaTemplate karmaTemplate = enumerator.Current;
 				if (num <= karmaTemplate.Index)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetNextIDForKarmaTemplate()).MethodHandle;
-					}
 					num = karmaTemplate.Index + 1;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -315,57 +173,17 @@ public class InventoryWideData : MonoBehaviour
 						InventoryItemTemplate inventoryItemTemplate2 = enumerator2.Current;
 						if (inventoryItemTemplate2.Index == inventoryItemTemplate.Index)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.CheckInventoryItemTemplateIndexes(bool)).MethodHandle;
-							}
 							num2++;
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (num2 > 1)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = true;
 				}
 			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemTemplate.Index = num;
 				num++;
 			}
@@ -373,26 +191,8 @@ public class InventoryWideData : MonoBehaviour
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (logError)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Has bad inventory item ID");
 			}
 		}
@@ -425,58 +225,18 @@ public class InventoryWideData : MonoBehaviour
 								num2++;
 							}
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.CheckLootTableIndexes(bool)).MethodHandle;
-						}
 					}
 					if (num2 > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = true;
 					}
 				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					lootTable.Index = num;
 					num++;
 				}
 				flag = (flag || flag2);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (flag && logError)
@@ -497,19 +257,6 @@ public class InventoryWideData : MonoBehaviour
 				bool flag2 = false;
 				if (karmaTemplate.Index == 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.CheckKarmaTemplateIndexes(bool)).MethodHandle;
-					}
 					flag2 = true;
 				}
 				else
@@ -534,38 +281,11 @@ public class InventoryWideData : MonoBehaviour
 				}
 				flag = (flag || flag2);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (logError)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Has bad Karma ID");
 			}
 		}
@@ -575,19 +295,6 @@ public class InventoryWideData : MonoBehaviour
 	{
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.CheckAllIndices(bool)).MethodHandle;
-			}
 			this.CheckInventoryItemTemplateIndexes(logErrorOnBadIndex);
 			this.CheckLootTableIndexes(logErrorOnBadIndex);
 			this.CheckKarmaTemplateIndexes(logErrorOnBadIndex);
@@ -598,33 +305,11 @@ public class InventoryWideData : MonoBehaviour
 	{
 		if (templateId <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetItemTemplate(int)).MethodHandle;
-			}
 			return null;
 		}
 		InventoryItemTemplate inventoryItemTemplate = this.m_inventoryItemTemplates.Find((InventoryItemTemplate i) => i.Index == templateId);
 		if (inventoryItemTemplate == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("Inventory template item list is malformed: template {0} not found.", templateId));
 		}
 		return inventoryItemTemplate;
@@ -634,33 +319,11 @@ public class InventoryWideData : MonoBehaviour
 	{
 		if (templateId <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetKarmaTemplate(int)).MethodHandle;
-			}
 			return null;
 		}
 		KarmaTemplate karmaTemplate = this.m_karmaTemplates.Find((KarmaTemplate i) => i.Index == templateId);
 		if (karmaTemplate == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("Karma template list is malformed: template {0} not found.", templateId));
 		}
 		return karmaTemplate;
@@ -670,33 +333,11 @@ public class InventoryWideData : MonoBehaviour
 	{
 		if (tableId <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetLootTable(int)).MethodHandle;
-			}
 			return null;
 		}
 		LootTable lootTable = this.m_lootTables.Find((LootTable l) => l.Index == tableId);
 		if (lootTable == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("Loot table list is malformed: table {0} not found.", tableId));
 		}
 		return lootTable;
@@ -708,30 +349,8 @@ public class InventoryWideData : MonoBehaviour
 		{
 			if (this.m_lockboxModels[i].TemplateId == templateId)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetLockboxPrefab(int)).MethodHandle;
-				}
 				return this.m_lockboxModels[i].ModelPrefab;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -740,33 +359,11 @@ public class InventoryWideData : MonoBehaviour
 	{
 		if (item == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.TypeDisplayString(InventoryItemTemplate)).MethodHandle;
-			}
 			return string.Empty;
 		}
 		if (item.Type != InventoryItemType.BannerID)
 		{
 			return item.Type.DisplayString();
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(item.TypeSpecificData[0]);
 		if (banner == null)
@@ -775,15 +372,6 @@ public class InventoryWideData : MonoBehaviour
 		}
 		if (banner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return StringUtil.TR("Banner", "Rewards");
 		}
 		return StringUtil.TR("Emblem", "Rewards");
@@ -806,19 +394,6 @@ public class InventoryWideData : MonoBehaviour
 			{
 				if (GameBalanceVars.Get().PlayerTitles[i].ID == num)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.IsOwned(InventoryItemTemplate)).MethodHandle;
-					}
 					return ClientGameManager.Get().IsTitleUnlocked(GameBalanceVars.Get().PlayerTitles[i]);
 				}
 			}
@@ -875,15 +450,6 @@ public class InventoryWideData : MonoBehaviour
 		case InventoryItemType.Unlock:
 			if (itemTemplate.TypeSpecificData[0] == 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return ClientGameManager.Get().GetPlayerAccountData().AccountComponent.DailyQuestsAvailable;
 			}
 			return false;
@@ -898,43 +464,12 @@ public class InventoryWideData : MonoBehaviour
 	{
 		if (itemTemplate == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetSpritePath(InventoryItemTemplate)).MethodHandle;
-			}
 			return string.Empty;
 		}
 		if (!itemTemplate.IconPath.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!itemTemplate.IconPath.Trim().IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return itemTemplate.IconPath;
 			}
 		}
@@ -943,68 +478,23 @@ public class InventoryWideData : MonoBehaviour
 			GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(itemTemplate.TypeSpecificData[0]);
 			if (banner != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!banner.m_iconResourceString.IsNullOrEmpty())
 				{
 					return banner.m_iconResourceString;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return "Banners/Background/02_blue";
 		}
 		if (itemTemplate.Type == InventoryItemType.ChatEmoji)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return "QuestRewards/general";
 		}
 		if (itemTemplate.Type == InventoryItemType.Overcon)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return "QuestRewards/general";
 		}
 		if (itemTemplate.Type == InventoryItemType.Faction)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return "QuestRewards/general";
 		}
 		if (itemTemplate.Type == InventoryItemType.Mod)
@@ -1013,15 +503,6 @@ public class InventoryWideData : MonoBehaviour
 		}
 		if (itemTemplate.Type == InventoryItemType.Skin)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return GameWideData.Get().GetCharacterResourceLink((CharacterType)itemTemplate.TypeSpecificData[0]).m_skins[itemTemplate.TypeSpecificData[1]].m_skinSelectionIconPath;
 		}
 		if (itemTemplate.Type == InventoryItemType.Style)
@@ -1044,54 +525,18 @@ public class InventoryWideData : MonoBehaviour
 		}
 		if (itemTemplate.Type == InventoryItemType.Taunt)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return "QuestRewards/taunt";
 		}
 		if (itemTemplate.Type == InventoryItemType.TitleID)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return "QuestRewards/titleIcon";
 		}
 		if (itemTemplate.Type == InventoryItemType.Material)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return "QuestRewards/general";
 		}
 		if (itemTemplate.Type == InventoryItemType.Lockbox)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return "QuestRewards/general";
 		}
 		if (itemTemplate.Type == InventoryItemType.Currency)
@@ -1117,54 +562,18 @@ public class InventoryWideData : MonoBehaviour
 		{
 			if (itemTemplate.Type == InventoryItemType.AbilityVfxSwap)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "QuestRewards/vfxicon";
 			}
 			if (itemTemplate.Type == InventoryItemType.Experience)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "QuestRewards/general";
 			}
 			if (itemTemplate.Type == InventoryItemType.Unlock)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "QuestRewards/contract";
 			}
 			if (itemTemplate.Type == InventoryItemType.Conveyance)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "QuestRewards/general";
 			}
 			if (itemTemplate.Type == InventoryItemType.FreelancerExpBonus)
@@ -1176,27 +585,9 @@ public class InventoryWideData : MonoBehaviour
 				GameBalanceVars.LoadingScreenBackground loadingScreenBackground = GameBalanceVars.Get().GetLoadingScreenBackground(itemTemplate.TypeSpecificData[0]);
 				if (loadingScreenBackground != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!loadingScreenBackground.m_iconPath.IsNullOrEmpty())
 					{
 						return loadingScreenBackground.m_iconPath;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				return "QuestRewards/general";
@@ -1214,34 +605,12 @@ public class InventoryWideData : MonoBehaviour
 	{
 		if (template == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetItemFg(InventoryItemTemplate)).MethodHandle;
-			}
 			return null;
 		}
 		AbilityData component;
 		AbilityData.ActionType actionType;
 		if (template.Type == InventoryItemType.Taunt)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)template.TypeSpecificData[0]);
 			component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
 			int index = template.TypeSpecificData[1];
@@ -1249,15 +618,6 @@ public class InventoryWideData : MonoBehaviour
 		}
 		else if (template.Type == InventoryItemType.AbilityVfxSwap)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)template.TypeSpecificData[0]);
 			component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
 			actionType = (AbilityData.ActionType)template.TypeSpecificData[1];
@@ -1266,15 +626,6 @@ public class InventoryWideData : MonoBehaviour
 		{
 			if (template.Type == InventoryItemType.Mod)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)template.TypeSpecificData[0]);
 				component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
 				actionType = (AbilityData.ActionType)template.TypeSpecificData[1];
@@ -1289,28 +640,10 @@ public class InventoryWideData : MonoBehaviour
 				}
 				else if (actionType == AbilityData.ActionType.ABILITY_2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ability = component.m_ability2;
 				}
 				else if (actionType == AbilityData.ActionType.ABILITY_3)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ability = component.m_ability3;
 				}
 				else if (actionType == AbilityData.ActionType.ABILITY_4)
@@ -1319,28 +652,10 @@ public class InventoryWideData : MonoBehaviour
 				}
 				else if (actionType == AbilityData.ActionType.ABILITY_5)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ability = component.m_ability5;
 				}
 				else if (actionType == AbilityData.ActionType.ABILITY_6)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ability = component.m_ability6;
 				}
 				AbilityMod abilityMod = AbilityModHelper.GetAvailableModsForAbility(ability)[template.TypeSpecificData[2]];
@@ -1350,28 +665,10 @@ public class InventoryWideData : MonoBehaviour
 		}
 		if (actionType == AbilityData.ActionType.ABILITY_0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return component.m_sprite0;
 		}
 		if (actionType == AbilityData.ActionType.ABILITY_1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return component.m_sprite1;
 		}
 		if (actionType == AbilityData.ActionType.ABILITY_2)
@@ -1380,15 +677,6 @@ public class InventoryWideData : MonoBehaviour
 		}
 		if (actionType == AbilityData.ActionType.ABILITY_3)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return component.m_sprite3;
 		}
 		if (actionType == AbilityData.ActionType.ABILITY_4)
@@ -1401,15 +689,6 @@ public class InventoryWideData : MonoBehaviour
 		}
 		if (actionType == AbilityData.ActionType.ABILITY_6)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return component.m_sprite6;
 		}
 		return null;
@@ -1421,19 +700,6 @@ public class InventoryWideData : MonoBehaviour
 		for (int i = 0; i < pack.BonusMatrixes.Length; i++)
 		{
 			list.Add(InventoryWideData.Get().GetItemTemplate(pack.BonusMatrixes[i].LootMatrixId));
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryWideData.GetTemplatesFromLootMatrixPack(LootMatrixPack)).MethodHandle;
 		}
 		return list;
 	}

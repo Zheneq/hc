@@ -36,19 +36,6 @@ public class UIReportBugDialogBox : UIDialogBox
 	{
 		if (this.firstButtonCallback != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIReportBugDialogBox.FirstButtonClicked(BaseEventData)).MethodHandle;
-			}
 			this.firstButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -67,32 +54,10 @@ public class UIReportBugDialogBox : UIDialogBox
 	{
 		if (this.m_secondButton != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIReportBugDialogBox.Start()).MethodHandle;
-			}
 			this.m_secondButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SecondButtonClicked);
 		}
 		if (this.m_firstButton != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_firstButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.FirstButtonClicked);
 		}
 		this.m_descriptionBoxInputField.Select();
@@ -111,19 +76,6 @@ public class UIReportBugDialogBox : UIDialogBox
 		for (int i = 0; i < this.m_secondButtonLabel.Length; i++)
 		{
 			this.m_secondButtonLabel[i].text = text;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIReportBugDialogBox.SetSecondButtonLabels(string)).MethodHandle;
 		}
 	}
 

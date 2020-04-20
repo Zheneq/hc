@@ -31,19 +31,6 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 		this.m_filled = filled;
 		if (this.m_animator == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonLevelBar.SetFilled(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_fillContainer, filled, null);
 		}
 		else
@@ -57,15 +44,6 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 			string str;
 			if (filled)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = "DefaultIN";
 			}
 			else
@@ -87,58 +65,14 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 		this.m_reward = reward;
 		if (this.m_tooltipHoverObj != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialSeasonLevelBar.SetReward(int, RewardUtils.RewardData)).MethodHandle;
-			}
 			if (reward != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (reward.InventoryTemplate != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_tooltipHoverObj.Setup(TooltipType.InventoryItem, delegate(UITooltipBase tooltip)
 					{
 						if (this.m_reward == null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(UITutorialSeasonLevelBar.<SetReward>m__0(UITooltipBase)).MethodHandle;
-							}
 							return false;
 						}
 						(tooltip as UIInventoryItemTooltip).Setup(this.m_reward.InventoryTemplate);
@@ -162,29 +96,11 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 		}
 		if (this.m_levelText != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_levelText.text = level.ToString();
 		}
 		UIManager.SetGameObjectActive(this.m_rewardMarker, reward != null, null);
 		if (this.m_rewardContainer != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (reward == null || reward.SpritePath.IsNullOrEmpty())
 			{
 				UIManager.SetGameObjectActive(this.m_rewardContainer, false, null);

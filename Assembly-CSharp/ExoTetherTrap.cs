@@ -81,19 +81,6 @@ public class ExoTetherTrap : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -104,15 +91,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo cachedTetherBreakEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTetherBreakEffect = this.m_abilityMod.m_tetherBreakEffectMod.GetModifiedValue(this.m_tetherBreakEffect);
 		}
 		else
@@ -123,15 +101,6 @@ public class ExoTetherTrap : Ability
 		StandardActorEffectData cachedBaseEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedBaseEffectData = this.m_abilityMod.m_baseEffectDataMod.GetModifiedValue(this.m_baseEffectData);
 		}
 		else
@@ -149,15 +118,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo cachedLaserOnHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserOnHitEffect = this.m_abilityMod.m_laserOnHitEffectMod.GetModifiedValue(this.m_laserOnHitEffect);
 		}
 		else
@@ -172,19 +132,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetLaserDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -199,19 +146,6 @@ public class ExoTetherTrap : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -231,19 +165,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedLaserOnHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetLaserOnHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserOnHitEffect;
 		}
 		else
@@ -258,19 +179,6 @@ public class ExoTetherTrap : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetTetherDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherDistanceMod.GetModifiedValue(this.m_tetherDistance);
 		}
 		else
@@ -285,19 +193,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetTetherBreakDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(this.m_tetherBreakDamage);
 		}
 		else
@@ -322,19 +217,6 @@ public class ExoTetherTrap : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetExtraDamagePerMoveDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamagePerMoveDistMod.GetModifiedValue(this.m_extraDamagePerMoveDist);
 		}
 		else
@@ -349,19 +231,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetMaxExtraDamageFromMoveDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxExtraDamageFromMoveDistMod.GetModifiedValue(this.m_maxExtraDamageFromMoveDist);
 		}
 		else
@@ -376,19 +245,6 @@ public class ExoTetherTrap : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.GetCdrOnTetherEndIfNotTriggered()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnTetherEndIfNotTriggeredMod.GetModifiedValue(this.m_cdrOnTetherEndIfNotTriggered);
 		}
 		else
@@ -406,19 +262,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_ExoTetherTrap.m_laserOnHitEffectMod.GetModifiedValue(this.m_laserOnHitEffect);
 		}
 		else
@@ -432,15 +275,6 @@ public class ExoTetherTrap : Ability
 		int val;
 		if (abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_ExoTetherTrap.m_tetherBreakDamageMod.GetModifiedValue(this.m_tetherBreakDamage);
 		}
 		else
@@ -453,15 +287,6 @@ public class ExoTetherTrap : Ability
 		int num;
 		if (abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (int)abilityMod_ExoTetherTrap.m_tetherDistanceMod.GetModifiedValue(this.m_tetherDistance);
 		}
 		else
@@ -472,15 +297,6 @@ public class ExoTetherTrap : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_ExoTetherTrap)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ExoTetherTrap.m_tetherBreakEffectMod.GetModifiedValue(this.m_tetherBreakEffect);
 		}
 		else
@@ -510,19 +326,6 @@ public class ExoTetherTrap : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ExoTetherTrap))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoTetherTrap.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ExoTetherTrap);
 			this.SetupTargeter();
 		}

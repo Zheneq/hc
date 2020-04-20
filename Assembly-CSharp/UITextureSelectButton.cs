@@ -28,30 +28,8 @@ public class UITextureSelectButton : UICharacterVisualsSelectButton
 		UIManager.SetGameObjectActive(this.m_lockedIcon, !patternData.m_isAvailable, null);
 		if (!patternData.m_isAvailable)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextureSelectButton.Setup(UIPatternData)).MethodHandle;
-			}
 			if (patternData.m_unlockCharacterLevel > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), patternData.m_unlockCharacterLevel);
 			}
 		}

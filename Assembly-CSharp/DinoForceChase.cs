@@ -19,19 +19,6 @@ public class DinoForceChase : GenericAbility_Container
 		DinoTargetedKnockback abilityOfType = base.GetAbilityOfType<DinoTargetedKnockback>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoForceChase.SetupTargetersAndCachedVars()).MethodHandle;
-			}
 			if (abilityOfType != null)
 			{
 				this.m_knockbackActionType = component.GetActionTypeOfAbility(abilityOfType);
@@ -45,19 +32,6 @@ public class DinoForceChase : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoForceChase.GetCdrOnKnockbackAbility()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnKnockbackAbilityMod.GetModifiedValue(this.m_cdrOnKnockbackAbility);
 		}
 		else
@@ -72,19 +46,6 @@ public class DinoForceChase : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoForceChase.GetEnergyPerUnstoppableEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyPerUnstoppableEnemyHitMod.GetModifiedValue(this.m_energyPerUnstoppableEnemyHit);
 		}
 		else

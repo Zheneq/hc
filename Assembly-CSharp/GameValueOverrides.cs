@@ -11,19 +11,6 @@ public class GameValueOverrides
 	{
 		if (overrideValueType == GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameValueOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue, int?)).MethodHandle;
-			}
 			this.InitialTimeBankConsumables = value;
 		}
 	}

@@ -34,19 +34,6 @@ namespace TMPro
 		{
 			if (mesh == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo..ctor(Mesh, int)).MethodHandle;
-				}
 				mesh = new Mesh();
 			}
 			else
@@ -78,15 +65,6 @@ namespace TMPro
 					this.normals[num4 + i] = TMP_MeshInfo.s_DefaultNormal;
 					this.tangents[num4 + i] = TMP_MeshInfo.s_DefaultTangent;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.triangles[num3] = num4;
 				this.triangles[num3 + 1] = num4 + 1;
 				this.triangles[num3 + 2] = num4 + 2;
@@ -95,15 +73,6 @@ namespace TMPro
 				this.triangles[num3 + 5] = num4;
 				num4 += 4;
 				num3 += 6;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.mesh.vertices = this.vertices;
 			this.mesh.normals = this.normals;
@@ -127,19 +96,6 @@ namespace TMPro
 			int num2;
 			if (!isVolumetric)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo..ctor(Mesh, int, bool)).MethodHandle;
-				}
 				num2 = 6;
 			}
 			else
@@ -171,15 +127,6 @@ namespace TMPro
 					this.normals[num6 + i] = TMP_MeshInfo.s_DefaultNormal;
 					this.tangents[num6 + i] = TMP_MeshInfo.s_DefaultTangent;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.triangles[num7] = num6;
 				this.triangles[num7 + 1] = num6 + 1;
 				this.triangles[num7 + 2] = num6 + 2;
@@ -188,15 +135,6 @@ namespace TMPro
 				this.triangles[num7 + 5] = num6;
 				if (isVolumetric)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.triangles[num7 + 6] = num6 + 4;
 					this.triangles[num7 + 7] = num6 + 5;
 					this.triangles[num7 + 8] = num6 + 1;
@@ -278,19 +216,6 @@ namespace TMPro
 				this.triangles[4 + num3] = 3 + num2;
 				this.triangles[5 + num3] = num2;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.ResizeMeshInfo(int)).MethodHandle;
-			}
 			this.mesh.vertices = this.vertices;
 			this.mesh.normals = this.normals;
 			this.mesh.tangents = this.tangents;
@@ -302,19 +227,6 @@ namespace TMPro
 			int num;
 			if (!isVolumetric)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.ResizeMeshInfo(int, bool)).MethodHandle;
-				}
 				num = 4;
 			}
 			else
@@ -325,15 +237,6 @@ namespace TMPro
 			int num3;
 			if (!isVolumetric)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = 6;
 			}
 			else
@@ -354,15 +257,6 @@ namespace TMPro
 			Array.Resize<int>(ref this.triangles, newSize2);
 			if (size <= num5)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mesh.triangles = this.triangles;
 				this.mesh.vertices = this.vertices;
 				this.mesh.normals = this.normals;
@@ -432,15 +326,6 @@ namespace TMPro
 					this.triangles[num7 + 0x23] = num6 + 7;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.mesh.vertices = this.vertices;
 			this.mesh.normals = this.normals;
 			this.mesh.tangents = this.tangents;
@@ -451,19 +336,6 @@ namespace TMPro
 		{
 			if (this.vertices == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.Clear()).MethodHandle;
-				}
 				return;
 			}
 			Array.Clear(this.vertices, 0, this.vertices.Length);
@@ -478,45 +350,14 @@ namespace TMPro
 		{
 			if (this.vertices == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.Clear(bool)).MethodHandle;
-				}
 				return;
 			}
 			Array.Clear(this.vertices, 0, this.vertices.Length);
 			this.vertexCount = 0;
 			if (uploadChanges)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.mesh != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.mesh.vertices = this.vertices;
 				}
 			}
@@ -527,19 +368,6 @@ namespace TMPro
 			int num = this.vertices.Length - this.vertexCount;
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.ClearUnusedVertices()).MethodHandle;
-				}
 				Array.Clear(this.vertices, this.vertexCount, num);
 			}
 		}
@@ -558,32 +386,10 @@ namespace TMPro
 			int num = this.vertices.Length - startIndex;
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.ClearUnusedVertices(int, bool)).MethodHandle;
-				}
 				Array.Clear(this.vertices, startIndex, num);
 			}
 			if (updateMesh && this.mesh != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mesh.vertices = this.vertices;
 			}
 		}
@@ -594,19 +400,6 @@ namespace TMPro
 			{
 				if (order != VertexSortingOrder.Reverse)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.SortGeometry(VertexSortingOrder)).MethodHandle;
-					}
 				}
 				else
 				{
@@ -617,26 +410,8 @@ namespace TMPro
 						int num3 = (num - i - 1) * 4;
 						if (num2 < num3)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.SwapVertexData(num2, num3);
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -655,32 +430,10 @@ namespace TMPro
 				for (j = sortingOrder[i]; j < i; j = sortingOrder[j])
 				{
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MeshInfo.SortGeometry(IList<int>)).MethodHandle;
-				}
 				if (j != i)
 				{
 					this.SwapVertexData(j * 4, i * 4);
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 

@@ -146,19 +146,6 @@ namespace CameraManagerInternal
 			bool flag;
 			if (desiredUseLowPosition)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.SetTarget(Bounds, bool, bool)).MethodHandle;
-				}
 				flag = this.m_enableLowPositionCamera;
 			}
 			else
@@ -168,55 +155,19 @@ namespace CameraManagerInternal
 			bool flag2 = flag;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Bounds cameraPositionBounds = CameraManager.Get().CameraPositionBounds;
 				if (Mathf.Abs(bounds.center.x - (cameraPositionBounds.center.x + cameraPositionBounds.extents.x)) > this.m_lowPositionClearanceFromMaxBounds && Mathf.Abs(bounds.center.x - (cameraPositionBounds.center.x - cameraPositionBounds.extents.x)) > this.m_lowPositionClearanceFromMaxBounds)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Mathf.Abs(bounds.center.z - (cameraPositionBounds.center.z + cameraPositionBounds.extents.z)) > this.m_lowPositionClearanceFromMaxBounds)
 					{
 						if (Mathf.Abs(bounds.center.z - (cameraPositionBounds.center.z - cameraPositionBounds.extents.z)) > this.m_lowPositionClearanceFromMaxBounds)
 						{
 							goto IL_1AF;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				if (CameraManager.CamDebugTraceOn)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager.LogForDebugging(string.Concat(new object[]
 					{
 						"Ignoring request to use low position for ability cam, too close to edge of map.\nBounds: ",
@@ -234,15 +185,6 @@ namespace CameraManagerInternal
 			this.m_targetSetForQuickerTransition = quickerTransition;
 			if (!(this.m_target != bounds))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag3)
 				{
 					return;
@@ -250,15 +192,6 @@ namespace CameraManagerInternal
 			}
 			if (CameraManager.CamDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.LogForDebugging(string.Concat(new object[]
 				{
 					"Setting bounds: ",
@@ -274,38 +207,11 @@ namespace CameraManagerInternal
 			this.m_target = bounds;
 			if (this.m_secondsRemainingToPauseForUserControl <= 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.enabled && CameraManager.Get().ShouldAutoCameraMove())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num;
 					if (quickerTransition)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = this.m_easeInTimeWithinGroup;
 					}
 					else
@@ -328,19 +234,6 @@ namespace CameraManagerInternal
 			bool result;
 			if (!this.m_targetBottomEased.EaseFinished())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.IsMovingAutomatically()).MethodHandle;
-				}
 				result = (this.m_secondsRemainingToPauseForUserControl <= 0f);
 			}
 			else
@@ -360,46 +253,15 @@ namespace CameraManagerInternal
 			float desiredFOV = this.GetDesiredFOV();
 			if (Mathf.Approximately(eulerAngles.x, desiredXRotation))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.Update()).MethodHandle;
-				}
 				if (Mathf.Approximately(Camera.main.fieldOfView, desiredFOV))
 				{
 					goto IL_192;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			float t = Time.time - this.m_transitionInTime;
 			float num;
 			if (this.m_targetSetForQuickerTransition)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_easeInTimeWithinGroup;
 			}
 			else
@@ -417,15 +279,6 @@ namespace CameraManagerInternal
 			IL_192:
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_READ_ONLY_Height = base.transform.position.y - (float)Board.Get().BaselineHeight;
 				this.m_READ_ONLY_Distance = (base.transform.position - this.m_target.center).magnitude;
 			}
@@ -440,29 +293,11 @@ namespace CameraManagerInternal
 			bool flag = CameraManager.Get().ShouldAutoCameraMove();
 			if (lhs != base.transform.rotation)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_orbitEulerAngleY.EaseTo(CameraControls.Get().m_desiredRotationEulerAngles.y, CameraControls.Get().m_keyboardRotationDuration);
 			}
 			bool flag2 = CameraControls.Get().IsMouseDragMoveRequested();
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_secondsRemainingToPauseForUserControl = 0.1f;
 				CameraManager.Get().SecondsRemainingToPauseForUserControl = 0.1f;
 			}
@@ -473,15 +308,6 @@ namespace CameraManagerInternal
 				{
 					goto IL_3E0;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					goto IL_3E0;
@@ -489,15 +315,6 @@ namespace CameraManagerInternal
 			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_secondsRemainingToPauseForUserControl = this.m_secondsToPauseForUserControl;
 				CameraManager.Get().SecondsRemainingToPauseForUserControl = this.m_secondsToPauseForUserControl;
 			}
@@ -516,27 +333,9 @@ namespace CameraManagerInternal
 			IL_3E0:
 			if (this.m_secondsRemainingToPauseForUserControl > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_secondsRemainingToPauseForUserControl -= Time.deltaTime;
 				if (this.m_secondsRemainingToPauseForUserControl <= 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
 						this.EaseToTarget(this.m_easeInTime, false);
@@ -545,55 +344,19 @@ namespace CameraManagerInternal
 			}
 			if ((position - base.transform.position).sqrMagnitude > 1.401298E-45f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_needNameplateSortUpdate = true;
 			}
 			if (this.m_needNameplateSortUpdate)
 			{
 				if (this.m_nextNameplateSortUpdateTime >= 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Time.time <= this.m_nextNameplateSortUpdateTime)
 					{
 						goto IL_521;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (HUD_UI.Get() != null && HUD_UI.Get().m_mainScreenPanel != null && HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SortNameplates();
 				}
 				this.m_needNameplateSortUpdate = false;
@@ -603,15 +366,6 @@ namespace CameraManagerInternal
 			this.m_autoMoveInLastUpdate = flag;
 			if (ActorDebugUtils.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.CameraManager, true))
 				{
 					ActorDebugUtils.DebugCategoryInfo debugCategoryInfo = ActorDebugUtils.Get().GetDebugCategoryInfo(ActorDebugUtils.DebugCategory.CameraManager);
@@ -666,30 +420,8 @@ namespace CameraManagerInternal
 			this.m_zoomParameter = new EasedOutFloatQuart(0f);
 			if (type != CameraTransitionType.Cut)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.OnTransitionIn(CameraTransitionType)).MethodHandle;
-				}
 				if (type != CameraTransitionType.Move)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -697,15 +429,6 @@ namespace CameraManagerInternal
 					float num;
 					if (this.m_targetSetForQuickerTransition)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = this.m_easeInTimeWithinGroup;
 					}
 					else
@@ -756,19 +479,6 @@ namespace CameraManagerInternal
 			this.m_easeToTargetStartTime = Time.time;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.EaseToTarget(float, bool)).MethodHandle;
-				}
 				AudioManager.PostEvent("Set_state_action_cam", null);
 			}
 			this.m_orbitLengths = new EasedVector3Quart(this.CalcDesiredOrbitLengths(out this.m_minDistTargetBottomToCam, useLowPosition));
@@ -782,15 +492,6 @@ namespace CameraManagerInternal
 			float num;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_lowPositionXRotation;
 			}
 			else
@@ -802,15 +503,6 @@ namespace CameraManagerInternal
 			float num3;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = this.m_lowPositionFOV;
 			}
 			else
@@ -821,15 +513,6 @@ namespace CameraManagerInternal
 			this.m_easedDesiredFOV.EaseTo(endValue, easeInTime);
 			if (CameraManager.CamDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.LogForDebugging(string.Concat(new object[]
 				{
 					"EaseToTarget ",
@@ -860,30 +543,8 @@ namespace CameraManagerInternal
 			num2 = Mathf.Clamp(num2, this.m_minManualHeight, max);
 			if (!Mathf.Approximately(num2, b))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.AdjustZoomParam(float, bool, float)).MethodHandle;
-				}
 				if (vector.y > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (num2 - endValue.y - vector.y * this.m_defaultExtraDistance) / vector.y;
 					this.m_zoomParameter = ((!userControlled) ? new EasedFloatQuart(this.m_zoomParameter) : new EasedOutFloatQuart(this.m_zoomParameter));
 					this.m_zoomParameter.EaseTo(num, easeInTime);
@@ -928,19 +589,6 @@ namespace CameraManagerInternal
 			float num;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.CalcDesiredRotation(float, bool)).MethodHandle;
-				}
 				num = this.m_lowPositionXRotation;
 			}
 			else
@@ -970,19 +618,6 @@ namespace CameraManagerInternal
 			float fieldOfView2;
 			if (useLowPosition)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilitiesCamera.CalcDesiredOrbitLengths(float*, bool)).MethodHandle;
-				}
 				fieldOfView2 = this.m_lowPositionFOV;
 			}
 			else
@@ -1022,29 +657,11 @@ namespace CameraManagerInternal
 				Plane plane2 = array2[i];
 				if (Vector3.Dot(base.transform.forward, plane2.normal) < -0.9f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (Vector3.Dot(plane2.normal, base.transform.up) > 0f)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						plane2.SetNormalAndPosition(rotation2 * plane2.normal, base.transform.position);
 						array2[i] = plane2;
 					}
@@ -1056,15 +673,6 @@ namespace CameraManagerInternal
 			{
 				if (Vector3.Dot(base.transform.forward, plane3.normal) < -0.9f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -1072,42 +680,15 @@ namespace CameraManagerInternal
 					{
 						if (plane3.GetDistanceToPoint(inPt) < 0f)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							break;
 						}
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = -vector;
 			}
 			else
@@ -1124,78 +705,24 @@ namespace CameraManagerInternal
 					float num2;
 					if (Vector3.Dot(base.transform.forward, plane4.normal) < -0.9f)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else if (plane4.Raycast(ray2, out num2))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 vector4 = vector3 - ray2.GetPoint(num2);
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num2 < num)
 							{
 								goto IL_692;
 							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (flag)
 						{
 							goto IL_69A;
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num2 <= num)
 						{
 							goto IL_69A;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						IL_692:
 						b2 = vector4;
@@ -1211,15 +738,6 @@ namespace CameraManagerInternal
 			Vector3 vector7;
 			if (minDistTargetBottomToCam > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector7 = vector6 / minDistTargetBottomToCam;
 			}
 			else
@@ -1233,15 +751,6 @@ namespace CameraManagerInternal
 				float num4 = (!useLowPosition) ? this.m_defaultXRotation : this.m_lowPositionXRotation;
 				if (num3 < this.m_minAutoHeight)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector5 = a * this.m_minAutoHeight / Mathf.Cos(0.0174532924f * num4) + b3;
 				}
 				else if (num3 > this.m_maxAutoHeight)

@@ -19,33 +19,11 @@ public class TrackerHuntingCrossbow : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Hunting Crossbow";
 		}
 		this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
 		if (this.m_droneTracker == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No drone tracker component");
 		}
 		this.SetupTargeter();
@@ -72,19 +50,6 @@ public class TrackerHuntingCrossbow : Ability
 		int num;
 		if (abilityMod_TrackerHuntingCrossbow)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			num = abilityMod_TrackerHuntingCrossbow.m_damageOnUntrackedMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -110,55 +75,15 @@ public class TrackerHuntingCrossbow : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_droneTracker != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					bool flag = this.m_droneTracker.IsTrackingActor(targetActor.ActorIndex);
 					int num;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = this.GetDamageOnTracked();
 					}
 					else
@@ -168,28 +93,10 @@ public class TrackerHuntingCrossbow : Ability
 					int num2 = num;
 					if (this.m_abilityMod != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData actorData = base.ActorData;
 						bool flag2;
 						if (this.m_abilityMod.m_requireFunctioningBrush)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag2 = actorData.IsHiddenInBrush();
 						}
 						else
@@ -199,28 +106,10 @@ public class TrackerHuntingCrossbow : Ability
 						bool flag3 = flag2;
 						if (flag3)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 += this.GetExtraDamageWhileInBrush();
 						}
 						if (this.GetDamageChangeAfterFirstHit() != 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
 							List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
 							using (List<AbilityUtil_Targeter_Laser.HitActorContext>.Enumerator enumerator = hitActorContext.GetEnumerator())
@@ -230,26 +119,8 @@ public class TrackerHuntingCrossbow : Ability
 									AbilityUtil_Targeter_Laser.HitActorContext hitActorContext2 = enumerator.Current;
 									if (hitActorContext2.actor == targetActor && hitActorContext2.hitOrderIndex != 0)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 += this.GetDamageChangeAfterFirstHit();
 									}
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -265,19 +136,6 @@ public class TrackerHuntingCrossbow : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TrackerHuntingCrossbow))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_TrackerHuntingCrossbow);
 			this.SetupTargeter();
 		}
@@ -294,19 +152,6 @@ public class TrackerHuntingCrossbow : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetDamageOnUntracked()).MethodHandle;
-			}
 			result = this.m_laserDamageAmount;
 		}
 		else
@@ -321,19 +166,6 @@ public class TrackerHuntingCrossbow : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetDamageOnTracked()).MethodHandle;
-			}
 			result = this.m_laserDamageAmount;
 		}
 		else
@@ -353,19 +185,6 @@ public class TrackerHuntingCrossbow : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerHuntingCrossbow.GetExtraDamageWhileInBrush()).MethodHandle;
-			}
 			result = 0;
 		}
 		else

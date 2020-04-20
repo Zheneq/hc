@@ -125,19 +125,6 @@ public class SinglePlayerState
 	{
 		if (this.m_bannerText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetBannerText()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_bannerText);
@@ -147,19 +134,6 @@ public class SinglePlayerState
 	{
 		if (this.m_rightClickText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetRightClickText()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_rightClickText);
@@ -169,19 +143,6 @@ public class SinglePlayerState
 	{
 		if (this.m_shiftRightClickText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetShiftRightClickText()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_shiftRightClickText);
@@ -200,19 +161,6 @@ public class SinglePlayerState
 	{
 		if (this.m_tutorialBoxText.m_text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetTutorialBoxText()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_tutorialBoxText.m_text);
@@ -222,19 +170,6 @@ public class SinglePlayerState
 	{
 		if (this.m_tutorialBoxText2.m_text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetTutorialBoxText2()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_tutorialBoxText2.m_text);
@@ -244,19 +179,6 @@ public class SinglePlayerState
 	{
 		if (this.m_tutorialBoxText3.m_text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetTutorialBoxText3()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_tutorialBoxText3.m_text);
@@ -275,19 +197,6 @@ public class SinglePlayerState
 	{
 		if (this.m_tutorialCameraRotationText.m_text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetTutorialCameraRotationText()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_tutorialCameraRotationText.m_text);
@@ -297,19 +206,6 @@ public class SinglePlayerState
 	{
 		if (this.m_errorStringOnForbiddenPath.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetErrorStringOnForbiddenPath()).MethodHandle;
-			}
 			return string.Empty;
 		}
 		return StringUtil.TR(this.m_errorStringOnForbiddenPath);
@@ -343,98 +239,31 @@ public class SinglePlayerState
 		{
 			activatableUI.Activate();
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.OnEnteringState()).MethodHandle;
-		}
 		if (this.m_audioEventOnPreEnter != string.Empty)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEventOnPreEnter, null);
 		}
 		if (this.m_audioEventOnEnter != string.Empty)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEventOnEnter, null);
 		}
 		if (this.m_chatTextOnEnter != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_chatTextOnEnter.Length > 0)
 			{
 				foreach (SinglePlayerScriptedChat singlePlayerScriptedChat in this.m_chatTextOnEnter)
 				{
 					UITutorialPanel.Get().QueueDialogue(singlePlayerScriptedChat.m_text, singlePlayerScriptedChat.m_audioEvent, singlePlayerScriptedChat.m_displaySeconds, singlePlayerScriptedChat.m_sender);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (this.m_tutorialVideoPreviewOnEnter != string.Empty)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UITutorialDropdownlist.Get().DisplayPreviewVideo(this.m_tutorialVideoPreviewOnEnter);
 		}
 		string bannerText = this.GetBannerText();
 		if (bannerText != string.Empty)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar, true, null);
 			UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText, true, null);
 			HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText.text = bannerText;
@@ -451,15 +280,6 @@ public class SinglePlayerState
 		}
 		else if (this.GetHasTag(SinglePlayerState.SinglePlayerTag.ForceOnCinematicCam))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraManager.Get().m_abilityCinematicState = CameraManager.AbilityCinematicState.Always;
 		}
 		else
@@ -468,15 +288,6 @@ public class SinglePlayerState
 		}
 		if (this.GetHasTag(SinglePlayerState.SinglePlayerTag.ClearCooldownsOnEnter))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameFlowData.Get().ClearCooldowns();
 			GameFlowData.Get().RefillStocks();
 		}
@@ -489,19 +300,6 @@ public class SinglePlayerState
 		{
 			if (activatableObject == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.OnExitingState()).MethodHandle;
-				}
 				Log.Error("Null activation-object in 'Activations On Exit' for state " + this.m_stateIndex + ".  Tell Colin.", new object[0]);
 			}
 			else if (activatableObject.m_sceneObject == null)
@@ -513,39 +311,12 @@ public class SinglePlayerState
 				activatableObject.Activate();
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		foreach (ActivatableUI activatableUI in this.m_uiActivationsOnExit)
 		{
 			activatableUI.Activate();
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_audioEventOnExit != string.Empty)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEventOnExit, null);
 		}
 		if (CameraManager.Get())
@@ -554,15 +325,6 @@ public class SinglePlayerState
 		}
 		if (this.GetHasTag(SinglePlayerState.SinglePlayerTag.ShutdownOnExit))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameManager.Get().StopGame(GameResult.NoResult);
 			GameFlowData.Get().gameState = GameState.EndingGame;
 			if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
@@ -571,15 +333,6 @@ public class SinglePlayerState
 			}
 			if (AppState.GetCurrent() != AppState_GameTeardown.Get() && AppState.GetCurrent() != AppState_FrontendLoadingScreen.Get())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AppState_GameTeardown.Get().Enter();
 			}
 		}
@@ -598,19 +351,6 @@ public class SinglePlayerState
 					BoardSquare item = enumerator.Current;
 					this.m_advanceDestinationsHashSet.Add(item);
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetAdvanceDestinations()).MethodHandle;
-				}
 			}
 		}
 		return this.m_advanceDestinationsHashSet;
@@ -625,19 +365,6 @@ public class SinglePlayerState
 		int num = SinglePlayerCoordinator.Get().m_script.Length - 1;
 		if (this.m_stateTitle != string.Empty)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.LogState(string, bool)).MethodHandle;
-			}
 			text = string.Concat(new object[]
 			{
 				"state '",
@@ -690,20 +417,6 @@ public class SinglePlayerState
 				return result;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetHasTag(SinglePlayerState.SinglePlayerTag)).MethodHandle;
-			return result;
-		}
 		return result;
 	}
 
@@ -712,43 +425,12 @@ public class SinglePlayerState
 		Vector3 result = new Vector3(1f, 0f, 0f);
 		if (this.m_cameraRotationTarget != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerState.GetSpawnFacing(Vector3)).MethodHandle;
-			}
 			Vector3 vector = this.m_cameraRotationTarget.transform.position - spawnPosition;
 			vector.y = 0f;
 			if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (vector.x > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = new Vector3(1f, 0f, 0f);
 				}
 				else
@@ -758,15 +440,6 @@ public class SinglePlayerState
 			}
 			else if (vector.z > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = new Vector3(0f, 0f, 1f);
 			}
 			else

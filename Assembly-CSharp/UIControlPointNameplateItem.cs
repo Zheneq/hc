@@ -24,19 +24,6 @@ public class UIControlPointNameplateItem : MonoBehaviour
 			GameObject gameObject = base.transform.GetChild(i).gameObject;
 			UIManager.SetGameObjectActive(gameObject, visible, null);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIControlPointNameplateItem.SetVisible(bool)).MethodHandle;
-		}
 	}
 
 	private void Update()
@@ -54,32 +41,10 @@ public class UIControlPointNameplateItem : MonoBehaviour
 		bool flag;
 		if (vector.z >= 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIControlPointNameplateItem.Update()).MethodHandle;
-			}
 			if (this.m_controlPoint.CurrentControlPointState != ControlPoint.State.Disabled)
 			{
 				flag = true;
 				goto IL_76;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag = false;
@@ -87,15 +52,6 @@ public class UIControlPointNameplateItem : MonoBehaviour
 		this.SetVisible(flag);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Canvas componentInParent = base.GetComponentInParent<Canvas>();
 			RectTransform rectTransform = componentInParent.transform as RectTransform;
 			Vector2 anchoredPosition = new Vector2(vector.x * rectTransform.sizeDelta.x - rectTransform.sizeDelta.x * 0.5f, vector.y * rectTransform.sizeDelta.y - rectTransform.sizeDelta.y * 0.5f);

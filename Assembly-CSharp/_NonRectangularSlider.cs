@@ -28,19 +28,6 @@ public class _NonRectangularSlider : MonoBehaviour
 	{
 		if (this.m_val != this.m_lastValSet)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_NonRectangularSlider.Update()).MethodHandle;
-			}
 			this.SetBarPercentVisual(this.m_theMaskChildFreezer, this.m_val);
 		}
 	}

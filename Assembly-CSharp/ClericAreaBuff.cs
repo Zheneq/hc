@@ -90,19 +90,6 @@ public class ClericAreaBuff : Ability
 		AbilityUtil_Targeter.AffectsActor affectsCaster;
 		if (this.IncludeCaster())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.SetupTargeter()).MethodHandle;
-			}
 			affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		}
 		else
@@ -135,19 +122,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo cachedEffectOnCaster;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectOnCaster = this.m_abilityMod.m_effectOnCasterMod.GetModifiedValue(this.m_effectOnCaster);
 		}
 		else
@@ -160,15 +134,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo cachedEffectOnEnemies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnEnemies = this.m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(this.m_effectOnEnemies);
 		}
 		else
@@ -188,19 +153,6 @@ public class ClericAreaBuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.PenetrateLoS()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLoSMod.GetModifiedValue(this.m_penetrateLoS);
 		}
 		else
@@ -215,19 +167,6 @@ public class ClericAreaBuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.IncludeEnemies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_includeEnemiesMod.GetModifiedValue(this.m_includeEnemies);
 		}
 		else
@@ -247,19 +186,6 @@ public class ClericAreaBuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.IncludeCaster()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_includeCasterMod.GetModifiedValue(this.m_includeCaster);
 		}
 		else
@@ -274,19 +200,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetExtraTpCostPerTurnActive()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraTpCostPerTurnActiveMod.GetModifiedValue(this.m_extraTpCostPerTurnActive);
 		}
 		else
@@ -301,19 +214,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetCooldownWhenBuffLapses()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownWhenBuffLapsesMod.GetModifiedValue(this.m_cooldownWhenBuffLapses);
 		}
 		else
@@ -333,19 +233,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetHealAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healAmountMod.GetModifiedValue(this.m_healAmount);
 		}
 		else
@@ -360,19 +247,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnCaster != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetEffectOnCaster()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnCaster;
 		}
 		else
@@ -386,41 +260,10 @@ public class ClericAreaBuff : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetEffectOnAllies()).MethodHandle;
-			}
 			if (this.m_syncComp.m_turnsAreaBuffActive == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_cachedFirstTurnEffectOnAllies != null && this.m_cachedFirstTurnEffectOnAllies.m_applyEffect)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_cachedFirstTurnEffectOnAllies;
 				}
 			}
@@ -433,19 +276,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetSelfShieldingOverride()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfShieldingOverrideMod.GetModifiedValue(this.m_selfShieldingOverride);
 		}
 		else
@@ -460,19 +290,6 @@ public class ClericAreaBuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnEnemies != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetEffectOnEnemies()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnEnemies;
 		}
 		else
@@ -492,19 +309,6 @@ public class ClericAreaBuff : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetVisionRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_visionRadiusMod.GetModifiedValue(this.m_visionRadius);
 		}
 		else
@@ -529,19 +333,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetExtraShieldsPerTurnActive()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraShieldsPerTurnActive.GetModifiedValue(0);
 		}
 		else
@@ -556,19 +347,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetAllyTechPointGainPerTurnActive()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allyTechPointGainPerTurnActive.GetModifiedValue(0);
 		}
 		else
@@ -583,19 +361,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetExtraSelfShieldsPerEnemyInShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraSelfShieldingPerEnemyInShape.GetModifiedValue(0);
 		}
 		else
@@ -610,19 +375,6 @@ public class ClericAreaBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetExtraHealForPurifyOnBuffedAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraHealForPurifyOnBuffedAllies.GetModifiedValue(0);
 		}
 		else
@@ -639,72 +391,23 @@ public class ClericAreaBuff : Ability
 		{
 			if (this.GetSelfShieldingOverride() > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.CalculateShieldAmount(ActorData)).MethodHandle;
-				}
 				num = this.GetSelfShieldingOverride();
 			}
 			else if (this.GetEffectOnCaster() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetEffectOnCaster().m_applyEffect)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = this.GetEffectOnCaster().m_effectData.m_absorbAmount;
 				}
 			}
 			if (this.GetExtraSelfShieldsPerEnemyInShape() != 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.GetShape(), targetActor.GetTravelBoardSquareWorldPosition(), targetActor.GetCurrentBoardSquare(), true, targetActor, targetActor.GetOpposingTeam(), null);
 				num += actorsInShape.Count * this.GetExtraSelfShieldsPerEnemyInShape();
 			}
 		}
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetExtraShieldsPerTurnActive() != 0)
 			{
 				num += this.GetExtraShieldsPerTurnActive() * this.m_syncComp.m_turnsAreaBuffActive;
@@ -723,19 +426,6 @@ public class ClericAreaBuff : Ability
 		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnAllies, "EffectOnAllies", this.m_effectOnAllies, true);
 		if (this.m_selfShieldingOverride >= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			base.AddTokenInt(tokens, "SelfShieldingOverride", string.Empty, this.m_selfShieldingOverride, false);
 		}
 		AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnEnemies, "EffectOnEnemies", this.m_effectOnEnemies, true);
@@ -750,19 +440,6 @@ public class ClericAreaBuff : Ability
 		{
 			if (this.m_selfShieldingOverride >= 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.CalculateNameplateTargetingNumbers()).MethodHandle;
-				}
 				AbilityTooltipHelper.ReportAbsorb(ref list, AbilityTooltipSubject.Self, this.m_selfShieldingOverride);
 			}
 			else
@@ -774,15 +451,6 @@ public class ClericAreaBuff : Ability
 		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, this.GetHealAmount()));
 		if (this.IncludeCaster())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, this.GetHealAmount()));
 		}
 		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Ally, 1));
@@ -808,19 +476,6 @@ public class ClericAreaBuff : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetActionAnimType()).MethodHandle;
-			}
 			if (this.m_syncComp.m_turnsAreaBuffActive == 0)
 			{
 				return base.GetActionAnimType();
@@ -833,30 +488,8 @@ public class ClericAreaBuff : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.ShouldAutoQueueIfValid()).MethodHandle;
-			}
 			if (this.m_syncComp.m_turnsAreaBuffActive > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
@@ -887,30 +520,8 @@ public class ClericAreaBuff : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetCustomAbilityIconColor(ActorData)).MethodHandle;
-			}
 			if (this.m_syncComp.m_turnsAreaBuffActive > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_iconColorWhileActive;
 			}
 		}
@@ -921,53 +532,13 @@ public class ClericAreaBuff : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.ShouldShowPersistentAuraUI()).MethodHandle;
-			}
 			if (this.m_syncComp.m_turnsAreaBuffActive > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData abilityData = base.ActorData.GetAbilityData();
 				if (abilityData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityData.HasQueuedAction(this.m_buffActionType))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.GetPerTurnTechPointCost() <= base.ActorData.TechPoints)
 						{
 							return true;
@@ -983,19 +554,6 @@ public class ClericAreaBuff : Ability
 	{
 		if (this.m_syncComp != null && this.m_syncComp.m_turnsAreaBuffActive == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetModdedCost()).MethodHandle;
-			}
 			return base.GetModdedCost();
 		}
 		return 0;
@@ -1006,19 +564,6 @@ public class ClericAreaBuff : Ability
 		int num = 0;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericAreaBuff.GetPerTurnTechPointCost()).MethodHandle;
-			}
 			num = this.m_syncComp.m_turnsAreaBuffActive * this.m_extraTpCostPerTurnActive;
 		}
 		return base.GetModdedCost() + num;

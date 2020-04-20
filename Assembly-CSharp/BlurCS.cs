@@ -27,19 +27,6 @@ internal class BlurCS : PostEffectsCSBase
 		this.blurMaterial = base.CheckShaderAndCreateMaterial(this.blurShader, this.blurMaterial);
 		if (!this.isSupported)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlurCS.CheckResources()).MethodHandle;
-			}
 			base.ReportAutoDisable();
 		}
 		return this.isSupported;
@@ -49,19 +36,6 @@ internal class BlurCS : PostEffectsCSBase
 	{
 		if (this.blurMaterial)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlurCS.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.DestroyImmediate(this.blurMaterial);
 		}
 	}
@@ -70,19 +44,6 @@ internal class BlurCS : PostEffectsCSBase
 	{
 		if (!this.CheckResources())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlurCS.OnRenderImage(RenderTexture, RenderTexture)).MethodHandle;
-			}
 			Graphics.Blit(source, destination);
 			return;
 		}
@@ -97,15 +58,6 @@ internal class BlurCS : PostEffectsCSBase
 		int num2;
 		if (this.blurType == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = 0;
 		}
 		else
@@ -127,15 +79,6 @@ internal class BlurCS : PostEffectsCSBase
 			Graphics.Blit(renderTexture, temporary, this.blurMaterial, 2 + num3);
 			RenderTexture.ReleaseTemporary(renderTexture);
 			renderTexture = temporary;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		Graphics.Blit(renderTexture, destination);
 		RenderTexture.ReleaseTemporary(renderTexture);

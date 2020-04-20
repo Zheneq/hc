@@ -29,19 +29,6 @@ public class FreelancerStats : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.Start()).MethodHandle;
-			}
 			this.m_freelancerTypeStr = component.m_characterType.ToString();
 		}
 	}
@@ -52,49 +39,14 @@ public class FreelancerStats : NetworkBehaviour
 		{
 			this.m_values.Add(0);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.OnStartServer()).MethodHandle;
-		}
 	}
 
 	public virtual string GetDisplayNameOfStat(int statIndex)
 	{
 		if (statIndex >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.GetDisplayNameOfStat(int)).MethodHandle;
-			}
 			if (statIndex < this.m_name.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return StringUtil.TR_FreelancerStatName(this.m_freelancerTypeStr, statIndex);
 			}
 		}
@@ -111,30 +63,8 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.GetLocalizedDescriptionOfStat(int)).MethodHandle;
-			}
 			if (statIndex < this.m_descriptions.Count)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return StringUtil.TR_FreelancerStatDescription(this.m_freelancerTypeStr, statIndex);
 			}
 		}
@@ -151,30 +81,8 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.GetValueOfStat(int)).MethodHandle;
-			}
 			if (statIndex < this.m_values.Count)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_values[statIndex];
 			}
 		}
@@ -204,19 +112,6 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.InvokeSyncListm_values(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_values called on server.");
 			return;
 		}
@@ -238,19 +133,6 @@ public class FreelancerStats : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -260,15 +142,6 @@ public class FreelancerStats : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -278,34 +151,12 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FreelancerStats.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListInt.ReadReference(reader, this.m_values);
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, this.m_values);
 		}
 	}

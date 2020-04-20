@@ -10,30 +10,8 @@ public static class AbilityModHelper
 		bool result = true;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.IsModAllowed(CharacterType, int, int)).MethodHandle;
-			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = GameManager.Get().GameplayOverrides.IsAbilityModAllowed(characterType, actionTypeInt, abilityScopeId);
 			}
 		}
@@ -56,42 +34,11 @@ public static class AbilityModHelper
 			{
 				if (abilityMod.m_availableInGame)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetAvailableModsForAbilityType(Type)).MethodHandle;
-					}
 					if (abilityMod.m_name.Length > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(abilityMod);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -103,19 +50,6 @@ public static class AbilityModHelper
 		GameObject modPrefabForAbilityType = AbilityModHelper.GetModPrefabForAbilityType(abilityType);
 		if (modPrefabForAbilityType != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetAvailableModsForAbilityType(Type, int, PersistedCharacterData, bool)).MethodHandle;
-			}
 			AbilityMod[] components = modPrefabForAbilityType.GetComponents<AbilityMod>();
 			AbilityMod[] array = components;
 			int i = 0;
@@ -126,64 +60,19 @@ public static class AbilityModHelper
 				{
 					goto IL_8B;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterData.CharacterComponent.IsModUnlocked(abilityIndex, abilityMod.m_abilityScopeId))
 				{
 					goto IL_8B;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				bool flag = GameManager.Get().GameplayOverrides.EnableAllMods;
 				IL_8C:
 				bool flag2 = flag;
 				if (abilityMod.m_availableInGame)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityMod.EquippableForGameType())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(abilityMod);
 						}
 					}
@@ -193,15 +82,6 @@ public static class AbilityModHelper
 				IL_8B:
 				flag = true;
 				goto IL_8C;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -214,32 +94,10 @@ public static class AbilityModHelper
 		AbilityData component = characterActorData.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.HasAnyAvailableMods(ActorData)).MethodHandle;
-			}
 			List<Ability> abilitiesAsList = component.GetAbilitiesAsList();
 			int i = 0;
 			while (i < abilitiesAsList.Count)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					for (;;)
@@ -257,26 +115,8 @@ public static class AbilityModHelper
 					Ability ability = abilitiesAsList[i];
 					if (ability != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (AbilityModHelper.GetAvailableModsForAbilityType(ability.GetType(), i, playerCharacterData, true).Count > 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 					}
@@ -291,19 +131,6 @@ public static class AbilityModHelper
 	{
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetAvailableModsForAbility(Ability)).MethodHandle;
-			}
 			return AbilityModHelper.GetAvailableModsForAbilityType(ability.GetType());
 		}
 		return new List<AbilityMod>();
@@ -316,19 +143,6 @@ public static class AbilityModHelper
 		select a;
 		if (source.Count<AbilityMod>() == 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModForAbility(Ability, int)).MethodHandle;
-			}
 			return null;
 		}
 		return source.First<AbilityMod>();
@@ -345,46 +159,15 @@ public static class AbilityModHelper
 		string text = string.Empty;
 		if (operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyInt, string, bool, int)).MethodHandle;
-			}
 			text = ((value < 0f) ? " " : " +");
 			text += InEditorDescHelper.ColoredString(Mathf.RoundToInt(value).ToString(), "cyan", false);
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = " = " + InEditorDescHelper.ColoredString(Mathf.RoundToInt(value).ToString(), "cyan", false);
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = " x " + InEditorDescHelper.ColoredString(value.ToString(), "cyan", false) + " and round down";
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil)
@@ -393,29 +176,11 @@ public static class AbilityModHelper
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = " x " + InEditorDescHelper.ColoredString(value.ToString(), "cyan", false) + " and round nearest";
 		}
 		string str = prefix + text;
 		if (showBaseVal)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int modifiedValue = modProp.GetModifiedValue(baseVal);
 			str += AbilityModHelper.GetDiffString(modifiedValue, baseVal, operation);
 		}
@@ -426,19 +191,6 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyFloat, string, bool, float)).MethodHandle;
-			}
 			if (modProp.operation != AbilityModPropertyFloat.ModOp.Ignore)
 			{
 				float value = modProp.value;
@@ -446,27 +198,9 @@ public static class AbilityModHelper
 				string text = string.Empty;
 				if (operation == AbilityModPropertyFloat.ModOp.Add)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text2;
 					if (value >= 0f)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text2 = " +";
 					}
 					else
@@ -478,15 +212,6 @@ public static class AbilityModHelper
 				}
 				else if (operation == AbilityModPropertyFloat.ModOp.Override)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = " = " + InEditorDescHelper.ColoredString(value.ToString(), "cyan", false);
 				}
 				else if (operation == AbilityModPropertyFloat.ModOp.Multiply)
@@ -510,15 +235,6 @@ public static class AbilityModHelper
 				}
 				return text3 + "\n";
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return string.Empty;
 	}
@@ -527,19 +243,6 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyBool, string, bool, bool)).MethodHandle;
-			}
 			if (modProp.operation != AbilityModPropertyBool.ModOp.Ignore)
 			{
 				bool value = modProp.value;
@@ -547,27 +250,9 @@ public static class AbilityModHelper
 				string str = string.Empty;
 				if (operation == AbilityModPropertyBool.ModOp.Override)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string input;
 					if (value)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						input = "True";
 					}
 					else
@@ -580,15 +265,6 @@ public static class AbilityModHelper
 				string text = prefix + str;
 				if (showBaseVal)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text2 = text;
 					text = string.Concat(new string[]
 					{
@@ -600,15 +276,6 @@ public static class AbilityModHelper
 					});
 				}
 				return text + "\n";
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -618,34 +285,12 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyShape, string, bool, AbilityAreaShape)).MethodHandle;
-			}
 			if (modProp.operation != AbilityModPropertyShape.ModOp.Ignore)
 			{
 				AbilityAreaShape value = modProp.value;
 				string str = string.Empty;
 				if (modProp.operation == AbilityModPropertyShape.ModOp.Override)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = " = " + InEditorDescHelper.ColoredString(value.ToString(), "cyan", false);
 				}
 				string text = prefix + str;
@@ -662,15 +307,6 @@ public static class AbilityModHelper
 					});
 				}
 				return text + "\n";
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -680,48 +316,17 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyKnockbackType, string, bool, KnockbackType)).MethodHandle;
-			}
 			if (modProp.operation != AbilityModPropertyKnockbackType.ModOp.Ignore)
 			{
 				KnockbackType value = modProp.value;
 				string str = string.Empty;
 				if (modProp.operation == AbilityModPropertyKnockbackType.ModOp.Override)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = " = " + InEditorDescHelper.ColoredString(value.ToString(), "cyan", false);
 				}
 				string text = prefix + str;
 				if (showBaseVal)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text2 = text;
 					text = string.Concat(new string[]
 					{
@@ -734,15 +339,6 @@ public static class AbilityModHelper
 				}
 				return text + "\n";
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return string.Empty;
 	}
@@ -751,19 +347,6 @@ public static class AbilityModHelper
 	{
 		if (laserModInfo == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyLaserInfo, string, bool, LaserTargetingInfo)).MethodHandle;
-			}
 			return string.Empty;
 		}
 		bool flag = showBaseVal && baseLaserInfo != null;
@@ -775,15 +358,6 @@ public static class AbilityModHelper
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = baseLaserInfo.range;
 		}
 		else
@@ -798,15 +372,6 @@ public static class AbilityModHelper
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = baseLaserInfo.width;
 		}
 		else
@@ -821,15 +386,6 @@ public static class AbilityModHelper
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = baseLaserInfo.maxTargets;
 		}
 		else
@@ -844,15 +400,6 @@ public static class AbilityModHelper
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = baseLaserInfo.penetrateLos;
 		}
 		else
@@ -867,15 +414,6 @@ public static class AbilityModHelper
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = baseLaserInfo.affectsEnemies;
 		}
 		else
@@ -890,15 +428,6 @@ public static class AbilityModHelper
 		bool baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = baseLaserInfo.affectsAllies;
 		}
 		else
@@ -913,15 +442,6 @@ public static class AbilityModHelper
 		bool baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = baseLaserInfo.affectsCaster;
 		}
 		else
@@ -935,33 +455,11 @@ public static class AbilityModHelper
 	{
 		if (coneInfo == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyConeInfo, string, bool, ConeTargetingInfo)).MethodHandle;
-			}
 			return string.Empty;
 		}
 		bool flag;
 		if (showBaseVal)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (baseConeInfo != null);
 		}
 		else
@@ -977,15 +475,6 @@ public static class AbilityModHelper
 		float baseVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = baseConeInfo.m_radiusInSquares;
 		}
 		else
@@ -1001,15 +490,6 @@ public static class AbilityModHelper
 		float baseVal2;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = baseConeInfo.m_backwardsOffset;
 		}
 		else
@@ -1025,15 +505,6 @@ public static class AbilityModHelper
 		bool baseVal3;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = baseConeInfo.m_affectsEnemies;
 		}
 		else
@@ -1048,15 +519,6 @@ public static class AbilityModHelper
 		bool baseVal4;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = baseConeInfo.m_affectsAllies;
 		}
 		else
@@ -1071,15 +533,6 @@ public static class AbilityModHelper
 		bool baseVal5;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = baseConeInfo.m_affectsCaster;
 		}
 		else
@@ -1093,44 +546,13 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyEffectInfo, string, bool, StandardEffectInfo)).MethodHandle;
-			}
 			if (modProp.operation != AbilityModPropertyEffectInfo.ModOp.Ignore)
 			{
 				bool flag;
 				if (showBaseVal)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (baseVal != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = baseVal.m_applyEffect;
 						goto IL_51;
 					}
@@ -1141,78 +563,24 @@ public static class AbilityModHelper
 				string text = AbilityModHelper.GetModEffectInfoDesc(modProp.effectInfo, prefix, string.Empty, flag2, (!flag2) ? null : baseVal);
 				if (modProp.useSequencesFromSource)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (modProp.effectInfo.m_applyEffect)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + InEditorDescHelper.ColoredString("    | Using Sequences from source effect info |", "cyan", false) + "\n";
 					}
 				}
 				string text2 = text;
 				if (showBaseVal)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (baseVal == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text2 = AbilityModHelper.SourceColorStr("\t(No Effect Info in Base)\n");
 					}
 					else if (!baseVal.m_applyEffect)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text2 += AbilityModHelper.SourceColorStr("\tEffect set to not apply in Base Ability\n");
 					}
 				}
 				return text2;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -1222,33 +590,11 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyEffectData, string, bool, StandardActorEffectData)).MethodHandle;
-			}
 			if (modProp.operation != AbilityModPropertyEffectData.ModOp.Ignore)
 			{
 				bool flag;
 				if (showBaseVal)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (baseVal != null);
 				}
 				else
@@ -1262,15 +608,6 @@ public static class AbilityModHelper
 				StandardActorEffectData baseVal2;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					baseVal2 = baseVal;
 				}
 				else
@@ -1280,41 +617,14 @@ public static class AbilityModHelper
 				string text = AbilityModHelper.GetModEffectDataDesc(effectData, prefix, empty, useBaseVal, baseVal2);
 				if (modProp.useSequencesFromSource)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text + InEditorDescHelper.ColoredString("    | Using Sequences from source effect data |", "cyan", false) + "\n";
 				}
 				string result = text;
 				if (showBaseVal && baseVal == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = AbilityModHelper.SourceColorStr("\t(No Effect Data in Base)\n");
 				}
 				return result;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -1328,19 +638,6 @@ public static class AbilityModHelper
 			{
 				return modProp.spoilsSpawnDataOverride.GetInEditorDescription(prefix, "    ", showBaseVal, baseVal);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertySpoilsSpawnData, string, bool, SpoilsSpawnData)).MethodHandle;
-			}
 		}
 		return string.Empty;
 	}
@@ -1349,55 +646,15 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyBarrierDataV2, string, StandardBarrierData)).MethodHandle;
-			}
 			if (baseVal != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (modProp.operation != AbilityModPropertyBarrierDataV2.ModOp.Ignore)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (modProp.barrierModData != null)
 					{
 						string empty = string.Empty;
 						StandardBarrierData modifiedCopy = modProp.barrierModData.GetModifiedCopy(baseVal);
 						return empty + modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal);
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1409,30 +666,8 @@ public static class AbilityModHelper
 	{
 		if (modProp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModPropertyDesc(AbilityModPropertyGroundEffectField, string, GroundEffectField)).MethodHandle;
-			}
 			if (baseVal != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (modProp.operation != AbilityModPropertyGroundEffectField.ModOp.Ignore)
 				{
 					if (modProp.groundFieldModData != null)
@@ -1440,15 +675,6 @@ public static class AbilityModHelper
 						string empty = string.Empty;
 						GroundEffectField modifiedCopy = modProp.groundFieldModData.GetModifiedCopy(baseVal);
 						return empty + modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal);
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1469,19 +695,6 @@ public static class AbilityModHelper
 		string text;
 		if (operation != AbilityModPropertyInt.ModOp.Add)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetDiffString(int, int, AbilityModPropertyInt.ModOp)).MethodHandle;
-			}
 			text = " diff = " + Mathf.Abs(finalVal - baseVal);
 		}
 		else
@@ -1499,19 +712,6 @@ public static class AbilityModHelper
 	{
 		if (!surround)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.SurroundWithBrackets(string, bool, bool)).MethodHandle;
-			}
 			return input;
 		}
 		return (!asHeader) ? ("[" + input + "]") : ("{ " + input + " }");
@@ -1522,42 +722,11 @@ public static class AbilityModHelper
 		string text = string.Empty;
 		if (effectInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModEffectInfoDesc(StandardEffectInfo, string, string, bool, StandardEffectInfo)).MethodHandle;
-			}
 			if (effectInfo.m_applyEffect)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag;
 				if (useBaseVal)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (baseVal != null)
 					{
 						flag = baseVal.m_applyEffect;
@@ -1572,15 +741,6 @@ public static class AbilityModHelper
 				StandardActorEffectData baseVal2;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					baseVal2 = baseVal.m_effectData;
 				}
 				else
@@ -1590,45 +750,18 @@ public static class AbilityModHelper
 				text = AbilityModHelper.GetModEffectDataDesc(effectData, prefix, indent, useBaseVal2, baseVal2);
 				if (useBaseVal)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (baseVal == null)
 					{
 						text += AbilityModHelper.SourceColorStr("\t" + prefix + " Not in Base Ability\n");
 					}
 					else if (!baseVal.m_applyEffect)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += AbilityModHelper.SourceColorStr("\tNot applying " + prefix + " in Base Ability\n");
 					}
 				}
 			}
 			else if (baseVal != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += AbilityModHelper.SourceColorStr(prefix + " | SET TO NOT APPLY\n");
 			}
 		}
@@ -1653,19 +786,6 @@ public static class AbilityModHelper
 			bool flag;
 			if (useBaseVal)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModEffectDataDesc(StandardActorEffectData, string, string, bool, StandardActorEffectData)).MethodHandle;
-				}
 				flag = (baseVal != null);
 			}
 			else
@@ -1676,15 +796,6 @@ public static class AbilityModHelper
 			text += effectData.GetInEditorDescription(indent, true, diff, baseVal);
 			if (useBaseVal && baseVal == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += AbilityModHelper.SourceColorStr("\t" + prefix + " Not in Base Ability\n");
 			}
 		}
@@ -1696,56 +807,16 @@ public static class AbilityModHelper
 		string text = string.Empty;
 		if (effectInfo != null && effectInfo.m_applyGroundEffect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetModGroundEffectInfoDesc(StandardGroundEffectInfo, string, bool, StandardGroundEffectInfo)).MethodHandle;
-			}
 			text = text + prefix + "\n";
 			text += effectInfo.m_groundEffectData.GetInEditorDescription("GroundEffectField", "    ", false, null);
 			if (useBaseVal)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (baseVal == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += AbilityModHelper.SourceColorStr("\t" + prefix + " Not in Base Ability\n");
 				}
 				else if (!baseVal.m_applyGroundEffect)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += AbilityModHelper.SourceColorStr("\tNot applying " + prefix + " in Base Ability\n");
 				}
 				else
@@ -1762,41 +833,10 @@ public static class AbilityModHelper
 		string text = string.Empty;
 		if (cooldownChangeInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetAbilityCooldownChangeDesc(AbilityCooldownChangeInfo, AbilityData)).MethodHandle;
-			}
 			if (cooldownChangeInfo.abilitySlot != AbilityData.ActionType.INVALID_ACTION)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (cooldownChangeInfo.cooldownAddAmount != 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int cooldownAddAmount = cooldownChangeInfo.cooldownAddAmount;
 					string text2 = (cooldownAddAmount < 0) ? " is Reduced by " : "is Increased by ";
 					string text3 = text;
@@ -1820,19 +860,6 @@ public static class AbilityModHelper
 		string text = actionType.ToString();
 		if (abilityData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetAbilityNameFromActionType(AbilityData.ActionType, AbilityData)).MethodHandle;
-			}
 			Ability ability = null;
 			switch (actionType)
 			{
@@ -1873,33 +900,11 @@ public static class AbilityModHelper
 	{
 		if (mod != null && mod.modAmount != null && mod.abilitySlot != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetCooldownModDesc(AbilityCooldownMod, string, AbilityData)).MethodHandle;
-			}
 			if (mod.modAmount.operation != AbilityModPropertyInt.ModOp.Ignore)
 			{
 				string text;
 				if (abilityData == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = mod.abilitySlot.ToString();
 				}
 				else
@@ -1911,27 +916,9 @@ public static class AbilityModHelper
 				string text2;
 				if (mod.modAmount.operation == AbilityModPropertyInt.ModOp.Add)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string str3;
 					if (mod.modAmount.value >= 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						str3 = " + ";
 					}
 					else
@@ -1955,41 +942,10 @@ public static class AbilityModHelper
 	{
 		if (mod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetStockModDesc(AbilityStockMod, string)).MethodHandle;
-			}
 			if (mod.availableStockModAmount != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (mod.refreshTimeRemainingModAmount != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (mod.abilitySlot != AbilityData.ActionType.INVALID_ACTION)
 					{
 						string text = string.Empty;
@@ -2003,15 +959,6 @@ public static class AbilityModHelper
 						}
 						if (text.Length > 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = string.Concat(new string[]
 							{
 								prefix,
@@ -2023,15 +970,6 @@ public static class AbilityModHelper
 						}
 						return text;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -2042,34 +980,12 @@ public static class AbilityModHelper
 	{
 		if (mod != null && mod.modAmount != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.GetTechPointModDesc(TechPointInteractionMod, bool, int)).MethodHandle;
-			}
 			if (mod.modAmount.operation != AbilityModPropertyInt.ModOp.Ignore)
 			{
 				string modPropertyDesc = AbilityModHelper.GetModPropertyDesc(mod.modAmount, string.Empty, false, 0);
 				string text = "TechPoint on [" + mod.interactionType.ToString() + "]" + modPropertyDesc;
 				if (useBase)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text2 = text;
 					text = string.Concat(new string[]
 					{
@@ -2081,15 +997,6 @@ public static class AbilityModHelper
 					});
 				}
 				return text;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return string.Empty;
@@ -2118,30 +1025,8 @@ public static class AbilityModHelper
 	{
 		if (effectInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.AddTooltipNumbersFromEffect(StandardEffectInfo, List<int>)).MethodHandle;
-			}
 			if (effectInfo.m_applyEffect)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityModHelper.AddTooltipNumbersFromEffect(effectInfo.m_effectData, numbers);
 			}
 		}
@@ -2151,30 +1036,8 @@ public static class AbilityModHelper
 	{
 		if (numbers != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModHelper.AddTooltipNumbersFromEffect(StandardActorEffectData, List<int>)).MethodHandle;
-			}
 			if (effectData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numbers.Add(effectData.m_duration);
 				if (effectData.m_absorbAmount > 0)
 				{
@@ -2182,28 +1045,10 @@ public static class AbilityModHelper
 				}
 				if (effectData.m_damagePerTurn > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					numbers.Add(effectData.m_damagePerTurn);
 				}
 				if (effectData.m_healingPerTurn > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					numbers.Add(effectData.m_healingPerTurn);
 				}
 			}

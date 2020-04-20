@@ -28,19 +28,6 @@ public class TargetSelect_FanReverseCones : TargetSelect_FanCones
 			vector2 -= this.m_coneInfo.m_radiusInSquares * Board.SquareSizeStatic * coneDirections[i];
 			list.Add(vector2);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanReverseCones.GetConeOrigins(AbilityTarget, Vector3, ActorData)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -57,6 +44,6 @@ public class TargetSelect_FanReverseCones : TargetSelect_FanCones
 	protected override bool CustomLoS(ActorData actor, ActorData caster)
 	{
 		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
-		return caster.GetCurrentBoardSquare().\u0013(currentBoardSquare.x, currentBoardSquare.y);
+		return caster.GetCurrentBoardSquare().symbol_0013(currentBoardSquare.x, currentBoardSquare.y);
 	}
 }

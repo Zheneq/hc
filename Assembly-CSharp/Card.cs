@@ -20,32 +20,10 @@ public class Card : MonoBehaviour
 	{
 		if (this.DisplayName.Length > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetDisplayName()).MethodHandle;
-			}
 			return StringUtil.TR_CardDisplayName(this.m_cardType);
 		}
 		if (this.m_useAbility != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_useAbility.GetNameString();
 		}
 		return "UNKNOWN";
@@ -55,32 +33,10 @@ public class Card : MonoBehaviour
 	{
 		if (this.DisplayName.Length > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetUnlocalizedDisplayName()).MethodHandle;
-			}
 			return this.DisplayName;
 		}
 		if (this.m_useAbility != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_useAbility.m_abilityName;
 		}
 		return "UNKNOWN";
@@ -90,19 +46,6 @@ public class Card : MonoBehaviour
 	{
 		if (this.m_useAbility != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.Awake()).MethodHandle;
-			}
 			this.m_useAbility.sprite = this.GetIconSprite();
 		}
 		else
@@ -115,19 +58,6 @@ public class Card : MonoBehaviour
 	{
 		if (!string.IsNullOrEmpty(this.m_spriteIconPath))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetIconSprite()).MethodHandle;
-			}
 			return (Sprite)Resources.Load(this.m_spriteIconPath, typeof(Sprite));
 		}
 		return null;
@@ -137,30 +67,8 @@ public class Card : MonoBehaviour
 	{
 		if (this.m_useAbility != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.IsFreeAction()).MethodHandle;
-			}
 			if (this.m_useAbility.IsFreeAction())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
@@ -171,19 +79,6 @@ public class Card : MonoBehaviour
 	{
 		if (this.m_useAbility != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.GetAbilityRunPhase()).MethodHandle;
-			}
 			return Card.AbilityPriorityToRunPhase(this.m_useAbility.RunPriority);
 		}
 		return AbilityRunPhase.Unknown;
@@ -193,30 +88,8 @@ public class Card : MonoBehaviour
 	{
 		if (priority >= AbilityPriority.Prep_Defense)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card.AbilityPriorityToRunPhase(AbilityPriority)).MethodHandle;
-			}
 			if (priority <= AbilityPriority.Prep_Offense)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return AbilityRunPhase.Prep;
 			}
 		}

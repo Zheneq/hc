@@ -11,45 +11,14 @@ public class AbilityModPropertyFloat
 	{
 		if (this.operation == AbilityModPropertyFloat.ModOp.Add)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyFloat.GetModifiedValue(float)).MethodHandle;
-			}
 			return input + this.value;
 		}
 		if (this.operation == AbilityModPropertyFloat.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.value;
 		}
 		if (this.operation == AbilityModPropertyFloat.ModOp.Multiply)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return input * this.value;
 		}
 		return input;

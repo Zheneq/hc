@@ -84,19 +84,6 @@ public class ThiefPickPocket : Ability
 				base.Targeters.Add(abilityUtil_Targeter_ThiefFanLaser);
 				base.Targeters[i].SetUseMultiTargetUpdate(true);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPickPocket.SetupTargeter()).MethodHandle;
-			}
 		}
 		else
 		{
@@ -141,19 +128,6 @@ public class ThiefPickPocket : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (this.GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPickPocket.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			this.AccumulateHealthChangesFromTargeter(targetActor, base.Targeter, dictionary);
 		}
 		else
@@ -161,15 +135,6 @@ public class ThiefPickPocket : Ability
 			for (int i = 0; i <= currentTargeterIndex; i++)
 			{
 				this.AccumulateHealthChangesFromTargeter(targetActor, base.Targeters[i], dictionary);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return dictionary;
@@ -187,41 +152,10 @@ public class ThiefPickPocket : Ability
 					AbilityTooltipSubject abilityTooltipSubject = enumerator.Current;
 					if (abilityTooltipSubject == AbilityTooltipSubject.Primary)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPickPocket.AccumulateHealthChangesFromTargeter(ActorData, AbilityUtil_Targeter, Dictionary<AbilityTooltipSymbol, int>)).MethodHandle;
-						}
 						if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!symbolToValue.ContainsKey(AbilityTooltipSymbol.Damage))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								symbolToValue[AbilityTooltipSymbol.Damage] = this.m_laserDamageAmount;
 							}
 							else
@@ -233,15 +167,6 @@ public class ThiefPickPocket : Ability
 					}
 					if (abilityTooltipSubject == AbilityTooltipSubject.Primary && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!symbolToValue.ContainsKey(AbilityTooltipSymbol.Healing))
 						{
 							symbolToValue[AbilityTooltipSymbol.Healing] = this.m_laserHealAmount;
@@ -251,15 +176,6 @@ public class ThiefPickPocket : Ability
 							symbolToValue[AbilityTooltipSymbol.Healing] = symbolToValue[AbilityTooltipSymbol.Healing] + this.m_laserSubsequentHealAmount;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

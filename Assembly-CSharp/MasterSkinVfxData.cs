@@ -56,44 +56,13 @@ public class MasterSkinVfxData : MonoBehaviour
 					CharacterType key = enumerator.Current;
 					if (!this.m_charToSizeOverrides.ContainsKey(key))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(MasterSkinVfxData.Awake()).MethodHandle;
-						}
 						this.m_charToSizeOverrides[key] = MasterSkinVfxData.VfxSize.Small;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (this.m_largeCharacters != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<CharacterType>.Enumerator enumerator2 = this.m_largeCharacters.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -101,64 +70,19 @@ public class MasterSkinVfxData : MonoBehaviour
 					CharacterType key2 = enumerator2.Current;
 					if (!this.m_charToSizeOverrides.ContainsKey(key2))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_charToSizeOverrides[key2] = MasterSkinVfxData.VfxSize.Large;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (this.m_fxJointOverrides != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (MasterSkinVfxData.CharacterToJoint characterToJoint in this.m_fxJointOverrides)
 			{
 				if (characterToJoint.m_characterType.IsValidForHumanGameplay())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_charToJointOverrides.ContainsKey(characterToJoint.m_characterType))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_charToJointOverrides[characterToJoint.m_characterType] = characterToJoint.m_joint;
 					}
 					else
@@ -174,19 +98,6 @@ public class MasterSkinVfxData : MonoBehaviour
 	{
 		if (MasterSkinVfxData.s_instance == this)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MasterSkinVfxData.OnDestroy()).MethodHandle;
-			}
 			MasterSkinVfxData.s_instance = null;
 		}
 	}
@@ -200,19 +111,6 @@ public class MasterSkinVfxData : MonoBehaviour
 		}
 		if (vfxSize == MasterSkinVfxData.VfxSize.Small)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MasterSkinVfxData.GetVfxScaleValueForCharacter(CharacterType)).MethodHandle;
-			}
 			return this.m_vfxScaleSmall;
 		}
 		if (vfxSize == MasterSkinVfxData.VfxSize.Medium)
@@ -227,31 +125,9 @@ public class MasterSkinVfxData : MonoBehaviour
 		GameObject result = this.m_masterVfxPrefabMedium;
 		if (this.m_charToSizeOverrides.ContainsKey(charType))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MasterSkinVfxData.GetVfXPrefabForCharacter(CharacterType)).MethodHandle;
-			}
 			MasterSkinVfxData.VfxSize vfxSize = this.m_charToSizeOverrides[charType];
 			if (vfxSize == MasterSkinVfxData.VfxSize.Small)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = this.m_masterVfxPrefabSmall;
 			}
 			else if (vfxSize == MasterSkinVfxData.VfxSize.Large)
@@ -267,19 +143,6 @@ public class MasterSkinVfxData : MonoBehaviour
 		JointPopupProperty result = this.m_fxJoint;
 		if (this.m_charToJointOverrides.ContainsKey(charType))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MasterSkinVfxData.GetJointForCharacter(CharacterType)).MethodHandle;
-			}
 			result = this.m_charToJointOverrides[charType];
 		}
 		return result;
@@ -291,19 +154,6 @@ public class MasterSkinVfxData : MonoBehaviour
 		GameObject vfXPrefabForCharacter = this.GetVfXPrefabForCharacter(charType);
 		if (vfXPrefabForCharacter != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MasterSkinVfxData.AddMasterSkinVfxOnCharacterObject(GameObject, CharacterType, float)).MethodHandle;
-			}
 			JointPopupProperty jointForCharacter = this.GetJointForCharacter(charType);
 			jointForCharacter.Initialize(characterObj);
 			gameObject = UnityEngine.Object.Instantiate<GameObject>(vfXPrefabForCharacter);

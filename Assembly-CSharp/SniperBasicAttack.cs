@@ -45,19 +45,6 @@ public class SniperBasicAttack : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_laserDamageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_laserDamageAmount);
 		}
 		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
@@ -69,71 +56,22 @@ public class SniperBasicAttack : Ability
 		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
 		if (abilityUtil_Targeter_Laser != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			ActorData component = base.GetComponent<ActorData>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
 				for (int i = 0; i < hitActorContext.Count; i++)
 				{
 					if (hitActorContext[i].actor == targetActor)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 						if (targetActor.GetTeam() != component.GetTeam())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int damageAmountByHitOrder = this.GetDamageAmountByHitOrder(i, hitActorContext[i].squaresFromCaster);
 							dictionary[AbilityTooltipSymbol.Damage] = damageAmountByHitOrder;
 						}
 						return dictionary;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -148,19 +86,6 @@ public class SniperBasicAttack : Ability
 		int val;
 		if (abilityMod_SniperBasicAttack)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SniperBasicAttack.m_damageMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -173,15 +98,6 @@ public class SniperBasicAttack : Ability
 		int val2;
 		if (abilityMod_SniperBasicAttack)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SniperBasicAttack.m_minDamageMod.GetModifiedValue(this.m_minDamageAmount);
 		}
 		else
@@ -194,15 +110,6 @@ public class SniperBasicAttack : Ability
 		int val3;
 		if (abilityMod_SniperBasicAttack)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SniperBasicAttack.m_damageChangePerHitMod.GetModifiedValue(this.m_damageChangePerHit);
 		}
 		else
@@ -218,30 +125,8 @@ public class SniperBasicAttack : Ability
 		int num = this.GetBaseDamage();
 		if (this.GetFarDistanceThreshold() > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetDamageAmountByHitOrder(int, float)).MethodHandle;
-			}
 			if (distanceFromCasterInSquares > this.GetFarDistanceThreshold() && this.GetFarEnemyDamageAmount() > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.GetFarEnemyDamageAmount();
 			}
 		}
@@ -277,30 +162,8 @@ public class SniperBasicAttack : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetLaserRange()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useTargetDataOverrides)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_targetDataOverrides.Length > 0)
 				{
 					return this.m_abilityMod.m_targetDataOverrides[0].m_range;
@@ -315,30 +178,8 @@ public class SniperBasicAttack : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetLaserPenetratesLoS()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useTargetDataOverrides)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_targetDataOverrides.Length > 0)
 				{
 					return !this.m_abilityMod.m_targetDataOverrides[0].m_checkLineOfSight;
@@ -353,19 +194,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_laserInfo.maxTargets;
 		}
 		else
@@ -380,19 +208,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetBaseDamage()).MethodHandle;
-			}
 			result = this.m_laserDamageAmount;
 		}
 		else
@@ -408,19 +223,6 @@ public class SniperBasicAttack : Ability
 		int b;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetMinDamage()).MethodHandle;
-			}
 			b = this.m_minDamageAmount;
 		}
 		else
@@ -435,19 +237,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetDamageChangePerHit()).MethodHandle;
-			}
 			result = this.m_damageChangePerHit;
 		}
 		else
@@ -467,19 +256,6 @@ public class SniperBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperBasicAttack.GetFarEnemyDamageAmount()).MethodHandle;
-			}
 			result = this.m_laserDamageAmount;
 		}
 		else

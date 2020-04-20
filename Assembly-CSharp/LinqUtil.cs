@@ -13,45 +13,14 @@ public static class LinqUtil
 				T arg = enumerator.Current;
 				if (func(arg))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(IEnumerable<T>.ContainsWhere(Func<T, bool>)).MethodHandle;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}

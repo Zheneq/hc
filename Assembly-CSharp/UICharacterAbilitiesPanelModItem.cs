@@ -19,19 +19,6 @@ public class UICharacterAbilitiesPanelModItem : MonoBehaviour
 	{
 		if (this.m_saveBtn != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanelModItem.Start()).MethodHandle;
-			}
 			this.m_btn.spriteController.AddSubButton(this.m_saveBtn.spriteController);
 			this.m_saveBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SaveLoadoutClicked);
 		}
@@ -55,19 +42,6 @@ public class UICharacterAbilitiesPanelModItem : MonoBehaviour
 	{
 		if (this.m_panel != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanelModItem.SaveLoadoutClicked(BaseEventData)).MethodHandle;
-			}
 			this.m_panel.NotifySaveModLoadoutClicked(this);
 		}
 	}
@@ -83,19 +57,6 @@ public class UICharacterAbilitiesPanelModItem : MonoBehaviour
 		for (int i = 0; i < this.m_textLabels.Length; i++)
 		{
 			this.m_textLabels[i].text = text;
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbilitiesPanelModItem.SetModLabels(string)).MethodHandle;
 		}
 	}
 }

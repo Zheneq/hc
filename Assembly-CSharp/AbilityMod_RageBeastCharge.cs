@@ -29,19 +29,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		RageBeastCharge rageBeastCharge = targetAbility as RageBeastCharge;
 		if (rageBeastCharge != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastCharge.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, rageBeastCharge.m_damageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_damageNearChargeEndMod, "DamageNearChargeEnd", string.Empty, rageBeastCharge.m_damageNearChargeEnd, true, false);
 			AbilityMod.AddToken(tokens, this.m_chargeLineRadiusMod, "DamageRadius", string.Empty, rageBeastCharge.m_damageRadius, true, false, false);
@@ -62,19 +49,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastCharge.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = rageBeastCharge.m_damageAmount;
 		}
 		else
@@ -89,15 +63,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastCharge.m_damageNearChargeEnd;
 		}
 		else
@@ -115,15 +80,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastCharge.m_enemyHitEffectNearChargeEnd;
 		}
 		else

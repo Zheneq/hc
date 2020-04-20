@@ -24,19 +24,6 @@ public class SniperOverwatch : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Overwatch";
 		}
 		base.Targeter = new AbilityUtil_Targeter_Line(this, this.m_range, this.m_penetrateLos);
@@ -69,19 +56,6 @@ public class SniperOverwatch : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SniperOverwatch))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SniperOverwatch);
 		}
 		else
@@ -100,19 +74,6 @@ public class SniperOverwatch : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.GetBarrierDuration()).MethodHandle;
-			}
 			result = this.m_duration;
 		}
 		else
@@ -131,30 +92,8 @@ public class SniperOverwatch : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.GetOnMovedThroughEffectInfo()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useEnemyHitEffectOverride)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityMod.m_enemyHitEffectOverride;
 			}
 		}
@@ -165,19 +104,6 @@ public class SniperOverwatch : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatch.GetOnEnemyMovedThroughResponse()).MethodHandle;
-			}
 			GameplayResponseForActor shallowCopy = this.m_onEnemyMoveThrough.GetShallowCopy();
 			shallowCopy.m_effect = this.GetOnMovedThroughEffectInfo();
 			shallowCopy.m_damage = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_onEnemyMoveThrough.m_damage);

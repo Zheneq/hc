@@ -35,19 +35,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		this.m_squarePosCheckerList.Add(this.m_coneChecker);
 		if (this.m_connectLaserWidth > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth_FixedOffset..ctor(Ability, float, float, float, bool, float, KnockbackType, float, bool, bool, int)).MethodHandle;
-			}
 			this.m_squarePosCheckerList.Add(this.m_laserChecker);
 		}
 	}
@@ -63,32 +50,10 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		float num2 = maxDistInSquares * squareSize;
 		if (magnitude < num)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth_FixedOffset.GetClampedFreePos(Vector3, ActorData, float, float)).MethodHandle;
-			}
 			return travelBoardSquareWorldPositionForLos + vector.normalized * num;
 		}
 		if (magnitude > num2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return travelBoardSquareWorldPositionForLos + vector.normalized * num2;
 		}
 		return freePos;
@@ -109,30 +74,8 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		base.CreateHighlightObjectsIfNeeded(radiusInSquares, targetingActor);
 		if (this.m_connectLaserWidth > 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth_FixedOffset.CreateHighlightObjectsIfNeeded(float, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count < 2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights.Add(this.m_laserPart.CreateHighlightObject(this));
 			}
 		}
@@ -144,19 +87,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
 		if (this.m_knockbackDist > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth_FixedOffset.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			int num = 0;
 			base.EnableAllMovementArrows();
 			Vector3 refPos = this.GetRefPos(currentTarget, targetingActor, 0f);
@@ -168,15 +98,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, refPos, this.m_knockbackDist);
 					num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			base.SetMovementArrowEnabledFromIndex(num, false);
 		}
@@ -184,15 +105,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		Vector3 laserEnd = refPos2;
 		if (this.m_connectLaserWidth > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			Vector3 vector = refPos2;
 			vector.y = travelBoardSquareWorldPositionForLos.y;
@@ -202,15 +114,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 			laserEnd = travelBoardSquareWorldPositionForLos + Board.SquareSizeStatic * num3 * dir.normalized;
 			if (num3 > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, dir, num3, this.m_connectLaserWidth, targetingActor, base.GetAffectedTeams(), false, -1, true, false, out vector, null, null, false, true);
 				using (List<ActorData>.Enumerator enumerator2 = actorsInLaser.GetEnumerator())
 				{
@@ -219,26 +122,8 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 						ActorData actorData2 = enumerator2.Current;
 						if (!visibleActorsInRange.Contains(actorData2))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							base.AddActorInRange(actorData2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Secondary, false);
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.m_laserPart.AdjustHighlight(this.m_highlights[1], travelBoardSquareWorldPositionForLos, vector, false);
@@ -260,19 +145,6 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth_FixedOffset.CustomHandleHiddenSquareIndicators(ActorData, Vector3, Vector3, Vector3)).MethodHandle;
-			}
 			this.m_laserChecker.UpdateBoxProperties(laserStart, laserEnd, targetingActor);
 			this.m_coneChecker.UpdateConeProperties(centerPos, 360f, this.m_radius, 0f, 0f, targetingActor);
 			base.ResetSquareIndicatorIndexToUse();
@@ -301,30 +173,8 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 			bool flag = base.IsSquareInside(square, out inLos);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AoE_Smooth_FixedOffset.SquareInsideChecker_AoeFixedOffset.IsSquareInside(BoardSquare, bool*)).MethodHandle;
-				}
 				if (this.m_targeter.m_delegateIsSquareInLos != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					inLos = this.m_targeter.m_delegateIsSquareInLos(square, this.m_coneStart, this.m_caster);
 				}
 			}

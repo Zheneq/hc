@@ -17,30 +17,8 @@ public static class AbilityResultsUtils
 			ClientActorHitResults value = new ClientActorHitResults(ref stream);
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeActorHitResultsDictionaryFromStream(IBitStream*)).MethodHandle;
-				}
 				dictionary.Add(actorData, value);
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return dictionary;
 	}
@@ -56,19 +34,6 @@ public static class AbilityResultsUtils
 			stream.Serialize(ref zero);
 			ClientPositionHitResults value = new ClientPositionHitResults(ref stream);
 			dictionary.Add(zero, value);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializePositionHitResultsDictionaryFromStream(IBitStream*)).MethodHandle;
 		}
 		return dictionary;
 	}
@@ -108,31 +73,9 @@ public static class AbilityResultsUtils
 					stream.Serialize(ref item2);
 					list3.Add((StatusType)item2);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeEffectsToStartFromStream(IBitStream*)).MethodHandle;
-				}
 			}
 			if ((int)b4 != ActorData.s_invalidActorIndex)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sbyte b6 = 0;
 				stream.Serialize(ref b6);
 				for (int l = 0; l < (int)b6; l++)
@@ -153,42 +96,15 @@ public static class AbilityResultsUtils
 			short absorb = 0;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref absorb);
 			}
 			short expectedHoT = 0;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref expectedHoT);
 			}
 			ClientEffectStartData item4 = new ClientEffectStartData((int)effectGUID, list2, effectTarget, caster, list3, list4, (int)absorb, (int)expectedHoT, isBuff, isDebuff, hasMovementDebuff);
 			list.Add(item4);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}
@@ -212,19 +128,6 @@ public static class AbilityResultsUtils
 				sequenceStartData.SetTargetPos(barrierSerializeInfo.m_center);
 				list2.Add(sequenceStartData);
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeBarriersToStartFromStream(IBitStream*)).MethodHandle;
-			}
 			ClientBarrierStartData clientBarrierStartData = new ClientBarrierStartData(guid, list2, barrierSerializeInfo);
 			list.Add(clientBarrierStartData);
 			if (BarrierManager.Get() != null)
@@ -246,19 +149,6 @@ public static class AbilityResultsUtils
 			stream.Serialize(ref item);
 			list.Add(item);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeEffectsForRemovalFromStream(IBitStream*)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -272,19 +162,6 @@ public static class AbilityResultsUtils
 			int item = -1;
 			stream.Serialize(ref item);
 			list.Add(item);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeBarriersForRemovalFromStream(IBitStream*)).MethodHandle;
 		}
 		return list;
 	}
@@ -311,19 +188,6 @@ public static class AbilityResultsUtils
 		{
 			ServerClientUtils.SequenceEndData item = ServerClientUtils.SequenceEndData.SequenceEndData_DeserializeFromStream(ref stream);
 			list.Add(item);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeSequenceEndDataListFromStream(IBitStream*)).MethodHandle;
 		}
 		return list;
 	}
@@ -383,58 +247,18 @@ public static class AbilityResultsUtils
 		ClientAbilityResults gameModeResults = null;
 		if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.Effect)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(IBitStream*)).MethodHandle;
-			}
 			effectResults = AbilityResultsUtils.DeSerializeClientEffectResultsFromStream(ref stream);
 		}
 		else if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.Barrier)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			barrierResults = AbilityResultsUtils.DeSerializeClientBarrierResultsFromStream(ref stream);
 		}
 		else if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.Powerup)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			powerupResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
 		}
 		else if (movementResults_GameplayResponseType == MovementResults_GameplayResponseType.GameMode)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameModeResults = AbilityResultsUtils.DeSerializeClientAbilityResultsFromStream(ref stream);
 		}
 		ActorData triggeringMover = GameFlowData.Get().FindActorByActorIndex((int)b);
@@ -450,19 +274,6 @@ public static class AbilityResultsUtils
 		{
 			ClientMovementResults item = AbilityResultsUtils.DeSerializeClientMovementResultsFromStream(ref stream);
 			list.Add(item);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeClientMovementResultsListFromStream(IBitStream*)).MethodHandle;
 		}
 		return list;
 	}
@@ -481,19 +292,6 @@ public static class AbilityResultsUtils
 			ClientReactionResults item = new ClientReactionResults(effectResults, seqStartDataList, extraFlags);
 			list.Add(item);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeClientReactionResultsFromStream(IBitStream*)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -507,19 +305,6 @@ public static class AbilityResultsUtils
 			int item = 0;
 			stream.Serialize(ref item);
 			list.Add(item);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializePowerupsToRemoveFromStream(IBitStream*)).MethodHandle;
 		}
 		return list;
 	}
@@ -536,19 +321,6 @@ public static class AbilityResultsUtils
 			ClientPowerupResults powerupResults = AbilityResultsUtils.DeSerializeClientPowerupResultsFromStream(ref stream);
 			ClientPowerupStealData item = new ClientPowerupStealData(powerupGuid, powerupResults);
 			list.Add(item);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializePowerupsToStealFromStream(IBitStream*)).MethodHandle;
 		}
 		return list;
 	}
@@ -569,19 +341,6 @@ public static class AbilityResultsUtils
 		{
 			ClientGameModeEvent item = AbilityResultsUtils.DeSerializeClientGameModeEventFromStream(ref stream);
 			list.Add(item);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeClientGameModeEventListFromStream(IBitStream*)).MethodHandle;
 		}
 		return list;
 	}
@@ -606,30 +365,8 @@ public static class AbilityResultsUtils
 		BoardSquare square;
 		if ((int)b4 == -1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityResultsUtils.DeSerializeClientGameModeEventFromStream(IBitStream*)).MethodHandle;
-			}
 			if ((int)b5 == -1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				square = null;
 				goto IL_96;
 			}
@@ -648,15 +385,6 @@ public static class AbilityResultsUtils
 		ActorData secondaryActor;
 		if ((int)b3 == ActorData.s_invalidActorIndex)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			secondaryActor = null;
 		}
 		else

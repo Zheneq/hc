@@ -37,44 +37,13 @@ public class UIAbilityUsed : MonoBehaviour
 		this.m_playerIcon.sprite = theOwner.GetAliveHUDIcon();
 		if (!(GameFlowData.Get().activeOwnedActorData == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsed.Setup(Ability, ActorData)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData == theOwner)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (GameFlowData.Get().activeOwnedActorData.GetTeam() == theOwner.GetTeam())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_teamColorIndicator.sprite = HUD_UIResources.Get().m_teammateBorder;
 					goto IL_DF;
 				}

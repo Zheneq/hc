@@ -39,19 +39,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		ClericHammerThrow clericHammerThrow = targetAbility as ClericHammerThrow;
 		if (clericHammerThrow != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericHammerThrow.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_maxDistToRingCenterMod, "MaxDistToRingCenter", string.Empty, clericHammerThrow.m_maxDistToRingCenter, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_outerRadiusMod, "OuterRadius", string.Empty, clericHammerThrow.m_outerRadius, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_innerRadiusMod, "InnerRadius", string.Empty, clericHammerThrow.m_innerRadius, true, false, false);
@@ -77,19 +64,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericHammerThrow.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = clericHammerThrow.m_maxDistToRingCenter;
 		}
 		else
@@ -104,15 +78,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = clericHammerThrow.m_outerRadius;
 		}
 		else
@@ -127,15 +92,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = clericHammerThrow.m_innerRadius;
 		}
 		else
@@ -150,15 +106,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = clericHammerThrow.m_ignoreLos;
 		}
 		else
@@ -173,15 +120,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = clericHammerThrow.m_clampRingToCursorPos;
 		}
 		else
@@ -196,15 +134,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = clericHammerThrow.m_outerHitDamage;
 		}
 		else
@@ -219,15 +148,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = clericHammerThrow.m_outerEnemyHitEffect;
 		}
 		else
@@ -242,15 +162,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = clericHammerThrow.m_innerHitDamage;
 		}
 		else

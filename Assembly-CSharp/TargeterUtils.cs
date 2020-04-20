@@ -69,45 +69,14 @@ public static class TargeterUtils
 		}
 		else if (adjustType == TargeterUtils.HeightAdjustType.FromCasterLoS)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetHeightAdjustDelta(TargeterUtils.HeightAdjustType)).MethodHandle;
-			}
 			result = 0.1f - BoardSquare.s_LoSHeightOffset;
 		}
 		else if (adjustType == TargeterUtils.HeightAdjustType.FromPathArrow)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = 0f;
 		}
 		else if (adjustType == TargeterUtils.HeightAdjustType.FromBoardSquare)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = 0.1f;
 		}
 		else
@@ -124,86 +93,28 @@ public static class TargeterUtils
 		{
 			if (x == y)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortActorsByDistanceToPos>c__AnonStorey0.<>m__0(ActorData, ActorData)).MethodHandle;
-				}
 				return 0;
 			}
 			if (x == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return -1;
 			}
 			if (y == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 			float sqrMagnitude = (x.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
 			float sqrMagnitude2 = (y.GetTravelBoardSquareWorldPosition() - pos).sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GridPos gridPosWithIncrementedHeight = x.GetGridPosWithIncrementedHeight();
 				GridPos gridPosWithIncrementedHeight2 = y.GetGridPosWithIncrementedHeight();
 				if (gridPosWithIncrementedHeight.x != gridPosWithIncrementedHeight2.x)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return gridPosWithIncrementedHeight.x.CompareTo(gridPosWithIncrementedHeight2.x);
 				}
 				if (gridPosWithIncrementedHeight.y != gridPosWithIncrementedHeight2.y)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return gridPosWithIncrementedHeight.y.CompareTo(gridPosWithIncrementedHeight2.y);
 				}
 			}
@@ -217,19 +128,6 @@ public static class TargeterUtils
 		{
 			if (x == y)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortActorsByDistanceToPos>c__AnonStorey1.<>m__0(ActorData, ActorData)).MethodHandle;
-				}
 				return 0;
 			}
 			if (x == null)
@@ -238,15 +136,6 @@ public static class TargeterUtils
 			}
 			if (y == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 			Vector3 to = x.GetTravelBoardSquareWorldPosition() - pos;
@@ -255,15 +144,6 @@ public static class TargeterUtils
 			float sqrMagnitude2 = to2.sqrMagnitude;
 			if (sqrMagnitude == sqrMagnitude2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num = Vector3.Angle(preferredDir, to);
 				float value = Vector3.Angle(preferredDir, to2);
 				return num.CompareTo(value);
@@ -286,19 +166,6 @@ public static class TargeterUtils
 		{
 			if (a == b)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortActorsByDistanceAlongLaser>c__AnonStorey2.<>m__0(ActorData, ActorData)).MethodHandle;
-				}
 				return 0;
 			}
 			if (a == null)
@@ -307,15 +174,6 @@ public static class TargeterUtils
 			}
 			if (b == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 			float signedDistanceAlongLaser = TargeterUtils.GetSignedDistanceAlongLaser(a, laserStart, laserDir);
@@ -336,30 +194,8 @@ public static class TargeterUtils
 		{
 			if (!actors[i].IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.RemoveActorsInvisibleToClient(List<ActorData>*)).MethodHandle;
-				}
 				actors.RemoveAt(i);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -367,34 +203,12 @@ public static class TargeterUtils
 	{
 		if (actors != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.RemoveActorsInvisibleToActor(List<ActorData>*, ActorData)).MethodHandle;
-			}
 			for (int i = actors.Count - 1; i >= 0; i--)
 			{
 				if (!actors[i].IsActorVisibleToActor(observer, false))
 				{
 					actors.RemoveAt(i);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -403,66 +217,17 @@ public static class TargeterUtils
 	{
 		if (sourceSquare != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.RemoveActorsWithoutLosToSquare(List<ActorData>*, BoardSquare, ActorData)).MethodHandle;
-			}
 			if (actors != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = actors.Count - 1; i >= 0; i--)
 					{
 						BoardSquare currentBoardSquare = actors[i].GetCurrentBoardSquare();
 						if (currentBoardSquare != null && !AreaEffectUtils.SquaresHaveLoSForAbilities(sourceSquare, currentBoardSquare, caster, true, null))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actors.RemoveAt(i);
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -473,30 +238,8 @@ public static class TargeterUtils
 	{
 		if (actors.Count > max)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.LimitActorsToMaxNumber(List<ActorData>*, int)).MethodHandle;
-			}
 			if (max > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int count = actors.Count - max;
 				actors.RemoveRange(max, count);
 			}
@@ -515,19 +258,6 @@ public static class TargeterUtils
 			float signedDistanceAlongLaser = TargeterUtils.GetSignedDistanceAlongLaser(actor, start, vector);
 			if (signedDistanceAlongLaser > num)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetLaserCoordsToFarthestTarget(VectorUtils.LaserCoords, List<ActorData>)).MethodHandle;
-				}
 				num = signedDistanceAlongLaser;
 				end = start + vector * num;
 			}
@@ -544,30 +274,8 @@ public static class TargeterUtils
 		VectorUtils.LaserCoords result = coords;
 		if (actorsInRange.Count > maxTargets)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.TrimTargetsAndGetLaserCoordsToFarthestTarget(List<ActorData>*, int, VectorUtils.LaserCoords)).MethodHandle;
-			}
 			if (maxTargets > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TargeterUtils.SortActorsByDistanceAlongLaser(ref actorsInRange, coords);
 				TargeterUtils.LimitActorsToMaxNumber(ref actorsInRange, maxTargets);
 				return TargeterUtils.GetLaserCoordsToFarthestTarget(coords, actorsInRange);
@@ -575,26 +283,8 @@ public static class TargeterUtils
 		}
 		if (actorsInRange.Count == maxTargets)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (maxTargets > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = TargeterUtils.GetLaserCoordsToFarthestTarget(coords, actorsInRange);
 			}
 		}
@@ -606,19 +296,6 @@ public static class TargeterUtils
 		endPos.y = startPos.y;
 		if (startPos == endPos)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetEndPointAndLimitToFurthestSquare(Vector3, Vector3, float, float, bool, ActorData, float)).MethodHandle;
-			}
 			return startPos;
 		}
 		float squareSize = Board.Get().squareSize;
@@ -632,50 +309,14 @@ public static class TargeterUtils
 		{
 			if (squaresInBox[i].IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				break;
 			}
 			if (i > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (squaresInBox[i - 1].IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (squaresInBox[i].x != squaresInBox[i - 1].x)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (squaresInBox[i].y != squaresInBox[i - 1].y)
 						{
 							goto IL_148;
@@ -689,15 +330,6 @@ public static class TargeterUtils
 		}
 		if (squaresInBox.Count > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float magnitude = (laserEndPoint - startPos).magnitude;
 			float num = 0.5f * squareSize;
 			bool flag2 = widthInSquares <= 1f;
@@ -709,28 +341,10 @@ public static class TargeterUtils
 			float num3;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
 					num3 = squareSize;
 					goto IL_208;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			num3 = num;
@@ -739,15 +353,6 @@ public static class TargeterUtils
 			float num5 = Mathf.Min(magnitude, num2 + num4);
 			if (flag2 && squaresInBox.Count > 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float d = 0.5f * squareSize;
 				float a = Mathf.Min(magnitude, num2);
 				BoardSquare boardSquare2 = squaresInBox[squaresInBox.Count - 2];
@@ -758,39 +363,12 @@ public static class TargeterUtils
 					float num6 = VectorUtils.HorizontalAngle_Deg(normalized);
 					if (boardSquare2.x == boardSquare.x)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 forward = Vector3.forward;
 						Vector3 vector2 = vector;
 						if (num6 >= 90f)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num6 <= 270f)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector2 -= d * Vector3.right;
 								goto IL_310;
 							}
@@ -801,39 +379,12 @@ public static class TargeterUtils
 					}
 					else if (boardSquare2.y == boardSquare.y)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 right = Vector3.right;
 						Vector3 vector3 = vector;
 						if (num6 >= 0f)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num6 <= 180f)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector3 += d * Vector3.forward;
 								goto IL_3AE;
 							}
@@ -866,19 +417,6 @@ public static class TargeterUtils
 		Vector3 result;
 		if (position == goalPos)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.MoveHighlightTowards(Vector3, GameObject, float*)).MethodHandle;
-			}
 			currentSpeed = TargeterUtils.s_nearAcceleratingMinSpeed;
 			result = goalPos;
 		}
@@ -893,15 +431,6 @@ public static class TargeterUtils
 			float max;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = TargeterUtils.s_farAcceleration;
 				min = TargeterUtils.s_farAcceleratingMinSpeed;
 				max = TargeterUtils.s_farAcceleratingMaxSpeed;
@@ -925,15 +454,6 @@ public static class TargeterUtils
 			float magnitude = a.magnitude;
 			if (num3 >= magnitude)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				currentSpeed = TargeterUtils.s_nearAcceleratingMinSpeed;
 				result = goalPos;
 			}
@@ -952,32 +472,10 @@ public static class TargeterUtils
 		List<Team> list = new List<Team>();
 		if (includeAllies)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.GetRelevantTeams(ActorData, bool, bool)).MethodHandle;
-			}
 			list.Add(allyActor.GetTeam());
 		}
 		if (includeEnemies)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(allyActor.GetOpposingTeam());
 		}
 		return list;
@@ -989,45 +487,14 @@ public static class TargeterUtils
 		{
 			if (x == y)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterUtils.<SortPowerupsByDistanceToPos>c__AnonStorey3.<>m__0(PowerUp, PowerUp)).MethodHandle;
-				}
 				return 0;
 			}
 			if (x == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return -1;
 			}
 			if (y == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 			Vector3 a = x.boardSquare.ToVector3();

@@ -14,19 +14,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 	{
 		if (Application.isPlaying)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplaceableVFXPrefab.Awake()).MethodHandle;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ReplaceVFXPrefab);
 		}
 	}
@@ -44,19 +31,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		}
 		if (!this.m_prefabInstantiated)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplaceableVFXPrefab.Start()).MethodHandle;
-			}
 			this.m_prefabInstantiated = this.InstantiatePrefab();
 		}
 	}
@@ -66,59 +40,19 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		bool flag = false;
 		if (this.m_prefab == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplaceableVFXPrefab.InstantiatePrefab()).MethodHandle;
-			}
 			this.m_prefab = this.m_prefabLink.GetPrefab(true);
 		}
 		if (this.m_prefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_prefab);
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject.transform.parent = base.transform;
 				gameObject.transform.localPosition = Vector3.zero;
 				gameObject.transform.localRotation = Quaternion.identity;
 				flag = true;
 				if (!Application.isPlaying)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.name = string.Format("{0}_DoNotEdit_AutoCreatedByParentReplaceableVFXPrefab", gameObject.name);
 				}
 			}
@@ -127,30 +61,12 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		{
 			if (Application.isPlaying)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string message = "Failed to instantiate prefab link {0}";
 				object[] array = new object[1];
 				int num = 0;
 				object obj;
 				if (this.m_prefabLink == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = "NULL";
 				}
 				else
@@ -168,15 +84,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 				object obj2;
 				if (this.m_prefabLink == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj2 = "NULL";
 				}
 				else
@@ -203,65 +110,16 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 		PrefabResourceLink prefabResourceLink = this.m_prefabLink;
 		if (this != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplaceableVFXPrefab.IGameEventListener.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			if (base.transform != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.ReplaceVFXPrefab replaceVFXPrefab = (GameEventManager.ReplaceVFXPrefab)args;
 				if (!this.m_prefabInstantiated && replaceVFXPrefab != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (replaceVFXPrefab.vfxRoot != null && replaceVFXPrefab.vfxRoot == base.transform.root)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						prefabResourceLink = replaceVFXPrefab.characterResourceLink.ReplacePrefabResourceLink(prefabResourceLink, replaceVFXPrefab.characterVisualInfo);
 						if (prefabResourceLink != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_prefab = prefabResourceLink.GetPrefab(false);
 						}
 						this.m_prefabInstantiated = this.InstantiatePrefab();
@@ -270,40 +128,13 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 				}
 				if (replaceVFXPrefab == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text;
 					if (base.transform.parent != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = base.transform.parent.name;
 					}
 					else if (this.m_prefabLink != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = this.m_prefabLink.ToString();
 					}
 					else

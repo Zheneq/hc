@@ -44,19 +44,6 @@ public class SpaceMarineDropPod : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Drop Pod";
 		}
 		AbilityUtil_Targeter_Shape.DamageOriginType damageOriginType = AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape;
@@ -70,19 +57,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.ModdedDamage()).MethodHandle;
-			}
 			result = this.m_damageAmount;
 		}
 		else
@@ -97,19 +71,6 @@ public class SpaceMarineDropPod : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.ModdedKnockbackDistance()).MethodHandle;
-			}
 			result = this.m_knockbackDistance;
 		}
 		else
@@ -124,19 +85,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.GetEnergyRefundIfNoEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyRefundIfNoEnemyHitMod.GetModifiedValue(this.m_energyRefundIfNoEnemyHit);
 		}
 		else
@@ -151,19 +99,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.GetExtraPowerupHealIfDirectHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraPowerupHealIfDirectHitMod.GetModifiedValue(this.m_extraPowerupHealIfDirectHit);
 		}
 		else
@@ -178,19 +113,6 @@ public class SpaceMarineDropPod : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.GetExtraPowerupEnergyIfDirectHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraPowerupEnergyIfDirectHitMod.GetModifiedValue(this.m_extraPowerupEnergyIfDirectHit);
 		}
 		else
@@ -213,56 +135,16 @@ public class SpaceMarineDropPod : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (this.m_abilityMod.m_groundEffectInfoOnDropPod.m_applyGroundEffect)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData.damageAmount > 0)
 				{
 					List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 					if (tooltipSubjectTypes != null && boardSquareSafe != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GroundEffectField groundEffectData = this.m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData;
 							if (AreaEffectUtils.IsSquareInShape(targetActor.GetCurrentBoardSquare(), groundEffectData.shape, base.Targeter.LastUpdateFreePos, boardSquareSafe, this.m_penetrateLoS, base.ActorData))
 							{
@@ -281,19 +163,6 @@ public class SpaceMarineDropPod : Ability
 	{
 		if (this.GetEnergyRefundIfNoEnemyHit() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			if (base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy) == 0)
 			{
 				return this.GetEnergyRefundIfNoEnemyHit();
@@ -315,19 +184,6 @@ public class SpaceMarineDropPod : Ability
 		int val;
 		if (abilityMod_SpaceMarineDropPod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SpaceMarineDropPod.m_damageMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -340,15 +196,6 @@ public class SpaceMarineDropPod : Ability
 		int val2;
 		if (abilityMod_SpaceMarineDropPod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SpaceMarineDropPod.m_energyRefundIfNoEnemyHitMod.GetModifiedValue(this.m_energyRefundIfNoEnemyHit);
 		}
 		else
@@ -363,15 +210,6 @@ public class SpaceMarineDropPod : Ability
 		int val3;
 		if (abilityMod_SpaceMarineDropPod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SpaceMarineDropPod.m_extraPowerupHealIfDirectHitMod.GetModifiedValue(this.m_extraPowerupHealIfDirectHit);
 		}
 		else
@@ -384,15 +222,6 @@ public class SpaceMarineDropPod : Ability
 		int val4;
 		if (abilityMod_SpaceMarineDropPod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_SpaceMarineDropPod.m_extraPowerupEnergyIfDirectHitMod.GetModifiedValue(this.m_extraPowerupEnergyIfDirectHit);
 		}
 		else
@@ -402,38 +231,11 @@ public class SpaceMarineDropPod : Ability
 		base.AddTokenInt(tokens, name4, empty4, val4, false);
 		if (this.m_powerupPrefab != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_powerupPrefab.m_ability != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PowerUp_Standard_Ability powerUp_Standard_Ability = this.m_powerupPrefab.m_ability as PowerUp_Standard_Ability;
 				if (powerUp_Standard_Ability != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.AddTokenInt(tokens, "PowerupHealing", string.Empty, powerUp_Standard_Ability.m_healAmount, false);
 				}
 			}
@@ -444,19 +246,6 @@ public class SpaceMarineDropPod : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarineDropPod))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineDropPod.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SpaceMarineDropPod);
 			AbilityUtil_Targeter_Shape.DamageOriginType damageOriginType = AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape;
 			AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;

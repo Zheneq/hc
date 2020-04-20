@@ -37,19 +37,6 @@ public class ClientPositionHitResults
 		}
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPositionHitResults.ExecutePositionHit()).MethodHandle;
-			}
 			Debug.LogWarning(ClientAbilityResults.s_executePositionHitHeader + " Executing Position Hit");
 		}
 		using (List<ClientEffectStartData>.Enumerator enumerator = this.m_effectsToStart.GetEnumerator())
@@ -58,15 +45,6 @@ public class ClientPositionHitResults
 			{
 				ClientEffectStartData effectData = enumerator.Current;
 				ClientEffectBarrierManager.Get().ExecuteEffectStart(effectData);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		foreach (ClientBarrierStartData barrierData in this.m_barriersToStart)
@@ -84,15 +62,6 @@ public class ClientPositionHitResults
 				int barrierGuid = enumerator4.Current;
 				ClientEffectBarrierManager.Get().EndBarrier(barrierGuid);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ServerClientUtils.SequenceEndData>.Enumerator enumerator5 = this.m_sequencesToEnd.GetEnumerator())
 		{
@@ -101,15 +70,6 @@ public class ClientPositionHitResults
 				ServerClientUtils.SequenceEndData sequenceEndData = enumerator5.Current;
 				sequenceEndData.EndClientSequences();
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		using (List<ClientMovementResults>.Enumerator enumerator6 = this.m_reactionsOnPosHit.GetEnumerator())
 		{
@@ -117,15 +77,6 @@ public class ClientPositionHitResults
 			{
 				ClientMovementResults clientMovementResults = enumerator6.Current;
 				clientMovementResults.ReactToMovement();
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.ExecutedHit = true;

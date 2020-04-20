@@ -49,19 +49,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 		this.m_worldWidth = worldWidth;
 		if (this.m_worldWidth > 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.OnUpdated(Vector3, List<Vector3>, float)).MethodHandle;
-			}
 			if (laserAnglePoints.Count != 0)
 			{
 				for (int i = 0; i < laserAnglePoints.Count; i++)
@@ -80,15 +67,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 					Vector3 end = laserAnglePoints[i];
 					if (this.m_bounceSegments.Count < i + 1)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_bounceSegments.Add(new UIBouncingLaserCursor.BounceSegment(start, end, isFirst, isLast, this));
 					}
 					else
@@ -96,39 +74,12 @@ public class UIBouncingLaserCursor : MonoBehaviour
 						this.m_bounceSegments[i].UpdateSegment(start, end, isFirst, isLast);
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = laserAnglePoints.Count; j < this.m_bounceSegments.Count; j++)
 				{
 					this.m_bounceSegments[j].Disable();
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(base.gameObject, true, null);
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Log.Error(string.Concat(new object[]
@@ -143,15 +94,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 		{
 			this.m_bounceSegments[k].Disable();
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		UIManager.SetGameObjectActive(base.gameObject, false, null);
 	}
 
@@ -160,47 +102,16 @@ public class UIBouncingLaserCursor : MonoBehaviour
 		this.m_bounceSegments = new List<UIBouncingLaserCursor.BounceSegment>();
 		if (this.m_startPrefab != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.Awake()).MethodHandle;
-			}
 			this.m_start = UnityEngine.Object.Instantiate<GameObject>(this.m_startPrefab);
 			this.m_start.transform.parent = base.transform;
 		}
 		if (this.m_corner1Prefab != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_corner1 = UnityEngine.Object.Instantiate<GameObject>(this.m_corner1Prefab);
 			this.m_corner1.transform.parent = base.transform;
 		}
 		if (this.m_corner2Prefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_corner2 = UnityEngine.Object.Instantiate<GameObject>(this.m_corner2Prefab);
 			this.m_corner2.transform.parent = base.transform;
 		}
@@ -220,46 +131,15 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				UIBouncingLaserCursor.BounceSegment bounceSegment = enumerator.Current;
 				bounceSegment.DestroySegment();
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.OnDestroy()).MethodHandle;
-			}
 		}
 		this.m_bounceSegments.Clear();
 		if (this.m_start != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_start);
 			this.m_start = null;
 		}
 		if (this.m_corner1 != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_corner1);
 			this.m_corner1 = null;
 		}
@@ -296,61 +176,21 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			this.m_parent = parent;
 			if (this.m_parent.m_centerLinePrefab != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment..ctor(Vector3, Vector3, bool, bool, UIBouncingLaserCursor)).MethodHandle;
-				}
 				this.m_centerLine = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_centerLinePrefab);
 				this.m_centerLine.transform.parent = this.m_parent.transform;
 			}
 			if (this.m_parent.m_lengthLine1Prefab != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lengthLine1 = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_lengthLine1Prefab);
 				this.m_lengthLine1.transform.parent = this.m_parent.transform;
 			}
 			if (this.m_parent.m_lengthLine2Prefab != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lengthLine2 = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_lengthLine2Prefab);
 				this.m_lengthLine2.transform.parent = this.m_parent.transform;
 			}
 			if (this.m_parent.m_interiorPrefab != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_interior = UnityEngine.Object.Instantiate<GameObject>(this.m_parent.m_interiorPrefab);
 				this.m_interior.transform.parent = this.m_parent.transform;
 			}
@@ -368,19 +208,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			float num = this.m_parent.m_lengthPerCorner;
 			if (isLast)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment.UpdateSegment(Vector3, Vector3, bool, bool)).MethodHandle;
-				}
 				if (magnitude < num)
 				{
 					num = Mathf.Max(0.1f, magnitude);
@@ -389,26 +216,8 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			Quaternion rotation = Quaternion.LookRotation(vector);
 			if (isFirst)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_parent.m_start != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_parent.m_start.transform.position = start + vector * this.m_parent.m_distCasterToStart;
 					this.m_parent.m_start.transform.rotation = rotation;
 				}
@@ -416,15 +225,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			float num2 = 1f;
 			if (this.m_centerLine != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position;
 				if (isFirst)
 				{
@@ -445,42 +245,15 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			Vector3 b = Vector3.Cross(vector, Vector3.up) * d;
 			if (this.m_lengthLine1 != null && this.m_lengthLine2 != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 a = this.m_end;
 				float num3 = magnitude;
 				if (isLast)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a -= vector * num;
 					num3 -= num;
 				}
 				if (isFirst)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 -= this.m_parent.m_distCasterToStart;
 				}
 				num3 = Mathf.Max(num3, 0f);
@@ -495,28 +268,10 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			}
 			if (this.m_interior != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num4 = magnitude;
 				Vector3 position2;
 				if (isFirst)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					position2 = this.m_start + vector * this.m_parent.m_distCasterToInterior;
 					num4 -= this.m_parent.m_distCasterToInterior;
 				}
@@ -536,15 +291,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			}
 			if (isLast)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float z = 1f;
 				if (!isFirst)
 				{
@@ -552,15 +298,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				if (this.m_parent.m_corner1 != null && this.m_parent.m_corner2 != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_parent.m_corner1.transform.position = this.m_end + b;
 					this.m_parent.m_corner2.transform.position = this.m_end - b;
 					this.m_parent.m_corner1.transform.rotation = rotation;
@@ -570,15 +307,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 				if (this.m_parent.m_endWidthLine != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_parent.m_endWidthLine.transform.position = this.m_end;
 					this.m_parent.m_endWidthLine.transform.rotation = rotation;
 					float x = this.m_parent.m_worldWidth - this.m_parent.m_widthPerCorner * 2f;
@@ -595,19 +323,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			}
 			if (this.m_lengthLine1 != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment.Disable()).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(this.m_lengthLine1, false, null);
 			}
 			if (this.m_lengthLine2 != null)
@@ -616,15 +331,6 @@ public class UIBouncingLaserCursor : MonoBehaviour
 			}
 			if (this.m_interior != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_interior, false, null);
 			}
 		}
@@ -633,61 +339,21 @@ public class UIBouncingLaserCursor : MonoBehaviour
 		{
 			if (this.m_centerLine != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIBouncingLaserCursor.BounceSegment.DestroySegment()).MethodHandle;
-				}
 				UnityEngine.Object.Destroy(this.m_centerLine);
 				this.m_centerLine = null;
 			}
 			if (this.m_lengthLine1 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.Destroy(this.m_lengthLine1);
 				this.m_lengthLine1 = null;
 			}
 			if (this.m_lengthLine2 != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.Destroy(this.m_lengthLine2);
 				this.m_lengthLine2 = null;
 			}
 			if (this.m_interior != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.Destroy(this.m_interior);
 				this.m_interior = null;
 			}

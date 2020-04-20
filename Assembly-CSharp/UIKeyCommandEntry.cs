@@ -41,31 +41,9 @@ public class UIKeyCommandEntry : MonoBehaviour
 		{
 			this.m_primaryLabels[i].text = primaryKey;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIKeyCommandEntry.SetLabels(string, string, string)).MethodHandle;
-		}
 		for (int j = 0; j < this.m_secondaryLabels.Length; j++)
 		{
 			this.m_secondaryLabels[j].text = secondaryKey;
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -73,19 +51,6 @@ public class UIKeyCommandEntry : MonoBehaviour
 	{
 		if (Input.GetMouseButtonUp(0))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIKeyCommandEntry.PrimaryButtonClicked(BaseEventData)).MethodHandle;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 			KeyBinding_UI.Get().ToggleKeyBindButton(this.m_preference, true);
 		}
@@ -100,19 +65,6 @@ public class UIKeyCommandEntry : MonoBehaviour
 	{
 		if (Input.GetMouseButtonUp(0))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIKeyCommandEntry.SecondaryButtonClicked(BaseEventData)).MethodHandle;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 			KeyBinding_UI.Get().ToggleKeyBindButton(this.m_preference, false);
 		}

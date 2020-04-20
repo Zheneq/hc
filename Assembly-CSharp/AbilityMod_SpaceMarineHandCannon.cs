@@ -39,19 +39,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		SpaceMarineHandCannon spaceMarineHandCannon = targetAbility as SpaceMarineHandCannon;
 		if (spaceMarineHandCannon != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineHandCannon.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_laserDamageMod, "PrimaryDamage", string.Empty, spaceMarineHandCannon.m_primaryDamage, true, false);
 			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "PrimaryWidth", string.Empty, spaceMarineHandCannon.m_primaryWidth, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_laserLengthMod, "PrimaryLength", string.Empty, spaceMarineHandCannon.m_primaryLength, true, false, false);
@@ -60,28 +47,10 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, spaceMarineHandCannon.m_coneLength, true, false, false);
 			if (this.m_useLaserHitEffectOverride)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_EffectInfo(tokens, this.m_laserHitEffectOverride, "EffectOnLaserTarget", spaceMarineHandCannon.m_effectInfoOnPrimaryTarget, true);
 			}
 			if (this.m_useConeHitEffectOverride)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_EffectInfo(tokens, this.m_coneHitEffectOverride, "EffectInfoOnConeTargets", spaceMarineHandCannon.m_effectInfoOnConeTargets, true);
 			}
 		}
@@ -99,19 +68,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineHandCannon.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = spaceMarineHandCannon.m_primaryDamage;
 		}
 		else
@@ -126,15 +82,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarineHandCannon.m_coneDamage;
 		}
 		else
@@ -149,15 +96,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = spaceMarineHandCannon.m_primaryLength;
 		}
 		else
@@ -172,15 +110,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = spaceMarineHandCannon.m_primaryWidth;
 		}
 		else
@@ -196,15 +125,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = spaceMarineHandCannon.m_coneWidthAngle;
 		}
 		else
@@ -219,15 +139,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = spaceMarineHandCannon.m_coneLength;
 		}
 		else
@@ -237,15 +148,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		text = str6 + AbilityModHelper.GetModPropertyDesc(coneLengthMod, prefix6, showBaseVal6, baseVal6);
 		if (this.m_useLaserHitEffectOverride)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str7 = text;
 			StandardEffectInfo laserHitEffectOverride = this.m_laserHitEffectOverride;
 			string prefix7 = "{ Laser Hit Effect Override }";
@@ -254,15 +156,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 			StandardEffectInfo baseVal7;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal7 = spaceMarineHandCannon.m_effectInfoOnPrimaryTarget;
 			}
 			else
@@ -281,15 +174,6 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 			StandardEffectInfo baseVal8;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal8 = spaceMarineHandCannon.m_effectInfoOnConeTargets;
 			}
 			else

@@ -34,19 +34,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		bool shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TrackerDrone..ctor(Ability, TrackerDroneTrackerComponent, float, float, float, int, bool, bool, bool, bool)).MethodHandle;
-			}
 			shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
 		}
 		else
@@ -61,19 +48,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		bool shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TrackerDrone..ctor(Ability)).MethodHandle;
-			}
 			shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
 		}
 		else
@@ -94,34 +68,12 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (boardSquareSafe == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TrackerDrone.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			return;
 		}
 		Vector3 vector = boardSquareSafe.ToVector3();
 		Vector3 vector2 = targetingActor.GetTravelBoardSquareWorldPosition();
 		if (this.m_droneTrackerComponent != null && this.m_droneTrackerComponent.DroneIsActive())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_droneTrackerComponent.BoardX(), this.m_droneTrackerComponent.BoardY());
 			vector2 = boardSquare.ToVector3();
 		}
@@ -129,15 +81,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		float num;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = this.m_radiusAroundStart;
 		}
 		else
@@ -147,15 +90,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		float num2 = num;
 		if (this.m_addTargets)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(vector2, vector, num2, this.m_radiusAroundEnd, this.m_rangeFromLine, this.m_penetrateLoS, targetingActor, null, null);
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadiusOfLine);
 			using (List<ActorData>.Enumerator enumerator = actorsInRadiusOfLine.GetEnumerator())
@@ -166,15 +100,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 					bool flag2;
 					if (this.m_droneTrackerComponent != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = this.m_droneTrackerComponent.IsTrackingActor(actorData.ActorIndex);
 					}
 					else
@@ -184,26 +109,8 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 					bool flag3 = flag2;
 					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_hitUntracked)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag3)
 							{
 								continue;
@@ -214,15 +121,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 						AbilityTooltipSubject subjectType;
 						if (flag3)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							subjectType = AbilityTooltipSubject.Primary;
 						}
 						else
@@ -231,15 +129,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 						}
 						base.AddActorInRange(actor, damageOrigin, targetingActor, subjectType, false);
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -252,27 +141,9 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		float widthInSquares = this.m_rangeFromLine * 2f;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count >= this.GetNumHighlights())
 			{
 				goto IL_2CC;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -286,26 +157,8 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		vector4.y = HighlightUtils.GetHighlightHeight();
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector2 != vector)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights[index].SetActive(true);
 				TargeterUtils.RefreshLaserBoxHighlight(this.m_highlights[index], vector3, vector4, widthInSquares, TargeterUtils.HeightAdjustType.DontAdjustHeight);
 				goto IL_354;
@@ -315,15 +168,6 @@ public class AbilityUtil_Targeter_TrackerDrone : AbilityUtil_Targeter
 		IL_354:
 		if (flag5)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_highlights[index2].SetActive(true);
 			TargeterUtils.RefreshCircleHighlight(this.m_highlights[index2], vector3, TargeterUtils.HeightAdjustType.DontAdjustHeight);
 		}

@@ -89,19 +89,6 @@ public class ImageFilledSloped : Image
 		Image.Type type = base.type;
 		if (type != Image.Type.Simple)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ImageFilledSloped.OnPopulateMesh(VertexHelper)).MethodHandle;
-			}
 			if (type == Image.Type.Filled)
 			{
 				this.GenerateFilledSprite(toFill, base.preserveAspect);
@@ -117,19 +104,6 @@ public class ImageFilledSloped : Image
 	{
 		if (this.fillAmountTrimmed < 0.001f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ImageFilledSloped.GenerateFilledSprite(VertexHelper, bool)).MethodHandle;
-			}
 			toFill.Clear();
 			return;
 		}
@@ -149,15 +123,6 @@ public class ImageFilledSloped : Image
 			Vector4 vector2;
 			if (base.overrideSprite != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = DataUtility.GetOuterUV(base.overrideSprite);
 			}
 			else
@@ -178,51 +143,15 @@ public class ImageFilledSloped : Image
 			{
 				goto IL_ABF;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (base.fillMethod == Image.FillMethod.Horizontal)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Mathf.Approximately(this.fillSlope, 0f))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.fillSlope = 0.1f;
 			}
 			if (base.fillOrigin == 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num7 = (drawingDimensions.w - drawingDimensions.y) / this.fillSlope;
 				float x = drawingDimensions.x;
 				float num8 = x - num7 + (1f - this.fillAmountTrimmed) * (drawingDimensions.z - x + num7);
@@ -247,15 +176,6 @@ public class ImageFilledSloped : Image
 					float num12;
 					if (this.m_StartIsSloped)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num12 = num7 / num9 * num10;
 					}
 					else
@@ -301,15 +221,6 @@ public class ImageFilledSloped : Image
 					float num17;
 					if (this.m_StartIsSloped)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num17 = num13;
 					}
 					else
@@ -342,15 +253,6 @@ public class ImageFilledSloped : Image
 		}
 		else if (base.fillMethod == Image.FillMethod.Vertical)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num18 = (num4 - num2) * this.fillAmountTrimmed;
 			if (base.fillOrigin == 1)
 			{
@@ -374,15 +276,6 @@ public class ImageFilledSloped : Image
 		IL_ABF:
 		if (toFill.currentVertCount == 4 && toFill.currentIndexCount == 6)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ImageFilledSloped.SetQuad(toFill, ImageFilledSloped.s_Xy, this.color, ImageFilledSloped.s_Uv);
 		}
 		else
@@ -420,19 +313,6 @@ public class ImageFilledSloped : Image
 		Vector4 vector;
 		if (base.overrideSprite == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ImageFilledSloped.GetDrawingDimensions(bool)).MethodHandle;
-			}
 			vector = Vector4.zero;
 		}
 		else
@@ -443,15 +323,6 @@ public class ImageFilledSloped : Image
 		Vector2 vector3;
 		if (base.overrideSprite == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector3 = Vector2.zero;
 		}
 		else
@@ -465,39 +336,12 @@ public class ImageFilledSloped : Image
 		Vector4 result = new Vector4(vector2.x / (float)num, vector2.y / (float)num2, ((float)num - vector2.z) / (float)num, ((float)num2 - vector2.w) / (float)num2);
 		if (shouldPreserveAspect)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector4.sqrMagnitude > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num3 = vector4.x / vector4.y;
 				float num4 = pixelAdjustedRect.width / pixelAdjustedRect.height;
 				if (num3 > num4)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float height = pixelAdjustedRect.height;
 					pixelAdjustedRect.height = pixelAdjustedRect.width * (1f / num3);
 					pixelAdjustedRect.y += (height - pixelAdjustedRect.height) * base.rectTransform.pivot.y;

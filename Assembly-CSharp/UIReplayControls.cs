@@ -21,19 +21,6 @@ public class UIReplayControls : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_playBtn, false, null);
 		if (ReplayPlayManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIReplayControls.Start()).MethodHandle;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
 				UIManager.SetGameObjectActive(base.gameObject, true, null);

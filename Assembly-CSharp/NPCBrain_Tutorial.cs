@@ -29,45 +29,14 @@ public class NPCBrain_Tutorial : NPCBrain
 		ActorData localPlayer = SinglePlayerManager.Get().GetLocalPlayer();
 		if (localPlayer == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain_Tutorial.IsPlayerInLoS()).MethodHandle;
-			}
 			return false;
 		}
 		ActorStatus component2 = localPlayer.GetComponent<ActorStatus>();
 		bool flag2;
 		if (localPlayer.IsHiddenInBrush())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!component2.HasStatus(StatusType.CantHideInBrush, true))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = component2.HasStatus(StatusType.Revealed, true);
 				goto IL_7A;
 			}
@@ -78,15 +47,6 @@ public class NPCBrain_Tutorial : NPCBrain
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag3;
 		}
 		else
@@ -113,45 +73,14 @@ public class NPCBrain_Tutorial : NPCBrain
 					BoardSquare currentBoardSquare2 = actorData.GetCurrentBoardSquare();
 					if (currentBoardSquare2 != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain_Tutorial.FindNearestEnemy()).MethodHandle;
-						}
 						float num2 = currentBoardSquare.HorizontalDistanceOnBoardTo(currentBoardSquare2);
 						if (num2 < num)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = num2;
 							result = actorData;
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -167,66 +96,17 @@ public class NPCBrain_Tutorial : NPCBrain
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_destination);
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain_Tutorial.MoveToDestination()).MethodHandle;
-				}
 				if (component2 != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component3 != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare != null)
 						{
 							BoardSquare closestMoveableSquareTo = component2.GetClosestMoveableSquareTo(boardSquare, true);
 							if (closestMoveableSquareTo != null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (closestMoveableSquareTo != component.GetCurrentBoardSquare())
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									component3.SelectMovementSquareForMovement(closestMoveableSquareTo);
 								}
 							}

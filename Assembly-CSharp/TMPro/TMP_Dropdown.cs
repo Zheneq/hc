@@ -156,42 +156,11 @@ namespace TMPro
 			{
 				if (Application.isPlaying)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.set_value(int)).MethodHandle;
-					}
 					if (value != this.m_Value)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.options.Count != 0)
 						{
 							goto IL_45;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return;
@@ -217,32 +186,10 @@ namespace TMPro
 			this.m_AlphaTweenRunner.Init(this);
 			if (this.m_CaptionImage)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.Awake()).MethodHandle;
-				}
 				this.m_CaptionImage.enabled = (this.m_CaptionImage.sprite != null);
 			}
 			if (this.m_Template)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Template.gameObject.SetActive(false);
 			}
 		}
@@ -252,54 +199,14 @@ namespace TMPro
 			TMP_Dropdown.OptionData optionData = TMP_Dropdown.s_NoOptionData;
 			if (this.options.Count > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.RefreshShownValue()).MethodHandle;
-				}
 				optionData = this.options[Mathf.Clamp(this.m_Value, 0, this.options.Count - 1)];
 			}
 			if (this.m_CaptionText)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (optionData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (optionData.text != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_CaptionText.text = optionData.text;
 						goto IL_B5;
 					}
@@ -309,26 +216,8 @@ namespace TMPro
 			IL_B5:
 			if (this.m_CaptionImage)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (optionData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_CaptionImage.sprite = optionData.image;
 				}
 				else
@@ -350,19 +239,6 @@ namespace TMPro
 			for (int i = 0; i < options.Count; i++)
 			{
 				this.options.Add(new TMP_Dropdown.OptionData(options[i]));
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.AddOptions(List<string>)).MethodHandle;
 			}
 			this.RefreshShownValue();
 		}
@@ -387,19 +263,6 @@ namespace TMPro
 			this.validTemplate = false;
 			if (!this.m_Template)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.SetupTemplate()).MethodHandle;
-				}
 				Debug.LogError("The dropdown template is not assigned. The template needs to be assigned and must have a child GameObject with a Toggle component serving as the item.", this);
 				return;
 			}
@@ -409,26 +272,8 @@ namespace TMPro
 			this.validTemplate = true;
 			if (componentInChildren)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (componentInChildren.transform == this.template)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -440,26 +285,8 @@ namespace TMPro
 					}
 					if (this.itemText != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.itemText.transform.IsChildOf(componentInChildren.transform))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.validTemplate = false;
 							Debug.LogError("The dropdown template is not valid. The Item Text must be on the item GameObject or children of it.", this.template);
 							goto IL_18E;
@@ -467,15 +294,6 @@ namespace TMPro
 					}
 					if (this.itemImage != null && !this.itemImage.transform.IsChildOf(componentInChildren.transform))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.validTemplate = false;
 						Debug.LogError("The dropdown template is not valid. The Item Image must be on the item GameObject or children of it.", this.template);
 						goto IL_18E;
@@ -510,19 +328,6 @@ namespace TMPro
 			T t = go.GetComponent<T>();
 			if (!t)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.GetOrAddComponent(GameObject)).MethodHandle;
-				}
 				t = go.AddComponent<T>();
 			}
 			return t;
@@ -547,41 +352,10 @@ namespace TMPro
 		{
 			if (this.IsActive())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.Show()).MethodHandle;
-				}
 				if (this.IsInteractable())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_Dropdown != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -590,15 +364,6 @@ namespace TMPro
 							this.SetupTemplate();
 							if (!this.validTemplate)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return;
 							}
 						}
@@ -606,15 +371,6 @@ namespace TMPro
 						base.gameObject.GetComponentsInParent<Canvas>(false, list);
 						if (list.Count == 0)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return;
 						}
 						Canvas canvas = list[0];
@@ -642,15 +398,6 @@ namespace TMPro
 							TMP_Dropdown.DropdownItem item = this.AddItem(data, this.value == i, componentInChildren, this.m_Items);
 							if (item == null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -661,28 +408,10 @@ namespace TMPro
 								});
 								if (item.toggle.isOn)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									item.toggle.Select();
 								}
 								if (toggle != null)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Navigation navigation = toggle.navigation;
 									Navigation navigation2 = item.toggle.navigation;
 									navigation.mode = Navigation.Mode.Explicit;
@@ -703,15 +432,6 @@ namespace TMPro
 						float num = rectTransform.rect.height - rectTransform2.rect.height;
 						if (num > 0f)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - num);
 						}
 						Vector3[] array = new Vector3[4];
@@ -729,43 +449,16 @@ namespace TMPro
 								Vector3 vector3 = rectTransform3.InverseTransformPoint(array[k]);
 								if (vector3[j] >= rect3.min[j])
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (vector3[j] <= rect3.max[j])
 									{
 										k++;
 										continue;
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								flag = true;
 								IL_513:
 								if (flag)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									RectTransformUtility.FlipLayoutOnAxis(rectTransform, j, false, false);
 								}
 								j++;
@@ -780,15 +473,6 @@ namespace TMPro
 								}
 								goto IL_513;
 							}
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						for (int l = 0; l < this.m_Items.Count; l++)
 						{
@@ -861,19 +545,6 @@ namespace TMPro
 			dropdownItem.gameObject.name = "Item " + items.Count + ((data.text == null) ? string.Empty : (": " + data.text));
 			if (dropdownItem.toggle != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.AddItem(TMP_Dropdown.OptionData, bool, TMP_Dropdown.DropdownItem, List<TMP_Dropdown.DropdownItem>)).MethodHandle;
-				}
 				dropdownItem.toggle.isOn = false;
 			}
 			if (dropdownItem.text)
@@ -882,15 +553,6 @@ namespace TMPro
 			}
 			if (dropdownItem.image)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dropdownItem.image.sprite = data.image;
 				dropdownItem.image.enabled = (dropdownItem.image.sprite != null);
 			}
@@ -908,19 +570,6 @@ namespace TMPro
 		{
 			if (end.Equals(start))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.AlphaFadeList(float, float, float)).MethodHandle;
-				}
 				return;
 			}
 			FloatTween info = new FloatTween
@@ -951,33 +600,11 @@ namespace TMPro
 				this.AlphaFadeList(0.15f, 0f);
 				if (this.IsActive())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.Hide()).MethodHandle;
-					}
 					base.StartCoroutine(this.DelayedDestroyDropdownList(0.15f));
 				}
 			}
 			if (this.m_Blocker != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.DestroyBlocker(this.m_Blocker);
 			}
 			this.m_Blocker = null;
@@ -987,56 +614,16 @@ namespace TMPro
 		private IEnumerator DelayedDestroyDropdownList(float delay)
 		{
 			yield return new WaitForSecondsRealtime(delay);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.<DelayedDestroyDropdownList>c__Iterator0.MoveNext()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_Items.Count; i++)
 			{
 				if (this.m_Items[i] != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DestroyItem(this.m_Items[i]);
 				}
 				this.m_Items.Clear();
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_Dropdown != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.DestroyDropdownList(this.m_Dropdown);
 			}
 			this.m_Dropdown = null;
@@ -1057,32 +644,10 @@ namespace TMPro
 			{
 				if (parent.GetChild(i) == transform)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.OnSelectItem(Toggle)).MethodHandle;
-					}
 					num = i - 1;
 					IL_6A:
 					if (num < 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 					this.value = num;
@@ -1177,19 +742,6 @@ namespace TMPro
 				TMP_Dropdown componentInParent = base.GetComponentInParent<TMP_Dropdown>();
 				if (componentInParent)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Dropdown.DropdownItem.OnCancel(BaseEventData)).MethodHandle;
-					}
 					componentInParent.Hide();
 				}
 			}

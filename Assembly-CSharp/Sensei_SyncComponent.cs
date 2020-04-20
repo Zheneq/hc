@@ -94,19 +94,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		object parameter;
 		if (isOn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.SetAllyAudioSwitch(bool)).MethodHandle;
-			}
 			parameter = "defend_on";
 		}
 		else
@@ -124,19 +111,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		object parameter;
 		if (isOn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.SetEnemyAudioSwitch(bool)).MethodHandle;
-			}
 			parameter = "attack_on";
 		}
 		else
@@ -154,31 +128,9 @@ public class Sensei_SyncComponent : NetworkBehaviour
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(prefabs[i], this.m_owner, joint, false, "SenseiDashIndicator_" + i, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.InstantiateVfxIndicators(List<AttachedActorVFXInfo>, JointPopupProperty, Vector3, List<GameObject>)).MethodHandle;
-				}
 				attachedActorVFXInfo.SetInstanceLocalPosition(localOffset);
 			}
 			listToAddTo.Add(attachedActorVFXInfo);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -192,68 +144,19 @@ public class Sensei_SyncComponent : NetworkBehaviour
 	{
 		if (this.m_owner != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.Update()).MethodHandle;
-			}
 			if (this.m_yingYangDashAbility != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = this.m_owner.IsVisibleToClient();
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_owner.GetActorModelData() != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = this.m_owner.GetActorModelData().IsVisibleToClient();
 					}
 				}
 				bool flag2;
 				if (!this.m_owner.IsDead())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = this.m_owner.IsModelAnimatorDisabled();
 				}
 				else
@@ -265,15 +168,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				bool flag5;
 				if (!flag3)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = flag4;
 				}
 				else
@@ -284,15 +178,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				bool flag7;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag7 = flag6;
 				}
 				else
@@ -303,15 +188,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				bool flag9;
 				if (flag6)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag9 = this.m_yingYangDashAbility.CanTargetAlly();
 				}
 				else
@@ -322,15 +198,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				bool flag11;
 				if (flag6)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag11 = this.m_yingYangDashAbility.CanTargetEnemy();
 				}
 				else
@@ -340,82 +207,28 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				bool flag12 = flag11;
 				if (this.m_lastAllyDashAudioSwitchState != flag10)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetAllyAudioSwitch(flag10);
 				}
 				if (this.m_lastEnemyDashAudioSwitchState != flag12)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetEnemyAudioSwitch(flag12);
 				}
 				if (flag8)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag10)
 					{
 						if (!flag12)
 						{
 							goto IL_20D;
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (flag10 && flag12)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetIndicatorVisibility(this.m_dashIndicatorsSetA, true, false);
 						this.SetIndicatorVisibility(this.m_dashIndicatorsSetB, false, true);
 					}
 					else if (flag10)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetIndicatorVisibility(this.m_dashIndicatorsSetA, true, false);
 						this.SetIndicatorVisibility(this.m_dashIndicatorsSetB, true, false);
 					}
@@ -449,30 +262,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 			uint dirtyBit = 1U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.set_Networkm_syncCurrentNumOrbs(sbyte)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetNumOrbs(value);
 					base.syncVarHookGuard = false;
@@ -538,19 +329,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_syncCurrentNumOrbs);
 			writer.WritePackedUInt32((uint)this.m_syncTurnsForSecondYingYangDash);
 			writer.Write(this.m_syncLastYingYangDashedToAlly);
@@ -561,26 +339,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -588,15 +348,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -606,26 +357,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -633,26 +366,8 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -662,15 +377,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -687,19 +393,6 @@ public class Sensei_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sensei_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_syncCurrentNumOrbs = (sbyte)reader.ReadPackedUInt32();
 			this.m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
 			this.m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
@@ -710,67 +403,22 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetNumOrbs((sbyte)reader.ReadPackedUInt32());
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncTurnsForSecondYingYangDash = (sbyte)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncLastYingYangDashedToAlly = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncBideExtraDamagePct = reader.ReadSingle();
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
 		}
 	}

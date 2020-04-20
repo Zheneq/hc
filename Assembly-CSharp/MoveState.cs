@@ -40,19 +40,6 @@ public class MoveState
 		this.m_connectionType = this.m_pathSquareInfo.connectionType;
 		if (this.m_animator != null && this.m_animator.layerCount > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MoveState..ctor(ActorMovement, BoardSquarePathInfo)).MethodHandle;
-			}
 			AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(0);
 			this.m_curAnimHash = currentAnimatorStateInfo.fullPathHash;
 			this.m_curAnimTag = currentAnimatorStateInfo.tagHash;
@@ -87,19 +74,6 @@ public class MoveState
 	{
 		if (this.m_timeInAnim > MoveState.s_timeout)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MoveState.UpdateTimeout()).MethodHandle;
-			}
 			this.m_done = true;
 			this.m_updatePath = true;
 			this.m_forceAnimReset = true;
@@ -113,19 +87,6 @@ public class MoveState
 		int curAnimTag = this.m_curAnimTag;
 		if (!(this.m_animator == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MoveState.UpdateAnimInfo()).MethodHandle;
-			}
 			if (this.m_animator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(0);
@@ -142,15 +103,6 @@ public class MoveState
 				}
 				if (this.m_curAnimHash != curAnimHash)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeInAnim = 0f;
 					this.OnAnimChange(curAnimHash, curAnimTag, this.m_curAnimHash, this.m_curAnimTag);
 				}

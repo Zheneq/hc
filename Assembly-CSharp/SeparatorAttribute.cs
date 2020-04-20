@@ -19,19 +19,6 @@ public class SeparatorAttribute : PropertyAttribute
 		this.m_title = title;
 		if (useDefaultColor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SeparatorAttribute..ctor(string, bool)).MethodHandle;
-			}
 			this.m_setColor = true;
 			this.m_colorStr = "cyan";
 		}

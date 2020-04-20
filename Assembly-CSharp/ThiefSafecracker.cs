@@ -28,19 +28,6 @@ public class ThiefSafecracker : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSafecracker.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Safecracker";
 		}
 		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, this.m_laserWidth, this.m_laserRange, this.m_laserPenetrateLos, -1, this.m_knockbackDistance, this.m_knockbackDistance, this.m_knockbackType, false);
@@ -51,19 +38,6 @@ public class ThiefSafecracker : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_damageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSafecracker.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_damageAmount);
 		}
 		return result;

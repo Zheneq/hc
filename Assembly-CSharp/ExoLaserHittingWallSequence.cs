@@ -38,19 +38,6 @@ public class ExoLaserHittingWallSequence : Sequence
 				ExoAnchorLaser exoAnchorLaser = base.Caster.GetAbilityData().GetAbilityOfType(typeof(ExoAnchorLaser)) as ExoAnchorLaser;
 				if (exoAnchorLaser != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ExoLaserHittingWallSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-					}
 					float num2 = exoAnchorLaser.GetLaserInfo().range * Board.Get().squareSize;
 					if ((double)num + 0.5 < (double)num2)
 					{
@@ -79,54 +66,14 @@ public class ExoLaserHittingWallSequence : Sequence
 			base.ProcessSequenceVisibility();
 			if (this.m_fx != null && this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ExoLaserHittingWallSequence.Update()).MethodHandle;
-				}
 				this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 			}
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_hittingWall)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fxCasterJoint.IsInitialized())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 position = this.m_fx.transform.position;
 						position.y = this.m_fxCasterJoint.m_jointObject.transform.position.y;
 						this.m_fx.transform.position = position;
@@ -140,56 +87,16 @@ public class ExoLaserHittingWallSequence : Sequence
 	{
 		if (!this.m_fxCasterJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoLaserHittingWallSequence.FinishSetup()).MethodHandle;
-			}
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fxCasterJoint.Initialize(referenceModel);
 			}
 		}
 		if (this.m_hittingWall)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_fxCasterJoint.IsInitialized())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_hitPosition);
 				this.m_hitPosition.y = this.m_fxCasterJoint.m_jointObject.transform.position.y;
 				if (boardSquare == null)
@@ -201,26 +108,8 @@ public class ExoLaserHittingWallSequence : Sequence
 				float num2 = Mathf.Abs(vector.z);
 				if (num > num2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (vector.x > 0f)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_hitRotation = Quaternion.LookRotation(new Vector3(1f, 0f, 0f));
 					}
 					else
@@ -230,15 +119,6 @@ public class ExoLaserHittingWallSequence : Sequence
 				}
 				else if (vector.z > 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_hitRotation = Quaternion.LookRotation(new Vector3(0f, 0f, 1f));
 				}
 				else
@@ -249,15 +129,6 @@ public class ExoLaserHittingWallSequence : Sequence
 		}
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -266,30 +137,8 @@ public class ExoLaserHittingWallSequence : Sequence
 	{
 		if (this.m_fxPrefab)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoLaserHittingWallSequence.SpawnFX()).MethodHandle;
-			}
 			if (this.m_hittingWall)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fx = base.InstantiateFX(this.m_fxPrefab, this.m_hitPosition, this.m_hitRotation, true, true);
 			}
 		}
@@ -313,32 +162,10 @@ public class ExoLaserHittingWallSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoLaserHittingWallSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 		if (this.m_stopEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.StopFX();
 		}
 	}

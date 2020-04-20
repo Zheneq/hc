@@ -74,30 +74,8 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 		if (this.m_includeCaster)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ReverseStretchCone.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (!actorsInCone.Contains(targetingActor))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsInCone.Add(targetingActor);
 			}
 		}
@@ -111,15 +89,6 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 				base.AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, false);
 				if ((a - actorData.GetTravelBoardSquareWorldPositionForLos()).sqrMagnitude <= num3)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.AddActorInRange(actorData, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Far, true);
 				}
 			}
@@ -138,19 +107,6 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 			{
 				goto IL_A4;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ReverseStretchCone.CreateConeCursorHighlights(Vector3, Vector3, float, float)).MethodHandle;
-			}
 		}
 		this.m_highlights = new List<GameObject>();
 		GameObject item = HighlightUtils.Get().CreateDynamicConeMesh(coneLengthSquares, coneWidthDegrees, this.ForceHideSides, null);
@@ -165,19 +121,6 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ReverseStretchCone.DrawInvalidSquareIndicators(ActorData, Vector3, float, float, float)).MethodHandle;
-			}
 			this.m_coneChecker.UpdateConeProperties(coneStartPos, coneWidthDegrees, coneLengthSquares - this.m_coneBackwardOffsetInSquares, this.m_coneBackwardOffsetInSquares, forwardDir_degrees, targetingActor);
 			this.m_coneChecker.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), false);
 			base.ResetSquareIndicatorIndexToUse();
@@ -191,60 +134,20 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		bool result = false;
 		if (actor == caster)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ReverseStretchCone.ShouldAddActor(ActorData, ActorData)).MethodHandle;
-			}
 			result = this.m_includeCaster;
 		}
 		else
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_includeAllies)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					goto IL_7F;
 				}
 			}
 			if (actor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_includeEnemies)
 				{
 					result = true;
@@ -255,17 +158,8 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		if (!this.m_penetrateLoS)
 		{
 			BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
-			if (!caster.GetCurrentBoardSquare().\u0013(currentBoardSquare.x, currentBoardSquare.y))
+			if (!caster.GetCurrentBoardSquare().symbol_0013(currentBoardSquare.x, currentBoardSquare.y))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = false;
 			}
 		}

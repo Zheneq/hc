@@ -20,82 +20,29 @@ public class CharacterTaunt
 
 	public GameBalanceVars.TauntUnlockData m_tauntUnlockData;
 
-	public int \u001D()
+	public int symbol_001D()
 	{
 		int result = 0;
 		if (this.m_tauntUnlockData != null && this.m_tauntUnlockData.m_unlockData != null && this.m_tauntUnlockData.m_unlockData.UnlockConditions != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u001D()).MethodHandle;
-			}
 			foreach (GameBalanceVars.UnlockCondition unlockCondition in this.m_tauntUnlockData.m_unlockData.UnlockConditions)
 			{
 				if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Purchase)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return unlockCondition.typeSpecificData2;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
 	}
 
-	public int \u000E()
+	public int symbol_000E()
 	{
 		if (this.m_tauntUnlockData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u000E()).MethodHandle;
-			}
 			InventoryItemRarity rarity = this.m_tauntUnlockData.Rarity;
 			if (rarity == InventoryItemRarity.Uncommon)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 0x64;
 			}
 			if (rarity == InventoryItemRarity.Rare)
@@ -104,15 +51,6 @@ public class CharacterTaunt
 			}
 			if (rarity == InventoryItemRarity.Epic)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 0x4B0;
 			}
 			if (rarity == InventoryItemRarity.Legendary)
@@ -123,35 +61,13 @@ public class CharacterTaunt
 		return 0;
 	}
 
-	public static bool \u001D(InventoryItemRarity \u001D)
+	public static bool symbol_001D(InventoryItemRarity symbol_001D)
 	{
-		if (\u001D != InventoryItemRarity.Uncommon)
+		if (symbol_001D != InventoryItemRarity.Uncommon)
 		{
-			for (;;)
+			if (symbol_001D != InventoryItemRarity.Rare && symbol_001D != InventoryItemRarity.Epic)
 			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterTaunt.\u001D(InventoryItemRarity)).MethodHandle;
-			}
-			if (\u001D != InventoryItemRarity.Rare && \u001D != InventoryItemRarity.Epic)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return \u001D == InventoryItemRarity.Legendary;
+				return symbol_001D == InventoryItemRarity.Legendary;
 			}
 		}
 		return true;

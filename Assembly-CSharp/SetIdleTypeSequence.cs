@@ -25,19 +25,6 @@ public class SetIdleTypeSequence : Sequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.FinishSetup()).MethodHandle;
-			}
 			this.SetIdleType();
 		}
 	}
@@ -47,31 +34,9 @@ public class SetIdleTypeSequence : Sequence
 		Animator modelAnimator = base.Caster.GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.SetIdleType()).MethodHandle;
-			}
 			int num;
 			if (this.m_useAltIntIdleType)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_altIntIdleType;
 			}
 			else
@@ -81,28 +46,10 @@ public class SetIdleTypeSequence : Sequence
 			int value = num;
 			if (!this.m_animParameter.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator.SetInteger(this.m_animParameter, value);
 			}
 			if (!this.m_triggerAnimParameter.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator.SetTrigger(this.m_triggerAnimParameter);
 			}
 		}
@@ -121,32 +68,10 @@ public class SetIdleTypeSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SetIdleType();
 		}
 		else if (this.m_endEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.RestoreIdleType();
 		}
 	}
@@ -155,30 +80,8 @@ public class SetIdleTypeSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SetIdleTypeSequence.OnDisable()).MethodHandle;
-			}
 			if (this.m_restoreOnDisable)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.RestoreIdleType();
 			}
 		}

@@ -16,19 +16,6 @@ public class Recall : Ability
 		bool flag = GameplayData.Get().m_recallAllowed;
 		if (flag && GameplayData.Get().m_recallOnlyWhenOutOfCombat)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Recall.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			flag = caster.OutOfCombat;
 		}
 		return flag;

@@ -6,10 +6,10 @@ public static class ConsoleLog
 	private static object s_lock;
 
 	[CompilerGenerated]
-	private static Action<Log.Message> <>f__mg$cache0;
+	private static Action<Log.Message> f__mg_cache0;
 
 	[CompilerGenerated]
-	private static Action<Log.Message> <>f__mg$cache1;
+	private static Action<Log.Message> f__mg_cache1;
 
 	static ConsoleLog()
 	{
@@ -33,57 +33,17 @@ public static class ConsoleLog
 		{
 			if (args.level < ConsoleLog.MinStdOutLevel)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ConsoleLog.HandleLogMessage(Log.Message)).MethodHandle;
-				}
 				if (args.level < ConsoleLog.MinStdErrLevel)
 				{
 					goto IL_11F;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			string text = args.ToString();
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string value = string.Empty;
 				if (!ConsoleLog.RawLogging)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = string.Format("{0} [{1}] ", args.timestamp.ToString(Log.TimestampFormat), Log.ToStringCode(args.level));
 				}
 				bool flag = false;
@@ -95,30 +55,12 @@ public static class ConsoleLog
 				}
 				else if (args.level >= ConsoleLog.MinStdOutLevel)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Console.Out.Write(value);
 					Console.Out.WriteLine(text);
 					flag = true;
 				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			IL_11F:;
@@ -129,34 +71,9 @@ public static class ConsoleLog
 	{
 		if (!ConsoleLog.Started)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConsoleLog.Start()).MethodHandle;
-			}
 			ConsoleLog.Started = true;
-			if (ConsoleLog.<>f__mg$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ConsoleLog.<>f__mg$cache0 = new Action<Log.Message>(ConsoleLog.HandleLogMessage);
-			}
-			Log.AddLogHandler(ConsoleLog.<>f__mg$cache0);
+			
+			Log.AddLogHandler(new Action<Log.Message>(ConsoleLog.HandleLogMessage));
 		}
 	}
 
@@ -165,11 +82,8 @@ public static class ConsoleLog
 		if (ConsoleLog.Started)
 		{
 			ConsoleLog.Started = false;
-			if (ConsoleLog.<>f__mg$cache1 == null)
-			{
-				ConsoleLog.<>f__mg$cache1 = new Action<Log.Message>(ConsoleLog.HandleLogMessage);
-			}
-			Log.RemoveLogHandler(ConsoleLog.<>f__mg$cache1);
+			
+			Log.RemoveLogHandler(new Action<Log.Message>(ConsoleLog.HandleLogMessage));
 		}
 	}
 }

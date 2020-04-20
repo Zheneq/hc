@@ -45,41 +45,10 @@ public class QuestCompletePanel : UIScene
 	{
 		if (SteamManager.Initialized)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.Start()).MethodHandle;
-			}
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameplayOverrides.EnableSteamAchievements)
 					{
 						using (Dictionary<int, QuestMetaData>.Enumerator enumerator = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.QuestMetaDatas.GetEnumerator())
@@ -89,39 +58,12 @@ public class QuestCompletePanel : UIScene
 								KeyValuePair<int, QuestMetaData> keyValuePair = enumerator.Current;
 								if (keyValuePair.Value.CompletedCount > 0)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(keyValuePair.Key);
 									if (questTemplate.AchievmentType != AchievementType.None)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										SteamUserStats.SetAchievement("AR_QUEST_ID_" + keyValuePair.Key);
 									}
 								}
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						foreach (QuestProgress questProgress in ClientGameManager.Get().GetPlayerAccountData().QuestComponent.Progress.Values)
@@ -131,30 +73,12 @@ public class QuestCompletePanel : UIScene
 							QuestItem.GetQuestProgress(questProgress.Id, out num, out num2);
 							if (num <= 0)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								QuestTemplate questTemplate2 = QuestWideData.Get().GetQuestTemplate(questProgress.Id);
 								if (questTemplate2.AchievmentType == AchievementType.None)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
@@ -172,19 +96,6 @@ public class QuestCompletePanel : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnQuestCompleteNotification -= this.HandleQuestCompleteNotification;
 			ClientGameManager.Get().OnQuestProgressChanged -= this.HandleQuestProgressChanged;
 		}
@@ -204,19 +115,6 @@ public class QuestCompletePanel : UIScene
 					goto IL_60;
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.RemoveQuestCompleteNotification(int)).MethodHandle;
-			}
 		}
 		IL_60:
 		this.Setup(true);
@@ -233,34 +131,12 @@ public class QuestCompletePanel : UIScene
 		{
 			if (i <= index)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.DisplayGameOverQuestComplete(int)).MethodHandle;
-				}
 				if (this.m_savedNotificationsForGameOver[i].questId > 0)
 				{
 					this.DisplayNewQuestComplete(this.m_savedNotificationsForGameOver[i]);
 					this.m_savedNotificationsForGameOver[i].questId = -1;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -269,30 +145,8 @@ public class QuestCompletePanel : UIScene
 		QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(message.questId);
 		if (questTemplate != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.DisplayNewQuestComplete(QuestCompleteNotification)).MethodHandle;
-			}
 			if (questTemplate.HideCompletion)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
@@ -303,37 +157,10 @@ public class QuestCompletePanel : UIScene
 		this.m_recentlyCompletedQuests.Add(questCompleteData);
 		if (questTemplate.AchievmentType != AchievementType.None)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SteamManager.Initialized && GameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameplayOverrides.EnableSteamAchievements)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SteamUserStats.SetAchievement("AR_QUEST_ID_" + questTemplate.Index);
 				}
 			}
@@ -341,15 +168,6 @@ public class QuestCompletePanel : UIScene
 		this.Setup(false);
 		if (UIPlayerNavPanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIPlayerNavPanel.Get().NotifyQuestCompleted(this.m_recentlyCompletedQuests[0]);
 		}
 	}
@@ -358,30 +176,8 @@ public class QuestCompletePanel : UIScene
 	{
 		if (UIGameOverScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.HandleQuestCompleteNotification(QuestCompleteNotification)).MethodHandle;
-			}
 			if (UIGameOverScreen.Get().IsVisible)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_savedNotificationsForGameOver.Add(message);
 				return;
 			}
@@ -393,19 +189,6 @@ public class QuestCompletePanel : UIScene
 	{
 		if (SteamManager.Initialized && !(GameManager.Get() == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.HandleQuestProgressChanged(QuestProgress[])).MethodHandle;
-			}
 			if (GameManager.Get().GameplayOverrides.EnableSteamAchievements)
 			{
 				for (int i = 0; i < questProgresses.Length; i++)
@@ -419,25 +202,7 @@ public class QuestCompletePanel : UIScene
 						SteamUserStats.SetStat("AR_QUEST_ID_" + questTemplate.Index, nData);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -446,30 +211,8 @@ public class QuestCompletePanel : UIScene
 	{
 		if (UIGameOverScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.AddSpecialQuestNotification(int)).MethodHandle;
-			}
 			if (UIGameOverScreen.Get().IsVisible)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_savedNotificationsForGameOver.Add(new QuestCompleteNotification
 				{
 					questId = questId,
@@ -481,15 +224,6 @@ public class QuestCompletePanel : UIScene
 		QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(questId);
 		if (questTemplate != null && questTemplate.HideCompletion)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		QuestCompleteData questCompleteData = new QuestCompleteData();
@@ -507,33 +241,11 @@ public class QuestCompletePanel : UIScene
 			QuestItem questItem = this.m_questItems[i];
 			if (i < this.m_recentlyCompletedQuests.Count)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.Setup(bool)).MethodHandle;
-				}
 				QuestCompleteData questCompleteData = this.m_recentlyCompletedQuests[i];
 				UIManager.SetGameObjectActive(questItem, true, null);
 				questItem.SetState(QuestItemState.Finished);
 				if (removedQuestCompleteNotification)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIAnimationEventManager.Get().PlayAnimation(questItem.m_animatorController, "contractItemDefaultIDLE", null, string.Empty, 0, 0f, true, false, null, null);
 				}
 				questItem.SetQuestId(questCompleteData.questId, questCompleteData.rejectedCount, true, removedQuestCompleteNotification);
@@ -549,15 +261,6 @@ public class QuestCompletePanel : UIScene
 		}
 		if (this.m_recentlyCompletedQuests.Count > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_contractCompletedLabel != null)
 			{
 				UIManager.SetGameObjectActive(this.m_contractCompletedLabel, true, null);
@@ -565,15 +268,6 @@ public class QuestCompletePanel : UIScene
 		}
 		else if (this.m_contractCompletedLabel != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_contractCompletedLabel, false, null);
 		}
 	}
@@ -589,56 +283,16 @@ public class QuestCompletePanel : UIScene
 		bool flag2 = false;
 		if (UIGameOverScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCompletePanel.Update()).MethodHandle;
-			}
 			flag2 = UIGameOverScreen.Get().IsVisible;
 		}
 		else
 		{
 			if (SteamManager.Initialized)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameplayOverrides.EnableSteamAchievements)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < this.m_savedNotificationsForGameOver.Count; i++)
 						{
 							int questId = this.m_savedNotificationsForGameOver[i].questId;
@@ -647,27 +301,9 @@ public class QuestCompletePanel : UIScene
 								QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(questId);
 								if (questTemplate.AchievmentType != AchievementType.None)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									SteamUserStats.SetAchievement("AR_QUEST_ID_" + questId);
 								}
 							}
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -676,37 +312,10 @@ public class QuestCompletePanel : UIScene
 		}
 		if (this.m_recentlyCompletedQuests.Count > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				while (this.m_recentlyCompletedQuests.Count > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_recentlyCompletedQuests[0].fadeTime >= Time.time)
 					{
 						for (;;)
@@ -730,15 +339,6 @@ public class QuestCompletePanel : UIScene
 		IL_191:
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.Setup(false);
 		}
 	}

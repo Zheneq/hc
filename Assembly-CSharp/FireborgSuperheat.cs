@@ -30,19 +30,6 @@ public class FireborgSuperheat : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgSuperheat.GetSuperheatDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_superheatDurationMod.GetModifiedValue(this.m_superheatDuration);
 		}
 		else
@@ -57,19 +44,6 @@ public class FireborgSuperheat : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgSuperheat.GetIgniteExtraDamageIfSuperheated()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_igniteExtraDamageIfSuperheatedMod.GetModifiedValue(this.m_igniteExtraDamageIfSuperheated);
 		}
 		else

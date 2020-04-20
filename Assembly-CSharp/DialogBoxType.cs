@@ -10,7 +10,7 @@ public enum DialogBoxType
 	UNUSED,
 	UNUSED2,
 	PurchaseItem,
-	\u001D,
+	symbol_001D,
 	PartyInvite,
 	PurchaseGame,
 	PurchaseForCash,

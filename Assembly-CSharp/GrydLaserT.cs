@@ -90,32 +90,10 @@ public class GrydLaserT : Ability
 		dist = vector2.magnitude;
 		if (dist < num)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydLaserT.GetClampedTargeterRangeStatic(AbilityTarget, Vector3, Vector3, float, float, bool, float, float*, float*)).MethodHandle;
-			}
 			vector = startPos + aimDir * num;
 		}
 		else if (dist > num2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = startPos + aimDir * num2;
 			int num3 = Mathf.RoundToInt(maxForwardLenInSquares - minForwardLenInSquares);
 			float num4 = Mathf.Floor(branchLenDecreaseOverDist * (float)num3) * squareSize;
@@ -123,15 +101,6 @@ public class GrydLaserT : Ability
 		}
 		else if (discreteStepsForRange)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num5 = Mathf.Max(0f, dist - num);
 			int num6 = Mathf.RoundToInt(num5 / squareSize);
 			vector = startPos + aimDir * (num + (float)num6 * squareSize);

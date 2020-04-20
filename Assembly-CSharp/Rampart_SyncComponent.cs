@@ -29,19 +29,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		ActorData owner = this.GetOwner();
 		if (owner != null && owner.GetActorModelData() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.Start()).MethodHandle;
-			}
 			this.m_colliderForShield = owner.GetActorModelData().gameObject.AddComponent<BoxCollider>();
 			this.m_colliderForShield.center = new Vector3(0f, 0.8f, 1f);
 			this.m_colliderForShield.size = new Vector3(3.1f * Board.Get().squareSize, 3f, 0.3f);
@@ -63,19 +50,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.RpcSetIdleType(int)).MethodHandle;
-			}
 			ActorData owner = this.GetOwner();
 			if (owner != null && owner.GetModelAnimator() != null)
 			{
@@ -85,15 +59,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 					owner.GetModelAnimator().SetInteger(Rampart_SyncComponent.animIdleType, idleType);
 					if (idleType != 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						owner.GetModelAnimator().SetTrigger(Rampart_SyncComponent.animForceIdle);
 					}
 				}
@@ -101,15 +66,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 		}
 		if (NetworkClient.active && this.m_colliderForShield != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_colliderForShield.enabled = (idleType != 0);
 		}
 	}
@@ -119,31 +75,9 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.RpcSetFacingDirection(Vector3)).MethodHandle;
-			}
 			ActorData owner = this.GetOwner();
 			if (owner != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				owner.TurnToDirection(facing);
 			}
 		}
@@ -157,19 +91,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.InvokeRpcRpcSetIdleType(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetIdleType called on server.");
 			return;
 		}
@@ -190,19 +111,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.CallRpcSetIdleType(int)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcSetIdleType called on client.");
 			return;
 		}
@@ -219,19 +127,6 @@ public class Rampart_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Rampart_SyncComponent.CallRpcSetFacingDirection(Vector3)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
 			return;
 		}
@@ -246,8 +141,7 @@ public class Rampart_SyncComponent : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

@@ -24,19 +24,6 @@ public static class VectorUtils
 		ActorCover.CoverDirections result;
 		if (Mathf.Abs(x - x2) > Mathf.Abs(y - y2))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetCoverDirection(BoardSquare, BoardSquare)).MethodHandle;
-			}
 			if (x > x2)
 			{
 				result = ActorCover.CoverDirections.X_NEG;
@@ -84,19 +71,6 @@ public static class VectorUtils
 		BoardSquare adjSquare = VectorUtils.GetAdjSquare(square, coverDirection);
 		if (adjSquare != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.HasCoverInDirection(BoardSquare, ActorCover.CoverDirections)).MethodHandle;
-			}
 			if ((float)(adjSquare.height - square.height) > 1f)
 			{
 				result = true;
@@ -110,19 +84,6 @@ public static class VectorUtils
 		bool result = false;
 		if (!VectorUtils.HasCoverInDirection(src, adjDirection))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.IsSuitableAdditionalCoverSquare(BoardSquare, ActorCover.CoverDirections, ActorCover.CoverDirections)).MethodHandle;
-			}
 			BoardSquare adjSquare = VectorUtils.GetAdjSquare(src, adjDirection);
 			if (adjSquare != null && !VectorUtils.HasCoverInDirection(adjSquare, coverDirection))
 			{
@@ -139,81 +100,23 @@ public static class VectorUtils
 		list.Add(src);
 		if (VectorUtils.HasCoverInDirection(src, coverDirection))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetAdditionalCoverSquares(BoardSquare, BoardSquare)).MethodHandle;
-			}
 			if (coverDirection != ActorCover.CoverDirections.X_NEG)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (coverDirection != ActorCover.CoverDirections.X_POS)
 				{
 					if (coverDirection != ActorCover.CoverDirections.Y_NEG)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (coverDirection != ActorCover.CoverDirections.Y_POS)
 						{
 							return list;
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (VectorUtils.IsSuitableAdditionalCoverSquare(src, ActorCover.CoverDirections.X_NEG, coverDirection))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(VectorUtils.GetAdjSquare(src, ActorCover.CoverDirections.X_NEG));
 					}
 					if (VectorUtils.IsSuitableAdditionalCoverSquare(src, ActorCover.CoverDirections.X_POS, coverDirection))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(VectorUtils.GetAdjSquare(src, ActorCover.CoverDirections.X_POS));
 						return list;
 					}
@@ -226,15 +129,6 @@ public static class VectorUtils
 			}
 			if (VectorUtils.IsSuitableAdditionalCoverSquare(src, ActorCover.CoverDirections.Y_POS, coverDirection))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(VectorUtils.GetAdjSquare(src, ActorCover.CoverDirections.Y_POS));
 			}
 		}
@@ -247,19 +141,6 @@ public static class VectorUtils
 		float y;
 		if (board.GetSquareHeight(startX, startY) < 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.HasLineOfSightFromIndex(int, int, int, int, Board, float, string)).MethodHandle;
-			}
 			y = heightOffset + (float)board.BaselineHeight;
 		}
 		else
@@ -269,15 +150,6 @@ public static class VectorUtils
 		float y2;
 		if (board.GetSquareHeight(endX, endY) < 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			y2 = heightOffset + (float)board.BaselineHeight;
 		}
 		else
@@ -291,15 +163,6 @@ public static class VectorUtils
 		bool flag = false;
 		if (Mathf.Abs(startX - endX) > Mathf.Abs(startY - endY))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 b = new Vector3(0f, 0f, squareSize * VectorUtils.s_positionOffset);
 			array[0] = vector - b;
 			array[1] = vector;
@@ -328,27 +191,9 @@ public static class VectorUtils
 				flag = VectorUtils.HasLineOfSight(array[i], array2[j], layerName);
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					IL_259:
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return flag;
 					}
 					i++;
@@ -388,19 +233,6 @@ public static class VectorUtils
 		float y;
 		if (board.GetSquareHeight(startX, startY) < 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetLineOfSightPercentDistance(int, int, int, int, Board, float, string)).MethodHandle;
-			}
 			y = heightOffset + (float)board.BaselineHeight;
 		}
 		else
@@ -410,15 +242,6 @@ public static class VectorUtils
 		float y2;
 		if (board.GetSquareHeight(endX, endY) < 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			y2 = heightOffset + (float)board.BaselineHeight;
 		}
 		else
@@ -457,42 +280,15 @@ public static class VectorUtils
 				float lineOfSightPercentDistance = VectorUtils.GetLineOfSightPercentDistance(array[i], array2[j], layerName);
 				if (lineOfSightPercentDistance > num)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = lineOfSightPercentDistance;
 					if (num == 1f)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 				}
 			}
 			if (num == 1f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return num;
 			}
 		}
@@ -517,19 +313,6 @@ public static class VectorUtils
 		bool flag = !Physics.Raycast(startPos, direction, out raycastHit, magnitude, mask);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetLineOfSightPercentDistance(Vector3, Vector3, string)).MethodHandle;
-			}
 			return 1f;
 		}
 		return raycastHit.distance / magnitude;
@@ -567,19 +350,6 @@ public static class VectorUtils
 			bool flag;
 			if (BarrierManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetLaserEndPoint(Vector3, Vector3, float, bool, ActorData, List<NonActorTargetInfo>, bool)).MethodHandle;
-				}
 				flag = BarrierManager.Get().HasAbilityBlockingBarriers();
 			}
 			else
@@ -592,15 +362,6 @@ public static class VectorUtils
 			Vector3 a = array[0] + num * dir;
 			if (maxDistanceInWorld > num)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < array.Length; i++)
 				{
 					Vector3 b = array[i];
@@ -623,15 +384,6 @@ public static class VectorUtils
 			List<NonActorTargetInfo> list = null;
 			if (maxDistanceInWorld > num)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
 					Vector3 vector3 = array[0] + num * dir;
@@ -651,15 +403,6 @@ public static class VectorUtils
 				List<NonActorTargetInfo> list2;
 				if (nonActorTargetInfo != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list2 = new List<NonActorTargetInfo>();
 				}
 				else
@@ -671,15 +414,6 @@ public static class VectorUtils
 				Vector3 vector5 = VectorUtils.GetLineEndPoint(vector4, dir, maxDistanceInWorld);
 				if (checkBarriers && flag2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag6;
 					Vector3 vector6;
 					vector5 = BarrierManager.Get().GetAbilityLineEndpoint(caster, vector4, vector5, out flag6, out vector6, list3);
@@ -691,15 +425,6 @@ public static class VectorUtils
 					Vector3 vector7 = (vector4 + vector5) / 2f - b2;
 					if (flag4)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector7 = startPos + (num + 0.3f) * dir;
 					}
 					float maxDistance = Mathf.Max(0f, (vector7 - startPos).magnitude - num);
@@ -710,40 +435,13 @@ public static class VectorUtils
 					float num5 = Mathf.Min(sqrMagnitude, sqrMagnitude2);
 					if (num5 > num2)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = num5;
 						list = list3;
 					}
 					else if (Mathf.Approximately(num5, num2))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (list != null && list.Count == 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list = list3;
 						}
 					}
@@ -753,54 +451,18 @@ public static class VectorUtils
 			float num6 = Mathf.Sqrt(num2);
 			if (num6 < maxDistanceInWorld - 0.1f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num6 = Mathf.Max(0f, num6 - 0.05f);
 			}
 			vector = startPos + dir * num6;
 			if (BarrierManager.Get() != null && checkBarriers)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag7;
 				Vector3 vector8;
 				vector = BarrierManager.Get().GetAbilityLineEndpoint(caster, startPos, vector, out flag7, out vector8, nonActorTargetInfo);
 				if (!flag7)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (nonActorTargetInfo != null && list != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						nonActorTargetInfo.AddRange(list);
 					}
 				}
@@ -818,19 +480,6 @@ public static class VectorUtils
 		Vector3 result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetLineEndPoint(Vector3, Vector3, float)).MethodHandle;
-			}
 			result = raycastHit.point;
 		}
 		else
@@ -864,19 +513,6 @@ public static class VectorUtils
 		Vector3 result = startPos;
 		if (offsetInSquares != 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetAdjustedStartPosWithOffset(Vector3, Vector3, float)).MethodHandle;
-			}
 			float d = Mathf.Min(vector.magnitude, offsetInSquares * Board.Get().squareSize);
 			result = startPos + d * vector.normalized;
 		}
@@ -922,19 +558,6 @@ public static class VectorUtils
 			bool flag4 = nonActorTargetInfoInSegments != null;
 			if (nonActorTargetInfoInSegments != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.CalculateBouncingLaserEndpoints(Vector3, Vector3, float, float, int, ActorData, float, int, bool, List<Team>, bool, Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>*, List<ActorData>*, List<List<NonActorTargetInfo>>, bool, bool)).MethodHandle;
-				}
 				nonActorTargetInfoInSegments.Add(new List<NonActorTargetInfo>());
 			}
 			vector2.Normalize();
@@ -946,43 +569,16 @@ public static class VectorUtils
 			Vector3 prevStartPos = Vector3.zero;
 			if (num7 == 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				prevStartPos = vector;
 			}
 			else if (num7 > 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				prevStartPos = list[num7 - 2];
 			}
 			Vector3 startPosForBounce = laserStartPos;
 			Vector3 startPosForGameplay;
 			if (num7 == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				startPosForGameplay = vector;
 			}
 			else
@@ -994,15 +590,6 @@ public static class VectorUtils
 			List<NonActorTargetInfo> nonActorTargetInfo;
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				nonActorTargetInfo = nonActorTargetInfoInSegments[num7];
 			}
 			else
@@ -1020,38 +607,11 @@ public static class VectorUtils
 					ActorData actorData2 = enumerator.Current;
 					if (!bounceHitActors.ContainsKey(actorData2))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (maxTargets > 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (orderedHitActors.Count >= maxTargets)
 							{
 								continue;
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						AreaEffectUtils.BouncingLaserInfo value = new AreaEffectUtils.BouncingLaserInfo((num7 != 0) ? laserStartPos : vector, num7);
@@ -1059,28 +619,10 @@ public static class VectorUtils
 						orderedHitActors.Add(actorData2);
 					}
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			bool flag7;
 			if (maxTargets > 0 && orderedHitActors.Count >= maxTargets)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag7 = !calculateLaserPastMaxTargets;
 			}
 			else
@@ -1090,70 +632,25 @@ public static class VectorUtils
 			bool flag8 = flag7;
 			if (flag8)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 normalized = (vector3 - laserStartPos).normalized;
 				Vector3 rhs = orderedHitActors[orderedHitActors.Count - 1].GetTravelBoardSquareWorldPosition() - laserStartPos;
 				vector3 = laserStartPos + (Vector3.Dot(normalized, rhs) + num) * normalized;
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					nonActorTargetInfoInSegments[num7].Clear();
 					flag4 = false;
 				}
 			}
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list.Count == 0 && list2.Count > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<NonActorTargetInfo>.Enumerator enumerator2 = list2.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
 						{
 							NonActorTargetInfo item = enumerator2.Current;
 							nonActorTargetInfoInSegments[num7].Add(item);
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1163,28 +660,10 @@ public static class VectorUtils
 			num6 += magnitude2;
 			if (num6 >= num3 - 0.01f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = true;
 			}
 			if (flag6)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4++;
 				num5++;
 				laserStartPos = vector3;
@@ -1204,27 +683,9 @@ public static class VectorUtils
 			{
 				goto IL_48E;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num4 > maxBounces)
 			{
 				goto IL_48E;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag9 = flag8;
 			IL_48F:
@@ -1245,19 +706,6 @@ public static class VectorUtils
 		collisionWithGeo = Physics.Raycast(startPosForBounce, dir, out raycastHit, maxDistance, mask);
 		if (collisionWithGeo)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.CalculateLaserBounce(Vector3, Vector3, Vector3, float, ActorData, Vector3*, bool*, Vector3*, float, List<Team>, List<NonActorTargetInfo>, bool, int, Vector3, bool, ActorData, bool*, ActorData*, bool)).MethodHandle;
-			}
 			Vector3 a = raycastHit.point - startPosForBounce;
 			a.y = 0f;
 			float magnitude = a.magnitude;
@@ -1272,29 +720,11 @@ public static class VectorUtils
 		}
 		if (BarrierManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag;
 			Vector3 vector;
 			Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(caster, startPosForBounce, endPoint, out flag, out vector, nonActorTargetInfo);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				endPoint = abilityLineEndpoint;
 				collisionWithGeo = true;
 				collisionNormal = vector;
@@ -1303,15 +733,6 @@ public static class VectorUtils
 		List<ActorData> list;
 		if (GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = AreaEffectUtils.GetActorsInBoxByActorRadius(startPosForGameplay, endPoint, widthInSquares, false, caster, validTeams, null, null);
 		}
 		else
@@ -1321,39 +742,12 @@ public static class VectorUtils
 		List<ActorData> list2 = list;
 		if (skipHitsOnCaster)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2.Remove(caster);
 		}
 		if (!includeInvisibles)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TargeterUtils.RemoveActorsInvisibleToActor(ref list2, caster);
 			}
 			else
@@ -1363,15 +757,6 @@ public static class VectorUtils
 		}
 		if (excludeActor != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2.Remove(excludeActor);
 		}
 		Vector3 a2 = endPoint - startPosForBounce;
@@ -1379,26 +764,8 @@ public static class VectorUtils
 		a2.Normalize();
 		if (segmentIndex > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list2.Count > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 b = prevStartPos - startPosForBounce;
 				b.y = 0f;
 				b.Normalize();
@@ -1408,15 +775,6 @@ public static class VectorUtils
 					BoardSquare currentBoardSquare = list2[i].GetCurrentBoardSquare();
 					if (!VectorUtils.SquareOnSameSideAsBounceBend(currentBoardSquare, startPosForBounce, collisionNormal2))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list2.RemoveAt(i);
 					}
 				}
@@ -1427,29 +785,11 @@ public static class VectorUtils
 		bounceHitActor = null;
 		if (bounceOnActors)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = 0;
 			float num2 = GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 			int j = 0;
 			while (j < list2.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (hitActorFirst)
 				{
 					for (;;)
@@ -1473,28 +813,10 @@ public static class VectorUtils
 					float magnitude3 = vector3.magnitude;
 					if (magnitude2 < magnitude3)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
 						float num3 = 0.5f * widthInSquares * Board.Get().squareSize;
 						if (GameWideData.Get().UseActorRadiusForLaser())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 += num2;
 						}
 						num3 = Mathf.Min(0.4f * Board.Get().squareSize, num3);
@@ -1503,29 +825,11 @@ public static class VectorUtils
 						int lineCircleIntersections = VectorUtils.GetLineCircleIntersections(startPosForGameplay, endPoint, travelBoardSquareWorldPosition, num3, out vector4, out vector5);
 						if (lineCircleIntersections > 1)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num4 = VectorUtils.HorizontalPlaneDistInWorld(vector4, startPosForGameplay);
 							float num5 = VectorUtils.HorizontalPlaneDistInWorld(vector5, startPosForGameplay);
 							Vector3 vector6;
 							if (num4 <= num5)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector6 = vector4;
 							}
 							else
@@ -1606,34 +910,12 @@ public static class VectorUtils
 			}
 			else if (num6 > 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.CalculateBouncingActorEndpoints(Vector3, Vector3, float, float, int, ActorData, bool, float, List<Team>, int, Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>*, List<ActorData>*, bool, List<List<NonActorTargetInfo>>)).MethodHandle;
-				}
 				prevStartPos = list[num6 - 2];
 			}
 			Vector3 startPosForBounce = laserStartPos;
 			Vector3 startPosForGameplay;
 			if (num6 == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				startPosForGameplay = vector;
 			}
 			else
@@ -1646,15 +928,6 @@ public static class VectorUtils
 			List<NonActorTargetInfo> nonActorTargetInfo;
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				nonActorTargetInfo = nonActorTargetInfoInSegments[num6];
 			}
 			else
@@ -1670,38 +943,11 @@ public static class VectorUtils
 					ActorData actorData3 = enumerator.Current;
 					if (!bounceHitActors.ContainsKey(actorData3))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (maxTargets > 0)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (orderedHitActors.Count >= maxTargets)
 							{
 								continue;
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						AreaEffectUtils.BouncingLaserInfo value = new AreaEffectUtils.BouncingLaserInfo(laserStartPos, num6);
@@ -1709,28 +955,10 @@ public static class VectorUtils
 						orderedHitActors.Add(actorData3);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			bool flag7;
 			if (maxTargets > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag7 = (orderedHitActors.Count >= maxTargets);
 			}
 			else
@@ -1740,66 +968,21 @@ public static class VectorUtils
 			bool flag8 = flag7;
 			if (flag8 && flag4)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				nonActorTargetInfoInSegments[num6].Clear();
 				flag4 = false;
 			}
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list.Count == 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (list2.Count > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						using (List<NonActorTargetInfo>.Enumerator enumerator2 = list2.GetEnumerator())
 						{
 							while (enumerator2.MoveNext())
 							{
 								NonActorTargetInfo item = enumerator2.Current;
 								nonActorTargetInfoInSegments[num6].Add(item);
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -1810,15 +993,6 @@ public static class VectorUtils
 			num4 += magnitude2;
 			if (num4 >= num2 - 0.01f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = true;
 			}
 			if (flag6)
@@ -1830,15 +1004,6 @@ public static class VectorUtils
 			}
 			else if (flag5)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3++;
 				laserStartPos = zero2;
 				vector2 -= 2f * Vector3.Dot(vector2, zero) * zero;
@@ -1851,40 +1016,13 @@ public static class VectorUtils
 			{
 				goto IL_42E;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				goto IL_42E;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num3 > maxBounces)
 			{
 				goto IL_42E;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag9 = flag8;
 			IL_42F:
@@ -1905,19 +1043,6 @@ public static class VectorUtils
 		collisionWithGeo = Physics.Raycast(startPosForBounce, dir, out raycastHit, maxDistance, mask);
 		if (collisionWithGeo)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.CalculateActorBounce(Vector3, Vector3, Vector3, float, ActorData, bool, float, List<Team>, ActorData, bool, Vector3*, bool*, Vector3*, bool*, ActorData*, List<NonActorTargetInfo>, int, Vector3)).MethodHandle;
-			}
 			Vector3 a = raycastHit.point - startPosForBounce;
 			a.y = 0f;
 			float magnitude = a.magnitude;
@@ -1932,29 +1057,11 @@ public static class VectorUtils
 		}
 		if (BarrierManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag;
 			Vector3 vector;
 			Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(caster, startPosForBounce, endPoint, out flag, out vector, nonActorTargetInfo);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				endPoint = abilityLineEndpoint;
 				collisionWithGeo = true;
 				collisionNormal = vector;
@@ -1966,15 +1073,6 @@ public static class VectorUtils
 		List<ActorData> list;
 		if (GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = AreaEffectUtils.GetActorsInBoxByActorRadius(startPosForGameplay, endPoint, bounceTestWidthInSquares, false, caster, hitTeams, null, null);
 		}
 		else
@@ -2003,26 +1101,8 @@ public static class VectorUtils
 		a2.Normalize();
 		if (segmentIndex > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list2.Count > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 b = prevStartPos - startPosForBounce;
 				b.y = 0f;
 				b.Normalize();
@@ -2032,41 +1112,14 @@ public static class VectorUtils
 					BoardSquare currentBoardSquare = list2[i].GetCurrentBoardSquare();
 					if (!VectorUtils.SquareOnSameSideAsBounceBend(currentBoardSquare, startPosForBounce, collisionNormal2))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list2.RemoveAt(i);
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		TargeterUtils.SortActorsByDistanceToPos(ref list2, startPosForBounce);
 		if (bounceOnActors)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = 0;
 			int num2 = 0;
 			while (num2 < list2.Count && !hitActorFirst)
@@ -2092,15 +1145,6 @@ public static class VectorUtils
 					int lineCircleIntersections = VectorUtils.GetLineCircleIntersections(startPosForBounce, endPoint, travelBoardSquareWorldPosition, num3, out vector4, out vector5);
 					if (lineCircleIntersections > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num4 = VectorUtils.HorizontalPlaneDistInWorld(vector4, startPosForBounce);
 						float num5 = VectorUtils.HorizontalPlaneDistInWorld(vector5, startPosForBounce);
 						endPoint = ((num4 > num5) ? vector5 : vector4);
@@ -2120,15 +1164,6 @@ public static class VectorUtils
 			}
 			if (hitActorFirst)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TargeterUtils.LimitActorsToMaxNumber(ref list2, num + 1);
 			}
 		}
@@ -2151,19 +1186,6 @@ public static class VectorUtils
 		Vector3 lhs = a - vector;
 		if (vector3.magnitude == 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetLineLineIntersection(Vector3, Vector3, Vector3, Vector3, bool*)).MethodHandle;
-			}
 			intersecting = false;
 			return Vector3.zero;
 		}
@@ -2188,32 +1210,10 @@ public static class VectorUtils
 		float num5 = radius * radius * num3 - num4 * num4;
 		if (num3 == 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetLineCircleIntersections(Vector3, Vector3, Vector3, float, Vector3*, Vector3*)).MethodHandle;
-			}
 			return 0;
 		}
 		if (Mathf.Abs(num5) < 0.001f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			intersectP1.x = num4 * num2 / num3;
 			intersectP1.z = -num4 * num / num3;
 			intersectP1 += circleCenter;
@@ -2221,29 +1221,11 @@ public static class VectorUtils
 		}
 		if (num5 < 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 0;
 		}
 		float num6;
 		if (num2 < 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num6 = -1f;
 		}
 		else
@@ -2277,68 +1259,19 @@ public static class VectorUtils
 			float num2 = Vector3.Dot(vector, rhs);
 			if (num2 >= 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.IsSegmentIntersectingCircle(Vector3, Vector3, Vector3, float)).MethodHandle;
-				}
 				if (num2 <= num)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
 			if (lineCircleIntersections >= 2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				rhs = a2 - startPos;
 				num2 = Vector3.Dot(vector, rhs);
 				if (num2 >= 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 <= num)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
@@ -2368,19 +1301,6 @@ public static class VectorUtils
 		bool flag2 = VectorUtils.OnSameSideOfLine(testPt, triC, triA, triB);
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.IsPointInTriangle(Vector3, Vector3, Vector3, Vector3)).MethodHandle;
-			}
 			if (flag)
 			{
 				return result;
@@ -2403,19 +1323,6 @@ public static class VectorUtils
 		bool flag;
 		if (sqrMagnitude2 < sqrMagnitude)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.IsPointInLaser(Vector3, Vector3, Vector3, float)).MethodHandle;
-			}
 			flag = (sqrMagnitude3 < sqrMagnitude);
 		}
 		else
@@ -2429,15 +1336,6 @@ public static class VectorUtils
 		bool result;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag3;
 		}
 		else
@@ -2476,19 +1374,6 @@ public static class VectorUtils
 		float num;
 		if (min > max)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.ClampAngle_Deg(float, float, float)).MethodHandle;
-			}
 			Debug.LogError(string.Format("Clamping an angle {0} to a min of {1} and a max of {2}, but min is greater than max.", angle, min, max));
 			num = angle;
 		}
@@ -2500,41 +1385,14 @@ public static class VectorUtils
 		{
 			if (angle >= min)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (angle <= max)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = angle;
 					goto IL_148;
 				}
 			}
 			if (angle + 360f >= min)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (angle + 360f <= max)
 				{
 					num = angle;
@@ -2543,26 +1401,8 @@ public static class VectorUtils
 			}
 			if (angle - 360f >= min)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (angle - 360f <= max)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = angle;
 					goto IL_148;
 				}
@@ -2579,15 +1419,6 @@ public static class VectorUtils
 			}
 			else if (num6 <= num5 && num6 <= num7)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = num3;
 			}
 			else
@@ -2600,27 +1431,9 @@ public static class VectorUtils
 		{
 			num -= 360f;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		while (num < 0f)
 		{
 			num += 360f;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -2642,33 +1455,11 @@ public static class VectorUtils
 		Vector3 result = new Vector3(1f, 0f, 0f);
 		if (square != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetDirectionToClosestSide(BoardSquare, Vector3)).MethodHandle;
-			}
 			Vector3 b = square.ToVector3();
 			Vector3 vec = testPos - b;
 			vec.y = 0f;
 			if (vec.magnitude < 0.1f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = new Vector3(1f, 0f, 0f);
 			}
 			else
@@ -2685,71 +1476,22 @@ public static class VectorUtils
 		Vector3 result;
 		if (angleWithHorizontal > 0x2D && angleWithHorizontal <= 0x87)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.HorizontalAngleToClosestCardinalDirection(int)).MethodHandle;
-			}
 			result = new Vector3(0f, 0f, 1f);
 		}
 		else
 		{
 			if (angleWithHorizontal > 0x87)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (angleWithHorizontal <= 0xE1)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = new Vector3(-1f, 0f, 0f);
 					return result;
 				}
 			}
 			if (angleWithHorizontal > 0xE1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (angleWithHorizontal <= 0x13B)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = new Vector3(0f, 0f, -1f);
 					return result;
 				}
@@ -2765,46 +1507,15 @@ public static class VectorUtils
 		offset = 0.5f * Board.Get().squareSize * vector;
 		if (square != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VectorUtils.GetDirectionAndOffsetToClosestSide(BoardSquare, Vector3, bool, Vector3*)).MethodHandle;
-			}
 			Vector3 b = square.ToVector3();
 			Vector3 vec = testPos - b;
 			vec.y = 0f;
 			if (vec.magnitude < 0.1f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return vector;
 			}
 			if (!allowDiagonalAim)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = VectorUtils.GetDirectionToClosestSide(square, testPos);
 				offset = 0.5f * Board.Get().squareSize * vector;
 			}
@@ -2815,69 +1526,24 @@ public static class VectorUtils
 				float angle;
 				if (num < 0x151)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num <= 0x17)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						if (num < 0x43)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							angle = 45f;
 							flag = true;
 							goto IL_1C2;
 						}
 						if (num <= 0x71)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							angle = 90f;
 							goto IL_1C2;
 						}
 						if (num < 0x9D)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							angle = 135f;
 							flag = true;
 							goto IL_1C2;
@@ -2889,30 +1555,12 @@ public static class VectorUtils
 						}
 						if (num < 0xF7)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							angle = 225f;
 							flag = true;
 							goto IL_1C2;
 						}
 						if (num <= 0x125)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							angle = 270f;
 							goto IL_1C2;
 						}
@@ -2926,15 +1574,6 @@ public static class VectorUtils
 				vector = VectorUtils.AngleDegreesToVector(angle);
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num2 = 0.5f * Mathf.Sqrt(2f) - 0.01f;
 					offset = num2 * Board.Get().squareSize * vector;
 				}

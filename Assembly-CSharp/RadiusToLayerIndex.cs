@@ -18,18 +18,5 @@ public class RadiusToLayerIndex : RadiusToDataBase
 		{
 			radiusList[i].m_index = i;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(RadiusToLayerIndex.SortAndSetLayerIndex(List<RadiusToLayerIndex>)).MethodHandle;
-		}
 	}
 }

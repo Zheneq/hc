@@ -15,19 +15,6 @@ public class UIRewardListTooltip : UITooltipBase
 		float num;
 		if (flipped)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRewardListTooltip.Setup(List<RewardUtils.RewardData>, int, UIRewardListTooltip.RewardsType, bool)).MethodHandle;
-			}
 			num = (float)-1;
 		}
 		else
@@ -43,15 +30,6 @@ public class UIRewardListTooltip : UITooltipBase
 			UIPlayerProgressRewardListEntry uiplayerProgressRewardListEntry;
 			if (i < list.Count)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list[i].Setup(rewards[i], currentLevel);
 				UIManager.SetGameObjectActive(list[i], true, null);
 				uiplayerProgressRewardListEntry = list[i];
@@ -68,51 +46,15 @@ public class UIRewardListTooltip : UITooltipBase
 			{
 				UIManager.SetGameObjectActive(uiplayerProgressRewardListEntry.m_levelTexts[j], rewardType != UIRewardListTooltip.RewardsType.Seasons, null);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			uiplayerProgressRewardListEntry.transform.localScale = localScale;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int k = rewards.Count; k < list.Count; k++)
 		{
 			UIManager.SetGameObjectActive(list[k], false, null);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		UIManager.SetGameObjectActive(this.m_levelLabel, rewardType != UIRewardListTooltip.RewardsType.Seasons, null);
 		if (rewardType == UIRewardListTooltip.RewardsType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_levelLabel.alignment = TextAlignmentOptions.Midline;
 			this.m_levelLabel.text = StringUtil.TR("MatchesPlayed", "OverlayScreensScene");
 		}
@@ -128,15 +70,6 @@ public class UIRewardListTooltip : UITooltipBase
 			for (int l = 0; l < list.Count; l++)
 			{
 				list[list.Count - l - 1].transform.SetSiblingIndex(l);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			rectTransform.SetAsLastSibling();
 		}

@@ -40,19 +40,6 @@ public class UINameplateStatus : MonoBehaviour
 	{
 		if (this.m_parent != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplateStatus.AnimDone()).MethodHandle;
-			}
 			this.m_parent.NotifyStatusAnimationDone(this, this.gainedStatus);
 		}
 	}

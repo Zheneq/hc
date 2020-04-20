@@ -45,43 +45,12 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargetsHit", string.Empty, scoundrelBouncingLaser.m_maxTargetsHit, true, false);
 			if (this.m_baseDamageMod != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelBouncingLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
 				if (this.m_damageChangePerHitMod != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int modifiedValue = this.m_baseDamageMod.GetModifiedValue(scoundrelBouncingLaser.m_damageAmount);
 					int modifiedValue2 = this.m_damageChangePerHitMod.GetModifiedValue(scoundrelBouncingLaser.m_damageChangePerHit);
 					if (modifiedValue2 != 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityMod.AddToken_IntDiff(tokens, "FirstDamageAfterChange", string.Empty, modifiedValue + modifiedValue2, false, 0);
 					}
 				}
@@ -102,19 +71,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelBouncingLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scoundrelBouncingLaser.m_maxBounces;
 		}
 		else
@@ -129,15 +85,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scoundrelBouncingLaser.m_width;
 		}
 		else
@@ -152,15 +99,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scoundrelBouncingLaser.m_maxDistancePerBounce;
 		}
 		else
@@ -175,15 +113,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = scoundrelBouncingLaser.m_maxTotalDistance;
 		}
 		else
@@ -198,15 +127,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = scoundrelBouncingLaser.m_damageAmount;
 		}
 		else
@@ -222,15 +142,6 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = scoundrelBouncingLaser.m_damageChangePerHit;
 		}
 		else

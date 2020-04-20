@@ -43,19 +43,6 @@ public class UICharacterSelectFactionFilter : MonoBehaviour
 	{
 		if (!this.m_btn.IsSelected())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectFactionFilter.IsAvailable(CharacterType)).MethodHandle;
-			}
 			return false;
 		}
 		return this.m_characters.Contains(type);

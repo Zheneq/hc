@@ -32,19 +32,6 @@ public static class LobbyCompilerExtensions
 		Team result;
 		if (team == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Team.OtherTeam()).MethodHandle;
-			}
 			result = Team.TeamB;
 		}
 		else

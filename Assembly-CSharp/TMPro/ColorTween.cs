@@ -82,48 +82,17 @@ namespace TMPro
 		{
 			if (!this.ValidTarget())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ColorTween.TweenValue(float)).MethodHandle;
-				}
 				return;
 			}
 			Color arg = Color.Lerp(this.m_StartColor, this.m_TargetColor, floatPercentage);
 			if (this.m_TweenMode == ColorTween.ColorTweenMode.Alpha)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg.r = this.m_StartColor.r;
 				arg.g = this.m_StartColor.g;
 				arg.b = this.m_StartColor.b;
 			}
 			else if (this.m_TweenMode == ColorTween.ColorTweenMode.RGB)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg.a = this.m_StartColor.a;
 			}
 			this.m_Target.Invoke(arg);
@@ -133,19 +102,6 @@ namespace TMPro
 		{
 			if (this.m_Target == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ColorTween.AddOnChangedCallback(UnityAction<Color>)).MethodHandle;
-				}
 				this.m_Target = new ColorTween.ColorTweenCallback();
 			}
 			this.m_Target.AddListener(callback);

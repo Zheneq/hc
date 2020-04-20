@@ -8,69 +8,20 @@ public class AbilityCommon_LayeredRings
 	{
 		if (radiusToDataList != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_LayeredRings.GetBestMatchingData(List<T>, BoardSquare, Vector3, ActorData, bool)).MethodHandle;
-			}
 			if (radiusToDataList.Count > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (testSquare != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < radiusToDataList.Count; i++)
 					{
 						T t = radiusToDataList[i];
 						if (useLastAsFailsafe && i == radiusToDataList.Count - 1)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return t;
 						}
 						bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(testSquare, centerPos, 0f, 360f, t.m_radius, 0f, true, caster, false, default(Vector3));
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return t;
 						}
 					}

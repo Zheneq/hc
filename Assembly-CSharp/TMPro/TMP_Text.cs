@@ -496,19 +496,6 @@ namespace TMPro
 			{
 				if (this.m_text == value)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_text(string)).MethodHandle;
-					}
 					return;
 				}
 				this.old_text = value;
@@ -532,19 +519,6 @@ namespace TMPro
 			{
 				if (this.m_isRightToLeft == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_isRightToLeftText(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_isRightToLeft = value;
@@ -588,19 +562,6 @@ namespace TMPro
 			{
 				if (this.m_sharedMaterial == value)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_fontSharedMaterial(Material)).MethodHandle;
-					}
 					return;
 				}
 				this.SetSharedMaterial(value);
@@ -637,30 +598,8 @@ namespace TMPro
 			{
 				if (this.m_sharedMaterial != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_fontMaterial(Material)).MethodHandle;
-					}
 					if (this.m_sharedMaterial.GetInstanceID() == value.GetInstanceID())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 				}
@@ -699,19 +638,6 @@ namespace TMPro
 			{
 				if (this.m_fontColor == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_color(Color)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -748,19 +674,6 @@ namespace TMPro
 			{
 				if (this.m_enableVertexGradient == value)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_enableVertexGradient(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -824,19 +737,6 @@ namespace TMPro
 			{
 				if (this.m_tintAllSprites == value)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_tintAllSprites(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_tintAllSprites = value;
@@ -855,19 +755,6 @@ namespace TMPro
 			{
 				if (this.m_overrideHtmlColors == value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_overrideColorTags(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -882,19 +769,6 @@ namespace TMPro
 			{
 				if (this.m_sharedMaterial == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.get_faceColor()).MethodHandle;
-					}
 					return this.m_faceColor;
 				}
 				this.m_faceColor = this.m_sharedMaterial.GetColor(ShaderUtilities.ID_FaceColor);
@@ -904,19 +778,6 @@ namespace TMPro
 			{
 				if (this.m_faceColor.Compare(value))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_faceColor(Color32)).MethodHandle;
-					}
 					return;
 				}
 				this.SetFaceColor(value);
@@ -942,19 +803,6 @@ namespace TMPro
 			{
 				if (this.m_outlineColor.Compare(value))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_outlineColor(Color32)).MethodHandle;
-					}
 					return;
 				}
 				this.SetOutlineColor(value);
@@ -970,19 +818,6 @@ namespace TMPro
 			{
 				if (this.m_sharedMaterial == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.get_outlineWidth()).MethodHandle;
-					}
 					return this.m_outlineWidth;
 				}
 				this.m_outlineWidth = this.m_sharedMaterial.GetFloat(ShaderUtilities.ID_OutlineWidth);
@@ -1011,19 +846,6 @@ namespace TMPro
 			{
 				if (this.m_fontSize == value)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_fontSize(float)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1056,19 +878,6 @@ namespace TMPro
 			{
 				if (this.m_fontWeight == value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_fontWeight(int)).MethodHandle;
-					}
 					return;
 				}
 				this.m_fontWeight = value;
@@ -1085,68 +894,19 @@ namespace TMPro
 				Canvas canvas = base.canvas;
 				if (!canvas)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.get_pixelsPerUnit()).MethodHandle;
-					}
 					return 1f;
 				}
 				if (!this.font)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return canvas.scaleFactor;
 				}
 				if (!(this.m_currentFontAsset == null))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_currentFontAsset.fontInfo.PointSize > 0f)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_fontSize > 0f)
 						{
 							return this.m_fontSize / this.m_currentFontAsset.fontInfo.PointSize;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -1164,19 +924,6 @@ namespace TMPro
 			{
 				if (this.m_enableAutoSizing == value)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_enableAutoSizing(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_enableAutoSizing = value;
@@ -1213,19 +960,6 @@ namespace TMPro
 			{
 				if (this.m_fontSizeMax == value)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_fontSizeMax(float)).MethodHandle;
-					}
 					return;
 				}
 				this.m_fontSizeMax = value;
@@ -1244,19 +978,6 @@ namespace TMPro
 			{
 				if (this.m_fontStyle == value)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_fontStyle(FontStyles)).MethodHandle;
-					}
 					return;
 				}
 				this.m_fontStyle = value;
@@ -1285,19 +1006,6 @@ namespace TMPro
 			{
 				if (this.m_textAlignment == value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_alignment(TextAlignmentOptions)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1316,19 +1024,6 @@ namespace TMPro
 			{
 				if (this.m_characterSpacing == value)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_characterSpacing(float)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1349,19 +1044,6 @@ namespace TMPro
 			{
 				if (this.m_wordSpacing == value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_wordSpacing(float)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1402,19 +1084,6 @@ namespace TMPro
 			{
 				if (this.m_lineSpacingMax == value)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_lineSpacingAdjustment(float)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1435,19 +1104,6 @@ namespace TMPro
 			{
 				if (this.m_paragraphSpacing == value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_paragraphSpacing(float)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1488,19 +1144,6 @@ namespace TMPro
 			{
 				if (this.m_enableWordWrapping == value)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_enableWordWrapping(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1522,19 +1165,6 @@ namespace TMPro
 			{
 				if (this.m_wordWrappingRatios == value)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_wordWrappingRatios(float)).MethodHandle;
-					}
 					return;
 				}
 				this.m_wordWrappingRatios = value;
@@ -1555,19 +1185,6 @@ namespace TMPro
 			{
 				if (this.m_overflowMode == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_overflowMode(TextOverflowModes)).MethodHandle;
-					}
 					return;
 				}
 				this.m_overflowMode = value;
@@ -1584,19 +1201,6 @@ namespace TMPro
 			{
 				if (this.m_firstOverflowCharacterIndex != -1)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.get_isTextOverflowing()).MethodHandle;
-					}
 					return true;
 				}
 				return false;
@@ -1621,30 +1225,8 @@ namespace TMPro
 			{
 				if (this.m_linkedTextComponent != value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_linkedTextComponent(TMP_Text)).MethodHandle;
-					}
 					if (this.m_linkedTextComponent != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_linkedTextComponent.overflowMode = TextOverflowModes.Overflow;
 						this.m_linkedTextComponent.linkedTextComponent = null;
 						this.m_linkedTextComponent.isLinkedTextComponent = false;
@@ -1700,19 +1282,6 @@ namespace TMPro
 			{
 				if (this.m_enableKerning == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_enableKerning(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1733,19 +1302,6 @@ namespace TMPro
 			{
 				if (this.m_enableExtraPadding == value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_extraPadding(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1786,19 +1342,6 @@ namespace TMPro
 			{
 				if (this.m_parseCtrlCharacters == value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_parseCtrlCharacters(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_parseCtrlCharacters = value;
@@ -1839,19 +1382,6 @@ namespace TMPro
 			{
 				if (this.m_isOrthographic == value)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_isOrthographic(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1870,19 +1400,6 @@ namespace TMPro
 			{
 				if (this.m_isCullingEnabled == value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_enableCulling(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_isCullingEnabled = value;
@@ -1901,19 +1418,6 @@ namespace TMPro
 			{
 				if (this.m_ignoreRectMaskCulling == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_ignoreRectMaskCulling(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_ignoreRectMaskCulling = value;
@@ -1948,19 +1452,6 @@ namespace TMPro
 			{
 				if (this.m_horizontalMapping == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_horizontalMapping(TextureMappingOptions)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -1979,19 +1470,6 @@ namespace TMPro
 			{
 				if (this.m_verticalMapping == value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_verticalMapping(TextureMappingOptions)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -2028,19 +1506,6 @@ namespace TMPro
 			{
 				if (this.m_renderMode == value)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_renderMode(TextRenderFlags)).MethodHandle;
-					}
 					return;
 				}
 				this.m_renderMode = value;
@@ -2072,19 +1537,6 @@ namespace TMPro
 			{
 				if (this.m_firstVisibleCharacter == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_firstVisibleCharacter(int)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -2103,19 +1555,6 @@ namespace TMPro
 			{
 				if (this.m_maxVisibleCharacters == value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_maxVisibleCharacters(int)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -2134,19 +1573,6 @@ namespace TMPro
 			{
 				if (this.m_maxVisibleWords == value)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_maxVisibleWords(int)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -2184,19 +1610,6 @@ namespace TMPro
 			{
 				if (this.m_useMaxVisibleDescender == value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_useMaxVisibleDescender(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -2215,19 +1628,6 @@ namespace TMPro
 			{
 				if (this.m_pageToDisplay == value)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_pageToDisplay(int)).MethodHandle;
-					}
 					return;
 				}
 				this.m_havePropertiesChanged = true;
@@ -2246,19 +1646,6 @@ namespace TMPro
 			{
 				if (this.m_margin == value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.set_margin(Vector4)).MethodHandle;
-					}
 					return;
 				}
 				this.m_margin = value;
@@ -2324,19 +1711,6 @@ namespace TMPro
 			{
 				if (this.m_rectTransform == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.get_rectTransform()).MethodHandle;
-					}
 					this.m_rectTransform = base.GetComponent<RectTransform>();
 				}
 				return this.m_rectTransform;
@@ -2467,19 +1841,6 @@ namespace TMPro
 			{
 				if (this.m_LayoutElement == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.get_layoutElement()).MethodHandle;
-					}
 					this.m_LayoutElement = base.GetComponent<LayoutElement>();
 				}
 				return this.m_LayoutElement;
@@ -2580,19 +1941,6 @@ namespace TMPro
 		{
 			if (gradient == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SetVertexColorGradient(TMP_ColorGradient)).MethodHandle;
-				}
 				return;
 			}
 			this.m_fontColorGradient.bottomLeft = gradient.bottomLeft;
@@ -2753,44 +2101,13 @@ namespace TMPro
 				char c = text[i];
 				if (c == '{')
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SetText(string, float, float, float)).MethodHandle;
-					}
 					if (text[i + 2] == ':')
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						precision = (int)(text[i + 3] - '0');
 					}
 					int num2 = (int)(text[i + 1] - '0');
 					if (num2 != 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num2 != 1)
 						{
 							if (num2 == 2)
@@ -2809,15 +2126,6 @@ namespace TMPro
 					}
 					if (text[i + 2] == ':')
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						i += 4;
 					}
 					else
@@ -2860,15 +2168,6 @@ namespace TMPro
 				{
 					if (this.m_char_buffer == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_char_buffer = new int[8];
 					}
 					this.m_styleStack.Clear();
@@ -2880,15 +2179,6 @@ namespace TMPro
 						{
 							goto IL_150;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i >= sourceText.Length - 1)
 						{
 							goto IL_150;
@@ -2896,50 +2186,14 @@ namespace TMPro
 						int num2 = (int)sourceText[i + 1];
 						if (num2 != 0x6E)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num2 != 0x72)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num2 != 0x74)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									goto IL_150;
 								}
 								if (num == this.m_char_buffer.Length)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.ResizeInternalArray<int>(ref this.m_char_buffer);
 								}
 								this.m_char_buffer[num] = 9;
@@ -2950,15 +2204,6 @@ namespace TMPro
 							{
 								if (num == this.m_char_buffer.Length)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.ResizeInternalArray<int>(ref this.m_char_buffer);
 								}
 								this.m_char_buffer[num] = 0xD;
@@ -2970,15 +2215,6 @@ namespace TMPro
 						{
 							if (num == this.m_char_buffer.Length)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ResizeInternalArray<int>(ref this.m_char_buffer);
 							}
 							this.m_char_buffer[num] = 0xA;
@@ -2991,26 +2227,8 @@ namespace TMPro
 						IL_150:
 						if (sourceText[i] == '<')
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.IsTagName(ref sourceText, "<BR>", i))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num == this.m_char_buffer.Length)
 								{
 									this.ResizeInternalArray<int>(ref this.m_char_buffer);
@@ -3022,27 +2240,9 @@ namespace TMPro
 							}
 							if (this.IsTagName(ref sourceText, "<STYLE=", i))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num3 = 0;
 								if (this.ReplaceOpeningStyleTag(ref sourceText, i, out num3, ref this.m_char_buffer, ref num))
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									i = num3;
 									goto IL_24F;
 								}
@@ -3056,41 +2256,14 @@ namespace TMPro
 						}
 						if (num == this.m_char_buffer.Length)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref this.m_char_buffer);
 						}
 						this.m_char_buffer[num] = (int)sourceText[i];
 						num++;
 						goto IL_24F;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num == this.m_char_buffer.Length)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ResizeInternalArray<int>(ref this.m_char_buffer);
 					}
 					this.m_char_buffer[num] = 0;
@@ -3102,19 +2275,6 @@ namespace TMPro
 					this.SetLayoutDirty();
 					return;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SetCharArray(char[])).MethodHandle;
-				}
 			}
 		}
 
@@ -3122,30 +2282,8 @@ namespace TMPro
 		{
 			if (sourceText != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SetCharArray(char[], int, int)).MethodHandle;
-				}
 				if (sourceText.Length != 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (length != 0)
 					{
 						if (this.m_char_buffer == null)
@@ -3162,42 +2300,15 @@ namespace TMPro
 							{
 								goto IL_148;
 							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (i >= length - 1)
 							{
 								goto IL_148;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							int num3 = (int)sourceText[i + 1];
 							if (num3 != 0x6E)
 							{
 								if (num3 != 0x72)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num3 != 0x74)
 									{
 										goto IL_148;
@@ -3214,15 +2325,6 @@ namespace TMPro
 								{
 									if (num == this.m_char_buffer.Length)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.ResizeInternalArray<int>(ref this.m_char_buffer);
 									}
 									this.m_char_buffer[num] = 0xD;
@@ -3234,15 +2336,6 @@ namespace TMPro
 							{
 								if (num == this.m_char_buffer.Length)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.ResizeInternalArray<int>(ref this.m_char_buffer);
 								}
 								this.m_char_buffer[num] = 0xA;
@@ -3255,37 +2348,10 @@ namespace TMPro
 							IL_148:
 							if (sourceText[i] == '<')
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.IsTagName(ref sourceText, "<BR>", i))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num == this.m_char_buffer.Length)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.ResizeInternalArray<int>(ref this.m_char_buffer);
 									}
 									this.m_char_buffer[num] = 0xA;
@@ -3295,42 +2361,15 @@ namespace TMPro
 								}
 								if (this.IsTagName(ref sourceText, "<STYLE=", i))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									int num4 = 0;
 									if (this.ReplaceOpeningStyleTag(ref sourceText, i, out num4, ref this.m_char_buffer, ref num))
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										i = num4;
 										goto IL_25B;
 									}
 								}
 								else if (this.IsTagName(ref sourceText, "</STYLE>", i))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.ReplaceClosingStyleTag(ref sourceText, i, ref this.m_char_buffer, ref num);
 									i += 7;
 									goto IL_25B;
@@ -3338,15 +2377,6 @@ namespace TMPro
 							}
 							if (num == this.m_char_buffer.Length)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ResizeInternalArray<int>(ref this.m_char_buffer);
 							}
 							this.m_char_buffer[num] = (int)sourceText[i];
@@ -3355,15 +2385,6 @@ namespace TMPro
 						}
 						if (num == this.m_char_buffer.Length)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref this.m_char_buffer);
 						}
 						this.m_char_buffer[num] = 0;
@@ -3375,15 +2396,6 @@ namespace TMPro
 						this.SetLayoutDirty();
 						return;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -3392,43 +2404,12 @@ namespace TMPro
 		{
 			if (sourceText != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SetCharArray(int[], int, int)).MethodHandle;
-				}
 				if (sourceText.Length != 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (length != 0)
 					{
 						if (this.m_char_buffer == null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_char_buffer = new int[8];
 						}
 						this.m_styleStack.Clear();
@@ -3441,62 +2422,17 @@ namespace TMPro
 							{
 								goto IL_15F;
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (i >= length - 1)
 							{
 								goto IL_15F;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num3 = sourceText[i + 1];
 							if (num3 != 0x6E)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num3 != 0x72)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num3 != 0x74)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										goto IL_15F;
 									}
 									if (num == this.m_char_buffer.Length)
@@ -3511,15 +2447,6 @@ namespace TMPro
 								{
 									if (num == this.m_char_buffer.Length)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.ResizeInternalArray<int>(ref this.m_char_buffer);
 									}
 									this.m_char_buffer[num] = 0xD;
@@ -3531,15 +2458,6 @@ namespace TMPro
 							{
 								if (num == this.m_char_buffer.Length)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.ResizeInternalArray<int>(ref this.m_char_buffer);
 								}
 								this.m_char_buffer[num] = 0xA;
@@ -3552,28 +2470,10 @@ namespace TMPro
 							IL_15F:
 							if (sourceText[i] == 0x3C)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.IsTagName(ref sourceText, "<BR>", i))
 								{
 									if (num == this.m_char_buffer.Length)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.ResizeInternalArray<int>(ref this.m_char_buffer);
 									}
 									this.m_char_buffer[num] = 0xA;
@@ -3586,15 +2486,6 @@ namespace TMPro
 									int num4 = 0;
 									if (this.ReplaceOpeningStyleTag(ref sourceText, i, out num4, ref this.m_char_buffer, ref num))
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										i = num4;
 										goto IL_248;
 									}
@@ -3614,26 +2505,8 @@ namespace TMPro
 							num++;
 							goto IL_248;
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == this.m_char_buffer.Length)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref this.m_char_buffer);
 						}
 						this.m_char_buffer[num] = 0;
@@ -3653,32 +2526,10 @@ namespace TMPro
 		{
 			if (sourceText != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SetTextArrayToCharArray(char[], int[]*)).MethodHandle;
-				}
 				if (this.m_charArray_Length != 0)
 				{
 					if (charBuffer == null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						charBuffer = new int[8];
 					}
 					this.m_styleStack.Clear();
@@ -3690,30 +2541,12 @@ namespace TMPro
 						{
 							goto IL_AF;
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!char.IsLowSurrogate(sourceText[i + 1]))
 						{
 							goto IL_AF;
 						}
 						if (num == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[num] = char.ConvertToUtf32(sourceText[i], sourceText[i + 1]);
@@ -3725,37 +2558,10 @@ namespace TMPro
 						IL_AF:
 						if (sourceText[i] == '<')
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.IsTagName(ref sourceText, "<BR>", i))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num == charBuffer.Length)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.ResizeInternalArray<int>(ref charBuffer);
 								}
 								charBuffer[num] = 0xA;
@@ -3765,42 +2571,15 @@ namespace TMPro
 							}
 							if (this.IsTagName(ref sourceText, "<STYLE=", i))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num2 = 0;
 								if (this.ReplaceOpeningStyleTag(ref sourceText, i, out num2, ref charBuffer, ref num))
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									i = num2;
 									goto IL_19A;
 								}
 							}
 							else if (this.IsTagName(ref sourceText, "</STYLE>", i))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ReplaceClosingStyleTag(ref sourceText, i, ref charBuffer, ref num);
 								i += 7;
 								goto IL_19A;
@@ -3808,54 +2587,18 @@ namespace TMPro
 						}
 						if (num == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[num] = (int)sourceText[i];
 						num++;
 						goto IL_19A;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num == charBuffer.Length)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ResizeInternalArray<int>(ref charBuffer);
 					}
 					charBuffer[num] = 0;
 					return;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -3864,19 +2607,6 @@ namespace TMPro
 		{
 			if (sourceText == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.StringToCharArray(string, int[]*)).MethodHandle;
-				}
 				charBuffer[0] = 0;
 				return;
 			}
@@ -3893,27 +2623,9 @@ namespace TMPro
 				{
 					goto IL_27B;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (sourceText.Length <= i + 1)
 				{
 					goto IL_27B;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int num2 = (int)sourceText[i + 1];
 				switch (num2)
@@ -3921,15 +2633,6 @@ namespace TMPro
 				case 0x72:
 					if (!this.m_parseCtrlCharacters)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_27B;
 					}
 					if (num == charBuffer.Length)
@@ -3945,52 +2648,16 @@ namespace TMPro
 					{
 						if (num2 != 0x5C)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num2 != 0x6E)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_27B;
 							}
 							if (!this.m_parseCtrlCharacters)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_27B;
 							}
 							if (num == charBuffer.Length)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ResizeInternalArray<int>(ref charBuffer);
 							}
 							charBuffer[num] = 0xA;
@@ -4001,28 +2668,10 @@ namespace TMPro
 						{
 							if (!this.m_parseCtrlCharacters)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_27B;
 							}
 							if (sourceText.Length <= i + 2)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_27B;
 							}
 							if (num + 2 > charBuffer.Length)
@@ -4043,15 +2692,6 @@ namespace TMPro
 						}
 						if (num == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[num] = this.GetUTF32(i + 2);
@@ -4062,15 +2702,6 @@ namespace TMPro
 				case 0x74:
 					if (!this.m_parseCtrlCharacters)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_27B;
 					}
 					if (num == charBuffer.Length)
@@ -4086,26 +2717,8 @@ namespace TMPro
 					{
 						goto IL_27B;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num == charBuffer.Length)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ResizeInternalArray<int>(ref charBuffer);
 					}
 					charBuffer[num] = (int)((ushort)this.GetUTF16(i + 2));
@@ -4119,37 +2732,10 @@ namespace TMPro
 				IL_27B:
 				if (char.IsHighSurrogate(sourceText[i]))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (char.IsLowSurrogate(sourceText[i + 1]))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[num] = char.ConvertToUtf32(sourceText[i], sourceText[i + 1]);
@@ -4160,28 +2746,10 @@ namespace TMPro
 				}
 				if (sourceText[i] == '<')
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_isRichText)
 					{
 						if (this.IsTagName(ref sourceText, "<BR>", i))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num == charBuffer.Length)
 							{
 								this.ResizeInternalArray<int>(ref charBuffer);
@@ -4193,42 +2761,15 @@ namespace TMPro
 						}
 						if (this.IsTagName(ref sourceText, "<STYLE=", i))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num3 = 0;
 							if (this.ReplaceOpeningStyleTag(ref sourceText, i, out num3, ref charBuffer, ref num))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								i = num3;
 								goto IL_3EF;
 							}
 						}
 						else if (this.IsTagName(ref sourceText, "</STYLE>", i))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ReplaceClosingStyleTag(ref sourceText, i, ref charBuffer, ref num);
 							i += 7;
 							goto IL_3EF;
@@ -4237,41 +2778,14 @@ namespace TMPro
 				}
 				if (num == charBuffer.Length)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ResizeInternalArray<int>(ref charBuffer);
 				}
 				charBuffer[num] = (int)sourceText[i];
 				num++;
 				goto IL_3EF;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num == charBuffer.Length)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ResizeInternalArray<int>(ref charBuffer);
 			}
 			charBuffer[num] = 0;
@@ -4281,33 +2795,11 @@ namespace TMPro
 		{
 			if (sourceText == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.StringBuilderToIntArray(StringBuilder, int[]*)).MethodHandle;
-				}
 				charBuffer[0] = 0;
 				return;
 			}
 			if (charBuffer == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				charBuffer = new int[8];
 			}
 			this.m_styleStack.Clear();
@@ -4319,27 +2811,9 @@ namespace TMPro
 				{
 					goto IL_229;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (sourceText[i] != '\\')
 				{
 					goto IL_229;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (sourceText.Length <= i + 1)
 				{
@@ -4360,15 +2834,6 @@ namespace TMPro
 				default:
 					if (num2 != 0x55)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num2 != 0x5C)
 						{
 							if (num2 != 0x6E)
@@ -4387,28 +2852,10 @@ namespace TMPro
 						{
 							if (sourceText.Length <= i + 2)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_229;
 							}
 							if (num + 2 > charBuffer.Length)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ResizeInternalArray<int>(ref charBuffer);
 							}
 							charBuffer[num] = (int)sourceText[i + 1];
@@ -4423,26 +2870,8 @@ namespace TMPro
 						{
 							goto IL_229;
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[num] = this.GetUTF32(i + 2);
@@ -4453,15 +2882,6 @@ namespace TMPro
 				case 0x74:
 					if (num == charBuffer.Length)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ResizeInternalArray<int>(ref charBuffer);
 					}
 					charBuffer[num] = 9;
@@ -4475,15 +2895,6 @@ namespace TMPro
 					}
 					if (num == charBuffer.Length)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ResizeInternalArray<int>(ref charBuffer);
 					}
 					charBuffer[num] = (int)((ushort)this.GetUTF16(i + 2));
@@ -4497,28 +2908,10 @@ namespace TMPro
 				IL_229:
 				if (char.IsHighSurrogate(sourceText[i]))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (char.IsLowSurrogate(sourceText[i + 1]))
 					{
 						if (num == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[num] = char.ConvertToUtf32(sourceText[i], sourceText[i + 1]);
@@ -4529,37 +2922,10 @@ namespace TMPro
 				}
 				if (sourceText[i] == '<')
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsTagName(ref sourceText, "<BR>", i))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[num] = 0xA;
@@ -4569,15 +2935,6 @@ namespace TMPro
 					}
 					if (this.IsTagName(ref sourceText, "<STYLE=", i))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num3 = 0;
 						if (this.ReplaceOpeningStyleTag(ref sourceText, i, out num3, ref charBuffer, ref num))
 						{
@@ -4594,41 +2951,14 @@ namespace TMPro
 				}
 				if (num == charBuffer.Length)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ResizeInternalArray<int>(ref charBuffer);
 				}
 				charBuffer[num] = (int)sourceText[i];
 				num++;
 				goto IL_378;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num == charBuffer.Length)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ResizeInternalArray<int>(ref charBuffer);
 			}
 			charBuffer[num] = 0;
@@ -4653,26 +2983,8 @@ namespace TMPro
 						{
 							goto IL_13E;
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.IsTagName(ref styleOpeningTagArray, "<BR>", i))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (writeIndex == charBuffer.Length)
 							{
 								this.ResizeInternalArray<int>(ref charBuffer);
@@ -4683,28 +2995,10 @@ namespace TMPro
 						}
 						else if (this.IsTagName(ref styleOpeningTagArray, "<STYLE=", i))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num3 = 0;
 							if (!this.ReplaceOpeningStyleTag(ref styleOpeningTagArray, i, out num3, ref charBuffer, ref writeIndex))
 							{
 								goto IL_13E;
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							i = num3;
 						}
@@ -4713,15 +3007,6 @@ namespace TMPro
 							if (!this.IsTagName(ref styleOpeningTagArray, "</STYLE>", i))
 							{
 								goto IL_13E;
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							this.ReplaceClosingStyleTag(ref styleOpeningTagArray, i, ref charBuffer, ref writeIndex);
 							i += 7;
@@ -4739,19 +3024,6 @@ namespace TMPro
 						goto IL_161;
 					}
 					return true;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceOpeningStyleTag(string*, int, int*, int[]*, int*)).MethodHandle;
 				}
 			}
 			return false;
@@ -4776,26 +3048,8 @@ namespace TMPro
 						{
 							goto IL_132;
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.IsTagName(ref styleOpeningTagArray, "<BR>", i))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (writeIndex == charBuffer.Length)
 							{
 								this.ResizeInternalArray<int>(ref charBuffer);
@@ -4811,15 +3065,6 @@ namespace TMPro
 							{
 								goto IL_132;
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							i = num3;
 						}
 						else
@@ -4827,15 +3072,6 @@ namespace TMPro
 							if (!this.IsTagName(ref styleOpeningTagArray, "</STYLE>", i))
 							{
 								goto IL_132;
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							this.ReplaceClosingStyleTag(ref styleOpeningTagArray, i, ref charBuffer, ref writeIndex);
 							i += 7;
@@ -4846,44 +3082,13 @@ namespace TMPro
 						IL_132:
 						if (writeIndex == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[writeIndex] = num2;
 						writeIndex++;
 						goto IL_15F;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceOpeningStyleTag(int[]*, int, int*, int[]*, int*)).MethodHandle;
 				}
 			}
 			return false;
@@ -4908,37 +3113,10 @@ namespace TMPro
 						{
 							goto IL_134;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.IsTagName(ref styleOpeningTagArray, "<BR>", i))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (writeIndex == charBuffer.Length)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ResizeInternalArray<int>(ref charBuffer);
 							}
 							charBuffer[writeIndex] = 0xA;
@@ -4947,15 +3125,6 @@ namespace TMPro
 						}
 						else if (this.IsTagName(ref styleOpeningTagArray, "<STYLE=", i))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num3 = 0;
 							if (!this.ReplaceOpeningStyleTag(ref styleOpeningTagArray, i, out num3, ref charBuffer, ref writeIndex))
 							{
@@ -4978,44 +3147,13 @@ namespace TMPro
 						IL_134:
 						if (writeIndex == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[writeIndex] = num2;
 						writeIndex++;
 						goto IL_161;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceOpeningStyleTag(char[]*, int, int*, int[]*, int*)).MethodHandle;
 				}
 			}
 			return false;
@@ -5027,19 +3165,6 @@ namespace TMPro
 			TMP_Style style = TMP_StyleSheet.GetStyle(tagHashCode);
 			if (style != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceOpeningStyleTag(StringBuilder*, int, int*, int[]*, int*)).MethodHandle;
-				}
 				if (srcOffset != 0)
 				{
 					this.m_styleStack.Add(style.hashCode);
@@ -5053,37 +3178,10 @@ namespace TMPro
 						{
 							goto IL_148;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.IsTagName(ref styleOpeningTagArray, "<BR>", i))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (writeIndex == charBuffer.Length)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.ResizeInternalArray<int>(ref charBuffer);
 							}
 							charBuffer[writeIndex] = 0xA;
@@ -5097,15 +3195,6 @@ namespace TMPro
 							{
 								goto IL_148;
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							i = num3;
 						}
 						else
@@ -5113,15 +3202,6 @@ namespace TMPro
 							if (!this.IsTagName(ref styleOpeningTagArray, "</STYLE>", i))
 							{
 								goto IL_148;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							this.ReplaceClosingStyleTag(ref styleOpeningTagArray, i, ref charBuffer, ref writeIndex);
 							i += 7;
@@ -5132,15 +3212,6 @@ namespace TMPro
 						IL_148:
 						if (writeIndex == charBuffer.Length)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ResizeInternalArray<int>(ref charBuffer);
 						}
 						charBuffer[writeIndex] = num2;
@@ -5148,15 +3219,6 @@ namespace TMPro
 						goto IL_175;
 					}
 					return true;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -5169,19 +3231,6 @@ namespace TMPro
 			this.m_styleStack.Remove();
 			if (style == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceClosingStyleTag(string*, int, int[]*, int*)).MethodHandle;
-				}
 				return false;
 			}
 			int num = style.styleClosingTagArray.Length;
@@ -5194,26 +3243,8 @@ namespace TMPro
 				{
 					goto IL_11A;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.IsTagName(ref styleClosingTagArray, "<BR>", i))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (writeIndex == charBuffer.Length)
 					{
 						this.ResizeInternalArray<int>(ref charBuffer);
@@ -5236,15 +3267,6 @@ namespace TMPro
 					if (!this.IsTagName(ref styleClosingTagArray, "</STYLE>", i))
 					{
 						goto IL_11A;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					this.ReplaceClosingStyleTag(ref styleClosingTagArray, i, ref charBuffer, ref writeIndex);
 					i += 7;
@@ -5271,19 +3293,6 @@ namespace TMPro
 			this.m_styleStack.Remove();
 			if (style == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceClosingStyleTag(int[]*, int, int[]*, int*)).MethodHandle;
-				}
 				return false;
 			}
 			int num = style.styleClosingTagArray.Length;
@@ -5296,26 +3305,8 @@ namespace TMPro
 				{
 					goto IL_128;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.IsTagName(ref styleClosingTagArray, "<BR>", i))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (writeIndex == charBuffer.Length)
 					{
 						this.ResizeInternalArray<int>(ref charBuffer);
@@ -5326,15 +3317,6 @@ namespace TMPro
 				}
 				else if (this.IsTagName(ref styleClosingTagArray, "<STYLE=", i))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num3 = 0;
 					if (!this.ReplaceOpeningStyleTag(ref styleClosingTagArray, i, out num3, ref charBuffer, ref writeIndex))
 					{
@@ -5348,15 +3330,6 @@ namespace TMPro
 					{
 						goto IL_128;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ReplaceClosingStyleTag(ref styleClosingTagArray, i, ref charBuffer, ref writeIndex);
 					i += 7;
 				}
@@ -5366,15 +3339,6 @@ namespace TMPro
 				IL_128:
 				if (writeIndex == charBuffer.Length)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ResizeInternalArray<int>(ref charBuffer);
 				}
 				charBuffer[writeIndex] = num2;
@@ -5407,19 +3371,6 @@ namespace TMPro
 				{
 					if (writeIndex == charBuffer.Length)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceClosingStyleTag(char[]*, int, int[]*, int*)).MethodHandle;
-						}
 						this.ResizeInternalArray<int>(ref charBuffer);
 					}
 					charBuffer[writeIndex] = 0xA;
@@ -5428,28 +3379,10 @@ namespace TMPro
 				}
 				else if (this.IsTagName(ref styleClosingTagArray, "<STYLE=", i))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num3 = 0;
 					if (!this.ReplaceOpeningStyleTag(ref styleClosingTagArray, i, out num3, ref charBuffer, ref writeIndex))
 					{
 						goto IL_11E;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					i = num3;
 				}
@@ -5458,15 +3391,6 @@ namespace TMPro
 					if (!this.IsTagName(ref styleClosingTagArray, "</STYLE>", i))
 					{
 						goto IL_11E;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					this.ReplaceClosingStyleTag(ref styleClosingTagArray, i, ref charBuffer, ref writeIndex);
 					i += 7;
@@ -5477,29 +3401,11 @@ namespace TMPro
 				IL_11E:
 				if (writeIndex == charBuffer.Length)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ResizeInternalArray<int>(ref charBuffer);
 				}
 				charBuffer[writeIndex] = num2;
 				writeIndex++;
 				goto IL_148;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return true;
 		}
@@ -5525,19 +3431,6 @@ namespace TMPro
 				}
 				if (this.IsTagName(ref styleClosingTagArray, "<BR>", i))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceClosingStyleTag(StringBuilder*, int, int[]*, int*)).MethodHandle;
-					}
 					if (writeIndex == charBuffer.Length)
 					{
 						this.ResizeInternalArray<int>(ref charBuffer);
@@ -5553,15 +3446,6 @@ namespace TMPro
 					{
 						goto IL_110;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					i = num3;
 				}
 				else
@@ -5569,15 +3453,6 @@ namespace TMPro
 					if (!this.IsTagName(ref styleClosingTagArray, "</STYLE>", i))
 					{
 						goto IL_110;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					this.ReplaceClosingStyleTag(ref styleClosingTagArray, i, ref charBuffer, ref writeIndex);
 					i += 7;
@@ -5594,15 +3469,6 @@ namespace TMPro
 				writeIndex++;
 				goto IL_130;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 
@@ -5610,19 +3476,6 @@ namespace TMPro
 		{
 			if (text.Length < index + tag.Length)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.IsTagName(string*, string, int)).MethodHandle;
-				}
 				return false;
 			}
 			for (int i = 0; i < tag.Length; i++)
@@ -5631,15 +3484,6 @@ namespace TMPro
 				{
 					return false;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return true;
 		}
@@ -5648,19 +3492,6 @@ namespace TMPro
 		{
 			if (text.Length < index + tag.Length)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.IsTagName(char[]*, string, int)).MethodHandle;
-				}
 				return false;
 			}
 			for (int i = 0; i < tag.Length; i++)
@@ -5670,15 +3501,6 @@ namespace TMPro
 					return false;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 
@@ -5686,45 +3508,14 @@ namespace TMPro
 		{
 			if (text.Length < index + tag.Length)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.IsTagName(int[]*, string, int)).MethodHandle;
-				}
 				return false;
 			}
 			for (int i = 0; i < tag.Length; i++)
 			{
 				if (TMP_TextUtilities.ToUpperFast((char)text[index + i]) != tag[i])
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return true;
 		}
@@ -5739,19 +3530,6 @@ namespace TMPro
 			{
 				if (TMP_TextUtilities.ToUpperFast(text[index + i]) != tag[i])
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.IsTagName(StringBuilder*, string, int)).MethodHandle;
-					}
 					return false;
 				}
 			}
@@ -5768,19 +3546,6 @@ namespace TMPro
 				{
 					if (text[i] == '>')
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetTagHashCode(string*, int, int*)).MethodHandle;
-						}
 						closeIndex = i;
 						return num;
 					}
@@ -5806,33 +3571,11 @@ namespace TMPro
 			{
 				if (text[i] == '"')
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetTagHashCode(char[]*, int, int*)).MethodHandle;
-					}
 				}
 				else
 				{
 					if (text[i] == '>')
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						closeIndex = i;
 						break;
 					}
@@ -5850,33 +3593,11 @@ namespace TMPro
 			{
 				if (text[i] == 0x22)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetTagHashCode(int[]*, int, int*)).MethodHandle;
-					}
 				}
 				else
 				{
 					if (text[i] == 0x3E)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						closeIndex = i;
 						return num;
 					}
@@ -5902,19 +3623,6 @@ namespace TMPro
 			{
 				if (text[i] == '"')
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetTagHashCode(StringBuilder*, int, int*)).MethodHandle;
-					}
 				}
 				else
 				{
@@ -5947,19 +3655,6 @@ namespace TMPro
 		{
 			if (number < 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.AddFloatToCharArray(float, int*, int)).MethodHandle;
-				}
 				this.m_input_CharArray[index++] = '-';
 				number = -number;
 			}
@@ -5968,15 +3663,6 @@ namespace TMPro
 			this.AddIntToCharArray(num, ref index, precision);
 			if (precision > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_input_CharArray[index++] = '.';
 				number -= (float)num;
 				for (int i = 0; i < precision; i++)
@@ -6012,19 +3698,6 @@ namespace TMPro
 				this.m_input_CharArray[num] = c;
 				index++;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.AddIntToCharArray(int, int*, int)).MethodHandle;
-			}
 			index = num2;
 		}
 
@@ -6053,31 +3726,9 @@ namespace TMPro
 		{
 			if (!this.m_isInputParsingRequired)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetPreferredValues(float, float)).MethodHandle;
-				}
 				if (!this.m_isTextTruncated)
 				{
 					goto IL_3A;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_isCalculatingPreferredValues = true;
@@ -6116,19 +3767,6 @@ namespace TMPro
 			float num;
 			if (this.m_enableAutoSizing)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetPreferredWidth()).MethodHandle;
-				}
 				num = this.m_fontSizeMax;
 			}
 			else
@@ -6141,27 +3779,9 @@ namespace TMPro
 			Vector2 marginSize = TMP_Text.k_LargePositiveVector2;
 			if (!this.m_isInputParsingRequired)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_isTextTruncated)
 				{
 					goto IL_79;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_isCalculatingPreferredValues = true;
@@ -6190,19 +3810,6 @@ namespace TMPro
 			float marginWidth;
 			if (this.m_marginWidth != 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetPreferredHeight()).MethodHandle;
-				}
 				marginWidth = this.m_marginWidth;
 			}
 			else
@@ -6212,27 +3819,9 @@ namespace TMPro
 			Vector2 marginSize = new Vector2(marginWidth, TMP_Text.k_LargePositiveFloat);
 			if (!this.m_isInputParsingRequired)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_isTextTruncated)
 				{
 					goto IL_99;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_isCalculatingPreferredValues = true;
@@ -6249,19 +3838,6 @@ namespace TMPro
 			float num;
 			if (this.m_enableAutoSizing)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetPreferredHeight(Vector2)).MethodHandle;
-				}
 				num = this.m_fontSizeMax;
 			}
 			else
@@ -6309,43 +3885,12 @@ namespace TMPro
 		{
 			if (!(this.m_fontAsset == null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.CalculatePreferredValues(float, Vector2, bool)).MethodHandle;
-				}
 				if (this.m_fontAsset.characterDictionary != null)
 				{
 					if (this.m_char_buffer != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_char_buffer.Length != 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_char_buffer[0] != 0)
 							{
 								this.m_currentFontAsset = this.m_fontAsset;
@@ -6359,15 +3904,6 @@ namespace TMPro
 									{
 										goto IL_125;
 									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								this.m_internalCharacterInfo = new TMP_CharacterInfo[(totalCharacterCount <= 0x400) ? Mathf.NextPowerOfTwo(totalCharacterCount) : (totalCharacterCount + 0x100)];
 								IL_125:
@@ -6375,15 +3911,6 @@ namespace TMPro
 								float num2;
 								if (this.m_isOrthographic)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2 = 1f;
 								}
 								else
@@ -6396,15 +3923,6 @@ namespace TMPro
 								float num4;
 								if (this.m_isOrthographic)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num4 = 1f;
 								}
 								else
@@ -6466,29 +3984,11 @@ namespace TMPro
 									{
 										goto IL_44F;
 									}
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_isParsingText = true;
 									this.m_textElementType = TMP_TextElementType.Character;
 									if (!this.ValidateHtmlTag(this.m_char_buffer, num13 + 1, out num12))
 									{
 										goto IL_44F;
-									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									num13 = num12;
 									if (this.m_textElementType != TMP_TextElementType.Character)
@@ -6506,51 +4006,15 @@ namespace TMPro
 									{
 										if ((this.m_style & FontStyles.UpperCase) == FontStyles.UpperCase)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (char.IsLower((char)num14))
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num14 = (int)char.ToUpper((char)num14);
 											}
 										}
 										else if ((this.m_style & FontStyles.LowerCase) == FontStyles.LowerCase)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (char.IsUpper((char)num14))
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num14 = (int)char.ToLower((char)num14);
 											}
 										}
@@ -6558,27 +4022,9 @@ namespace TMPro
 										{
 											if ((this.m_fontStyle & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((this.m_style & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 												{
 													goto IL_545;
-												}
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											if (char.IsLower((char)num14))
@@ -6591,42 +4037,15 @@ namespace TMPro
 									IL_545:
 									if (this.m_textElementType == TMP_TextElementType.Sprite)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_currentSpriteAsset = this.m_textInfo.characterInfo[this.m_characterCount].spriteAsset;
 										this.m_spriteIndex = this.m_textInfo.characterInfo[this.m_characterCount].spriteIndex;
 										TMP_Sprite tmp_Sprite = this.m_currentSpriteAsset.spriteInfoList[this.m_spriteIndex];
 										if (tmp_Sprite == null)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											goto IL_1681;
 										}
 										if (num14 == 0x3C)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num14 = 0xE000 + this.m_spriteIndex;
 										}
 										this.m_currentFontAsset = this.m_fontAsset;
@@ -6634,15 +4053,6 @@ namespace TMPro
 										float num17;
 										if (this.m_isOrthographic)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num17 = 1f;
 										}
 										else
@@ -6658,15 +4068,6 @@ namespace TMPro
 									}
 									else if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_cached_TextElement = this.m_textInfo.characterInfo[this.m_characterCount].textElement;
 										if (this.m_cached_TextElement == null)
 										{
@@ -6677,15 +4078,6 @@ namespace TMPro
 										float num20;
 										if (this.m_isOrthographic)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num20 = 1f;
 										}
 										else
@@ -6699,55 +4091,19 @@ namespace TMPro
 									float num21 = num6;
 									if (num14 == 0xAD)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num6 = 0f;
 									}
 									this.m_internalCharacterInfo[this.m_characterCount].character = (char)num14;
 									if (this.m_enableKerning)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_characterCount >= 1)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int character = (int)this.m_internalCharacterInfo[this.m_characterCount - 1].character;
 											KerningPairKey kerningPairKey = new KerningPairKey(character, num14);
 											KerningPair kerningPair;
 											this.m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out kerningPair);
 											if (kerningPair != null)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.m_xAdvance += kerningPair.XadvanceOffset * num6;
 											}
 										}
@@ -6762,51 +4118,15 @@ namespace TMPro
 									{
 										goto IL_908;
 									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (isUsingAlternateTypeface)
 									{
 										goto IL_908;
 									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if ((this.m_style & FontStyles.Bold) != FontStyles.Bold)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if ((this.m_fontStyle & FontStyles.Bold) != FontStyles.Bold)
 										{
 											goto IL_908;
-										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									float num23 = 1f + this.m_currentFontAsset.boldSpacing * 0.01f;
@@ -6816,15 +4136,6 @@ namespace TMPro
 									float num24;
 									if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num24 = num6;
 									}
 									else
@@ -6836,15 +4147,6 @@ namespace TMPro
 									float maxLineAscender;
 									if (num25 > this.m_maxLineAscender)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineAscender = num25;
 									}
 									else
@@ -6856,15 +4158,6 @@ namespace TMPro
 									float num26;
 									if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num26 = num6;
 									}
 									else
@@ -6876,15 +4169,6 @@ namespace TMPro
 									float maxLineDescender;
 									if (num27 < this.m_maxLineDescender)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineDescender = num27;
 									}
 									else
@@ -6896,15 +4180,6 @@ namespace TMPro
 									{
 										goto IL_A86;
 									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if ((this.m_style & FontStyles.Superscript) == FontStyles.Superscript)
 									{
 										goto IL_A86;
@@ -6912,27 +4187,9 @@ namespace TMPro
 									IL_B10:
 									if (this.m_lineNumber == 0)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										float maxAscender;
 										if (this.m_maxAscender > num25)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											maxAscender = this.m_maxAscender;
 										}
 										else
@@ -6945,56 +4202,20 @@ namespace TMPro
 									{
 										if (!char.IsWhiteSpace((char)num14))
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 != 0x200B)
 											{
 												goto IL_B8B;
-											}
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										if (this.m_textElementType != TMP_TextElementType.Sprite)
 										{
 											goto IL_FB6;
 										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									IL_B8B:
 									float num29;
 									if (this.m_width != -1f)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num29 = Mathf.Min(x + 0.0001f - this.m_marginLeft - this.m_marginRight, this.m_width);
 									}
 									else
@@ -7005,15 +4226,6 @@ namespace TMPro
 									bool flag3;
 									if ((this.m_lineJustification & (TextAlignmentOptions)0x10) != (TextAlignmentOptions)0x10)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag3 = ((this.m_lineJustification & (TextAlignmentOptions)8) == (TextAlignmentOptions)8);
 									}
 									else
@@ -7027,15 +4239,6 @@ namespace TMPro
 									float num33;
 									if (flag4)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num33 = 1.05f;
 									}
 									else
@@ -7044,49 +4247,13 @@ namespace TMPro
 									}
 									if (num31 > num32 * num33)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.enableWordWrapping)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_characterCount != this.m_firstCharacterOfLine)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num11 == wordWrapState2.previous_WordBreak)
 												{
 													goto IL_CA2;
-												}
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 												if (flag)
 												{
@@ -7104,37 +4271,10 @@ namespace TMPro
 												}
 												if (this.m_lineNumber > 0)
 												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!TMP_Math.Approximately(this.m_maxLineAscender, this.m_startOfLineAscender))
 													{
-														for (;;)
-														{
-															switch (2)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (this.m_lineHeight == -32767f)
 														{
-															for (;;)
-															{
-																switch (7)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															float num34 = this.m_maxLineAscender - this.m_startOfLineAscender;
 															this.m_lineOffset += num34;
 															wordWrapState2.lineOffset = this.m_lineOffset;
@@ -7147,15 +4287,6 @@ namespace TMPro
 												float maxDescender;
 												if (this.m_maxDescender < num36)
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													maxDescender = this.m_maxDescender;
 												}
 												else
@@ -7167,15 +4298,6 @@ namespace TMPro
 												num8 += this.m_xAdvance;
 												if (this.m_enableWordWrapping)
 												{
-													for (;;)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													num9 = this.m_maxAscender - this.m_maxDescender;
 												}
 												else
@@ -7186,15 +4308,6 @@ namespace TMPro
 												this.m_lineNumber++;
 												if (this.m_lineHeight == -32767f)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													float num37 = this.m_internalCharacterInfo[this.m_characterCount].ascender - this.m_internalCharacterInfo[this.m_characterCount].baseLine;
 													float num38 = 0f - this.m_maxLineDescender + num37 + (num7 + this.m_lineSpacing + this.m_lineSpacingDelta) * num5;
 													this.m_lineOffset += num38;
@@ -7211,15 +4324,6 @@ namespace TMPro
 												IL_CA2:
 												if (!this.m_isCharacterWrappingEnabled)
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													this.m_isCharacterWrappingEnabled = true;
 													goto IL_CC0;
 												}
@@ -7229,52 +4333,16 @@ namespace TMPro
 										}
 										if (!ignoreTextAutoSizing)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (defaultFontSize > this.m_fontSizeMin)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (this.m_charWidthAdjDelta < this.m_charWidthMaxAdj / 100f)
 												{
-													for (;;)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
 												this.m_maxFontSize = defaultFontSize;
 												defaultFontSize -= Mathf.Max((defaultFontSize - this.m_minFontSize) / 2f, 0.05f);
 												defaultFontSize = (float)((int)(Mathf.Max(defaultFontSize, this.m_fontSizeMin) * 20f + 0.5f)) / 20f;
 												if (this.m_recursiveCount > 0x14)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													return new Vector2(num8, num9);
 												}
 												return this.CalculatePreferredValues(defaultFontSize, marginSize, false);
@@ -7284,37 +4352,10 @@ namespace TMPro
 									IL_FB6:
 									if (this.m_lineNumber > 0 && !TMP_Math.Approximately(this.m_maxLineAscender, this.m_startOfLineAscender))
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_lineHeight == -32767f)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!this.m_isNewPage)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												float num39 = this.m_maxLineAscender - this.m_startOfLineAscender;
 												num28 -= num39;
 												this.m_lineOffset += num39;
@@ -7331,15 +4372,6 @@ namespace TMPro
 										float xAdvance;
 										if (num41 > this.m_xAdvance)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											xAdvance = num41;
 										}
 										else
@@ -7354,15 +4386,6 @@ namespace TMPro
 										if (char.IsWhiteSpace((char)num14))
 										{
 											goto IL_1120;
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										if (num14 == 0x200B)
 										{
@@ -7385,27 +4408,9 @@ namespace TMPro
 										this.m_xAdvance += (this.m_cached_TextElement.xAdvance * num23 + this.m_characterSpacing + this.m_currentFontAsset.normalSpacingOffset) * num6 + this.m_cSpacing;
 										if (!char.IsWhiteSpace((char)num14))
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 != 0x200B)
 											{
 												goto IL_11AC;
-											}
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										this.m_xAdvance += this.m_wordSpacing * num6;
@@ -7413,15 +4418,6 @@ namespace TMPro
 									IL_11AC:
 									if (num14 == 0xD)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										a = Mathf.Max(a, num8 + this.m_xAdvance);
 										num8 = 0f;
 										this.m_xAdvance = this.tag_Indent;
@@ -7429,15 +4425,6 @@ namespace TMPro
 									if (num14 == 0xA)
 									{
 										goto IL_120B;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (this.m_characterCount == totalCharacterCount - 1)
 									{
@@ -7456,15 +4443,6 @@ namespace TMPro
 									{
 										goto IL_13FE;
 									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_overflowMode == TextOverflowModes.Ellipsis)
 									{
 										goto IL_13FE;
@@ -7477,40 +4455,13 @@ namespace TMPro
 									{
 										goto IL_1443;
 									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0x200B)
 									{
 										goto IL_1443;
 									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0x2D)
 									{
 										goto IL_1443;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (num14 == 0xAD)
 									{
@@ -7520,15 +4471,6 @@ namespace TMPro
 									if (num14 <= 0x1100)
 									{
 										goto IL_14DF;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (num14 < 0x11FF)
 									{
@@ -7546,27 +4488,9 @@ namespace TMPro
 									IL_163F:
 									if (!flag && !this.m_isCharacterWrappingEnabled)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag2)
 										{
 											goto IL_1673;
-										}
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									this.SaveWordWrappingState(ref wordWrapState2, num13, this.m_characterCount);
@@ -7574,15 +4498,6 @@ namespace TMPro
 									IL_14DF:
 									if (num14 > 0x2E80)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 < 0x9FFF)
 										{
 											goto IL_1586;
@@ -7590,15 +4505,6 @@ namespace TMPro
 									}
 									if (num14 > 0xA960)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 < 0xA97F)
 										{
 											goto IL_1586;
@@ -7608,27 +4514,9 @@ namespace TMPro
 									{
 										if (num14 > 0xF900)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 < 0xFAFF)
 											{
 												goto IL_1586;
-											}
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										if (num14 <= 0xFE30 || num14 >= 0xFE4F)
@@ -7637,77 +4525,23 @@ namespace TMPro
 											{
 												goto IL_163F;
 											}
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 									}
 									IL_1586:
 									if (!this.m_isNonBreakingSpace)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (flag)
 										{
 											goto IL_1623;
-										}
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										if (flag2)
 										{
 											goto IL_1623;
 										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!TMP_Settings.linebreakingRules.leadingCharacters.ContainsKey(num14))
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_characterCount < totalCharacterCount - 1)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!TMP_Settings.linebreakingRules.followingCharacters.ContainsKey((int)this.m_internalCharacterInfo[this.m_characterCount + 1].character))
 												{
 													for (;;)
@@ -7736,53 +4570,17 @@ namespace TMPro
 									{
 										goto IL_14B6;
 									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0xA0)
 									{
 										goto IL_14B6;
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (num14 == 0x2011)
 									{
 										goto IL_14B6;
 									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0x202F)
 									{
 										goto IL_14B6;
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (num14 != 0x2060)
 									{
@@ -7795,37 +4593,10 @@ namespace TMPro
 									IL_120B:
 									if (this.m_lineNumber > 0)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!TMP_Math.Approximately(this.m_maxLineAscender, this.m_startOfLineAscender))
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_lineHeight == -32767f)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												float num42 = this.m_maxLineAscender - this.m_startOfLineAscender;
 												num28 -= num42;
 												this.m_lineOffset += num42;
@@ -7852,15 +4623,6 @@ namespace TMPro
 										this.m_lineNumber++;
 										if (this.m_lineHeight == -32767f)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											float num38 = 0f - this.m_maxLineDescender + num25 + (num7 + this.m_lineSpacing + this.m_paragraphSpacing + this.m_lineSpacingDelta) * num5;
 											this.m_lineOffset += num38;
 										}
@@ -7881,15 +4643,6 @@ namespace TMPro
 									float maxLineAscender2;
 									if (num44 > this.m_maxLineAscender)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineAscender2 = num44;
 									}
 									else
@@ -7905,27 +4658,9 @@ namespace TMPro
 									num23 = 1f;
 									goto IL_90F;
 								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								float num46 = this.m_maxFontSize - this.m_minFontSize;
 								if (!this.m_isCharacterWrappingEnabled && !ignoreTextAutoSizing && num46 > 0.051f)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (defaultFontSize < this.m_fontSizeMax)
 									{
 										this.m_minFontSize = defaultFontSize;
@@ -7933,15 +4668,6 @@ namespace TMPro
 										defaultFontSize = (float)((int)(Mathf.Min(defaultFontSize, this.m_fontSizeMax) * 20f + 0.5f)) / 20f;
 										if (this.m_recursiveCount > 0x14)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											return new Vector2(num8, num9);
 										}
 										return this.CalculatePreferredValues(defaultFontSize, marginSize, false);
@@ -7953,15 +4679,6 @@ namespace TMPro
 								float num48;
 								if (this.m_margin.x > 0f)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num48 = this.m_margin.x;
 								}
 								else
@@ -7973,15 +4690,6 @@ namespace TMPro
 								float num50;
 								if (this.m_margin.z > 0f)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num50 = this.m_margin.z;
 								}
 								else
@@ -7993,15 +4701,6 @@ namespace TMPro
 								float num52;
 								if (this.m_margin.y > 0f)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num52 = this.m_margin.y;
 								}
 								else
@@ -8013,15 +4712,6 @@ namespace TMPro
 								float num54;
 								if (this.m_margin.w > 0f)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num54 = this.m_margin.w;
 								}
 								else
@@ -8032,15 +4722,6 @@ namespace TMPro
 								num8 = (float)((int)(num8 * 100f + 1f)) / 100f;
 								num9 = (float)((int)(num9 * 100f + 1f)) / 100f;
 								return new Vector2(num8, num9);
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -8060,34 +4741,12 @@ namespace TMPro
 		{
 			if (this.m_textInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetTextBounds()).MethodHandle;
-				}
 				if (this.m_textInfo.characterCount <= this.m_textInfo.characterInfo.Length)
 				{
 					Extents extents = new Extents(TMP_Text.k_LargePositiveVector2, TMP_Text.k_LargeNegativeVector2);
 					int i = 0;
 					while (i < this.m_textInfo.characterCount)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i >= this.m_textInfo.characterInfo.Length)
 						{
 							for (;;)
@@ -8104,15 +4763,6 @@ namespace TMPro
 						{
 							if (!this.m_textInfo.characterInfo[i].isVisible)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -8139,19 +4789,6 @@ namespace TMPro
 		{
 			if (this.m_textInfo == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetTextBounds(bool)).MethodHandle;
-				}
 				return default(Bounds);
 			}
 			Extents extents = new Extents(TMP_Text.k_LargePositiveVector2, TMP_Text.k_LargeNegativeVector2);
@@ -8161,15 +4798,6 @@ namespace TMPro
 				if (i > this.maxVisibleCharacters)
 				{
 					goto IL_7A;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if ((int)this.m_textInfo.characterInfo[i].lineNumber > this.m_maxVisibleLines)
 				{
@@ -8188,27 +4816,9 @@ namespace TMPro
 				{
 					goto IL_B6;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_textInfo.characterInfo[i].isVisible)
 				{
 					goto IL_B6;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_186:
 				i++;
@@ -8251,19 +4861,6 @@ namespace TMPro
 			int num;
 			if (size > 0x400)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ResizeLineExtents(int)).MethodHandle;
-				}
 				num = size + 0x100;
 			}
 			else
@@ -8276,15 +4873,6 @@ namespace TMPro
 			{
 				if (i < this.m_textInfo.lineInfo.Length)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array[i] = this.m_textInfo.lineInfo[i];
 				}
 				else
@@ -8294,15 +4882,6 @@ namespace TMPro
 					array[i].ascender = TMP_Text.k_LargeNegativeFloat;
 					array[i].descender = TMP_Text.k_LargePositiveFloat;
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_textInfo.lineInfo = array;
 		}
@@ -8422,19 +5001,6 @@ namespace TMPro
 			this.m_spriteAnimationID = state.spriteAnimationID;
 			if (this.m_lineNumber < this.m_textInfo.lineInfo.Length)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.RestoreWordWrappingState(WordWrapState*)).MethodHandle;
-				}
 				this.m_textInfo.lineInfo[this.m_lineNumber] = state.lineInfo;
 			}
 			return previous_WordBreak;
@@ -8449,19 +5015,6 @@ namespace TMPro
 			byte a;
 			if (this.m_fontColor32.a < vertexColor.a)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SaveGlyphVertexInfo(float, float, Color32)).MethodHandle;
-				}
 				a = this.m_fontColor32.a;
 			}
 			else
@@ -8478,15 +5031,6 @@ namespace TMPro
 			}
 			else if (!this.m_overrideHtmlColors && this.m_colorStack.index > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textInfo.characterInfo[this.m_characterCount].vertex_BL.color = vertexColor;
 				this.m_textInfo.characterInfo[this.m_characterCount].vertex_TL.color = vertexColor;
 				this.m_textInfo.characterInfo[this.m_characterCount].vertex_TR.color = vertexColor;
@@ -8508,15 +5052,6 @@ namespace TMPro
 			}
 			if (!this.m_isSDFShader)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				style_padding = 0f;
 			}
 			FaceInfo fontInfo = this.m_currentFontAsset.fontInfo;
@@ -8546,33 +5081,11 @@ namespace TMPro
 			this.m_textInfo.characterInfo[this.m_characterCount].vertex_BR.position = this.m_textInfo.characterInfo[this.m_characterCount].bottomRight;
 			if (this.m_tintAllSprites)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.SaveSpriteVertexInfo(Color32)).MethodHandle;
-				}
 				this.m_tintSprite = true;
 			}
 			Color32 color;
 			if (this.m_tintSprite)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = this.m_spriteColor.Multiply(vertexColor);
 			}
 			else
@@ -8583,15 +5096,6 @@ namespace TMPro
 			byte a;
 			if (color2.a < this.m_fontColor32.a)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a = (color2.a = ((color2.a >= vertexColor.a) ? vertexColor.a : color2.a));
 			}
 			else
@@ -8601,15 +5105,6 @@ namespace TMPro
 			color2.a = a;
 			if (!this.m_enableVertexGradient)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textInfo.characterInfo[this.m_characterCount].vertex_BL.color = color2;
 				this.m_textInfo.characterInfo[this.m_characterCount].vertex_TL.color = color2;
 				this.m_textInfo.characterInfo[this.m_characterCount].vertex_TR.color = color2;
@@ -8619,26 +5114,8 @@ namespace TMPro
 			{
 				if (!this.m_overrideHtmlColors)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_colorStack.index > 1)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_textInfo.characterInfo[this.m_characterCount].vertex_BL.color = color2;
 						this.m_textInfo.characterInfo[this.m_characterCount].vertex_TL.color = color2;
 						this.m_textInfo.characterInfo[this.m_characterCount].vertex_TR.color = color2;
@@ -8653,15 +5130,6 @@ namespace TMPro
 					Color32 color3;
 					if (this.m_tintSprite)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color3 = color2.Multiply(this.m_fontColorGradientPreset.bottomLeft);
 					}
 					else
@@ -8674,15 +5142,6 @@ namespace TMPro
 					Color32 color4;
 					if (this.m_tintSprite)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color4 = color2.Multiply(this.m_fontColorGradientPreset.topLeft);
 					}
 					else
@@ -8695,15 +5154,6 @@ namespace TMPro
 					Color32 color5;
 					if (this.m_tintSprite)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color5 = color2.Multiply(this.m_fontColorGradientPreset.topRight);
 					}
 					else
@@ -8721,15 +5171,6 @@ namespace TMPro
 					Color32 color6;
 					if (this.m_tintSprite)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color6 = color2.Multiply(this.m_fontColorGradient.topLeft);
 					}
 					else
@@ -8742,15 +5183,6 @@ namespace TMPro
 					Color32 color7;
 					if (this.m_tintSprite)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color7 = color2.Multiply(this.m_fontColorGradient.topRight);
 					}
 					else
@@ -8763,15 +5195,6 @@ namespace TMPro
 					Color32 color8;
 					if (this.m_tintSprite)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color8 = color2.Multiply(this.m_fontColorGradient.bottomRight);
 					}
 					else
@@ -8841,19 +5264,6 @@ namespace TMPro
 			this.m_textInfo.meshInfo[materialReferenceIndex].uvs0[3 + index_X4] = characterInfo[i].vertex_BR.uv;
 			if (isVolumetric)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.FillCharacterVertexBuffers(int, int, bool)).MethodHandle;
-				}
 				this.m_textInfo.meshInfo[materialReferenceIndex].uvs0[4 + index_X4] = characterInfo[i].vertex_BL.uv;
 				this.m_textInfo.meshInfo[materialReferenceIndex].uvs0[5 + index_X4] = characterInfo[i].vertex_TL.uv;
 				this.m_textInfo.meshInfo[materialReferenceIndex].uvs0[6 + index_X4] = characterInfo[i].vertex_TR.uv;
@@ -8865,15 +5275,6 @@ namespace TMPro
 			this.m_textInfo.meshInfo[materialReferenceIndex].uvs2[3 + index_X4] = characterInfo[i].vertex_BR.uv2;
 			if (isVolumetric)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textInfo.meshInfo[materialReferenceIndex].uvs2[4 + index_X4] = characterInfo[i].vertex_BL.uv2;
 				this.m_textInfo.meshInfo[materialReferenceIndex].uvs2[5 + index_X4] = characterInfo[i].vertex_TL.uv2;
 				this.m_textInfo.meshInfo[materialReferenceIndex].uvs2[6 + index_X4] = characterInfo[i].vertex_TR.uv2;
@@ -8923,30 +5324,8 @@ namespace TMPro
 		{
 			if (this.m_cached_Underline_GlyphInfo == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.DrawUnderlineMesh(Vector3, Vector3, int*, float, float, float, float, Color32)).MethodHandle;
-				}
 				if (!TMP_Settings.warningsDisabled)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogWarning("Unable to add underline since the Font Asset doesn't contain the underline character.", this);
 				}
 				return;
@@ -8961,15 +5340,6 @@ namespace TMPro
 			float num2 = this.m_cached_Underline_GlyphInfo.width / 2f * maxScale;
 			if (end.x - start.x < this.m_cached_Underline_GlyphInfo.width * maxScale)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (end.x - start.x) / 2f;
 			}
 			float num3 = this.m_padding * startScale / maxScale;
@@ -9048,19 +5418,6 @@ namespace TMPro
 		{
 			if (this.m_cached_Underline_GlyphInfo == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.DrawTextHighlight(Vector3, Vector3, int*, Color32)).MethodHandle;
-				}
 				if (!TMP_Settings.warningsDisabled)
 				{
 					Debug.LogWarning("Unable to add underline since the Font Asset doesn't contain the underline character.", this);
@@ -9070,15 +5427,6 @@ namespace TMPro
 			int num = index + 4;
 			if (num > this.m_textInfo.meshInfo[0].vertices.Length)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textInfo.meshInfo[0].ResizeMeshInfo(num / 4);
 			}
 			Vector3[] vertices = this.m_textInfo.meshInfo[0].vertices;
@@ -9102,15 +5450,6 @@ namespace TMPro
 			byte a;
 			if (this.m_htmlColor.a < highlightColor.a)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				a = this.m_htmlColor.a;
 			}
 			else
@@ -9129,30 +5468,8 @@ namespace TMPro
 		{
 			if (this.m_text == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.LoadDefaultSettings()).MethodHandle;
-				}
 				if (TMP_Settings.autoSizeTextContainer)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.autoSizeTextContainer = true;
 				}
 				else
@@ -9160,15 +5477,6 @@ namespace TMPro
 					this.m_rectTransform = this.rectTransform;
 					if (base.GetType() == typeof(TextMeshPro))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_rectTransform.sizeDelta = TMP_Settings.defaultTextMeshProTextContainerSize;
 					}
 					else
@@ -9188,15 +5496,6 @@ namespace TMPro
 			}
 			else if (!this.m_isAlignmentEnumConverted)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_isAlignmentEnumConverted = true;
 				this.m_textAlignment = TMP_Compatibility.ConvertTextAlignmentEnumValues(this.m_textAlignment);
 			}
@@ -9206,31 +5505,9 @@ namespace TMPro
 		{
 			if (!fontAsset.characterDictionary.TryGetValue(0x5F, out this.m_cached_Underline_GlyphInfo))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetSpecialCharacters(TMP_FontAsset)).MethodHandle;
-				}
 			}
 			if (!fontAsset.characterDictionary.TryGetValue(0x2026, out this.m_cached_Ellipsis_GlyphInfo))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 
@@ -9241,19 +5518,6 @@ namespace TMPro
 			{
 				chars[i - 3] = chars[i];
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ReplaceTagWithCharacter(int[], int, int, char)).MethodHandle;
-			}
 		}
 
 		protected TMP_FontAsset GetFontAssetForWeight(int fontWeight)
@@ -9261,19 +5525,6 @@ namespace TMPro
 			bool flag;
 			if ((this.m_style & FontStyles.Italic) != FontStyles.Italic)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetFontAssetForWeight(int)).MethodHandle;
-				}
 				flag = ((this.m_fontStyle & FontStyles.Italic) == FontStyles.Italic);
 			}
 			else
@@ -9285,15 +5536,6 @@ namespace TMPro
 			TMP_FontAsset result;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = this.m_currentFontAsset.fontWeights[num].italicTypeface;
 			}
 			else
@@ -9323,19 +5565,6 @@ namespace TMPro
 		{
 			if (this.m_textInfo == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.GetParsedText()).MethodHandle;
-				}
 				return string.Empty;
 			}
 			int characterCount = this.m_textInfo.characterCount;
@@ -9343,15 +5572,6 @@ namespace TMPro
 			int i = 0;
 			while (i < characterCount)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i >= this.m_textInfo.characterInfo.Length)
 				{
 					for (;;)
@@ -9481,19 +5701,6 @@ namespace TMPro
 			}
 			if (tagCount == 5)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.HexCharsToColor(char[], int)).MethodHandle;
-				}
 				byte r2 = (byte)(this.HexToInt(hexChars[1]) * 0x10 + this.HexToInt(hexChars[1]));
 				byte g2 = (byte)(this.HexToInt(hexChars[2]) * 0x10 + this.HexToInt(hexChars[2]));
 				byte b2 = (byte)(this.HexToInt(hexChars[3]) * 0x10 + this.HexToInt(hexChars[3]));
@@ -9502,15 +5709,6 @@ namespace TMPro
 			}
 			if (tagCount == 7)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				byte r3 = (byte)(this.HexToInt(hexChars[1]) * 0x10 + this.HexToInt(hexChars[2]));
 				byte g3 = (byte)(this.HexToInt(hexChars[3]) * 0x10 + this.HexToInt(hexChars[4]));
 				byte b3 = (byte)(this.HexToInt(hexChars[5]) * 0x10 + this.HexToInt(hexChars[6]));
@@ -9526,15 +5724,6 @@ namespace TMPro
 			}
 			if (tagCount == 0xA)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				byte r5 = (byte)(this.HexToInt(hexChars[7]) * 0x10 + this.HexToInt(hexChars[7]));
 				byte g5 = (byte)(this.HexToInt(hexChars[8]) * 0x10 + this.HexToInt(hexChars[8]));
 				byte b5 = (byte)(this.HexToInt(hexChars[9]) * 0x10 + this.HexToInt(hexChars[9]));
@@ -9550,15 +5739,6 @@ namespace TMPro
 			}
 			if (tagCount == 0xD)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				byte r7 = (byte)(this.HexToInt(hexChars[7]) * 0x10 + this.HexToInt(hexChars[8]));
 				byte g7 = (byte)(this.HexToInt(hexChars[9]) * 0x10 + this.HexToInt(hexChars[0xA]));
 				byte b7 = (byte)(this.HexToInt(hexChars[0xB]) * 0x10 + this.HexToInt(hexChars[0xC]));
@@ -9566,15 +5746,6 @@ namespace TMPro
 			}
 			if (tagCount == 0xF)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				byte r8 = (byte)(this.HexToInt(hexChars[7]) * 0x10 + this.HexToInt(hexChars[8]));
 				byte g8 = (byte)(this.HexToInt(hexChars[9]) * 0x10 + this.HexToInt(hexChars[0xA]));
 				byte b8 = (byte)(this.HexToInt(hexChars[0xB]) * 0x10 + this.HexToInt(hexChars[0xC]));
@@ -9588,19 +5759,6 @@ namespace TMPro
 		{
 			if (length == 7)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.HexCharsToColor(char[], int, int)).MethodHandle;
-				}
 				byte r = (byte)(this.HexToInt(hexChars[startIndex + 1]) * 0x10 + this.HexToInt(hexChars[startIndex + 2]));
 				byte g = (byte)(this.HexToInt(hexChars[startIndex + 3]) * 0x10 + this.HexToInt(hexChars[startIndex + 4]));
 				byte b = (byte)(this.HexToInt(hexChars[startIndex + 5]) * 0x10 + this.HexToInt(hexChars[startIndex + 6]));
@@ -9641,19 +5799,6 @@ namespace TMPro
 		{
 			if (startIndex == 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ConvertToFloat(char[], int, int, int*)).MethodHandle;
-				}
 				lastIndex = 0;
 				return -9999f;
 			}
@@ -9667,27 +5812,9 @@ namespace TMPro
 				char c = chars[i];
 				if (c == ' ')
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (c == '.')
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = i;
 					num3 = -1;
 				}
@@ -9697,15 +5824,6 @@ namespace TMPro
 				}
 				else if (c == '+')
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num5 = 1;
 				}
 				else
@@ -9717,15 +5835,6 @@ namespace TMPro
 					}
 					if (!char.IsDigit(c))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lastIndex = i;
 						return -9999f;
 					}
@@ -9760,15 +5869,6 @@ namespace TMPro
 					}
 					if (num4 == 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3++;
 					}
 					else
@@ -9776,15 +5876,6 @@ namespace TMPro
 						num3--;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			lastIndex = num;
 			return num2 * (float)num5;
@@ -9811,26 +5902,8 @@ namespace TMPro
 			bool flag2 = false;
 			for (int i = startIndex; i < chars.Length; i++)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (chars[i] == 0)
 				{
-					break;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 				if (num >= this.m_htmlTag.Length || chars[i] == 0x3C)
@@ -9839,19 +5912,6 @@ namespace TMPro
 				}
 				if (chars[i] == 0x3E)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Text.ValidateHtmlTag(int[], int, int*)).MethodHandle;
-					}
 					flag2 = true;
 					endIndex = i;
 					this.m_htmlTag[num] = '\0';
@@ -9861,51 +5921,15 @@ namespace TMPro
 				num++;
 				if (b == 1)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tagType == TagType.None)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[i] == 0x2B)
 						{
 							goto IL_161;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[i] == 0x2D)
 						{
 							goto IL_161;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (char.IsDigit((char)chars[i]))
 						{
@@ -9921,15 +5945,6 @@ namespace TMPro
 						}
 						else if (chars[i] == 0x23)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tagType = TagType.ColorValue;
 							this.m_xmlAttribute[num2].valueType = TagType.ColorValue;
 							this.m_xmlAttribute[num2].valueStartIndex = num - 1;
@@ -9939,15 +5954,6 @@ namespace TMPro
 						}
 						else if (chars[i] == 0x22)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tagType = TagType.StringValue;
 							this.m_xmlAttribute[num2].valueType = TagType.StringValue;
 							this.m_xmlAttribute[num2].valueStartIndex = num;
@@ -9977,40 +5983,13 @@ namespace TMPro
 						{
 							goto IL_31D;
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[i] == 0x65)
 						{
 							goto IL_31D;
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[i] == 0x25)
 						{
 							goto IL_31D;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (chars[i] == 0x20)
 						{
@@ -10042,42 +6021,15 @@ namespace TMPro
 						this.m_xmlAttribute[num2].valueLength = 0;
 						if (chars[i] == 0x65)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tagUnits = TagUnits.FontUnits;
 						}
 						else if (chars[i] == 0x25)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tagUnits = TagUnits.Percentage;
 						}
 					}
 					else if (tagType == TagType.ColorValue)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[i] != 0x20)
 						{
 							XML_TagAttribute[] xmlAttribute5 = this.m_xmlAttribute;
@@ -10098,15 +6050,6 @@ namespace TMPro
 					}
 					else if (tagType == TagType.StringValue)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (chars[i] != 0x22)
 						{
 							this.m_xmlAttribute[num2].valueHashCode = ((this.m_xmlAttribute[num2].valueHashCode << 5) + this.m_xmlAttribute[num2].valueHashCode ^ chars[i]);
@@ -10130,41 +6073,14 @@ namespace TMPro
 				IL_554:
 				if (chars[i] == 0x3D)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					b = 1;
 				}
 				if (b == 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (chars[i] == 0x20)
 					{
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
 						flag = true;
@@ -10180,128 +6096,38 @@ namespace TMPro
 				}
 				if (b == 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_xmlAttribute[num2].nameHashCode = (this.m_xmlAttribute[num2].nameHashCode << 3) - this.m_xmlAttribute[num2].nameHashCode + chars[i];
 				}
 				if (b == 2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (chars[i] == 0x20)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						b = 0;
 					}
 				}
 			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 			if (this.tag_NoParsing)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_xmlAttribute[0].nameHashCode != 0x33542D3 && this.m_xmlAttribute[0].nameHashCode != 0x2F23DB3)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 			}
 			if (this.m_xmlAttribute[0].nameHashCode != 0x33542D3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_xmlAttribute[0].nameHashCode == 0x2F23DB3)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (this.m_htmlTag[0] == '#')
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 4)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 							this.m_colorStack.Add(this.m_htmlColor);
 							return true;
@@ -10309,41 +6135,14 @@ namespace TMPro
 					}
 					if (this.m_htmlTag[0] == '#' && num == 5)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 						this.m_colorStack.Add(this.m_htmlColor);
 						return true;
 					}
 					if (this.m_htmlTag[0] == '#')
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 7)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 							this.m_colorStack.Add(this.m_htmlColor);
 							return true;
@@ -10351,26 +6150,8 @@ namespace TMPro
 					}
 					if (this.m_htmlTag[0] == '#')
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num == 9)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 							this.m_colorStack.Add(this.m_htmlColor);
 							return true;
@@ -10394,15 +6175,6 @@ namespace TMPro
 							default:
 								if (nameHashCode != 0x1AA)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (nameHashCode != 0x1AB)
 									{
 										switch (nameHashCode)
@@ -10414,151 +6186,34 @@ namespace TMPro
 											float num12;
 											if (nameHashCode != 0xF4AAC9)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (nameHashCode != 0x147B2766)
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (nameHashCode != 0x16504B66)
 													{
-														for (;;)
-														{
-															switch (2)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (nameHashCode != 0x1B40B577)
 														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (nameHashCode != 0x1EAF47A1)
 															{
-																for (;;)
-																{
-																	switch (7)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (nameHashCode != 0x20D7F9C8)
 																{
-																	for (;;)
-																	{
-																		switch (3)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (nameHashCode != 0x21C6F46A)
 																	{
-																		for (;;)
-																		{
-																			switch (1)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (nameHashCode == 0x2B8343C1)
 																		{
 																			goto IL_3A41;
-																		}
-																		for (;;)
-																		{
-																			switch (4)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
 																		}
 																		if (nameHashCode == 0x2DABF5E8)
 																		{
 																			goto IL_3ACA;
 																		}
-																		for (;;)
-																		{
-																			switch (4)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (nameHashCode != 0x2E9AF08A)
 																		{
-																			for (;;)
-																			{
-																				switch (3)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
-																			}
 																			if (nameHashCode != 0x419BC966)
 																			{
-																				for (;;)
-																				{
-																					switch (2)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
-																				}
 																				if (nameHashCode != 0x421F5578)
 																				{
-																					for (;;)
-																					{
-																						switch (2)
-																						{
-																						case 0:
-																							continue;
-																						}
-																						break;
-																					}
 																					if (nameHashCode != 0x421FE49D)
 																					{
-																						for (;;)
-																						{
-																							switch (3)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																						if (nameHashCode != 0x71174431)
 																						{
 																							if (nameHashCode != 0x7117D356)
@@ -10569,114 +6224,33 @@ namespace TMPro
 																									{
 																										if (nameHashCode != -0x70449A56)
 																										{
-																											for (;;)
-																											{
-																												switch (6)
-																												{
-																												case 0:
-																													continue;
-																												}
-																												break;
-																											}
 																											if (nameHashCode != -0x6E1BE82F)
 																											{
 																												if (nameHashCode != -0x6D2CED8D)
 																												{
-																													for (;;)
-																													{
-																														switch (6)
-																														{
-																														case 0:
-																															continue;
-																														}
-																														break;
-																													}
 																													if (nameHashCode != -0x64BBE163)
 																													{
-																														for (;;)
-																														{
-																															switch (5)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
-																														}
 																														if (nameHashCode == -0x63709E36)
 																														{
 																															goto IL_3A60;
-																														}
-																														for (;;)
-																														{
-																															switch (2)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
 																														}
 																														if (nameHashCode == -0x6147EC0F)
 																														{
 																															goto IL_3AEB;
 																														}
-																														for (;;)
-																														{
-																															switch (6)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
-																														}
 																														if (nameHashCode == -0x6058F16D)
 																														{
 																															goto IL_3AAA;
 																														}
-																														for (;;)
-																														{
-																															switch (2)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
-																														}
 																														if (nameHashCode != -0x34BD4043)
 																														{
-																															for (;;)
-																															{
-																																switch (2)
-																																{
-																																case 0:
-																																	continue;
-																																}
-																																break;
-																															}
 																															if (nameHashCode == -0x32F64D9A)
 																															{
 																																goto IL_3C5D;
 																															}
-																															for (;;)
-																															{
-																																switch (4)
-																																{
-																																case 0:
-																																	continue;
-																																}
-																																break;
-																															}
 																															if (nameHashCode == -0x323A7B88)
 																															{
 																																goto IL_3EAF;
-																															}
-																															for (;;)
-																															{
-																																switch (2)
-																																{
-																																case 0:
-																																	continue;
-																																}
-																																break;
 																															}
 																															if (nameHashCode == -0x3239EC63)
 																															{
@@ -10690,98 +6264,26 @@ namespace TMPro
 																															{
 																																goto IL_337E;
 																															}
-																															for (;;)
-																															{
-																																switch (7)
-																																{
-																																case 0:
-																																	continue;
-																																}
-																																break;
-																															}
 																															if (nameHashCode != -0x13B73942)
 																															{
-																																for (;;)
-																																{
-																																	switch (4)
-																																	{
-																																	case 0:
-																																		continue;
-																																	}
-																																	break;
-																																}
 																																if (nameHashCode != 0x42)
 																																{
-																																	for (;;)
-																																	{
-																																		switch (2)
-																																		{
-																																		case 0:
-																																			continue;
-																																		}
-																																		break;
-																																	}
 																																	if (nameHashCode != 0x49)
 																																	{
 																																		if (nameHashCode == 0x62)
 																																		{
 																																			goto IL_13F7;
 																																		}
-																																		for (;;)
-																																		{
-																																			switch (5)
-																																			{
-																																			case 0:
-																																				continue;
-																																			}
-																																			break;
-																																		}
 																																		if (nameHashCode != 0x69)
 																																		{
-																																			for (;;)
-																																			{
-																																				switch (5)
-																																				{
-																																				case 0:
-																																					continue;
-																																				}
-																																				break;
-																																			}
 																																			if (nameHashCode != 0x18B)
 																																			{
 																																				if (nameHashCode != 0x192)
 																																				{
-																																					for (;;)
-																																					{
-																																						switch (2)
-																																						{
-																																						case 0:
-																																							continue;
-																																						}
-																																						break;
-																																					}
 																																					if (nameHashCode != 0x1B2)
 																																					{
-																																						for (;;)
-																																						{
-																																							switch (4)
-																																							{
-																																							case 0:
-																																								continue;
-																																							}
-																																							break;
-																																						}
 																																						if (nameHashCode != 0x290)
 																																						{
-																																							for (;;)
-																																							{
-																																								switch (2)
-																																								{
-																																								case 0:
-																																									continue;
-																																								}
-																																								break;
-																																							}
 																																							if (nameHashCode != 0x294)
 																																							{
 																																								if (nameHashCode != 0x29E)
@@ -10794,62 +6296,17 @@ namespace TMPro
 																																									{
 																																										return true;
 																																									}
-																																									for (;;)
-																																									{
-																																										switch (2)
-																																										{
-																																										case 0:
-																																											continue;
-																																										}
-																																										break;
-																																									}
 																																									if (nameHashCode != 0x39E)
 																																									{
-																																										for (;;)
-																																										{
-																																											switch (7)
-																																											{
-																																											case 0:
-																																												continue;
-																																											}
-																																											break;
-																																										}
 																																										if (nameHashCode != 0xB8F)
 																																										{
 																																											if (nameHashCode != 0xB93)
 																																											{
-																																												for (;;)
-																																												{
-																																													switch (1)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
-																																													break;
-																																												}
 																																												if (nameHashCode != 0xB9D)
 																																												{
-																																													for (;;)
-																																													{
-																																														switch (7)
-																																														{
-																																														case 0:
-																																															continue;
-																																														}
-																																														break;
-																																													}
 																																													if (nameHashCode == 0xC8F)
 																																													{
 																																														return true;
-																																													}
-																																													for (;;)
-																																													{
-																																														switch (5)
-																																														{
-																																														case 0:
-																																															continue;
-																																														}
-																																														break;
 																																													}
 																																													if (nameHashCode == 0xC93)
 																																													{
@@ -10857,39 +6314,12 @@ namespace TMPro
 																																													}
 																																													if (nameHashCode != 0xC9D)
 																																													{
-																																														for (;;)
-																																														{
-																																															switch (3)
-																																															{
-																																															case 0:
-																																																continue;
-																																															}
-																																															break;
-																																														}
 																																														if (nameHashCode != 0x11CC)
 																																														{
 																																															if (nameHashCode != 0x1278)
 																																															{
-																																																for (;;)
-																																																{
-																																																	switch (6)
-																																																	{
-																																																	case 0:
-																																																		continue;
-																																																	}
-																																																	break;
-																																																}
 																																																if (nameHashCode != 0x1286)
 																																																{
-																																																	for (;;)
-																																																	{
-																																																		switch (1)
-																																																		{
-																																																		case 0:
-																																																			continue;
-																																																		}
-																																																		break;
-																																																	}
 																																																	if (nameHashCode == 0x18EC)
 																																																	{
 																																																		goto IL_1C44;
@@ -10898,196 +6328,52 @@ namespace TMPro
 																																																	{
 																																																		goto IL_177C;
 																																																	}
-																																																	for (;;)
-																																																	{
-																																																		switch (5)
-																																																		{
-																																																		case 0:
-																																																			continue;
-																																																		}
-																																																		break;
-																																																	}
 																																																	if (nameHashCode != 0x19A6)
 																																																	{
-																																																		for (;;)
-																																																		{
-																																																			switch (2)
-																																																			{
-																																																			case 0:
-																																																				continue;
-																																																			}
-																																																			break;
-																																																		}
 																																																		if (nameHashCode != 0x50C5)
 																																																		{
-																																																			for (;;)
-																																																			{
-																																																				switch (6)
-																																																				{
-																																																				case 0:
-																																																					continue;
-																																																				}
-																																																				break;
-																																																			}
 																																																			if (nameHashCode != 0x5171)
 																																																			{
-																																																				for (;;)
-																																																				{
-																																																					switch (6)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
-																																																				}
 																																																				if (nameHashCode != 0x517F)
 																																																				{
-																																																					for (;;)
-																																																					{
-																																																						switch (2)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
-																																																					}
 																																																					if (nameHashCode == 0x57E5)
 																																																					{
 																																																						goto IL_1CF4;
-																																																					}
-																																																					for (;;)
-																																																					{
-																																																						switch (3)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
 																																																					}
 																																																					if (nameHashCode == 0x5891)
 																																																					{
 																																																						goto IL_181C;
 																																																					}
-																																																					for (;;)
-																																																					{
-																																																						switch (7)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
-																																																					}
 																																																					if (nameHashCode != 0x589F)
 																																																					{
-																																																						for (;;)
-																																																						{
-																																																							switch (6)
-																																																							{
-																																																							case 0:
-																																																								continue;
-																																																							}
-																																																							break;
-																																																						}
 																																																						int valueHashCode;
 																																																						if (nameHashCode != 0x6F5F)
 																																																						{
 																																																							if (nameHashCode != 0x7625)
 																																																							{
-																																																								for (;;)
-																																																								{
-																																																									switch (4)
-																																																									{
-																																																									case 0:
-																																																										continue;
-																																																									}
-																																																									break;
-																																																								}
 																																																								if (nameHashCode != 0x763A)
 																																																								{
-																																																									for (;;)
-																																																									{
-																																																										switch (5)
-																																																										{
-																																																										case 0:
-																																																											continue;
-																																																										}
-																																																										break;
-																																																									}
 																																																									if (nameHashCode != 0x79C1)
 																																																									{
-																																																										for (;;)
-																																																										{
-																																																											switch (6)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										if (nameHashCode != 0x79D7)
 																																																										{
 																																																											if (nameHashCode != 0x7FE9)
 																																																											{
-																																																												for (;;)
-																																																												{
-																																																													switch (7)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
-																																																												}
 																																																												if (nameHashCode == 0xA15F)
 																																																												{
 																																																													goto IL_2116;
-																																																												}
-																																																												for (;;)
-																																																												{
-																																																													switch (7)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
 																																																												}
 																																																												if (nameHashCode == 0xA825)
 																																																												{
 																																																													goto IL_16B0;
 																																																												}
-																																																												for (;;)
-																																																												{
-																																																													switch (7)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
-																																																												}
 																																																												if (nameHashCode == 0xA83A)
 																																																												{
 																																																													goto IL_28A9;
 																																																												}
-																																																												for (;;)
-																																																												{
-																																																													switch (1)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
-																																																												}
 																																																												if (nameHashCode == 0xABC1)
 																																																												{
 																																																													goto IL_1DE1;
-																																																												}
-																																																												for (;;)
-																																																												{
-																																																													switch (1)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
 																																																												}
 																																																												if (nameHashCode == 0xABD7)
 																																																												{
@@ -11095,121 +6381,31 @@ namespace TMPro
 																																																												}
 																																																												if (nameHashCode != 0xB1E9)
 																																																												{
-																																																													for (;;)
-																																																													{
-																																																														switch (1)
-																																																														{
-																																																														case 0:
-																																																															continue;
-																																																														}
-																																																														break;
-																																																													}
 																																																													if (nameHashCode != 0x2282E)
 																																																													{
-																																																														for (;;)
-																																																														{
-																																																															switch (3)
-																																																															{
-																																																															case 0:
-																																																																continue;
-																																																															}
-																																																															break;
-																																																														}
 																																																														if (nameHashCode != 0x22EF4)
 																																																														{
-																																																															for (;;)
-																																																															{
-																																																																switch (3)
-																																																																{
-																																																																case 0:
-																																																																	continue;
-																																																																}
-																																																																break;
-																																																															}
 																																																															if (nameHashCode != 0x22F09)
 																																																															{
-																																																																for (;;)
-																																																																{
-																																																																	switch (5)
-																																																																	{
-																																																																	case 0:
-																																																																		continue;
-																																																																	}
-																																																																	break;
-																																																																}
 																																																																if (nameHashCode != 0x23290)
 																																																																{
-																																																																	for (;;)
-																																																																	{
-																																																																		switch (4)
-																																																																		{
-																																																																		case 0:
-																																																																			continue;
-																																																																		}
-																																																																		break;
-																																																																	}
 																																																																	if (nameHashCode != 0x238B8)
 																																																																	{
-																																																																		for (;;)
-																																																																		{
-																																																																			switch (6)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
-																																																																		}
 																																																																		if (nameHashCode == 0x25A2E)
 																																																																		{
 																																																																			goto IL_246B;
-																																																																		}
-																																																																		for (;;)
-																																																																		{
-																																																																			switch (2)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
 																																																																		}
 																																																																		if (nameHashCode == 0x260F4)
 																																																																		{
 																																																																			goto IL_171E;
 																																																																		}
-																																																																		for (;;)
-																																																																		{
-																																																																			switch (6)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
-																																																																		}
 																																																																		if (nameHashCode == 0x26109)
 																																																																		{
 																																																																			goto IL_29F7;
 																																																																		}
-																																																																		for (;;)
-																																																																		{
-																																																																			switch (6)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
-																																																																		}
 																																																																		if (nameHashCode == 0x26490)
 																																																																		{
 																																																																			goto IL_1DEA;
-																																																																		}
-																																																																		for (;;)
-																																																																		{
-																																																																			switch (1)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
 																																																																		}
 																																																																		if (nameHashCode != 0x26AB8)
 																																																																		{
@@ -11217,59 +6413,14 @@ namespace TMPro
 																																																																			{
 																																																																				if (nameHashCode != 0x2D8FE)
 																																																																				{
-																																																																					for (;;)
-																																																																					{
-																																																																						switch (2)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
-																																																																					}
 																																																																					if (nameHashCode != 0x2EF43)
 																																																																					{
-																																																																						for (;;)
-																																																																						{
-																																																																							switch (4)
-																																																																							{
-																																																																							case 0:
-																																																																								continue;
-																																																																							}
-																																																																							break;
-																																																																						}
 																																																																						if (nameHashCode != 0x379E6)
 																																																																						{
-																																																																							for (;;)
-																																																																							{
-																																																																								switch (2)
-																																																																								{
-																																																																								case 0:
-																																																																									continue;
-																																																																								}
-																																																																								break;
-																																																																							}
 																																																																							if (nameHashCode != 0x3842E)
 																																																																							{
-																																																																								for (;;)
-																																																																								{
-																																																																									switch (5)
-																																																																									{
-																																																																									case 0:
-																																																																										continue;
-																																																																									}
-																																																																									break;
-																																																																								}
 																																																																								if (nameHashCode != 0x3A15E)
 																																																																								{
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (5)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (nameHashCode == 0x435CD)
 																																																																									{
 																																																																										goto IL_2A77;
@@ -11278,122 +6429,32 @@ namespace TMPro
 																																																																									{
 																																																																										goto IL_2855;
 																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (4)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (nameHashCode == 0x44760)
 																																																																									{
 																																																																										return false;
-																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (3)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
 																																																																									}
 																																																																									if (nameHashCode == 0x44D63)
 																																																																									{
 																																																																										goto IL_2C4F;
 																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (3)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (nameHashCode == 0x4D806)
 																																																																									{
 																																																																										goto IL_40E7;
-																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (3)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
 																																																																									}
 																																																																									if (nameHashCode == 0x4E24E)
 																																																																									{
 																																																																										goto IL_278D;
 																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (1)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (nameHashCode != 0x4FF7E)
 																																																																									{
-																																																																										for (;;)
-																																																																										{
-																																																																											switch (6)
-																																																																											{
-																																																																											case 0:
-																																																																												continue;
-																																																																											}
-																																																																											break;
-																																																																										}
 																																																																										if (nameHashCode != 0xEE556)
 																																																																										{
-																																																																											for (;;)
-																																																																											{
-																																																																												switch (2)
-																																																																												{
-																																																																												case 0:
-																																																																													continue;
-																																																																												}
-																																																																												break;
-																																																																											}
 																																																																											if (nameHashCode != 0xEFCEC)
 																																																																											{
-																																																																												for (;;)
-																																																																												{
-																																																																													switch (3)
-																																																																													{
-																																																																													case 0:
-																																																																														continue;
-																																																																													}
-																																																																													break;
-																																																																												}
 																																																																												if (nameHashCode != 0xF878F)
 																																																																												{
-																																																																													for (;;)
-																																																																													{
-																																																																														switch (3)
-																																																																														{
-																																																																														case 0:
-																																																																															continue;
-																																																																														}
-																																																																														break;
-																																																																													}
 																																																																													if (nameHashCode != 0xFAF07)
 																																																																													{
-																																																																														for (;;)
-																																																																														{
-																																																																															switch (1)
-																																																																															{
-																																																																															case 0:
-																																																																																continue;
-																																																																															}
-																																																																															break;
-																																																																														}
 																																																																														if (nameHashCode == 0x104376)
 																																																																														{
 																																																																															goto IL_2B85;
@@ -11402,110 +6463,29 @@ namespace TMPro
 																																																																														{
 																																																																															goto IL_3168;
 																																																																														}
-																																																																														for (;;)
-																																																																														{
-																																																																															switch (6)
-																																																																															{
-																																																																															case 0:
-																																																																																continue;
-																																																																															}
-																																																																															break;
-																																																																														}
 																																																																														if (nameHashCode == 0x10E5AF)
 																																																																														{
 																																																																															return true;
 																																																																														}
-																																																																														for (;;)
-																																																																														{
-																																																																															switch (2)
-																																																																															{
-																																																																															case 0:
-																																																																																continue;
-																																																																															}
-																																																																															break;
-																																																																														}
 																																																																														if (nameHashCode != 0x110D27)
 																																																																														{
-																																																																															for (;;)
-																																																																															{
-																																																																																switch (5)
-																																																																																{
-																																																																																case 0:
-																																																																																	continue;
-																																																																																}
-																																																																																break;
-																																																																															}
 																																																																															if (nameHashCode != 0x13A0C6)
 																																																																															{
 																																																																																if (nameHashCode != 0x14B2E3)
 																																																																																{
-																																																																																	for (;;)
-																																																																																	{
-																																																																																		switch (7)
-																																																																																		{
-																																																																																		case 0:
-																																																																																			continue;
-																																																																																		}
-																																																																																		break;
-																																																																																	}
 																																																																																	if (nameHashCode != 0x15FEF4)
 																																																																																	{
-																																																																																		for (;;)
-																																																																																		{
-																																																																																			switch (3)
-																																																																																			{
-																																																																																			case 0:
-																																																																																				continue;
-																																																																																			}
-																																																																																			break;
-																																																																																		}
 																																																																																		if (nameHashCode != 0x169E9E)
 																																																																																		{
-																																																																																			for (;;)
-																																																																																			{
-																																																																																				switch (6)
-																																																																																				{
-																																																																																				case 0:
-																																																																																					continue;
-																																																																																				}
-																																																																																				break;
-																																																																																			}
 																																																																																			if (nameHashCode != 0x174369)
 																																																																																			{
-																																																																																				for (;;)
-																																																																																				{
-																																																																																					switch (6)
-																																																																																					{
-																																																																																					case 0:
-																																																																																						continue;
-																																																																																					}
-																																																																																					break;
-																																																																																				}
 																																																																																				if (nameHashCode != 0x186BFB)
 																																																																																				{
-																																																																																					for (;;)
-																																																																																					{
-																																																																																						switch (4)
-																																																																																						{
-																																																																																						case 0:
-																																																																																							continue;
-																																																																																						}
-																																																																																						break;
-																																																																																					}
 																																																																																					if (nameHashCode != 0x18B5DD)
 																																																																																					{
 																																																																																						if (nameHashCode == 0x1AB5BA)
 																																																																																						{
 																																																																																							return false;
-																																																																																						}
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (4)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
 																																																																																						}
 																																																																																						if (nameHashCode == 0x1D33C6)
 																																																																																						{
@@ -11515,15 +6495,6 @@ namespace TMPro
 																																																																																						{
 																																																																																							goto IL_2F5D;
 																																																																																						}
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (6)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						if (nameHashCode == 0x1F91F4)
 																																																																																						{
 																																																																																							goto IL_317D;
@@ -11532,27 +6503,9 @@ namespace TMPro
 																																																																																						{
 																																																																																							goto IL_3B17;
 																																																																																						}
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (3)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						if (nameHashCode == 0x20D669)
 																																																																																						{
 																																																																																							goto IL_3095;
-																																																																																						}
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (6)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
 																																																																																						}
 																																																																																						if (nameHashCode == 0x21FEFB)
 																																																																																						{
@@ -11560,110 +6513,29 @@ namespace TMPro
 																																																																																						}
 																																																																																						if (nameHashCode != 0x2248DD)
 																																																																																						{
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (2)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																							if (nameHashCode != 0x680065)
 																																																																																							{
 																																																																																								if (nameHashCode != 0x691282)
 																																																																																								{
-																																																																																									for (;;)
-																																																																																									{
-																																																																																										switch (1)
-																																																																																										{
-																																																																																										case 0:
-																																																																																											continue;
-																																																																																										}
-																																																																																										break;
-																																																																																									}
 																																																																																									if (nameHashCode != 0x6A5E93)
 																																																																																									{
-																																																																																										for (;;)
-																																																																																										{
-																																																																																											switch (5)
-																																																																																											{
-																																																																																											case 0:
-																																																																																												continue;
-																																																																																											}
-																																																																																											break;
-																																																																																										}
 																																																																																										if (nameHashCode != 0x6AFE3D)
 																																																																																										{
-																																																																																											for (;;)
-																																																																																											{
-																																																																																												switch (1)
-																																																																																												{
-																																																																																												case 0:
-																																																																																													continue;
-																																																																																												}
-																																																																																												break;
-																																																																																											}
 																																																																																											if (nameHashCode != 0x6BA308)
 																																																																																											{
-																																																																																												for (;;)
-																																																																																												{
-																																																																																													switch (6)
-																																																																																													{
-																																																																																													case 0:
-																																																																																														continue;
-																																																																																													}
-																																																																																													break;
-																																																																																												}
 																																																																																												if (nameHashCode != 0x6CCB9A)
 																																																																																												{
-																																																																																													for (;;)
-																																																																																													{
-																																																																																														switch (2)
-																																																																																														{
-																																																																																														case 0:
-																																																																																															continue;
-																																																																																														}
-																																																																																														break;
-																																																																																													}
 																																																																																													if (nameHashCode == 0x719365)
 																																																																																													{
 																																																																																														goto IL_3FFB;
-																																																																																													}
-																																																																																													for (;;)
-																																																																																													{
-																																																																																														switch (7)
-																																																																																														{
-																																																																																														case 0:
-																																																																																															continue;
-																																																																																														}
-																																																																																														break;
 																																																																																													}
 																																																																																													if (nameHashCode == 0x72A582)
 																																																																																													{
 																																																																																														goto IL_302B;
 																																																																																													}
-																																																																																													for (;;)
-																																																																																													{
-																																																																																														switch (3)
-																																																																																														{
-																																																																																														case 0:
-																																																																																															continue;
-																																																																																														}
-																																																																																														break;
-																																																																																													}
 																																																																																													if (nameHashCode == 0x73F193)
 																																																																																													{
 																																																																																														goto IL_3273;
-																																																																																													}
-																																																																																													for (;;)
-																																																																																													{
-																																																																																														switch (1)
-																																																																																														{
-																																																																																														case 0:
-																																																																																															continue;
-																																																																																														}
-																																																																																														break;
 																																																																																													}
 																																																																																													if (nameHashCode == 0x74913D)
 																																																																																													{
@@ -11675,40 +6547,13 @@ namespace TMPro
 																																																																																													}
 																																																																																													if (nameHashCode != 0x765E9A)
 																																																																																													{
-																																																																																														for (;;)
-																																																																																														{
-																																																																																															switch (4)
-																																																																																															{
-																																																																																															case 0:
-																																																																																																continue;
-																																																																																															}
-																																																																																															break;
-																																																																																														}
 																																																																																														if (nameHashCode != 0x8B5EEA)
 																																																																																														{
 																																																																																															if (nameHashCode != 0xA3A05A)
 																																																																																															{
-																																																																																																for (;;)
-																																																																																																{
-																																																																																																	switch (2)
-																																																																																																	{
-																																																																																																	case 0:
-																																																																																																		continue;
-																																																																																																	}
-																																																																																																	break;
-																																																																																																}
 																																																																																																if (nameHashCode == 0xB1A5A9)
 																																																																																																{
 																																																																																																	goto IL_1CFD;
-																																																																																																}
-																																																																																																for (;;)
-																																																																																																{
-																																																																																																	switch (1)
-																																																																																																	{
-																																																																																																	case 0:
-																																																																																																		continue;
-																																																																																																	}
-																																																																																																	break;
 																																																																																																}
 																																																																																																if (nameHashCode == 0xCE640A)
 																																																																																																{
@@ -11718,89 +6563,26 @@ namespace TMPro
 																																																																																																{
 																																																																																																	if (nameHashCode != 0x2D9FC43)
 																																																																																																	{
-																																																																																																		for (;;)
-																																																																																																		{
-																																																																																																			switch (2)
-																																																																																																			{
-																																																																																																			case 0:
-																																																																																																				continue;
-																																																																																																			}
-																																																																																																			break;
-																																																																																																		}
 																																																																																																		if (nameHashCode != 0x3004302)
 																																																																																																		{
-																																																																																																			for (;;)
-																																																																																																			{
-																																																																																																				switch (1)
-																																																																																																				{
-																																																																																																				case 0:
-																																																																																																					continue;
-																																																																																																				}
-																																																																																																				break;
-																																																																																																			}
 																																																																																																			if (nameHashCode == 0x31D0163)
 																																																																																																			{
 																																																																																																				goto IL_3AAA;
 																																																																																																			}
-																																																																																																			for (;;)
-																																																																																																			{
-																																																																																																				switch (7)
-																																																																																																				{
-																																																																																																				case 0:
-																																																																																																					continue;
-																																																																																																				}
-																																																																																																				break;
-																																																																																																			}
 																																																																																																			if (nameHashCode != 0x3434822)
 																																																																																																			{
-																																																																																																				for (;;)
-																																																																																																				{
-																																																																																																					switch (7)
-																																																																																																					{
-																																																																																																					case 0:
-																																																																																																						continue;
-																																																																																																					}
-																																																																																																					break;
-																																																																																																				}
 																																																																																																				if (nameHashCode != 0x454D9F7 && nameHashCode != 0x629FDF7)
 																																																																																																				{
-																																																																																																					for (;;)
-																																																																																																					{
-																																																																																																						switch (1)
-																																																																																																						{
-																																																																																																						case 0:
-																																																																																																							continue;
-																																																																																																						}
-																																																																																																						break;
-																																																																																																					}
 																																																																																																					return false;
 																																																																																																				}
 																																																																																																				valueHashCode = this.m_xmlAttribute[0].valueHashCode;
 																																																																																																				if (valueHashCode != 0x2D93756B)
 																																																																																																				{
-																																																																																																					for (;;)
-																																																																																																					{
-																																																																																																						switch (5)
-																																																																																																						{
-																																																																																																						case 0:
-																																																																																																							continue;
-																																																																																																						}
-																																																																																																						break;
-																																																																																																					}
 																																																																																																					if (valueHashCode != 0x1F31F54B)
 																																																																																																					{
 																																																																																																						Material material;
 																																																																																																						if (MaterialReferenceManager.TryGetMaterial(valueHashCode, out material))
 																																																																																																						{
-																																																																																																							for (;;)
-																																																																																																							{
-																																																																																																								switch (4)
-																																																																																																								{
-																																																																																																								case 0:
-																																																																																																									continue;
-																																																																																																								}
-																																																																																																								break;
-																																																																																																							}
 																																																																																																							if (this.m_currentFontAsset.atlas.GetInstanceID() != material.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 																																																																																																							{
 																																																																																																								return false;
@@ -11814,28 +6596,10 @@ namespace TMPro
 																																																																																																							material = Resources.Load<Material>(TMP_Settings.defaultFontAssetPath + new string(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength));
 																																																																																																							if (material == null)
 																																																																																																							{
-																																																																																																								for (;;)
-																																																																																																								{
-																																																																																																									switch (2)
-																																																																																																									{
-																																																																																																									case 0:
-																																																																																																										continue;
-																																																																																																									}
-																																																																																																									break;
-																																																																																																								}
 																																																																																																								return false;
 																																																																																																							}
 																																																																																																							if (this.m_currentFontAsset.atlas.GetInstanceID() != material.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 																																																																																																							{
-																																																																																																								for (;;)
-																																																																																																								{
-																																																																																																									switch (5)
-																																																																																																									{
-																																																																																																									case 0:
-																																																																																																										continue;
-																																																																																																									}
-																																																																																																									break;
-																																																																																																								}
 																																																																																																								return false;
 																																																																																																							}
 																																																																																																							MaterialReferenceManager.AddFontMaterial(valueHashCode, material);
@@ -11845,27 +6609,9 @@ namespace TMPro
 																																																																																																						}
 																																																																																																						return true;
 																																																																																																					}
-																																																																																																					for (;;)
-																																																																																																					{
-																																																																																																						switch (4)
-																																																																																																						{
-																																																																																																						case 0:
-																																																																																																							continue;
-																																																																																																						}
-																																																																																																						break;
-																																																																																																					}
 																																																																																																				}
 																																																																																																				if (this.m_currentFontAsset.atlas.GetInstanceID() != this.m_currentMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 																																																																																																				{
-																																																																																																					for (;;)
-																																																																																																					{
-																																																																																																						switch (4)
-																																																																																																						{
-																																																																																																						case 0:
-																																																																																																							continue;
-																																																																																																						}
-																																																																																																						break;
-																																																																																																					}
 																																																																																																					return false;
 																																																																																																				}
 																																																																																																				this.m_currentMaterial = this.m_materialReferences[0].material;
@@ -11905,28 +6651,10 @@ namespace TMPro
 																																																																																								IL_302B:
 																																																																																								if (!this.m_isParsingText)
 																																																																																								{
-																																																																																									for (;;)
-																																																																																									{
-																																																																																										switch (4)
-																																																																																										{
-																																																																																										case 0:
-																																																																																											continue;
-																																																																																										}
-																																																																																										break;
-																																																																																									}
 																																																																																									return true;
 																																																																																								}
 																																																																																								if (this.m_characterCount > 0)
 																																																																																								{
-																																																																																									for (;;)
-																																																																																									{
-																																																																																										switch (5)
-																																																																																										{
-																																																																																										case 0:
-																																																																																											continue;
-																																																																																										}
-																																																																																										break;
-																																																																																									}
 																																																																																									this.m_xAdvance -= this.m_cSpacing;
 																																																																																									this.m_textInfo.characterInfo[this.m_characterCount - 1].xAdvance = this.m_xAdvance;
 																																																																																								}
@@ -11936,15 +6664,6 @@ namespace TMPro
 																																																																																							IL_3FFB:
 																																																																																							if (this.m_isParsingText)
 																																																																																							{
-																																																																																								for (;;)
-																																																																																								{
-																																																																																									switch (2)
-																																																																																									{
-																																																																																									case 0:
-																																																																																										continue;
-																																																																																									}
-																																																																																									break;
-																																																																																								}
 																																																																																								Debug.Log(string.Concat(new object[]
 																																																																																								{
 																																																																																									"Action ID: [",
@@ -11961,26 +6680,8 @@ namespace TMPro
 																																																																																					this.m_spriteIndex = -1;
 																																																																																					if (this.m_xmlAttribute[0].valueType != TagType.None)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (1)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						if (this.m_xmlAttribute[0].valueType == TagType.NumericalValue)
 																																																																																						{
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (2)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																						}
 																																																																																						else
 																																																																																						{
@@ -11992,15 +6693,6 @@ namespace TMPro
 																																																																																							}
 																																																																																							if (tmp_SpriteAsset == null)
 																																																																																							{
-																																																																																								for (;;)
-																																																																																								{
-																																																																																									switch (6)
-																																																																																									{
-																																																																																									case 0:
-																																																																																										continue;
-																																																																																									}
-																																																																																									break;
-																																																																																								}
 																																																																																								tmp_SpriteAsset = Resources.Load<TMP_SpriteAsset>(TMP_Settings.defaultSpriteAssetPath + new string(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength));
 																																																																																							}
 																																																																																							if (tmp_SpriteAsset == null)
@@ -12014,52 +6706,16 @@ namespace TMPro
 																																																																																					}
 																																																																																					if (this.m_spriteAsset != null)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (6)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						this.m_currentSpriteAsset = this.m_spriteAsset;
 																																																																																					}
 																																																																																					else if (this.m_defaultSpriteAsset != null)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (4)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						this.m_currentSpriteAsset = this.m_defaultSpriteAsset;
 																																																																																					}
 																																																																																					else if (this.m_defaultSpriteAsset == null)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (3)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						if (TMP_Settings.defaultSpriteAsset != null)
 																																																																																						{
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (7)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																							this.m_defaultSpriteAsset = TMP_Settings.defaultSpriteAsset;
 																																																																																						}
 																																																																																						else
@@ -12070,29 +6726,11 @@ namespace TMPro
 																																																																																					}
 																																																																																					if (this.m_currentSpriteAsset == null)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (3)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						return false;
 																																																																																					}
 																																																																																					IL_353F:
 																																																																																					if (this.m_xmlAttribute[0].valueType == TagType.NumericalValue)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (4)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						int num9 = (int)this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																																						if (num9 == -0x270F)
 																																																																																						{
@@ -12100,15 +6738,6 @@ namespace TMPro
 																																																																																						}
 																																																																																						if (num9 > this.m_currentSpriteAsset.spriteInfoList.Count - 1)
 																																																																																						{
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (5)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																							return false;
 																																																																																						}
 																																																																																						this.m_spriteIndex = num9;
@@ -12118,15 +6747,6 @@ namespace TMPro
 																																																																																						int spriteIndexFromHashcode = this.m_currentSpriteAsset.GetSpriteIndexFromHashcode(this.m_xmlAttribute[1].valueHashCode);
 																																																																																						if (spriteIndexFromHashcode == -1)
 																																																																																						{
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (1)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																							return false;
 																																																																																						}
 																																																																																						this.m_spriteIndex = spriteIndexFromHashcode;
@@ -12140,15 +6760,6 @@ namespace TMPro
 																																																																																						int num10 = (int)this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[1].valueStartIndex, this.m_xmlAttribute[1].valueLength);
 																																																																																						if (num10 == -0x270F)
 																																																																																						{
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (6)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																							return false;
 																																																																																						}
 																																																																																						if (num10 > this.m_currentSpriteAsset.spriteInfoList.Count - 1)
@@ -12163,15 +6774,6 @@ namespace TMPro
 																																																																																					int j = 0;
 																																																																																					while (j < this.m_xmlAttribute.Length)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (2)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						if (this.m_xmlAttribute[j].nameHashCode == 0)
 																																																																																						{
 																																																																																							for (;;)
@@ -12191,38 +6793,11 @@ namespace TMPro
 																																																																																							{
 																																																																																								goto IL_3907;
 																																																																																							}
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (7)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																							int num11;
 																																																																																							if (nameHashCode2 != 0x7753)
 																																																																																							{
-																																																																																								for (;;)
-																																																																																								{
-																																																																																									switch (5)
-																																																																																									{
-																																																																																									case 0:
-																																																																																										continue;
-																																																																																									}
-																																																																																									break;
-																																																																																								}
 																																																																																								if (nameHashCode2 != 0x80FB)
 																																																																																								{
-																																																																																									for (;;)
-																																																																																									{
-																																																																																										switch (2)
-																																																																																										{
-																																																																																										case 0:
-																																																																																											continue;
-																																																																																										}
-																																																																																										break;
-																																																																																									}
 																																																																																									if (nameHashCode2 == 0x9A51)
 																																																																																									{
 																																																																																										goto IL_3907;
@@ -12231,67 +6806,22 @@ namespace TMPro
 																																																																																									{
 																																																																																										goto IL_37E1;
 																																																																																									}
-																																																																																									for (;;)
-																																																																																									{
-																																																																																										switch (1)
-																																																																																										{
-																																																																																										case 0:
-																																																																																											continue;
-																																																																																										}
-																																																																																										break;
-																																																																																									}
 																																																																																									if (nameHashCode2 != 0xB2FB)
 																																																																																									{
 																																																																																										if (nameHashCode2 != 0x2EF43)
 																																																																																										{
-																																																																																											for (;;)
-																																																																																											{
-																																																																																												switch (3)
-																																																																																												{
-																																																																																												case 0:
-																																																																																													continue;
-																																																																																												}
-																																																																																												break;
-																																																																																											}
 																																																																																											if (nameHashCode2 != 0x3246A)
 																																																																																											{
 																																																																																												if (nameHashCode2 == 0x44D63)
 																																																																																												{
 																																																																																													goto IL_38CA;
 																																																																																												}
-																																																																																												for (;;)
-																																																																																												{
-																																																																																													switch (6)
-																																																																																													{
-																																																																																													case 0:
-																																																																																														continue;
-																																																																																													}
-																																																																																													break;
-																																																																																												}
 																																																																																												if (nameHashCode2 != 0x4828A)
 																																																																																												{
 																																																																																													if (nameHashCode2 != 0x2248DD)
 																																																																																													{
-																																																																																														for (;;)
-																																																																																														{
-																																																																																															switch (1)
-																																																																																															{
-																																																																																															case 0:
-																																																																																																continue;
-																																																																																															}
-																																																																																															break;
-																																																																																														}
 																																																																																														if (nameHashCode2 != 0x18B5DD)
 																																																																																														{
-																																																																																															for (;;)
-																																																																																															{
-																																																																																																switch (1)
-																																																																																																{
-																																																																																																case 0:
-																																																																																																	continue;
-																																																																																																}
-																																																																																																break;
-																																																																																															}
 																																																																																															return false;
 																																																																																														}
 																																																																																													}
@@ -12301,15 +6831,6 @@ namespace TMPro
 																																																																																											num11 = (int)this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[1].valueStartIndex, this.m_xmlAttribute[1].valueLength);
 																																																																																											if (num11 == -0x270F)
 																																																																																											{
-																																																																																												for (;;)
-																																																																																												{
-																																																																																													switch (7)
-																																																																																													{
-																																																																																													case 0:
-																																																																																														continue;
-																																																																																													}
-																																																																																													break;
-																																																																																												}
 																																																																																												return false;
 																																																																																											}
 																																																																																											if (num11 > this.m_currentSpriteAsset.spriteInfoList.Count - 1)
@@ -12341,15 +6862,6 @@ namespace TMPro
 																																																																																							int attributeParameters = this.GetAttributeParameters(this.m_htmlTag, this.m_xmlAttribute[j].valueStartIndex, this.m_xmlAttribute[j].valueLength, ref this.m_attributeParameterValues);
 																																																																																							if (attributeParameters != 3)
 																																																																																							{
-																																																																																								for (;;)
-																																																																																								{
-																																																																																									switch (7)
-																																																																																									{
-																																																																																									case 0:
-																																																																																										continue;
-																																																																																									}
-																																																																																									break;
-																																																																																								}
 																																																																																								return false;
 																																																																																							}
 																																																																																							this.m_spriteIndex = (int)this.m_attributeParameterValues[0];
@@ -12373,15 +6885,6 @@ namespace TMPro
 																																																																																				num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																																				if (num12 == -9999f)
 																																																																																				{
-																																																																																					for (;;)
-																																																																																					{
-																																																																																						switch (5)
-																																																																																						{
-																																																																																						case 0:
-																																																																																							continue;
-																																																																																						}
-																																																																																						break;
-																																																																																					}
 																																																																																					return false;
 																																																																																				}
 																																																																																				this.m_FXMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, 0f, num12), Vector3.one);
@@ -12392,39 +6895,12 @@ namespace TMPro
 																																																																																			num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																																			if (num12 != -9999f)
 																																																																																			{
-																																																																																				for (;;)
-																																																																																				{
-																																																																																					switch (4)
-																																																																																					{
-																																																																																					case 0:
-																																																																																						continue;
-																																																																																					}
-																																																																																					break;
-																																																																																				}
 																																																																																				if (num12 != 0f)
 																																																																																				{
 																																																																																					if (tagUnits != TagUnits.Pixels)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (5)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						if (tagUnits != TagUnits.FontUnits)
 																																																																																						{
-																																																																																							for (;;)
-																																																																																							{
-																																																																																								switch (4)
-																																																																																								{
-																																																																																								case 0:
-																																																																																									continue;
-																																																																																								}
-																																																																																								break;
-																																																																																							}
 																																																																																							if (tagUnits == TagUnits.Percentage)
 																																																																																							{
 																																																																																								return false;
@@ -12442,15 +6918,6 @@ namespace TMPro
 																																																																																					}
 																																																																																					return true;
 																																																																																				}
-																																																																																				for (;;)
-																																																																																				{
-																																																																																					switch (3)
-																																																																																					{
-																																																																																					case 0:
-																																																																																						continue;
-																																																																																					}
-																																																																																					break;
-																																																																																				}
 																																																																																			}
 																																																																																			return false;
 																																																																																		}
@@ -12458,55 +6925,19 @@ namespace TMPro
 																																																																																		num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																																		if (num12 != -9999f)
 																																																																																		{
-																																																																																			for (;;)
-																																																																																			{
-																																																																																				switch (1)
-																																																																																				{
-																																																																																				case 0:
-																																																																																					continue;
-																																																																																				}
-																																																																																				break;
-																																																																																			}
 																																																																																			if (num12 != 0f)
 																																																																																			{
 																																																																																				this.m_marginLeft = num12;
 																																																																																				if (tagUnits != TagUnits.Pixels)
 																																																																																				{
-																																																																																					for (;;)
-																																																																																					{
-																																																																																						switch (3)
-																																																																																						{
-																																																																																						case 0:
-																																																																																							continue;
-																																																																																						}
-																																																																																						break;
-																																																																																					}
 																																																																																					if (tagUnits != TagUnits.FontUnits)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (1)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																						if (tagUnits == TagUnits.Percentage)
 																																																																																						{
 																																																																																							float marginWidth = this.m_marginWidth;
 																																																																																							float num13;
 																																																																																							if (this.m_width != -1f)
 																																																																																							{
-																																																																																								for (;;)
-																																																																																								{
-																																																																																									switch (5)
-																																																																																									{
-																																																																																									case 0:
-																																																																																										continue;
-																																																																																									}
-																																																																																									break;
-																																																																																								}
 																																																																																								num13 = this.m_width;
 																																																																																							}
 																																																																																							else
@@ -12525,15 +6956,6 @@ namespace TMPro
 																																																																																				this.m_marginRight = this.m_marginLeft;
 																																																																																				return true;
 																																																																																			}
-																																																																																			for (;;)
-																																																																																			{
-																																																																																				switch (4)
-																																																																																				{
-																																																																																				case 0:
-																																																																																					continue;
-																																																																																				}
-																																																																																				break;
-																																																																																			}
 																																																																																		}
 																																																																																		return false;
 																																																																																	}
@@ -12541,50 +6963,14 @@ namespace TMPro
 																																																																																	num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																																	if (num12 != -9999f)
 																																																																																	{
-																																																																																		for (;;)
-																																																																																		{
-																																																																																			switch (7)
-																																																																																			{
-																																																																																			case 0:
-																																																																																				continue;
-																																																																																			}
-																																																																																			break;
-																																																																																		}
 																																																																																		if (num12 != 0f)
 																																																																																		{
 																																																																																			if (tagUnits != TagUnits.Pixels)
 																																																																																			{
-																																																																																				for (;;)
-																																																																																				{
-																																																																																					switch (7)
-																																																																																					{
-																																																																																					case 0:
-																																																																																						continue;
-																																																																																					}
-																																																																																					break;
-																																																																																				}
 																																																																																				if (tagUnits != TagUnits.FontUnits)
 																																																																																				{
-																																																																																					for (;;)
-																																																																																					{
-																																																																																						switch (4)
-																																																																																						{
-																																																																																						case 0:
-																																																																																							continue;
-																																																																																						}
-																																																																																						break;
-																																																																																					}
 																																																																																					if (tagUnits != TagUnits.Percentage)
 																																																																																					{
-																																																																																						for (;;)
-																																																																																						{
-																																																																																							switch (5)
-																																																																																							{
-																																																																																							case 0:
-																																																																																								continue;
-																																																																																							}
-																																																																																							break;
-																																																																																						}
 																																																																																					}
 																																																																																					else
 																																																																																					{
@@ -12612,51 +6998,15 @@ namespace TMPro
 																																																																																num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																																if (num12 != -9999f)
 																																																																																{
-																																																																																	for (;;)
-																																																																																	{
-																																																																																		switch (7)
-																																																																																		{
-																																																																																		case 0:
-																																																																																			continue;
-																																																																																		}
-																																																																																		break;
-																																																																																	}
 																																																																																	if (num12 != 0f)
 																																																																																	{
 																																																																																		if (tagUnits != TagUnits.Pixels)
 																																																																																		{
-																																																																																			for (;;)
-																																																																																			{
-																																																																																				switch (1)
-																																																																																				{
-																																																																																				case 0:
-																																																																																					continue;
-																																																																																				}
-																																																																																				break;
-																																																																																			}
 																																																																																			if (tagUnits != TagUnits.FontUnits)
 																																																																																			{
-																																																																																				for (;;)
-																																																																																				{
-																																																																																					switch (3)
-																																																																																					{
-																																																																																					case 0:
-																																																																																						continue;
-																																																																																					}
-																																																																																					break;
-																																																																																				}
 																																																																																				if (tagUnits == TagUnits.Percentage)
 																																																																																				{
 																																																																																					return false;
-																																																																																				}
-																																																																																				for (;;)
-																																																																																				{
-																																																																																					switch (1)
-																																																																																					{
-																																																																																					case 0:
-																																																																																						continue;
-																																																																																					}
-																																																																																					break;
 																																																																																				}
 																																																																																			}
 																																																																																			else
@@ -12670,15 +7020,6 @@ namespace TMPro
 																																																																																			this.m_cSpacing = num12;
 																																																																																		}
 																																																																																		return true;
-																																																																																	}
-																																																																																	for (;;)
-																																																																																	{
-																																																																																		switch (3)
-																																																																																		{
-																																																																																		case 0:
-																																																																																			continue;
-																																																																																		}
-																																																																																		break;
 																																																																																	}
 																																																																																}
 																																																																																return false;
@@ -12716,52 +7057,16 @@ namespace TMPro
 																																																																								num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																								if (num12 != -9999f)
 																																																																								{
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (6)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (num12 != 0f)
 																																																																									{
 																																																																										if (tagUnits != TagUnits.Pixels)
 																																																																										{
-																																																																											for (;;)
-																																																																											{
-																																																																												switch (5)
-																																																																												{
-																																																																												case 0:
-																																																																													continue;
-																																																																												}
-																																																																												break;
-																																																																											}
 																																																																											if (tagUnits == TagUnits.FontUnits)
 																																																																											{
 																																																																												return false;
 																																																																											}
-																																																																											for (;;)
-																																																																											{
-																																																																												switch (5)
-																																																																												{
-																																																																												case 0:
-																																																																													continue;
-																																																																												}
-																																																																												break;
-																																																																											}
 																																																																											if (tagUnits != TagUnits.Percentage)
 																																																																											{
-																																																																												for (;;)
-																																																																												{
-																																																																													switch (6)
-																																																																													{
-																																																																													case 0:
-																																																																														continue;
-																																																																													}
-																																																																													break;
-																																																																												}
 																																																																											}
 																																																																											else
 																																																																											{
@@ -12774,15 +7079,6 @@ namespace TMPro
 																																																																										}
 																																																																										return true;
 																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (7)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																								}
 																																																																								return false;
 																																																																							}
@@ -12790,15 +7086,6 @@ namespace TMPro
 																																																																							num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																																							if (num12 != -9999f)
 																																																																							{
-																																																																								for (;;)
-																																																																								{
-																																																																									switch (6)
-																																																																									{
-																																																																									case 0:
-																																																																										continue;
-																																																																									}
-																																																																									break;
-																																																																								}
 																																																																								if (num12 != 0f)
 																																																																								{
 																																																																									if (tagUnits == TagUnits.Pixels)
@@ -12806,40 +7093,13 @@ namespace TMPro
 																																																																										this.m_xAdvance += num12;
 																																																																										return true;
 																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (2)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (tagUnits == TagUnits.FontUnits)
 																																																																									{
 																																																																										this.m_xAdvance += num12 * this.m_fontScale * this.m_fontAsset.fontInfo.TabWidth / (float)this.m_fontAsset.tabSize;
 																																																																										return true;
 																																																																									}
-																																																																									for (;;)
-																																																																									{
-																																																																										switch (2)
-																																																																										{
-																																																																										case 0:
-																																																																											continue;
-																																																																										}
-																																																																										break;
-																																																																									}
 																																																																									if (tagUnits != TagUnits.Percentage)
 																																																																									{
-																																																																										for (;;)
-																																																																										{
-																																																																											switch (1)
-																																																																											{
-																																																																											case 0:
-																																																																												continue;
-																																																																											}
-																																																																											break;
-																																																																										}
 																																																																										return false;
 																																																																									}
 																																																																									return false;
@@ -12851,43 +7111,16 @@ namespace TMPro
 																																																																						int nameHashCode3 = this.m_xmlAttribute[1].nameHashCode;
 																																																																						if (nameHashCode3 != 0x4FF7E)
 																																																																						{
-																																																																							for (;;)
-																																																																							{
-																																																																								switch (6)
-																																																																								{
-																																																																								case 0:
-																																																																									continue;
-																																																																								}
-																																																																								break;
-																																																																							}
 																																																																						}
 																																																																						else
 																																																																						{
 																																																																							float num14 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[1].valueStartIndex, this.m_xmlAttribute[1].valueLength);
 																																																																							if (tagUnits != TagUnits.Pixels)
 																																																																							{
-																																																																								for (;;)
-																																																																								{
-																																																																									switch (2)
-																																																																									{
-																																																																									case 0:
-																																																																										continue;
-																																																																									}
-																																																																									break;
-																																																																								}
 																																																																								if (tagUnits != TagUnits.FontUnits)
 																																																																								{
 																																																																									if (tagUnits != TagUnits.Percentage)
 																																																																									{
-																																																																										for (;;)
-																																																																										{
-																																																																											switch (7)
-																																																																											{
-																																																																											case 0:
-																																																																												continue;
-																																																																											}
-																																																																											break;
-																																																																										}
 																																																																									}
 																																																																									else
 																																																																									{
@@ -12909,26 +7142,8 @@ namespace TMPro
 																																																																					IL_2C4F:
 																																																																					if (this.m_htmlTag[6] == '#')
 																																																																					{
-																																																																						for (;;)
-																																																																						{
-																																																																							switch (6)
-																																																																							{
-																																																																							case 0:
-																																																																								continue;
-																																																																							}
-																																																																							break;
-																																																																						}
 																																																																						if (num == 0xA)
 																																																																						{
-																																																																							for (;;)
-																																																																							{
-																																																																								switch (2)
-																																																																								{
-																																																																								case 0:
-																																																																									continue;
-																																																																								}
-																																																																								break;
-																																																																							}
 																																																																							this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 																																																																							this.m_colorStack.Add(this.m_htmlColor);
 																																																																							return true;
@@ -12936,26 +7151,8 @@ namespace TMPro
 																																																																					}
 																																																																					if (this.m_htmlTag[6] == '#')
 																																																																					{
-																																																																						for (;;)
-																																																																						{
-																																																																							switch (3)
-																																																																							{
-																																																																							case 0:
-																																																																								continue;
-																																																																							}
-																																																																							break;
-																																																																						}
 																																																																						if (num == 0xB)
 																																																																						{
-																																																																							for (;;)
-																																																																							{
-																																																																								switch (1)
-																																																																								{
-																																																																								case 0:
-																																																																									continue;
-																																																																								}
-																																																																								break;
-																																																																							}
 																																																																							this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 																																																																							this.m_colorStack.Add(this.m_htmlColor);
 																																																																							return true;
@@ -12963,41 +7160,14 @@ namespace TMPro
 																																																																					}
 																																																																					if (this.m_htmlTag[6] == '#' && num == 0xD)
 																																																																					{
-																																																																						for (;;)
-																																																																						{
-																																																																							switch (2)
-																																																																							{
-																																																																							case 0:
-																																																																								continue;
-																																																																							}
-																																																																							break;
-																																																																						}
 																																																																						this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 																																																																						this.m_colorStack.Add(this.m_htmlColor);
 																																																																						return true;
 																																																																					}
 																																																																					if (this.m_htmlTag[6] == '#')
 																																																																					{
-																																																																						for (;;)
-																																																																						{
-																																																																							switch (5)
-																																																																							{
-																																																																							case 0:
-																																																																								continue;
-																																																																							}
-																																																																							break;
-																																																																						}
 																																																																						if (num == 0xF)
 																																																																						{
-																																																																							for (;;)
-																																																																							{
-																																																																								switch (7)
-																																																																								{
-																																																																								case 0:
-																																																																									continue;
-																																																																								}
-																																																																								break;
-																																																																							}
 																																																																							this.m_htmlColor = this.HexCharsToColor(this.m_htmlTag, num);
 																																																																							this.m_colorStack.Add(this.m_htmlColor);
 																																																																							return true;
@@ -13010,29 +7180,11 @@ namespace TMPro
 																																																																						this.m_colorStack.Add(this.m_htmlColor);
 																																																																						return true;
 																																																																					}
-																																																																					for (;;)
-																																																																					{
-																																																																						switch (1)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
-																																																																					}
 																																																																					if (valueHashCode4 == 0x1E9D3)
 																																																																					{
 																																																																						this.m_htmlColor = Color.red;
 																																																																						this.m_colorStack.Add(this.m_htmlColor);
 																																																																						return true;
-																																																																					}
-																																																																					for (;;)
-																																																																					{
-																																																																						switch (1)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
 																																																																					}
 																																																																					if (valueHashCode4 == 0x36863E)
 																																																																					{
@@ -13052,15 +7204,6 @@ namespace TMPro
 																																																																						this.m_colorStack.Add(this.m_htmlColor);
 																																																																						return true;
 																																																																					}
-																																																																					for (;;)
-																																																																					{
-																																																																						switch (5)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
-																																																																					}
 																																																																					if (valueHashCode4 == 0x73D641B)
 																																																																					{
 																																																																						this.m_htmlColor = Color.green;
@@ -13073,26 +7216,8 @@ namespace TMPro
 																																																																						this.m_colorStack.Add(this.m_htmlColor);
 																																																																						return true;
 																																																																					}
-																																																																					for (;;)
-																																																																					{
-																																																																						switch (6)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
-																																																																					}
 																																																																					if (valueHashCode4 != 0x21063284)
 																																																																					{
-																																																																						for (;;)
-																																																																						{
-																																																																							switch (7)
-																																																																							{
-																																																																							case 0:
-																																																																								continue;
-																																																																							}
-																																																																							break;
-																																																																						}
 																																																																						return false;
 																																																																					}
 																																																																					this.m_htmlColor = Color.yellow;
@@ -13102,15 +7227,6 @@ namespace TMPro
 																																																																				IL_2855:
 																																																																				if (this.m_xmlAttribute[0].valueLength != 3)
 																																																																				{
-																																																																					for (;;)
-																																																																					{
-																																																																						switch (5)
-																																																																						{
-																																																																						case 0:
-																																																																							continue;
-																																																																						}
-																																																																						break;
-																																																																					}
 																																																																					return false;
 																																																																				}
 																																																																				this.m_htmlColor.a = (byte)(this.HexToInt(this.m_htmlTag[7]) * 0x10 + this.HexToInt(this.m_htmlTag[8]));
@@ -13124,29 +7240,11 @@ namespace TMPro
 																																																																				this.m_lineJustificationStack.Add(this.m_lineJustification);
 																																																																				return true;
 																																																																			}
-																																																																			for (;;)
-																																																																			{
-																																																																				switch (6)
-																																																																				{
-																																																																				case 0:
-																																																																					continue;
-																																																																				}
-																																																																				break;
-																																																																			}
 																																																																			if (valueHashCode5 == -0x1B4FBB35)
 																																																																			{
 																																																																				this.m_lineJustification = TextAlignmentOptions.Center;
 																																																																				this.m_lineJustificationStack.Add(this.m_lineJustification);
 																																																																				return true;
-																																																																			}
-																																																																			for (;;)
-																																																																			{
-																																																																				switch (5)
-																																																																				{
-																																																																				case 0:
-																																																																					continue;
-																																																																				}
-																																																																				break;
 																																																																			}
 																																																																			if (valueHashCode5 == 0x3998DB)
 																																																																			{
@@ -13160,26 +7258,8 @@ namespace TMPro
 																																																																				this.m_lineJustificationStack.Add(this.m_lineJustification);
 																																																																				return true;
 																																																																			}
-																																																																			for (;;)
-																																																																			{
-																																																																				switch (3)
-																																																																				{
-																																																																				case 0:
-																																																																					continue;
-																																																																				}
-																																																																				break;
-																																																																			}
 																																																																			if (valueHashCode5 != 0x825EC40)
 																																																																			{
-																																																																				for (;;)
-																																																																				{
-																																																																					switch (5)
-																																																																					{
-																																																																					case 0:
-																																																																						continue;
-																																																																					}
-																																																																					break;
-																																																																				}
 																																																																				return false;
 																																																																			}
 																																																																			this.m_lineJustification = TextAlignmentOptions.Right;
@@ -13192,15 +7272,6 @@ namespace TMPro
 																																																																	float num16;
 																																																																	if (this.m_isOrthographic)
 																																																																	{
-																																																																		for (;;)
-																																																																		{
-																																																																			switch (1)
-																																																																			{
-																																																																			case 0:
-																																																																				continue;
-																																																																			}
-																																																																			break;
-																																																																		}
 																																																																		num16 = 1f;
 																																																																	}
 																																																																	else
@@ -13217,26 +7288,8 @@ namespace TMPro
 																																																															IL_29F7:
 																																																															if (this.m_isParsingText)
 																																																															{
-																																																																for (;;)
-																																																																{
-																																																																	switch (1)
-																																																																	{
-																																																																	case 0:
-																																																																		continue;
-																																																																	}
-																																																																	break;
-																																																																}
 																																																																if (!this.m_isCalculatingPreferredValues)
 																																																																{
-																																																																	for (;;)
-																																																																	{
-																																																																		switch (7)
-																																																																		{
-																																																																		case 0:
-																																																																			continue;
-																																																																		}
-																																																																		break;
-																																																																	}
 																																																																	this.m_textInfo.linkInfo[this.m_textInfo.linkCount].linkTextLength = this.m_characterCount - this.m_textInfo.linkInfo[this.m_textInfo.linkCount].linkTextfirstCharacterIndex;
 																																																																	this.m_textInfo.linkCount++;
 																																																																}
@@ -13246,27 +7299,9 @@ namespace TMPro
 																																																														IL_171E:
 																																																														if ((this.m_fontStyle & FontStyles.Highlight) != FontStyles.Highlight)
 																																																														{
-																																																															for (;;)
-																																																															{
-																																																																switch (2)
-																																																																{
-																																																																case 0:
-																																																																	continue;
-																																																																}
-																																																																break;
-																																																															}
 																																																															this.m_highlightColor = this.m_highlightColorStack.Remove();
 																																																															if (this.m_fontStyleStack.Remove(FontStyles.Highlight) == 0)
 																																																															{
-																																																																for (;;)
-																																																																{
-																																																																	switch (7)
-																																																																	{
-																																																																	case 0:
-																																																																		continue;
-																																																																	}
-																																																																	break;
-																																																																}
 																																																																this.m_style &= (FontStyles)(-0x201);
 																																																															}
 																																																														}
@@ -13281,15 +7316,6 @@ namespace TMPro
 																																																													float num18;
 																																																													if (this.m_isOrthographic)
 																																																													{
-																																																														for (;;)
-																																																														{
-																																																															switch (2)
-																																																															{
-																																																															case 0:
-																																																																continue;
-																																																															}
-																																																															break;
-																																																														}
 																																																														num18 = 1f;
 																																																													}
 																																																													else
@@ -13303,15 +7329,6 @@ namespace TMPro
 																																																											num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																																											if (num12 == -9999f)
 																																																											{
-																																																												for (;;)
-																																																												{
-																																																													switch (4)
-																																																													{
-																																																													case 0:
-																																																														continue;
-																																																													}
-																																																													break;
-																																																												}
 																																																												return false;
 																																																											}
 																																																											if (tagUnits != TagUnits.Pixels)
@@ -13324,15 +7341,6 @@ namespace TMPro
 																																																													float num20;
 																																																													if (this.m_isOrthographic)
 																																																													{
-																																																														for (;;)
-																																																														{
-																																																															switch (3)
-																																																															{
-																																																															case 0:
-																																																																continue;
-																																																															}
-																																																															break;
-																																																														}
 																																																														num20 = 1f;
 																																																													}
 																																																													else
@@ -13344,15 +7352,6 @@ namespace TMPro
 																																																												}
 																																																												if (tagUnits != TagUnits.Percentage)
 																																																												{
-																																																													for (;;)
-																																																													{
-																																																														switch (1)
-																																																														{
-																																																														case 0:
-																																																															continue;
-																																																														}
-																																																														break;
-																																																													}
 																																																													return false;
 																																																												}
 																																																												this.m_currentFontSize = this.m_fontSize * num12 / 100f;
@@ -13364,30 +7363,12 @@ namespace TMPro
 																																																											{
 																																																												if (this.m_htmlTag[5] == '+')
 																																																												{
-																																																													for (;;)
-																																																													{
-																																																														switch (4)
-																																																														{
-																																																														case 0:
-																																																															continue;
-																																																														}
-																																																														break;
-																																																													}
 																																																													this.m_currentFontSize = this.m_fontSize + num12;
 																																																													this.m_sizeStack.Add(this.m_currentFontSize);
 																																																													float num21 = this.m_currentFontSize / this.m_currentFontAsset.fontInfo.PointSize * this.m_currentFontAsset.fontInfo.Scale;
 																																																													float num22;
 																																																													if (this.m_isOrthographic)
 																																																													{
-																																																														for (;;)
-																																																														{
-																																																															switch (7)
-																																																															{
-																																																															case 0:
-																																																																continue;
-																																																															}
-																																																															break;
-																																																														}
 																																																														num22 = 1f;
 																																																													}
 																																																													else
@@ -13399,30 +7380,12 @@ namespace TMPro
 																																																												}
 																																																												if (this.m_htmlTag[5] == '-')
 																																																												{
-																																																													for (;;)
-																																																													{
-																																																														switch (5)
-																																																														{
-																																																														case 0:
-																																																															continue;
-																																																														}
-																																																														break;
-																																																													}
 																																																													this.m_currentFontSize = this.m_fontSize + num12;
 																																																													this.m_sizeStack.Add(this.m_currentFontSize);
 																																																													float num23 = this.m_currentFontSize / this.m_currentFontAsset.fontInfo.PointSize * this.m_currentFontAsset.fontInfo.Scale;
 																																																													float num24;
 																																																													if (this.m_isOrthographic)
 																																																													{
-																																																														for (;;)
-																																																														{
-																																																															switch (3)
-																																																															{
-																																																															case 0:
-																																																																continue;
-																																																															}
-																																																															break;
-																																																														}
 																																																														num24 = 1f;
 																																																													}
 																																																													else
@@ -13441,15 +7404,6 @@ namespace TMPro
 																																																										IL_1D99:
 																																																										if (this.m_overflowMode == TextOverflowModes.Page)
 																																																										{
-																																																											for (;;)
-																																																											{
-																																																												switch (5)
-																																																												{
-																																																												case 0:
-																																																													continue;
-																																																												}
-																																																												break;
-																																																											}
 																																																											this.m_xAdvance = this.tag_LineIndent + this.tag_Indent;
 																																																											this.m_lineOffset = 0f;
 																																																											this.m_pageNumber++;
@@ -13464,27 +7418,9 @@ namespace TMPro
 																																																								IL_28A9:
 																																																								if (this.m_isParsingText && !this.m_isCalculatingPreferredValues)
 																																																								{
-																																																									for (;;)
-																																																									{
-																																																										switch (7)
-																																																										{
-																																																										case 0:
-																																																											continue;
-																																																										}
-																																																										break;
-																																																									}
 																																																									int linkCount = this.m_textInfo.linkCount;
 																																																									if (linkCount + 1 > this.m_textInfo.linkInfo.Length)
 																																																									{
-																																																										for (;;)
-																																																										{
-																																																											switch (3)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										TMP_TextInfo.Resize<TMP_LinkInfo>(ref this.m_textInfo.linkInfo, linkCount + 1);
 																																																									}
 																																																									this.m_textInfo.linkInfo[linkCount].textComponent = this;
@@ -13517,41 +7453,14 @@ namespace TMPro
 																																																									tmp_FontAsset = Resources.Load<TMP_FontAsset>(TMP_Settings.defaultFontAssetPath + new string(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength));
 																																																									if (tmp_FontAsset == null)
 																																																									{
-																																																										for (;;)
-																																																										{
-																																																											switch (7)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										return false;
 																																																									}
 																																																									MaterialReferenceManager.AddFontAsset(tmp_FontAsset);
 																																																								}
 																																																								if (nameHashCode4 == 0)
 																																																								{
-																																																									for (;;)
-																																																									{
-																																																										switch (7)
-																																																										{
-																																																										case 0:
-																																																											continue;
-																																																										}
-																																																										break;
-																																																									}
 																																																									if (valueHashCode == 0)
 																																																									{
-																																																										for (;;)
-																																																										{
-																																																											switch (3)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										this.m_currentMaterial = tmp_FontAsset.material;
 																																																										this.m_currentMaterialIndex = MaterialReference.AddMaterialReference(this.m_currentMaterial, tmp_FontAsset, this.m_materialReferences, this.m_materialReferenceIndexLookup);
 																																																										this.m_materialReferenceStack.Add(this.m_materialReferences[this.m_currentMaterialIndex]);
@@ -13560,15 +7469,6 @@ namespace TMPro
 																																																								}
 																																																								if (nameHashCode4 != 0x629FDF7)
 																																																								{
-																																																									for (;;)
-																																																									{
-																																																										switch (6)
-																																																										{
-																																																										case 0:
-																																																											continue;
-																																																										}
-																																																										break;
-																																																									}
 																																																									if (nameHashCode4 != 0x454D9F7)
 																																																									{
 																																																										return false;
@@ -13577,15 +7477,6 @@ namespace TMPro
 																																																								Material material;
 																																																								if (MaterialReferenceManager.TryGetMaterial(valueHashCode, out material))
 																																																								{
-																																																									for (;;)
-																																																									{
-																																																										switch (5)
-																																																										{
-																																																										case 0:
-																																																											continue;
-																																																										}
-																																																										break;
-																																																									}
 																																																									this.m_currentMaterial = material;
 																																																									this.m_currentMaterialIndex = MaterialReference.AddMaterialReference(this.m_currentMaterial, tmp_FontAsset, this.m_materialReferences, this.m_materialReferenceIndexLookup);
 																																																									this.m_materialReferenceStack.Add(this.m_materialReferences[this.m_currentMaterialIndex]);
@@ -13595,15 +7486,6 @@ namespace TMPro
 																																																									material = Resources.Load<Material>(TMP_Settings.defaultFontAssetPath + new string(this.m_htmlTag, this.m_xmlAttribute[1].valueStartIndex, this.m_xmlAttribute[1].valueLength));
 																																																									if (material == null)
 																																																									{
-																																																										for (;;)
-																																																										{
-																																																											switch (5)
-																																																											{
-																																																											case 0:
-																																																												continue;
-																																																											}
-																																																											break;
-																																																										}
 																																																										return false;
 																																																									}
 																																																									MaterialReferenceManager.AddFontMaterial(valueHashCode, material);
@@ -13617,15 +7499,6 @@ namespace TMPro
 																																																								float num26;
 																																																								if (this.m_isOrthographic)
 																																																								{
-																																																									for (;;)
-																																																									{
-																																																										switch (5)
-																																																										{
-																																																										case 0:
-																																																											continue;
-																																																										}
-																																																										break;
-																																																									}
 																																																									num26 = 1f;
 																																																								}
 																																																								else
@@ -13634,15 +7507,6 @@ namespace TMPro
 																																																								}
 																																																								this.m_fontScale = num25 * num26;
 																																																								return true;
-																																																							}
-																																																							for (;;)
-																																																							{
-																																																								switch (1)
-																																																								{
-																																																								case 0:
-																																																									continue;
-																																																								}
-																																																								break;
 																																																							}
 																																																						}
 																																																						this.m_currentFontAsset = this.m_materialReferences[0].fontAsset;
@@ -13655,40 +7519,13 @@ namespace TMPro
 																																																				}
 																																																				if ((this.m_style & FontStyles.Superscript) == FontStyles.Superscript)
 																																																				{
-																																																					for (;;)
-																																																					{
-																																																						switch (7)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
-																																																					}
 																																																					if (this.m_fontScaleMultiplier < 1f)
 																																																					{
-																																																						for (;;)
-																																																						{
-																																																							switch (4)
-																																																							{
-																																																							case 0:
-																																																								continue;
-																																																							}
-																																																							break;
-																																																						}
 																																																						this.m_baselineOffset = this.m_baselineOffsetStack.Pop();
 																																																						float fontScaleMultiplier = this.m_fontScaleMultiplier;
 																																																						float num27;
 																																																						if (this.m_currentFontAsset.fontInfo.SubSize > 0f)
 																																																						{
-																																																							for (;;)
-																																																							{
-																																																								switch (4)
-																																																								{
-																																																								case 0:
-																																																									continue;
-																																																								}
-																																																								break;
-																																																							}
 																																																							num27 = this.m_currentFontAsset.fontInfo.SubSize;
 																																																						}
 																																																						else
@@ -13699,15 +7536,6 @@ namespace TMPro
 																																																					}
 																																																					if (this.m_fontStyleStack.Remove(FontStyles.Superscript) == 0)
 																																																					{
-																																																						for (;;)
-																																																						{
-																																																							switch (4)
-																																																							{
-																																																							case 0:
-																																																								continue;
-																																																							}
-																																																							break;
-																																																						}
 																																																						this.m_style &= (FontStyles)(-0x81);
 																																																					}
 																																																				}
@@ -13716,40 +7544,13 @@ namespace TMPro
 																																																			IL_181C:
 																																																			if ((this.m_style & FontStyles.Subscript) == FontStyles.Subscript)
 																																																			{
-																																																				for (;;)
-																																																				{
-																																																					switch (4)
-																																																					{
-																																																					case 0:
-																																																						continue;
-																																																					}
-																																																					break;
-																																																				}
 																																																				if (this.m_fontScaleMultiplier < 1f)
 																																																				{
-																																																					for (;;)
-																																																					{
-																																																						switch (3)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
-																																																					}
 																																																					this.m_baselineOffset = this.m_baselineOffsetStack.Pop();
 																																																					float fontScaleMultiplier2 = this.m_fontScaleMultiplier;
 																																																					float num28;
 																																																					if (this.m_currentFontAsset.fontInfo.SubSize > 0f)
 																																																					{
-																																																						for (;;)
-																																																						{
-																																																							switch (3)
-																																																							{
-																																																							case 0:
-																																																								continue;
-																																																							}
-																																																							break;
-																																																						}
 																																																						num28 = this.m_currentFontAsset.fontInfo.SubSize;
 																																																					}
 																																																					else
@@ -13760,15 +7561,6 @@ namespace TMPro
 																																																				}
 																																																				if (this.m_fontStyleStack.Remove(FontStyles.Subscript) == 0)
 																																																				{
-																																																					for (;;)
-																																																					{
-																																																						switch (4)
-																																																						{
-																																																						case 0:
-																																																							continue;
-																																																						}
-																																																						break;
-																																																					}
 																																																					this.m_style &= (FontStyles)(-0x101);
 																																																				}
 																																																			}
@@ -13798,15 +7590,6 @@ namespace TMPro
 																																														num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																																														if (num12 == -9999f)
 																																														{
-																																															for (;;)
-																																															{
-																																																switch (7)
-																																																{
-																																																case 0:
-																																																	continue;
-																																																}
-																																																break;
-																																															}
 																																															return false;
 																																														}
 																																														if (tagUnits == TagUnits.Pixels)
@@ -13821,15 +7604,6 @@ namespace TMPro
 																																														}
 																																														if (tagUnits != TagUnits.Percentage)
 																																														{
-																																															for (;;)
-																																															{
-																																																switch (7)
-																																																{
-																																																case 0:
-																																																	continue;
-																																																}
-																																																break;
-																																															}
 																																															return false;
 																																														}
 																																														this.m_xAdvance = this.m_marginWidth * num12 / 100f;
@@ -13851,15 +7625,6 @@ namespace TMPro
 																																						int k = 1;
 																																						while (k < this.m_xmlAttribute.Length)
 																																						{
-																																							for (;;)
-																																							{
-																																								switch (5)
-																																								{
-																																								case 0:
-																																									continue;
-																																								}
-																																								break;
-																																							}
 																																							if (this.m_xmlAttribute[k].nameHashCode == 0)
 																																							{
 																																								for (;;)
@@ -13877,65 +7642,20 @@ namespace TMPro
 																																								int nameHashCode5 = this.m_xmlAttribute[k].nameHashCode;
 																																								if (nameHashCode5 != 0x4FF7E)
 																																								{
-																																									for (;;)
-																																									{
-																																										switch (1)
-																																										{
-																																										case 0:
-																																											continue;
-																																										}
-																																										break;
-																																									}
 																																									if (nameHashCode5 != 0x435CD)
 																																									{
-																																										for (;;)
-																																										{
-																																											switch (2)
-																																											{
-																																											case 0:
-																																												continue;
-																																											}
-																																											break;
-																																										}
 																																									}
 																																									else
 																																									{
 																																										int valueHashCode7 = this.m_xmlAttribute[k].valueHashCode;
 																																										if (valueHashCode7 != -0x1F38AE01)
 																																										{
-																																											for (;;)
-																																											{
-																																												switch (2)
-																																												{
-																																												case 0:
-																																													continue;
-																																												}
-																																												break;
-																																											}
 																																											if (valueHashCode7 != -0x1B4FBB35)
 																																											{
 																																												if (valueHashCode7 != 0x3998DB)
 																																												{
-																																													for (;;)
-																																													{
-																																														switch (1)
-																																														{
-																																														case 0:
-																																															continue;
-																																														}
-																																														break;
-																																													}
 																																													if (valueHashCode7 != 0x825EC40)
 																																													{
-																																														for (;;)
-																																														{
-																																															switch (6)
-																																															{
-																																															case 0:
-																																																continue;
-																																															}
-																																															break;
-																																														}
 																																													}
 																																													else
 																																													{
@@ -13963,37 +7683,10 @@ namespace TMPro
 																																									float num29 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[k].valueStartIndex, this.m_xmlAttribute[k].valueLength);
 																																									if (tagUnits != TagUnits.Pixels)
 																																									{
-																																										for (;;)
-																																										{
-																																											switch (6)
-																																											{
-																																											case 0:
-																																												continue;
-																																											}
-																																											break;
-																																										}
 																																										if (tagUnits != TagUnits.FontUnits)
 																																										{
-																																											for (;;)
-																																											{
-																																												switch (4)
-																																												{
-																																												case 0:
-																																													continue;
-																																												}
-																																												break;
-																																											}
 																																											if (tagUnits != TagUnits.Percentage)
 																																											{
-																																												for (;;)
-																																												{
-																																													switch (2)
-																																													{
-																																													case 0:
-																																														continue;
-																																													}
-																																													break;
-																																												}
 																																											}
 																																											else
 																																											{
@@ -14018,15 +7711,6 @@ namespace TMPro
 																																				}
 																																				if (this.m_fontStyleStack.Remove(FontStyles.Italic) == 0)
 																																				{
-																																					for (;;)
-																																					{
-																																						switch (3)
-																																						{
-																																						case 0:
-																																							continue;
-																																						}
-																																						break;
-																																					}
 																																					this.m_style &= (FontStyles)(-3);
 																																				}
 																																				return true;
@@ -14051,51 +7735,15 @@ namespace TMPro
 																													num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																													if (num12 != -9999f)
 																													{
-																														for (;;)
-																														{
-																															switch (7)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
-																														}
 																														if (num12 != 0f)
 																														{
 																															this.m_marginRight = num12;
 																															if (tagUnits != TagUnits.Pixels)
 																															{
-																																for (;;)
-																																{
-																																	switch (6)
-																																	{
-																																	case 0:
-																																		continue;
-																																	}
-																																	break;
-																																}
 																																if (tagUnits != TagUnits.FontUnits)
 																																{
-																																	for (;;)
-																																	{
-																																		switch (7)
-																																		{
-																																		case 0:
-																																			continue;
-																																		}
-																																		break;
-																																	}
 																																	if (tagUnits != TagUnits.Percentage)
 																																	{
-																																		for (;;)
-																																		{
-																																			switch (1)
-																																			{
-																																			case 0:
-																																				continue;
-																																			}
-																																			break;
-																																		}
 																																	}
 																																	else
 																																	{
@@ -14103,15 +7751,6 @@ namespace TMPro
 																																		float num30;
 																																		if (this.m_width != -1f)
 																																		{
-																																			for (;;)
-																																			{
-																																				switch (2)
-																																				{
-																																				case 0:
-																																					continue;
-																																				}
-																																				break;
-																																			}
 																																			num30 = this.m_width;
 																																		}
 																																		else
@@ -14129,15 +7768,6 @@ namespace TMPro
 																															float marginRight;
 																															if (this.m_marginRight >= 0f)
 																															{
-																																for (;;)
-																																{
-																																	switch (5)
-																																	{
-																																	case 0:
-																																		continue;
-																																	}
-																																	break;
-																																}
 																																marginRight = this.m_marginRight;
 																															}
 																															else
@@ -14146,15 +7776,6 @@ namespace TMPro
 																															}
 																															this.m_marginRight = marginRight;
 																															return true;
-																														}
-																														for (;;)
-																														{
-																															switch (5)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
 																														}
 																													}
 																													return false;
@@ -14169,15 +7790,6 @@ namespace TMPro
 																											IL_3AEB:
 																											if (this.m_fontStyleStack.Remove(FontStyles.SmallCaps) == 0)
 																											{
-																												for (;;)
-																												{
-																													switch (6)
-																													{
-																													case 0:
-																														continue;
-																													}
-																													break;
-																												}
 																												this.m_style &= (FontStyles)(-0x21);
 																											}
 																											return true;
@@ -14185,15 +7797,6 @@ namespace TMPro
 																										IL_3A60:
 																										if (this.m_fontStyleStack.Remove(FontStyles.LowerCase) == 0)
 																										{
-																											for (;;)
-																											{
-																												switch (7)
-																												{
-																												case 0:
-																													continue;
-																												}
-																												break;
-																											}
 																											this.m_style &= (FontStyles)(-9);
 																										}
 																										return true;
@@ -14204,26 +7807,8 @@ namespace TMPro
 																								num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																								if (num12 != -9999f)
 																								{
-																									for (;;)
-																									{
-																										switch (3)
-																										{
-																										case 0:
-																											continue;
-																										}
-																										break;
-																									}
 																									if (num12 == 0f)
 																									{
-																										for (;;)
-																										{
-																											switch (6)
-																											{
-																											case 0:
-																												continue;
-																											}
-																											break;
-																										}
 																									}
 																									else
 																									{
@@ -14237,81 +7822,18 @@ namespace TMPro
 																										{
 																											if (num31 != 0xC8)
 																											{
-																												for (;;)
-																												{
-																													switch (3)
-																													{
-																													case 0:
-																														continue;
-																													}
-																													break;
-																												}
 																												if (num31 != 0x12C)
 																												{
-																													for (;;)
-																													{
-																														switch (4)
-																														{
-																														case 0:
-																															continue;
-																														}
-																														break;
-																													}
 																													if (num31 != 0x190)
 																													{
-																														for (;;)
-																														{
-																															switch (1)
-																															{
-																															case 0:
-																																continue;
-																															}
-																															break;
-																														}
 																														if (num31 != 0x1F4)
 																														{
-																															for (;;)
-																															{
-																																switch (4)
-																																{
-																																case 0:
-																																	continue;
-																																}
-																																break;
-																															}
 																															if (num31 != 0x258)
 																															{
-																																for (;;)
-																																{
-																																	switch (2)
-																																	{
-																																	case 0:
-																																		continue;
-																																	}
-																																	break;
-																																}
 																																if (num31 != 0x2BC)
 																																{
-																																	for (;;)
-																																	{
-																																		switch (3)
-																																		{
-																																		case 0:
-																																			continue;
-																																		}
-																																		break;
-																																	}
 																																	if (num31 != 0x320)
 																																	{
-																																		for (;;)
-																																		{
-																																			switch (3)
-																																			{
-																																			case 0:
-																																				continue;
-																																			}
-																																			break;
-																																		}
 																																		if (num31 == 0x384)
 																																		{
 																																			this.m_fontWeightInternal = 0x384;
@@ -14375,50 +7897,14 @@ namespace TMPro
 																					num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																					if (num12 != -9999f)
 																					{
-																						for (;;)
-																						{
-																							switch (1)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																						if (num12 != 0f)
 																						{
 																							if (tagUnits != TagUnits.Pixels)
 																							{
-																								for (;;)
-																								{
-																									switch (5)
-																									{
-																									case 0:
-																										continue;
-																									}
-																									break;
-																								}
 																								if (tagUnits != TagUnits.FontUnits)
 																								{
-																									for (;;)
-																									{
-																										switch (5)
-																										{
-																										case 0:
-																											continue;
-																										}
-																										break;
-																									}
 																									if (tagUnits != TagUnits.Percentage)
 																									{
-																										for (;;)
-																										{
-																											switch (5)
-																											{
-																											case 0:
-																												continue;
-																											}
-																											break;
-																										}
 																									}
 																									else
 																									{
@@ -14438,15 +7924,6 @@ namespace TMPro
 																							this.m_xAdvance += this.tag_LineIndent;
 																							return true;
 																						}
-																						for (;;)
-																						{
-																							switch (3)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																					}
 																					return false;
 																				}
@@ -14454,51 +7931,15 @@ namespace TMPro
 																				num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																				if (num12 == -9999f)
 																				{
-																					for (;;)
-																					{
-																						switch (5)
-																						{
-																						case 0:
-																							continue;
-																						}
-																						break;
-																					}
 																					return false;
 																				}
 																				this.m_lineHeight = num12;
 																				if (tagUnits != TagUnits.Pixels)
 																				{
-																					for (;;)
-																					{
-																						switch (6)
-																						{
-																						case 0:
-																							continue;
-																						}
-																						break;
-																					}
 																					if (tagUnits != TagUnits.FontUnits)
 																					{
-																						for (;;)
-																						{
-																							switch (1)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																						if (tagUnits != TagUnits.Percentage)
 																						{
-																							for (;;)
-																							{
-																								switch (6)
-																								{
-																								case 0:
-																									continue;
-																								}
-																								break;
-																							}
 																						}
 																						else
 																						{
@@ -14516,40 +7957,13 @@ namespace TMPro
 																			num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 																			if (num12 != -9999f)
 																			{
-																				for (;;)
-																				{
-																					switch (3)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
-																				}
 																				if (num12 != 0f)
 																				{
 																					this.m_marginLeft = num12;
 																					if (tagUnits != TagUnits.Pixels)
 																					{
-																						for (;;)
-																						{
-																							switch (5)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																						if (tagUnits != TagUnits.FontUnits)
 																						{
-																							for (;;)
-																							{
-																								switch (2)
-																								{
-																								case 0:
-																									continue;
-																								}
-																								break;
-																							}
 																							if (tagUnits == TagUnits.Percentage)
 																							{
 																								this.m_marginLeft = (this.m_marginWidth - ((this.m_width == -1f) ? 0f : this.m_width)) * this.m_marginLeft / 100f;
@@ -14563,15 +7977,6 @@ namespace TMPro
 																					float marginLeft;
 																					if (this.m_marginLeft >= 0f)
 																					{
-																						for (;;)
-																						{
-																							switch (1)
-																							{
-																							case 0:
-																								continue;
-																							}
-																							break;
-																						}
 																						marginLeft = this.m_marginLeft;
 																					}
 																					else
@@ -14580,15 +7985,6 @@ namespace TMPro
 																					}
 																					this.m_marginLeft = marginLeft;
 																					return true;
-																				}
-																				for (;;)
-																				{
-																					switch (2)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
 																				}
 																			}
 																			return false;
@@ -14613,15 +8009,6 @@ namespace TMPro
 														this.m_fontWeightInternal = this.m_fontWeightStack.Remove();
 														if (this.m_fontWeightInternal == 0x190)
 														{
-															for (;;)
-															{
-																switch (1)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															this.m_style &= (FontStyles)(-2);
 														}
 														return true;
@@ -14629,15 +8016,6 @@ namespace TMPro
 												}
 												if (this.m_currentMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID() != this.m_materialReferenceStack.PreviousItem().material.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													return false;
 												}
 												MaterialReference materialReference2 = this.m_materialReferenceStack.Remove();
@@ -14649,15 +8027,6 @@ namespace TMPro
 											num12 = this.ConvertToFloat(this.m_htmlTag, this.m_xmlAttribute[0].valueStartIndex, this.m_xmlAttribute[0].valueLength);
 											if (num12 != -9999f)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num12 != 0f)
 												{
 													if (tagUnits == TagUnits.Pixels)
@@ -14681,15 +8050,6 @@ namespace TMPro
 									}
 									if ((this.m_fontStyle & FontStyles.Bold) != FontStyles.Bold)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_fontWeightInternal = this.m_fontWeightStack.Remove();
 										if (this.m_fontStyleStack.Remove(FontStyles.Bold) == 0)
 										{
@@ -14705,26 +8065,8 @@ namespace TMPro
 							IL_156E:
 							if ((this.m_fontStyle & FontStyles.Strikethrough) != FontStyles.Strikethrough)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_fontStyleStack.Remove(FontStyles.Strikethrough) == 0)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_style &= (FontStyles)(-0x41);
 								}
 							}
@@ -14732,27 +8074,9 @@ namespace TMPro
 							IL_165F:
 							if ((this.m_fontStyle & FontStyles.Underline) != FontStyles.Underline)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_underlineColor = this.m_underlineColorStack.Remove();
 								if (this.m_fontStyleStack.Remove(FontStyles.Underline) == 0)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_style &= (FontStyles)(-5);
 								}
 							}
@@ -14768,15 +8092,6 @@ namespace TMPro
 					this.m_fontStyleStack.Add(FontStyles.Strikethrough);
 					if (this.m_xmlAttribute[1].nameHashCode != 0x44D63)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_xmlAttribute[1].nameHashCode != 0x2EF43)
 						{
 							this.m_strikethroughColor = this.m_htmlColor;
@@ -14796,15 +8111,6 @@ namespace TMPro
 						{
 							this.m_underlineColor = this.m_htmlColor;
 							goto IL_164C;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					this.m_underlineColor = this.HexCharsToColor(this.m_htmlTag, this.m_xmlAttribute[1].valueStartIndex, this.m_xmlAttribute[1].valueLength);

@@ -36,33 +36,11 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		}
 		if (!this.m_disableInitialSelectPanel)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.Start()).MethodHandle;
-			}
 			this.SelectPanel(this.m_defaultPanelBtn);
 		}
 		ClientGameManager.Get().OnPlayerBannerChange += this.UpdateBanner;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
 			GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(accountComponent.SelectedForegroundBannerID);
 			GameBalanceVars.PlayerBanner banner2 = GameBalanceVars.Get().GetBanner(accountComponent.SelectedBackgroundBannerID);
@@ -76,30 +54,8 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		{
 			storePanelData.Panel.OnCountsRefreshed -= new Action<UIStoreBaseInventoryPanel, int, int>(this.CountChanged);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.OnDestroy()).MethodHandle;
-		}
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().OnPlayerBannerChange -= this.UpdateBanner;
 		}
 	}
@@ -110,19 +66,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		{
 			this.m_panels[i].Panel.HandlePendingUpdates();
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.OnEnable()).MethodHandle;
-		}
 	}
 
 	private void UpdateBanner(GameBalanceVars.PlayerBanner emblem, GameBalanceVars.PlayerBanner banner)
@@ -131,32 +74,10 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		string path2 = "Banners/Background/02_blue";
 		if (emblem != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.UpdateBanner(GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner)).MethodHandle;
-			}
 			path = emblem.m_resourceString;
 		}
 		if (banner != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			path2 = banner.m_resourceString;
 		}
 		this.m_emblem.sprite = Resources.Load<Sprite>(path);
@@ -167,19 +88,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 	{
 		if (data.selectedObject == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.NavButtonClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		_ButtonSwapSprite component = data.selectedObject.GetComponent<_ButtonSwapSprite>();
@@ -195,30 +103,8 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 			storePanelData.Panel.SetVisible(storePanelData.Button == btn);
 			if (storePanelData.Button == btn)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.SelectPanel(UIStoreSideNavButton)).MethodHandle;
-				}
 				storePanelData.Panel.RefreshPage();
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -240,19 +126,6 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 			}
 			num += this.m_panels[i].Panel.GetNumTotal();
 			num2 += this.m_panels[i].Panel.GetNumOwned();
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountPanel.CountChanged(UIStoreBasePanel, int, int)).MethodHandle;
 		}
 		this.m_totalOwnedText.text = num2.ToString();
 		this.m_totalTotalText.text = "/" + num.ToString();

@@ -65,19 +65,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefOnTheRun.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = thiefOnTheRun.m_minDistanceBetweenSteps;
 		}
 		else
@@ -92,15 +79,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = thiefOnTheRun.m_minDistanceBetweenAnySteps;
 		}
 		else
@@ -116,15 +94,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = thiefOnTheRun.m_dashRadius;
 		}
 		else
@@ -139,15 +108,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = thiefOnTheRun.m_dashPenetrateLineOfSight;
 		}
 		else
@@ -162,15 +122,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = thiefOnTheRun.m_damageAmount;
 		}
 		else
@@ -185,15 +136,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = thiefOnTheRun.m_subsequentDamage;
 		}
 		else
@@ -208,15 +150,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = thiefOnTheRun.m_enemyHitEffect;
 		}
 		else
@@ -231,15 +164,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = thiefOnTheRun.m_effectOnSelfThroughSmokeField;
 		}
 		else
@@ -254,15 +178,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = thiefOnTheRun.m_cooldownReductionIfNoEnemy;
 		}
 		else

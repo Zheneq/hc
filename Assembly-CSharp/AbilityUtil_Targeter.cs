@@ -97,30 +97,8 @@ public class AbilityUtil_Targeter
 	{
 		if (this.LastUpdatingGridPos.CoordsEqual(target.GridPos))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.IsCursorStateSameAsLastUpdate(AbilityTarget)).MethodHandle;
-			}
 			if (this.LastUpdateFreePos == target.FreePos)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.LastUpdateAimDir == target.AimDirection;
 			}
 		}
@@ -177,41 +155,10 @@ public class AbilityUtil_Targeter
 		this.DestroyTeleportStartObject();
 		if (this.m_ability != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.TargeterAbilitySelected()).MethodHandle;
-			}
 			if (AbilityUtils.AbilityHasTag(this.m_ability, AbilityTags.UseTeleportUIEffect))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().activeOwnedActorData != null && HighlightUtils.Get().m_teleportPrefab != null)
 					{
 						this.m_gameObjectOnCaster = UnityEngine.Object.Instantiate<TeleportPathStart>(HighlightUtils.Get().m_teleportPrefab);
@@ -229,19 +176,6 @@ public class AbilityUtil_Targeter
 		Color result = HighlightUtils.Get().s_teleportMovementLineColor;
 		if (this.m_ability.IsFlashAbility())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTeleportColor()).MethodHandle;
-			}
 			result = HighlightUtils.Get().s_flashMovementLineColor;
 		}
 		return result;
@@ -251,19 +185,6 @@ public class AbilityUtil_Targeter
 	{
 		if (this.m_gameObjectOnCaster != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AbilityCasted(GridPos, GridPos)).MethodHandle;
-			}
 			this.m_gameObjectOnCaster.AbilityCasted(startPosition, endPosition);
 		}
 	}
@@ -273,19 +194,6 @@ public class AbilityUtil_Targeter
 		Color teleportColor = this.GetTeleportColor();
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.UpdateTargetAreaEffect(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != caster)
 			{
 				float num = 0.5f;
@@ -297,52 +205,16 @@ public class AbilityUtil_Targeter
 		}
 		if (this.m_gameObjectOnCastTarget == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_ability != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AbilityUtils.AbilityHasTag(this.m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_gameObjectOnCastTarget = UnityEngine.Object.Instantiate<TeleportPathEnd>(HighlightUtils.Get().m_teleportEndPrefab);
 				}
 			}
 		}
 		if (this.m_gameObjectOnCastTarget != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<Vector3> list = new List<Vector3>();
 			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(caster.GetGridPosWithIncrementedHeight()).GetWorldPosition();
 			list.Add(worldPosition);
@@ -370,30 +242,8 @@ public class AbilityUtil_Targeter
 		Color teleportColor = this.GetTeleportColor();
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.UpdateEffectOnCaster(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != caster)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num = 0.5f;
 				teleportColor.a *= num;
 				teleportColor.r *= num;
@@ -403,40 +253,13 @@ public class AbilityUtil_Targeter
 		}
 		if (this.m_gameObjectOnCaster == null && this.m_ability != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AbilityUtils.AbilityHasTag(this.m_ability, AbilityTags.UseTeleportUIEffect) && HighlightUtils.Get().m_teleportPrefab != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_gameObjectOnCaster = UnityEngine.Object.Instantiate<TeleportPathStart>(HighlightUtils.Get().m_teleportPrefab);
 			}
 		}
 		if (this.m_gameObjectOnCaster != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gameObjectOnCaster.transform.position = caster.transform.position;
 			this.m_gameObjectOnCaster.AbilityCasted(caster.GetGridPosWithIncrementedHeight(), currentTarget.GridPos);
 			this.m_gameObjectOnCaster.SetColor(teleportColor);
@@ -447,19 +270,6 @@ public class AbilityUtil_Targeter
 	{
 		if (this.m_lineBetweenPath != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.DestroyTeleportLine()).MethodHandle;
-			}
 			HighlightUtils.DestroyMeshesOnObject(this.m_lineBetweenPath);
 			this.DestroyObjectAndMaterials(this.m_lineBetweenPath);
 			this.m_lineBetweenPath = null;
@@ -470,19 +280,6 @@ public class AbilityUtil_Targeter
 	{
 		if (this.m_gameObjectOnCaster != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.DestroyTeleportStartObject()).MethodHandle;
-			}
 			this.DestroyObjectAndMaterials(this.m_gameObjectOnCaster.gameObject);
 			this.m_gameObjectOnCaster = null;
 		}
@@ -501,44 +298,13 @@ public class AbilityUtil_Targeter
 	{
 		if (this.m_gameObjectOnCaster == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.InstantiateTeleportPathUIEffect()).MethodHandle;
-			}
 			if (HighlightUtils.Get().m_teleportPrefab != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_gameObjectOnCaster = UnityEngine.Object.Instantiate<TeleportPathStart>(HighlightUtils.Get().m_teleportPrefab);
 			}
 		}
 		if (this.m_gameObjectOnCastTarget == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_ability != null && HighlightUtils.Get().m_teleportPrefab != null)
 			{
 				this.m_gameObjectOnCastTarget = UnityEngine.Object.Instantiate<TeleportPathEnd>(HighlightUtils.Get().m_teleportEndPrefab);
@@ -551,31 +317,9 @@ public class AbilityUtil_Targeter
 		bool flag = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.TargeterAbilityDeselected(int)).MethodHandle;
-			}
 			AbilityData abilityData = GameFlowData.Get().activeOwnedActorData.GetAbilityData();
 			if (abilityData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = abilityData.HasQueuedAction(abilityData.GetActionTypeOfAbility(this.m_ability));
 			}
 		}
@@ -591,51 +335,15 @@ public class AbilityUtil_Targeter
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_ability.BackupTargets.IsNullOrEmpty<AbilityTarget>())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetIndex < this.m_ability.BackupTargets.Count)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityTarget abilityTarget = this.m_ability.BackupTargets[targetIndex];
 					this.ClearHighlightCursors(true);
 					this.SetLastUpdateCursorState(abilityTarget);
 					if (this.IsUsingMultiTargetUpdate())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.UpdateTargetingMultiTargets(abilityTarget, GameFlowData.Get().activeOwnedActorData, targetIndex, this.m_ability.BackupTargets);
 					}
 					else
@@ -671,19 +379,6 @@ public class AbilityUtil_Targeter
 		List<AbilityTooltipSubject> result = null;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTooltipSubjectTypes(ActorData)).MethodHandle;
-			}
 			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = this.m_actorsInRange.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -691,26 +386,8 @@ public class AbilityUtil_Targeter
 					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 					if (actorTarget.m_actor == actor)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return actorTarget.m_subjectTypes;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -722,34 +399,12 @@ public class AbilityUtil_Targeter
 		List<AbilityTooltipSubject> tooltipSubjectTypes = this.GetTooltipSubjectTypes(actor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AppendToTooltipSubjectSet(ActorData, HashSet<AbilityTooltipSubject>)).MethodHandle;
-			}
 			using (List<AbilityTooltipSubject>.Enumerator enumerator = tooltipSubjectTypes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					AbilityTooltipSubject item = enumerator.Current;
 					subjectsToAppendTo.Add(item);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -767,59 +422,19 @@ public class AbilityUtil_Targeter
 		inCover = false;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.IsActorInTargetRange(ActorData, bool*)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_actorsInRange.Count; i++)
 			{
 				AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
 				if (actorTarget.m_actor == actor)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					ActorCover actorCover = actorTarget.m_actor.GetActorCover();
 					if (actorCover != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData povactorData = GameFlowData.Get().POVActorData;
 						bool flag;
 						if (povactorData != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = (povactorData.GetTeam() != actor.GetTeam());
 						}
 						else
@@ -832,37 +447,10 @@ public class AbilityUtil_Targeter
 						bool flag5 = (!actorTarget.m_ignoreCoverMinDist) ? actorCover.IsInCoverWrt(actorTarget.m_damageOrigin) : actorCover.IsInCoverWrtDirectionOnly(actorTarget.m_damageOrigin, actorTarget.m_actor.GetCurrentBoardSquare());
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag3 && flag4)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag5)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									inCover = true;
 									goto IL_140;
 								}
@@ -873,15 +461,6 @@ public class AbilityUtil_Targeter
 					IL_140:
 					return result;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -907,30 +486,8 @@ public class AbilityUtil_Targeter
 				AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 				if (actorTarget.m_actor.IsVisibleToClient())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetVisibleActorsInRange()).MethodHandle;
-					}
 					list.Add(actorTarget.m_actor);
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -944,30 +501,8 @@ public class AbilityUtil_Targeter
 			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
 			if (actorTarget.m_actor.IsVisibleToClient() && actorTarget.m_subjectTypes.Contains(subject))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject)).MethodHandle;
-				}
 				list.Add(actorTarget.m_actor);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}
@@ -980,42 +515,11 @@ public class AbilityUtil_Targeter
 			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
 			if (actorTarget.m_actor.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject)).MethodHandle;
-				}
 				if (actorTarget.m_subjectTypes.Contains(subject))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -1028,54 +532,14 @@ public class AbilityUtil_Targeter
 			AbilityUtil_Targeter.ActorTarget actorTarget = this.m_actorsInRange[i];
 			if (actorTarget.m_actor == actor)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTooltipSubjectCountOnActor(ActorData, AbilityTooltipSubject)).MethodHandle;
-				}
 				for (int j = 0; j < actorTarget.m_subjectTypes.Count; j++)
 				{
 					if (actorTarget.m_subjectTypes[j] == subject)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -1090,40 +554,9 @@ public class AbilityUtil_Targeter
 			{
 				if (actorTarget.m_subjectTypes[j] == subject)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject)).MethodHandle;
-					}
 					num++;
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -1140,19 +573,6 @@ public class AbilityUtil_Targeter
 	{
 		if (!this.IsActorInTargetRange(actor))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AddActorInRange(ActorData, Vector3, ActorData, AbilityTooltipSubject, bool)).MethodHandle;
-			}
 			AbilityUtil_Targeter.ActorTarget actorTarget = new AbilityUtil_Targeter.ActorTarget();
 			actorTarget.m_actor = actor;
 			actorTarget.m_damageOrigin = damageOrigin;
@@ -1160,15 +580,6 @@ public class AbilityUtil_Targeter
 			actorTarget.m_subjectTypes.Add(subjectType);
 			if (actor == targetingActor)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorTarget.m_subjectTypes.Add(AbilityTooltipSubject.Self);
 			}
 			else if (actor.GetTeam() == targetingActor.GetTeam())
@@ -1187,35 +598,17 @@ public class AbilityUtil_Targeter
 					actorTarget.m_subjectTypes.Add(abilityTooltipSubject);
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_actorsInRange.Add(actorTarget);
 			this.m_actorsAddedSoFar.Add(actor);
 			if (!this.m_actorContextVars.ContainsKey(actor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorHitContext actorHitContext = new ActorHitContext();
-				actorHitContext.\u0012 = true;
+				actorHitContext.symbol_0012 = true;
 				this.m_actorContextVars[actor] = actorHitContext;
 			}
 			else
 			{
-				this.m_actorContextVars[actor].\u0012 = true;
+				this.m_actorContextVars[actor].symbol_0012 = true;
 			}
 		}
 		else if (appendSubjectType)
@@ -1224,15 +617,6 @@ public class AbilityUtil_Targeter
 			{
 				if (actorTarget2.m_actor == actor)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorTarget2.m_subjectTypes.Add(subjectType);
 					break;
 				}
@@ -1273,7 +657,7 @@ public class AbilityUtil_Targeter
 		this.m_actorsAddedSoFar.Clear();
 		foreach (KeyValuePair<ActorData, ActorHitContext> keyValuePair in this.m_actorContextVars)
 		{
-			keyValuePair.Value.\u0012 = false;
+			keyValuePair.Value.symbol_0012 = false;
 		}
 	}
 
@@ -1305,19 +689,6 @@ public class AbilityUtil_Targeter
 		{
 			if (this.m_arrows[i].m_gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.UpdateArrowsForUI()).MethodHandle;
-				}
 				flag = true;
 				List<Vector3> list = KnockbackUtils.BuildDrawablePath(this.m_arrows[i].m_pathInfo, false);
 				MovementPathStart componentInChildren = this.m_arrows[i].m_gameObject.GetComponentInChildren<MovementPathStart>();
@@ -1326,37 +697,10 @@ public class AbilityUtil_Targeter
 				componentInChildren.SetCharacterMovementPanel(boardSquare);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_arrows.Count > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_arrows[0].m_gameObject.GetComponentInChildren<MovementPathStart>().HideCharacterMovementPanel();
 			}
 		}
@@ -1366,19 +710,6 @@ public class AbilityUtil_Targeter
 	{
 		if (path != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AddMovementArrow(ActorData, BoardSquarePathInfo, Color, MovementPathStart, bool, AbilityUtil_Targeter.TargeterMovementType)).MethodHandle;
-			}
 			if (mover != null && mover.IsVisibleToClient())
 			{
 				List<Vector3> list = KnockbackUtils.BuildDrawablePath(path, false);
@@ -1391,15 +722,6 @@ public class AbilityUtil_Targeter
 					{
 						if (this.m_arrows[i].m_gameObject == gameObject)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							this.m_arrows[i].m_pathInfo = path;
 							IL_D7:
@@ -1407,26 +729,8 @@ public class AbilityUtil_Targeter
 							{
 								return;
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameObject.GetComponentInChildren<MovementPathStart>() != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								AbilityUtil_Targeter.ArrowList arrowList = new AbilityUtil_Targeter.ArrowList();
 								arrowList.m_gameObject = gameObject;
 								arrowList.m_pathInfo = path;
@@ -1479,19 +783,6 @@ public class AbilityUtil_Targeter
 	{
 		if (this.CanCreateMovementArrows(path))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AddMovementArrowWithPrevious(ActorData, BoardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType, Color, int, bool)).MethodHandle;
-			}
 			MovementPathStart previousLine = null;
 			if (this.m_arrows.Count > arrowIndex)
 			{
@@ -1514,19 +805,6 @@ public class AbilityUtil_Targeter
 		{
 			this.m_arrows[i].m_gameObject.SetActive(enabled);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetMovementArrowEnabledFromIndex(int, bool)).MethodHandle;
-		}
 	}
 
 	protected bool CanCreateMovementArrows(BoardSquarePathInfo path)
@@ -1538,32 +816,10 @@ public class AbilityUtil_Targeter
 		List<Vector3> list = KnockbackUtils.BuildDrawablePath(path, false);
 		if (list.Count >= 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.CanCreateMovementArrows(BoardSquarePathInfo)).MethodHandle;
-			}
 			Vector3 vector = list[0] - list[1];
 			Vector3 vector2 = list[list.Count - 1] - list[list.Count - 2];
 			if (vector.sqrMagnitude > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (vector2.sqrMagnitude > 0f)
 				{
 					return true;
@@ -1582,56 +838,16 @@ public class AbilityUtil_Targeter
 				AbilityUtil_Targeter.ArrowList arrowList = enumerator.Current;
 				if (arrowList != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.ClearArrows()).MethodHandle;
-					}
 					if (arrowList.m_gameObject != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						MovementPathStart componentInChildren = arrowList.m_gameObject.GetComponentInChildren<MovementPathStart>();
 						if (componentInChildren != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							componentInChildren.HideCharacterMovementPanel();
 						}
 						this.DestroyObjectAndMaterials(arrowList.m_gameObject);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_arrows.Clear();
@@ -1642,19 +858,6 @@ public class AbilityUtil_Targeter
 		GameObject result = null;
 		if (gridPosPath.Count >= 2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.CreateArrowFromGridPosPath(List<GridPos>, Color, bool, ActorData)).MethodHandle;
-			}
 			GridPos start = gridPosPath[0];
 			GridPos end = gridPosPath[gridPosPath.Count - 1];
 			result = AbilityUtil_Targeter.CreateArrowFromGridPosPoints(start, end, lineColor, isChasing, theActor);
@@ -1681,19 +884,6 @@ public class AbilityUtil_Targeter
 		{
 			if (this.m_highlights[i] != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetHighlightCopies(bool)).MethodHandle;
-				}
 				GameObject gameObject = HighlightUtils.Get().CloneTargeterHighlight(this.m_highlights[i], this);
 				if (!this.m_highlights[i].activeSelf)
 				{
@@ -1701,15 +891,6 @@ public class AbilityUtil_Targeter
 				}
 				list.Add(gameObject);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (setOpacity)
 		{
@@ -1724,32 +905,10 @@ public class AbilityUtil_Targeter
 	{
 		if (!clearInstantly)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.ClearHighlightCursors(bool)).MethodHandle;
-			}
 			if (NetworkClient.active)
 			{
 				if (this.m_highlights.Count > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_highlightFadeContainer.TrackHighlights(this.m_highlights);
 					goto IL_A3;
 				}
@@ -1763,26 +922,8 @@ public class AbilityUtil_Targeter
 				GameObject gameObject = enumerator.Current;
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DestroyObjectAndMaterials(gameObject);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_A3:
@@ -1790,15 +931,6 @@ public class AbilityUtil_Targeter
 		this.DestroyTargetingArcMesh();
 		if (this.m_targetingArcPulseInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_targetingArcPulseInstance);
 			this.m_targetingArcPulseInstance = null;
 		}
@@ -1816,32 +948,10 @@ public class AbilityUtil_Targeter
 	{
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.DisableHighlightCursors()).MethodHandle;
-			}
 			foreach (GameObject gameObject in this.m_highlights)
 			{
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.SetActive(false);
 				}
 			}
@@ -1854,19 +964,6 @@ public class AbilityUtil_Targeter
 		{
 			if (this.m_highlights != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.get_Highlight()).MethodHandle;
-				}
 				if (this.m_highlights.Count > 0)
 				{
 					return this.m_highlights[0];
@@ -1878,45 +975,14 @@ public class AbilityUtil_Targeter
 		{
 			if (this.m_highlights == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.set_Highlight(GameObject)).MethodHandle;
-				}
 				this.m_highlights = new List<GameObject>();
 			}
 			if (this.m_highlights.Count == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights.Add(null);
 			}
 			if (this.m_highlights[0] != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.DestroyObjectAndMaterials(this.m_highlights[0]);
 				this.m_highlights[0] = null;
 			}
@@ -1950,30 +1016,8 @@ public class AbilityUtil_Targeter
 		bool result;
 		if (!(potentialTarget == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetAffectsTarget(ActorData, ActorData)).MethodHandle;
-			}
 			if (targeterOwner == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -1981,15 +1025,6 @@ public class AbilityUtil_Targeter
 				{
 					if (targeterOwner == potentialTarget)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = this.m_affectsTargetingActor;
 					}
 					else
@@ -2015,30 +1050,8 @@ public class AbilityUtil_Targeter
 		List<Team> list = new List<Team>();
 		if (targeterOwner != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetAffectedTeams(ActorData)).MethodHandle;
-			}
 			if (this.m_affectsAllies)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(targeterOwner.GetTeam());
 			}
 			if (this.m_affectsEnemies)
@@ -2059,43 +1072,12 @@ public class AbilityUtil_Targeter
 	{
 		if (this.Highlight != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetTargetingArcEndPosition(ActorData)).MethodHandle;
-			}
 			return this.Highlight.transform.position;
 		}
 		if (targetingActor != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (targetingActor.GetCurrentBoardSquare() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return targetingActor.GetCurrentBoardSquare().ToVector3();
 			}
 		}
@@ -2106,80 +1088,22 @@ public class AbilityUtil_Targeter
 	{
 		if (this.m_showArcToShape)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetupTargetingArc(ActorData, bool)).MethodHandle;
-			}
 			if (this.Highlight == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_showArcToShape = false;
 			}
 		}
 		if (this.m_showArcToShape)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.Highlight != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((this.GetTargetingArcEndPosition(targetingActor) - targetingActor.GetCurrentBoardSquare().ToVector3()).magnitude > HighlightUtils.Get().m_minDistForTargetingArc)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 					Vector3 vector = Camera.main.transform.rotation * Vector3.forward;
 					bool flag;
 					if ((vector - this.m_cameraForward).sqrMagnitude <= 0.01f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = ((Camera.main.transform.position - this.m_cameraPosition).sqrMagnitude > 0.01f);
 					}
 					else
@@ -2189,40 +1113,13 @@ public class AbilityUtil_Targeter
 					bool flag2 = flag;
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_cameraForward = vector;
 						this.m_cameraPosition = Camera.main.transform.position;
 					}
 					if (activatePulse)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_targetingArcPulseInstance != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_targetingArcPulseInstance.SetActive(false);
 							UnityEngine.Object.Destroy(this.m_targetingArcPulseInstance);
 							this.m_targetingArcPulseInstance = null;
@@ -2235,41 +1132,14 @@ public class AbilityUtil_Targeter
 					Vector3 targetingArcEndPosition = this.GetTargetingArcEndPosition(targetingActor);
 					if (this.m_arcTraveled >= 1f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							this.m_arcTraveled = 0f;
 							if (this.m_targetingArcPulseInstance != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_targetingArcPulseInstance.SetActive(false);
 								UnityEngine.Object.Destroy(this.m_targetingArcPulseInstance);
 								this.m_targetingArcPulseInstance = null;
@@ -2284,44 +1154,17 @@ public class AbilityUtil_Targeter
 					a.y = 0f;
 					if (a.magnitude <= 0.5f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						a = new Vector3(0.5f * vector.x, 0f, 0.5f * vector.z);
 					}
 					float num2 = 0.5f * a.magnitude;
 					float num3 = targetingArcMaxHeight / (num2 * num2);
 					if (this.m_targetingArcPulseInstance != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_arcTraveled += HighlightUtils.Get().m_targetingArcMovementSpeed * Time.deltaTime;
 						float num4 = this.m_arcTraveled * a.magnitude - num2;
 						float num5 = num3 * num4 * num4;
 						if (num4 > 0f)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num5 *= num;
 						}
 						Vector3 position = travelBoardSquareWorldPositionForLos + a * this.m_arcTraveled + Vector3.up * (targetingArcMaxHeight - num5);
@@ -2330,15 +1173,6 @@ public class AbilityUtil_Targeter
 					bool flag3 = false;
 					if ((this.m_arcEnd - targetingArcEndPosition).sqrMagnitude > 0.1f)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_arcEnd = targetingArcEndPosition;
 						flag3 = true;
 					}
@@ -2347,15 +1181,6 @@ public class AbilityUtil_Targeter
 						if (!flag3)
 						{
 							goto IL_4D3;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					List<Vector3> list = new List<Vector3>();
@@ -2371,27 +1196,9 @@ public class AbilityUtil_Targeter
 						Vector3 item = travelBoardSquareWorldPositionForLos + a * num6 + Vector3.up * (targetingArcMaxHeight - num8);
 						list.Add(item);
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Color color = HighlightUtils.Get().m_targetingArcColor;
 					if (targetingActor != GameFlowData.Get().activeOwnedActorData)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						color = HighlightUtils.Get().m_targetingArcColorAllies;
 					}
 					this.m_targetingArcInstance = Targeting.GetTargeting().CreateLineMesh(list, 0.2f, color, false, HighlightUtils.Get().m_targetingArcMaterial, this.m_targetingArcInstance, true);
@@ -2425,19 +1232,6 @@ public class AbilityUtil_Targeter
 	{
 		if (NetworkClient.active && HighlightUtils.Get().m_setTargeterOpacityWhileTargeting)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.AdjustOpacityWhileTargeting()).MethodHandle;
-			}
 			float opacity = Mathf.Clamp(HighlightUtils.Get().m_targeterOpacityWhileTargeting, 0.01f, 1f);
 			using (List<GameObject>.Enumerator enumerator = this.m_highlights.GetEnumerator())
 			{
@@ -2449,38 +1243,11 @@ public class AbilityUtil_Targeter
 					{
 						AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, opacity);
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MeshRenderer[] componentsInChildren = gameObject.GetComponentsInChildren<MeshRenderer>();
 					foreach (MeshRenderer meshRenderer2 in componentsInChildren)
 					{
 						AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer2.materials, opacity);
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2497,68 +1264,19 @@ public class AbilityUtil_Targeter
 				AbilityUtil_Targeter.ArrowList arrowList = enumerator.Current;
 				if (arrowList != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.StartConfirmedTargeting(AbilityTarget, ActorData)).MethodHandle;
-					}
 					if (arrowList.m_gameObject.activeSelf)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						MovementPathStart componentInChildren = arrowList.m_gameObject.GetComponentInChildren<MovementPathStart>();
 						if (componentInChildren != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							componentInChildren.SetGlow(true);
 						}
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (targetingActor.GetActorTurnSM().CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
 				this.HideAllSquareIndicators();
@@ -2567,37 +1285,10 @@ public class AbilityUtil_Targeter
 		this.SetupTargetingArc(targetingActor, true);
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_ability != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<GameObject>.Enumerator enumerator2 = this.m_highlights.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
@@ -2605,38 +1296,11 @@ public class AbilityUtil_Targeter
 							GameObject gameObject = enumerator2.Current;
 							if (gameObject != null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!gameObject.name.StartsWith("[Targeter]"))
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									gameObject.name = "[Targeter] " + this.m_ability.GetNameString() + ": " + gameObject.name;
 								}
 							}
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -2675,47 +1339,16 @@ public class AbilityUtil_Targeter
 			{
 				AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer.materials, opacity);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetTargeterHighlightOpacity(List<GameObject>, float)).MethodHandle;
-			}
 			MeshRenderer[] componentsInChildren = gameObject.GetComponentsInChildren<MeshRenderer>();
 			foreach (MeshRenderer meshRenderer2 in componentsInChildren)
 			{
 				AbilityUtil_Targeter.SetMaterialOpacity(meshRenderer2.materials, opacity);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			float opacity2 = Mathf.Clamp(opacity * HighlightUtils.Get().m_targeterParticleSystemOpacityMultiplier, 0f, 1f);
 			ParticleSystemRenderer[] componentsInChildren2 = gameObject.GetComponentsInChildren<ParticleSystemRenderer>();
 			foreach (ParticleSystemRenderer particleSystemRenderer in componentsInChildren2)
 			{
 				AbilityUtil_Targeter.SetMaterialOpacity(particleSystemRenderer.materials, opacity2);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2732,95 +1365,28 @@ public class AbilityUtil_Targeter
 				{
 					AbilityUtil_Targeter.SetMaterialColor(meshRenderer.materials, color, keepOpacity);
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetTargeterHighlightColor(List<GameObject>, Color, bool, bool)).MethodHandle;
-				}
 				MeshRenderer[] componentsInChildren = gameObject.GetComponentsInChildren<MeshRenderer>();
 				foreach (MeshRenderer meshRenderer2 in componentsInChildren)
 				{
 					AbilityUtil_Targeter.SetMaterialColor(meshRenderer2.materials, color, keepOpacity);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				ParticleSystemRenderer[] componentsInChildren2 = gameObject.GetComponentsInChildren<ParticleSystemRenderer>();
 				foreach (ParticleSystemRenderer particleSystemRenderer in componentsInChildren2)
 				{
 					if (clearColorOverTime)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ParticleSystem component = particleSystemRenderer.GetComponent<ParticleSystem>();
 						if (component != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ParticleSystem.ColorOverLifetimeModule colorOverLifetime = component.colorOverLifetime;
 							if (colorOverLifetime.enabled)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								colorOverLifetime.enabled = false;
 							}
 						}
 					}
 					AbilityUtil_Targeter.SetMaterialColor(particleSystemRenderer.materials, color, keepOpacity);
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2832,43 +1398,12 @@ public class AbilityUtil_Targeter
 		{
 			if (i == targeterOpacity.Length - 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetOpacityFromTargeterData(HighlightUtils.TargeterOpacityData[], float)).MethodHandle;
-				}
 				result = targeterOpacity[i].m_alpha;
 			}
 			else if (targeterOpacity[i].m_timeSinceConfirmed <= timeSinceChange)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (timeSinceChange <= targeterOpacity[i + 1].m_timeSinceConfirmed)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float alpha = targeterOpacity[i].m_alpha;
 					float alpha2 = targeterOpacity[i + 1].m_alpha;
 					float num = (timeSinceChange - targeterOpacity[i].m_timeSinceConfirmed) / Mathf.Max(0.01f, targeterOpacity[i + 1].m_timeSinceConfirmed - targeterOpacity[i].m_timeSinceConfirmed);
@@ -2896,32 +1431,10 @@ public class AbilityUtil_Targeter
 			{
 				if (material.HasProperty(nameID))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetMaterialOpacity(Material[], float)).MethodHandle;
-					}
 					Color color = material.GetColor(nameID);
 					Color value = new Color(color.r, color.g, color.b, opacity);
 					material.SetColor(nameID, value);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2934,30 +1447,8 @@ public class AbilityUtil_Targeter
 			{
 				if (material.HasProperty(nameID))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.SetMaterialColor(Material[], Color, bool)).MethodHandle;
-					}
 					if (keepOpacity)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						newColor.a = material.GetColor(nameID).a;
 					}
 					material.SetColor(nameID, newColor);
@@ -2979,19 +1470,6 @@ public class AbilityUtil_Targeter
 		}
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.HideAllSquareIndicators()).MethodHandle;
-			}
 			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators(0);
 		}
 	}
@@ -3012,32 +1490,10 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetHiddenSquaresContainer() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.HideUnusedSquareIndicators()).MethodHandle;
-			}
 			HighlightUtils.GetHiddenSquaresContainer().HideAllSquareIndicators(this.GetNextHiddenSquareIndicatorIndex());
 		}
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.GetAffectedSquaresContainer().HideAllSquareIndicators(this.GetNextAffectedSquareIndicatorIndex());
 		}
 	}
@@ -3046,19 +1502,6 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetHiddenSquaresContainer() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetNextHiddenSquareIndicatorIndex()).MethodHandle;
-			}
 			return HighlightUtils.GetHiddenSquaresContainer().GetNextIndicatorIndex();
 		}
 		return 0;
@@ -3107,19 +1550,6 @@ public class AbilityUtil_Targeter
 	{
 		if (HighlightUtils.GetAffectedSquaresContainer() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter.GetNextAffectedSquareIndicatorIndex()).MethodHandle;
-			}
 			return HighlightUtils.GetAffectedSquaresContainer().GetNextIndicatorIndex();
 		}
 		return 0;

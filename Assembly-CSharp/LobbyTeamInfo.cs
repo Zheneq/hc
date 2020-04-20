@@ -60,31 +60,9 @@ public class LobbyTeamInfo
 		LobbyTeamInfo lobbyTeamInfo = null;
 		if (serverInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyTeamInfo.FromServer(LobbyServerTeamInfo, int, MatchmakingQueueConfig)).MethodHandle;
-			}
 			lobbyTeamInfo = new LobbyTeamInfo();
 			if (serverInfo.TeamPlayerInfo != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				lobbyTeamInfo.TeamPlayerInfo = new List<LobbyPlayerInfo>();
 				using (List<LobbyServerPlayerInfo>.Enumerator enumerator = serverInfo.TeamPlayerInfo.GetEnumerator())
 				{
@@ -92,15 +70,6 @@ public class LobbyTeamInfo
 					{
 						LobbyServerPlayerInfo serverInfo2 = enumerator.Current;
 						lobbyTeamInfo.TeamPlayerInfo.Add(LobbyPlayerInfo.FromServer(serverInfo2, maxPlayerLevel, queueConfig));
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -112,45 +81,14 @@ public class LobbyTeamInfo
 	{
 		if (this.TeamPlayerInfo == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyTeamInfo.GetPlayer(long)).MethodHandle;
-			}
 			return null;
 		}
 		for (int i = 0; i < this.TeamPlayerInfo.Count; i++)
 		{
 			if (this.TeamPlayerInfo[i].AccountId == account)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.TeamPlayerInfo[i];
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}

@@ -130,19 +130,6 @@ public class MatchmakingQueueConfig
 		{
 			if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.get_GroupSizeRestrictions()).MethodHandle;
-				}
 				return null;
 			}
 			Dictionary<int, RequirementCollection> dictionary = new Dictionary<int, RequirementCollection>();
@@ -161,19 +148,6 @@ public class MatchmakingQueueConfig
 		{
 			if (this.GroupRules.IsNullOrEmpty<KeyValuePair<int, GroupSizeSpecification>>())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.get_AllViableGroupSizesAllowed()).MethodHandle;
-				}
 				return null;
 			}
 			return this.GroupRules.Keys.ToList<int>();
@@ -216,19 +190,6 @@ public class MatchmakingQueueConfig
 				{
 					if (maxGroupSize == null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.<GetAllEloRelivantGroupSizes>c__Iterator0.MoveNext()).MethodHandle;
-						}
 						maxGroupSize = new byte?(4);
 					}
 					groupSize = 1;
@@ -248,24 +209,6 @@ public class MatchmakingQueueConfig
 				break;
 			}
 			yield return groupSize;
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		goto IL_18A;
 		Block_0:
@@ -279,25 +222,7 @@ public class MatchmakingQueueConfig
 			{
 				int groupSize2 = enumerator.Current;
 				yield return (byte)groupSize2;
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -305,15 +230,6 @@ public class MatchmakingQueueConfig
 			bool flag;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -341,15 +257,6 @@ public class MatchmakingQueueConfig
 					goto IL_5B;
 				}
 				yield return key.KeyText;
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				continue;
 			case 1U:
 				goto IL_A8;
@@ -368,10 +275,6 @@ public class MatchmakingQueueConfig
 			}
 			break;
 		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.<GetAllEloKeysForEachRelivantGroupSize>c__Iterator1.MoveNext()).MethodHandle;
-		}
 		byte maxGroupSize = (byte)gameConfig.MaxGroupSize;
 		IEnumerator<byte> enumerator = this.GetAllEloRelivantGroupSizes(new byte?(maxGroupSize)).GetEnumerator();
 		goto Block_3;
@@ -388,41 +291,14 @@ public class MatchmakingQueueConfig
 				yield return key.KeyText;
 				flag = true;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		finally
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -434,31 +310,9 @@ public class MatchmakingQueueConfig
 	{
 		if (matchesPlayed <= this.LeaderboardMinMatchesForRanking)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueConfig.ModifyRankedPointMovement(int, int)).MethodHandle;
-			}
 			float num;
 			if (unmodifiedPointMovement < 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.PlacementPointMultipleOnLoss;
 			}
 			else

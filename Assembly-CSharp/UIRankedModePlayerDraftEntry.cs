@@ -46,47 +46,16 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 	{
 		if (this.m_requestSwap != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModePlayerDraftEntry.Start()).MethodHandle;
-			}
 			this.m_requestSwap.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RequestSwapClicked);
 			this.m_requestSwap.spriteController.m_soundToPlay = FrontEndButtonSounds.RankFreelancerSwapClick;
 		}
 		if (this.m_acceptSwap != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_acceptSwap.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.AcceptSwapClicked);
 			this.m_acceptSwap.spriteController.m_soundToPlay = FrontEndButtonSounds.RankFreelancerSwapClick;
 		}
 		if (this.m_rejectSwap != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_rejectSwap.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RejectSwapClicked);
 			this.m_rejectSwap.spriteController.m_soundToPlay = FrontEndButtonSounds.RankFreelancerSwapClick;
 		}
@@ -119,19 +88,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		this.PlayerID = info.PlayerId;
 		if (isEnemy)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModePlayerDraftEntry.Setup(LobbyPlayerInfo, bool)).MethodHandle;
-			}
 			this.m_playerName.text = string.Empty;
 			this.m_playerTitle.text = string.Empty;
 			this.m_playerLevel.text = string.Empty;
@@ -153,41 +109,14 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		}
 		if (this.m_requestSwap != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_requestSwap, true, null);
 		}
 		if (this.m_acceptSwap != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_acceptSwap, true, null);
 		}
 		if (this.m_rejectSwap != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_rejectSwap, true, null);
 		}
 		this.CanBeTraded = true;
@@ -197,19 +126,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 	{
 		if (this.m_TradeButtonContainer != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModePlayerDraftEntry.SetTradePhase(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_TradeButtonContainer, tradePhaseActive, null);
 		}
 	}
@@ -226,43 +142,12 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 	{
 		if (this.m_tradeSent != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModePlayerDraftEntry.SetTradeStatus(UIRankedModePlayerDraftEntry.TradeStatus, bool, bool)).MethodHandle;
-			}
 			Component tradeSent = this.m_tradeSent;
 			bool doActive;
 			if (status == UIRankedModePlayerDraftEntry.TradeStatus.TradeRequestSent)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isSelf)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = !selfLockedIn;
 					goto IL_49;
 				}
@@ -273,28 +158,10 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		}
 		if (this.m_tradeReceived != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Component tradeReceived = this.m_tradeReceived;
 			bool doActive2;
 			if (status == UIRankedModePlayerDraftEntry.TradeStatus.TradeRequestReceived)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isSelf)
 				{
 					doActive2 = !selfLockedIn;
@@ -307,39 +174,12 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		}
 		if (this.m_noTrade != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Component noTrade = this.m_noTrade;
 			bool doActive3;
 			if (status == UIRankedModePlayerDraftEntry.TradeStatus.NoTrade)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isSelf)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive3 = !selfLockedIn;
 					goto IL_CC;
 				}
@@ -362,19 +202,6 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 			sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 			if (sprite == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModePlayerDraftEntry.SetBanner(GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner.BannerType)).MethodHandle;
-				}
 				Log.Warning(Log.Category.UI, string.Format("Could not load banner resource from [{0}] as sprite.", banner.m_resourceString), new object[0]);
 			}
 		}
@@ -383,29 +210,11 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 			sprite = (Sprite)Resources.Load("Banners/Background/rankedRedDefault", typeof(Sprite));
 			if (sprite == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(Log.Category.UI, string.Format("Could not load banner resource from [{0}] as sprite.", "Banners/Background/rankedRedDefault"), new object[0]);
 			}
 		}
 		if (sprite != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (bannerType == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
 				this.m_bannerImage.sprite = sprite;
@@ -421,31 +230,9 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 	{
 		if (ribbon != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModePlayerDraftEntry.SetRibbon(GameBalanceVars.PlayerRibbon)).MethodHandle;
-			}
 			Sprite sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 			if (sprite == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(Log.Category.UI, string.Format("Could not load ribbon resource from [{0}] as sprite.", ribbon.m_resourceString), new object[0]);
 			}
 			this.m_ribbonImage.sprite = sprite;

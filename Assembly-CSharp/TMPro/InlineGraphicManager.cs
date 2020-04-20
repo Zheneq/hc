@@ -47,19 +47,6 @@ namespace TMPro
 			{
 				if (this.m_inlineGraphic != value)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.set_inlineGraphic(InlineGraphic)).MethodHandle;
-					}
 					this.m_inlineGraphic = value;
 				}
 			}
@@ -85,19 +72,6 @@ namespace TMPro
 		{
 			if (!TMP_Settings.warningsDisabled)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.Awake()).MethodHandle;
-				}
 				Debug.LogWarning("InlineGraphicManager component is now Obsolete and has been removed from [" + base.gameObject.name + "] along with its InlineGraphic child.", this);
 			}
 			if (this.inlineGraphic.gameObject != null)
@@ -125,19 +99,6 @@ namespace TMPro
 		{
 			if (spriteAsset == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.LoadSpriteAsset(TMP_SpriteAsset)).MethodHandle;
-				}
 				if (TMP_Settings.defaultSpriteAsset != null)
 				{
 					spriteAsset = TMP_Settings.defaultSpriteAsset;
@@ -151,15 +112,6 @@ namespace TMPro
 			this.m_inlineGraphic.texture = this.m_spriteAsset.spriteSheet;
 			if (this.m_textComponent != null && this.m_isInitialized)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textComponent.havePropertiesChanged = true;
 				this.m_textComponent.SetVerticesDirty();
 			}
@@ -169,19 +121,6 @@ namespace TMPro
 		{
 			if (this.m_inlineGraphic != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.AddInlineGraphicsChild()).MethodHandle;
-				}
 				return;
 			}
 			GameObject gameObject = new GameObject("Inline Graphic");
@@ -206,33 +145,11 @@ namespace TMPro
 			}
 			if (this.m_uiVertex == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.AllocatedVertexBuffers(int)).MethodHandle;
-				}
 				this.m_uiVertex = new UIVertex[4];
 			}
 			int num = size * 4;
 			if (num > this.m_uiVertex.Length)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_uiVertex = new UIVertex[Mathf.NextPowerOfTwo(num)];
 			}
 		}
@@ -250,30 +167,8 @@ namespace TMPro
 		{
 			if (this.uiVertex != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.ClearUIVertex()).MethodHandle;
-				}
 				if (this.uiVertex.Length > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Array.Clear(this.uiVertex, 0, this.uiVertex.Length);
 					this.m_inlineGraphicCanvasRenderer.Clear();
 				}
@@ -299,19 +194,6 @@ namespace TMPro
 			}
 			if (this.m_spriteAsset.spriteInfoList != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.GetSprite(int)).MethodHandle;
-				}
 				if (index <= this.m_spriteAsset.spriteInfoList.Count - 1)
 				{
 					return this.m_spriteAsset.spriteInfoList[index];
@@ -335,19 +217,6 @@ namespace TMPro
 		{
 			if (!(this.m_spriteAsset == null))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphicManager.GetSpriteIndexByIndex(int)).MethodHandle;
-				}
 				if (this.m_spriteAsset.spriteInfoList != null)
 				{
 					return this.m_spriteAsset.spriteInfoList.FindIndex((TMP_Sprite item) => item.id == index);

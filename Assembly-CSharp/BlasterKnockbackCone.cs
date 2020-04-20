@@ -64,19 +64,6 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Knockback Cone";
 		}
 		this.SetupTargeter();
@@ -95,19 +82,6 @@ public class BlasterKnockbackCone : Ability
 			bool result;
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.<SetupTargeter>m__0(ActorData)).MethodHandle;
-				}
 				result = (this.m_syncComp.m_overchargeBuffs > 0);
 			}
 			else
@@ -134,19 +108,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo cachedEnemyEffectOvercharged;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyEffectOvercharged = this.m_abilityMod.m_enemyEffectOverchargedMod.GetModifiedValue(this.m_enemyEffectOvercharged);
 		}
 		else
@@ -161,19 +122,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMinLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minLengthMod.GetModifiedValue(this.m_minLength);
 		}
 		else
@@ -193,19 +141,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMinAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minAngleMod.GetModifiedValue(this.m_minAngle);
 		}
 		else
@@ -225,19 +160,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -252,19 +174,6 @@ public class BlasterKnockbackCone : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.PenetrateLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
 		else
@@ -284,19 +193,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyEffectNormal != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetEnemyEffectNormal()).MethodHandle;
-			}
 			result = this.m_cachedEnemyEffectNormal;
 		}
 		else
@@ -311,19 +207,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyEffectOvercharged != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetEnemyEffectOvercharged()).MethodHandle;
-			}
 			result = this.m_cachedEnemyEffectOvercharged;
 		}
 		else
@@ -338,19 +221,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetKnockbackDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
 		}
 		else
@@ -365,19 +235,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetExtraKnockbackDistOnOvercharged()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraKnockbackDistOnOverchargedMod.GetModifiedValue(this.m_extraKnockbackDistOnOvercharged);
 		}
 		else
@@ -392,19 +249,6 @@ public class BlasterKnockbackCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetKnockbackDistanceOnSelf()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDistanceOnSelfMod.GetModifiedValue(this.m_knockbackDistanceOnSelf);
 		}
 		else
@@ -423,19 +267,6 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (this.AmOvercharged(base.ActorData))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetCurrentModdedDamage()).MethodHandle;
-			}
 			return this.GetDamageAmountNormal() + this.m_overchargeAbility.GetExtraDamage() + this.GetMultiStackOverchargeDamage();
 		}
 		return this.GetDamageAmountNormal();
@@ -449,19 +280,6 @@ public class BlasterKnockbackCone : Ability
 		int val;
 		if (abilityMod_BlasterKnockbackCone)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_BlasterKnockbackCone.m_damageAmountNormalMod.GetModifiedValue(this.m_damageAmountNormal);
 		}
 		else
@@ -472,15 +290,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_BlasterKnockbackCone)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_BlasterKnockbackCone.m_enemyEffectNormalMod.GetModifiedValue(this.m_enemyEffectNormal);
 		}
 		else
@@ -491,15 +300,6 @@ public class BlasterKnockbackCone : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_BlasterKnockbackCone)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_BlasterKnockbackCone.m_enemyEffectOverchargedMod.GetModifiedValue(this.m_enemyEffectOvercharged);
 		}
 		else
@@ -530,31 +330,9 @@ public class BlasterKnockbackCone : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.GetCurrentModdedDamage();
 			}
 		}
@@ -565,19 +343,6 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BlasterKnockbackCone))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_BlasterKnockbackCone);
 			this.SetupTargeter();
 		}
@@ -593,19 +358,6 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (base.ActorData.GetActorStatus().IsKnockbackImmune(true))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMovementAdjustment()).MethodHandle;
-			}
 			return Ability.MovementAdjustment.ReducedMovement;
 		}
 		AbilityData abilityData = base.ActorData.GetAbilityData();
@@ -618,26 +370,8 @@ public class BlasterKnockbackCone : Ability
 				Card_Standard_Ability card_Standard_Ability = abilityEntry.ability as Card_Standard_Ability;
 				if (card_Standard_Ability != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (card_Standard_Ability.m_applyEffect)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						StatusType[] statusChanges = card_Standard_Ability.m_effect.m_statusChanges;
 						int i = 0;
 						while (i < statusChanges.Length)
@@ -645,43 +379,16 @@ public class BlasterKnockbackCone : Ability
 							StatusType statusType = statusChanges[i];
 							if (statusType != StatusType.KnockbackImmune)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (statusType != StatusType.Unstoppable)
 								{
 									i++;
 									continue;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							return Ability.MovementAdjustment.ReducedMovement;
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return base.GetMovementAdjustment();
@@ -691,19 +398,6 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.AmOvercharged(ActorData)).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Blaster_SyncComponent>();
 		}
 		return this.m_syncComp.m_overchargeBuffs > 0;
@@ -713,41 +407,10 @@ public class BlasterKnockbackCone : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterKnockbackCone.GetMultiStackOverchargeDamage()).MethodHandle;
-			}
 			if (this.m_syncComp.m_overchargeBuffs > 1 && this.m_overchargeAbility != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_overchargeAbility.GetExtraDamageForMultiCast() > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_overchargeAbility.GetExtraDamageForMultiCast();
 				}
 			}

@@ -130,19 +130,6 @@ namespace I2.Loc
 					action = Interlocked.CompareExchange<Action>(ref this.EventFindTarget, (Action)Delegate.Combine(action2, value), action);
 				}
 				while (action != action2);
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.add_EventFindTarget(Action)).MethodHandle;
-				}
 			}
 			remove
 			{
@@ -154,19 +141,6 @@ namespace I2.Loc
 					action = Interlocked.CompareExchange<Action>(ref this.EventFindTarget, (Action)Delegate.Remove(action2, value), action);
 				}
 				while (action != action2);
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.remove_EventFindTarget(Action)).MethodHandle;
-				}
 			}
 		}
 
@@ -204,53 +178,13 @@ namespace I2.Loc
 		{
 			if (!Force)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.OnLocalize(bool)).MethodHandle;
-				}
 				if (base.enabled)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(base.gameObject == null))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.gameObject.activeInHierarchy)
 						{
 							goto IL_60;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -259,39 +193,12 @@ namespace I2.Loc
 			IL_60:
 			if (string.IsNullOrEmpty(LocalizationManager.CurrentLanguage))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 			if (!Force)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.LastLocalizedLanguage == LocalizationManager.CurrentLanguage)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 			}
@@ -301,15 +208,6 @@ namespace I2.Loc
 				if (!string.IsNullOrEmpty(this.FinalSecondaryTerm))
 				{
 					goto IL_EC;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.GetFinalTerms(out this.FinalTerm, out this.FinalSecondaryTerm);
@@ -338,64 +236,19 @@ namespace I2.Loc
 			}
 			if (LocalizationManager.IsRight2Left)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.IgnoreRTL)
 				{
 					if (this.AllowMainTermToBeRTL)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!string.IsNullOrEmpty(Localize.MainTranslation))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Localize.MainTranslation = LocalizationManager.ApplyRTLfix(Localize.MainTranslation, this.MaxCharactersInRTL);
 						}
 					}
 					if (this.AllowSecondTermToBeRTL)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!string.IsNullOrEmpty(Localize.SecondaryTranslation))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Localize.SecondaryTranslation = LocalizationManager.ApplyRTLfix(Localize.SecondaryTranslation);
 						}
 					}
@@ -439,19 +292,6 @@ namespace I2.Loc
 		{
 			if (this.EventFindTarget == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.FindTarget()).MethodHandle;
-				}
 				this.RegisterTargets();
 			}
 			this.EventFindTarget();
@@ -470,19 +310,6 @@ namespace I2.Loc
 			}
 			if (targetCache != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.FindAndCacheTarget(T*, Localize.DelegateSetFinalTerms, Localize.DelegateDoLocalize, bool, bool, bool)).MethodHandle;
-				}
 				this.EventSetFinalTerms = setFinalTerms;
 				this.EventDoLocalize = doLocalize;
 				this.CanUseSecondaryTerm = UseSecondaryTerm;
@@ -495,32 +322,10 @@ namespace I2.Loc
 		{
 			if (this.mTarget != targetCache && targetCache)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.FindAndCacheTarget(GameObject*, Localize.DelegateSetFinalTerms, Localize.DelegateDoLocalize, bool, bool, bool)).MethodHandle;
-				}
 				UnityEngine.Object.Destroy(targetCache);
 			}
 			if (this.mTarget != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				targetCache = (this.mTarget as GameObject);
 			}
 			else
@@ -529,15 +334,6 @@ namespace I2.Loc
 				GameObject gameObject;
 				if (transform.childCount < 1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject = null;
 				}
 				else
@@ -567,31 +363,9 @@ namespace I2.Loc
 		{
 			if (this.EventSetFinalTerms != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.GetFinalTerms(string*, string*)).MethodHandle;
-				}
 				if (this.mTarget || this.HasTargetCache())
 				{
 					goto IL_41;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.FindTarget();
@@ -600,38 +374,11 @@ namespace I2.Loc
 			SecondaryTerm = string.Empty;
 			if (this.mTarget != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(this.mTerm))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(this.mTermSecondary))
 					{
 						goto IL_BA;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (this.EventSetFinalTerms != null)
@@ -642,15 +389,6 @@ namespace I2.Loc
 			IL_BA:
 			if (!string.IsNullOrEmpty(this.mTerm))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PrimaryTerm = this.mTerm;
 			}
 			if (!string.IsNullOrEmpty(this.mTermSecondary))
@@ -670,19 +408,6 @@ namespace I2.Loc
 			string result;
 			if (string.IsNullOrEmpty(text))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.GetMainTargetsText()).MethodHandle;
-				}
 				result = this.mTerm;
 			}
 			else
@@ -697,30 +422,8 @@ namespace I2.Loc
 			string text;
 			if (RemoveNonASCII)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.SetFinalTerms(string, string, string*, string*, bool)).MethodHandle;
-				}
 				if (!string.IsNullOrEmpty(Main))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = Regex.Replace(Main, "[^a-zA-Z0-9_ ]+", " ");
 					goto IL_3F;
 				}
@@ -735,19 +438,6 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(primary))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.SetTerm(string, string)).MethodHandle;
-				}
 				this.Term = primary;
 				this.FinalTerm = primary;
 			}
@@ -780,31 +470,9 @@ namespace I2.Loc
 			T translatedObject = this.GetTranslatedObject<T>(Translation);
 			if (translatedObject == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.GetObject(string)).MethodHandle;
-				}
 				int num = Translation.LastIndexOfAny("/\\".ToCharArray());
 				if (num >= 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Translation = Translation.Substring(num + 1);
 					translatedObject = this.GetTranslatedObject<T>(Translation);
 				}
@@ -821,41 +489,10 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(translation))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DeserializeTranslation(string, string*, string*)).MethodHandle;
-				}
 				if (translation.Length > 1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (translation[0] == '[')
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = translation.IndexOf(']');
 						if (num > 0)
 						{
@@ -878,34 +515,12 @@ namespace I2.Loc
 			}
 			if (this.TranslatedObjects != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.FindTranslatedObject(string)).MethodHandle;
-				}
 				int i = 0;
 				int num = this.TranslatedObjects.Length;
 				while (i < num)
 				{
 					if (this.TranslatedObjects[i] as T != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (value == this.TranslatedObjects[i].name)
 						{
 							return this.TranslatedObjects[i] as T;
@@ -917,15 +532,6 @@ namespace I2.Loc
 			T t = LocalizationManager.FindAsset(value) as T;
 			if (t)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return t;
 			}
 			return ResourceManager.pInstance.GetAsset<T>(value);
@@ -990,19 +596,6 @@ namespace I2.Loc
 			string text;
 			if (this.mTarget_TMPUGUILabel.font != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.SetFinalTerms_TMPUGUILabel(string, string, string*, string*)).MethodHandle;
-				}
 				text = this.mTarget_TMPUGUILabel.font.name;
 			}
 			else
@@ -1017,34 +610,12 @@ namespace I2.Loc
 		{
 			if (!Application.isPlaying)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_TMPLabel(string, string)).MethodHandle;
-				}
 			}
 			TMP_FontAsset tmp_FontAsset = this.GetSecondaryTranslatedObj<TMP_FontAsset>(ref MainTranslation, ref SecondaryTranslation);
 			if (tmp_FontAsset != null)
 			{
 				if (this.mTarget_TMPLabel.font != tmp_FontAsset)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.mTarget_TMPLabel.font = tmp_FontAsset;
 				}
 			}
@@ -1053,38 +624,11 @@ namespace I2.Loc
 				Material secondaryTranslatedObj = this.GetSecondaryTranslatedObj<Material>(ref MainTranslation, ref SecondaryTranslation);
 				if (secondaryTranslatedObj != null && this.mTarget_TMPLabel.fontMaterial != secondaryTranslatedObj)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!secondaryTranslatedObj.name.StartsWith(this.mTarget_TMPLabel.font.name))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						tmp_FontAsset = this.GetTMPFontFromMaterial(secondaryTranslatedObj.name);
 						if (tmp_FontAsset != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.mTarget_TMPLabel.font = tmp_FontAsset;
 						}
 					}
@@ -1093,54 +637,18 @@ namespace I2.Loc
 			}
 			if (this.mInitializeAlignment)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mInitializeAlignment = false;
 				this.mOriginalAlignmentTMPro = this.mTarget_TMPLabel.alignment;
 			}
 			if (!string.IsNullOrEmpty(MainTranslation))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.mTarget_TMPLabel.text != MainTranslation)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Localize.CurrentLocalizeComponent.CorrectAlignmentForRTL)
 					{
 						int alignment = (int)this.mTarget_TMPLabel.alignment;
 						if (alignment % 4 == 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.mTarget_TMPLabel.alignment = ((!LocalizationManager.IsRight2Left) ? this.mOriginalAlignmentTMPro : (this.mTarget_TMPLabel.alignment + 2));
 						}
 						else if (alignment % 4 == 2)
@@ -1149,15 +657,6 @@ namespace I2.Loc
 							TextAlignmentOptions alignment2;
 							if (LocalizationManager.IsRight2Left)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								alignment2 = this.mTarget_TMPLabel.alignment - 2;
 							}
 							else
@@ -1177,19 +676,6 @@ namespace I2.Loc
 			TMP_FontAsset tmp_FontAsset = this.GetSecondaryTranslatedObj<TMP_FontAsset>(ref MainTranslation, ref SecondaryTranslation);
 			if (tmp_FontAsset != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_TMPUGUILabel(string, string)).MethodHandle;
-				}
 				if (this.mTarget_TMPUGUILabel.font != tmp_FontAsset)
 				{
 					this.mTarget_TMPUGUILabel.font = tmp_FontAsset;
@@ -1200,49 +686,13 @@ namespace I2.Loc
 				Material secondaryTranslatedObj = this.GetSecondaryTranslatedObj<Material>(ref MainTranslation, ref SecondaryTranslation);
 				if (secondaryTranslatedObj != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.mTarget_TMPUGUILabel.fontMaterial != secondaryTranslatedObj)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!secondaryTranslatedObj.name.StartsWith(this.mTarget_TMPUGUILabel.font.name))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tmp_FontAsset = this.GetTMPFontFromMaterial(secondaryTranslatedObj.name);
 							if (tmp_FontAsset != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.mTarget_TMPUGUILabel.font = tmp_FontAsset;
 							}
 						}
@@ -1252,76 +702,22 @@ namespace I2.Loc
 			}
 			if (this.mInitializeAlignment)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mInitializeAlignment = false;
 				this.mOriginalAlignmentTMPro = this.mTarget_TMPUGUILabel.alignment;
 			}
 			if (!string.IsNullOrEmpty(MainTranslation))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.mTarget_TMPUGUILabel.text != MainTranslation)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Localize.CurrentLocalizeComponent.CorrectAlignmentForRTL)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int alignment = (int)this.mTarget_TMPUGUILabel.alignment;
 						if (alignment % 4 == 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							TMP_Text tmp_Text = this.mTarget_TMPUGUILabel;
 							TextAlignmentOptions alignment2;
 							if (LocalizationManager.IsRight2Left)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								alignment2 = this.mTarget_TMPUGUILabel.alignment + 2;
 							}
 							else
@@ -1332,15 +728,6 @@ namespace I2.Loc
 						}
 						else if (alignment % 4 == 2)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.mTarget_TMPUGUILabel.alignment = ((!LocalizationManager.IsRight2Left) ? this.mOriginalAlignmentTMPro : (this.mTarget_TMPUGUILabel.alignment - 2));
 						}
 					}
@@ -1354,19 +741,6 @@ namespace I2.Loc
 			int num = matName.IndexOf(" SDF");
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.GetTMPFontFromMaterial(string)).MethodHandle;
-				}
 				string translation = matName.Substring(0, num + " SDF".Length);
 				return this.GetObject<TMP_FontAsset>(translation);
 			}
@@ -1400,19 +774,6 @@ namespace I2.Loc
 			string text;
 			if (this.mTarget_uGUI_Text.font != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.SetFinalTerms_uGUI_Text(string, string, string*, string*)).MethodHandle;
-				}
 				text = this.mTarget_uGUI_Text.font.name;
 			}
 			else
@@ -1437,19 +798,6 @@ namespace I2.Loc
 		{
 			if (!tr)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.FindInParents(Transform)).MethodHandle;
-				}
 				return (T)((object)null);
 			}
 			T component = tr.GetComponent<T>();
@@ -1481,139 +829,36 @@ namespace I2.Loc
 			Font secondaryTranslatedObj = this.GetSecondaryTranslatedObj<Font>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_uGUI_Text(string, string)).MethodHandle;
-				}
 				if (secondaryTranslatedObj != this.mTarget_uGUI_Text.font)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.mTarget_uGUI_Text.font = secondaryTranslatedObj;
 				}
 			}
 			if (this.mInitializeAlignment)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mInitializeAlignment = false;
 				this.mOriginalAlignmentUGUI = this.mTarget_uGUI_Text.alignment;
 			}
 			if (!string.IsNullOrEmpty(MainTranslation) && this.mTarget_uGUI_Text.text != MainTranslation)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Localize.CurrentLocalizeComponent.CorrectAlignmentForRTL)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.mTarget_uGUI_Text.alignment != TextAnchor.UpperLeft)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.mTarget_uGUI_Text.alignment != TextAnchor.UpperCenter)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.mTarget_uGUI_Text.alignment != TextAnchor.UpperRight)
 							{
 								if (this.mTarget_uGUI_Text.alignment != TextAnchor.MiddleLeft)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.mTarget_uGUI_Text.alignment != TextAnchor.MiddleCenter)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.mTarget_uGUI_Text.alignment != TextAnchor.MiddleRight)
 										{
 											if (this.mTarget_uGUI_Text.alignment != TextAnchor.LowerLeft)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (this.mTarget_uGUI_Text.alignment != TextAnchor.LowerCenter)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (this.mTarget_uGUI_Text.alignment != TextAnchor.LowerRight)
 													{
 														goto IL_219;
@@ -1624,15 +869,6 @@ namespace I2.Loc
 											TextAnchor alignment;
 											if (LocalizationManager.IsRight2Left)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												alignment = TextAnchor.LowerRight;
 											}
 											else
@@ -1642,30 +878,12 @@ namespace I2.Loc
 											text.alignment = alignment;
 											goto IL_219;
 										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 								}
 								Text text2 = this.mTarget_uGUI_Text;
 								TextAnchor alignment2;
 								if (LocalizationManager.IsRight2Left)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									alignment2 = TextAnchor.MiddleRight;
 								}
 								else
@@ -1675,30 +893,12 @@ namespace I2.Loc
 								text2.alignment = alignment2;
 								goto IL_219;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 					Text text3 = this.mTarget_uGUI_Text;
 					TextAnchor alignment3;
 					if (LocalizationManager.IsRight2Left)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						alignment3 = TextAnchor.UpperRight;
 					}
 					else
@@ -1718,31 +918,9 @@ namespace I2.Loc
 			Sprite sprite = this.mTarget_uGUI_Image.sprite;
 			if (!(sprite == null))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_uGUI_Image(string, string)).MethodHandle;
-				}
 				if (!(sprite.name != MainTranslation))
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.mTarget_uGUI_Image.sprite = this.FindTranslatedObject<Sprite>(MainTranslation);
@@ -1756,19 +934,6 @@ namespace I2.Loc
 				if (!(texture.name != MainTranslation))
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_uGUI_RawImage(string, string)).MethodHandle;
 				}
 			}
 			this.mTarget_uGUI_RawImage.texture = this.FindTranslatedObject<Texture>(MainTranslation);
@@ -1812,30 +977,8 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(Secondary))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.SetFinalTerms_GUIText(string, string, string*, string*)).MethodHandle;
-				}
 				if (this.mTarget_GUIText.font != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Secondary = this.mTarget_GUIText.font.name;
 				}
 			}
@@ -1852,32 +995,10 @@ namespace I2.Loc
 		{
 			if (this.mTarget_GUITexture)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.SetFinalTerms_GUITexture(string, string, string*, string*)).MethodHandle;
-				}
 				if (this.mTarget_GUITexture.texture)
 				{
 					this.SetFinalTerms(this.mTarget_GUITexture.texture.name, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
 					return;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.SetFinalTerms(string.Empty, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
@@ -1887,32 +1008,10 @@ namespace I2.Loc
 		{
 			if (this.mTarget_AudioSource)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.SetFinalTerms_AudioSource(string, string, string*, string*)).MethodHandle;
-				}
 				if (this.mTarget_AudioSource.clip)
 				{
 					this.SetFinalTerms(this.mTarget_AudioSource.clip.name, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
 					return;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.SetFinalTerms(string.Empty, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
@@ -1928,30 +1027,8 @@ namespace I2.Loc
 			Font secondaryTranslatedObj = this.GetSecondaryTranslatedObj<Font>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_GUIText(string, string)).MethodHandle;
-				}
 				if (this.mTarget_GUIText.font != secondaryTranslatedObj)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.mTarget_GUIText.font = secondaryTranslatedObj;
 				}
 			}
@@ -1962,50 +1039,14 @@ namespace I2.Loc
 			}
 			if (!string.IsNullOrEmpty(MainTranslation))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.mTarget_GUIText.text != MainTranslation)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Localize.CurrentLocalizeComponent.CorrectAlignmentForRTL)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GUIText guitext = this.mTarget_GUIText;
 						TextAlignment alignment;
 						if (LocalizationManager.IsRight2Left)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							alignment = TextAlignment.Right;
 						}
 						else
@@ -2024,72 +1065,23 @@ namespace I2.Loc
 			Font secondaryTranslatedObj = this.GetSecondaryTranslatedObj<Font>(ref MainTranslation, ref SecondaryTranslation);
 			if (secondaryTranslatedObj != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_TextMesh(string, string)).MethodHandle;
-				}
 				if (this.mTarget_TextMesh.font != secondaryTranslatedObj)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.mTarget_TextMesh.font = secondaryTranslatedObj;
 					base.GetComponent<Renderer>().sharedMaterial = secondaryTranslatedObj.material;
 				}
 			}
 			if (this.mInitializeAlignment)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mInitializeAlignment = false;
 				this.mOriginalAlignmentStd = this.mTarget_TextMesh.alignment;
 			}
 			if (!string.IsNullOrEmpty(MainTranslation))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.mTarget_TextMesh.text != MainTranslation)
 				{
 					if (Localize.CurrentLocalizeComponent.CorrectAlignmentForRTL)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.mTarget_TextMesh.alignment = ((!LocalizationManager.IsRight2Left) ? this.mOriginalAlignmentStd : TextAlignment.Right);
 					}
 					this.mTarget_TextMesh.text = MainTranslation;
@@ -2104,43 +1096,12 @@ namespace I2.Loc
 			AudioClip audioClip = this.FindTranslatedObject<AudioClip>(MainTranslation);
 			if (clip != audioClip)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_AudioSource(string, string)).MethodHandle;
-				}
 				this.mTarget_AudioSource.clip = audioClip;
 			}
 			if (isPlaying)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.mTarget_AudioSource.clip)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.mTarget_AudioSource.Play();
 				}
 			}
@@ -2151,19 +1112,6 @@ namespace I2.Loc
 			Texture texture = this.mTarget_GUITexture.texture;
 			if (texture != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_GUITexture(string, string)).MethodHandle;
-				}
 				if (texture.name != MainTranslation)
 				{
 					this.mTarget_GUITexture.texture = this.FindTranslatedObject<Texture>(MainTranslation);
@@ -2175,30 +1123,8 @@ namespace I2.Loc
 		{
 			if (this.mTarget_Child)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Localize.DoLocalize_Child(string, string)).MethodHandle;
-				}
 				if (this.mTarget_Child.name == MainTranslation)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 			}
@@ -2206,29 +1132,11 @@ namespace I2.Loc
 			GameObject gameObject2 = this.FindTranslatedObject<GameObject>(MainTranslation);
 			if (gameObject2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.mTarget_Child = UnityEngine.Object.Instantiate<GameObject>(gameObject2);
 				Transform transform = this.mTarget_Child.transform;
 				Transform transform2;
 				if (gameObject)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					transform2 = gameObject.transform;
 				}
 				else

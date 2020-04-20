@@ -28,19 +28,6 @@ public class UITeamMemberEntry : MonoBehaviour
 			int index = i;
 			this.m_subButtons[i].GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, (UITooltipBase tooltip) => this.SetupTooltip(tooltip, (UITeamMemberEntry.SubButtonIndex)index), null);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamMemberEntry.Start()).MethodHandle;
-		}
 		UIEventTriggerUtils.AddListener(this.m_subButtons[0].gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.DoAddBot));
 		this.m_subButtons[1].GetComponent<UITooltipClickObject>().Setup(TooltipType.BotSettingsMenu, new TooltipPopulateCall(this.SetupBotSettingsMenu), null);
 		UIEventTriggerUtils.AddListener(this.m_subButtons[2].gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.DoKickPlayer));
@@ -93,19 +80,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		{
 			if (this.m_subButtons[i].gameObject == gameObject)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamMemberEntry.MouseSubBtnEnter(BaseEventData)).MethodHandle;
-				}
 				this.m_subButtons[i].color = Color.white;
 				break;
 			}
@@ -118,19 +92,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		{
 			if (this.m_subButtons[i].gameObject != selectedObject)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamMemberEntry.ClearSelection(GameObject)).MethodHandle;
-				}
 				this.m_subButtons[i].color = Color.gray;
 			}
 		}
@@ -159,19 +120,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.TeamMemberCancel);
 		if (!this.m_playerInfo.IsGameOwner)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamMemberEntry.DoKickPlayer(BaseEventData)).MethodHandle;
-			}
 			UIGameSettingsPanel.Get().KickPlayer(this);
 		}
 	}
@@ -187,19 +135,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.TeamMemberCancel);
 		if (this.m_playerInfo.IsNPCBot)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamMemberEntry.DoRemoveChar(BaseEventData)).MethodHandle;
-			}
 			UIGameSettingsPanel.Get().RemoveBot(this);
 		}
 		else
@@ -221,19 +156,6 @@ public class UITeamMemberEntry : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_subActionBtnContainer, true, null);
 		if (this.m_playerInfo == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamMemberEntry.SetTeamPlayerInfo(LobbyPlayerInfo)).MethodHandle;
-			}
 			this.m_PlayerText.text = "-";
 			UIManager.SetGameObjectActive(this.m_subButtons[0], this.m_teamId != Team.Spectator, null);
 			UIManager.SetGameObjectActive(this.m_subButtons[1], false, null);
@@ -249,15 +171,6 @@ public class UITeamMemberEntry : MonoBehaviour
 			UIManager.SetGameObjectActive(this.m_subButtons[3], true, null);
 			if (!this.m_playerInfo.IsNPCBot)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_playerInfo.IsRemoteControlled)
 				{
 					UIManager.SetGameObjectActive(this.m_subButtons[1], false, null);
@@ -274,15 +187,6 @@ public class UITeamMemberEntry : MonoBehaviour
 					UIManager.SetGameObjectActive(this.m_subButtons[4], false, null);
 					goto IL_1C4;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UIManager.SetGameObjectActive(this.m_subButtons[1], true, null);
 			UIManager.SetGameObjectActive(this.m_subButtons[2], false, null);
@@ -294,37 +198,10 @@ public class UITeamMemberEntry : MonoBehaviour
 		{
 			this.m_subButtons[i].color = Color.gray;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!GameManager.Get().GameplayOverrides.AllowSpectators)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_teamId == Team.Spectator)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_PlayerText.text = StringUtil.TR("COMINGSOON", "Global");
 			}
 			UIManager.SetGameObjectActive(this.m_subButtons[5], false, null);

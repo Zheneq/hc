@@ -61,19 +61,6 @@ namespace TMPro
 			int instanceID = element.GetInstanceID();
 			if (this.m_GraphicQueueLookup.ContainsKey(instanceID))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_UpdateManager.InternalRegisterTextElementForGraphicRebuild(TMP_Text)).MethodHandle;
-				}
 				return false;
 			}
 			this.m_GraphicQueueLookup[instanceID] = instanceID;
@@ -87,19 +74,6 @@ namespace TMPro
 			{
 				this.m_LayoutRebuildQueue[i].Rebuild(CanvasUpdate.Prelayout);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_UpdateManager.OnCameraPreRender(Camera)).MethodHandle;
-			}
 			if (this.m_LayoutRebuildQueue.Count > 0)
 			{
 				this.m_LayoutRebuildQueue.Clear();
@@ -109,26 +83,8 @@ namespace TMPro
 			{
 				this.m_GraphicRebuildQueue[j].Rebuild(CanvasUpdate.PreRender);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_GraphicRebuildQueue.Count > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_GraphicRebuildQueue.Clear();
 				this.m_GraphicQueueLookup.Clear();
 			}

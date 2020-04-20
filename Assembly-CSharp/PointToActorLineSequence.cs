@@ -24,19 +24,6 @@ public class PointToActorLineSequence : Sequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PointToActorLineSequence.FinishSetup()).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -57,45 +44,14 @@ public class PointToActorLineSequence : Sequence
 	{
 		if (!this.m_fxJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PointToActorLineSequence.SpawnFX()).MethodHandle;
-			}
 			GameObject referenceModel = base.GetReferenceModel(base.Target, this.m_fxJointReferenceType);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fxJoint.Initialize(referenceModel);
 			}
 		}
 		if (this.m_fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 targetPos = base.TargetPos;
 			Quaternion rotation = default(Quaternion);
 			this.m_fx = base.InstantiateFX(this.m_fxPrefab, targetPos, rotation, true, true);
@@ -104,15 +60,6 @@ public class PointToActorLineSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -123,15 +70,6 @@ public class PointToActorLineSequence : Sequence
 		}
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 		}
 	}

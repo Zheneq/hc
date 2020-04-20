@@ -45,13 +45,13 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u001A.GetName(), "on every hit actor, 1 if in AoE, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.\u0013.GetName(), "on every actor, distance of cursor pos from min distance, for interpolation", true);
+		return base.GetContextUsageStr(ContextKeys.symbol_001A.GetName(), "on every hit actor, 1 if in AoE, 0 otherwise", true) + base.GetContextUsageStr(ContextKeys.symbol_0013.GetName(), "on every actor, distance of cursor pos from min distance, for interpolation", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u001A.GetName());
-		names.Add(ContextKeys.\u0013.GetName());
+		names.Add(ContextKeys.symbol_001A.GetName());
+		names.Add(ContextKeys.symbol_0013.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
@@ -89,19 +89,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_DualMeetingLasers.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -116,19 +103,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_DualMeetingLasers.GetMinMeetingDistFromCaster()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_minMeetingDistFromCasterMod.GetModifiedValue(this.m_minMeetingDistFromCaster);
 		}
 		else
@@ -143,19 +117,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_DualMeetingLasers.GetMaxMeetingDistFromCaster()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_maxMeetingDistFromCasterMod.GetModifiedValue(this.m_maxMeetingDistFromCaster);
 		}
 		else
@@ -180,19 +141,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_DualMeetingLasers.GetAoeBaseRadius()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_aoeBaseRadiusMod.GetModifiedValue(this.m_aoeBaseRadius);
 		}
 		else
@@ -207,19 +155,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_DualMeetingLasers.GetAoeMinRadius()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_aoeMinRadiusMod.GetModifiedValue(this.m_aoeMinRadius);
 		}
 		else
@@ -234,19 +169,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_DualMeetingLasers.GetAoeMaxRadius()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_aoeMaxRadiusMod.GetModifiedValue(this.m_aoeMaxRadius);
 		}
 		else
@@ -261,19 +183,6 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_DualMeetingLasers.GetAoeRadiusChangePerUnitFromMin()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_aoeRadiusChangePerUnitFromMinMod.GetModifiedValue(this.m_aoeRadiusChangePerUnitFromMin);
 		}
 		else

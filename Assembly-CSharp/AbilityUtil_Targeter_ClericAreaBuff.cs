@@ -13,19 +13,6 @@ public class AbilityUtil_Targeter_ClericAreaBuff : AbilityUtil_Targeter_Shape
 	{
 		if (this.m_syncComp != null && this.m_syncComp.m_turnsAreaBuffActive == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClericAreaBuff.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			base.UpdateTargeting(currentTarget, targetingActor);
 		}
 	}

@@ -288,19 +288,6 @@ namespace TMPro
 			{
 				if (TMP_Settings.s_Instance == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.get_instance()).MethodHandle;
-					}
 					TMP_Settings.s_Instance = (Resources.Load("TMP Settings") as TMP_Settings);
 				}
 				return TMP_Settings.s_Instance;
@@ -311,31 +298,9 @@ namespace TMPro
 		{
 			if (TMP_Settings.s_Instance == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.LoadDefaultSettings()).MethodHandle;
-				}
 				TMP_Settings x = Resources.Load("TMP Settings") as TMP_Settings;
 				if (x != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TMP_Settings.s_Instance = x;
 				}
 			}
@@ -346,19 +311,6 @@ namespace TMPro
 		{
 			if (TMP_Settings.instance == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetSettings()).MethodHandle;
-				}
 				return null;
 			}
 			return TMP_Settings.instance;
@@ -368,19 +320,6 @@ namespace TMPro
 		{
 			if (TMP_Settings.instance == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetFontAsset()).MethodHandle;
-				}
 				return null;
 			}
 			return TMP_Settings.instance.m_defaultFontAsset;
@@ -390,19 +329,6 @@ namespace TMPro
 		{
 			if (TMP_Settings.instance == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetSpriteAsset()).MethodHandle;
-				}
 				return null;
 			}
 			return TMP_Settings.instance.m_defaultSpriteAsset;
@@ -412,19 +338,6 @@ namespace TMPro
 		{
 			if (TMP_Settings.instance == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.GetStyleSheet()).MethodHandle;
-				}
 				return null;
 			}
 			return TMP_Settings.instance.m_defaultStyleSheet;
@@ -438,19 +351,6 @@ namespace TMPro
 			}
 			if (TMP_Settings.s_Instance.m_linebreakingRules == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Settings.LoadLinebreakingRules()).MethodHandle;
-				}
 				TMP_Settings.s_Instance.m_linebreakingRules = new TMP_Settings.LineBreakingTable();
 			}
 			TMP_Settings.s_Instance.m_linebreakingRules.leadingCharacters = TMP_Settings.GetCharacters(TMP_Settings.s_Instance.m_leadingCharacters);

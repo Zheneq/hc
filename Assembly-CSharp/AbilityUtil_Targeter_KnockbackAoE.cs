@@ -30,19 +30,6 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 	{
 		if (this.m_ability.GetExpectedNumberOfTargeters() > 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackAoE.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (currentTargetIndex >= this.m_ability.GetExpectedNumberOfTargeters() - 1)
 			{
 				goto IL_3E;
@@ -56,15 +43,6 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 			AbilityTarget target;
 			if (currentTargetIndex == 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				target = currentTarget;
 			}
 			else
@@ -75,42 +53,15 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 			Vector3 vector = currentTarget.FreePos - centerOfShape;
 			if (this.m_lockToCardinalDirs)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector)));
 			}
 			int num = 0;
 			if (this.m_knockbackDistance > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.EnableAllMovementArrows();
 				List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
 				if (currentTargetIndex > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					visibleActorsInRange = (this.m_ability.Targeters[0] as AbilityUtil_Targeter_KnockbackAoE).GetVisibleActorsInRange();
 				}
 				foreach (ActorData actorData in visibleActorsInRange)
@@ -123,26 +74,8 @@ public class AbilityUtil_Targeter_KnockbackAoE : AbilityUtil_Targeter_Shape
 				}
 				if (this.m_showArrowHighlight)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_highlights != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_highlights.Count < 1)
 						{
 							GameObject item = AbilityUtil_Targeter_SoldierCardinalLines.CreateArrowPointerHighlight(1.5f);

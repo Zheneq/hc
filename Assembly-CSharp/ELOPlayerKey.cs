@@ -77,19 +77,6 @@ public class ELOPlayerKey
 	{
 		if (isCasual)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GeneratePlayerKey(uint, GameType, bool)).MethodHandle;
-			}
 			gameType = GameType.Casual;
 		}
 		Func<uint, ELOKeyComponent.BinaryModePhaseEnum> func = delegate(uint modulo)
@@ -100,19 +87,6 @@ public class ELOPlayerKey
 			}
 			if (modulo == 1U)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(ELOPlayerKey.<GeneratePlayerKey>m__0(uint)).MethodHandle;
-				}
 				return ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
 			}
 			return ELOKeyComponent.BinaryModePhaseEnum.TERTIARY;
@@ -183,31 +157,9 @@ public class ELOPlayerKey
 				ELOKeyComponent elokeyComponent = enumerator.Current;
 				if (elokeyComponent.MatchesFlag(flag))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetComponentAndPhase(MatchmakingQueueConfig.EloKeyFlags, ELOKeyComponent.BinaryModePhaseEnum*)).MethodHandle;
-					}
 					phase = elokeyComponent.BinaryModePhase;
 					return elokeyComponent;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new Exception(string.Format("Bad ELO flag {0}", flag));
@@ -225,19 +177,6 @@ public class ELOPlayerKey
 		List<MatchmakingQueueConfig.EloKeyFlags> list;
 		if (config != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.FromConfig(GameType, MatchmakingQueueConfig, bool)).MethodHandle;
-			}
 			list = config.MatchmakingElo;
 		}
 		else
@@ -252,15 +191,6 @@ public class ELOPlayerKey
 			{
 				ELOKeyComponent elokeyComponent = enumerator.Current;
 				elokeyComponent.Initialize(flags, gameType, isCasual);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return eloplayerKey;
@@ -302,19 +232,6 @@ public class ELOPlayerKey
 	{
 		if (team == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.RegisterPredictionScores(Team, float, int, float, int)).MethodHandle;
-			}
 			this.teamAAccountPrediction += accountElo;
 			this.teamACharPrediction += charElo;
 			this.teamAPredictionWeight++;
@@ -327,28 +244,10 @@ public class ELOPlayerKey
 		}
 		if (accountMatches >= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.accountPredictionWeights.Add(accountMatches);
 		}
 		if (charMatches >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.charPredictionWeights.Add(charMatches);
 		}
 	}
@@ -368,19 +267,6 @@ public class ELOPlayerKey
 	{
 		if (accountEloValues != null && charEloValues != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.InitializeHumanELO(EloValues, EloValues, long, long, byte, Team, string)).MethodHandle;
-			}
 			this.InitializePerCharacter(groupSize);
 			float accountElo = 1500f;
 			int accountMatches = 0;
@@ -394,42 +280,15 @@ public class ELOPlayerKey
 					accountEloValues.GetElo(alternateKey, out accountElo, out accountMatches);
 					goto IL_80;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			accountEloValues.GetElo(keyText, out accountElo, out accountMatches);
 			IL_80:
 			if (alternateKey != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!charEloValues.Values.ContainsKey(this.KeyText))
 				{
 					charEloValues.GetElo(alternateKey, out charElo, out charMatches);
 					goto IL_CB;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			charEloValues.GetElo(keyText, out charElo, out charMatches);
@@ -466,19 +325,6 @@ public class ELOPlayerKey
 		}
 		if (team == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetExpectedResult(Team, ELOPlayerKey.ACEnum)).MethodHandle;
-			}
 			return (float)(num2 / (num + num2));
 		}
 		throw new Exception("unexpected team");
@@ -492,30 +338,8 @@ public class ELOPlayerKey
 			{
 				return 1500.0;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetNormalizedTeamElo(Team, ELOPlayerKey.ACEnum)).MethodHandle;
-			}
 			if (acMode == ELOPlayerKey.ACEnum.ACCOUNT)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return (double)(this.teamAAccountElo / this.teamAWeight);
 			}
 			return (double)(this.teamACharElo / this.teamAWeight);
@@ -526,39 +350,12 @@ public class ELOPlayerKey
 			{
 				throw new Exception("bad team");
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.teamBWeight <= 0f)
 			{
 				return 1500.0;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (acMode == ELOPlayerKey.ACEnum.ACCOUNT)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return (double)(this.teamBAccountElo / this.teamBWeight);
 			}
 			return (double)(this.teamBCharElo / this.teamBWeight);
@@ -575,19 +372,6 @@ public class ELOPlayerKey
 			float num4;
 			if (acMode == ELOPlayerKey.ACEnum.ACCOUNT)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetEloRange(ELOPlayerKey.ACEnum)).MethodHandle;
-				}
 				num4 = eloTracking.accountElo;
 			}
 			else
@@ -599,15 +383,6 @@ public class ELOPlayerKey
 		}
 		if (num2 <= 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 1500f;
 		}
 		float num5 = 0f;
@@ -620,15 +395,6 @@ public class ELOPlayerKey
 				float num7;
 				if (acMode == ELOPlayerKey.ACEnum.ACCOUNT)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = eloTracking2.accountElo;
 				}
 				else
@@ -639,15 +405,6 @@ public class ELOPlayerKey
 				float num9 = Math.Abs(num8 - num6) * eloTracking2.weight;
 				num5 += num9;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return num5 / num2;
 	}
@@ -657,31 +414,9 @@ public class ELOPlayerKey
 		float num = this.teamAWeight + this.teamBWeight;
 		if (num > 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetAverageElo(ELOPlayerKey.ACEnum)).MethodHandle;
-			}
 			float num2;
 			if (acMode == ELOPlayerKey.ACEnum.ACCOUNT)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = this.teamAAccountElo + this.teamBAccountElo;
 			}
 			else
@@ -704,19 +439,6 @@ public class ELOPlayerKey
 		float num = (acMode != ELOPlayerKey.ACEnum.ACCOUNT) ? eloTracking.characterElo : eloTracking.accountElo;
 		if (eloTracking.weight > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetNormalizedPlayerElo(long, ELOPlayerKey.ACEnum)).MethodHandle;
-			}
 			return num / eloTracking.weight;
 		}
 		return num;
@@ -735,69 +457,20 @@ public class ELOPlayerKey
 				ELOPlayerKey.EloTracking eloTracking = enumerator.Current;
 				if (eloTracking.team == Team.TeamA)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetPreMadeGroupRatio()).MethodHandle;
-					}
 					num3 += 1f;
 					if (eloTracking.groupId != 0L)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += 1f;
 					}
 				}
 				else if (eloTracking.team == Team.TeamB)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 += 1f;
 					if (eloTracking.groupId != 0L)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += 1f;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num = Math.Max(num, 1f);
@@ -805,15 +478,6 @@ public class ELOPlayerKey
 		float num5;
 		if (num > num2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = num2 / num;
 		}
 		else
@@ -831,31 +495,9 @@ public class ELOPlayerKey
 		ELOPlayerKey.EloTracking eloTracking;
 		if (this.m_eloTrackings.TryGetValue(accountId, out eloTracking))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetMatchCount(long, ELOPlayerKey.ACEnum)).MethodHandle;
-			}
 			int result;
 			if (acMode == ELOPlayerKey.ACEnum.ACCOUNT)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = eloTracking.accountMatches;
 			}
 			else
@@ -875,32 +517,10 @@ public class ELOPlayerKey
 		float num;
 		if (matchCount >= highKDuration)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GetKFactor(long, ELOPlayerKey.ACEnum, float, float, int, bool, float*, float*)).MethodHandle;
-			}
 			if (placementKFactor > 0f)
 			{
 				num = placementKFactor;
 				goto IL_52;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num = 0f;
@@ -933,19 +553,6 @@ public class ELOPlayerKey
 			float num3 = num * (actualResult - expectedResult);
 			if (num3 > num2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.CalculateNewEloValue(long, float, float, float, float, float, ELOPlayerKey.ACEnum, int, float*)).MethodHandle;
-				}
 				num3 = num2;
 			}
 			else if (num3 < 0f - num2)
@@ -956,26 +563,8 @@ public class ELOPlayerKey
 			newElo = Math.Max(1f, newElo);
 			if (newElo > placementMaxElo)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetMatchCount(accountId, acEnum) < highKDuration)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					newElo = placementMaxElo;
 				}
 			}
@@ -992,31 +581,9 @@ public class ELOPlayerKey
 	{
 		if (acEnum == ELOPlayerKey.ACEnum.ACCOUNT)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOPlayerKey.GeneratePreMatchPrediction(Team, ELOPlayerKey.ACEnum, float*, int*)).MethodHandle;
-			}
 			float num;
 			if (this.teamAPredictionWeight > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.teamAAccountPrediction / (float)this.teamAPredictionWeight;
 			}
 			else
@@ -1028,15 +595,6 @@ public class ELOPlayerKey
 			float num4;
 			if (this.teamBPredictionWeight > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = this.teamBAccountPrediction / (float)this.teamBPredictionWeight;
 			}
 			else
@@ -1056,15 +614,6 @@ public class ELOPlayerKey
 			int count = this.accountPredictionWeights.Count;
 			if (count > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.accountPredictionWeights.Sort();
 				minWeight = this.accountPredictionWeights.ElementAt(0);
 			}
@@ -1078,15 +627,6 @@ public class ELOPlayerKey
 			float num7;
 			if (this.teamAPredictionWeight > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num7 = this.teamACharPrediction / (float)this.teamAPredictionWeight;
 			}
 			else
@@ -1098,15 +638,6 @@ public class ELOPlayerKey
 			float num10;
 			if (this.teamBPredictionWeight > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num10 = this.teamBCharPrediction / (float)this.teamBPredictionWeight;
 			}
 			else

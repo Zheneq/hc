@@ -30,19 +30,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		SpaceMarinePrimaryAttack spaceMarinePrimaryAttack = targetAbility as SpaceMarinePrimaryAttack;
 		if (spaceMarinePrimaryAttack != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarinePrimaryAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserTargetInfoMod, "LaserTargetInfo", spaceMarinePrimaryAttack.m_laserTargetInfo, true);
 			AbilityMod.AddToken_ConeInfo(tokens, this.m_coneTargetInfoMod, "ConeTargetInfo", spaceMarinePrimaryAttack.m_coneTargetInfo, true);
 			AbilityMod.AddToken(tokens, this.m_baseDamageMod, "BaseDamage", string.Empty, spaceMarinePrimaryAttack.m_damageAmount, true, false);
@@ -64,19 +51,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarinePrimaryAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseLaserInfo = spaceMarinePrimaryAttack.m_laserTargetInfo;
 		}
 		else
@@ -93,15 +67,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = spaceMarinePrimaryAttack.m_damageAmount;
 		}
 		else
@@ -117,15 +82,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarinePrimaryAttack.m_coneDamageAmount;
 		}
 		else
@@ -140,15 +96,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = spaceMarinePrimaryAttack.m_coneEnemyHitEffect;
 		}
 		else

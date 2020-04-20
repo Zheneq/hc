@@ -42,19 +42,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (this.m_tetherRangePrefab != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.Start()).MethodHandle;
-			}
 			this.m_tetherRange = UnityEngine.Object.Instantiate<GameObject>(this.m_tetherRangePrefab);
 			this.m_tetherRange.transform.parent = base.gameObject.transform;
 			this.m_tetherRange.transform.localPosition = Vector3.zero;
@@ -67,19 +54,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.SetTetherRadiusPosition(Vector3)).MethodHandle;
-			}
 			this.CallRpcSetTetherRadiusPosition(tetherRadiusCenter);
 		}
 		else if (this.m_tetherRange != null)
@@ -116,30 +90,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		{
 			if (this.m_actorIndexToTetherAge[i].m_actorIndex == actorIndex)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.GetTetherAgeOnActor(int)).MethodHandle;
-				}
 				return this.m_actorIndexToTetherAge[i].m_tetherAge;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return 0;
 	}
@@ -152,42 +104,11 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.ShouldShowTetherRadius()).MethodHandle;
-				}
 				bool flag = this.m_actorData == activeOwnedActorData;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.BeamIsActive())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 					else
@@ -199,15 +120,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 							Ability ability;
 							if (abilityData)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ability = abilityData.GetLastSelectedAbility();
 							}
 							else
@@ -217,38 +129,11 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 							Ability ability2 = ability;
 							if (ability2 != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(ability2 is SparkBasicAttack))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(ability2 is SparkHealingBeam))
 									{
 										goto IL_FB;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								result = true;
@@ -271,19 +156,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		bool result;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.IsActorTracked(ActorData)).MethodHandle;
-			}
 			result = this.m_beamActorIndex.Contains(actor.ActorIndex);
 		}
 		else
@@ -309,33 +181,11 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 				int item = enumerator.Current;
 				list.Add(item);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.GetBeamActorIndices()).MethodHandle;
-			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -365,19 +215,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 			ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.HasBothTethers()).MethodHandle;
-				}
 				if (actorData.GetTeam() == this.m_actorData.GetTeam())
 				{
 					flag = true;
@@ -391,15 +228,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag2;
 		}
 		else
@@ -413,83 +241,25 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (this.m_tetherRange != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.Update()).MethodHandle;
-			}
 			bool flag = this.ShouldShowTetherRadius();
 			FriendlyEnemyVFXSelector component = this.m_tetherRange.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.Setup(GameFlowData.Get().activeOwnedActorData.GetTeam());
 				}
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_tetherRange.activeSelf)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_tetherRange.SetActive(true);
 					return;
 				}
 			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_tetherRange.activeSelf)
 				{
 					this.m_tetherRange.SetActive(false);
@@ -502,19 +272,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.IsActorOutOfRangeForEvade(ActorData)).MethodHandle;
-			}
 			return this.m_actorsOutOfRangeOnEvade.Contains((uint)actor.ActorIndex);
 		}
 		return false;
@@ -528,19 +285,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.InvokeSyncListm_beamActorIndex(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_beamActorIndex called on server.");
 			return;
 		}
@@ -561,19 +305,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.InvokeSyncListm_actorsOutOfRangeOnEvade(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_actorsOutOfRangeOnEvade called on server.");
 			return;
 		}
@@ -584,19 +315,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.InvokeRpcRpcSetTetherRadiusPosition(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetTetherRadiusPosition called on server.");
 			return;
 		}
@@ -607,19 +325,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.CallRpcSetTetherRadiusPosition(Vector3)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcSetTetherRadiusPosition called on client.");
 			return;
 		}
@@ -643,19 +348,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListInt.WriteInstance(writer, this.m_beamActorIndex);
 			GeneratedNetworkCode._WriteStructSyncListSparkTetherAgeInfo_None(writer, this.m_actorIndexToTetherAge);
 			SyncListUInt.WriteInstance(writer, this.m_actorsOutOfRangeOnEvade);
@@ -666,15 +358,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -682,26 +365,8 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -709,15 +374,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -736,19 +392,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBeamTrackerComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListInt.ReadReference(reader, this.m_beamActorIndex);
 			GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(reader, this.m_actorIndexToTetherAge);
 			SyncListUInt.ReadReference(reader, this.m_actorsOutOfRangeOnEvade);
@@ -761,15 +404,6 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(reader, this.m_actorIndexToTetherAge);
 		}
 		if ((num & 4) != 0)

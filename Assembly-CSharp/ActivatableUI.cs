@@ -21,19 +21,6 @@ public class ActivatableUI
 			bool flag;
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActivatableUI.Activate()).MethodHandle;
-				}
 				flag = (this.m_activation == ActivatableUI.ActivationAction.ToggleActive);
 			}
 			else
@@ -107,26 +94,8 @@ public class ActivatableUI
 			Tutorial tutorial = Tutorial.Get();
 			if (tutorial)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tutorial.m_tutorialPanel)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject = tutorial.m_tutorialPanel.gameObject;
 				}
 			}
@@ -203,15 +172,6 @@ public class ActivatableUI
 		{
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_activation != ActivatableUI.ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
@@ -219,23 +179,11 @@ public class ActivatableUI
 				}
 			}
 			UITutorialPanel uitutorialPanel = UITutorialPanel.Get();
-			if (ActivatableUI.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActivatableUI.<>f__am$cache0 = delegate()
+			
+			uitutorialPanel.QueueAction(delegate()
 				{
 					UITutorialFullscreenPanel.Get().ShowCombatPhasePanel();
-				};
-			}
-			uitutorialPanel.QueueAction(ActivatableUI.<>f__am$cache0);
+				});
 			break;
 		}
 		case ActivatableUI.UIElement.FullScreenDashPhaseTutorialPanel:
@@ -247,82 +195,31 @@ public class ActivatableUI
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
 					break;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UITutorialPanel uitutorialPanel2 = UITutorialPanel.Get();
-			if (ActivatableUI.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActivatableUI.<>f__am$cache1 = delegate()
+			
+			uitutorialPanel2.QueueAction(delegate()
 				{
 					UITutorialFullscreenPanel.Get().ShowDashPhasePanel();
-				};
-			}
-			uitutorialPanel2.QueueAction(ActivatableUI.<>f__am$cache1);
+				});
 			break;
 		}
 		case ActivatableUI.UIElement.FullScreenPrepPhaseTutorialPanel:
 		{
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_activation != ActivatableUI.ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
 					break;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UITutorialPanel uitutorialPanel3 = UITutorialPanel.Get();
-			if (ActivatableUI.<>f__am$cache2 == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ActivatableUI.<>f__am$cache2 = delegate()
+			
+			uitutorialPanel3.QueueAction(delegate()
 				{
 					UITutorialFullscreenPanel.Get().ShowPrepPhasePanel();
-				};
-			}
-			uitutorialPanel3.QueueAction(ActivatableUI.<>f__am$cache2);
+				});
 			break;
 		}
 		case ActivatableUI.UIElement.LockInButtonTutorialTipImage:
@@ -358,27 +255,9 @@ public class ActivatableUI
 		case ActivatableUI.UIElement.StatusEffectTutorialPanel:
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_activation != ActivatableUI.ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
-					break;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 			}
@@ -392,30 +271,12 @@ public class ActivatableUI
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
 					break;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UITutorialFullscreenPanel.Get().ShowTeammateTargetingPanel();
 			break;
 		case ActivatableUI.UIElement.EnergyAndUltimatesTutorialPanel:
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_activation != ActivatableUI.ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
@@ -427,27 +288,9 @@ public class ActivatableUI
 		case ActivatableUI.UIElement.FadeOutPanel:
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_activation != ActivatableUI.ActivationAction.ToggleActive)
 				{
 					UITutorialFullscreenPanel.Get().FadeIn();
-					break;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 			}
@@ -456,15 +299,6 @@ public class ActivatableUI
 		case ActivatableUI.UIElement.ResetMatchTimer:
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_activation != ActivatableUI.ActivationAction.ToggleActive)
 				{
 					break;
@@ -475,26 +309,8 @@ public class ActivatableUI
 		case ActivatableUI.UIElement.ResetMatchTurn:
 			if (this.m_activation != ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_activation != ActivatableUI.ActivationAction.ToggleActive)
 				{
-					break;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
 					break;
 				}
 			}
@@ -503,41 +319,14 @@ public class ActivatableUI
 		}
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool active = false;
 			if (this.m_activation == ActivatableUI.ActivationAction.SetActive)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(gameObject, true, null);
 				active = true;
 			}
 			else if (this.m_activation == ActivatableUI.ActivationAction.ClearActive)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(gameObject, false, null);
 				active = false;
 			}
@@ -548,15 +337,6 @@ public class ActivatableUI
 			}
 			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.ActivationInfo activationInfo = new GameEventManager.ActivationInfo();
 				activationInfo.actionType = actionType;
 				activationInfo.active = active;
@@ -564,26 +344,8 @@ public class ActivatableUI
 			}
 			if (this.m_uiElement == ActivatableUI.UIElement.DecisionTimer)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetDecisionTimerForceOff(!gameObject.activeSelf);
 				}
 			}
@@ -591,65 +353,20 @@ public class ActivatableUI
 			{
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetLockInCancelButtonForceOff(!gameObject.activeSelf);
 				}
 			}
 			else if (this.m_uiElement == ActivatableUI.UIElement.NotificationPanel)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetNotificationPanelForceOff(!gameObject.activeSelf);
 				}
 			}
 			else if (this.m_uiElement == ActivatableUI.UIElement.LockinPhaseDisplay)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetLockinPhaseDisplayForceOff(!gameObject.activeSelf);
 				}
 			}
@@ -664,65 +381,20 @@ public class ActivatableUI
 			{
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetLockinPhaseColorForceOff(!gameObject.activeSelf);
 				}
 			}
 			else if (this.m_uiElement == ActivatableUI.UIElement.TopDisplayPanelPlayerStatus)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetTeamPlayerIconForceOff(0, !gameObject.activeSelf);
 				}
 			}
 			else if (this.m_uiElement == ActivatableUI.UIElement.TopDisplayPanelPlayerStatus1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetTeamPlayerIconForceOff(1, !gameObject.activeSelf);
 				}
 			}
@@ -730,29 +402,11 @@ public class ActivatableUI
 			{
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetTeamPlayerIconForceOff(2, !gameObject.activeSelf);
 				}
 			}
 			else if (this.m_uiElement == ActivatableUI.UIElement.TopDisplayPanelPlayerStatus3)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
 					SinglePlayerManager.Get().SetEnemyPlayerIconForceOff(0, !gameObject.activeSelf);
@@ -760,51 +414,15 @@ public class ActivatableUI
 			}
 			else if (this.m_uiElement == ActivatableUI.UIElement.TopDisplayPanelPlayerStatus4)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetEnemyPlayerIconForceOff(1, !gameObject.activeSelf);
 				}
 			}
 			else if (this.m_uiElement == ActivatableUI.UIElement.TopDisplayPanelPlayerStatus5)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().SetEnemyPlayerIconForceOff(2, !gameObject.activeSelf);
 				}
 			}

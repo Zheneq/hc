@@ -1274,19 +1274,6 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(Filter))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.GetLanguageCode(string, bool)).MethodHandle;
-				}
 				return string.Empty;
 			}
 			string[] filters = Filter.ToLowerInvariant().Split(" /(),".ToCharArray());
@@ -1300,27 +1287,9 @@ namespace I2.Loc
 						return keyValuePair.Value.Code;
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (ShowWarnings)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log(string.Format("Language '{0}' not recognized. Please, add the language code to GoogleTranslation.cs", Filter));
 			}
 			return string.Empty;
@@ -1341,19 +1310,6 @@ namespace I2.Loc
 						{
 							continue;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.GetLanguagesForDropdown(string, string)).MethodHandle;
-						}
 					}
 					string text = string.Concat(new string[]
 					{
@@ -1361,26 +1317,8 @@ namespace I2.Loc
 					});
 					if (!CodesToExclude.Contains(text))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(keyValuePair.Key + " " + text);
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			for (int i = list.Count - 2; i >= 0; i--)
@@ -1388,27 +1326,9 @@ namespace I2.Loc
 				string text2 = list[i].Substring(0, list[i].IndexOf(" ["));
 				if (list[i + 1].StartsWith(text2))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list[i] = text2 + "/" + list[i];
 					list.Insert(i + 1, text2 + "/");
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return list;
 		}
@@ -1417,19 +1337,6 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(Filter))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.GetClosestLanguage(string)).MethodHandle;
-				}
 				return string.Empty;
 			}
 			string[] filters = Filter.ToLowerInvariant().Split(" /(),".ToCharArray());
@@ -1437,15 +1344,6 @@ namespace I2.Loc
 			{
 				if (GoogleLanguages.LanguageMatchesFilter(keyValuePair.Key, filters))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return keyValuePair.Key;
 				}
 			}
@@ -1461,19 +1359,6 @@ namespace I2.Loc
 			{
 				if (Filters[i] != string.Empty)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.LanguageMatchesFilter(string, string[])).MethodHandle;
-					}
 					if (!Language.Contains(Filters[i].ToLower()))
 					{
 						return false;
@@ -1481,15 +1366,6 @@ namespace I2.Loc
 					Language = Language.Remove(Language.IndexOf(Filters[i]), Filters[i].Length);
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return true;
 		}
@@ -1500,33 +1376,11 @@ namespace I2.Loc
 			int num = Language.IndexOf(" [");
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.GetFormatedLanguageName(string)).MethodHandle;
-				}
 				Language = Language.Substring(0, num);
 			}
 			num = Language.IndexOf('/');
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = Language.Substring(0, num);
 				if (Language == text + "/" + text)
 				{
@@ -1551,19 +1405,6 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(CodedLanguage))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.UnPackCodeFromLanguageName(string, string*, string*)).MethodHandle;
-				}
 				Language = string.Empty;
 				code = string.Empty;
 				return;
@@ -1571,15 +1412,6 @@ namespace I2.Loc
 			int num = CodedLanguage.IndexOf("[");
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Language = CodedLanguage;
 				code = GoogleLanguages.GetLanguageCode(Language, false);
 			}
@@ -1599,31 +1431,9 @@ namespace I2.Loc
 					KeyValuePair<string, GoogleLanguages.LanguageCodeDef> keyValuePair = enumerator.Current;
 					if (InternationalCode == keyValuePair.Value.Code)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.GetGoogleLanguageCode(string)).MethodHandle;
-						}
 						string result;
 						if (!string.IsNullOrEmpty(keyValuePair.Value.GoogleCode))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = keyValuePair.Value.GoogleCode;
 						}
 						else
@@ -1632,15 +1442,6 @@ namespace I2.Loc
 						}
 						return result;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return InternationalCode;
@@ -1655,19 +1456,6 @@ namespace I2.Loc
 				{
 					KeyValuePair<string, GoogleLanguages.LanguageCodeDef> keyValuePair = enumerator.Current;
 					hashSet.Add(keyValuePair.Value.Code);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GoogleLanguages.GetAllInternationalCodes()).MethodHandle;
 				}
 			}
 			return new List<string>(hashSet);

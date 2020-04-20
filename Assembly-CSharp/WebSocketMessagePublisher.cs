@@ -14,33 +14,11 @@ public class WebSocketMessagePublisher : IMessagePublisher
 		Type type = Type.GetType(typeName);
 		if (type == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.GetType(string)).MethodHandle;
-			}
 			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
 				type = assembly.GetType(typeName);
 				if (type != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 			}
@@ -53,19 +31,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 		Type type = WebSocketMessagePublisher.GetType(typeName);
 		if (type != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Subscribe(string, WebSocket)).MethodHandle;
-			}
 			this.Subscribe(type, subscriber);
 		}
 	}
@@ -85,19 +50,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 				bool result;
 				if (s.Type == messageType)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(WebSocketMessagePublisher.<Subscribe>c__AnonStorey0.<>m__0(WebSocketMessagePublisher.SubscriberToken)).MethodHandle;
-					}
 					result = s.Subscriber.Equals(subscriber);
 				}
 				else
@@ -107,19 +59,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 				return result;
 			}))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Subscribe(Type, WebSocket)).MethodHandle;
-				}
 				WebSocketMessagePublisher.SubscriberToken item = new WebSocketMessagePublisher.SubscriberToken
 				{
 					Type = messageType,
@@ -155,19 +94,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 		Type type = WebSocketMessagePublisher.GetType(typeName);
 		if (type != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Unsubscribe(string, WebSocket)).MethodHandle;
-			}
 			this.Unsubscribe(type, subscriber);
 		}
 	}
@@ -182,19 +108,6 @@ public class WebSocketMessagePublisher : IMessagePublisher
 				bool result;
 				if (s.Subscriber.Equals(subscriber))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.<Unsubscribe>c__AnonStorey2.<>m__0(WebSocketMessagePublisher.SubscriberToken)).MethodHandle;
-					}
 					result = (s.Type == type);
 				}
 				else
@@ -223,30 +136,8 @@ public class WebSocketMessagePublisher : IMessagePublisher
 					WebSocketMessagePublisher.SubscriberToken subscriberToken = enumerator.Current;
 					if (subscriberToken.Type == typeof(TMessageType))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessagePublisher.Publish(TMessageType)).MethodHandle;
-						}
 						list.Add(subscriberToken.Subscriber);
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

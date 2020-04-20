@@ -44,19 +44,6 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirl_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_basicAttackLastCastTurn);
 			writer.WritePackedUInt32((uint)this.m_basicAttackConsecutiveTurns);
 			return true;
@@ -64,26 +51,8 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -93,15 +62,6 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -109,15 +69,6 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -127,19 +78,6 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirl_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
 			this.m_basicAttackConsecutiveTurns = (int)reader.ReadPackedUInt32();
 			return;
@@ -147,15 +85,6 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_basicAttackLastCastTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)

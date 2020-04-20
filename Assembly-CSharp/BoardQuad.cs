@@ -15,33 +15,11 @@ public class BoardQuad
 	{
 		if (!(this.m_corner1 == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardQuad.GetSquares()).MethodHandle;
-			}
 			if (!(this.m_corner2 == null))
 			{
 				BoardSquare a;
 				if (this.m_corner1.GetComponent<BoardSquare>() == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a = Board.Get().GetBoardSquare(this.m_corner1);
 				}
 				else
@@ -63,15 +41,6 @@ public class BoardQuad
 		List<BoardSquare> result = new List<BoardSquare>();
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("BoardRegion " + this.m_name + " has a BoardQuad with null corners.", new object[0]);
 		}
 		return result;

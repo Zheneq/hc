@@ -52,30 +52,8 @@ public class TargeterPart_Laser
 	{
 		if (highlightObj != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterPart_Laser.AdjustHighlight(GameObject, Vector3, Vector3, bool)).MethodHandle;
-			}
 			if (applyStartOffset)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
 				startPos = VectorUtils.GetAdjustedStartPosWithOffset(startPos, endPos, laserInitialOffsetInSquares);
 			}

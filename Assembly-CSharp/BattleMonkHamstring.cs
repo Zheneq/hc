@@ -34,19 +34,6 @@ public class BattleMonkHamstring : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Hamstring";
 		}
 		this.SetupTargeter();
@@ -56,19 +43,6 @@ public class BattleMonkHamstring : Ability
 	{
 		if (this.ShouldExplodeOnActorHit())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.SetupTargeter()).MethodHandle;
-			}
 			base.Targeter = new AbilityUtil_Targeter_LaserWithShape(this, this.GetExplodeShape(), this.GetLaserWidth(), this.GetLaserRange(), this.m_laserInfo.penetrateLos, this.GetMaxTargets(), this.m_laserInfo.affectsAllies, this.m_laserInfo.affectsCaster, this.m_laserInfo.affectsEnemies);
 		}
 		else if (this.GetMaxBounces() > 0)
@@ -101,19 +75,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetDamageAfterFirstHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAfterFirstHitMod.GetModifiedValue(this.m_damageAfterFirstHit);
 		}
 		else
@@ -133,19 +94,6 @@ public class BattleMonkHamstring : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_laserInfo.range;
 		}
 		else
@@ -160,19 +108,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_laserInfo.maxTargets;
 		}
 		else
@@ -187,19 +122,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetMaxBounces()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -214,19 +136,6 @@ public class BattleMonkHamstring : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetDistancePerBounce()).MethodHandle;
-			}
 			result = 0f;
 		}
 		else
@@ -241,19 +150,6 @@ public class BattleMonkHamstring : Ability
 		GameObject result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetProjectileSequence()).MethodHandle;
-			}
 			result = this.m_projectileSequencePrefab;
 		}
 		else
@@ -268,19 +164,6 @@ public class BattleMonkHamstring : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.ShouldExplodeOnActorHit()).MethodHandle;
-			}
 			result = this.m_explodeOnActorHit;
 		}
 		else
@@ -295,19 +178,6 @@ public class BattleMonkHamstring : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetExplosionDamage()).MethodHandle;
-			}
 			result = this.m_explosionDamageAmount;
 		}
 		else
@@ -322,19 +192,6 @@ public class BattleMonkHamstring : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetExplodeShape()).MethodHandle;
-			}
 			result = this.m_explodeShape;
 		}
 		else
@@ -349,30 +206,8 @@ public class BattleMonkHamstring : Ability
 		int damageAfterFirstHit = this.GetDamageAfterFirstHit();
 		if (damageAfterFirstHit > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.CalcDamageForOrderIndex(int)).MethodHandle;
-			}
 			if (hitOrder > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return damageAfterFirstHit;
 			}
 		}
@@ -386,19 +221,6 @@ public class BattleMonkHamstring : Ability
 		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
 		if (this.m_explodeOnActorHit)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_explosionDamageAmount);
 			this.m_explosionHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
 		}
@@ -422,19 +244,6 @@ public class BattleMonkHamstring : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter is AbilityUtil_Targeter_LaserWithShape)
 			{
 				List<ActorData> lastLaserHitActors = (base.Targeter as AbilityUtil_Targeter_LaserWithShape).GetLastLaserHitActors();
@@ -442,15 +251,6 @@ public class BattleMonkHamstring : Ability
 				{
 					if (targetActor == lastLaserHitActors[i])
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage = this.CalcDamageForOrderIndex(i);
 						break;
 					}
@@ -458,15 +258,6 @@ public class BattleMonkHamstring : Ability
 			}
 			else if (base.Targeter is AbilityUtil_Targeter_BounceLaser)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
 				for (int j = 0; j < hitActorContext.Count; j++)
 				{
@@ -479,29 +270,11 @@ public class BattleMonkHamstring : Ability
 			}
 			else if (base.Targeter is AbilityUtil_Targeter_Laser)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext2 = (base.Targeter as AbilityUtil_Targeter_Laser).GetHitActorContext();
 				for (int k = 0; k < hitActorContext2.Count; k++)
 				{
 					if (hitActorContext2[k].actor == targetActor)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage = this.CalcDamageForOrderIndex(k);
 						break;
 					}
@@ -510,15 +283,6 @@ public class BattleMonkHamstring : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			results.m_damage = this.GetExplosionDamage();
 		}
 		return true;
@@ -529,31 +293,9 @@ public class BattleMonkHamstring : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.GetLaserDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
@@ -573,19 +315,6 @@ public class BattleMonkHamstring : Ability
 		int val;
 		if (abilityMod_BattleMonkHamstring)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_BattleMonkHamstring.m_laserDamageMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -596,26 +325,8 @@ public class BattleMonkHamstring : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_BattleMonkHamstring)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityMod_BattleMonkHamstring.m_useLaserHitEffectOverride)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				effectInfo = abilityMod_BattleMonkHamstring.m_laserHitEffectOverride;
 				goto IL_86;
 			}
@@ -628,15 +339,6 @@ public class BattleMonkHamstring : Ability
 		int val2;
 		if (abilityMod_BattleMonkHamstring)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_BattleMonkHamstring.m_explosionDamageMod.GetModifiedValue(this.m_explosionDamageAmount);
 		}
 		else
@@ -647,15 +349,6 @@ public class BattleMonkHamstring : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_BattleMonkHamstring)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityMod_BattleMonkHamstring.m_useExplosionHitEffectOverride)
 			{
 				effectInfo2 = abilityMod_BattleMonkHamstring.m_explosionHitEffectOverride;
@@ -671,19 +364,6 @@ public class BattleMonkHamstring : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BattleMonkHamstring))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkHamstring.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_BattleMonkHamstring);
 			this.SetupTargeter();
 		}

@@ -43,19 +43,6 @@ public class FSMSystem : IGameEventListener
 				object obj;
 				if (this.associatedBrain)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.set_StartingStateID(StateID)).MethodHandle;
-					}
 					obj = this.associatedBrain.ToString();
 				}
 				else
@@ -94,45 +81,14 @@ public class FSMSystem : IGameEventListener
 	{
 		if (!(this.currentState == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.Initialize()).MethodHandle;
-			}
 			if (this.currentState.StateID != StateID.NullStateID)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		StateID stateID;
 		if (this.StartingStateID == StateID.NullStateID)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stateID = this.states[0].StateID;
 		}
 		else
@@ -149,58 +105,18 @@ public class FSMSystem : IGameEventListener
 		bool flag = true;
 		if (eventType != GameEventManager.EventType.ActorDamaged_Server)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			if (eventType != GameEventManager.EventType.CharacterHealedOrBuffed)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				GameEventManager.CharacterHealBuffArgs characterHealBuffArgs = args as GameEventManager.CharacterHealBuffArgs;
 				if (characterHealBuffArgs.targetCharacter == this.currentState.MyActorData)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FSMState fsmstate = this.currentState;
 					Transition transition;
 					if (characterHealBuffArgs.healed)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						transition = Transition.Healed;
 					}
 					else
@@ -217,34 +133,12 @@ public class FSMSystem : IGameEventListener
 			GameEventManager.ActorHitHealthChangeArgs actorHitHealthChangeArgs = args as GameEventManager.ActorHitHealthChangeArgs;
 			if (actorHitHealthChangeArgs.m_target == this.currentState.MyActorData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.currentState.SetPendingTransition(Transition.TookDamage);
 				flag = false;
 			}
 		}
 		if (!flag)
 		{
-			if (!true)
-			{
-				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.CurrentState.OnGameEvent(eventType, args);
 	}
@@ -253,32 +147,10 @@ public class FSMSystem : IGameEventListener
 	{
 		if (s == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.AddState(FSMState)).MethodHandle;
-			}
 			Debug.LogError("FSM ERROR: Null reference is not allowed when adding a state");
 		}
 		if (this.states.Find((FSMState x) => x.StateID == s.StateID) != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("FSM ERROR: Impossible to add state " + s.StateID.ToString() + " because state has already been added");
 			return;
 		}
@@ -289,19 +161,6 @@ public class FSMSystem : IGameEventListener
 	{
 		if (id == StateID.NullStateID)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.DeleteState(StateID)).MethodHandle;
-			}
 			Debug.LogError("FSM ERROR: NullStateID is not allowed for a real state");
 			return;
 		}
@@ -316,15 +175,6 @@ public class FSMSystem : IGameEventListener
 					return;
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Debug.LogError("FSM ERROR: Impossible to delete state " + id.ToString() + ". It was not on the list of states");
 	}
@@ -336,30 +186,8 @@ public class FSMSystem : IGameEventListener
 			FSMState fsmstate = this.states[i];
 			if (fsmstate != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.DestroyAllStates()).MethodHandle;
-				}
 				UnityEngine.Object.Destroy(fsmstate.gameObject);
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.states.Clear();
 	}
@@ -371,32 +199,10 @@ public class FSMSystem : IGameEventListener
 		{
 			if (this.currentState.GetOutputState(trans) == StateID.NullStateID)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.CanTransistion(Transition)).MethodHandle;
-				}
 				if (!this.currentState.GetOutputBrain(trans))
 				{
 					if (this.currentState.GetPopBrain(trans) != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = this.currentState.GetPopBrain(trans).Value;
 					}
 					else
@@ -430,19 +236,6 @@ public class FSMSystem : IGameEventListener
 	{
 		if (trans == Transition.NullTransition)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.PerformTransition(Transition, NPCBrain)).MethodHandle;
-			}
 			Debug.LogError("FSM ERROR: NullTransition is not allowed for a real transition");
 			return;
 		}
@@ -450,15 +243,6 @@ public class FSMSystem : IGameEventListener
 		NPCBrain outputBrain = this.currentState.GetOutputBrain(trans);
 		if (outputState == StateID.NullStateID && outputBrain != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (outputState == StateID.NullStateID)
@@ -474,30 +258,12 @@ public class FSMSystem : IGameEventListener
 				FSMState fsmstate = enumerator.Current;
 				if (fsmstate.StateID == this.currentStateID)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StateID previousState = this.currentStateID;
 					this.currentState.OnExit(onWho, fsmstate.StateID);
 					this.currentState = fsmstate;
 					this.currentState.OnEnter(onWho, previousState);
 					return;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -511,30 +277,8 @@ public class FSMSystem : IGameEventListener
 			this.PerformTransition(transition, this.associatedBrain);
 			if (this.pendingTransition != transition)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FSMSystem.TakeTurn()).MethodHandle;
-				}
 				if (this.pendingTransition != Transition.NullTransition)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning(string.Concat(new object[]
 					{
 						"Hmm, a transition caused a transition (",
@@ -544,15 +288,6 @@ public class FSMSystem : IGameEventListener
 					}), new object[0]);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.IsTakingTurn = true;
 		IEnumerator result = this.CurrentState.OnTurn(this.associatedBrain);

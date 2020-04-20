@@ -22,19 +22,6 @@ internal abstract class Eased<T>
 	{
 		if (!endValue.Equals(this.m_endValue))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Eased.EaseTo(T, float)).MethodHandle;
-			}
 			this.m_startValue = this.CalcValue();
 			this.m_endValue = endValue;
 			this.m_startTime = Time.time;

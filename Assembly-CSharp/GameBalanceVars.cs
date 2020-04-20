@@ -118,46 +118,15 @@ public class GameBalanceVars
 		{
 			if (this.m_CharProgressInfoWithRepeating != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.get_CharProgressInfoWithRepeating()).MethodHandle;
-				}
 				if (this.m_CharProgressInfoWithRepeating.Length == this.CharacterProgressInfo.Length + 1)
 				{
 					goto IL_90;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_CharProgressInfoWithRepeating = new GameBalanceVars.LevelProgressInfo[this.CharacterProgressInfo.Length + 1];
 			for (int i = 0; i < this.CharacterProgressInfo.Length; i++)
 			{
 				this.m_CharProgressInfoWithRepeating[i] = this.CharacterProgressInfo[i];
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_CharProgressInfoWithRepeating[this.CharacterProgressInfo.Length] = this.RepeatingCharacterProgressInfo;
 			IL_90:
@@ -171,19 +140,6 @@ public class GameBalanceVars
 		{
 			if (this.StatSettings[i].m_StatType == StatType)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.IsStatLowerBetter(StatDisplaySettings.StatType)).MethodHandle;
-				}
 				return this.StatSettings[i].LowerIsBetter;
 			}
 		}
@@ -252,19 +208,6 @@ public class GameBalanceVars
 		{
 			if (this.CharacterProgressInfo == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.get_MaxCharacterLevelForRewards()).MethodHandle;
-				}
 				return 0;
 			}
 			return this.CharacterProgressInfo.Length + 1;
@@ -287,30 +230,8 @@ public class GameBalanceVars
 		num += gameBalanceVars.GGPackSelfISOBonus * selfUsedPack;
 		if (0 < numPacksUsed)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetGGPackBonusISO(int, int)).MethodHandle;
-			}
 			if (numPacksUsed - 1 < gameBalanceVars.GGPackISOAdditionalBonus.Length)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += gameBalanceVars.GGPackISOAdditionalBonus[numPacksUsed - 1];
 			}
 		}
@@ -330,19 +251,6 @@ public class GameBalanceVars
 				num += gameBalanceVars.GGPackXPAdditionalBonus[i];
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetGGPackXPMultiplier(int, int)).MethodHandle;
-		}
 		return (float)Math.Round((double)num, 1);
 	}
 
@@ -350,43 +258,12 @@ public class GameBalanceVars
 	{
 		if (this.characterUnlockData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetCharacterUnlockData(CharacterType)).MethodHandle;
-			}
 			foreach (GameBalanceVars.CharacterUnlockData characterUnlockData in this.characterUnlockData)
 			{
 				if (characterUnlockData.character == character)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return characterUnlockData;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -396,31 +273,9 @@ public class GameBalanceVars
 	{
 		if (currentLevel >= 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.PlayerExperienceToLevel(int)).MethodHandle;
-			}
 			if (currentLevel <= this.PlayerProgressInfo.Length)
 			{
 				return this.PlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new ArgumentException(string.Format("Current level {0} is outside the player level range {1}-{2}", currentLevel, 1, this.PlayerProgressInfo.Length));
@@ -430,32 +285,10 @@ public class GameBalanceVars
 	{
 		if (currentLevel < 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.CharacterExperienceToLevel(int)).MethodHandle;
-			}
 			throw new ArgumentException(string.Format("Attempting to access character experience less than 1", new object[0]));
 		}
 		if (currentLevel - 1 < this.CharacterProgressInfo.Length)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.CharacterProgressInfo[currentLevel - 1].ExperienceToNextLevel;
 		}
 		return this.RepeatingCharacterProgressInfo.ExperienceToNextLevel;
@@ -467,30 +300,8 @@ public class GameBalanceVars
 		{
 			if (this.PlayerTitles[i].ID == titleID)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetTitle(int, string, int)).MethodHandle;
-				}
 				return this.PlayerTitles[i].GetTitleText(titleLevel);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return returnOnEmptyOverride;
 	}
@@ -501,30 +312,8 @@ public class GameBalanceVars
 		{
 			if (this.TitleLevelDefinitions[i].m_titleId == titleID)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetMaxTitleLevel(int)).MethodHandle;
-				}
 				return this.TitleLevelDefinitions[i].m_maxLevel;
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return 0;
 	}
@@ -535,30 +324,8 @@ public class GameBalanceVars
 		{
 			if (this.ChatEmojis[i].Name == emojiName)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetChatEmojiIDByName(string)).MethodHandle;
-				}
 				return this.ChatEmojis[i].ID;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return -1;
 	}
@@ -571,19 +338,6 @@ public class GameBalanceVars
 			{
 				return i;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetChatEmojiIndexByName(string)).MethodHandle;
 		}
 		return -1;
 	}
@@ -599,44 +353,13 @@ public class GameBalanceVars
 					return GameResultBadgeData.Get().GameResultBadges[i];
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetGameBadge(int)).MethodHandle;
-			}
 		}
 		for (int j = 0; j < this.GameResultBadges.Length; j++)
 		{
 			if (this.GameResultBadges[j].UniqueBadgeID == badgeID)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.GameResultBadges[j];
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -650,19 +373,6 @@ public class GameBalanceVars
 				return this.ChatEmojis[i].Name;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetUnlocalizedChatEmojiName(int, string)).MethodHandle;
-		}
 		return returnOnEmptyOverride;
 	}
 
@@ -672,30 +382,8 @@ public class GameBalanceVars
 		{
 			if (this.ChatEmojis[i].ID == emojiID)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetChatEmoji(int)).MethodHandle;
-				}
 				return this.ChatEmojis[i];
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -706,19 +394,6 @@ public class GameBalanceVars
 		string result;
 		if (banner != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetBannerName(int, string)).MethodHandle;
-			}
 			result = banner.GetBannerName();
 		}
 		else
@@ -737,19 +412,6 @@ public class GameBalanceVars
 				return this.PlayerBanners[i];
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetBanner(int)).MethodHandle;
-		}
 		return null;
 	}
 
@@ -759,30 +421,8 @@ public class GameBalanceVars
 		{
 			if (this.PlayerRibbons[i].ID == ribbonID)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetRibbon(int)).MethodHandle;
-				}
 				return this.PlayerRibbons[i];
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -793,19 +433,6 @@ public class GameBalanceVars
 		{
 			if (this.LoadingScreenBackgrounds[i].ID == loadingScreenID)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetLoadingScreenBackground(int)).MethodHandle;
-				}
 				return this.LoadingScreenBackgrounds[i];
 			}
 		}
@@ -852,30 +479,8 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameBalanceVars.GameRewardBucketType.FullVsHumanRewards)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetXPBonusForWin(GameBalanceVars.GameRewardBucketType)).MethodHandle;
-			}
 			if (bucketType < (GameBalanceVars.GameRewardBucketType)this.GameRewardBuckets.Length)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.GameRewardBuckets[(int)bucketType].XPBonusForWin;
 			}
 		}
@@ -886,19 +491,6 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameBalanceVars.GameRewardBucketType.FullVsHumanRewards)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetXPBonusPerMinute(GameBalanceVars.GameRewardBucketType)).MethodHandle;
-			}
 			if (bucketType < (GameBalanceVars.GameRewardBucketType)this.GameRewardBuckets.Length)
 			{
 				return this.GameRewardBuckets[(int)bucketType].XPBonusPerMinute;
@@ -911,19 +503,6 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameBalanceVars.GameRewardBucketType.FullVsHumanRewards)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetXPBonusPerMinuteCap(GameBalanceVars.GameRewardBucketType)).MethodHandle;
-			}
 			if (bucketType < (GameBalanceVars.GameRewardBucketType)this.GameRewardBuckets.Length)
 			{
 				return this.GameRewardBuckets[(int)bucketType].XPBonusPerMinuteCap;
@@ -936,30 +515,8 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameBalanceVars.GameRewardBucketType.FullVsHumanRewards)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetXPBonusPerQueueTimeMinute(GameBalanceVars.GameRewardBucketType)).MethodHandle;
-			}
 			if (bucketType < (GameBalanceVars.GameRewardBucketType)this.GameRewardBuckets.Length)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.GameRewardBuckets[(int)bucketType].XPBonusPerQueueTimeMinute;
 			}
 		}
@@ -970,30 +527,8 @@ public class GameBalanceVars
 	{
 		if (bucketType >= GameBalanceVars.GameRewardBucketType.FullVsHumanRewards)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetXPBonusPerQueueTimeMinuteCap(GameBalanceVars.GameRewardBucketType)).MethodHandle;
-			}
 			if (bucketType < (GameBalanceVars.GameRewardBucketType)this.GameRewardBuckets.Length)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.GameRewardBuckets[(int)bucketType].XPBonusPerQueueTimeMinuteCap;
 			}
 		}
@@ -1009,19 +544,6 @@ public class GameBalanceVars
 	{
 		if (totalMinutes < 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetXPBonusForMatchTime(GameBalanceVars.GameRewardBucketType, float)).MethodHandle;
-			}
 			totalMinutes = 0f;
 		}
 		float num = this.GetXPBonusPerMinute(bucketType) * totalMinutes;
@@ -1038,19 +560,6 @@ public class GameBalanceVars
 	{
 		if (totalMinutes < 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GetXPBonusForQueueTime(GameBalanceVars.GameRewardBucketType, float)).MethodHandle;
-			}
 			totalMinutes = 0f;
 		}
 		float num = this.GetXPBonusPerQueueTimeMinute(bucketType) * totalMinutes;
@@ -1072,19 +581,6 @@ public class GameBalanceVars
 	{
 		if (arrayOfIDs != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.EnsureUniqueIDs(T[])).MethodHandle;
-			}
 			if (arrayOfIDs.Length > 0)
 			{
 				int num = 0;
@@ -1092,26 +588,8 @@ public class GameBalanceVars
 				{
 					if (arrayOfIDs[i].GetID() > num)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = arrayOfIDs[i].GetID();
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				for (int j = 0; j < arrayOfIDs.Length; j++)
 				{
@@ -1128,15 +606,6 @@ public class GameBalanceVars
 						}
 						arrayOfIDs[k].SetID(++num);
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1213,32 +682,10 @@ public class GameBalanceVars
 		{
 			if (this.ComparisonGroup != other.ComparisonGroup)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GameResultBadge.CouldRecieveBothBadgesInOneGame(GameBalanceVars.GameResultBadge)).MethodHandle;
-				}
 				return true;
 			}
 			if (this.UsesFreelancerStats != other.UsesFreelancerStats)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 			switch (this.ComparisonGroup)
@@ -1246,15 +693,6 @@ public class GameBalanceVars
 			case GameBalanceVars.GameResultBadge.ComparisonType.None:
 				if (this.MinimumConditions.Length != other.MinimumConditions.Length)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 				for (int i = 0; i < this.MinimumConditions.Length; i++)
@@ -1265,41 +703,14 @@ public class GameBalanceVars
 					}
 					if (this.MinimumConditions[i].StatsToSum.Length != other.MinimumConditions[i].StatsToSum.Length)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 					for (int j = 0; j < this.MinimumConditions[i].StatsToSum.Length; j++)
 					{
 						if (this.MinimumConditions[i].StatsToSum[j] != other.MinimumConditions[i].StatsToSum[j])
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				return false;
@@ -1319,57 +730,17 @@ public class GameBalanceVars
 			{
 				if (!this.MinimumConditions[i].StatsToSum.IsNullOrEmpty<StatDisplaySettings.StatType>())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GameResultBadge.DoStatsMeetMinimumRequirementsForBadge(StatDisplaySettings.IPersistatedStatValueSupplier)).MethodHandle;
-					}
 					float num = 0f;
 					for (int j = 0; j < this.MinimumConditions[i].StatsToSum.Length; j++)
 					{
 						float? stat = StatSupplier.GetStat(this.MinimumConditions[i].StatsToSum[j]);
 						if (stat != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += stat.Value;
 						}
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.MinimumConditions[i].DoesValueMeetConditions(num))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 				}
@@ -1417,45 +788,14 @@ public class GameBalanceVars
 				}
 				if (this.FunctionType == GameBalanceVars.GameResultBadge.BadgeCondition.BadgeFunctionType.GreaterThan)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.GameResultBadge.BadgeCondition.DoesValueMeetConditions(float)).MethodHandle;
-					}
 					return value > this.ValueToCompare;
 				}
 				if (this.FunctionType == GameBalanceVars.GameResultBadge.BadgeCondition.BadgeFunctionType.GreaterThanOrEqual)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return value >= this.ValueToCompare;
 				}
 				if (this.FunctionType == GameBalanceVars.GameResultBadge.BadgeCondition.BadgeFunctionType.LessThan)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return value < this.ValueToCompare;
 				}
 				if (this.FunctionType == GameBalanceVars.GameResultBadge.BadgeCondition.BadgeFunctionType.LessThanOrEqual)
@@ -1826,19 +1166,6 @@ public class GameBalanceVars
 			unlockData.UnlockConditions = null;
 			if (this.UnlockConditions != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.UnlockData.Clone()).MethodHandle;
-				}
 				unlockData.UnlockConditions = new GameBalanceVars.UnlockCondition[this.UnlockConditions.Length];
 				for (int i = 0; i < this.UnlockConditions.Length; i++)
 				{
@@ -1847,15 +1174,6 @@ public class GameBalanceVars
 					GameBalanceVars.UnlockCondition unlockCondition;
 					if (this.UnlockConditions[i] != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						unlockCondition = this.UnlockConditions[i].Clone();
 					}
 					else
@@ -1864,28 +1182,10 @@ public class GameBalanceVars
 					}
 					unlockConditions[num] = unlockCondition;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			unlockData.VisibilityConditions = null;
 			if (this.VisibilityConditions != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				unlockData.VisibilityConditions = new GameBalanceVars.UnlockCondition[this.VisibilityConditions.Length];
 				for (int j = 0; j < this.VisibilityConditions.Length; j++)
 				{
@@ -1894,15 +1194,6 @@ public class GameBalanceVars
 					GameBalanceVars.UnlockCondition unlockCondition2;
 					if (this.VisibilityConditions[j] != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						unlockCondition2 = this.VisibilityConditions[j].Clone();
 					}
 					else
@@ -1910,15 +1201,6 @@ public class GameBalanceVars
 						unlockCondition2 = null;
 					}
 					visibilityConditions[num2] = unlockCondition2;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			unlockData.PurchaseableConditions = null;
@@ -1932,15 +1214,6 @@ public class GameBalanceVars
 					GameBalanceVars.UnlockCondition unlockCondition3;
 					if (this.PurchaseableConditions[k] != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						unlockCondition3 = this.PurchaseableConditions[k].Clone();
 					}
 					else
@@ -1948,15 +1221,6 @@ public class GameBalanceVars
 						unlockCondition3 = null;
 					}
 					purchaseableConditions[num3] = unlockCondition3;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return unlockData;
@@ -1967,32 +1231,10 @@ public class GameBalanceVars
 			GameBalanceVars.UnlockCondition[] array = null;
 			if (input != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.UnlockData.CloneUnlockConditionArray(GameBalanceVars.UnlockCondition[])).MethodHandle;
-				}
 				array = new GameBalanceVars.UnlockCondition[input.Length];
 				for (int i = 0; i < input.Length; i++)
 				{
 					array[i] = ((input[i] == null) ? null : input[i].Clone());
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return array;
@@ -2033,19 +1275,6 @@ public class GameBalanceVars
 			GameBalanceVars.UnlockCondition unlockCondition = (GameBalanceVars.UnlockCondition)base.MemberwiseClone();
 			if (this.typeSpecificDate != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.UnlockCondition.Clone()).MethodHandle;
-				}
 				unlockCondition.typeSpecificDate = new List<int>(this.typeSpecificDate);
 			}
 			return unlockCondition;
@@ -2117,74 +1346,25 @@ public class GameBalanceVars
 		{
 			if (this is GameBalanceVars.ChatEmoticon)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.PlayerUnlockable.GetObtainedDescription()).MethodHandle;
-				}
 				return StringUtil.TR_EmojiObtainedDescription(this.ID);
 			}
 			if (this is GameBalanceVars.ColorUnlockData)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType index = (CharacterType)this.Index1;
 				return StringUtil.TR_CharacterPatternColorObtainedDescription(index.ToString(), this.Index2 + 1, this.Index3 + 1, this.ID + 1);
 			}
 			if (this is GameBalanceVars.TauntUnlockData)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType index2 = (CharacterType)this.Index1;
 				return StringUtil.TR_CharacterTauntObtainedDescription(index2.ToString(), this.ID + 1);
 			}
 			if (this is GameBalanceVars.AbilityVfxUnlockData)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType index3 = (CharacterType)this.Index1;
 				return StringUtil.TR_GetCharacterVFXSwapObtainedDescription(index3.ToString(), this.Index2 + 1, this.ID);
 			}
 			if (this is GameBalanceVars.PlayerRibbon)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return StringUtil.TR_RibbonObtainedDescription(this.ID);
 			}
 			if (this is GameBalanceVars.PlayerBanner)
@@ -2206,33 +1386,11 @@ public class GameBalanceVars
 			}
 			if (this is GameBalanceVars.ColorUnlockData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.PlayerUnlockable.GetPurchaseDescription()).MethodHandle;
-				}
 				CharacterType index = (CharacterType)this.Index1;
 				return StringUtil.TR_CharacterPatternColorPurchaseDescription(index.ToString(), this.Index2 + 1, this.Index3 + 1, this.ID + 1);
 			}
 			if (this is GameBalanceVars.TauntUnlockData)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType index2 = (CharacterType)this.Index1;
 				return StringUtil.TR_CharacterTauntPurchaseDescription(index2.ToString(), this.ID + 1);
 			}
@@ -2263,19 +1421,6 @@ public class GameBalanceVars
 			other.Index3 = this.Index3;
 			if (this.m_unlockData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.PlayerUnlockable.CopyValuesToBase(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-				}
 				other.m_unlockData = this.m_unlockData.Clone();
 			}
 			else
@@ -2380,52 +1525,12 @@ public class GameBalanceVars
 			string text = StringUtil.TR_PlayerTitle(this.ID);
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.PlayerTitle.GetTitleText(int)).MethodHandle;
-				}
 				if (!text.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (text.IndexOf("[^level^]", StringComparison.OrdinalIgnoreCase) >= 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (titleLevel < 0)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							titleLevel = ClientGameManager.Get().GetCurrentTitleLevel(this.ID);
 						}
 						text = GameBalanceVars.PlayerTitle.ReplaceLevelIntoTitle(text, titleLevel);
@@ -2443,19 +1548,6 @@ public class GameBalanceVars
 			int num2;
 			while ((num2 = title.IndexOf("[^level^]", StringComparison.OrdinalIgnoreCase)) >= 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameBalanceVars.PlayerTitle.ReplaceLevelIntoTitle(string, int)).MethodHandle;
-				}
 				if (num >= 0x64)
 				{
 					for (;;)

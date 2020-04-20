@@ -22,30 +22,8 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 	{
 		if (this.m_infoReference.Completed)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsQuestEntry.UpdateCurrentProgressValue(int, int, QuestComponent, int)).MethodHandle;
-			}
 			if (questComponent != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.GetCompletedCount(questID) > 0)
 				{
 					return maxProgress;
@@ -54,51 +32,15 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 		}
 		if (!this.m_infoReference.Completed)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_infoReference is UISeasonQuestDisplayInfo)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UISeasonQuestDisplayInfo uiseasonQuestDisplayInfo = this.m_infoReference as UISeasonQuestDisplayInfo;
 				if (!uiseasonQuestDisplayInfo.IsQuestStatic)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					DateTime dateTime = ClientGameManager.Get().PacificNow();
 					bool flag;
 					if (uiseasonQuestDisplayInfo.ChapterStartDate < dateTime)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (dateTime <= uiseasonQuestDisplayInfo.ChapterEndDate);
 					}
 					else
@@ -121,42 +63,11 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 		base.SetProgress(currentProgress, maxProgress, questComponent, questID);
 		if (this.m_infoReference is UISeasonQuestDisplayInfo)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsQuestEntry.SetProgress(int, int, QuestComponent, int)).MethodHandle;
-			}
 			UISeasonQuestDisplayInfo uiseasonQuestDisplayInfo = this.m_infoReference as UISeasonQuestDisplayInfo;
 			if (!uiseasonQuestDisplayInfo.IsQuestStatic)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (uiseasonQuestDisplayInfo.Completed)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_lockedChapterOverlay, false, null);
 				}
 				else
@@ -165,15 +76,6 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 					bool flag;
 					if (uiseasonQuestDisplayInfo.ChapterStartDate < dateTime)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (dateTime <= uiseasonQuestDisplayInfo.ChapterEndDate);
 					}
 					else
@@ -190,15 +92,6 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 		bool doActive;
 		if (currentProgress > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = (currentProgress < maxProgress);
 		}
 		else
@@ -212,19 +105,6 @@ public class UISeasonsQuestEntry : UISeasonsBaseContract
 	{
 		if (displayInfo.IsQuestStatic)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsQuestEntry.Setup(UISeasonQuestDisplayInfo, bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_lockedChapterOverlay, seasonChapterLocked, null);
 		}
 		UIManager.SetGameObjectActive(this.m_abandonElement, false, null);

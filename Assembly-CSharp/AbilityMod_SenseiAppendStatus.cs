@@ -44,19 +44,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		SenseiAppendStatus senseiAppendStatus = targetAbility as SenseiAppendStatus;
 		if (senseiAppendStatus != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiAppendStatus.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", senseiAppendStatus.m_laserInfo, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyCastHitEffectDataMod, "EnemyCastHitEffectData", senseiAppendStatus.m_enemyCastHitEffectData, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_allyCastHitEffectDataMod, "AllyCastHitEffectData", senseiAppendStatus.m_allyCastHitEffectData, true);
@@ -80,19 +67,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiAppendStatus.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = senseiAppendStatus.m_canTargetEnemy;
 		}
 		else
@@ -109,15 +83,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = senseiAppendStatus.m_laserInfo;
 		}
 		else
@@ -133,15 +98,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		StandardActorEffectData baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiAppendStatus.m_allyCastHitEffectData;
 		}
 		else
@@ -157,15 +113,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = senseiAppendStatus.m_endEffectIfAppendedStatus;
 		}
 		else
@@ -180,15 +127,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiAppendStatus.m_effectAddedOnEnemyAttack;
 		}
 		else
@@ -203,15 +141,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiAppendStatus.m_effectAddedOnAllyAttack;
 		}
 		else
@@ -226,15 +155,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiAppendStatus.m_energyGainOnAllyAppendHit;
 		}
 		else

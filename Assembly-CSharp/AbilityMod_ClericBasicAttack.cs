@@ -48,19 +48,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		ClericBasicAttack clericBasicAttack = targetAbility as ClericBasicAttack;
 		if (clericBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneAngleMod, "ConeAngle", string.Empty, clericBasicAttack.m_coneAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneLengthInnerMod, "ConeLengthInner", string.Empty, clericBasicAttack.m_coneLengthInner, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, clericBasicAttack.m_coneLength, true, false, false);
@@ -73,15 +60,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_extraDamageToTargetsWhoEvaded, "ExtraDamageToTargetsWhoEvaded", string.Empty, 0, true, false);
 			if (this.m_useCooldownReductionOverride)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cooldownReductionOverrideMod.AddTooltipTokens(tokens, "CooldownReductionOverride");
 				AbilityMod.AddToken(tokens, this.m_hitsToIgnoreForCooldownReductionMultiplier, "HitsToIgnoreForCooldownReductionMultiplier", string.Empty, 0, true, false);
 			}
@@ -101,19 +79,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = clericBasicAttack.m_penetrateLineOfSight;
 		}
 		else
@@ -130,15 +95,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = clericBasicAttack.m_coneLength;
 		}
 		else
@@ -154,15 +110,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = clericBasicAttack.m_maxTargets;
 		}
 		else
@@ -178,15 +125,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = clericBasicAttack.m_damageAmount;
 		}
 		else
@@ -201,15 +139,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = clericBasicAttack.m_targetHitEffectInner;
 		}
 		else
@@ -224,15 +153,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = clericBasicAttack.m_targetHitEffect;
 		}
 		else
@@ -243,15 +163,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 		text += base.PropDesc(this.m_extraDamageToTargetsWhoEvaded, "[ExtraDamageToTargetsWhoEvaded]", flag, 0);
 		if (this.m_useCooldownReductionOverride)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += this.m_cooldownReductionOverrideMod.GetDescription(abilityData);
 			text += base.PropDesc(this.m_hitsToIgnoreForCooldownReductionMultiplier, "[HitsToIgnoreForCooldownReductionMultiplier]", flag, 0);
 		}

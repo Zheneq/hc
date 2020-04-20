@@ -70,19 +70,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (value != this.m_serverHolderActor)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_ServerHolderActor(ActorData)).MethodHandle;
-				}
 				this.m_serverHolderActor = value;
 				this.DamageOnHolderSincePickedUp_Gross = 0;
 				this.DamageOnHolderSinceTurnStart_Gross = 0;
@@ -115,54 +102,14 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (value != this.m_clientHolderActor)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_ClientHolderActor(ActorData)).MethodHandle;
-				}
 				this.m_clientHolderActor = value;
 				this.ClientUnresolvedDamageOnHolder = 0;
 				if (CaptureTheFlag.Get() != null && CaptureTheFlag.Get().m_flagBeingHeldSequence != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_flagBeingHeldSequenceInstance != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_flagBeingHeldSequenceInstance.MarkedForRemoval)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_flagBeingHeldSequenceInstance.MarkForRemoval();
 						}
 						this.m_flagBeingHeldSequenceInstance = null;
@@ -175,28 +122,10 @@ public class CTF_Flag : NetworkBehaviour
 						Sequence[] array = SequenceManager.Get().CreateClientSequences(flagBeingHeldSequence, currentBoardSquare, this.m_clientHolderActor.AsArray(), this.m_clientHolderActor, sequenceSource, null);
 						if (array != null && array.Length != 0)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (array.Length <= 1)
 							{
 								this.m_flagBeingHeldSequenceInstance = array[0];
 								return;
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						Debug.LogError("CTF_Flag creating flag-being-held sequence, but had bad output.");
@@ -231,19 +160,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (this.m_lastClientUpdateFlagHolderEventGuid != value)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_LastClientUpdateFlagHolderEventGuid(int)).MethodHandle;
-				}
 				this.m_lastClientUpdateFlagHolderEventGuid = value;
 			}
 		}
@@ -253,19 +169,6 @@ public class CTF_Flag : NetworkBehaviour
 	{
 		if (CaptureTheFlag.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.GetIcon()).MethodHandle;
-			}
 			return CaptureTheFlag.Get().m_flagIcon;
 		}
 		return null;
@@ -286,19 +189,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (value != this.m_gatheredHolderActor)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_GatheredHolderActor(ActorData)).MethodHandle;
-				}
 				this.m_gatheredHolderActor = value;
 				this.GatheredMovementDamageSincePickedUp = 0;
 				this.GatheredMovementDamageSinceTurnStart = 0;
@@ -316,19 +206,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (value != this.m_gatheredIdleSquare)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_GatheredIdleSquare(BoardSquare)).MethodHandle;
-				}
 				this.m_gatheredIdleSquare = value;
 			}
 		}
@@ -344,19 +221,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (value != this.m_gatheredPath)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_GatheredPath(BoardSquarePathInfo)).MethodHandle;
-				}
 				this.m_gatheredPath = value;
 			}
 		}
@@ -372,19 +236,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (value != this.m_gatheredMovementDamageSincePickedUp)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_GatheredMovementDamageSincePickedUp(int)).MethodHandle;
-				}
 				this.m_gatheredMovementDamageSincePickedUp = value;
 			}
 		}
@@ -400,19 +251,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (this.m_gatheredMovementDamageSinceTurnStart != value)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_GatheredMovementDamageSinceTurnStart(int)).MethodHandle;
-				}
 				this.m_gatheredMovementDamageSinceTurnStart = value;
 			}
 		}
@@ -428,19 +266,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (value != this.m_damageOnHolderSincePickedUp_Gross)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_DamageOnHolderSincePickedUp_Gross(int)).MethodHandle;
-				}
 				this.m_damageOnHolderSincePickedUp_Gross = value;
 				this.ClientUnresolvedDamageOnHolder = 0;
 			}
@@ -488,19 +313,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (this.m_numFullTurnsSpentHeldInTurninRegion != value)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.set_NumFullTurnsSpentHeldInTurninRegion(int)).MethodHandle;
-				}
 				this.m_numFullTurnsSpentHeldInTurninRegion = value;
 			}
 		}
@@ -539,32 +351,10 @@ public class CTF_Flag : NetworkBehaviour
 	{
 		if (CaptureTheFlag.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.OnDestroy()).MethodHandle;
-			}
 			CaptureTheFlag.Get().OnFlagDestroyed(this);
 		}
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveCtfFlag(this);
 		}
 	}
@@ -574,30 +364,8 @@ public class CTF_Flag : NetworkBehaviour
 		Vector3 result;
 		if (this.ClientHolderActor == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.GetPosition()).MethodHandle;
-			}
 			if (this.ClientIdleSquare == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = base.transform.position;
 			}
 			else
@@ -607,15 +375,6 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		else if (this.ClientHolderActor.IsVisibleToClient())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.ClientHolderActor.transform.position;
 		}
 		else
@@ -630,19 +389,6 @@ public class CTF_Flag : NetworkBehaviour
 		Quaternion result;
 		if (this.ClientHolderActor == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.GetRotation()).MethodHandle;
-			}
 			result = Quaternion.identity;
 		}
 		else
@@ -670,57 +416,17 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if (this.m_team == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.GetCapturingTeam_Client()).MethodHandle;
-			}
 			return Team.TeamA;
 		}
 		if (this.ClientHolderActor != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.ClientHolderActor.GetTeam() == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return Team.TeamA;
 			}
 		}
 		if (this.ClientHolderActor != null && this.ClientHolderActor.GetTeam() == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Team.TeamB;
 		}
 		return Team.Objects;
@@ -730,19 +436,6 @@ public class CTF_Flag : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.OnPickedUp_Client(ActorData, int)).MethodHandle;
-			}
 			Log.Error("Calling CTF_Flag.OnPickedUp_Client on a non-client.", new object[0]);
 			return;
 		}
@@ -752,15 +445,6 @@ public class CTF_Flag : NetworkBehaviour
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.LastClientUpdateFlagHolderEventGuid = eventGuid;
 		ActorData clientHolderActor = this.ClientHolderActor;
@@ -768,15 +452,6 @@ public class CTF_Flag : NetworkBehaviour
 		this.ClientIdleSquare = null;
 		if (CaptureTheFlag.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, this.ClientHolderActor, false, this.m_alreadyTurnedIn);
 		}
 		GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs = new GameEventManager.MatchObjectiveEventArgs();
@@ -802,19 +477,6 @@ public class CTF_Flag : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.OnDropped_Client(BoardSquare, int)).MethodHandle;
-			}
 			Log.Error("Calling CTF_Flag.OnDropped_Client on a non-client.", new object[0]);
 			return;
 		}
@@ -823,15 +485,6 @@ public class CTF_Flag : NetworkBehaviour
 			if (eventGuid <= this.LastClientUpdateFlagHolderEventGuid)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.LastClientUpdateFlagHolderEventGuid = eventGuid;
@@ -853,31 +506,9 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if (eventGuid != -1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.OnTurnedIn_Client(ActorData, int)).MethodHandle;
-			}
 			if (eventGuid <= this.LastClientUpdateFlagHolderEventGuid)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.LastClientUpdateFlagHolderEventGuid = eventGuid;
@@ -902,19 +533,6 @@ public class CTF_Flag : NetworkBehaviour
 		uint num;
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			num = uint.MaxValue;
 		}
 		else
@@ -927,15 +545,6 @@ public class CTF_Flag : NetworkBehaviour
 		sbyte value2;
 		if (this.ServerHolderActor == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value2 = (sbyte)ActorData.s_invalidActorIndex;
 		}
 		else
@@ -946,15 +555,6 @@ public class CTF_Flag : NetworkBehaviour
 		sbyte value4;
 		if (this.ServerIdleSquare == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value3 = -1;
 			value4 = -1;
 		}
@@ -997,19 +597,6 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if ((int)b2 == -1 && (int)b3 == -1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.ClientIdleSquare = null;
 		}
 		else
@@ -1018,26 +605,8 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if (clientHolderActor != this.ClientHolderActor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CaptureTheFlag.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, this.ClientHolderActor, false, this.m_alreadyTurnedIn);
 			}
 		}
@@ -1049,32 +618,10 @@ public class CTF_Flag : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CTF_Flag.Update()).MethodHandle;
-			}
 			return;
 		}
 		if (HUD_UI.Get() != null && !this.m_initializedOffscreenIndicator)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddCtfFlag(this);
 			this.m_initializedOffscreenIndicator = true;
 		}
@@ -1084,15 +631,6 @@ public class CTF_Flag : NetworkBehaviour
 		{
 			if (this.ClientHolderActor == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				meshRenderer.enabled = true;
 			}
 			else
@@ -1100,29 +638,11 @@ public class CTF_Flag : NetworkBehaviour
 				meshRenderer.enabled = false;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		MeshRenderer[] componentsInChildren = base.GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer2 in componentsInChildren)
 		{
 			if (this.ClientHolderActor == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				meshRenderer2.enabled = true;
 			}
 			else
@@ -1132,26 +652,8 @@ public class CTF_Flag : NetworkBehaviour
 		}
 		if (!this.m_notifiedOfSpawn && InterfaceManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CaptureTheFlag.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				InterfaceManager.Get().DisplayAlert(StringUtil.TR("BriefcaseLocated", "CTF"), CaptureTheFlag.Get().m_textColor_neutral, 2f, false, 0);
 				this.m_notifiedOfSpawn = true;
 			}

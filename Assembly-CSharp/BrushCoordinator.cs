@@ -54,19 +54,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				{
 					return;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-				}
 			}
 			this.m_cameraCreated = true;
 		}
@@ -97,45 +84,14 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.DisableAllBrush()).MethodHandle;
-			}
 			if (!SinglePlayerManager.Get().EnableBrush())
 			{
 				return true;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		bool result;
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = DebugParameters.Get().GetParameterAsBool("DisableBrush");
 		}
 		else
@@ -152,65 +108,21 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			this.m_regions[i].Initialize();
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.Start()).MethodHandle;
-				}
 				this.m_regionsLastDisruptionTurn.Add(-1);
 			}
 		}
 		this.TrySetupBrushSquares();
-		this.\u000E();
+		this.symbol_000E();
 	}
 
 	private void TrySetupBrushSquares()
 	{
 		if (!this.m_setupBrush)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.TrySetupBrushSquares()).MethodHandle;
-			}
 			if (Board.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null && this.m_cameraCreated)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetupBrushSquares();
 					FogOfWar.CalculateFogOfWarForTeam(Team.TeamA);
 					FogOfWar.CalculateFogOfWarForTeam(Team.TeamB);
@@ -220,7 +132,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	private void \u000E()
+	private void symbol_000E()
 	{
 		if (Application.isEditor)
 		{
@@ -229,34 +141,12 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				BrushRegion brushRegion = this.m_regions[i];
 				if (brushRegion == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.\u000E()).MethodHandle;
-					}
 					Debug.LogError("Brush Region at index " + i + " is null");
 				}
 				else
 				{
 					if (brushRegion.m_disruptedVFX != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (brushRegion.m_disruptedVFX.GetComponent<PKFxFX>() == null)
 						{
 							Debug.LogError("Brush Region at index " + i + " has Disrupted VFX field set but it doesn't have a PKFxFX component");
@@ -264,15 +154,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					}
 					if (brushRegion.m_functioningVFX != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (brushRegion.m_functioningVFX.GetComponent<PKFxFX>() == null)
 						{
 							Debug.LogError("Brush Region at index " + i + " has Functioning VFX field set but it doesn't have a PKFxFX component");
@@ -289,19 +170,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		{
 			if (this.m_regions[i] == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.SetupBrushSquares()).MethodHandle;
-				}
 				Log.Error(string.Format("Null brush region ({0}); fix brush coordinator's data.", i), new object[0]);
 			}
 			else
@@ -311,15 +179,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				{
 					if (boardSquare.BrushRegion == -1)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						boardSquare.BrushRegion = i;
 					}
 					else
@@ -329,34 +188,12 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	private void SyncListCallbackLastDisruptTurn(SyncList<int>.Operation op, int _incorrectIndexBugIn51And52)
 	{
 		if (FogOfWar.GetClientFog() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.SyncListCallbackLastDisruptTurn(SyncList<int>.Operation, int)).MethodHandle;
-			}
 			FogOfWar.GetClientFog().MarkForRecalculateVisibility();
 		}
 	}
@@ -366,19 +203,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (FogOfWar.GetClientFog() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.RpcUpdateClientFog()).MethodHandle;
-			}
 			FogOfWar.GetClientFog().UpdateVisibilityOfSquares(true);
 		}
 	}
@@ -400,44 +224,13 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					{
 						goto IL_BE;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.Update()).MethodHandle;
-					}
 					if (flag3)
 					{
 						goto IL_BE;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag2)
 					{
 						goto IL_BE;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					brushRegion.m_disruptedVFX.GetComponent<PKFxFX>().StartEffect();
 					goto IL_144;
@@ -454,27 +247,9 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 						{
 							goto IL_117;
 						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag2)
 						{
 							goto IL_117;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						gameObject.GetComponent<PKFxFX>().StartEffect();
 						IL_125:
@@ -484,40 +259,13 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 						gameObject.GetComponent<PKFxFX>().TerminateEffect();
 						goto IL_125;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				IL_144:
 				if (brushRegion.m_functioningVFX != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag3)
 					{
 						goto IL_183;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!flag2)
 					{
@@ -535,15 +283,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 						GameObject gameObject2 = brushRegion.m_perSquareFunctioningVFX[k];
 						if (flag && flag3 && flag2)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							gameObject2.GetComponent<PKFxFX>().StartEffect();
 						}
 						else
@@ -555,15 +294,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				IL_1F4:
 				brushRegion.UpdateBorderVisibility(flag3);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -572,43 +302,12 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		List<ActorData> result = null;
 		if (this.DisableAllBrush())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.GetActorsInBrushRegion(int)).MethodHandle;
-			}
 			return new List<ActorData>();
 		}
 		if (regionIndex >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (regionIndex < this.m_regions.Length)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BrushRegion brushRegion = this.m_regions[regionIndex];
 				result = brushRegion.GetOccupantActors();
 			}
@@ -625,31 +324,9 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (regionIndex >= 0 && regionIndex < this.m_regions.Length)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.IsRegionFunctioning(int)).MethodHandle;
-			}
 			int num = this.m_regionsLastDisruptionTurn[regionIndex];
 			if (num <= 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else
@@ -669,97 +346,30 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (this.DisableAllBrush())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.IsSquareHiddenFrom(BoardSquare, BoardSquare)).MethodHandle;
-			}
 			return false;
 		}
 		bool flag;
 		if (!(subjectSquare == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (observerSquare == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (subjectSquare.BrushRegion == observerSquare.BrushRegion)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 					goto IL_D1;
 				}
 				if (subjectSquare.IsInBrushRegion())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int brushRegion = subjectSquare.BrushRegion;
 					if (this.IsRegionFunctioning(brushRegion))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num = observerSquare.HorizontalDistanceOnBoardTo(subjectSquare);
 						float distanceCanSeeIntoBrush = GameplayData.Get().m_distanceCanSeeIntoBrush;
 						if (num > distanceCanSeeIntoBrush)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 						else
@@ -786,15 +396,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		bool flag2;
 		if (!(subjectSquare == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(subjectSquare.OccupantActor == null))
 			{
 				ActorStatus actorStatus = subjectSquare.OccupantActor.GetActorStatus();
@@ -805,27 +406,9 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 						flag2 = false;
 						goto IL_144;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				flag2 = true;
 				goto IL_144;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag2 = false;
@@ -833,15 +416,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = !flag2;
 		}
 		else
@@ -855,7 +429,7 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		List<Plane> list = new List<Plane>(4);
 		Bounds u001D = new Bounds(new Vector3(bounds.center.x, 0f, bounds.center.z), bounds.size);
-		List<BoardSquare> list2 = Board.Get().\u000E(u001D, null);
+		List<BoardSquare> list2 = Board.Get().symbol_000E(u001D, null);
 		for (int i = 0; i < list2.Count; i++)
 		{
 			BoardSquare boardSquare = list2[i];
@@ -865,34 +439,12 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				byte b2 = (byte)(1 << (int)b);
 				if ((b2 & brushExteriorSideFlags) != 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.CalcIntersectingBrushSidePlanes(Bounds)).MethodHandle;
-					}
 					if (boardSquare.CalcSideBounds((SideFlags)b2).Intersects(bounds))
 					{
 						list.Add(boardSquare.CalcSidePlane((SideFlags)b2));
 					}
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}
@@ -915,33 +467,11 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		if (this.m_setupBrush)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.OnDrawGizmos()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_regions.Length; i++)
 			{
 				BrushRegion brushRegion = this.m_regions[i];
 				bool functioning = this.IsRegionFunctioning(i);
 				brushRegion.DrawOutlineGizmos(functioning);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -954,19 +484,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.InvokeSyncListm_regionsLastDisruptionTurn(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_regionsLastDisruptionTurn called on server.");
 			return;
 		}
@@ -977,19 +494,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.InvokeRpcRpcUpdateClientFog(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcUpdateClientFog called on server.");
 			return;
 		}
@@ -1000,19 +504,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.CallRpcUpdateClientFog()).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcUpdateClientFog called on client.");
 			return;
 		}
@@ -1028,34 +519,12 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListInt.WriteInstance(writer, this.m_regionsLastDisruptionTurn);
 			return true;
 		}
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -1065,15 +534,6 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -1083,34 +543,12 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushCoordinator.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListInt.ReadReference(reader, this.m_regionsLastDisruptionTurn);
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, this.m_regionsLastDisruptionTurn);
 		}
 	}

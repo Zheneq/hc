@@ -23,75 +23,17 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 	{
 		if (this.m_parentSequence != null && this.m_parentSequence.AgeInTurns > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_AdditionalFxDiscPoweredUp.CanBeVisible(bool)).MethodHandle;
-			}
 			if (parentSeqVisible)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_targetSquare != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get() != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool result;
 							if (this.m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = (this.m_syncComp.m_clientDiscBuffTargetSquare == this.m_targetSquare);
 							}
 							else

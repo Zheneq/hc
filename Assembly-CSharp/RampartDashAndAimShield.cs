@@ -75,19 +75,6 @@ public class RampartDashAndAimShield : Ability
 		}
 		if (base.GetNumTargets() != 2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.Start()).MethodHandle;
-			}
 			Debug.LogError("RampartDashAndAimShield: Expected 2 entries in Target Data");
 		}
 		this.SetupTargeter();
@@ -136,19 +123,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -159,15 +133,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo cachedShieldFrontEnemyEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedShieldFrontEnemyEffect = this.m_abilityMod.m_shieldFrontEnemyEffectMod.GetModifiedValue(this.m_shieldFrontEnemyEffect);
 		}
 		else
@@ -178,15 +143,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -206,19 +162,6 @@ public class RampartDashAndAimShield : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetChargeRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_chargeRadiusMod.GetModifiedValue(this.m_chargeRadius);
 		}
 		else
@@ -238,19 +181,6 @@ public class RampartDashAndAimShield : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetRadiusAroundEnd()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_radiusAroundEndMod.GetModifiedValue(this.m_radiusAroundEnd);
 		}
 		else
@@ -265,19 +195,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.ChargePenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_chargePenetrateLosMod.GetModifiedValue(this.m_chargePenetrateLos);
 		}
 		else
@@ -292,19 +209,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -319,19 +223,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -346,19 +237,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetAllyHealAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
 		}
 		else
@@ -373,19 +251,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyHitEffect;
 		}
 		else
@@ -400,19 +265,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.AllowAimAtDiagonals()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(this.m_allowAimAtDiagonals);
 		}
 		else
@@ -432,19 +284,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetMinCooldown()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minCooldownMod.GetModifiedValue(this.m_minCooldown);
 		}
 		else
@@ -459,19 +298,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetCooldownModifierAdd()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownModifierAddMod.GetModifiedValue(this.m_cooldownModifierAdd);
 		}
 		else
@@ -486,19 +312,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.UseEnergyForMoveDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_useEnergyForMoveDistanceMod.GetModifiedValue(this.m_useEnergyForMoveDistance);
 		}
 		else
@@ -513,19 +326,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetMinEnergyToCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minEnergyToCastMod.GetModifiedValue(this.m_minEnergyToCast);
 		}
 		else
@@ -540,19 +340,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetEnergyPerMove()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyPerMoveMod.GetModifiedValue(this.m_energyPerMove);
 		}
 		else
@@ -572,19 +359,6 @@ public class RampartDashAndAimShield : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.HitInFrontOfShield()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_hitInFrontOfShieldMod.GetModifiedValue(this.m_hitInFrontOfShield);
 		}
 		else
@@ -599,19 +373,6 @@ public class RampartDashAndAimShield : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetShieldFrontHitLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldFrontHitLengthMod.GetModifiedValue(this.m_shieldFrontHitLength);
 		}
 		else
@@ -626,19 +387,6 @@ public class RampartDashAndAimShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetDamageForShieldFront()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageForShieldFrontMod.GetModifiedValue(this.m_damageForShieldFront);
 		}
 		else
@@ -653,19 +401,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedShieldFrontEnemyEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetShieldFrontEnemyEffect()).MethodHandle;
-			}
 			result = this.m_cachedShieldFrontEnemyEffect;
 		}
 		else
@@ -688,19 +423,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_RampartDashAndAimShield.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -713,15 +435,6 @@ public class RampartDashAndAimShield : Ability
 		int val;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_RampartDashAndAimShield.m_allyHealAmountMod.GetModifiedValue(this.m_allyHealAmount);
 		}
 		else
@@ -732,15 +445,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_RampartDashAndAimShield.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -753,15 +457,6 @@ public class RampartDashAndAimShield : Ability
 		int val2;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RampartDashAndAimShield.m_minCooldownMod.GetModifiedValue(this.m_minCooldown);
 		}
 		else
@@ -774,15 +469,6 @@ public class RampartDashAndAimShield : Ability
 		int val3;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_RampartDashAndAimShield.m_cooldownModifierAddMod.GetModifiedValue(this.m_cooldownModifierAdd);
 		}
 		else
@@ -795,15 +481,6 @@ public class RampartDashAndAimShield : Ability
 		int val4;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_RampartDashAndAimShield.m_minEnergyToCastMod.GetModifiedValue(this.m_minEnergyToCast);
 		}
 		else
@@ -816,15 +493,6 @@ public class RampartDashAndAimShield : Ability
 		int val5;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_RampartDashAndAimShield.m_energyPerMoveMod.GetModifiedValue(this.m_energyPerMove);
 		}
 		else
@@ -836,15 +504,6 @@ public class RampartDashAndAimShield : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_RampartDashAndAimShield)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_RampartDashAndAimShield.m_shieldFrontEnemyEffectMod.GetModifiedValue(this.m_shieldFrontEnemyEffect);
 		}
 		else
@@ -863,19 +522,6 @@ public class RampartDashAndAimShield : Ability
 		this.GetAllyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
 		if (this.m_passive != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			this.m_passive.GetShieldBarrierData().ReportAbilityTooltipNumbers(ref result);
 		}
 		return result;
@@ -889,67 +535,18 @@ public class RampartDashAndAimShield : Ability
 		dictionary[AbilityTooltipSymbol.Damage] = 0;
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy) && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Dictionary<AbilityTooltipSymbol, int> dictionary2;
 				(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + this.GetDamageAmount();
 			}
 		}
 		if (tooltipSubjectTypes2 != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes2.Contains(AbilityTooltipSubject.Primary))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Dictionary<AbilityTooltipSymbol, int> dictionary2;
 					(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + this.GetDamageForShieldFront();
 				}
@@ -963,19 +560,6 @@ public class RampartDashAndAimShield : Ability
 		bool result = true;
 		if (this.UseEnergyForMoveDistance())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			result = (caster.TechPoints >= this.GetMinEnergyToCast());
 		}
 		return result;
@@ -986,19 +570,6 @@ public class RampartDashAndAimShield : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
@@ -1006,39 +577,12 @@ public class RampartDashAndAimShield : Ability
 					bool result = false;
 					if (targetIndex == 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe);
 						if (boardSquarePathInfo != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							if (this.UseEnergyForMoveDistance() && this.GetEnergyPerMove() > 0)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num = caster.TechPoints / this.GetEnergyPerMove();
 								int num2 = 0;
 								BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
@@ -1046,15 +590,6 @@ public class RampartDashAndAimShield : Ability
 								{
 									boardSquarePathInfo2 = boardSquarePathInfo2.next;
 									num2++;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								result = (num2 <= num);
 							}
@@ -1067,15 +602,6 @@ public class RampartDashAndAimShield : Ability
 					}
 					return result;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		return false;
@@ -1085,19 +611,6 @@ public class RampartDashAndAimShield : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartDashAndAimShield))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartDashAndAimShield.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RampartDashAndAimShield);
 		}
 		this.SetupTargeter();

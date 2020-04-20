@@ -55,19 +55,6 @@ public class SparkAoeBuffDebuff : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Spark Aoe Buff Debuff";
 		}
 		this.SetupTargeter();
@@ -78,19 +65,6 @@ public class SparkAoeBuffDebuff : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetTargetingRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_radiusMod.GetModifiedValue(this.m_radius);
 		}
 		else
@@ -110,19 +84,6 @@ public class SparkAoeBuffDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.ShouldIgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_ignoreLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -142,19 +103,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if (mod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetBaseSelfHeal(AbilityMod_SparkAoeBuffDebuff)).MethodHandle;
-			}
 			result = mod.m_baseSelfHealMod.GetModifiedValue(this.m_baseSelfHeal);
 		}
 		else
@@ -179,19 +127,6 @@ public class SparkAoeBuffDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.SelfHealCountEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealHitCountEnemy.GetModifiedValue(this.m_selfHealCountEnemyHit);
 		}
 		else
@@ -206,19 +141,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetShieldOnSelfPerAllyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0);
 		}
 		else
@@ -233,19 +155,6 @@ public class SparkAoeBuffDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetShieldOnSelfDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldOnSelfDuration;
 		}
 		else
@@ -259,41 +168,10 @@ public class SparkAoeBuffDebuff : Ability
 	{
 		if (!this.GetSelfHitEffect().m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.IncludeCaster()).MethodHandle;
-			}
 			if (this.GetSelfHealPerHit(this.m_abilityMod) <= 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetBaseSelfHeal(this.m_abilityMod) <= 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.GetShieldOnSelfPerAllyHit() > 0;
 				}
 			}
@@ -306,19 +184,6 @@ public class SparkAoeBuffDebuff : Ability
 		bool result;
 		if (!this.GetAllyHitEffect().m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.IncludeAllies()).MethodHandle;
-			}
 			result = (this.GetAllyHeal(this.m_abilityMod) > 0);
 		}
 		else
@@ -333,19 +198,6 @@ public class SparkAoeBuffDebuff : Ability
 		bool result;
 		if (!this.GetEnemyHitEffect().m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.IncludeEnemies()).MethodHandle;
-			}
 			result = (this.m_damageAmount > 0);
 		}
 		else
@@ -360,19 +212,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetSelfHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedSelfHitEffect;
 		}
 		else
@@ -392,19 +231,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -420,19 +246,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.SetCachedFields()).MethodHandle;
-			}
 			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -443,15 +256,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -466,31 +270,9 @@ public class SparkAoeBuffDebuff : Ability
 		this.SetCachedFields();
 		if (this.m_TargetingType == SparkAoeBuffDebuff.TargetingType.UseShape)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.SetupTargeter()).MethodHandle;
-			}
 			AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 			if (!this.IncludeCaster())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 			}
 			base.Targeter = new AbilityUtil_Targeter_Shape(this, this.GetHitShape(), this.ShouldIgnoreLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.IncludeEnemies(), this.IncludeAllies(), affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
@@ -510,19 +292,6 @@ public class SparkAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_SparkAoeBuffDebuff)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_SparkAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -551,30 +320,8 @@ public class SparkAoeBuffDebuff : Ability
 	{
 		if (this.GetSelfHealPerHit(this.m_abilityMod) <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (this.GetBaseSelfHeal(this.m_abilityMod) <= 0 && this.GetShieldOnSelfPerAllyHit() <= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return null;
 			}
 		}
@@ -582,26 +329,8 @@ public class SparkAoeBuffDebuff : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
 				int num = 0;
 				int num2 = 0;
@@ -613,26 +342,8 @@ public class SparkAoeBuffDebuff : Ability
 					}
 					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2++;
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int value = this.CalcSelfHealAmountFromHits(num2, num);
 				dictionary[AbilityTooltipSymbol.Healing] = value;
@@ -642,15 +353,6 @@ public class SparkAoeBuffDebuff : Ability
 					StandardEffectInfo selfHitEffect = this.GetSelfHitEffect();
 					if (selfHitEffect.m_applyEffect && selfHitEffect.m_effectData.m_absorbAmount > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 = selfHitEffect.m_effectData.m_absorbAmount;
 					}
 					dictionary[AbilityTooltipSymbol.Absorb] = num3 + num2 * this.GetShieldOnSelfPerAllyHit();
@@ -665,58 +367,18 @@ public class SparkAoeBuffDebuff : Ability
 		int result = 0;
 		if (this.GetSelfHealPerHit(this.m_abilityMod) <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.CalcSelfHealAmountFromHits(int, int)).MethodHandle;
-			}
 			if (this.GetBaseSelfHeal(this.m_abilityMod) <= 0)
 			{
 				return result;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = 0;
 		if (this.SelfHealCountAllyHit())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += allyHits;
 		}
 		if (this.SelfHealCountEnemyHit())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += enemyHits;
 		}
 		result = this.GetBaseSelfHeal(this.m_abilityMod) + num * this.GetSelfHealPerHit(this.m_abilityMod);
@@ -727,19 +389,6 @@ public class SparkAoeBuffDebuff : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SparkAoeBuffDebuff))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkAoeBuffDebuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SparkAoeBuffDebuff);
 			this.SetupTargeter();
 		}

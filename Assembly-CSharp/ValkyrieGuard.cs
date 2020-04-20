@@ -43,19 +43,6 @@ public class ValkyrieGuard : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Aim Shield";
 		}
 		this.Setup();
@@ -77,19 +64,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo cachedCoveredHitReactionEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.SetCachedFields()).MethodHandle;
-			}
 			cachedCoveredHitReactionEffect = this.m_abilityMod.m_coveredHitReactionEffectMod.GetModifiedValue(this.m_coveredHitReactionEffect);
 		}
 		else
@@ -100,15 +74,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo cachedTooCloseForCoverHitReactionEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTooCloseForCoverHitReactionEffect = this.m_abilityMod.m_tooCloseForCoverHitReactionEffectMod.GetModifiedValue(this.m_tooCloseForCoverHitReactionEffect);
 		}
 		else
@@ -123,19 +88,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedShieldEffectInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetShieldEffectInfo()).MethodHandle;
-			}
 			result = this.m_cachedShieldEffectInfo;
 		}
 		else
@@ -150,19 +102,6 @@ public class ValkyrieGuard : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetTechPointGainPerCoveredHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(this.m_techPointGainPerCoveredHit);
 		}
 		else
@@ -177,19 +116,6 @@ public class ValkyrieGuard : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetTechPointGainPerTooCloseForCoverHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(this.m_techPointGainPerTooCloseForCoverHit);
 		}
 		else
@@ -204,19 +130,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedCoveredHitReactionEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetCoveredHitReactionEffect()).MethodHandle;
-			}
 			result = this.m_cachedCoveredHitReactionEffect;
 		}
 		else
@@ -231,19 +144,6 @@ public class ValkyrieGuard : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedTooCloseForCoverHitReactionEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetTooCloseForCoverHitReactionEffect()).MethodHandle;
-			}
 			result = this.m_cachedTooCloseForCoverHitReactionEffect;
 		}
 		else
@@ -258,19 +158,6 @@ public class ValkyrieGuard : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetExtraDamageNextShieldThrowPerCoveredHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageNextShieldThrowPerCoveredHitMod.GetModifiedValue(0);
 		}
 		else
@@ -295,19 +182,6 @@ public class ValkyrieGuard : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.CoverLastsForever()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coverLastsForeverMod.GetModifiedValue(this.m_coverLastsForever);
 		}
 		else
@@ -322,19 +196,6 @@ public class ValkyrieGuard : Ability
 		AbilityModCooldownReduction result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetCooldownReductionOnNoBlock()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownReductionNoBlocks;
 		}
 		else
@@ -349,19 +210,6 @@ public class ValkyrieGuard : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.CoverIgnoreMinDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(this.m_coverIgnoreMinDist);
 		}
 		else
@@ -375,19 +223,6 @@ public class ValkyrieGuard : Ability
 	{
 		if (this.m_syncComponent)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetExtraAbsorb()).MethodHandle;
-			}
 			return this.m_syncComponent.m_extraAbsorbForGuard;
 		}
 		return 0;
@@ -440,19 +275,6 @@ public class ValkyrieGuard : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.GetRotateToTargetPos(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			Vector3 b;
 			VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, targets[0].FreePos, false, out b);
 			return boardSquareSafe.ToVector3() + b;
@@ -464,30 +286,8 @@ public class ValkyrieGuard : Ability
 	{
 		if (caster != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieGuard.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (caster.GetAbilityData() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
 			}
 		}

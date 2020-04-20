@@ -22,19 +22,6 @@ namespace TMPro
 			float num2 = (position.x - vector.x) / (vector2.x - vector.x);
 			if (num2 < 0.5f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.GetCursorIndexFromPosition(TMP_Text, Vector3, Camera)).MethodHandle;
-				}
 				return num;
 			}
 			return num + 1;
@@ -46,19 +33,6 @@ namespace TMPro
 			int num2 = TMP_TextUtilities.FindNearestCharacterOnLine(textComponent, position, num, camera, false);
 			if (textComponent.textInfo.lineInfo[num].characterCount == 1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.GetCursorIndexFromPosition(TMP_Text, Vector3, Camera, CaretPosition*)).MethodHandle;
-				}
 				cursor = CaretPosition.Left;
 				return num2;
 			}
@@ -70,15 +44,6 @@ namespace TMPro
 			float num3 = (position.x - vector.x) / (vector2.x - vector.x);
 			if (num3 < 0.5f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				cursor = CaretPosition.Left;
 				return num2;
 			}
@@ -99,30 +64,8 @@ namespace TMPro
 				float y2 = rectTransform.TransformPoint(new Vector3(0f, tmp_LineInfo.descender, 0f)).y;
 				if (y > position.y)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindNearestLine(TMP_Text, Vector3, Camera)).MethodHandle;
-					}
 					if (y2 < position.y)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 				}
@@ -131,27 +74,9 @@ namespace TMPro
 				float num2 = Mathf.Min(a, b);
 				if (num2 < num)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = num2;
 					result = i;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return result;
 		}
@@ -169,19 +94,6 @@ namespace TMPro
 				TMP_CharacterInfo tmp_CharacterInfo = text.textInfo.characterInfo[i];
 				if (visibleOnly && !tmp_CharacterInfo.isVisible)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindNearestCharacterOnLine(TMP_Text, Vector3, int, Camera, bool)).MethodHandle;
-					}
 				}
 				else
 				{
@@ -191,15 +103,6 @@ namespace TMPro
 					Vector3 vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.bottomLeft.y, 0f));
 					if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector3, vector4))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = i;
 						return result;
 					}
@@ -210,15 +113,6 @@ namespace TMPro
 					float num6;
 					if (num2 < num3)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num6 = num2;
 					}
 					else
@@ -229,15 +123,6 @@ namespace TMPro
 					float num8;
 					if (num7 < num4)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num8 = num7;
 					}
 					else
@@ -248,15 +133,6 @@ namespace TMPro
 					float num9;
 					if (num7 < num5)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num9 = num7;
 					}
 					else
@@ -266,15 +142,6 @@ namespace TMPro
 					num7 = num9;
 					if (num > num7)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = num7;
 						result = i;
 					}
@@ -297,19 +164,6 @@ namespace TMPro
 			rectTransform.GetWorldCorners(TMP_TextUtilities.m_rectWorldCorners);
 			if (TMP_TextUtilities.PointIntersectRectangle(position, TMP_TextUtilities.m_rectWorldCorners[0], TMP_TextUtilities.m_rectWorldCorners[1], TMP_TextUtilities.m_rectWorldCorners[2], TMP_TextUtilities.m_rectWorldCorners[3]))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.IsIntersectingRectTransform(RectTransform, Vector3, Camera)).MethodHandle;
-				}
 				return true;
 			}
 			return false;
@@ -327,31 +181,9 @@ namespace TMPro
 				{
 					goto IL_6B;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindIntersectingCharacter(TMP_Text, Vector3, Camera, bool)).MethodHandle;
-				}
 				if (tmp_CharacterInfo.isVisible)
 				{
 					goto IL_6B;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_101:
 				i++;
@@ -363,27 +195,9 @@ namespace TMPro
 				Vector3 d = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.bottomLeft.y, 0f));
 				if (TMP_TextUtilities.PointIntersectRectangle(position, a, b, c, d))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return i;
 				}
 				goto IL_101;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return -1;
 		}
@@ -402,31 +216,9 @@ namespace TMPro
 				{
 					goto IL_70;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindNearestCharacter(TMP_Text, Vector3, Camera, bool)).MethodHandle;
-				}
 				if (tmp_CharacterInfo.isVisible)
 				{
 					goto IL_70;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_188:
 				i++;
@@ -438,15 +230,6 @@ namespace TMPro
 				Vector3 vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.bottomLeft.y, 0f));
 				if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector3, vector4))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return i;
 				}
 				float num2 = TMP_TextUtilities.DistanceToLine(vector, vector2, position);
@@ -457,15 +240,6 @@ namespace TMPro
 				float num7;
 				if (num6 < num4)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = num6;
 				}
 				else
@@ -476,15 +250,6 @@ namespace TMPro
 				float num8;
 				if (num6 < num5)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num8 = num6;
 				}
 				else
@@ -499,15 +264,6 @@ namespace TMPro
 					goto IL_188;
 				}
 				goto IL_188;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return result;
 		}
@@ -537,44 +293,13 @@ namespace TMPro
 					num2 = Mathf.Min(num2, tmp_CharacterInfo.descender);
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindIntersectingWord(TMP_Text, Vector3, Camera)).MethodHandle;
-						}
 						if (isVisible)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							a = new Vector3(tmp_CharacterInfo.bottomLeft.x, tmp_CharacterInfo.descender, 0f);
 							b = new Vector3(tmp_CharacterInfo.bottomLeft.x, tmp_CharacterInfo.ascender, 0f);
 							if (tmp_WordInfo.characterCount == 1)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = false;
 								d = new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f);
 								c = new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f);
@@ -584,15 +309,6 @@ namespace TMPro
 								d = rectTransform.TransformPoint(new Vector3(d.x, num2, 0f));
 								if (TMP_TextUtilities.PointIntersectRectangle(position, a, b, c, d))
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return i;
 								}
 							}
@@ -602,27 +318,9 @@ namespace TMPro
 					{
 						goto IL_322;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (j != tmp_WordInfo.characterCount - 1)
 					{
 						goto IL_322;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					d = new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f);
@@ -633,15 +331,6 @@ namespace TMPro
 					d = rectTransform.TransformPoint(new Vector3(d.x, num2, 0f));
 					if (TMP_TextUtilities.PointIntersectRectangle(position, a, b, c, d))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 					IL_426:
@@ -663,27 +352,9 @@ namespace TMPro
 					num2 = float.PositiveInfinity;
 					if (TMP_TextUtilities.PointIntersectRectangle(position, a, b, c, d))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 					goto IL_426;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return -1;
@@ -712,47 +383,16 @@ namespace TMPro
 					bool isVisible = tmp_CharacterInfo.isVisible;
 					if (!flag && isVisible)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindNearestWord(TMP_Text, Vector3, Camera)).MethodHandle;
-						}
 						flag = true;
 						vector = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.bottomLeft.x, tmp_CharacterInfo.descender, 0f));
 						vector2 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.bottomLeft.x, tmp_CharacterInfo.ascender, 0f));
 						if (tmp_WordInfo.characterCount == 1)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							vector3 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 							vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 							if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector4, vector3))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return i;
 							}
 							float num3 = TMP_TextUtilities.DistanceToLine(vector, vector2, position);
@@ -762,15 +402,6 @@ namespace TMPro
 							float num7;
 							if (num3 < num4)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num7 = num3;
 							}
 							else
@@ -781,15 +412,6 @@ namespace TMPro
 							float num9;
 							if (num8 < num5)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num9 = num8;
 							}
 							else
@@ -800,15 +422,6 @@ namespace TMPro
 							float num10;
 							if (num8 < num6)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num10 = num8;
 							}
 							else
@@ -818,15 +431,6 @@ namespace TMPro
 							num8 = num10;
 							if (num > num8)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = num8;
 								result = i;
 							}
@@ -836,42 +440,15 @@ namespace TMPro
 					{
 						goto IL_33F;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (j != tmp_WordInfo.characterCount - 1)
 					{
 						goto IL_33F;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					vector3 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 					vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 					if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector4, vector3))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 					float num11 = TMP_TextUtilities.DistanceToLine(vector, vector2, position);
@@ -883,15 +460,6 @@ namespace TMPro
 					float num16;
 					if (num15 < num14)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num16 = num15;
 					}
 					else
@@ -912,42 +480,15 @@ namespace TMPro
 					{
 						goto IL_471;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (lineNumber == (int)text.textInfo.characterInfo[num2 + 1].lineNumber)
 					{
 						goto IL_471;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					vector3 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 					vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 					if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector4, vector3))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 					float num17 = TMP_TextUtilities.DistanceToLine(vector, vector2, position);
@@ -958,15 +499,6 @@ namespace TMPro
 					float num22;
 					if (num21 < num19)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num22 = num21;
 					}
 					else
@@ -977,15 +509,6 @@ namespace TMPro
 					float num23;
 					if (num21 < num20)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num23 = num21;
 					}
 					else
@@ -995,39 +518,12 @@ namespace TMPro
 					num21 = num23;
 					if (num > num21)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = num21;
 						result = i;
 						goto IL_471;
 					}
 					goto IL_471;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return result;
 		}
@@ -1044,30 +540,8 @@ namespace TMPro
 				float y2 = rectTransform.TransformPoint(new Vector3(0f, tmp_LineInfo.descender, 0f)).y;
 				if (y > position.y)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindIntersectingLine(TMP_Text, Vector3, Camera)).MethodHandle;
-					}
 					if (y2 < position.y)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 				}
@@ -1097,31 +571,9 @@ namespace TMPro
 					{
 						goto IL_D5;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindIntersectingLink(TMP_Text, Vector3, Camera)).MethodHandle;
-					}
 					if ((int)(tmp_CharacterInfo.pageNumber + 1) == text.pageToDisplay)
 					{
 						goto IL_D5;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					IL_2E9:
 					j++;
@@ -1129,29 +581,11 @@ namespace TMPro
 					IL_D5:
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						a = transform.TransformPoint(new Vector3(tmp_CharacterInfo.bottomLeft.x, tmp_CharacterInfo.descender, 0f));
 						b = transform.TransformPoint(new Vector3(tmp_CharacterInfo.bottomLeft.x, tmp_CharacterInfo.ascender, 0f));
 						if (tmp_LinkInfo.linkTextLength == 1)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							d = transform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 							c = transform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
@@ -1163,40 +597,13 @@ namespace TMPro
 					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j == tmp_LinkInfo.linkTextLength - 1)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							d = transform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 							c = transform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 							if (TMP_TextUtilities.PointIntersectRectangle(position, a, b, c, d))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return i;
 							}
 							goto IL_2E9;
@@ -1206,64 +613,19 @@ namespace TMPro
 					{
 						goto IL_2E9;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (lineNumber == (int)text.textInfo.characterInfo[num + 1].lineNumber)
 					{
 						goto IL_2E9;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					d = transform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 					c = transform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 					if (TMP_TextUtilities.PointIntersectRectangle(position, a, b, c, d))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 					goto IL_2E9;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return -1;
 		}
@@ -1292,31 +654,9 @@ namespace TMPro
 					{
 						goto IL_DB;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.FindNearestLink(TMP_Text, Vector3, Camera)).MethodHandle;
-					}
 					if ((int)(tmp_CharacterInfo.pageNumber + 1) == text.pageToDisplay)
 					{
 						goto IL_DB;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					IL_4A6:
 					j++;
@@ -1329,29 +669,11 @@ namespace TMPro
 						vector2 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.bottomLeft.x, tmp_CharacterInfo.ascender, 0f));
 						if (tmp_LinkInfo.linkTextLength == 1)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							vector3 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 							vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 							if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector4, vector3))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return i;
 							}
 							float num3 = TMP_TextUtilities.DistanceToLine(vector, vector2, position);
@@ -1361,15 +683,6 @@ namespace TMPro
 							float num7;
 							if (num3 < num4)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num7 = num3;
 							}
 							else
@@ -1380,15 +693,6 @@ namespace TMPro
 							float num9;
 							if (num8 < num5)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num9 = num8;
 							}
 							else
@@ -1399,15 +703,6 @@ namespace TMPro
 							float num10;
 							if (num8 < num6)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num10 = num8;
 							}
 							else
@@ -1417,15 +712,6 @@ namespace TMPro
 							num8 = num10;
 							if (num > num8)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = num8;
 								result = i;
 							}
@@ -1433,40 +719,13 @@ namespace TMPro
 					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j == tmp_LinkInfo.linkTextLength - 1)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 							vector3 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 							vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 							if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector4, vector3))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return i;
 							}
 							float num11 = TMP_TextUtilities.DistanceToLine(vector, vector2, position);
@@ -1476,15 +735,6 @@ namespace TMPro
 							float num15;
 							if (num11 < num12)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num15 = num11;
 							}
 							else
@@ -1495,15 +745,6 @@ namespace TMPro
 							float num17;
 							if (num16 < num13)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num17 = num16;
 							}
 							else
@@ -1514,15 +755,6 @@ namespace TMPro
 							float num18;
 							if (num16 < num14)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num18 = num16;
 							}
 							else
@@ -1532,15 +764,6 @@ namespace TMPro
 							num16 = num18;
 							if (num > num16)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = num16;
 								result = i;
 							}
@@ -1551,42 +774,15 @@ namespace TMPro
 					{
 						goto IL_4A6;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (lineNumber == (int)text.textInfo.characterInfo[num2 + 1].lineNumber)
 					{
 						goto IL_4A6;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					flag = false;
 					vector3 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.descender, 0f));
 					vector4 = rectTransform.TransformPoint(new Vector3(tmp_CharacterInfo.topRight.x, tmp_CharacterInfo.ascender, 0f));
 					if (TMP_TextUtilities.PointIntersectRectangle(position, vector, vector2, vector4, vector3))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return i;
 					}
 					float num19 = TMP_TextUtilities.DistanceToLine(vector, vector2, position);
@@ -1596,15 +792,6 @@ namespace TMPro
 					float num23;
 					if (num19 < num20)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num23 = num19;
 					}
 					else
@@ -1616,15 +803,6 @@ namespace TMPro
 					float num25;
 					if (num24 < num22)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num25 = num24;
 					}
 					else
@@ -1634,39 +812,12 @@ namespace TMPro
 					num24 = num25;
 					if (num > num24)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = num24;
 						result = i;
 						goto IL_4A6;
 					}
 					goto IL_4A6;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return result;
 		}
@@ -1681,41 +832,10 @@ namespace TMPro
 			float num2 = Vector3.Dot(vector2, rhs2);
 			if (0f <= num)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.PointIntersectRectangle(Vector3, Vector3, Vector3, Vector3, Vector3)).MethodHandle;
-				}
 				if (num <= Vector3.Dot(vector, vector))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (0f <= num2)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return num2 <= Vector3.Dot(vector2, vector2);
 					}
 				}
@@ -1731,19 +851,6 @@ namespace TMPro
 			float distance;
 			if (!plane.Raycast(ray, out distance))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.ScreenPointToWorldPointInRectangle(Transform, Vector2, Camera, Vector3*)).MethodHandle;
-				}
 				return false;
 			}
 			worldPoint = ray.GetPoint(distance);
@@ -1762,56 +869,16 @@ namespace TMPro
 				float num3 = num2 / num;
 				if (num3 >= 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num3 <= 1f)
 					{
 						intersectingPoint = line.Point1 + num3 * vector;
 						return true;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				return false;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.IntersectLinePlane(TMP_TextUtilities.LineSegment, Vector3, Vector3, Vector3*)).MethodHandle;
-			}
 			if (num2 == 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 			return false;
@@ -1829,19 +896,6 @@ namespace TMPro
 			Vector3 vector3 = point - b;
 			if (Vector3.Dot(vector, vector3) > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.DistanceToLine(Vector3, Vector3, Vector3)).MethodHandle;
-				}
 				return Vector3.Dot(vector3, vector3);
 			}
 			Vector3 vector4 = vector2 - vector * (num / Vector3.Dot(vector, vector));
@@ -1852,19 +906,6 @@ namespace TMPro
 		{
 			if ((int)c > "-------------------------------- !-#$%&-()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[-]^_`abcdefghijklmnopqrstuvwxyz{|}~-".Length - 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.ToLowerFast(char)).MethodHandle;
-				}
 				return c;
 			}
 			return "-------------------------------- !-#$%&-()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[-]^_`abcdefghijklmnopqrstuvwxyz{|}~-"[(int)c];
@@ -1874,19 +915,6 @@ namespace TMPro
 		{
 			if ((int)c > "-------------------------------- !-#$%&-()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[-]^_`ABCDEFGHIJKLMNOPQRSTUVWXYZ{|}~-".Length - 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextUtilities.ToUpperFast(char)).MethodHandle;
-				}
 				return c;
 			}
 			return "-------------------------------- !-#$%&-()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[-]^_`ABCDEFGHIJKLMNOPQRSTUVWXYZ{|}~-"[(int)c];

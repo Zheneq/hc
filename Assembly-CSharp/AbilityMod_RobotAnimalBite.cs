@@ -46,19 +46,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_lifePerHitMod, "LifePerHit", string.Empty, robotAnimalBite.m_lifePerHit, true, false, false);
 			if (this.m_extraDamageOnConsecutiveCast > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalBite.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
 				AbilityMod.AddToken_IntDiff(tokens, "ExtraDamage_ConsecutiveCast", string.Empty, this.m_extraDamageOnConsecutiveCast, false, 0);
 			}
 			if (this.m_extraDamageOnConsecutiveHit > 0)
@@ -81,19 +68,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalBite.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = robotAnimalBite.m_lifePerHit;
 		}
 		else
@@ -108,15 +82,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = robotAnimalBite.m_damageAmount;
 		}
 		else
@@ -127,15 +92,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectOnEnemyOverride, "{ Effect on Enemy }", string.Empty, flag, null);
 		if (this.m_extraDamageOnConsecutiveCast > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -162,15 +118,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		}
 		if (this.m_varianceExtraDamageMin >= 0 && this.m_varianceExtraDamageMax - this.m_varianceExtraDamageMin > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -183,15 +130,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 			});
 			if (this.m_varianceExtraDamageToSelf > Mathf.Epsilon)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = text;
 				text = string.Concat(new object[]
 				{
@@ -212,19 +150,6 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		RobotAnimalBite robotAnimalBite = abilityAsBase as RobotAnimalBite;
 		if (robotAnimalBite != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalBite.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
-			}
 			numbers.Add(this.m_damageMod.GetModifiedValue(robotAnimalBite.m_damageAmount) + this.m_extraDamageOnConsecutiveCast);
 			numbers.Add(this.m_damageMod.GetModifiedValue(robotAnimalBite.m_damageAmount) + this.m_extraDamageOnConsecutiveHit);
 		}

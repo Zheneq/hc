@@ -7,45 +7,45 @@ namespace NVIDIA
 	public class Ansel : MonoBehaviour
 	{
 		[SerializeField]
-		public float \u001D = 5f;
+		public float symbol_001D = 5f;
 
 		[SerializeField]
-		public float \u000E = 45f;
+		public float symbol_000E = 45f;
 
 		[SerializeField]
-		public uint \u0012;
+		public uint symbol_0012;
 
 		[SerializeField]
-		public uint \u0015;
+		public uint symbol_0015;
 
 		[SerializeField]
-		public float \u0016 = 1f;
+		public float symbol_0016 = 1f;
 
-		private static bool \u0013;
+		private static bool symbol_0013;
 
-		private static bool \u0018;
+		private static bool symbol_0018;
 
-		private static bool \u0009;
+		private static bool symbol_0009;
 
-		private bool \u0019;
+		private bool symbol_0019;
 
-		private Vector3 \u0011;
+		private Vector3 symbol_0011;
 
-		private Quaternion \u001A;
+		private Quaternion symbol_001A;
 
-		private float \u0004;
+		private float symbol_0004;
 
-		private Ansel.CameraData \u000B;
+		private Ansel.CameraData symbol_000B;
 
-		private Matrix4x4 \u0003;
+		private Matrix4x4 symbol_0003;
 
-		private Camera \u000F;
+		private Camera symbol_000F;
 
 		public static bool GetFlag0013
 		{
 			get
 			{
-				return Ansel.\u0013;
+				return Ansel.symbol_0013;
 			}
 		}
 
@@ -53,7 +53,7 @@ namespace NVIDIA
 		{
 			get
 			{
-				return Ansel.\u0018;
+				return Ansel.symbol_0018;
 			}
 		}
 
@@ -69,57 +69,44 @@ namespace NVIDIA
 		{
 			if (!Ansel.IsAvailable)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ansel.Init()).MethodHandle;
-				}
 				MonoBehaviour.print("Ansel not available on this platform");
 				return;
 			}
-			this.\u000F = base.GetComponent<Camera>();
+			this.symbol_000F = base.GetComponent<Camera>();
 			Ansel.ConfigData configData = default(Ansel.ConfigData);
 			float[] array = new float[3];
 			array[0] = 1f;
-			configData.\u0012 = array;
+			configData.symbol_0012 = array;
 			float[] array2 = new float[3];
 			array2[1] = 1f;
-			configData.\u000E = array2;
-			configData.\u001D = new float[]
+			configData.symbol_000E = array2;
+			configData.symbol_001D = new float[]
 			{
 				0f,
 				0f,
 				1f
 			};
-			configData.\u0015 = this.\u001D;
-			configData.\u0016 = this.\u000E;
-			configData.\u0013 = this.\u0012;
-			configData.\u0018 = this.\u0015;
-			configData.\u0009 = this.\u0016;
-			configData.\u0019 = true;
-			configData.\u001A = true;
-			configData.\u0011 = true;
-			configData.\u0004 = true;
-			configData.\u000B = false;
+			configData.symbol_0015 = this.symbol_001D;
+			configData.symbol_0016 = this.symbol_000E;
+			configData.symbol_0013 = this.symbol_0012;
+			configData.symbol_0018 = this.symbol_0015;
+			configData.symbol_0009 = this.symbol_0016;
+			configData.symbol_0019 = true;
+			configData.symbol_001A = true;
+			configData.symbol_0011 = true;
+			configData.symbol_0004 = true;
+			configData.symbol_000B = false;
 			Ansel.anselInit(ref configData);
-			this.\u000B = default(Ansel.CameraData);
+			this.symbol_000B = default(Ansel.CameraData);
 			Ansel.SessionData sessionData = default(Ansel.SessionData);
-			sessionData.\u001D = true;
-			sessionData.\u0015 = true;
-			sessionData.\u0016 = true;
-			sessionData.\u0013 = true;
-			sessionData.\u0018 = true;
-			sessionData.\u0009 = true;
-			sessionData.\u0012 = true;
-			sessionData.\u000E = true;
+			sessionData.symbol_001D = true;
+			sessionData.symbol_0015 = true;
+			sessionData.symbol_0016 = true;
+			sessionData.symbol_0013 = true;
+			sessionData.symbol_0018 = true;
+			sessionData.symbol_0009 = true;
+			sessionData.symbol_0012 = true;
+			sessionData.symbol_000E = true;
 			Ansel.anselConfigureSession(ref sessionData);
 			MonoBehaviour.print("Ansel is initialized and ready to use");
 		}
@@ -139,7 +126,7 @@ namespace NVIDIA
 			Ansel.anselConfigureSession(ref sessionData);
 		}
 
-		public void \u000D()
+		public void symbol_000D()
 		{
 			if (!Ansel.IsAvailable)
 			{
@@ -148,112 +135,81 @@ namespace NVIDIA
 			}
 			if (Ansel.anselIsSessionOn())
 			{
-				if (!Ansel.\u0013)
+				if (!Ansel.symbol_0013)
 				{
-					Ansel.\u0013 = true;
-					this.\u0008();
+					Ansel.symbol_0013 = true;
+					this.symbol_0008();
 					MonoBehaviour.print("Started Ansel session");
 				}
-				Ansel.\u0018 = Ansel.anselIsCaptureOn();
-				Transform transform = this.\u000F.transform;
-				this.\u000B.\u001D = this.\u000F.fieldOfView;
-				this.\u000B.\u000E = new float[2];
-				this.\u000B.\u0012 = new float[]
+				Ansel.symbol_0018 = Ansel.anselIsCaptureOn();
+				Transform transform = this.symbol_000F.transform;
+				this.symbol_000B.symbol_001D = this.symbol_000F.fieldOfView;
+				this.symbol_000B.symbol_000E = new float[2];
+				this.symbol_000B.symbol_0012 = new float[]
 				{
 					transform.position.x,
 					transform.position.y,
 					transform.position.z
 				};
-				this.\u000B.\u0015 = new float[]
+				this.symbol_000B.symbol_0015 = new float[]
 				{
 					transform.rotation.x,
 					transform.rotation.y,
 					transform.rotation.z,
 					transform.rotation.w
 				};
-				Ansel.anselUpdateCamera(ref this.\u000B);
-				this.\u000F.ResetProjectionMatrix();
-				this.\u000F.transform.position = new Vector3(this.\u000B.\u0012[0], this.\u000B.\u0012[1], this.\u000B.\u0012[2]);
-				this.\u000F.transform.rotation = new Quaternion(this.\u000B.\u0015[0], this.\u000B.\u0015[1], this.\u000B.\u0015[2], this.\u000B.\u0015[3]);
-				this.\u000F.fieldOfView = this.\u000B.\u001D;
-				if (this.\u000B.\u000E[0] == 0f)
+				Ansel.anselUpdateCamera(ref this.symbol_000B);
+				this.symbol_000F.ResetProjectionMatrix();
+				this.symbol_000F.transform.position = new Vector3(this.symbol_000B.symbol_0012[0], this.symbol_000B.symbol_0012[1], this.symbol_000B.symbol_0012[2]);
+				this.symbol_000F.transform.rotation = new Quaternion(this.symbol_000B.symbol_0015[0], this.symbol_000B.symbol_0015[1], this.symbol_000B.symbol_0015[2], this.symbol_000B.symbol_0015[3]);
+				this.symbol_000F.fieldOfView = this.symbol_000B.symbol_001D;
+				if (this.symbol_000B.symbol_000E[0] == 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Ansel.\u000D()).MethodHandle;
-					}
-					if (this.\u000B.\u000E[1] == 0f)
+					if (this.symbol_000B.symbol_000E[1] == 0f)
 					{
 						goto IL_2B2;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				this.\u0003 = this.\u000F.projectionMatrix;
-				float num = -1f + this.\u000B.\u000E[0];
+				this.symbol_0003 = this.symbol_000F.projectionMatrix;
+				float num = -1f + this.symbol_000B.symbol_000E[0];
 				float num2 = num + 2f;
-				float num3 = -1f + this.\u000B.\u000E[1];
+				float num3 = -1f + this.symbol_000B.symbol_000E[1];
 				float num4 = num3 + 2f;
-				this.\u0003[0, 2] = (num + num2) / (num2 - num);
-				this.\u0003[1, 2] = (num4 + num3) / (num4 - num3);
-				this.\u000F.projectionMatrix = this.\u0003;
+				this.symbol_0003[0, 2] = (num + num2) / (num2 - num);
+				this.symbol_0003[1, 2] = (num4 + num3) / (num4 - num3);
+				this.symbol_000F.projectionMatrix = this.symbol_0003;
 				IL_2B2:;
 			}
-			else if (Ansel.\u0013)
+			else if (Ansel.symbol_0013)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				Ansel.\u0013 = false;
-				Ansel.\u0018 = false;
-				this.\u0002();
+				Ansel.symbol_0013 = false;
+				Ansel.symbol_0018 = false;
+				this.symbol_0002();
 				MonoBehaviour.print("Stopped Ansel session");
 			}
 		}
 
-		private void \u0008()
+		private void symbol_0008()
 		{
-			Transform transform = this.\u000F.transform;
-			this.\u0011 = transform.position;
-			this.\u001A = transform.rotation;
-			this.\u0004 = this.\u000F.fieldOfView;
-			this.\u0019 = Cursor.visible;
+			Transform transform = this.symbol_000F.transform;
+			this.symbol_0011 = transform.position;
+			this.symbol_001A = transform.rotation;
+			this.symbol_0004 = this.symbol_000F.fieldOfView;
+			this.symbol_0019 = Cursor.visible;
 			Time.timeScale = 0f;
 			Input.ResetInputAxes();
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
-		private void \u0002()
+		private void symbol_0002()
 		{
 			Time.timeScale = 1f;
-			this.\u000F.ResetProjectionMatrix();
-			this.\u000F.transform.position = this.\u0011;
-			this.\u000F.transform.rotation = this.\u001A;
-			this.\u000F.fieldOfView = this.\u0004;
-			Cursor.visible = this.\u0019;
+			this.symbol_000F.ResetProjectionMatrix();
+			this.symbol_000F.transform.position = this.symbol_0011;
+			this.symbol_000F.transform.rotation = this.symbol_001A;
+			this.symbol_000F.fieldOfView = this.symbol_0004;
+			Cursor.visible = this.symbol_0019;
 			Cursor.lockState = CursorLockMode.None;
 		}
 
@@ -278,79 +234,79 @@ namespace NVIDIA
 		public struct ConfigData
 		{
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u001D;
+			public float[] symbol_001D;
 
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u000E;
+			public float[] symbol_000E;
 
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u0012;
+			public float[] symbol_0012;
 
-			public float \u0015;
+			public float symbol_0015;
 
-			public float \u0016;
+			public float symbol_0016;
 
-			public uint \u0013;
+			public uint symbol_0013;
 
-			public uint \u0018;
+			public uint symbol_0018;
 
-			public float \u0009;
-
-			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0019;
+			public float symbol_0009;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0011;
+			public bool symbol_0019;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u001A;
+			public bool symbol_0011;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0004;
+			public bool symbol_001A;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u000B;
+			public bool symbol_0004;
+
+			[MarshalAs(UnmanagedType.I1)]
+			public bool symbol_000B;
 		}
 
 		public struct CameraData
 		{
-			public float \u001D;
+			public float symbol_001D;
 
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-			public float[] \u000E;
+			public float[] symbol_000E;
 
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-			public float[] \u0012;
+			public float[] symbol_0012;
 
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-			public float[] \u0015;
+			public float[] symbol_0015;
 		}
 
 		public struct SessionData
 		{
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u001D;
+			public bool symbol_001D;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u000E;
+			public bool symbol_000E;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0012;
+			public bool symbol_0012;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0015;
+			public bool symbol_0015;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0016;
+			public bool symbol_0016;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0013;
+			public bool symbol_0013;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0018;
+			public bool symbol_0018;
 
 			[MarshalAs(UnmanagedType.I1)]
-			public bool \u0009;
+			public bool symbol_0009;
 		}
 	}
 }

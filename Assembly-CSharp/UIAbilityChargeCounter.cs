@@ -13,18 +13,5 @@ public class UIAbilityChargeCounter : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_ticks[i], i == num, null);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityChargeCounter.SetTick(int)).MethodHandle;
-		}
 	}
 }

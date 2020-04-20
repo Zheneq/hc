@@ -57,47 +57,16 @@ public class GenericSequenceProjectileInfo
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.OnSequenceDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx);
 			this.m_fx = null;
 		}
 		if (this.m_fxImpact != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_fxImpact);
 			this.m_fxImpact = null;
 		}
 		if (this.m_targetHitFx != null && this.m_targetHitFx.Count > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_targetHitFx.Count; i++)
 			{
 				UnityEngine.Object.Destroy(this.m_targetHitFx[i]);
@@ -130,19 +99,6 @@ public class GenericSequenceProjectileInfo
 	{
 		if (this.m_authoredInfo.m_fxImpactPrefab)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.SpawnImpactFX(Vector3, Quaternion)).MethodHandle;
-			}
 			this.m_fxImpact = this.m_parentSequence.InstantiateFX(this.m_authoredInfo.m_fxImpactPrefab, impactPos, impactRot, true, true);
 			this.m_impactDurationLeft = this.m_impactDuration;
 		}
@@ -156,56 +112,16 @@ public class GenericSequenceProjectileInfo
 	{
 		if (target != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.SpawnTargetHitFx(ActorData)).MethodHandle;
-			}
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_parentSequence.IsHitFXVisibleWrtTeamFilter(target, this.m_authoredInfo.m_hitFxTeamFilter))
 				{
 					if (this.m_authoredInfo.m_targetHitFxPrefab != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameObject gameObject = this.m_authoredInfo.m_hitPosJoint.FindJointObject(target.gameObject);
 						Vector3 vector;
 						if (gameObject != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector = gameObject.transform.position;
 						}
 						else
@@ -216,26 +132,8 @@ public class GenericSequenceProjectileInfo
 						GameObject gameObject2 = this.m_parentSequence.InstantiateFX(this.m_authoredInfo.m_targetHitFxPrefab, position, this.m_fx.transform.rotation, true, true);
 						if (gameObject2 != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_authoredInfo.m_targetHitFxAttachToJoint)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_parentSequence.AttachToBone(gameObject2, gameObject);
 								gameObject2.transform.localPosition = Vector3.zero;
 								gameObject2.transform.localScale = Vector3.one;
@@ -263,19 +161,6 @@ public class GenericSequenceProjectileInfo
 		Vector3[] array = new Vector3[5];
 		if (this.m_authoredInfo.m_maxHeight == 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.GetSplinePath()).MethodHandle;
-			}
 			Vector3 endPos = this.m_endPos;
 			endPos.y += this.m_authoredInfo.m_yOffset;
 			Vector3 b = endPos - startPos;
@@ -313,31 +198,9 @@ public class GenericSequenceProjectileInfo
 			this.m_startDelay -= GameTime.deltaTime;
 			if (this.m_startDelay <= 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GenericSequenceProjectileInfo.OnUpdate()).MethodHandle;
-				}
 				GameObject referenceModel = this.m_parentSequence.GetReferenceModel(this.m_parentSequence.Caster, this.m_authoredInfo.m_jointReferenceType);
 				if (referenceModel != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_authoredInfo.m_fxJoint.Initialize(referenceModel);
 				}
 				this.SpawnFX();
@@ -352,15 +215,6 @@ public class GenericSequenceProjectileInfo
 				this.m_splineTraveled += this.m_curSplineSpeed * GameTime.deltaTime;
 				if (this.m_splineTraveled < this.m_authoredInfo.m_splineFractionUntilImpact)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 vector = this.m_spline.Interp(this.m_splineTraveled);
 					Quaternion rotation = default(Quaternion);
 					rotation.SetLookRotation((vector - this.m_fx.transform.position).normalized);
@@ -370,51 +224,15 @@ public class GenericSequenceProjectileInfo
 					this.m_fx.transform.rotation = rotation;
 					if (this.m_targetActors != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (ActorData actorData in this.m_targetActors)
 						{
 							if (actorData != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!this.m_actorsAlreadyHit.Contains(actorData))
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Vector3 rhs = actorData.transform.position - this.m_fx.transform.position;
 									if (Vector3.Dot(vector2, rhs) < 0f)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										Vector3 position = this.m_fx.transform.position;
 										ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, vector2);
 										this.m_parentSequence.Source.OnSequenceHit(this.m_parentSequence, actorData, impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
@@ -424,30 +242,12 @@ public class GenericSequenceProjectileInfo
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				else
 				{
 					if (this.m_authoredInfo.m_spawnImpactAtFXDespawn)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SpawnImpactFX(this.m_fx.transform.position, this.m_fx.transform.rotation);
 					}
 					else
@@ -458,15 +258,6 @@ public class GenericSequenceProjectileInfo
 					this.m_finished = true;
 					if (this.m_targetActors != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (ActorData actorData2 in this.m_targetActors)
 						{
 							if (!this.m_actorsAlreadyHit.Contains(actorData2))
@@ -475,43 +266,16 @@ public class GenericSequenceProjectileInfo
 								this.SpawnTargetHitFx(actorData2);
 							}
 						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					this.m_parentSequence.Source.OnSequenceHit(this.m_parentSequence, this.m_positionForSequenceHit, null);
 				}
 			}
 			if (this.m_fxImpact != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxImpact.activeSelf)
 				{
 					if (this.m_impactDurationLeft > 0f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_impactDurationLeft -= GameTime.deltaTime;
 					}
 					else

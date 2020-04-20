@@ -47,19 +47,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Martyr Healing Explosion";
 		}
 		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
@@ -101,19 +88,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedLaserHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.GetLaserHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserHitEffect;
 		}
 		else
@@ -189,19 +163,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 		int num;
 		if (martyrHealingExplosionThreshold != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.GetCurrentExplosionHealing(ActorData)).MethodHandle;
-			}
 			num = martyrHealingExplosionThreshold.m_additionalHealing;
 		}
 		else
@@ -218,19 +179,6 @@ public class MartyrHealingExplosion : MartyrLaserBase
 		float num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealingExplosion.GetCurrentExplosionRadius()).MethodHandle;
-			}
 			num = martyrBasicAttackThreshold.m_additionalRadius;
 		}
 		else

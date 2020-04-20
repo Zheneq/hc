@@ -45,19 +45,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		SoldierCardinalLine soldierCardinalLine = targetAbility as SoldierCardinalLine;
 		if (soldierCardinalLine != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierCardinalLine.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_lineWidthMod, "LineWidth", string.Empty, soldierCardinalLine.m_lineWidth, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, soldierCardinalLine.m_damageAmount, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", soldierCardinalLine.m_enemyHitEffect, true);
@@ -82,19 +69,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierCardinalLine.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = soldierCardinalLine.m_useBothCardinalDir;
 		}
 		else
@@ -109,15 +83,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		AbilityAreaShape baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = soldierCardinalLine.m_positionShape;
 		}
 		else
@@ -132,15 +97,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierCardinalLine.m_lineWidth;
 		}
 		else
@@ -156,15 +112,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierCardinalLine.m_damageAmount;
 		}
 		else
@@ -181,15 +128,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = soldierCardinalLine.m_extraDamageForNearCenterTargets;
 		}
 		else
@@ -204,15 +142,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		AbilityAreaShape baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = soldierCardinalLine.m_aoeShape;
 		}
 		else
@@ -227,15 +156,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = soldierCardinalLine.m_aoeDamage;
 		}
 		else
@@ -250,15 +170,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = soldierCardinalLine.m_numSubsequentTurns;
 		}
 		else
@@ -273,15 +184,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = soldierCardinalLine.m_damageOnSubsequentTurns;
 		}
 		else

@@ -46,30 +46,8 @@ public class UIJoinGameScreen : UIScene
 		ClientGameManager.Get().OnLobbyGameplayOverridesChange += this.HandleGameplayOverridesChange;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.Start()).MethodHandle;
-			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HandleGameplayOverridesChange(GameManager.Get().GameplayOverrides);
 			}
 		}
@@ -79,19 +57,6 @@ public class UIJoinGameScreen : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnLobbyGameplayOverridesChange -= this.HandleGameplayOverridesChange;
 		}
 	}
@@ -101,19 +66,6 @@ public class UIJoinGameScreen : UIScene
 		for (int i = 0; i < this.m_containers.Length; i++)
 		{
 			UIManager.SetGameObjectActive(this.m_containers[i], visible, null);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.SetVisible(bool)).MethodHandle;
 		}
 		this.m_cancelButton.ResetMouseState();
 		this.m_createButton.ResetMouseState();
@@ -140,32 +92,10 @@ public class UIJoinGameScreen : UIScene
 			bool flag2 = data.selectedObject == componentsInChildren[i].m_joinAsSpectatorButton.gameObject;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.JoinGameClicked(BaseEventData)).MethodHandle;
-				}
 				if (!flag2)
 				{
 					i++;
 					continue;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			LobbyGameInfo lobbyGameInfo;
@@ -173,26 +103,8 @@ public class UIJoinGameScreen : UIScene
 			{
 				if (!AssetBundleManager.Get().SceneExistsInBundle("maps", lobbyGameInfo.GameConfig.Map))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!AssetBundleManager.Get().SceneExistsInBundle("testing", lobbyGameInfo.GameConfig.Map))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("NoAccessToMap", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
 						return;
 					}
@@ -234,34 +146,12 @@ public class UIJoinGameScreen : UIScene
 	{
 		if (this.m_buttonLookup != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.UpdateServerList(List<LobbyGameInfo>)).MethodHandle;
-			}
 			using (Dictionary<UICustomMatchEntry, LobbyGameInfo>.KeyCollection.Enumerator enumerator = this.m_buttonLookup.Keys.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					UICustomMatchEntry uicustomMatchEntry = enumerator.Current;
 					UnityEngine.Object.Destroy(uicustomMatchEntry.gameObject);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -277,26 +167,8 @@ public class UIJoinGameScreen : UIScene
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				this.AddServerButton(lobbyGameInfo);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int count = gameInfoList.Count;
@@ -309,33 +181,11 @@ public class UIJoinGameScreen : UIScene
 		bool result = false;
 		if (ClientGameManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.HasGamesListChanged()).MethodHandle;
-			}
 			return false;
 		}
 		List<LobbyGameInfo> customGameInfos = ClientGameManager.Get().CustomGameInfos;
 		if (customGameInfos == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		else
@@ -344,15 +194,6 @@ public class UIJoinGameScreen : UIScene
 			{
 				if (customGameInfos.Count != this.m_currentGames.Count)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -388,46 +229,15 @@ public class UIJoinGameScreen : UIScene
 	{
 		if (AppState.GetCurrent() != AppState_JoinGame.Get())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIJoinGameScreen.Update()).MethodHandle;
-			}
 			return;
 		}
 		if (this.HasGamesListChanged())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_currentGames = ClientGameManager.Get().CustomGameInfos;
 			this.UpdateServerList(this.m_currentGames);
 		}
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIFrontEnd.Get().CanMenuEscape() && !UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
 			{
 				this.CancelClicked(null);

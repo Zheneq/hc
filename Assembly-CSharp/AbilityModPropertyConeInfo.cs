@@ -23,19 +23,6 @@ public class AbilityModPropertyConeInfo
 	{
 		if (info != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyConeInfo.GetModifiedValue(ConeTargetingInfo)).MethodHandle;
-			}
 			return info.GetModifiedCopy(this);
 		}
 		if (Application.isEditor)

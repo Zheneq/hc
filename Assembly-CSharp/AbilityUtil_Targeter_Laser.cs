@@ -120,19 +120,6 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		int maxTargets = this.GetMaxTargets();
 		if (this.m_customMaxTargetsDelegate != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Laser.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			maxTargets = this.m_customMaxTargetsDelegate(targetingActor);
 		}
 		VectorUtils.LaserCoords laserCoords;
@@ -140,15 +127,6 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 		Vector3 vector = this.GetAimDirection(currentTarget, targetingActor);
 		if (currentTargetIndex > 0 && this.m_getClampedAimDirection != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = this.m_getClampedAimDirection(vector, targets[currentTargetIndex - 1].AimDirection);
 		}
 		this.m_laserPart.UpdateDimensions(this.GetWidth(), this.GetDistance());
@@ -183,43 +161,16 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				item.squaresFromCaster = num2;
 				this.m_hitActorContext.Add(item);
 				ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-				actorHitContext.\u001D = laserCoords.start;
-				actorHitContext.\u0015.SetInt(ContextKeys.\u0011.GetHash(), num);
-				actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), num2);
+				actorHitContext.symbol_001D = laserCoords.start;
+				actorHitContext.symbol_0015.SetInt(ContextKeys.symbol_0011.GetHash(), num);
+				actorHitContext.symbol_0015.SetFloat(ContextKeys.symbol_0018.GetHash(), num2);
 				num++;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_affectCasterDelegate != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_affectCasterDelegate(targetingActor, list))
 				{
 					goto IL_2ED;
@@ -240,19 +191,6 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Laser.DrawInvalidSquareIndicators(AbilityTarget, ActorData, Vector3, Vector3)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			this.m_laserPart.ShowHiddenSquares(this.m_indicatorHandler, startPos, endPos, targetingActor, this.GetPenetrateLoS());
 			base.HideUnusedSquareIndicators();
@@ -292,45 +230,14 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				BoardSquare boardSquare = enumerator.Current;
 				if (boardSquare.IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Laser.DrawGizmos(AbilityTarget, ActorData)).MethodHandle;
-					}
 					Gizmos.DrawWireCube(boardSquare.ToVector3(), new Vector3(0.5f, 0.5f, 0.5f));
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Gizmos.color = Color.white;
 		List<BoardSquare> list2;
 		if (GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list2 = AreaEffectUtils.GetSquaresInBoxByActorRadius(vector, vector2, this.GetWidth(), true, targetingActor, null);
 		}
 		else
@@ -347,15 +254,6 @@ public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 				{
 					Gizmos.DrawWireSphere(boardSquare2.ToVector3(), 0.2f);
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

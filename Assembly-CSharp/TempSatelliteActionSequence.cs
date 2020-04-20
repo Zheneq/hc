@@ -23,34 +23,12 @@ public class TempSatelliteActionSequence : Sequence
 	{
 		if (this.m_setRotationOnInit)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteActionSequence.FinishSetup()).MethodHandle;
-			}
 			GameObject gameObject = SequenceManager.Get().FindTempSatellite(base.Source);
 			if (gameObject != null)
 			{
 				TempSatellite component = gameObject.GetComponent<TempSatellite>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.SetRotation(base.TargetRotation);
 				}
 			}
@@ -58,15 +36,6 @@ public class TempSatelliteActionSequence : Sequence
 		bool flag;
 		if (this.m_ignoreStartEventIfActorRagdoll)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (base.Caster.IsModelAnimatorDisabled() || base.Caster.IsDead());
 		}
 		else
@@ -76,15 +45,6 @@ public class TempSatelliteActionSequence : Sequence
 		bool flag2 = flag;
 		if (!(this.m_startActionEvent == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
 				return;
@@ -92,15 +52,6 @@ public class TempSatelliteActionSequence : Sequence
 		}
 		if (this.m_startDelayTime <= 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ProcessAction();
 		}
 		else
@@ -118,19 +69,6 @@ public class TempSatelliteActionSequence : Sequence
 	{
 		if (parameter == this.m_startActionEvent)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteActionSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.ProcessAction();
 		}
 	}
@@ -139,19 +77,6 @@ public class TempSatelliteActionSequence : Sequence
 	{
 		if (!this.m_processedAction)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteActionSequence.ProcessAction()).MethodHandle;
-			}
 			this.m_processedAction = true;
 			GameObject gameObject = SequenceManager.Get().FindTempSatellite(base.Source);
 			if (gameObject != null)
@@ -159,26 +84,8 @@ public class TempSatelliteActionSequence : Sequence
 				TempSatellite component = gameObject.GetComponent<TempSatellite>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_action == TempSatelliteActionSequence.SatelliteAction.Attack)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Target != null)
 						{
 							component.TriggerAttack(base.Target.gameObject);
@@ -193,41 +100,10 @@ public class TempSatelliteActionSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteActionSequence.Update()).MethodHandle;
-			}
 			if (this.m_timeToProcessAction > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_processedAction && GameTime.time > this.m_timeToProcessAction)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeToProcessAction = -1f;
 					this.ProcessAction();
 				}

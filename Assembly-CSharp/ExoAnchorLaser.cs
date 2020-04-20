@@ -82,19 +82,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Anchor Laser";
 		}
 		this.SetupTargeter();
@@ -119,32 +106,10 @@ public class ExoAnchorLaser : Ability
 		this.SetCachedFields();
 		if (this.m_syncComponent == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.SetupTargeter()).MethodHandle;
-			}
 			this.m_syncComponent = base.GetComponent<Exo_SyncComponent>();
 		}
 		if (this.m_syncComponent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Missing Exo_SyncComponent on Exo's actorData prefab. ExoAnchorLaser won't function!", new object[0]);
 		}
 		AbilityUtil_Targeter abilityUtil_Targeter = new AbilityUtil_Targeter_SweepSingleClickCone(this, this.GetMinConeAngle(), this.GetMaxConeAngle(), this.GetLaserInfo().range, this.m_sweepConeBackwardOffset, 0.2f, this.GetLaserInfo(), this.m_syncComponent);
@@ -187,19 +152,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetActionAnimType(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			if (this.m_syncComponent.m_anchored)
 			{
 				return (ActorModelData.ActionAnimationType)this.m_animIndexForSweep;
@@ -213,19 +165,6 @@ public class ExoAnchorLaser : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -236,15 +175,6 @@ public class ExoAnchorLaser : Ability
 		StandardBarrierData cachedLaserBarrier;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserBarrier = this.m_abilityMod.m_laserBarrierMod.GetModifiedValue(this.m_laserBarrier);
 		}
 		else
@@ -255,15 +185,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo cachedEffectOnCaster;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnCaster = this.m_abilityMod.m_effectOnCasterMod.GetModifiedValue(this.m_effectOnCaster);
 		}
 		else
@@ -284,19 +205,6 @@ public class ExoAnchorLaser : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -311,19 +219,6 @@ public class ExoAnchorLaser : Ability
 		StandardBarrierData result;
 		if (this.m_cachedLaserBarrier != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetLaserBarrier()).MethodHandle;
-			}
 			result = this.m_cachedLaserBarrier;
 		}
 		else
@@ -338,19 +233,6 @@ public class ExoAnchorLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetSweepDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_sweepDamageAmountMod.GetModifiedValue(this.m_sweepDamageAmount);
 		}
 		else
@@ -365,19 +247,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetSweepConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_sweepConeBackwardOffsetMod.GetModifiedValue(this.m_sweepConeBackwardOffset);
 		}
 		else
@@ -392,19 +261,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetMinConeAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minConeAngleMod.GetModifiedValue(this.m_minConeAngle);
 		}
 		else
@@ -419,19 +275,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetMaxConeAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxConeAngleMod.GetModifiedValue(this.m_maxConeAngle);
 		}
 		else
@@ -456,19 +299,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetExtraDamageAtZeroDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageAtZeroDistMod.GetModifiedValue(this.m_extraDamageAtZeroDist);
 		}
 		else
@@ -483,19 +313,6 @@ public class ExoAnchorLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetExtraDamageChangePerDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageChangePerDistMod.GetModifiedValue(this.m_extraDamageChangePerDist);
 		}
 		else
@@ -515,19 +332,6 @@ public class ExoAnchorLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetCooldownOnEnd()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownOnEndMod.GetModifiedValue(this.m_cooldownOnEnd);
 		}
 		else
@@ -542,19 +346,6 @@ public class ExoAnchorLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetAnchoredTechPointCost()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_anchoredTechPointCostMod.GetModifiedValue(this.m_anchoredTechPointCost);
 		}
 		else
@@ -569,19 +360,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnAnchorEnd != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetEffectOnAnchorEnd()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnAnchorEnd;
 		}
 		else
@@ -596,45 +374,14 @@ public class ExoAnchorLaser : Ability
 		List<StatusType> list = this.m_statusWhenAnchoredAndNotSweeping;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.ShouldUpdateMovementOnAnchorChange()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useStatusWhenAnchoredAndNotSweepingOverride)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = this.m_abilityMod.m_statusWhenAnchoredAndNotSweepingOverride;
 			}
 		}
 		bool result;
 		if (list != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (list.Count > 0);
 		}
 		else
@@ -649,32 +396,10 @@ public class ExoAnchorLaser : Ability
 		List<StatusType> list = this.m_statusWhenAnchoredAndNotSweeping;
 		if (this.m_abilityMod != null && this.m_abilityMod.m_useStatusWhenAnchoredAndNotSweepingOverride)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.HasPendingStatusTurnOfAnchorEnd(StatusType)).MethodHandle;
-			}
 			list = this.m_abilityMod.m_statusWhenAnchoredAndNotSweepingOverride;
 		}
 		if (list != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return list.Contains(status);
 		}
 		return false;
@@ -685,54 +410,14 @@ public class ExoAnchorLaser : Ability
 		int num = baseDamage;
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetTotalDamage(Vector3, Vector3, int, bool)).MethodHandle;
-			}
 			if (this.GetExtraDamagePerTurnAnchored() > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (checkDurationBonus)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int turnsAnchored = (int)this.m_syncComponent.m_turnsAnchored;
 					int num2 = Mathf.Max(0, turnsAnchored) * this.GetExtraDamagePerTurnAnchored();
 					if (this.GetMaxExtraDamageForAnchored() > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = Mathf.Min(num2, this.GetMaxExtraDamageForAnchored());
 					}
 					num += num2;
@@ -740,42 +425,15 @@ public class ExoAnchorLaser : Ability
 			}
 			if (this.GetExtraDamageAtZeroDist() <= 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetExtraDamageChangePerDist() <= 0f)
 				{
 					return num;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			float num3 = this.GetExtraDamageAtZeroDist();
 			float num4 = VectorUtils.HorizontalPlaneDistInSquares(startPos, hitPos) - 1.4f;
 			if (num4 > 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 += this.GetExtraDamageChangePerDist() * num4;
 			}
 			num += Mathf.Max(0, Mathf.RoundToInt(num3));
@@ -797,19 +455,6 @@ public class ExoAnchorLaser : Ability
 		int totalDamage;
 		if (this.m_syncComponent != null && this.m_syncComponent.m_anchored)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			totalDamage = this.GetTotalDamage(actorData.GetTravelBoardSquareWorldPosition(), targetActor.GetTravelBoardSquareWorldPosition(), this.GetSweepDamageAmount(), true);
 		}
 		else
@@ -824,30 +469,8 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetModdedCost()).MethodHandle;
-			}
 			if (this.m_syncComponent.m_wasAnchoredOnTurnStart)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.GetAnchoredTechPointCost();
 			}
 		}
@@ -858,30 +481,8 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetActionAnimType()).MethodHandle;
-			}
 			if (this.m_syncComponent.m_anchored)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_anchoredActionAnimType;
 			}
 		}
@@ -894,19 +495,6 @@ public class ExoAnchorLaser : Ability
 		int num;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			num = (int)abilityMod_ExoAnchorLaser.m_maxConeAngleMod.GetModifiedValue(this.m_maxConeAngle);
 		}
 		else
@@ -920,15 +508,6 @@ public class ExoAnchorLaser : Ability
 		int val2;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ExoAnchorLaser.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -939,15 +518,6 @@ public class ExoAnchorLaser : Ability
 		StandardBarrierData standardBarrierData;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardBarrierData = abilityMod_ExoAnchorLaser.m_laserBarrierMod.GetModifiedValue(this.m_laserBarrier);
 		}
 		else
@@ -961,15 +531,6 @@ public class ExoAnchorLaser : Ability
 		int val3;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ExoAnchorLaser.m_sweepDamageAmountMod.GetModifiedValue(this.m_sweepDamageAmount);
 		}
 		else
@@ -983,15 +544,6 @@ public class ExoAnchorLaser : Ability
 		int val4;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ExoAnchorLaser.m_maxExtraDamageForAnchoredMod.GetModifiedValue(this.m_maxExtraDamageForAnchored);
 		}
 		else
@@ -1002,15 +554,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ExoAnchorLaser.m_effectOnCasterMod.GetModifiedValue(this.m_effectOnCaster);
 		}
 		else
@@ -1023,15 +566,6 @@ public class ExoAnchorLaser : Ability
 		int val5;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_ExoAnchorLaser.m_cooldownOnEndMod.GetModifiedValue(this.m_cooldownOnEnd);
 		}
 		else
@@ -1044,15 +578,6 @@ public class ExoAnchorLaser : Ability
 		int val6;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_ExoAnchorLaser.m_anchoredTechPointCostMod.GetModifiedValue(this.m_anchoredTechPointCost);
 		}
 		else
@@ -1063,15 +588,6 @@ public class ExoAnchorLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_ExoAnchorLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ExoAnchorLaser.m_effectOnAnchorEndMod.GetModifiedValue(this.m_effectOnAnchorEnd);
 		}
 		else
@@ -1085,30 +601,8 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetFullTooltip()).MethodHandle;
-			}
 			if (this.m_syncComponent.m_anchored && !string.IsNullOrEmpty(this.m_anchoredToolTip))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (string.IsNullOrEmpty(this.m_anchoredFinalFullTooltip))
 				{
 					return TooltipTokenEntry.GetTooltipWithSubstitutes(this.m_anchoredToolTip, null, false);
@@ -1123,19 +617,6 @@ public class ExoAnchorLaser : Ability
 	{
 		if (!string.IsNullOrEmpty(this.m_anchoredToolTip))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.SetUnlocalizedTooltipAndStatusTypes(AbilityMod)).MethodHandle;
-			}
 			List<TooltipTokenEntry> tooltipTokenEntries = base.GetTooltipTokenEntries(mod);
 			this.m_anchoredFinalFullTooltip = TooltipTokenEntry.GetTooltipWithSubstitutes(this.m_anchoredToolTip, tooltipTokenEntries, false);
 		}
@@ -1146,41 +627,10 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_syncComponent != null && this.m_syncComponent.m_wasAnchoredOnTurnStart)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.HasPassivePendingStatus(StatusType, ActorData)).MethodHandle;
-			}
 			if (owner != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!owner.GetAbilityData().HasQueuedAction(AbilityData.ActionType.ABILITY_4))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.HasPendingStatusTurnOfAnchorEnd(status);
 				}
 			}
@@ -1207,30 +657,8 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.GetRotateToTargetDuration(float)).MethodHandle;
-			}
 			if (this.m_syncComponent.m_anchored)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComponent.m_turnsAnchored > 0)
 				{
 					return sweepAngle / this.m_turnToTargetSweepDegreesPerSecond;
@@ -1244,41 +672,10 @@ public class ExoAnchorLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoAnchorLaser.ShouldRotateToTargetPos()).MethodHandle;
-			}
 			if (this.m_syncComponent.m_anchored)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComponent.m_turnsAnchored > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 			}

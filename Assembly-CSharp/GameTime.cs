@@ -52,19 +52,6 @@ public static class GameTime
 		{
 			if (GameTime.s_scale != value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameTime.set_scale(float)).MethodHandle;
-				}
 				GameTime.s_scale = value;
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.GametimeScaleChange, null);
 			}
@@ -84,19 +71,6 @@ public static class GameTime
 		}
 		else if (GameTime.s_timeLastSeen != Time.time)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameTime.ResyncTime()).MethodHandle;
-			}
 			GameTime.s_time += (Time.time - GameTime.s_timeLastSeen) * GameTime.scale;
 			GameTime.s_timeDelta = Time.deltaTime * GameTime.scale;
 			GameTime.s_timeSmoothDelta = Time.smoothDeltaTime * GameTime.scale;

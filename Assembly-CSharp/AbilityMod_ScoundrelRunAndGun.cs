@@ -45,19 +45,6 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelRunAndGun.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scoundrelRunAndGun.m_damageAmount;
 		}
 		else

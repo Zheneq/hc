@@ -29,31 +29,9 @@ public class AbilityUtil_Targeter_SamuraiShowdown : AbilityUtil_Targeter_ChargeA
 				AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 				if (actorTarget.m_actor.GetTeam() != targetingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SamuraiShowdown.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-					}
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorTarget.m_actor, this.m_knockbackType, normalized, travelBoardSquareWorldPosition, this.m_knockbackDist);
 					num = base.AddMovementArrowWithPrevious(actorTarget.m_actor, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		base.SetMovementArrowEnabledFromIndex(num, false);

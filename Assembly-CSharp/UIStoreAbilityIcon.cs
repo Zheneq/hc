@@ -26,19 +26,6 @@ public class UIStoreAbilityIcon : MonoBehaviour
 	{
 		if (this.m_tooltipTitle.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAbilityIcon.SetupTooltip(UITooltipBase)).MethodHandle;
-			}
 			return false;
 		}
 		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;

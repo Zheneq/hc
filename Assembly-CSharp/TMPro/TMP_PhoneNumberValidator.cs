@@ -11,30 +11,8 @@ namespace TMPro
 			Debug.Log("Trying to validate...");
 			if (ch < '0')
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_PhoneNumberValidator.Validate(string*, int*, char)).MethodHandle;
-				}
 				if (ch > '9')
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return '\0';
 				}
 			}
@@ -46,15 +24,6 @@ namespace TMPro
 				case 0:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = "(" + ch;
 					}
 					pos = 2;
@@ -62,15 +31,6 @@ namespace TMPro
 				case 1:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 2;
@@ -78,15 +38,6 @@ namespace TMPro
 				case 2:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 3;
@@ -94,15 +45,6 @@ namespace TMPro
 				case 3:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + ch + ") ";
 					}
 					pos = 6;
@@ -110,15 +52,6 @@ namespace TMPro
 				case 4:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + ") " + ch;
 					}
 					pos = 7;
@@ -126,15 +59,6 @@ namespace TMPro
 				case 5:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + " " + ch;
 					}
 					pos = 7;
@@ -142,15 +66,6 @@ namespace TMPro
 				case 6:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 7;
@@ -172,15 +87,6 @@ namespace TMPro
 				case 9:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + "-" + ch;
 					}
 					pos = 0xB;
@@ -195,15 +101,6 @@ namespace TMPro
 				case 0xB:
 					if (i == length)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += ch;
 					}
 					pos = 0xC;
@@ -223,15 +120,6 @@ namespace TMPro
 					pos = 0xE;
 					break;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return ch;
 		}

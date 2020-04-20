@@ -45,19 +45,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		MantaConeDirtyFighting mantaConeDirtyFighting = targetAbility as MantaConeDirtyFighting;
 		if (mantaConeDirtyFighting != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaConeDirtyFighting.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneRangeMod, "ConeRange", string.Empty, mantaConeDirtyFighting.m_coneRange, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneWidthMod, "ConeWidth", string.Empty, mantaConeDirtyFighting.m_coneWidth, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxTargetsMod, "MaxTargets", string.Empty, mantaConeDirtyFighting.m_maxTargets, true, false);
@@ -86,19 +73,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaConeDirtyFighting.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = mantaConeDirtyFighting.m_coneWidth;
 		}
 		else
@@ -113,15 +87,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaConeDirtyFighting.m_penetrateLoS;
 		}
 		else
@@ -136,15 +101,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = mantaConeDirtyFighting.m_maxTargets;
 		}
 		else
@@ -160,15 +116,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = mantaConeDirtyFighting.m_onCastDamageAmount;
 		}
 		else
@@ -183,15 +130,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		StandardActorEffectData baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = mantaConeDirtyFighting.m_dirtyFightingEffectData;
 		}
 		else
@@ -206,15 +144,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = mantaConeDirtyFighting.m_enemyHitEffectData;
 		}
 		else
@@ -229,15 +158,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = mantaConeDirtyFighting.m_effectOnTargetFromExplosion;
 		}
 		else
@@ -253,15 +173,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = mantaConeDirtyFighting.m_effectExplosionDamage;
 		}
 		else
@@ -276,15 +187,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = mantaConeDirtyFighting.m_explodeOnlyFromSelfDamage;
 		}
 		else
@@ -299,15 +201,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = mantaConeDirtyFighting.m_techPointGainPerExplosion;
 		}
 		else

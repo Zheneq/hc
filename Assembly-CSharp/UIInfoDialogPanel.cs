@@ -39,19 +39,6 @@ public class UIInfoDialogPanel : MonoBehaviour
 	{
 		if (this.m_infoDialogEntries == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoDialogPanel.Start()).MethodHandle;
-			}
 			this.m_infoDialogEntries = new Dictionary<int, UIInfoDialogPanel.InfoDialogEntry>();
 		}
 		this.myCanvasRect = (base.GetComponentInParent<Canvas>().transform as RectTransform);
@@ -68,58 +55,18 @@ public class UIInfoDialogPanel : MonoBehaviour
 					UIInfoDialogPanel.InfoDialogEntry infoDialogEntry = enumerator.Current;
 					if (infoDialogEntry.m_useLine)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoDialogPanel.Update()).MethodHandle;
-						}
 						if (infoDialogEntry.m_translate)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(infoDialogEntry.m_lineObject, true, null);
 						}
 					}
 					if (!infoDialogEntry.m_uiPts)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 originPt = infoDialogEntry.m_originPt;
 						Vector2 vector = Camera.main.WorldToViewportPoint(originPt);
 						Vector2 anchoredPosition = new Vector2(vector.x * this.myCanvasRect.sizeDelta.x - this.myCanvasRect.sizeDelta.x * 0.5f, vector.y * this.myCanvasRect.sizeDelta.y - this.myCanvasRect.sizeDelta.y * 0.5f);
 						(infoDialogEntry.m_infoDialogObject.transform as RectTransform).anchoredPosition = anchoredPosition;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -165,59 +112,19 @@ public class UIInfoDialogPanel : MonoBehaviour
 	{
 		if (originPt == Vector3.zero)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoDialogPanel.AddInfoDialog(Vector3, Vector3, UIInfoDialogPanel.Pivot, float, string, int, bool, bool, bool)).MethodHandle;
-			}
 			if (!uiPts)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return -1;
 			}
 		}
 		if (this.m_infoDialogEntries == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_infoDialogEntries = new Dictionary<int, UIInfoDialogPanel.InfoDialogEntry>();
 			this.myCanvasRect = (base.GetComponentInParent<Canvas>().transform as RectTransform);
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 		}
 		if (uiPts)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!translate)
 		{
@@ -231,15 +138,6 @@ public class UIInfoDialogPanel : MonoBehaviour
 		gameObject2.transform.SetParent(gameObject.transform);
 		if (useLine)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(gameObject2, !translate, null);
 		}
 		else
@@ -269,41 +167,14 @@ public class UIInfoDialogPanel : MonoBehaviour
 			{
 				if (pivot != UIInfoDialogPanel.Pivot.Right)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (pivot != UIInfoDialogPanel.Pivot.Left)
 					{
 						num3 = Mathf.Abs(Mathf.Min(width, height) * 0.5f / Mathf.Cos(num2));
 						goto IL_2D9;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				num3 = width * 0.5f;
 				goto IL_2D9;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num3 = height * 0.5f;

@@ -15,38 +15,12 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 		{
 			this.SetupTooltip(this.m_abilityToggles[i], string.Format(StringUtil.TR("AbilityFilterTooltip", "Store"), i + 1));
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerModPanel.Awake()).MethodHandle;
-		}
 	}
 
 	protected override GameBalanceVars.PlayerUnlockable[] GetRawItemsList()
 	{
 		if (this.m_charType == CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerModPanel.GetRawItemsList()).MethodHandle;
-			}
 			return new GameBalanceVars.PlayerUnlockable[0];
 		}
 		List<GameBalanceVars.PlayerUnlockable> list = new List<GameBalanceVars.PlayerUnlockable>();
@@ -98,15 +72,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 				goto IL_12F;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		return base.SortItems(list).ToArray();
 	}
 
@@ -122,19 +87,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 	{
 		if (this.m_ownedToggle.isOn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerModPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			if (!item.IsOwned())
 			{
 				return true;
@@ -156,25 +108,7 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 						result = true;
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return result;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;
@@ -199,19 +133,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 	{
 		if (type != CurrencyType.FreelancerCurrency)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerModPanel.GetItemCost(GameBalanceVars.PlayerUnlockable, CurrencyType)).MethodHandle;
-			}
 			return base.GetItemCost(item, type);
 		}
 		return new CurrencyData
@@ -244,19 +165,6 @@ public class UIStoreFreelancerModPanel : UIStoreBaseInventoryPanel
 		string fullTooltip = abilityMod.GetFullTooltip(ability);
 		if (fullTooltip.Trim().Length > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerModPanel.ItemTooltipPopulate(UITooltipBase, UIStoreItemBtn, GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
 			uititledTooltip.Setup(abilityMod.GetName(), fullTooltip, string.Empty);
 			return true;

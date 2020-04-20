@@ -38,64 +38,20 @@ public class UIPlayerBanner : MonoBehaviour
 			this.SetRibbon(ClientGameManager.Get().GetCurrentRibbon());
 			if (this.m_playerName != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerBanner.<Start>m__0(PersistedAccountData)).MethodHandle;
-				}
 				this.m_playerName.text = accountData.UserName;
 			}
 			if (this.m_playerTitle != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_playerTitle.text = GameBalanceVars.Get().GetTitle(accountData.AccountComponent.SelectedTitleID, string.Empty, -1);
 			}
 			if (this.m_playerLevel != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_playerLevel.text = ClientGameManager.Get().GetDisplayedStatString(accountData);
 			}
 		};
 		ClientGameManager.Get().OnAccountDataUpdated += this.m_onAccountDataUpdated;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerBanner.Start()).MethodHandle;
-			}
 			this.m_onAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		this.SetBanner(ClientGameManager.Get().GetCurrentBackgroundBanner(), GameBalanceVars.PlayerBanner.BannerType.Background);
@@ -119,19 +75,6 @@ public class UIPlayerBanner : MonoBehaviour
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerBanner.OnDestroy()).MethodHandle;
-			}
 			return;
 		}
 		clientGameManager.OnAccountDataUpdated -= this.m_onAccountDataUpdated;
@@ -144,19 +87,6 @@ public class UIPlayerBanner : MonoBehaviour
 		Sprite sprite;
 		if (banner != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerBanner.SetBanner(GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner.BannerType)).MethodHandle;
-			}
 			sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 			if (sprite == null)
 			{
@@ -173,26 +103,8 @@ public class UIPlayerBanner : MonoBehaviour
 		}
 		if (sprite != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (bannerType == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_bannerImage.sprite = sprite;
 			}
 			else
@@ -206,45 +118,14 @@ public class UIPlayerBanner : MonoBehaviour
 	{
 		if (this.m_ribbonImage == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerBanner.SetRibbon(GameBalanceVars.PlayerRibbon)).MethodHandle;
-			}
 			return;
 		}
 		Sprite sprite = null;
 		if (ribbon != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 			if (sprite == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(Log.Category.UI, string.Format("Could not load ribbon resource from [{0}] as sprite.", ribbon.m_resourceString), new object[0]);
 			}
 		}

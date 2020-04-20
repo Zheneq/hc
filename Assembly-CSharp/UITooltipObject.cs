@@ -22,19 +22,6 @@ public abstract class UITooltipObject : MonoBehaviour
 	{
 		if (this.m_disableCall != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipObject.CallDisableTooltip()).MethodHandle;
-			}
 			this.m_disableCall();
 		}
 	}
@@ -48,19 +35,6 @@ public abstract class UITooltipObject : MonoBehaviour
 	{
 		if (UITooltipManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipObject.Refresh()).MethodHandle;
-			}
 			UITooltipManager.Get().UpdateTooltip(this);
 		}
 	}

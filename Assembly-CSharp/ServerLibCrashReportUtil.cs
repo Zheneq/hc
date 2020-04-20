@@ -7,19 +7,6 @@ public static class ServerLibCrashReportUtil
 		string buildName;
 		if (devBuild)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerLibCrashReportUtil.CreateArchiveNameForClient(bool, int)).MethodHandle;
-			}
 			buildName = "AtlasReactorDev";
 		}
 		else

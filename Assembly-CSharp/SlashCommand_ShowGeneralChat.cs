@@ -22,19 +22,6 @@ public class SlashCommand_ShowGeneralChat : SlashCommand
 		}
 		else if (arguments.EqualsIgnoreCase(StringUtil.TR("off", "SlashCommand")))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_ShowGeneralChat.OnSlashCommand(string)).MethodHandle;
-			}
 			Options_UI.Get().SetShowGlobalChat(false);
 			message.Text = StringUtil.TR("GlobalChatHidden", "SlashCommand");
 			TextConsole.Get().Write(message, null);

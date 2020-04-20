@@ -31,33 +31,11 @@ public class AbilityUtil_Targeter_LaserMultiple : AbilityUtil_Targeter
 			{
 				goto IL_84;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserMultiple.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 		}
 		this.m_highlights = new List<GameObject>();
 		for (int i = 0; i < this.m_laserCount; i++)
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f, null));
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_84:
 		base.ClearActorsInRange();
@@ -81,42 +59,15 @@ public class AbilityUtil_Targeter_LaserMultiple : AbilityUtil_Targeter
 					ActorData actor = enumerator.Current;
 					base.AddActorInRange(actor, laserCoords2.start, targetingActor, AbilityTooltipSubject.Primary, true);
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_affectsTargetingActor)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.AddActorInRange(targetingActor, laserCoords2.start, targetingActor, AbilityTooltipSubject.Primary, false);
 			}
 			float magnitude = (laserCoords2.end - laserCoords2.start).magnitude;
 			HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, this.m_highlights[j]);
 			this.m_highlights[j].transform.position = laserCoords2.start + new Vector3(0f, y, 0f);
 			this.m_highlights[j].transform.rotation = Quaternion.LookRotation(vector);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

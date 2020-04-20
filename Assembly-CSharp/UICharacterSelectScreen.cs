@@ -27,19 +27,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		UICharacterSelectScreen.s_instance = this;
 		if (base.gameObject.transform.parent == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.Awake()).MethodHandle;
-			}
 			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		}
 	}
@@ -53,19 +40,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 	{
 		if (NavigationBar.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.SetGameSettingsButtonVisibility(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(NavigationBar.Get().m_gameSettingsBtn, visible, null);
 		}
 	}
@@ -77,19 +51,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		foreach (UICharacterSelectRing uicharacterSelectRing in UICharacterSelectWorldObjects.Get().m_ringAnimations)
 		{
 			uicharacterSelectRing.SetClickable(false);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.ShowGameSettingsPanel(LobbyGameConfig, LobbyTeamInfo, LobbyPlayerInfo)).MethodHandle;
 		}
 		UICharacterSelectScreenController.Get().UpdateReadyCancelButtonStates();
 	}
@@ -106,19 +67,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		{
 			uicharacterSelectRing.SetClickable(true);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.HideGameSettingsPanel(LobbyGameConfig)).MethodHandle;
-		}
 	}
 
 	public void ShowPleaseEquipModsDialog()
@@ -126,19 +74,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 		string description = StringUtil.TR("PleaseSelectYourAbilityMods", "Global");
 		if (this.m_selectModsDialog == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.ShowPleaseEquipModsDialog()).MethodHandle;
-			}
 			this.m_selectModsDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("SelectAbilityMods", "Global"), description, StringUtil.TR("Ok", "Global"), null, -1, false);
 		}
 	}
@@ -147,19 +82,6 @@ public class UICharacterSelectScreen : MonoBehaviour
 	{
 		if (this.m_selectModsDialog != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectScreen.SetVisible(bool)).MethodHandle;
-			}
 			UIDialogPopupManager.Get().CloseDialog(this.m_selectModsDialog);
 		}
 	}

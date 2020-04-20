@@ -38,19 +38,6 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 		AbilityUtil_Targeter.AffectsActor affectsActor;
 		if (this.m_casterHitEffect.m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_FlashAndShapeAoe_Ability.Start()).MethodHandle;
-			}
 			affectsActor = AbilityUtil_Targeter.AffectsActor.Always;
 		}
 		else
@@ -62,26 +49,8 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 		base.Targeter.ShowArcToShape = false;
 		if (this.m_tags != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_tags.Contains(AbilityTags.UseTeleportUIEffect))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_tags.Add(AbilityTags.UseTeleportUIEffect);
 			}
 		}
@@ -97,30 +66,8 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_FlashAndShapeAoe_Ability.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}

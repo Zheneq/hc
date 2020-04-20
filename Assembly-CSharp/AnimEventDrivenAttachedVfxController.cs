@@ -18,30 +18,8 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		this.m_actorModelData = base.GetComponent<ActorModelData>();
 		if (this.m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventDrivenAttachedVfxController.Start()).MethodHandle;
-			}
 			if (this.m_actorModelData.m_parentActorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_owner = this.m_actorModelData.m_parentActorData;
 				this.m_owner.OnAnimationEventDelegates += this.HandleAnimEvent;
 				this.m_owner.OnTurnStartDelegates += this.HandleTurnTick;
@@ -49,15 +27,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 				{
 					AnimEventToAttachedVfxData animEventToAttachedVfxData = this.m_animEventToVfxDataList[i];
 					this.m_animDrivenVfxList.Add(new AnimEventToVfxContainer(animEventToAttachedVfxData.m_persistentVfxStartEvent, animEventToAttachedVfxData.m_persistentVfxStopEvent, animEventToAttachedVfxData.m_persistentVfxList, base.gameObject));
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -77,19 +46,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		ActorData actorData;
 		if (this.m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventDrivenAttachedVfxController.Update()).MethodHandle;
-			}
 			actorData = this.m_actorModelData.m_parentActorData;
 		}
 		else
@@ -100,37 +56,10 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		bool flag;
 		if (!(actorData2 == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData2.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(actorData2.GetActorModelDataRenderer() == null))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = actorData2.GetActorModelDataRenderer().enabled;
 				}
 				else
@@ -151,15 +80,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		bool flag3;
 		if (actorData2 != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = actorData2.IsModelAnimatorDisabled();
 		}
 		else
@@ -172,15 +92,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 		{
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
 					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData2.GetTeam());
@@ -201,15 +112,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 			bool actorVisible;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorVisible = !flag4;
 			}
 			else
@@ -217,15 +119,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 				actorVisible = false;
 			}
 			animEventToVfxContainer.UpdateVisibilityForSpawnedVfx(actorVisible, sameTeam);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -238,19 +131,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 				this.m_animDrivenVfxList[i].m_shouldShowPersistentVfx = false;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventDrivenAttachedVfxController.HandleTurnTick()).MethodHandle;
-		}
 	}
 
 	private void HandleAnimEvent(UnityEngine.Object eventObj, GameObject sourceObject)
@@ -260,19 +140,6 @@ public class AnimEventDrivenAttachedVfxController : CopyableVfxControllerCompone
 			for (int i = 0; i < this.m_animDrivenVfxList.Count; i++)
 			{
 				this.m_animDrivenVfxList[i].HandleAnimEvent(eventObj, sourceObject);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimEventDrivenAttachedVfxController.HandleAnimEvent(UnityEngine.Object, GameObject)).MethodHandle;
 			}
 		}
 	}

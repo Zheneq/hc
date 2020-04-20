@@ -84,19 +84,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MartyrProtectAlly.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = martyrProtectAlly.m_damageReductionOnTarget;
 		}
 		else
@@ -112,15 +99,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = martyrProtectAlly.m_techPointGainPerRedirect;
 		}
 		else
@@ -136,15 +114,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = martyrProtectAlly.m_affectsEnemies;
 		}
 		else
@@ -159,15 +128,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = martyrProtectAlly.m_affectsAllies;
 		}
 		else
@@ -182,15 +142,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = martyrProtectAlly.m_penetratesLoS;
 		}
 		else
@@ -205,15 +156,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrProtectAlly.m_thornsEffect;
 		}
 		else
@@ -228,15 +170,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = martyrProtectAlly.m_returnEffectOnEnemy;
 		}
 		else
@@ -251,15 +184,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = martyrProtectAlly.m_thornsDamagePerHit;
 		}
 		else
@@ -275,15 +199,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = martyrProtectAlly.m_baseAbsorb;
 		}
 		else
@@ -298,15 +213,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = martyrProtectAlly.m_absorbPerCrystalSpent;
 		}
 		else
@@ -321,15 +227,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = martyrProtectAlly.m_baseAbsorbOnAlly;
 		}
 		else
@@ -346,15 +243,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		float baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = martyrProtectAlly.m_healOnTurnStartPerRedirectDamage;
 		}
 		else

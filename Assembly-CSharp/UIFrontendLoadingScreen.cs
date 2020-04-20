@@ -76,32 +76,10 @@ public class UIFrontendLoadingScreen : UIScene
 		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.Awake()).MethodHandle;
-			}
 			Application.runInBackground = true;
 		}
 		if (this.m_animator == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_animator = new Animator();
 		}
 		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.None);
@@ -143,31 +121,9 @@ public class UIFrontendLoadingScreen : UIScene
 	{
 		if (this.m_Container.gameObject.activeSelf != visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.SetVisible(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_loadingMapNameInfoContainer, false, null);
 			if (visible)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_visibleStartTime = Time.time;
 				this.PickBackgroundImage();
 			}
@@ -188,19 +144,6 @@ public class UIFrontendLoadingScreen : UIScene
 		bool result;
 		if (this.m_screenInitialHeight == Screen.height)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.IsSameAsInitialResolution()).MethodHandle;
-			}
 			result = (this.m_screenInitialWidth == Screen.width);
 		}
 		else
@@ -223,19 +166,6 @@ public class UIFrontendLoadingScreen : UIScene
 		{
 			textMeshProUGUI.text = serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenButtonText, language);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.UpdateServerLockLabels(ServerMessageOverrides)).MethodHandle;
-		}
 		this.m_ServerLockURL = ((!SteamManager.UsingSteam) ? serverMessageOverrides.FreeUpsellExternalBrowserUrl : serverMessageOverrides.FreeUpsellExternalBrowserSteamUrl);
 		this.ShowText(StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), serverMessageOverrides.GetValueOrDefault(ServerMessageType.LockScreenText, language), null);
 	}
@@ -250,19 +180,6 @@ public class UIFrontendLoadingScreen : UIScene
 		ClientGameManager.Get().SendUIActionNotification("ServerLockedButtonClicked");
 		if (!this.m_ServerLockURL.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.ServerLockedButtonClicked(BaseEventData)).MethodHandle;
-			}
 			Application.OpenURL(this.m_ServerLockURL);
 		}
 	}
@@ -287,52 +204,15 @@ public class UIFrontendLoadingScreen : UIScene
 	{
 		if (!this.m_isPlayerAccountDataAvailable)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.PickBackgroundImage()).MethodHandle;
-			}
 			this.m_bgImageanimator.enabled = true;
 			UIManager.SetGameObjectActive(this.m_backgroundImage, false, null);
 			return;
 		}
 		IEnumerable<KeyValuePair<int, bool>> unlockedLoadingScreenBackgroundIdsToActivatedState = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.UnlockedLoadingScreenBackgroundIdsToActivatedState;
-		if (UIFrontendLoadingScreen.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIFrontendLoadingScreen.<>f__am$cache0 = ((KeyValuePair<int, bool> x) => x.Value);
-		}
-		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(UIFrontendLoadingScreen.<>f__am$cache0);
-		if (UIFrontendLoadingScreen.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIFrontendLoadingScreen.<>f__am$cache1 = ((KeyValuePair<int, bool> x) => x.Key);
-		}
-		int[] array = source.Select(UIFrontendLoadingScreen.<>f__am$cache1).ToArray<int>();
+		
+		IEnumerable<KeyValuePair<int, bool>> source = unlockedLoadingScreenBackgroundIdsToActivatedState.Where(((KeyValuePair<int, bool> x) => x.Value));
+		
+		int[] array = source.Select(((KeyValuePair<int, bool> x) => x.Key)).ToArray<int>();
 		if (array.Length == 0)
 		{
 			this.m_backgroundImage.sprite = null;
@@ -353,19 +233,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		else if (gameType == GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.SetupMapLoadingTitleInfo(GameType, string)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_loadingMapNameInfoContainer, true, null);
 			this.m_mapNameTitle.text = StringUtil.TR("TutorialName", "Prologue1");
 			this.m_mapNameSubTitle.text = StringUtil.TR("TutorialDescription", "Prologue1");
@@ -384,34 +251,12 @@ public class UIFrontendLoadingScreen : UIScene
 	{
 		if (this.shouldPlayIntroVideo)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.DoPlayIntroVideo()).MethodHandle;
-			}
 			return true;
 		}
 		this.shouldPlayIntroVideo = true;
 		string key = "PlayIntro";
 		if (PlayerPrefs.HasKey(key))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.shouldPlayIntroVideo = (PlayerPrefs.GetInt(key) != 1);
 		}
 		PlayerPrefs.SetInt(key, 1);
@@ -423,19 +268,6 @@ public class UIFrontendLoadingScreen : UIScene
 		bool flag;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.Update()).MethodHandle;
-			}
 			if (GameManager.Get().GameInfo != null)
 			{
 				flag = (GameManager.Get().GameInfo.GameConfig != null);
@@ -455,62 +287,17 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (this.m_displayState == UIFrontendLoadingScreen.DisplayStates.FadeIn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.IsCurrentAnimationDone())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StartDisplayLoading(null);
 			}
 		}
 		if (!this.m_isPlayerAccountDataAvailable)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.IsVisible())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get() != null && ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_isPlayerAccountDataAvailable = true;
 					this.PickBackgroundImage();
 				}
@@ -518,15 +305,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (this.m_displayState == UIFrontendLoadingScreen.DisplayStates.FadeOut)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.IsCurrentAnimationDone())
 			{
 				this.SetVisible(false);
@@ -534,49 +312,13 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (!flag2 && FullScreenMovie.Get())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.DoPlayIntroVideo())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (FullScreenMovie.Get().m_movieTexture.MovieState != PlayRawImageMovieTexture.MovieStates.Invalid && FullScreenMovie.Get().m_movieTexture.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetKeyUp(KeyCode.Escape))
 					{
 						goto IL_1FD;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (this.m_movieNames.Count > 0)
@@ -597,15 +339,6 @@ public class UIFrontendLoadingScreen : UIScene
 		IL_205:
 		if (UIFrontendLoadingScreen.m_startLoadTime > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Time.time >= UIFrontendLoadingScreen.m_startLoadTime)
 			{
 				UIFrontendLoadingScreen.m_startLoadTime = -1f;
@@ -618,30 +351,8 @@ public class UIFrontendLoadingScreen : UIScene
 	{
 		if (UIFrontendLoadingScreen.m_startLoadTime == 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.Finish()).MethodHandle;
-			}
 			if (this.m_animator != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetVisible(true);
 				FullScreenMovie.Get().SetVisible(false);
 				this.m_animator.Play("FrontEndLoadingScreenDefaultIN");
@@ -655,45 +366,14 @@ public class UIFrontendLoadingScreen : UIScene
 		this.m_displayState = state;
 		if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.Error)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.SetDisplayState(UIFrontendLoadingScreen.DisplayStates)).MethodHandle;
-			}
 			if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.ServerLocked)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.ServerQueued)
 				{
 					if (this.m_displayState != UIFrontendLoadingScreen.DisplayStates.None)
 					{
 						UIManager.SetGameObjectActive(this.m_ShutdownButton, false, null);
 						return;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -742,19 +422,6 @@ public class UIFrontendLoadingScreen : UIScene
 		this.SetDisplayState(UIFrontendLoadingScreen.DisplayStates.FadeOut);
 		if (this.m_animator.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.StartDisplayFadeOut()).MethodHandle;
-			}
 			this.m_animator.Play("FrontEndLoadingScreenDefaultOUT");
 		}
 	}
@@ -764,19 +431,6 @@ public class UIFrontendLoadingScreen : UIScene
 		UIManager.SetGameObjectActive(this.m_ServerLockedButton, text == StringUtil.TR("SERVERISLOCKED", "LoadingScreen"), null);
 		if (this.m_mainTextBox)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.ShowText(string, string, string)).MethodHandle;
-			}
 			if (!text.IsNullOrEmpty())
 			{
 				this.m_mainTextBox.GetComponent<TextMeshProUGUI>().text = text;
@@ -789,26 +443,8 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (this.m_subTextBox)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!subText.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_subTextBox.GetComponent<TextMeshProUGUI>().text = subText;
 				UIManager.SetGameObjectActive(this.m_subTextBox, true, null);
 			}
@@ -819,15 +455,6 @@ public class UIFrontendLoadingScreen : UIScene
 		}
 		if (this.m_subText2Box)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!subText2.IsNullOrEmpty())
 			{
 				this.m_subText2Box.GetComponent<TextMeshProUGUI>().text = subText2;
@@ -844,19 +471,6 @@ public class UIFrontendLoadingScreen : UIScene
 	{
 		if (this.m_displayState == UIFrontendLoadingScreen.DisplayStates.FadeOut)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.IsReadyToReveal()).MethodHandle;
-			}
 			return true;
 		}
 		return false;
@@ -867,31 +481,9 @@ public class UIFrontendLoadingScreen : UIScene
 		bool result = false;
 		if (this.m_animator.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontendLoadingScreen.IsCurrentAnimationDone()).MethodHandle;
-			}
 			AnimatorStateInfo currentAnimatorStateInfo = this.m_animator.GetCurrentAnimatorStateInfo(0);
 			if (currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}

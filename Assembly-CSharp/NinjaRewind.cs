@@ -23,19 +23,6 @@ public class NinjaRewind : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.Start()).MethodHandle;
-			}
 			this.m_abilityName = "NinjaRewind";
 		}
 		this.Setup();
@@ -45,19 +32,6 @@ public class NinjaRewind : Ability
 	{
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.Setup()).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Ninja_SyncComponent>();
 		}
 		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always, AbilityUtil_Targeter.AffectsActor.Possible);
@@ -79,30 +53,8 @@ public class NinjaRewind : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (this.m_syncComp.m_rewindHToHp > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare squareForRewind = this.m_syncComp.GetSquareForRewind();
 				return squareForRewind != null;
 			}
@@ -114,31 +66,9 @@ public class NinjaRewind : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
-			}
 			BoardSquare squareForRewind = this.m_syncComp.GetSquareForRewind();
 			if (squareForRewind != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return AbilityTarget.CreateAbilityTargetFromBoardSquare(squareForRewind, caster.GetTravelBoardSquareWorldPosition());
 			}
 		}
@@ -160,41 +90,10 @@ public class NinjaRewind : Ability
 		ActorData actorData = base.ActorData;
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaRewind.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self) && this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int rewindHToHp = (int)this.m_syncComp.m_rewindHToHp;
 					int hitPoints = actorData.HitPoints;
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -206,15 +105,6 @@ public class NinjaRewind : Ability
 					}
 					else if (rewindHToHp > hitPoints)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[AbilityTooltipSymbol.Healing] = rewindHToHp - hitPoints;
 					}
 				}

@@ -38,87 +38,29 @@ public class FirstTurnMovement : MonoBehaviour
 		{
 			if (GameFlowData.Get().CurrentTurn > 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.CanActorMoveToSquare(ActorData, BoardSquare)).MethodHandle;
-				}
 			}
 			else
 			{
 				if (actor == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				if (square == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				FirstTurnMovement firstTurnMovement = FirstTurnMovement.Get();
 				if (firstTurnMovement == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 				if (actor.GetTeam() == Team.TeamA)
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (firstTurnMovement.m_regionForTeamA.HasNonZeroArea())
 						{
 							return firstTurnMovement.m_regionForTeamA.Contains(square.x, square.y);
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return true;
@@ -130,15 +72,6 @@ public class FirstTurnMovement : MonoBehaviour
 						if (firstTurnMovement.m_regionForTeamB.HasNonZeroArea())
 						{
 							return firstTurnMovement.m_regionForTeamB.Contains(square.x, square.y);
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return true;
@@ -155,99 +88,32 @@ public class FirstTurnMovement : MonoBehaviour
 		{
 			if (GameFlowData.Get().CurrentTurn > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.ForceShowSprintRange(ActorData)).MethodHandle;
-				}
 			}
 			else
 			{
 				FirstTurnMovement firstTurnMovement = FirstTurnMovement.Get();
 				if (firstTurnMovement == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				if (actor.GetTeam() == Team.TeamA)
 				{
 					if (firstTurnMovement.m_regionForTeamA != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (firstTurnMovement.m_regionForTeamA.HasNonZeroArea())
 						{
 							return true;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return false;
 				}
 				if (actor.GetTeam() == Team.TeamB)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (firstTurnMovement.m_regionForTeamB != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (firstTurnMovement.m_regionForTeamB.HasNonZeroArea())
 						{
 							return true;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return false;
@@ -262,30 +128,8 @@ public class FirstTurnMovement : MonoBehaviour
 	{
 		if (FirstTurnMovement.s_instance != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.CanWaypoint()).MethodHandle;
-			}
 			if (FirstTurnMovement.s_instance.GetRestrictedMovementState() == FirstTurnMovement.RestrictedMovementState.Active)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return FirstTurnMovement.s_instance.m_canWaypointOnFirstTurn;
 			}
 		}
@@ -300,19 +144,6 @@ public class FirstTurnMovement : MonoBehaviour
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.OnTurnTick()).MethodHandle;
-			}
 		}
 		List<ActorData> actors = GameFlowData.Get().GetActors();
 		foreach (ActorData actorData in actors)
@@ -325,55 +156,15 @@ public class FirstTurnMovement : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FirstTurnMovement.GetRestrictedMovementState()).MethodHandle;
-			}
 			if (GameFlowData.Get().CurrentTurn > 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return FirstTurnMovement.RestrictedMovementState.Inactive;
 			}
 		}
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().CurrentTurn == 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return FirstTurnMovement.RestrictedMovementState.Active;
 			}
 		}

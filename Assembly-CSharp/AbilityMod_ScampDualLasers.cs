@@ -28,7 +28,7 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 
 	public override OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)
 	{
-		return this.m_defaultOnHitDataMod.\u001D(onHitDataFromBase);
+		return this.m_defaultOnHitDataMod.symbol_001D(onHitDataFromBase);
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
@@ -36,44 +36,13 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		ScampDualLasers scampDualLasers = targetAbility as ScampDualLasers;
 		if (scampDualLasers != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDualLasers.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			if (this.m_defaultOnHitDataMod != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_defaultOnHitDataMod.\u001D(tokens, scampDualLasers.m_onHitData);
+				this.m_defaultOnHitDataMod.symbol_001D(tokens, scampDualLasers.m_onHitData);
 			}
 			if (this.m_shieldDownOnHitDataMod != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.m_shieldDownOnHitDataMod.\u001D(tokens, scampDualLasers.m_shieldDownOnHitData);
+				this.m_shieldDownOnHitDataMod.symbol_001D(tokens, scampDualLasers.m_shieldDownOnHitData);
 			}
 			AbilityMod.AddToken(tokens, this.m_extraDamageTurnAfterLosingSuitMod, "ExtraDamageTurnAfterLosingSuit", string.Empty, scampDualLasers.m_extraDamageTurnAfterLosingSuit, true, false);
 			AbilityMod.AddToken(tokens, this.m_extraAoeRadiusTurnAfterLosingSuitMod, "ExtraAoeRadiusTurnAfterLosingSuit", string.Empty, scampDualLasers.m_extraAoeRadiusTurnAfterLosingSuit, true, false, false);
@@ -87,19 +56,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		string text = string.Empty;
 		if (scampDualLasers != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDualLasers.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			if (this.m_defaultOnHitDataMod != null)
 			{
 				string str = text;
@@ -108,44 +64,26 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 				OnHitAuthoredData u000E;
 				if (scampDualLasers != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					u000E = scampDualLasers.m_onHitData;
 				}
 				else
 				{
 					u000E = null;
 				}
-				text = str + defaultOnHitDataMod.\u001D(u001D, u000E);
+				text = str + defaultOnHitDataMod.symbol_001D(u001D, u000E);
 				string str2 = text;
 				OnHitDataMod shieldDownOnHitDataMod = this.m_shieldDownOnHitDataMod;
 				string u001D2 = "-- Shield Down On Hit Data Mod --";
 				OnHitAuthoredData u000E2;
 				if (scampDualLasers != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					u000E2 = scampDualLasers.m_shieldDownOnHitData;
 				}
 				else
 				{
 					u000E2 = null;
 				}
-				text = str2 + shieldDownOnHitDataMod.\u001D(u001D2, u000E2);
+				text = str2 + shieldDownOnHitDataMod.symbol_001D(u001D2, u000E2);
 				text += this.m_defaultTargetSelectMod.GetInEditorDesc(scampDualLasers.m_targetSelectComp, "-- In Default Target Select --");
 				text += this.m_shieldDownTargetSelectMod.GetInEditorDesc(scampDualLasers.m_shieldDownTargetSelect, "-- In Shield Down Target Select --");
 			}
@@ -157,15 +95,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = scampDualLasers.m_extraDamageTurnAfterLosingSuit;
 		}
 		else
@@ -180,15 +109,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampDualLasers.m_extraAoeRadiusTurnAfterLosingSuit;
 		}
 		else

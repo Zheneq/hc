@@ -21,19 +21,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.Init()).MethodHandle;
-			}
 			return;
 		}
 		base.Init();
@@ -47,19 +34,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		this.QuestTemplateRef = null;
 		if (-1 < questID - 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.Setup(int)).MethodHandle;
-			}
 			if (questID - 1 < QuestWideData.Get().m_quests.Count)
 			{
 				this.QuestTemplateRef = QuestWideData.Get().m_quests[questID - 1];
@@ -67,27 +41,9 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		}
 		if (this.QuestTemplateRef != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Sprite sprite = Resources.Load<Sprite>(this.QuestTemplateRef.IconFilename);
 			if (sprite)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_contractImage.sprite = sprite;
 			}
 			else
@@ -111,34 +67,12 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	{
 		if (this.m_infoReference != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.UpdateProgress(QuestProgress)).MethodHandle;
-			}
 			if (this.m_infoReference.QuestProgressRef.Id == newProgress.Id)
 			{
 				UIBaseQuestDisplayInfo uibaseQuestDisplayInfo = this.DeleteCache();
 				uibaseQuestDisplayInfo.QuestProgressRef = newProgress;
 				base.Setup(uibaseQuestDisplayInfo);
 				return true;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -149,19 +83,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		base.DoExpand(expanded);
 		if (expanded)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.DoExpand(bool)).MethodHandle;
-			}
 			QuestListPanel.Get().NotifyEntryExpanded(this);
 		}
 	}
@@ -177,19 +98,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 			int index = this.m_infoReference.QuestTemplateRef.Index;
 			if (questComponent != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.GetRejectedCount()).MethodHandle;
-				}
 				result = questComponent.GetRejectedCount(index);
 			}
 		}
@@ -200,19 +108,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	{
 		if (this.m_questItemState == newState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.SetState(QuestItemState)).MethodHandle;
-			}
 			return;
 		}
 		this.m_questItemState = newState;
@@ -231,15 +126,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		}
 		else if (this.m_questItemState == QuestItemState.Filled)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 			UIManager.SetGameObjectActive(this.m_contractImage, true, null);
 			UIManager.SetGameObjectActive(this.m_progressText, true, null);
@@ -252,15 +138,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 		}
 		else if (this.m_questItemState == QuestItemState.Expanded)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false, null);
 			UIManager.SetGameObjectActive(this.m_contractImage, true, null);
 			UIManager.SetGameObjectActive(this.m_progressText, true, null);
@@ -289,19 +166,6 @@ public class UISeasonsDailyContractEntry : UISeasonsBaseContract
 	{
 		if (response.Success)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonsDailyContractEntry.AbandonDailyQuestResponseHandler(AbandonDailyQuestResponse)).MethodHandle;
-			}
 			base.SetExpanded(false, false);
 		}
 		base.SetTrashSelected(false);

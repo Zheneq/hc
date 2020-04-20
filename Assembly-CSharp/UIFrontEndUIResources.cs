@@ -12,7 +12,7 @@ public class UIFrontEndUIResources : MonoBehaviour
 	private static UIFrontEndUIResources s_instance;
 
 	[CompilerGenerated]
-	private static UIEventTriggerUtils.EventDelegate <>f__mg$cache0;
+	private static UIEventTriggerUtils.EventDelegate f__mg_cache0;
 
 	private void Awake()
 	{
@@ -33,48 +33,14 @@ public class UIFrontEndUIResources : MonoBehaviour
 	{
 		if (textObject != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEndUIResources.CheckOnClickForURL(TextMeshProUGUI)).MethodHandle;
-			}
 			if (textObject.GetComponentInParent<TMP_InputField>() == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (textObject.GetComponentInParent<InputField>() == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject gameObject = textObject.gameObject;
 					EventTriggerType triggerType = EventTriggerType.PointerClick;
-					if (UIFrontEndUIResources.<>f__mg$cache0 == null)
-					{
-						UIFrontEndUIResources.<>f__mg$cache0 = new UIEventTriggerUtils.EventDelegate(UIFrontEndUIResources.OnTextClicked);
-					}
-					UIEventTriggerUtils.AddListener(gameObject, triggerType, UIFrontEndUIResources.<>f__mg$cache0);
+					
+					UIEventTriggerUtils.AddListener(gameObject, triggerType, new UIEventTriggerUtils.EventDelegate(UIFrontEndUIResources.OnTextClicked));
 				}
 			}
 		}
@@ -96,31 +62,9 @@ public class UIFrontEndUIResources : MonoBehaviour
 		}
 		if (component.textInfo.linkInfo[num].GetLinkID().StartsWith("discord:"))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFrontEndUIResources.OnTextClicked(BaseEventData)).MethodHandle;
-			}
 			string a = component.textInfo.linkInfo[num].GetLinkID().Substring(8);
 			if (a == "join")
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DebugCommands.Get().RunDebugCommand("/discord", "join");
 			}
 		}

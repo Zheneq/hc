@@ -44,45 +44,14 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 		CharacterResourceLink characterResourceLink = null;
 		if (data.m_characterType != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoScreenPlayerInfo.Setup(ActorData)).MethodHandle;
-			}
 			characterResourceLink = GameWideData.Get().GetCharacterResourceLink(data.m_characterType);
 		}
 		if (characterResourceLink != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_playerClass.text = characterResourceLink.GetDisplayName();
 		}
 		if (Options_UI.Get().m_secretButtonClicked)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PlayerDetails playerDetails = GameFlow.Get().playerDetails[data.GetPlayer()];
 			if (playerDetails.m_accPrivateElo == playerDetails.m_usedMatchmakingElo)
 			{
@@ -118,15 +87,6 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 		this.m_playerIcon.sprite = data.GetAliveHUDIcon();
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData == data)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_playerHighlight, true, null);
 		}
 		else
@@ -135,58 +95,22 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 		}
 		if (this.m_abilityReferences == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_abilityReferences = new List<Ability>();
 		}
 		if (this.m_abilityModReferences == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_abilityModReferences = new List<AbilityMod>();
 		}
 		this.m_abilityReferences.Clear();
 		this.m_abilityModReferences.Clear();
 		if (this.m_playerData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_playerData.GetAbilityData() != null)
 			{
 				for (int i = 0; i < this.m_abilityList.Length; i++)
 				{
 					if (i < this.m_playerData.GetAbilityData().abilityEntries.Length && this.m_playerData.GetAbilityData().abilityEntries[i].ability != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_abilityList[i].sprite = this.m_playerData.GetAbilityData().abilityEntries[i].ability.sprite;
 						this.m_abilityReferences.Add(this.m_playerData.GetAbilityData().abilityEntries[i].ability);
 						if (this.m_playerData.GetAbilityData().abilityEntries[i].ability.CurrentAbilityMod != null)
@@ -203,15 +127,6 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		UIManager.SetGameObjectActive(this, true, null);
@@ -224,32 +139,10 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 		{
 			this.m_modList[j].GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, (UITooltipBase tooltip) => this.ShowModTooltip((UIAbilityTooltip)tooltip, j), null);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoScreenPlayerInfo.Start()).MethodHandle;
-		}
 		int i;
 		for (i = 0; i < this.m_abilityList.Length; i++)
 		{
 			this.m_modList[i].GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, (UITooltipBase tooltip) => this.ShowAbilityTooltip((UIAbilityTooltip)tooltip, i), null);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_playerContribution.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Contribution, new TooltipPopulateCall(this.SetupContibutionTooltip), null);
 	}
@@ -263,19 +156,6 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 				tooltip.Setup(this.m_abilityReferences[index], this.m_abilityModReferences[index]);
 				return true;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoScreenPlayerInfo.ShowModTooltip(UIAbilityTooltip, int)).MethodHandle;
-			}
 		}
 		return false;
 	}
@@ -284,32 +164,10 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 	{
 		if (index < this.m_abilityList.Length && index >= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoScreenPlayerInfo.ShowAbilityTooltip(UIAbilityTooltip, int)).MethodHandle;
-			}
 			if (index < this.m_abilityReferences.Count)
 			{
 				tooltip.Setup(this.m_abilityReferences[index]);
 				return true;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -320,19 +178,6 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 		UIContributionTooltip uicontributionTooltip = tooltip as UIContributionTooltip;
 		if (this.m_playerData != null && uicontributionTooltip != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInfoScreenPlayerInfo.SetupContibutionTooltip(UITooltipBase)).MethodHandle;
-			}
 			ActorBehavior actorBehavior = this.m_playerData.GetActorBehavior();
 			uicontributionTooltip.Setup(StringUtil.TR("Contribution", "GameOver"), actorBehavior.GetContributionBreakdownForUI());
 			return true;

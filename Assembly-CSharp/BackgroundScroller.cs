@@ -32,19 +32,6 @@ public class BackgroundScroller : MonoBehaviour
 		{
 			this.m_uninstantiatedPrefabs.Add(item);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.Awake()).MethodHandle;
-		}
 		this.MakeNewVisibleBlock();
 	}
 
@@ -53,19 +40,6 @@ public class BackgroundScroller : MonoBehaviour
 		BoxCollider component = base.GetComponent<BoxCollider>();
 		if (component == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.Update()).MethodHandle;
-			}
 			Log.Error(string.Format("BackgroundScroller {0} does not have a collider", base.name), new object[0]);
 			return;
 		}
@@ -89,29 +63,11 @@ public class BackgroundScroller : MonoBehaviour
 				float num3 = base.transform.localPosition.x + component.center.x + component.size.x * 0.5f;
 				if (num > num3)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject.SetActive(false);
 					this.m_blocksToRetire.Add(gameObject);
 				}
 				if (i == this.m_visibleBlocks.Count - 1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num > num2)
 					{
 						flag = true;
@@ -126,15 +82,6 @@ public class BackgroundScroller : MonoBehaviour
 			this.m_blocksToRetire.Clear();
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.MakeNewVisibleBlock();
 			}
 		}
@@ -147,15 +94,6 @@ public class BackgroundScroller : MonoBehaviour
 					GameObject gameObject2 = enumerator2.Current;
 					gameObject2.SetActive(false);
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -165,59 +103,19 @@ public class BackgroundScroller : MonoBehaviour
 		Options_UI x = Options_UI.Get();
 		if (x == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.IsVisibleWithCurrentSettings()).MethodHandle;
-			}
 			return true;
 		}
 		GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
 		if (currentGraphicsQuality == GraphicsQuality.High)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (currentGraphicsQuality == GraphicsQuality.Medium && !this.m_hideAtMediumQuality)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (currentGraphicsQuality == GraphicsQuality.Low)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_hideAtLowQuality)
 			{
 				return true;
@@ -238,19 +136,6 @@ public class BackgroundScroller : MonoBehaviour
 		}
 		else if (this.m_inVisibleBlocks.Count > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BackgroundScroller.MakeNewVisibleBlock()).MethodHandle;
-			}
 			int index2 = UnityEngine.Random.Range(0, this.m_inVisibleBlocks.Count);
 			gameObject2 = this.m_inVisibleBlocks[index2];
 			this.m_inVisibleBlocks.RemoveAt(index2);
@@ -262,44 +147,17 @@ public class BackgroundScroller : MonoBehaviour
 		}
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject2 = UnityEngine.Object.Instantiate<GameObject>(gameObject);
 			gameObject2.transform.SetParent(base.transform);
 			gameObject2.transform.localPosition = Vector3.zero;
 		}
 		if (gameObject2 != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject2.SetActive(this.IsVisibleWithCurrentSettings());
 			gameObject2.transform.localPosition = Vector3.zero;
 			gameObject2.transform.localRotation = Quaternion.identity;
 			if (this.m_randomRotation)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UnityEngine.Random.value > 0.5f)
 				{
 					gameObject2.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);

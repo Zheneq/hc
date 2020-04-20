@@ -49,19 +49,6 @@ public class BoardSquarePathInfo : IComparable
 			int num = Mathf.Max(this.m_expectedBackupNum - 1, 0);
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.get_F_cost()).MethodHandle;
-				}
 				float num2 = 1.5f * (float)num + 0.1f;
 				return this.moveCost + this.heuristicCost + num2;
 			}
@@ -73,33 +60,11 @@ public class BoardSquarePathInfo : IComparable
 	{
 		if (obj == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.CompareTo(object)).MethodHandle;
-			}
 			return 1;
 		}
 		BoardSquarePathInfo boardSquarePathInfo = obj as BoardSquarePathInfo;
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.FindMoveCostToEnd().CompareTo(boardSquarePathInfo.FindMoveCostToEnd());
 		}
 		throw new ArgumentException("Object is not a BoardSquarePathInfo");
@@ -127,19 +92,6 @@ public class BoardSquarePathInfo : IComparable
 	{
 		if (other == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.IsSamePathAs(BoardSquarePathInfo)).MethodHandle;
-			}
 			return false;
 		}
 		bool flag = true;
@@ -156,75 +108,21 @@ public class BoardSquarePathInfo : IComparable
 		flag &= (other.segmentMovementDuration == this.segmentMovementDuration);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.next != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (other.next != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.next.IsSamePathAs(other.next);
 				}
 			}
 			if (this.next == null && other.next != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else if (this.next != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (other.next == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
@@ -253,32 +151,10 @@ public class BoardSquarePathInfo : IComparable
 		boardSquarePathInfo.m_moverBumpedFromClash = this.m_moverBumpedFromClash;
 		if (previous != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.Clone(BoardSquarePathInfo)).MethodHandle;
-			}
 			boardSquarePathInfo.prev = previous;
 		}
 		if (this.next != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo.next = this.next.Clone(boardSquarePathInfo);
 		}
 		return boardSquarePathInfo;
@@ -289,24 +165,11 @@ public class BoardSquarePathInfo : IComparable
 		float num = this.moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = this.next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			bool flag = Board.Get().\u0015(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
-			bool flag2 = Board.Get().\u0012(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
+			bool flag = Board.Get().symbol_0015(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
+			bool flag2 = Board.Get().symbol_0012(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
 			bool flag3 = boardSquarePathInfo.square == boardSquarePathInfo.prev.square;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.CalcAndSetMoveCostToEnd()).MethodHandle;
-				}
 				num += 1.5f;
 			}
 			else if (flag2)
@@ -315,26 +178,8 @@ public class BoardSquarePathInfo : IComparable
 			}
 			else if (flag3)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo.next != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning("Calculating move costs on a path, but it has the same square twice in a row.", new object[0]);
 				}
 			}
@@ -342,43 +187,16 @@ public class BoardSquarePathInfo : IComparable
 			{
 				if (boardSquarePathInfo.connectionType != BoardSquarePathInfo.ConnectionType.Run)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquarePathInfo.connectionType != BoardSquarePathInfo.ConnectionType.Vault)
 					{
 						num += boardSquarePathInfo.square.HorizontalDistanceOnBoardTo(boardSquarePathInfo.prev.square);
 						goto IL_120;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Log.Warning("Calculating move costs on a path, but it has two non-adjacent consecutive squares.", new object[0]);
 			}
 			IL_120:
 			boardSquarePathInfo.moveCost = num;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -397,19 +215,6 @@ public class BoardSquarePathInfo : IComparable
 		float num = this.moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = this.next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.FindMoveCostToOneBeforeEnd()).MethodHandle;
-			}
 			if (boardSquarePathInfo.next == null)
 			{
 				break;
@@ -426,19 +231,6 @@ public class BoardSquarePathInfo : IComparable
 		{
 			num += (boardSquarePathInfo.square.ToVector3() - this.square.ToVector3()).magnitude;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.FindDistanceToEnd()).MethodHandle;
-		}
 		return num;
 	}
 
@@ -451,19 +243,6 @@ public class BoardSquarePathInfo : IComparable
 			if (!checkDuplicate)
 			{
 				goto IL_40;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.GetNumSquaresToEnd(bool)).MethodHandle;
 			}
 			if (boardSquarePathInfo.next.square != boardSquarePathInfo.square)
 			{
@@ -503,20 +282,6 @@ public class BoardSquarePathInfo : IComparable
 			result = boardSquarePathInfo;
 			num3 = num4;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.GetPathMidpoint()).MethodHandle;
-			return result;
-		}
 		return result;
 	}
 
@@ -537,19 +302,6 @@ public class BoardSquarePathInfo : IComparable
 		{
 			boardSquarePathInfo = boardSquarePathInfo.prev;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.GetPathStartPoint()).MethodHandle;
-		}
 		return boardSquarePathInfo;
 	}
 
@@ -557,19 +309,6 @@ public class BoardSquarePathInfo : IComparable
 	{
 		if (this.next == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.IsPathEndpoint()).MethodHandle;
-			}
 			return true;
 		}
 		return false;
@@ -579,19 +318,6 @@ public class BoardSquarePathInfo : IComparable
 	{
 		if (this.prev == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.IsPathStartPoint()).MethodHandle;
-			}
 			return true;
 		}
 		return false;
@@ -602,30 +328,8 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo pathEndpoint = this.GetPathEndpoint();
 		if (pathEndpoint != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.BackUpOnceFromEnd()).MethodHandle;
-			}
 			if (pathEndpoint.prev != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquarePathInfo boardSquarePathInfo = pathEndpoint.prev;
 				boardSquarePathInfo.next = null;
 				return boardSquarePathInfo;
@@ -641,19 +345,6 @@ public class BoardSquarePathInfo : IComparable
 		{
 			list.Add(boardSquarePathInfo.square.GetGridPos());
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.ToGridPosPath()).MethodHandle;
-		}
 		return list;
 	}
 
@@ -662,19 +353,6 @@ public class BoardSquarePathInfo : IComparable
 		bool result;
 		if (maxMovement <= 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.IsValidPathForMaxMovement(float)).MethodHandle;
-			}
 			result = (this.next == null);
 		}
 		else
@@ -689,19 +367,6 @@ public class BoardSquarePathInfo : IComparable
 	{
 		if (connectionType != BoardSquarePathInfo.ConnectionType.Flight && connectionType != BoardSquarePathInfo.ConnectionType.Teleport)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.IsConnectionTypeConventional(BoardSquarePathInfo.ConnectionType)).MethodHandle;
-			}
 			if (connectionType != BoardSquarePathInfo.ConnectionType.Knockback)
 			{
 				return connectionType != BoardSquarePathInfo.ConnectionType.Charge;
@@ -734,19 +399,6 @@ public class BoardSquarePathInfo : IComparable
 				string text2;
 				if (boardSquarePathInfo.square != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.GetDebugPathStringToEnd(string)).MethodHandle;
-					}
 					text2 = boardSquarePathInfo.square.ToString();
 				}
 				else
@@ -764,15 +416,6 @@ public class BoardSquarePathInfo : IComparable
 				});
 				if (boardSquarePathInfo == boardSquarePathInfo.next)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				boardSquarePathInfo = boardSquarePathInfo.next;
@@ -789,15 +432,6 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo boardSquarePathInfo = this;
 		while (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num >= 0x64)
 			{
 				for (;;)
@@ -815,19 +449,6 @@ public class BoardSquarePathInfo : IComparable
 				string text2;
 				if (boardSquarePathInfo.square != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.GetDebugPathStringToBeginning(string)).MethodHandle;
-					}
 					text2 = boardSquarePathInfo.square.ToString();
 				}
 				else
@@ -845,15 +466,6 @@ public class BoardSquarePathInfo : IComparable
 				});
 				if (boardSquarePathInfo == boardSquarePathInfo.prev)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					break;
 				}
 				boardSquarePathInfo = boardSquarePathInfo.prev;
@@ -876,19 +488,6 @@ public class BoardSquarePathInfo : IComparable
 		{
 			if (pathEndpoint.m_moverDiesHere)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.WillDieAtEnd()).MethodHandle;
-				}
 				result = true;
 			}
 			else
@@ -914,45 +513,14 @@ public class BoardSquarePathInfo : IComparable
 		{
 			if (num2 >= 0x64)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.CheckIsValidTriggeringPath(ActorData)).MethodHandle;
-				}
 				break;
 			}
 			if (this.square == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num++;
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3++;
 			}
 			if (pathStartPoint.m_moverDiesHere)
@@ -964,72 +532,27 @@ public class BoardSquarePathInfo : IComparable
 		}
 		if (num <= 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 < 0x64)
 			{
 				if (num3 <= 0)
 				{
 					return;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		string text = num + " null squares";
 		if (num != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "INVALID SQUARES: " + text;
 		}
 		string text2 = num2 + " total path nodes";
 		if (num2 >= 0x64)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text2 = "INVALID LENGTH: " + text2;
 		}
 		string text3 = num3 + " steps after death";
 		if (num3 > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text3 = "INVALID DEATH-MOVEMENT: " + text3;
 		}
 		string text4 = string.Concat(new string[]
@@ -1051,19 +574,6 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo boardSquarePathInfo;
 		if (includePresent)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.IsNodePartOfMyFuturePath(BoardSquarePathInfo, bool)).MethodHandle;
-			}
 			boardSquarePathInfo = this;
 		}
 		else
@@ -1074,15 +584,6 @@ public class BoardSquarePathInfo : IComparable
 		{
 			if (other == boardSquarePathInfo)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 				return result;
 			}
@@ -1105,32 +606,10 @@ public class BoardSquarePathInfo : IComparable
 		{
 			if (boardSquarePathInfo.m_moverClashesHere)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquarePathInfo.ResetClashingOfPath()).MethodHandle;
-				}
 				boardSquarePathInfo.m_moverClashesHere = false;
 			}
 			if (boardSquarePathInfo.m_moverBumpedFromClash)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquarePathInfo.m_moverBumpedFromClash = false;
 			}
 		}

@@ -20,30 +20,8 @@ public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSe
 	{
 		if (UIRankedModeDraftScreen.Get().IsVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedCharacterSelectSettingsPanel.Refresh()).MethodHandle;
-			}
 			if (UIRankedModeDraftScreen.Get().SelectedCharacter != CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(UIRankedModeDraftScreen.Get().SelectedCharacter);
 				base.Refresh(characterResourceLink, false, false);
 			}
@@ -70,19 +48,6 @@ public class UIRankedCharacterSelectSettingsPanel : UICharacterSelectCharacterSe
 		float alpha = 0f;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedCharacterSelectSettingsPanel.DoVisible(bool, UICharacterSelectCharacterSettingsPanel.TabPanel)).MethodHandle;
-			}
 			base.OpenTab(tab, true);
 			alpha = 1f;
 		}

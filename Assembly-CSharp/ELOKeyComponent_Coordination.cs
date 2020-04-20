@@ -23,19 +23,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 			ELOKeyComponent.BinaryModePhaseEnum result;
 			if (this.m_isInGeneralMode)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.get_BinaryModePhase()).MethodHandle;
-				}
 				result = ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
 			}
 			else
@@ -62,19 +49,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 		}
 		if (this.m_groupSize == 1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.GetComponentChar()).MethodHandle;
-			}
 			return 'S';
 		}
 		return string.Format("{0}", this.m_groupSize).ToCharArray().ElementAt(0);
@@ -93,19 +67,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 		char result;
 		if (this.m_isInGeneralMode)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.GetPhaseChar()).MethodHandle;
-			}
 			result = '0';
 		}
 		else
@@ -119,19 +80,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 	{
 		if (this.m_isInGeneralMode)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.GetPhaseDescription()).MethodHandle;
-			}
 			return "ignore";
 		}
 		switch (this.m_groupSize)
@@ -166,19 +114,6 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
 		this.m_groupSize = groupSize;
 		if (groupSize == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Coordination.InitializePerCharacter(byte)).MethodHandle;
-			}
 			throw new Exception("Illegal group size");
 		}
 	}

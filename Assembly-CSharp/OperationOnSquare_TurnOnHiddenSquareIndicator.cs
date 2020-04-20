@@ -13,30 +13,8 @@ public class OperationOnSquare_TurnOnHiddenSquareIndicator : IOperationOnSquare
 	{
 		if (actor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OperationOnSquare_TurnOnHiddenSquareIndicator.OperateOnSquare(BoardSquare, ActorData, bool)).MethodHandle;
-			}
 			if (!squareHasLos)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_targeter.ShowHiddenSquareIndicatorForSquare(square);
 			}
 			else if (HighlightUtils.Get().m_cachedShouldShowAffectedSquares)

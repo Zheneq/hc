@@ -74,19 +74,6 @@ namespace I2.Loc
 				string supportedLanguage = LocalizationManager.GetSupportedLanguage(value);
 				if (!string.IsNullOrEmpty(supportedLanguage))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.set_CurrentLanguage(string)).MethodHandle;
-					}
 					if (LocalizationManager.mCurrentLanguage != supportedLanguage)
 					{
 						LocalizationManager.SetLanguageAndCode(supportedLanguage, LocalizationManager.GetLanguageCode(supportedLanguage), true, false);
@@ -109,19 +96,6 @@ namespace I2.Loc
 					string languageFromCode = LocalizationManager.GetLanguageFromCode(value);
 					if (!string.IsNullOrEmpty(languageFromCode))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.set_CurrentLanguageCode(string)).MethodHandle;
-						}
 						LocalizationManager.SetLanguageAndCode(languageFromCode, value, true, false);
 					}
 				}
@@ -136,34 +110,12 @@ namespace I2.Loc
 				int num = currentLanguage.IndexOfAny("/\\".ToCharArray());
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.get_CurrentRegion()).MethodHandle;
-					}
 					return currentLanguage.Substring(num + 1);
 				}
 				num = currentLanguage.IndexOfAny("[(".ToCharArray());
 				int num2 = currentLanguage.LastIndexOfAny("])".ToCharArray());
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num != num2)
 					{
 						return currentLanguage.Substring(num + 1, num2 - num - 1);
@@ -184,30 +136,8 @@ namespace I2.Loc
 				int num2 = text.LastIndexOfAny("])".ToCharArray());
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.set_CurrentRegion(string)).MethodHandle;
-					}
 					if (num != num2)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text.Substring(num);
 					}
 				}
@@ -229,19 +159,6 @@ namespace I2.Loc
 				int num = text.IndexOfAny(" -_/\\".ToCharArray());
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.set_CurrentRegionCode(string)).MethodHandle;
-					}
 					text = text.Substring(0, num);
 				}
 				LocalizationManager.CurrentLanguageCode = text + "-" + value;
@@ -265,19 +182,6 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(LocalizationManager.mCurrentLanguage))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.InitializeIfNeeded()).MethodHandle;
-				}
 				LocalizationManager.UpdateSources();
 				LocalizationManager.SelectStartupLanguage();
 			}
@@ -287,42 +191,11 @@ namespace I2.Loc
 		{
 			if (!(LocalizationManager.mCurrentLanguage != LanguageName))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.SetLanguageAndCode(string, string, bool, bool)).MethodHandle;
-				}
 				if (!(LocalizationManager.mLanguageCode != LanguageCode))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Force)
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -341,19 +214,6 @@ namespace I2.Loc
 			LocalizationManager.UpdateSources();
 			if (PlayerPrefs.GetInt("OptionsOverrideGlyphLanguage", 0) == 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.SetBootupLanguage(string)).MethodHandle;
-				}
 				string @string = PlayerPrefs.GetString("OverrideGlyphLanguageCode", string.Empty);
 				if (!@string.IsNullOrEmpty())
 				{
@@ -377,60 +237,20 @@ namespace I2.Loc
 			string text = Application.systemLanguage.ToString();
 			if (text == "ChineseSimplified")
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.SelectStartupLanguage()).MethodHandle;
-				}
 				text = "Chinese (Simplified)";
 			}
 			if (text == "ChineseTraditional")
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "Chinese (Traditional)";
 			}
 			if (LocalizationManager.HasLanguage(@string, true, false))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LocalizationManager.CurrentLanguage = @string;
 				return;
 			}
 			string supportedLanguage = LocalizationManager.GetSupportedLanguage(text);
 			if (!string.IsNullOrEmpty(supportedLanguage))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LocalizationManager.SetLanguageAndCode(supportedLanguage, LocalizationManager.GetLanguageCode(supportedLanguage), false, false);
 				return;
 			}
@@ -459,19 +279,6 @@ namespace I2.Loc
 					onLocalizeCallback = Interlocked.CompareExchange<LocalizationManager.OnLocalizeCallback>(ref LocalizationManager.OnLocalizeEvent, (LocalizationManager.OnLocalizeCallback)Delegate.Combine(onLocalizeCallback2, value), onLocalizeCallback);
 				}
 				while (onLocalizeCallback != onLocalizeCallback2);
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.add_OnLocalizeEvent(LocalizationManager.OnLocalizeCallback)).MethodHandle;
-				}
 			}
 			remove
 			{
@@ -521,19 +328,6 @@ namespace I2.Loc
 			Translation = string.Empty;
 			if (string.IsNullOrEmpty(Term))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.TryGetTermTranslation(string, string*, bool, int)).MethodHandle;
-				}
 				return false;
 			}
 			LocalizationManager.InitializeIfNeeded();
@@ -543,62 +337,17 @@ namespace I2.Loc
 			{
 				if (LocalizationManager.Sources[i].TryGetTermTranslation(Term, out Translation))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (LocalizationManager.IsRight2Left)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (FixForRTL)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Translation = LocalizationManager.ApplyRTLfix(Translation, maxLineLengthForRTL);
 						}
 					}
 					if (LocalizationManager.mGibberishMode)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Term.IndexOf("@TEXTURE") == -1)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Translation = Term;
 							return true;
 						}
@@ -606,15 +355,6 @@ namespace I2.Loc
 					return true;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return false;
 		}
@@ -628,19 +368,6 @@ namespace I2.Loc
 		{
 			if (maxCharacters <= 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.ApplyRTLfix(string, int)).MethodHandle;
-				}
 				return ArabicFixer.Fix(line);
 			}
 			Regex regex = new Regex(".{0," + maxCharacters + "}(\\s+|$)", RegexOptions.Multiline);
@@ -660,15 +387,6 @@ namespace I2.Loc
 				array[i] = ArabicFixer.Fix(array[i]);
 				i++;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			line = string.Join("\n", array);
 			return line;
 		}
@@ -677,19 +395,6 @@ namespace I2.Loc
 		{
 			if (LocalizationManager.IsRight2Left)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.FixRTL_IfNeeded(string, int)).MethodHandle;
-				}
 				return LocalizationManager.ApplyRTLfix(text, maxCharacters);
 			}
 			return text;
@@ -706,30 +411,8 @@ namespace I2.Loc
 				localize.OnLocalize(Force);
 				i++;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.LocalizeAll(bool)).MethodHandle;
-			}
 			if (LocalizationManager.OnLocalizeEvent != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LocalizationManager.OnLocalizeEvent();
 			}
 			ResourceManager.pInstance.CleanResourceCache();
@@ -749,30 +432,8 @@ namespace I2.Loc
 			{
 				if (LocalizationManager.Sources[i] == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.UnregisterDeletededSources()).MethodHandle;
-					}
 					LocalizationManager.RemoveSource(LocalizationManager.Sources[i]);
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -789,19 +450,6 @@ namespace I2.Loc
 				}
 				i++;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.RegisterSceneSources()).MethodHandle;
-			}
 		}
 
 		private static void RegisterSourceInResources()
@@ -812,19 +460,6 @@ namespace I2.Loc
 				LanguageSource languageSource;
 				if (asset)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.RegisterSourceInResources()).MethodHandle;
-					}
 					languageSource = asset.GetComponent<LanguageSource>();
 				}
 				else
@@ -834,38 +469,11 @@ namespace I2.Loc
 				LanguageSource languageSource2 = languageSource;
 				if (languageSource2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!LocalizationManager.Sources.Contains(languageSource2))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						LocalizationManager.AddSource(languageSource2);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -873,19 +481,6 @@ namespace I2.Loc
 		{
 			if (LocalizationManager.Sources.Contains(Source))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.AddSource(LanguageSource)).MethodHandle;
-				}
 				return;
 			}
 			LocalizationManager.Sources.Add(Source);
@@ -910,19 +505,6 @@ namespace I2.Loc
 		{
 			if (Initialize)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.HasLanguage(string, bool, bool)).MethodHandle;
-				}
 				LocalizationManager.InitializeIfNeeded();
 			}
 			int i = 0;
@@ -931,57 +513,21 @@ namespace I2.Loc
 			{
 				if (LocalizationManager.Sources[i].GetLanguageIndex(Language, false) >= 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 				i++;
 			}
 			if (AllowDiscartingRegion)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int j = 0;
 				int count2 = LocalizationManager.Sources.Count;
 				while (j < count2)
 				{
 					if (LocalizationManager.Sources[j].GetLanguageIndex(Language, true) >= 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 					j++;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -996,31 +542,9 @@ namespace I2.Loc
 				int languageIndex = LocalizationManager.Sources[i].GetLanguageIndex(Language, false);
 				if (languageIndex >= 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.GetSupportedLanguage(string)).MethodHandle;
-					}
 					return LocalizationManager.Sources[i].mLanguages[languageIndex].Name;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			int j = 0;
 			int count2 = LocalizationManager.Sources.Count;
@@ -1029,27 +553,9 @@ namespace I2.Loc
 				int languageIndex2 = LocalizationManager.Sources[j].GetLanguageIndex(Language, true);
 				if (languageIndex2 >= 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return LocalizationManager.Sources[j].mLanguages[languageIndex2].Name;
 				}
 				j++;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return string.Empty;
 		}
@@ -1063,31 +569,9 @@ namespace I2.Loc
 				int languageIndex = LocalizationManager.Sources[i].GetLanguageIndex(Language, true);
 				if (languageIndex >= 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.GetLanguageCode(string)).MethodHandle;
-					}
 					return LocalizationManager.Sources[i].mLanguages[languageIndex].Code;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return string.Empty;
 		}
@@ -1121,42 +605,11 @@ namespace I2.Loc
 				{
 					if (!list.Contains(LocalizationManager.Sources[i].mLanguages[j].Name))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.GetAllLanguages()).MethodHandle;
-						}
 						list.Add(LocalizationManager.Sources[i].mLanguages[j].Name);
 					}
 					j++;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return list;
 		}
@@ -1171,19 +624,6 @@ namespace I2.Loc
 				LocalizationManager.Sources[i].GetCategories(false, list);
 				i++;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.GetCategories()).MethodHandle;
-			}
 			return list;
 		}
 
@@ -1191,32 +631,10 @@ namespace I2.Loc
 		{
 			if (LocalizationManager.Sources.Count == 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.GetTermsList()).MethodHandle;
-				}
 				LocalizationManager.UpdateSources();
 			}
 			if (LocalizationManager.Sources.Count == 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationManager.Sources[0].GetTermsList();
 			}
 			HashSet<string> hashSet = new HashSet<string>();
@@ -1226,15 +644,6 @@ namespace I2.Loc
 			{
 				hashSet.UnionWith(LocalizationManager.Sources[i].GetTermsList());
 				i++;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return new List<string>(hashSet);
 		}
@@ -1259,19 +668,6 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(term))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.GetSourceContaining(string, bool)).MethodHandle;
-				}
 				int i = 0;
 				int count = LocalizationManager.Sources.Count;
 				while (i < count)
@@ -1282,38 +678,11 @@ namespace I2.Loc
 					}
 					i++;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (fallbackToFirst)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (LocalizationManager.Sources.Count > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return LocalizationManager.Sources[0];
 				}
 			}
@@ -1329,31 +698,9 @@ namespace I2.Loc
 				UnityEngine.Object @object = LocalizationManager.Sources[i].FindAsset(value);
 				if (@object)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationManager.FindAsset(string)).MethodHandle;
-					}
 					return @object;
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return null;
 		}

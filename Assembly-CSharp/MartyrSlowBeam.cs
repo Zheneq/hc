@@ -51,19 +51,6 @@ public class MartyrSlowBeam : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedLaserHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetLaserHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserHitEffect;
 		}
 		else
@@ -94,19 +81,6 @@ public class MartyrSlowBeam : MartyrLaserBase
 		float num;
 		if (currentPowerEntry != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetCurrentTargetingRadius()).MethodHandle;
-			}
 			num = currentPowerEntry.m_additionalWidth;
 		}
 		else
@@ -136,19 +110,6 @@ public class MartyrSlowBeam : MartyrLaserBase
 				MartyrBasicAttackThreshold item = enumerator.Current;
 				list.Add(item);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetThresholdBasedCrystalBonusList()).MethodHandle;
-			}
 		}
 		return list;
 	}
@@ -159,19 +120,6 @@ public class MartyrSlowBeam : MartyrLaserBase
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSlowBeam.GetCurrentDamage(ActorData)).MethodHandle;
-			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
 		else

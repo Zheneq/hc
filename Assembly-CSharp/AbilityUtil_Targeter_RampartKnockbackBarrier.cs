@@ -61,30 +61,8 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		BoardSquare boardSquare = null;
 		if (this.m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartKnockbackBarrier.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (currentTargetIndex > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 			}
 			else
@@ -93,15 +71,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 			}
 			if (boardSquare != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				active = true;
 				vector3 = boardSquare.ToVector3();
 				Vector3 b;
@@ -118,15 +87,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 			if (this.m_highlights.Count >= 2)
 			{
 				goto IL_1BF;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -152,15 +112,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		float num3;
 		if (this.m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 0.5f;
 		}
 		else
@@ -171,55 +122,19 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, vector2, laserRangeInSquares, this.m_width, targetingActor, relevantTeams, this.m_penetrateLos, -1, this.m_lengthIgnoreLos, false, out laserCoords.end, null, null, true, true);
 		if (actorsInLaser.Count > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector4;
 			List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * vector2, 2f, this.m_width, targetingActor, relevantTeams, true, -1, true, true, out vector4, null, null, true, true);
 			for (int i = actorsInLaser.Count - 1; i >= 0; i--)
 			{
 				if (actorsInLaser2.Contains(actorsInLaser[i]))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsInLaser.RemoveAt(i);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float lengthInWorld = num2;
 		if (!this.m_lengthIgnoreLos)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector5 = laserCoords.end - vector;
 			vector5.y = 0f;
 			lengthInWorld = vector5.magnitude;
@@ -238,52 +153,16 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector2, laserCoords.start, this.m_knockbackDistance);
 				num4 = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num4, false);
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		base.SetMovementArrowEnabledFromIndex(num4, false);
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		if (this.m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count < 3)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			}
 			this.m_highlights[2].transform.position = vector3;
@@ -291,15 +170,6 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		}
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			Vector3 a3 = laserCoords.end - laserCoords.start;
 			a3.y = 0f;

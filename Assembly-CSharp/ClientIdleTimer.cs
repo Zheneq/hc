@@ -18,19 +18,6 @@ public class ClientIdleTimer : MonoBehaviour
 	{
 		if (ClientIdleTimer.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.Get()).MethodHandle;
-			}
 			Log.Error("ClientIdleTimer component is not present on a bootstrap singleton!", new object[0]);
 		}
 		return ClientIdleTimer.s_instance;
@@ -51,32 +38,10 @@ public class ClientIdleTimer : MonoBehaviour
 	{
 		if (!HydrogenConfig.Get().EnableNoInputIdleDisconnect)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.Update()).MethodHandle;
-			}
 			return;
 		}
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (Debugger.IsAttached)
@@ -85,76 +50,22 @@ public class ClientIdleTimer : MonoBehaviour
 		}
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (DebugParameters.Get().GetParameterAsBool("DisableBotTakeover"))
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (GameFlowData.Get() != null && GameFlowData.Get().GetPause())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
 			if (GameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameConfig != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.NoInputIdleDisconnect))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 				}
@@ -165,39 +76,12 @@ public class ClientIdleTimer : MonoBehaviour
 			}
 			if (ClientGameManager.Get().IsFastForward)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 			if (ReplayPlayManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ReplayPlayManager.Get().IsPlayback())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 			}
@@ -205,15 +89,6 @@ public class ClientIdleTimer : MonoBehaviour
 			bool flag2 = false;
 			if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AppState_GroupCharacterSelect.Get().InQueue())
 				{
 					flag = true;
@@ -223,98 +98,26 @@ public class ClientIdleTimer : MonoBehaviour
 			}
 			if (!(AppState.GetCurrent() == AppState_FoundGame.Get()))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState.GetCurrent() == AppState_GameLoading.Get()))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(AppState.GetCurrent() == AppState_InGameStarting.Get()))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(AppState.GetCurrent() == AppState_InGameDeployment.Get()))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (AppState.GetCurrent() == AppState_WaitingForGame.Get())
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								if (!(AppState.GetCurrent() == AppState_InGameDecision.Get()))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(AppState.GetCurrent() == AppState_InGameResolve.Get()))
 									{
 										goto IL_2BD;
 									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								if (GameFlowData.Get() != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag2 = true;
 									this.m_timeSinceMatchStart += Time.deltaTime;
 									goto IL_2BD;
@@ -330,26 +133,8 @@ public class ClientIdleTimer : MonoBehaviour
 			IL_2BD:
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeSinceInput = 0f;
 					return;
 				}
@@ -362,15 +147,6 @@ public class ClientIdleTimer : MonoBehaviour
 				if (!flag3)
 				{
 					goto IL_34A;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (AccountPreferences.DoesApplicationHaveFocus())
@@ -385,26 +161,8 @@ public class ClientIdleTimer : MonoBehaviour
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (GameFlowData.Get().gameState == GameState.BothTeams_Decision && activeOwnedActorData != null && activeOwnedActorData.GetActorTurnSM() != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo().IsNullOrEmpty<ActorTurnSM.ActionRequestForUndo>())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 				}
@@ -422,26 +180,8 @@ public class ClientIdleTimer : MonoBehaviour
 					{
 						if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleDisconnectTimeMatchStart)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.HideWarningDialog();
 								ClientGameManager.Get().LeaveGame(false, GameResult.ClientIdleTimeout);
 								this.m_timeSinceInput = 0f;
@@ -450,15 +190,6 @@ public class ClientIdleTimer : MonoBehaviour
 						}
 						if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleWarningTimeMatchStart)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ShowWarningDialog();
 						}
 					}
@@ -466,30 +197,12 @@ public class ClientIdleTimer : MonoBehaviour
 				}
 				else if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleDisconnectTime)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.HideWarningDialog();
 					ClientGameManager.Get().LeaveGame(false, GameResult.ClientIdleTimeout);
 					this.m_timeSinceInput = 0f;
 				}
 				else if (this.m_timeSinceInput > HydrogenConfig.Get().NoInputIdleWarningTime)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ShowWarningDialog();
 				}
 				else
@@ -505,19 +218,6 @@ public class ClientIdleTimer : MonoBehaviour
 	{
 		if (this.m_idleWarningDialog == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.ShowWarningDialog()).MethodHandle;
-			}
 			this.m_idleWarningDialog = UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("InactivityWarning", "Global"), StringUtil.TR("YouWillBeDisconnected", "Global"), StringUtil.TR("DontKickMe", "Global"), null, -1, false);
 		}
 	}
@@ -526,19 +226,6 @@ public class ClientIdleTimer : MonoBehaviour
 	{
 		if (this.m_idleWarningDialog != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientIdleTimer.HideWarningDialog()).MethodHandle;
-			}
 			UIDialogPopupManager.Get().CloseDialog(this.m_idleWarningDialog);
 			this.m_idleWarningDialog = null;
 		}

@@ -16,19 +16,6 @@ public class NanoSmithChargeAndCreateBarrier : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChargeAndCreateBarrier.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Charge and Create Barrier";
 		}
 		base.Targeter = new AbilityUtil_Targeter_BarrierWithCharge(this, this.m_barrierData.m_width, this.m_snapToGrid);

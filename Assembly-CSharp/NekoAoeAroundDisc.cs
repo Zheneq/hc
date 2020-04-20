@@ -111,19 +111,6 @@ public class NekoAoeAroundDisc : Ability
 	{
 		if (this.GetTargetData().IsNullOrEmpty<TargetData>())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.GetCheckLoS(int)).MethodHandle;
-			}
 			if (!this.m_targetData.IsNullOrEmpty<TargetData>())
 			{
 				return this.m_targetData[targetIndex].m_checkLineOfSight;
@@ -136,19 +123,6 @@ public class NekoAoeAroundDisc : Ability
 	{
 		if (this.m_syncComp != null && caster.GetCurrentBoardSquare() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			foreach (BoardSquare boardSquare in activeDiscSquares)
 			{
@@ -158,27 +132,9 @@ public class NekoAoeAroundDisc : Ability
 				bool flag2;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_targetData[0].m_checkLineOfSight)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						flag2 = caster.GetCurrentBoardSquare().\u0013(boardSquare.x, boardSquare.y);
+						flag2 = caster.GetCurrentBoardSquare().symbol_0013(boardSquare.x, boardSquare.y);
 					}
 					else
 					{
@@ -192,15 +148,6 @@ public class NekoAoeAroundDisc : Ability
 				flag = flag2;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -243,19 +190,6 @@ public class NekoAoeAroundDisc : Ability
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.GetTargetData()).MethodHandle;
-				}
 				return base.GetTargetData();
 			}
 		}
@@ -267,31 +201,9 @@ public class NekoAoeAroundDisc : Ability
 		AbilityTarget abilityTarget = base.CreateAbilityTargetForSimpleAction(caster);
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoAoeAroundDisc.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
-			}
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count == 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
 			}
 		}

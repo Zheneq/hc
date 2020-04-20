@@ -40,31 +40,9 @@ public class DebugCommand_ForceMatchmaking : DebugCommand
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_ForceMatchmaking.DoWork()).MethodHandle;
-			}
 			if (clientGameManager.LobbyInterface != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				clientGameManager.\u000E();
+				clientGameManager.symbol_000E();
 			}
 		}
 	}

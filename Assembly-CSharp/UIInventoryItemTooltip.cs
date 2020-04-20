@@ -32,19 +32,6 @@ public class UIInventoryItemTooltip : UITooltipBase
 		this.m_itemRef = item;
 		if (item == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItemTooltip.Setup(InventoryItemTemplate)).MethodHandle;
-			}
 			return;
 		}
 		string text = InventoryWideData.TypeDisplayString(item);
@@ -52,27 +39,9 @@ public class UIInventoryItemTooltip : UITooltipBase
 		this.m_rarityText.text = item.Rarity.GetRarityString() + " " + text;
 		if (item.Type != InventoryItemType.Experience)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item.Type != InventoryItemType.FreelancerExpBonus)
 			{
 				goto IL_8F;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_rarityText.text = text;
@@ -80,15 +49,6 @@ public class UIInventoryItemTooltip : UITooltipBase
 		string colorHexString = item.Rarity.GetColorHexString();
 		if (!colorHexString.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_titleText.text = string.Concat(new string[]
 			{
 				"<color=",

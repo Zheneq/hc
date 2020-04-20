@@ -63,19 +63,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		NekoFanOfDiscs nekoFanOfDiscs = targetAbility as NekoFanOfDiscs;
 		if (nekoFanOfDiscs != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoFanOfDiscs.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_numDiscsMod, "NumDiscs", string.Empty, nekoFanOfDiscs.m_numDiscs, true, false);
 			AbilityMod.AddToken(tokens, this.m_minAngleForLaserFanMod, "MinAngleForLaserFan", string.Empty, nekoFanOfDiscs.m_minAngleForLaserFan, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_totalAngleForLaserFanMod, "TotalAngleForLaserFan", string.Empty, nekoFanOfDiscs.m_totalAngleForLaserFan, true, false, false);
@@ -111,19 +98,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoFanOfDiscs.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = nekoFanOfDiscs.m_numDiscs;
 		}
 		else
@@ -138,15 +112,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nekoFanOfDiscs.m_minAngleForLaserFan;
 		}
 		else
@@ -161,15 +126,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nekoFanOfDiscs.m_totalAngleForLaserFan;
 		}
 		else
@@ -185,15 +141,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = nekoFanOfDiscs.m_angleInterpMaxDist;
 		}
 		else
@@ -208,15 +155,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = nekoFanOfDiscs.m_laserRange;
 		}
 		else
@@ -231,15 +169,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = nekoFanOfDiscs.m_laserWidth;
 		}
 		else
@@ -255,15 +184,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = nekoFanOfDiscs.m_maxTargetsPerLaser;
 		}
 		else
@@ -278,15 +198,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = nekoFanOfDiscs.m_interpStepInSquares;
 		}
 		else
@@ -302,15 +213,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = nekoFanOfDiscs.m_directDamage;
 		}
 		else
@@ -325,15 +227,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = nekoFanOfDiscs.m_directSubsequentHitDamage;
 		}
 		else
@@ -348,15 +241,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = nekoFanOfDiscs.m_directEnemyHitEffect;
 		}
 		else
@@ -371,15 +255,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = nekoFanOfDiscs.m_returnTripDamage;
 		}
 		else
@@ -394,15 +269,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = nekoFanOfDiscs.m_returnTripSubsequentHitDamage;
 		}
 		else
@@ -417,15 +283,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		bool baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = nekoFanOfDiscs.m_returnTripIgnoreCover;
 		}
 		else
@@ -440,15 +297,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = nekoFanOfDiscs.m_returnTripEnergyOnCasterPerDiscMiss;
 		}
 		else
@@ -463,15 +311,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		StandardEffectInfo baseVal16;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = nekoFanOfDiscs.m_effectOnSelfIfMissOnCast;
 		}
 		else
@@ -486,15 +325,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		StandardEffectInfo baseVal17;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal17 = nekoFanOfDiscs.m_effectOnSelfIfMissOnDiscReturn;
 		}
 		else
@@ -509,15 +339,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		int baseVal18;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal18 = nekoFanOfDiscs.m_zeroEnergyRequiredTurns;
 		}
 		else

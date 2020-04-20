@@ -46,12 +46,12 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0019.GetName(), "on every hit actor, number of cone hits on target", true);
+		return base.GetContextUsageStr(ContextKeys.symbol_0019.GetName(), "on every hit actor, number of cone hits on target", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0019.GetName());
+		names.Add(ContextKeys.symbol_0019.GetName());
 	}
 
 	public override void Initialize()
@@ -69,19 +69,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		ConeTargetingInfo cachedConeInfo;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.SetCachedFields()).MethodHandle;
-			}
 			cachedConeInfo = this.m_targetSelMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo);
 		}
 		else
@@ -101,19 +88,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		int result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeCount()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_coneCountMod.GetModifiedValue(this.m_coneCount);
 		}
 		else
@@ -128,19 +102,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeStartOffsetInAimDir()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_coneStartOffsetInAimDirMod.GetModifiedValue(this.m_coneStartOffsetInAimDir);
 		}
 		else
@@ -160,19 +121,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeStartOffsetInConeDir()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_coneStartOffsetInConeDirMod.GetModifiedValue(this.m_coneStartOffsetInConeDir);
 		}
 		else
@@ -187,19 +135,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetAngleInBetween()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_angleInBetweenMod.GetModifiedValue(this.m_angleInBetween);
 		}
 		else
@@ -214,19 +149,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		bool result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.ChangeAngleByCursorDistance()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_changeAngleByCursorDistanceMod.GetModifiedValue(this.m_changeAngleByCursorDistance);
 		}
 		else
@@ -241,19 +163,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetTargeterMinAngle()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_targeterMinAngleMod.GetModifiedValue(this.m_targeterMinAngle);
 		}
 		else
@@ -268,19 +177,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetTargeterMaxAngle()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_targeterMaxAngleMod.GetModifiedValue(this.m_targeterMaxAngle);
 		}
 		else
@@ -295,19 +191,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetStartAngleOffset()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_startAngleOffsetMod.GetModifiedValue(this.m_startAngleOffset);
 		}
 		else
@@ -363,54 +246,14 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 			Vector3 vector = Vector3.zero;
 			if (num2 != 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeOrigins(AbilityTarget, Vector3, ActorData)).MethodHandle;
-				}
 				vector = num2 * aimDirection;
 			}
 			if (num3 > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i < num)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector -= (float)(num - i) * num3 * normalized;
 					}
 					else
@@ -420,28 +263,10 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				}
 				else if (i < num)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector -= (float)(num - i) * num3 * normalized;
 				}
 				else if (i > num)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector += (float)(i - num) * num3 * normalized;
 				}
 			}
@@ -449,15 +274,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		}
 		if (this.GetConeStartOffsetInConeDir() > 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<Vector3> coneDirections = this.GetConeDirections(currentTarget, targeterFreePos, caster);
 			float d = this.GetConeStartOffsetInConeDir() * Board.SquareSizeStatic;
 			for (int j = 0; j < coneDirections.Count; j++)
@@ -465,15 +281,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 				List<Vector3> list2;
 				int index;
 				(list2 = list)[index = j] = list2[index] + d * coneDirections[j];
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -486,31 +293,9 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 		int coneCount = this.GetConeCount();
 		if (this.ChangeAngleByCursorDistance())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_FanCones.GetConeDirections(AbilityTarget, Vector3, ActorData)).MethodHandle;
-			}
 			float num2;
 			if (coneCount > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = AbilityCommon_FanLaser.CalculateFanAngleDegrees(currentTarget, caster, this.GetTargeterMinAngle(), this.GetTargeterMaxAngle(), this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, 0f);
 			}
 			else
@@ -521,15 +306,6 @@ public class TargetSelect_FanCones : GenericAbility_TargetSelectBase
 			float num4;
 			if (coneCount > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = num3 / (float)(coneCount - 1);
 			}
 			else

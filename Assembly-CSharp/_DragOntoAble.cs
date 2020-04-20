@@ -17,19 +17,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 	{
 		if (this.containerImage != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnEnable()).MethodHandle;
-			}
 			this.normalColor = this.containerImage.color;
 		}
 	}
@@ -39,33 +26,11 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		this.containerImage.color = this.normalColor;
 		if (this.receivingImage == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnDrop(PointerEventData)).MethodHandle;
-			}
 			return;
 		}
 		Sprite dropSprite = this.GetDropSprite(data);
 		if (dropSprite != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.receivingImage.overrideSprite = dropSprite;
 		}
 	}
@@ -74,19 +39,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 	{
 		if (this.containerImage == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnPointerEnter(PointerEventData)).MethodHandle;
-			}
 			return;
 		}
 		Sprite dropSprite = this.GetDropSprite(data);
@@ -100,19 +52,6 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 	{
 		if (this.containerImage == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.OnPointerExit(PointerEventData)).MethodHandle;
-			}
 			return;
 		}
 		this.containerImage.color = this.normalColor;
@@ -123,33 +62,11 @@ public class _DragOntoAble : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
 		GameObject pointerDrag = data.pointerDrag;
 		if (pointerDrag == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DragOntoAble.GetDropSprite(PointerEventData)).MethodHandle;
-			}
 			return null;
 		}
 		Image component = pointerDrag.GetComponent<Image>();
 		if (component == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return null;
 		}
 		return component.sprite;

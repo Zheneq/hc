@@ -39,19 +39,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		RampartMeleeBasicAttack rampartMeleeBasicAttack = targetAbility as RampartMeleeBasicAttack;
 		if (rampartMeleeBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartMeleeBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, rampartMeleeBasicAttack.m_laserRange, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, rampartMeleeBasicAttack.m_laserWidth, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, rampartMeleeBasicAttack.m_laserMaxTargets, true, false);
@@ -77,19 +64,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartMeleeBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = rampartMeleeBasicAttack.m_laserRange;
 		}
 		else
@@ -105,15 +79,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartMeleeBasicAttack.m_laserMaxTargets;
 		}
 		else
@@ -128,15 +93,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rampartMeleeBasicAttack.m_penetrateLos;
 		}
 		else
@@ -152,15 +108,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rampartMeleeBasicAttack.m_coneRange;
 		}
 		else
@@ -177,15 +124,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rampartMeleeBasicAttack.m_coneDamage;
 		}
 		else
@@ -200,15 +138,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = rampartMeleeBasicAttack.m_coneEnemyHitEffect;
 		}
 		else

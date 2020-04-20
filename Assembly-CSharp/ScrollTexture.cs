@@ -20,55 +20,15 @@ public class ScrollTexture : MonoBehaviour
 		Renderer[] components = base.GetComponents<Renderer>();
 		if (components != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScrollTexture.Start()).MethodHandle;
-			}
 			foreach (Renderer renderer in components)
 			{
 				for (int j = 0; j < renderer.sharedMaterials.Length; j++)
 				{
 					if (!this.m_sharedMatToMatCopy.ContainsKey(renderer.sharedMaterials[j]))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_sharedMatToMatCopy[renderer.sharedMaterials[j]] = renderer.materials[j];
 					}
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			foreach (Renderer renderer2 in (Renderer[])UnityEngine.Object.FindObjectsOfType(typeof(Renderer)))
 			{
@@ -77,55 +37,19 @@ public class ScrollTexture : MonoBehaviour
 				{
 					if (renderer2.sharedMaterials[l] != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterials[l]))
 						{
 							list.Add(l);
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list.Count > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Material[] array2 = new Material[renderer2.sharedMaterials.Length];
 					for (int m = 0; m < array2.Length; m++)
 					{
 						if (list.Contains(m))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							array2[m] = this.m_sharedMatToMatCopy[renderer2.sharedMaterials[m]];
 						}
 						else
@@ -133,39 +57,12 @@ public class ScrollTexture : MonoBehaviour
 							array2[m] = renderer2.sharedMaterials[m];
 						}
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					renderer2.sharedMaterials = array2;
 					if (this.m_sharedMatToMatCopy.ContainsKey(renderer2.sharedMaterial))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						renderer2.sharedMaterial = this.m_sharedMatToMatCopy[renderer2.sharedMaterial];
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -190,28 +87,6 @@ public class ScrollTexture : MonoBehaviour
 			{
 				material.SetTextureOffset(this.m_textureNames[j], offset);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScrollTexture.SetTextureOffset(Vector2)).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

@@ -37,56 +37,16 @@ public class MartyrLaserBase : Ability
 		MartyrLaserThreshold result = null;
 		if (this.GetSyncComponent() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrLaserBase.GetCurrentPowerEntry(ActorData)).MethodHandle;
-			}
 			if (this.GetSyncComponent().IsBonusActive(caster))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<MartyrLaserThreshold> thresholdBasedCrystalBonusList = this.GetThresholdBasedCrystalBonusList();
 				int num = this.GetSyncComponent().SpentDamageCrystals(caster);
 				for (int i = 0; i < thresholdBasedCrystalBonusList.Count; i++)
 				{
 					if (num >= thresholdBasedCrystalBonusList[i].m_crystalThreshold)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = thresholdBasedCrystalBonusList[i];
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -99,19 +59,6 @@ public class MartyrLaserBase : Ability
 		float num;
 		if (currentPowerEntry != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrLaserBase.GetCurrentLaserWidth()).MethodHandle;
-			}
 			num = currentPowerEntry.m_additionalWidth;
 		}
 		else
@@ -128,19 +75,6 @@ public class MartyrLaserBase : Ability
 		float num;
 		if (currentPowerEntry != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrLaserBase.GetCurrentLaserRange()).MethodHandle;
-			}
 			num = currentPowerEntry.m_additionalLength;
 		}
 		else
@@ -162,19 +96,6 @@ public class MartyrLaserBase : Ability
 		int num;
 		if (currentPowerEntry != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrLaserBase.GetCurrentLaserMaxTargets()).MethodHandle;
-			}
 			num = currentPowerEntry.m_additionalTargets;
 		}
 		else

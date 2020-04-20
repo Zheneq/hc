@@ -47,19 +47,6 @@ public class FacebookClientInterface : MonoBehaviour
 	public IEnumerator StartTakingScreenshot(Action<Texture2D> callback)
 	{
 		yield return new WaitForEndOfFrame();
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FacebookClientInterface.<StartTakingScreenshot>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		this.m_texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
 		this.m_texture.ReadPixels(new Rect(0f, 0f, (float)Screen.width, (float)Screen.height), 0, 0);
 		this.m_texture.Apply();
@@ -82,30 +69,8 @@ public class FacebookClientInterface : MonoBehaviour
 		string url = "https://graph.facebook.com/v2.4/me/photos?access_token=" + accessToken;
 		WWW www = new WWW(url, rawData, headers);
 		yield return www;
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FacebookClientInterface.<StartUploadingScreenshot>c__Iterator1.MoveNext()).MethodHandle;
-		}
 		if (!www.error.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("There was an error: {0} {1}", new object[]
 			{
 				www.error,
@@ -121,19 +86,6 @@ public class FacebookClientInterface : MonoBehaviour
 		this.m_message = null;
 		if (this.m_texture != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FacebookClientInterface.Reset()).MethodHandle;
-			}
 			UnityEngine.Object.DestroyImmediate(this.m_texture);
 			this.m_texture = null;
 		}

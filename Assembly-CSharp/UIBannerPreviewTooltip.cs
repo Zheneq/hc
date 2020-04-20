@@ -26,32 +26,10 @@ public class UIBannerPreviewTooltip : UITooltipBase
 		}
 		if (emblem != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBannerPreviewTooltip.Setup(string, GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerRibbon, string)).MethodHandle;
-			}
 			path2 = emblem.m_resourceString;
 		}
 		if (titleString.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			titleString = string.Empty;
 		}
 		this.m_bannerImage.sprite = Resources.Load<Sprite>(path);
@@ -60,15 +38,6 @@ public class UIBannerPreviewTooltip : UITooltipBase
 		UIManager.SetGameObjectActive(this.m_ribbonImage, ribbon != null, null);
 		if (ribbon != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_ribbonImage.sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 		}
 	}

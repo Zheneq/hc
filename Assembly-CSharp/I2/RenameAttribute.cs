@@ -11,14 +11,14 @@ namespace I2
 
 		public readonly int HorizSpace;
 
-		public RenameAttribute(int \u001D, string \u000E, string \u0012 = null)
+		public RenameAttribute(int symbol_001D, string symbol_000E, string symbol_0012 = null)
 		{
-			this.Name = \u000E;
-			this.Tooltip = \u0012;
-			this.HorizSpace = \u001D;
+			this.Name = symbol_000E;
+			this.Tooltip = symbol_0012;
+			this.HorizSpace = symbol_001D;
 		}
 
-		public RenameAttribute(string \u001D, string \u000E = null) : this(0, \u001D, \u000E)
+		public RenameAttribute(string symbol_001D, string symbol_000E = null) : this(0, symbol_001D, symbol_000E)
 		{
 		}
 	}

@@ -23,19 +23,6 @@ public class ThiefHiddenTrap : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Hidden Trap";
 		}
 		this.Setup();
@@ -54,19 +41,6 @@ public class ThiefHiddenTrap : Ability
 		GroundEffectField cachedTrapFieldInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.SetCachedFields()).MethodHandle;
-			}
 			cachedTrapFieldInfo = this.m_abilityMod.m_trapFieldInfoMod.GetModifiedValue(this.m_trapFieldInfo);
 		}
 		else
@@ -81,19 +55,6 @@ public class ThiefHiddenTrap : Ability
 		GroundEffectField result;
 		if (this.m_cachedTrapFieldInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.GetTrapFieldInfo()).MethodHandle;
-			}
 			result = this.m_cachedTrapFieldInfo;
 		}
 		else
@@ -113,19 +74,6 @@ public class ThiefHiddenTrap : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.GetMaxExtraDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxExtraDamageMod.GetModifiedValue(this.m_maxExtraDamage);
 		}
 		else
@@ -152,19 +100,6 @@ public class ThiefHiddenTrap : Ability
 		int val;
 		if (abilityMod_ThiefHiddenTrap)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefHiddenTrap.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ThiefHiddenTrap.m_extraDamagePerTurnMod.GetModifiedValue(this.m_extraDamagePerTurn);
 		}
 		else
@@ -177,15 +112,6 @@ public class ThiefHiddenTrap : Ability
 		int val2;
 		if (abilityMod_ThiefHiddenTrap)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ThiefHiddenTrap.m_maxExtraDamageMod.GetModifiedValue(this.m_maxExtraDamage);
 		}
 		else

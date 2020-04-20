@@ -61,19 +61,6 @@ public class CharacterComponent : ICloneable
 		{
 			this.Skins.Add(new PlayerSkinData());
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.GetSkin(int)).MethodHandle;
-		}
 		return this.Skins[i];
 	}
 
@@ -82,19 +69,6 @@ public class CharacterComponent : ICloneable
 		while (this.Taunts.Count <= i)
 		{
 			this.Taunts.Add(new PlayerTauntData());
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.GetTaunt(int)).MethodHandle;
 		}
 		return this.Taunts[i];
 	}
@@ -131,42 +105,11 @@ public class CharacterComponent : ICloneable
 				PlayerModData playerModData = enumerator.Current;
 				if (playerModData.AbilityId == abilityId)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.IsModUnlocked(int, int)).MethodHandle;
-					}
 					if (playerModData.AbilityModID == abilityModId)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -181,30 +124,8 @@ public class CharacterComponent : ICloneable
 				PlayerAbilityVfxSwapData playerAbilityVfxSwapData = enumerator.Current;
 				if (playerAbilityVfxSwapData.AbilityId == abilityId && playerAbilityVfxSwapData.AbilityVfxSwapID == abilityVfxSwapId)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterComponent.IsAbilityVfxSwapUnlocked(int, int)).MethodHandle;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

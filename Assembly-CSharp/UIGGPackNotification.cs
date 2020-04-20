@@ -43,19 +43,6 @@ public class UIGGPackNotification : MonoBehaviour
 		}
 		if (banner2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGPackNotification.Setup(UISideNotifications.UIGGPackNotificationInfo)).MethodHandle;
-			}
 			Sprite sprite2 = (Sprite)Resources.Load(banner2.m_resourceString, typeof(Sprite));
 			this.m_backgroundImage.sprite = sprite2;
 			UIManager.SetGameObjectActive(this.m_backgroundImage, sprite2 != null, null);

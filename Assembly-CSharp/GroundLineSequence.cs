@@ -29,19 +29,6 @@ public class GroundLineSequence : Sequence
 			GroundLineSequence.ExtraParams extraParams2 = extraSequenceParams as GroundLineSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				Vector3 b = new Vector3(0f, this.m_heightOffset, 0f);
 				this.m_startPos = extraParams2.startPos + b;
 				this.m_endPos = extraParams2.endPos + b;
@@ -61,30 +48,8 @@ public class GroundLineSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.Update()).MethodHandle;
-			}
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
 					this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
@@ -99,19 +64,6 @@ public class GroundLineSequence : Sequence
 	{
 		if (this.m_fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.SpawnFX()).MethodHandle;
-			}
 			Vector3 startPos = this.m_startPos;
 			Quaternion rotation = default(Quaternion);
 			this.m_fx = base.InstantiateFX(this.m_fxPrefab, startPos, rotation, true, true);
@@ -131,15 +83,6 @@ public class GroundLineSequence : Sequence
 		base.Source.OnSequenceHit(this, base.TargetPos, null);
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 		}
 	}
@@ -148,19 +91,6 @@ public class GroundLineSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -178,19 +108,6 @@ public class GroundLineSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroundLineSequence.OnStopVfxOnClient()).MethodHandle;
-			}
 			this.m_fx.SetActive(false);
 		}
 	}

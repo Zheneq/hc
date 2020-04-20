@@ -46,19 +46,6 @@ public class AbilityRequest : IComparable
 		{
 			if (this.m_targets.Count > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityRequest.get_MainTarget()).MethodHandle;
-				}
 				return this.m_targets[0];
 			}
 			return null;
@@ -77,66 +64,17 @@ public class AbilityRequest : IComparable
 		AbilityRequest abilityRequest = obj as AbilityRequest;
 		if (abilityRequest != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityRequest.CompareTo(object)).MethodHandle;
-			}
 			if (this.m_ability != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityRequest.m_ability != null)
 				{
 					if (this.m_ability.RunPriority == abilityRequest.m_ability.RunPriority)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_ability.IsFreeAction())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!abilityRequest.m_ability.IsFreeAction())
 							{
 								return 0;
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						return this.m_ability.IsFreeAction().CompareTo(abilityRequest.m_ability.IsFreeAction());
@@ -161,19 +99,6 @@ public class AbilityRequest : IComparable
 			sbyte b2;
 			if (this.m_caster == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityRequest.OnSerializeHelper(IBitStream)).MethodHandle;
-				}
 				b2 = (sbyte)ActorData.s_invalidActorIndex;
 			}
 			else
@@ -187,28 +112,10 @@ public class AbilityRequest : IComparable
 			stream.Serialize(ref b3);
 			if (stream.isWriting)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTarget.SerializeAbilityTargetList(this.m_targets, stream);
 			}
 			if (stream.isReading)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_targets = AbilityTarget.DeSerializeAbilityTargetList(stream);
 			}
 			stream.Serialize(ref cinematicRequested);

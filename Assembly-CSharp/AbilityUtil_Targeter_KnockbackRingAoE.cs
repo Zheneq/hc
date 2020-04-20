@@ -53,36 +53,14 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 					{
 						goto IL_119;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackRingAoE.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-					}
-					if (!Board.Get().\u000E(actorData.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
+					if (!Board.Get().symbol_000E(actorData.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 					{
 						goto IL_119;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					Vector3 aimDir = targetingActor.GetTravelBoardSquareWorldPosition() - actorData.GetTravelBoardSquareWorldPosition();
 					aimDir.y = 0f;
 					float distance = 2f;
-					if (Board.Get().\u0015(actorData.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
+					if (Board.Get().symbol_0015(actorData.GetCurrentBoardSquare(), targetingActor.GetCurrentBoardSquare()))
 					{
 						distance = 2.82f;
 					}
@@ -93,15 +71,6 @@ public class AbilityUtil_Targeter_KnockbackRingAoE : AbilityUtil_Targeter_Shape
 					IL_119:
 					path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, centerOfShape, knockbackDistance);
 					goto IL_134;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			base.SetMovementArrowEnabledFromIndex(num, false);

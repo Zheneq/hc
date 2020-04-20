@@ -50,19 +50,6 @@ public class TricksterBasicAttack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Trickster Laser";
 		}
 		this.Setup();
@@ -95,19 +82,6 @@ public class TricksterBasicAttack : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -118,15 +92,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo cachedEnemySingleHitHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemySingleHitHitEffect = this.m_abilityMod.m_enemySingleHitHitEffectMod.GetModifiedValue(this.m_enemySingleHitHitEffect);
 		}
 		else
@@ -137,15 +102,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo cachedEnemyMultiHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyMultiHitEffect = this.m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(this.m_enemyMultiHitEffect);
 		}
 		else
@@ -156,15 +112,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo cachedSelfEffectForMultiHit;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfEffectForMultiHit = this.m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
 		}
 		else
@@ -175,15 +122,6 @@ public class TricksterBasicAttack : Ability
 		SpoilsSpawnData cachedSpoilSpawnInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSpoilSpawnInfo = this.m_abilityMod.m_spoilSpawnInfoMod.GetModifiedValue(this.m_spoilSpawnInfo);
 		}
 		else
@@ -198,19 +136,6 @@ public class TricksterBasicAttack : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -230,19 +155,6 @@ public class TricksterBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetLaserSubsequentDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(this.m_laserSubsequentDamageAmount);
 		}
 		else
@@ -257,19 +169,6 @@ public class TricksterBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetExtraDamageForSingleHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
 		}
 		else
@@ -284,19 +183,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemySingleHitHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetEnemySingleHitHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemySingleHitHitEffect;
 		}
 		else
@@ -311,19 +197,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyMultiHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetEnemyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyMultiHitEffect;
 		}
 		else
@@ -338,19 +211,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfEffectForMultiHit != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetSelfEffectForMultiHit()).MethodHandle;
-			}
 			result = this.m_cachedSelfEffectForMultiHit;
 		}
 		else
@@ -365,19 +225,6 @@ public class TricksterBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetEnergyGainPerLaserHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyGainPerLaserHitMod.GetModifiedValue(this.m_energyGainPerLaserHit);
 		}
 		else
@@ -392,19 +239,6 @@ public class TricksterBasicAttack : Ability
 		SpoilsSpawnData result;
 		if (this.m_cachedSpoilSpawnInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetSpoilSpawnInfo()).MethodHandle;
-			}
 			result = this.m_cachedSpoilSpawnInfo;
 		}
 		else
@@ -419,19 +253,6 @@ public class TricksterBasicAttack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.OnlySpawnSpoilOnMultiHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(this.m_onlySpawnSpoilOnMultiHit);
 		}
 		else
@@ -454,9 +275,9 @@ public class TricksterBasicAttack : Ability
 		return result;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
-		List<int> list = base.\u001D();
+		List<int> list = base.symbol_001D();
 		list.Add(this.GetLaserSubsequentDamageAmount());
 		return list;
 	}
@@ -467,55 +288,15 @@ public class TricksterBasicAttack : Ability
 		AbilityUtil_Targeter_TricksterLaser abilityUtil_Targeter_TricksterLaser = base.Targeter as AbilityUtil_Targeter_TricksterLaser;
 		if (abilityUtil_Targeter_TricksterLaser != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (abilityUtil_Targeter_TricksterLaser.m_actorToHitCount.ContainsKey(targetActor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = abilityUtil_Targeter_TricksterLaser.m_actorToHitCount[targetActor];
 				int numFromCover = abilityUtil_Targeter_TricksterLaser.m_actorToCoverCount[targetActor];
 				int num2 = this.CalcDamageFromNumHits(num, numFromCover);
 				if (num == 1)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.GetExtraDamageForSingleHit() > 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += this.GetExtraDamageForSingleHit();
 					}
 				}
@@ -529,19 +310,6 @@ public class TricksterBasicAttack : Ability
 	{
 		if (this.GetEnergyGainPerLaserHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
 			return tooltipSubjectCountTotalWithDuplicates * this.GetEnergyGainPerLaserHit();
 		}
@@ -556,19 +324,6 @@ public class TricksterBasicAttack : Ability
 		int val;
 		if (abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_TricksterBasicAttack.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -582,15 +337,6 @@ public class TricksterBasicAttack : Ability
 		int val2;
 		if (abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_TricksterBasicAttack.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
 		}
 		else
@@ -601,15 +347,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_TricksterBasicAttack.m_enemySingleHitHitEffectMod.GetModifiedValue(this.m_enemySingleHitHitEffect);
 		}
 		else
@@ -621,15 +358,6 @@ public class TricksterBasicAttack : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_TricksterBasicAttack.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
 		}
 		else
@@ -642,15 +370,6 @@ public class TricksterBasicAttack : Ability
 		int val3;
 		if (abilityMod_TricksterBasicAttack)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_TricksterBasicAttack.m_energyGainPerLaserHitMod.GetModifiedValue(this.m_energyGainPerLaserHit);
 		}
 		else
@@ -670,30 +389,8 @@ public class TricksterBasicAttack : Ability
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
-					}
 					if (!actorData.IsDead())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
 						Animator modelAnimator = actorData.GetModelAnimator();
 						modelAnimator.SetInteger("Attack", animationIndex);
@@ -701,15 +398,6 @@ public class TricksterBasicAttack : Ability
 						modelAnimator.SetTrigger("StartAttack");
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -721,30 +409,8 @@ public class TricksterBasicAttack : Ability
 		{
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterBasicAttack.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
-				}
 				if (!actorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Animator modelAnimator = actorData.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", 0);
 					modelAnimator.SetBool("CinematicCam", false);

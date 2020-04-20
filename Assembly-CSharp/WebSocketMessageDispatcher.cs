@@ -75,33 +75,11 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 	{
 		if (messageDelegate == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageDispatcher.RegisterMessageDelegateInternal(Action<TMessage>, int, MethodInfo)).MethodHandle;
-			}
 			throw new ArgumentNullException("MessageDelegate");
 		}
 		Type type = messageDelegate.Target.GetType();
 		if (!typeof(TSession).IsAssignableFrom(type))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new ArgumentException("This version of RegisterMessageDelegate can only be used to bind to methods on session objects");
 		}
 		Action<TSession, TMessage> messageDelegate2 = (Action<TSession, TMessage>)Delegate.CreateDelegate(typeof(Action<TSession, TMessage>), messageDelegate.Method);
@@ -112,43 +90,12 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 	{
 		if (messageDelegate == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageDispatcher.RegisterMessageDelegateInternal(TSession, Action<TSession, TMessage>, int, MethodInfo)).MethodHandle;
-			}
 			throw new ArgumentNullException("MessageDelegate");
 		}
 		if (responseId == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.AllowNewMessageDelegates)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new Exception("Cannot add new message delegates");
 			}
 		}
@@ -170,26 +117,8 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			};
 			if (responseId != 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (messageTypeHandler.ResponseMessageHandlers == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					messageTypeHandler.ResponseMessageHandlers = new Dictionary<int, WebSocketMessageDispatcher<TSession>.MessageHandler>();
 				}
 				messageTypeHandler.ResponseMessageHandlers.Add(responseId, messageHandler);
@@ -198,15 +127,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			{
 				if (messageTypeHandler.MessageHandlers == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					messageTypeHandler.MessageHandlers = new List<WebSocketMessageDispatcher<TSession>.MessageHandler>();
 				}
 				messageTypeHandler.MessageHandlers.Add(messageHandler);
@@ -222,36 +142,10 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			WebSocketMessageDispatcher<TSession>.MessageTypeHandler messageTypeHandler = this.SetupMessageType<TMessage>();
 			if (messageTypeHandler.MessageHandlers != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageDispatcher.UnregisterMessageDelegateInternal(MethodInfo, object, TSession)).MethodHandle;
-				}
 				messageTypeHandler.MessageHandlers.RemoveAll(delegate(WebSocketMessageDispatcher<TSession>.MessageHandler m)
 				{
 					if (m.MethodInfo == method)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(WebSocketMessageDispatcher.<UnregisterMessageDelegateInternal>c__AnonStorey1.<>m__0(WebSocketMessageDispatcher<TSession>.MessageHandler)).MethodHandle;
-						}
 						if (m.Target == target)
 						{
 							return m.Session == session;
@@ -271,19 +165,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			WebSocketMessageDispatcher<TSession>.MessageTypeHandler messageTypeHandler = this.SetupMessageType<TMessage>();
 			if (messageTypeHandler.ResponseMessageHandlers != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageDispatcher.UnregisterMessageDelegateInternal(int, TSession)).MethodHandle;
-				}
 				messageTypeHandler.ResponseMessageHandlers.Remove(responseId);
 			}
 		}
@@ -299,19 +180,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			WebSocketMessageDispatcher<TSession>.MessageTypeHandler messageTypeHandler;
 			if (!this.m_messageTypeHandlers.TryGetValue(typeFromHandle, out messageTypeHandler))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageDispatcher.SetupMessageType()).MethodHandle;
-				}
 				messageTypeHandler = new WebSocketMessageDispatcher<TSession>.MessageTypeHandler();
 				messageTypeHandler.MessageType = typeof(TMessage);
 				this.m_messageTypeHandlers.Add(typeFromHandle, messageTypeHandler);
@@ -325,19 +193,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 	{
 		if (this.SynchronizationContext != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageDispatcher.Invoke(WebSocketMessageDispatcher<TSession>.WebSocketEnvelope)).MethodHandle;
-			}
 			this.SynchronizationContext.Post(new SendOrPostCallback(this.InvokeAsync), envelope, envelope.Handler.MethodInfo);
 		}
 		else
@@ -361,19 +216,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			WebSocketMessageDispatcher<TSession>.MessageTypeHandler messageTypeHandler;
 			if (!this.m_messageTypeHandlers.TryGetValue(message.GetType(), out messageTypeHandler))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageDispatcher.HandleMessage(TSession, WebSocketMessage)).MethodHandle;
-				}
 				Log.Warning("Received a message of type '{0}', but no registered type handler found", new object[]
 				{
 					message.GetType()
@@ -381,26 +223,8 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			}
 			else if (message.ResponseId == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!messageTypeHandler.MessageHandlers.IsNullOrEmpty<WebSocketMessageDispatcher<TSession>.MessageHandler>())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<WebSocketMessageDispatcher<TSession>.MessageHandler>.Enumerator enumerator = messageTypeHandler.MessageHandlers.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -408,26 +232,8 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 							WebSocketMessageDispatcher<TSession>.MessageHandler messageHandler = enumerator.Current;
 							if (messageHandler.Session != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (messageHandler.Session != session)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									continue;
 								}
 							}
@@ -438,15 +244,6 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 								Handler = messageHandler
 							};
 							this.Invoke(envelope);
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -460,38 +257,11 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 			}
 			else if (message.ResponseId != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (messageTypeHandler.ResponseMessageHandlers != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					WebSocketMessageDispatcher<TSession>.MessageHandler handler;
 					if (messageTypeHandler.ResponseMessageHandlers.TryGetValue(message.ResponseId, out handler))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						WebSocketMessageDispatcher<TSession>.WebSocketEnvelope envelope2 = new WebSocketMessageDispatcher<TSession>.WebSocketEnvelope
 						{
 							Message = message,

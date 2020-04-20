@@ -6,30 +6,8 @@ public static class GameResultExtensions
 	{
 		if (value != GameResult.TieGame)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResult.IsCompletedResult()).MethodHandle;
-			}
 			if (value != GameResult.TeamAWon)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return value == GameResult.TeamBWon;
 			}
 		}
@@ -40,96 +18,20 @@ public static class GameResultExtensions
 	{
 		if (gameResult != GameResult.ClientConnectionFailedToLobbyServer)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResult.IsConnectionErrorResult()).MethodHandle;
-			}
 			if (gameResult != GameResult.ClientConnectionFailedToGameServer)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameResult != GameResult.ClientNetworkErrorToLobbyServer && gameResult != GameResult.ClientNetworkErrorToGameServer)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameResult != GameResult.ClientHeartbeatTimeoutToLobbyServer)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameResult != GameResult.ClientHeartbeatTimeoutToGameServer)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameResult != GameResult.ClientLoginFailedToLobbyServer && gameResult != GameResult.ClientLoginFailedToGameServer)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameResult != GameResult.LobbyServerNetworkErrorToClient)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gameResult != GameResult.LobbyServerHeartbeatTimeoutToClient && gameResult != GameResult.GameServerNetworkErrorToClient)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										return gameResult == GameResult.GameServerHeartbeatTimeoutToClient;
 									}
 								}
@@ -183,31 +85,9 @@ public static class GameResultExtensions
 		GameResult result = GameResult.NoResult;
 		if (gameResultString.EqualsIgnoreCase("win"))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultExtensions.Parse(string, Team)).MethodHandle;
-			}
 			GameResult gameResult;
 			if (selfTeam == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameResult = GameResult.TeamAWon;
 			}
 			else
@@ -221,15 +101,6 @@ public static class GameResultExtensions
 			GameResult gameResult2;
 			if (selfTeam == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameResult2 = GameResult.TeamBWon;
 			}
 			else

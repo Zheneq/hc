@@ -148,32 +148,10 @@ public class UILootMatrixScreen : UIScene
 		this.m_lockboxButtons.Add(uiinventoryItem);
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.Start()).MethodHandle;
-			}
 			this.InventoryComponentUpdated(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent);
 		}
 		if (this.m_lockboxButtons.Count > 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SelectLockbox(this.m_lockboxButtons[1].GetItemTemplate(), false);
 		}
 		ClientGameManager.Get().OnInventoryComponentUpdated += this.InventoryComponentUpdated;
@@ -183,19 +161,6 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnInventoryComponentUpdated -= this.InventoryComponentUpdated;
 		}
 	}
@@ -212,19 +177,6 @@ public class UILootMatrixScreen : UIScene
 		{
 			if (dictionary.ContainsKey(component.Items[i].TemplateId))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.UpdateLockBoxCount(InventoryComponent)).MethodHandle;
-				}
 				Dictionary<int, int> dictionary2;
 				int templateId;
 				(dictionary2 = dictionary)[templateId = component.Items[i].TemplateId] = dictionary2[templateId] + component.Items[i].Count;
@@ -234,15 +186,6 @@ public class UILootMatrixScreen : UIScene
 				dictionary[component.Items[i].TemplateId] = component.Items[i].Count;
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!dictionary.ContainsKey(0x203))
 		{
 			dictionary[0x203] = 0;
@@ -251,15 +194,6 @@ public class UILootMatrixScreen : UIScene
 		{
 			if (dictionary.ContainsKey(this.m_lockboxButtons[j].GetTemplateId()))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lockboxButtons[j].UpdateItemCount(dictionary[this.m_lockboxButtons[j].GetTemplateId()], false, true, false);
 				dictionary.Remove(this.m_lockboxButtons[j].GetTemplateId());
 			}
@@ -268,15 +202,6 @@ public class UILootMatrixScreen : UIScene
 				UnityEngine.Object.Destroy(this.m_lockboxButtons[j].gameObject);
 				this.m_lockboxButtons.RemoveAt(j);
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		using (Dictionary<int, int>.Enumerator enumerator = dictionary.GetEnumerator())
 		{
@@ -296,28 +221,10 @@ public class UILootMatrixScreen : UIScene
 					this.m_lockboxButtons.Add(uiinventoryItem);
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.UpdateOpenButtonText();
 		if (this.m_template != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateNumberOfLockbox();
 		}
 	}
@@ -349,19 +256,6 @@ public class UILootMatrixScreen : UIScene
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(false);
 		if (this.m_chestAnimator != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.SetVisible(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_chestAnimator, false, null);
 		}
 		this.m_vfxOpenTime = -1f;
@@ -373,83 +267,29 @@ public class UILootMatrixScreen : UIScene
 		FrontEndCharacterSelectBackgroundScene.Get().m_lootMatrixModelStage.gameObject.SetActive(isVisible);
 		if (UICharacterSelectWorldObjects.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (isVisible)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectWorldObjects.Get().SetVisible(false);
 			}
 		}
 		if (isVisible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UINewUserFlowManager.OnLootMatrixScreenVisible();
 			UICharacterSelectWorldObjects.Get().PlayCameraAnimation("CamCloseupOUT");
 			if (this.m_isOpening)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.DoOpenChestAnimationEvent();
 			}
 			else
 			{
 				if (this.m_numBoxes == 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_template = null;
 				}
 				this.SelectLockbox(this.m_template, true);
 			}
 			if (AnnouncerSounds.GetAnnouncerSounds() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnnouncerSounds.GetAnnouncerSounds().InstantiateLootVOPrefabIfNeeded();
 			}
 		}
@@ -458,15 +298,6 @@ public class UILootMatrixScreen : UIScene
 			UILootMatrixPurchaseScreen.Get().SetVisible(false);
 			if (UIFrontEnd.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIFrontEnd.Get().m_playerPanel.HandlePendingTrustNotifications();
 			}
 		}
@@ -477,32 +308,10 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (this.m_isOpening)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.ClickLockbox(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		if ((data as PointerEventData).button == PointerEventData.InputButton.Left)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_moreInfoTooltip, false, null);
 			InventoryItemTemplate itemTemplate = (data as PointerEventData).pointerPress.transform.parent.gameObject.GetComponent<UIInventoryItem>().GetItemTemplate();
 			this.SelectLockbox(itemTemplate, false);
@@ -513,54 +322,14 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (template == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.SelectLockbox(InventoryItemTemplate, bool)).MethodHandle;
-			}
 			template = InventoryWideData.Get().GetItemTemplate(0x203);
 		}
 		if (!forceUpdate)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_template != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Index == this.m_template.Index)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 			}
@@ -574,15 +343,6 @@ public class UILootMatrixScreen : UIScene
 		FrontEndCharacterSelectBackgroundScene.Get().m_vfxOpenUncommon.SetActive(false);
 		if (this.m_chestAnimator != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_chestAnimator, false, null);
 		}
 		this.m_vfxOpenTime = -1f;
@@ -600,15 +360,6 @@ public class UILootMatrixScreen : UIScene
 		bool doActive;
 		if (template != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = (template.Index == 0x203);
 		}
 		else
@@ -620,15 +371,6 @@ public class UILootMatrixScreen : UIScene
 		this.m_template = template;
 		if (this.m_template.Type != InventoryItemType.Lockbox)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Concat(new object[]
 			{
 				"This is not a loot matrix. Template: ",
@@ -639,29 +381,11 @@ public class UILootMatrixScreen : UIScene
 		}
 		if (this.m_chestAnimator != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_chestAnimator.gameObject);
 		}
 		GameObject lockboxPrefab = InventoryWideData.Get().GetLockboxPrefab(this.m_template.Index);
 		if (lockboxPrefab == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception("Loot matrix " + this.m_template.Index + " does not have a prefab.");
 		}
 		GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(lockboxPrefab);
@@ -672,15 +396,6 @@ public class UILootMatrixScreen : UIScene
 		string text = this.m_template.GetDisplayName();
 		if (this.m_template.AssociatedCharacter != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = string.Format("<voffset=0.15em><size=30><sprite=\"CharacterSprites\" index={0}>​</size></voffset>{1}", (int)(CharacterType.BazookaGirl * this.m_template.AssociatedCharacter), text);
 		}
 		this.m_title.text = text;
@@ -690,30 +405,12 @@ public class UILootMatrixScreen : UIScene
 		{
 			if (this.m_lockboxButtons[i].GetTemplateId() == template.Index)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lockboxButtons[i].m_hitbox.selectableButton.SetSelected(true, false, string.Empty, string.Empty);
 			}
 			else
 			{
 				this.m_lockboxButtons[i].m_hitbox.selectableButton.SetSelected(false, false, string.Empty, string.Empty);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.UpdateNumberOfLockbox();
 		this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, this.m_item, this.m_template, this.m_boxIds, false);
@@ -748,19 +445,6 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (this.m_isOpening)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.OpenClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_numBoxes != 0)
@@ -809,19 +493,6 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (response.Result != ConsumeInventoryItemResult.Success)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.OpenChestResponse(ConsumeInventoryItemResponse)).MethodHandle;
-			}
 			this.m_isOpening = false;
 			Log.Info("IssueOpeningLootMatrix {0} result={1}", new object[]
 			{
@@ -847,26 +518,8 @@ public class UILootMatrixScreen : UIScene
 		{
 			if (this.m_item.Id == this.m_boxIds[i])
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_item.Count > 1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -874,15 +527,6 @@ public class UILootMatrixScreen : UIScene
 					{
 						this.m_boxIds.RemoveAt(i);
 						goto IL_183;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					this.m_boxIds.RemoveAt(i);
 				}
@@ -898,26 +542,8 @@ public class UILootMatrixScreen : UIScene
 						InventoryItemRarity rarity = inventoryItemWithData.Item.GetTemplate().Rarity;
 						if (rarity > inventoryItemRarity)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							inventoryItemRarity = rarity;
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				switch (inventoryItemRarity)
@@ -965,56 +591,16 @@ public class UILootMatrixScreen : UIScene
 			InventoryItemTemplate template = data.Item.GetTemplate();
 			if (template.Rarity == InventoryItemRarity.Legendary)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.DoOpenChestAnimationEvent()).MethodHandle;
-				}
 				gotLegendary = true;
 			}
 			if (template.Index == this.m_template.Index)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_numBoxes += data.Item.Count;
 				if (!this.m_boxIds.Exists((int x) => x == data.Item.Id))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_boxIds.Add(data.Item.Id);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, this.m_item, this.m_template, this.m_boxIds, gotLegendary);
 		string text = string.Empty;
@@ -1028,29 +614,11 @@ public class UILootMatrixScreen : UIScene
 			{
 				if (list[k].TemplateId == this.m_outputItems[j].Item.TemplateId)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list[k].Count += this.m_outputItems[j].Item.Count;
 					flag = true;
 					IL_1BD:
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(new InventoryItem(this.m_outputItems[j].Item, 0));
 					}
 					j++;
@@ -1067,29 +635,11 @@ public class UILootMatrixScreen : UIScene
 				goto IL_1BD;
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		foreach (InventoryItem inventoryItem in list)
 		{
 			text = text + Environment.NewLine + " - " + inventoryItem.GetTemplate().GetDisplayName();
 			if (inventoryItem.Count > 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text + " x" + inventoryItem.Count;
 			}
 		}
@@ -1100,41 +650,14 @@ public class UILootMatrixScreen : UIScene
 		}, null);
 		if (this.m_outputItems.Count == 1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_outputItems[0].Item.GetTemplate().Rarity.PlaySound();
 			this.m_singleRewardItem.Setup(this.m_outputItems[0].Item, this.m_outputItems[0].Item.GetTemplate(), this.m_outputItems[0].IsoGained > 0, this.m_outputItems[0].IsoGained);
 			UIManager.SetGameObjectActive(this.m_singleRewardItem, true, null);
 			if (this.m_outputItems[0].IsoGained <= 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType characterTypeOfItemTemplate = this.GetCharacterTypeOfItemTemplate(this.m_outputItems[0].Item.GetTemplate());
 				if (characterTypeOfItemTemplate != CharacterType.None && AnnouncerSounds.GetAnnouncerSounds() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AnnouncerSounds.GetAnnouncerSounds().PlayLootVOForCharacter(characterTypeOfItemTemplate);
 				}
 			}
@@ -1148,29 +671,11 @@ public class UILootMatrixScreen : UIScene
 			{
 				UIManager.SetGameObjectActive(this.m_accordionRewardRows[l], false, null);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Queue<UILockboxRewardItem> queue = new Queue<UILockboxRewardItem>();
 			if (this.m_outputItems.Count <= 3)
 			{
 				if (this.m_outputItems.Count == 3)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_outputItems[0].Item.GetTemplate().Rarity > this.m_outputItems[1].Item.GetTemplate().Rarity)
 					{
 						InventoryItemWithData value = this.m_outputItems[0];
@@ -1179,15 +684,6 @@ public class UILootMatrixScreen : UIScene
 					}
 					if (this.m_outputItems[2].Item.GetTemplate().Rarity > this.m_outputItems[1].Item.GetTemplate().Rarity)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						InventoryItemWithData value2 = this.m_outputItems[2];
 						this.m_outputItems[2] = this.m_outputItems[1];
 						this.m_outputItems[1] = value2;
@@ -1211,30 +707,12 @@ public class UILootMatrixScreen : UIScene
 						UIManager.SetGameObjectActive(componentsInChildren[m], false, null);
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (this.m_outputItems.Count > 0xA)
 				{
 					throw new Exception("More than 10 is not supported yet.");
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				this.m_startRowSpacing = -350f;
 				this.m_endRowSpacing = 0f;
@@ -1247,15 +725,6 @@ public class UILootMatrixScreen : UIScene
 				{
 					if (n < num)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(componentsInChildren2[n], true, null);
 						componentsInChildren2[n].SetSize(350f);
 						queue.Enqueue(componentsInChildren2[n]);
@@ -1265,30 +734,12 @@ public class UILootMatrixScreen : UIScene
 						UIManager.SetGameObjectActive(componentsInChildren2[n], false, null);
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_outputItems.Count / 2;
 				componentsInChildren2 = this.m_accordionRewardRows[1].GetComponentsInChildren<UILockboxRewardItem>(true);
 				for (int num2 = 0; num2 < componentsInChildren2.Length; num2++)
 				{
 					if (num2 < num)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(componentsInChildren2[num2], true, null);
 						componentsInChildren2[num2].SetSize(350f);
 						queue.Enqueue(componentsInChildren2[num2]);
@@ -1297,15 +748,6 @@ public class UILootMatrixScreen : UIScene
 					{
 						UIManager.SetGameObjectActive(componentsInChildren2[num2], false, null);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			InventoryItemRarity inventoryItemRarity = InventoryItemRarity.Common;
@@ -1320,54 +762,18 @@ public class UILootMatrixScreen : UIScene
 					uilockboxRewardItem.Setup(inventoryItemWithData.Item, inventoryItemWithData.Item.GetTemplate(), inventoryItemWithData.IsoGained > 0, inventoryItemWithData.IsoGained);
 					if (inventoryItemWithData.Item.GetTemplate().Rarity > inventoryItemRarity2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						inventoryItemRarity2 = inventoryItemWithData.Item.GetTemplate().Rarity;
 					}
 					if (inventoryItemWithData.IsoGained <= 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						InventoryItemTemplate template2 = inventoryItemWithData.Item.GetTemplate();
 						if (template2 != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (characterType != CharacterType.None)
 							{
 								if (template2.Rarity <= inventoryItemRarity)
 								{
 									continue;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							CharacterType characterTypeOfItemTemplate2 = this.GetCharacterTypeOfItemTemplate(template2);
@@ -1379,39 +785,12 @@ public class UILootMatrixScreen : UIScene
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			inventoryItemRarity2.PlaySound();
 			if (characterType != CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AnnouncerSounds.GetAnnouncerSounds() != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AnnouncerSounds.GetAnnouncerSounds().PlayLootVOForCharacter(characterType);
 				}
 			}
@@ -1420,15 +799,6 @@ public class UILootMatrixScreen : UIScene
 			{
 				this.m_accordionRewardRows[num3].spacing = this.m_startColSpacing;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -1436,53 +806,13 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (template != null && template.TypeSpecificData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.GetCharacterTypeOfItemTemplate(InventoryItemTemplate)).MethodHandle;
-			}
 			if (template.TypeSpecificData.Length > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (template.Type != InventoryItemType.Skin && template.Type != InventoryItemType.Style)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (template.Type != InventoryItemType.Taunt)
 					{
 						return CharacterType.None;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				return (CharacterType)template.TypeSpecificData[0];
@@ -1504,30 +834,8 @@ public class UILootMatrixScreen : UIScene
 		bool flag = false;
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.UpdateOpenButtonText()).MethodHandle;
-			}
 			if (!clientGameManager.HasPurchasedGame)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				InventoryComponent inventoryComponent = clientGameManager.GetPlayerAccountData().InventoryComponent;
 				TimeSpan t = new TimeSpan(0, 0, GameBalanceVars.Get().NumSecsToOpenLootMatrix);
 				TimeSpan t2 = clientGameManager.UtcNow().Subtract(inventoryComponent.LastLockboxOpenTime);
@@ -1537,26 +845,8 @@ public class UILootMatrixScreen : UIScene
 		bool flag2;
 		if (!this.m_isOpening)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_isLoading)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = flag;
 				goto IL_A9;
 			}
@@ -1567,38 +857,11 @@ public class UILootMatrixScreen : UIScene
 		string text = string.Format(StringUtil.TR("OpenNumber", "Global"), this.m_numBoxes);
 		if (this.m_numBoxes == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_moreBoxesAvailable = false;
 			if (this.m_template != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_template.Index != 0x203)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = StringUtil.TR("Next", "Global");
 					this.m_moreBoxesAvailable = true;
 					goto IL_1CE;
@@ -1606,57 +869,21 @@ public class UILootMatrixScreen : UIScene
 			}
 			if (clientGameManager != null && clientGameManager.IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<InventoryItem> items = clientGameManager.GetPlayerAccountData().InventoryComponent.Items;
 				for (int i = 0; i < items.Count; i++)
 				{
 					if (items[i].GetTemplate().Type == InventoryItemType.Lockbox)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = StringUtil.TR("Next", "Global");
 						this.m_moreBoxesAvailable = true;
 						goto IL_1CE;
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			IL_1CE:
 			bool flag4;
 			if (!flag3)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = !this.m_moreBoxesAvailable;
 			}
 			else
@@ -1673,15 +900,6 @@ public class UILootMatrixScreen : UIScene
 			this.m_openLabels[j].CalculateLayoutInputHorizontal();
 			if (this.m_openLabels[j].GetPreferredValues().x > num)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_openLabels[j].GetPreferredValues().x;
 			}
 		}
@@ -1693,49 +911,15 @@ public class UILootMatrixScreen : UIScene
 	{
 		if (!this.IsVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixScreen.Update()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_throwBoxException)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_throwBoxException = false;
 			string separator = ", ";
 			IEnumerable<int> boxIds = this.m_boxIds;
-			if (UILootMatrixScreen.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UILootMatrixScreen.<>f__am$cache1 = ((int x) => x.ToString());
-			}
-			string text = string.Join(separator, boxIds.Select(UILootMatrixScreen.<>f__am$cache1).ToArray<string>());
+			
+			string text = string.Join(separator, boxIds.Select(((int x) => x.ToString())).ToArray<string>());
 			throw new Exception(string.Format("IssueOpeningLootMatrix {0} result={1}\nBoxIds:{2}\nInventory: {3}", new object[]
 			{
 				this.m_boxIds[0],
@@ -1746,37 +930,10 @@ public class UILootMatrixScreen : UIScene
 		}
 		if (this.m_vfxOpenTime > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!FrontEndCharacterSelectBackgroundScene.Get().m_vfxSpawnIn.activeSelf)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Time.time > this.m_vfxOpenTime)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.LockboxAppear);
 					FrontEndCharacterSelectBackgroundScene.Get().m_vfxSpawnIn.SetActive(true);
 					this.m_vfxOpenTime = -1f;
@@ -1786,50 +943,14 @@ public class UILootMatrixScreen : UIScene
 		}
 		if (this.m_lockboxSpawnTime > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (FrontEndCharacterSelectBackgroundScene.Get().m_vfxSpawnIn.activeSelf)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Time.time > this.m_lockboxSpawnTime)
 				{
 					if (this.m_numBoxes > 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_template.Index == 0x203)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UINewUserFlowManager.OnMainLootMatrixDisplayed();
 						}
 						else
@@ -1847,15 +968,6 @@ public class UILootMatrixScreen : UIScene
 		{
 			if (this.m_accordionRewardCanvasGroup.alpha < 1f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_accordionRewardCanvasGroup.alpha += Time.smoothDeltaTime;
 			}
 			if (this.m_accordionRewardGroup.spacing < this.m_endRowSpacing)
@@ -1863,15 +975,6 @@ public class UILootMatrixScreen : UIScene
 				this.m_accordionRewardGroup.spacing += (this.m_endRowSpacing - this.m_startRowSpacing) * Time.smoothDeltaTime;
 				if (this.m_accordionRewardGroup.spacing > this.m_endRowSpacing)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_accordionRewardGroup.spacing = this.m_endRowSpacing;
 				}
 			}
@@ -1879,88 +982,25 @@ public class UILootMatrixScreen : UIScene
 			{
 				if (this.m_accordionRewardRows[i].spacing < this.m_endColSpacing)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_accordionRewardRows[i].spacing += (this.m_endColSpacing - this.m_startColSpacing) * Time.smoothDeltaTime;
 					if (this.m_accordionRewardRows[i].spacing > this.m_endColSpacing)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_accordionRewardRows[i].spacing = this.m_endColSpacing;
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_accordionRewardGroup.spacing >= this.m_endRowSpacing)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_accordionRewardRows[0].spacing >= this.m_endColSpacing)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.FinishRewardAnimation();
 				}
 			}
 		}
 		if (this.m_isLoading)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_chestAnimator.isInitialized)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_isLoading = false;
 				_SelectableBtn selectableButton = this.m_openBtn.selectableButton;
 				bool disabled;
@@ -1968,15 +1008,6 @@ public class UILootMatrixScreen : UIScene
 				{
 					if (this.m_numBoxes <= 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						disabled = (this.m_lockboxButtons.Count <= 1);
 					}
 					else

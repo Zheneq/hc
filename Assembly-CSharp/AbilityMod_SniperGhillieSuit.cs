@@ -25,43 +25,12 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 		SniperGhillieSuit sniperGhillieSuit = targetAbility as SniperGhillieSuit;
 		if (sniperGhillieSuit != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperGhillieSuit.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			if (this.m_healingOnSelf > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_IntDiff(tokens, "HealOnSelf", string.Empty, this.m_healingOnSelf, false, 0);
 			}
 			if (this.m_useStealthEffectDataOverride)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_stealthEffectDataOverride != null)
 				{
 					this.m_stealthEffectDataOverride.AddTooltipTokens(tokens, "EffectOnSelf", true, sniperGhillieSuit.m_standardActorEffectData);
@@ -78,19 +47,6 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 		string text = string.Empty;
 		if (this.m_healingOnSelf > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperGhillieSuit.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -102,15 +58,6 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 		}
 		if (this.m_useStealthEffectDataOverride)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str = text;
 			StandardActorEffectData stealthEffectDataOverride = this.m_stealthEffectDataOverride;
 			string prefix = "{ Stealth Effect Data Override }";
@@ -119,15 +66,6 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 			StandardActorEffectData baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = sniperGhillieSuit.m_standardActorEffectData;
 			}
 			else

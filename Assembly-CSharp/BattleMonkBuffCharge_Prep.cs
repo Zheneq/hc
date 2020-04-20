@@ -60,19 +60,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 						AbilityTooltipNumber item = enumerator.Current;
 						list.Add(item);
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.CalculateAbilityTooltipNumbers()).MethodHandle;
-					}
 				}
 			}
 		}
@@ -83,31 +70,9 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (this.m_chainAbilities.Length > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.Start()).MethodHandle;
-			}
 			Ability ability = this.m_chainAbilities[0];
 			if (ability is BattleMonkBuffCharge_Dash)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_dashAbility = (ability as BattleMonkBuffCharge_Dash);
 			}
 		}
@@ -118,42 +83,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (this.m_dashAbility == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.SetupTargeter()).MethodHandle;
-			}
 			if (this.m_chainAbilities.Length > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability ability = this.m_chainAbilities[0];
 				if (ability is BattleMonkBuffCharge_Dash)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_dashAbility = (ability as BattleMonkBuffCharge_Dash);
 				}
 			}
@@ -164,15 +98,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		StandardEffectInfo selfBuffEffect = this.GetSelfBuffEffect();
 		if (selfBuffEffect.m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_cachedAbsorbOnSelf = selfBuffEffect.m_effectData.m_absorbAmount;
 		}
 		StandardEffectInfo selfBuffEffect2 = this.GetSelfBuffEffect();
@@ -196,19 +121,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (this.GetRequireHitAlly())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), this.GetAllySelectRadius(), this.m_buffAoePenetratesLoS, caster, caster.GetTeam(), null, false, default(Vector3));
 			actorsInRadius.Remove(caster);
 			if (NetworkClient.active)
@@ -226,33 +138,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null) && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 			{
 				bool result = false;
 				if (this.GetRequireHitAlly())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetTravelBoardSquareWorldPosition(), this.GetAllySelectRadius(), this.m_buffAoePenetratesLoS, caster, caster.GetTeam(), null, false, default(Vector3));
 					actorsInRadius.Remove(caster);
 					for (int i = 0; i < actorsInRadius.Count; i++)
@@ -261,15 +151,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 						bool flag;
 						if (NetworkClient.active)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = actorData.IsVisibleToClient();
 						}
 						else
@@ -279,51 +160,15 @@ public class BattleMonkBuffCharge_Prep : Ability
 						bool flag2 = flag;
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
 							if (currentBoardSquare != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (AreaEffectUtils.IsSquareInShape(boardSquareSafe, this.m_buffAlliesShape, currentBoardSquare.ToVector3(), currentBoardSquare, this.m_buffAoePenetratesLoS, caster))
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return true;
 								}
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				else
@@ -331,15 +176,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 					result = true;
 				}
 				return result;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -353,32 +189,10 @@ public class BattleMonkBuffCharge_Prep : Ability
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.GetModdedDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Absorb] = this.GetModdedAbsorbOnSelf();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
@@ -395,46 +209,15 @@ public class BattleMonkBuffCharge_Prep : Ability
 		AbilityMod_BattleMonkBuffCharge_Prep abilityMod_BattleMonkBuffCharge_Prep = modAsBase as AbilityMod_BattleMonkBuffCharge_Prep;
 		if (this.m_chainAbilities.Length > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			Ability ability = this.m_chainAbilities[0];
 			if (ability is BattleMonkBuffCharge_Dash)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = ability as BattleMonkBuffCharge_Dash;
 				string name = "Damage";
 				string empty = string.Empty;
 				int val;
 				if (abilityMod_BattleMonkBuffCharge_Prep)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					val = abilityMod_BattleMonkBuffCharge_Prep.m_damageMod.GetModifiedValue(battleMonkBuffCharge_Dash.m_damage);
 				}
 				else
@@ -445,15 +228,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 				StandardEffectInfo effectInfo;
 				if (abilityMod_BattleMonkBuffCharge_Prep)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectInfo = abilityMod_BattleMonkBuffCharge_Prep.m_selfEffectOverride.GetModifiedValue(this.m_selfBuff);
 				}
 				else
@@ -464,15 +238,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 				StandardEffectInfo effectInfo2;
 				if (abilityMod_BattleMonkBuffCharge_Prep)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectInfo2 = abilityMod_BattleMonkBuffCharge_Prep.m_allyEffectOverride.GetModifiedValue(this.m_allyBuff);
 				}
 				else
@@ -488,19 +253,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BattleMonkBuffCharge_Prep))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_BattleMonkBuffCharge_Prep);
 			this.SetupTargeter();
 		}
@@ -526,19 +278,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.GetRequireHitAlly()).MethodHandle;
-			}
 			result = this.m_mustHitAllies;
 		}
 		else
@@ -558,19 +297,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		bool result;
 		if (this.m_dashAbility == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.GetDamageAoePenetrateLos()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -585,19 +311,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.GetSelfBuffEffect()).MethodHandle;
-			}
 			result = this.m_selfBuff;
 		}
 		else
@@ -612,19 +325,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.GetAllyBuffEffect()).MethodHandle;
-			}
 			result = this.m_allyBuff;
 		}
 		else
@@ -639,19 +339,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.ShouldRemoveAllNegativeStatusFromAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_removeAllNegativeStatusFromAllies;
 		}
 		else
@@ -680,19 +367,6 @@ public class BattleMonkBuffCharge_Prep : Ability
 		}
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.GetEnemyHitShape()).MethodHandle;
-			}
 			abilityAreaShape = this.m_abilityMod.m_enemyShapeMod.GetModifiedValue(abilityAreaShape);
 		}
 		return abilityAreaShape;
@@ -703,33 +377,11 @@ public class BattleMonkBuffCharge_Prep : Ability
 		int num = 0;
 		if (this.m_dashAbility != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBuffCharge_Prep.GetModdedDamage()).MethodHandle;
-			}
 			num = this.m_dashAbility.m_damage;
 		}
 		int result = num;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_abilityMod.m_damageMod.GetModifiedValue(num);
 		}
 		return result;

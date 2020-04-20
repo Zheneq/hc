@@ -30,19 +30,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		bool result;
 		if (this.m_droneActive)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.DroneIsActive()).MethodHandle;
-			}
 			result = (boardSquare != null);
 		}
 		else
@@ -83,19 +70,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.UpdateDroneBoardPos(int, int)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::UpdateDroneBoardPos(System.Int32,System.Int32)' called on client");
 			return;
 		}
@@ -108,33 +82,11 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.AddTrackedActorByIndex(int)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void TrackerDroneTrackerComponent::AddTrackedActorByIndex(System.Int32)' called on client");
 			return;
 		}
 		if (!this.m_trackedActorIndex.Contains(actorIndex))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_trackedActorIndex.Add(actorIndex);
 		}
 	}
@@ -154,19 +106,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 		if (GameFlowData.Get().IsInDecisionState())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.Update()).MethodHandle;
-			}
 			this.SanityCheckTrackerDroneState();
 		}
 	}
@@ -181,80 +120,22 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		PersistentSatellite satellite = component.GetSatellite(0);
 		if (satellite == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.SanityCheckTrackerDroneState()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_droneActive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!satellite.IsVisible())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				satellite.OverrideVisibility(true);
 			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(satellite.transform);
 			if (!(boardSquare == null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.x == this.BoardX())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare.y == this.BoardY())
 					{
 						goto IL_127;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -332,19 +213,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.Write(this.m_droneActive);
 			writer.WritePackedUInt32((uint)this.m_boardX);
 			writer.WritePackedUInt32((uint)this.m_boardY);
@@ -354,26 +222,8 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -383,15 +233,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -410,15 +251,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -426,15 +258,6 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -453,45 +276,14 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDroneTrackerComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_droneActive = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_boardX = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_boardY = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)

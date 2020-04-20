@@ -29,19 +29,6 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 		float knockbackDistanceMax = this.m_knockbackDistanceMax;
 		if (num < knockbackDistanceMin)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackLaser.GetKnockbackDist(AbilityTarget, Vector3, Vector3)).MethodHandle;
-			}
 			return knockbackDistanceMin;
 		}
 		if (num > knockbackDistanceMax)
@@ -66,44 +53,13 @@ public class AbilityUtil_Targeter_KnockbackLaser : AbilityUtil_Targeter_Laser
 				ActorData actorData = enumerator.Current;
 				if (actorData.GetTeam() != targetingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_KnockbackLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-					}
 					BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, travelBoardSquareWorldPosition, knockbackDist);
 					if (boardSquarePathInfo.FindMoveCostToEnd() < 0.5f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, travelBoardSquareWorldPosition, targetingActor, AbilityTooltipSubject.HighHP, true);
 					}
 					num = base.AddMovementArrowWithPrevious(actorData, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		base.SetMovementArrowEnabledFromIndex(num, false);

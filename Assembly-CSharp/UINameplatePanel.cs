@@ -54,19 +54,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplates.ContainsKey(actorData))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.UpdateBriefcaseThreshold(ActorData, float)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[actorData];
 			uinameplateItem.UpdateBriefcaseThreshold(percent);
 		}
@@ -82,19 +69,6 @@ public class UINameplatePanel : MonoBehaviour
 				UINameplateItem value = keyValuePair.Value;
 				value.ForceFinishStatusAnims();
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.RefreshNameplates()).MethodHandle;
-			}
 		}
 	}
 
@@ -102,19 +76,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplateTextVisible != visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.SetTextVisible(bool)).MethodHandle;
-			}
 			this.m_nameplateTextVisible = visible;
 			foreach (KeyValuePair<ActorData, UINameplateItem> keyValuePair in this.m_nameplates)
 			{
@@ -138,19 +99,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplateCombatTextvisible && this.m_nameplates.ContainsKey(actorData))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.PlayCombatText(ActorData, string, CombatTextCategory, BuffIconToDisplay)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[actorData];
 			uinameplateItem.PlayCombatText(actorData, text, category, icon);
 		}
@@ -167,19 +115,6 @@ public class UINameplatePanel : MonoBehaviour
 				UINameplateItem value = keyValuePair.Value;
 				value.SetDebugText("State: " + key.GetActorTurnSM().CurrentState.ToString());
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.SetDebugNameplateTextValues()).MethodHandle;
-			}
 		}
 	}
 
@@ -187,30 +122,8 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.Update()).MethodHandle;
-			}
 			if (DebugParameters.Get().GetParameterAsBool("DebugNameplates"))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetDebugNameplateTextValues();
 			}
 		}
@@ -226,19 +139,6 @@ public class UINameplatePanel : MonoBehaviour
 		uinameplateItem.transform.localScale = new Vector3(1f, 1f, 1f);
 		if (uinameplateItem.transform as RectTransform != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.AddActor(ActorData)).MethodHandle;
-			}
 			(uinameplateItem.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
 		}
 		UIManager.SetGameObjectActive(uinameplateItem.m_parentTransform, false, null);
@@ -250,30 +150,8 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (theActor != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.NotifyFlagStatusChange(ActorData, bool)).MethodHandle;
-			}
 			if (this.m_nameplates.ContainsKey(theActor))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UINameplateItem uinameplateItem = this.m_nameplates[theActor];
 				uinameplateItem.NotifyFlagStatusChange(holdingFlag);
 			}
@@ -284,31 +162,9 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplates.ContainsKey(theActor))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.NotifyStatusChange(ActorData, StatusType, bool)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[theActor];
 			if (gainedStatus)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uinameplateItem.AddStatus(status);
 			}
 			else
@@ -331,19 +187,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplates.ContainsKey(theActor))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.UpdateCatalysts(ActorData, List<Ability>)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[theActor];
 			uinameplateItem.UpdateCatalysts(cardAbilities);
 		}
@@ -353,19 +196,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplates.ContainsKey(theActor))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.NotifyStatusDurationChange(ActorData, StatusType, int)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[theActor];
 			uinameplateItem.UpdateStatusDuration(status, newDuration);
 		}
@@ -375,19 +205,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplates.ContainsKey(targetingActor))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.UpdateTargetingAbilityIndicator(ActorData, Ability, AbilityData.ActionType, int)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[targetingActor];
 			uinameplateItem.UpdateTargetingAbilityIndicator(ability, action, index);
 		}
@@ -433,19 +250,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplates.ContainsKey(theTargeted))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.UpdateNameplateUntargeted(ActorData, bool)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[theTargeted];
 			uinameplateItem.UpdateNameplateUntargeted(doInstantHide);
 		}
@@ -455,19 +259,6 @@ public class UINameplatePanel : MonoBehaviour
 	{
 		if (this.m_nameplates.ContainsKey(actorData))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.RemoveActor(ActorData)).MethodHandle;
-			}
 			UINameplateItem uinameplateItem = this.m_nameplates[actorData];
 			this.m_nameplates.Remove(actorData);
 			if (uinameplateItem != null)
@@ -484,19 +275,6 @@ public class UINameplatePanel : MonoBehaviour
 			Transform child = base.transform.GetChild(i);
 			UnityEngine.Object.Destroy(child.gameObject);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.Clear()).MethodHandle;
-		}
 		this.m_nameplates.Clear();
 	}
 
@@ -508,19 +286,6 @@ public class UINameplatePanel : MonoBehaviour
 		bool flag = false;
 		if (orderedEnumerable.Count<KeyValuePair<ActorData, UINameplateItem>>() != this.m_sortedActorIndexNameplates.Count<int>())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINameplatePanel.SortNameplates()).MethodHandle;
-			}
 			flag = true;
 		}
 		else
@@ -529,15 +294,6 @@ public class UINameplatePanel : MonoBehaviour
 			IEnumerator<KeyValuePair<ActorData, UINameplateItem>> enumerator2 = orderedEnumerable.GetEnumerator();
 			while (enumerator.MoveNext())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!enumerator2.MoveNext())
 				{
 					for (;;)
@@ -566,15 +322,6 @@ public class UINameplatePanel : MonoBehaviour
 		IL_C4:
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_sortedActorIndexNameplates.Clear();
 			IEnumerator<KeyValuePair<ActorData, UINameplateItem>> enumerator3 = orderedEnumerable.GetEnumerator();
 			try
@@ -595,15 +342,6 @@ public class UINameplatePanel : MonoBehaviour
 			{
 				if (enumerator3 != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator3.Dispose();
 				}
 			}

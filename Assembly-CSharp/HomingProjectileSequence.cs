@@ -55,32 +55,10 @@ public class HomingProjectileSequence : Sequence
 		GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
 		if (referenceModel != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HomingProjectileSequence.FinishSetup()).MethodHandle;
-			}
 			this.m_fxCasterJoint.Initialize(referenceModel);
 		}
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.FireAtTarget();
 		}
 	}
@@ -112,19 +90,6 @@ public class HomingProjectileSequence : Sequence
 	{
 		if (this.m_hitFxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HomingProjectileSequence.SpawnHitFx()).MethodHandle;
-			}
 			GameObject hitFx = base.InstantiateFX(this.m_hitFxPrefab, this.m_joint.m_jointObject.transform.position, Quaternion.identity, true, true);
 			this.m_hitFx = hitFx;
 			if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
@@ -143,52 +108,12 @@ public class HomingProjectileSequence : Sequence
 	{
 		if (this.m_fx != null && this.m_fx.transform != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HomingProjectileSequence.UpdateShot()).MethodHandle;
-			}
 			if (this.m_joint != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_joint.m_jointObject != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_joint.m_jointObject.transform != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 position = this.m_fx.transform.position;
 						Vector3 forward = this.m_fx.transform.forward;
 						this.m_curTurnSpeed += this.m_projectileTurnAcceleration * GameTime.deltaTime;
@@ -201,26 +126,8 @@ public class HomingProjectileSequence : Sequence
 						bool flag;
 						if (magnitude > 0.5f)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Vector3.Dot(lhs, vector) <= 0f)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = (magnitude < 2f);
 							}
 							else
@@ -235,15 +142,6 @@ public class HomingProjectileSequence : Sequence
 						bool flag2 = flag;
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.SpawnHitFx();
 							UnityEngine.Object.Destroy(this.m_fx);
 						}

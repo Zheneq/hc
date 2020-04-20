@@ -74,19 +74,6 @@ public class NekoFanOfDiscs : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Fan of Discs";
 		}
 		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
@@ -119,41 +106,10 @@ public class NekoFanOfDiscs : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetModdedCost()).MethodHandle;
-			}
 			if (this.GetZeroEnergyRequiredTurns() > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp.m_numUltConsecUsedTurns >= this.GetZeroEnergyRequiredTurns())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return 0;
 				}
 			}
@@ -166,19 +122,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo cachedDirectEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.SetCachedFields()).MethodHandle;
-			}
 			cachedDirectEnemyHitEffect = this.m_abilityMod.m_directEnemyHitEffectMod.GetModifiedValue(this.m_directEnemyHitEffect);
 		}
 		else
@@ -189,15 +132,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo cachedEffectOnSelfIfMissOnCast;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelfIfMissOnCast = this.m_abilityMod.m_effectOnSelfIfMissOnCastMod.GetModifiedValue(this.m_effectOnSelfIfMissOnCast);
 		}
 		else
@@ -208,15 +142,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo cachedEffectOnSelfIfMissOnDiscReturn;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelfIfMissOnDiscReturn = this.m_abilityMod.m_effectOnSelfIfMissOnDiscReturnMod.GetModifiedValue(this.m_effectOnSelfIfMissOnDiscReturn);
 		}
 		else
@@ -231,19 +156,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetNumDiscs()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_numDiscsMod.GetModifiedValue(this.m_numDiscs);
 		}
 		else
@@ -258,19 +170,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetMinAngleForLaserFan()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minAngleForLaserFanMod.GetModifiedValue(this.m_minAngleForLaserFan);
 		}
 		else
@@ -285,19 +184,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetMaxAngleForLaserFan()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_totalAngleForLaserFanMod.GetModifiedValue(this.m_totalAngleForLaserFan);
 		}
 		else
@@ -312,19 +198,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetAngleInterpMinDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_angleInterpMinDistMod.GetModifiedValue(this.m_angleInterpMinDist);
 		}
 		else
@@ -339,19 +212,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetAngleInterpMaxDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_angleInterpMaxDistMod.GetModifiedValue(this.m_angleInterpMaxDist);
 		}
 		else
@@ -376,19 +236,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetAoeRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(this.m_aoeRadiusAtEnd);
 		}
 		else
@@ -408,19 +255,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetInterpStepInSquares()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_interpStepInSquaresMod.GetModifiedValue(this.m_interpStepInSquares);
 		}
 		else
@@ -435,19 +269,6 @@ public class NekoFanOfDiscs : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetDiscReturnEndRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(this.m_discReturnEndRadius);
 		}
 		else
@@ -462,19 +283,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetDirectDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_directDamageMod.GetModifiedValue(this.m_directDamage);
 		}
 		else
@@ -494,19 +302,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedDirectEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetDirectEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedDirectEnemyHitEffect;
 		}
 		else
@@ -526,19 +321,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetReturnTripSubsequentHitDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_returnTripSubsequentHitDamageMod.GetModifiedValue(this.m_returnTripSubsequentHitDamage);
 		}
 		else
@@ -558,19 +340,6 @@ public class NekoFanOfDiscs : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetReturnTripEnergyOnCasterPerDiscMiss()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_returnTripEnergyOnCasterPerDiscMissMod.GetModifiedValue(this.m_returnTripEnergyOnCasterPerDiscMiss);
 		}
 		else
@@ -585,19 +354,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnSelfIfMissOnCast != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetEffectOnSelfIfMissOnCast()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnSelfIfMissOnCast;
 		}
 		else
@@ -612,19 +368,6 @@ public class NekoFanOfDiscs : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnSelfIfMissOnDiscReturn != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetEffectOnSelfIfMissOnDiscReturn()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnSelfIfMissOnDiscReturn;
 		}
 		else
@@ -684,19 +427,6 @@ public class NekoFanOfDiscs : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NekoFanOfDiscs))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NekoFanOfDiscs);
 			this.Setup();
 		}
@@ -726,30 +456,8 @@ public class NekoFanOfDiscs : Ability
 					ActorData actorData = enumerator.Current;
 					if (!actorsForSequence[i].Contains(actorData))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetHitActorsAndHitCount(List<AbilityTarget>, ActorData, List<List<ActorData>>*, List<BoardSquare>*, int*, List<NonActorTargetInfo>)).MethodHandle;
-						}
 						if (!hitActorsAndHitCount.ContainsKey(actorData))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							hitActorsAndHitCount.Add(actorData, 1);
 						}
 						else
@@ -764,25 +472,7 @@ public class NekoFanOfDiscs : Ability
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		targetSquares = NekoFanOfDiscs.GetDiscSquaresFromEndPositions(list, caster.GetTravelBoardSquareWorldPositionForLos());
 		return hitActorsAndHitCount;
@@ -799,33 +489,11 @@ public class NekoFanOfDiscs : Ability
 				BoardSquare boardSquare = NekoBoomerangDisc.GetDiscEndSquare(startPos, vector);
 				if (list.Contains(boardSquare))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NekoFanOfDiscs.GetDiscSquaresFromEndPositions(List<Vector3>, Vector3)).MethodHandle;
-					}
 					Vector3 pos = vector;
 					bool flag = false;
 					int i = 1;
 					while (i < 3)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							for (;;)
@@ -849,15 +517,6 @@ public class NekoFanOfDiscs : Ability
 									BoardSquare boardSquare2 = enumerator2.Current;
 									if (boardSquare2.IsBaselineHeight())
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!list.Contains(boardSquare2))
 										{
 											boardSquare = boardSquare2;
@@ -865,15 +524,6 @@ public class NekoFanOfDiscs : Ability
 											goto IL_D1;
 										}
 									}
-								}
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							IL_D1:
@@ -883,15 +533,6 @@ public class NekoFanOfDiscs : Ability
 				}
 				IL_F7:
 				list.Add(boardSquare);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;

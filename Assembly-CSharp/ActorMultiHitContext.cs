@@ -17,32 +17,10 @@ public class ActorMultiHitContext
 		int b;
 		if (numHits == numFromCover)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMultiHitContext.CalcDamageFromNumHits(int, int, int, int)).MethodHandle;
-			}
 			b = Mathf.RoundToInt(coverProtectionDmgMultiplier * (float)(num + (numHits - 1) * num2));
 		}
 		else if (numFromCover == 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b = num + (numHits - 1) * num2;
 		}
 		else

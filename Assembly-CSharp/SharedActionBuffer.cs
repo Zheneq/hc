@@ -46,19 +46,6 @@ public class SharedActionBuffer : NetworkBehaviour
 			uint dirtyBit = 1U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SharedActionBuffer.set_Networkm_actionPhase(ActionBufferPhase)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -82,30 +69,8 @@ public class SharedActionBuffer : NetworkBehaviour
 			uint dirtyBit = 2U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SharedActionBuffer.set_Networkm_abilityPhase(AbilityPriority)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetAbilityPhase(value);
 					base.syncVarHookGuard = false;
@@ -119,19 +84,6 @@ public class SharedActionBuffer : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SharedActionBuffer.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.Write((int)this.m_actionPhase);
 			writer.Write((int)this.m_abilityPhase);
 			return true;
@@ -141,15 +93,6 @@ public class SharedActionBuffer : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -157,26 +100,8 @@ public class SharedActionBuffer : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -184,15 +109,6 @@ public class SharedActionBuffer : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -202,19 +118,6 @@ public class SharedActionBuffer : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SharedActionBuffer.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_actionPhase = (ActionBufferPhase)reader.ReadInt32();
 			this.m_abilityPhase = (AbilityPriority)reader.ReadInt32();
 			return;
@@ -222,15 +125,6 @@ public class SharedActionBuffer : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetActionPhase((ActionBufferPhase)reader.ReadInt32());
 		}
 		if ((num & 2) != 0)

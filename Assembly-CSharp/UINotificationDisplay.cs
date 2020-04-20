@@ -33,19 +33,6 @@ public class UINotificationDisplay : MonoBehaviour
 	{
 		if (this.currentAlpha == Mathf.Clamp(newAlpha, 0f, 1f))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINotificationDisplay.SetAlpha(float)).MethodHandle;
-			}
 			return;
 		}
 		this.currentAlpha = newAlpha;
@@ -55,15 +42,6 @@ public class UINotificationDisplay : MonoBehaviour
 			Color color = this.m_allAlphaImages[i].color;
 			color.a = this.currentAlpha;
 			this.m_allAlphaImages[i].color = color;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -89,19 +67,6 @@ public class UINotificationDisplay : MonoBehaviour
 		bool flag = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINotificationDisplay.Setup(ActorData)).MethodHandle;
-			}
 			flag = (actorDied.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam());
 		}
 		if (flag)

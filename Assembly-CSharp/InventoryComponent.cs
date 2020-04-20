@@ -56,30 +56,8 @@ public class InventoryComponent
 		InventoryItem inventoryItem = this.GetItem(itemToAdd);
 		if (inventoryItem != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddItem(InventoryItem)).MethodHandle;
-			}
 			if (inventoryItem.IsStackable())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItem.Count += itemToAdd.Count;
 				this.OnItemAdded(inventoryItem);
 				goto IL_E6;
@@ -87,15 +65,6 @@ public class InventoryComponent
 		}
 		if (itemToAdd.IsStackable())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			inventoryItem = new InventoryItem(itemToAdd, this.NextItemId++);
 			this.Items.Add(inventoryItem);
 			this.OnItemAdded(inventoryItem);
@@ -107,15 +76,6 @@ public class InventoryComponent
 				inventoryItem = new InventoryItem(itemToAdd.TemplateId, 1, this.NextItemId++);
 				this.Items.Add(inventoryItem);
 				this.OnItemAdded(inventoryItem);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_E6:
@@ -135,33 +95,11 @@ public class InventoryComponent
 		InventoryItem item = this.GetItem(itemToRemove);
 		if (item != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveItem(InventoryItem)).MethodHandle;
-			}
 			if (item.IsStackable())
 			{
 				item.Count -= itemToRemove.Count;
 				if (item.Count <= 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.RemoveItemInternal(item);
 				}
 			}
@@ -187,33 +125,11 @@ public class InventoryComponent
 		InventoryItem itemByTemplateId = this.GetItemByTemplateId(itemTemplateId);
 		if (itemByTemplateId != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveItemByTemplateId(int, int)).MethodHandle;
-			}
 			if (itemByTemplateId.IsStackable())
 			{
 				itemByTemplateId.Count -= itemCount;
 				if (itemByTemplateId.Count <= 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.RemoveItemInternal(itemByTemplateId);
 				}
 			}
@@ -233,31 +149,9 @@ public class InventoryComponent
 		{
 			if (item.IsStackable())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveItem(int, int)).MethodHandle;
-				}
 				item.Count -= itemCount;
 				if (item.Count <= 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.RemoveItemInternal(item);
 				}
 			}
@@ -290,31 +184,9 @@ public class InventoryComponent
 		int num = 0;
 		if (itemToUpdate.Id > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.UpdateItem(InventoryItem)).MethodHandle;
-			}
 			InventoryItem item = this.GetItem(itemToUpdate.Id);
 			if (item != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = item.Count;
 			}
 		}
@@ -325,29 +197,11 @@ public class InventoryComponent
 		int num2 = itemToUpdate.Count - num;
 		if (num2 > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			itemToUpdate.Count = num2;
 			this.AddItem(itemToUpdate);
 		}
 		else if (num2 < 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			itemToUpdate.Count = -num2;
 			this.RemoveItem(itemToUpdate);
 		}
@@ -365,32 +219,10 @@ public class InventoryComponent
 	{
 		if (itemToSearch.Id > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItem(InventoryItem)).MethodHandle;
-			}
 			return this.GetItem(itemToSearch.Id);
 		}
 		if (itemToSearch.TemplateId > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetItemByTemplateId(itemToSearch.TemplateId);
 		}
 		return null;
@@ -400,19 +232,6 @@ public class InventoryComponent
 	{
 		if (this.m_itemByIdCache == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItem(int)).MethodHandle;
-			}
 			this.m_itemByIdCache = new Dictionary<int, InventoryItem>();
 			using (List<InventoryItem>.Enumerator enumerator = this.Items.GetEnumerator())
 			{
@@ -420,15 +239,6 @@ public class InventoryComponent
 				{
 					InventoryItem inventoryItem = enumerator.Current;
 					this.m_itemByIdCache[inventoryItem.Id] = inventoryItem;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -440,19 +250,6 @@ public class InventoryComponent
 		InventoryComponent.InventoryItemListCache allItemsByTemplateId = this.GetAllItemsByTemplateId(itemTemplateId);
 		if (allItemsByTemplateId != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItemByTemplateId(int)).MethodHandle;
-			}
 			return allItemsByTemplateId.Items.FirstOrDefault<InventoryItem>();
 		}
 		return null;
@@ -469,19 +266,6 @@ public class InventoryComponent
 				InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTemplateIdCache.TryGetValue(template.Index);
 				if (inventoryItemListCache == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetAllItemsByTemplateId(int)).MethodHandle;
-					}
 					inventoryItemListCache = new InventoryComponent.InventoryItemListCache();
 					inventoryItemListCache.Count += inventoryItem.Count;
 					inventoryItemListCache.Items.Add(inventoryItem);
@@ -511,19 +295,6 @@ public class InventoryComponent
 					InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTypeCache.TryGetValue(template.Type);
 					if (inventoryItemListCache == null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetAllItemsByType(InventoryItemType)).MethodHandle;
-						}
 						inventoryItemListCache = new InventoryComponent.InventoryItemListCache();
 						inventoryItemListCache.Count += inventoryItem.Count;
 						inventoryItemListCache.Items.Add(inventoryItem);
@@ -533,15 +304,6 @@ public class InventoryComponent
 					{
 						inventoryItemListCache.Items.Add(inventoryItem);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -554,19 +316,6 @@ public class InventoryComponent
 		InventoryComponent.InventoryItemListCache allItemsByTemplateId = this.GetAllItemsByTemplateId(itemTemplateId);
 		if (allItemsByTemplateId != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItemCountByTemplateId(int)).MethodHandle;
-			}
 			result = allItemsByTemplateId.Count;
 		}
 		return result;
@@ -578,19 +327,6 @@ public class InventoryComponent
 		InventoryComponent.InventoryItemListCache allItemsByType = this.GetAllItemsByType(itemType);
 		if (allItemsByType != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.GetItemCountByType(InventoryItemType)).MethodHandle;
-			}
 			result = allItemsByType.Count;
 		}
 		return result;
@@ -605,19 +341,6 @@ public class InventoryComponent
 	{
 		if (!this.Karmas.ContainsKey(karmaTemplateId))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddKarma(int)).MethodHandle;
-			}
 			Karma value = new Karma
 			{
 				TemplateId = karmaTemplateId
@@ -630,19 +353,6 @@ public class InventoryComponent
 	{
 		if (this.Karmas.ContainsKey(karma.TemplateId))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddKarma(Karma)).MethodHandle;
-			}
 			this.Karmas[karma.TemplateId].Quantity += karma.Quantity;
 		}
 		else
@@ -661,19 +371,6 @@ public class InventoryComponent
 				KeyValuePair<int, Karma> keyValuePair = enumerator.Current;
 				if (this.Karmas.ContainsKey(keyValuePair.Key))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddKarmas(IDictionary<int, Karma>)).MethodHandle;
-					}
 					this.Karmas[keyValuePair.Key].Quantity += keyValuePair.Value.Quantity;
 				}
 				else
@@ -681,29 +378,11 @@ public class InventoryComponent
 					this.Karmas[keyValuePair.Key] = keyValuePair.Value;
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -723,19 +402,6 @@ public class InventoryComponent
 				int key = enumerator.Current;
 				this.Karmas.Remove(key);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.RemoveKarmas(List<int>)).MethodHandle;
-			}
 		}
 	}
 
@@ -750,19 +416,6 @@ public class InventoryComponent
 	{
 		if (!this.Loots.ContainsKey(itemId))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddLoot(int, Loot)).MethodHandle;
-			}
 			this.Loots.Add(itemId, loot);
 		}
 	}
@@ -786,30 +439,8 @@ public class InventoryComponent
 				Loot loot = enumerator.Current;
 				if (loot.HasItem(itemTemplateId))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.HasPendingItem(int)).MethodHandle;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -825,31 +456,9 @@ public class InventoryComponent
 				InventoryItemTemplate template = item.GetTemplate();
 				if (template.Type.IsCharacterBound())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddCharacterItemDropBalanceValues(Loot)).MethodHandle;
-					}
 					CharacterType bindingCharacterType = template.GetBindingCharacterType();
 					this.AddCharacterItemDropBalanceValue(bindingCharacterType, 1);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -872,31 +481,9 @@ public class InventoryComponent
 				this.CharacterItemDropBalanceValues.TryGetValue(key, out num2);
 				if (num2 == 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.AddCharacterItemDropBalanceValue(CharacterType, int)).MethodHandle;
-					}
 					flag = false;
 					goto IL_C8;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -904,30 +491,12 @@ public class InventoryComponent
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disposable.Dispose();
 			}
 		}
 		IL_C8:
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IEnumerator enumerator2 = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
 			try
 			{
@@ -939,30 +508,12 @@ public class InventoryComponent
 					this.CharacterItemDropBalanceValues.TryGetValue(key2, out num3);
 					this.CharacterItemDropBalanceValues[key2] = MathUtil.Clamp(num3 - 1, 0, characterItemDropBalance);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			finally
 			{
 				IDisposable disposable2;
 				if ((disposable2 = (enumerator2 as IDisposable)) != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					disposable2.Dispose();
 				}
 			}
@@ -1014,31 +565,9 @@ public class InventoryComponent
 		}
 		if (this.m_itemsByTemplateIdCache != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.OnItemAdded(InventoryItem)).MethodHandle;
-			}
 			InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
 			if (inventoryItemListCache == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemListCache = new InventoryComponent.InventoryItemListCache();
 				inventoryItemListCache.Count += item.Count;
 				inventoryItemListCache.Items.Add(item);
@@ -1052,28 +581,10 @@ public class InventoryComponent
 		}
 		if (this.m_itemsByTypeCache != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InventoryItemType type = item.GetTemplate().Type;
 			InventoryComponent.InventoryItemListCache inventoryItemListCache2 = this.m_itemsByTypeCache.TryGetValue(type);
 			if (inventoryItemListCache2 == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemListCache2 = new InventoryComponent.InventoryItemListCache();
 				inventoryItemListCache2.Count += item.Count;
 				inventoryItemListCache2.Items.Add(item);
@@ -1090,71 +601,22 @@ public class InventoryComponent
 	{
 		if (this.m_itemByIdCache != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryComponent.OnItemRemoved(InventoryItem)).MethodHandle;
-			}
 			this.m_itemByIdCache.Remove(item.Id);
 		}
 		if (this.m_itemsByTemplateIdCache != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InventoryComponent.InventoryItemListCache inventoryItemListCache = this.m_itemsByTemplateIdCache.TryGetValue(item.TemplateId);
 			if (inventoryItemListCache != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inventoryItemListCache.Items.Remove(item);
 				if (inventoryItemListCache.Items.Count == 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_itemsByTemplateIdCache.Remove(item.TemplateId);
 				}
 			}
 		}
 		if (this.m_itemsByTypeCache != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InventoryItemType type = item.GetTemplate().Type;
 			InventoryComponent.InventoryItemListCache inventoryItemListCache2 = this.m_itemsByTypeCache.TryGetValue(type);
 			if (inventoryItemListCache2 == null)
@@ -1162,15 +624,6 @@ public class InventoryComponent
 				inventoryItemListCache2.Items.Remove(item);
 				if (inventoryItemListCache2.Items.Count == 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_itemsByTypeCache.Remove(type);
 				}
 			}

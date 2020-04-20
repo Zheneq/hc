@@ -23,19 +23,6 @@ public class Scheduler
 	{
 		if (timeSpan != TimeSpan.Zero)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scheduler.AddTask(Action, TimeSpan, bool)).MethodHandle;
-			}
 			this.AddTask(action, (int)timeSpan.TotalMilliseconds, isOneShot);
 		}
 	}
@@ -55,19 +42,6 @@ public class Scheduler
 		{
 			if (!this.m_scheduledTasks.ContainsKey(action))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Scheduler.AddTask(Action, int, bool)).MethodHandle;
-				}
 				ScheduledTask scheduledTask = new ScheduledTask(action, timeoutMs, isOneShot);
 				ScheduledTask scheduledTask2 = scheduledTask;
 				scheduledTask2.TaskComplete = (EventHandler)Delegate.Combine(scheduledTask2.TaskComplete, new EventHandler(this.TaskComplete));
@@ -104,19 +78,6 @@ public class Scheduler
 					scheduledTask.Cancel();
 					ScheduledTask scheduledTask2 = scheduledTask;
 					scheduledTask2.TaskComplete = (EventHandler)Delegate.Remove(scheduledTask2.TaskComplete, new EventHandler(this.TaskComplete));
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Scheduler.Reset()).MethodHandle;
 				}
 			}
 			this.m_scheduledTasks.Clear();

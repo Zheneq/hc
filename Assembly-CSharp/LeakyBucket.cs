@@ -145,19 +145,6 @@ public class LeakyBucket
 			TimeSpan result;
 			if (now > this.m_lastUpdate)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LeakyBucket.get_Elapsed()).MethodHandle;
-				}
 				result = this.Now - this.m_lastUpdate;
 			}
 			else
@@ -173,19 +160,6 @@ public class LeakyBucket
 		this.Update();
 		if (this.CurrentPoints + points <= this.MaxPoints)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LeakyBucket.Predict(double)).MethodHandle;
-			}
 			return TimeSpan.Zero;
 		}
 		return TimeSpan.FromSeconds((this.CurrentPoints + points - this.MaxPoints) / this.m_leakRate.AmountPerSecond);

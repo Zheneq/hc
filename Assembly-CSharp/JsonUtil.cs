@@ -10,19 +10,6 @@ public static class JsonUtil
 	{
 		if (node.Type == JTokenType.Object)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonUtil.TraverseNode(JToken, Action<JProperty>)).MethodHandle;
-			}
 			IEnumerator<JProperty> enumerator = node.Children<JProperty>().GetEnumerator();
 			try
 			{
@@ -31,57 +18,21 @@ public static class JsonUtil
 					JProperty jproperty = enumerator.Current;
 					if (propertyAction != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						propertyAction(jproperty);
 					}
 					JsonUtil.TraverseNode(jproperty.Value, propertyAction);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
 			{
 				if (enumerator != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator.Dispose();
 				}
 			}
 		}
 		else if (node.Type == JTokenType.Array)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IEnumerator<JToken> enumerator2 = node.Children().GetEnumerator();
 			try
 			{
@@ -95,15 +46,6 @@ public static class JsonUtil
 			{
 				if (enumerator2 != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator2.Dispose();
 				}
 			}
@@ -117,50 +59,14 @@ public static class JsonUtil
 		{
 			JToken jtoken = JToken.Parse(s);
 			JToken node = jtoken;
-			if (JsonUtil.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(string.IsValidJson(string*)).MethodHandle;
-				}
-				JsonUtil.<>f__am$cache0 = delegate(JProperty prop)
+			
+			JsonUtil.TraverseNode(node, delegate(JProperty prop)
 				{
 					if (prop.Value.Type == JTokenType.String)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(JsonUtil.<IsValidJson>m__0(JProperty)).MethodHandle;
-						}
 						string s2 = prop.Value.ToString();
 						if (s2.IsTimeSpanFormat())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							try
 							{
 								TimeSpan timeSpan = TimeSpan.Parse(s2);
@@ -171,9 +77,7 @@ public static class JsonUtil
 							}
 						}
 					}
-				};
-			}
-			JsonUtil.TraverseNode(node, JsonUtil.<>f__am$cache0);
+				});
 			formatError = null;
 			result = true;
 		}
@@ -205,19 +109,6 @@ public static class JsonUtil
 				string item;
 				if (jproperty != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JsonUtil.CompareJson(string, string)).MethodHandle;
-					}
 					item = string.Format("(UPDATED) {0} -> {1}", p1.ToString(), jproperty.ToString());
 				}
 				else
@@ -225,15 +116,6 @@ public static class JsonUtil
 					item = string.Format("(DELETED) {0}", p1.ToString());
 				}
 				list.Add(item);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (List<JProperty>.Enumerator enumerator2 = list3.GetEnumerator())
@@ -243,15 +125,6 @@ public static class JsonUtil
 				JProperty jproperty2 = enumerator2.Current;
 				string item2 = string.Format("(ADDED) {0}", jproperty2.ToString());
 				list.Add(item2);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;

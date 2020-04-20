@@ -56,19 +56,6 @@ public class SorceressHealingKnockback : Ability
 		}
 		if (this.m_onDetonateDamageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_onDetonateDamageAmount));
 		}
 		return list;
@@ -79,32 +66,10 @@ public class SorceressHealingKnockback : Ability
 		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
 		if (this.m_onCastHealAmount > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Primary, this.m_onCastHealAmount));
 		}
 		if (this.GetDamageAmount() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.GetDamageAmount()));
 		}
 		if (this.GetOnCastAllyEnergyGain() > 0)
@@ -120,31 +85,9 @@ public class SorceressHealingKnockback : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Healing] = this.GetHealAmount(targetActor);
 			}
 		}
@@ -165,19 +108,6 @@ public class SorceressHealingKnockback : Ability
 		int val;
 		if (abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SorceressHealingKnockback.m_normalHealingMod.GetModifiedValue(this.m_onCastHealAmount);
 		}
 		else
@@ -190,15 +120,6 @@ public class SorceressHealingKnockback : Ability
 		int val2;
 		if (abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SorceressHealingKnockback.m_lowHealthHealingMod.GetModifiedValue(this.m_onCastHealAmount);
 		}
 		else
@@ -211,15 +132,6 @@ public class SorceressHealingKnockback : Ability
 		int val3;
 		if (abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SorceressHealingKnockback.m_onCastAllyEnergyGainMod.GetModifiedValue(this.m_onCastAllyEnergyGain);
 		}
 		else
@@ -232,15 +144,6 @@ public class SorceressHealingKnockback : Ability
 		int val4;
 		if (abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_SorceressHealingKnockback.m_damageMod.GetModifiedValue(this.m_onDetonateDamageAmount);
 		}
 		else
@@ -251,15 +154,6 @@ public class SorceressHealingKnockback : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_SorceressHealingKnockback)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_SorceressHealingKnockback.m_enemyHitEffectOverride.GetModifiedValue(this.m_onDetonateEnemyEffect);
 		}
 		else
@@ -296,19 +190,6 @@ public class SorceressHealingKnockback : Ability
 			float num = (float)target.HitPoints / (float)target.GetMaxHitPoints();
 			if (num < this.m_abilityMod.m_lowHealthThreshold)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetHealAmount(ActorData)).MethodHandle;
-				}
 				result = this.m_abilityMod.m_lowHealthHealingMod.GetModifiedValue(this.m_onCastHealAmount);
 			}
 			else
@@ -324,19 +205,6 @@ public class SorceressHealingKnockback : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetOnCastAllyEnergyGain()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_onCastAllyEnergyGainMod.GetModifiedValue(this.m_onCastAllyEnergyGain);
 		}
 		else
@@ -351,19 +219,6 @@ public class SorceressHealingKnockback : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_onDetonateDamageAmount;
 		}
 		else
@@ -378,19 +233,6 @@ public class SorceressHealingKnockback : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetOnDetonateEnemyEffect()).MethodHandle;
-			}
 			result = this.m_onDetonateEnemyEffect;
 		}
 		else
@@ -405,19 +247,6 @@ public class SorceressHealingKnockback : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingKnockback.GetKnockbackDistance()).MethodHandle;
-			}
 			result = this.m_knockbackDistance;
 		}
 		else

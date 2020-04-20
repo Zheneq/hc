@@ -10,207 +10,120 @@ namespace I2.Loc.SimpleJSON
 	[DefaultMember("Item")]
 	public class JSONClass : JSONNode, IEnumerable
 	{
-		private Dictionary<string, JSONNode> \u000E = new Dictionary<string, JSONNode>();
+		private Dictionary<string, JSONNode> symbol_000E = new Dictionary<string, JSONNode>();
 
-		public override JSONNode \u0018
+		public override JSONNode symbol_0018
 		{
 			get
 			{
-				if (this.\u000E.ContainsKey(\u001D))
+				if (this.symbol_000E.ContainsKey(symbol_001D))
 				{
-					return this.\u000E[\u001D];
+					return this.symbol_000E[symbol_001D];
 				}
-				return new JSONLazyCreator(this, \u001D);
+				return new JSONLazyCreator(this, symbol_001D);
 			}
 			set
 			{
-				if (this.\u000E.ContainsKey(\u001D))
+				if (this.symbol_000E.ContainsKey(symbol_001D))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.set_\u0018(string, JSONNode)).MethodHandle;
-					}
-					this.\u000E[\u001D] = value;
+					this.symbol_000E[symbol_001D] = value;
 				}
 				else
 				{
-					this.\u000E.Add(\u001D, value);
+					this.symbol_000E.Add(symbol_001D, value);
 				}
 			}
 		}
 
-		public override JSONNode \u0018
+		public override JSONNode symbol_0018
 		{
 			get
 			{
-				if (\u001D >= 0)
+				if (symbol_001D >= 0)
 				{
-					for (;;)
+					if (symbol_001D < this.symbol_000E.Count)
 					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.get_\u0018(int)).MethodHandle;
-					}
-					if (\u001D < this.\u000E.Count)
-					{
-						return this.\u000E.ElementAt(\u001D).Value;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						return this.symbol_000E.ElementAt(symbol_001D).Value;
 					}
 				}
 				return null;
 			}
 			set
 			{
-				if (\u001D >= 0)
+				if (symbol_001D >= 0)
 				{
-					for (;;)
+					if (symbol_001D < this.symbol_000E.Count)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.set_\u0018(int, JSONNode)).MethodHandle;
-					}
-					if (\u001D < this.\u000E.Count)
-					{
-						string key = this.\u000E.ElementAt(\u001D).Key;
-						this.\u000E[key] = value;
+						string key = this.symbol_000E.ElementAt(symbol_001D).Key;
+						this.symbol_000E[key] = value;
 						return;
 					}
 				}
 			}
 		}
 
-		public override int \u0019
+		public override int symbol_0019
 		{
 			get
 			{
-				return this.\u000E.Count;
+				return this.symbol_000E.Count;
 			}
 		}
 
-		public override void \u0013(string \u001D, JSONNode \u000E)
+		public override void symbol_0013(string symbol_001D, JSONNode symbol_000E)
 		{
-			if (!string.IsNullOrEmpty(\u001D))
+			if (!string.IsNullOrEmpty(symbol_001D))
 			{
-				for (;;)
+				if (this.symbol_000E.ContainsKey(symbol_001D))
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.\u0013(string, JSONNode)).MethodHandle;
-				}
-				if (this.\u000E.ContainsKey(\u001D))
-				{
-					this.\u000E[\u001D] = \u000E;
+					this.symbol_000E[symbol_001D] = symbol_000E;
 				}
 				else
 				{
-					this.\u000E.Add(\u001D, \u000E);
+					this.symbol_000E.Add(symbol_001D, symbol_000E);
 				}
 			}
 			else
 			{
-				this.\u000E.Add(Guid.NewGuid().ToString(), \u000E);
+				this.symbol_000E.Add(Guid.NewGuid().ToString(), symbol_000E);
 			}
 		}
 
-		public override JSONNode \u0011(string \u001D)
+		public override JSONNode symbol_0011(string symbol_001D)
 		{
-			if (!this.\u000E.ContainsKey(\u001D))
+			if (!this.symbol_000E.ContainsKey(symbol_001D))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.\u0011(string)).MethodHandle;
-				}
 				return null;
 			}
-			JSONNode result = this.\u000E[\u001D];
-			this.\u000E.Remove(\u001D);
+			JSONNode result = this.symbol_000E[symbol_001D];
+			this.symbol_000E.Remove(symbol_001D);
 			return result;
 		}
 
-		public override JSONNode \u0011(int \u001D)
+		public override JSONNode symbol_0011(int symbol_001D)
 		{
-			if (\u001D >= 0)
+			if (symbol_001D >= 0)
 			{
-				for (;;)
+				if (symbol_001D < this.symbol_000E.Count)
 				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.\u0011(int)).MethodHandle;
-				}
-				if (\u001D < this.\u000E.Count)
-				{
-					KeyValuePair<string, JSONNode> keyValuePair = this.\u000E.ElementAt(\u001D);
-					this.\u000E.Remove(keyValuePair.Key);
+					KeyValuePair<string, JSONNode> keyValuePair = this.symbol_000E.ElementAt(symbol_001D);
+					this.symbol_000E.Remove(keyValuePair.Key);
 					return keyValuePair.Value;
 				}
 			}
 			return null;
 		}
 
-		public override JSONNode \u0011(JSONNode \u001D)
+		public override JSONNode symbol_0011(JSONNode symbol_001D)
 		{
-			JSONClass.<Remove>c__AnonStorey2 <Remove>c__AnonStorey = new JSONClass.<Remove>c__AnonStorey2();
-			<Remove>c__AnonStorey.\u001D = \u001D;
+			JSONClass._Removec__AnonStorey2 _Removec__AnonStorey = new JSONClass._Removec__AnonStorey2();
+			_Removec__AnonStorey.symbol_001D = symbol_001D;
 			JSONNode result;
 			try
 			{
-				KeyValuePair<string, JSONNode> keyValuePair = this.\u000E.Where(new Func<KeyValuePair<string, JSONNode>, bool>(<Remove>c__AnonStorey.\u000E)).First<KeyValuePair<string, JSONNode>>();
-				this.\u000E.Remove(keyValuePair.Key);
-				result = <Remove>c__AnonStorey.\u001D;
+				KeyValuePair<string, JSONNode> keyValuePair = this.symbol_000E.Where(new Func<KeyValuePair<string, JSONNode>, bool>(_Removec__AnonStorey.symbol_000E)).First<KeyValuePair<string, JSONNode>>();
+				this.symbol_000E.Remove(keyValuePair.Key);
+				result = _Removec__AnonStorey.symbol_001D;
 			}
 			catch
 			{
@@ -219,7 +132,7 @@ namespace I2.Loc.SimpleJSON
 			return result;
 		}
 
-		public override IEnumerable<JSONNode> \u001A
+		public override IEnumerable<JSONNode> symbol_001A
 		{
 			get
 			{
@@ -229,7 +142,7 @@ namespace I2.Loc.SimpleJSON
 				switch (num)
 				{
 				case 0U:
-					enumerator = this.\u000E.GetEnumerator();
+					enumerator = this.symbol_000E.GetEnumerator();
 					break;
 				case 1U:
 					break;
@@ -244,33 +157,11 @@ namespace I2.Loc.SimpleJSON
 						yield return keyValuePair.Value;
 						flag = true;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.<>c__Iterator0.MoveNext()).MethodHandle;
-					}
 				}
 				finally
 				{
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -289,7 +180,7 @@ namespace I2.Loc.SimpleJSON
 			switch (num)
 			{
 			case 0U:
-				enumerator = this.\u000E.GetEnumerator();
+				enumerator = this.symbol_000E.GetEnumerator();
 				break;
 			case 1U:
 				break;
@@ -302,19 +193,6 @@ namespace I2.Loc.SimpleJSON
 				{
 					KeyValuePair<string, JSONNode> keyValuePair = enumerator.Current;
 					yield return keyValuePair;
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.<GetEnumerator>c__Iterator1.MoveNext()).MethodHandle;
-					}
 					flag = true;
 				}
 			}
@@ -322,15 +200,6 @@ namespace I2.Loc.SimpleJSON
 			{
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -343,23 +212,10 @@ namespace I2.Loc.SimpleJSON
 		public override string ToString()
 		{
 			string text = "{";
-			foreach (KeyValuePair<string, JSONNode> keyValuePair in this.\u000E)
+			foreach (KeyValuePair<string, JSONNode> keyValuePair in this.symbol_000E)
 			{
 				if (text.Length > 2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.ToString()).MethodHandle;
-					}
 					text += ", ";
 				}
 				string text2 = text;
@@ -376,10 +232,10 @@ namespace I2.Loc.SimpleJSON
 			return text;
 		}
 
-		public override string \u0004(string \u001D)
+		public override string symbol_0004(string symbol_001D)
 		{
 			string text = "{ ";
-			using (Dictionary<string, JSONNode>.Enumerator enumerator = this.\u000E.GetEnumerator())
+			using (Dictionary<string, JSONNode>.Enumerator enumerator = this.symbol_000E.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
@@ -388,7 +244,7 @@ namespace I2.Loc.SimpleJSON
 					{
 						text += ", ";
 					}
-					text = text + "\n" + \u001D + "   ";
+					text = text + "\n" + symbol_001D + "   ";
 					string text2 = text;
 					text = string.Concat(new string[]
 					{
@@ -396,51 +252,25 @@ namespace I2.Loc.SimpleJSON
 						"\"",
 						JSONNode.escapeString(keyValuePair.Key),
 						"\" : ",
-						keyValuePair.Value.\u0004(\u001D + "   ")
+						keyValuePair.Value.symbol_0004(symbol_001D + "   ")
 					});
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.\u0004(string)).MethodHandle;
-				}
 			}
-			text = text + "\n" + \u001D + "}";
+			text = text + "\n" + symbol_001D + "}";
 			return text;
 		}
 
-		public override void \u0002(BinaryWriter \u001D)
+		public override void symbol_0002(BinaryWriter symbol_001D)
 		{
-			\u001D.Write(2);
-			\u001D.Write(this.\u000E.Count);
-			using (Dictionary<string, JSONNode>.KeyCollection.Enumerator enumerator = this.\u000E.Keys.GetEnumerator())
+			symbol_001D.Write(2);
+			symbol_001D.Write(this.symbol_000E.Count);
+			using (Dictionary<string, JSONNode>.KeyCollection.Enumerator enumerator = this.symbol_000E.Keys.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					string text = enumerator.Current;
-					\u001D.Write(text);
-					this.\u000E[text].\u0002(\u001D);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONClass.\u0002(BinaryWriter)).MethodHandle;
+					symbol_001D.Write(text);
+					this.symbol_000E[text].symbol_0002(symbol_001D);
 				}
 			}
 		}

@@ -42,19 +42,6 @@ public class NanoSmithSmite : Ability
 		NanoSmithBoltInfoComponent component = base.GetComponent<NanoSmithBoltInfoComponent>();
 		if (component)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithSmite.Start()).MethodHandle;
-			}
 			this.m_boltInfo = component.m_boltInfo.GetShallowCopy();
 			if (component.m_smiteRangeOverride > 0f)
 			{
@@ -76,30 +63,8 @@ public class NanoSmithSmite : Ability
 		AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_coneDamageAmount);
 		if (this.m_boltCount > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithSmite.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			if (this.m_boltInfo != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_boltInfo.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary, AbilityTooltipSubject.Ally);
 			}
 		}

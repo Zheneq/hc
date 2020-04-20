@@ -59,58 +59,18 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 		base.FinishSetup();
 		if (base.Caster != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.FinishSetup()).MethodHandle;
-			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
 			for (int i = 0; i < actors.Count; i++)
 			{
 				ActorData actorData = actors[i];
 				if (actorData.GetTeam() != base.Caster.GetTeam())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_actorToMarkerVfx[actorData] = null;
 					this.m_actorsToProcess.Add(actorData);
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_largePingFxPrefab != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_markerFxJoint.Initialize(base.Caster.gameObject);
 				this.m_largePingFxInst = base.InstantiateFX(this.m_largePingFxPrefab);
 				this.m_largePingFxInst.transform.parent = this.m_markerFxJoint.m_jointObject.transform;
@@ -119,15 +79,6 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 				this.m_largePingFoFSelector = this.m_largePingFxInst.GetComponent<FriendlyEnemyVFXSelector>();
 				if (this.m_largePingFoFSelector != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_largePingFoFSelector.Setup(base.Caster.GetTeam());
 				}
 			}
@@ -145,30 +96,8 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 			AttachedActorVFXInfo attachedActorVFXInfo = this.m_actorToMarkerVfx[key];
 			if (attachedActorVFXInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.OnDisable()).MethodHandle;
-				}
 				attachedActorVFXInfo.DestroyVfx();
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_actorsToProcess.Clear();
 		this.m_actorToMarkerVfx.Clear();
@@ -188,66 +117,17 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 	{
 		if (!(this.m_markerFxPrefab == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.Update()).MethodHandle;
-			}
 			if (!(GameFlowData.Get() == null))
 			{
 				bool flag;
 				if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Caster != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!base.Caster.IsDead())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (base.Caster.GetCurrentBoardSquare() != null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = (GameFlowData.Get().CurrentTurn == this.m_updatingTurn);
 								goto IL_C4;
 							}
@@ -259,38 +139,11 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 				bool flag2 = flag;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag3 = false;
 					if (GameFlowData.Get().activeOwnedActorData != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().activeOwnedActorData.GetTeam() == base.Caster.GetTeam())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = true;
 						}
 					}
@@ -303,50 +156,14 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						{
 							if (visionProviders[i].m_actorIndex == base.Caster.ActorIndex)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (visionProviders[i].m_satelliteIndex < 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (visionProviders[i].m_radius > num)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num = visionProviders[i].m_radius;
 									}
 								}
 							}
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					bool flag4 = this.m_largePingTimer.TickTimer(GameTime.deltaTime);
@@ -361,42 +178,15 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						{
 							goto IL_293;
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData.IsModelAnimatorDisabled())
 						{
 							goto IL_293;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						bool flag7 = actorData.IsVisibleToClient();
 						IL_294:
 						bool flag8 = flag7;
 						if (flag8)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num2 = base.Caster.GetCurrentBoardSquare().HorizontalDistanceOnBoardTo(currentBoardSquare);
 							if (num2 > num)
 							{
@@ -406,26 +196,8 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						AttachedActorVFXInfo attachedActorVFXInfo = this.m_actorToMarkerVfx[actorData];
 						if (flag8)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (attachedActorVFXInfo == null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								attachedActorVFXInfo = new AttachedActorVFXInfo(this.m_markerFxPrefab, actorData, this.m_markerFxJoint, false, "VisionMarker", AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 								attachedActorVFXInfo.SetCasterTeam(base.Caster.GetTeam());
 								this.m_actorToMarkerVfx[actorData] = attachedActorVFXInfo;
@@ -433,30 +205,12 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 							attachedActorVFXInfo.UpdateVisibility(flag8, !flag3);
 							if (flag5)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								attachedActorVFXInfo.RestartEffects();
 							}
 							flag6 = true;
 						}
 						else if (attachedActorVFXInfo != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							attachedActorVFXInfo.UpdateVisibility(false, false);
 						}
 						j++;
@@ -465,77 +219,23 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 						flag7 = false;
 						goto IL_294;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_largePingFxInst != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_largePingFxInst.SetActiveIfNeeded(true);
 						if (base.IsActorConsideredVisible(base.Caster))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_largePingFoFSelector != null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_largePingFoFSelector.Setup(base.Caster.GetTeam());
 							}
 							if (flag4)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								foreach (PKFxFX pkfxFX in this.m_largePingFxInst.GetComponentsInChildren<PKFxFX>())
 								{
 									pkfxFX.TerminateEffect();
 									pkfxFX.StartEffect();
 									if (flag3)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.PlayAudioEvent((!this.m_emittedLargePingThisTurn) ? this.m_audioEventFriendlyPing : this.m_audioEventFriendlyPingSubsequent, base.Caster.gameObject);
 									}
 									else
@@ -543,15 +243,6 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 										string audioEvent;
 										if (this.m_emittedLargePingThisTurn)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											audioEvent = this.m_audioEventEnemyPingSubsequent;
 										}
 										else
@@ -560,15 +251,6 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 										}
 										this.PlayAudioEvent(audioEvent, base.Caster.gameObject);
 									}
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								this.m_emittedLargePingThisTurn = true;
 							}
@@ -582,44 +264,17 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 				}
 				else if (this.m_canBeVisibleLastUpdate)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int l = 0; l < this.m_actorsToProcess.Count; l++)
 					{
 						ActorData key = this.m_actorsToProcess[l];
 						AttachedActorVFXInfo attachedActorVFXInfo2 = this.m_actorToMarkerVfx[key];
 						if (attachedActorVFXInfo2 != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							attachedActorVFXInfo2.UpdateVisibility(false, false);
 						}
 					}
 					if (this.m_largePingFxInst != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_largePingFxInst.SetActiveIfNeeded(false);
 					}
 				}
@@ -633,19 +288,6 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 	{
 		if (!audioEvent.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.PlayAudioEvent(string, GameObject)).MethodHandle;
-			}
 			AudioManager.PostEvent(audioEvent, sourceObj);
 		}
 	}
@@ -673,19 +315,6 @@ public class VisionPowerupInRangeMarkerSequence : Sequence
 			this.m_timeTillEnd -= dt;
 			if (this.m_timeTillEnd <= 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VisionPowerupInRangeMarkerSequence.IntervalTimer.TickTimer(float)).MethodHandle;
-				}
 				this.m_timeTillEnd = this.m_duration;
 				result = true;
 			}

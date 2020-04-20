@@ -44,19 +44,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		GremlinsMultiTargeterApocolypse gremlinsMultiTargeterApocolypse = targetAbility as GremlinsMultiTargeterApocolypse;
 		if (gremlinsMultiTargeterApocolypse != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsMultiTargeterApocolypse.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_energyGainPerMissMod, "EnergyGainPerMiss", string.Empty, gremlinsMultiTargeterApocolypse.m_energyGainPerMiss, true, false);
 			AbilityMod.AddToken(tokens, this.m_minDistanceBetweenBombsMod, "MinDistanceBetweenBombs", string.Empty, gremlinsMultiTargeterApocolypse.m_minDistanceBetweenBombs, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxAngleWithFirstMod, "MaxAngleWithFirst", string.Empty, gremlinsMultiTargeterApocolypse.m_maxAngleWithFirst, true, false, false);
@@ -64,15 +51,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_subsequentDamageMod, "BombSubsequentDamageAmount", string.Empty, gremlinsMultiTargeterApocolypse.m_bombSubsequentDamageAmount, true, false);
 			if (this.m_useTargetDataOverrides)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_targetDataOverrides != null)
 				{
 					int val = this.m_targetDataOverrides.Length;
@@ -80,26 +58,8 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 					AbilityMod.AddToken_IntDiff(tokens, "NumBombs", string.Empty, val, true, otherVal);
 					if (this.m_targetDataOverrides.Length > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gremlinsMultiTargeterApocolypse.m_targetData.Length > 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AbilityMod.AddToken_IntDiff(tokens, "TargeterRange_Diff", string.Empty, Mathf.RoundToInt(this.m_targetDataOverrides[0].m_range - gremlinsMultiTargeterApocolypse.m_targetData[0].m_range), false, 0);
 						}
 					}
@@ -114,19 +74,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent;
 		if (gremlinsMultiTargeterApocolypse != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsMultiTargeterApocolypse.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			gremlinsLandMineInfoComponent = gremlinsMultiTargeterApocolypse.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		else
@@ -145,15 +92,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = gremlinsMultiTargeterApocolypse.m_leaveLandmineOnEmptySquare;
 		}
 		else
@@ -170,15 +108,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsMultiTargeterApocolypse.m_penetrateLos;
 		}
 		else
@@ -193,15 +122,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = gremlinsMultiTargeterApocolypse.m_minDistanceBetweenBombs;
 		}
 		else
@@ -216,15 +136,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = gremlinsMultiTargeterApocolypse.m_maxAngleWithFirst;
 		}
 		else
@@ -239,15 +150,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = gremlinsLandMineInfoComponent2.m_damageAmount;
 		}
 		else
@@ -262,15 +164,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = gremlinsLandMineInfoComponent2.m_mineDuration;
 		}
 		else
@@ -285,15 +178,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = gremlinsLandMineInfoComponent2.m_enemyHitEffect;
 		}
 		else
@@ -308,15 +192,6 @@ public class AbilityMod_GremlinsMultiTargeterApocolypse : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = gremlinsLandMineInfoComponent2.m_energyGainOnExplosion;
 		}
 		else

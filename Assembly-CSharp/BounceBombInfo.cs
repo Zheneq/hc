@@ -25,45 +25,14 @@ public class BounceBombInfo
 		float num = this.startOffsetDistance * Board.Get().squareSize;
 		if (!this.startPosIgnoreLos)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BounceBombInfo.GetAdjustedStartPosition(Vector3, ActorData)).MethodHandle;
-			}
 			if (this.startOffsetDistance > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float totalMaxDistanceInSquares = num + Board.Get().squareSize;
 				Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary;
 				List<ActorData> list2;
 				List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(vector, aimDirection, num, totalMaxDistanceInSquares, 1, caster, this.width, -1, true, null, false, out dictionary, out list2, null, false, true);
 				if (list.Count < 2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector += num * aimDirection;
 				}
 				return vector;
@@ -79,19 +48,6 @@ public class BounceBombInfo
 		float num;
 		if (maxDistancePerBounceOverride > 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BounceBombInfo.FindBounceHitActors(Vector3, ActorData, List<Vector3>*, List<List<NonActorTargetInfo>>, float, float, bool)).MethodHandle;
-			}
 			num = maxDistancePerBounceOverride;
 		}
 		else
@@ -108,41 +64,14 @@ public class BounceBombInfo
 		Vector3 start = adjustedStartPosition;
 		if (bounceEndPoints.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (bounceEndPoints.Count > 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				start = bounceEndPoints[bounceEndPoints.Count - 2];
 			}
 			Vector3 end = bounceEndPoints[bounceEndPoints.Count - 1];
 			Vector3 value;
 			if (AreaEffectUtils.GetEndPointForValidGameplaySquare(start, end, out value))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bounceEndPoints[bounceEndPoints.Count - 1] = value;
 			}
 		}

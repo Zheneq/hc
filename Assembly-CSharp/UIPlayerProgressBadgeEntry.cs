@@ -25,44 +25,13 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		UITitledTooltip uititledTooltip = baseTooltip as UITitledTooltip;
 		if (uititledTooltip == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadgeEntry.DoBadgeTooltip(UITooltipBase)).MethodHandle;
-			}
 			return false;
 		}
 		if (this.m_groupReference != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = StringUtil.TR_BadgeGroupDescription(this.m_groupIndex);
 			if (text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "No badge GROUP description, needs to be authored";
 			}
 			List<UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo> list = new List<UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo>();
@@ -71,15 +40,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 				GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(this.m_groupReference.BadgeIDs[i]);
 				if (badgeInfo != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(new UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo
 					{
 						Quality = badgeInfo.Quality,
@@ -88,18 +48,8 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 				}
 			}
 			List<UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo> list2 = list;
-			if (UIPlayerProgressBadgeEntry.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressBadgeEntry.<>f__am$cache0 = delegate(UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo x, UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo y)
+			
+			list2.Sort(delegate(UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo x, UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo y)
 				{
 					if (x.Quality == y.Quality)
 					{
@@ -108,19 +58,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 					int result;
 					if (x.Quality > y.Quality)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressBadgeEntry.<DoBadgeTooltip>m__0(UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo, UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo)).MethodHandle;
-						}
 						result = -1;
 					}
 					else
@@ -128,9 +65,7 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 						result = 1;
 					}
 					return result;
-				};
-			}
-			list2.Sort(UIPlayerProgressBadgeEntry.<>f__am$cache0);
+				});
 			for (int j = 0; j < list.Count; j++)
 			{
 				text = text + "\n" + list[j].GetRequirementDescription();
@@ -140,15 +75,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		}
 		if (this.m_badgeReference != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string badgeDescription = GameResultBadgeData.GetBadgeDescription(this.m_badgeReference, UIPlayerProgressPanel.Get().m_badgesPanel.CurrentCharacterTypeFilter);
 			uititledTooltip.Setup(StringUtil.TR_BadgeName(this.m_badgeReference.UniqueBadgeID), badgeDescription, string.Empty);
 			return true;
@@ -161,19 +87,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		this.m_tooltipObj = this.m_hitbox.GetComponent<UITooltipHoverObject>();
 		if (this.m_tooltipObj != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadgeEntry.Awake()).MethodHandle;
-			}
 			this.m_tooltipObj.Setup(TooltipType.Titled, new TooltipPopulateCall(this.DoBadgeTooltip), null);
 		}
 	}
@@ -201,19 +114,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 				UIManager.SetGameObjectActive(this.displayInfos[i].m_Container, false, null);
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadgeEntry.Setup(GameResultBadgeData.ConsolidatedBadgeGroup, int, Dictionary<int, int>)).MethodHandle;
-		}
 		this.m_name.text = StringUtil.TR_BadgeGroupName(Index);
 	}
 
@@ -228,19 +128,6 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		for (int i = 1; i < this.displayInfos.Length; i++)
 		{
 			UIManager.SetGameObjectActive(this.displayInfos[i].m_Container, false, null);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadgeEntry.Setup(GameBalanceVars.GameResultBadge, int)).MethodHandle;
 		}
 		this.m_groupReference = null;
 		this.m_groupIndex = 0;
@@ -273,58 +160,18 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 			string text2 = null;
 			if (this.Quality == GameBalanceVars.GameResultBadge.BadgeQuality.Gold)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadgeEntry.BadgeGroupDisplayInfo.GetRequirementDescription()).MethodHandle;
-				}
 				text2 = HUD_UIResources.ColorToHex(GameResultBadgeData.Get().BadgeGroupGoldRequirementColorHex);
 			}
 			else if (this.Quality == GameBalanceVars.GameResultBadge.BadgeQuality.Silver)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = HUD_UIResources.ColorToHex(GameResultBadgeData.Get().BadgeGroupSilverRequirementColorHex);
 			}
 			else if (this.Quality == GameBalanceVars.GameResultBadge.BadgeQuality.Bronze)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = HUD_UIResources.ColorToHex(GameResultBadgeData.Get().BadgeGroupBronzeRequirementColorHex);
 			}
 			if (!text2.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format("<color={0}>{2}</color>: {1}", text2, this.Requirements, StringUtil.TR(this.Quality.ToString(), "BadgeQuality"));
 			}
 			if (this.Requirements.IsNullOrEmpty())

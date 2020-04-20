@@ -10,30 +10,8 @@ public class SlashCommand_ChatWhisper : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_ChatWhisper.OnSlashCommand(string)).MethodHandle;
-			}
 			if (ClientGameManager.Get() == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{

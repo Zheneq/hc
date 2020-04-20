@@ -53,19 +53,6 @@ public class SpaceMarineHandCannon : Ability
 		float num = 0f;
 		if (this.ShouldExplode())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetTargetableRadiusInSquares(ActorData)).MethodHandle;
-			}
 			num = this.ModdedConeLength();
 		}
 		return this.ModdedLaserLength() + num;
@@ -86,44 +73,13 @@ public class SpaceMarineHandCannon : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedLaserDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedConeDamage();
 			}
 			return dictionary;
@@ -139,19 +95,6 @@ public class SpaceMarineHandCannon : Ability
 		int val;
 		if (abilityMod_SpaceMarineHandCannon)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SpaceMarineHandCannon.m_laserDamageMod.GetModifiedValue(this.m_primaryDamage);
 		}
 		else
@@ -164,15 +107,6 @@ public class SpaceMarineHandCannon : Ability
 		int val2;
 		if (abilityMod_SpaceMarineHandCannon)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SpaceMarineHandCannon.m_coneDamageMod.GetModifiedValue(this.m_coneDamage);
 		}
 		else
@@ -208,19 +142,6 @@ public class SpaceMarineHandCannon : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedLaserDamage()).MethodHandle;
-			}
 			result = this.m_primaryDamage;
 		}
 		else
@@ -235,19 +156,6 @@ public class SpaceMarineHandCannon : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedConeDamage()).MethodHandle;
-			}
 			result = this.m_coneDamage;
 		}
 		else
@@ -262,19 +170,6 @@ public class SpaceMarineHandCannon : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedConeAngle()).MethodHandle;
-			}
 			result = this.m_coneWidthAngle;
 		}
 		else
@@ -294,19 +189,6 @@ public class SpaceMarineHandCannon : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.ModdedLaserWidth()).MethodHandle;
-			}
 			result = this.m_primaryWidth;
 		}
 		else
@@ -330,19 +212,6 @@ public class SpaceMarineHandCannon : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetLaserEffectInfo()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useLaserHitEffectOverride)
 			{
 				return this.m_abilityMod.m_laserHitEffectOverride;
@@ -355,30 +224,8 @@ public class SpaceMarineHandCannon : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineHandCannon.GetConeEffectInfo()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useConeHitEffectOverride)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityMod.m_coneHitEffectOverride;
 			}
 		}

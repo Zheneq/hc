@@ -15,19 +15,6 @@ public class UISetCanvasRenderCameraToMain : MonoBehaviour
 				Camera component2 = componentInChildren.gameObject.GetComponent<Camera>();
 				if (component2 != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UISetCanvasRenderCameraToMain.Update()).MethodHandle;
-					}
 					worldCamera = component2;
 				}
 			}

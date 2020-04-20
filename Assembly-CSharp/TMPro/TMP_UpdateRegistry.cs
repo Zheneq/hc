@@ -28,19 +28,6 @@ namespace TMPro
 			{
 				if (TMP_UpdateRegistry.s_Instance == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_UpdateRegistry.get_instance()).MethodHandle;
-					}
 					TMP_UpdateRegistry.s_Instance = new TMP_UpdateRegistry();
 				}
 				return TMP_UpdateRegistry.s_Instance;
@@ -88,30 +75,8 @@ namespace TMPro
 				ICanvasElement canvasElement = TMP_UpdateRegistry.instance.m_LayoutRebuildQueue[i];
 				canvasElement.Rebuild(CanvasUpdate.Prelayout);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_UpdateRegistry.PerformUpdateForCanvasRendererObjects()).MethodHandle;
-			}
 			if (this.m_LayoutRebuildQueue.Count > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_LayoutRebuildQueue.Clear();
 				this.m_LayoutQueueLookup.Clear();
 			}
@@ -119,15 +84,6 @@ namespace TMPro
 			{
 				ICanvasElement canvasElement2 = TMP_UpdateRegistry.instance.m_GraphicRebuildQueue[j];
 				canvasElement2.Rebuild(CanvasUpdate.PreRender);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (this.m_GraphicRebuildQueue.Count > 0)
 			{

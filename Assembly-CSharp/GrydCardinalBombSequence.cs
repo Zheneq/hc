@@ -35,31 +35,9 @@ public class GrydCardinalBombSequence : Sequence
 		{
 			if (extraSequenceParams is GrydCardinalBombSequence.SegmentExtraParams)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				GrydCardinalBombSequence.SegmentExtraParams segmentExtraParams = extraSequenceParams as GrydCardinalBombSequence.SegmentExtraParams;
 				if (segmentExtraParams.m_segmentData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<GrydCardinalBombSequence.SegmentDataEntry>.Enumerator enumerator = segmentExtraParams.m_segmentData.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -67,66 +45,21 @@ public class GrydCardinalBombSequence : Sequence
 							GrydCardinalBombSequence.SegmentDataEntry segmentDataEntry = enumerator.Current;
 							if (segmentDataEntry.m_startSquare != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (segmentDataEntry.m_endSquare != null && segmentDataEntry.m_startSquare != segmentDataEntry.m_endSquare)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_segmentData.Add(segmentDataEntry);
 									continue;
 								}
 							}
 							if (Application.isEditor)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Debug.LogError(base.name + " has bad segment data for projectile");
 							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 				if (segmentExtraParams.m_hitActors != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<GrydCardinalBombSequence.HitActorEntry>.Enumerator enumerator2 = segmentExtraParams.m_hitActors.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
@@ -137,27 +70,9 @@ public class GrydCardinalBombSequence : Sequence
 							ActorData item = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 							if (!this.m_indexToHitActors.ContainsKey(key))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_indexToHitActors[key] = new List<ActorData>();
 							}
 							this.m_indexToHitActors[key].Add(item);
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -181,19 +96,6 @@ public class GrydCardinalBombSequence : Sequence
 		{
 			if (genericSequenceProjectileInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.OnDisable()).MethodHandle;
-				}
 				genericSequenceProjectileInfo.OnSequenceDisable();
 			}
 		}
@@ -204,19 +106,6 @@ public class GrydCardinalBombSequence : Sequence
 		base.FinishSetup();
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.FinishSetup()).MethodHandle;
-			}
 			this.m_startedInitialProjectile = true;
 			if (this.m_initiatingProjectileInfo.m_fxPrefab != null)
 			{
@@ -233,31 +122,9 @@ public class GrydCardinalBombSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.m_startedInitialProjectile = true;
 			if (this.m_initiatingProjectileInfo.m_fxPrefab != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StartInitialProjectile();
 			}
 			else
@@ -274,55 +141,15 @@ public class GrydCardinalBombSequence : Sequence
 		{
 			if (this.m_initialProjectileContainer != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.Update()).MethodHandle;
-				}
 				this.m_initialProjectileContainer.OnUpdate();
 			}
 			if (!this.m_startedGroundProjectile)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_initialProjectileContainer != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_initialProjectileContainer.m_finished)
 					{
 						goto IL_83;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.StartGroundProjectileChain();
@@ -337,41 +164,14 @@ public class GrydCardinalBombSequence : Sequence
 					GrydCardinalBombSequence.SegmentDataEntry segmentDataEntry = this.m_segmentData[i];
 					if (!segmentDataEntry.m_markedChildrenToStart)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (segmentDataEntry.m_projectileContainer != null && segmentDataEntry.m_projectileContainer.m_finished)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.StartChildrenProjectile(segmentDataEntry);
 						}
 					}
 					if (segmentDataEntry.m_projectileContainer == null)
 					{
 						goto IL_107;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!segmentDataEntry.m_projectileContainer.m_finished)
 					{
@@ -396,26 +196,8 @@ public class GrydCardinalBombSequence : Sequence
 				{
 					this.m_projectContainers[j].OnUpdate();
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.Source.OnSequenceHit(this, base.TargetPos, null);
 					this.m_didFinalPosHit = true;
 				}
@@ -427,33 +209,11 @@ public class GrydCardinalBombSequence : Sequence
 	{
 		if (this.m_initialProjectileContainer == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.StartInitialProjectile()).MethodHandle;
-			}
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_initiatingProjectileInfo.m_jointReferenceType);
 			Vector3 startPos = base.Caster.GetTravelBoardSquareWorldPosition();
 			Vector3 targetPos = base.TargetPos;
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_initiatingProjectileInfo.m_fxJoint.Initialize(referenceModel);
 				startPos = this.m_initiatingProjectileInfo.m_fxJoint.m_jointObject.transform.position;
 			}
@@ -468,42 +228,11 @@ public class GrydCardinalBombSequence : Sequence
 		{
 			if (this.m_segmentData[i].m_projectileContainer == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.StartGroundProjectileChain()).MethodHandle;
-				}
 				if ((int)this.m_segmentData[i].m_prevSegmentIndex < 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnProjectileForSegment(this.m_segmentData[i]);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_startedGroundProjectile = true;
 	}
@@ -515,42 +244,11 @@ public class GrydCardinalBombSequence : Sequence
 			GrydCardinalBombSequence.SegmentDataEntry segmentDataEntry = this.m_segmentData[i];
 			if (segmentDataEntry.m_projectileContainer == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.StartChildrenProjectile(GrydCardinalBombSequence.SegmentDataEntry)).MethodHandle;
-				}
 				if ((int)segmentDataEntry.m_prevSegmentIndex == (int)parentSegment.m_segmentIndex)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnProjectileForSegment(segmentDataEntry);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		parentSegment.m_markedChildrenToStart = true;
 	}
@@ -580,19 +278,6 @@ public class GrydCardinalBombSequence : Sequence
 			sbyte b;
 			if (this.m_segmentData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.SegmentExtraParams.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
 				b = (sbyte)this.m_segmentData.Count;
 			}
 			else
@@ -608,15 +293,6 @@ public class GrydCardinalBombSequence : Sequence
 			sbyte b3;
 			if (this.m_hitActors != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				b3 = (sbyte)this.m_hitActors.Count;
 			}
 			else
@@ -628,15 +304,6 @@ public class GrydCardinalBombSequence : Sequence
 			for (int j = 0; j < (int)b4; j++)
 			{
 				GrydCardinalBombSequence.HitActorEntry.Serialize(stream, this.m_hitActors[j]);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -651,19 +318,6 @@ public class GrydCardinalBombSequence : Sequence
 				GrydCardinalBombSequence.SegmentDataEntry.Deserialize(stream, segmentDataEntry);
 				this.m_segmentData.Add(segmentDataEntry);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.SegmentExtraParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
-			}
 			sbyte b2 = 0;
 			stream.Serialize(ref b2);
 			this.m_hitActors = new List<GrydCardinalBombSequence.HitActorEntry>();
@@ -672,15 +326,6 @@ public class GrydCardinalBombSequence : Sequence
 				GrydCardinalBombSequence.HitActorEntry hitActorEntry = new GrydCardinalBombSequence.HitActorEntry();
 				GrydCardinalBombSequence.HitActorEntry.Deserialize(stream, hitActorEntry);
 				this.m_hitActors.Add(hitActorEntry);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -706,19 +351,6 @@ public class GrydCardinalBombSequence : Sequence
 			sbyte b;
 			if (entry.m_startSquare != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBombSequence.SegmentDataEntry.Serialize(IBitStream, GrydCardinalBombSequence.SegmentDataEntry)).MethodHandle;
-				}
 				b = (sbyte)entry.m_startSquare.x;
 			}
 			else
@@ -729,15 +361,6 @@ public class GrydCardinalBombSequence : Sequence
 			sbyte b3;
 			if (entry.m_startSquare != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				b3 = (sbyte)entry.m_startSquare.y;
 			}
 			else
@@ -748,15 +371,6 @@ public class GrydCardinalBombSequence : Sequence
 			sbyte b5;
 			if (entry.m_endSquare != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				b5 = (sbyte)entry.m_endSquare.x;
 			}
 			else
@@ -767,15 +381,6 @@ public class GrydCardinalBombSequence : Sequence
 			sbyte b7;
 			if (entry.m_endSquare != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				b7 = (sbyte)entry.m_endSquare.y;
 			}
 			else

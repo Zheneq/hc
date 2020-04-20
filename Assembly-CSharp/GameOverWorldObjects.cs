@@ -37,19 +37,6 @@ public class GameOverWorldObjects : UIScene
 		UIManager.SetGameObjectActive(this.m_GameOverWorldCanvas, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverWorldObjects.SetVisible(bool)).MethodHandle;
-			}
 			this.m_worldResultAnimController.Play("ResultAnimation");
 			UIGameOverScreen.Get().m_worldGGBtnHitBox.SetClickable(true);
 			this.m_GameOverWorldCanvas.gameObject.transform.position = UIManager.Get().GetEnvirontmentCamera().gameObject.transform.position + new Vector3(0f, 0f, 12f);
@@ -61,19 +48,6 @@ public class GameOverWorldObjects : UIScene
 		GameType gameType = GameManager.Get().GameConfig.GameType;
 		if (gameType == GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverWorldObjects.Setup(GameResult, Team, float)).MethodHandle;
-			}
 			AudioManager.PostEvent("ui/endgame/victory", null);
 			UIManager.SetGameObjectActive(this.m_worldDefeat, false, null);
 			UIManager.SetGameObjectActive(this.m_worldTie, false, null);
@@ -92,27 +66,9 @@ public class GameOverWorldObjects : UIScene
 						{
 							goto IL_D9;
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (gameResult == GameResult.TeamBWon)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (friendlyTeam == Team.TeamB)
 						{
 							for (;;)
@@ -140,15 +96,6 @@ public class GameOverWorldObjects : UIScene
 					UIManager.SetGameObjectActive(this.m_worldVictory, true, null);
 					goto IL_15F;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			UIManager.SetGameObjectActive(this.m_worldVictory, false, null);
 			UIManager.SetGameObjectActive(this.m_worldTie, true, null);
@@ -162,19 +109,6 @@ public class GameOverWorldObjects : UIScene
 	{
 		if (UIGameOverScreen.Get().m_worldGGBtnHitBox.IsClickable())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverWorldObjects.NotificationArrived()).MethodHandle;
-			}
 			UIGameOverScreen.Get().m_worldGGBtnHitBox.SetClickable(false);
 		}
 		UIManager.SetGameObjectActive(this.m_GameOverWorldCanvas, false, null);

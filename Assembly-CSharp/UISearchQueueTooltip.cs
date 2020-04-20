@@ -26,31 +26,9 @@ public class UISearchQueueTooltip : UITooltipBase
 		LobbyMatchmakingQueueInfo queueInfo = GameManager.Get().QueueInfo;
 		if (queueInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISearchQueueTooltip.Setup()).MethodHandle;
-			}
 			TimeSpan timeSpan;
 			if (ClientGameManager.Get().QueueEntryTime == DateTime.MinValue)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				timeSpan = TimeSpan.FromMinutes(0.0);
 			}
 			else
@@ -61,15 +39,6 @@ public class UISearchQueueTooltip : UITooltipBase
 			this.m_searchQueueTimeInQueueTooltipText.text = string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)matchDuration.TotalSeconds);
 			if (queueInfo.ShowQueueSize && queueInfo.QueuedPlayers > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_searchQueueSizeRankTooltipText, true, null);
 				UIManager.SetGameObjectActive(this.m_searchQueueSizeRankTooltipTextLabel, true, null);
 				this.m_searchQueueSizeRankTooltipText.text = string.Format("{0}", queueInfo.QueuedPlayers);
@@ -87,40 +56,13 @@ public class UISearchQueueTooltip : UITooltipBase
 			{
 				if ((num2 & soloSubGameMask) != 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameBalanceVars.GameRewardBucketType rewardBucket = queueInfo.GameConfig.GetSubType(num2).RewardBucket;
 					int xpbonusForQueueTime = GameBalanceVars.Get().GetXPBonusForQueueTime(rewardBucket, matchDuration);
 					if (num < xpbonusForQueueTime)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = xpbonusForQueueTime;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_searchQueueXpGainedText.text = string.Format(StringUtil.TR("XpGained", "Global"), num);
 		}

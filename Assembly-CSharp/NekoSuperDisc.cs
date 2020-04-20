@@ -95,19 +95,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			if (this.m_syncComp.m_superDiscActive)
 			{
 				return 0;
@@ -120,19 +107,6 @@ public class NekoSuperDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.IsFreeAction()).MethodHandle;
-			}
 			if (this.m_syncComp.m_superDiscActive)
 			{
 				return true;
@@ -145,30 +119,8 @@ public class NekoSuperDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetModdedCost()).MethodHandle;
-			}
 			if (this.m_syncComp.m_superDiscActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 0;
 			}
 		}
@@ -179,30 +131,8 @@ public class NekoSuperDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetTargetData()).MethodHandle;
-			}
 			if (this.m_syncComp.m_superDiscActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new TargetData[0];
 			}
 		}
@@ -218,30 +148,8 @@ public class NekoSuperDisc : Ability
 	{
 		if (this.m_syncComp != null && this.m_syncComp.m_superDiscActive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			if (animIndex == (int)base.GetActionAnimType())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
@@ -252,30 +160,8 @@ public class NekoSuperDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoSuperDisc.GetCurrentDiscSquare()).MethodHandle;
-			}
 			if (this.m_syncComp.m_superDiscActive)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return Board.Get().GetBoardSquare(this.m_syncComp.m_superDiscBoardX, this.m_syncComp.m_superDiscBoardY);
 			}
 		}

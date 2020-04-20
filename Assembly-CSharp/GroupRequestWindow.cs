@@ -20,21 +20,8 @@ internal class GroupRequestWindow
 
 	private void SpawnNewPopup()
 	{
-		if (this.m_request.Type == GroupConfirmationRequest.JoinType.\u001D)
+		if (this.m_request.Type == GroupConfirmationRequest.JoinType.symbol_001D)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupRequestWindow.SpawnNewPopup()).MethodHandle;
-			}
 			string description = string.Format(StringUtil.TR("InviteToFormGroup", "Global"), this.m_request.LeaderName);
 			this.m_dialogBox = UIDialogPopupManager.OpenPartyInviteDialog(StringUtil.TR("GroupRequest", "Global"), description, StringUtil.TR("Join", "Global"), StringUtil.TR("Reject", "Global"), delegate(UIDialogBox UIDialogBox)
 			{
@@ -47,17 +34,8 @@ internal class GroupRequestWindow
 				this.Reject();
 			});
 		}
-		else if (this.m_request.Type == GroupConfirmationRequest.JoinType.\u000E)
+		else if (this.m_request.Type == GroupConfirmationRequest.JoinType.symbol_000E)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string description2 = string.Format(StringUtil.TR("RequestToJoinGroup", "Invite"), this.m_request.JoinerName);
 			this.m_dialogBox = UIDialogPopupManager.OpenPartyInviteDialog(StringUtil.TR("GroupRequest", "Global"), description2, StringUtil.TR("Approve", "Global"), StringUtil.TR("Reject", "Global"), delegate(UIDialogBox UIDialogBox)
 			{
@@ -76,19 +54,6 @@ internal class GroupRequestWindow
 	{
 		if (!this.m_done)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupRequestWindow.CleanupWindow()).MethodHandle;
-			}
 			this.MarkDone();
 			this.m_dialogBox.Close();
 			GroupJoinManager.Get().SendGroupConfirmation(GroupInviteResponseType.OfferExpired, this.m_request);
@@ -133,19 +98,6 @@ internal class GroupRequestWindow
 		bool result;
 		if (!this.m_done)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupRequestWindow.HasExpired(DateTime)).MethodHandle;
-			}
 			result = (this.m_expiration < time);
 		}
 		else

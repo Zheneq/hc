@@ -43,83 +43,25 @@ public class ChatterData
 	{
 		if (chatter.GetCommonData().m_oncePerTurn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterData.ShouldPlayChatter(IChatterData, GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
 			if (chatter.GetCommonData().m_playedThisTurn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 		}
 		if (eventType != chatter.GetActivateOnEvent())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (TheatricsManager.Get())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (TheatricsManager.Get().IsCinematicPlaying())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 		}
 		float num = UnityEngine.Random.Range(0f, 1f);
 		if (num > chatter.GetCommonData().m_pctChanceToPlay)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		ChatterData.Locality locality = chatter.GetCommonData().m_locality;
@@ -128,55 +70,19 @@ public class ChatterData
 			GameFlowData gameFlowData = GameFlowData.Get();
 			if (gameFlowData == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 			ActorData activeOwnedActorData = gameFlowData.activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData component2 = component.gameObject.GetComponent<ActorData>();
 				if (component2 == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error(string.Format("Chatter component {0} is on an object that does not have ActorData; non-All locality isn't allowed. (audio event {1})", component, chatter.GetCommonData().m_audioEvent), new object[0]);
 					return false;
 				}
 				if (locality == ChatterData.Locality.LocalOnly)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData != component2)
 					{
 						return false;
@@ -184,15 +90,6 @@ public class ChatterData
 				}
 				if (locality == ChatterData.Locality.TeamOnly)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData.GetTeam() != component2.GetTeam())
 					{
 						return false;
@@ -216,19 +113,6 @@ public class ChatterData
 	{
 		if (this.m_oncePerTurn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ChatterData.OnPlay()).MethodHandle;
-			}
 			this.m_playedThisTurn = true;
 			this.m_audioEventOverride = null;
 		}

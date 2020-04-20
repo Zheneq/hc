@@ -32,19 +32,6 @@ public class UISpellsSelectButton : MonoBehaviour
 	{
 		if (this.m_buttonHitBox != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.Start()).MethodHandle;
-			}
 			this.m_buttonHitBox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SpellClicked);
 		}
 	}
@@ -83,19 +70,6 @@ public class UISpellsSelectButton : MonoBehaviour
 		{
 			this.m_description[i].text = text;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.SetDescription(string)).MethodHandle;
-		}
 	}
 
 	private void SetCatalystIcon(Sprite sprite)
@@ -103,19 +77,6 @@ public class UISpellsSelectButton : MonoBehaviour
 		for (int i = 0; i < this.m_abilityIcon.Length; i++)
 		{
 			this.m_abilityIcon[i].sprite = sprite;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.SetCatalystIcon(Sprite)).MethodHandle;
 		}
 	}
 
@@ -127,19 +88,6 @@ public class UISpellsSelectButton : MonoBehaviour
 		string text = card.m_useAbility.GetFullTooltip();
 		if (!card.m_useAbility.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.Setup(Card)).MethodHandle;
-			}
 			string text2 = text;
 			text = string.Concat(new string[]
 			{
@@ -161,32 +109,10 @@ public class UISpellsSelectButton : MonoBehaviour
 	{
 		if (this.selectBtn == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpellsSelectButton.SetSelectState(bool)).MethodHandle;
-			}
 			this.selectBtn = base.GetComponent<_SelectableBtn>();
 		}
 		if (this.selectBtn != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.selectBtn.SetSelected(this.m_selected, forceAnimPlay, string.Empty, string.Empty);
 		}
 		else

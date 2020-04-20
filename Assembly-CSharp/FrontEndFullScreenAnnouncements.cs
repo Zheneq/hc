@@ -27,32 +27,10 @@ public class FrontEndFullScreenAnnouncements : UIScene
 	{
 		if (this.Introductions != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndFullScreenAnnouncements.SetIntroductionVisible(AccountComponent.UIStateIdentifier, int)).MethodHandle;
-			}
 			for (int i = 0; i < this.Introductions.Length; i++)
 			{
 				if (this.Introductions[i].UIState == UIState)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.Introductions[i].DisplayIntroduction(pageNum);
 				}
 			}

@@ -30,19 +30,6 @@ public class FogOfWar : MonoBehaviour
 			}
 			else if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.GetClientFog()).MethodHandle;
-				}
 				result = GameFlowData.Get().LocalPlayerData.GetFogOfWar();
 			}
 		}
@@ -63,19 +50,6 @@ public class FogOfWar : MonoBehaviour
 		{
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.ShouldUpdateMyVisibility()).MethodHandle;
-				}
 				result = true;
 			}
 			else if (GameFlowData.Get().LocalPlayerData != null)
@@ -84,27 +58,9 @@ public class FogOfWar : MonoBehaviour
 				Team teamViewing2 = this.m_ownerPlayer.GetTeamViewing();
 				if (teamViewing != Team.Invalid)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (teamViewing != teamViewing2)
 					{
 						goto IL_97;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (this.m_ownerPlayer.PlayerIndex != PlayerData.s_invalidPlayerIndex)
@@ -126,44 +82,13 @@ public class FogOfWar : MonoBehaviour
 		bool result = false;
 		if (GameFlowData.Get().LocalPlayerData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.ShouldUpdateClientActorVisibility()).MethodHandle;
-			}
 			if (GameFlowData.Get().LocalPlayerData.GetFogOfWar() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 				bool updateVisibility = this.m_updateVisibility;
 				bool flag;
 				if (!(this.m_owner == null) && teamViewing != Team.Invalid)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (teamViewing == this.m_owner.GetTeam());
 				}
 				else
@@ -175,37 +100,10 @@ public class FogOfWar : MonoBehaviour
 				bool flag4 = !FogOfWar.GetClientFog().m_updatedVisibilityThisFrame;
 				if (updateVisibility)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag3 && flag4)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 						}
 					}
@@ -220,33 +118,11 @@ public class FogOfWar : MonoBehaviour
 		this.m_updatedVisibilityThisFrame = false;
 		if (this.ShouldUpdateMyVisibility())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.Update()).MethodHandle;
-			}
 			this.UpdateVisibilityOfSquares(true);
 			this.m_updatedVisibilityThisFrame = true;
 		}
 		if (this.ShouldUpdateClientActorVisibility())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FogOfWar.GetClientFog().MarkForRecalculateVisibility();
 		}
 		this.m_updateVisibility = false;
@@ -256,19 +132,6 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (center != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalcVisibleSquares(BoardSquare, float, bool, BoardSquare.VisibilityFlags, bool, VisionProviderInfo.BrushRevealType)).MethodHandle;
-			}
 			if (radius > 0f)
 			{
 				ActorData owner = this.m_owner;
@@ -283,15 +146,6 @@ public class FogOfWar : MonoBehaviour
 				bool flag2;
 				if (owner != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = owner.GetActorStatus().HasStatus(StatusType.SeeThroughBrush, true);
 				}
 				else
@@ -306,27 +160,9 @@ public class FogOfWar : MonoBehaviour
 						BoardSquare boardSquare = board.GetBoardSquare(i, j);
 						if (boardSquare != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							FogOfWar.VisibleSquareEntry value;
 							if (this.m_visibleSquares.TryGetValue(boardSquare, out value))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.GetVisTypePriority(flag) <= this.GetHighestVisTypePriority(value.m_visibleFlags))
 								{
 									goto IL_2F6;
@@ -335,15 +171,6 @@ public class FogOfWar : MonoBehaviour
 							float num6;
 							if (radiusAsStraightLineDist)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num6 = boardSquare.HorizontalDistanceInSquaresTo(center);
 							}
 							else
@@ -353,52 +180,16 @@ public class FogOfWar : MonoBehaviour
 							float num7 = num6;
 							if (num7 <= num)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!ignoreLOS)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!center.\u0013(i, j))
+									if (!center.symbol_0013(i, j))
 									{
 										goto IL_2F6;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								if (!owner)
 								{
 									goto IL_1F3;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (flag3)
 								{
@@ -420,15 +211,6 @@ public class FogOfWar : MonoBehaviour
 									bool flag4;
 									if (owner)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag4 = BarrierManager.Get().IsVisionBlocked(owner, center, boardSquare);
 									}
 									else
@@ -446,15 +228,6 @@ public class FogOfWar : MonoBehaviour
 								{
 									if (flag5)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									else
 									{
@@ -468,52 +241,16 @@ public class FogOfWar : MonoBehaviour
 								{
 									if (brushRevealType == VisionProviderInfo.BrushRevealType.Never)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (boardSquare.BrushRegion >= 0)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag6 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion);
 											goto IL_286;
 										}
 									}
 									if (brushRevealType == VisionProviderInfo.BrushRevealType.Always)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (boardSquare.BrushRegion >= 0)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag6 = false;
 											goto IL_286;
 										}
@@ -540,56 +277,16 @@ public class FogOfWar : MonoBehaviour
 			BoardSquare boardSquare = squares[i];
 			if (boardSquare != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.AppendToVisibleSquares(List<BoardSquare>, BoardSquare.VisibilityFlags, bool)).MethodHandle;
-				}
 				bool flag2 = false;
 				if (!seeThroughBrush)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (BrushCoordinator.Get() != null && boardSquare.BrushRegion > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = BrushCoordinator.Get().IsRegionFunctioning(boardSquare.BrushRegion);
 					}
 				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FogOfWar.VisibleSquareEntry value;
 					this.m_visibleSquares.TryGetValue(boardSquare, out value);
 					value.m_visibleFlags |= (int)flag;
@@ -603,58 +300,18 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (visType == BoardSquare.VisibilityFlags.Revealed)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.GetVisTypePriority(BoardSquare.VisibilityFlags)).MethodHandle;
-			}
 			return 4;
 		}
 		if (visType == BoardSquare.VisibilityFlags.Objective)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 3;
 		}
 		if (visType == BoardSquare.VisibilityFlags.Self)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 2;
 		}
 		if (visType == BoardSquare.VisibilityFlags.Team)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 1;
 		}
 		return 0;
@@ -664,45 +321,14 @@ public class FogOfWar : MonoBehaviour
 	{
 		if ((flags & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.GetHighestVisTypePriority(int)).MethodHandle;
-			}
 			return 4;
 		}
 		if ((flags & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 3;
 		}
 		if ((flags & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 2;
 		}
 		if ((flags & 2) != 0)
@@ -719,19 +345,6 @@ public class FogOfWar : MonoBehaviour
 		float result;
 		if (num > num2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalcHorizontalDistanceOnBoardTo(int, int, int, int)).MethodHandle;
-			}
 			result = (float)(num - num2) + (float)num2 * 1.5f;
 		}
 		else
@@ -745,44 +358,13 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsVisible(BoardSquare)).MethodHandle;
-			}
 			if (this.m_owner != GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning("Calling FogOfWar::IsVisible(BoardSquare square) on a client for not-the-client actor.", new object[0]);
 			}
 		}
 		if (square == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		return this.m_visibleSquares.ContainsKey(square);
@@ -793,30 +375,8 @@ public class FogOfWar : MonoBehaviour
 		bool result = false;
 		if (square != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsVisibleBySelf(BoardSquare)).MethodHandle;
-			}
 			if (this.m_visibleSquares.ContainsKey(square) && (this.m_visibleSquares[square].m_visibleFlags & 1) != 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -828,31 +388,9 @@ public class FogOfWar : MonoBehaviour
 		bool result = false;
 		if (otherActor != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsVisibleBySelf(ActorData)).MethodHandle;
-			}
 			BoardSquare travelBoardSquare = otherActor.GetTravelBoardSquare();
 			if (travelBoardSquare != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.IsVisibleBySelf(travelBoardSquare))
 				{
 					result = true;
@@ -876,19 +414,6 @@ public class FogOfWar : MonoBehaviour
 				{
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalcVisibleBySelfBounds()).MethodHandle;
-						}
 						result.Encapsulate(key.CameraBounds);
 					}
 					else
@@ -898,15 +423,6 @@ public class FogOfWar : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return result;
 	}
@@ -915,19 +431,6 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.CalculateFogOfWarForTeam(Team)).MethodHandle;
-			}
 			Debug.LogError("Trying to calculate fog of war, but GameFlowData does not exist.");
 		}
 		else
@@ -940,39 +443,12 @@ public class FogOfWar : MonoBehaviour
 					ActorData actorData = enumerator.Current;
 					if (actorData.GetTeam() == team)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						FogOfWar fogOfWar = actorData.GetFogOfWar();
 						if (fogOfWar != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							fogOfWar.MarkForRecalculateVisibility();
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -989,57 +465,17 @@ public class FogOfWar : MonoBehaviour
 		this.m_visibilityPersonalOnly = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility);
 		if (this.m_owner)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.UpdateVisibilityOfSquares(bool)).MethodHandle;
-			}
 			bool flag = this.m_owner.IsDead();
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NetworkClient.active)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = this.m_owner.IsModelAnimatorDisabled();
 				}
 			}
 			float num;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 0f;
 			}
 			else
@@ -1052,38 +488,11 @@ public class FogOfWar : MonoBehaviour
 		bool flag2 = GameplayMutators.IsStatusActive(StatusType.Blind, GameFlowData.Get().CurrentTurn, GameplayMutators.ActionPhaseCheckMode.Default);
 		if (!this.m_visibilityPersonalOnly)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_owner)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorAdditionalVisionProviders actorAdditionalVisionProviders = this.m_owner.GetActorAdditionalVisionProviders();
 				if (actorAdditionalVisionProviders != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SyncListVisionProviderInfo visionProviders = actorAdditionalVisionProviders.GetVisionProviders();
 					int i = 0;
 					while (i < (int)visionProviders.Count)
@@ -1091,15 +500,6 @@ public class FogOfWar : MonoBehaviour
 						if (!flag2)
 						{
 							goto IL_163;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (visionProviders[i].m_canFunctionInGlobalBlind)
 						{
@@ -1111,67 +511,22 @@ public class FogOfWar : MonoBehaviour
 						IL_163:
 						if (visionProviders[i].GetBoardSquare() != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.CalcVisibleSquares(visionProviders[i].GetBoardSquare(), visionProviders[i].m_radius, visionProviders[i].m_radiusAsStraightLineDist, visionProviders[i].m_flag, visionProviders[i].m_ignoreLos, visionProviders[i].m_brushRevealType);
 							goto IL_20C;
 						}
 						goto IL_20C;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				List<ControlPoint> allControlPoints = ControlPoint.GetAllControlPoints();
 				if (allControlPoints != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int j = 0; j < allControlPoints.Count; j++)
 					{
 						ControlPoint controlPoint = allControlPoints[j];
 						if (controlPoint.IsGrantingVisionForTeam(this.m_owner.GetTeam()))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.AppendToVisibleSquares(controlPoint.GetSquaresForVision(), BoardSquare.VisibilityFlags.Team, controlPoint.m_visionSeeThroughBrush);
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1179,15 +534,6 @@ public class FogOfWar : MonoBehaviour
 			ActorStatus actorStatus;
 			if (this.m_owner)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorStatus = this.m_owner.GetActorStatus();
 			}
 			else
@@ -1199,15 +545,6 @@ public class FogOfWar : MonoBehaviour
 			List<ActorData> list2;
 			if (team != Team.Invalid)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = GameFlowData.Get().GetAllTeamMembers(team);
 				list2 = GameFlowData.Get().GetAllTeamMembers(team.OtherTeam());
 			}
@@ -1220,92 +557,29 @@ public class FogOfWar : MonoBehaviour
 			bool flag3 = true;
 			if (actorStatus2 && actorStatus2.HasStatus(StatusType.LoseAllyVision, true))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = false;
 			}
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (ActorData actorData in list)
 				{
 					if (actorData)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(this.m_owner == null))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(this.m_owner != actorData))
 							{
 								continue;
 							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (actorData.GetTravelBoardSquare())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorStatus actorStatus3 = actorData.GetActorStatus();
 							if (!actorStatus3.HasStatus(StatusType.IsolateVisionFromAllies, true))
 							{
 								bool flag4 = actorData.IsDead();
 								if (!flag4 && NetworkClient.active)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag4 = actorData.IsModelAnimatorDisabled();
 								}
 								float radius2 = (!flag4) ? actorData.GetActualSightRange() : 0f;
@@ -1313,15 +587,6 @@ public class FogOfWar : MonoBehaviour
 								ActorAdditionalVisionProviders component = actorData.GetComponent<ActorAdditionalVisionProviders>();
 								if (component != null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									SyncListVisionProviderInfo visionProviders2 = component.GetVisionProviders();
 									for (int k = 0; k < (int)visionProviders2.Count; k++)
 									{
@@ -1329,27 +594,9 @@ public class FogOfWar : MonoBehaviour
 										{
 											if (visionProviders2[k].GetBoardSquare() != null)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.CalcVisibleSquares(visionProviders2[k].GetBoardSquare(), visionProviders2[k].m_radius, visionProviders2[k].m_radiusAsStraightLineDist, visionProviders2[k].m_flag, visionProviders2[k].m_ignoreLos, visionProviders2[k].m_brushRevealType);
 											}
 										}
-									}
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -1369,15 +616,6 @@ public class FogOfWar : MonoBehaviour
 						bool flag5;
 						if (actorStatus4)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag5 = actorStatus4.HasStatus(StatusType.Revealed, true);
 						}
 						else
@@ -1388,51 +626,15 @@ public class FogOfWar : MonoBehaviour
 						bool flag7 = false;
 						if (!NetworkServer.active)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (CaptureTheFlag.IsActorRevealedByFlag_Client(actorData2))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag7 = true;
 							}
 						}
 						if (travelBoardSquare)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag6)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag7)
 								{
 									goto IL_6A6;
@@ -1443,26 +645,8 @@ public class FogOfWar : MonoBehaviour
 						IL_6A6:
 						if (travelBoardSquare)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_owner && this.m_owner.IsLineOfSightVisibleException(actorData2))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								FogOfWar.VisibleSquareEntry value;
 								this.m_visibleSquares.TryGetValue(travelBoardSquare, out value);
 								value.m_visibleFlags |= 8;
@@ -1471,28 +655,10 @@ public class FogOfWar : MonoBehaviour
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (updateShade)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetVisibleShadeOfAllSquares();
 		}
 		this.m_lastRecalcTime = Time.time;
@@ -1502,19 +668,6 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.IsClientFog()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != this.m_owner)
 			{
 				return false;
@@ -1522,15 +675,6 @@ public class FogOfWar : MonoBehaviour
 		}
 		else if (this.m_ownerPlayer != GameFlowData.Get().LocalPlayerData)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		return true;
@@ -1540,19 +684,6 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (!this.IsClientFog())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.SetVisibleShadeOfAllSquares()).MethodHandle;
-			}
 			return;
 		}
 		bool flag = false;
@@ -1564,26 +695,8 @@ public class FogOfWar : MonoBehaviour
 				BoardSquare boardSquare = board.GetBoardSquare(i, j);
 				if (boardSquare != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_visibleSquares.ContainsKey(boardSquare))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						boardSquare.SetVisibleShade(this.m_visibleSquares[boardSquare].m_visibleFlags, ref flag);
 					}
 					else
@@ -1596,47 +709,11 @@ public class FogOfWar : MonoBehaviour
 					Log.Info(string.Format("Trying to set visible shade of square ({0}, {1}), but it's out of bounds", i, j), new object[0]);
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameEventManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.BoardSquareVisibleShadeChanged, null);
 			}
 		}
@@ -1646,43 +723,12 @@ public class FogOfWar : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWar.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		if (GameFlowData.Get() != null && this.m_owner != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_owner == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (Dictionary<BoardSquare, FogOfWar.VisibleSquareEntry>.Enumerator enumerator = this.m_visibleSquares.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -1691,15 +737,6 @@ public class FogOfWar : MonoBehaviour
 						BoardSquare key = keyValuePair.Key;
 						if ((keyValuePair.Value.m_visibleFlags & 1) != 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Gizmos.color = Color.gray;
 						}
 						else
@@ -1707,15 +744,6 @@ public class FogOfWar : MonoBehaviour
 							Gizmos.color = Color.blue;
 						}
 						Gizmos.DrawWireCube(key.CameraBounds.center, key.CameraBounds.size * 0.7f);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Gizmos.color = Color.white;

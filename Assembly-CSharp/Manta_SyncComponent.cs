@@ -21,30 +21,8 @@ public class Manta_SyncComponent : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.Start()).MethodHandle;
-			}
 			if (component.GetAbilityData() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_dirtyFightingAbility = (component.GetAbilityData().GetAbilityOfType(typeof(MantaConeDirtyFighting)) as MantaConeDirtyFighting);
 			}
 		}
@@ -70,19 +48,6 @@ public class Manta_SyncComponent : NetworkBehaviour
 		int dirtyFightingExtraDamage = this.GetDirtyFightingExtraDamage(targetActor);
 		if (dirtyFightingExtraDamage > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.GetAccessoryStringForDamage(ActorData, ActorData, Ability)).MethodHandle;
-			}
 			return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, dirtyFightingExtraDamage, false).ToString();
 		}
 		return null;
@@ -92,30 +57,8 @@ public class Manta_SyncComponent : NetworkBehaviour
 	{
 		if (this.HasDirtyFightingEffect(effectActor))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.GetDirtyFightingExtraDamage(ActorData)).MethodHandle;
-			}
 			if (this.m_dirtyFightingAbility != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_dirtyFightingAbility.GetEffectExplosionDamage();
 			}
 		}
@@ -126,30 +69,8 @@ public class Manta_SyncComponent : NetworkBehaviour
 	{
 		if (this.HasDirtyFightingEffect(effectActor))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.GetDirtyFightingExtraTP(ActorData)).MethodHandle;
-			}
 			if (this.m_dirtyFightingAbility != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_dirtyFightingAbility.GetTechPointGainPerExplosion();
 			}
 		}
@@ -164,19 +85,6 @@ public class Manta_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.InvokeSyncListm_dirtyFightingActorIndices(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_dirtyFightingActorIndices called on server.");
 			return;
 		}
@@ -192,45 +100,14 @@ public class Manta_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListUInt.WriteInstance(writer, this.m_dirtyFightingActorIndices);
 			return true;
 		}
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -238,15 +115,6 @@ public class Manta_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -256,34 +124,12 @@ public class Manta_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Manta_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndices);
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, this.m_dirtyFightingActorIndices);
 		}
 	}

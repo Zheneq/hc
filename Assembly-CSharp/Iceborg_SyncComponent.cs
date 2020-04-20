@@ -91,58 +91,18 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		this.m_delayedAoeOnHitData.AddTooltipTokens(tokens);
 		if (this.m_delayedAoeShieldPerEnemyHit > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.AddTooltipTokens(List<TooltipTokenEntry>)).MethodHandle;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerHit", string.Empty, this.m_delayedAoeShieldPerEnemyHit, false, 0);
 		}
 		if (this.m_delayedAoeShieldPerExplosion > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaShieldPerExplosion", string.Empty, this.m_delayedAoeShieldPerExplosion, false, 0);
 		}
 		if (this.m_delayedAoeEnergyPerEnemyHit > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerHit", string.Empty, this.m_delayedAoeEnergyPerEnemyHit, false, 0);
 		}
 		if (this.m_delayedAoeEnergyPerExplosion > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityMod.AddToken_IntDiff(tokens, "NovaEnergyPerExplosion", string.Empty, this.m_delayedAoeEnergyPerExplosion, false, 0);
 		}
 	}
@@ -156,34 +116,12 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 	{
 		if (actorHitContext.ContainsKey(targetActor) && caster.GetTeam() != targetActor.GetTeam())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.SetHasCoreContext_Client(Dictionary<ActorData, ActorHitContext>, ActorData, ActorData)).MethodHandle;
-			}
 			bool flag = this.HasNovaCore(targetActor);
-			ContextVars u = actorHitContext[targetActor].\u0015;
+			ContextVars u = actorHitContext[targetActor].symbol_0015;
 			int hash = Iceborg_SyncComponent.s_cvarHasNova.GetHash();
 			int value;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = 1;
 			}
 			else
@@ -199,19 +137,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		int result = 0;
 		if (this.m_damageFieldLastCastTurn > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.GetTurnsSinceInitialCast()).MethodHandle;
-			}
 			result = Mathf.Max(0, GameFlowData.Get().CurrentTurn - (int)this.m_damageFieldLastCastTurn);
 		}
 		return result;
@@ -341,19 +266,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListUInt.WriteInstance(writer, this.m_actorsWithNovaCore);
 			writer.WritePackedUInt32((uint)this.m_damageFieldLastCastTurn);
 			writer.Write(this.m_damageAreaCanMoveThisTurn);
@@ -369,15 +281,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -385,15 +288,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -403,15 +297,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -421,26 +306,8 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -450,15 +317,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -466,26 +324,8 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -493,26 +333,8 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x40U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -529,15 +351,6 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -560,45 +373,14 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Iceborg_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListUInt.ReadReference(reader, this.m_actorsWithNovaCore);
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_damageFieldLastCastTurn = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_damageAreaCanMoveThisTurn = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
@@ -611,41 +393,14 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_damageAreaFreePos = reader.ReadVector3();
 		}
 		if ((num & 0x40) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_numNovaEffectsOnTurnStart = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x80) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_selfShieldLowHealthOnTurnStart = reader.ReadBoolean();
 		}
 	}

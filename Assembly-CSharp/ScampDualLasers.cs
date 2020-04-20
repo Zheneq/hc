@@ -31,19 +31,6 @@ public class ScampDualLasers : GenericAbility_Container
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
 		if (this.m_shieldDownTargetSelect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.GetRelevantTargetSelectCompForEditor()).MethodHandle;
-			}
 			relevantTargetSelectCompForEditor.Add(this.m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
@@ -54,7 +41,7 @@ public class ScampDualLasers : GenericAbility_Container
 		this.m_syncComp = base.GetComponent<Scamp_SyncComponent>();
 		if (this.m_abilityMod != null)
 		{
-			this.m_cachedShieldDownOnHitData = this.m_abilityMod.m_shieldDownOnHitDataMod.\u001D(this.m_shieldDownOnHitData);
+			this.m_cachedShieldDownOnHitData = this.m_abilityMod.m_shieldDownOnHitDataMod.symbol_001D(this.m_shieldDownOnHitData);
 		}
 		else
 		{
@@ -64,19 +51,6 @@ public class ScampDualLasers : GenericAbility_Container
 		AbilityUtil_Targeter_ScampDualLasers abilityUtil_Targeter_ScampDualLasers = base.Targeter as AbilityUtil_Targeter_ScampDualLasers;
 		if (abilityUtil_Targeter_ScampDualLasers != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.SetupTargetersAndCachedVars()).MethodHandle;
-			}
 			abilityUtil_Targeter_ScampDualLasers.m_delegateLaserCount = new AbilityUtil_Targeter_ScampDualLasers.LaserCountDelegate(this.GetNumLasers);
 			abilityUtil_Targeter_ScampDualLasers.m_delegateExtraAoeRadius = new AbilityUtil_Targeter_ScampDualLasers.ExtraAoeRadiusDelegate(this.GetExtraAoeRadius);
 		}
@@ -84,29 +58,11 @@ public class ScampDualLasers : GenericAbility_Container
 		TargetSelect_DualMeetingLasers targetSelect_DualMeetingLasers2 = this.m_shieldDownTargetSelect as TargetSelect_DualMeetingLasers;
 		if (targetSelect_DualMeetingLasers != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			targetSelect_DualMeetingLasers.m_delegateLaserCount = new TargetSelect_DualMeetingLasers.LaserCountDelegate(this.GetNumLasers);
 			targetSelect_DualMeetingLasers.m_delegateExtraAoeRadius = new TargetSelect_DualMeetingLasers.ExtraAoeRadiusDelegate(this.GetExtraAoeRadius);
 		}
 		if (targetSelect_DualMeetingLasers2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			targetSelect_DualMeetingLasers2.m_delegateLaserCount = new TargetSelect_DualMeetingLasers.LaserCountDelegate(this.GetNumLasers);
 			targetSelect_DualMeetingLasers2.m_delegateExtraAoeRadius = new TargetSelect_DualMeetingLasers.ExtraAoeRadiusDelegate(this.GetExtraAoeRadius);
 		}
@@ -118,32 +74,10 @@ public class ScampDualLasers : GenericAbility_Container
 		List<AbilityUtil_Targeter> collection;
 		if (!hasShield)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.ResetTargetersForShielding(bool)).MethodHandle;
-			}
 			if (!(this.m_shieldDownTargetSelect == null))
 			{
 				collection = this.m_shieldDownTargetSelect.CreateTargeters(this);
 				goto IL_54;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		collection = this.m_targetSelectComp.CreateTargeters(this);
@@ -152,15 +86,6 @@ public class ScampDualLasers : GenericAbility_Container
 		AbilityUtil_Targeter_ScampDualLasers abilityUtil_Targeter_ScampDualLasers = base.Targeter as AbilityUtil_Targeter_ScampDualLasers;
 		if (abilityUtil_Targeter_ScampDualLasers != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			abilityUtil_Targeter_ScampDualLasers.m_delegateLaserCount = new AbilityUtil_Targeter_ScampDualLasers.LaserCountDelegate(this.GetNumLasers);
 			abilityUtil_Targeter_ScampDualLasers.m_delegateExtraAoeRadius = new AbilityUtil_Targeter_ScampDualLasers.ExtraAoeRadiusDelegate(this.GetExtraAoeRadius);
 		}
@@ -175,19 +100,6 @@ public class ScampDualLasers : GenericAbility_Container
 	{
 		if (this.GetExtraAoeRadiusTurnAfterLosingSuit() > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.GetExtraAoeRadius(AbilityTarget, ActorData, float)).MethodHandle;
-			}
 			if (this.IsTurnAfterLostSuit())
 			{
 				return this.GetExtraAoeRadiusTurnAfterLosingSuit();
@@ -200,19 +112,6 @@ public class ScampDualLasers : GenericAbility_Container
 	{
 		if (this.IsInSuit())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.GetTargetSelectComp()).MethodHandle;
-			}
 			return base.GetTargetSelectComp();
 		}
 		return this.m_shieldDownTargetSelect;
@@ -222,33 +121,11 @@ public class ScampDualLasers : GenericAbility_Container
 	{
 		if (this.IsInSuit())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.GetOnHitAuthoredData()).MethodHandle;
-			}
 			return base.GetOnHitAuthoredData();
 		}
 		OnHitAuthoredData result;
 		if (this.m_cachedShieldDownOnHitData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_cachedShieldDownOnHitData;
 		}
 		else
@@ -262,54 +139,14 @@ public class ScampDualLasers : GenericAbility_Container
 	{
 		if (this.IsTurnAfterLostSuit())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (this.GetExtraDamageTurnAfterLosingSuit() > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorHitContext actorHitContext2 = actorHitContext[targetActor];
-				int hash = ContextKeys.\u001A.GetHash();
-				if (actorHitContext2.\u0015.ContainsInt(hash))
+				int hash = ContextKeys.symbol_001A.GetHash();
+				if (actorHitContext2.symbol_0015.ContainsInt(hash))
 				{
-					for (;;)
+					if (actorHitContext2.symbol_0015.GetInt(hash) > 0)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (actorHitContext2.\u0015.GetInt(hash) > 0)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage += this.GetExtraDamageTurnAfterLosingSuit();
 					}
 				}
@@ -327,19 +164,6 @@ public class ScampDualLasers : GenericAbility_Container
 		bool result;
 		if (this.m_syncComp != null && this.m_syncComp.m_lastSuitLostTurn > 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.IsTurnAfterLostSuit()).MethodHandle;
-			}
 			result = ((long)GameFlowData.Get().CurrentTurn - (long)((ulong)this.m_syncComp.m_lastSuitLostTurn) == 1L);
 		}
 		else
@@ -354,19 +178,6 @@ public class ScampDualLasers : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDualLasers.GetExtraDamageTurnAfterLosingSuit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageTurnAfterLosingSuitMod.GetModifiedValue(this.m_extraDamageTurnAfterLosingSuit);
 		}
 		else

@@ -29,14 +29,14 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0018.GetName(), "distance from start of cone position, in squares", true) + base.GetContextUsageStr(TargetSelect_ConeOrLaser.s_cvarInCone.GetName(), "Whether the target hit is in cone", true) + base.GetContextUsageStr(ContextKeys.\u001D.GetName(), "angle from center of cone", true);
+		return base.GetContextUsageStr(ContextKeys.symbol_0018.GetName(), "distance from start of cone position, in squares", true) + base.GetContextUsageStr(TargetSelect_ConeOrLaser.s_cvarInCone.GetName(), "Whether the target hit is in cone", true) + base.GetContextUsageStr(ContextKeys.symbol_001D.GetName(), "angle from center of cone", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
 	{
-		keys.Add(ContextKeys.\u0018.GetName());
+		keys.Add(ContextKeys.symbol_0018.GetName());
 		keys.Add(TargetSelect_ConeOrLaser.s_cvarInCone.GetName());
-		keys.Add(ContextKeys.\u001D.GetName());
+		keys.Add(ContextKeys.symbol_001D.GetName());
 	}
 
 	public override void Initialize()
@@ -75,19 +75,6 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 		ConeTargetingInfo cachedConeInfo;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ConeOrLaser.SetCachedFields()).MethodHandle;
-			}
 			cachedConeInfo = this.m_targetSelMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo);
 		}
 		else
@@ -98,15 +85,6 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserInfo = this.m_targetSelMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -131,19 +109,6 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ConeOrLaser.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else

@@ -18,19 +18,6 @@ public class UIPageIndicator : MonoBehaviour
 	{
 		if (this.m_clickCallback != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPageIndicator.PageIndicatorClicked(BaseEventData)).MethodHandle;
-			}
 			this.m_clickCallback(this);
 		}
 	}

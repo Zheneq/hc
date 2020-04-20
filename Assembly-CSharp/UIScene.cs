@@ -34,19 +34,6 @@ public abstract class UIScene : MonoBehaviour, IUIScene
 	{
 		if (UIManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIScene.RegisterWithUIManager()).MethodHandle;
-			}
 			UIManager.Get().RegisterUIScene(this);
 		}
 	}

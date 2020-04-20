@@ -61,19 +61,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerManager singlePlayerManager = gameObject.AddComponent<SinglePlayerManager>();
 		if (!SinglePlayerManager.s_instance)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnSpawn(Vector3, NetworkHash128)).MethodHandle;
-			}
 			SinglePlayerManager.s_instance = singlePlayerManager;
 		}
 		return gameObject;
@@ -83,19 +70,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerManager.s_instance == spawned)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnDespawn(GameObject)).MethodHandle;
-			}
 			SinglePlayerManager.s_instance = null;
 		}
 	}
@@ -128,19 +102,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			SinglePlayerState currentState = this.GetCurrentState();
 			if (currentState != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.SetScriptIndex(int)).MethodHandle;
-				}
 				currentState.m_markedForAdvanceState = false;
 				currentState.OnExitingState();
 			}
@@ -153,26 +114,8 @@ public class SinglePlayerManager : NetworkBehaviour
 				bool hasTag = currentState2.GetHasTag(SinglePlayerState.SinglePlayerTag.PauseTimer);
 				if (NetworkServer.active)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (hasTag != this.m_pausedTimer)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_pausedTimer = hasTag;
 						GameFlowData.Get().SetPausedForSinglePlayer(this.m_pausedTimer);
 					}
@@ -191,38 +134,11 @@ public class SinglePlayerManager : NetworkBehaviour
 			this.RecalcCanEndTurn();
 			if (currentState2 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentState2.m_markedForAdvanceState)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					newIndex++;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -235,19 +151,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.HookSetCurrentScriptIndex(int)).MethodHandle;
-			}
 			this.SetScriptIndex(value);
 		}
 	}
@@ -256,19 +159,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.SetCanEndTurn(bool)).MethodHandle;
-			}
 			this.Networkm_canEndTurn = canEnd;
 		}
 	}
@@ -277,19 +167,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.GetCanEndTurnFlag()).MethodHandle;
-			}
 			return this.m_canEndTurn;
 		}
 		return this.m_clientCanEndTurn;
@@ -384,30 +261,8 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsCancelDisabled()).MethodHandle;
-			}
 			if (SinglePlayerManager.Get().GetCurrentState() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get().GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.DisableCancel))
 				{
 					return true;
@@ -434,30 +289,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = this.GetCurrentState();
 		if (currentState != null && currentState.m_advanceAfterSeconds != 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.Update()).MethodHandle;
-			}
 			if (currentState.m_startTime != 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentState.GetDuration() > currentState.m_advanceAfterSeconds / Time.timeScale)
 				{
 					this.AdvanceScript();
@@ -471,30 +304,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = this.GetCurrentState();
 		if (currentState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnDecisionEnd()).MethodHandle;
-			}
 			if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnDecisionEnd))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.AdvanceScript();
 			}
 		}
@@ -505,30 +316,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = this.GetCurrentState();
 		if (currentState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnResolutionEnd()).MethodHandle;
-			}
 			if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnResolutionEnd))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.AdvanceScript();
 			}
 		}
@@ -543,42 +332,11 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerCoordinator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.GetState(int)).MethodHandle;
-			}
 			SinglePlayerState[] script = SinglePlayerCoordinator.Get().m_script;
 			if (scriptIndex >= 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (scriptIndex < script.Length)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return script[scriptIndex];
 				}
 			}
@@ -590,30 +348,8 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerManager.s_instance)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.CanEndTurn(ActorData)).MethodHandle;
-			}
 			if (actor != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actor.GetIsHumanControlled())
 				{
 					return SinglePlayerManager.s_instance.GetCanEndTurnFlag();
@@ -629,19 +365,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result;
 		if (currentState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.EnableChatter()).MethodHandle;
-			}
 			result = currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableChatter);
 		}
 		else
@@ -657,19 +380,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result;
 		if (currentState != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.EnableAutoQueuedAbilitiesForNPCs()).MethodHandle;
-			}
 			result = currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableAutoQueuedAbilitiesForNpcs);
 		}
 		else
@@ -707,7 +417,7 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 	}
 
-	public void \u001D()
+	public void symbol_001D()
 	{
 		this.AdvanceScript();
 		UITutorialFullscreenPanel.Get().ClearAllPanels();
@@ -728,30 +438,8 @@ public class SinglePlayerManager : NetworkBehaviour
 				ActorData actorData = enumerator.Current;
 				if (actorData.GetIsHumanControlled())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.GetLocalPlayer()).MethodHandle;
-					}
 					return actorData;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -763,19 +451,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = this.GetCurrentState();
 		if (currentState != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnActorDeath(ActorData)).MethodHandle;
-			}
 			ActorData localPlayer = this.GetLocalPlayer();
 			bool flag2;
 			switch (currentState.m_advanceScriptIfActorDies)
@@ -797,15 +472,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				bool flag3;
 				if (!(localPlayer == null))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = (localPlayer == actor);
 				}
 				else
@@ -820,15 +486,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				bool flag4;
 				if (!(localPlayer == null))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = (localPlayer.GetTeam() == actor.GetTeam());
 				}
 				else
@@ -843,15 +500,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				bool flag5;
 				if (!(localPlayer == null))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (localPlayer.GetTeam() != actor.GetTeam());
 				}
 				else
@@ -867,15 +515,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				currentState.m_actorDeaths++;
 				if (currentState.m_actorDeaths >= currentState.m_advanceScriptIfActorDiesCount)
 				{
@@ -895,30 +534,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		ActorData localPlayer = this.GetLocalPlayer();
 		if (localPlayer == actor && currentState != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnActorMoveEntered(ActorData)).MethodHandle;
-			}
 			if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnMoveEntered))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.AdvanceScript();
 			}
 		}
@@ -930,41 +547,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		ActorData localPlayer = this.GetLocalPlayer();
 		if (localPlayer == actor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnActorAbilitySelected(ActorData)).MethodHandle;
-			}
 			if (currentState != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnAbilitySelected))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.AdvanceScript();
 				}
 			}
@@ -977,41 +563,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		ActorData localPlayer = this.GetLocalPlayer();
 		if (localPlayer == actor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnActorAbilityTargeted(ActorData)).MethodHandle;
-			}
 			if (currentState != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnAbilityTargeted))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.AdvanceScript();
 				}
 			}
@@ -1024,41 +579,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		ActorData localPlayer = this.GetLocalPlayer();
 		if (localPlayer == actor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnActorLockInEntered(ActorData)).MethodHandle;
-			}
 			if (currentState != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnLockInEntered))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.AdvanceScript();
 				}
 			}
@@ -1069,42 +593,11 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnTutorialQueueEmpty()).MethodHandle;
-			}
 			SinglePlayerState currentState = this.GetCurrentState();
 			if (currentState != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnTutorialQueueEmpty))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.AdvanceScript();
 				}
 			}
@@ -1114,27 +607,9 @@ public class SinglePlayerManager : NetworkBehaviour
 			ActorData localPlayer = this.GetLocalPlayer();
 			if (localPlayer != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PlayerData component = localPlayer.GetComponent<PlayerData>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.CallCmdTutorialQueueEmpty();
 				}
 			}
@@ -1145,68 +620,19 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (this.m_advanceDestinationsHighlight != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.UpdateDestinationHighlights()).MethodHandle;
-			}
 			UnityEngine.Object.DestroyImmediate(this.m_advanceDestinationsHighlight);
 			this.m_advanceDestinationsHighlight = null;
 		}
 		if (this.GetCurrentState() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HashSet<BoardSquare> advanceDestinations = this.GetCurrentState().GetAdvanceDestinations();
 			if (advanceDestinations != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (advanceDestinations.Count > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_advanceDestinationsHighlight = HighlightUtils.Get().CreateBoundaryHighlight(advanceDestinations, Color.white, false, null, false);
 					if (this.m_advanceDestinationsHighlight)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_advanceDestinationsHighlight.AddComponent<HighlightParent>();
 					}
 				}
@@ -1218,86 +644,28 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (actor == this.GetLocalPlayer())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnActorMovementChanged(ActorData)).MethodHandle;
-			}
 			this.m_errorTriggered = false;
 			this.RecalcCanEndTurn();
 			if (!this.GetCanEndTurnFlag())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.IsMovementAllowed())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SinglePlayerCoordinator.Get() != null)
 					{
 						foreach (ActivatableObject activatableObject in SinglePlayerCoordinator.Get().m_activationsOnForbiddenPath)
 						{
 							if (activatableObject == null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Error("Null activation-object in Activations On Forbidden Path.", new object[0]);
 							}
 							else if (activatableObject.m_sceneObject == null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Error("Activation-object has null scene-object in Activations On Forbidden Path.", new object[0]);
 							}
 							else
 							{
 								activatableObject.SetIsActive(true);
 							}
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (actor.GetCurrentBoardSquare() != actor.MoveFromBoardSquare)
 						{
@@ -1314,131 +682,37 @@ public class SinglePlayerManager : NetworkBehaviour
 		this.RecalcCanEndTurn();
 		if (requestingActor.GetIsHumanControlled())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnEndTurnRequested(ActorData)).MethodHandle;
-			}
 			if (SinglePlayerCoordinator.Get() != null)
 			{
 				foreach (ActivatableObject activatableObject in SinglePlayerCoordinator.Get().m_activationsOnForbiddenPath)
 				{
 					if (activatableObject != null && activatableObject.m_sceneObject != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						activatableObject.SetIsActive(false);
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				foreach (ActivatableObject activatableObject2 in SinglePlayerCoordinator.Get().m_activationsOnFailedToShootAndMove)
 				{
 					if (activatableObject2 != null && activatableObject2.m_sceneObject != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						activatableObject2.SetIsActive(false);
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				foreach (ActivatableObject activatableObject3 in SinglePlayerCoordinator.Get().m_activationsOnFailedToUseAllAbilities)
 				{
 					if (activatableObject3 != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activatableObject3.m_sceneObject != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							activatableObject3.SetIsActive(false);
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!this.GetCanEndTurnFlag())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.IsMovementAllowed())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SinglePlayerCoordinator.Get() != null)
 					{
 						foreach (ActivatableObject activatableObject4 in SinglePlayerCoordinator.Get().m_activationsOnForbiddenPath)
@@ -1449,15 +723,6 @@ public class SinglePlayerManager : NetworkBehaviour
 							}
 							else if (activatableObject4.m_sceneObject == null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Error("Activation-object has null scene-object in Activations On Forbidden Path.", new object[0]);
 							}
 							else
@@ -1465,65 +730,20 @@ public class SinglePlayerManager : NetworkBehaviour
 								activatableObject4.SetIsActive(true);
 							}
 						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				else if (!this.IsShootAndMoveAllowed())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SinglePlayerCoordinator.Get() != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (ActivatableObject activatableObject5 in SinglePlayerCoordinator.Get().m_activationsOnFailedToShootAndMove)
 						{
 							if (activatableObject5 == null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Error("Null activation-object in Activations On Failed To Shoot And Move.", new object[0]);
 							}
 							else if (activatableObject5.m_sceneObject == null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Error("Activation-object has null scene-object in Activations On Failed To Shoot And Move.", new object[0]);
 							}
 							else
@@ -1531,28 +751,10 @@ public class SinglePlayerManager : NetworkBehaviour
 								activatableObject5.SetIsActive(true);
 							}
 						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				else if (!this.IsMultipleAbilitiesAllowed() && SinglePlayerCoordinator.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (ActivatableObject activatableObject6 in SinglePlayerCoordinator.Get().m_activationsOnFailedToUseAllAbilities)
 					{
 						if (activatableObject6 == null)
@@ -1568,15 +770,6 @@ public class SinglePlayerManager : NetworkBehaviour
 							activatableObject6.SetIsActive(true);
 						}
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -1586,32 +779,10 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerManager.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsActionAllowed(ActorData, AbilityData.ActionType)).MethodHandle;
-			}
 			return true;
 		}
 		if (SinglePlayerManager.s_instance.GetCurrentState() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (caster.GetIsHumanControlled())
@@ -1620,15 +791,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			SinglePlayerState currentState = SinglePlayerManager.s_instance.GetCurrentState();
 			if (currentState.m_allowedAbilities.Length == 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else
@@ -1637,64 +799,19 @@ public class SinglePlayerManager : NetworkBehaviour
 				{
 					if (num == (int)action)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return result;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		Ability abilityOfActionType = caster.GetAbilityData().GetAbilityOfActionType(action);
 		if (abilityOfActionType == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (AbilityUtils.AbilityHasTag(abilityOfActionType, AbilityTags.AutoQueueIfValid))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return SinglePlayerManager.Get().EnableAutoQueuedAbilitiesForNPCs();
 		}
 		return true;
@@ -1704,32 +821,10 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerManager.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsDestinationAllowed(ActorData, BoardSquare, bool)).MethodHandle;
-			}
 			return true;
 		}
 		if (SinglePlayerManager.s_instance.GetCurrentState() == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (mover.SpawnerId != -1)
@@ -1741,15 +836,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool flag2;
 		if (!currentState.m_onlyAllowWaypointMovement)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = true;
 		}
 		else
@@ -1759,15 +845,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag2;
 		}
 		else
@@ -1781,45 +858,14 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (SinglePlayerManager.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsSquareForbidden(ActorData, BoardSquare)).MethodHandle;
-			}
 			return false;
 		}
 		if (SinglePlayerManager.s_instance.GetCurrentState() == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (!mover.GetIsHumanControlled())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		bool result = false;
@@ -1827,15 +873,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			if (SinglePlayerCoordinator.Get().m_forbiddenSquares.m_quads.Length == 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = false;
 			}
 			else
@@ -1857,41 +894,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool flag7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.RecalcCanEndTurn()).MethodHandle;
-			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3 && flag4)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag5)
 					{
 						flag7 = flag6;
@@ -1918,66 +924,17 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result = true;
 		if (SinglePlayerCoordinator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsRequireDashOk()).MethodHandle;
-			}
 			if (this.GetCurrentState() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData localPlayer = this.GetLocalPlayer();
 					AbilityData abilityData = localPlayer.GetAbilityData();
 					bool flag = abilityData.HasQueuedAbilities();
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityData.GetQueuedAbilitiesAllowMovement())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = false;
 						}
 					}
@@ -1996,30 +953,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result = true;
 		if (SinglePlayerCoordinator.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsMovementAllowed()).MethodHandle;
-			}
 			if (this.GetCurrentState() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SinglePlayerState currentState = this.GetCurrentState();
 				if (currentState != null && currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
 				{
@@ -2029,15 +964,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				{
 					if (currentState != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireChasing))
 						{
 							bool flag = false;
@@ -2048,15 +974,6 @@ public class SinglePlayerManager : NetworkBehaviour
 							}
 							if (!flag)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = false;
 							}
 							return result;
@@ -2073,15 +990,6 @@ public class SinglePlayerManager : NetworkBehaviour
 						List<GridPos> list = null;
 						if (!NetworkServer.active)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (localPlayer2.GetComponent<LineData>())
 							{
 								list = localPlayer2.GetComponent<LineData>().GetGridPosPath();
@@ -2089,15 +997,6 @@ public class SinglePlayerManager : NetworkBehaviour
 						}
 						if (list != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 							if (!flag2)
 							{
@@ -2109,27 +1008,9 @@ public class SinglePlayerManager : NetworkBehaviour
 										BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
 										if (SinglePlayerCoordinator.Get().m_forbiddenSquares.GetSquaresInRegion().Contains(boardSquareSafe))
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											result = false;
 											goto IL_1B0;
 										}
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -2151,19 +1032,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result;
 		if (this.GetCurrentState() == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsMoveToAdvanceScriptDestinationAllowed()).MethodHandle;
-			}
 			result = true;
 		}
 		else if (!this.GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireMoveToAdvanceScriptDestination))
@@ -2176,27 +1044,9 @@ public class SinglePlayerManager : NetworkBehaviour
 			ActorData localPlayer = this.GetLocalPlayer();
 			if (!NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<GridPos> gridPosPath = localPlayer.GetComponent<LineData>().GetGridPosPath();
 				if (gridPosPath != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gridPosPath.Count > 0)
 					{
 						item = Board.Get().GetBoardSquareSafe(gridPosPath[gridPosPath.Count - 1]);
@@ -2205,40 +1055,13 @@ public class SinglePlayerManager : NetworkBehaviour
 			}
 			if (this.GetCurrentState().GetAdvanceDestinations() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetCurrentState().GetAdvanceDestinations().Contains(item))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
 			if (this.GetCurrentState().GetAdvanceDestinations() == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("We have a single player state {0} with the tag RequireMoveToAdvanceScriptDestination and no advance destinations!  Error!  Tell Colin!", new object[]
 				{
 					this.GetCurrentScriptIndex()
@@ -2254,32 +1077,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result;
 		if (this.GetCurrentState() == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsShootAndMoveAllowed()).MethodHandle;
-			}
 			result = true;
 		}
 		else if (!this.GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireShootAndMove))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else
@@ -2295,26 +1096,8 @@ public class SinglePlayerManager : NetworkBehaviour
 			bool flag2;
 			if (list != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list.Count > 1)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = !flag;
 					goto IL_A0;
 				}
@@ -2334,19 +1117,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result;
 		if (this.GetCurrentState() == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsMultipleAbilitiesAllowed()).MethodHandle;
-			}
 			result = true;
 		}
 		else if (!this.GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireMaxPossibleAbilities))
@@ -2355,15 +1125,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		else if (this.GetCurrentState().m_allowedAbilities.Length == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Warning("State " + this.m_currentScriptIndex + " has RequireMaxPossibleAbilities but no specified allowed abilities.  Ignoring RequireMaxPossibleAbilities...", new object[0]);
 			result = true;
 		}
@@ -2386,32 +1147,10 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		if (SinglePlayerManager.s_instance.GetCurrentState() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.IsAbilitysCurrentAimingAllowed(ActorData)).MethodHandle;
-			}
 			return true;
 		}
 		if (!aimer.GetIsHumanControlled())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		AbilityData component = aimer.GetComponent<AbilityData>();
@@ -2420,15 +1159,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool flag2;
 		if (selectedAbility == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 			flag2 = true;
 		}
@@ -2437,43 +1167,16 @@ public class SinglePlayerManager : NetworkBehaviour
 			SinglePlayerState currentState = SinglePlayerManager.s_instance.GetCurrentState();
 			if (currentState.m_minAbilityTargetsForAiming == 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 			else
 			{
 				if (!(selectedAbility == null))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (selectedAbility.Targeter != null)
 					{
 						if (selectedAbility.Targeter.GetNumActorsInRange() >= currentState.m_minAbilityTargetsForAiming)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							goto IL_117;
 						}
@@ -2487,15 +1190,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			IL_117:
 			if (currentState.m_allowedTargets.m_quads.Length == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = true;
 			}
 			else
@@ -2512,15 +1206,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				}
 				else if (targetingParadigm == Ability.TargetingParadigm.Position)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityTarget abilityTarget2 = AbilityTarget.CreateAbilityTargetFromInterface();
 					boardSquare = Board.Get().GetBoardSquare(abilityTarget2.FreePos);
 				}
@@ -2531,15 +1216,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				bool flag3;
 				if (!(boardSquare == null))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = squaresInRegion.Contains(boardSquare);
 				}
 				else
@@ -2549,15 +1225,6 @@ public class SinglePlayerManager : NetworkBehaviour
 				flag2 = flag3;
 				if (flag2 && currentState.m_mustTargetNearCenter)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityTarget abilityTarget3 = AbilityTarget.CreateAbilityTargetFromInterface();
 					Vector3 center = currentState.m_allowedTargets.GetCenter();
 					float f = center.x - abilityTarget3.FreePos.x;
@@ -2565,15 +1232,6 @@ public class SinglePlayerManager : NetworkBehaviour
 					float num = 0.45f * Board.Get().squareSize;
 					if (Mathf.Abs(f) < num)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Mathf.Abs(f2) < num)
 						{
 							goto IL_28E;
@@ -2587,15 +1245,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag2;
 		}
 		else
@@ -2610,77 +1259,19 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = this.GetCurrentState();
 		if (!(rightClick == null) && !(rightClickText == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.UpdateRightAndLeftClickElements(GameObject, TextMeshProUGUI, GameObject, TextMeshProUGUI, GameObject, TextMeshProUGUI)).MethodHandle;
-			}
 			if (!(leftClick == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(leftClickText == null) && !(shiftRightClick == null) && !(shiftRightClickText == null))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentState != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentState.m_leftClickHighlight != null)
 						{
 							List<BoardSquare> squaresInRegion = currentState.m_leftClickHighlight.GetSquaresInRegion();
 							if (squaresInRegion.Count > 0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!leftClick.activeSelf)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(leftClick, true, null);
 								}
 								Canvas componentInParent = leftClick.GetComponentInParent<Canvas>();
@@ -2696,26 +1287,8 @@ public class SinglePlayerManager : NetworkBehaviour
 								string leftClickText2 = currentState.GetLeftClickText();
 								if (leftClickText2 != string.Empty)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (leftClickText.text != leftClickText2)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										leftClickText.text = leftClickText2;
 									}
 								}
@@ -2726,40 +1299,13 @@ public class SinglePlayerManager : NetworkBehaviour
 							}
 							else if (leftClick.activeSelf)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(leftClick, false, null);
 							}
 							List<BoardSquare> squaresInRegion2 = currentState.m_rightClickHighlight.GetSquaresInRegion();
 							if (squaresInRegion2.Count > 0)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!rightClick.activeSelf)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(rightClick, true, null);
 								}
 								Canvas componentInParent2 = rightClick.GetComponentInParent<Canvas>();
@@ -2775,55 +1321,19 @@ public class SinglePlayerManager : NetworkBehaviour
 								string rightClickText2 = currentState.GetRightClickText();
 								if (rightClickText2 != string.Empty)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (rightClickText.text != rightClickText2)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										rightClickText.text = rightClickText2;
 									}
 								}
 								else if (rightClickText.text != StringUtil.TR("RightClick", "Tutorial"))
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									rightClickText.text = StringUtil.TR("RightClick", "Tutorial");
 								}
 							}
 							bool flag;
 							if (Options_UI.Get() != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (Options_UI.Get().GetShiftClickForMovementWaypoints())
 								{
 									flag = true;
@@ -2836,52 +1346,16 @@ public class SinglePlayerManager : NetworkBehaviour
 							List<BoardSquare> squaresInRegion3 = currentState.m_shiftRightClickHighlight.GetSquaresInRegion();
 							if (squaresInRegion3.Count > 0)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag2)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!shiftRightClick.activeSelf)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(shiftRightClick, true, null);
 									}
 									Canvas componentInParent3 = shiftRightClick.GetComponentInParent<Canvas>();
 									RectTransform rectTransform3 = null;
 									if (componentInParent3 != null)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										rectTransform3 = (componentInParent3.transform as RectTransform);
 									}
 									Vector3 position3 = new Vector3(squaresInRegion3[0].worldX, 1.5f + currentState.m_shiftRightClickHeight, squaresInRegion3[0].worldY);
@@ -2893,15 +1367,6 @@ public class SinglePlayerManager : NetworkBehaviour
 									{
 										if (shiftRightClickText.text != shiftRightClickText2)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											shiftRightClickText.text = shiftRightClickText2;
 										}
 									}
@@ -2914,30 +1379,12 @@ public class SinglePlayerManager : NetworkBehaviour
 								{
 									if (!rightClick.activeSelf)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIManager.SetGameObjectActive(rightClick, true, null);
 									}
 									Canvas componentInParent4 = rightClick.GetComponentInParent<Canvas>();
 									RectTransform rectTransform4 = null;
 									if (componentInParent4 != null)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										rectTransform4 = (componentInParent4.transform as RectTransform);
 									}
 									Vector3 position4 = new Vector3(squaresInRegion3[0].worldX, 1.5f + currentState.m_rightClickHeight, squaresInRegion3[0].worldY);
@@ -2947,40 +1394,13 @@ public class SinglePlayerManager : NetworkBehaviour
 									string rightClickText3 = currentState.GetRightClickText();
 									if (rightClickText3 != string.Empty)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (rightClickText.text != rightClickText3)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											rightClickText.text = rightClickText3;
 										}
 									}
 									else if (rightClickText.text != StringUtil.TR("RightClick", "Tutorial"))
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										rightClickText.text = StringUtil.TR("RightClick", "Tutorial");
 									}
 								}
@@ -2989,67 +1409,22 @@ public class SinglePlayerManager : NetworkBehaviour
 							{
 								if (squaresInRegion3.Count != 0)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!flag2)
 									{
 										goto IL_7FA;
 									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								if (rightClick.activeSelf)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(rightClick, false, null);
 								}
 							}
 							IL_7FA:
 							if (squaresInRegion3.Count != 0)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag2)
 								{
 									return;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							if (shiftRightClick.activeSelf)
@@ -3057,15 +1432,6 @@ public class SinglePlayerManager : NetworkBehaviour
 								UIManager.SetGameObjectActive(shiftRightClick, false, null);
 							}
 							return;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -3077,34 +1443,12 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (!(panel == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.UpdateTutorialError(GameObject, TextMeshProUGUI)).MethodHandle;
-			}
 			if (!(text == null))
 			{
 				SinglePlayerState currentState = this.GetCurrentState();
 				string text2;
 				if (currentState != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text2 = currentState.GetErrorStringOnForbiddenPath();
 				}
 				else
@@ -3114,41 +1458,14 @@ public class SinglePlayerManager : NetworkBehaviour
 				string text3 = text2;
 				if (this.m_errorTriggered)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (text3 == string.Empty)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						UIManager.SetGameObjectActive(panel, true, null);
 						if (text.text != text3)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text.text = text3;
 							return;
 						}
@@ -3166,139 +1483,36 @@ public class SinglePlayerManager : NetworkBehaviour
 		SinglePlayerState currentState = this.GetCurrentState();
 		if (currentState != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.UpdateTutorialTextElements(GameObject, TextMeshProUGUI, GameObject, TextMeshProUGUI, GameObject, TextMeshProUGUI, GameObject, TextMeshProUGUI, GameObject, TextMeshProUGUI)).MethodHandle;
-			}
 			if (!(panel == null))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(text == null) && !(panel2 == null))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(text2 == null))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(panel3 == null))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(text3 == null))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(panelCameraMovement == null))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(textCameraMovement == null) && !(panelCameraRotation == null))
 									{
 										if (textCameraRotation == null)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
 											if (Camera.main == null)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												return;
 											}
 											bool flag = false;
 											if (this.m_lastTutorialTextState != currentState.m_stateIndex)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag = true;
 											}
 											if (currentState.m_tutorialBoxText.m_location == null)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												UIManager.SetGameObjectActive(panel, false, null);
 											}
 											else
@@ -3322,15 +1536,6 @@ public class SinglePlayerManager : NetworkBehaviour
 											}
 											if (currentState.m_tutorialBoxText2.m_location == null)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												UIManager.SetGameObjectActive(panel2, false, null);
 											}
 											else
@@ -3343,15 +1548,6 @@ public class SinglePlayerManager : NetworkBehaviour
 												}
 												if (flag)
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													this.m_lastTutorialTextState = currentState.m_stateIndex;
 													text2.text = currentState.GetTutorialBoxText2();
 													UIManager.SetGameObjectActive(panel2, true, null);
@@ -3363,15 +1559,6 @@ public class SinglePlayerManager : NetworkBehaviour
 											}
 											if (currentState.m_tutorialBoxText3.m_location == null)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												UIManager.SetGameObjectActive(panel3, false, null);
 											}
 											else
@@ -3380,28 +1567,10 @@ public class SinglePlayerManager : NetworkBehaviour
 												RectTransform rectTransform3 = null;
 												if (componentInParent3 != null)
 												{
-													for (;;)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													rectTransform3 = (componentInParent3.transform as RectTransform);
 												}
 												if (flag)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													this.m_lastTutorialTextState = currentState.m_stateIndex;
 													text3.text = currentState.GetTutorialBoxText3();
 													UIManager.SetGameObjectActive(panel3, true, null);
@@ -3413,15 +1582,6 @@ public class SinglePlayerManager : NetworkBehaviour
 											}
 											if (currentState.m_tutorialCameraMovementText.m_location == null)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												UIManager.SetGameObjectActive(panelCameraMovement, false, null);
 											}
 											else
@@ -3430,15 +1590,6 @@ public class SinglePlayerManager : NetworkBehaviour
 												RectTransform rectTransform4 = null;
 												if (componentInParent4 != null)
 												{
-													for (;;)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													rectTransform4 = (componentInParent4.transform as RectTransform);
 												}
 												if (flag)
@@ -3454,15 +1605,6 @@ public class SinglePlayerManager : NetworkBehaviour
 											}
 											if (currentState.m_tutorialCameraRotationText.m_location == null)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												UIManager.SetGameObjectActive(panelCameraRotation, false, null);
 											}
 											else
@@ -3475,15 +1617,6 @@ public class SinglePlayerManager : NetworkBehaviour
 												}
 												if (flag)
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													this.m_lastTutorialTextState = currentState.m_stateIndex;
 													textCameraRotation.text = currentState.GetTutorialCameraRotationText();
 													UIManager.SetGameObjectActive(panelCameraRotation, true, null);
@@ -3511,19 +1644,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		bool flag = false;
 		if (currentState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.HasPendingCameraUpdate()).MethodHandle;
-			}
 			if (this.m_lastTutorialCameraState != currentState.m_stateIndex)
 			{
 				flag = true;
@@ -3534,15 +1654,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			this.m_lastTutorialCameraState = currentState.m_stateIndex;
 			if (currentState.m_cameraRotationTarget == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 		}
@@ -3666,30 +1777,8 @@ public class SinglePlayerManager : NetworkBehaviour
 			uint dirtyBit = 1U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.set_Networkm_currentScriptIndex(int)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetCurrentScriptIndex(value);
 					base.syncVarHookGuard = false;
@@ -3711,19 +1800,6 @@ public class SinglePlayerManager : NetworkBehaviour
 			uint dirtyBit = 2U;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.set_Networkm_canEndTurn(bool)).MethodHandle;
-				}
 				base.syncVarHookGuard = true;
 				this.HookSetCanEndTurn(value);
 				base.syncVarHookGuard = false;
@@ -3736,19 +1812,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.InvokeRpcRpcPlayScriptedChat(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcPlayScriptedChat called on server.");
 			return;
 		}
@@ -3759,19 +1822,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.CallRpcPlayScriptedChat(SinglePlayerScriptedChat)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcPlayScriptedChat called on client.");
 			return;
 		}
@@ -3797,19 +1847,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnSerialize(NetworkWriter, bool)).MethodHandle;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -3817,26 +1854,8 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -3844,15 +1863,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -3862,19 +1872,6 @@ public class SinglePlayerManager : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerManager.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_currentScriptIndex = (int)reader.ReadPackedUInt32();
 			this.m_canEndTurn = reader.ReadBoolean();
 			return;

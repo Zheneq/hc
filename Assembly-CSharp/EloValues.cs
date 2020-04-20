@@ -18,19 +18,6 @@ public class EloValues : ICloneable
 		EloDatum eloDatum;
 		if (this.Values.TryGetValue(key, out eloDatum))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloValues.UpdateElo(string, float, int)).MethodHandle;
-			}
 			eloDatum.Elo = Math.Max(1f, value);
 			eloDatum.Count = Math.Max(0, eloDatum.Count + countDelta);
 		}
@@ -50,19 +37,6 @@ public class EloValues : ICloneable
 		EloDatum eloDatum;
 		if (this.Values.TryGetValue(key, out eloDatum))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EloValues.ApplyDelta(string, float, int)).MethodHandle;
-			}
 			eloDatum.Elo = Math.Max(1f, eloDatum.Elo + eloDelta);
 			eloDatum.Count = Math.Max(0, eloDatum.Count + countDelta);
 		}

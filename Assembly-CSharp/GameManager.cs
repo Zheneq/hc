@@ -23,26 +23,10 @@ public class GameManager : MonoBehaviour
 
 	public GameManager()
 	{
-		if (GameManager.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager..ctor()).MethodHandle;
-			}
-			GameManager.<>f__am$cache0 = delegate()
+		
+		this.OnGameAssembling = delegate()
 			{
 			};
-		}
-		this.OnGameAssembling = GameManager.<>f__am$cache0;
 		this.OnGameSelecting = delegate()
 		{
 		};
@@ -55,42 +39,18 @@ public class GameManager : MonoBehaviour
 		this.OnGameLoaded = delegate()
 		{
 		};
-		if (GameManager.<>f__am$cache5 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameManager.<>f__am$cache5 = delegate()
+		
+		this.OnGameStarted = delegate()
 			{
 			};
-		}
-		this.OnGameStarted = GameManager.<>f__am$cache5;
 		this.OnGameStopped = delegate(GameResult A_0)
 		{
 		};
-		if (GameManager.<>f__am$cache7 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameManager.<>f__am$cache7 = delegate(GameStatus A_0)
+		
+		this.OnGameStatusChanged = delegate(GameStatus A_0)
 			{
 			};
-		}
-		this.OnGameStatusChanged = GameManager.<>f__am$cache7;
-		base..ctor();
+		
 	}
 
 	public static GameManager Get()
@@ -110,19 +70,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action>(ref this.OnGameAssembling, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.add_OnGameAssembling(Action)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -134,19 +81,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action>(ref this.OnGameAssembling, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.remove_OnGameAssembling(Action)).MethodHandle;
-			}
 		}
 	}
 
@@ -173,19 +107,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action>(ref this.OnGameSelecting, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.remove_OnGameSelecting(Action)).MethodHandle;
-			}
 		}
 	}
 
@@ -201,19 +122,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action>(ref this.OnGameLoadoutSelecting, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.add_OnGameLoadoutSelecting(Action)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -225,19 +133,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action>(ref this.OnGameLoadoutSelecting, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.remove_OnGameLoadoutSelecting(Action)).MethodHandle;
-			}
 		}
 	}
 
@@ -253,19 +148,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action<GameType>>(ref this.OnGameLaunched, (Action<GameType>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.add_OnGameLaunched(Action<GameType>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -277,19 +159,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action<GameType>>(ref this.OnGameLaunched, (Action<GameType>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.remove_OnGameLaunched(Action<GameType>)).MethodHandle;
-			}
 		}
 	}
 
@@ -305,19 +174,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action>(ref this.OnGameLoaded, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.add_OnGameLoaded(Action)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -355,19 +211,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action>(ref this.OnGameStarted, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.remove_OnGameStarted(Action)).MethodHandle;
-			}
 		}
 	}
 
@@ -383,19 +226,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action<GameResult>>(ref this.OnGameStopped, (Action<GameResult>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.add_OnGameStopped(Action<GameResult>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -407,19 +237,6 @@ public class GameManager : MonoBehaviour
 				action = Interlocked.CompareExchange<Action<GameResult>>(ref this.OnGameStopped, (Action<GameResult>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.remove_OnGameStopped(Action<GameResult>)).MethodHandle;
-			}
 		}
 	}
 
@@ -445,19 +262,6 @@ public class GameManager : MonoBehaviour
 			LobbyGameplayOverrides result;
 			if (this.m_gameplayOverridesForCurrentGame != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.get_GameplayOverrides()).MethodHandle;
-				}
 				result = this.m_gameplayOverridesForCurrentGame;
 			}
 			else
@@ -516,19 +320,6 @@ public class GameManager : MonoBehaviour
 		this.ForbiddenDevKnowledge = null;
 		if (GameWideData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.Reset()).MethodHandle;
-			}
 			this.GameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
 		}
 	}
@@ -551,54 +342,14 @@ public class GameManager : MonoBehaviour
 			this.GameStatusTime = Time.unscaledTime;
 			if (!this.s_quitting)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.SetGameStatus(GameStatus, GameResult, bool)).MethodHandle;
-				}
 				if (notify)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.GameInfo.GameServerProcessCode.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.GameInfo.GameConfig != null)
 						{
 							if (gameResult == GameResult.NoResult)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Log.Info("Game {0} is {1}", new object[]
 								{
 									this.GameInfo.Name,
@@ -703,19 +454,6 @@ public class GameManager : MonoBehaviour
 				string message = enumerator.Current;
 				Log.Notice(message, new object[0]);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.SetGameplayOverrides(LobbyGameplayOverrides)).MethodHandle;
-			}
 		}
 	}
 
@@ -724,19 +462,6 @@ public class GameManager : MonoBehaviour
 		LobbyGameplayOverrides gameplayOverrides2 = this.GameplayOverrides;
 		if (gameplayOverrides != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.SetGameplayOverridesForCurrentGame(LobbyGameplayOverrides)).MethodHandle;
-			}
 			gameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
 			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());
 		}
@@ -747,15 +472,6 @@ public class GameManager : MonoBehaviour
 			{
 				string message = enumerator.Current;
 				Log.Notice(message, new object[0]);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -790,52 +506,12 @@ public class GameManager : MonoBehaviour
 		bool result = false;
 		if (this.GameInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.IsGameLoading()).MethodHandle;
-			}
 			if (this.GameInfo.GameConfig != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GameInfo.GameStatus != GameStatus.Stopped)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.GameInfo.GameConfig.GameType != GameType.Custom)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.GameInfo.GameStatus >= GameStatus.Assembling)
 						{
 							result = true;
@@ -843,15 +519,6 @@ public class GameManager : MonoBehaviour
 					}
 					else if (this.GameInfo.GameStatus.IsPostLaunchStatus())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 				}
@@ -864,19 +531,6 @@ public class GameManager : MonoBehaviour
 	{
 		if (gameType != GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.IsGameTypeValidForGGPack(GameType)).MethodHandle;
-			}
 			if (gameType != GameType.Practice)
 			{
 				return gameType != GameType.Custom;
@@ -889,30 +543,8 @@ public class GameManager : MonoBehaviour
 	{
 		if (this.GameConfig != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.IsAllowingPlayerRequestedPause()).MethodHandle;
-			}
 			if (this.GameConfig.GameType == GameType.Custom)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GameConfig.GameOptionFlags.HasGameOption(GameOptionFlag.AllowPausing))
 				{
 					goto IL_CB;
@@ -920,38 +552,11 @@ public class GameManager : MonoBehaviour
 			}
 			if (this.GameConfig.GameType != GameType.Practice && this.GameConfig.GameType != GameType.Solo)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GameConfig.GameType == GameType.Coop)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 					{
 						goto IL_CB;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				return this.GameConfig.GameType == GameType.NewPlayerSolo;
@@ -969,19 +574,6 @@ public class GameManager : MonoBehaviour
 			bool result;
 			if (p.PlayerId == playerId)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.<IsBotMasqueradingAsHuman>c__AnonStorey0.<>m__0(LobbyPlayerInfo)).MethodHandle;
-				}
 				result = p.BotsMasqueradeAsHumans;
 			}
 			else
@@ -996,19 +588,6 @@ public class GameManager : MonoBehaviour
 	{
 		if (this.GameConfig == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameManager.IsFreelancerConflictPossible(bool)).MethodHandle;
-			}
 			throw new Exception("GameConfig not set");
 		}
 		if (this.GameConfig.HasGameOption(GameOptionFlag.AllowDuplicateCharacters))
@@ -1019,15 +598,6 @@ public class GameManager : MonoBehaviour
 		bool flag;
 		if (this.GameConfig.HasSelectedSubType)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = this.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection);
 			freelancerDuplicationRuleTypes = this.GameConfig.InstanceSubType.DuplicationRule;
 		}

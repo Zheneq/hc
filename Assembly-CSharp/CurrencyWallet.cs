@@ -61,30 +61,8 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 		{
 			if (this.Data[i].Type == currencyType)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CurrencyWallet.GetValue(CurrencyType)).MethodHandle;
-				}
 				return this.Data[i];
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return new CurrencyData
 		{
@@ -99,31 +77,9 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 		{
 			if (this.Data[i].Type == newBalance.Type)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CurrencyWallet.SetValue(CurrencyData)).MethodHandle;
-				}
 				this.Data[i] = newBalance;
 				return;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.Data.Add(newBalance);
 	}
@@ -135,19 +91,6 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 		{
 			if (this.Data[i].Type == currencyType)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CurrencyWallet.ChangeValue(CurrencyType, int)).MethodHandle;
-				}
 				currencyData = this.Data[i];
 				IL_5A:
 				if (currencyData == null)
@@ -164,30 +107,12 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 					int num = currencyData.Amount + amount;
 					if (num < 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Error(string.Format("Cannot withdraw {0} amount {1}, insufficient amount available.", currencyType, amount), new object[0]);
 						return null;
 					}
 					currencyData.Amount = num;
 					if (amount < 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currencyData.m_TotalSpent -= amount;
 					}
 				}
@@ -223,19 +148,6 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			CurrencyWallet currencyWallet;
 			if (existingValue != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CurrencyWallet.JsonConverter.ReadJson(JsonReader, Type, object, JsonSerializer)).MethodHandle;
-				}
 				currencyWallet = (CurrencyWallet)existingValue;
 			}
 			else

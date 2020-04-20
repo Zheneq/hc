@@ -45,19 +45,6 @@ public class CubicBez
 			Gizmos.DrawLine(vector, to);
 			to = vector;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CubicBez.GizmoDraw(float)).MethodHandle;
-		}
 		Gizmos.color = Color.blue;
 		Vector3 vector2 = this.Interp(t);
 		Gizmos.DrawLine(vector2, vector2 + this.Velocity(t));

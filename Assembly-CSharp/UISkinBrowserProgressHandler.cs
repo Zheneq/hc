@@ -15,19 +15,6 @@ public class UISkinBrowserProgressHandler : ISkinBrowserSelectHandler
 	{
 		if (UICashShopPanel.Get().IsVisible() && UICashShopPanel.Get().m_characterBrowser.GetCharacterType() == selectedCharacter.m_characterType)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserProgressHandler.OnSelect(UISkinBrowserPanel, CharacterResourceLink, CharacterVisualInfo, bool)).MethodHandle;
-			}
 			UICharacterStoreAndProgressWorldObjects.Get().LoadCharacterIntoSlot(selectedCharacter, 0, string.Empty, selectedVisualInfo, false, true);
 		}
 	}

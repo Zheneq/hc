@@ -62,32 +62,10 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 		CharacterResourceLink characterResourceLink = null;
 		if (this.m_characterType != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyPanelCharacterSelect.Setup(bool)).MethodHandle;
-			}
 			characterResourceLink = GameWideData.Get().GetCharacterResourceLink(this.m_characterType);
 		}
 		if (characterResourceLink != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_characterResourceLink = characterResourceLink;
 			UIManager.SetGameObjectActive(this.m_charImage, true, null);
 			if (isAvailable)
@@ -123,19 +101,6 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 	{
 		if (!this.m_buttonHitBox.interactable)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyPanelCharacterSelect.OnButtonClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		UICharacterScreen.Get().m_partyListPanel.SelectedBotCharacter(this.m_characterResourceLink);
@@ -177,33 +142,11 @@ public class UIPartyPanelCharacterSelect : MonoBehaviour
 		base.transform.localPosition = new Vector3(base.transform.localPosition.x, base.transform.localPosition.y, 0f);
 		if (this.m_pointerDown)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyPanelCharacterSelect.Update()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_hover, false, null);
 			UIManager.SetGameObjectActive(this.m_pressed, true, null);
 		}
 		else if (this.m_pointerEntered)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_hover, true, null);
 			UIManager.SetGameObjectActive(this.m_pressed, false, null);
 		}

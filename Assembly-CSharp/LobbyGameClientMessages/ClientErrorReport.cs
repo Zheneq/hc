@@ -13,7 +13,7 @@ namespace LobbyGameClientMessages
 
 		public float Time;
 
-		public int \u001D()
+		public int symbol_001D()
 		{
 			return this.LogString.Length + this.StackTrace.Length + 4 + 4;
 		}

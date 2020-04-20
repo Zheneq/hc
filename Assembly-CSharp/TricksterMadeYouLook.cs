@@ -47,19 +47,6 @@ public class TricksterMadeYouLook : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Made You Look";
 		}
 		this.Setup();
@@ -72,19 +59,6 @@ public class TricksterMadeYouLook : Ability
 		bool flag = base.HasSelfEffectFromBaseMod();
 		if (this.HitActorsInBetween())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.Setup()).MethodHandle;
-			}
 			AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, this.GetRadiusAroundEnds(), this.GetRadiusAroundEnds(), this.GetRadiusFromLine(), -1, true, this.PenetrateLos());
 			abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(true, false, flag);
 			abilityUtil_Targeter_ChargeAoE.AllowChargeThroughInvalidSquares = true;
@@ -96,15 +70,6 @@ public class TricksterMadeYouLook : Ability
 			abilityUtil_Targeter_Charge.AllowChargeThroughInvalidSquares = true;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
 			}
 			base.Targeter = abilityUtil_Targeter_Charge;
@@ -121,19 +86,6 @@ public class TricksterMadeYouLook : Ability
 		bool result;
 		if (this.m_canQueueMoveAfterEvade)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CanOverrideMoveStartSquare()).MethodHandle;
-			}
 			result = (this.m_afterImageSyncComp != null);
 		}
 		else
@@ -158,19 +110,6 @@ public class TricksterMadeYouLook : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetRadiusFromLine()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_radiusFromLineMod.GetModifiedValue(this.m_radiusFromLine);
 		}
 		else
@@ -185,19 +124,6 @@ public class TricksterMadeYouLook : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetRadiusAroundEnds()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_radiusAroundEndsMod.GetModifiedValue(this.m_radiusAroundEnds);
 		}
 		else
@@ -212,19 +138,6 @@ public class TricksterMadeYouLook : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.PenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -249,19 +162,6 @@ public class TricksterMadeYouLook : Ability
 		SpoilsSpawnData result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetSpoilsSpawnDataOnDisappear(SpoilsSpawnData)).MethodHandle;
-			}
 			result = this.m_abilityMod.m_spoilsSpawnDataOnDisappear.GetModifiedValue(defaultValue);
 		}
 		else
@@ -276,19 +176,6 @@ public class TricksterMadeYouLook : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.HasCooldownReductionForPassingThrough()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownReductionForTravelHit.HasCooldownReduction();
 		}
 		else
@@ -302,43 +189,12 @@ public class TricksterMadeYouLook : Ability
 	{
 		if (!(this.m_afterImageSyncComp == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (!(caster == null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(caster.GetAbilityData() == null))
 				{
 					List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
 					return validAfterImages.Count > 0 && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -355,19 +211,6 @@ public class TricksterMadeYouLook : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
@@ -377,38 +220,11 @@ public class TricksterMadeYouLook : Ability
 						ActorData actorData = enumerator.Current;
 						if (actorData.GetCurrentBoardSquare() == boardSquareSafe)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				return false;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -418,31 +234,9 @@ public class TricksterMadeYouLook : Ability
 	{
 		if (this.m_afterImageSyncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.GetTargetData()).MethodHandle;
-			}
 			List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
 			if (validAfterImages.Count == 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new TargetData[0];
 			}
 		}
@@ -453,31 +247,9 @@ public class TricksterMadeYouLook : Ability
 	{
 		if (this.m_afterImageSyncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
-			}
 			List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
 			if (validAfterImages.Count == 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData casterActor = validAfterImages[0];
 				return AbilityTarget.CreateSimpleAbilityTarget(casterActor);
 			}
@@ -493,19 +265,6 @@ public class TricksterMadeYouLook : Ability
 		int val;
 		if (abilityMod_TricksterMadeYouLook)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_TricksterMadeYouLook.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -528,64 +287,15 @@ public class TricksterMadeYouLook : Ability
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
-					}
 					if (!actorData.IsDead())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData.GetCurrentBoardSquare() != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(actorData.GetCurrentBoardSquare() == boardSquare))
 								{
 									continue;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							this.m_afterImageSyncComp.TurnToPosition(actorData, caster.GetTravelBoardSquareWorldPosition());
@@ -598,15 +308,6 @@ public class TricksterMadeYouLook : Ability
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -625,19 +326,6 @@ public class TricksterMadeYouLook : Ability
 					modelAnimator.SetInteger(TricksterMadeYouLook.animAttack, 0);
 					modelAnimator.SetBool(TricksterMadeYouLook.animCinematicCam, false);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterMadeYouLook.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
 			}
 		}
 	}

@@ -39,19 +39,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		TricksterBasicAttack tricksterBasicAttack = targetAbility as TricksterBasicAttack;
 		if (tricksterBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", tricksterBasicAttack.m_laserInfo, true);
 			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, tricksterBasicAttack.m_laserDamageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, tricksterBasicAttack.m_laserSubsequentDamageAmount, true, false);
@@ -75,19 +62,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseLaserInfo = tricksterBasicAttack.m_laserInfo;
 		}
 		else
@@ -102,15 +76,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = tricksterBasicAttack.m_laserDamageAmount;
 		}
 		else
@@ -125,15 +90,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = tricksterBasicAttack.m_laserSubsequentDamageAmount;
 		}
 		else
@@ -148,15 +104,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = tricksterBasicAttack.m_extraDamageForSingleHit;
 		}
 		else
@@ -171,15 +118,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = tricksterBasicAttack.m_enemySingleHitHitEffect;
 		}
 		else
@@ -194,15 +132,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = tricksterBasicAttack.m_enemyMultiHitEffect;
 		}
 		else
@@ -217,15 +146,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = tricksterBasicAttack.m_selfEffectForMultiHit;
 		}
 		else
@@ -240,15 +160,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = tricksterBasicAttack.m_energyGainPerLaserHit;
 		}
 		else
@@ -263,15 +174,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		SpoilsSpawnData baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = tricksterBasicAttack.m_spoilSpawnInfo;
 		}
 		else

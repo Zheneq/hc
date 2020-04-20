@@ -41,34 +41,12 @@ public class OverconSelectBtn : MonoBehaviour
 		this.m_sprite.sprite = Resources.Load<Sprite>(overcon.m_iconSpritePath);
 		if (unlocked)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconSelectBtn.Setup(UIOverconData.NameToOverconEntry, bool)).MethodHandle;
-			}
 			this.m_selectableBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OverconClicked);
 		}
 		Color color = this.m_sprite.color;
 		float a;
 		if (unlocked)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			a = 1f;
 		}
 		else
@@ -81,15 +59,6 @@ public class OverconSelectBtn : MonoBehaviour
 		Sprite sprite;
 		if (unlocked)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = this.m_activeHoverSprite;
 		}
 		else
@@ -118,41 +87,10 @@ public class OverconSelectBtn : MonoBehaviour
 		ActorData actorData = (!(GameFlowData.Get() != null)) ? null : GameFlowData.Get().activeOwnedActorData;
 		if (actorData != null && actorData.GetActorController() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconSelectBtn.OverconClicked(BaseEventData)).MethodHandle;
-			}
 			if (HUD_UI.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIOverconData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get() != null)
 					{
 						ClientGameManager.Get().SendUseOverconRequest(this.m_overconRef.m_overconId, this.m_overconRef.m_commandName, actorData.ActorIndex, GameFlowData.Get().CurrentTurn);

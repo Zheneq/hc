@@ -31,19 +31,6 @@ public class EmoticonSelectBtn : MonoBehaviour
 		this.m_lastTimeUpdate = -1f;
 		if (unlocked)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonSelectBtn.Setup(ChatEmojiManager.ChatEmoji, bool)).MethodHandle;
-			}
 			this.m_theBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ChatEmojiClicked);
 		}
 		this.m_theBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.ChatEmojiTooltip), null);
@@ -61,19 +48,6 @@ public class EmoticonSelectBtn : MonoBehaviour
 	{
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd && UIFrontEnd.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonSelectBtn.ChatEmojiClicked(BaseEventData)).MethodHandle;
-			}
 			if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 			{
 				UIFrontEnd.Get().m_frontEndChatConsole.AppendInput(this.emojiRef.GetEmojiTag() + " ", true);
@@ -85,37 +59,10 @@ public class EmoticonSelectBtn : MonoBehaviour
 		}
 		if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (HUD_UI.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HUD_UI.Get().m_textConsole != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HUD_UI.Get().m_textConsole.AppendInput(this.emojiRef.GetEmojiTag() + " ", true);
 					EmoticonPanel.Get().SetPanelOpen(false);
 				}
@@ -131,32 +78,10 @@ public class EmoticonSelectBtn : MonoBehaviour
 			{
 				if (Time.time - this.m_lastTimeUpdate >= 1f / (float)this.emojiRef.m_framesPerSecond)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(EmoticonSelectBtn.Update()).MethodHandle;
-					}
 					this.m_lastTimeUpdate = Time.time;
 					this.currentEmojiFrame++;
 					if (this.currentEmojiFrame > this.emojiRef.m_endIndex)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.currentEmojiFrame = this.emojiRef.m_startIndex;
 					}
 					this.m_DefaultSprite.text = string.Format("<sprite=\"EmoticonsAssets\" index={0}>", this.emojiRef.m_frameToDisplayForSelect);

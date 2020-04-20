@@ -65,31 +65,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (this.m_hitBoxImage == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.Start()).MethodHandle;
-			}
 			Image component = base.GetComponent<Image>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.sprite != null)
 				{
 					try
@@ -106,15 +84,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		if (this.m_hitBoxImage != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_hitBoxImage.alphaHitTestMinimumThreshold = 0.4f;
 		}
 		UIEventTriggerUtils.AddListener(base.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnButtonClicked));
@@ -128,19 +97,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (!this.m_subButtons.Contains(btn))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.AddSubButton(_ButtonSwapSprite)).MethodHandle;
-			}
 			this.m_subButtons.Add(btn);
 			btn.m_parentButton = this;
 		}
@@ -191,52 +147,12 @@ public class _ButtonSwapSprite : MonoBehaviour
 		bool flag = false;
 		if (this.m_disableWhenInReadyState)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.IsClickable()).MethodHandle;
-			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().PlayerInfo != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (GameManager.Get().PlayerInfo.ReadyState == ReadyState.Ready);
 					}
 				}
@@ -245,48 +161,12 @@ public class _ButtonSwapSprite : MonoBehaviour
 		int result;
 		if (this.m_isVisible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_clickable)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_ignoreDialogboxes)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((UIDialogPopupManager.Get() == null || (UIDialogPopupManager.Get() != null && !UIDialogPopupManager.Get().IsDialogBoxOpen())) ? 1 : 0);
 					}
 					else
@@ -305,19 +185,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (this.m_Label != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.SetText(string)).MethodHandle;
-			}
 			this.m_Label.text = newText;
 		}
 	}
@@ -340,45 +207,14 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (this.m_recordClick)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.ButtonClickedInternal(BaseEventData)).MethodHandle;
-			}
 			ClientGameManager.Get().SendUIActionNotification(this.m_clickMetricRecordContext);
 		}
 		if (this.m_soundToPlay != FrontEndButtonSounds.None)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIFrontEnd.PlaySound(this.m_soundToPlay);
 		}
 		if (this.callback != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.callback(data);
 		}
 		string text = base.gameObject.name;
@@ -390,15 +226,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HitchDetector.Get().RecordFrameTimeForHitch(text + " was clicked");
 		}
 	}
@@ -410,19 +237,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			this.m_pointerEntered = true;
 			if (!this.m_forceHoverCallback)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.OnButtonEnter(BaseEventData)).MethodHandle;
-				}
 				if (!this.IsClickable())
 				{
 					return;
@@ -430,15 +244,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			}
 			if (this.pointerEnterCallback != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.pointerEnterCallback(data);
 			}
 		}
@@ -448,31 +253,9 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if ((data as PointerEventData).pointerCurrentRaycast.gameObject != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.NotifySubButtonExit(BaseEventData, _ButtonSwapSprite)).MethodHandle;
-			}
 			_ButtonSwapSprite component = (data as PointerEventData).pointerCurrentRaycast.gameObject.GetComponent<_ButtonSwapSprite>();
 			if (component != this)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnButtonExit(data);
 			}
 		}
@@ -482,53 +265,13 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (this.m_subButtons != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.OnButtonExit(BaseEventData)).MethodHandle;
-			}
 			if (this.m_subButtons.Count > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					_ButtonSwapSprite component = (data as PointerEventData).pointerCurrentRaycast.gameObject.GetComponent<_ButtonSwapSprite>();
 					if (component != null && this.m_subButtons.Contains(component))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 				}
@@ -546,15 +289,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.pointerExitCallback != null)
 		{
@@ -571,19 +305,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 	{
 		if (UIUtils.IsMouseInGameWindow())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.OnButtonDown(BaseEventData)).MethodHandle;
-			}
 			this.m_pointerDown = true;
 		}
 	}
@@ -594,19 +315,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		this.m_pointerEntered = false;
 		if (this.selectableButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.ResetMouseState()).MethodHandle;
-			}
 			this.selectableButton.NotifyHoverStatusChange(false, false, 0f);
 			this.selectableButton.NotifyPressStatusChange(false, false);
 		}
@@ -614,28 +322,10 @@ public class _ButtonSwapSprite : MonoBehaviour
 		{
 			if (this.m_hoverImage != null && this.m_hoverImage.gameObject != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_hoverImage, false, null);
 			}
 			if (this.m_pressedImage != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_pressedImage.gameObject != null)
 				{
 					UIManager.SetGameObjectActive(this.m_pressedImage, false, null);
@@ -669,30 +359,8 @@ public class _ButtonSwapSprite : MonoBehaviour
 		{
 			if (this.m_pointerDown)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_ButtonSwapSprite.Update()).MethodHandle;
-				}
 				if (this.selectableButton != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.selectableButton.m_ignorePressAnimationCall)
 					{
 						flag = !this.IsClickable();
@@ -705,15 +373,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 				bool flag4;
 				if (!this.m_alwaysDisplayHover)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = false;
 				}
 				else
@@ -726,28 +385,10 @@ public class _ButtonSwapSprite : MonoBehaviour
 			}
 			else if (this.m_pointerEntered)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !this.IsClickable();
 				bool flag5;
 				if (!this.m_alwaysDisplayHover)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = this.IsClickable();
 				}
 				else
@@ -765,15 +406,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			}
 			if (this.IsClickable() && this.m_controlPadInput != ControlpadInputValue.INVALID && ControlpadGameplay.Get().GetButtonDown(this.m_controlPadInput))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ButtonClickedInternal(null);
 			}
 		}
@@ -783,15 +415,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			bool flag6;
 			if (!this.m_alwaysDisplayHover)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag6 = false;
 			}
 			else
@@ -817,37 +440,10 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		if (this.m_hoverImage != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.selectableButton != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_hoverActive != flag2)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.selectableButton.NotifyHoverStatusChange(flag2, false, 0f);
 				}
 			}
@@ -862,15 +458,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 			{
 				if (this.m_pressActive != flag3)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.selectableButton.NotifyPressStatusChange(flag3, false);
 				}
 			}
@@ -884,15 +471,6 @@ public class _ButtonSwapSprite : MonoBehaviour
 		this.m_pressActive = flag3;
 		if (this.m_Label != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_Label, flag3, null);
 		}
 	}

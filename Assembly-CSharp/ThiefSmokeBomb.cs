@@ -44,32 +44,10 @@ public class ThiefSmokeBomb : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Smoke Bomb";
 		}
 		if (this.m_barrierSquareWidth <= 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning("Thief Smoke Bomb, Barrier Data has 0 width, setting to 3");
 			this.m_barrierSquareWidth = 3f;
 		}
@@ -83,19 +61,6 @@ public class ThiefSmokeBomb : Ability
 		GroundEffectField fieldData = this.GetSmokeFieldInfo();
 		if (this.GetExpectedNumberOfTargeters() > 1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.Setup()).MethodHandle;
-			}
 			base.ClearTargeters();
 			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
 			{
@@ -106,15 +71,6 @@ public class ThiefSmokeBomb : Ability
 				bool affectsAllies;
 				if (fieldData.healAmount > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					affectsAllies = !fieldData.ignoreNonCasterAllies;
 				}
 				else
@@ -127,19 +83,6 @@ public class ThiefSmokeBomb : Ability
 					bool result;
 					if (fieldData.healAmount > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(ThiefSmokeBomb.<Setup>c__AnonStorey0.<>m__0(ActorData, List<ActorData>, bool)).MethodHandle;
-						}
 						result = casterInShape;
 					}
 					else
@@ -151,15 +94,6 @@ public class ThiefSmokeBomb : Ability
 				abilityUtil_Targeter_Shape.SetTooltipSubjectTypes(AbilityTooltipSubject.Primary, AbilityTooltipSubject.Primary, AbilityTooltipSubject.None);
 				base.Targeters.Add(abilityUtil_Targeter_Shape);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
@@ -170,15 +104,6 @@ public class ThiefSmokeBomb : Ability
 			bool affectsAllies2;
 			if (fieldData.healAmount > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				affectsAllies2 = !fieldData.ignoreNonCasterAllies;
 			}
 			else
@@ -192,19 +117,6 @@ public class ThiefSmokeBomb : Ability
 					bool result;
 					if (fieldData.healAmount > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(ThiefSmokeBomb.<Setup>c__AnonStorey0.<>m__1(ActorData, List<ActorData>, bool)).MethodHandle;
-						}
 						result = casterInShape;
 					}
 					else
@@ -227,19 +139,6 @@ public class ThiefSmokeBomb : Ability
 		StandardEffectInfo cachedBombHitEffectInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.SetCachedFields()).MethodHandle;
-			}
 			cachedBombHitEffectInfo = this.m_abilityMod.m_bombHitEffectInfoMod.GetModifiedValue(this.m_bombHitEffectInfo);
 		}
 		else
@@ -250,15 +149,6 @@ public class ThiefSmokeBomb : Ability
 		GroundEffectField cachedSmokeFieldInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSmokeFieldInfo = this.m_abilityMod.m_smokeFieldInfoMod.GetModifiedValue(this.m_smokeFieldInfo);
 		}
 		else
@@ -269,15 +159,6 @@ public class ThiefSmokeBomb : Ability
 		StandardBarrierData cachedBarrierData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedBarrierData = this.m_abilityMod.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
 		}
 		else
@@ -292,19 +173,6 @@ public class ThiefSmokeBomb : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetExtraDamageOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageOnCastMod.GetModifiedValue(this.m_extraDamageOnCast);
 		}
 		else
@@ -319,19 +187,6 @@ public class ThiefSmokeBomb : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.PenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -351,19 +206,6 @@ public class ThiefSmokeBomb : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetMaxDistanceWithFirst()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxDistanceWithFirstMod.GetModifiedValue(this.m_maxDistanceWithFirst);
 		}
 		else
@@ -378,19 +220,6 @@ public class ThiefSmokeBomb : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetMinDistanceBetweenBombs()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minDistanceBetweenBombsMod.GetModifiedValue(this.m_minDistanceBetweenBombs);
 		}
 		else
@@ -405,19 +234,6 @@ public class ThiefSmokeBomb : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedBombHitEffectInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetBombHitEffectInfo()).MethodHandle;
-			}
 			result = this.m_cachedBombHitEffectInfo;
 		}
 		else
@@ -432,19 +248,6 @@ public class ThiefSmokeBomb : Ability
 		GroundEffectField result;
 		if (this.m_cachedSmokeFieldInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetSmokeFieldInfo()).MethodHandle;
-			}
 			result = this.m_cachedSmokeFieldInfo;
 		}
 		else
@@ -464,19 +267,6 @@ public class ThiefSmokeBomb : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetBarrierSquareWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_barrierSquareWidthMod.GetModifiedValue(this.m_barrierSquareWidth);
 		}
 		else
@@ -491,19 +281,6 @@ public class ThiefSmokeBomb : Ability
 		StandardBarrierData result;
 		if (this.m_cachedBarrierData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetBarrierData()).MethodHandle;
-			}
 			result = this.m_cachedBarrierData;
 		}
 		else
@@ -519,32 +296,10 @@ public class ThiefSmokeBomb : Ability
 		BoardSquare boardSquareSafe = board.GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (targetIndex == 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe == caster.GetCurrentBoardSquare())
 					{
 						for (;;)
@@ -564,29 +319,11 @@ public class ThiefSmokeBomb : Ability
 				bool flag = true;
 				if (targetIndex > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 to = vector - caster.GetTravelBoardSquareWorldPosition();
 					to.y = 0f;
 					bool flag2 = true;
 					if (this.GetMaxAngleWithFirstSegment() > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
 						Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(shape, currentTargets[0].FreePos, boardSquareSafe2);
 						Vector3 from = centerOfShape - caster.GetTravelBoardSquareWorldPosition();
@@ -601,15 +338,6 @@ public class ThiefSmokeBomb : Ability
 					bool flag3;
 					if (this.GetMaxDistanceWithFirst() > 0f)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = (magnitude <= this.GetMaxDistanceWithFirst() * board.squareSize);
 					}
 					else
@@ -619,27 +347,9 @@ public class ThiefSmokeBomb : Ability
 					bool flag4 = flag3;
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag4)
 						{
 							goto IL_1F2;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					flag = false;
@@ -652,15 +362,6 @@ public class ThiefSmokeBomb : Ability
 					int i = 0;
 					while (i < targetIndex)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag)
 						{
 							for (;;)
@@ -685,41 +386,14 @@ public class ThiefSmokeBomb : Ability
 					int expectedNumberOfTargeters = this.GetExpectedNumberOfTargeters();
 					if (flag && targetIndex < expectedNumberOfTargeters - 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						List<AbilityTarget> list = new List<AbilityTarget>();
 						for (int j = 0; j < expectedNumberOfTargeters; j++)
 						{
 							list.Add(target.GetCopy());
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int k = 0; k < targetIndex; k++)
 						{
 							list[k].SetPosAndDir(currentTargets[k].GridPos, currentTargets[k].FreePos, Vector3.forward);
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						list[targetIndex].SetPosAndDir(boardSquareSafe.GetGridPos(), target.FreePos, Vector3.forward);
 						float currentRangeInSquares = AbilityUtils.GetCurrentRangeInSquares(this, caster, 0);
@@ -736,19 +410,6 @@ public class ThiefSmokeBomb : Ability
 	{
 		if (lastSelectedTargetIndex >= numClicks - 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.CanTargetFutureClicks(ActorData, Vector3, int, List<AbilityTarget>, int, int, float)).MethodHandle;
-			}
 			return true;
 		}
 		Vector3 vec = firstSegEndPos - caster.GetTravelBoardSquareWorldPosition();
@@ -768,15 +429,6 @@ public class ThiefSmokeBomb : Ability
 		int i = num;
 		while (i < num2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
 				for (;;)
@@ -794,15 +446,6 @@ public class ThiefSmokeBomb : Ability
 				int j = num3;
 				while (j < num4)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
 						for (;;)
@@ -820,63 +463,18 @@ public class ThiefSmokeBomb : Ability
 						BoardSquare boardSquare = board.GetBoardSquare(i, j);
 						if (boardSquare != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquare.IsBaselineHeight())
 							{
-								for (;;)
+								if (currentBoardSquare.symbol_0013(boardSquare.x, boardSquare.y))
 								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (currentBoardSquare.\u0013(boardSquare.x, boardSquare.y))
-								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (abilityData.IsTargetSquareInRangeOfAbilityFromSquare(boardSquare, currentBoardSquare, abilityMaxRange, 0f))
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										Vector3 vector = boardSquare.ToVector3();
 										bool flag2 = true;
 										bool flag3 = true;
 										int maxAngleWithFirstSegment = this.GetMaxAngleWithFirstSegment();
 										if (maxAngleWithFirstSegment > 0)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetEntries[0].GridPos);
 											if (numTargetsFromPlayerInput > 0)
 											{
@@ -890,15 +488,6 @@ public class ThiefSmokeBomb : Ability
 											{
 												for (int k = 0; k < 4; k++)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!flag2)
 													{
 														break;
@@ -912,15 +501,6 @@ public class ThiefSmokeBomb : Ability
 													bool flag4;
 													if (flag3)
 													{
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														flag4 = (num6 <= maxAngleWithFirstSegment);
 													}
 													else
@@ -938,15 +518,6 @@ public class ThiefSmokeBomb : Ability
 										bool flag5;
 										if (this.GetMaxDistanceWithFirst() > 0f)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag5 = (magnitude <= this.GetMaxDistanceWithFirst() * board.squareSize);
 										}
 										else
@@ -960,27 +531,9 @@ public class ThiefSmokeBomb : Ability
 										}
 										if (flag2)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int l = 0;
 											while (l <= lastSelectedTargetIndex)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!flag2)
 												{
 													for (;;)
@@ -1041,26 +594,8 @@ public class ThiefSmokeBomb : Ability
 										IL_461:
 										if (flag2)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (lastSelectedTargetIndex < numClicks - 1)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												targetEntries[lastSelectedTargetIndex + 1].SetPosAndDir(boardSquare.GetGridPos(), vector, Vector3.forward);
 												flag2 = this.CanTargetFutureClicks(caster, firstSegEndPos, lastSelectedTargetIndex + 1, targetEntries, numTargetsFromPlayerInput, numClicks, abilityMaxRange);
 											}
@@ -1095,30 +630,8 @@ public class ThiefSmokeBomb : Ability
 			float magnitude = vector3.magnitude;
 			if (magnitude >= shapeCenterMinDistInWorld)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.CheckMinDistConstraint(Vector3, BoardSquare, AbilityAreaShape, float, float)).MethodHandle;
-				}
 				if (minDistInWorld > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (magnitude < minDistInWorld)
 					{
 						for (;;)
@@ -1172,43 +685,12 @@ public class ThiefSmokeBomb : Ability
 			{
 				goto IL_B0;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeters[i].LastUpdatingGridPos);
 			if (!(boardSquareSafe2 == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(boardSquareSafe2 == boardSquareSafe))
 				{
 					goto IL_B0;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			IL_D7:
@@ -1217,15 +699,6 @@ public class ThiefSmokeBomb : Ability
 			IL_B0:
 			Ability.AddNameplateValueForOverlap(ref result, base.Targeters[i], targetActor, currentTargeterIndex, damageAmount + this.GetExtraDamageOnCast(), subsequentDamageAmount, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
 			goto IL_D7;
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return result;
 	}
@@ -1238,19 +711,6 @@ public class ThiefSmokeBomb : Ability
 		int val;
 		if (abilityMod_ThiefSmokeBomb)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ThiefSmokeBomb.m_extraDamageOnCastMod.GetModifiedValue(this.m_extraDamageOnCast);
 		}
 		else
@@ -1263,15 +723,6 @@ public class ThiefSmokeBomb : Ability
 		int val2;
 		if (abilityMod_ThiefSmokeBomb)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ThiefSmokeBomb.m_maxAngleWithFirstSegmentMod.GetModifiedValue(this.m_maxAngleWithFirstSegment);
 		}
 		else
@@ -1282,15 +733,6 @@ public class ThiefSmokeBomb : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_ThiefSmokeBomb)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ThiefSmokeBomb.m_bombHitEffectInfoMod.GetModifiedValue(this.m_bombHitEffectInfo);
 		}
 		else
@@ -1301,15 +743,6 @@ public class ThiefSmokeBomb : Ability
 		StandardBarrierData standardBarrierData;
 		if (abilityMod_ThiefSmokeBomb)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardBarrierData = abilityMod_ThiefSmokeBomb.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
 		}
 		else
@@ -1324,19 +757,6 @@ public class ThiefSmokeBomb : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ThiefSmokeBomb))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSmokeBomb.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ThiefSmokeBomb);
 			this.Setup();
 		}

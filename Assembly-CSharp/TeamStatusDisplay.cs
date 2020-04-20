@@ -48,19 +48,6 @@ public class TeamStatusDisplay : NetworkBehaviour
 					teamStatusEntry.m_text = string.Empty;
 					this.m_playerIndexToTextMap[key] = teamStatusEntry;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.RebuildTeamDisplay()).MethodHandle;
-				}
 			}
 		}
 	}
@@ -82,19 +69,6 @@ public class TeamStatusDisplay : NetworkBehaviour
 				KeyValuePair<ActorData, TeamStatusDisplay.TeamStatusEntry> keyValuePair = enumerator.Current;
 				keyValuePair.Value.m_text = string.Empty;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.ClearStatusText()).MethodHandle;
-			}
 		}
 	}
 
@@ -114,41 +88,10 @@ public class TeamStatusDisplay : NetworkBehaviour
 		ActorData actorData = GameFlowData.Get().FindActorByPlayerIndex(playerIndex);
 		if (actorData)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.RpcSetTeamStatus(int, string)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetStatusText(actorData, status);
 				}
 			}
@@ -163,19 +106,6 @@ public class TeamStatusDisplay : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamStatusDisplay.InvokeRpcRpcSetTeamStatus(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetTeamStatus called on server.");
 			return;
 		}
@@ -201,8 +131,7 @@ public class TeamStatusDisplay : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

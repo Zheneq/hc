@@ -7,128 +7,75 @@ namespace TMPro.Examples
 {
 	public class VertexZoom : MonoBehaviour
 	{
-		public float \u001D = 1f;
+		public float symbol_001D = 1f;
 
-		public float \u000E = 1f;
+		public float symbol_000E = 1f;
 
-		public float \u0012 = 1f;
+		public float symbol_0012 = 1f;
 
-		private TMP_Text \u0015;
+		private TMP_Text symbol_0015;
 
-		private bool \u0016;
+		private bool symbol_0016;
 
-		private void \u0013()
+		private void symbol_0013()
 		{
-			this.\u0015 = base.GetComponent<TMP_Text>();
+			this.symbol_0015 = base.GetComponent<TMP_Text>();
 		}
 
-		private void \u0018()
+		private void symbol_0018()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.\u0013));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.symbol_0013));
 		}
 
-		private void \u0009()
+		private void symbol_0009()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.\u0013));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.symbol_0013));
 		}
 
-		private void \u0019()
+		private void symbol_0019()
 		{
 			base.StartCoroutine(this.coroutine0013());
 		}
 
-		private void \u0013(UnityEngine.Object \u001D)
+		private void symbol_0013(UnityEngine.Object symbol_001D)
 		{
-			if (\u001D == this.\u0015)
+			if (symbol_001D == this.symbol_0015)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VertexZoom.\u0013(UnityEngine.Object)).MethodHandle;
-				}
-				this.\u0016 = true;
+				this.symbol_0016 = true;
 			}
 		}
 
 		private IEnumerator coroutine0013()
 		{
-			VertexZoom.<AnimateVertexColors>c__Iterator0.<AnimateVertexColors>c__AnonStorey1 <AnimateVertexColors>c__AnonStorey = new VertexZoom.<AnimateVertexColors>c__Iterator0.<AnimateVertexColors>c__AnonStorey1();
-			<AnimateVertexColors>c__AnonStorey.\u000E = this;
-			this.\u0015.ForceMeshUpdate();
-			TMP_TextInfo textInfo = this.\u0015.textInfo;
+			VertexZoom.AnimateVertexColors_c__Iterator0.AnimateVertexColors_c__AnonStorey1 AnimateVertexColors_c__AnonStorey = new VertexZoom.AnimateVertexColors_c__Iterator0.AnimateVertexColors_c__AnonStorey1();
+			AnimateVertexColors_c__AnonStorey.symbol_000E = this;
+			this.symbol_0015.ForceMeshUpdate();
+			TMP_TextInfo textInfo = this.symbol_0015.textInfo;
 			TMP_MeshInfo[] array = textInfo.CopyMeshInfoVertexData();
-			<AnimateVertexColors>c__AnonStorey.\u001D = new List<float>();
+			AnimateVertexColors_c__AnonStorey.symbol_001D = new List<float>();
 			List<int> list = new List<int>();
-			this.\u0016 = true;
+			this.symbol_0016 = true;
 			for (;;)
 			{
-				if (this.\u0016)
+				if (this.symbol_0016)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(VertexZoom.<AnimateVertexColors>c__Iterator0.MoveNext()).MethodHandle;
-					}
 					array = textInfo.CopyMeshInfoVertexData();
-					this.\u0016 = false;
+					this.symbol_0016 = false;
 				}
 				int characterCount = textInfo.characterCount;
 				if (characterCount == 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					yield return new WaitForSeconds(0.25f);
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
-					<AnimateVertexColors>c__AnonStorey.\u001D.Clear();
+					AnimateVertexColors_c__AnonStorey.symbol_001D.Clear();
 					list.Clear();
 					for (int i = 0; i < characterCount; i++)
 					{
 						TMP_CharacterInfo tmp_CharacterInfo = textInfo.characterInfo[i];
 						if (!tmp_CharacterInfo.isVisible)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -143,8 +90,8 @@ namespace TMPro.Examples
 							vertices2[vertexIndex + 2] = vertices[vertexIndex + 2] - b;
 							vertices2[vertexIndex + 3] = vertices[vertexIndex + 3] - b;
 							float num = UnityEngine.Random.Range(1f, 1.5f);
-							<AnimateVertexColors>c__AnonStorey.\u001D.Add(num);
-							list.Add(<AnimateVertexColors>c__AnonStorey.\u001D.Count - 1);
+							AnimateVertexColors_c__AnonStorey.symbol_001D.Add(num);
+							list.Add(AnimateVertexColors_c__AnonStorey.symbol_001D.Count - 1);
 							Matrix4x4 matrix4x = Matrix4x4.TRS(new Vector3(0f, 0f, 0f), Quaternion.identity, Vector3.one * num);
 							vertices2[vertexIndex] = matrix4x.MultiplyPoint3x4(vertices2[vertexIndex]);
 							vertices2[vertexIndex + 1] = matrix4x.MultiplyPoint3x4(vertices2[vertexIndex + 1]);
@@ -168,32 +115,14 @@ namespace TMPro.Examples
 							colors2[vertexIndex + 3] = colors[vertexIndex + 3];
 						}
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int j = 0; j < textInfo.meshInfo.Length; j++)
 					{
-						list.Sort(new Comparison<int>(<AnimateVertexColors>c__AnonStorey.\u0012));
+						list.Sort(new Comparison<int>(AnimateVertexColors_c__AnonStorey.symbol_0012));
 						textInfo.meshInfo[j].SortGeometry(list);
 						textInfo.meshInfo[j].mesh.vertices = textInfo.meshInfo[j].vertices;
 						textInfo.meshInfo[j].mesh.uv = textInfo.meshInfo[j].uvs0;
 						textInfo.meshInfo[j].mesh.colors32 = textInfo.meshInfo[j].colors32;
-						this.\u0015.UpdateGeometry(textInfo.meshInfo[j].mesh, j);
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						this.symbol_0015.UpdateGeometry(textInfo.meshInfo[j].mesh, j);
 					}
 					yield return new WaitForSeconds(0.1f);
 				}

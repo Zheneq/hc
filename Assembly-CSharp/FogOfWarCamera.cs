@@ -19,19 +19,6 @@ public class FogOfWarCamera : MonoBehaviour
 			fogOfWarCamera = camera.GetComponent<FogOfWarCamera>();
 			if (fogOfWarCamera != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FogOfWarCamera.GetFirstFogOfWarCamera()).MethodHandle;
-				}
 				return fogOfWarCamera;
 			}
 		}

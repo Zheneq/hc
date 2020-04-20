@@ -32,19 +32,6 @@ public class GrydCardinalSegmentInfo
 		bool result;
 		if (this.m_endSquare != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalSegmentInfo.IsValidSegment()).MethodHandle;
-			}
 			result = (this.m_endSquare != this.m_startSquare);
 		}
 		else
@@ -58,19 +45,6 @@ public class GrydCardinalSegmentInfo
 	{
 		if (this.m_hitActorsMap == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalSegmentInfo.TrackActorHitInfo(Dictionary<ActorData, ActorMultiHitContext>)).MethodHandle;
-			}
 			return;
 		}
 		using (Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>.Enumerator enumerator = this.m_hitActorsMap.GetEnumerator())
@@ -84,40 +58,13 @@ public class GrydCardinalSegmentInfo
 				bool flag = actorCover.IsInCoverWrt(segmentOrigin);
 				if (actorToHitContext.ContainsKey(key))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorToHitContext[key].m_numHits++;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitContext[key].m_numHitsFromCover++;
 					}
 					if (actorCover != null && !actorCover.IsInCoverWrt(actorToHitContext[key].m_hitOrigin) && actorCover.IsInCoverWrt(segmentOrigin))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitContext[key].m_hitOrigin = segmentOrigin;
 					}
 				}
@@ -129,15 +76,6 @@ public class GrydCardinalSegmentInfo
 					int numHitsFromCover;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						numHitsFromCover = 1;
 					}
 					else
@@ -148,15 +86,6 @@ public class GrydCardinalSegmentInfo
 					actorMultiHitContext.m_hitOrigin = segmentOrigin;
 					actorToHitContext[key] = actorMultiHitContext;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -182,19 +111,6 @@ public class GrydCardinalSegmentInfo
 			bool flag2;
 			if (splitOnWall)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalSegmentInfo.CalculateSegmentInfo(GrydCardinalSegmentInfo, float, float, int, bool, bool, bool, bool, int, ActorData, List<Team>, List<NonActorTargetInfo>, Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>, List<ActorData>)).MethodHandle;
-				}
 				flag2 = flag;
 			}
 			else
@@ -205,15 +121,6 @@ public class GrydCardinalSegmentInfo
 			int num2;
 			if (continueAfterActorHit)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = -1;
 			}
 			else
@@ -231,26 +138,8 @@ public class GrydCardinalSegmentInfo
 			BoardSquare startSquare = boardSquare;
 			if (actorsInLaser.Count > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (splitOnActor)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					startSquare = actorsInLaser[0].GetCurrentBoardSquare();
 					flag3 = true;
 				}
@@ -264,15 +153,6 @@ public class GrydCardinalSegmentInfo
 				ActorData actorData = actorsInLaser[i];
 				if (!hitActorsMap.ContainsKey(actorData))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AreaEffectUtils.BouncingLaserInfo value = new AreaEffectUtils.BouncingLaserInfo(vector, segmentIndex);
 					hitActorsMap.Add(actorData, value);
 					actorsToExclude.Add(actorData);
@@ -281,26 +161,8 @@ public class GrydCardinalSegmentInfo
 			parentSegment.m_endSquare = boardSquare;
 			if (splitsRemaining > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 direction = Quaternion.AngleAxis(-90f, Vector3.up) * parentSegment.m_direction;
 					GrydCardinalSegmentInfo grydCardinalSegmentInfo = new GrydCardinalSegmentInfo(startSquare, direction);
 					GrydCardinalSegmentInfo.CalculateSegmentInfo(grydCardinalSegmentInfo, maxBranchDistInSquares, maxBranchDistInSquares, splitsRemaining - 1, splitOnWall, splitOnActor, continueAfterActorHit, includeInvisibles, segmentIndex + 1, caster, relevantTeams, nonActorTargetInfo, hitActorsMap, actorsToExclude);
@@ -321,19 +183,6 @@ public class GrydCardinalSegmentInfo
 	{
 		if (parentSegment.IsValidSegment())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalSegmentInfo.AssembleSequenceParamData(GrydCardinalSegmentInfo, List<GrydCardinalBombSequence.SegmentDataEntry>)).MethodHandle;
-			}
 			segmentDataList.Add(new GrydCardinalBombSequence.SegmentDataEntry
 			{
 				m_segmentIndex = (sbyte)parentSegment.m_segmentIndex,
@@ -352,19 +201,6 @@ public class GrydCardinalSegmentInfo
 	{
 		if (parentSegment.IsValidSegment())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalSegmentInfo.EncapsulateBoundForCamPos(GrydCardinalSegmentInfo, Bounds*)).MethodHandle;
-			}
 			bound.Encapsulate(parentSegment.m_startSquare.ToVector3());
 			bound.Encapsulate(parentSegment.m_endSquare.ToVector3());
 			using (List<GrydCardinalSegmentInfo>.Enumerator enumerator = parentSegment.m_childSegments.GetEnumerator())
@@ -374,15 +210,6 @@ public class GrydCardinalSegmentInfo
 					GrydCardinalSegmentInfo parentSegment2 = enumerator.Current;
 					GrydCardinalSegmentInfo.EncapsulateBoundForCamPos(parentSegment2, ref bound);
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -391,19 +218,6 @@ public class GrydCardinalSegmentInfo
 	{
 		if (parentSegment.IsValidSegment())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalSegmentInfo.HandleTargeterHighlights(GrydCardinalSegmentInfo, bool, List<GameObject>, int*)).MethodHandle;
-			}
 			Vector3 vector = parentSegment.m_startSquare.ToVector3();
 			Vector3 vector2 = parentSegment.m_endSquare.ToVector3() - vector;
 			vector2.y = 0f;
@@ -411,15 +225,6 @@ public class GrydCardinalSegmentInfo
 			GameObject gameObject;
 			if (highlights.Count <= nextHighlightIndex)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = HighlightUtils.Get().CreateRectangularCursor(1f, magnitude, null);
 				highlights.Add(gameObject);
 			}

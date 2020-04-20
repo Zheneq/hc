@@ -37,19 +37,6 @@ public class InputManager : MonoBehaviour
 		InputManager.s_instance = null;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
 		}
 	}
@@ -93,19 +80,6 @@ public class InputManager : MonoBehaviour
 		{
 			if (primary)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.ClearKeyBind(KeyPreference, bool)).MethodHandle;
-				}
 				keyCodeData.m_primary = 0;
 				keyCodeData.m_modifierKey1 = 0;
 				keyCodeData.m_additionalModifierKey1 = 0;
@@ -126,43 +100,12 @@ public class InputManager : MonoBehaviour
 		KeyBindingCommand keyBindingCommand = GameWideData.Get().GetKeyBindingCommand(preference.ToString());
 		if (keyBindingCommand == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.SetCustomKeyBind(KeyPreference, KeyCode, KeyCode, KeyCode, bool)).MethodHandle;
-			}
 			return false;
 		}
 		if (this.m_keyCodeMapping.TryGetValue((int)preference, out keyCodeData))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (primary)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				keyCodeData.m_primary = (int)keyCode;
 				keyCodeData.m_modifierKey1 = (int)modifierKey;
 				keyCodeData.m_additionalModifierKey1 = (int)additionalModifierKey;
@@ -182,15 +125,6 @@ public class InputManager : MonoBehaviour
 					KeyBindingCommand keyBindingCommand2 = GameWideData.Get().GetKeyBindingCommand(key.ToString());
 					if (keyBindingCommand2 == null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Error("Could not find KeyBindingCommand for {0} in GameWideData", new object[]
 						{
 							key.ToString()
@@ -198,55 +132,19 @@ public class InputManager : MonoBehaviour
 					}
 					else if (!keyBindingCommand2.Settable)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						if (keyBindingCommand.Category != KeyBindCategory.Global && keyBindingCommand2.Category != KeyBindCategory.Global)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (keyBindingCommand2.Category != keyBindingCommand.Category)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 						}
 						if (key != preference)
 						{
 							goto IL_17A;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (!primary)
 						{
@@ -263,53 +161,17 @@ public class InputManager : MonoBehaviour
 						IL_1ED:
 						if (key == preference)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!primary)
 							{
 								continue;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (keyValuePair.Value.m_secondary != (int)keyCode)
 						{
 							continue;
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (keyValuePair.Value.m_modifierKey2 == (int)modifierKey && keyValuePair.Value.m_additionalModifierKey2 == (int)additionalModifierKey)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							keyValuePair.Value.m_secondary = 0;
 							keyValuePair.Value.m_modifierKey2 = 0;
 							keyValuePair.Value.m_additionalModifierKey2 = 0;
@@ -321,27 +183,9 @@ public class InputManager : MonoBehaviour
 						{
 							goto IL_1ED;
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (keyValuePair.Value.m_modifierKey1 != (int)modifierKey)
 						{
 							goto IL_1ED;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (keyValuePair.Value.m_additionalModifierKey1 == (int)additionalModifierKey)
 						{
@@ -352,15 +196,6 @@ public class InputManager : MonoBehaviour
 						}
 						goto IL_1ED;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_heaviliyModifiedCommandCache.Clear();
@@ -378,19 +213,6 @@ public class InputManager : MonoBehaviour
 	{
 		if (!this.KeyMappingInitialized)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.HandleAccountDataUpdated(PersistedAccountData)).MethodHandle;
-			}
 			this.m_keyCodeMapping.Clear();
 			this.m_heaviliyModifiedCommandCache.Clear();
 			bool flag = false;
@@ -429,41 +251,10 @@ public class InputManager : MonoBehaviour
 	{
 		if (key != KeyCode.RightControl)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsModifierKey(KeyCode)).MethodHandle;
-			}
 			if (key != KeyCode.LeftControl)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (key != KeyCode.RightShift && key != KeyCode.LeftShift && key != KeyCode.RightAlt)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return key == KeyCode.LeftAlt;
 				}
 			}
@@ -497,19 +288,6 @@ public class InputManager : MonoBehaviour
 		bool result;
 		if (!Input.GetKey(KeyCode.LeftControl))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsControlDown()).MethodHandle;
-			}
 			result = Input.GetKey(KeyCode.RightControl);
 		}
 		else
@@ -529,19 +307,6 @@ public class InputManager : MonoBehaviour
 		bool result;
 		if (!Input.GetKey(KeyCode.LeftShift))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsShiftDown()).MethodHandle;
-			}
 			result = Input.GetKey(KeyCode.RightShift);
 		}
 		else
@@ -557,69 +322,20 @@ public class InputManager : MonoBehaviour
 		additionalModifier = KeyCode.None;
 		if (this.IsControlDown())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.GetModifierKeys(KeyCode*, KeyCode*)).MethodHandle;
-			}
 			modifier = KeyCode.LeftControl;
 		}
 		else if (this.IsAltDown())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modifier = KeyCode.LeftAlt;
 		}
 		else if (this.IsShiftDown())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modifier = KeyCode.LeftShift;
 		}
 		if (modifier == KeyCode.LeftControl)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.IsAltDown())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				additionalModifier = KeyCode.LeftAlt;
 			}
 			else if (this.IsShiftDown())
@@ -629,26 +345,8 @@ public class InputManager : MonoBehaviour
 		}
 		else if (modifier == KeyCode.LeftAlt)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.IsShiftDown())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				additionalModifier = KeyCode.LeftShift;
 			}
 		}
@@ -658,30 +356,8 @@ public class InputManager : MonoBehaviour
 	{
 		if (key != KeyCode.Pause)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsUnbindableKey(KeyCode)).MethodHandle;
-			}
 			if (key != KeyCode.ScrollLock && key != KeyCode.Break && key != KeyCode.Mouse0 && key != KeyCode.Mouse1 && key != KeyCode.Menu)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (key != KeyCode.Slash && key != KeyCode.Return)
 				{
 					return key == KeyCode.KeypadEnter;
@@ -717,19 +393,6 @@ public class InputManager : MonoBehaviour
 		bool flag = true;
 		if (modifierKey != KeyCode.None)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsModifierDown(KeyCode, KeyCode)).MethodHandle;
-			}
 			flag = this.CheckModifierDown(modifierKey);
 		}
 		if (flag && additionalModifierKey != KeyCode.None)
@@ -756,56 +419,16 @@ public class InputManager : MonoBehaviour
 					KeyCodeData value = keyValuePair.Value;
 					if (value.m_primary == (int)key)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsMoreHeavilyModifiedKeyCommandDown(KeyCode, KeyCode, KeyCode)).MethodHandle;
-						}
 						if (modifierKey == KeyCode.None)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (value.m_modifierKey1 != 0)
 							{
 								goto IL_AF;
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (additionalModifierKey != KeyCode.None || value.m_additionalModifierKey1 == 0)
 						{
 							goto IL_E1;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						IL_AF:
 						InputManager.KeyCodeCacheEntry item;
@@ -823,41 +446,14 @@ public class InputManager : MonoBehaviour
 							{
 								goto IL_121;
 							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (additionalModifierKey != KeyCode.None)
 						{
 							continue;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (value.m_additionalModifierKey2 == 0)
 						{
 							continue;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						IL_121:
 						InputManager.KeyCodeCacheEntry item2;
@@ -867,15 +463,6 @@ public class InputManager : MonoBehaviour
 						list.Add(item2);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_heaviliyModifiedCommandCache[key2] = list;
 		}
@@ -883,15 +470,6 @@ public class InputManager : MonoBehaviour
 		{
 			if (this.IsModifierDown((KeyCode)keyCodeCacheEntry.m_modifierKey, (KeyCode)keyCodeCacheEntry.m_additionalModifierKey))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
@@ -903,43 +481,12 @@ public class InputManager : MonoBehaviour
 		bool flag = false;
 		if (key != KeyCode.None)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.CheckKeyAction(KeyCode, KeyCode, KeyCode, InputManager.KeyActionType)).MethodHandle;
-			}
 			if (keyDownType != InputManager.KeyActionType.KeyHeld)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (keyDownType != InputManager.KeyActionType.KeyDown)
 				{
 					if (keyDownType != InputManager.KeyActionType.KeyUp)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -958,27 +505,9 @@ public class InputManager : MonoBehaviour
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag2;
 			if (this.IsModifierDown(modifierKey, additionalModifierKey))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = !this.IsMoreHeavilyModifiedKeyCommandDown(key, modifierKey, additionalModifierKey);
 			}
 			else
@@ -995,52 +524,12 @@ public class InputManager : MonoBehaviour
 		bool flag = false;
 		if (actionName != KeyPreference.NullPreference)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsKeyBindingHeld(KeyPreference)).MethodHandle;
-			}
 			if (!UIUtils.InputFieldHasFocus())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UIUtils.SettingKeybindCommand())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!AccountPreferences.DoesApplicationHaveFocus())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -1048,27 +537,9 @@ public class InputManager : MonoBehaviour
 						this.m_keyCodeMapping.TryGetValue((int)actionName, out keyCodeData);
 						if (keyCodeData != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag2;
 							if (!this.CheckKeyAction((KeyCode)keyCodeData.m_primary, (KeyCode)keyCodeData.m_modifierKey1, (KeyCode)keyCodeData.m_additionalModifierKey1, InputManager.KeyActionType.KeyHeld))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = this.CheckKeyAction((KeyCode)keyCodeData.m_secondary, (KeyCode)keyCodeData.m_modifierKey2, (KeyCode)keyCodeData.m_additionalModifierKey2, InputManager.KeyActionType.KeyHeld);
 							}
 							else
@@ -1081,27 +552,9 @@ public class InputManager : MonoBehaviour
 						{
 							return flag;
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_controlPadMapping.ContainsKey((int)actionName))
 						{
 							return flag;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						ControlpadInputValue controlpadInputValue = this.m_controlPadMapping[(int)actionName];
 						if (controlpadInputValue != ControlpadInputValue.INVALID)
@@ -1122,41 +575,10 @@ public class InputManager : MonoBehaviour
 		bool flag = false;
 		if (actionName != KeyPreference.NullPreference)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsKeyBindingNewlyHeld(KeyPreference)).MethodHandle;
-			}
 			if (!UIUtils.InputFieldHasFocus() && !UIUtils.SettingKeybindCommand())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!AccountPreferences.DoesApplicationHaveFocus())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -1167,15 +589,6 @@ public class InputManager : MonoBehaviour
 						bool flag2;
 						if (!this.CheckKeyAction((KeyCode)keyCodeData.m_primary, (KeyCode)keyCodeData.m_modifierKey1, (KeyCode)keyCodeData.m_additionalModifierKey1, InputManager.KeyActionType.KeyDown))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag2 = this.CheckKeyAction((KeyCode)keyCodeData.m_secondary, (KeyCode)keyCodeData.m_modifierKey2, (KeyCode)keyCodeData.m_additionalModifierKey2, InputManager.KeyActionType.KeyDown);
 						}
 						else
@@ -1188,28 +601,10 @@ public class InputManager : MonoBehaviour
 					{
 						return flag;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ControlpadInputValue controlpadInputValue = ControlpadInputValue.INVALID;
 					this.m_controlPadMapping.TryGetValue((int)actionName, out controlpadInputValue);
 					if (controlpadInputValue != ControlpadInputValue.INVALID)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return ControlpadGameplay.Get().GetButtonDown(controlpadInputValue);
 					}
 					return flag;
@@ -1229,19 +624,6 @@ public class InputManager : MonoBehaviour
 			{
 				if (!AccountPreferences.DoesApplicationHaveFocus())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsKeyBindingNewlyReleased(KeyPreference)).MethodHandle;
-					}
 				}
 				else
 				{
@@ -1249,27 +631,9 @@ public class InputManager : MonoBehaviour
 					this.m_keyCodeMapping.TryGetValue((int)actionName, out keyCodeData);
 					if (keyCodeData != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag2;
 						if (!this.CheckKeyAction((KeyCode)keyCodeData.m_primary, (KeyCode)keyCodeData.m_modifierKey1, (KeyCode)keyCodeData.m_additionalModifierKey1, InputManager.KeyActionType.KeyUp))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag2 = this.CheckKeyAction((KeyCode)keyCodeData.m_secondary, (KeyCode)keyCodeData.m_modifierKey2, (KeyCode)keyCodeData.m_additionalModifierKey2, InputManager.KeyActionType.KeyUp);
 						}
 						else
@@ -1282,15 +646,6 @@ public class InputManager : MonoBehaviour
 					{
 						return flag;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_controlPadMapping.ContainsKey((int)actionName))
 					{
 						return flag;
@@ -1299,15 +654,6 @@ public class InputManager : MonoBehaviour
 					this.m_controlPadMapping.TryGetValue((int)actionName, out controlpadInputValue);
 					if (controlpadInputValue != ControlpadInputValue.INVALID)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return ControlpadGameplay.Get().GetButtonUp(controlpadInputValue);
 					}
 					return flag;
@@ -1339,19 +685,6 @@ public class InputManager : MonoBehaviour
 				bool flag;
 				if (keyCodeData.m_primary != (int)code)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.IsKeyCodeMatchKeyBind(KeyPreference, KeyCode)).MethodHandle;
-					}
 					flag = (keyCodeData.m_secondary == (int)code);
 				}
 				else
@@ -1370,30 +703,8 @@ public class InputManager : MonoBehaviour
 		KeyCodeData keyCodeData = null;
 		if (this.m_keyCodeMapping.TryGetValue((int)actionName, out keyCodeData))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.GetFullKeyString(KeyPreference, bool, bool)).MethodHandle;
-			}
 			if (primaryKey)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = this.GetFullKeyString((KeyCode)keyCodeData.m_primary, (KeyCode)keyCodeData.m_modifierKey1, (KeyCode)keyCodeData.m_additionalModifierKey1, shortStr);
 			}
 			else
@@ -1413,81 +724,23 @@ public class InputManager : MonoBehaviour
 		string modifierKeyString2 = this.GetModifierKeyString(additionalModifierKey, shortStr);
 		if (!text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.GetFullKeyString(KeyCode, KeyCode, KeyCode, bool)).MethodHandle;
-			}
 			if (modifierKeyString.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (modifierKeyString2.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return text;
 				}
 			}
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = string.Format("{0}{1}-{2}", modifierKeyString, modifierKeyString2, text);
 			}
 			else
 			{
 				if (!modifierKeyString.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (modifierKeyString2.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return string.Format("{0} {1}", modifierKeyString, text);
 					}
 				}
@@ -1506,15 +759,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftShift:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("ShiftShort", "Keyboard");
 			}
 			else
@@ -1526,19 +770,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftControl:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.GetModifierKeyString(KeyCode, bool)).MethodHandle;
-				}
 				result = StringUtil.TR("CtrlShort", "Keyboard");
 			}
 			else
@@ -1550,15 +781,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftAlt:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("AltShort", "Keyboard");
 			}
 			else
@@ -1629,15 +851,6 @@ public class InputManager : MonoBehaviour
 					int num = key - KeyCode.Mouse0 + 1;
 					if (shortStr)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = string.Format(StringUtil.TR("MouseButtonShort", "Keyboard"), num);
 					}
 					else
@@ -1674,43 +887,12 @@ public class InputManager : MonoBehaviour
 								{
 									if (key != KeyCode.Escape)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!true)
-										{
-											RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.GetKeyString(KeyCode, bool)).MethodHandle;
-										}
 										if (key != KeyCode.Space)
 										{
 											if (key != KeyCode.Quote)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (key != KeyCode.Delete)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													result = key.ToString();
 												}
 												else
@@ -1834,15 +1016,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.RightShift:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("RightShiftShort", "Keyboard");
 			}
 			else
@@ -1853,15 +1026,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftShift:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("LeftShiftShort", "Keyboard");
 			}
 			else
@@ -1872,15 +1036,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.RightControl:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("RightCtrlShort", "Keyboard");
 			}
 			else
@@ -1891,15 +1046,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftControl:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("LeftCtrlShort", "Keyboard");
 			}
 			else
@@ -1910,15 +1056,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.RightAlt:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("RightAltShort", "Keyboard");
 			}
 			else
@@ -1929,15 +1066,6 @@ public class InputManager : MonoBehaviour
 		case KeyCode.LeftAlt:
 			if (shortStr)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = StringUtil.TR("LeftAltShort", "Keyboard");
 			}
 			else
@@ -2010,44 +1138,13 @@ public class InputManager : MonoBehaviour
 						Key value = (Key)obj2;
 						if (!(key.ToString() == value.ToString()))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.BuildRazorKeyLookupMap()).MethodHandle;
-							}
 							if (!(key.ToString() == value.ToString().Replace("Oem", string.Empty)))
 							{
 								continue;
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						this.m_razerKeyMapping[key] = value;
 						goto IL_38D;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				finally
@@ -2055,27 +1152,9 @@ public class InputManager : MonoBehaviour
 					IDisposable disposable;
 					if ((disposable = (enumerator2 as IDisposable)) != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						disposable.Dispose();
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -2092,19 +1171,6 @@ public class InputManager : MonoBehaviour
 	{
 		if (this.m_razerKeyMapping.IsNullOrEmpty<KeyValuePair<KeyCode, Key>>())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InputManager.GetRazorKey(KeyPreference, Key*)).MethodHandle;
-			}
 			this.BuildRazorKeyLookupMap();
 		}
 		razerKey = Key.Invalid;
@@ -2115,15 +1181,6 @@ public class InputManager : MonoBehaviour
 			KeyCode key;
 			if (keyCodeData.m_primary != 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				key = (KeyCode)keyCodeData.m_primary;
 			}
 			else
@@ -2131,15 +1188,6 @@ public class InputManager : MonoBehaviour
 				if (keyCodeData.m_secondary == 0)
 				{
 					return false;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				key = (KeyCode)keyCodeData.m_secondary;
 			}

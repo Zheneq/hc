@@ -13,19 +13,6 @@ public class UIStoreGGPanel : UICashShopPanelBase
 			array[i].m_itemType = PurchaseItemType.GGBoost;
 			array[i].m_ggPack = ggPacks[i];
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGGPanel.GetPurchasableItems()).MethodHandle;
-		}
 		return array;
 	}
 }

@@ -6,93 +6,58 @@ namespace TMPro.Examples
 {
 	public class VertexShakeA : MonoBehaviour
 	{
-		public float \u001D = 1f;
+		public float symbol_001D = 1f;
 
-		public float \u000E = 1f;
+		public float symbol_000E = 1f;
 
-		public float \u0012 = 1f;
+		public float symbol_0012 = 1f;
 
-		public float \u0015 = 1f;
+		public float symbol_0015 = 1f;
 
-		private TMP_Text \u0016;
+		private TMP_Text symbol_0016;
 
-		private bool \u0013;
+		private bool symbol_0013;
 
-		private void \u0018()
+		private void symbol_0018()
 		{
-			this.\u0016 = base.GetComponent<TMP_Text>();
+			this.symbol_0016 = base.GetComponent<TMP_Text>();
 		}
 
-		private void \u0009()
+		private void symbol_0009()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.\u0018));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.symbol_0018));
 		}
 
-		private void \u0019()
+		private void symbol_0019()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.\u0018));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.symbol_0018));
 		}
 
-		private void \u0011()
+		private void symbol_0011()
 		{
 			base.StartCoroutine(this.coroutine0018());
 		}
 
-		private void \u0018(UnityEngine.Object \u001D)
+		private void symbol_0018(UnityEngine.Object symbol_001D)
 		{
-			if (this.\u0016)
+			if (this.symbol_0016)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VertexShakeA.\u0018(UnityEngine.Object)).MethodHandle;
-				}
-				this.\u0013 = true;
+				this.symbol_0013 = true;
 			}
 		}
 
 		private IEnumerator coroutine0018()
 		{
-			this.\u0016.ForceMeshUpdate();
-			TMP_TextInfo textInfo = this.\u0016.textInfo;
+			this.symbol_0016.ForceMeshUpdate();
+			TMP_TextInfo textInfo = this.symbol_0016.textInfo;
 			Vector3[][] array = new Vector3[0][];
-			this.\u0013 = true;
+			this.symbol_0013 = true;
 			for (;;)
 			{
-				if (this.\u0013)
+				if (this.symbol_0013)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(VertexShakeA.<AnimateVertexColors>c__Iterator0.MoveNext()).MethodHandle;
-					}
 					if (array.Length < textInfo.meshInfo.Length)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						array = new Vector3[textInfo.meshInfo.Length][];
 					}
 					for (int i = 0; i < textInfo.meshInfo.Length; i++)
@@ -100,29 +65,11 @@ namespace TMPro.Examples
 						int num = textInfo.meshInfo[i].vertices.Length;
 						array[i] = new Vector3[num];
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.\u0013 = false;
+					this.symbol_0013 = false;
 				}
 				if (textInfo.characterCount == 0)
 				{
 					yield return new WaitForSeconds(0.25f);
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -132,20 +79,11 @@ namespace TMPro.Examples
 						int firstCharacterIndex = textInfo.lineInfo[j].firstCharacterIndex;
 						int lastCharacterIndex = textInfo.lineInfo[j].lastCharacterIndex;
 						Vector3 b = (textInfo.characterInfo[firstCharacterIndex].bottomLeft + textInfo.characterInfo[lastCharacterIndex].topRight) / 2f;
-						Quaternion q = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-0.25f, 0.25f) * this.\u0015);
+						Quaternion q = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-0.25f, 0.25f) * this.symbol_0015);
 						for (int k = firstCharacterIndex; k <= lastCharacterIndex; k++)
 						{
 							if (!textInfo.characterInfo[k].isVisible)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -156,7 +94,7 @@ namespace TMPro.Examples
 								array[materialReferenceIndex][vertexIndex + 1] = vertices[vertexIndex + 1] - b;
 								array[materialReferenceIndex][vertexIndex + 2] = vertices[vertexIndex + 2] - b;
 								array[materialReferenceIndex][vertexIndex + 3] = vertices[vertexIndex + 3] - b;
-								float d = UnityEngine.Random.Range(0.995f - 0.001f * this.\u0012, 1.005f + 0.001f * this.\u0012);
+								float d = UnityEngine.Random.Range(0.995f - 0.001f * this.symbol_0012, 1.005f + 0.001f * this.symbol_0012);
 								Matrix4x4 matrix4x = Matrix4x4.TRS(Vector3.one, q, Vector3.one * d);
 								array[materialReferenceIndex][vertexIndex] = matrix4x.MultiplyPoint3x4(array[materialReferenceIndex][vertexIndex]);
 								array[materialReferenceIndex][vertexIndex + 1] = matrix4x.MultiplyPoint3x4(array[materialReferenceIndex][vertexIndex + 1]);
@@ -169,39 +107,12 @@ namespace TMPro.Examples
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int l = 0; l < textInfo.meshInfo.Length; l++)
 					{
 						textInfo.meshInfo[l].mesh.vertices = array[l];
-						this.\u0016.UpdateGeometry(textInfo.meshInfo[l].mesh, l);
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
+						this.symbol_0016.UpdateGeometry(textInfo.meshInfo[l].mesh, l);
 					}
 					yield return new WaitForSeconds(0.1f);
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			yield break;

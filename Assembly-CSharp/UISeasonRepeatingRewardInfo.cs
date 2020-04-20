@@ -25,31 +25,9 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 	{
 		if (this.SeasonRewardRef is SeasonItemReward)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRepeatingRewardInfo.GetDisplaySprite()).MethodHandle;
-			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate((this.SeasonRewardRef as SeasonItemReward).ItemReward.ItemTemplateId);
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return Resources.Load(itemTemplate.IconPath, typeof(Sprite)) as Sprite;
 			}
 		}
@@ -57,15 +35,6 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 		{
 			if (this.SeasonRewardRef is SeasonUnlockReward)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return Resources.Load((this.SeasonRewardRef as SeasonUnlockReward).UnlockReward.resourceString, typeof(Sprite)) as Sprite;
 			}
 			if (this.SeasonRewardRef is SeasonCurrencyReward)
@@ -86,32 +55,10 @@ public class UISeasonRepeatingRewardInfo : IEquatable<UISeasonRepeatingRewardInf
 	{
 		if (other == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonRepeatingRewardInfo.CompareTo(UISeasonRepeatingRewardInfo)).MethodHandle;
-			}
 			return -1;
 		}
 		if (other.RepeatEveryXLevels > this.RepeatEveryXLevels)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return -1;
 		}
 		if (other.RepeatEveryXLevels < this.RepeatEveryXLevels)

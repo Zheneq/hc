@@ -13,19 +13,6 @@ public class AbilityModPropertyEffectData
 	{
 		if (this.operation == AbilityModPropertyEffectData.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyEffectData.GetModifiedValue(StandardActorEffectData)).MethodHandle;
-			}
 			StandardActorEffectData result = this.effectData;
 			if (this.useSequencesFromSource)
 			{

@@ -45,19 +45,6 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 			{
 				if (Transforms[j].GetTransform() == first.GetTransform())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIButtonColorSelect.<SortTransform>c__AnonStorey0.<>m__0(ITransformSortOrder, ITransformSortOrder)).MethodHandle;
-					}
 					num = j;
 					IL_5D:
 					int num2 = 0;
@@ -65,15 +52,6 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 					{
 						if (Transforms[k].GetTransform() == second.GetTransform())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = k;
 							IL_B1:
 							int num3 = first.GetTransformPriority() * Transforms.Count + num;
@@ -127,19 +105,6 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		base.Start();
 		if (this.m_hitbox != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIButtonColorSelect.Start()).MethodHandle;
-			}
 			this.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnColorClicked);
 		}
 	}
@@ -163,19 +128,6 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		Color color;
 		if (ColorUtility.TryParseHtmlString(colorData.m_rarity.GetColorHexString(), out color))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIButtonColorSelect.Setup(UIColorData, int, int, int, UISkinBrowserPanel)).MethodHandle;
-			}
 			this.m_defaultBorder.color = color;
 		}
 		UIManager.SetGameObjectActive(this.m_skinLevelIcon, colorData.m_styleLevelType != StyleLevelType.None, null);
@@ -185,56 +137,20 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		this.m_unlockTooltipText = colorData.m_description;
 		if (this.m_unlockTooltipText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_unlockTooltipText = string.Empty;
 			int num = 0;
 			if (colorData.m_unlockCharacterLevel > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), colorData.m_unlockCharacterLevel) + Environment.NewLine;
 				num++;
 			}
 			if (colorData.m_isoCurrencyCost > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("BuyForISO", "Global"), colorData.m_isoCurrencyCost) + Environment.NewLine;
 				num++;
 			}
 			if (colorData.m_freelancerCurrencyCost > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("BuyForFreelancerCurrency", "Global"), colorData.m_freelancerCurrencyCost) + Environment.NewLine;
 				num++;
 			}
@@ -245,29 +161,11 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 			}
 			if (colorData.m_requiredLevelForEquip > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("CanEquipAtCharacterLevel", "Global"), colorData.m_requiredLevelForEquip) + Environment.NewLine;
 				num++;
 			}
 			if (num > 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = StringUtil.TR("ObtainableViaMethods", "Global") + Environment.NewLine + this.m_unlockTooltipText + Environment.NewLine;
 			}
 		}
@@ -277,40 +175,13 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		}
 		if (colorData.m_isAvailable)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!colorData.m_isSkinAvailable)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = this.m_unlockTooltipText + StringUtil.TR("MustUnlockSkin", "Global") + Environment.NewLine;
 			}
 		}
 		if (!colorData.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string unlockTooltipText = this.m_unlockTooltipText;
 			this.m_unlockTooltipText = string.Concat(new string[]
 			{
@@ -324,15 +195,6 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		string obtainedDescription = GameWideData.Get().GetCharacterResourceLink(this.m_colorData.m_characterType).m_skins[this.m_colorData.m_skinIndex].m_patterns[this.m_colorData.m_patternIndex].m_colors[this.m_colorData.m_colorIndex].m_colorUnlockData.GetObtainedDescription();
 		if (!obtainedDescription.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_unlockTooltipText += obtainedDescription;
 		}
 	}

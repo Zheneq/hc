@@ -24,43 +24,12 @@ public class AppState_InGameStarting : AppStateInGame
 	{
 		if (UIScreenManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameStarting.OnEnter()).MethodHandle;
-			}
 			UIScreenManager.Get().ClearAllPanels();
 		}
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 				{
 					UILoadingScreenPanel.Get().SetVisible(true);
@@ -72,29 +41,11 @@ public class AppState_InGameStarting : AppStateInGame
 		IL_93:
 		if (ClientGameManager.Get().PlayerObjectStartedOnClient && ClientGameManager.Get().DesignSceneStarted)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIScreenManager.Get().TryLoadAndSetupInGameUI();
 			ClientGameManager.Get().CheckAndSendClientPreparedForGameStartNotification();
 		}
 		if (QuestListPanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			QuestListPanel.Get().SetVisible(false, false, false);
 		}
 		Log.Info("AppState_InGameStarting.OnEnter", new object[0]);
@@ -119,45 +70,14 @@ public class AppState_InGameStarting : AppStateInGame
 		}
 		else if (newState == GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameStarting.OnGameStateChanged(GameState)).MethodHandle;
-			}
 			AppState_InGameDecision.Get().Enter();
 		}
 		else if (newState == GameState.BothTeams_Resolve)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AppState_InGameResolve.Get().Enter();
 		}
 		else if (newState == GameState.EndingGame)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AppState_InGameEnding.Get().Enter();
 		}
 	}

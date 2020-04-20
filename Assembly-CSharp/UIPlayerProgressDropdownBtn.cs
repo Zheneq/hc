@@ -45,55 +45,15 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 		{
 			this.m_texts[i].text = text;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownBtn.Setup(string, CharacterType)).MethodHandle;
-		}
 		if (this.m_allFreelancerImage != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_allFreelancerImage, charType == CharacterType.None, null);
 		}
 		if (this.m_freelancerImage != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_freelancerImage, charType != CharacterType.None, null);
 			if (charType != CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(charType);
 				this.m_freelancerImage.sprite = Resources.Load<Sprite>(characterResourceLink.m_characterSelectIconResourceString);
 			}
@@ -108,19 +68,6 @@ public class UIPlayerProgressDropdownBtn : MonoBehaviour
 		}
 		if (this.m_allFreelancerImage != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownBtn.Setup(string, CharacterRole)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_allFreelancerImage, false, null);
 		}
 		if (this.m_freelancerImage != null)

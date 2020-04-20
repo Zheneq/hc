@@ -88,19 +88,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		float num = this.m_width * Board.Get().squareSize;
 		if (base.Highlight == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceLaser.CreateLaserHighlights(Vector3, List<Vector3>)).MethodHandle;
-			}
 			base.Highlight = HighlightUtils.Get().CreateBouncingLaserCursor(originalStart2, laserAnglePoints, num);
 		}
 		else
@@ -123,19 +110,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceLaser.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -146,43 +120,16 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		float num = this.m_maxDistancePerBounce;
 		if (this.m_extraDistancePerBounceDelegate != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += this.m_extraDistancePerBounceDelegate();
 		}
 		float num2 = this.m_maxTotalDistance;
 		if (this.m_extraTotalDistanceDelegate != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 += this.m_extraTotalDistanceDelegate();
 		}
 		int num3 = this.m_maxBounces;
 		if (this.m_extraBouncesDelegate != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 += Mathf.RoundToInt(this.m_extraBouncesDelegate());
 		}
 		int num4 = this.m_maxTargetsHit;
@@ -203,15 +150,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		List<Vector3> list = VectorUtils.CalculateBouncingLaserEndpoints(travelBoardSquareWorldPositionForLos, forwardDirection, num, num2, num3, targetingActor, this.m_width, num4, false, base.GetAffectedTeams(), this.m_bounceOnActors, out dictionary, out list2, null, penetrateTargetsAndHitCaster, true);
 		if (penetrateTargetsAndHitCaster)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 1)
 			{
 				float totalMaxDistanceInSquares = num2 - (list[0] - travelBoardSquareWorldPositionForLos).magnitude / Board.Get().squareSize;
@@ -236,26 +174,8 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				base.AddActorInRange(keyValuePair.Key, segmentOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
 				if (endpointIndex > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.SetIgnoreCoverMinDist(keyValuePair.Key, true);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int i = 0; i < list2.Count; i++)
@@ -267,18 +187,9 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			item.segmentIndex = endpointIndex2;
 			this.m_hitActorContext.Add(item);
 			ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-			actorHitContext.\u001D = targetingActor.GetTravelBoardSquareWorldPositionForLos();
-			actorHitContext.\u0015.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetHash(), endpointIndex2);
-			actorHitContext.\u0015.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetHash(), i);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
+			actorHitContext.symbol_001D = targetingActor.GetTravelBoardSquareWorldPositionForLos();
+			actorHitContext.symbol_0015.SetInt(TargetSelect_BouncingLaser.s_cvarEndpointIndex.GetHash(), endpointIndex2);
+			actorHitContext.symbol_0015.SetInt(TargetSelect_BouncingLaser.s_cvarHitOrder.GetHash(), i);
 		}
 		this.CreateLaserHighlights(travelBoardSquareWorldPositionForLos, list);
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
@@ -289,15 +200,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		}
 		if (this.m_knockbackDistance > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num7 = 0;
 			base.EnableAllMovementArrows();
 			for (int j = 0; j < list2.Count; j++)
@@ -305,26 +207,8 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				ActorData actorData2 = list2[j];
 				if (actorData2.GetTeam() != targetingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_maxKnockbackTargets > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (j >= this.m_maxKnockbackTargets)
 						{
 							goto IL_504;
@@ -333,15 +217,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 					float num8;
 					if (this.m_extraKnockdownDelegate != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num8 = this.m_extraKnockdownDelegate(actorData2);
 					}
 					else
@@ -355,15 +230,6 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 					num7 = base.AddMovementArrowWithPrevious(actorData2, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num7, false);
 				}
 				IL_504:;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			base.SetMovementArrowEnabledFromIndex(num7, false);
 		}

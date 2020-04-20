@@ -49,19 +49,6 @@ public class PatrolPath
 					int index = (this.m_PatrolStyle != PatrolPath.PatrolStyle.Random) ? 0 : GameplayRandom.Range(0, this.mWayPoints.Count);
 					return this.mWayPoints[index];
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PatrolPath.GetInitalWaypoint()).MethodHandle;
-				}
 			}
 			Log.Error("Patrol path '" + this.ToString() + "' has no way points. Add them in mWayPoints", new object[0]);
 			return null;
@@ -75,19 +62,6 @@ public class PatrolPath
 		int num2 = (int)(num + this.m_Direction);
 		if (this.m_PatrolStyle == PatrolPath.PatrolStyle.OutAndBack)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PatrolPath.IncremementWayPoint(Action<PatrolPath.IncrementWaypointResult>)).MethodHandle;
-			}
 			if (num2 <= -1 || num2 >= this.mWayPoints.Count)
 			{
 				this.m_Direction = -this.m_Direction;
@@ -102,15 +76,6 @@ public class PatrolPath
 				PatrolPath.IncrementWaypointResult obj;
 				if (this.m_StartingDirection == this.m_Direction)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = PatrolPath.IncrementWaypointResult.CycleCompleted;
 				}
 				else
@@ -127,40 +92,13 @@ public class PatrolPath
 		}
 		else if (this.m_PatrolStyle == PatrolPath.PatrolStyle.Loop)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 < 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = this.mWayPoints.Count - 1;
 				onIncremenet(PatrolPath.IncrementWaypointResult.CycleCompleted);
 			}
 			else if (num2 >= this.mWayPoints.Count)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 0;
 				onIncremenet(PatrolPath.IncrementWaypointResult.CycleCompleted);
 			}
@@ -171,26 +109,8 @@ public class PatrolPath
 		}
 		else if (this.m_PatrolStyle == PatrolPath.PatrolStyle.Random)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.mWayPoints.Count <= 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = num;
 			}
 			else
@@ -200,15 +120,6 @@ public class PatrolPath
 					num2 = GameplayRandom.Range(0, this.mWayPoints.Count);
 				}
 				while (num2 == num);
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			onIncremenet(PatrolPath.IncrementWaypointResult.Incremented);
 		}

@@ -11,52 +11,26 @@ namespace I2.Loc.SimpleJSON
 	{
 		private List<JSONNode> nodes = new List<JSONNode>();
 
-		public override JSONNode \u0018
+		public override JSONNode symbol_0018
 		{
 			get
 			{
-				if (\u001D >= 0)
+				if (symbol_001D >= 0)
 				{
-					for (;;)
+					if (symbol_001D < this.nodes.Count)
 					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.get_\u0018(int)).MethodHandle;
-					}
-					if (\u001D < this.nodes.Count)
-					{
-						return this.nodes[\u001D];
+						return this.nodes[symbol_001D];
 					}
 				}
 				return new JSONLazyCreator(this);
 			}
 			set
 			{
-				if (\u001D >= 0)
+				if (symbol_001D >= 0)
 				{
-					for (;;)
+					if (symbol_001D < this.nodes.Count)
 					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.set_\u0018(int, JSONNode)).MethodHandle;
-					}
-					if (\u001D < this.nodes.Count)
-					{
-						this.nodes[\u001D] = value;
+						this.nodes[symbol_001D] = value;
 						return;
 					}
 				}
@@ -76,7 +50,7 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public override int \u0019
+		public override int symbol_0019
 		{
 			get
 			{
@@ -84,29 +58,29 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public override void \u0013(string \u001D, JSONNode \u000E)
+		public override void symbol_0013(string symbol_001D, JSONNode symbol_000E)
 		{
-			this.nodes.Add(\u000E);
+			this.nodes.Add(symbol_000E);
 		}
 
-		public override JSONNode \u0011(int \u001D)
+		public override JSONNode symbol_0011(int symbol_001D)
 		{
-			if (\u001D < 0 || \u001D >= this.nodes.Count)
+			if (symbol_001D < 0 || symbol_001D >= this.nodes.Count)
 			{
 				return null;
 			}
-			JSONNode result = this.nodes[\u001D];
-			this.nodes.RemoveAt(\u001D);
+			JSONNode result = this.nodes[symbol_001D];
+			this.nodes.RemoveAt(symbol_001D);
 			return result;
 		}
 
-		public override JSONNode \u0011(JSONNode \u001D)
+		public override JSONNode symbol_0011(JSONNode symbol_001D)
 		{
-			this.nodes.Remove(\u001D);
-			return \u001D;
+			this.nodes.Remove(symbol_001D);
+			return symbol_001D;
 		}
 
-		public override IEnumerable<JSONNode> \u001A
+		public override IEnumerable<JSONNode> symbol_001A
 		{
 			get
 			{
@@ -129,44 +103,13 @@ namespace I2.Loc.SimpleJSON
 					{
 						JSONNode jsonnode = enumerator.Current;
 						yield return jsonnode;
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.<>c__Iterator0.MoveNext()).MethodHandle;
-						}
 						flag = true;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				finally
 				{
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -198,19 +141,6 @@ namespace I2.Loc.SimpleJSON
 				{
 					JSONNode jsonnode = enumerator.Current;
 					yield return jsonnode;
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.<GetEnumerator>c__Iterator1.MoveNext()).MethodHandle;
-					}
 					flag = true;
 				}
 			}
@@ -218,15 +148,6 @@ namespace I2.Loc.SimpleJSON
 			{
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -250,73 +171,34 @@ namespace I2.Loc.SimpleJSON
 					}
 					text += jsonnode.ToString();
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.ToString()).MethodHandle;
-				}
 			}
 			text += " ]";
 			return text;
 		}
 
-		public override string \u0004(string \u001D)
+		public override string symbol_0004(string symbol_001D)
 		{
 			string text = "[ ";
 			foreach (JSONNode jsonnode in this.nodes)
 			{
 				if (text.Length > 3)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.\u0004(string)).MethodHandle;
-					}
 					text += ", ";
 				}
-				text = text + "\n" + \u001D + "   ";
-				text += jsonnode.\u0004(\u001D + "   ");
+				text = text + "\n" + symbol_001D + "   ";
+				text += jsonnode.symbol_0004(symbol_001D + "   ");
 			}
-			text = text + "\n" + \u001D + "]";
+			text = text + "\n" + symbol_001D + "]";
 			return text;
 		}
 
-		public override void \u0002(BinaryWriter \u001D)
+		public override void symbol_0002(BinaryWriter symbol_001D)
 		{
-			\u001D.Write(1);
-			\u001D.Write(this.nodes.Count);
+			symbol_001D.Write(1);
+			symbol_001D.Write(this.nodes.Count);
 			for (int i = 0; i < this.nodes.Count; i++)
 			{
-				this.nodes[i].\u0002(\u001D);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JSONArray.\u0002(BinaryWriter)).MethodHandle;
+				this.nodes[i].symbol_0002(symbol_001D);
 			}
 		}
 	}

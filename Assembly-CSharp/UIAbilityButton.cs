@@ -90,32 +90,10 @@ public class UIAbilityButton : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_background, true, null);
 		if (this.m_ultimateBorder != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.Start()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_ultimateBorder, false, null);
 		}
 		if (this.m_persistentAuraBorder != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_persistentAuraBorder, false, null);
 		}
 	}
@@ -129,19 +107,6 @@ public class UIAbilityButton : MonoBehaviour
 		ActorData actorData;
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.Setup(AbilityData.AbilityEntry, AbilityData.ActionType, AbilityData)).MethodHandle;
-			}
 			actorData = this.m_abilityData.GetComponent<ActorData>();
 		}
 		else
@@ -152,15 +117,6 @@ public class UIAbilityButton : MonoBehaviour
 		this.m_turnSM = this.m_abilityData.GetComponent<ActorTurnSM>();
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_abilityEntry.ability != null)
 			{
 				UIManager.SetGameObjectActive(this.m_charIcon, true, null);
@@ -174,15 +130,6 @@ public class UIAbilityButton : MonoBehaviour
 					bool doActive2;
 					if (i == num)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						doActive2 = (num != -1);
 					}
 					else
@@ -190,15 +137,6 @@ public class UIAbilityButton : MonoBehaviour
 						doActive2 = false;
 					}
 					UIManager.SetGameObjectActive(component, doActive2, null);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				goto IL_1B5;
 			}
@@ -234,19 +172,6 @@ public class UIAbilityButton : MonoBehaviour
 	{
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.GetKeyPreference()).MethodHandle;
-			}
 			return this.m_abilityEntry.keyPreference;
 		}
 		return KeyPreference.NullPreference;
@@ -257,30 +182,8 @@ public class UIAbilityButton : MonoBehaviour
 		UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.ShowTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (this.m_abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uiabilityTooltip.Setup(this.m_abilityEntry.ability, this.m_abilityEntry.ability.CurrentAbilityMod);
 				return true;
 			}
@@ -331,19 +234,6 @@ public class UIAbilityButton : MonoBehaviour
 	{
 		if (!this.m_disabled.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.OnPointerEnter(BaseEventData)).MethodHandle;
-			}
 			this.m_mouseOver = true;
 		}
 		this.m_mouseOverForRangePreview = true;
@@ -353,34 +243,12 @@ public class UIAbilityButton : MonoBehaviour
 	{
 		if (this.m_abilityEntry != null && this.m_abilityEntry.ability != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.Update()).MethodHandle;
-			}
 			ActorTurnSM turnSM = this.m_turnSM;
 			ActorData actorData = this.m_actorData;
 			bool flag = this.m_abilityData.HasQueuedAction(this.m_actionType);
 			bool flag2;
 			if (this.m_abilityEntry.ability.GetModdedCost() > actorData.TechPoints)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = flag;
 			}
 			else
@@ -392,26 +260,8 @@ public class UIAbilityButton : MonoBehaviour
 			bool flag5;
 			if (this.m_abilityEntry.ability.GetModdedCost() > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityEntry.ability.GetModdedCost() <= actorData.TechPoints)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (this.m_abilityData.GetCooldownRemaining(this.m_actionType) <= 0);
 					goto IL_103;
 				}
@@ -422,28 +272,10 @@ public class UIAbilityButton : MonoBehaviour
 			bool doActive2 = this.m_abilityEntry.ability.ShouldShowPersistentAuraUI();
 			if (this.m_ultimateBorder != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_ultimateBorder, doActive, null);
 			}
 			if (this.m_persistentAuraBorder != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_persistentAuraBorder, doActive2, null);
 			}
 			int num = UIBaseButton.PhaseIndexForUIPhase(UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.m_abilityEntry.ability.RunPriority));
@@ -451,66 +283,21 @@ public class UIAbilityButton : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(this.m_phaseIndicators[i], i == num && num != -1, null);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = string.Empty;
 			if (!this.m_mouseOver)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_mouseDown = false;
 			}
 			bool flag6 = flag4 || this.m_mouseDown;
 			bool flag7 = true;
 			if (this.m_mouseOver)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag6)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						if (!this.m_hover.gameObject.activeSelf)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.PlayAnimation("AbilityButtonHover");
 						}
 						flag7 = false;
@@ -525,27 +312,9 @@ public class UIAbilityButton : MonoBehaviour
 			{
 				if (!this.m_pressed.gameObject.activeSelf)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PlayAnimation("AbilityButtonSelected");
 					if (this.m_mouseOver)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.PlayAnimation("AbilityButtonSelectedNonLoop", 1);
 					}
 				}
@@ -563,26 +332,8 @@ public class UIAbilityButton : MonoBehaviour
 			bool flag8 = false;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_selected.gameObject.activeSelf)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PlayAnimation("AbilityButtonBarQueued");
 				}
 				flag7 = false;
@@ -595,52 +346,16 @@ public class UIAbilityButton : MonoBehaviour
 			}
 			if (flag7)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag8)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_AbilityButtonAnimator.GetCurrentAnimatorStateInfo(0).IsName("AbilityButtonBarQueuedExit"))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 			}
 			bool flag9;
 			if (this.m_abilityEntry.ability.IsSimpleAction())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag9 = turnSM.CanQueueSimpleAction();
 			}
 			else
@@ -650,15 +365,6 @@ public class UIAbilityButton : MonoBehaviour
 			bool flag10;
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag10 = this.m_abilityData.ValidateActionIsRequestable(this.m_actionType);
 			}
 			else
@@ -669,15 +375,6 @@ public class UIAbilityButton : MonoBehaviour
 			bool flag12;
 			if (turnSM.CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag11)
 				{
 					flag12 = true;
@@ -686,37 +383,10 @@ public class UIAbilityButton : MonoBehaviour
 			}
 			if (GameFlowData.Get().gameState != GameState.BothTeams_Resolve)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (turnSM.CurrentState != TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (turnSM.CurrentState != TurnStateEnum.WAITING)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag12 = (turnSM.CurrentState == TurnStateEnum.RESOLVING && GameFlowData.Get().gameState == GameState.BothTeams_Decision);
 						goto IL_48B;
 					}
@@ -728,29 +398,11 @@ public class UIAbilityButton : MonoBehaviour
 			bool flag13 = flag12;
 			if (flag9)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag14;
 				if (!flag13)
 				{
 					if (!flag11)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag14 = !flag;
 					}
 					else
@@ -766,15 +418,6 @@ public class UIAbilityButton : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag13 = false;
 			}
 			else
@@ -783,15 +426,6 @@ public class UIAbilityButton : MonoBehaviour
 			}
 			if (flag13)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_charIcon.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
 				this.m_hotkeyLabel.color = HUD_UIResources.Get().m_disabledAbilityButtonIconColor;
 				UIManager.SetGameObjectActive(this.m_disabled, true, null);
@@ -801,15 +435,6 @@ public class UIAbilityButton : MonoBehaviour
 			{
 				if (this.m_abilityEntry.ability.UseCustomAbilityIconColor())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_charIcon.color = this.m_abilityEntry.ability.GetCustomAbilityIconColor(actorData);
 				}
 				else
@@ -823,40 +448,13 @@ public class UIAbilityButton : MonoBehaviour
 			bool flag15 = true;
 			if (!actorData.IsDead())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag15 = this.m_abilityEntry.ability.CustomCanCastValidation(actorData);
 			}
 			if (this.m_abilityEntry.ability.GetModdedMaxStocks() <= 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_chargeCounterContainer, false, null);
 				if (this.m_abilityEntry.GetCooldownRemaining() == 0 && flag3)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag15)
 					{
 						goto IL_6D6;
@@ -864,40 +462,13 @@ public class UIAbilityButton : MonoBehaviour
 				}
 				if (this.m_abilityEntry.GetCooldownRemaining() > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.TechPoints + actorData.ReservedTechPoints < actorData.GetActualMaxTechPoints() || !AbilityUtils.AbilityHasTag(this.m_abilityEntry.ability, AbilityTags.IgnoreCooldownIfFullEnergy))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = this.m_abilityEntry.GetCooldownRemaining().ToString();
 					}
 				}
 				else if (this.m_abilityEntry.GetCooldownRemaining() == -1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = "~";
 				}
 				else if (!flag15)
@@ -914,15 +485,6 @@ public class UIAbilityButton : MonoBehaviour
 				{
 					if (j < moddedMaxStocks)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.chargeCounters[j], true, null);
 					}
 					else
@@ -930,27 +492,9 @@ public class UIAbilityButton : MonoBehaviour
 						UIManager.SetGameObjectActive(this.chargeCounters[j], false, null);
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData.ActionType actionTypeOfAbility = this.m_abilityData.GetActionTypeOfAbility(this.m_abilityEntry.ability);
 				if (actionTypeOfAbility != AbilityData.ActionType.INVALID_ACTION)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int consumedStocksCount = this.m_abilityData.GetConsumedStocksCount(actionTypeOfAbility);
 					int stockRefreshCountdown = this.m_abilityData.GetStockRefreshCountdown(actionTypeOfAbility);
 					int moddedStockRefreshDuration = this.m_abilityEntry.ability.GetModdedStockRefreshDuration();
@@ -962,28 +506,10 @@ public class UIAbilityButton : MonoBehaviour
 					}
 					if (k < this.chargeCounters.Length)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIAbilityChargeCounter uiabilityChargeCounter = this.chargeCounters[k];
 						int tick;
 						if (moddedStockRefreshDuration >= 0)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tick = 3 - stockRefreshCountdown;
 						}
 						else
@@ -998,26 +524,8 @@ public class UIAbilityButton : MonoBehaviour
 						this.chargeCounters[k].SetTick(0);
 						k++;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_abilityData.IsAbilityAllowedByUnlockTurns(actionTypeOfAbility))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = this.m_abilityData.GetTurnsTillUnlock(actionTypeOfAbility).ToString();
 					}
 					else if (stockRefreshCountdown > 0)
@@ -1028,15 +536,6 @@ public class UIAbilityButton : MonoBehaviour
 							{
 								goto IL_8B8;
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						text = stockRefreshCountdown.ToString();
 					}
@@ -1045,40 +544,13 @@ public class UIAbilityButton : MonoBehaviour
 			IL_8B8:
 			if (this.m_cooldownLabel.text != text)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cooldownLabel.text = text;
 			}
 			bool flag16 = this.m_abilityEntry.ability.IsFreeAction();
 			if (this.m_freeactionIcon != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_freeactionIcon.gameObject.activeSelf != flag16)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_freeactionIcon, flag16, null);
 				}
 			}
@@ -1086,15 +558,6 @@ public class UIAbilityButton : MonoBehaviour
 		}
 		else if (this.m_ultimateBorder)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_ultimateBorder, false, null);
 		}
 	}
@@ -1108,19 +571,6 @@ public class UIAbilityButton : MonoBehaviour
 	{
 		if (this.m_disabled.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.OnAbilityButtonDown(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		this.m_mouseDown = true;
@@ -1135,32 +585,10 @@ public class UIAbilityButton : MonoBehaviour
 	{
 		if (!(this.m_abilityData == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButton.OnAbilityButtonClick(BaseEventData)).MethodHandle;
-			}
 			if (!(this.m_turnSM == null))
 			{
 				this.m_abilityData.AbilityButtonPressed(this.m_actionType, this.m_abilityEntry.ability);
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

@@ -66,42 +66,11 @@ public class QuestOfferPanel : UIScene
 		int num = 0;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.Setup()).MethodHandle;
-			}
 			if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 				if (playerAccountData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (Dictionary<int, QuestProgress>.Enumerator enumerator = playerAccountData.QuestComponent.Progress.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -112,15 +81,6 @@ public class QuestOfferPanel : UIScene
 							{
 								num++;
 							}
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -133,30 +93,8 @@ public class QuestOfferPanel : UIScene
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.OnDestroy()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
 			}
 		}
@@ -173,30 +111,8 @@ public class QuestOfferPanel : UIScene
 				int key = keyValuePair.Key;
 				if (QuestWideData.Get().IsDailyQuest(key))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.HandleAccountDataUpdated(PersistedAccountData)).MethodHandle;
-					}
 					num++;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_currentContractCount.text = Convert.ToString(num);
@@ -211,31 +127,9 @@ public class QuestOfferPanel : UIScene
 			componentsInChildren[i].Clickable = false;
 			if (componentsInChildren[i] != offerClicked)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.NotifyOfferClicked(QuestOffer)).MethodHandle;
-				}
 				bool flag2;
 				if (!componentsInChildren[i].NotifyRejectedQuest())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = flag;
 				}
 				else
@@ -249,15 +143,6 @@ public class QuestOfferPanel : UIScene
 				UINewUserHighlightsController.Get().SetDailyMissionSelected(i);
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.NumDailiesChosen;
 		int uistate = clientGameManager.GetPlayerAccountData().AccountComponent.GetUIState(uiState);
@@ -268,15 +153,6 @@ public class QuestOfferPanel : UIScene
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetVisible(false);
 		}
 	}
@@ -285,33 +161,11 @@ public class QuestOfferPanel : UIScene
 	{
 		if (QuestListPanel.Get().DisplayState != QuestListPanel.DisplayStates.FadeIn)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.QuestListButtonClicked(BaseEventData)).MethodHandle;
-			}
 			if (QuestListPanel.Get().DisplayState != QuestListPanel.DisplayStates.Idle)
 			{
 				this.m_questListButton.SetSelected(true, false, string.Empty, string.Empty);
 				QuestListPanel.Get().SetVisible(true, false, false);
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_questListButton.SetSelected(false, false, string.Empty, string.Empty);
@@ -336,19 +190,6 @@ public class QuestOfferPanel : UIScene
 	{
 		if (!this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.ShowDailyQuests(QuestOfferNotification)).MethodHandle;
-			}
 			this.Setup();
 		}
 		this.m_quests = quests;
@@ -360,15 +201,6 @@ public class QuestOfferPanel : UIScene
 		string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
 		if (!(accountCurrency == "GBP"))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(accountCurrency == "EUR"))
 			{
 				goto IL_99;
@@ -382,15 +214,6 @@ public class QuestOfferPanel : UIScene
 			string text3;
 			if (QuestWideData.Get().m_questResetHour < 0xC)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = StringUtil.TR("AM", "Global");
 			}
 			else
@@ -413,28 +236,10 @@ public class QuestOfferPanel : UIScene
 			componentsInChildren[i].Clickable = true;
 			if (i < quests.DailyQuestIds.Count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(componentsInChildren[i], true, null);
 				int rejectedCount = 0;
 				if (quests.RejectedQuestCount.ContainsKey(quests.DailyQuestIds[i]))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					rejectedCount = quests.RejectedQuestCount[quests.DailyQuestIds[i]];
 				}
 				componentsInChildren[i].SetupDailyQuest(quests.DailyQuestIds[i], rejectedCount);
@@ -443,15 +248,6 @@ public class QuestOfferPanel : UIScene
 			{
 				UIManager.SetGameObjectActive(componentsInChildren[i], false, null);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -473,19 +269,6 @@ public class QuestOfferPanel : UIScene
 	{
 		if (!UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.IsSelected())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.StartFadeOut()).MethodHandle;
-			}
 			UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.SetSelected(true, false, string.Empty, string.Empty);
 		}
 		QuestListPanel.Get().SetVisible(true, false, false);
@@ -497,19 +280,6 @@ public class QuestOfferPanel : UIScene
 	{
 		if (this.m_quests.DailyQuestIds.Contains(questId))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.PickDailyQuest(int)).MethodHandle;
-			}
 			this.StartFadeOut();
 		}
 	}
@@ -518,44 +288,13 @@ public class QuestOfferPanel : UIScene
 	{
 		if (this.m_displayState == QuestOfferPanel.DisplayStates.FadeIn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.Update()).MethodHandle;
-			}
 			if (this.IsAnimationDone(this.m_animator, "PickContractDefaultIN"))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StartIdle();
 			}
 		}
 		if (this.m_displayState == QuestOfferPanel.DisplayStates.FadeOut && this.IsAnimationDone(this.m_animator, "PickContractDefaultOUT"))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_animator, false, null);
 			this.m_displayState = QuestOfferPanel.DisplayStates.None;
 		}
@@ -570,19 +309,6 @@ public class QuestOfferPanel : UIScene
 		AnimatorClipInfo[] currentAnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(0);
 		if (currentAnimatorClipInfo.Length == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestOfferPanel.IsAnimationDone(Animator, string)).MethodHandle;
-			}
 			return false;
 		}
 		AnimatorClipInfo animatorClipInfo = currentAnimatorClipInfo[0];
@@ -593,15 +319,6 @@ public class QuestOfferPanel : UIScene
 		}
 		if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		return !(clip.name != animName);

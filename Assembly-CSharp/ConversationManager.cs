@@ -36,83 +36,25 @@ public class ConversationManager : MonoBehaviour
 		LobbyGameplayOverrides gameplayOverrides = GameManager.Get().GameplayOverrides;
 		if (gameplayOverrides != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConversationManager.HandleOnGameStateChanged(GameState)).MethodHandle;
-			}
 			if (!gameplayOverrides.EnableConversations)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData == null))
 			{
 				if (GameFlowData.Get().activeOwnedActorData.GetTeam() != Team.TeamA)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().activeOwnedActorData.GetTeam() != Team.TeamB)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 				}
 				AudioWideData audioWideData = AudioWideData.Get();
 				if (audioWideData == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 				HashSet<CharacterType> hashSet = new HashSet<CharacterType>();
@@ -123,26 +65,8 @@ public class ConversationManager : MonoBehaviour
 						ActorData actorData = enumerator.Current;
 						if (actorData.GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							hashSet.Add(actorData.m_characterType);
 						}
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				List<ConversationTemplate> list = new List<ConversationTemplate>();
@@ -150,38 +74,11 @@ public class ConversationManager : MonoBehaviour
 				{
 					if (hashSet.Contains(conversationTemplate.m_initiator))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (hashSet.Contains(conversationTemplate.m_responder))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(conversationTemplate);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (list.Count > 0)
 				{

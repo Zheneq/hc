@@ -21,97 +21,30 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 		base.ClearActorsInRange();
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AllVisible.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(GameFlowData.Get().activeOwnedActorData, true);
 				for (int i = 0; i < actorsVisibleToActor.Count; i++)
 				{
 					ActorData actorData = actorsVisibleToActor[i];
 					if (!actorData.IsDead())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actorData.IgnoreForAbilityHits)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorData == targetingActor && this.m_affectsTargetingActor)
 							{
 								goto IL_11E;
 							}
 							if (actorData != targetingActor && actorData.GetTeam() == targetingActor.GetTeam())
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_affectsAllies)
 								{
 									goto IL_11E;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							bool flag;
 							if (actorData.GetTeam() != targetingActor.GetTeam())
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = this.m_affectsEnemies;
 							}
 							else
@@ -122,26 +55,8 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 							bool flag2 = flag;
 							if (flag2)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_shouldAddActorDelegate != null)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!this.m_shouldAddActorDelegate(actorData, targetingActor))
 									{
 										goto IL_180;
@@ -150,15 +65,6 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 								Vector3 travelBoardSquareWorldPosition;
 								if (this.m_damageOriginType == AbilityUtil_Targeter_AllVisible.DamageOriginType.CasterPos)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									travelBoardSquareWorldPosition = targetingActor.GetTravelBoardSquareWorldPosition();
 								}
 								else
@@ -176,15 +82,6 @@ public class AbilityUtil_Targeter_AllVisible : AbilityUtil_Targeter
 						}
 					}
 					IL_180:;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

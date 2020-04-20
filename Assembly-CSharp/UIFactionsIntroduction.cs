@@ -33,19 +33,6 @@ public class UIFactionsIntroduction : MonoBehaviour
 	{
 		if (UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.IsSelected())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFactionsIntroduction.CloseQuestListPanel()).MethodHandle;
-			}
 			UIFrontEnd.Get().m_frontEndNavPanel.m_notificationsBtn.SetSelected(false, false, string.Empty, string.Empty);
 		}
 		QuestListPanel.Get().SetVisible(false, false, false);
@@ -62,19 +49,6 @@ public class UIFactionsIntroduction : MonoBehaviour
 		bool result;
 		if (!this.m_unlockNoticeContainer.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFactionsIntroduction.IsActive()).MethodHandle;
-			}
 			result = this.m_factionsDescriptionContainer.activeInHierarchy;
 		}
 		else

@@ -63,19 +63,6 @@ public static class UNetUtil
 			num2 += num3;
 			i -= num3;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UNetUtil.ExtractMessageHeaders(byte[], int)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -94,19 +81,6 @@ public static class UNetUtil
 			stringBuilder.AppendLine();
 			num += num5;
 			i -= num5;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UNetUtil.DumpMessageHeaders(byte[], int)).MethodHandle;
 		}
 		return stringBuilder.ToString();
 	}

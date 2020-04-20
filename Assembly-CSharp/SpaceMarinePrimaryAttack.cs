@@ -70,19 +70,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		ConeTargetingInfo cachedConeTargetInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.SetCachedFields()).MethodHandle;
-			}
 			cachedConeTargetInfo = this.m_abilityMod.m_coneTargetInfoMod.GetModifiedValue(this.m_coneTargetInfo);
 		}
 		else
@@ -93,15 +80,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		StandardEffectInfo cachedConeEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedConeEnemyHitEffect = this.m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(this.m_coneEnemyHitEffect);
 		}
 		else
@@ -121,19 +99,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.AddConeOnFirstHitTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_addConeOnFirstHitTargetMod.GetModifiedValue(this.m_addConeOnFirstHitTarget);
 		}
 		else
@@ -148,19 +113,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		ConeTargetingInfo result;
 		if (this.m_cachedConeTargetInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetConeTargetInfo()).MethodHandle;
-			}
 			result = this.m_cachedConeTargetInfo;
 		}
 		else
@@ -180,19 +132,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetExtraDamageToClosestTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageOnClosestMod.GetModifiedValue(this.m_extraDamageToClosestTarget);
 		}
 		else
@@ -212,19 +151,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedConeEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetConeEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedConeEnemyHitEffect;
 		}
 		else
@@ -246,44 +172,13 @@ public class SpaceMarinePrimaryAttack : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter is AbilityUtil_Targeter_SpaceMarineBasicAttack)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = this.GetLaserDamage();
 				AbilityUtil_Targeter_SpaceMarineBasicAttack abilityUtil_Targeter_SpaceMarineBasicAttack = base.Targeter as AbilityUtil_Targeter_SpaceMarineBasicAttack;
 				List<ActorData> lastLaserHitActors = abilityUtil_Targeter_SpaceMarineBasicAttack.GetLastLaserHitActors();
 				if (lastLaserHitActors.Count > 0 && lastLaserHitActors[0] == targetActor)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += this.GetExtraDamageToClosestTarget();
 				}
 				results.m_damage = num;
@@ -291,15 +186,6 @@ public class SpaceMarinePrimaryAttack : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			results.m_damage = this.GetConeDamageAmount();
 		}
 		return true;
@@ -318,19 +204,6 @@ public class SpaceMarinePrimaryAttack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarinePrimaryAttack))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarinePrimaryAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SpaceMarinePrimaryAttack);
 			this.SetupTargeter();
 		}

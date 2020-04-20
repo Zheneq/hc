@@ -27,19 +27,6 @@ public class AccountPreferences : MonoBehaviour
 		bool result;
 		if (AccountPreferences.s_instance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.DoesApplicationHaveFocus()).MethodHandle;
-			}
 			result = AccountPreferences.s_instance.ApplicationHasFocus;
 		}
 		else
@@ -61,30 +48,8 @@ public class AccountPreferences : MonoBehaviour
 		{
 			if (!PlayerPrefs.HasKey(this.m_defaultSettings[this.m_languageIndex].m_boolDefaults[i].m_preference.ToString()))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.Start()).MethodHandle;
-				}
 				this.SetBool(this.m_defaultSettings[this.m_languageIndex].m_boolDefaults[i].m_preference, this.m_defaultSettings[this.m_languageIndex].m_boolDefaults[i].m_value);
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -101,19 +66,6 @@ public class AccountPreferences : MonoBehaviour
 		{
 			if (defaultSettingsData.Name == LocalizationManager.CurrentLanguageCode)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.SetLanguageIndex()).MethodHandle;
-				}
 				this.m_languageIndex = num;
 				return;
 			}
@@ -147,19 +99,6 @@ public class AccountPreferences : MonoBehaviour
 		int value2;
 		if (value)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AccountPreferences.SetBool(BoolPreference, bool)).MethodHandle;
-			}
 			value2 = 1;
 		}
 		else

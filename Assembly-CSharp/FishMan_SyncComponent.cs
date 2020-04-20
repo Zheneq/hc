@@ -77,19 +77,6 @@ public class FishMan_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishMan_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_turnRoamingShapeWasCast);
 			writer.WritePackedUInt32((uint)this.m_lastTurnCanRepositionRoamingShape);
 			writer.WritePackedUInt32((uint)this.m_lastBasicAttackEnemyHitCount);
@@ -101,15 +88,6 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -117,26 +95,8 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -144,26 +104,8 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -171,26 +113,8 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -198,15 +122,6 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -216,19 +131,6 @@ public class FishMan_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishMan_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_turnRoamingShapeWasCast = (int)reader.ReadPackedUInt32();
 			this.m_lastTurnCanRepositionRoamingShape = (int)reader.ReadPackedUInt32();
 			this.m_lastBasicAttackEnemyHitCount = (sbyte)reader.ReadPackedUInt32();
@@ -238,15 +140,6 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_turnRoamingShapeWasCast = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
@@ -259,15 +152,6 @@ public class FishMan_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_roamingShapeCurPos = reader.ReadVector3();
 		}
 	}

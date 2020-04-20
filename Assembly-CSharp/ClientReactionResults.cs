@@ -23,47 +23,16 @@ public class ClientReactionResults
 	{
 		if (this.m_seqStartDataList == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientReactionResults.HasSequencesToStart()).MethodHandle;
-			}
 			return false;
 		}
 		if (this.m_seqStartDataList.Count == 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
 		{
 			if (sequenceStartData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (sequenceStartData.HasSequencePrefab())
 				{
 					return true;
@@ -83,19 +52,6 @@ public class ClientReactionResults
 		bool result;
 		if (this.PlayedReaction())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientReactionResults.ReactionHitsDone()).MethodHandle;
-			}
 			result = this.m_effectResults.DoneHitting();
 		}
 		else
@@ -114,31 +70,9 @@ public class ClientReactionResults
 	{
 		if (!this.m_playedReaction)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientReactionResults.PlayReaction()).MethodHandle;
-			}
 			this.m_playedReaction = true;
 			if (this.HasSequencesToStart())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_seqStartDataList.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -146,30 +80,12 @@ public class ClientReactionResults
 						ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
 						sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnReactionHitActor), new SequenceSource.Vector3Delegate(this.OnReactionHitPosition));
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			else
 			{
 				if (ClientAbilityResults.LogMissingSequences)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + this.GetDebugDescription() + ": no Sequence to start, executing results directly", new object[0]);
 				}
 				this.m_effectResults.RunClientEffectHits();

@@ -28,19 +28,6 @@ public class QuestCondition
 		QuestCondition questCondition = obj as QuestCondition;
 		if (questCondition != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestCondition.Equals(object)).MethodHandle;
-			}
 			if (this.ConditionType == questCondition.ConditionType)
 			{
 				switch (this.ConditionType)
@@ -102,41 +89,14 @@ public class QuestCondition
 				case QuestConditionType.HasDateTimePassed:
 					if (this.typeSpecificDate.Count != questCondition.typeSpecificDate.Count)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 					for (int i = 0; i < this.typeSpecificDate.Count; i++)
 					{
 						if (this.typeSpecificDate[i] != questCondition.typeSpecificDate[i])
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					return true;
 				case QuestConditionType.HasTitleCountInMatch:
@@ -145,15 +105,6 @@ public class QuestCondition
 				case QuestConditionType.HasUnlockedStyle:
 					if (this.typeSpecificData == questCondition.typeSpecificData && this.typeSpecificData2 == questCondition.typeSpecificData2)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.typeSpecificData3 == questCondition.typeSpecificData3)
 						{
 							return this.typeSpecificData4 == questCondition.typeSpecificData4;
@@ -168,15 +119,6 @@ public class QuestCondition
 					bool result;
 					if (this.typeSpecificData == questCondition.typeSpecificData && this.typeSpecificData2 == questCondition.typeSpecificData2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (this.typeSpecificData3 == questCondition.typeSpecificData3);
 					}
 					else
@@ -187,15 +129,6 @@ public class QuestCondition
 				}
 				}
 				return false;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

@@ -20,19 +20,6 @@ namespace TMPro
 			{
 				if (MaterialReferenceManager.s_Instance == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.get_instance()).MethodHandle;
-					}
 					MaterialReferenceManager.s_Instance = new MaterialReferenceManager();
 				}
 				return MaterialReferenceManager.s_Instance;
@@ -48,32 +35,10 @@ namespace TMPro
 		{
 			if (!this.m_FontAssetReferenceLookup.ContainsKey(fontAsset.hashCode))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.AddFontAssetInternal(TMP_FontAsset)).MethodHandle;
-				}
 				this.m_FontAssetReferenceLookup.Add(fontAsset.hashCode, fontAsset);
 			}
 			if (!this.m_FontMaterialReferenceLookup.ContainsKey(fontAsset.materialHashCode))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_FontMaterialReferenceLookup.Add(fontAsset.materialHashCode, fontAsset.material);
 			}
 		}
@@ -87,19 +52,6 @@ namespace TMPro
 		{
 			if (this.m_SpriteAssetReferenceLookup.ContainsKey(spriteAsset.hashCode))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.AddSpriteAssetInternal(TMP_SpriteAsset)).MethodHandle;
-				}
 				return;
 			}
 			this.m_SpriteAssetReferenceLookup.Add(spriteAsset.hashCode, spriteAsset);
@@ -115,34 +67,12 @@ namespace TMPro
 		{
 			if (this.m_SpriteAssetReferenceLookup.ContainsKey(hashCode))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.AddSpriteAssetInternal(int, TMP_SpriteAsset)).MethodHandle;
-				}
 				return;
 			}
 			this.m_SpriteAssetReferenceLookup.Add(hashCode, spriteAsset);
 			this.m_FontMaterialReferenceLookup.Add(hashCode, spriteAsset.material);
 			if (spriteAsset.hashCode == 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				spriteAsset.hashCode = hashCode;
 			}
 		}
@@ -188,19 +118,6 @@ namespace TMPro
 			spriteAsset = null;
 			if (this.m_SpriteAssetReferenceLookup.TryGetValue(hashCode, out spriteAsset))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReferenceManager.TryGetSpriteAssetInternal(int, TMP_SpriteAsset*)).MethodHandle;
-				}
 				return true;
 			}
 			return false;

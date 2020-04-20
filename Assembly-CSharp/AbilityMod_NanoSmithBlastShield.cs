@@ -24,19 +24,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		NanoSmithBlastShield nanoSmithBlastShield = targetAbility as NanoSmithBlastShield;
 		if (nanoSmithBlastShield != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithBlastShield.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectOverride, "ShieldEffect", nanoSmithBlastShield.m_shieldEffect, true);
 			AbilityMod.AddToken(tokens, this.m_healOnEndIfHasRemainingAbsorbMod, "HealOnEndIfHasRemainingAbsorb", string.Empty, nanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorb, true, false);
 			AbilityMod.AddToken(tokens, this.m_energyGainOnShieldTargetMod, "EnergyGainOnShieldTarget", string.Empty, nanoSmithBlastShield.m_energyGainOnShieldTarget, true, false);
@@ -56,19 +43,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		StandardActorEffectData baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithBlastShield.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = nanoSmithBlastShield.m_shieldEffect;
 		}
 		else
@@ -84,15 +58,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nanoSmithBlastShield.m_energyGainOnShieldTarget;
 		}
 		else
@@ -107,15 +72,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAlly;
 		}
 		else

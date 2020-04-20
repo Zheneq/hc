@@ -59,19 +59,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		NinjaShurikenOrDash ninjaShurikenOrDash = targetAbility as NinjaShurikenOrDash;
 		if (ninjaShurikenOrDash != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaShurikenOrDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_dashRangeDefaultMod, "DashRangeDefault", string.Empty, ninjaShurikenOrDash.m_dashRangeDefault, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_dashRangeMarkedMod, "DashRangeMarked", string.Empty, ninjaShurikenOrDash.m_dashRangeMarked, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_dashToUnmarkedRangeMod, "DashToUnmarkedRange", string.Empty, ninjaShurikenOrDash.m_dashToUnmarkedRange, true, false, false);
@@ -101,19 +88,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaShurikenOrDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = ninjaShurikenOrDash.m_dashToUnmarkedRange;
 		}
 		else
@@ -128,15 +102,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = ninjaShurikenOrDash.m_canDashToAlly;
 		}
 		else
@@ -151,15 +116,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = ninjaShurikenOrDash.m_canDashToEnemy;
 		}
 		else
@@ -175,15 +131,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		AbilityAreaShape baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = ninjaShurikenOrDash.m_dashDestShape;
 		}
 		else
@@ -199,15 +146,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = ninjaShurikenOrDash.m_extraDamageOnMarked;
 		}
 		else
@@ -222,15 +160,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = ninjaShurikenOrDash.m_extraDamageIfNotMarked;
 		}
 		else
@@ -247,15 +176,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = ninjaShurikenOrDash.m_dashHealing;
 		}
 		else
@@ -270,15 +190,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = ninjaShurikenOrDash.m_dashAllyHitEffect;
 		}
 		else
@@ -293,15 +204,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = ninjaShurikenOrDash.m_dashApplyDeathmark;
 		}
 		else
@@ -317,15 +219,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		bool baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = ninjaShurikenOrDash.m_canQueueMoveAfterEvade;
 		}
 		else

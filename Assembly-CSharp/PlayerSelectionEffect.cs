@@ -70,19 +70,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if (!this.m_drawingInConfirm)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.SetDrawingInConfirm(bool)).MethodHandle;
-			}
 			if (draw)
 			{
 				this.m_drawingInConfirmStartTime = Time.time;
@@ -96,19 +83,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if (GameManager.IsEditorAndNotGame())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.CheckResources()).MethodHandle;
-			}
 			return false;
 		}
 		base.CheckSupport(false);
@@ -116,15 +90,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 		this.InitializeSelectionPostMaterialParameters();
 		if (!this.isSupported)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ReportAutoDisable();
 		}
 		return this.isSupported;
@@ -144,33 +109,11 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if (this.m_selectionPostMaterial)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.DestroyImmediate(this.m_selectionPostMaterial);
 		}
 		this.playerCamera = null;
 		if (!this.doNotDestroyCamOnDisable)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.playerCameraObject)
 			{
 				UnityEngine.Object.DestroyImmediate(this.playerCameraObject);
@@ -183,41 +126,10 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if (!this.playerCamera)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.GetPlayerCam()).MethodHandle;
-			}
 			if (this.playerCameraPrefab != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.playerCamera)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.playerCameraObject = UnityEngine.Object.Instantiate<GameObject>(this.playerCameraPrefab);
 					this.playerCamera = this.playerCameraObject.GetComponent<Camera>();
 				}
@@ -240,66 +152,17 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 	{
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.InitializeSelectionPostMaterialParameters()).MethodHandle;
-			}
 			if (this.m_selectionPostMaterial != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Camera.main.actualRenderingPath == RenderingPath.Forward)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SystemInfo.graphicsDeviceVersion.Contains("Direct3D"))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
 						bool flag = currentGraphicsQuality <= GraphicsQuality.Low;
 						float num;
 						if (!flag)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_flipIfNotLowQuality)
 							{
 								num = 1f;
@@ -314,15 +177,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						float value2;
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value2 = 1f;
 						}
 						else
@@ -347,28 +201,10 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 				float num = this.blurSize;
 				if (this.m_drawingInConfirm)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = Mathf.Max(0f, this.blurSize * (1f - this.m_shrinkSpeed * (Time.time - this.m_drawingInConfirmStartTime)));
 				}
 				if (num != 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playerCam)
 					{
 						RenderTexture renderTexture = RenderTexture.GetTemporary(source.width, source.height, 0x18, source.format);
@@ -407,15 +243,6 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 							RenderTexture.ReleaseTemporary(renderTexture);
 							renderTexture = temporary2;
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_selectionPostMaterial.SetColor("_FriendlyInner", this.friendlyInner);
 						this.m_selectionPostMaterial.SetColor("_FriendlyOuter", this.friendlyOuter);
 						this.m_selectionPostMaterial.SetColor("_EnemyInner", this.enemyInner);
@@ -431,31 +258,9 @@ internal class PlayerSelectionEffect : PostEffectsCSBase, IGameEventListener
 						this.m_drawSelection = false;
 						return;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				Graphics.Blit(source, destination);
 				return;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSelectionEffect.OnRenderImage(RenderTexture, RenderTexture)).MethodHandle;
 			}
 		}
 		Graphics.Blit(source, destination);

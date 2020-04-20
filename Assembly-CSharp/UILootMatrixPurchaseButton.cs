@@ -29,19 +29,6 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 		{
 			if (this.PackRef != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseButton.<Awake>m__0(BaseEventData)).MethodHandle;
-				}
 				List<InventoryItemTemplate> list = new List<InventoryItemTemplate>();
 				if (this.PackRef.IsInEvent())
 				{
@@ -50,39 +37,12 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(this.PackRef.BonusMatrixes[i].LootMatrixId);
 						if (itemTemplate.TypeSpecificData.Length > 1 && itemTemplate.TypeSpecificData[1] == 1)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(itemTemplate);
 						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (list.Count > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UILootMatrixContentViewer.Get().Setup(list.ToArray(), false);
 					UILootMatrixContentViewer.Get().SetVisible(true);
 				}
@@ -104,31 +64,9 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 		int num = pack.NumberOfMatrixes;
 		if (num == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseButton.Setup(LootMatrixPack)).MethodHandle;
-			}
 			for (int i = 0; i < pack.BonusMatrixes.Length; i++)
 			{
 				num += pack.BonusMatrixes[i].NumberOfMatrixes;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_packCount.text = num.ToString();
@@ -136,15 +74,6 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 		Sprite sprite;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = pack.EventPackSprite;
 		}
 		else
@@ -172,30 +101,12 @@ public class UILootMatrixPurchaseButton : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		IL_191:
 		UIManager.SetGameObjectActive(this.m_viewContentBtn, flag2, null);
 		float price = pack.Prices.GetPrice(accountCurrency);
 		if (price == lootMatrixPackPrice)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_discountedAmount.text = string.Empty;
 		}
 		else

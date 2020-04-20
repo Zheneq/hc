@@ -51,19 +51,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool result;
 		if (this.FaceShot != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.InFaceShot(ActorData)).MethodHandle;
-			}
 			result = (this.FaceShot.Actor == actor);
 		}
 		else
@@ -93,19 +80,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		ActorData result;
 		if (this.ShotSequence == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.GetCinematicTargetActor()).MethodHandle;
-			}
 			result = null;
 		}
 		else
@@ -129,19 +103,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool result;
 		if (this.TauntBackgroundCamera != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.ShouldHideBrushVfx()).MethodHandle;
-			}
 			result = (this.ShotSequence != null);
 		}
 		else
@@ -180,33 +141,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (CameraManager.s_instance != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.Awake()).MethodHandle;
-			}
 			Debug.LogError("CameraManager instance was not null on Awake(), please check to make sure there is only 1 instance of GameSceneSingletons object");
 		}
 		CameraManager.s_instance = this;
 		if (GameFlowData.Get() && VisualsLoader.Get() && VisualsLoader.Get().LevelLoaded())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnVisualSceneLoaded();
 		}
 		else
@@ -220,19 +159,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (Camera.main != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.Start()).MethodHandle;
-			}
 			this.DefaultFOV = Camera.main.fieldOfView;
 		}
 	}
@@ -255,19 +181,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		CameraManager.s_instance = null;
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnDestroy()).MethodHandle;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.VisualSceneLoaded);
 		}
 		CameraManager.s_instance = null;
@@ -277,19 +190,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.VisualSceneLoaded)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.IGameEventListener.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			this.OnVisualSceneLoaded();
 		}
 	}
@@ -298,19 +198,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (Camera.main != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.EnableOffFogOfWarEffect(bool)).MethodHandle;
-			}
 			if (Camera.main.gameObject.GetComponent<FogOfWarEffect>() != null)
 			{
 				Camera.main.gameObject.GetComponent<FogOfWarEffect>().enabled = enable;
@@ -323,19 +210,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		GameObject gameObject;
 		if (Camera.main == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnVisualSceneLoaded()).MethodHandle;
-			}
 			gameObject = null;
 		}
 		else
@@ -345,50 +219,14 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		GameObject gameObject2 = gameObject;
 		if (gameObject2 != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameObject2.GetComponent<IsometricCamera>() == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (NetworkClient.active)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error("Environment scene is missing an instance of GameCamera.prefab, bloom may be active when loading into the level on Graphics Quality: Low until an instance is put in the environment scene.", new object[0]);
 				}
 				if (this.m_gameCameraPrefab != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.DestroyImmediate(gameObject2);
 					UnityEngine.Object.Instantiate<GameObject>(this.m_gameCameraPrefab);
 					gameObject2 = ((!(Camera.main == null)) ? Camera.main.gameObject : null);
@@ -397,66 +235,21 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		if (gameObject2 == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Environment scene is missing an instance of GameCamera.prefab, bloom may be active when loading into the level on Graphics Quality: Low until an instance is put in the environment scene.", new object[0]);
 			}
 			if (this.m_gameCameraPrefab == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new ApplicationException("There is no game camera prefab assigned in the CameraManager!");
 			}
 			GameObject y = UnityEngine.Object.Instantiate<GameObject>(this.m_gameCameraPrefab);
 			if (Camera.main == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Failed to switch to game camera; main camera is null", new object[0]);
 			}
 			else if (Camera.main.gameObject != y)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Failed to switch to game camera; main camera is '{0}'", new object[]
 				{
 					Camera.main
@@ -466,29 +259,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		UnityEngine.Object.DontDestroyOnLoad(Camera.main.gameObject);
 		if (this.FaceCamera == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject3 = UnityEngine.Object.Instantiate<GameObject>(this.m_faceCameraPrefab);
 			UnityEngine.Object.DontDestroyOnLoad(gameObject3);
 			Camera faceCamera;
 			if (gameObject3 == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				faceCamera = null;
 			}
 			else
@@ -500,43 +275,16 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		if (Camera.main != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.DefaultFOV = Camera.main.fieldOfView;
 			RenderSettings.fog = false;
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_tauntBackgroundCameraPrefab != null && this.m_useTauntBackground)
 				{
 					GameObject gameObject4 = UnityEngine.Object.Instantiate<GameObject>(this.m_tauntBackgroundCameraPrefab);
 					this.TauntBackgroundCamera = gameObject4.GetComponent<TauntBackgroundCamera>();
 					if (this.TauntBackgroundCamera == null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Debug.LogError("Did not find taunt background camera component");
 						UnityEngine.Object.Destroy(gameObject4);
 					}
@@ -551,27 +299,9 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
 		if (boardSquare != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IsometricCamera isometricCamera = this.GetIsometricCamera();
 			if (isometricCamera != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (isometricCamera.enabled)
 				{
 					Vector3 pos = new Vector3(boardSquare.gameObject.transform.position.x, (float)Board.Get().BaselineHeight, boardSquare.gameObject.transform.position.z);
@@ -588,15 +318,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		this.CameraPositionBounds = cameraPositionBounds;
 		if (this.AudioListener == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AudioListenerController.Get() != null)
 			{
 				this.AudioListener = AudioListenerController.Get().gameObject;
@@ -619,19 +340,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		FlyThroughCamera result;
 		if (Camera.main != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.GetFlyThroughCamera()).MethodHandle;
-			}
 			result = Camera.main.GetComponent<FlyThroughCamera>();
 		}
 		else
@@ -646,19 +354,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		DebugCamera result;
 		if (Camera.main != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.GetDebugCamera()).MethodHandle;
-			}
 			result = Camera.main.GetComponent<DebugCamera>();
 		}
 		else
@@ -683,19 +378,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		FadeObjectsCameraComponent result;
 		if (Camera.main != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.GetFadeObjectsCamera()).MethodHandle;
-			}
 			result = Camera.main.GetComponent<FadeObjectsCameraComponent>();
 		}
 		else
@@ -711,33 +393,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
 		if (abilitiesCamera.enabled)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnSpecialCameraShotBehaviorEnable(CameraTransitionType)).MethodHandle;
-			}
 			abilitiesCamera.OnTransitionOut();
 			abilitiesCamera.enabled = false;
 		}
 		if (isometricCamera.enabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			isometricCamera.OnTransitionOut();
 			isometricCamera.enabled = false;
 		}
@@ -751,19 +411,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		{
 			if (this.m_useAbilitiesCameraOutOfCinematics)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnSpecialCameraShotBehaviorDisable(CameraTransitionType)).MethodHandle;
-				}
 				this.EnableAbilitiesCamera(transitionInType);
 			}
 			else
@@ -777,19 +424,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (AccountPreferences.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.ShouldAutoCameraMove()).MethodHandle;
-			}
 			if (AccountPreferences.Get().GetBool(BoolPreference.AutoCameraCenter))
 			{
 				goto IL_C0;
@@ -797,41 +431,14 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		if (GameManager.Get() != null && GameManager.Get().GameConfig != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameConfig.GameType == GameType.Tutorial)
 			{
 				goto IL_C0;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int result;
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ((GameFlowData.Get().activeOwnedActorData.GetActorTurnSM().CurrentState == TurnStateEnum.PICKING_RESPAWN) ? 1 : 0);
 		}
 		else
@@ -848,19 +455,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DebugCamera"))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnActionPhaseChange(ActionBufferPhase, bool)).MethodHandle;
-			}
 			if (requestAbilityCamera && this.ShouldUseAbilitiesCameraOutOfCinematics())
 			{
 				this.EnableAbilitiesCamera(CameraTransitionType.Move);
@@ -896,19 +490,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (this.ShouldSetCameraForMovement() && GameFlowData.Get().CurrentTurn == this.m_savedMoveCamBoundTurn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.SetTargetForMovementIfNeeded()).MethodHandle;
-			}
 			this.SetTarget(this.m_savedMoveCamBound, false, false);
 		}
 	}
@@ -917,19 +498,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_savedMoveCamBoundTurn == GameFlowData.Get().CurrentTurn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.SaveMovementCameraBoundForSpectator(Bounds)).MethodHandle;
-			}
 			this.m_savedMoveCamBound.Encapsulate(bound);
 		}
 		else
@@ -943,41 +511,10 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (this.ShouldSetCameraForMovement())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.SwitchCameraForMovement()).MethodHandle;
-			}
 			if (this.SecondsRemainingToPauseForUserControl <= 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get().ShouldAutoCameraMove())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager.Get().OnActionPhaseChange(ActionBufferPhase.Movement, true);
 				}
 			}
@@ -989,19 +526,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool result;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.ShouldSetCameraForMovement()).MethodHandle;
-			}
 			result = (GameManager.Get().GameConfig.GameType != GameType.Tutorial);
 		}
 		else
@@ -1015,19 +539,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (animParamSetActions != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.AddAnimParamSetActions(CameraShot.CharacterToAnimParamSetActions)).MethodHandle;
-			}
 			this.m_animParamSettersOnTurnTick.Add(animParamSetActions);
 		}
 	}
@@ -1036,19 +547,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnTurnTick()).MethodHandle;
-			}
 			using (List<CameraShot.CharacterToAnimParamSetActions>.Enumerator enumerator = this.m_animParamSettersOnTurnTick.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -1056,38 +554,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 					CameraShot.CharacterToAnimParamSetActions characterToAnimParamSetActions = enumerator.Current;
 					if (characterToAnimParamSetActions != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (characterToAnimParamSetActions.m_actor != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							CameraShot.SetAnimParamsForActor(characterToAnimParamSetActions.m_actor, characterToAnimParamSetActions.m_animSetActions);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1128,19 +599,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (Camera.main == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.EnableAbilitiesCamera(CameraTransitionType)).MethodHandle;
-			}
 			return;
 		}
 		AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
@@ -1149,15 +607,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		FlyThroughCamera flyThroughCamera = this.GetFlyThroughCamera();
 		if (abilitiesCamera == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			abilitiesCamera = Camera.main.gameObject.AddComponent<AbilitiesCamera>();
 			abilitiesCamera.enabled = false;
 			Log.Warning("Missing AbilitiesCamera component on main camera. Generating dynamically for now.", new object[0]);
@@ -1167,39 +616,12 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		flyThroughCamera.enabled = false;
 		if (!abilitiesCamera.enabled)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CameraManager.CamDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.LogForDebugging("<color=white>Enable Abilities Camera</color>, transition type: " + transitionInType, CameraManager.CameraLogType.None);
 			}
 			if (isometricCamera.enabled)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				isometricCamera.OnTransitionOut();
 				isometricCamera.enabled = false;
 			}
@@ -1212,19 +634,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (Camera.main == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.EnableIsometricCamera(CameraTransitionType)).MethodHandle;
-			}
 			return;
 		}
 		AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
@@ -1237,28 +646,10 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		if (flyThroughCamera != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flyThroughCamera.enabled = false;
 		}
 		if (abilitiesCamera == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			abilitiesCamera = Camera.main.gameObject.AddComponent<AbilitiesCamera>();
 			abilitiesCamera.enabled = false;
 			Log.Warning("Missing IsometricCamera component on main camera. Generating dynamically for now.", new object[0]);
@@ -1266,26 +657,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		this.m_useAbilitiesCameraOutOfCinematics = false;
 		if (!isometricCamera.enabled)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.CamDebugTraceOn)
 				{
 					CameraManager.LogForDebugging("<color=white>Enable Isometric Camera</color>, transition type: " + transitionInType, CameraManager.CameraLogType.None);
@@ -1293,15 +666,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				bool flag = false;
 				if (abilitiesCamera.enabled)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (abilitiesCamera.GetSecondsRemainingToPauseForUserControl() > 0f);
 					abilitiesCamera.OnTransitionOut();
 					abilitiesCamera.enabled = false;
@@ -1310,40 +674,13 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				isometricCamera.OnTransitionIn(transitionInType);
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject targetObject;
 					if (!abilitiesCamera.IsDisabledUntilSetTarget)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag)
 						{
 							targetObject = GameFlowData.Get().activeOwnedActorData.gameObject;
 							goto IL_1AE;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					targetObject = null;
@@ -1359,32 +696,10 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		FadeObjectsCameraComponent fadeObjectsCamera = this.GetFadeObjectsCamera();
 		if (fadeObjectsCamera != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnActiveOwnedActorChange(ActorData)).MethodHandle;
-			}
 			fadeObjectsCamera.ResetDesiredVisibleObjects();
 		}
 		if (this.SecondsRemainingToPauseForUserControl <= 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetTargetObject(actor.gameObject, CameraManager.CameraTargetReason.ChangedActiveActor);
 		}
 		else
@@ -1398,19 +713,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		FadeObjectsCameraComponent fadeObjectsCamera = this.GetFadeObjectsCamera();
 		if (fadeObjectsCamera != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnActorMoved(ActorData)).MethodHandle;
-			}
 			fadeObjectsCamera.MarkForResetVisibleObjects();
 		}
 	}
@@ -1420,19 +722,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		FadeObjectsCameraComponent fadeObjectsCamera = this.GetFadeObjectsCamera();
 		if (fadeObjectsCamera != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnSelectedAbilityChanged(Ability)).MethodHandle;
-			}
 			fadeObjectsCamera.ResetDesiredVisibleObjects();
 		}
 	}
@@ -1442,19 +731,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		FadeObjectsCameraComponent fadeObjectsCamera = this.GetFadeObjectsCamera();
 		if (fadeObjectsCamera != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnNewTurnSMState()).MethodHandle;
-			}
 			fadeObjectsCamera.ResetDesiredVisibleObjects();
 		}
 	}
@@ -1463,19 +739,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (a == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.IsOnMainCamera(ActorData)).MethodHandle;
-			}
 			return false;
 		}
 		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
@@ -1488,30 +751,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		IsometricCamera isometricCamera = this.GetIsometricCamera();
 		if (isometricCamera != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.SetTargetObject(GameObject, CameraManager.CameraTargetReason)).MethodHandle;
-			}
 			if (isometricCamera.enabled)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				isometricCamera.SetTargetObject(target, reason, false);
 			}
 		}
@@ -1521,32 +762,10 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (CameraManager.CamDebugTraceOn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.SetTargetObjectToMouse(GameObject, CameraManager.CameraTargetReason)).MethodHandle;
-			}
 			string str = "CameraManager.SetTargetObjectToMouse ";
 			string str2;
 			if (target != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str2 = target.name;
 			}
 			else
@@ -1558,26 +777,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		IsometricCamera isometricCamera = this.GetIsometricCamera();
 		if (isometricCamera != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (isometricCamera.enabled)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				isometricCamera.SetTargetObject(target, reason, true);
 			}
 		}
@@ -1588,30 +789,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		IsometricCamera isometricCamera = this.GetIsometricCamera();
 		if (isometricCamera != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.SetTargetPosition(Vector3, float)).MethodHandle;
-			}
 			if (isometricCamera.enabled)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				isometricCamera.SetTargetPosition(pos, easeInTime);
 				isometricCamera.SetTargetObject(null, CameraManager.CameraTargetReason.ReachedTargetObj);
 			}
@@ -1634,33 +813,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		if (Camera.main == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.SetTarget(Bounds, bool, bool)).MethodHandle;
-			}
 			return;
 		}
 		AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
 		if (abilitiesCamera == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			abilitiesCamera = Camera.main.gameObject.AddComponent<AbilitiesCamera>();
 			abilitiesCamera.enabled = false;
 		}
@@ -1672,19 +829,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
 		if (abilitiesCamera == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.GetTarget()).MethodHandle;
-			}
 			abilitiesCamera = Camera.main.gameObject.AddComponent<AbilitiesCamera>();
 			abilitiesCamera.enabled = false;
 		}
@@ -1695,19 +839,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (intensity != CameraManager.CameraShakeIntensity.None)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.PlayCameraShake(CameraManager.CameraShakeIntensity)).MethodHandle;
-			}
 			if (Camera.main.gameObject.GetComponent<CameraShake>() == null)
 			{
 				Camera.main.gameObject.AddComponent<CameraShake>();
@@ -1718,15 +849,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			}
 			else if (intensity == CameraManager.CameraShakeIntensity.Large)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Camera.main.gameObject.GetComponent<CameraShake>().Play(0.3f, 0.1f, 0.75f);
 			}
 		}
@@ -1737,67 +859,18 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		DebugCamera debugCamera = this.GetDebugCamera();
 		if (debugCamera != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.AllowCameraShake()).MethodHandle;
-			}
 			if (debugCamera.enabled && !debugCamera.AllowCameraShake())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 		}
 		IsometricCamera isometricCamera = this.GetIsometricCamera();
 		if (isometricCamera != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (isometricCamera.enabled)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!isometricCamera.AllowCameraShake())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 			}
@@ -1805,26 +878,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
 		if (abilitiesCamera != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilitiesCamera.enabled && abilitiesCamera.IsMovingAutomatically())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityAnimationsBetweenCamEvents > 0;
 			}
 		}
@@ -1835,19 +890,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (eventObject.name == "CameraShakeSmallEvent")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnAnimationEvent(ActorData, UnityEngine.Object)).MethodHandle;
-			}
 			this.PlayCameraShake(CameraManager.CameraShakeIntensity.Small);
 		}
 		else if (eventObject.name == "CameraShakeLargeEvent")
@@ -1856,28 +898,10 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		else if (eventObject.name == "CamStartEvent")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_abilityAnimationsBetweenCamEvents++;
 		}
 		else if (eventObject.name == "CamEndEvent")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_abilityAnimationsBetweenCamEvents--;
 			if (this.m_abilityAnimationsBetweenCamEvents < 0)
 			{
@@ -1893,19 +917,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnAbilityAnimationStart(ActorData, int, Vector3, bool, int)).MethodHandle;
-			}
 			flag = DebugParameters.Get().GetParameterAsBool("DebugCamera");
 		}
 		else
@@ -1915,63 +926,18 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool flag2 = flag;
 		if (this.ShotSequence == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (requestCinematicCam)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_abilityCinematicState == CameraManager.AbilityCinematicState.Default)
 					{
 						goto IL_98;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (this.m_abilityCinematicState != CameraManager.AbilityCinematicState.Always)
 				{
 					return result;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_98:
 				TauntCameraSet tauntCamSetData = animatedActor.m_tauntCamSetData;
@@ -1980,40 +946,13 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				int altCamShotIndex = -1;
 				if (tauntCamSetData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < tauntCamSetData.m_tauntCameraShotSequences.Length; i++)
 					{
 						CameraShotSequence cameraShotSequence2 = tauntCamSetData.m_tauntCameraShotSequences[i] as CameraShotSequence;
 						if (cameraShotSequence2 != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (cameraShotSequence2.m_tauntNumber == cinematicRequested)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (cameraShotSequence2.m_animIndexTauntTrigger == animationIndex)
 								{
 									cameraShotSequence = cameraShotSequence2;
@@ -2022,15 +961,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 								}
 								if (cameraShotSequence2.m_alternateCameraShots != null && cameraShotSequence2.m_alternateCameraShots.Length > 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									for (int j = 0; j < cameraShotSequence2.m_alternateCameraShots.Length; j++)
 									{
 										if (cameraShotSequence2.m_alternateCameraShots[j].m_altAnimIndexTauntTrigger == animationIndex)
@@ -2048,52 +978,16 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				}
 				if (cameraShotSequence != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (array != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (array.Length > 0)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.ShotSequence = cameraShotSequence;
 							this.ShotSequence.Begin(animatedActor, altCamShotIndex);
 							result = true;
 							HUD_UI.Get().SetHUDVisibility(false, false);
 							if (animatedActor.GetIsHumanControlled())
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								HUD_UI.Get().SetupTauntBanner(animatedActor);
 							}
 							HUD_UI.Get().SetTauntBannerVisibility(animatedActor.GetIsHumanControlled());
@@ -2109,19 +1003,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (faceShot != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.BeginFaceShot(CameraFaceShot, ActorData)).MethodHandle;
-			}
 			if (actor != null && this.FaceCamera != null)
 			{
 				this.FaceShot = faceShot;
@@ -2140,19 +1021,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool result;
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.IsCameraCenterKeyHeld()).MethodHandle;
-			}
 			result = InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraCenterOnAction);
 		}
 		else
@@ -2167,128 +1035,34 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		TauntCameraSet tauntCamSetData = actor.m_tauntCamSetData;
 		if (tauntCamSetData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.DoesAnimIndexTriggerTauntCamera(ActorData, int, int)).MethodHandle;
-			}
 			if (tauntCamSetData.m_tauntCameraShotSequences != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < tauntCamSetData.m_tauntCameraShotSequences.Length; i++)
 				{
 					CameraShotSequence cameraShotSequence = tauntCamSetData.m_tauntCameraShotSequences[i] as CameraShotSequence;
 					if (cameraShotSequence != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (cameraShotSequence.m_tauntNumber == tauntNumber)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (cameraShotSequence.m_animIndexTauntTrigger == animIndex)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return true;
 							}
 							if (cameraShotSequence.m_alternateCameraShots != null)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (cameraShotSequence.m_alternateCameraShots.Length > 0)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									for (int j = 0; j < cameraShotSequence.m_alternateCameraShots.Length; j++)
 									{
 										if (cameraShotSequence.m_alternateCameraShots[j].m_altAnimIndexTauntTrigger == animIndex)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											return true;
 										}
-									}
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2299,30 +1073,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (UIMainScreenPanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnPlayerMovedCamera()).MethodHandle;
-			}
 			if (UIMainScreenPanel.Get().m_autoCameraButton != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIMainScreenPanel.Get().m_autoCameraButton.OnPlayerMovedCamera();
 			}
 		}
@@ -2333,19 +1085,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.Update()).MethodHandle;
-			}
 			flag = DebugParameters.Get().GetParameterAsBool("DebugCamera");
 		}
 		else
@@ -2355,116 +1094,35 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool flag2 = flag;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.GetDebugCamera().enabled)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.EnableDebugCamera();
 				goto IL_12A;
 			}
 		}
 		if (AppState.GetCurrent() == AppState_InGameDeployment.Get())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetFlyThroughCamera() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.EnableFlyThroughCamera();
 				goto IL_12A;
 			}
 		}
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetDebugCamera() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetDebugCamera().enabled)
 				{
 					goto IL_123;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (!(this.GetFlyThroughCamera() == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.GetFlyThroughCamera().enabled)
 			{
 				goto IL_12A;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_123:
@@ -2476,41 +1134,14 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		}
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(Camera.main == null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
 					if (!this.GetFlyThroughCamera().enabled)
 					{
 						if (this.ShotSequence != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.ShotSequence.Update())
 							{
 								this.ShotSequence = null;
@@ -2520,42 +1151,15 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 						}
 						if (this.FaceShot != null && !this.FaceShot.Update(this.FaceCamera))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.FaceCamera.gameObject.SetActive(false);
 							this.FaceShot = null;
 						}
 						AccountPreferences accountPreferences = AccountPreferences.Get();
 						if (UIMainScreenPanel.Get() != null && UIMainScreenPanel.Get().m_autoCameraButton != null && GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag3;
 							if (this.m_useCameraToggleKey)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag3 = InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.CameraToggleAutoCenter);
 							}
 							else
@@ -2565,71 +1169,17 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 							bool flag4 = flag3;
 							if (this.m_useRightClickToToggle)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag4)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (InterfaceManager.Get() != null)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (InterfaceManager.Get().ShouldHandleMouseClick())
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											bool flag5;
 											if (Input.GetMouseButtonUp(1))
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (GameFlowData.Get() != null)
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 													{
 														flag5 = (GameFlowData.Get().GetPause() || GameFlowData.Get().GetTimeInState() >= 1.5f);
@@ -2646,41 +1196,14 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 							}
 							if (flag4)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								bool flag6 = !accountPreferences.GetBool(BoolPreference.AutoCameraCenter);
 								accountPreferences.SetBool(BoolPreference.AutoCameraCenter, flag6);
 								UIMainScreenPanel.Get().m_autoCameraButton.RefreshAutoCameraButton();
 								AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
 								if (flag6)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (abilitiesCamera != null)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										abilitiesCamera.OnAutoCenterCameraPreferenceSet();
 									}
 								}
@@ -2688,38 +1211,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 						}
 						if (this.ShotSequence == null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_useAbilitiesCameraOutOfCinematics = this.ShouldUseAbilitiesCameraOutOfCinematics();
 							if (!flag2)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_useAbilitiesCameraOutOfCinematics)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.EnableAbilitiesCamera(CameraTransitionType.Move);
 								}
 								else
@@ -2734,15 +1230,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 								GameObject target;
 								if (activeOwnedActorData == null)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									target = null;
 								}
 								else
@@ -2752,15 +1239,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 								cameraManager.SetTargetObject(target, CameraManager.CameraTargetReason.CameraCenterKeyHeld);
 								if (ControlpadGameplay.Get() != null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ControlpadGameplay.Get().OnCameraCenteredOnActor(activeOwnedActorData);
 								}
 							}
@@ -2769,26 +1247,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 						{
 							if (this.ShotSequence != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.ShotSequence.Actor != null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.AudioListener.transform.position = this.ShotSequence.Actor.transform.position;
 									return;
 								}
@@ -2797,15 +1257,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 							float num = Vector3.Dot(Vector3.down, Camera.main.transform.forward);
 							if (num < 0.258819f)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 direction = Quaternion.AngleAxis(-75f, Camera.main.transform.right) * Vector3.down;
 								ray = new Ray(Camera.main.transform.position, direction);
 							}
@@ -2813,29 +1264,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 							float distance;
 							if (!plane.Raycast(ray, out distance))
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								distance = 3f;
 							}
 							this.AudioListener.transform.position = ray.GetPoint(distance);
 						}
 						return;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -2851,30 +1284,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		AbilitiesCamera abilitiesCamera = this.GetAbilitiesCamera();
 		if (abilitiesCamera != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.ShouldUseAbilitiesCameraOutOfCinematics()).MethodHandle;
-			}
 			if (abilitiesCamera.IsDisabledUntilSetTarget)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 		}
@@ -2883,15 +1294,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool flag2;
 		if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentActionPhase != ActionBufferPhase.Movement)
 			{
 				flag2 = (currentActionPhase == ActionBufferPhase.MovementChase);
@@ -2905,26 +1307,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag3)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag4)
 				{
 					goto IL_173;
@@ -2933,53 +1317,17 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			bool flag5 = GameManager.Get() != null && GameManager.Get().GameConfig.GameType == GameType.Tutorial;
 			if (!this.ShouldAutoCameraMove())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!CameraManager.Get().GetAbilitiesCamera().enabled)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = false;
 					goto IL_171;
 				}
 			}
 			if (flag5)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag6;
 				if (currentActionPhase != ActionBufferPhase.MovementWait)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag6 = (currentActionPhase == ActionBufferPhase.Done);
 				}
 				else
@@ -2990,26 +1338,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				bool flag8;
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag3)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag8 = !flag7;
 						goto IL_16C;
 					}
@@ -3041,52 +1371,12 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		minBoundDiff = a2 - b2;
 		if (Mathf.Abs(maxBoundDiff.x) <= mergeSizeThresh)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.BoundSidesWithinDistance(Bounds, Bounds, float, Vector3*, Vector3*)).MethodHandle;
-			}
 			if (Mathf.Abs(maxBoundDiff.z) <= mergeSizeThresh)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Mathf.Abs(minBoundDiff.x) <= mergeSizeThresh)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Mathf.Abs(minBoundDiff.z) <= mergeSizeThresh)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 				}
@@ -3106,19 +1396,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		Gizmos.DrawWireSphere(this.CameraPositionBounds.center, 1f);
 		if (this.AudioListener != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.OnDrawGizmos()).MethodHandle;
-			}
 			Gizmos.DrawWireSphere(this.AudioListener.transform.position, 1f);
 		}
 	}
@@ -3127,19 +1404,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.ShouldDrawGizmosForCurrentCamera()).MethodHandle;
-			}
 			LayerMask mask = 1 << LayerMask.NameToLayer("Default");
 			return (Camera.current.cullingMask & mask) != 0;
 		}
@@ -3151,19 +1415,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		string text;
 		if (cameraType == CameraManager.CameraLogType.None)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraManager.LogForDebugging(string, CameraManager.CameraLogType)).MethodHandle;
-			}
 			text = string.Empty;
 		}
 		else

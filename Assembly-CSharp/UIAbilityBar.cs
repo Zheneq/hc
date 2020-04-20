@@ -47,19 +47,6 @@ public class UIAbilityBar : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_abilityButtons[i], false, null);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.Start()).MethodHandle;
-		}
 		UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_cardBar, false, null);
 	}
 
@@ -69,33 +56,11 @@ public class UIAbilityBar : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.UpdateElementsVisibility(bool)).MethodHandle;
-			}
 			flag = activeOwnedActorData.IsDead();
 		}
 		bool flag2;
 		if (isResolving)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = !flag;
 		}
 		else
@@ -106,26 +71,8 @@ public class UIAbilityBar : MonoBehaviour
 		bool flag4;
 		if (isResolving)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = (activeOwnedActorData != null);
 				goto IL_73;
 			}
@@ -136,15 +83,6 @@ public class UIAbilityBar : MonoBehaviour
 		bool flag6;
 		if (isResolving)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				flag6 = (activeOwnedActorData != null);
@@ -157,26 +95,8 @@ public class UIAbilityBar : MonoBehaviour
 		bool doActive = flag5 || flag7;
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetDecisionTimerForceOff())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag5 = false;
 			}
 			if (SinglePlayerManager.Get().GetLockInCancelButtonForceOff())
@@ -186,42 +106,15 @@ public class UIAbilityBar : MonoBehaviour
 		}
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_theTimer.SetGameObjectActive(flag5);
 			if (flag5)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.NotifyDecisionTimerShow();
 				HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.NotifyDecisionTimerShow();
 			}
 			UIManager.SetGameObjectActive(this.m_lockInCancelButton, flag7, null);
 			if (this.m_timerBackground != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_timerBackground, doActive, null);
 			}
 		}
@@ -252,32 +145,10 @@ public class UIAbilityBar : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(this.m_abilityButtons[j], false, null);
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.Setup(ActorData)).MethodHandle;
-			}
 			flag = false;
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_cardBar, true, null);
 			HUD_UI.Get().m_mainScreenPanel.m_cardBar.Setup(this.m_abilityData);
 		}
@@ -289,15 +160,6 @@ public class UIAbilityBar : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_lockInCancelButton, flag2, null);
 		if (this.m_timerBackground != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_timerBackground, flag2, null);
 		}
 	}
@@ -308,19 +170,6 @@ public class UIAbilityBar : MonoBehaviour
 		{
 			this.m_abilityButtons[i].RefreshHotkey();
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.RefreshHotkeys()).MethodHandle;
-		}
 	}
 
 	private void ProcessLowTimePulses()
@@ -330,30 +179,8 @@ public class UIAbilityBar : MonoBehaviour
 		int num = Mathf.FloorToInt(f);
 		if (num != this.m_lastSecondDisplayed)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.ProcessLowTimePulses()).MethodHandle;
-			}
 			if (num != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((double)num != 1.0)
 				{
 					if (num < 0)
@@ -366,15 +193,6 @@ public class UIAbilityBar : MonoBehaviour
 						if (num > 5)
 						{
 							goto IL_B3;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					HUD_UI.Get().m_mainScreenPanel.m_alertDisplay.TriggerLowTimePulse(UIAlertDisplay.LowTimePulseType.Standard);
@@ -391,45 +209,14 @@ public class UIAbilityBar : MonoBehaviour
 	{
 		if (this.m_theTimer == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.UpdateTimer(bool)).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_abilityData == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (!isResolving)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TimeBank component = this.m_abilityData.GetComponent<TimeBank>();
 			ActorTurnSM component2 = this.m_abilityData.GetComponent<ActorTurnSM>();
 			float num = component.TimeToDisplay();
@@ -441,26 +228,8 @@ public class UIAbilityBar : MonoBehaviour
 			this.m_theTimer.UpdateTimeLabels(this.m_theTimer.m_secondsLabel, this.m_theTimer.m_millisecondsLabel, component.TimeToDisplay());
 			if (!component2.AmStillDeciding())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.GetTimeSaved() > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num4 = component.GetTimeSaved() / num2;
 					this.m_theTimer.SetGlowingTimer(true);
 					this.m_theTimer.UpdateSavedTimerPosition(num4);
@@ -476,30 +245,8 @@ public class UIAbilityBar : MonoBehaviour
 	{
 		if (this.m_turnSM != null && this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.UpdateLockInButton(bool)).MethodHandle;
-			}
 			if (!isResolving)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties(UIQueueListPanel.UIPhase.None);
 				ActorTurnSM turnSM = this.m_turnSM;
 				this.m_lockInCancelButton.EnableLockIn(turnSM.CurrentState != TurnStateEnum.CONFIRMED, !this.m_turnSM.AmTargetingAction());
@@ -515,15 +262,6 @@ public class UIAbilityBar : MonoBehaviour
 				this.m_lockInCancelButton.UpdatePhase();
 				if (SinglePlayerManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SinglePlayerManager.Get().GetLockinPhaseColorForceOff())
 					{
 						UIManager.SetGameObjectActive(this.m_lockInCancelButton.m_phaseColor, false, null);
@@ -544,33 +282,11 @@ public class UIAbilityBar : MonoBehaviour
 	{
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.Update()).MethodHandle;
-			}
 			return;
 		}
 		bool isResolving = this.IsResolving();
 		if (GameFlowData.Get().activeOwnedActorData != this.m_actorData)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.Setup(GameFlowData.Get().activeOwnedActorData);
 		}
 		this.UpdateLockInButton(isResolving);
@@ -599,19 +315,6 @@ public class UIAbilityBar : MonoBehaviour
 	{
 		if (this.m_turnSM != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.OnCancelClick(BaseEventData)).MethodHandle;
-			}
 			this.m_turnSM.RequestCancel(false);
 			this.m_lockInCancelButton.CancelClicked();
 		}
@@ -621,19 +324,6 @@ public class UIAbilityBar : MonoBehaviour
 	{
 		if (this.m_turnSM.CheckStateForEndTurnRequestFromInput())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.OnEndTurnClick(BaseEventData)).MethodHandle;
-			}
 			UISounds.GetUISounds().Play("ui/ingame/v1/hud/lockin");
 			this.m_turnSM.RequestEndTurn();
 			this.m_lockInCancelButton.LockedInClicked();
@@ -642,27 +332,9 @@ public class UIAbilityBar : MonoBehaviour
 		{
 			if (this.m_turnSM.CurrentState != TurnStateEnum.VALIDATING_ACTION_REQUEST)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_turnSM.CurrentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_turnSM.LockInBuffered = true;
@@ -675,30 +347,8 @@ public class UIAbilityBar : MonoBehaviour
 		{
 			if (this.m_abilityButtons[i].GetKeyPreference() == abilitySelectDown)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityBar.DoAbilityButtonClick(KeyPreference)).MethodHandle;
-				}
 				this.m_abilityButtons[i].OnAbilityButtonClick(null);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		HUD_UI.Get().m_mainScreenPanel.m_cardBar.DoAbilityButtonClick(abilitySelectDown);
 	}

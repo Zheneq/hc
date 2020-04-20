@@ -12,55 +12,15 @@ public static class ServerClientUtils
 		ActionBufferPhase result = ActionBufferPhase.Done;
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.GetCurrentActionPhase()).MethodHandle;
-			}
 		}
 		else if (ClientActionBuffer.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = ClientActionBuffer.Get().CurrentActionPhase;
 		}
 		else if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameStatus == GameStatus.Started)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Trying to examine current action phase, but ClientActionBuffer does not exist.", new object[0]);
 			}
 		}
@@ -92,30 +52,8 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBoolsList(List<bool>)).MethodHandle;
-				}
 				b |= (byte)(1 << i);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return b;
 	}
@@ -128,19 +66,6 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBoolsList_16bit(List<bool>)).MethodHandle;
-				}
 				num |= (short)(1 << i);
 			}
 		}
@@ -155,30 +80,8 @@ public static class ServerClientUtils
 		{
 			if (bools[i])
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBoolsList_32bit(List<bool>)).MethodHandle;
-				}
 				num |= 1 << i;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -188,19 +91,6 @@ public static class ServerClientUtils
 		byte b8 = 0;
 		if (b0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.CreateBitfieldFromBools(bool, bool, bool, bool, bool, bool, bool, bool)).MethodHandle;
-			}
 			b8 |= 1;
 		}
 		if (b1)
@@ -209,41 +99,14 @@ public static class ServerClientUtils
 		}
 		if (b2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 |= 4;
 		}
 		if (b3)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 |= 8;
 		}
 		if (b4)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 |= 0x10;
 		}
 		if (b5)
@@ -256,15 +119,6 @@ public static class ServerClientUtils
 		}
 		if (b7)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			b8 |= 0x80;
 		}
 		return b8;
@@ -487,33 +341,11 @@ public static class ServerClientUtils
 		{
 			if (square != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitSquare(BoardSquare)).MethodHandle;
-				}
 				this.m_useTargetSquare = true;
 				this.m_targetSquareX = square.x;
 				this.m_targetSquareY = square.y;
 				if (!this.m_useTargetPos)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_targetPos = square.ToVector3();
 				}
 			}
@@ -529,30 +361,8 @@ public static class ServerClientUtils
 		{
 			if (targetActorArray != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitTargetActors(ActorData[])).MethodHandle;
-				}
 				if (targetActorArray.Length > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_numTargetActors = (byte)targetActorArray.Length;
 					this.m_targetActorIndices = new int[(int)this.m_numTargetActors];
 					for (int i = 0; i < (int)this.m_numTargetActors; i++)
@@ -567,19 +377,6 @@ public static class ServerClientUtils
 		{
 			if (this.m_targetActorIndices != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.GetTargetActorIndices()).MethodHandle;
-				}
 				return new List<int>(this.m_targetActorIndices);
 			}
 			return new List<int>();
@@ -589,19 +386,6 @@ public static class ServerClientUtils
 		{
 			if (caster != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitCasterActor(ActorData)).MethodHandle;
-				}
 				this.m_casterActorIndex = caster.ActorIndex;
 			}
 			else
@@ -614,19 +398,6 @@ public static class ServerClientUtils
 		{
 			if (source != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitSequenceSourceData(SequenceSource)).MethodHandle;
-				}
 				this.m_sourceRootID = source.RootID;
 				this.m_sourceRemoveAtEndOfTurn = source.RemoveAtEndOfTurn;
 				this.m_waitForClientEnable = source.WaitForClientEnable;
@@ -637,30 +408,8 @@ public static class ServerClientUtils
 		{
 			if (extraParams != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.InitExtraParams(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				if (extraParams.Length > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_extraParams = extraParams;
 					this.m_numExtraParams = (byte)extraParams.Length;
 				}
@@ -682,48 +431,17 @@ public static class ServerClientUtils
 			string text = string.Empty;
 			if (this.m_targetActorIndices != null && this.m_targetActorIndices.Length > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.GetTargetActorsString()).MethodHandle;
-				}
 				for (int i = 0; i < this.m_targetActorIndices.Length; i++)
 				{
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(this.m_targetActorIndices[i]);
 					if (actorData != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = text + " | " + actorData.GetDebugName();
 					}
 					else
 					{
 						text = text + " | (Unknown Actor) " + this.m_targetActorIndices[i];
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -741,32 +459,10 @@ public static class ServerClientUtils
 			stream.Serialize(ref b);
 			if (this.m_useTargetPos)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.SequenceStartData_SerializeToStream(IBitStream*)).MethodHandle;
-				}
 				stream.Serialize(ref this.m_targetPos);
 			}
 			if (this.m_useTargetSquare)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				byte b2 = (byte)this.m_targetSquareX;
 				byte b3 = (byte)this.m_targetSquareY;
 				stream.Serialize(ref b2);
@@ -774,15 +470,6 @@ public static class ServerClientUtils
 			}
 			if (this.m_useTargetRotation)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vec = this.m_targetRotation * new Vector3(1f, 0f, 0f);
 				float num = VectorUtils.HorizontalAngle_Deg(vec);
 				stream.Serialize(ref num);
@@ -792,15 +479,6 @@ public static class ServerClientUtils
 			{
 				sbyte b5 = (sbyte)this.m_targetActorIndices[(int)b4];
 				stream.Serialize(ref b5);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			sbyte b6 = (sbyte)this.m_casterActorIndex;
 			stream.Serialize(ref b6);
@@ -815,7 +493,7 @@ public static class ServerClientUtils
 				extraSequenceParams.XSP_SerializeToStream(stream);
 			}
 			uint num3 = stream.Position - position;
-			if (ClientAbilityResults.\u000E)
+			if (ClientAbilityResults.symbol_000E)
 			{
 				Debug.LogWarning(string.Concat(new object[]
 				{
@@ -860,33 +538,11 @@ public static class ServerClientUtils
 			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.SequenceStartData_DeserializeFromStream(IBitStream*)).MethodHandle;
-				}
 				stream.Serialize(ref b);
 				stream.Serialize(ref b2);
 			}
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float angle = 0f;
 				stream.Serialize(ref angle);
 				Vector3 toDirection = VectorUtils.AngleDegreesToVector(angle);
@@ -899,15 +555,6 @@ public static class ServerClientUtils
 				stream.Serialize(ref b6);
 				list.Add((int)b6);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref b4);
 			stream.Serialize(ref sourceRootID);
 			stream.Serialize(ref b5);
@@ -919,15 +566,6 @@ public static class ServerClientUtils
 				Sequence.IExtraSequenceParams extraSequenceParams = SequenceLookup.Get().CreateExtraParamOfEnum(paramEnum);
 				extraSequenceParams.XSP_DeserializeFromStream(stream);
 				list2.Add(extraSequenceParams);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return new ServerClientUtils.SequenceStartData
 			{
@@ -956,19 +594,6 @@ public static class ServerClientUtils
 			BoardSquare targetSquare;
 			if (this.m_useTargetSquare)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.CreateSequencesFromData(SequenceSource.ActorDelegate, SequenceSource.Vector3Delegate)).MethodHandle;
-				}
 				targetSquare = Board.Get().GetBoardSquare(this.m_targetSquareX, this.m_targetSquareY);
 			}
 			else
@@ -989,15 +614,6 @@ public static class ServerClientUtils
 			{
 				if (this.m_useTargetSquare)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, this.m_targetPos, this.m_targetRotation, array, caster, sequenceSource, this.m_extraParams);
 				}
 				else
@@ -1007,15 +623,6 @@ public static class ServerClientUtils
 			}
 			else if (this.m_useTargetSquare)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, array, caster, sequenceSource, this.m_extraParams);
 			}
 			else
@@ -1030,30 +637,8 @@ public static class ServerClientUtils
 			GameObject x = SequenceLookup.Get().GetPrefabOfSequenceId(this.m_prefabID);
 			if (x == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.HasSequencePrefab()).MethodHandle;
-				}
 				if (SequenceLookup.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					x = SequenceLookup.Get().GetSimpleHitSequencePrefab();
 				}
 			}
@@ -1065,19 +650,6 @@ public static class ServerClientUtils
 			bool result;
 			if (sequenceSource != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceStartData.Contains(SequenceSource)).MethodHandle;
-				}
 				result = (this.m_sourceRootID == sequenceSource.RootID);
 			}
 			else
@@ -1129,19 +701,6 @@ public static class ServerClientUtils
 			stream.Serialize(ref flag);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceEndData.SequenceEndData_SerializeToStream(IBitStream*)).MethodHandle;
-				}
 				stream.Serialize(ref this.m_targetPos);
 			}
 		}
@@ -1159,19 +718,6 @@ public static class ServerClientUtils
 			stream.Serialize(ref flag);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceEndData.SequenceEndData_DeserializeFromStream(IBitStream*)).MethodHandle;
-				}
 				stream.Serialize(ref zero);
 			}
 			return new ServerClientUtils.SequenceEndData((int)prefabIdToEnd, (ServerClientUtils.SequenceEndData.AssociationType)b, (int)guid, zero);
@@ -1185,19 +731,6 @@ public static class ServerClientUtils
 			}
 			else if (this.m_associationType == ServerClientUtils.SequenceEndData.AssociationType.BarrierGuid)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ServerClientUtils.SequenceEndData.EndClientSequences()).MethodHandle;
-				}
 				ClientEffectBarrierManager.Get().EndSequenceOfBarrier((int)this.m_prefabId, (int)this.m_association, this.m_targetPos);
 			}
 			else if (this.m_associationType == ServerClientUtils.SequenceEndData.AssociationType.SequenceSourceId)

@@ -59,31 +59,9 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		NinjaOmnidash ninjaOmnidash = targetAbility as NinjaOmnidash;
 		if (ninjaOmnidash != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaOmnidash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			Ninja_SyncComponent component = ninjaOmnidash.GetComponent<Ninja_SyncComponent>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken(tokens, this.m_deathmarkDamageMod, "Deathmark_TriggerDamage", string.Empty, component.m_deathmarkOnTriggerDamage, true, false);
 				AbilityMod.AddToken(tokens, this.m_deathmarkCasterHealMod, "Deathmark_CasterHeal", string.Empty, component.m_deathmarkOnTriggerCasterHeal, true, false);
 			}
@@ -108,19 +86,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		Ninja_SyncComponent ninja_SyncComponent = null;
 		if (ninjaOmnidash != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaOmnidash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			ninja_SyncComponent = ninjaOmnidash.GetComponent<Ninja_SyncComponent>();
 		}
 		string text = string.Empty;
@@ -133,15 +98,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = ninjaOmnidash.m_baseDamage;
 		}
 		else
@@ -156,15 +112,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = ninjaOmnidash.m_damageChangePerEnemyAfterFirst;
 		}
 		else
@@ -179,15 +126,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = ninjaOmnidash.m_minDamage;
 		}
 		else
@@ -203,15 +141,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = ninjaOmnidash.m_singleHitEnemyEffect;
 		}
 		else
@@ -226,15 +155,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = ninjaOmnidash.m_extraSingleHitEnemyEffect;
 		}
 		else
@@ -249,15 +169,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = ninjaOmnidash.m_energyGainPerMarkedHit;
 		}
 		else
@@ -272,15 +183,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		bool baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = ninjaOmnidash.m_skipEvade;
 		}
 		else
@@ -296,15 +198,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = ninjaOmnidash.m_dashRadiusAtStart;
 		}
 		else
@@ -319,15 +212,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = ninjaOmnidash.m_dashRadiusMiddle;
 		}
 		else
@@ -342,15 +226,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		float baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = ninjaOmnidash.m_dashRadiusAtEnd;
 		}
 		else
@@ -365,15 +240,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		bool baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = ninjaOmnidash.m_dashPenetrateLineOfSight;
 		}
 		else
@@ -388,15 +254,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		bool baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = ninjaOmnidash.m_canQueueMoveAfterEvade;
 		}
 		else
@@ -411,15 +268,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		bool baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = ninjaOmnidash.m_applyDeathmarkEffect;
 		}
 		else
@@ -434,15 +282,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = ninjaOmnidash.m_cdrOnAbility;
 		}
 		else

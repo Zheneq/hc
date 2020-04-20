@@ -26,33 +26,11 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 				int templateId = enumerator.Current;
 				if (i >= this.m_rewardImages.Length)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIFactionRewardTooltipListItem.Setup(List<int>, int, bool)).MethodHandle;
-					}
 					goto IL_AD;
 				}
 				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(templateId);
 				if (itemTemplate == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (itemTemplate != null)
 				{
@@ -61,30 +39,12 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 					i++;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		IL_AD:
 		while (i < this.m_rewardImages.Length)
 		{
 			UIManager.SetGameObjectActive(this.m_rewardContainers[i], false, null);
 			i++;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		UIManager.SetGameObjectActive(this.m_obtainedContainer, obtained, null);
 		if (obtained)
@@ -98,15 +58,6 @@ public class UIFactionRewardTooltipListItem : MonoBehaviour
 		for (int j = 0; j < this.m_levelText.Length; j++)
 		{
 			this.m_levelText[j].text = (rewardTeirLevel + 1).ToString();
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

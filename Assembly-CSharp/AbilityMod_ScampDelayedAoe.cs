@@ -33,19 +33,6 @@ public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
 		ScampDelayedAoe scampDelayedAoe = targetAbility as ScampDelayedAoe;
 		if (scampDelayedAoe != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDelayedAoe.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_delayedEffectBaseMod, "DelayedEffectBase", scampDelayedAoe.m_delayedEffectBase, true);
 			AbilityMod.AddToken(tokens, this.m_subseqTurnDamageMultiplierMod, "SubseqTurnDamageMultiplier", string.Empty, scampDelayedAoe.m_subseqTurnDamageMultiplier, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_extraDamageIfShieldDownFormMod, "ExtraDamageIfShieldDownForm", string.Empty, scampDelayedAoe.m_extraDamageIfShieldDownForm, true, false);
@@ -68,19 +55,6 @@ public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDelayedAoe.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scampDelayedAoe.m_subseqTurnNoEnergyGain;
 		}
 		else

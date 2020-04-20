@@ -70,19 +70,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoBoomerangDisc.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = nekoBoomerangDisc.m_laserWidth;
 		}
 		else
@@ -97,15 +84,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nekoBoomerangDisc.m_aoeRadiusAtEnd;
 		}
 		else
@@ -120,15 +98,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nekoBoomerangDisc.m_maxTargets;
 		}
 		else
@@ -143,15 +112,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = nekoBoomerangDisc.m_discReturnEndRadius;
 		}
 		else
@@ -166,15 +126,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = nekoBoomerangDisc.m_directDamage;
 		}
 		else
@@ -190,15 +141,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		bool baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = nekoBoomerangDisc.m_returnTripIgnoreCover;
 		}
 		else
@@ -213,15 +155,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = nekoBoomerangDisc.m_extraDamageIfHitByReturnDisc;
 		}
 		else
@@ -236,15 +169,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = nekoBoomerangDisc.m_extraReturnDamageIfHitNoOne;
 		}
 		else
@@ -259,15 +183,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = nekoBoomerangDisc.m_shieldPerTargetHitOnThrow;
 		}
 		else

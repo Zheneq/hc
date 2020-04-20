@@ -29,19 +29,6 @@ public class ScoundrelTrapWire : Ability
 	{
 		if (this.m_pattern == AbilityGridPattern.NoPattern)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.SetupTargeter()).MethodHandle;
-			}
 			base.Targeter = new AbilityUtil_Targeter_Barrier(this, this.ModdedBarrierData().m_width * this.ModdedBarrierScale(), false, false, true);
 		}
 		else
@@ -68,19 +55,6 @@ public class ScoundrelTrapWire : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelTrapWire))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ScoundrelTrapWire);
 			this.SetupTargeter();
 		}
@@ -100,19 +74,6 @@ public class ScoundrelTrapWire : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.ModdedBarrierData()).MethodHandle;
-			}
 			return this.m_abilityMod.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
 		}
 		return this.m_barrierData;
@@ -123,19 +84,6 @@ public class ScoundrelTrapWire : Ability
 		float num = this.m_barrierSizeScale;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.ModdedBarrierScale()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_barrierScaleMod.GetModifiedValue(num);
 		}
 		return num;
@@ -146,41 +94,10 @@ public class ScoundrelTrapWire : Ability
 		List<GameObject> result = this.ModdedBarrierData().m_barrierSequencePrefabs;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelTrapWire.ModdedBarrierSequencePrefab()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_barrierSequence != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_barrierSequence.Count > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = this.m_abilityMod.m_barrierSequence;
 				}
 			}

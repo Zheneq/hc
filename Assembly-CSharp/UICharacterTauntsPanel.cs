@@ -43,82 +43,24 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		{
 			list.Add(i);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.Setup(CharacterResourceLink, bool)).MethodHandle;
-		}
 		list.Sort((int first, int second) => characterLink.m_taunts[first].m_actionForTaunt - characterLink.m_taunts[second].m_actionForTaunt);
 		int num = 0;
 		for (int j = 0; j < componentsInChildren.Length; j++)
 		{
 			if (num < list.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2 = list[num];
 				if (!characterLink.m_taunts[num2].m_isHidden)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (componentsInChildren.Length > j)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (playerCharacterData == null)
 						{
 							goto IL_18E;
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (playerCharacterData.CharacterComponent == null || playerCharacterData.CharacterComponent.Taunts == null || playerCharacterData.CharacterComponent.Taunts.Count <= num2)
 						{
 							goto IL_18E;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						bool isUnlocked = playerCharacterData.CharacterComponent.Taunts[num2].Unlocked;
 						IL_191:
@@ -142,15 +84,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 				UIManager.SetGameObjectActive(componentsInChildren[j], false, null);
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void SetVisible(bool isVisible)
@@ -168,19 +101,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		UICharacterTauntsPanel.m_activeTauntsPanels.Remove(this);
 		if (this.m_purchasePanel != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.OnDisable()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
 		}
 	}
@@ -199,19 +119,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 	{
 		if (this.m_lastButtonClicked == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.Purchase(CurrencyType)).MethodHandle;
-			}
 			return;
 		}
 		UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
@@ -232,19 +139,6 @@ public class UICharacterTauntsPanel : MonoBehaviour
 				UITauntButton lastButtonClicked = UICharacterTauntsPanel.m_activeTauntsPanels[i].m_lastButtonClicked;
 				if (lastButtonClicked != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.RefreshActivePanels(CharacterResourceLink, int)).MethodHandle;
-					}
 					if (lastButtonClicked.m_tauntIndex == tauntIndex)
 					{
 						lastButtonClicked.SetUnlocked();
@@ -260,26 +154,8 @@ public class UICharacterTauntsPanel : MonoBehaviour
 						componentsInChildren[j].SetUnlocked();
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_C9:;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -295,30 +171,8 @@ public class UICharacterTauntsPanel : MonoBehaviour
 		{
 			if (newButton.GetIsoCost() > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTauntsPanel.Select(UITauntButton)).MethodHandle;
-				}
 				if (!newButton.IsUnlocked())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_purchasePanel.Setup(newButton.GetIsoCost(), 0, 0f, false);
 					UIManager.SetGameObjectActive(this.m_purchasePanel, true, null);
 					GameBalanceVars.TauntUnlockData tauntUnlockData = GameBalanceVars.Get().GetCharacterUnlockData(newButton.m_charLink.m_characterType).tauntUnlockData[newButton.m_tauntIndex];
@@ -326,26 +180,8 @@ public class UICharacterTauntsPanel : MonoBehaviour
 					this.m_purchasePanel.SetDisabled(!flag);
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!tauntUnlockData.PurchaseDescription.IsNullOrEmpty())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_purchasePanel.SetupTooltip(tauntUnlockData.GetPurchaseDescription());
 							goto IL_150;
 						}

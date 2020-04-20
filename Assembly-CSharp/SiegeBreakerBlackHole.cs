@@ -12,19 +12,6 @@ public class SiegeBreakerBlackHole : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SiegeBreakerBlackHole.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Black Hole";
 		}
 	}

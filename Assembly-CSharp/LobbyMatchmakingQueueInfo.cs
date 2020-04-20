@@ -27,19 +27,6 @@ public class LobbyMatchmakingQueueInfo
 			GameType result;
 			if (this.GameConfig == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyMatchmakingQueueInfo.get_GameType()).MethodHandle;
-				}
 				result = GameType.None;
 			}
 			else
@@ -60,19 +47,6 @@ public class LobbyMatchmakingQueueInfo
 		bool result;
 		if (this.GameConfig == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyMatchmakingQueueInfo.IsSame(GameType)).MethodHandle;
-			}
 			result = false;
 		}
 		else

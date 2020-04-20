@@ -13,52 +13,12 @@ public class Scamp_ChatterEventOverrider : ChatterEventOverrider
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Scamp_ChatterEventOverrider.OnSubmitChatter(IChatterData, GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(this.m_syncComp.m_noSuitChatterEventOverride))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_syncComp.IsSuitModelActive())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						chatter.GetCommonData().SetAudioEventOverride(this.m_syncComp.m_noSuitChatterEventOverride);
 					}
 					else
@@ -66,26 +26,8 @@ public class Scamp_ChatterEventOverrider : ChatterEventOverrider
 						string audioEventOverride = chatter.GetCommonData().GetAudioEventOverride();
 						if (audioEventOverride != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (audioEventOverride.Equals(this.m_syncComp.m_noSuitChatterEventOverride))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								chatter.GetCommonData().ClearAudioEventOverride();
 							}
 						}

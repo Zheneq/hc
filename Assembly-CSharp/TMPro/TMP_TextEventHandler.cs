@@ -89,30 +89,8 @@ namespace TMPro
 				this.m_Canvas = base.gameObject.GetComponentInParent<Canvas>();
 				if (this.m_Canvas != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextEventHandler.Awake()).MethodHandle;
-					}
 					if (this.m_Canvas.renderMode == RenderMode.ScreenSpaceOverlay)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_Camera = null;
 					}
 					else
@@ -131,42 +109,11 @@ namespace TMPro
 		{
 			if (TMP_TextUtilities.IsIntersectingRectTransform(this.m_TextComponent.rectTransform, Input.mousePosition, this.m_Camera))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextEventHandler.LateUpdate()).MethodHandle;
-				}
 				int num = TMP_TextUtilities.FindIntersectingCharacter(this.m_TextComponent, Input.mousePosition, this.m_Camera, true);
 				if (num != -1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num != this.m_lastCharIndex)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_lastCharIndex = num;
 						this.SendOnCharacterSelection(this.m_TextComponent.textInfo.characterInfo[num].character, num);
 					}
@@ -174,26 +121,8 @@ namespace TMPro
 				int num2 = TMP_TextUtilities.FindIntersectingWord(this.m_TextComponent, Input.mousePosition, this.m_Camera);
 				if (num2 != -1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 != this.m_lastWordIndex)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_lastWordIndex = num2;
 						TMP_WordInfo tmp_WordInfo = this.m_TextComponent.textInfo.wordInfo[num2];
 						this.SendOnWordSelection(tmp_WordInfo.GetWord(), tmp_WordInfo.firstCharacterIndex, tmp_WordInfo.characterCount);
@@ -202,40 +131,13 @@ namespace TMPro
 				int num3 = TMP_TextUtilities.FindIntersectingLine(this.m_TextComponent, Input.mousePosition, this.m_Camera);
 				if (num3 != -1)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num3 != this.m_lastLineIndex)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_lastLineIndex = num3;
 						TMP_LineInfo tmp_LineInfo = this.m_TextComponent.textInfo.lineInfo[num3];
 						char[] array = new char[tmp_LineInfo.characterCount];
 						for (int i = 0; i < tmp_LineInfo.characterCount; i++)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (i >= this.m_TextComponent.textInfo.characterInfo.Length)
 							{
 								break;
@@ -249,26 +151,8 @@ namespace TMPro
 				int num4 = TMP_TextUtilities.FindIntersectingLink(this.m_TextComponent, Input.mousePosition, this.m_Camera);
 				if (num4 != -1)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num4 != this.m_selectedLink)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_selectedLink = num4;
 						TMP_LinkInfo tmp_LinkInfo = this.m_TextComponent.textInfo.linkInfo[num4];
 						this.SendOnLinkSelection(tmp_LinkInfo.GetLinkID(), tmp_LinkInfo.GetLinkText(), num4);
@@ -289,19 +173,6 @@ namespace TMPro
 		{
 			if (this.onCharacterSelection != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextEventHandler.SendOnCharacterSelection(char, int)).MethodHandle;
-				}
 				this.onCharacterSelection.Invoke(character, characterIndex);
 			}
 		}
@@ -310,19 +181,6 @@ namespace TMPro
 		{
 			if (this.onWordSelection != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextEventHandler.SendOnWordSelection(string, int, int)).MethodHandle;
-				}
 				this.onWordSelection.Invoke(word, charIndex, length);
 			}
 		}
@@ -339,19 +197,6 @@ namespace TMPro
 		{
 			if (this.onLinkSelection != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextEventHandler.SendOnLinkSelection(string, string, int)).MethodHandle;
-				}
 				this.onLinkSelection.Invoke(linkID, linkText, linkIndex);
 			}
 		}

@@ -5,68 +5,68 @@ namespace TMPro.Examples
 {
 	public class TMPro_InstructionOverlay : MonoBehaviour
 	{
-		public TMPro_InstructionOverlay.FpsCounterAnchorPositions \u001D = TMPro_InstructionOverlay.FpsCounterAnchorPositions.\u000E;
+		public TMPro_InstructionOverlay.FpsCounterAnchorPositions symbol_001D = TMPro_InstructionOverlay.FpsCounterAnchorPositions.symbol_000E;
 
-		private const string \u000E = "Camera Control - <#ffff00>Shift + RMB\n</color>Zoom - <#ffff00>Mouse wheel.";
+		private const string symbol_000E = "Camera Control - <#ffff00>Shift + RMB\n</color>Zoom - <#ffff00>Mouse wheel.";
 
-		private TextMeshPro \u0012;
+		private TextMeshPro symbol_0012;
 
-		private TextContainer \u0015;
+		private TextContainer symbol_0015;
 
-		private Transform \u0016;
+		private Transform symbol_0016;
 
-		private Camera \u0013;
+		private Camera symbol_0013;
 
-		private void \u0018()
+		private void symbol_0018()
 		{
 			if (!base.enabled)
 			{
 				return;
 			}
-			this.\u0013 = Camera.main;
+			this.symbol_0013 = Camera.main;
 			GameObject gameObject = new GameObject("Frame Counter");
-			this.\u0016 = gameObject.transform;
-			this.\u0016.parent = this.\u0013.transform;
-			this.\u0016.localRotation = Quaternion.identity;
-			this.\u0012 = gameObject.AddComponent<TextMeshPro>();
-			this.\u0012.font = (Resources.Load("Fonts & Materials/LiberationSans SDF", typeof(TMP_FontAsset)) as TMP_FontAsset);
-			this.\u0012.fontSharedMaterial = (Resources.Load("Fonts & Materials/LiberationSans SDF - Overlay", typeof(Material)) as Material);
-			this.\u0012.fontSize = 30f;
-			this.\u0012.isOverlay = true;
-			this.\u0015 = gameObject.GetComponent<TextContainer>();
-			this.\u0018(this.\u001D);
-			this.\u0012.text = "Camera Control - <#ffff00>Shift + RMB\n</color>Zoom - <#ffff00>Mouse wheel.";
+			this.symbol_0016 = gameObject.transform;
+			this.symbol_0016.parent = this.symbol_0013.transform;
+			this.symbol_0016.localRotation = Quaternion.identity;
+			this.symbol_0012 = gameObject.AddComponent<TextMeshPro>();
+			this.symbol_0012.font = (Resources.Load("Fonts & Materials/LiberationSans SDF", typeof(TMP_FontAsset)) as TMP_FontAsset);
+			this.symbol_0012.fontSharedMaterial = (Resources.Load("Fonts & Materials/LiberationSans SDF - Overlay", typeof(Material)) as Material);
+			this.symbol_0012.fontSize = 30f;
+			this.symbol_0012.isOverlay = true;
+			this.symbol_0015 = gameObject.GetComponent<TextContainer>();
+			this.symbol_0018(this.symbol_001D);
+			this.symbol_0012.text = "Camera Control - <#ffff00>Shift + RMB\n</color>Zoom - <#ffff00>Mouse wheel.";
 		}
 
-		private void \u0018(TMPro_InstructionOverlay.FpsCounterAnchorPositions \u001D)
+		private void symbol_0018(TMPro_InstructionOverlay.FpsCounterAnchorPositions symbol_001D)
 		{
-			switch (\u001D)
+			switch (symbol_001D)
 			{
-			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.\u001D:
-				this.\u0015.anchorPosition = TextContainerAnchors.TopLeft;
-				this.\u0016.position = this.\u0013.ViewportToWorldPoint(new Vector3(0f, 1f, 100f));
+			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.symbol_001D:
+				this.symbol_0015.anchorPosition = TextContainerAnchors.TopLeft;
+				this.symbol_0016.position = this.symbol_0013.ViewportToWorldPoint(new Vector3(0f, 1f, 100f));
 				break;
-			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.\u000E:
-				this.\u0015.anchorPosition = TextContainerAnchors.BottomLeft;
-				this.\u0016.position = this.\u0013.ViewportToWorldPoint(new Vector3(0f, 0f, 100f));
+			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.symbol_000E:
+				this.symbol_0015.anchorPosition = TextContainerAnchors.BottomLeft;
+				this.symbol_0016.position = this.symbol_0013.ViewportToWorldPoint(new Vector3(0f, 0f, 100f));
 				break;
-			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.\u0012:
-				this.\u0015.anchorPosition = TextContainerAnchors.TopRight;
-				this.\u0016.position = this.\u0013.ViewportToWorldPoint(new Vector3(1f, 1f, 100f));
+			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.symbol_0012:
+				this.symbol_0015.anchorPosition = TextContainerAnchors.TopRight;
+				this.symbol_0016.position = this.symbol_0013.ViewportToWorldPoint(new Vector3(1f, 1f, 100f));
 				break;
-			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.\u0015:
-				this.\u0015.anchorPosition = TextContainerAnchors.BottomRight;
-				this.\u0016.position = this.\u0013.ViewportToWorldPoint(new Vector3(1f, 0f, 100f));
+			case TMPro_InstructionOverlay.FpsCounterAnchorPositions.symbol_0015:
+				this.symbol_0015.anchorPosition = TextContainerAnchors.BottomRight;
+				this.symbol_0016.position = this.symbol_0013.ViewportToWorldPoint(new Vector3(1f, 0f, 100f));
 				break;
 			}
 		}
 
 		public enum FpsCounterAnchorPositions
 		{
-			\u001D,
-			\u000E,
-			\u0012,
-			\u0015
+			symbol_001D,
+			symbol_000E,
+			symbol_0012,
+			symbol_0015
 		}
 	}
 }

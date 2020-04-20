@@ -98,30 +98,8 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (this.m_needResetScrollbar)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Update()).MethodHandle;
-			}
 			if (this.m_descriptionScrollRect.verticalScrollbar.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_descriptionScrollRect.verticalScrollbar.value != 1f)
 				{
 					this.m_needResetScrollbar = false;
@@ -135,19 +113,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (this.m_articleButtons == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Init()).MethodHandle;
-			}
 			this.m_articleButtons = new List<UIArticleSelectButton>(this.m_articlesGrid.GetComponentsInChildren<UIArticleSelectButton>(true));
 			using (List<UIArticleSelectButton>.Enumerator enumerator = this.m_articleButtons.GetEnumerator())
 			{
@@ -155,15 +120,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 				{
 					UIArticleSelectButton uiarticleSelectButton = enumerator.Current;
 					uiarticleSelectButton.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -176,19 +132,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_articlesContainer, LocalizationManager.CurrentLanguageCode != "zh", null);
 		if (this.m_buyHeroContainer != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Awake()).MethodHandle;
-			}
 			this.m_buyInGameButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyInGameClicked);
 			this.m_buyForCashButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForCashClicked);
 			this.m_buyForTokenButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BuyForTokenClicked);
@@ -199,33 +142,11 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (this.m_rewards != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.PopulateTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (this.m_rewards.Count != 0)
 			{
 				UIRewardListTooltip uirewardListTooltip = tooltip as UIRewardListTooltip;
 				uirewardListTooltip.Setup(this.m_rewards, this.m_expDataLevel, UIRewardListTooltip.RewardsType.Character, false);
 				return true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -235,19 +156,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (this.m_descriptionScrollRect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Start()).MethodHandle;
-			}
 			_MouseEventPasser mouseEventPasser = this.m_description.gameObject.AddComponent<_MouseEventPasser>();
 			mouseEventPasser.AddNewHandler(this.m_descriptionScrollRect);
 			mouseEventPasser = this.m_descriptionScrollRect.verticalScrollbar.handleRect.gameObject.AddComponent<_MouseEventPasser>();
@@ -275,19 +183,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (newData.CharacterType == this.m_characterType)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.OnCharacterDataUpdated(PersistedCharacterData)).MethodHandle;
-			}
 			this.Setup(this.m_characterType);
 		}
 	}
@@ -296,19 +191,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (characterType.IsValidForHumanGameplay())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Setup(CharacterType)).MethodHandle;
-			}
 			this.Setup(GameWideData.Get().GetCharacterResourceLink(characterType));
 		}
 	}
@@ -318,30 +200,8 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		this.m_charLink = charLink;
 		if (!(this.m_charLink == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.Setup(CharacterResourceLink)).MethodHandle;
-			}
 			if (!this.m_charLink.m_characterType.IsValidForHumanGameplay())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -351,15 +211,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 				ExperienceComponent experienceComponent;
 				if (playerCharacterData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					experienceComponent = playerCharacterData.ExperienceComponent;
 				}
 				else
@@ -374,30 +225,12 @@ public class UICharacterGeneralPanel : MonoBehaviour
 				this.m_needResetScrollbar = true;
 				if (experienceComponent2 != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_levelLabel.text = string.Format(StringUtil.TR("LevelLabel", "Global"), experienceComponent2.Level);
 					this.m_takedownsLabel.text = experienceComponent2.Kills.ToString();
 					this.m_matchesWonLabel.text = experienceComponent2.Wins.ToString();
 					this.m_gamesPlayedLabel.text = experienceComponent2.Matches.ToString();
 					if (experienceComponent2.Level > 0 && experienceComponent2.Level < gameBalanceVars.MaxCharacterLevel)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = gameBalanceVars.CharacterExperienceToLevel(experienceComponent2.Level);
 						this.m_experienceSlider.fillAmount = (float)playerCharacterData.ExperienceComponent.XPProgressThroughLevel / (float)num;
 						UIManager.SetGameObjectActive(this.m_experienceSlider, true, null);
@@ -416,28 +249,10 @@ public class UICharacterGeneralPanel : MonoBehaviour
 				}
 				if (charLink.m_characterRole == CharacterRole.Assassin)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_roleIcon.sprite = this.m_assassinIcon;
 				}
 				else if (charLink.m_characterRole == CharacterRole.Support)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_roleIcon.sprite = this.m_supportIcon;
 				}
 				else if (charLink.m_characterRole == CharacterRole.Tank)
@@ -448,15 +263,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 				{
 					if (charLink.m_characterType.IsWillFill())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 					throw new Exception("No icon for " + charLink.m_characterRole);
@@ -475,15 +281,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 				{
 					if (gameBalanceVars.RepeatingCharacterLevelRewards[j].charType == (int)charLink.m_characterType && gameBalanceVars.RepeatingCharacterLevelRewards[j].repeatingLevel > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
 						rewardData.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.Amount;
 						InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[j].reward.ItemTemplateId);
@@ -496,15 +293,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						this.m_rewards.Add(rewardData);
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_rewardContainer, false, null);
 				int k = 0;
 				while (k < this.m_rewards.Count)
@@ -515,15 +303,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						{
 							k++;
 							continue;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					UIManager.SetGameObjectActive(this.m_rewardContainer, true, null);
@@ -544,15 +323,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						UIArticleSelectButton uiarticleSelectButton;
 						if (l < this.m_articleButtons.Count)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							uiarticleSelectButton = this.m_articleButtons[l];
 						}
 						else
@@ -567,28 +337,10 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						uiarticleSelectButton.Setup(articlesByCharacter[l]);
 						UIManager.SetGameObjectActive(uiarticleSelectButton, true, null);
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					while (l < this.m_articleButtons.Count)
 					{
 						UIManager.SetGameObjectActive(this.m_articleButtons[l], false, null);
 						l++;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					LayoutRebuilder.ForceRebuildLayoutImmediate(this.m_bottomScrollRect.transform as RectTransform);
 					this.m_bottomScrollRect.verticalNormalizedPosition = 1f;
@@ -629,19 +381,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (data.m_Type == CurrencyType.UnlockFreelancerToken)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.HandleBankBalanceChange(CurrencyData)).MethodHandle;
-			}
 			this.UpdateBuyButtons();
 		}
 	}
@@ -655,19 +394,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (!(this.m_charLink == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.UpdateBuyButtons()).MethodHandle;
-			}
 			if (!(clientGameManager == null))
 			{
 				if (clientGameManager.IsPlayerCharacterDataAvailable(this.m_charLink.m_characterType))
@@ -675,15 +401,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 					PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_charLink.m_characterType);
 					if (!clientGameManager.HasPurchasedGame && !playerCharacterData.CharacterComponent.Unlocked && UICashShopPanel.Get().IsVisible())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int unlockFreelancerCurrencyPrice = this.m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
 						for (int i = 0; i < this.m_buyInGameLabels.Length; i++)
 						{
@@ -697,15 +414,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						{
 							this.m_buyForCashLabels[j].text = localizedPriceString;
 						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_buyForCashButton, freelancerPrice > 0f, null);
 						bool flag = ClientGameManager.Get().PlayerWallet.GetValue(CurrencyType.UnlockFreelancerToken).m_Amount > 0;
 						UIManager.SetGameObjectActive(this.m_buyForTokenButton, flag, null);
@@ -713,26 +421,8 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						bool doActive;
 						if (unlockFreelancerCurrencyPrice <= 0)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (freelancerPrice <= 0f)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								doActive = flag;
 								goto IL_1EC;
 							}
@@ -746,15 +436,6 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
 					}
 					return;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -790,30 +471,8 @@ public class UICharacterGeneralPanel : MonoBehaviour
 	{
 		if (success && result == PurchaseResult.Success)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterGeneralPanel.PurchaseCharacterResponseHandler(bool, PurchaseResult, CharacterType)).MethodHandle;
-			}
 			if (characterType == this.m_charLink.m_characterType)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_buyHeroContainer, false, null);
 			}
 		}

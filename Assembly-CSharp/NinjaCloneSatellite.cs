@@ -66,60 +66,20 @@ public class NinjaCloneSatellite : TempSatellite
 		AnimatorStateInfo currentAnimatorStateInfo = this.m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 		if (currentAnimatorStateInfo.IsTag("Despawn"))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaCloneSatellite.Update()).MethodHandle;
-			}
 			if (currentAnimatorStateInfo.normalizedTime >= 1f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.Destroy(base.gameObject);
 				return;
 			}
 		}
 		if (currentAnimatorStateInfo.IsTag("Attack"))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_attackTarget != null)
 			{
 				base.transform.rotation = Quaternion.LookRotation((this.m_attackTarget.transform.position - base.transform.position).normalized);
 			}
 			if (this.m_numAttacksLeft > 0 && Time.time > this.m_lastAttackTime + this.m_attackDelay)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.IncrementRandomParameter();
 				this.m_modelAnimator.SetTrigger("StartAttack");
 				this.m_lastAttackTime = Time.time;
@@ -127,26 +87,8 @@ public class NinjaCloneSatellite : TempSatellite
 			}
 			else if (this.m_numAttacksLeft == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorStateInfo.normalizedTime >= 1f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.TriggerDespawn();
 				}
 			}

@@ -15,30 +15,8 @@ public class TrackingEffectSequence : Sequence
 	{
 		if (this.m_trackingEffectPrefab && this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackingEffectSequence.Update()).MethodHandle;
-			}
 			if (this.m_trackingEffectVFX == null && base.Target)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 bonePosition = base.Target.GetBonePosition("upperRoot_JNT");
 				this.m_trackingEffectVFX = UnityEngine.Object.Instantiate<Transform>(this.m_trackingEffectPrefab, bonePosition, Quaternion.identity);
 				this.m_trackingEffectVFX.transform.parent = base.transform;
@@ -47,30 +25,12 @@ public class TrackingEffectSequence : Sequence
 		}
 		if (this.m_trackingEffectVFX != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.Target)
 			{
 				Renderer[] componentsInChildren = this.m_trackingEffectVFX.GetComponentsInChildren<Renderer>();
 				foreach (Renderer renderer in componentsInChildren)
 				{
 					renderer.enabled = base.Target.GetActorModelDataRenderer().enabled;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				Vector3 bonePosition2 = base.Target.GetBonePosition("upperRoot_JNT");
 				this.m_trackingEffectVFX.position = bonePosition2;
@@ -82,19 +42,6 @@ public class TrackingEffectSequence : Sequence
 	{
 		if (this.m_trackingEffectVFX)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackingEffectSequence.OnDisable()).MethodHandle;
-			}
 			base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_trackingEnd);
 			UnityEngine.Object.Destroy(this.m_trackingEffectVFX.gameObject);
 		}

@@ -36,20 +36,7 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		OnHitAuthoredData cachedKnockbackDestOnHitData;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.SetupTargetersAndCachedVars()).MethodHandle;
-			}
-			cachedKnockbackDestOnHitData = this.m_abilityMod.m_knockbackDestOnHitDataMod.\u001D(this.m_knockbackDestOnHitData);
+			cachedKnockbackDestOnHitData = this.m_abilityMod.m_knockbackDestOnHitDataMod.symbol_001D(this.m_knockbackDestOnHitData);
 		}
 		else
 		{
@@ -68,19 +55,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.GetExtraDamageIfFullPowerLayerCone()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageIfFullPowerLayerConeMod.GetModifiedValue(this.m_extraDamageIfFullPowerLayerCone);
 		}
 		else
@@ -95,19 +69,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.GetShieldPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(this.m_shieldPerEnemyHit);
 		}
 		else
@@ -122,19 +83,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.GetShieldDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldDurationMod.GetModifiedValue(this.m_shieldDuration);
 		}
 		else
@@ -149,19 +97,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.DoHitsAroundKnockbackDest()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_doHitsAroundKnockbackDestMod.GetModifiedValue(this.m_doHitsAroundKnockbackDest);
 		}
 		else
@@ -181,19 +116,6 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		OnHitAuthoredData result;
 		if (this.m_cachedKnockbackDestOnHitData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.GetKnockbackDestOnHitData()).MethodHandle;
-			}
 			result = this.m_cachedKnockbackDestOnHitData;
 		}
 		else
@@ -222,68 +144,19 @@ public class DinoTargetedKnockback : GenericAbility_Container
 				{
 					KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
 					ActorData key = keyValuePair.Key;
-					if (keyValuePair.Value.\u0012)
+					if (keyValuePair.Value.symbol_0012)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(DinoTargetedKnockback.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-						}
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num++;
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (num > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (results.m_absorb > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_absorb += num * this.GetShieldPerEnemyHit();
 				}
 				else
@@ -294,37 +167,10 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		}
 		if (results.m_damage > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_layerConeAbility != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetExtraDamageIfFullPowerLayerCone() > 0 && this.m_layerConeAbility.IsAtMaxPowerLevel())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_damage += this.GetExtraDamageIfFullPowerLayerCone();
 				}
 			}

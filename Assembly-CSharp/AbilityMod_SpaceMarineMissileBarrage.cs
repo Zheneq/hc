@@ -23,33 +23,11 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 		SpaceMarineMissileBarrage spaceMarineMissileBarrage = targetAbility as SpaceMarineMissileBarrage;
 		if (spaceMarineMissileBarrage != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineMissileBarrage.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, spaceMarineMissileBarrage.m_damage, true, false);
 			AbilityMod.AddToken(tokens, this.m_activeDurationMod, "Duration", string.Empty, 1, true, false);
 			AbilityMod.AddToken(tokens, this.m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0, true, false);
 			if (this.m_missileHitEffectOverride != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_EffectInfo(tokens, this.m_missileHitEffectOverride, "EnemyHitEffect", spaceMarineMissileBarrage.m_effectOnTargets, true);
 			}
 		}
@@ -67,19 +45,6 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineMissileBarrage.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = spaceMarineMissileBarrage.m_damage;
 		}
 		else

@@ -45,19 +45,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		this.m_cachedTargetingRadiusPreview = 0f;
 		if (this.GetTargetSelectComp() is TargetSelect_ConeOrLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.SetupTargetersAndCachedVars()).MethodHandle;
-			}
 			TargetSelect_ConeOrLaser targetSelect_ConeOrLaser = this.GetTargetSelectComp() as TargetSelect_ConeOrLaser;
 			this.m_cachedTargetingRadiusPreview = targetSelect_ConeOrLaser.m_coneInfo.m_radiusInSquares;
 		}
@@ -73,32 +60,10 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		base.AddTokenInt(tokens, "CdrPerEnemyWithNovaCore", string.Empty, this.m_cdrPerEnemyWithNovaCore, false);
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
 		}
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncComp.AddTooltipTokens(tokens);
 		}
 	}
@@ -108,19 +73,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.GetShieldPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(this.m_shieldPerEnemyHit);
 		}
 		else
@@ -135,19 +87,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.GetShieldDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldDurationMod.GetModifiedValue(this.m_shieldDuration);
 		}
 		else
@@ -162,19 +101,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.ApplyDelayedAoeEffect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(this.m_applyDelayedAoeEffect);
 		}
 		else
@@ -189,19 +115,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.SkipDelayedAoeEffectIfHasExisting()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_skipDelayedAoeEffectIfHasExistingMod.GetModifiedValue(this.m_skipDelayedAoeEffectIfHasExisting);
 		}
 		else
@@ -216,19 +129,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.GetCdrPerEnemyWithNovaCore()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrPerEnemyWithNovaCoreMod.GetModifiedValue(this.m_cdrPerEnemyWithNovaCore);
 		}
 		else
@@ -242,19 +142,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
-			}
 			this.m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, base.ActorData);
 		}
 	}
@@ -268,30 +155,8 @@ public class IceborgConeOrLaser : GenericAbility_Container
 	{
 		if (shieldPerEnemyHit > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(ActorData, ActorData, int, Dictionary<ActorData, ActorHitContext>, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (targetActor == caster)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 				{
@@ -301,42 +166,15 @@ public class IceborgConeOrLaser : GenericAbility_Container
 						ActorData key = keyValuePair.Key;
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (keyValuePair.Value.\u0012)
+							if (keyValuePair.Value.symbol_0012)
 							{
 								num++;
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2 = shieldPerEnemyHit * num;
 					if (results.m_absorb >= 0)
 					{
@@ -356,19 +194,6 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		string result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConeOrLaser.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			result = this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else

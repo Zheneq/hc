@@ -29,19 +29,6 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 		base.OnDestroy();
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnLoadingScreenBackgroundToggled -= this.OnLoadingScreenBackgroundToggled;
 		}
 	}
@@ -63,41 +50,10 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 	{
 		if (item is GameBalanceVars.LoadingScreenBackground)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.ShouldCheckmark(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID);
 				}
 			}
@@ -112,30 +68,8 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 		{
 			if (!(ClientGameManager.Get() == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-				}
 				if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -173,19 +107,6 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 		}
 		if (item is GameBalanceVars.LoadingScreenBackground)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountLoadingScreenPanel.ItemClicked(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			bool flag = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsLoadingScreenBackgroundActive(item.ID);
 			ClientGameManager.Get().RequestLoadingScreenBackgroundToggle(item.ID, !flag, null);
 		}

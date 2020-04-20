@@ -82,19 +82,6 @@ public class SenseiBideAttachedSequence : Sequence
 			base.OverridePhaseTimingParams(this.m_phaseTimingParameters, extraSequenceParams);
 			if (extraSequenceParams is Sequence.ActorIndexExtraParam)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				if (GameFlowData.Get() != null)
 				{
 					Sequence.ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as Sequence.ActorIndexExtraParam;
@@ -103,39 +90,12 @@ public class SenseiBideAttachedSequence : Sequence
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (actorData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncComp = actorData.GetComponent<Sensei_SyncComponent>();
 		}
 		else if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Did not find Sensei for sensei ult sequence");
 		}
 	}
@@ -146,32 +106,10 @@ public class SenseiBideAttachedSequence : Sequence
 		{
 			return 0;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.GetCurrnetFxIndex()).MethodHandle;
-		}
 		int num = this.m_fxPrefabs.Count - 1;
 		float syncBideExtraDamagePct = this.m_syncComp.m_syncBideExtraDamagePct;
 		if (syncBideExtraDamagePct >= 0.99f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return num;
 		}
 		float num2 = 1f / (float)num;
@@ -182,32 +120,10 @@ public class SenseiBideAttachedSequence : Sequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.FinishSetup()).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
 				if (this.m_startDelayTime <= 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnFX();
 				}
 				else
@@ -233,67 +149,18 @@ public class SenseiBideAttachedSequence : Sequence
 		this.m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnFX();
 				}
 			}
 		}
 		if (this.m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_fxInstances != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StopFX();
 			}
 		}
@@ -305,44 +172,13 @@ public class SenseiBideAttachedSequence : Sequence
 		{
 			if (this.m_timeToSpawnVfx > 0f && GameTime.time >= this.m_timeToSpawnVfx)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.Update()).MethodHandle;
-				}
 				this.m_timeToSpawnVfx = -1f;
 				this.SpawnFX();
 			}
 			if (this.m_hitSpawnTime > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameTime.time > this.m_hitSpawnTime)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnHitFX();
 					this.m_hitSpawnTime = -1f;
 				}
@@ -350,72 +186,18 @@ public class SenseiBideAttachedSequence : Sequence
 			int num = this.GetCurrnetFxIndex();
 			if (this.m_switchBetweenLevelsAfterSpawn)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxInstances != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fxInstances.Count > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int count = this.m_fxInstances.Count;
 						num = Mathf.Min(num, count - 1);
 						if (num != this.m_lastActiveIndex)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_lastActiveIndex >= 0)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_lastActiveIndex < count)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_fxInstances[this.m_lastActiveIndex] != null)
 									{
 										this.m_fxInstances[this.m_lastActiveIndex].SetActive(false);
@@ -424,26 +206,8 @@ public class SenseiBideAttachedSequence : Sequence
 							}
 							if (num <= 0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(this.m_alternateBaseFxInstance == null))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (base.AgeInTurns > 0)
 									{
 										goto IL_1C5;
@@ -452,15 +216,6 @@ public class SenseiBideAttachedSequence : Sequence
 							}
 							if (this.m_fxInstances[num] != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_fxInstances[num].SetActive(true);
 							}
 							IL_1C5:
@@ -478,52 +233,16 @@ public class SenseiBideAttachedSequence : Sequence
 			}
 			if (num == 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.AgeInTurns > 0 && this.m_alternateBaseFxInstance != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_alternateBaseFxInstance.activeSelf)
 					{
 						this.m_alternateBaseFxInstance.SetActive(true);
 					}
 					if (this.m_fxInstances != null && this.m_fxInstances.Count > 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_fxInstances[0].activeSelf)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_fxInstances[0].SetActive(false);
 						}
 					}
@@ -531,48 +250,12 @@ public class SenseiBideAttachedSequence : Sequence
 			}
 			if (this.m_fxInstances != null && this.m_fxAttachToJoint)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxJoint.IsInitialized())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Caster != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.ShouldHideForActorIfAttached(base.Caster))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							base.SetSequenceVisibility(false);
 							goto IL_32A;
 						}
@@ -583,64 +266,19 @@ public class SenseiBideAttachedSequence : Sequence
 			IL_32A:
 			if (this.m_fxInstances != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_fxInstances.Count; i++)
 				{
 					GameObject gameObject = this.m_fxInstances[i];
 					if (gameObject != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (gameObject.GetComponent<FriendlyEnemyVFXSelector>() != null && base.Caster != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							gameObject.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 						}
 						if (this.m_useRootOrientation)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (base.Caster != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								gameObject.transform.rotation = base.Caster.transform.rotation;
 							}
 						}
@@ -669,30 +307,8 @@ public class SenseiBideAttachedSequence : Sequence
 	{
 		if (base.Caster != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.SpawnFX()).MethodHandle;
-			}
 			if (!this.m_fxJoint.IsInitialized())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fxJoint.Initialize(base.Caster.gameObject);
 			}
 			if (this.m_fxPrefabs != null)
@@ -703,26 +319,8 @@ public class SenseiBideAttachedSequence : Sequence
 				num = Mathf.Clamp(num, 0, this.m_fxPrefabs.Count - 1);
 				if (!this.m_switchBetweenLevelsAfterSpawn)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fxPrefabs.Count > 1)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameObject item = this.m_fxPrefabs[num];
 						list = new List<GameObject>
 						{
@@ -736,114 +334,33 @@ public class SenseiBideAttachedSequence : Sequence
 					GameObject gameObject = this.InstantiateAttachedFx(fxPrefab);
 					if (this.m_switchBetweenLevelsAfterSpawn)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameObject.SetActive(i == num);
 						if (i == num)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_lastActiveIndex = i;
 						}
 					}
 					this.m_fxInstances.Add(gameObject);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxPrefabAfterFirstTurn != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_alternateBaseFxInstance = this.InstantiateAttachedFx(this.m_fxPrefabAfterFirstTurn);
 					this.m_alternateBaseFxInstance.SetActive(false);
 				}
 			}
 			if (!string.IsNullOrEmpty(this.m_audioEvent))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 			}
 		}
 		if (this.m_hitSpawnTime < 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_attemptedToSpawnHitFx)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_hitEvent == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_hitDelay <= 0f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_hitSpawnTime = GameTime.time;
 						return;
 					}
@@ -858,30 +375,8 @@ public class SenseiBideAttachedSequence : Sequence
 		GameObject gameObject;
 		if (this.m_fxJoint.m_jointObject != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.InstantiateAttachedFx(GameObject)).MethodHandle;
-			}
 			if (this.m_fxJoint.m_jointObject.transform.localScale != Vector3.zero && this.m_fxAttachToJoint)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = base.InstantiateFX(fxPrefab);
 				base.AttachToBone(gameObject, this.m_fxJoint.m_jointObject);
 				gameObject.transform.localPosition = Vector3.zero;
@@ -905,47 +400,16 @@ public class SenseiBideAttachedSequence : Sequence
 		{
 			if (this.m_hitFxInstances == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.SpawnHitFX()).MethodHandle;
-				}
 				this.m_hitFxInstances = new List<GameObject>();
 			}
 			if (base.Targets != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < base.Targets.Length; i++)
 				{
 					Vector3 targetHitPosition = base.GetTargetHitPosition(i, this.m_hitFxJoint);
 					Vector3 vector = base.Caster.transform.position;
 					if ((vector - base.Targets[i].transform.position).magnitude < 0.1f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector -= base.Caster.transform.forward * 0.5f;
 					}
 					Vector3 vector2 = targetHitPosition - vector;
@@ -955,15 +419,6 @@ public class SenseiBideAttachedSequence : Sequence
 					Quaternion quaternion;
 					if (this.m_hitAlignedWithCaster)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						quaternion = Quaternion.LookRotation(vector2);
 					}
 					else
@@ -974,15 +429,6 @@ public class SenseiBideAttachedSequence : Sequence
 					bool flag = this.IsHitFXVisibleForActor(base.Targets[i]);
 					if (this.m_hitFxPrefab)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							this.m_hitFxInstances.Add(base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, rotation, true, true));
@@ -990,52 +436,16 @@ public class SenseiBideAttachedSequence : Sequence
 					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string hitAudioEvent = this.m_hitAudioEvent;
 						if (!string.IsNullOrEmpty(hitAudioEvent))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AudioManager.PostEvent(hitAudioEvent, base.Targets[i].gameObject);
 						}
 					}
 					if (base.Targets[i] != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			base.Source.OnSequenceHit(this, base.TargetPos, null);
@@ -1047,43 +457,12 @@ public class SenseiBideAttachedSequence : Sequence
 	{
 		if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (this.m_startEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnFX();
 			}
 			else if (this.m_stopEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StopFX();
 			}
 			if (this.m_hitEvent == parameter)
@@ -1097,33 +476,11 @@ public class SenseiBideAttachedSequence : Sequence
 	{
 		if (this.m_fxInstances != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBideAttachedSequence.OnDisable()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_fxInstances.Count; i++)
 			{
 				GameObject gameObject = this.m_fxInstances[i];
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(gameObject.gameObject);
 				}
 			}
@@ -1131,29 +488,11 @@ public class SenseiBideAttachedSequence : Sequence
 		}
 		if (this.m_alternateBaseFxInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_alternateBaseFxInstance);
 			this.m_alternateBaseFxInstance = null;
 		}
 		if (this.m_hitFxInstances != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.m_hitFxInstances.Count; j++)
 			{
 				GameObject gameObject2 = this.m_hitFxInstances[j];
@@ -1161,15 +500,6 @@ public class SenseiBideAttachedSequence : Sequence
 				{
 					UnityEngine.Object.Destroy(gameObject2.gameObject);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_hitFxInstances.Clear();
 		}

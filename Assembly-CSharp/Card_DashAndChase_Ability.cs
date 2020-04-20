@@ -34,19 +34,6 @@ public class Card_DashAndChase_Ability : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_DashAndChase_Ability.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Card_DashAndChase_Ability";
 		}
 		this.SetupTargeter();
@@ -70,19 +57,6 @@ public class Card_DashAndChase_Ability : Ability
 		bool result = true;
 		if (this.RequireTargetActor())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_DashAndChase_Ability.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			result = false;
 			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.CanIncludeAlly(), this.CanIncludeEnemy());
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_targetShape, target, this.m_targetShapePenetratesLoS, caster, relevantTeams, null);
@@ -91,15 +65,6 @@ public class Card_DashAndChase_Ability : Ability
 				bool flag = base.CanTargetActorInDecision(caster, targetActor, this.CanIncludeEnemy(), this.CanIncludeAlly(), false, Ability.ValidateCheckPath.CanBuildPath, true, false, false);
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					break;
 				}

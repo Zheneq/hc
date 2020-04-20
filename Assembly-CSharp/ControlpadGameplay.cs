@@ -62,44 +62,13 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (this.m_lastCacheFrame >= Time.frameCount)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.CacheInputThisFrame()).MethodHandle;
-			}
 			return;
 		}
 		this.m_lastCacheFrame = Time.frameCount;
 		if (!(GameManager.Get() == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameplayOverrides != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GameManager.Get().GameplayOverrides.DisableControlPadInput)
 				{
 					this.PrevFrameInput.CopySnapshotValuesFrom(this.CurFrameInput);
@@ -120,19 +89,6 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (this.m_timeStartedHoldingDownInputs == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.UpdateTimeStartedHoldingDownInputs()).MethodHandle;
-			}
 			Debug.LogWarning("ControlpadGameplay-- UpdateTimeStartedHoldingDownInputs is being called, but m_timeStartedHoldingDownInputs is null.  (How did that happen...?)");
 			return;
 		}
@@ -141,51 +97,15 @@ public class ControlpadGameplay : MonoBehaviour
 			ControlpadInputValue input = (ControlpadInputValue)i;
 			if (Mathf.Abs(this.CurFrameInput.GetValueOfInput(input)) >= 0.9f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_timeStartedHoldingDownInputs[i] == 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeStartedHoldingDownInputs[i] = GameTime.time;
 				}
 			}
 			else if (this.m_timeStartedHoldingDownInputs[i] != 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_timeStartedHoldingDownInputs[i] = 0f;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -193,33 +113,11 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (inputType == ControlpadInputValue.INVALID)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.GetTimeSpentHoldingDownInput(ControlpadInputValue)).MethodHandle;
-			}
 			return 0f;
 		}
 		float num = this.m_timeStartedHoldingDownInputs[(int)inputType];
 		if (num == 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 0f;
 		}
 		float time = GameTime.time;
@@ -231,52 +129,12 @@ public class ControlpadGameplay : MonoBehaviour
 		bool flag;
 		if (this.CurFrameInput.LeftStickX == 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.DetermineUserPreferredInput()).MethodHandle;
-			}
 			if (this.CurFrameInput.LeftStickY == 0f && this.CurFrameInput.RightStickX == 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.CurFrameInput.RightStickY == 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.CurFrameInput.DpadX == 0f && this.CurFrameInput.DpadY == 0f)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = this.CurFrameInput.IsUsingAnyGamepadButton();
 						goto IL_C7;
 					}
@@ -289,26 +147,8 @@ public class ControlpadGameplay : MonoBehaviour
 		bool flag3;
 		if (this.CurFrameInput.MouseX == this.PrevFrameInput.MouseX)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.CurFrameInput.MouseY == this.PrevFrameInput.MouseY)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = this.CurFrameInput.IsUsingAnyMouseButton();
 				goto IL_12A;
 			}
@@ -318,51 +158,15 @@ public class ControlpadGameplay : MonoBehaviour
 		bool flag4 = flag3;
 		if (this.UsingControllerInput)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag4 && !flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.UsingControllerInput = false;
 			}
 		}
 		else if (!flag4)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.UsingControllerInput = true;
 			}
 		}
@@ -372,45 +176,14 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (this.CurFrameInput.LeftStickWorldDir.sqrMagnitude > 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.UpdateLastSetDirections()).MethodHandle;
-			}
 			this.LastNonzeroLeftStickWorldDir = this.CurFrameInput.LeftStickWorldDir;
 		}
 		if (this.CurFrameInput.RightStickWorldDir.sqrMagnitude > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.LastNonzeroRightStickWorldDir = this.CurFrameInput.RightStickWorldDir;
 		}
 		if (this.CurFrameInput.DpadWorldDir.sqrMagnitude > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.LastNonzeroDpadWorldDir = this.CurFrameInput.DpadWorldDir;
 		}
 	}
@@ -419,19 +192,6 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (this.ControllerAimDir.sqrMagnitude == 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.UpdateAiming()).MethodHandle;
-			}
 			Camera main = Camera.main;
 			if (main != null)
 			{
@@ -444,54 +204,18 @@ public class ControlpadGameplay : MonoBehaviour
 		ActorData actorData = null;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			actorData = GameFlowData.Get().activeOwnedActorData;
 		}
 		if (actorData != null && Board.Get() != null && this.UsingControllerInput)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Ability selectedAbility = actorData.GetAbilityData().GetSelectedAbility();
 			int targetSelectionIndex = actorData.GetActorTurnSM().GetTargetSelectionIndex();
 			if (selectedAbility != null && targetSelectionIndex >= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityTarget> abilityTargets = actorData.GetActorTurnSM().GetAbilityTargets();
 				Ability.TargetingParadigm controlpadTargetingParadigm = selectedAbility.GetControlpadTargetingParadigm(targetSelectionIndex);
 				if (controlpadTargetingParadigm == Ability.TargetingParadigm.Direction)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.UpdateAiming_DirectionTargeter(actorData, selectedAbility, targetSelectionIndex, abilityTargets);
 				}
 				else if (controlpadTargetingParadigm == Ability.TargetingParadigm.Position)
@@ -505,15 +229,6 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			else if (actorData.GetActorTurnSM().AmDecidingMovement())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.UpdateAiming_PositionTargeter();
 			}
 		}
@@ -524,30 +239,8 @@ public class ControlpadGameplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.UpdateAiming_PositionTargeter()).MethodHandle;
-			}
 			if (activeOwnedActorData.GetActorTurnSM().IsAbilityOrPingSelectorVisible())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
@@ -566,67 +259,22 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		else if (valueOfInput < 0f && this.m_aimingConfig.m_translationUpSign == ControlpadInputSign.Negative)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = this.m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput, Mathf.Abs(valueOfInput));
 		}
 		else
 		{
 			if (valueOfInput2 > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_aimingConfig.m_translationDownSign == ControlpadInputSign.Positive)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = -this.m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput2, valueOfInput2);
 					goto IL_1FE;
 				}
 			}
 			if (valueOfInput2 < 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_aimingConfig.m_translationDownSign == ControlpadInputSign.Negative)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = -this.m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput2, Mathf.Abs(valueOfInput2));
 					goto IL_1FE;
 				}
@@ -637,26 +285,8 @@ public class ControlpadGameplay : MonoBehaviour
 		float num2;
 		if (valueOfInput3 > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_aimingConfig.m_translationRightSign == ControlpadInputSign.Positive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = this.m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput3, valueOfInput3);
 				goto IL_304;
 			}
@@ -669,15 +299,6 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (valueOfInput4 > 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_aimingConfig.m_translationLeftSign == ControlpadInputSign.Positive)
 				{
 					num2 = -this.m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput4, valueOfInput4);
@@ -686,26 +307,8 @@ public class ControlpadGameplay : MonoBehaviour
 			}
 			if (valueOfInput4 < 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_aimingConfig.m_translationLeftSign == ControlpadInputSign.Negative)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = -this.m_aimingConfig.m_translationSpeed.GetSpeed(timeSpentHoldingDownInput4, Mathf.Abs(valueOfInput4));
 					goto IL_304;
 				}
@@ -717,41 +320,14 @@ public class ControlpadGameplay : MonoBehaviour
 		float num4 = num * GameTime.deltaTime;
 		if (num3 == 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num4 == 0f)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Camera main = Camera.main;
 		if (main != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 forward = main.transform.forward;
 			Vector3 vector = new Vector3(forward.x, 0f, forward.z);
 			vector.Normalize();
@@ -762,30 +338,12 @@ public class ControlpadGameplay : MonoBehaviour
 			GameplayData gameplayData = GameplayData.Get();
 			if (gameplayData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2.x = Mathf.Clamp(vector2.x, gameplayData.m_minimumPositionX, gameplayData.m_maximumPositionX);
 				vector2.z = Mathf.Clamp(vector2.z, gameplayData.m_minimumPositionZ, gameplayData.m_maximumPositionZ);
 			}
 			this.ControllerAimPos = vector2;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ControllerAimingOriginPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
 				Vector3 controllerAimDir = this.ControllerAimPos - this.ControllerAimingOriginPos;
 				controllerAimDir.y = 0f;
@@ -809,73 +367,24 @@ public class ControlpadGameplay : MonoBehaviour
 		float num;
 		if (valueOfInput > 0f && this.m_aimingConfig.m_rotateClockwiseSign == ControlpadInputSign.Positive)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.UpdateAiming_DirectionTargeter(ActorData, Ability, int, List<AbilityTarget>)).MethodHandle;
-			}
 			num = this.m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput, valueOfInput);
 		}
 		else if (valueOfInput < 0f && this.m_aimingConfig.m_rotateClockwiseSign == ControlpadInputSign.Negative)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = this.m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput, Mathf.Abs(valueOfInput));
 		}
 		else
 		{
 			if (valueOfInput2 > 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_aimingConfig.m_rotateAntiClockwiseSign == ControlpadInputSign.Positive)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = -this.m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput2, valueOfInput2);
 					goto IL_1C3;
 				}
 			}
 			if (valueOfInput2 < 0f && this.m_aimingConfig.m_rotateAntiClockwiseSign == ControlpadInputSign.Negative)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = -this.m_aimingConfig.m_rotationSpeed.GetSpeed(timeSpentHoldingDownInput2, Mathf.Abs(valueOfInput2));
 			}
 			else
@@ -887,15 +396,6 @@ public class ControlpadGameplay : MonoBehaviour
 		float num2;
 		if (valueOfInput3 > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_aimingConfig.m_depthForwardSign == ControlpadInputSign.Positive)
 			{
 				num2 = this.m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput3, valueOfInput3);
@@ -904,56 +404,20 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		if (valueOfInput3 < 0f && this.m_aimingConfig.m_depthForwardSign == ControlpadInputSign.Negative)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput3, Mathf.Abs(valueOfInput3));
 		}
 		else
 		{
 			if (valueOfInput4 > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_aimingConfig.m_depthBackwardSign == ControlpadInputSign.Positive)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = -this.m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput4, valueOfInput4);
 					goto IL_2CD;
 				}
 			}
 			if (valueOfInput4 < 0f && this.m_aimingConfig.m_depthBackwardSign == ControlpadInputSign.Negative)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = -this.m_aimingConfig.m_depthSpeed.GetSpeed(timeSpentHoldingDownInput4, Mathf.Abs(valueOfInput4));
 			}
 			else
@@ -966,27 +430,9 @@ public class ControlpadGameplay : MonoBehaviour
 		float num4 = num2 * GameTime.deltaTime;
 		if (abilityBeingTargeted != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 controllerAimingOriginPos;
 			if (abilityBeingTargeted.HasAimingOriginOverride(clientActor, currentIndex, targetsSoFar, out controllerAimingOriginPos))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ControllerAimingOriginPos = controllerAimingOriginPos;
 				goto IL_330;
 			}
@@ -1006,28 +452,10 @@ public class ControlpadGameplay : MonoBehaviour
 		}
 		if (abilityBeingTargeted != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float min2;
 			float max2;
 			if (abilityBeingTargeted.HasRestrictedFreePosDistance(clientActor, currentIndex, targetsSoFar, out min2, out max2))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num6 = Mathf.Clamp(num6, min2, max2);
 			}
 		}
@@ -1042,32 +470,10 @@ public class ControlpadGameplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (cameraActor != activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.OnCameraCenteredOnActor(ActorData)).MethodHandle;
-			}
 			this.ControllerAimDir = (cameraActor.GetTravelBoardSquareWorldPosition() - activeOwnedActorData.GetTravelBoardSquareWorldPosition()).normalized;
 		}
 		if (cameraActor != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ControllerAimPos = cameraActor.GetTravelBoardSquareWorldPosition();
 		}
 	}
@@ -1076,57 +482,17 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.OnTurnTick()).MethodHandle;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData == null))
 			{
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (!activeOwnedActorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData.CurrentBoardSquare != null && activeOwnedActorData.IsVisibleToClient())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ControllerAimPos = activeOwnedActorData.GetTravelBoardSquareWorldPosition();
 					}
 				}
 				return;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1142,19 +508,6 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (this.m_curFrameInput != value)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.set_CurFrameInput(ControllerInputSnapshot)).MethodHandle;
-				}
 				this.m_curFrameInput = value;
 			}
 		}
@@ -1187,19 +540,6 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (this.m_usingControllerInputForTargeting != value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.set_UsingControllerInput(bool)).MethodHandle;
-				}
 				this.m_usingControllerInputForTargeting = value;
 			}
 		}
@@ -1215,31 +555,9 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (this.m_lastNonzeroLeftStickWorldDir != value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.set_LastNonzeroLeftStickWorldDir(Vector3)).MethodHandle;
-				}
 				this.m_lastNonzeroLeftStickWorldDir = value;
 				if (this.m_aimingConfig == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ControllerAimDir = this.m_lastNonzeroLeftStickWorldDir;
 				}
 			}
@@ -1260,19 +578,6 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (this.m_controllerAimDir != value)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.set_ControllerAimDir(Vector3)).MethodHandle;
-				}
 				this.m_controllerAimDir = value;
 			}
 		}
@@ -1288,19 +593,6 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (this.m_controllerAimPos != value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.set_ControllerAimPos(Vector3)).MethodHandle;
-				}
 				this.m_controllerAimPos = value;
 			}
 		}
@@ -1316,19 +608,6 @@ public class ControlpadGameplay : MonoBehaviour
 		{
 			if (this.m_aimingOriginPos != value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.set_ControllerAimingOriginPos(Vector3)).MethodHandle;
-				}
 				this.m_aimingOriginPos = value;
 			}
 		}
@@ -1340,19 +619,6 @@ public class ControlpadGameplay : MonoBehaviour
 	{
 		if (this.ShowDebugGUI)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.OnGUI()).MethodHandle;
-			}
 			Rect screenRect = new Rect(60f, 5f, 800f, 500f);
 			GUILayout.Window(0x9A552, screenRect, new GUI.WindowFunction(this.DrawDebugGUIWindow), "Gamepad Debug Window", new GUILayoutOption[0]);
 		}
@@ -1367,19 +633,6 @@ public class ControlpadGameplay : MonoBehaviour
 			GUILayout.Width(80f)
 		}))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadGameplay.DrawDebugGUIWindow(int)).MethodHandle;
-			}
 			this.ShowDebugGUI = false;
 		}
 		GUILayout.EndHorizontal();

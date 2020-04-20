@@ -11,19 +11,6 @@ public static class DefaultJsonSerializer
 	{
 		if (DefaultJsonSerializer.s_serializer == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DefaultJsonSerializer.Get()).MethodHandle;
-			}
 			DefaultJsonSerializer.s_serializer = new JsonSerializer();
 			DefaultJsonSerializer.s_serializer.NullValueHandling = NullValueHandling.Ignore;
 			DefaultJsonSerializer.s_serializer.Converters.Add(new StringEnumConverter());

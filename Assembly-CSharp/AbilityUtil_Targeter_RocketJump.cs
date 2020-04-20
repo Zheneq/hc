@@ -31,19 +31,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 			{
 				goto IL_A3;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RocketJump.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 		}
 		bool isForLocalPlayer = targetingActor == GameFlowData.Get().activeOwnedActorData;
 		this.m_highlights = new List<GameObject>();
@@ -62,15 +49,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 			gameObject2.transform.position = position;
 			if (!gameObject2.activeSelf)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject2.SetActive(true);
 			}
 		}
@@ -87,15 +65,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 		int num = 0;
 		if (this.m_knockbackDistance != 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.SetMovementArrowEnabledFromIndex(0, true);
 		}
 		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_shape, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor.GetCurrentBoardSquare(), this.m_penetrateLoS, targetingActor, base.GetAffectedTeams(), null);
@@ -110,15 +79,6 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				AbilityTooltipSubject subjectType;
 				if (actorData.GetTeam() == targetingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					subjectType = AbilityTooltipSubject.Ally;
 				}
 				else
@@ -128,40 +88,13 @@ public class AbilityUtil_Targeter_RocketJump : AbilityUtil_Targeter
 				base.AddActorInRange(actor, travelBoardSquareWorldPosition2, targetingActor, subjectType, false);
 				if (this.m_knockbackDistance != 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, KnockbackType.AwayFromSource, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), this.m_knockbackDistance);
 					num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		base.SetMovementArrowEnabledFromIndex(num, false);

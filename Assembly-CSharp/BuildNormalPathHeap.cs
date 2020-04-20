@@ -50,19 +50,6 @@ public class BuildNormalPathHeap
 	{
 		if (Mathf.Approximately(p1.F_cost, p2.F_cost))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.CompareFunc(BoardSquarePathInfo, BoardSquarePathInfo)).MethodHandle;
-			}
 			Vector3 from = p1.square.ToVector3() - this.m_tieBreakerTestPos;
 			Vector3 from2 = p2.square.ToVector3() - this.m_tieBreakerTestPos;
 			return Vector3.Angle(from, this.m_tieBreakerDir).CompareTo(Vector3.Angle(from2, this.m_tieBreakerDir));
@@ -74,19 +61,6 @@ public class BuildNormalPathHeap
 	{
 		if (n == 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.Parent(int)).MethodHandle;
-			}
 			return -1;
 		}
 		return (n + 1) / 2 - 1;
@@ -110,19 +84,6 @@ public class BuildNormalPathHeap
 			{
 				array[i] = this.m_buffer[i];
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.EnsureSize(int)).MethodHandle;
-			}
 			this.m_buffer = array;
 		}
 	}
@@ -133,19 +94,6 @@ public class BuildNormalPathHeap
 		this.m_buffer[this.m_numElements] = elem;
 		if (this.m_squareToIndex.ContainsKey(elem.square))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.Insert(BoardSquarePathInfo)).MethodHandle;
-			}
 			Debug.LogError("square added to heap multiple times?");
 		}
 		this.m_squareToIndex[elem.square] = this.m_numElements;
@@ -158,30 +106,8 @@ public class BuildNormalPathHeap
 		int num = this.Parent(index);
 		if (num >= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.BubbleUp(int)).MethodHandle;
-			}
 			if (this.CompareFunc(this.m_buffer[index], this.m_buffer[num]) < 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquarePathInfo boardSquarePathInfo = this.m_buffer[num];
 				this.m_buffer[num] = this.m_buffer[index];
 				this.m_buffer[index] = boardSquarePathInfo;
@@ -221,54 +147,14 @@ public class BuildNormalPathHeap
 			int num3 = num2 + i;
 			if (num3 < this.m_numElements)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.BubbleDown(int)).MethodHandle;
-				}
 				if (this.CompareFunc(this.m_buffer[num3], this.m_buffer[num]) < 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = num3;
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (num != index)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquarePathInfo boardSquarePathInfo = this.m_buffer[index];
 			this.m_buffer[index] = this.m_buffer[num];
 			this.m_buffer[num] = boardSquarePathInfo;
@@ -288,19 +174,6 @@ public class BuildNormalPathHeap
 		int num;
 		if (this.m_squareToIndex.TryGetValue(square, out num))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.TryGetNodeInHeapBySquare(BoardSquare)).MethodHandle;
-			}
 			return this.m_buffer[num];
 		}
 		return null;
@@ -311,19 +184,6 @@ public class BuildNormalPathHeap
 		int num;
 		if (this.m_squareToIndex.TryGetValue(adjSquarePathInfo.square, out num))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BuildNormalPathHeap.UpdatePriority(BoardSquarePathInfo)).MethodHandle;
-			}
 			BoardSquarePathInfo boardSquarePathInfo = this.m_buffer[num];
 			float f_cost = boardSquarePathInfo.F_cost;
 			float f_cost2 = adjSquarePathInfo.F_cost;
@@ -333,15 +193,6 @@ public class BuildNormalPathHeap
 			boardSquarePathInfo.m_expectedBackupNum = adjSquarePathInfo.m_expectedBackupNum;
 			if (f_cost2 < f_cost)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.BubbleUp(num);
 			}
 			else

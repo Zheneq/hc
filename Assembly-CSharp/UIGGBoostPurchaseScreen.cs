@@ -36,19 +36,6 @@ public class UIGGBoostPurchaseScreen : UIScene
 	{
 		if (UIGGBoostPurchaseScreen.s_instance == this)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGBoostPurchaseScreen.OnDestroy()).MethodHandle;
-			}
 			UIGGBoostPurchaseScreen.s_instance = null;
 		}
 	}
@@ -59,19 +46,6 @@ public class UIGGBoostPurchaseScreen : UIScene
 		{
 			UnityEngine.Object.Destroy(uiggboostPurchaseButton.gameObject);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGBoostPurchaseScreen.Start()).MethodHandle;
-		}
 		foreach (GGPack pack in GameWideData.Get().m_ggPackData.m_ggPacks)
 		{
 			UIGGBoostPurchaseButton uiggboostPurchaseButton2 = UnityEngine.Object.Instantiate<UIGGBoostPurchaseButton>(this.m_ggButtonPrefab);
@@ -80,15 +54,6 @@ public class UIGGBoostPurchaseScreen : UIScene
 			uiggboostPurchaseButton2.transform.localScale = Vector3.one;
 			uiggboostPurchaseButton2.Setup(pack);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void SetVisible(bool visible)
@@ -96,19 +61,6 @@ public class UIGGBoostPurchaseScreen : UIScene
 		UIManager.SetGameObjectActive(this.m_container, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGBoostPurchaseScreen.SetVisible(bool)).MethodHandle;
-			}
 			UIRAFProgramScreen.Get().SetVisible(false);
 			UIPlayerProgressPanel.Get().SetVisible(false, true);
 		}

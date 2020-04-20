@@ -51,47 +51,16 @@ public abstract class SlashCommand
 			{
 				if (!this.Aliases.IsNullOrEmpty<string>())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (string rhs in this.Aliases)
 					{
 						if (command.EqualsIgnoreCase(rhs))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
 					}
 					return false;
 				}
 				return false;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand.IsSlashCommand(string)).MethodHandle;
 			}
 		}
 		return true;
@@ -103,19 +72,6 @@ public abstract class SlashCommand
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand.Localize()).MethodHandle;
-				}
 				if (ClientGameManager.Get().HasDeveloperAccess())
 				{
 					for (;;)
@@ -143,15 +99,6 @@ public abstract class SlashCommand
 		bool flag = true;
 		while (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num >= num2)
 			{
 				break;
@@ -174,19 +121,6 @@ public abstract class SlashCommand
 		string result;
 		if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandKey(command), out result))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand.LocalizeSlashCommand(string)).MethodHandle;
-			}
 			return result;
 		}
 		return command;

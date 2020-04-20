@@ -28,47 +28,16 @@ public class BigPingPanel : MonoBehaviour
 		}
 		if (this.m_blueMoveButtonHover.alpha > alpha)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BigPingPanel.GetPingType()).MethodHandle;
-			}
 			alpha = this.m_blueMoveButtonHover.alpha;
 			result = ActorController.PingType.Move;
 		}
 		if (this.m_yellowDefendButtonHover.alpha > alpha)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			alpha = this.m_yellowDefendButtonHover.alpha;
 			result = ActorController.PingType.Defend;
 		}
 		if (this.m_greenAssistButtonHover.alpha > alpha)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			alpha = this.m_greenAssistButtonHover.alpha;
 			result = ActorController.PingType.Assist;
 		}

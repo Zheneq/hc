@@ -58,19 +58,6 @@ public class ValkyrieThrowShield : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_widthMod.GetModifiedValue(this.m_width);
 		}
 		else
@@ -90,19 +77,6 @@ public class ValkyrieThrowShield : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetMaxTotalDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(this.m_maxTotalDistance);
 		}
 		else
@@ -117,19 +91,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetMaxBounces()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxBouncesMod.GetModifiedValue(this.m_maxBounces);
 		}
 		else
@@ -144,19 +105,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetMaxTargetsHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsHitMod.GetModifiedValue(this.m_maxTargetsHit);
 		}
 		else
@@ -171,19 +119,6 @@ public class ValkyrieThrowShield : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.BounceOnHitActor()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false);
 		}
 		else
@@ -203,19 +138,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetBonusDamagePerBounce()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_bonusDamagePerBounceMod.GetModifiedValue(this.m_bonusDamagePerBounce);
 		}
 		else
@@ -230,19 +152,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetLessDamagePerTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(0);
 		}
 		else
@@ -257,19 +166,6 @@ public class ValkyrieThrowShield : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetKnockbackDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
 		}
 		else
@@ -289,19 +185,6 @@ public class ValkyrieThrowShield : Ability
 		KnockbackType result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetKnockbackType()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackTypeMod.GetModifiedValue(this.m_knockbackType);
 		}
 		else
@@ -316,19 +199,6 @@ public class ValkyrieThrowShield : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetMaxKnockbackTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxKnockbackTargetsMod.GetModifiedValue(0);
 		}
 		else
@@ -347,19 +217,6 @@ public class ValkyrieThrowShield : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetExtraDamage()).MethodHandle;
-			}
 			return this.m_syncComp.m_extraDamageNextShieldThrow;
 		}
 		return 0;
@@ -370,31 +227,9 @@ public class ValkyrieThrowShield : Ability
 		AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser = base.Targeter as AbilityUtil_Targeter_BounceLaser;
 		if (abilityUtil_Targeter_BounceLaser != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetExtraKnockbackDistance(ActorData)).MethodHandle;
-			}
 			ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = abilityUtil_Targeter_BounceLaser.GetHitActorContext();
 			if (!hitActorContext.IsNullOrEmpty<AbilityUtil_Targeter_BounceLaser.HitActorContext>())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (IEnumerator<AbilityUtil_Targeter_BounceLaser.HitActorContext> enumerator = hitActorContext.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -402,26 +237,8 @@ public class ValkyrieThrowShield : Ability
 						AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext2 = enumerator.Current;
 						if (hitActorContext2.actor == hitActor)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return this.GetBonusKnockbackPerBounce() * (float)hitActorContext2.segmentIndex;
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -433,19 +250,6 @@ public class ValkyrieThrowShield : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieThrowShield))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ValkyrieThrowShield);
 			this.SetupTargeter();
 		}
@@ -480,32 +284,10 @@ public class ValkyrieThrowShield : Ability
 		{
 			if (hitActorContext[i].actor == targetActor)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieThrowShield.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				int num = this.GetBonusDamagePerBounce() * hitActorContext[i].segmentIndex;
 				int value = this.GetBaseDamage() + num + this.GetExtraDamage() - i * this.GetLessDamagePerTarget();
 				dictionary[AbilityTooltipSymbol.Damage] = value;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return dictionary;
 	}

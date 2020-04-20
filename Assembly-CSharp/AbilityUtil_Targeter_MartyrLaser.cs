@@ -41,19 +41,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		float result;
 		if (this.m_delegateLaserWidth != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.GetWidth()).MethodHandle;
-			}
 			result = this.m_delegateLaserWidth();
 		}
 		else
@@ -68,19 +55,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		float result;
 		if (this.m_delegateLaserRange != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.GetDistance()).MethodHandle;
-			}
 			result = this.m_delegateLaserRange();
 		}
 		else
@@ -100,19 +74,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		int result;
 		if (this.m_delegateMaxTargets != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.GetLaserMaxTargets()).MethodHandle;
-			}
 			result = this.m_delegateMaxTargets();
 		}
 		else
@@ -127,19 +88,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		float result;
 		if (this.m_delegateConeRadius != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.GetConeRadius()).MethodHandle;
-			}
 			result = this.m_delegateConeRadius();
 		}
 		else
@@ -158,32 +106,10 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 	{
 		if (potentialTarget == targetingActor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.GetConeAffectsTarget(ActorData, ActorData)).MethodHandle;
-			}
 			return this.m_coneAffectsCaster;
 		}
 		if (potentialTarget.GetTeam() == targetingActor.GetTeam())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_coneAffectsAllies;
 		}
 		return this.m_coneAffectsEnemies;
@@ -197,19 +123,6 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 		float num = (this.GetInnerConeRadius() + GameWideData.Get().m_actorTargetingRadiusInSquares) * Board.Get().squareSize;
 		if (num < vector.magnitude)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.AddTargetedActor(ActorData, Vector3, ActorData, AbilityTooltipSubject)).MethodHandle;
-			}
 			base.AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Tertiary, true);
 		}
 	}
@@ -218,47 +131,16 @@ public class AbilityUtil_Targeter_MartyrLaser : AbilityUtil_Targeter_LaserWithCo
 	{
 		if (this.m_highlights.Count == 1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MartyrLaser.AllocateConeHighlights()).MethodHandle;
-			}
 			float radiusInWorld = (this.GetConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			GameObject item = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.GetConeWidthAngle());
 			this.m_highlights.Add(item);
 			if (this.GetInnerConeRadius() > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float radiusInWorld2 = (this.GetInnerConeRadius() + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 				GameObject gameObject = HighlightUtils.Get().CreateConeCursor(radiusInWorld2, this.GetConeWidthAngle());
 				UIDynamicCone component = gameObject.GetComponent<UIDynamicCone>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.SetConeObjectActive(false);
 				}
 				this.m_highlights.Add(gameObject);

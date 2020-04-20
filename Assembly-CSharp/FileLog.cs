@@ -45,19 +45,6 @@ public class FileLog
 	{
 		if (dateTime == default(DateTime))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.AsDatedDirectory(string, DateTime)).MethodHandle;
-			}
 			dateTime = DateTime.Now;
 		}
 		return string.Format("{0}/{1:d4}-{2:d2}-{3:d2}", new object[]
@@ -80,19 +67,6 @@ public class FileLog
 				this.m_logFileCreationTime = DateTime.Now;
 				if (this.UseDatedFolder)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.Open(string)).MethodHandle;
-					}
 					string text = FileLog.AsDatedDirectory(Path.GetDirectoryName(this.BaseFilePath), this.m_logFileCreationTime);
 					Directory.CreateDirectory(text);
 					this.CurrentFilePath = string.Format("{0}/{1}", text, Path.GetFileName(this.BaseFilePath));
@@ -106,15 +80,6 @@ public class FileLog
 				this.m_file = new StreamWriter(fileStream);
 				if (fileStream.Length > 0L)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_file.WriteLine();
 					this.m_file.WriteLine();
 					this.Write(Log.Level.Notice, "    ***    Logging restarted    ***");
@@ -136,19 +101,6 @@ public class FileLog
 		{
 			if (this.m_file != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.Close()).MethodHandle;
-				}
 				try
 				{
 					this.m_file.Close();
@@ -179,19 +131,6 @@ public class FileLog
 		{
 			if (this.m_file != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.HandleLogMessage(Log.Message)).MethodHandle;
-				}
 				if (args.level >= this.MinLevel)
 				{
 					try
@@ -199,61 +138,16 @@ public class FileLog
 						string text = args.ToString();
 						if (!text.IsNullOrEmpty())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.RawLogging)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_file.Write(string.Format("{0} [{1}] ", args.timestamp.ToString(Log.TimestampFormat), Log.ToStringCode(args.level)));
 							}
 							if (args.level >= Log.Level.Warning)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (args.level <= Log.Level.Critical)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!args.message.IsNullOrEmpty())
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										string[] array = text.Split(new char[]
 										{
 											'\r',
@@ -267,15 +161,6 @@ public class FileLog
 										object arg;
 										if (args.level == Log.Level.Warning)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											arg = "warningid";
 										}
 										else
@@ -286,15 +171,6 @@ public class FileLog
 										foreach (string value in array)
 										{
 											this.m_file.WriteLine(value);
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										goto IL_19F;
 									}
@@ -336,41 +212,10 @@ public class FileLog
 			{
 				if (this.UseDatedFolder)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FileLog.Update()).MethodHandle;
-					}
 					if (this.m_file != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (DateTime.Now.Day != this.m_logFileCreationTime.Day)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.Close();
 							this.Open(this.BaseFilePath);
 							this.Write(Log.Level.Notice, "    ***    Logging continued from previous day    ***");

@@ -15,45 +15,14 @@ public class PostEffectsCSBase : MonoBehaviour
 	{
 		if (!s)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckShaderAndCreateMaterial(Shader, Material)).MethodHandle;
-			}
 			Log.Info("Missing shader in " + this.ToString(), new object[0]);
 			base.enabled = false;
 			return null;
 		}
 		if (s.isSupported && m2Create)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (m2Create.shader == s)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return m2Create;
 			}
 		}
@@ -74,15 +43,6 @@ public class PostEffectsCSBase : MonoBehaviour
 		m2Create.hideFlags = HideFlags.DontSave;
 		if (m2Create)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return m2Create;
 		}
 		return null;
@@ -92,73 +52,24 @@ public class PostEffectsCSBase : MonoBehaviour
 	{
 		if (!s)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CreateMaterial(Shader, Material)).MethodHandle;
-			}
 			Log.Info("Missing shader in " + this.ToString(), new object[0]);
 			return null;
 		}
 		if (m2Create && m2Create.shader == s)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (s.isSupported)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return m2Create;
 			}
 		}
 		if (!s.isSupported)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return null;
 		}
 		m2Create = new Material(s);
 		m2Create.hideFlags = HideFlags.DontSave;
 		if (m2Create)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return m2Create;
 		}
 		return null;
@@ -192,19 +103,6 @@ public class PostEffectsCSBase : MonoBehaviour
 		bool flag;
 		if (SystemInfo.graphicsShaderLevel >= 0x32)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckSupport(bool)).MethodHandle;
-			}
 			flag = SystemInfo.supportsComputeShaders;
 		}
 		else
@@ -214,43 +112,16 @@ public class PostEffectsCSBase : MonoBehaviour
 		this.supportDX11 = flag;
 		if (!SystemInfo.supportsImageEffects)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.NotSupported();
 			return false;
 		}
 		if (needDepth && !SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.NotSupported();
 			return false;
 		}
 		if (needDepth)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
 		}
 		return true;
@@ -260,43 +131,12 @@ public class PostEffectsCSBase : MonoBehaviour
 	{
 		if (!this.CheckSupport(needDepth))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckSupport(bool, bool)).MethodHandle;
-			}
 			return false;
 		}
 		if (needHdr)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.supportHDRTextures)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.NotSupported();
 				return false;
 			}
@@ -326,19 +166,6 @@ public class PostEffectsCSBase : MonoBehaviour
 		}), new object[0]);
 		if (!s.isSupported)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.CheckShader(Shader)).MethodHandle;
-			}
 			this.NotSupported();
 			return false;
 		}
@@ -364,19 +191,6 @@ public class PostEffectsCSBase : MonoBehaviour
 			float y2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PostEffectsCSBase.DrawBorder(RenderTexture, Material)).MethodHandle;
-				}
 				y = 1f;
 				y2 = 0f;
 			}

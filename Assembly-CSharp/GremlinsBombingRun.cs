@@ -59,19 +59,6 @@ public class GremlinsBombingRun : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_explosionDamageAmount;
 		}
 		else
@@ -92,19 +79,6 @@ public class GremlinsBombingRun : Ability
 		int num;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.GetMaxSquaresPerJump()).MethodHandle;
-			}
 			num = this.m_maxSquaresPerStep;
 		}
 		else
@@ -114,15 +88,6 @@ public class GremlinsBombingRun : Ability
 		int num2 = num;
 		if (num2 > 0 && num2 < this.GetMinSquaresPerJump())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.GetMinSquaresPerJump() + 1;
 		}
 		return num2;
@@ -138,19 +103,6 @@ public class GremlinsBombingRun : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.GetExplosionShape()).MethodHandle;
-			}
 			result = this.m_explosionShape;
 		}
 		else
@@ -165,19 +117,6 @@ public class GremlinsBombingRun : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.ShouldLeaveMinesAtTouchedSquares()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -191,19 +130,6 @@ public class GremlinsBombingRun : Ability
 	{
 		if (this.m_bombInfoComp == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.SetupTargeter()).MethodHandle;
-			}
 			this.m_bombInfoComp = base.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		if (this.m_targeterMultiStep)
@@ -216,15 +142,6 @@ public class GremlinsBombingRun : Ability
 		}
 		if (this.m_numSteps < 2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Targeter = new AbilityUtil_Targeter_BombingRun(this, this.GetExplosionShape(), this.GetMinSquaresPerJump());
 		}
 		else
@@ -234,15 +151,6 @@ public class GremlinsBombingRun : Ability
 			{
 				base.Targeters.Add(new AbilityUtil_Targeter_BombingRun(this, this.GetExplosionShape(), this.GetMinSquaresPerJump()));
 				base.Targeters[i].SetUseMultiTargetUpdate(true);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -265,32 +173,10 @@ public class GremlinsBombingRun : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				if (this.m_numSteps < 2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = 0;
 					flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 				}
@@ -298,15 +184,6 @@ public class GremlinsBombingRun : Ability
 				{
 					if (targetIndex > 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
 						if (boardSquareSafe == boardSquareSafe2)
 						{
@@ -314,27 +191,9 @@ public class GremlinsBombingRun : Ability
 						}
 						else if (this.GetMaxAngleWithFirstSegment() > 0f)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 vector;
 							if (targetIndex > 1)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 2].GridPos).ToVector3();
 							}
 							else
@@ -359,15 +218,6 @@ public class GremlinsBombingRun : Ability
 						bool flag2;
 						if (targetIndex == 0)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num3);
 						}
 						else
@@ -376,27 +226,9 @@ public class GremlinsBombingRun : Ability
 						}
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag3;
 							if (flag)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag3 = (num3 > this.GetMinSquaresPerJump());
 							}
 							else
@@ -407,26 +239,8 @@ public class GremlinsBombingRun : Ability
 							bool flag4;
 							if (flag)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.GetMaxSquaresPerJump() > 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag4 = (num3 <= this.GetMaxSquaresPerJump());
 								}
 								else
@@ -446,15 +260,6 @@ public class GremlinsBombingRun : Ability
 						}
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (targetIndex < this.m_numSteps - 1)
 							{
 								List<BoardSquare> list = new List<BoardSquare>();
@@ -462,15 +267,6 @@ public class GremlinsBombingRun : Ability
 								int i = 0;
 								while (i < targetIndex)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (i >= currentTargets.Count)
 									{
 										for (;;)
@@ -510,41 +306,10 @@ public class GremlinsBombingRun : Ability
 		bool flag = false;
 		if (nextTargetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.CanTargetForNextClick(BoardSquare, int, List<BoardSquare>, ActorData)).MethodHandle;
-			}
 			if (squaresAddedSoFar.Count > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (fromSquare != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 b = squaresAddedSoFar[squaresAddedSoFar.Count - 1].ToVector3();
 					Vector3 a = fromSquare.ToVector3();
 					Vector3 vector = a - b;
@@ -553,15 +318,6 @@ public class GremlinsBombingRun : Ability
 					float coneWidthDegrees = Mathf.Clamp(2f * this.GetMaxAngleWithFirstSegment() + 10f, 0f, 360f);
 					if (this.GetMaxAngleWithFirstSegment() <= 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						coneWidthDegrees = 360f;
 					}
 					float coneLengthRadiusInSquares = (float)this.GetMaxSquaresPerJump() * 1.42f;
@@ -587,39 +343,12 @@ public class GremlinsBombingRun : Ability
 							BoardSquare boardSquare = squaresInCone[i];
 							if (boardSquare.IsBaselineHeight())
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquare != fromSquare)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									Vector3 to = boardSquare.ToVector3() - fromSquare.ToVector3();
 									to.y = 0f;
 									if (to.magnitude < num)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									else
 									{
@@ -631,39 +360,12 @@ public class GremlinsBombingRun : Ability
 											bool flag3 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare, fromSquare, false, out num3);
 											if (flag3)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag2 = (flag2 && num3 > this.GetMinSquaresPerJump());
 												bool flag4;
 												if (flag2)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (this.GetMaxSquaresPerJump() > 0)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														flag4 = (num3 <= this.GetMaxSquaresPerJump());
 													}
 													else
@@ -683,15 +385,6 @@ public class GremlinsBombingRun : Ability
 											}
 											if (flag2)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag = true;
 											}
 										}
@@ -715,19 +408,6 @@ public class GremlinsBombingRun : Ability
 		int val;
 		if (abilityMod_GremlinsBombingRun)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_GremlinsBombingRun.m_damageMod.GetModifiedValue(this.m_explosionDamageAmount);
 		}
 		else
@@ -741,19 +421,6 @@ public class GremlinsBombingRun : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_GremlinsBombingRun))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsBombingRun.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_GremlinsBombingRun);
 			this.SetupTargeter();
 		}

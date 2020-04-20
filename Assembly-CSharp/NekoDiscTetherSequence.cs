@@ -44,43 +44,12 @@ public class NekoDiscTetherSequence : LineSequence
 		base.SpawnFX();
 		if (this.m_discAtStartFxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscTetherSequence.SpawnFX()).MethodHandle;
-			}
 			if (this.m_discAtStartFxInst == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_discAtStartFxInst = base.InstantiateFX(this.m_discAtStartFxPrefab);
 				this.m_discFofSelector = this.m_discAtStartFxInst.GetComponent<FriendlyEnemyVFXSelector>();
 				if (this.m_enlargeDiscFxPrefab != null && this.m_enlargeDiscInst == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_enlargeDiscInst = base.InstantiateFX(this.m_enlargeDiscFxPrefab);
 					this.m_enlargeDiscFofSelector = this.m_enlargeDiscInst.GetComponent<FriendlyEnemyVFXSelector>();
 				}
@@ -93,34 +62,12 @@ public class NekoDiscTetherSequence : LineSequence
 		base.DestroyFx();
 		if (this.m_discAtStartFxInst != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscTetherSequence.DestroyFx()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_discAtStartFxInst);
 			this.m_discAtStartFxInst = null;
 			this.m_discFofSelector = null;
 		}
 		if (this.m_enlargeDiscInst != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_enlargeDiscInst);
 			this.m_enlargeDiscInst = null;
 			this.m_enlargeDiscFofSelector = null;
@@ -137,19 +84,6 @@ public class NekoDiscTetherSequence : LineSequence
 			{
 				if (base.Target.GetCurrentBoardSquare() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscTetherSequence.OnTurnStart(int)).MethodHandle;
-					}
 					this.m_fixedEndPos = base.Target.GetCurrentBoardSquare().ToVector3();
 				}
 				else if (base.Target.ClientLastKnownPosSquare != null)
@@ -170,30 +104,8 @@ public class NekoDiscTetherSequence : LineSequence
 		Vector3 vector = base.GetLineStartPos();
 		if (Neko_SyncComponent.HomingDiscStartFromCaster())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscTetherSequence.GetLineStartPos()).MethodHandle;
-			}
 			if (base.Caster != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Caster.IsDead())
 				{
 					if (base.Caster.GetMostResetDeathSquare() != null)
@@ -203,42 +115,15 @@ public class NekoDiscTetherSequence : LineSequence
 				}
 				else if (base.Caster.IsModelAnimatorDisabled())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = this.m_lastStartPos;
 				}
 				else if (!base.Caster.IsVisibleToClient())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 lineEndPos = this.GetLineEndPos();
 					Vector3 a = base.Caster.transform.position - lineEndPos;
 					a.y = 0f;
 					if (a.magnitude > 1E-05f)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						a.Normalize();
 					}
 					else
@@ -282,52 +167,12 @@ public class NekoDiscTetherSequence : LineSequence
 			bool flag = true;
 			if (Neko_SyncComponent.HomingDiscStartFromCaster())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscTetherSequence.OnUpdate()).MethodHandle;
-				}
 				if (base.Caster != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!base.Caster.IsDead())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!base.Caster.IsVisibleToClient())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 						}
 					}
@@ -337,42 +182,15 @@ public class NekoDiscTetherSequence : LineSequence
 			this.m_discAtStartFxInst.transform.position = lastStartPos;
 			if (this.m_discFofSelector != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_discFofSelector.Setup(base.Caster.GetTeam());
 			}
 			this.m_discAtStartFxInst.SetActiveIfNeeded(flag);
 			if (this.m_enlargeDiscInst != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool desiredActive = this.ShouldShowEnlargeDiscFx(flag);
 				this.m_enlargeDiscInst.transform.position = lastStartPos;
 				if (this.m_enlargeDiscFofSelector != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_enlargeDiscFofSelector.Setup(base.Caster.GetTeam());
 				}
 				this.m_enlargeDiscInst.SetActiveIfNeeded(desiredActive);
@@ -384,52 +202,12 @@ public class NekoDiscTetherSequence : LineSequence
 	{
 		if (base.AgeInTurns > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoDiscTetherSequence.ShouldShowEnlargeDiscFx(bool)).MethodHandle;
-			}
 			if (discVisible)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp != null && GameFlowData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Neko_SyncComponent.HomingDiscStartFromCaster())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return this.m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn;
 					}
 					return this.m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn && this.m_syncComp.m_clientDiscBuffTargetSquare == this.m_targetSquare;

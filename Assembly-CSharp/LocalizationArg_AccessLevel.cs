@@ -17,32 +17,10 @@ public class LocalizationArg_AccessLevel : LocalizationArg
 	{
 		if (this.m_value <= ClientAccessLevel.Free)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_AccessLevel.TR()).MethodHandle;
-			}
 			return StringUtil.TR("Free", "ClientAccessLevel");
 		}
 		if (this.m_value >= ClientAccessLevel.VIP)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return StringUtil.TR("VIP", "ClientAccessLevel");
 		}
 		return StringUtil.TR("Full", "ClientAccessLevel");

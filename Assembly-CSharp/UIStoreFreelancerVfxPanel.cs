@@ -17,19 +17,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 		{
 			this.SetupTooltip(this.m_abilityToggles[i], string.Format(StringUtil.TR("AbilityFilterTooltip", "Store"), i + 1));
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerVfxPanel.Awake()).MethodHandle;
-		}
 	}
 
 	protected override GameBalanceVars.PlayerUnlockable[] GetRawItemsList()
@@ -53,44 +40,13 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 	{
 		if (this.m_ownedToggle.isOn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerVfxPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			if (!item.IsOwned())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
 		if (item is GameBalanceVars.AbilityVfxUnlockData)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item.Index1 == (int)this.m_charType)
 			{
 				bool result = false;
@@ -98,30 +54,12 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 				{
 					if (this.m_abilityToggles[i].isOn)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i == item.Index2)
 						{
 							return false;
 						}
 						result = true;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				return result;
 			}
@@ -139,19 +77,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 		UIFrontendTauntMouseoverVideo uifrontendTauntMouseoverVideo = tooltip as UIFrontendTauntMouseoverVideo;
 		if (!(uifrontendTauntMouseoverVideo == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerVfxPanel.ItemTooltipPopulate(UITooltipBase, UIStoreItemBtn, GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			if (item is GameBalanceVars.AbilityVfxUnlockData)
 			{
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink((CharacterType)item.Index1);
@@ -161,30 +86,12 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 				{
 					if (availableVfxSwapsForAbilityIndex[i].m_uniqueID == item.ID)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						characterAbilityVfxSwap = availableVfxSwapsForAbilityIndex[i];
 						break;
 					}
 				}
 				if (characterAbilityVfxSwap != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!characterAbilityVfxSwap.m_swapVideoPath.IsNullOrEmpty())
 					{
 						uifrontendTauntMouseoverVideo.Setup("Video/AbilityPreviews/" + characterAbilityVfxSwap.m_swapVideoPath);
@@ -192,15 +99,6 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 					}
 				}
 				return false;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

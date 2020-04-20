@@ -25,19 +25,6 @@ public class UIGraphicSettingsNotification : MonoBehaviour
 	{
 		if (UIGraphicSettingsNotification.m_callback != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGraphicSettingsNotification.CloseClicked(BaseEventData)).MethodHandle;
-			}
 			UIGraphicSettingsNotification.m_callback();
 		}
 		UIGraphicSettingsNotification.SetVisible(false, null);
@@ -49,19 +36,6 @@ public class UIGraphicSettingsNotification : MonoBehaviour
 		UIGraphicSettingsNotification.m_callback = callback;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGraphicSettingsNotification.SetVisible(bool, UIGraphicSettingsNotification.CloseCallback)).MethodHandle;
-			}
 			if (UIGraphicSettingsNotification.s_instance == null)
 			{
 				Log.Warning("Called to display Graphic Settings Notification Visible while HUD has not been loaded in yet", new object[0]);
@@ -73,30 +47,8 @@ public class UIGraphicSettingsNotification : MonoBehaviour
 	{
 		if (this.m_graphicSettingsContainer != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGraphicSettingsNotification.Update()).MethodHandle;
-			}
 			if (this.m_graphicSettingsContainer.gameObject.activeSelf != UIGraphicSettingsNotification.s_isVisible)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_graphicSettingsContainer, UIGraphicSettingsNotification.s_isVisible, null);
 			}
 		}

@@ -40,34 +40,12 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
 					if (lobbyPlayerInfo.PlayerId == topPlayerInfo.PlayerId)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverTopParticipantWidget.Setup(TopParticipantSlot, BadgeAndParticipantInfo)).MethodHandle;
-						}
 						UIManager.SetGameObjectActive(this.m_AllyTeamIndicator, lobbyPlayerInfo.TeamId == playerInfo.TeamId, null);
 						UIManager.SetGameObjectActive(this.m_EnemyTeamIndicator, lobbyPlayerInfo.TeamId != playerInfo.TeamId, null);
 						GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(lobbyPlayerInfo.BannerID);
 						string path;
 						if (banner != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							path = banner.m_resourceString;
 						}
 						else
@@ -80,15 +58,6 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 						string path2;
 						if (banner2 != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							path2 = banner2.m_resourceString;
 						}
 						else
@@ -108,44 +77,13 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 							{
 								if (x == null)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverTopParticipantWidget.<Setup>m__0(BadgeInfo, BadgeInfo)).MethodHandle;
-									}
 									if (y == null)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										return 0;
 									}
 								}
 								if (x == null)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return 1;
 								}
 								if (y == null)
@@ -156,15 +94,6 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 								GameBalanceVars.GameResultBadge badgeInfo3 = GameResultBadgeData.Get().GetBadgeInfo(y.BadgeId);
 								if (badgeInfo2 == null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (badgeInfo3 == null)
 									{
 										return 0;
@@ -176,54 +105,18 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 								}
 								if (badgeInfo3 == null)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return -1;
 								}
 								if (badgeInfo2.Quality == badgeInfo3.Quality)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return 0;
 								}
 								if (badgeInfo2.Quality > badgeInfo3.Quality)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return -1;
 								}
 								if (badgeInfo2.Quality < badgeInfo3.Quality)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return 1;
 								}
 								return 0;
@@ -234,93 +127,30 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 								GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(topPlayerInfo.BadgesEarned[i].BadgeId);
 								if (badgeInfo == null)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
 									bool flag = true;
 									if (slotType == TopParticipantSlot.Deadliest)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Firepower)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = false;
 										}
 									}
 									if (slotType == TopParticipantSlot.Supportiest && badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Support)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 									}
 									if (slotType == TopParticipantSlot.Tankiest)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (badgeInfo.Role != GameBalanceVars.GameResultBadge.BadgeRole.Frontliner)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = false;
 										}
 									}
 									if (flag)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UIGameOverBadgeWidget uigameOverBadgeWidget = UnityEngine.Object.Instantiate<UIGameOverBadgeWidget>(this.m_BadgePrefab);
 										uigameOverBadgeWidget.Setup(topPlayerInfo.BadgesEarned[i], lobbyPlayerInfo.CharacterType, topPlayerInfo.GlobalPercentiles);
 										UIManager.ReparentTransform(uigameOverBadgeWidget.transform, this.m_BadgesContainer.transform);
@@ -328,37 +158,10 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 									}
 								}
 							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num > 5)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_BadgesContainer as GridLayoutGroup != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									GridLayoutGroup gridLayoutGroup = this.m_BadgesContainer as GridLayoutGroup;
 									gridLayoutGroup.cellSize = new Vector2(50f, 50f);
 									gridLayoutGroup.spacing = new Vector2(-15f, -15f);
@@ -368,15 +171,6 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 						}
 						return;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

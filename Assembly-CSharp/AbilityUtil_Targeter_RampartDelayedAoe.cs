@@ -50,19 +50,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 		BoardSquare targetSquare = this.GetTargetSquare(currentTarget);
 		if (targetSquare != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartDelayedAoe.GetHighlightGoalPos(AbilityTarget, ActorData)).MethodHandle;
-			}
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shapeFullEnergy, currentTarget.FreePos, targetSquare);
 			centerOfShape.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfShape;
@@ -82,19 +69,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 		BoardSquare targetSquare = this.GetTargetSquare(currentTarget);
 		if (targetSquare != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_RampartDelayedAoe.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor);
 			if (this.m_highlights != null)
 			{
@@ -106,15 +80,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 					}
 					goto IL_165;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_highlights = new List<GameObject>();
 			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shapeLowEnergy, targetingActor == GameFlowData.Get().activeOwnedActorData));
@@ -122,15 +87,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 			for (int j = 0; j < this.m_highlights.Count; j++)
 			{
 				this.m_highlights[j].transform.position = highlightGoalPos;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_165:
 			bool flag = targetingActor.TechPoints >= targetingActor.GetActualMaxTechPoints();
@@ -146,15 +102,6 @@ public class AbilityUtil_Targeter_RampartDelayedAoe : AbilityUtil_Targeter
 			}
 			if (this.m_affectsCaster)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.AddActorInRange(targetingActor, centerOfShape, targetingActor, this.m_allyTooltipSubject, false);
 			}
 		}

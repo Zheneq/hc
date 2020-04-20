@@ -70,30 +70,8 @@ public class HttpSocket
 		int num = (int)requestArgs.Request.ContentLength64;
 		if (this.MaxMessageSize > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HttpSocket.HandleRequest(HttpRequestEventArgs)).MethodHandle;
-			}
 			if (num > this.MaxMessageSize)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new Exception("Invalid HTTP request input stream length");
 			}
 		}
@@ -110,15 +88,6 @@ public class HttpSocket
 		{
 			if (text3.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -130,15 +99,6 @@ public class HttpSocket
 				string text5;
 				if (array3.Length > 1)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text5 = array3[1];
 				}
 				else
@@ -149,92 +109,29 @@ public class HttpSocket
 				text += string.Format("\"{0}\" : \"{1}\", ", text4, text6);
 				if (text4 == "messageType")
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text2 = text6;
 				}
 				if (text4 == "formatted")
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (text6.ToLower() == "true")
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_serializer = FormattedJsonSerializer.Get();
 					}
 				}
 				if (text4 == "timeoutMs")
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeoutMs = Convert.ToInt32(text6);
 					if (this.m_timeoutMs > 0xEA60)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_timeoutMs = 0xEA60;
 					}
 					if (this.m_timeoutMs < -1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_timeoutMs = -1;
 					}
 				}
 				dictionary.Add(text4, text6);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		text += "\n}";
 		this.ConnectionAddress = requestArgs.Request.RemoteEndPoint.ToString();
@@ -242,28 +139,10 @@ public class HttpSocket
 		string text7 = new StreamReader(requestArgs.Request.InputStream).ReadToEnd();
 		if (text7.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text7 = text;
 		}
 		if (!text2.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_requestMessage = this.MessageFactory.DeserializeFromText(text2, text7);
 		}
 		else
@@ -286,19 +165,6 @@ public class HttpSocket
 		{
 			if (this.m_responseSent)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HttpSocket.Send(object)).MethodHandle;
-				}
 			}
 			else
 			{
@@ -317,15 +183,6 @@ public class HttpSocket
 					string s;
 					if (webSocketMessage != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						StringWriter stringWriter = new StringWriter();
 						this.m_serializer.Serialize(stringWriter, webSocketMessage);
 						s = stringWriter.ToString();
@@ -352,19 +209,6 @@ public class HttpSocket
 		bool flag = !this.m_event.WaitOne(this.m_timeoutMs);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HttpSocket.WaitForSend()).MethodHandle;
-			}
 			object @lock = this.m_lock;
 			lock (@lock)
 			{

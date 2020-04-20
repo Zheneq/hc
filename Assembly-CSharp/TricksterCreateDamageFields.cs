@@ -47,19 +47,6 @@ public class TricksterCreateDamageFields : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Ground Fields";
 		}
 		this.Setup();
@@ -76,19 +63,6 @@ public class TricksterCreateDamageFields : Ability
 		AbilityAreaShape abilityAreaShape;
 		if (this.UseInitialShapeOverride())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.Setup()).MethodHandle;
-			}
 			abilityAreaShape = this.GetInitialShapeOverride();
 		}
 		else
@@ -104,19 +78,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo cachedSelfEffectForMultiHit;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.SetCachedFields()).MethodHandle;
-			}
 			cachedSelfEffectForMultiHit = this.m_abilityMod.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
 		}
 		else
@@ -132,19 +93,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.AddFieldAroundSelf()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_addFieldAroundSelfMod.GetModifiedValue(this.m_addFieldAroundSelf);
 		}
 		else
@@ -159,19 +107,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.UseInitialShapeOverride()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_useInitialShapeOverrideMod.GetModifiedValue(this.m_useInitialShapeOverride);
 		}
 		else
@@ -186,19 +121,6 @@ public class TricksterCreateDamageFields : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetInitialShapeOverride()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_initialShapeOverrideMod.GetModifiedValue(this.m_initialShapeOverride);
 		}
 		else
@@ -213,19 +135,6 @@ public class TricksterCreateDamageFields : Ability
 		GroundEffectField result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetGroundFieldInfo()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_groundFieldInfoMod.GetModifiedValue(this.m_groundFieldInfo);
 		}
 		else
@@ -240,19 +149,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfEffectForMultiHit != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetSelfEffectForMultiHit()).MethodHandle;
-			}
 			result = this.m_cachedSelfEffectForMultiHit;
 		}
 		else
@@ -277,19 +173,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.SpawnSpoilForAllyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_spawnSpoilForAllyHitMod.GetModifiedValue(this.m_spawnSpoilForAllyHit);
 		}
 		else
@@ -304,19 +187,6 @@ public class TricksterCreateDamageFields : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnlySpawnSpoilOnMultiHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_onlySpawnSpoilOnMultiHitMod.GetModifiedValue(this.m_onlySpawnSpoilOnMultiHit);
 		}
 		else
@@ -340,19 +210,6 @@ public class TricksterCreateDamageFields : Ability
 	{
 		if (!this.AddFieldAroundSelf())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (this.m_afterImageSyncComp != null)
 			{
 				return this.m_afterImageSyncComp.HasVaidAfterImages();
@@ -367,32 +224,10 @@ public class TricksterCreateDamageFields : Ability
 		GroundEffectField groundFieldInfo = this.GetGroundFieldInfo();
 		if (groundFieldInfo.IncludeEnemies())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.damageAmount, groundFieldInfo.subsequentDamageAmount, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
 		}
 		if (groundFieldInfo.IncludeAllies())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.healAmount, groundFieldInfo.subsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
 			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, groundFieldInfo.energyGain, groundFieldInfo.subsequentEnergyGain, AbilityTooltipSymbol.Energy, AbilityTooltipSubject.Secondary);
 		}
@@ -406,19 +241,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_TricksterCreateDamageFields)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_TricksterCreateDamageFields.m_selfEffectForMultiHitMod.GetModifiedValue(this.m_selfEffectForMultiHit);
 		}
 		else
@@ -429,15 +251,6 @@ public class TricksterCreateDamageFields : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_TricksterCreateDamageFields)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_TricksterCreateDamageFields.m_extraEnemyEffectOnCastMod.GetModifiedValue(this.m_extraEnemyEffectOnCast);
 		}
 		else
@@ -457,30 +270,8 @@ public class TricksterCreateDamageFields : Ability
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
-					}
 					if (!actorData.IsDead())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
 						Animator modelAnimator = actorData.GetModelAnimator();
 						modelAnimator.SetInteger("Attack", animationIndex);
@@ -488,15 +279,6 @@ public class TricksterCreateDamageFields : Ability
 						modelAnimator.SetTrigger("StartAttack");
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -508,30 +290,8 @@ public class TricksterCreateDamageFields : Ability
 		{
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
-				}
 				if (!actorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Animator modelAnimator = actorData.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", 0);
 					modelAnimator.SetBool("CinematicCam", false);
@@ -544,19 +304,6 @@ public class TricksterCreateDamageFields : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TricksterCreateDamageFields))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterCreateDamageFields.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_TricksterCreateDamageFields);
 			this.Setup();
 		}

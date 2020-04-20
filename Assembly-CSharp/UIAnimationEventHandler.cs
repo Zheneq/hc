@@ -25,19 +25,6 @@ public class UIAnimationEventHandler : MonoBehaviour
 		case UIAnimationEventHandler.UIAnimationEventType.SystemMessagePanelDone:
 			if (SystemMenuBroadcast.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAnimationEventHandler.NotifyAnimationEvent(UIAnimationEventHandler.UIAnimationEventType)).MethodHandle;
-				}
 				SystemMenuBroadcast.Get().NotifySystemMessageOutDone();
 			}
 			break;
@@ -47,44 +34,17 @@ public class UIAnimationEventHandler : MonoBehaviour
 		case UIAnimationEventHandler.UIAnimationEventType.GameOverRewardIconSwapEvent:
 			if (UIGameOverScreen.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			break;
 		case UIAnimationEventHandler.UIAnimationEventType.NanoChestOpenFinished:
 			if (UILootMatrixScreen.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UILootMatrixScreen.Get().DoOpenChestAnimationEvent();
 			}
 			break;
 		case UIAnimationEventHandler.UIAnimationEventType.NanoChestRewardFinished:
 			if (UILootMatrixScreen.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UILootMatrixScreen.Get().FinishRewardAnimation();
 			}
 			break;

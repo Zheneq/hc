@@ -13,19 +13,6 @@ public class AbilityUtil_Targeter_BarrierWithCharge : AbilityUtil_Targeter_Barri
 		int fromIndex = 0;
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BarrierWithCharge.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe);
 			fromIndex = base.AddMovementArrowWithPrevious(targetingActor, path, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
 		}

@@ -41,34 +41,12 @@ public class LobbyCharacterGameplayData
 			LobbyAbilityModGameplayData defaultAbilityMod = this.GetDefaultAbilityMod(i);
 			if (defaultAbilityMod != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyCharacterGameplayData.GetDefaultModInfo()).MethodHandle;
-				}
 				result.SetModForAbility(i, defaultAbilityMod.Index);
 			}
 			else
 			{
 				result.SetModForAbility(i, -1);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return result;
 	}
@@ -79,19 +57,6 @@ public class LobbyCharacterGameplayData
 		LobbyAbilityGameplayData abilityData = this.GetAbilityData(abilityIndex);
 		if (abilityData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyCharacterGameplayData.GetDefaultAbilityMod(int)).MethodHandle;
-			}
 			using (Dictionary<int, LobbyAbilityModGameplayData>.ValueCollection.Enumerator enumerator = abilityData.AbilityModData.Values.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -99,26 +64,8 @@ public class LobbyCharacterGameplayData
 					LobbyAbilityModGameplayData lobbyAbilityModGameplayData = enumerator.Current;
 					if (lobbyAbilityModGameplayData.DefaultEquip)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return lobbyAbilityModGameplayData;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -131,32 +78,10 @@ public class LobbyCharacterGameplayData
 		LobbyAbilityGameplayData abilityData = this.GetAbilityData(abilityIndex);
 		if (abilityData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyCharacterGameplayData.GetAbilityModGameplayData(int, int)).MethodHandle;
-			}
 			foreach (LobbyAbilityModGameplayData lobbyAbilityModGameplayData in abilityData.AbilityModData.Values)
 			{
 				if (lobbyAbilityModGameplayData.Index == abilityModId)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = lobbyAbilityModGameplayData;
 					break;
 				}
@@ -169,19 +94,6 @@ public class LobbyCharacterGameplayData
 	{
 		if (abilityIndex < this.AbilityData.Length)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyCharacterGameplayData.GetAbilityData(int)).MethodHandle;
-			}
 			return this.AbilityData[abilityIndex];
 		}
 		return null;
@@ -199,19 +111,6 @@ public class LobbyCharacterGameplayData
 	{
 		if (skinIndex < this.SkinData.Length)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyCharacterGameplayData.GetSkinData(int)).MethodHandle;
-			}
 			return this.SkinData[skinIndex];
 		}
 		return null;
@@ -221,19 +120,6 @@ public class LobbyCharacterGameplayData
 	{
 		if (skinIndex < this.SkinData.Length)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyCharacterGameplayData.SetSkinData(int, LobbySkinGameplayData)).MethodHandle;
-			}
 			this.SkinData[skinIndex] = skinData;
 		}
 	}
@@ -242,30 +128,8 @@ public class LobbyCharacterGameplayData
 	{
 		if (skinIndex < this.SkinData.Length)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyCharacterGameplayData.GetColorRequiredLevelForEquip(int, int, int)).MethodHandle;
-			}
 			if (patternIndex < this.SkinData[skinIndex].PatternData.Length && colorIndex < this.SkinData[skinIndex].PatternData[patternIndex].ColorData.Length)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.SkinData[skinIndex].PatternData[patternIndex].ColorData[colorIndex].RequiredLevelForEquip;
 			}
 		}

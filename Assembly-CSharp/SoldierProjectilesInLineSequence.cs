@@ -47,34 +47,12 @@ public class SoldierProjectilesInLineSequence : Sequence
 			SoldierProjectilesInLineSequence.HitAreaExtraParams hitAreaExtraParams = extraSequenceParams as SoldierProjectilesInLineSequence.HitAreaExtraParams;
 			if (hitAreaExtraParams != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				this.m_didSetDataFromExtraParams = true;
 				this.m_fromPos = hitAreaExtraParams.fromPos;
 				this.m_toPos = hitAreaExtraParams.toPos;
 				this.m_areaWidthInSquares = hitAreaExtraParams.areaWidthInSquares;
 				this.m_ignoreStartEvent = hitAreaExtraParams.ignoreStartEvent;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -83,19 +61,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 		bool flag = false;
 		if (this.m_didSetDataFromExtraParams)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.FinishSetup()).MethodHandle;
-			}
 			Vector3 vector = this.m_toPos - this.m_fromPos;
 			vector.y = 0f;
 			float magnitude = vector.magnitude;
@@ -116,42 +81,15 @@ public class SoldierProjectilesInLineSequence : Sequence
 					List<ActorData> list2 = new List<ActorData>();
 					if (base.Targets != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int j = 0; j < base.Targets.Length; j++)
 						{
 							ActorData actorData = base.Targets[j];
 							if (!list.Contains(actorData))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 rhs = actorData.GetTravelBoardSquareWorldPosition() - vector2;
 								rhs.y = 0f;
 								if (i != num4)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (Vector3.Dot(vector, rhs) > 0f)
 									{
 										goto IL_18D;
@@ -174,15 +112,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 					genericSequenceProjectileInfo.m_startDelay = Mathf.Clamp((float)i * this.m_timeBetweenSpawns + UnityEngine.Random.Range(0f, this.m_timeMaxVariation), 0f, 3f);
 					if (i == num4)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						genericSequenceProjectileInfo.m_positionForSequenceHit = base.TargetPos;
 					}
 					this.m_projectilesList.Add(genericSequenceProjectileInfo);
@@ -191,28 +120,10 @@ public class SoldierProjectilesInLineSequence : Sequence
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.CallHitSequenceOnTargets(base.TargetPos, 1f, null, true);
 		}
 		if (!(this.m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_ignoreStartEvent)
 			{
 				return;
@@ -227,19 +138,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 		{
 			if (genericSequenceProjectileInfo != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.OnDisable()).MethodHandle;
-				}
 				genericSequenceProjectileInfo.OnSequenceDisable();
 			}
 		}
@@ -249,19 +147,6 @@ public class SoldierProjectilesInLineSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.m_startProjectileUpdate = true;
 		}
 	}
@@ -271,31 +156,9 @@ public class SoldierProjectilesInLineSequence : Sequence
 		base.ProcessSequenceVisibility();
 		if (this.m_startProjectileUpdate)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierProjectilesInLineSequence.Update()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_projectilesList.Count; i++)
 			{
 				this.m_projectilesList[i].OnUpdate();
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

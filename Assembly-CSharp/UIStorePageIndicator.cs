@@ -19,18 +19,5 @@ public class UIStorePageIndicator : MonoBehaviour
 		{
 			componentsInChildren[i].SetText(text);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePageIndicator.SetPageNumber(int)).MethodHandle;
-		}
 	}
 }

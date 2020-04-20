@@ -63,19 +63,6 @@ public class SeasonTemplate
 		}
 		if (level - 1 < this.SeasonLevelExperience.Length)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonTemplate.GetSeasonExperience(int)).MethodHandle;
-			}
 			return this.SeasonLevelExperience[level - 1];
 		}
 		return this.m_experiencePerLevelAfter;

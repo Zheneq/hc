@@ -24,31 +24,9 @@ public class SimpleTimingSequence : Sequence
 		{
 			if (extraSequenceParams is SimpleTimingSequence.ExtraParams)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				SimpleTimingSequence.ExtraParams extraParams2 = extraSequenceParams as SimpleTimingSequence.ExtraParams;
 				if (extraParams2.hitDelayTime > 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_hitDelay = extraParams2.hitDelayTime;
 				}
 			}
@@ -61,19 +39,6 @@ public class SimpleTimingSequence : Sequence
 		{
 			if (this.m_startEvent == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.Update()).MethodHandle;
-				}
 				if (!this.m_calledOnHitForNullStartEvent)
 				{
 					this.StartHits();
@@ -82,26 +47,8 @@ public class SimpleTimingSequence : Sequence
 			}
 			if (!this.m_hitsDone)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_hitTime > 0f && GameTime.time > this.m_hitTime)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DoSequenceHits();
 				}
 			}
@@ -120,19 +67,6 @@ public class SimpleTimingSequence : Sequence
 	{
 		if (this.m_hitDelay <= 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.StartHits()).MethodHandle;
-			}
 			this.DoSequenceHits();
 		}
 		else if (this.m_hitTime == 0f)
@@ -146,56 +80,16 @@ public class SimpleTimingSequence : Sequence
 		base.Source.OnSequenceHit(this, base.TargetPos, null);
 		if (base.Targets != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleTimingSequence.DoSequenceHits()).MethodHandle;
-			}
 			foreach (ActorData actorData in base.Targets)
 			{
 				base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData), ActorModelData.RagdollActivation.HealthBased, true);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!string.IsNullOrEmpty(this.m_onHitAudioEvent))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = null;
 			if (base.Caster != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = base.Caster.gameObject;
 			}
 			if (gameObject != null)

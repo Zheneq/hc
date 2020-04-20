@@ -14,19 +14,6 @@ public static class InEditorDescHelper
 		string text;
 		if (bold)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.ColoredString(string, string, bool)).MethodHandle;
-			}
 			text = "<b>" + input + "</b>";
 		}
 		else
@@ -59,19 +46,6 @@ public static class InEditorDescHelper
 		string color;
 		if (actorContext)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.ContextVarName(string, bool)).MethodHandle;
-			}
 			color = "orange";
 		}
 		else
@@ -92,19 +66,6 @@ public static class InEditorDescHelper
 		bool flag;
 		if (showOther)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.AssembleFieldWithDiff(string, string, string, float, bool, float, InEditorDescHelper.ShowFieldDelegateFloat)).MethodHandle;
-			}
 			flag = (myVal != otherVal);
 		}
 		else
@@ -115,15 +76,6 @@ public static class InEditorDescHelper
 		bool flag3;
 		if (showFieldDelegate == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = (myVal > 0f);
 		}
 		else
@@ -136,15 +88,6 @@ public static class InEditorDescHelper
 		}
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -157,15 +100,6 @@ public static class InEditorDescHelper
 		}
 		if (text.Length > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -177,59 +111,19 @@ public static class InEditorDescHelper
 		bool flag = showOther && myVal != otherVal;
 		if (showFieldDelegate != null && !showFieldDelegate(myVal))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.AssembleFieldWithDiff(string, string, string, bool, bool, bool, InEditorDescHelper.ShowFieldDelegateBool)).MethodHandle;
-			}
 			if (!flag)
 			{
 				goto IL_72;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		text = text + indent + header + InEditorDescHelper.ColoredString(myVal.ToString(), "cyan", false);
 		IL_72:
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += InEditorDescHelper.DiffColorStr(otherSep + otherVal);
 		}
 		if (text.Length > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -241,19 +135,6 @@ public static class InEditorDescHelper
 		bool flag;
 		if (showOther)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.AssembleFieldWithDiff(string, string, string, Enum, bool, Enum)).MethodHandle;
-			}
 			flag = (Convert.ToInt32(myVal) != Convert.ToInt32(otherVal));
 		}
 		else
@@ -263,27 +144,9 @@ public static class InEditorDescHelper
 		bool flag2 = flag;
 		if (Convert.ToInt32(myVal) <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
 				goto IL_75;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		text = text + indent + header + InEditorDescHelper.ColoredString(myVal.ToString(), "cyan", false);
@@ -294,15 +157,6 @@ public static class InEditorDescHelper
 		}
 		if (text.Length > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -313,19 +167,6 @@ public static class InEditorDescHelper
 		bool flag;
 		if (showOther)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.AssembleFieldWithDiff(string, string, string, GameObject, bool, GameObject)).MethodHandle;
-			}
 			flag = (myVal != otherVal);
 		}
 		else
@@ -339,15 +180,6 @@ public static class InEditorDescHelper
 			if (!flag2)
 			{
 				goto IL_89;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		string text2 = text;
@@ -368,15 +200,6 @@ public static class InEditorDescHelper
 		}
 		if (text.Length > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "\n";
 		}
 		return text;
@@ -386,19 +209,6 @@ public static class InEditorDescHelper
 	{
 		if (obj == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.GetGameObjectEntryStr(GameObject)).MethodHandle;
-			}
 			return "NULL";
 		}
 		return "< " + obj.name + " >";
@@ -409,19 +219,6 @@ public static class InEditorDescHelper
 		int num;
 		if (myObjList != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.HasDifference(T[], T[])).MethodHandle;
-			}
 			num = myObjList.Length;
 		}
 		else
@@ -432,15 +229,6 @@ public static class InEditorDescHelper
 		int num3;
 		if (otherObjList != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = otherObjList.Length;
 		}
 		else
@@ -451,39 +239,12 @@ public static class InEditorDescHelper
 		bool result = false;
 		if (num2 != num4)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else if (num2 > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 == num4)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int i = 0;
 				IL_E5:
 				while (i < myObjList.Length)
@@ -496,28 +257,10 @@ public static class InEditorDescHelper
 						T y = otherObjList[j];
 						if (EqualityComparer<T>.Default.Equals(x, y))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 							IL_CD:
 							if (!flag)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return true;
 							}
 							i++;
@@ -538,15 +281,6 @@ public static class InEditorDescHelper
 						goto IL_CD;
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		return result;
@@ -559,19 +293,6 @@ public static class InEditorDescHelper
 		int num;
 		if (myObjList != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InEditorDescHelper.GetListDiffString(string, string, T[], bool, T[], InEditorDescHelper.GetListEntryStrDelegate<T>)).MethodHandle;
-			}
 			num = myObjList.Length;
 		}
 		else
@@ -582,15 +303,6 @@ public static class InEditorDescHelper
 		int num3;
 		if (otherObjList != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = otherObjList.Length;
 		}
 		else
@@ -601,28 +313,10 @@ public static class InEditorDescHelper
 		bool flag = false;
 		if (showDiff)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = InEditorDescHelper.HasDifference<T>(myObjList, otherObjList);
 		}
 		if (num2 <= 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				return text;
@@ -631,30 +325,12 @@ public static class InEditorDescHelper
 		text = text + indent + header;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text + "    \t\t | " + header + " in base";
 		}
 		text += "\n";
 		int num5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num5 = Mathf.Max(num2, num4);
 		}
 		else
@@ -670,38 +346,11 @@ public static class InEditorDescHelper
 				string text3 = "NULL_ENTRY";
 				if (myObjList[i] != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (stringFormatter == null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text3 = InEditorDescHelper.ColoredString(myObjList[i].ToString(), "cyan", false);
 						if (typeof(T).IsEnum)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text3 = "[ " + text3 + " ] ";
 						}
 					}
@@ -719,52 +368,16 @@ public static class InEditorDescHelper
 			text += text2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i < num4)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string str2 = "NULL_ENTRY";
 					if (otherObjList[i] != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (stringFormatter == null)
 						{
 							str2 = otherObjList[i].ToString();
 							if (typeof(T).IsEnum)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								str2 = "[ " + str2 + " ] ";
 							}
 						}
@@ -781,15 +394,6 @@ public static class InEditorDescHelper
 				}
 			}
 			text += "\n";
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return text;
 	}

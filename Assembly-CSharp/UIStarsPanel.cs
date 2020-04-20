@@ -30,19 +30,6 @@ public class UIStarsPanel : MonoBehaviour
 			UIEventTriggerUtils.AddListener(this.m_activeButtons[i].gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnButtonClicked));
 			UIEventTriggerUtils.AddListener(this.m_inactiveButtons[i].gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnButtonClicked));
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStarsPanel.Start()).MethodHandle;
-		}
 		this.m_clickable = true;
 	}
 
@@ -51,30 +38,8 @@ public class UIStarsPanel : MonoBehaviour
 		bool flag;
 		if (ClientGameManager.Get().GroupInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStarsPanel.Update()).MethodHandle;
-			}
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !ClientGameManager.Get().GroupInfo.IsLeader;
 				goto IL_59;
 			}
@@ -110,19 +75,6 @@ public class UIStarsPanel : MonoBehaviour
 	{
 		if (!this.m_clickable)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStarsPanel.OnButtonClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		bool flag = true;
@@ -130,26 +82,8 @@ public class UIStarsPanel : MonoBehaviour
 		bool flag3;
 		if (ClientGameManager.Get().GroupInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = !ClientGameManager.Get().GroupInfo.IsLeader;
 				goto IL_A0;
 			}
@@ -159,52 +93,16 @@ public class UIStarsPanel : MonoBehaviour
 		bool flag4 = flag3;
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = false;
 		}
 		else if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !AppState_GroupCharacterSelect.Get().IsReady();
 			}
 			else if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !AppState_CharacterSelect.IsReady();
 			}
 		}
@@ -214,15 +112,6 @@ public class UIStarsPanel : MonoBehaviour
 			{
 				if (this.m_activeButtons[i].gameObject == data.selectedObject)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetCurrentValue(i + 1);
 				}
 				if (this.m_inactiveButtons[i].gameObject == data.selectedObject)
@@ -232,28 +121,10 @@ public class UIStarsPanel : MonoBehaviour
 			}
 			if (this.m_panelType == UIStarsPanel.StarsPanelType.IndividualBot)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterScreen.Get().m_partyListPanel.SelectBotDifficulty(this.CurrentValueAsBotDifficulty);
 			}
 			else if (this.m_panelType == UIStarsPanel.StarsPanelType.EnemyBots)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
 					ClientRequestedEnemyBotDifficulty = new int?(this.m_currentValue - 1)
@@ -261,15 +132,6 @@ public class UIStarsPanel : MonoBehaviour
 			}
 			else if (this.m_panelType == UIStarsPanel.StarsPanelType.TeamBots)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
 					ClientRequestedAllyBotDifficulty = new int?(this.m_currentValue - 1)
@@ -285,19 +147,6 @@ public class UIStarsPanel : MonoBehaviour
 		{
 			if (i < newValue)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStarsPanel.SetCurrentValue(int)).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(this.m_activeButtons[i], true, null);
 				UIManager.SetGameObjectActive(this.m_inactiveButtons[i], false, null);
 			}
@@ -306,15 +155,6 @@ public class UIStarsPanel : MonoBehaviour
 				UIManager.SetGameObjectActive(this.m_activeButtons[i], false, null);
 				UIManager.SetGameObjectActive(this.m_inactiveButtons[i], true, null);
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -330,19 +170,6 @@ public class UIStarsPanel : MonoBehaviour
 			bool result;
 			if (this.m_currentValue >= 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStarsPanel.get_IsCurrentValueValid()).MethodHandle;
-				}
 				result = (this.m_currentValue <= 5);
 			}
 			else
@@ -359,32 +186,10 @@ public class UIStarsPanel : MonoBehaviour
 		{
 			if (this.m_currentValue < 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStarsPanel.get_CurrentValueAsBotDifficulty()).MethodHandle;
-				}
 				return BotDifficulty.Stupid;
 			}
 			if (this.m_currentValue > 5)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return BotDifficulty.Expert;
 			}
 			return (BotDifficulty)(this.m_currentValue - 1);

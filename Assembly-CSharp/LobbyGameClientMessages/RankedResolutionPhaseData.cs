@@ -24,11 +24,11 @@ namespace LobbyGameClientMessages
 
 		public List<int> PlayerIdByImporance;
 
-		public bool \u001D(int \u001D)
+		public bool symbol_001D(int symbol_001D)
 		{
-			RankedResolutionPhaseData.<IsPlayerOnDeck>c__AnonStorey0 <IsPlayerOnDeck>c__AnonStorey = new RankedResolutionPhaseData.<IsPlayerOnDeck>c__AnonStorey0();
-			<IsPlayerOnDeck>c__AnonStorey.\u001D = \u001D;
-			return this.PlayersOnDeck.Exists(new Predicate<RankedResolutionPlayerState>(<IsPlayerOnDeck>c__AnonStorey.\u000E));
+			RankedResolutionPhaseData._IsPlayerOnDeckc__AnonStorey0 _IsPlayerOnDeckc__AnonStorey = new RankedResolutionPhaseData._IsPlayerOnDeckc__AnonStorey0();
+			_IsPlayerOnDeckc__AnonStorey.symbol_001D = symbol_001D;
+			return this.PlayersOnDeck.Exists(new Predicate<RankedResolutionPlayerState>(_IsPlayerOnDeckc__AnonStorey.symbol_000E));
 		}
 	}
 }

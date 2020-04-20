@@ -46,19 +46,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		BazookaGirlExplodingLaser bazookaGirlExplodingLaser = targetAbility as BazookaGirlExplodingLaser;
 		if (bazookaGirlExplodingLaser != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlExplodingLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, bazookaGirlExplodingLaser.m_coneWidthAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, bazookaGirlExplodingLaser.m_coneLength, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, bazookaGirlExplodingLaser.m_coneBackwardOffset, true, false, false);
@@ -84,19 +71,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlExplodingLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = bazookaGirlExplodingLaser.m_coneWidthAngle;
 		}
 		else
@@ -111,15 +85,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlExplodingLaser.m_coneLength;
 		}
 		else
@@ -134,15 +99,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = bazookaGirlExplodingLaser.m_coneBackwardOffset;
 		}
 		else
@@ -157,15 +113,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = bazookaGirlExplodingLaser.m_laserWidth;
 		}
 		else
@@ -180,15 +127,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = bazookaGirlExplodingLaser.m_laserRange;
 		}
 		else
@@ -203,15 +141,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		bool baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = bazookaGirlExplodingLaser.m_laserPenetrateLos;
 		}
 		else
@@ -226,15 +155,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = bazookaGirlExplodingLaser.m_laserDamageAmount;
 		}
 		else
@@ -250,15 +170,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = bazookaGirlExplodingLaser.m_effectOnLaserHitTargets;
 		}
 		else
@@ -273,15 +184,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = bazookaGirlExplodingLaser.m_cdrOnDirectHit;
 		}
 		else
@@ -296,15 +198,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = bazookaGirlExplodingLaser.m_explosionDamageAmount;
 		}
 		else
@@ -321,15 +214,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = bazookaGirlExplodingLaser.m_effectOnExplosionHitTargets;
 		}
 		else

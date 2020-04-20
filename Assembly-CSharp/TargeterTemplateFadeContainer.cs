@@ -18,19 +18,6 @@ public class TargeterTemplateFadeContainer
 		{
 			if (highlights[i] != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterTemplateFadeContainer.TrackHighlights(List<GameObject>)).MethodHandle;
-				}
 				this.m_highlightsToFade.Add(highlights[i]);
 			}
 		}
@@ -44,30 +31,8 @@ public class TargeterTemplateFadeContainer
 			GameObject gameObject = this.m_highlightsToFade[i];
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterTemplateFadeContainer.CleanUpExistingHighlight()).MethodHandle;
-				}
 				HighlightUtils.DestroyObjectAndMaterials(gameObject);
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_highlightsToFade.Clear();
 	}
@@ -76,43 +41,12 @@ public class TargeterTemplateFadeContainer
 	{
 		if (this.m_highlightsToFade.Count > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargeterTemplateFadeContainer.UpdateFade(ActorData, bool)).MethodHandle;
-			}
 			float num = Time.time - this.m_tsFadeStart;
 			bool flag;
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetingActor != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (GameFlowData.Get().activeOwnedActorData.GetTeam() == targetingActor.GetTeam());
 					goto IL_88;
 				}
@@ -122,51 +56,15 @@ public class TargeterTemplateFadeContainer
 			bool flag2 = flag;
 			if (num < 3f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!hasActiveHighlights)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
 							float opacityFromTargeterData = AbilityUtil_Targeter.GetOpacityFromTargeterData(HighlightUtils.Get().m_targeterRemoveFadeOpacity, num);
 							AbilityUtil_Targeter.SetTargeterHighlightOpacity(this.m_highlightsToFade, opacityFromTargeterData);
 							return;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

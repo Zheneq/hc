@@ -41,19 +41,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		RampartAoeBuffDebuff rampartAoeBuffDebuff = targetAbility as RampartAoeBuffDebuff;
 		if (rampartAoeBuffDebuff != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartAoeBuffDebuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_baseSelfHealMod, "BaseSelfHeal", string.Empty, rampartAoeBuffDebuff.m_baseSelfHeal, true, false);
 			AbilityMod.AddToken(tokens, this.m_selfHealAmountPerHitMod, "SelfHealAmountPerHit", string.Empty, rampartAoeBuffDebuff.m_selfHealAmountPerHit, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_selfHitEffectMod, "SelfHitEffect", rampartAoeBuffDebuff.m_selfHitEffect, true);
@@ -77,19 +64,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartAoeBuffDebuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = rampartAoeBuffDebuff.m_penetrateLos;
 		}
 		else
@@ -105,15 +79,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartAoeBuffDebuff.m_selfHealAmountPerHit;
 		}
 		else
@@ -129,15 +94,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rampartAoeBuffDebuff.m_selfHealCountAllyHit;
 		}
 		else
@@ -153,15 +109,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rampartAoeBuffDebuff.m_selfHitEffect;
 		}
 		else
@@ -176,15 +123,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rampartAoeBuffDebuff.m_allyHitEffect;
 		}
 		else

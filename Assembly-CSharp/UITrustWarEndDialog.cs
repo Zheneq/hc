@@ -17,19 +17,6 @@ public class UITrustWarEndDialog : UIDialogBox
 	{
 		if (this.m_Button != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITrustWarEndDialog.Start()).MethodHandle;
-			}
 			this.m_Button.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ButtonClicked);
 		}
 	}

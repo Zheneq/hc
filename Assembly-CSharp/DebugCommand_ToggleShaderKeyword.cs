@@ -33,30 +33,8 @@ public class DebugCommand_ToggleShaderKeyword : DebugCommand
 		string[] array = arguments.Split(" ".ToCharArray(), 2);
 		if (array.Count<string>() == 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_ToggleShaderKeyword.OnSlashCommand(string)).MethodHandle;
-			}
 			if (array[1].EqualsIgnoreCase("off"))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Shader.DisableKeyword(array[0]);
 			}
 			else

@@ -13,19 +13,6 @@ public class UIWorldPing : MonoBehaviour
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIWorldPing.Init()).MethodHandle;
-			}
 			return;
 		}
 		this.m_startTime = Time.time;
@@ -42,19 +29,6 @@ public class UIWorldPing : MonoBehaviour
 		this.Init();
 		if (Time.time - this.m_startTime > 5f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIWorldPing.Update()).MethodHandle;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemovePing(this);
 			UnityEngine.Object.Destroy(base.gameObject);
 		}

@@ -47,19 +47,6 @@ public class SenseiConduitMarkTarget : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedConduitEffectOnEnemy != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiConduitMarkTarget.GetConduitEffectOnEnemy()).MethodHandle;
-			}
 			result = this.m_cachedConduitEffectOnEnemy;
 		}
 		else
@@ -74,19 +61,6 @@ public class SenseiConduitMarkTarget : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedReactionEffectOnAlliesHittingTarget != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiConduitMarkTarget.GetReactionEffectOnAlliesHittingTarget()).MethodHandle;
-			}
 			result = this.m_cachedReactionEffectOnAlliesHittingTarget;
 		}
 		else

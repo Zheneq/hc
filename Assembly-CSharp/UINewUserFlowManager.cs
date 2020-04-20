@@ -153,19 +153,6 @@ public class UINewUserFlowManager
 		UINewUserHighlightsController controller = UINewUserFlowManager.GetController();
 		if (controller)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.HideDisplay()).MethodHandle;
-			}
 			controller.HideDisplay();
 		}
 	}
@@ -175,19 +162,6 @@ public class UINewUserFlowManager
 		UINewUserHighlightsController controller = UINewUserFlowManager.GetController();
 		if (controller)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.IsDebugMode()).MethodHandle;
-			}
 			return controller.m_debugMode;
 		}
 		return false;
@@ -199,30 +173,8 @@ public class UINewUserFlowManager
 		{
 			if (!(UINewUserFlowManager.GetController() == null))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.Highlight(UINewUserHighlightsController.DisplayState, bool)).MethodHandle;
-				}
 				if (UITutorialSeasonInterstitial.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UITutorialSeasonInterstitial.Get().IsVisible())
 					{
 						for (;;)
@@ -251,44 +203,13 @@ public class UINewUserFlowManager
 		UINewUserHighlightsController controller = UINewUserFlowManager.GetController();
 		if (!shouldShow)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINewUserFlowManager.Unhighlight(bool)).MethodHandle;
-			}
 			if (!UINewUserFlowManager.IsDebugMode())
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (controller)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			controller.SetDesiredDisplay(UINewUserHighlightsController.DisplayState.None);
 		}
 	}

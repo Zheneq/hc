@@ -50,19 +50,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		ActorData mainFlagCarrier_Client = CaptureTheFlag.GetMainFlagCarrier_Client();
 		if (mainFlagCarrier_Client != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.UpdateDamageForFlagHolder(float, float)).MethodHandle;
-			}
 			float num = thresholdDamage - currentDamage;
 			if (num < 0f)
 			{
@@ -89,19 +76,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		this.CheckFlagCarrierStatus(newHolder);
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.UpdateFlagHolder(ActorData, ActorData)).MethodHandle;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyFlagStatusChange(newHolder, newHolder != null);
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyFlagStatusChange(oldHolder, false);
 		}
@@ -113,19 +87,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		{
 			this.m_freelancerImages[i].sprite = data.GetAliveHUDIcon();
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.SetFlagCarrierSprite(ActorData)).MethodHandle;
-		}
 	}
 
 	private bool TeamsMatchForCase(Team selfTeam, Team targetTeam)
@@ -133,19 +94,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		bool result;
 		if (selfTeam != targetTeam)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.TeamsMatchForCase(Team, Team)).MethodHandle;
-			}
 			result = (selfTeam == Team.Invalid && targetTeam == Team.TeamA);
 		}
 		else
@@ -161,56 +109,16 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		bool flag2;
 		if (flagCarrier != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.CheckFlagCarrierStatus(ActorData)).MethodHandle;
-			}
 			this.SetFlagCarrierSprite(flagCarrier);
 			if (!(GameFlowData.Get() == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().LocalPlayerData == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (this.TeamsMatchForCase(GameFlowData.Get().LocalPlayerData.GetTeamViewing(), flagCarrier.GetTeam()))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						flag2 = false;
 						goto IL_CF;
@@ -237,15 +145,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_neutralContainer, false, null);
 			UIManager.SetGameObjectActive(this.m_redContainer, false, null);
 			UIManager.SetGameObjectActive(this.m_blueContainer, true, null);
@@ -253,15 +152,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		}
 		else if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_neutralContainer, false, null);
 			UIManager.SetGameObjectActive(this.m_redContainer, true, null);
 			UIManager.SetGameObjectActive(this.m_blueContainer, false, null);
@@ -279,19 +169,6 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.Setup(CaptureTheFlag)).MethodHandle;
-			}
 			return;
 		}
 		UIManager.SetGameObjectActive(this.m_container, true, null);
@@ -305,30 +182,8 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 		ActorData mainFlagCarrier_Client = CaptureTheFlag.GetMainFlagCarrier_Client();
 		if (CameraManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_CTF_BriefcasePanel.CenterCameraToFlagCarrier()).MethodHandle;
-			}
 			if (mainFlagCarrier_Client != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.Get().SetTargetObject(mainFlagCarrier_Client.gameObject, CameraManager.CameraTargetReason.UserFocusingOnActor);
 			}
 		}

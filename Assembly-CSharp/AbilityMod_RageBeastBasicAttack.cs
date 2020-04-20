@@ -40,19 +40,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		RageBeastBasicAttack rageBeastBasicAttack = targetAbility as RageBeastBasicAttack;
 		if (rageBeastBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneAngleMod, "ConeWidthAngle", string.Empty, rageBeastBasicAttack.m_coneWidthAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneInnerRadiusMod, "ConeLengthInner", string.Empty, rageBeastBasicAttack.m_coneLengthInner, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneOuterRadiusMod, "ConeLengthOuter", string.Empty, rageBeastBasicAttack.m_coneLengthOuter, true, false, false);
@@ -77,19 +64,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = rageBeastBasicAttack.m_coneWidthAngle;
 		}
 		else
@@ -104,15 +78,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastBasicAttack.m_coneLengthInner;
 		}
 		else
@@ -127,15 +92,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastBasicAttack.m_coneLengthOuter;
 		}
 		else
@@ -150,15 +106,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rageBeastBasicAttack.m_damageAmountInner;
 		}
 		else
@@ -175,15 +122,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rageBeastBasicAttack.m_effectOuter;
 		}
 		else
@@ -199,15 +137,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = rageBeastBasicAttack.m_tpGainOuter;
 		}
 		else
@@ -217,15 +146,6 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		text = str6 + AbilityModHelper.GetModPropertyDesc(outerTpGain, prefix6, showBaseVal6, baseVal6);
 		if (this.m_extraDamagePerAdjacentEnemy != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{

@@ -46,19 +46,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		SoldierConeOrLaser soldierConeOrLaser = targetAbility as SoldierConeOrLaser;
 		if (soldierConeOrLaser != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierConeOrLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_ConeInfo(tokens, this.m_coneInfoMod, "ConeInfo", soldierConeOrLaser.m_coneInfo, true);
 			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", soldierConeOrLaser.m_laserInfo, true);
 			AbilityMod.AddToken(tokens, this.m_coneDamageMod, "ConeDamage", string.Empty, soldierConeOrLaser.m_coneDamage, true, false);
@@ -87,19 +74,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		ConeTargetingInfo baseConeInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierConeOrLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseConeInfo = soldierConeOrLaser.m_coneInfo;
 		}
 		else
@@ -115,15 +89,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = soldierConeOrLaser.m_coneDamage;
 		}
 		else
@@ -138,15 +103,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = soldierConeOrLaser.m_coneEnemyHitEffect;
 		}
 		else
@@ -161,15 +117,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierConeOrLaser.m_laserDamage;
 		}
 		else
@@ -187,15 +134,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierConeOrLaser.m_extraDamageForNearTarget;
 		}
 		else
@@ -210,15 +148,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = soldierConeOrLaser.m_extraDamageForFromCover;
 		}
 		else
@@ -235,15 +164,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = soldierConeOrLaser.m_extraEnergyForLaser;
 		}
 		else

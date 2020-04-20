@@ -34,30 +34,8 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 	{
 		if (this.m_checkLoad)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.Update()).MethodHandle;
-			}
 			if (this.m_loadingEntry.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RectTransform rectTransform = this.m_historyList.transform as RectTransform;
 				float num = rectTransform.sizeDelta.y - this.m_viewportHeight;
 				float y = rectTransform.anchoredPosition.y;
@@ -67,15 +45,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 					{
 						this.m_checkLoad = false;
 						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.LoadNextChunk();
@@ -93,19 +62,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[i].gameObject);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.SetMatchHistory(List<PersistedCharacterMatchData>)).MethodHandle;
 		}
 		this.m_matchData = new List<PersistedCharacterMatchData>();
 		this.m_scrollArea = base.GetComponentInChildren<ScrollRect>();
@@ -125,15 +81,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -145,19 +92,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 		int i = 0;
 		while (i < 2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.LoadNextChunk()).MethodHandle;
-			}
 			if (this.m_chunkNumber * 2 + i >= this.m_matchData.Count)
 			{
 				for (;;)
@@ -186,15 +120,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 		this.m_chunkNumber++;
 		if (this.m_chunkNumber * 2 >= this.m_matchData.Count)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_loadingEntry, false, null);
 			this.m_checkLoad = false;
 		}
@@ -217,19 +142,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 	{
 		if (this.selectedEntry)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.MatchClicked(UIPlayerProgressHistoryEntry)).MethodHandle;
-			}
 			this.selectedEntry.SetSelected(false);
 		}
 		this.selectedEntry = entry;
@@ -247,20 +159,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 				return;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.SelectMatch(PersistedCharacterMatchData)).MethodHandle;
-			return;
-		}
 	}
 
 	public string GetReplayFilename(string gameServerProcessCode)
@@ -270,33 +168,11 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 			string text2;
 			if (this.m_replayPaths == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistory.GetReplayFilename(string)).MethodHandle;
-				}
 				List<string> list = new List<string>();
 				list.AddRange(Directory.GetFiles(HydrogenConfig.Get().ReplaysPath));
 				foreach (string path in Directory.GetDirectories(HydrogenConfig.Get().ReplaysPath))
 				{
 					list.AddRange(Directory.GetFiles(path));
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int startIndex = HydrogenConfig.Get().ReplaysPath.Length + 1;
 				this.m_replayPaths = new Dictionary<string, string>();
@@ -311,15 +187,6 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 			string result;
 			if (this.m_replayPaths.TryGetValue(text2, out result))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return result;
 			}
 		}

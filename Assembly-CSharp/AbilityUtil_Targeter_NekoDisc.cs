@@ -42,19 +42,6 @@ public class AbilityUtil_Targeter_NekoDisc : AbilityUtil_Targeter_Laser
 		base.UpdateTargeting(currentTarget, targetingActor);
 		if (this.m_highlights.Count < 2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NekoDisc.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			this.m_highlights.Add(HighlightUtils.Get().CreateAoECursor(this.m_aoeRadiusAtEnd * Board.SquareSizeStatic, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}

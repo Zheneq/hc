@@ -10,19 +10,6 @@ public class AbilityCommon_LaserWithCone
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(vector);
 		if (boardSquare != null && boardSquare.HasFullCoverFromAnyDirection_zq())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityCommon_LaserWithCone.GetConeLosCheckPos(Vector3, Vector3)).MethodHandle;
-			}
 			Vector3 vector2 = vector - startPos;
 			vector2.y = 0f;
 			float maxDistance = vector2.magnitude + 0.1f;
@@ -33,26 +20,8 @@ public class AbilityCommon_LaserWithCone
 			bool flag = Physics.Raycast(origin, vector2, out raycastHit, maxDistance, mask);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((raycastHit.collider.gameObject.layer & VectorUtils.s_raycastLayerDynamicLineOfSight) != 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = raycastHit.point - 0.1f * vector2;
 				}
 			}

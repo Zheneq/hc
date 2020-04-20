@@ -15,19 +15,6 @@ public static class AbilityUtils
 			bool flag2 = ability.CurrentAbilityMod != null && ability.CurrentAbilityMod.m_tagsModType == AbilityMod.TagOverrideType.Append;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.AbilityHasTag(Ability, AbilityTags)).MethodHandle;
-				}
 				result = AbilityUtils.HasTagInList(tag, ability.CurrentAbilityMod.m_abilityTagsInMod);
 			}
 			else
@@ -35,26 +22,8 @@ public static class AbilityUtils
 				bool flag3;
 				if (!AbilityUtils.HasTagInList(tag, ability.m_tags))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = AbilityUtils.HasTagInList(tag, ability.CurrentAbilityMod.m_abilityTagsInMod);
 					}
 					else
@@ -76,32 +45,10 @@ public static class AbilityUtils
 	{
 		if (listToCheck != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.HasTagInList(AbilityTags, List<AbilityTags>)).MethodHandle;
-			}
 			for (int i = 0; i < listToCheck.Count; i++)
 			{
 				if (listToCheck[i] == tagToFind)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -114,31 +61,9 @@ public static class AbilityUtils
 		bool result = false;
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.AbilityIgnoreCover(Ability, ActorData)).MethodHandle;
-			}
 			bool flag;
 			if (!AbilityUtils.AbilityHasTag(ability, AbilityTags.IgnoreCover))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = ability.ForceIgnoreCover(targetActor);
 			}
 			else
@@ -155,31 +80,9 @@ public static class AbilityUtils
 		bool result = false;
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.AbilityReduceCoverEffectiveness(Ability, ActorData)).MethodHandle;
-			}
 			bool flag;
 			if (!AbilityUtils.AbilityHasTag(ability, AbilityTags.ReduceCoverByHalf))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = ability.ForceReduceCoverEffectiveness(targetActor);
 			}
 			else
@@ -238,32 +141,10 @@ public static class AbilityUtils
 		float num2;
 		if (caster != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.GetCurrentRangeInSquares(Ability, ActorData, int)).MethodHandle;
-			}
 			ActorStats actorStats = caster.GetActorStats();
 			ActorMovement actorMovement = caster.GetActorMovement();
 			if (actorStats != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float statBaseValueFloat = actorStats.GetStatBaseValueFloat(StatType.Movement_Horizontal);
 				float modifiedStatFloat = actorStats.GetModifiedStatFloat(StatType.Movement_Horizontal);
 				num = Mathf.Max(modifiedStatFloat - statBaseValueFloat, 0f);
@@ -285,15 +166,6 @@ public static class AbilityUtils
 		}
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.AddBonusMovementToRange))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = rangeInSquares + num;
 		}
 		else
@@ -318,31 +190,9 @@ public static class AbilityUtils
 		{
 			if (targetingParadigm != Ability.TargetingParadigm.BoardSquare)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.GetTargetableSquaresForAbility(Ability, AbilityData, ActorData, int)).MethodHandle;
-				}
 				if (targetingParadigm != Ability.TargetingParadigm.Position)
 				{
 					return hashSet;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			int num = Mathf.Max(0, Mathf.FloorToInt((float)caster.GetGridPosWithIncrementedHeight().x - currentRangeInSquares));
@@ -360,15 +210,6 @@ public static class AbilityUtils
 					abilityTarget.SetValuesFromBoardSquare(boardSquare, caster.GetTravelBoardSquareWorldPosition());
 					if (abilityData.ValidateAbilityOnTarget(ability, abilityTarget, targetIndex, currentMinRangeInSquares, currentRangeInSquares2))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						hashSet.Add(boardSquare);
 					}
 				}
@@ -390,57 +231,17 @@ public static class AbilityUtils
 				int num = techPointInteraction.m_amount;
 				if (ability.CurrentAbilityMod != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.GetTechPointRewardForInteraction(Ability, AbilityInteractionType, bool, bool, bool)).MethodHandle;
-					}
 					num = ability.CurrentAbilityMod.GetModdedTechPointForInteraction(techPointInteraction.m_type, num);
 				}
 				AbilityUtils.AddToRewardAmountForInteraction(ref result, techPointInteraction.m_type, interaction, num, firstTime, hitOnAlly, hitOnEnemy);
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (ability.CurrentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (TechPointInteractionMod techPointInteractionMod in ability.CurrentAbilityMod.m_techPointInteractionMods)
 			{
 				if (!hashSet.Contains(techPointInteractionMod.interactionType))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					hashSet.Add(techPointInteractionMod.interactionType);
 					int moddedTechPointForInteraction = ability.CurrentAbilityMod.GetModdedTechPointForInteraction(techPointInteractionMod.interactionType, 0);
 					if (moddedTechPointForInteraction > 0)
@@ -448,15 +249,6 @@ public static class AbilityUtils
 						AbilityUtils.AddToRewardAmountForInteraction(ref result, techPointInteractionMod.interactionType, interaction, moddedTechPointForInteraction, firstTime, hitOnAlly, hitOnEnemy);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -469,75 +261,26 @@ public static class AbilityUtils
 		case TechPointInteractionType.RewardOnCast:
 			if (interaction == AbilityInteractionType.Cast)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.AddToRewardAmountForInteraction(int*, TechPointInteractionType, AbilityInteractionType, int, bool, bool, bool)).MethodHandle;
-				}
 				reward += addAmount;
 			}
 			break;
 		case TechPointInteractionType.RewardOnDamage_OncePerCast:
 			if (interaction == AbilityInteractionType.Damage && firstTime)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				reward += addAmount;
 			}
 			break;
 		case TechPointInteractionType.RewardOnDamage_PerTarget:
 			if (interaction == AbilityInteractionType.Damage)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				reward += addAmount;
 			}
 			break;
 		case TechPointInteractionType.RewardOnHit_OncePerCast:
 			if (interaction == AbilityInteractionType.Hit)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (firstTime)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					reward += addAmount;
 				}
 			}
@@ -545,41 +288,14 @@ public static class AbilityUtils
 		case TechPointInteractionType.RewardOnHit_PerTarget:
 			if (interaction == AbilityInteractionType.Hit)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				reward += addAmount;
 			}
 			break;
 		case TechPointInteractionType.RewardOnHit_PerAllyTarget:
 			if (interaction == AbilityInteractionType.Hit)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (hitOnAlly)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					reward += addAmount;
 				}
 			}
@@ -587,15 +303,6 @@ public static class AbilityUtils
 		case TechPointInteractionType.RewardOnHit_PerEnemyTarget:
 			if (interaction == AbilityInteractionType.Hit)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (hitOnEnemy)
 				{
 					reward += addAmount;
@@ -611,19 +318,6 @@ public static class AbilityUtils
 		bool flag2;
 		if (targetInCover)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.CalculateDamageForTargeter(ActorData, ActorData, Ability, int, bool)).MethodHandle;
-			}
 			flag2 = !flag;
 		}
 		else
@@ -635,15 +329,6 @@ public static class AbilityUtils
 		ActorStatus actorStatus = target.GetActorStatus();
 		if (actorStatus.HasStatus(StatusType.DamageImmune, true))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag4)
 			{
 				return 0;
@@ -652,15 +337,6 @@ public static class AbilityUtils
 		int result;
 		if (actorStatus.HasStatus(StatusType.ImmuneToPlayerDamage, true) && caster.GetIsHumanControlled() && !flag4)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = 0;
 		}
 		else
@@ -669,15 +345,6 @@ public static class AbilityUtils
 			ActorStats actorStats2 = target.GetActorStats();
 			if (GameplayMutators.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseDamage = Mathf.RoundToInt((float)baseDamage * GameplayMutators.GetDamageMultiplier());
 			}
 			bool flag5 = AbilityUtils.AbilityHasTag(ability, AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs);
@@ -687,15 +354,6 @@ public static class AbilityUtils
 			int num2 = num;
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool reducedCoverEffectiveness = AbilityUtils.AbilityReduceCoverEffectiveness(ability, target);
 				num2 = AbilityUtils.ApplyCoverDamageReduction(actorStats2, num2, reducedCoverEffectiveness);
 			}
@@ -709,45 +367,14 @@ public static class AbilityUtils
 		int result;
 		if (target.GetActorStatus().HasStatus(StatusType.HealImmune, true))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.CalculateHealingForTargeter(ActorData, ActorData, Ability, int)).MethodHandle;
-			}
 			result = 0;
 		}
 		else
 		{
 			if (caster != target)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster.GetTeam() == target.GetTeam())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam, true))
 					{
 						return 0;
@@ -763,15 +390,6 @@ public static class AbilityUtils
 			int num;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = baseHeal;
 			}
 			else
@@ -795,41 +413,10 @@ public static class AbilityUtils
 		{
 			if (caster != target)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.CalculateAbsorbForTargeter(ActorData, ActorData, Ability, int)).MethodHandle;
-				}
 				if (caster.GetTeam() == target.GetTeam())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (target.GetActorStatus().HasStatus(StatusType.CantBeHelpedByTeam, true))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return 0;
 					}
 				}
@@ -843,15 +430,6 @@ public static class AbilityUtils
 			int num;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = baseAbsorb;
 			}
 			else
@@ -868,19 +446,6 @@ public static class AbilityUtils
 	{
 		if (GameplayMutators.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.CalculateTechPointsForTargeter(ActorData, Ability, int)).MethodHandle;
-			}
 			baseGain = MathUtil.RoundToIntPadded((float)baseGain * GameplayMutators.GetEnergyGainMultiplier());
 		}
 		int a = baseGain;
@@ -889,42 +454,15 @@ public static class AbilityUtils
 		bool flag2 = actorStatus.HasStatus(StatusType.SlowEnergyGain, true);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
 				AbilityModPropertyInt energizedEnergyGainMod;
 				if (!(GameplayMutators.Get() == null))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useEnergizedOverride)
 					{
 						energizedEnergyGainMod = GameplayMutators.Get().m_energizedEnergyGainMod;
 						goto IL_B1;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				energizedEnergyGainMod = GameWideData.Get().m_energizedEnergyGainMod;
@@ -935,51 +473,15 @@ public static class AbilityUtils
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityModPropertyInt slowEnergyGainEnergyGainMod;
 				if (!(GameplayMutators.Get() == null))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayMutators.Get().m_useSlowEnergyGainOverride)
 					{
 						slowEnergyGainEnergyGainMod = GameplayMutators.Get().m_slowEnergyGainEnergyGainMod;
 						goto IL_12C;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				slowEnergyGainEnergyGainMod = GameWideData.Get().m_slowEnergyGainEnergyGainMod;
@@ -996,19 +498,6 @@ public static class AbilityUtils
 		float num = targetStats.GetModifiedStatFloat(StatType.CoverIncomingDamageMultiplier);
 		if (reducedCoverEffectiveness)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.ApplyCoverDamageReduction(ActorStats, int, bool)).MethodHandle;
-			}
 			num = Mathf.Min(num * 1.5f, 1f);
 		}
 		return Mathf.RoundToInt((float)initialDamage * num);
@@ -1019,33 +508,11 @@ public static class AbilityUtils
 		int num = 0;
 		if (actorsToConsider != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.GetEnemyCount(List<ActorData>, ActorData)).MethodHandle;
-			}
 			for (int i = 0; i < actorsToConsider.Count; i++)
 			{
 				ActorData actorData = actorsToConsider[i];
 				if (actorData.GetTeam() != observingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
@@ -1063,30 +530,8 @@ public static class AbilityUtils
 				ActorData actorData = actorsToConsider[i];
 				if (actorData.GetTeam() == observingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtils.GetAllyCount(List<ActorData>, ActorData, bool)).MethodHandle;
-					}
 					if (!includeSelf)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(observingActor != actorData))
 						{
 							goto IL_52;
@@ -1095,15 +540,6 @@ public static class AbilityUtils
 					num++;
 				}
 				IL_52:;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;

@@ -19,19 +19,6 @@ public class NumericContextOperand
 	{
 		if (this.m_contextKey == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextOperand.GetContextKey()).MethodHandle;
-			}
 			this.m_contextKey = ContextVars.GetHash(this.m_contextName);
 		}
 		return this.m_contextKey;
@@ -51,19 +38,6 @@ public class NumericContextOperand
 				abilityModPropertyFloat.CopyValuesFrom(this.m_additionalModifiers[i]);
 				numericContextOperand.m_additionalModifiers.Add(abilityModPropertyFloat);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextOperand.GetCopy()).MethodHandle;
-			}
 		}
 		return numericContextOperand;
 	}
@@ -79,30 +53,8 @@ public class NumericContextOperand
 				AbilityModPropertyFloat abilityModPropertyFloat = this.m_additionalModifiers[i];
 				if (abilityModPropertyFloat.operation != AbilityModPropertyFloat.ModOp.Ignore)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextOperand.GetInEditorDesc(string)).MethodHandle;
-					}
 					text = text + indent + "    Then " + AbilityModHelper.GetModPropertyDesc(abilityModPropertyFloat, string.Empty, false, 0f);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return text;

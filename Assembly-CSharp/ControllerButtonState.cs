@@ -47,30 +47,8 @@ public class ControllerButtonState
 		{
 			if (this.m_value != value)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.set_Value(bool)).MethodHandle;
-				}
 				if (value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_value = true;
 				}
 				else
@@ -91,30 +69,8 @@ public class ControllerButtonState
 		{
 			if (this.m_up != value)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.set_Up(bool)).MethodHandle;
-				}
 				if (value)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_up = true;
 				}
 				else
@@ -135,30 +91,8 @@ public class ControllerButtonState
 		{
 			if (this.m_down != value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.set_Down(bool)).MethodHandle;
-				}
 				if (value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_down = true;
 				}
 				else
@@ -182,19 +116,6 @@ public class ControllerButtonState
 		string arg;
 		if (this.m_down)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerButtonState.GetDebugString()).MethodHandle;
-			}
 			arg = "_";
 		}
 		else if (this.m_up)
@@ -208,15 +129,6 @@ public class ControllerButtonState
 		string arg2;
 		if (this.m_value)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg2 = "1";
 		}
 		else

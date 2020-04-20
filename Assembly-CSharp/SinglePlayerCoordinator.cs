@@ -33,19 +33,6 @@ public class SinglePlayerCoordinator : MonoBehaviour
 		{
 			this.m_script[i].m_stateIndex = i;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.Awake()).MethodHandle;
-		}
 		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
 	}
 
@@ -53,19 +40,6 @@ public class SinglePlayerCoordinator : MonoBehaviour
 	{
 		if (ChatterManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.OnDestroy()).MethodHandle;
-			}
 			ChatterManager.Get().EnableChatter = true;
 		}
 		GameFlowData.s_onGameStateChanged -= this.OnGameStateChanged;
@@ -79,73 +53,20 @@ public class SinglePlayerCoordinator : MonoBehaviour
 		{
 			singlePlayerState.Initialize();
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.Start()).MethodHandle;
-		}
 	}
 
 	private void OnGameStateChanged(GameState newState)
 	{
 		if (newState == GameState.EndingGame)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SinglePlayerCoordinator.OnGameStateChanged(GameState)).MethodHandle;
-			}
 			UITutorialPanel.Get().ClearAll();
 			if (this.m_chatTextAtEndOfMatch != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_chatTextAtEndOfMatch.Length > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (SinglePlayerScriptedChat singlePlayerScriptedChat in this.m_chatTextAtEndOfMatch)
 					{
 						UITutorialPanel.Get().QueueDialogue(singlePlayerScriptedChat.m_text, singlePlayerScriptedChat.m_audioEvent, singlePlayerScriptedChat.m_displaySeconds, singlePlayerScriptedChat.m_sender);
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}

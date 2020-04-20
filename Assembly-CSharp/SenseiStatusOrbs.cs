@@ -55,19 +55,6 @@ public class SenseiStatusOrbs : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiStatusOrbs.Start()).MethodHandle;
-			}
 			this.m_abilityName = "SenseiStatusOrbs";
 		}
 		this.Setup();
@@ -87,54 +74,14 @@ public class SenseiStatusOrbs : Ability
 	{
 		if (potentialActor != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiStatusOrbs.ShouldAddActorForTargeter(ActorData, Vector3, ActorData)).MethodHandle;
-			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(centerPos);
 			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquare, true, true, targetingActor);
 			if (targetableActorOnSquare != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetableActorOnSquare.IsVisibleToClient())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (potentialActor != targetableActorOnSquare)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return potentialActor.GetTeam() != targetableActorOnSquare.GetTeam();
 					}
 				}
@@ -161,19 +108,6 @@ public class SenseiStatusOrbs : Ability
 		{
 			if (actorData.GetTeam() == targetActor.GetTeam())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiStatusOrbs.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				int healing = Mathf.Max(0, this.m_fromAllySelfHealPerHit * visibleActorsCountByTooltipSubject);
 				results.m_healing = healing;
@@ -188,15 +122,6 @@ public class SenseiStatusOrbs : Ability
 		}
 		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			results.m_damage = this.m_fromAllyDamageOnHit;
 		}
 		else

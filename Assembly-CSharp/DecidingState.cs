@@ -16,19 +16,6 @@ public class DecidingState : TurnState
 		AbilityData component2 = this.m_SM.GetComponent<AbilityData>();
 		if (component2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DecidingState.OnEnter()).MethodHandle;
-			}
 			component2.ClearSelectedAbility();
 		}
 		ActorData component3 = this.m_SM.GetComponent<ActorData>();
@@ -36,26 +23,8 @@ public class DecidingState : TurnState
 		{
 			if (SpawnPointManager.Get().m_playersSelectRespawn && component3.NextRespawnTurn > GameFlowData.Get().CurrentTurn)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component3.RespawnPickedPositionSquare == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_SM.NextState = TurnStateEnum.PICKING_RESPAWN;
 					return;
 				}
@@ -78,15 +47,6 @@ public class DecidingState : TurnState
 		case TurnMessage.CLIENTS_RESOLVED_ABILITIES:
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(this.m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Deciding state, which is unexpected.", new object[0]);
 			}
 			else
@@ -98,19 +58,6 @@ public class DecidingState : TurnState
 		case TurnMessage.SELECTED_ABILITY:
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DecidingState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
 				if (component.GetSelectedAbility() != null)
 				{
 					this.m_SM.NextState = TurnStateEnum.TARGETING_ACTION;
@@ -126,15 +73,6 @@ public class DecidingState : TurnState
 		case TurnMessage.DONE_BUTTON_CLICKED:
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerManager.Get() != null)
 				{
 					SinglePlayerManager.Get().RecalcCanEndTurn();
@@ -145,15 +83,6 @@ public class DecidingState : TurnState
 				this.m_SM.NextState = TurnStateEnum.CONFIRMED;
 				if (SinglePlayerManager.Get())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SinglePlayerManager.Get().OnActorLockInEntered(this.m_SM.GetComponent<ActorData>());
 				}
 			}
@@ -169,32 +98,10 @@ public class DecidingState : TurnState
 		ActorData component = this.m_SM.GetComponent<ActorData>();
 		if (GameFlowData.Get().activeOwnedActorData == component)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DecidingState.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get().gameState != GameState.EndingGame)
 			{
 				if (!Input.GetMouseButtonUp(1))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!InputManager.Get().GetAcceptButtonDown())
 					{
 						goto IL_B7;
@@ -202,26 +109,8 @@ public class DecidingState : TurnState
 				}
 				if (InterfaceManager.Get().ShouldHandleMouseClick())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_SM.HandledMouseInput)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_SM.HandledMouseInput = true;
 						this.m_SM.SelectMovementSquare();
 					}

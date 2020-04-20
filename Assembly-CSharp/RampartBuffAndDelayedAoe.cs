@@ -42,19 +42,6 @@ public class RampartBuffAndDelayedAoe : Ability
 		AbilityAreaShape shapeLowEnergy;
 		if (this.m_onlyDoAoeIfFullEnergy)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBuffAndDelayedAoe.SetupTargeter()).MethodHandle;
-			}
 			shapeLowEnergy = AbilityAreaShape.SingleSquare;
 		}
 		else

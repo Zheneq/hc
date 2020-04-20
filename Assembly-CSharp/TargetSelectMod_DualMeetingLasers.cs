@@ -42,19 +42,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_DualMeetingLasers.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
 			baseVal = targetSelect_DualMeetingLasers.m_laserWidth;
 		}
 		else
@@ -69,15 +56,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = targetSelect_DualMeetingLasers.m_minMeetingDistFromCaster;
 		}
 		else
@@ -93,15 +71,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = targetSelect_DualMeetingLasers.m_laserStartForwardOffset;
 		}
 		else
@@ -116,15 +85,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = targetSelect_DualMeetingLasers.m_laserStartSideOffset;
 		}
 		else
@@ -139,15 +99,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = targetSelect_DualMeetingLasers.m_aoeBaseRadius;
 		}
 		else
@@ -162,15 +113,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = targetSelect_DualMeetingLasers.m_aoeMinRadius;
 		}
 		else
@@ -185,15 +127,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = targetSelect_DualMeetingLasers.m_aoeMaxRadius;
 		}
 		else
@@ -208,15 +141,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = targetSelect_DualMeetingLasers.m_aoeRadiusChangePerUnitFromMin;
 		}
 		else
@@ -231,15 +155,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = targetSelect_DualMeetingLasers.m_radiusMultIfPartialBlock;
 		}
 		else
@@ -254,15 +169,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		bool baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = targetSelect_DualMeetingLasers.m_aoeIgnoreMinCoverDist;
 		}
 		else

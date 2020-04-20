@@ -29,33 +29,11 @@ public class UseAbilityChatter : ScriptableObject, IChatterData
 		GameEventManager.AbilityUseArgs abilityUseArgs = args as GameEventManager.AbilityUseArgs;
 		if (abilityUseArgs == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UseAbilityChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
 			Log.Error("Missing args for ability game event.", new object[0]);
 			return false;
 		}
 		if (abilityUseArgs.userActor != component.gameObject.GetComponent<ActorData>())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (abilityUseArgs.ability == null)
@@ -64,26 +42,8 @@ public class UseAbilityChatter : ScriptableObject, IChatterData
 		}
 		if (this.m_ability != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_ability.GetType() != abilityUseArgs.ability.GetType())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 		}

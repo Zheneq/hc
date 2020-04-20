@@ -50,19 +50,6 @@ public class NekoBoomerangDisc : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Boomerang Disc";
 		}
 		this.Setup();
@@ -83,19 +70,6 @@ public class NekoBoomerangDisc : Ability
 		bool result;
 		if (this.GetShieldPerTargetHitOnThrow() > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.TargeterIncludeCaster(ActorData, List<ActorData>)).MethodHandle;
-			}
 			result = (actorsSoFar.Count > 0);
 		}
 		else
@@ -110,19 +84,6 @@ public class NekoBoomerangDisc : Ability
 		StandardActorEffectData cachedShieldEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.SetCachedFields()).MethodHandle;
-			}
 			cachedShieldEffectData = this.m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(this.m_shieldEffectData);
 		}
 		else
@@ -142,19 +103,6 @@ public class NekoBoomerangDisc : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -169,19 +117,6 @@ public class NekoBoomerangDisc : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetAoeRadiusAtEnd()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(this.m_aoeRadiusAtEnd);
 		}
 		else
@@ -196,19 +131,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -223,19 +145,6 @@ public class NekoBoomerangDisc : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetDiscReturnEndRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(this.m_discReturnEndRadius);
 		}
 		else
@@ -250,19 +159,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetDirectDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_directDamageMod.GetModifiedValue(this.m_directDamage);
 		}
 		else
@@ -282,19 +178,6 @@ public class NekoBoomerangDisc : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.ReturnTripIgnoreCover()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(this.m_returnTripIgnoreCover);
 		}
 		else
@@ -314,19 +197,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetExtraReturnDamageIfHitNoOne()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraReturnDamageIfHitNoOneMod.GetModifiedValue(this.m_extraReturnDamageIfHitNoOne);
 		}
 		else
@@ -341,19 +211,6 @@ public class NekoBoomerangDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetShieldPerTargetHitOnThrow()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldPerTargetHitOnThrowMod.GetModifiedValue(this.m_shieldPerTargetHitOnThrow);
 		}
 		else
@@ -368,19 +225,6 @@ public class NekoBoomerangDisc : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedShieldEffectData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetShieldEffectData()).MethodHandle;
-			}
 			result = this.m_cachedShieldEffectData;
 		}
 		else
@@ -416,41 +260,10 @@ public class NekoBoomerangDisc : Ability
 			int num = this.GetDirectDamage();
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-				}
 				if (this.GetExtraDamageIfHitByReturnDisc() > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_syncComp.IsActorTargetedByReturningDiscs(targetActor))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += this.GetExtraDamageIfHitByReturnDisc();
 					}
 				}
@@ -486,19 +299,6 @@ public class NekoBoomerangDisc : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NekoBoomerangDisc))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBoomerangDisc.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NekoBoomerangDisc);
 			this.Setup();
 		}

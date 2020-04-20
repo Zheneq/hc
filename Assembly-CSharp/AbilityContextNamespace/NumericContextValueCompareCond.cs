@@ -21,19 +21,6 @@ namespace AbilityContextNamespace
 		{
 			if (this.m_contextKey == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NumericContextValueCompareCond.GetContextKey()).MethodHandle;
-				}
 				this.m_contextKey = ContextVars.GetHash(this.m_contextName);
 			}
 			return this.m_contextKey;

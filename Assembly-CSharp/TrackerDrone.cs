@@ -33,33 +33,11 @@ public class TrackerDrone : Ability
 		this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
 		if (this.m_droneTracker == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.Start()).MethodHandle;
-			}
 			Debug.LogError("No drone tracker component");
 		}
 		this.m_visionProvider = base.GetComponent<ActorAdditionalVisionProviders>();
 		if (this.m_visionProvider == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No additional vision provider component");
 		}
 		this.Setup();
@@ -70,45 +48,14 @@ public class TrackerDrone : Ability
 	{
 		if (this.m_droneInfoComp == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.Setup()).MethodHandle;
-			}
 			this.m_droneInfoComp = base.GetComponent<TrackerDroneInfoComponent>();
 		}
 		if (this.m_droneInfoComp == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No Drone Info component");
 		}
 		if (this.m_droneTracker == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
 		}
 		if (this.m_droneTracker == null)
@@ -129,19 +76,6 @@ public class TrackerDrone : Ability
 			int num;
 			if (abilityMod_TrackerDrone)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-				}
 				num = abilityMod_TrackerDrone.m_untrackedHitDamageMod.GetModifiedValue(component.m_untrackedDroneHitDamageAmount);
 			}
 			else
@@ -152,15 +86,6 @@ public class TrackerDrone : Ability
 			StandardEffectInfo standardEffectInfo;
 			if (abilityMod_TrackerDrone)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				standardEffectInfo = abilityMod_TrackerDrone.m_trackedHitEffectOverride.GetModifiedValue(component.m_droneHitEffect);
 			}
 			else
@@ -171,15 +96,6 @@ public class TrackerDrone : Ability
 			StandardEffectInfo standardEffectInfo2;
 			if (abilityMod_TrackerDrone)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				standardEffectInfo2 = abilityMod_TrackerDrone.m_untrackedHitEffectOverride.GetModifiedValue(component.m_untrackedDroneHitEffect);
 			}
 			else
@@ -199,19 +115,6 @@ public class TrackerDrone : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_droneInfoComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_droneInfoComp.m_droneHitDamageAmount);
 			this.m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_droneInfoComp.m_untrackedDroneHitDamageAmount);
@@ -225,19 +128,6 @@ public class TrackerDrone : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_droneInfoComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_droneInfoComp.GetDamageOnTracked(true));
 			this.m_droneInfoComp.m_droneHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Secondary, this.m_droneInfoComp.GetDamageOnUntracked(true));
@@ -246,25 +136,12 @@ public class TrackerDrone : Ability
 		return result;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
 		List<int> list = new List<int>();
 		TrackerDroneInfoComponent component = base.GetComponent<TrackerDroneInfoComponent>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.\u001D()).MethodHandle;
-			}
 			list.Add(component.m_droneHitDamageAmount);
 			list.Add(component.m_untrackedDroneHitDamageAmount);
 		}
@@ -276,30 +153,8 @@ public class TrackerDrone : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (caster.GetCurrentBoardSquare() != null)
 				{
 					float num = this.m_droneInfoComp.m_targeterMaxRangeFromDrone * Board.Get().squareSize;
@@ -307,38 +162,11 @@ public class TrackerDrone : Ability
 					Vector3 b = caster.GetTravelBoardSquareWorldPosition();
 					if (this.m_droneTracker.DroneIsActive())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_droneTracker.BoardX(), this.m_droneTracker.BoardY());
 						if (boardSquare != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquareSafe == boardSquare)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return false;
 							}
 							b = boardSquare.ToVector3();
@@ -350,28 +178,10 @@ public class TrackerDrone : Ability
 						{
 							return false;
 						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					bool result;
 					if (num2 > 0f)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (Vector3.Distance(boardSquareSafe.ToVector3(), caster.GetCurrentBoardSquare().ToVector3()) <= num2);
 					}
 					else
@@ -389,19 +199,6 @@ public class TrackerDrone : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TrackerDrone))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerDrone.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_TrackerDrone);
 			this.Setup();
 		}

@@ -72,42 +72,11 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		int result = 0;
 		if (this.m_extraPowerupsForMixedSpawn != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.ChooseNextPrefabSpawnIndex(bool)).MethodHandle;
-			}
 			int count = this.m_finalizedPowerupSpawnInfoList.Count;
 			if (this.m_extraPowerupSelectMode == PowerUpSpawner.ExtraPowerupSelectMode.InOrder)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lastServerSpawnPrefabIndex >= 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (this.m_lastServerSpawnPrefabIndex + 1) % count;
 				}
 				else
@@ -119,26 +88,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			{
 				if (isForFirstSpawn)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_useSameFirstPowerupIfRandom)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return 0;
 					}
 				}
@@ -154,19 +105,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		this.Networkm_nextSpawnTurn = nextSpawnTurn;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.HookNextSpawnTurn(int)).MethodHandle;
-			}
 			this.UpdateTimerController();
 		}
 	}
@@ -188,19 +126,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		this.m_finalizedPowerupSpawnInfoList.Add(powerupSpawnInfo);
 		if (this.m_extraPowerupsForMixedSpawn != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.Awake()).MethodHandle;
-			}
 			if (this.m_extraPowerupsForMixedSpawn.Count > 0)
 			{
 				for (int i = 0; i < this.m_extraPowerupsForMixedSpawn.Count; i++)
@@ -208,26 +133,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 					PowerUpSpawner.PowerupSpawnInfo powerupSpawnInfo2 = this.m_extraPowerupsForMixedSpawn[i];
 					if (powerupSpawnInfo2.m_powerupObjectPrefab != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (powerupSpawnInfo2.m_baseSeqPrefab != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_finalizedPowerupSpawnInfoList.Add(powerupSpawnInfo2);
 						}
 					}
@@ -236,15 +143,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.Networkm_nextPowerupPrefabIndex = this.ChooseNextPrefabSpawnIndex(true);
 		}
 	}
@@ -253,19 +151,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.Start()).MethodHandle;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ReplayRestart);
 		}
 	}
@@ -274,19 +159,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (!this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.Initialize()).MethodHandle;
-			}
 			this.m_initialized = true;
 			PowerUpManager.AddListenerStatic(this);
 			this.m_boardSquare = Board.Get().GetBoardSquareSafe(base.transform.position.x, base.transform.position.z);
@@ -299,32 +171,10 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (PowerUpManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.OnDestroy()).MethodHandle;
-			}
 			PowerUpManager.Get().RemoveListener(this);
 		}
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ReplayRestart);
 		}
 	}
@@ -334,32 +184,10 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		GameObject baseSeqPrefab = this.m_finalizedPowerupSpawnInfoList[0].m_baseSeqPrefab;
 		if (this.m_nextPowerupPrefabIndex >= 0 && this.m_nextPowerupPrefabIndex < this.m_finalizedPowerupSpawnInfoList.Count)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.PlayBaseSequence()).MethodHandle;
-			}
 			baseSeqPrefab = this.m_finalizedPowerupSpawnInfoList[this.m_nextPowerupPrefabIndex].m_baseSeqPrefab;
 		}
 		if (baseSeqPrefab != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SequenceSource source = new SequenceSource(null, null, this.m_sequenceSourceId, false);
 			this.m_baseSequences = SequenceManager.Get().CreateClientSequences(baseSeqPrefab, this.m_boardSquare, null, null, source, null);
 			this.SetSequencesRoot(this.m_baseSequences);
@@ -385,55 +213,15 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (sequences != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.SetSequencesRoot(Sequence[])).MethodHandle;
-			}
 			if (PowerUpManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (Sequence sequence in sequences)
 				{
 					if (sequence != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						sequence.transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
 						return;
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -443,32 +231,10 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (this.m_baseSequences != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.UpdateTimerController()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_baseSequences.Length; i++)
 			{
 				if (this.IsEnabled)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_baseSequences[i].SetTimerController(this.m_nextSpawnTurn - GameFlowData.Get().CurrentTurn);
 				}
 				else
@@ -486,31 +252,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!(VisualsLoader.Get() == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.Update()).MethodHandle;
-				}
 				if (!VisualsLoader.Get().LevelLoaded())
 				{
 					goto IL_50;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.Initialize();
@@ -518,26 +262,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		IL_50:
 		if (this.m_initialized && NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_nextPowerupPrefabIndex >= 0 && this.m_currentBasePrefabIndex != this.m_nextPowerupPrefabIndex)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ClearPreviousBaseSpawnSequences();
 				this.PlayBaseSequence();
 				this.m_currentBasePrefabIndex = this.m_nextPowerupPrefabIndex;
@@ -549,19 +275,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "icon_PowerUp.png");
@@ -572,19 +285,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		this.Networkm_nextSpawnTurn = GameFlowData.Get().CurrentTurn + this.m_spawnInterval;
 		if (GameplayMutators.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.PowerUp.IPowerUpListener.OnPowerUpDestroyed(PowerUp)).MethodHandle;
-			}
 			this.Networkm_nextSpawnTurn = Mathf.Max(this.m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), GameFlowData.Get().CurrentTurn + 1);
 		}
 		this.Networkm_nextPowerupPrefabIndex = this.ChooseNextPrefabSpawnIndex(false);
@@ -612,19 +312,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			bool result;
 			if (this.m_spawningEnabled)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.get_IsEnabled()).MethodHandle;
-				}
 				result = this.m_isReady;
 			}
 			else
@@ -644,31 +331,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (this.m_spawnSequences != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.ClearPreviousSpawnSequences()).MethodHandle;
-			}
 			foreach (Sequence sequence in this.m_spawnSequences)
 			{
 				sequence.MarkForRemoval();
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_spawnSequences = null;
 		}
@@ -678,19 +343,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (this.m_baseSequences != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.ClearPreviousBaseSpawnSequences()).MethodHandle;
-			}
 			foreach (Sequence sequence in this.m_baseSequences)
 			{
 				sequence.MarkForRemoval();
@@ -705,30 +357,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		this.ClearPreviousSpawnSequences();
 		if (this.m_nextSpawnTurn == GameFlowData.Get().CurrentTurn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.PowerUp.IPowerUpListener.OnTurnTick()).MethodHandle;
-			}
 			if (this.IsEnabled)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.PlaySpawnSequence();
 			}
 		}
@@ -738,15 +368,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			{
 				if (this.m_nextSpawnTurn <= GameFlowData.Get().CurrentTurn && this.IsEnabled)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnPowerUp();
 				}
 			}
@@ -757,15 +378,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		if (this.m_nextPowerupPrefabIndex >= 0 && this.m_currentBasePrefabIndex != this.m_nextPowerupPrefabIndex)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ClearPreviousBaseSpawnSequences();
 			this.PlayBaseSequence();
 			this.m_currentBasePrefabIndex = this.m_nextPowerupPrefabIndex;
@@ -791,19 +403,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.SpawnPowerUp()).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void PowerUpSpawner::SpawnPowerUp()' called on client");
 			return;
 		}
@@ -811,15 +410,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		this.m_lastServerSpawnPrefabIndex = 0;
 		if (this.m_nextPowerupPrefabIndex < this.m_finalizedPowerupSpawnInfoList.Count)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			powerupObjectPrefab = this.m_finalizedPowerupSpawnInfoList[this.m_nextPowerupPrefabIndex].m_powerupObjectPrefab;
 			this.m_lastServerSpawnPrefabIndex = this.m_nextPowerupPrefabIndex;
 		}
@@ -829,15 +419,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		if (powerupObjectPrefab)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 position = this.boardSquare.ToVector3();
 			this.m_powerUpInstance = UnityEngine.Object.Instantiate<PowerUp>(powerupObjectPrefab, position, Quaternion.identity);
 			this.m_powerUpInstance.SetPickupTeam(this.m_teamRestriction);
@@ -848,27 +429,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			this.m_powerUpInstance.CheckForPickupOnSpawn();
 			if (this.m_tagsToApplyToPowerup != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (string powerupTag in this.m_tagsToApplyToPowerup)
 				{
 					this.m_powerUpInstance.AddTag(powerupTag);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -920,19 +483,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 			uint dirtyBit = 4U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.set_Networkm_nextSpawnTurn(int)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -972,19 +522,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.OnSerialize(NetworkWriter, bool)).MethodHandle;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -994,15 +531,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1010,26 +538,8 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1039,15 +549,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1064,19 +565,6 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawner.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_sequenceSourceId = reader.ReadPackedUInt32();
 			this.m_nextPowerupPrefabIndex = (int)reader.ReadPackedUInt32();
 			this.m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
@@ -1090,41 +578,14 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_nextPowerupPrefabIndex = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookNextSpawnTurn((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_spawningEnabled = reader.ReadBoolean();
 		}
 	}

@@ -105,19 +105,6 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (!SinglePlayerManager.IsAbilitysCurrentAimingAllowed(component))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.SelectTarget(AbilityTarget, bool)).MethodHandle;
-			}
 			return result;
 		}
 		AbilityData component2 = base.GetComponent<AbilityData>();
@@ -126,27 +113,9 @@ public class ActorTurnSM : NetworkBehaviour
 		int num2 = 0;
 		if (selectedAbility)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityTarget abilityTarget;
 			if (abilityTargetToUse != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityTarget = abilityTargetToUse.GetCopy();
 			}
 			else
@@ -159,15 +128,6 @@ public class ActorTurnSM : NetworkBehaviour
 			num2 = selectedAbility.GetExpectedNumberOfTargeters();
 			if (this.m_targets.Count <= num)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_targets.Count <= num2)
 				{
 					goto IL_F2;
@@ -184,77 +144,23 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (this.GetAbilityTargets().Count < num)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetAbilityTargets().Count < num2)
 			{
 				goto IL_1E5;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (num != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityData.ActionType selectedActionType = component2.GetSelectedActionType();
 			this.OnQueueAbilityRequest(selectedActionType);
 			result = true;
 			if (NetworkClient.active && onLockIn)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (selectedAbility != null && activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData == component)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						selectedAbility.ResetAbilityTargeters();
 					}
 				}
@@ -268,26 +174,8 @@ public class ActorTurnSM : NetworkBehaviour
 		IL_1E5:
 		if (selectedAbility != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num2 > 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityTarget> abilityTargets = this.GetAbilityTargets();
 				int num3 = 0;
 				while (num3 < abilityTargets.Count && num3 < selectedAbility.Targeters.Count)
@@ -299,15 +187,6 @@ public class ActorTurnSM : NetworkBehaviour
 					abilityUtil_Targeter.MarkedForForceUpdate = true;
 					if (component == GameFlowData.Get().activeOwnedActorData)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						abilityUtil_Targeter.HideAllSquareIndicators();
 					}
 					num3++;
@@ -317,15 +196,6 @@ public class ActorTurnSM : NetworkBehaviour
 		IL_2BB:
 		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Board.Get().MarkForUpdateValidSquares(true);
 		}
 		return result;
@@ -335,67 +205,18 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CheckAbilityInput()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData == base.GetComponent<ActorData>())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().IsInDecisionState())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightTrigger) > 0f)
 					{
 						if (!this.m_abilitySelectorVisible)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorData component = base.GetComponent<ActorData>();
 							AbilityData component2 = component.GetComponent<AbilityData>();
 							if (component2 != null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_abilitySelectorVisible = true;
 								HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.Init(component2);
 								UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel, true, null);
@@ -407,28 +228,10 @@ public class ActorTurnSM : NetworkBehaviour
 							float num;
 							if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickY) == 0f)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickX) == 0f)
 								{
 									num = 0f;
 									goto IL_16F;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							num = 200f;
@@ -449,26 +252,8 @@ public class ActorTurnSM : NetworkBehaviour
 						KeyPreference abilityHover = HUD_UI.Get().m_mainScreenPanel.m_abilitySelectPanel.GetAbilityHover();
 						if (HUD_UI.Get() != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (abilityHover != KeyPreference.NullPreference)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIMainScreenPanel.Get().m_abilityBar.DoAbilityButtonClick(abilityHover);
 							}
 						}
@@ -484,52 +269,12 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			if (this.CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CheckPingInput()).MethodHandle;
-				}
 				if (Input.GetMouseButtonDown(0) && InterfaceManager.Get().ShouldHandleMouseClick())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (InputManager.Get().IsKeyBindingHeld(KeyPreference.MinimapPing))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (HUD_UI.Get() != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Board.Get().PlayerFreeSquare != null)
 							{
 								this.m_worldPositionPingDown = Board.Get().PlayerFreeSquare.ToVector3();
@@ -567,15 +312,6 @@ public class ActorTurnSM : NetworkBehaviour
 				{
 					if (Input.GetMouseButtonUp(0))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BigPingPanel component = HUD_UI.Get().m_mainScreenPanel.m_bigPingPanel.GetComponent<BigPingPanel>();
 						ActorController.PingType pingType = component.GetPingType();
 						UIManager.SetGameObjectActive(component, false, null);
@@ -585,44 +321,17 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				else if (Input.GetMouseButtonUp(0))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BigPingPanel component2 = HUD_UI.Get().m_mainScreenPanel.m_bigPingPanel.GetComponent<BigPingPanel>();
 					ActorController.PingType pingType2 = component2.GetPingType();
 					UIManager.SetGameObjectActive(component2, false, null);
 					this.m_timePingDown = 0f;
 					if (pingType2 != ActorController.PingType.Default)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						HUD_UI.Get().m_mainScreenPanel.m_minimap.SendMiniMapPing(this.m_worldPositionPingDown, pingType2);
 					}
 				}
 				else if (!HUD_UI.Get().m_mainScreenPanel.m_bigPingPanel.GetComponent<BigPingPanel>().m_closeButton.activeSelf)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_bigPingPanel.GetComponent<BigPingPanel>().m_closeButton, true, null);
 				}
 			}
@@ -635,30 +344,8 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			if (this.m_timePingDown == 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CheckAbilityInputControlPad()).MethodHandle;
-				}
 				if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftTrigger) > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (HUD_UI.Get() != null && Board.Get().PlayerFreeSquare != null)
 					{
 						this.m_timePingDown = GameTime.time;
@@ -675,15 +362,6 @@ public class ActorTurnSM : NetworkBehaviour
 						Canvas x = (!(HUD_UI.Get() != null)) ? null : HUD_UI.Get().GetTopLevelCanvas();
 						if (x != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector2 vector = Camera.main.WorldToViewportPoint(position);
 							Vector2 anchoredPosition = new Vector2(vector.x * sizeDelta.x - sizeDelta.x * 0.5f, vector.y * sizeDelta.y - sizeDelta.y * 0.5f);
 							(HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.transform as RectTransform).anchoredPosition = anchoredPosition;
@@ -695,41 +373,14 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			if (this.m_timePingDown != 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				RectTransform rectTransform = HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.GetComponent<BigPingPanelControlpad>().m_line.transform as RectTransform;
 				float num;
 				if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickY) == 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftStickX) == 0f)
 					{
 						num = 0f;
 						goto IL_2E0;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				num = 200f;
@@ -743,26 +394,8 @@ public class ActorTurnSM : NetworkBehaviour
 				HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.SelectAbilityButtonFromAngle(num3, num2);
 				if (GameTime.time < this.m_timePingDown + 0.25f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftTrigger) == 0f)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorController.PingType pingType = HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.GetPingType();
 						UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad, false, null);
 						this.m_timePingDown = 0f;
@@ -771,43 +404,16 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				else if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.LeftTrigger) == 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorController.PingType pingType2 = HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.GetPingType();
 					UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad, false, null);
 					this.m_timePingDown = 0f;
 					if (pingType2 != ActorController.PingType.Default)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						HUD_UI.Get().m_mainScreenPanel.m_minimap.SendMiniMapPing(this.m_worldPositionPingDown, pingType2);
 					}
 				}
 				else if (!HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.GetComponent<BigPingPanelControlpad>().m_closeButton.activeSelf)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_bigPingPanelControlpad.GetComponent<BigPingPanelControlpad>().m_closeButton, true, null);
 				}
 			}
@@ -820,44 +426,13 @@ public class ActorTurnSM : NetworkBehaviour
 		this.UpdateCancelKey();
 		if (this.LockInBuffered)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.Update()).MethodHandle;
-			}
 			if (this.CheckStateForEndTurnRequestFromInput())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info("Buffered lock in at " + GameTime.time, new object[0]);
 				UISounds.GetUISounds().Play("ui/ingame/v1/hud/lockin");
 				this.RequestEndTurn();
 				if (HUD_UI.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_lockInCancelButton.LockedInClicked();
 				}
 				this.LockInBuffered = false;
@@ -874,15 +449,6 @@ public class ActorTurnSM : NetworkBehaviour
 		this.DisplayActorState();
 		if (this.m_firstUpdate)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_firstUpdate = false;
 		}
 	}
@@ -908,19 +474,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.SendCastAbility(AbilityData.ActionType)).MethodHandle;
-			}
 			Debug.LogWarning("[Client] function 'System.Void ActorTurnSM::SendCastAbility(AbilityData/ActionType)' called on server");
 			return;
 		}
@@ -937,71 +490,22 @@ public class ActorTurnSM : NetworkBehaviour
 		TurnStateEnum currentState = this.CurrentState;
 		if (currentState != TurnStateEnum.DECIDING_MOVEMENT)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RequestCancel(bool)).MethodHandle;
-			}
 			if (currentState == TurnStateEnum.CONFIRMED)
 			{
 				if (this.m_actorData.GetTimeBank().AllowUnconfirm())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.LastConfirmedCancelTurn = GameFlowData.Get().CurrentTurn;
 					this.m_actorData.GetTimeBank().OnActionsUnconfirmed();
 					this.BackToDecidingState();
 					if (Options_UI.Get() != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Options_UI.Get().ShouldCancelActionWhileConfirmed())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 					}
 				}
 				goto IL_D0;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (currentState != TurnStateEnum.DECIDING)
 			{
@@ -1013,37 +517,10 @@ public class ActorTurnSM : NetworkBehaviour
 		IL_D0:
 		if (!onlyCancelConfirm)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_requestStackForUndo.Count != 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int index = this.m_requestStackForUndo.Count - 1;
 					ActorTurnSM.ActionRequestForUndo actionRequestForUndo = this.m_requestStackForUndo[index];
 					this.m_requestStackForUndo.RemoveAt(index);
@@ -1051,15 +528,6 @@ public class ActorTurnSM : NetworkBehaviour
 					UndoableRequestType type = actionRequestForUndo.m_type;
 					if (type != UndoableRequestType.MOVEMENT)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (type == UndoableRequestType.ABILITY_QUEUE)
 						{
 							this.RequestCancelAction(actionRequestForUndo.m_action, false);
@@ -1081,31 +549,9 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.BackToDecidingState()).MethodHandle;
-			}
 			if (!NetworkClient.active)
 			{
 				goto IL_42;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (this.CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
@@ -1116,15 +562,6 @@ public class ActorTurnSM : NetworkBehaviour
 		IL_42:
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CallCmdGUITurnMessage(4, 0);
 		}
 	}
@@ -1133,19 +570,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (GameFlowData.Get().activeOwnedActorData == base.GetComponent<ActorData>())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.UpdateCancelKey()).MethodHandle;
-			}
 			ActorData component = base.GetComponent<ActorData>();
 			bool flag = component.HasQueuedMovement();
 			AbilityData component2 = base.GetComponent<AbilityData>();
@@ -1153,48 +577,12 @@ public class ActorTurnSM : NetworkBehaviour
 			bool flag3 = true;
 			if (InputManager.Get().IsKeyCodeMatchKeyBind(KeyPreference.CancelAction, KeyCode.Escape))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.GetKeyDown(KeyCode.Escape))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UISystemEscapeMenu.Get() != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UISystemEscapeMenu.Get().IsOpen())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = false;
 							UISystemEscapeMenu.Get().OnToggleButtonClick(null);
 							goto IL_18C;
@@ -1202,15 +590,6 @@ public class ActorTurnSM : NetworkBehaviour
 					}
 					if (UIGameStatsWindow.Get() != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UIGameStatsWindow.Get().m_container.gameObject.activeSelf)
 						{
 							flag3 = false;
@@ -1220,41 +599,14 @@ public class ActorTurnSM : NetworkBehaviour
 					}
 					if (Options_UI.Get().IsVisible())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = false;
 						Options_UI.Get().HideOptions();
 					}
 					else if (KeyBinding_UI.Get().IsVisible())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = false;
 						if (!KeyBinding_UI.Get().IsSettingKeybindCommand())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							KeyBinding_UI.Get().HideKeybinds();
 						}
 					}
@@ -1263,26 +615,8 @@ public class ActorTurnSM : NetworkBehaviour
 			IL_18C:
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.CurrentState == TurnStateEnum.DECIDING)
 					{
 						return;
@@ -1291,15 +625,6 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.CancelAction))
 				{
 					this.RequestCancel(false);
@@ -1312,31 +637,9 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.CurrentState == TurnStateEnum.DECIDING)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CheckStateForEndTurnRequestFromInput()).MethodHandle;
-			}
 			if (this.NextState == TurnStateEnum.DECIDING)
 			{
 				return true;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return this.CurrentState == TurnStateEnum.PICKING_RESPAWN;
@@ -1346,69 +649,20 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (GameFlowData.Get().activeOwnedActorData == base.GetComponent<ActorData>() && this.ShouldShowEndTurnButton())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.UpdateEndTurnKey()).MethodHandle;
-			}
 			if (this.ShouldEnableEndTurnButton() && InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.LockIn) && !this.HandledSpaceInput)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AppState.GetCurrent() != AppState_InGameDeployment.Get())
 					{
 						if (this.CheckStateForEndTurnRequestFromInput())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.HandledSpaceInput = true;
 							UISounds.GetUISounds().Play("ui/ingame/v1/hud/lockin");
 							Log.Info("Lock in request at " + GameTime.time, new object[0]);
 							this.RequestEndTurn();
 							if (HUD_UI.Get() != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_lockInCancelButton.LockedInClicked();
 							}
 						}
@@ -1419,15 +673,6 @@ public class ActorTurnSM : NetworkBehaviour
 								if (this.CurrentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 								{
 									return;
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							this.LockInBuffered = true;
@@ -1445,43 +690,12 @@ public class ActorTurnSM : NetworkBehaviour
 		Ability ability = null;
 		if (component)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.GetActionText(string*, Color*)).MethodHandle;
-			}
 			ability = component.GetSelectedAbility();
 		}
 		if (this.CurrentState == TurnStateEnum.CONFIRMED)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ability != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				textColor = Color.green;
 				textStr = ability.m_abilityName;
 			}
@@ -1497,15 +711,6 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				else if (flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					textColor = ActorTurnSM.s_movingTextColor;
 					textStr = "Moving";
 				}
@@ -1533,59 +738,19 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (this.AmTargetingAction())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RequestEndTurn()).MethodHandle;
-			}
 			Ability selectedAbility = component.GetAbilityData().GetSelectedAbility();
 			do
 			{
 				if (this.SelectTarget(null, true))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.NextState = TurnStateEnum.VALIDATING_ACTION_REQUEST;
 				}
 				if (!(selectedAbility != null) || !selectedAbility.ShouldAutoConfirmIfTargetingOnEndTurn())
 				{
 					goto IL_92;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			while (this.m_targets.Count < selectedAbility.GetExpectedNumberOfTargeters());
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		IL_92:
 		if (SinglePlayerManager.Get() != null)
@@ -1596,15 +761,6 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnMessage(TurnMessage.DONE_BUTTON_CLICKED, true);
 			}
 			else
@@ -1624,32 +780,10 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (SinglePlayerManager.IsCancelDisabled())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RequestCancelMovement()).MethodHandle;
-			}
 			return;
 		}
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnMessage(TurnMessage.CANCEL_MOVEMENT, 0, true);
 		}
 		else
@@ -1659,37 +793,10 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (component == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.ShouldPickRespawn_zq())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SpawnPointManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SpawnPointManager.Get().m_spawnInDuringMovement)
 					{
 						InterfaceManager.Get().DisplayAlert(StringUtil.TR("PostRespawnMovement", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true, 0);
@@ -1699,38 +806,11 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				LineData component2 = component.GetComponent<LineData>();
 				if (component2 != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component2.OnClientRequestedMovementChange();
 				}
 			}
@@ -1741,19 +821,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (SinglePlayerManager.IsCancelDisabled())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RequestCancelAction(AbilityData.ActionType, bool)).MethodHandle;
-			}
 			return;
 		}
 		this.CancelUndoableAbilityRequest(actionType);
@@ -1782,55 +849,15 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.NextState != this.CurrentState)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.SwitchToNewStates()).MethodHandle;
-			}
 			this.GetState().OnExit();
 			this.PreviousState = this.CurrentState;
 			this.CurrentState = this.NextState;
 			if (UIMainScreenPanel.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData == this.m_actorData)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIMainScreenPanel.Get().m_targetingCursor.ShowTargetCursor();
 					}
 					else
@@ -1847,15 +874,6 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			if (Board.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Board.Get().MarkForUpdateValidSquares(true);
 			}
 		}
@@ -1877,19 +895,6 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			if (value >= TurnStateEnum.CONFIRMED)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.set_NextState(TurnStateEnum)).MethodHandle;
-				}
 				if (this._NextState < TurnStateEnum.CONFIRMED)
 				{
 					this._LockInTime = DateTime.UtcNow;
@@ -1898,15 +903,6 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			if (value < TurnStateEnum.CONFIRMED && this._NextState >= TurnStateEnum.CONFIRMED)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this._TurnStart = DateTime.UtcNow;
 				this._LockInTime = DateTime.MinValue;
 			}
@@ -1943,19 +939,6 @@ public class ActorTurnSM : NetworkBehaviour
 		bool result;
 		if (CameraControls.Get().Enabled)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.IsKeyDown(KeyCode)).MethodHandle;
-			}
 			result = Input.GetKeyDown(keyCode);
 		}
 		else
@@ -1982,19 +965,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.m_autoQueuedRequestActionTypes.Contains(actionType))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CancelAutoQueuedAbilityRequest(AbilityData.ActionType)).MethodHandle;
-			}
 			this.m_autoQueuedRequestActionTypes.Remove(actionType);
 		}
 	}
@@ -2009,19 +979,6 @@ public class ActorTurnSM : NetworkBehaviour
 		bool flag = false;
 		if (request.m_type == UndoableRequestType.MOVEMENT)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.StoreUndoableActionRequest(ActorTurnSM.ActionRequestForUndo)).MethodHandle;
-			}
 			using (List<ActorTurnSM.ActionRequestForUndo>.Enumerator enumerator = this.m_requestStackForUndo.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -2029,40 +986,13 @@ public class ActorTurnSM : NetworkBehaviour
 					ActorTurnSM.ActionRequestForUndo actionRequestForUndo = enumerator.Current;
 					if (actionRequestForUndo.m_type == UndoableRequestType.MOVEMENT)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_requestStackForUndo.Add(request);
 			this.m_actorData.OnClientQueuedActionChanged();
 		}
@@ -2073,42 +1003,11 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CancelUndoableAbilityRequest(AbilityData.ActionType)).MethodHandle;
-			}
 			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorCinematicRequests component = activeOwnedActorData.GetComponent<ActorCinematicRequests>();
 				if (component.IsAbilityCinematicRequested(actionType))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					activeOwnedActorData.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(actionType, false, -1, -1);
 				}
 			}
@@ -2118,26 +1017,8 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			if (this.m_requestStackForUndo[i].m_type == UndoableRequestType.ABILITY_QUEUE)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_requestStackForUndo[i].m_action == actionType)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = i;
 					break;
 				}
@@ -2145,28 +1026,10 @@ public class ActorTurnSM : NetworkBehaviour
 		}
 		if (num != -1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_requestStackForUndo.RemoveAt(num);
 			this.m_actorData.OnClientQueuedActionChanged();
 			if (HUD_UI.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.CancelAbilityRequest(actionType);
 			}
 		}
@@ -2185,34 +1048,12 @@ public class ActorTurnSM : NetworkBehaviour
 			}
 			if (list != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.OnQueueAbilityRequest(AbilityData.ActionType)).MethodHandle;
-				}
 				foreach (AbilityData.ActionType actionType2 in list)
 				{
 					this.RequestCancelAction(actionType2, true);
 				}
 				if (list.Count > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 				}
 			}
@@ -2226,19 +1067,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.QueueAutoQueuedAbilityRequest(AbilityData.ActionType)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ActorTurnSM::QueueAutoQueuedAbilityRequest(AbilityData/ActionType)' called on client");
 			return;
 		}
@@ -2278,57 +1106,17 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.OnMessage(TurnMessage, int, bool)).MethodHandle;
-			}
 			this.CallRpcTurnMessage((int)msg, extraData);
 		}
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!NetworkClient.active)
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ignoreClient)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.GetState().OnMsg(msg, extraData);
@@ -2357,19 +1145,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.m_actorData.GetTimeBank() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.OnActionsUnconfirmed()).MethodHandle;
-			}
 			this.m_actorData.GetTimeBank().OnActionsUnconfirmed();
 		}
 	}
@@ -2378,41 +1153,10 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.OnSelectedAbilityChanged(Ability)).MethodHandle;
-			}
 			if (NetworkClient.active && this.CanSelectAbility())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ability.IsAutoSelect())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.OnMessage(TurnMessage.SELECTED_ABILITY, false);
 				}
 			}
@@ -2420,15 +1164,6 @@ public class ActorTurnSM : NetworkBehaviour
 		this.GetState().OnSelectedAbilityChanged();
 		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Board.Get().MarkForUpdateValidSquares(true);
 		}
 	}
@@ -2440,83 +1175,25 @@ public class ActorTurnSM : NetworkBehaviour
 		BoardSquare boardSquare = null;
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.SelectMovementSquare()).MethodHandle;
-			}
 			boardSquare = component.MoveFromBoardSquare;
 		}
 		bool flag = Options_UI.Get().GetShiftClickForMovementWaypoints() == InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
 		bool flag2 = Options_UI.Get().GetShiftClickForMovementWaypoints() && InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
 		if (boardSquare != playerClampedSquare)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InterfaceManager.Get().CancelAlert(StringUtil.TR("PostRespawnMovement", "Global"));
 		}
 		if (playerClampedSquare != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.IsDestinationAllowed(component, playerClampedSquare, flag))
 			{
 				if (!this.m_actorData.HasQueuedMovement())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_actorData.HasQueuedChase())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag3;
 						if (!flag2)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = this.SelectMovementSquareForChasing(playerClampedSquare);
 						}
 						else
@@ -2532,39 +1209,12 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				if (this.m_actorData.HasQueuedChase())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playerClampedSquare == this.m_actorData.GetQueuedChaseTarget().GetCurrentBoardSquare())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SelectMovementSquareForMovement(playerClampedSquare);
 					}
 					else if (!this.SelectMovementSquareForChasing(playerClampedSquare))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SelectMovementSquareForMovement(playerClampedSquare);
 					}
 				}
@@ -2573,28 +1223,10 @@ public class ActorTurnSM : NetworkBehaviour
 					bool flag4;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.CanMoveToBoardSquare(playerClampedSquare))
 						{
 							flag4 = false;
 							goto IL_1DB;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					flag4 = this.SelectMovementSquareForChasing(playerClampedSquare);
@@ -2607,15 +1239,6 @@ public class ActorTurnSM : NetworkBehaviour
 							this.SelectMovementSquareForMovement(playerClampedSquare);
 							return;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					this.SelectMovementSquareForChasing(playerClampedSquare);
 				}
@@ -2627,35 +1250,13 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		bool result = false;
 		ActorData component = base.GetComponent<ActorData>();
-		if (component.\u0012(selectedSquare))
+		if (component.symbol_0012(selectedSquare))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.SelectMovementSquareForChasing(BoardSquare)).MethodHandle;
-			}
 			ActorData component2 = selectedSquare.occupant.GetComponent<ActorData>();
 			result = true;
 			bool flag;
 			if (this.m_actorData.HasQueuedChase())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (this.m_actorData.GetQueuedChaseTarget() == component2);
 			}
 			else
@@ -2666,15 +1267,6 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				if (component == GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UISounds.GetUISounds().Play("ui/ingame/v1/teammember_move");
 				}
 				this.StoreUndoableActionRequest(new ActorTurnSM.ActionRequestForUndo(UndoableRequestType.MOVEMENT, AbilityData.ActionType.INVALID_ACTION));
@@ -2689,27 +1281,9 @@ public class ActorTurnSM : NetworkBehaviour
 				}), new object[0]);
 				if (NetworkClient.active && component == GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					LineData component3 = component.GetComponent<LineData>();
 					if (component3 != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component3.OnClientRequestedMovementChange();
 					}
 				}
@@ -2736,54 +1310,14 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.SelectMovementSquaresForMovement(List<BoardSquare>)).MethodHandle;
-			}
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 			{
 				if (SinglePlayerManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SinglePlayerManager.Get().GetCurrentState() != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.GetIsHumanControlled() && SinglePlayerManager.Get().GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return;
 						}
 					}
@@ -2798,52 +1332,16 @@ public class ActorTurnSM : NetworkBehaviour
 						BoardSquare boardSquare2 = boardSquare;
 						if (!component.CanMoveToBoardSquare(boardSquare2))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquare2 = component.GetActorMovement().GetClosestMoveableSquareTo(boardSquare2, false);
 						}
 						if (boardSquare2 != null)
 						{
 							if (component == GameFlowData.Get().activeOwnedActorData)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num == 0)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (component.GetActorMovement().SquaresCanMoveTo.Count > 0)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										UISounds.GetUISounds().Play("ui/ingame/v1/move");
 									}
 								}
@@ -2851,15 +1349,6 @@ public class ActorTurnSM : NetworkBehaviour
 							bool flag2;
 							if (Options_UI.Get().GetShiftClickForMovementWaypoints() == InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = FirstTurnMovement.CanWaypoint();
 							}
 							else
@@ -2873,27 +1362,9 @@ public class ActorTurnSM : NetworkBehaviour
 						}
 						num++;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.NextState = TurnStateEnum.VALIDATING_MOVE_REQUEST;
 					Log.Info(string.Concat(new object[]
 					{
@@ -2904,29 +1375,11 @@ public class ActorTurnSM : NetworkBehaviour
 					}), new object[0]);
 					if (NetworkClient.active)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component == GameFlowData.Get().activeOwnedActorData)
 						{
 							LineData component2 = component.GetComponent<LineData>();
 							if (component2 != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								component2.OnClientRequestedMovementChange();
 							}
 						}
@@ -2934,15 +1387,6 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				Board.Get().MarkForUpdateValidSquares(true);
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2957,87 +1401,20 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!this.m_actorData.HasBotController)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RpcTurnMessage(int, int)).MethodHandle;
-			}
 			if (this.m_actorData == GameFlowData.Get().activeOwnedActorData && !this.m_actorData.IsDead())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (msgEnum == 1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.GetState() != this.m_turnStates[0])
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.GetState() != this.m_turnStates[2])
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.GetState() != this.m_turnStates[5])
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.GetState() != this.m_turnStates[7])
 								{
 									if (this.m_requestStackForUndo.IsNullOrEmpty<ActorTurnSM.ActionRequestForUndo>())
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_autoQueuedRequestActionTypes.IsNullOrEmpty<AbilityData.ActionType>())
 										{
 											int num = -1;
@@ -3045,27 +1422,9 @@ public class ActorTurnSM : NetworkBehaviour
 											ActorController actorController = this.m_actorData.GetActorController();
 											if (actorController != null)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												Ability lastTargetedAbility = actorController.GetLastTargetedAbility(ref num);
 												if (lastTargetedAbility != null)
 												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													text = lastTargetedAbility.m_abilityName;
 												}
 											}
@@ -3092,48 +1451,12 @@ public class ActorTurnSM : NetworkBehaviour
 				}
 				if (msgEnum == 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.GetState() != this.m_turnStates[7])
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.GetState() != this.m_turnStates[0])
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.GetState() != this.m_turnStates[8])
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.GetState() != this.m_turnStates[5] && this.GetState() != this.m_turnStates[6])
 								{
 									Debug.LogError(string.Concat(new string[]
@@ -3161,19 +1484,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.RpcStoreAutoQueuedAbilityRequest(int)).MethodHandle;
-			}
 			this.StoreAutoQueuedAbilityRequest((AbilityData.ActionType)actionTypeInt);
 		}
 	}
@@ -3184,19 +1494,6 @@ public class ActorTurnSM : NetworkBehaviour
 		TurnState state = this.GetState();
 		if (state is TargetingActionState)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.GetTargetSelectionIndex()).MethodHandle;
-			}
 			TargetingActionState targetingActionState = state as TargetingActionState;
 			result = targetingActionState.TargetIndex;
 		}
@@ -3209,43 +1506,12 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.GetSelectedTargetingParadigm()).MethodHandle;
-			}
 			if (activeOwnedActorData.GetActorTurnSM() == this)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData abilityData = activeOwnedActorData.GetAbilityData();
 				Ability selectedAbility = abilityData.GetSelectedAbility();
 				if (selectedAbility != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int targetSelectionIndex = this.GetTargetSelectionIndex();
 					result = selectedAbility.GetTargetingParadigm(targetSelectionIndex);
 				}
@@ -3259,32 +1525,10 @@ public class ActorTurnSM : NetworkBehaviour
 		int result;
 		if (this.CurrentState != TurnStateEnum.DECIDING)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CanSelectAbility()).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT && this.CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
 				if (this.CurrentState == TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (this.m_actorData.GetTimeBank().AllowUnconfirm() ? 1 : 0);
 				}
 				else
@@ -3303,32 +1547,10 @@ public class ActorTurnSM : NetworkBehaviour
 		int result;
 		if (this.CurrentState != TurnStateEnum.DECIDING && this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CanQueueSimpleAction()).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
 				if (this.CurrentState == TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (this.m_actorData.GetTimeBank().AllowUnconfirm() ? 1 : 0);
 				}
 				else
@@ -3349,19 +1571,6 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			if (this.CurrentState == TurnStateEnum.CONFIRMED)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CanPickRespawnLocation()).MethodHandle;
-				}
 				result = (this.PreviousState == TurnStateEnum.PICKING_RESPAWN);
 			}
 			else
@@ -3381,32 +1590,10 @@ public class ActorTurnSM : NetworkBehaviour
 		int result;
 		if (this.CurrentState != TurnStateEnum.DECIDING)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.AmDecidingMovement()).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT)
 			{
 				if (this.CurrentState == TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (this.m_actorData.GetTimeBank().AllowUnconfirm() ? 1 : 0);
 				}
 				else
@@ -3430,42 +1617,11 @@ public class ActorTurnSM : NetworkBehaviour
 		bool result;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.IsClientDecidingMovement()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM();
 				if (actorTurnSM != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = actorTurnSM.AmDecidingMovement();
 				}
 				else
@@ -3488,30 +1644,8 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.CurrentState != TurnStateEnum.DECIDING && this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT && this.CurrentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.AmStillDeciding()).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.TARGETING_ACTION)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.CurrentState != TurnStateEnum.VALIDATING_ACTION_REQUEST)
 				{
 					return this.CurrentState == TurnStateEnum.PICKING_RESPAWN;
@@ -3525,30 +1659,8 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.CurrentState != TurnStateEnum.DECIDING)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.ShouldShowGUIButtons()).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT && this.CurrentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.CurrentState != TurnStateEnum.TARGETING_ACTION && this.CurrentState != TurnStateEnum.VALIDATING_ACTION_REQUEST && this.CurrentState != TurnStateEnum.CONFIRMED)
 				{
 					return this.CurrentState == TurnStateEnum.PICKING_RESPAWN;
@@ -3562,41 +1674,10 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.CurrentState != TurnStateEnum.DECIDING)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.ShouldEnableEndTurnButton()).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.CurrentState != TurnStateEnum.TARGETING_ACTION)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.CurrentState == TurnStateEnum.PICKING_RESPAWN;
 				}
 			}
@@ -3608,30 +1689,8 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (this.CurrentState != TurnStateEnum.DECIDING)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.ShouldEnableMoveButton()).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.CurrentState == TurnStateEnum.TARGETING_ACTION;
 			}
 		}
@@ -3643,19 +1702,6 @@ public class ActorTurnSM : NetworkBehaviour
 		bool result;
 		if (this.ShouldShowGUIButtons())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.ShouldShowEndTurnButton()).MethodHandle;
-			}
 			result = (this.CurrentState != TurnStateEnum.CONFIRMED);
 		}
 		else
@@ -3670,52 +1716,12 @@ public class ActorTurnSM : NetworkBehaviour
 		int result;
 		if (this.CurrentState != TurnStateEnum.DECIDING)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.ShouldEnableAbilityButton(bool)).MethodHandle;
-			}
 			if (this.CurrentState != TurnStateEnum.DECIDING_MOVEMENT)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.CurrentState != TurnStateEnum.TARGETING_ACTION)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.CurrentState == TurnStateEnum.CONFIRMED)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (isSimpleAction ? 1 : 0);
 					}
 					else
@@ -3735,32 +1741,10 @@ public class ActorTurnSM : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (HUD_UI.Get() != null && component == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.SetupForNewTurn()).MethodHandle;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_notificationPanel.DisplayNotification(UINotificationPanel.GamePhaseDisplay.Decision);
 		}
 		if (component == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HighlightUtils.Get().SetCursorType(HighlightUtils.CursorType.MouseOverCursorType);
 		}
 		component.GetTimeBank().ResetTurn();
@@ -3772,15 +1756,6 @@ public class ActorTurnSM : NetworkBehaviour
 			ActorMovement actorMovement = component.GetActorMovement();
 			if (actorMovement && !GameplayUtils.IsMinion(this))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorMovement.UpdateSquaresCanMoveTo();
 			}
 		}
@@ -3794,19 +1769,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.InvokeCmdCmdGUITurnMessage(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("Command CmdGUITurnMessage called on client.");
 			return;
 		}
@@ -3817,19 +1779,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.InvokeCmdCmdRequestCancelAction(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("Command CmdRequestCancelAction called on client.");
 			return;
 		}
@@ -3840,19 +1789,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.InvokeCmdCmdChase(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("Command CmdChase called on client.");
 			return;
 		}
@@ -3863,19 +1799,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.InvokeCmdCmdSetSquare(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("Command CmdSetSquare called on client.");
 			return;
 		}
@@ -3886,19 +1809,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CallCmdGUITurnMessage(int, int)).MethodHandle;
-			}
 			Debug.LogError("Command function CmdGUITurnMessage called on server.");
 			return;
 		}
@@ -3943,33 +1853,11 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CallCmdChase(int, int)).MethodHandle;
-			}
 			Debug.LogError("Command function CmdChase called on server.");
 			return;
 		}
 		if (base.isServer)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CmdChase(selectedSquareX, selectedSquareY);
 			return;
 		}
@@ -3987,33 +1875,11 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CallCmdSetSquare(int, int, bool)).MethodHandle;
-			}
 			Debug.LogError("Command function CmdSetSquare called on server.");
 			return;
 		}
 		if (base.isServer)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CmdSetSquare(x, y, setWaypoint);
 			return;
 		}
@@ -4032,19 +1898,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.InvokeRpcRpcTurnMessage(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcTurnMessage called on server.");
 			return;
 		}
@@ -4055,19 +1908,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.InvokeRpcRpcStoreAutoQueuedAbilityRequest(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcStoreAutoQueuedAbilityRequest called on server.");
 			return;
 		}
@@ -4078,19 +1918,6 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorTurnSM.CallRpcTurnMessage(int, int)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcTurnMessage called on client.");
 			return;
 		}
@@ -4122,8 +1949,7 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

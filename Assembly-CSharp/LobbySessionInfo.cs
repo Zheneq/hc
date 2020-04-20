@@ -43,32 +43,10 @@ public class LobbySessionInfo
 			}
 			if (this.SessionToken != 0L)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbySessionInfo.get_Name()).MethodHandle;
-				}
 				return string.Format("[{0} {1:x}]", this.AccountId, this.SessionToken);
 			}
 			if (!this.ProcessCode.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.ProcessCode;
 			}
 			return "unknown";
@@ -82,33 +60,11 @@ public class LobbySessionInfo
 		{
 			if (this.Handle != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbySessionInfo.get_HandleWithoutNumber()).MethodHandle;
-				}
 				string handle = this.Handle;
 				int num = handle.LastIndexOf('#');
 				string result;
 				if (num == -1)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = handle;
 				}
 				else

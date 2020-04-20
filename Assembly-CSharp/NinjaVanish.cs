@@ -58,19 +58,6 @@ public class NinjaVanish : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.Start()).MethodHandle;
-			}
 			this.m_abilityName = "NinjaVanish";
 		}
 		this.Setup();
@@ -81,31 +68,9 @@ public class NinjaVanish : Ability
 		this.SetCachedFields();
 		if (this.SkipEvade())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.Setup()).MethodHandle;
-			}
 			AbilityAreaShape shape = AbilityAreaShape.SingleSquare;
 			if (this.GetGroundEffectData() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				shape = this.GetGroundEffectData().shape;
 			}
 			AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
@@ -132,19 +97,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if (!this.SkipEvade())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.CanShowTargetableRadiusPreview()).MethodHandle;
-			}
 			result = base.CanShowTargetableRadiusPreview();
 		}
 		else
@@ -158,19 +110,6 @@ public class NinjaVanish : Ability
 	{
 		if (this.SkipEvade())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetTargetData()).MethodHandle;
-			}
 			return this.m_noEvadeTargetData;
 		}
 		return base.GetTargetData();
@@ -192,19 +131,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo cachedEffectOnSelf;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectOnSelf = this.m_abilityMod.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
 		}
 		else
@@ -215,15 +141,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo cachedEffectOnEnemy;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnEnemy = this.m_abilityMod.m_effectOnEnemyMod.GetModifiedValue(this.m_effectOnEnemy);
 		}
 		else
@@ -234,15 +151,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo cachedSelfEffectOnNextTurn;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSelfEffectOnNextTurn = this.m_abilityMod.m_selfEffectOnNextTurnMod.GetModifiedValue(this.m_selfEffectOnNextTurn);
 		}
 		else
@@ -253,15 +161,6 @@ public class NinjaVanish : Ability
 		StandardBarrierData cachedVisionBlockBarrierData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedVisionBlockBarrierData = this.m_abilityMod.m_visionBlockBarrierDataMod.GetModifiedValue(this.m_visionBlockBarrierData);
 		}
 		else
@@ -280,19 +179,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.CanQueueMoveAfterEvade()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(this.m_canQueueMoveAfterEvade);
 		}
 		else
@@ -307,19 +193,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.SkipEvade()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_skipEvadeMod.GetModifiedValue(this.m_skipEvade);
 		}
 		else
@@ -334,19 +207,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnSelf != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetEffectOnSelf()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnSelf;
 		}
 		else
@@ -366,19 +226,6 @@ public class NinjaVanish : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetSelfHealOnTurnStartIfInField()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealOnTurnStartIfInFieldMod.GetModifiedValue(this.m_selfHealOnTurnStartIfInField);
 		}
 		else
@@ -393,19 +240,6 @@ public class NinjaVanish : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnEnemy != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetEffectOnEnemy()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnEnemy;
 		}
 		else
@@ -420,19 +254,6 @@ public class NinjaVanish : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetSmokeFieldDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_smokeFieldDurationMod.GetModifiedValue(this.m_smokeFieldDuration);
 		}
 		else
@@ -457,19 +278,6 @@ public class NinjaVanish : Ability
 		GroundEffectField result;
 		if (this.m_cachedGroundEffectData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetGroundEffectData()).MethodHandle;
-			}
 			result = this.m_cachedGroundEffectData;
 		}
 		else
@@ -489,19 +297,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.CdrConsiderCatalyst()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrConsiderCatalystMod.GetModifiedValue(this.m_cdrConsiderCatalyst);
 		}
 		else
@@ -520,19 +315,6 @@ public class NinjaVanish : Ability
 	{
 		if (this.SkipEvade())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetMovementType()).MethodHandle;
-			}
 			return ActorData.MovementType.None;
 		}
 		return ActorData.MovementType.Charge;
@@ -543,19 +325,6 @@ public class NinjaVanish : Ability
 		bool result;
 		if (this.CanQueueMoveAfterEvade())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.CanOverrideMoveStartSquare()).MethodHandle;
-			}
 			result = !this.SkipEvade();
 		}
 		else
@@ -569,45 +338,14 @@ public class NinjaVanish : Ability
 	{
 		if (this.SkipEvade())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			return true;
 		}
 		bool result = false;
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -619,42 +357,11 @@ public class NinjaVanish : Ability
 		Vector3 result = caster.GetTravelBoardSquareWorldPosition();
 		if (caster.GetActorTargeting() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.GetCenterPosForTargeter(ActorData, AbilityTarget)).MethodHandle;
-			}
 			if (this.GetRunPriority() > AbilityPriority.Evasion)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 				if (evadeDestinationForTargeter != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = evadeDestinationForTargeter.ToVector3();
 				}
 			}
@@ -671,19 +378,6 @@ public class NinjaVanish : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NinjaVanish))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaVanish.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NinjaVanish);
 			this.Setup();
 		}

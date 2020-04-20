@@ -14,19 +14,6 @@ internal class GroupJoinManager
 	{
 		if (GroupJoinManager.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.Get()).MethodHandle;
-			}
 			GroupJoinManager.s_instance = new GroupJoinManager();
 		}
 		return GroupJoinManager.s_instance;
@@ -40,72 +27,25 @@ internal class GroupJoinManager
 		{
 			if (groupRequestWindow.HasExpired(utcNow))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.Update()).MethodHandle;
-				}
 				list.Add(groupRequestWindow);
 			}
 		}
 		List<GroupRequestWindow> list2 = list;
-		if (GroupJoinManager.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GroupJoinManager.<>f__am$cache0 = delegate(GroupRequestWindow p)
+		
+		list2.ForEach(delegate(GroupRequestWindow p)
 			{
 				p.CleanupWindow();
-			};
-		}
-		list2.ForEach(GroupJoinManager.<>f__am$cache0);
+			});
 	}
 
 	internal void AddRequest(GroupConfirmationRequest request)
 	{
 		if (UIFrontEnd.Get() == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.AddRequest(GroupConfirmationRequest)).MethodHandle;
-			}
 			return;
 		}
 		if (UIFrontEnd.Get().m_landingPageScreen != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIFrontEnd.Get().m_landingPageScreen.m_inCustomGame)
 			{
 				this.SendGroupConfirmation(GroupInviteResponseType.PlayerInCustomMatch, request);
@@ -114,54 +54,18 @@ internal class GroupJoinManager
 		}
 		if (this.m_pendingWindows.ContainsKey(request.LeaderFullHandle))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SendGroupConfirmation(GroupInviteResponseType.PlayerStillAwaitingPreviousQuery, request);
 			return;
 		}
 		if (request == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception("request is null");
 		}
 		LeakyBucket leakyBucket;
 		if (this.m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out leakyBucket) && leakyBucket != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!leakyBucket.CanAdd(1.0))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SendGroupConfirmation(GroupInviteResponseType.RequestorSpamming, request);
 				return;
 			}
@@ -178,19 +82,6 @@ internal class GroupJoinManager
 	{
 		if (status == GroupInviteResponseType.PlayerRejected)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GroupJoinManager.SendGroupConfirmation(GroupInviteResponseType, GroupConfirmationRequest)).MethodHandle;
-			}
 			LeakyBucket leakyBucket;
 			if (!this.m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out leakyBucket))
 			{

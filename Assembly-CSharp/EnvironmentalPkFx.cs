@@ -16,19 +16,6 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_randEmitIntervalMax < this.m_randEmitIntervalMin)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.Awake()).MethodHandle;
-			}
 			this.m_randEmitIntervalMax = this.m_randEmitIntervalMin;
 		}
 	}
@@ -37,19 +24,6 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.OnEnable()).MethodHandle;
-			}
 			if (this.m_fx == null)
 			{
 				this.m_fx = base.GetComponent<PKFxFX>();
@@ -69,68 +43,19 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 		{
 			if (!(VisualsLoader.Get() == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-				}
 				if (!VisualsLoader.Get().LevelLoaded())
 				{
 					return;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_fx == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fx = base.GetComponent<PKFxFX>();
 			}
 			if (this.m_fx != null && this.m_fx.enabled)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_randEmitIntervalMin <= 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fx.StartEffect();
 				}
 				else
@@ -145,88 +70,21 @@ public class EnvironmentalPkFx : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_randEmitIntervalMin > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EnvironmentalPkFx.Update()).MethodHandle;
-			}
 			if (this.m_randEmitIntervalMax > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fx.enabled)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_timeTillNextEmit < 0f)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_timeTillNextEmit = UnityEngine.Random.Range(this.m_randEmitIntervalMin, this.m_randEmitIntervalMax);
 						}
 						else if (this.m_timeTillNextEmit > 0f)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_timeTillNextEmit -= Time.deltaTime;
 							if (this.m_timeTillNextEmit <= 0f)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_fx.TerminateEffect();
 								this.m_fx.StartEffect();
 								this.m_timeTillNextEmit = UnityEngine.Random.Range(this.m_randEmitIntervalMin, this.m_randEmitIntervalMax);

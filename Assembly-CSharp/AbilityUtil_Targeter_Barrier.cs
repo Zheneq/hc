@@ -40,19 +40,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		AbilityTarget abilityTarget = currentTarget;
 		if (currentTargetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Barrier.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			abilityTarget = targets[0];
 		}
 		this.m_barrierCenterPos = abilityTarget.FreePos;
@@ -62,55 +49,19 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		Vector3 vector2 = this.m_barrierCenterPos;
 		if (this.m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((this.m_barrierCenterPos - this.m_lastFreePos).magnitude > 0.2f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 			this.m_lastFreePos = this.m_barrierCenterPos;
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				active = true;
 				vector2 = boardSquareSafe.ToVector3();
 				Vector3 freePos = abilityTarget.FreePos;
 				if (currentTargetIndex > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					freePos = currentTarget.FreePos;
 				}
 				Vector3 b;
@@ -125,15 +76,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		float x = this.m_width * Board.Get().squareSize;
 		if (base.Highlight == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Highlight = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_rectangleCursorPrefab.GetComponent<UIRectangleCursor>().m_endWidthLine);
 			base.Highlight.transform.localScale = new Vector3(x, 1f, 1f);
 		}
@@ -143,15 +85,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		bool flag2;
 		if (this.m_hideIfMovingFast)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = flag;
 		}
 		else
@@ -163,15 +96,6 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		bool active2;
 		if (this.m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			active2 = !flag3;
 		}
 		else
@@ -181,26 +105,8 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 		highlight.SetActive(active2);
 		if (this.m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count < 2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(AbilityAreaShape.SingleSquare, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			}
 			this.m_highlights[1].transform.position = vector2;

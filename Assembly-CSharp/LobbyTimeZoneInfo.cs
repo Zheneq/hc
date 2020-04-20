@@ -10,19 +10,6 @@ public static class LobbyTimeZoneInfo
 		{
 			if (LobbyTimeZoneInfo.m_pacificTimeZoneInfo == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyTimeZoneInfo.get_PacificTimeZoneInfo()).MethodHandle;
-				}
 				try
 				{
 					LobbyTimeZoneInfo.m_pacificTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
@@ -40,15 +27,6 @@ public static class LobbyTimeZoneInfo
 				}
 				if (LobbyTimeZoneInfo.m_pacificTimeZoneInfo == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					throw new Exception("Could not find the Pacific time zone information");
 				}
 			}

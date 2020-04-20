@@ -47,30 +47,8 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		base.StartConfirmedTargeting(currentTarget, targetingActor);
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterLaser.StartConfirmedTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count == this.m_maxLasers * 2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = this.m_maxLasers; i < this.m_highlights.Count; i++)
 				{
 					this.m_highlights[i].SetActive(false);
@@ -85,31 +63,9 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= this.m_maxLasers * 2)
 			{
 				goto IL_E2;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -117,42 +73,15 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f, null));
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < this.m_maxLasers; j++)
 		{
 			GameObject item = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, 0.3f, true, Color.cyan);
 			this.m_highlights.Add(item);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		IL_E2:
 		bool flag;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (GameFlowData.Get().activeOwnedActorData == targetingActor);
 		}
 		else
@@ -199,15 +128,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			VectorUtils.LaserCoords laserCoords2 = laserCoords;
 			if (actorsInLaser.Contains(targetingActor))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsInLaser.Remove(targetingActor);
 			}
 			using (List<ActorData>.Enumerator enumerator = actorsInLaser.GetEnumerator())
@@ -229,15 +149,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						int num2;
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = 1;
 						}
 						else
@@ -247,26 +158,8 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						dictionary3[key2] = num + num2;
 						if (actorCover != null && !actorCover.IsInCoverWrt(dictionary[actorData2]))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorCover.IsInCoverWrt(laserCoords2.start))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								dictionary[actorData2] = laserCoords2.start;
 							}
 						}
@@ -279,15 +172,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						int value;
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value = 1;
 						}
 						else
@@ -297,15 +181,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 						actorToCoverCount[key4] = value;
 						dictionary[actorData2] = laserCoords2.start;
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (this.m_affectsTargetingActor)
@@ -324,15 +199,6 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			Color color;
 			if (actorsInLaser.Count > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = Color.red;
 			}
 			else
@@ -345,27 +211,9 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			{
 				goto IL_627;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (l >= this.m_squarePosCheckerList.Count - 1)
 			{
 				goto IL_627;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			for (int m = l; m < this.m_squarePosCheckerList.Count; m++)
 			{
@@ -387,40 +235,13 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 			{
 				base.AddActorInRange(key5, keyValuePair.Value, targetingActor, AbilityTooltipSubject.Primary, true);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			int num3 = 0;
 			while (num3 < list.Count)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num3 >= this.m_maxLasers)
 				{
 					for (;;)

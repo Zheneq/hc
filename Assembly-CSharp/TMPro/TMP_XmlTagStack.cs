@@ -57,31 +57,9 @@ namespace TMPro
 		{
 			if (this.index == this.m_capacity)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_XmlTagStack.Push(T)).MethodHandle;
-				}
 				this.m_capacity *= 2;
 				if (this.m_capacity == 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_capacity = 4;
 				}
 				Array.Resize<T>(ref this.itemStack, this.m_capacity);
@@ -106,19 +84,6 @@ namespace TMPro
 		{
 			if (this.index > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_XmlTagStack.CurrentItem()).MethodHandle;
-				}
 				return this.itemStack[this.index - 1];
 			}
 			return this.itemStack[0];

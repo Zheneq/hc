@@ -37,61 +37,21 @@ public class CameraShake : MonoBehaviour
 	{
 		if (this.m_elapsedTime < this.m_duration)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShake.LateUpdate()).MethodHandle;
-			}
 			this.m_elapsedTime += Time.deltaTime;
 			if (CameraManager.Get().AllowCameraShake())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float f = Mathf.Min(1f, this.m_elapsedTime / this.m_duration);
 				float d = 1f - Mathf.Abs(Mathf.Pow(f, this.m_dampeningPower));
 				Vector3 a = base.transform.rotation * Vector3.left;
 				a *= UnityEngine.Random.Range(this.m_horizontalIntensity * (1f - this.m_ratioRange), this.m_horizontalIntensity);
 				if (UnityEngine.Random.value > 0.5f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a *= -1f;
 				}
 				Vector3 vector = base.transform.rotation * Vector3.up;
 				vector *= UnityEngine.Random.Range(this.m_verticalIntensity * (1f - this.m_ratioRange), this.m_verticalIntensity);
 				if (UnityEngine.Random.value > 0.5f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector *= -1f;
 				}
 				base.transform.position = base.transform.position + (a + vector) * d;

@@ -141,19 +141,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (AnnouncerSounds.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.Awake()).MethodHandle;
-			}
 			AnnouncerSounds.s_instance = this;
 		}
 		else
@@ -181,15 +168,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disposable.Dispose();
 			}
 		}
@@ -200,26 +178,8 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 				AnnouncerSounds.CharTypeToAudioCharName charTypeToAudioCharName = enumerator2.Current;
 				if (!string.IsNullOrEmpty(charTypeToAudioCharName.m_audioCharName))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_cachedCharTypeToName[charTypeToAudioCharName.m_charType] = charTypeToAudioCharName.m_audioCharName.ToLower();
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -234,19 +194,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_lootVoAudioInstance == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.InstantiateLootVOPrefabIfNeeded()).MethodHandle;
-			}
 			if (this.m_lootVoAutioPrefab != null)
 			{
 				this.m_lootVoAudioInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_lootVoAutioPrefab);
@@ -260,30 +207,8 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_onboardingVoAudioInstance == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.InstantiateOnboardingVOPrefabIfNeeded()).MethodHandle;
-			}
 			if (this.m_onboardingVoAudioPrefab != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_onboardingVoAudioInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_onboardingVoAudioPrefab);
 				UnityEngine.Object.DontDestroyOnLoad(this.m_onboardingVoAudioInstance);
 				AudioManager.StandardizeAudioLinkages(this.m_onboardingVoAudioInstance);
@@ -295,19 +220,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (AnnouncerSounds.s_instance != null && AnnouncerSounds.s_instance == this)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.OnDestroy()).MethodHandle;
-			}
 			AnnouncerSounds.s_instance = null;
 		}
 	}
@@ -316,41 +228,10 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_delayedAnnouncement != AnnouncerSounds.AnnouncerEvent.Invalid)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.Update()).MethodHandle;
-			}
 			if (this.m_delayedAnnouncementTimer > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_delayedAnnouncementTimer <= Time.time)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PlayDelayedAnnouncement();
 				}
 			}
@@ -361,41 +242,10 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.PlayDelayedAnnouncement()).MethodHandle;
-			}
 			if (ObjectivePoints.Get().m_matchState != ObjectivePoints.MatchState.MatchEnd)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AppState.GetCurrent() != AppState_InGameEnding.Get())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PlayAnnouncementByEnum(this.m_delayedAnnouncement);
 				}
 			}
@@ -408,31 +258,9 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_enableSounds)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.PlayAnnouncementByStr(string)).MethodHandle;
-			}
 			AudioManager.PostEvent(eventName, null);
 			if (this.c_debugLoggingOn)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log("Playing announcement " + eventName + ".");
 			}
 		}
@@ -444,46 +272,15 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		{
 			if (this.m_eventsToNotPlay != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent)).MethodHandle;
-				}
 				if (this.m_eventsToNotPlay.Contains(eventEnum))
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			string audioEventOfAnnouncerEvent = this.GetAudioEventOfAnnouncerEvent(eventEnum);
 			AudioManager.PostEvent(audioEventOfAnnouncerEvent, null);
 			if (this.c_debugLoggingOn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.Log(string.Concat(new string[]
 				{
 					"Playing announcement enum ",
@@ -511,30 +308,8 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (charType != CharacterType.None && this.m_lootVoAudioInstance != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.PlayLootVOForCharacter(CharacterType)).MethodHandle;
-			}
 			if (this.m_cachedCharTypeToName.ContainsKey(charType))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string eventName = "vo/" + this.m_cachedCharTypeToName[charType] + "/loot_matrix_drop";
 				AudioManager.PostEvent(eventName, null);
 			}
@@ -545,31 +320,9 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.PostCharacterDeath)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.IGameEventListener.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			GameEventManager.CharacterDeathEventArgs characterDeathEventArgs = args as GameEventManager.CharacterDeathEventArgs;
 			if (characterDeathEventArgs != null && characterDeathEventArgs.deadCharacter == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Death);
 			}
 		}
@@ -578,63 +331,18 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 			GameEventManager.CharacterRespawnEventArgs characterRespawnEventArgs = args as GameEventManager.CharacterRespawnEventArgs;
 			if (characterRespawnEventArgs != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (characterRespawnEventArgs.respawningCharacter == GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Respawn);
 				}
 			}
 		}
 		else if (eventType == GameEventManager.EventType.TurnTick && ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().CurrentTurn == ObjectivePoints.Get().m_timeLimitTurns)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_delayedAnnouncementTimer = Time.time + this.m_delayedAnnouncementDelay;
 					this.m_delayedAnnouncement = AnnouncerSounds.AnnouncerEvent.SuddenDeath;
 				}
@@ -646,41 +354,14 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 						this.m_delayedAnnouncementTimer = Time.time + this.m_delayedAnnouncementDelay;
 						if (num == 5)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_delayedAnnouncement = AnnouncerSounds.AnnouncerEvent.TurnsRemaining_05;
 						}
 						else if (num == 4)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_delayedAnnouncement = AnnouncerSounds.AnnouncerEvent.TurnsRemaining_04;
 						}
 						else if (num == 3)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_delayedAnnouncement = AnnouncerSounds.AnnouncerEvent.TurnsRemaining_03;
 						}
 						else if (num == 2)
@@ -689,15 +370,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 						}
 						else if (num == 1)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_delayedAnnouncement = AnnouncerSounds.AnnouncerEvent.TurnsRemaining_01;
 						}
 					}
@@ -711,19 +383,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		string result;
 		if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Solo)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.GetAudioEventOfAnnouncerEvent(AnnouncerSounds.AnnouncerEvent)).MethodHandle;
-			}
 			result = this.m_audioEventSolo;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.CoOp)
@@ -732,15 +391,6 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Pvp)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventPvp;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Practice)
@@ -749,93 +399,30 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Ranked)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventRanked;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Quick)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventQuick;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Custom)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCustom;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_10)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_10;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_09)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_09;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_08)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_08;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_07)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_07;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_06)
@@ -844,28 +431,10 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_05)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_05;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_04)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_04;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_03)
@@ -874,80 +443,26 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_02)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_02;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Countdown_01)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventCountdown_01;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.MovementPhase)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventMovementPhase;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.PrepPhase)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventPrepPhase;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.DashPhase)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventDashPhase;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.BlastPhase)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventBlastPhase;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Death)
@@ -956,106 +471,34 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Respawn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventRespawn;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.SuddenDeath)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventSuddenDeath;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.TurnsRemaining_05)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventTurnsRemaining_05;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.TurnsRemaining_04)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventTurnsRemaining_04;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.TurnsRemaining_03)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventTurnsRemaining_03;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.TurnsRemaining_02)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventTurnsRemaining_02;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.TurnsRemaining_01)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventTurnsRemaining_01;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Victory)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_audioEventVictory;
 		}
 		else if (announcerEvent == AnnouncerSounds.AnnouncerEvent.Defeat)
@@ -1074,71 +517,22 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 	{
 		if (previousTimeRemaining > 10f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnnouncerSounds.PlayCountdownAnnouncementIfAppropriate(float, float)).MethodHandle;
-			}
 			if (currentTimeRemaining <= 10f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_10);
 				return;
 			}
 		}
 		if (previousTimeRemaining > 9f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentTimeRemaining <= 9f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_09);
 				return;
 			}
 		}
 		if (previousTimeRemaining > 8f && currentTimeRemaining <= 8f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_08);
 		}
 		else if (previousTimeRemaining > 7f && currentTimeRemaining <= 7f)
@@ -1149,121 +543,40 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		{
 			if (previousTimeRemaining > 6f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentTimeRemaining <= 6f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_06);
 					return;
 				}
 			}
 			if (previousTimeRemaining > 5f && currentTimeRemaining <= 5f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_05);
 			}
 			else if (previousTimeRemaining > 4f && currentTimeRemaining <= 4f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_04);
 			}
 			else
 			{
 				if (previousTimeRemaining > 3f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentTimeRemaining <= 3f)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_03);
 						return;
 					}
 				}
 				if (previousTimeRemaining > 2f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentTimeRemaining <= 2f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_02);
 						return;
 					}
 				}
 				if (previousTimeRemaining > 1f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentTimeRemaining <= 1f)
 					{
 						this.PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Countdown_01);

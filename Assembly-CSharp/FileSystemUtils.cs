@@ -18,19 +18,6 @@ public static class FileSystemUtils
 			{
 				if (fileStream != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FileSystemUtils.TryRead(string, string*)).MethodHandle;
-					}
 					((IDisposable)fileStream).Dispose();
 				}
 			}

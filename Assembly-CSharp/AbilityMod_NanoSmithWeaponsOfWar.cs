@@ -27,19 +27,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		NanoSmithWeaponsOfWar nanoSmithWeaponsOfWar = targetAbility as NanoSmithWeaponsOfWar;
 		if (nanoSmithWeaponsOfWar != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithWeaponsOfWar.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_allyTargetEffectOverride, "TargetAllyOnHitEffect", nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect, true);
 			AbilityMod.AddToken(tokens, this.m_sweepDamageMod, "SweepDamageAmount", string.Empty, nanoSmithWeaponsOfWar.m_sweepDamageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_sweepDurationMod, "SweepDuration", string.Empty, nanoSmithWeaponsOfWar.m_sweepDuration, true, false);
@@ -61,19 +48,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithWeaponsOfWar.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = nanoSmithWeaponsOfWar.m_sweepDuration;
 		}
 		else
@@ -88,15 +62,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nanoSmithWeaponsOfWar.m_sweepDamageAmount;
 		}
 		else
@@ -112,15 +77,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect;
 		}
 		else

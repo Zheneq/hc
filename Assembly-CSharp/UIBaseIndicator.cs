@@ -148,19 +148,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		}
 		if (this.m_grayOptionalArrow != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Start()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_grayOptionalArrow, false, null);
 		}
 	}
@@ -173,19 +160,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		this.SetupCharacterIcons(actorData);
 		if (actorData == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup(ActorData, UIOffscreenIndicatorPanel)).MethodHandle;
-			}
 			Log.Error("Offscreen Indicator set up with no actor provided", new object[0]);
 			return;
 		}
@@ -226,19 +200,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		this.Setup_Base(panel);
 		if (isFlagTurnIn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup(BoardRegion, UIOffscreenIndicatorPanel, Team, bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_dropzoneIcon, true, null);
 			UIManager.SetGameObjectActive(this.m_characterIcon, false, null);
 		}
@@ -266,19 +227,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_pingGroupContainer, pingerActorData != null, null);
 		if (pingerActorData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup(UIWorldPing, ActorController.PingType, ActorData, UIOffscreenIndicatorPanel)).MethodHandle;
-			}
 			this.m_pingCharacterIcon.sprite = pingerActorData.GetAliveHUDIcon();
 		}
 	}
@@ -287,30 +235,8 @@ public abstract class UIBaseIndicator : MonoBehaviour
 	{
 		if (CaptureTheFlag.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.CheckForFlagHolder()).MethodHandle;
-			}
 			if (this.m_attachedToActor != null && this.m_briefcaseIcon != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = CaptureTheFlag.GetMainFlagCarrier_Client() == this.m_attachedToActor;
 				UIManager.SetGameObjectActive(this.m_briefcaseIcon, flag, null);
 				UIManager.SetGameObjectActive(this.m_characterIcon, !flag, null);
@@ -323,33 +249,11 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		this.m_parentPanel = panel;
 		if (this.m_parentPanel == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.Setup_Base(UIOffscreenIndicatorPanel)).MethodHandle;
-			}
 			Log.Error("Offscreen Indicator set up with no parent panel.", new object[0]);
 			return;
 		}
 		if (this.m_canvas == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_canvas = HUD_UI.Get().m_mainCanvas;
 			if (this.m_canvas == null)
 			{
@@ -362,41 +266,14 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_childContainer, this.m_visible, null);
 		if (this.m_briefcaseIcon != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_briefcaseIcon, false, null);
 		}
 		if (this.m_dropzoneIcon != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_dropzoneIcon, false, null);
 		}
 		if (this.m_pingGroupContainer != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_pingAssistIcon, false, null);
 			UIManager.SetGameObjectActive(this.m_pingDefaultIcon, false, null);
 			UIManager.SetGameObjectActive(this.m_pingEnemyIcon, false, null);
@@ -411,56 +288,16 @@ public abstract class UIBaseIndicator : MonoBehaviour
 	{
 		if (!(this.m_briefcaseIcon == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.UpdateFrame()).MethodHandle;
-			}
 			if (this.m_briefcaseIcon.gameObject.activeSelf)
 			{
 				goto IL_BB;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!(this.m_dropzoneIcon == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_dropzoneIcon.gameObject.activeSelf)
 			{
 				goto IL_BB;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!(this.m_pingGroupContainer == null))
@@ -468,15 +305,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			if (this.m_pingGroupContainer.gameObject.activeSelf)
 			{
 				goto IL_BB;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UIManager.SetGameObjectActive(this.m_characterIcon, true, null);
@@ -488,15 +316,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			this.m_selectedFrame = this.m_objectiveFrame;
 			if (this.m_attachedToBoardRegion != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_regionTeam != Team.Invalid)
 				{
 					UIManager.SetGameObjectActive(this.m_friendlyFrame, this.m_regionTeam == Team.TeamA, null);
@@ -507,28 +326,10 @@ public abstract class UIBaseIndicator : MonoBehaviour
 					UIManager.SetGameObjectActive(this.m_objectiveBackground, false, null);
 					if (this.m_regionTeam == Team.TeamA)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_selectedFrame = this.m_friendlyFrame;
 					}
 					else if (this.m_regionTeam == Team.TeamB)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_selectedFrame = this.m_enemyFrame;
 					}
 					goto IL_279;
@@ -536,15 +337,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			}
 			if (this.m_attachedToPing != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_friendlyFrame, true, null);
 				UIManager.SetGameObjectActive(this.m_friendlyBackground, true, null);
 				UIManager.SetGameObjectActive(this.m_enemyFrame, false, null);
@@ -570,53 +362,17 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			bool flag = true;
 			if (gameFlowData != null && gameFlowData.LocalPlayerData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameFlowData.activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					team = gameFlowData.activeOwnedActorData.GetTeam();
 				}
 				flag = (team == this.m_attachedToActor.GetTeam());
 			}
 			if (team == this.m_curTeam)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_forceUpdateFrame)
 				{
 					goto IL_394;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_curTeam = team;
@@ -628,15 +384,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			UIManager.SetGameObjectActive(this.m_objectiveBackground, false, null);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_selectedFrame = this.m_friendlyFrame;
 			}
 			else
@@ -652,42 +399,11 @@ public abstract class UIBaseIndicator : MonoBehaviour
 	{
 		if (this.ShouldGrayOutIndicator())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.UpdateGrayedOut()).MethodHandle;
-			}
 			if (this.m_isGrayedOut)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_forceUpdateGrayout)
 				{
 					goto IL_D5;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_isGrayedOut = true;
@@ -714,30 +430,12 @@ public abstract class UIBaseIndicator : MonoBehaviour
 				{
 					goto IL_14E;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_isGrayedOut = false;
 			UIManager.SetGameObjectActive(this.m_selectedFrame, false, null);
 			UIManager.SetGameObjectActive(this.m_selectedCharacterIcon, false, null);
 			if (this.m_selectedOptionalArrow != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, false, null);
 			}
 			this.m_forceUpdateFrame = true;
@@ -751,32 +449,10 @@ public abstract class UIBaseIndicator : MonoBehaviour
 	{
 		if (!(Camera.main == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.LateUpdate()).MethodHandle;
-			}
 			if (this.m_initialized)
 			{
 				if (this.m_forceUpdateFrame)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.UpdateFrame();
 				}
 				if (!this.CalculateVisibility())
@@ -790,15 +466,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 				this.m_screenRect = new Rect(this.m_parentPanel.borderLeft, this.m_parentPanel.borderBottom, this.m_canvasRect.sizeDelta.x - (this.m_parentPanel.borderRight + this.m_parentPanel.borderLeft), this.m_canvasRect.sizeDelta.y - (this.m_parentPanel.borderBottom + this.m_parentPanel.borderTop));
 				if (!this.IsVisibleWhenOnScreen())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_screenRect.Contains(vector))
 					{
 						this.SetVisible(false);
@@ -807,26 +474,8 @@ public abstract class UIBaseIndicator : MonoBehaviour
 				}
 				if (this.IsVisibleWhenOnScreen())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_screenRect.Contains(vector))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetVisible(true);
 						(base.gameObject.transform as RectTransform).anchoredPosition = vector;
 						if (this.ShouldRotate())
@@ -835,26 +484,8 @@ public abstract class UIBaseIndicator : MonoBehaviour
 						}
 						if (this.m_selectedOptionalArrow != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.m_selectedOptionalArrow.gameObject.activeSelf)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, true, null);
 							}
 						}
@@ -864,37 +495,10 @@ public abstract class UIBaseIndicator : MonoBehaviour
 				this.SetVisible(true);
 				if (this.ShouldHideOptionalArrowWhenOffscreen())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_selectedOptionalArrow != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_selectedOptionalArrow.gameObject.activeSelf)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(this.m_selectedOptionalArrow, false, null);
 						}
 					}
@@ -903,15 +507,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 				Vector2 vector3 = vector - vector2;
 				if (this.ShouldRotate())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = Mathf.Atan2(vector3.y, vector3.x);
 					num *= 57.29578f;
 					num -= this.angleOffset;
@@ -942,19 +537,6 @@ public abstract class UIBaseIndicator : MonoBehaviour
 		Vector3 vector = Camera.main.WorldToViewportPoint(worldPos);
 		if (vector.z < 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseIndicator.ScreenPosFromWorldPos(Vector3)).MethodHandle;
-			}
 			vector.y = -vector.y;
 			vector.x = -vector.x;
 		}

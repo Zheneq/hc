@@ -40,33 +40,11 @@ public class WebSocketMessageFactory
 				Type type = enumerator.Current;
 				this.m_typesByName.Add(type.Name, type);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.AddMessageTypes(IEnumerable<Type>)).MethodHandle;
-			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -86,19 +64,6 @@ public class WebSocketMessageFactory
 	{
 		if (this.m_md5Sum != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.GetMD5Sum()).MethodHandle;
-			}
 			return this.m_md5Sum;
 		}
 		MD5 md = MD5.Create();
@@ -115,29 +80,11 @@ public class WebSocketMessageFactory
 					Type type2 = enumerator.Current;
 					this.AddMD5Sum(md, type2, hashedTypes);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			finally
 			{
 				if (enumerator != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator.Dispose();
 				}
 			}
@@ -149,30 +96,12 @@ public class WebSocketMessageFactory
 			{
 				stringBuilder.AppendFormat("{0:x2}", hash[i]);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_md5Sum = stringBuilder.ToString();
 		}
 		finally
 		{
 			if (md != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				((IDisposable)md).Dispose();
 			}
 		}
@@ -190,19 +119,6 @@ public class WebSocketMessageFactory
 		this.AddMD5Sum(md5, type.Name);
 		if (type.IsGenericType)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.AddMD5Sum(MD5, Type, HashSet<Type>)).MethodHandle;
-			}
 			foreach (Type type2 in type.GetGenericArguments())
 			{
 				this.AddMD5Sum(md5, type2, hashedTypes);
@@ -210,27 +126,9 @@ public class WebSocketMessageFactory
 		}
 		if (!hashedTypes.Contains(type))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			hashedTypes.Add(type);
 			if (!this.IsCustomSerialized(type))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				IEnumerator<FieldInfo> enumerator = WebSocketMessageFactory.GetFieldInfos(type).GetEnumerator();
 				try
 				{
@@ -240,29 +138,11 @@ public class WebSocketMessageFactory
 						this.AddMD5Sum(md5, fieldInfo.Name);
 						this.AddMD5Sum(md5, fieldInfo.FieldType, hashedTypes);
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				finally
 				{
 					if (enumerator != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						enumerator.Dispose();
 					}
 				}
@@ -274,43 +154,12 @@ public class WebSocketMessageFactory
 	{
 		if (type == typeof(DateTime))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.IsCustomSerialized(Type)).MethodHandle;
-			}
 			return true;
 		}
 		if (type.IsGenericType)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (type.GetGenericTypeDefinition() != typeof(Dictionary<, >) && type.GetGenericTypeDefinition() != typeof(List<>))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type.GetGenericTypeDefinition() != typeof(HashSet<>) && type.GetGenericTypeDefinition() != typeof(Nullable<>))
 				{
 					return false;
@@ -324,49 +173,12 @@ public class WebSocketMessageFactory
 	private static IEnumerable<FieldInfo> GetFieldInfos(Type type)
 	{
 		IEnumerable<FieldInfo> fields = type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-		if (WebSocketMessageFactory.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.GetFieldInfos(Type)).MethodHandle;
-			}
-			WebSocketMessageFactory.<>f__am$cache1 = ((FieldInfo fi) => (fi.Attributes & FieldAttributes.NotSerialized) == FieldAttributes.PrivateScope);
-		}
-		IEnumerable<FieldInfo> source = fields.Where(WebSocketMessageFactory.<>f__am$cache1);
-		if (WebSocketMessageFactory.<>f__am$cache2 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			WebSocketMessageFactory.<>f__am$cache2 = ((FieldInfo f) => f.Name);
-		}
-		IOrderedEnumerable<FieldInfo> orderedEnumerable = source.OrderBy(WebSocketMessageFactory.<>f__am$cache2, StringComparer.Ordinal);
+		
+		IEnumerable<FieldInfo> source = fields.Where(((FieldInfo fi) => (fi.Attributes & FieldAttributes.NotSerialized) == FieldAttributes.PrivateScope));
+		
+		IOrderedEnumerable<FieldInfo> orderedEnumerable = source.OrderBy(((FieldInfo f) => f.Name), StringComparer.Ordinal);
 		if (type.BaseType == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return orderedEnumerable;
 		}
 		IEnumerable<FieldInfo> fieldInfos = WebSocketMessageFactory.GetFieldInfos(type.BaseType);
@@ -402,30 +214,8 @@ public class WebSocketMessageFactory
 		Type messageType = this.GetMessageType(text2);
 		if (messageType == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.DeserializeFromText(string)).MethodHandle;
-			}
 			if (!text2.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (text2.IndexOfAny(new char[]
 				{
 					'{',
@@ -462,19 +252,6 @@ public class WebSocketMessageFactory
 		Type messageType = this.GetMessageType(messageTypeName);
 		if (messageType == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketMessageFactory.DeserializeFromText(string, string)).MethodHandle;
-			}
 			throw new Exception(string.Format("Message type {0} not found", messageTypeName));
 		}
 		WebSocketMessage result;

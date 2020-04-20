@@ -50,19 +50,6 @@ public class SniperCripplingRound : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.Start()).MethodHandle;
-			}
 			this.m_abilityName = string.Empty;
 		}
 		this.SetupTargeter();
@@ -72,19 +59,6 @@ public class SniperCripplingRound : Ability
 	{
 		if (this.m_explosionType == SniperCripplingRound.ExplosionType.Cone)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.SetupTargeter()).MethodHandle;
-			}
 			AbilityUtil_Targeter_LaserWithCone abilityUtil_Targeter_LaserWithCone = new AbilityUtil_Targeter_LaserWithCone(this, this.m_laserWidth, this.m_laserRange, this.m_laserPenetrateLos, false, this.m_coneWidthAngle, this.m_coneLength, this.m_coneBackwardOffset);
 			abilityUtil_Targeter_LaserWithCone.SetMaxLaserTargets(this.GetModdedMaxLaserTargets());
 			abilityUtil_Targeter_LaserWithCone.SetExplodeOnPathEnd(this.m_alwaysExplodeOnPathEnd);
@@ -145,19 +119,6 @@ public class SniperCripplingRound : Ability
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				num += this.GetExplosionDamage();
 			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -175,19 +136,6 @@ public class SniperCripplingRound : Ability
 		int val;
 		if (abilityMod_SniperCripplingRound)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SniperCripplingRound.m_laserDamageMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -204,19 +152,6 @@ public class SniperCripplingRound : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SniperCripplingRound))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SniperCripplingRound);
 			this.SetupTargeter();
 		}
@@ -237,19 +172,6 @@ public class SniperCripplingRound : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetLaserDamage()).MethodHandle;
-			}
 			result = this.m_laserDamageAmount;
 		}
 		else
@@ -269,19 +191,6 @@ public class SniperCripplingRound : Ability
 		int num = this.m_effectOnLaserHitTargets.m_effectData.m_duration;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetLaserEffectDuration()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
 		}
 		return num;
@@ -292,19 +201,6 @@ public class SniperCripplingRound : Ability
 		int num = this.m_effectOnExplosionHitTargets.m_effectData.m_duration;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetExplosionEffectDuration()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_enemyHitEffectDurationMod.GetModifiedValue(num);
 		}
 		return num;
@@ -314,19 +210,6 @@ public class SniperCripplingRound : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperCripplingRound.GetModdedMaxLaserTargets()).MethodHandle;
-			}
 			return this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(1);
 		}
 		return 1;

@@ -15,19 +15,6 @@ public class PKFxAnimFloat3 : MonoBehaviour
 		this.fx = base.GetComponent<PKFxFX>();
 		if (this.fx == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxAnimFloat3.Start()).MethodHandle;
-			}
 			base.enabled = false;
 		}
 	}

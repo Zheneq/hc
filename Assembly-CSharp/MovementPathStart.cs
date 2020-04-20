@@ -88,19 +88,6 @@ public class MovementPathStart : MonoBehaviour
 		{
 			if (this.m_allMeshes == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.get_AllMeshes()).MethodHandle;
-				}
 				this.CreateList();
 			}
 			return this.m_allMeshes;
@@ -112,33 +99,11 @@ public class MovementPathStart : MonoBehaviour
 		this.m_allMeshes = new List<MeshRenderer>();
 		if (this.m_InsideMesh != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.CreateList()).MethodHandle;
-			}
 			this.m_allMeshes.Add(this.m_InsideMesh);
 			this.m_InsideMesh.materials[0].mainTexture = this.m_insideTexture;
 		}
 		if (this.m_MiddleMesh != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMeshes.Add(this.m_MiddleMesh);
 			this.m_MiddleMesh.materials[0].mainTexture = this.m_middleTexture;
 			Color color = this.m_MiddleMesh.materials[0].GetColor("_TintColor");
@@ -147,29 +112,11 @@ public class MovementPathStart : MonoBehaviour
 		}
 		if (this.m_OutsideMesh != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMeshes.Add(this.m_OutsideMesh);
 			this.m_OutsideMesh.materials[0].mainTexture = this.m_outsideTexture;
 		}
 		if (this.m_ArrowMesh != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMeshes.Add(this.m_ArrowMesh);
 			this.m_ArrowMesh.materials[0].mainTexture = this.m_arrowTexture;
 		}
@@ -180,29 +127,11 @@ public class MovementPathStart : MonoBehaviour
 		}
 		if (this.m_FarArrowMesh != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMeshes.Add(this.m_FarArrowMesh);
 			this.m_FarArrowMesh.materials[0].mainTexture = this.m_farArrowTexture;
 		}
 		if (this.m_chasingInnerRing != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMeshes.Add(this.m_chasingInnerRing);
 			this.m_chasingInnerRing.materials[0].mainTexture = this.m_chasingInnerRingTexture;
 			Color color2 = this.m_MiddleMesh.materials[0].GetColor("_TintColor");
@@ -221,45 +150,18 @@ public class MovementPathStart : MonoBehaviour
 		}
 		if (this.m_KnockbackMesh != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_allMeshes.Add(this.m_KnockbackMesh);
 		}
 		for (int i = 0; i < this.m_chasingDiamonds.Length; i++)
 		{
 			if (this.m_chasingDiamonds[i] != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_allMeshes.Add(this.m_chasingDiamonds[i]);
 				this.m_chasingDiamonds[i].materials[0].mainTexture = this.m_chasingDiamondTexture;
 				Color color3 = this.m_chasingDiamonds[i].materials[0].GetColor("_TintColor");
 				color3.a = 0.1f;
 				this.m_chasingDiamonds[i].materials[0].SetColor("_TintColor", color3);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -273,19 +175,6 @@ public class MovementPathStart : MonoBehaviour
 		this.m_objectMovingAcross.transform.SetParent(parent.transform);
 		if (this.m_pointsToMoveAcross != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.AddLinePiece(GameObject, GameObject)).MethodHandle;
-			}
 			this.m_pointsToMoveAcross.Clear();
 		}
 		else
@@ -297,15 +186,6 @@ public class MovementPathStart : MonoBehaviour
 		{
 			this.m_pointsToMoveAcross.Add((vertices[i] + vertices[i + 1]) * 0.5f);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_pointsToMoveAcross.Count > 1)
 		{
 			Vector3 normalized = (this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 1] - this.m_pointsToMoveAcross[this.m_pointsToMoveAcross.Count - 2]).normalized;
@@ -315,15 +195,6 @@ public class MovementPathStart : MonoBehaviour
 		for (int j = 1; j < this.m_pointsToMoveAcross.Count; j++)
 		{
 			this.m_totalLineDistance += (this.m_pointsToMoveAcross[j] - this.m_pointsToMoveAcross[j - 1]).magnitude;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.currentPoint = 1;
 		this.m_travelSpeed = 10f;
@@ -342,19 +213,6 @@ public class MovementPathStart : MonoBehaviour
 	{
 		if (UICharacterMovementPanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.SetCharacterMovementPanel(BoardSquare)).MethodHandle;
-			}
 			UICharacterMovementPanel.Get().AddMovementIndicator(endLocation, this.m_actorData);
 		}
 	}
@@ -372,19 +230,6 @@ public class MovementPathStart : MonoBehaviour
 		bool flag = movementType == AbilityUtil_Targeter.TargeterMovementType.Knockback;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.Setup(ActorData, bool, AbilityUtil_Targeter.TargeterMovementType)).MethodHandle;
-			}
 			active = false;
 			active2 = false;
 		}
@@ -398,32 +243,10 @@ public class MovementPathStart : MonoBehaviour
 		this.m_objectMovingAcrossIsActive = glowOn;
 		if (this.m_objectMovingAcross != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.SetGlow(bool)).MethodHandle;
-			}
 			if (this.m_objectMovingAcross.GetComponent<PKFxFX>() != null)
 			{
 				if (this.m_objectMovingAcrossIsActive)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_objectMovingAcross.GetComponent<PKFxFX>().StartEffect();
 				}
 				else
@@ -443,42 +266,11 @@ public class MovementPathStart : MonoBehaviour
 				MeshRenderer meshRenderer = enumerator.Current;
 				if (meshRenderer.materials.Length > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.SetColor(Color)).MethodHandle;
-					}
 					if (meshRenderer.materials[0] != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						meshRenderer.materials[0].SetColor("_TintColor", newColor);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -495,30 +287,8 @@ public class MovementPathStart : MonoBehaviour
 	{
 		if (this.m_actorData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathStart.Update()).MethodHandle;
-			}
 			if (this.m_actorData.QueuedMovementAllowsAbility)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_CloseArrowMesh.gameObject.SetActive(true);
 				this.m_FarArrowMesh.gameObject.SetActive(false);
 			}
@@ -530,27 +300,9 @@ public class MovementPathStart : MonoBehaviour
 		}
 		if (this.linePiece != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MeshRenderer component = this.linePiece.GetComponent<MeshRenderer>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.material != null)
 				{
 					Vector2 textureOffset = component.material.GetTextureOffset("_MainTex");
@@ -560,41 +312,14 @@ public class MovementPathStart : MonoBehaviour
 			}
 			if (this.currentPoint < this.m_pointsToMoveAcross.Count)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_finishPauseTime > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_finishPauseTime -= Time.deltaTime;
 				}
 				else
 				{
 					if (this.m_objectMovingAcrossIsActive && this.m_objectMovingAcross.GetComponent<PKFxFX>() != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_objectMovingAcross.GetComponent<PKFxFX>().StartEffect();
 					}
 					Vector3 normalized = (this.m_pointsToMoveAcross[this.currentPoint] - this.m_pointsToMoveAcross[this.currentPoint - 1]).normalized;
@@ -602,15 +327,6 @@ public class MovementPathStart : MonoBehaviour
 					this.m_objectMovingAcross.transform.position = this.m_objectMovingAcross.transform.position + b;
 					if ((this.m_pointsToMoveAcross[this.currentPoint - 1] - this.m_pointsToMoveAcross[this.currentPoint]).sqrMagnitude < (this.m_pointsToMoveAcross[this.currentPoint - 1] - this.m_objectMovingAcross.transform.position).sqrMagnitude)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_objectMovingAcross.transform.position = this.m_pointsToMoveAcross[this.currentPoint];
 						this.currentPoint++;
 					}

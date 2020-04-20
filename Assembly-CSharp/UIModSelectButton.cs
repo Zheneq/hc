@@ -46,19 +46,6 @@ public class UIModSelectButton : MonoBehaviour
 		{
 			this.m_abilityName[i].text = text;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetAbilityName(string)).MethodHandle;
-		}
 	}
 
 	private void SetCostNotches(int cost)
@@ -67,19 +54,6 @@ public class UIModSelectButton : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_costNotches[i], i < cost, null);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetCostNotches(int)).MethodHandle;
-		}
 	}
 
 	private void SetDescription(string text)
@@ -87,19 +61,6 @@ public class UIModSelectButton : MonoBehaviour
 		for (int i = 0; i < this.m_description.Length; i++)
 		{
 			this.m_description[i].text = text;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetDescription(string)).MethodHandle;
 		}
 	}
 
@@ -126,19 +87,6 @@ public class UIModSelectButton : MonoBehaviour
 		this.m_modReference = theMod;
 		if (theMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetMod(AbilityMod, Ability, int, CharacterType)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 			this.SetAbilityName(theMod.GetName());
 			this.SetCostNotches(theMod.m_equipCost);
@@ -186,76 +134,23 @@ public class UIModSelectButton : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_lockIcon[i], visible, null);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetLockVisible(bool)).MethodHandle;
-		}
 	}
 
 	public void SetLockIcons()
 	{
 		if (this.m_modReference != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetLockIcons()).MethodHandle;
-			}
 			if (this.m_lockIcon != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = true;
 				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_character);
 				if (playerCharacterData != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (!playerCharacterData.CharacterComponent.IsModUnlocked(this.m_abilityId, this.m_modReference.m_abilityScopeId) && !GameManager.Get().GameplayOverrides.EnableAllMods);
 				}
 				this.SetLockVisible(flag);
 				if (this.m_disabled != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_disabled, flag, null);
 				}
 				if (this.m_modDisabled != null)
@@ -275,19 +170,6 @@ public class UIModSelectButton : MonoBehaviour
 	{
 		if (this.m_SelectedContainer != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.SetSelected(bool, bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_SelectedContainer, selected, null);
 		}
 		if (this.m_selectBtn != null)
@@ -305,19 +187,6 @@ public class UIModSelectButton : MonoBehaviour
 	{
 		if (this.m_modReference == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIModSelectButton.AskForPurchase()).MethodHandle;
-			}
 			return;
 		}
 		GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
@@ -329,27 +198,9 @@ public class UIModSelectButton : MonoBehaviour
 		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.ModToken);
 		if (num <= currentAmount)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2;
 			if (GameBalanceVars.Get().UseModEquipCostAsModUnlockCost)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = this.m_modReference.m_equipCost;
 			}
 			else
@@ -360,15 +211,6 @@ public class UIModSelectButton : MonoBehaviour
 			string text;
 			if (currentAmount > 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = StringUtil.TR("UnlockModTokensConfirm", "Global");
 			}
 			else

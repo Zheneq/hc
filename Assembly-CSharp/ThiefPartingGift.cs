@@ -11,19 +11,6 @@ public class ThiefPartingGift : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPartingGift.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Parting Gift";
 		}
 		this.m_sequencePrefab = this.m_castSequencePrefab;

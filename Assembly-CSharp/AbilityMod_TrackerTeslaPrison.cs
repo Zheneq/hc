@@ -30,19 +30,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		StandardBarrierData baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerTeslaPrison.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			baseVal = trackerTeslaPrison.m_prisonBarrierData;
 		}
 		else
@@ -53,15 +40,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		TrackerDroneInfoComponent trackerDroneInfoComponent;
 		if (trackerTeslaPrison != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			trackerDroneInfoComponent = trackerTeslaPrison.GetComponent<TrackerDroneInfoComponent>();
 		}
 		else
@@ -75,15 +53,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		float baseVal2;
 		if (trackerDroneInfoComponent2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerDroneInfoComponent2.m_targeterMaxRangeFromCaster;
 		}
 		else
@@ -104,19 +73,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		StandardBarrierData baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerTeslaPrison.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = trackerTeslaPrison.m_prisonBarrierData;
 		}
 		else
@@ -132,15 +88,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerTeslaPrison.m_additionalEffectOnEnemiesInShape;
 		}
 		else
@@ -156,15 +103,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		float baseVal3;
 		if (trackerDroneInfoComponent != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = trackerDroneInfoComponent.m_targeterMaxRangeFromCaster;
 		}
 		else

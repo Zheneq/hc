@@ -34,19 +34,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		SoldierStimPack soldierStimPack = targetAbility as SoldierStimPack;
 		if (soldierStimPack != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierStimPack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_selfHealAmountMod, "SelfHealAmount", string.Empty, soldierStimPack.m_selfHealAmount, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_selfHitEffectMod, "SelfHitEffect", soldierStimPack.m_selfHitEffect, true);
 			AbilityMod.AddToken(tokens, this.m_grenadeExtraRangeMod, "GrenadeExtraRange", string.Empty, soldierStimPack.m_grenadeExtraRange, true, false, false);
@@ -68,19 +55,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierStimPack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = soldierStimPack.m_selfHealAmount;
 		}
 		else
@@ -96,15 +70,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = soldierStimPack.m_basicAttackIgnoreCover;
 		}
 		else
@@ -120,15 +85,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierStimPack.m_grenadeExtraRange;
 		}
 		else
@@ -143,15 +99,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierStimPack.m_dashShootExtraEffect;
 		}
 		else

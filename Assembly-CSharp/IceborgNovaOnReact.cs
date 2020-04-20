@@ -59,39 +59,17 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		base.AddTokenInt(tokens, "DamageThreshForInstanceOnSelf", string.Empty, this.m_damageThreshForInstanceOnSelf, false);
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaOnReact.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
 		}
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncComp.AddTooltipTokens(tokens);
 		}
 	}
 
 	private void SetCachedFields()
 	{
-		this.m_cachedReactOnHitData = ((!(this.m_abilityMod != null)) ? this.m_reactOnHitData : this.m_abilityMod.m_reactOnHitDataMod.\u001D(this.m_reactOnHitData));
+		this.m_cachedReactOnHitData = ((!(this.m_abilityMod != null)) ? this.m_reactOnHitData : this.m_abilityMod.m_reactOnHitDataMod.symbol_001D(this.m_reactOnHitData));
 	}
 
 	public OnHitAuthoredData GetReactOnHitData()
@@ -109,19 +87,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaOnReact.ReactRequireDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_reactRequireDamageMod.GetModifiedValue(this.m_reactRequireDamage);
 		}
 		else
@@ -136,19 +101,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaOnReact.ReactEffectEndEarlyIfTriggered()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_reactEffectEndEarlyIfTriggeredMod.GetModifiedValue(this.m_reactEffectEndEarlyIfTriggered);
 		}
 		else
@@ -163,19 +115,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaOnReact.GetEnergyOnTargetPerReaction()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyOnTargetPerReactionMod.GetModifiedValue(this.m_energyOnTargetPerReaction);
 		}
 		else
@@ -195,19 +134,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaOnReact.GetExtraEnergyPerNovaCoreTrigger()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraEnergyPerNovaCoreTriggerMod.GetModifiedValue(this.m_extraEnergyPerNovaCoreTrigger);
 		}
 		else
@@ -222,19 +148,6 @@ public class IceborgNovaOnReact : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgNovaOnReact.GetDamageThreshForInstanceOnSelf()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageThreshForInstanceOnSelfMod.GetModifiedValue(this.m_damageThreshForInstanceOnSelf);
 		}
 		else

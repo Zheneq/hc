@@ -54,19 +54,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		MantaDashThroughWall mantaDashThroughWall = ability as MantaDashThroughWall;
 		if (mantaDashThroughWall != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DashThroughWall..ctor(Ability, float, float, float, float, float, float, float, float, float, bool, bool, bool)).MethodHandle;
-			}
 			this.m_normalHighlightColor = mantaDashThroughWall.m_normalHighlightColor;
 			this.m_throughWallsHighlightColor = mantaDashThroughWall.m_throughWallsHighlightColor;
 		}
@@ -81,31 +68,9 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		this.LastUpdatePathSquareCount = 0;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DashThroughWall.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 2)
 			{
 				goto IL_C1;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -126,15 +91,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		bool flag2;
 		if (chargeHitActors.Count == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = !flag;
 		}
 		else
@@ -146,38 +102,11 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		bool active = false;
 		if (!flag3)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (chargeHitActors.Count <= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_aoeWithMiss)
 				{
 					goto IL_3F1;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			float d = Mathf.Min(0.5f, magnitude / 2f);
@@ -185,27 +114,9 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(vector3);
 			if (chargeHitActors.Count > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 travelBoardSquareWorldPosition;
 				if (this.m_directHitIgnoreCover)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					travelBoardSquareWorldPosition = chargeHitActors[0].GetTravelBoardSquareWorldPosition();
 				}
 				else
@@ -223,15 +134,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				BoardSquare boardSquare3 = Board.Get().GetBoardSquare(vector3);
 				if (boardSquare3 == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = true;
 				}
 			}
@@ -252,15 +154,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 						ActorData actor = enumerator.Current;
 						base.AddActorInRange(actor, boardSquare2.ToVector3(), targetingActor, AbilityTooltipSubject.Secondary, false);
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				active = true;
 				vector4.y = HighlightUtils.GetHighlightHeight();
@@ -278,15 +171,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		BoardSquare boardSquare4 = null;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num2 = this.m_maxWallThicknessInSquares * Board.Get().squareSize;
 			num2 = Mathf.Min(num2, (this.m_dashRangeInSquares + this.m_extraTotalDistanceIfThroughWalls) * Board.Get().squareSize - magnitude);
 			Vector3 vector5 = vector + vector2 * num2;
@@ -296,15 +180,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 			boardSquare4 = MantaDashThroughWall.GetSquareBeyondWall(travelBoardSquareWorldPositionForLos, vector5, targetingActor, num2, ref vector6, ref vector8);
 			if (this.m_throughWallConeClampedToWall)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector7 = vector8;
 			}
 			if (boardSquare4 != null)
@@ -313,15 +188,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				List<ActorData> actorsInCone2 = AreaEffectUtils.GetActorsInCone(vector6, num3, this.m_throughWallConeWidth, this.m_throughWallConeLength, 0f, false, targetingActor, targetingActor.GetOpposingTeam(), null, false, default(Vector3));
 				if (actorsInCone2 != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone2);
 					using (List<ActorData>.Enumerator enumerator2 = actorsInCone2.GetEnumerator())
 					{
@@ -329,15 +195,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 						{
 							ActorData actor2 = enumerator2.Current;
 							base.AddActorInRange(actor2, boardSquare4.ToVector3(), targetingActor, AbilityTooltipSubject.Tertiary, false);
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -364,15 +221,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		gameObject2.SetActive(active);
 		if (boardSquare4 == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float d2 = Mathf.Min(0.5f, magnitude / 2f);
 			vector -= vector2 * d2;
 			if (boardSquare != null)
@@ -384,90 +232,27 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 				boardSquare4 = KnockbackUtils.GetLastValidBoardSquareInLine(travelBoardSquareWorldPositionForLos, vector, true, false, float.MaxValue);
 				if (boardSquare4 == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare4 = targetingActor.GetCurrentBoardSquare();
 				}
 			}
 		}
 		if (chargeHitActors.Count > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquare4 = chargeHitActors[0].GetCurrentBoardSquare();
 		}
 		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare4, targetingActor.GetCurrentBoardSquare(), true);
 		bool flag5 = false;
 		if (boardSquare4 != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquare4.OccupantActor != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare4.OccupantActor != targetingActor)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare4.OccupantActor.IsVisibleToClient())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, boardSquare4, boardSquarePathInfo);
 						if (chargeDestination != boardSquare4)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquare4 = chargeDestination;
 							flag5 = true;
 						}
@@ -477,15 +262,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		}
 		if (flag5)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare4, targetingActor.GetCurrentBoardSquare(), true);
 		}
 		int num4 = 0;
@@ -494,55 +270,19 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		base.SetMovementArrowEnabledFromIndex(num4, false);
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.LastUpdatePathSquareCount = boardSquarePathInfo.GetNumSquaresToEnd(true);
 		}
 		Vector3 a = vector;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquarePathInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquarePathInfo pathEndpoint = boardSquarePathInfo.GetPathEndpoint();
 				a = pathEndpoint.square.ToVector3();
 			}
 		}
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			a = boardSquare4.ToVector3();
 		}
 		Vector3 lhs = a - travelBoardSquareWorldPositionForLos;
@@ -566,30 +306,8 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		Renderer component = highlight.GetComponent<Renderer>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DashThroughWall.SetHighlightColor(GameObject, Color)).MethodHandle;
-			}
 			if (component.material != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.material.SetColor("_TintColor", color);
 			}
 		}
@@ -597,38 +315,11 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 		{
 			if (renderer != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (renderer.material != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					renderer.material.SetColor("_TintColor", color);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -636,19 +327,6 @@ public class AbilityUtil_Targeter_DashThroughWall : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DashThroughWall.DrawInvalidSquareIndicators(ActorData, Vector3, float, float, float)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInCone(this.m_indicatorHandler, coneStartPos, forwardDir_degrees, coneWidthDegrees, coneLengthSquares, 0f, targetingActor, false, null);
 			base.HideUnusedSquareIndicators();

@@ -101,19 +101,6 @@ public class AsyncPump : SynchronizationContext
 	{
 		if (methodInfo == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.Post(SendOrPostCallback, object, MethodBase)).MethodHandle;
-			}
 			methodInfo = callback.Method;
 		}
 		this.Post(new AsyncDelegate(callback, state, methodInfo));
@@ -152,19 +139,6 @@ public class AsyncPump : SynchronizationContext
 	{
 		if (this.IsRunning)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.UnscheduleAll()).MethodHandle;
-			}
 			throw new Exception("Cannot unschedule timers/delegates while the async pump is running");
 		}
 		this.m_queuedDelegates = new System.Collections.Generic.LinkedList<AsyncDelegate>();
@@ -175,19 +149,6 @@ public class AsyncPump : SynchronizationContext
 	{
 		if (this.IsRunning)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.Run(int)).MethodHandle;
-			}
 			throw new Exception("This AsyncPump is already running");
 		}
 		this.IsRunning = true;
@@ -207,28 +168,10 @@ public class AsyncPump : SynchronizationContext
 					int waitTime = this.GetWaitTime(maxMilliseconds);
 					if (waitTime != 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Monitor.Wait(this.m_waitEvent, waitTime);
 					}
 					if (!this.IsRunning)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_20B;
 					}
 					this.CheckTimers();
@@ -237,26 +180,8 @@ public class AsyncPump : SynchronizationContext
 				}
 				if (array.Length != 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.ArtificalLatencyMilliseconds != 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Thread.Sleep(this.ArtificalLatencyMilliseconds);
 					}
 					long ticks = this.Now() - array[0].ScheduledTick;
@@ -266,15 +191,6 @@ public class AsyncPump : SynchronizationContext
 						this.ExecuteDelegate(array[i]);
 						if (this.m_break)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							object waitEvent2 = this.m_waitEvent;
 							lock (waitEvent2)
 							{
@@ -282,41 +198,14 @@ public class AsyncPump : SynchronizationContext
 								{
 									this.m_queuedDelegates.AddFirst(array[j]);
 								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							goto IL_1CC;
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				IL_1CC:
 				if (timeoutMilliseconds != 0x7FFFFFFF && stopwatch.ElapsedMilliseconds >= (long)timeoutMilliseconds)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (!this.m_break)
 				{
@@ -324,15 +213,6 @@ public class AsyncPump : SynchronizationContext
 				}
 				IL_20B:
 				return;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -370,19 +250,6 @@ public class AsyncPump : SynchronizationContext
 		{
 			if (!this.IsRunning)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.GetWaitTime(int)).MethodHandle;
-				}
 				num = 0;
 			}
 			if (this.m_queuedDelegates.Count > 0)
@@ -391,28 +258,10 @@ public class AsyncPump : SynchronizationContext
 			}
 			else if (!this.m_scheduledTimers.IsEmpty)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AsyncTimer asyncTimer = this.m_scheduledTimers.FindMin();
 				long num2 = this.Now();
 				if (asyncTimer.ScheduledTick < num2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0;
 				}
 				else
@@ -428,15 +277,6 @@ public class AsyncPump : SynchronizationContext
 		}
 		if (num > maxMilliseconds)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = maxMilliseconds;
 		}
 		return num;
@@ -453,58 +293,18 @@ public class AsyncPump : SynchronizationContext
 				AsyncTimer asyncTimer = this.m_scheduledTimers.FindMin();
 				if (asyncTimer.ScheduledTick > num)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.CheckTimers()).MethodHandle;
-					}
 					return;
 				}
 				this.m_scheduledTimers.DeleteMin();
 				if (asyncTimer.IsScheduled)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_queuedDelegates.AddLast(asyncTimer.AsyncDelegate);
 					asyncTimer.Unschedule();
 					if (!asyncTimer.IsOneShot)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						asyncTimer.Schedule();
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -527,30 +327,8 @@ public class AsyncPump : SynchronizationContext
 			this.m_profilingTimer.Stop();
 			if (asyncDelegate.MethodInfo == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPump.ExecuteDelegate(AsyncDelegate)).MethodHandle;
-				}
 				if (this.m_currentMethodName != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ProfilingTimers.Get().OnMethodExecuted(this.m_currentMethodName, this.m_profilingTimer.ElapsedTicks);
 					goto IL_B7;
 				}

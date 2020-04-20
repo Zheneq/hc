@@ -41,30 +41,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		this.m_delayedLaserAbility = (base.GetComponent<AbilityData>().GetAbilityOfType(typeof(BlasterDelayedLaser)) as BlasterDelayedLaser);
 		if (this.m_delayedLaserAbility != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.Start()).MethodHandle;
-			}
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_laserRangeMarkerForAlly = Blaster_SyncComponent.CreateHitAreaTemplate(this.m_delayedLaserAbility.GetWidth(), 0.5f * (Color.blue + Color.white), true, 0.1f);
 				this.m_laserRangeMarkerForAlly.m_parentObj.SetActive(false);
 			}
@@ -104,76 +82,18 @@ public class Blaster_SyncComponent : NetworkBehaviour
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.Update()).MethodHandle;
-			}
 			bool flag = false;
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_actorData.GetCurrentBoardSquare() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get() != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_canActivateDelayedLaser)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 							}
 						}
@@ -182,42 +102,15 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool visible = activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam();
 				Vector3 vector = this.m_delayedLaserAimDir;
 				if (this.m_delayedLaserAbility.TriggerAimAtBlaster())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 vector2 = this.m_actorData.GetCurrentBoardSquare().ToVector3() - this.m_delayedLaserStartPos;
 					vector2.y = 0f;
 					vector2.Normalize();
 					if (vector2.magnitude > 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = vector2;
 					}
 				}
@@ -339,19 +232,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_overchargeBuffs);
 			writer.WritePackedUInt32((uint)this.m_overchargeUses);
 			writer.Write(this.m_canActivateDelayedLaser);
@@ -364,26 +244,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -393,15 +255,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -409,26 +262,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -436,15 +271,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -454,15 +280,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x10U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -472,15 +289,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -490,26 +298,8 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x40U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -526,19 +316,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_overchargeBuffs = (int)reader.ReadPackedUInt32();
 			this.m_overchargeUses = (int)reader.ReadPackedUInt32();
 			this.m_canActivateDelayedLaser = reader.ReadBoolean();
@@ -555,80 +332,26 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_overchargeUses = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_canActivateDelayedLaser = reader.ReadBoolean();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_delayedLaserStartPos = reader.ReadVector3();
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_delayedLaserAimDir = reader.ReadVector3();
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_lastPlacementTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x40) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_lastUltCastTurn = (int)reader.ReadPackedUInt32();
 		}
 	}
@@ -653,32 +376,10 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (this.m_sideB != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.HitAreaIndicatorHighlight.AdjustLength(float)).MethodHandle;
-				}
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_sideB, lengthInSquares, this.m_color);
 			}
 			if (this.m_front != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 localPosition = this.m_front.transform.localPosition;
 				localPosition.z = lengthInSquares * Board.Get().squareSize;
 				this.m_front.transform.localPosition = localPosition;
@@ -695,33 +396,11 @@ public class Blaster_SyncComponent : NetworkBehaviour
 			}
 			if (this.m_sideB != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.HitAreaIndicatorHighlight.AdjustSize(float, float)).MethodHandle;
-				}
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_sideB, lengthInSquares, this.m_color);
 				this.m_sideB.transform.localPosition = new Vector3(-0.5f * num, 0f, 0f);
 			}
 			if (this.m_front != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HighlightUtils.Get().AdjustDynamicLineSegmentMesh(this.m_front, widthInSquares, this.m_color);
 				this.m_front.transform.localPosition = new Vector3(-0.5f * num, 0f, lengthInSquares * Board.Get().squareSize);
 			}
@@ -740,19 +419,6 @@ public class Blaster_SyncComponent : NetworkBehaviour
 		{
 			if (this.m_parentObj != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Blaster_SyncComponent.HitAreaIndicatorHighlight.SetVisible(bool)).MethodHandle;
-				}
 				if (this.m_parentObj.activeSelf != visible)
 				{
 					this.m_parentObj.SetActive(visible);

@@ -23,19 +23,6 @@ public class ScampErraticCore : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampErraticCore.Start()).MethodHandle;
-			}
 			this.m_abilityName = "ScampErraticCore";
 		}
 		this.Setup();
@@ -56,19 +43,6 @@ public class ScampErraticCore : Ability
 		bool result;
 		if (this.m_damage <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampErraticCore.IncludeEnemies()).MethodHandle;
-			}
 			result = this.m_enemyHitEffect.m_applyEffect;
 		}
 		else
@@ -90,19 +64,6 @@ public class ScampErraticCore : Ability
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampErraticCore.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
 		}
 		else

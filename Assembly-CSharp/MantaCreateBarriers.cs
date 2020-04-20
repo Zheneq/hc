@@ -55,19 +55,6 @@ public class MantaCreateBarriers : Ability
 		}
 		if (this.m_prisonSides < 3)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.Start()).MethodHandle;
-			}
 			this.m_prisonSides = 4;
 		}
 		Ability[] chainAbilities = base.GetChainAbilities();
@@ -75,15 +62,6 @@ public class MantaCreateBarriers : Ability
 		{
 			if (ability != null && ability is MantaCreateBarriersChainFinal)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_finalDamageChain = (ability as MantaCreateBarriersChainFinal);
 				IL_90:
 				this.m_syncComp = base.GetComponent<Manta_SyncComponent>();
@@ -133,19 +111,6 @@ public class MantaCreateBarriers : Ability
 		StandardBarrierData cachedPrisonBarrierData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.SetCachedFields()).MethodHandle;
-			}
 			cachedPrisonBarrierData = this.m_abilityMod.m_prisonBarrierDataMod.GetModifiedValue(this.m_prisonBarrierData);
 		}
 		else
@@ -161,19 +126,6 @@ public class MantaCreateBarriers : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.RequireCasterInShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_requireCasterInShapeMod.GetModifiedValue(this.m_requireCasterInShape);
 		}
 		else
@@ -188,19 +140,6 @@ public class MantaCreateBarriers : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetTargetAreaShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_targetAreaShapeMod.GetModifiedValue(this.m_targetAreaShape);
 		}
 		else
@@ -215,19 +154,6 @@ public class MantaCreateBarriers : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.DelayBarriersUntilStartOfNextTurn()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_delayBarriersUntilStartOfNextTurnMod.GetModifiedValue(this.m_delayBarriersUntilStartOfNextTurn);
 		}
 		else
@@ -242,19 +168,6 @@ public class MantaCreateBarriers : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetPrisonSides()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_prisonSidesMod.GetModifiedValue(this.m_prisonSides);
 		}
 		else
@@ -269,19 +182,6 @@ public class MantaCreateBarriers : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetPrisonRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_prisonRadiusMod.GetModifiedValue(this.m_prisonRadius);
 		}
 		else
@@ -301,19 +201,6 @@ public class MantaCreateBarriers : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.CreateBarriersImmediately()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_createBarriersImmediatelyMod.GetModifiedValue(this.m_createBarriersImmediately);
 		}
 		else
@@ -328,19 +215,6 @@ public class MantaCreateBarriers : Ability
 		StandardGroundEffectInfo result;
 		if (this.m_abilityMod && this.m_abilityMod.m_groundEffectInfoMod.m_applyGroundEffect)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetGroundEffectInfo()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_groundEffectInfoMod;
 		}
 		else
@@ -355,19 +229,6 @@ public class MantaCreateBarriers : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetDamageOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageOnCastMod.GetModifiedValue(this.m_damageOnCast);
 		}
 		else
@@ -382,19 +243,6 @@ public class MantaCreateBarriers : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetAllyHealOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allyHealOnCastMod.GetModifiedValue(this.m_allyHealOnCast);
 		}
 		else
@@ -409,19 +257,6 @@ public class MantaCreateBarriers : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnAlliesOnCast != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetEffectOnAlliesOnCast()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnAlliesOnCast;
 		}
 		else
@@ -436,19 +271,6 @@ public class MantaCreateBarriers : Ability
 		StandardBarrierData result;
 		if (this.m_cachedPrisonBarrierData == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetPrisonBarrierData()).MethodHandle;
-			}
 			result = this.m_prisonBarrierData;
 		}
 		else
@@ -472,19 +294,6 @@ public class MantaCreateBarriers : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MantaCreateBarriers))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_MantaCreateBarriers);
 			this.Setup();
 		}
@@ -501,19 +310,6 @@ public class MantaCreateBarriers : Ability
 		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
 		if (this.m_finalDamageChain != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, this.m_finalDamageChain.GetDamageOnCast()));
 		}
 		else
@@ -534,19 +330,6 @@ public class MantaCreateBarriers : Ability
 		int num = (!(this.m_finalDamageChain != null)) ? this.GetDamageOnCast() : this.m_finalDamageChain.GetDamageOnCast();
 		if (this.GetGroundEffectInfo().m_applyGroundEffect && this.GetGroundEffectInfo().m_groundEffectData.damageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			num += this.GetGroundEffectInfo().m_groundEffectData.damageAmount;
 		}
 		dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -557,19 +340,6 @@ public class MantaCreateBarriers : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			int num = 0;
 			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
 			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
@@ -578,15 +348,6 @@ public class MantaCreateBarriers : Ability
 				{
 					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 					num += this.m_syncComp.GetDirtyFightingExtraTP(actorTarget.m_actor);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return num;
@@ -598,30 +359,8 @@ public class MantaCreateBarriers : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaCreateBarriers.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
 			}
 		}

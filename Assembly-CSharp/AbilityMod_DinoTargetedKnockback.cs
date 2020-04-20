@@ -37,19 +37,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 		DinoTargetedKnockback dinoTargetedKnockback = targetAbility as DinoTargetedKnockback;
 		if (dinoTargetedKnockback != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_DinoTargetedKnockback.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, this.m_extraDamageIfFullPowerLayerConeMod, "ExtraDamageIfFullPowerLayerCone", string.Empty, dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone, true, false);
 			AbilityMod.AddToken(tokens, this.m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, dinoTargetedKnockback.m_shieldPerEnemyHit, true, false);
@@ -65,19 +52,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (dinoTargetedKnockback != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_DinoTargetedKnockback.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelMod, dinoTargetedKnockback.m_targetSelectComp, "-- Target Select Mod --");
 			text += base.PropDesc(this.m_extraDamageIfFullPowerLayerConeMod, "[ExtraDamageIfFullPowerLayerCone]", flag, (!flag) ? 0 : dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone);
 			string str = text;
@@ -87,15 +61,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = dinoTargetedKnockback.m_shieldPerEnemyHit;
 			}
 			else
@@ -111,15 +76,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 			bool baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = dinoTargetedKnockback.m_doHitsAroundKnockbackDest;
 			}
 			else
@@ -134,15 +90,6 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 			AbilityAreaShape baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = dinoTargetedKnockback.m_hitsAroundKnockbackDestShape;
 			}
 			else

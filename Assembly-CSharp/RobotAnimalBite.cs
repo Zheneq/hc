@@ -26,19 +26,6 @@ public class RobotAnimalBite : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalBite.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Megabyte";
 		}
 		this.m_syncComp = base.GetComponent<RobotAnimal_SyncComponent>();
@@ -75,34 +62,12 @@ public class RobotAnimalBite : Ability
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalBite.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
 				int lifeGainAmount = this.GetLifeGainAmount(visibleActorsInRangeByTooltipSubject.Count);
 				dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt((float)lifeGainAmount);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedDamage(false, ref num);
 			}
@@ -124,19 +89,6 @@ public class RobotAnimalBite : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RobotAnimalBite))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalBite.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RobotAnimalBite);
 		}
 		else
@@ -164,42 +116,11 @@ public class RobotAnimalBite : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalBite.ModdedDamage(bool, int*)).MethodHandle;
-			}
 			int num = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damageAmount);
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_extraDamageOnConsecutiveCast > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_syncComp.m_biteLastCastTurn > 0 && GameFlowData.Get().CurrentTurn - this.m_syncComp.m_biteLastCastTurn == 1)
 					{
 						num += this.m_abilityMod.m_extraDamageOnConsecutiveCast;
@@ -207,15 +128,6 @@ public class RobotAnimalBite : Ability
 				}
 				if (this.m_abilityMod.m_extraDamageOnConsecutiveHit > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_syncComp.m_biteLastHitTurn > 0 && GameFlowData.Get().CurrentTurn - this.m_syncComp.m_biteLastHitTurn == 1)
 					{
 						num += this.m_abilityMod.m_extraDamageOnConsecutiveHit;
@@ -224,37 +136,10 @@ public class RobotAnimalBite : Ability
 			}
 			if (includeVariance)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_varianceExtraDamageMin >= 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_abilityMod.m_varianceExtraDamageMax - this.m_abilityMod.m_varianceExtraDamageMin > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num2 = GameplayRandom.Range(this.m_abilityMod.m_varianceExtraDamageMin, this.m_abilityMod.m_varianceExtraDamageMax);
 						num += num2;
 						damageToSelf = Mathf.RoundToInt((float)num2 * this.m_abilityMod.m_varianceExtraDamageToSelf);
@@ -276,19 +161,6 @@ public class RobotAnimalBite : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalBite.EffectInfoOnNextTurnStart()).MethodHandle;
-			}
 			result = new StandardEffectInfo();
 		}
 		else
@@ -303,32 +175,10 @@ public class RobotAnimalBite : Ability
 		float num = 0f;
 		if (hitCount > 0 && this.ModdedLifeOnFirstHit() != 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalBite.GetLifeGainAmount(int)).MethodHandle;
-			}
 			num += this.ModdedLifeOnFirstHit();
 		}
 		if (this.ModdedLifePerHit() != 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += this.ModdedLifePerHit() * (float)hitCount;
 		}
 		return Mathf.RoundToInt(num);

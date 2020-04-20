@@ -63,19 +63,6 @@ public class FireborgDualCones : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.GetExtraDamageIfOverlap()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageIfOverlapMod.GetModifiedValue(this.m_extraDamageIfOverlap);
 		}
 		else
@@ -90,19 +77,6 @@ public class FireborgDualCones : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.GetExtraDamageNonOverlap()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageNonOverlapMod.GetModifiedValue(this.m_extraDamageNonOverlap);
 		}
 		else
@@ -117,19 +91,6 @@ public class FireborgDualCones : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.IgniteTargetIfOverlapHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_igniteTargetIfOverlapHitMod.GetModifiedValue(this.m_igniteTargetIfOverlapHit);
 		}
 		else
@@ -149,19 +110,6 @@ public class FireborgDualCones : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.GroundFireOnAllIfNormal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_groundFireOnAllIfNormalMod.GetModifiedValue(this.m_groundFireOnAllIfNormal);
 		}
 		else
@@ -181,19 +129,6 @@ public class FireborgDualCones : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.GroundFireOnAllIfSuperheated()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_groundFireOnAllIfSuperheatedMod.GetModifiedValue(this.m_groundFireOnAllIfSuperheated);
 		}
 		else
@@ -217,19 +152,6 @@ public class FireborgDualCones : GenericAbility_Container
 	{
 		if (this.GetExtraDamageIfOverlap() <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (this.GetExtraDamageNonOverlap() <= 0)
 			{
 				return;
@@ -237,28 +159,10 @@ public class FireborgDualCones : GenericAbility_Container
 		}
 		if (actorHitContext.ContainsKey(targetActor))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num;
-			actorHitContext[targetActor].\u0015.TryGetInt(ContextKeys.\u0019.GetHash(), out num);
+			actorHitContext[targetActor].symbol_0015.TryGetInt(ContextKeys.symbol_0019.GetHash(), out num);
 			if (num > 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetExtraDamageIfOverlap() > 0)
 				{
 					results.m_damage += this.GetExtraDamageIfOverlap();
@@ -266,15 +170,6 @@ public class FireborgDualCones : GenericAbility_Container
 			}
 			else if (this.GetExtraDamageNonOverlap() > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				results.m_damage += this.GetExtraDamageNonOverlap();
 			}
 		}
@@ -284,31 +179,9 @@ public class FireborgDualCones : GenericAbility_Container
 	{
 		if (this.ShouldAddGroundFire())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			bool flag;
 			if (!this.ShouldAddGroundFireToAllSquares())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (this.GetTargeterHitCountOnTarget(targetActor) > 1);
 			}
 			else
@@ -318,26 +191,8 @@ public class FireborgDualCones : GenericAbility_Container
 			bool flag2 = flag;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_syncComp.m_actorsInGroundFireOnTurnStart.Contains((uint)targetActor.ActorIndex))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 				}
 			}
@@ -350,31 +205,9 @@ public class FireborgDualCones : GenericAbility_Container
 		ActorHitContext actorHitContext;
 		if (base.Targeter.GetActorContextVars().TryGetValue(targetActor, out actorHitContext))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.GetTargeterHitCountOnTarget(ActorData)).MethodHandle;
-			}
 			int result;
-			if (actorHitContext.\u0015.TryGetInt(ContextKeys.\u0019.GetHash(), out result))
+			if (actorHitContext.symbol_0015.TryGetInt(ContextKeys.symbol_0019.GetHash(), out result))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return result;
 			}
 		}
@@ -385,33 +218,11 @@ public class FireborgDualCones : GenericAbility_Container
 	{
 		if (this.m_syncComp.InSuperheatMode())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.ShouldAddGroundFire()).MethodHandle;
-			}
 			return this.GroundFireOnAllIfSuperheated() || this.GroundFireOnOverlapIfSuperheated();
 		}
 		bool result;
 		if (!this.GroundFireOnAllIfNormal())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.GroundFireOnOverlapIfNormal();
 		}
 		else
@@ -425,19 +236,6 @@ public class FireborgDualCones : GenericAbility_Container
 	{
 		if (this.m_syncComp.InSuperheatMode())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDualCones.ShouldAddGroundFireToAllSquares()).MethodHandle;
-			}
 			return this.GroundFireOnAllIfSuperheated();
 		}
 		return this.GroundFireOnAllIfNormal();

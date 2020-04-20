@@ -104,19 +104,6 @@ public struct GridPos
 		bool result;
 		if (this.x == other.x)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GridPos.CoordsEqual(GridPos)).MethodHandle;
-			}
 			result = (this.y == other.y);
 		}
 		else

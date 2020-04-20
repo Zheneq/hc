@@ -37,19 +37,6 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Smite.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -67,15 +54,6 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 				ActorData actor = enumerator.Current;
 				base.AddActorInRange(actor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Vector3 vector2 = VectorUtils.AngleDegreesToVector(num);
 		float d = this.m_coneBackwardOffsetInSquares * Board.Get().squareSize;
@@ -83,27 +61,9 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 		Vector3 position = travelBoardSquareWorldPositionForLos + new Vector3(0f, y, 0f) - vector2 * d;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count > this.m_boltCount)
 			{
 				goto IL_1D4;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -132,26 +92,8 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 				ActorData item = actorsHitByBolt[k];
 				if (actorsInCone.Contains(item))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsHitByBolt.Remove(item);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsHitByBolt);
 			using (List<ActorData>.Enumerator enumerator2 = actorsHitByBolt.GetEnumerator())
@@ -161,15 +103,6 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 					ActorData actorData = enumerator2.Current;
 					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, vector4, targetingActor, AbilityTooltipSubject.Ally, false);
 					}
 					else
@@ -177,57 +110,21 @@ public class AbilityUtil_Targeter_Smite : AbilityUtil_Targeter
 						base.AddActorInRange(actorData, vector4, targetingActor, AbilityTooltipSubject.Secondary, false);
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(vector4, vector3, maxDistanceInWorld, widthInWorld, this.m_boltInfo.penetrateLineOfSight, targetingActor, null);
 			VectorUtils.LaserCoords laserCoords2 = laserCoordinates;
 			if (actorsHitByBolt.Count > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				laserCoords2 = TargeterUtils.GetLaserCoordsToFarthestTarget(laserCoordinates, actorsHitByBolt);
 			}
 			float magnitude = (laserCoords2.end - laserCoords2.start).magnitude;
 			if (magnitude > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int index = j + 1;
 				this.m_highlights[index].transform.position = vector4 + new Vector3(0f, y, 0f);
 				this.m_highlights[index].transform.rotation = Quaternion.LookRotation(vector3);
 				HighlightUtils.Get().ResizeRectangularCursor(widthInWorld, magnitude, this.m_highlights[index]);
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

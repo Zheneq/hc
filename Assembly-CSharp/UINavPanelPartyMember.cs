@@ -47,30 +47,8 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (this.m_memberInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.Start()).MethodHandle;
-			}
 			if (this.m_memberInfo.IsLeader)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, true, null);
 				this.m_PartyLeaderIconAnimator.Play("leaderIconIN");
 			}
@@ -95,28 +73,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (this.m_invitationSentContainer != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_invitationSentContainer, false, null);
 		}
 		if (this.m_playerLevel != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_playerLevel.text = string.Empty;
 		}
 		if (this.m_ribbonImage != null)
@@ -129,34 +89,12 @@ public class UINavPanelPartyMember : MonoBehaviour
 	{
 		if (this.m_memberInfo != null && !UITooltipManager.Get().IsVisible(TooltipType.PlayerGroupMenu))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetupTooltip(UITooltipBase)).MethodHandle;
-			}
 			string tooltipText = StringUtil.TR("UnknownCharacter", "Global");
 			if (this.m_memberInfo.MemberDisplayCharacter != CharacterType.None)
 			{
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(this.m_memberInfo.MemberDisplayCharacter);
 				if (characterResourceLink != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					tooltipText = characterResourceLink.GetDisplayName();
 				}
 			}
@@ -171,19 +109,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 	{
 		if (this.m_memberInfo == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.OpenGroupMenu(UITooltipBase)).MethodHandle;
-			}
 			FriendListPanel.Get().SetVisible(true, true, false);
 			return false;
 		}
@@ -197,19 +122,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 	{
 		if (isLeader)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetAsLeader(bool)).MethodHandle;
-			}
 			if (!this.m_PartyLeaderIconAnimator.gameObject.activeSelf)
 			{
 				UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, true, null);
@@ -227,19 +139,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_IsInGameAnimator, true, null);
 		if (isInGame)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetIsInGame(bool)).MethodHandle;
-			}
 			this.m_IsInGameAnimator.Play("readyIconIN");
 		}
 		else
@@ -248,52 +147,16 @@ public class UINavPanelPartyMember : MonoBehaviour
 			AnimatorClipInfo[] currentAnimatorClipInfo = this.m_IsInGameAnimator.GetCurrentAnimatorClipInfo(0);
 			if (currentAnimatorClipInfo != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconOUT")
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorClipInfo[0].clip.name != "readyIconOFF")
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 				}
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_IsInGameAnimator.Play("readyIconOUT");
 			}
 		}
@@ -304,31 +167,9 @@ public class UINavPanelPartyMember : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_ReadyIconAnimator, true, null);
 		if (IsReady)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.UpdateReadyState(bool)).MethodHandle;
-			}
 			AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
 			if (currentAnimatorClipInfo != null && currentAnimatorClipInfo.Length > 0 && currentAnimatorClipInfo[0].clip.name != "readyIconIN")
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorClipInfo[0].clip.name != "readyIconON")
 				{
 					this.m_ReadyIconAnimator.Play("readyIconIN");
@@ -341,37 +182,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 			AnimatorClipInfo[] currentAnimatorClipInfo2 = this.m_ReadyIconAnimator.GetCurrentAnimatorClipInfo(0);
 			if (currentAnimatorClipInfo2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorClipInfo2.Length > 0 && currentAnimatorClipInfo2[0].clip.name != "readyIconOUT")
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorClipInfo2[0].clip.name != "readyIconOFF")
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 				}
@@ -391,32 +205,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (this.m_bannerImage != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.Setup(UpdateGroupMemberData)).MethodHandle;
-			}
 			GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(info.BackgroundBannerID);
 			Sprite sprite;
 			if (banner == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = (Sprite)Resources.Load("Banners/Background/02_blue", typeof(Sprite));
 			}
 			else
@@ -427,28 +219,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (this.m_emblemImage != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerBanner banner2 = GameWideData.Get().m_gameBalanceVars.GetBanner(info.ForegroundBannerID);
 			Sprite sprite;
 			if (banner2 == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sprite = (Sprite)Resources.Load("Banners/Background/02_blue", typeof(Sprite));
 			}
 			else
@@ -459,15 +233,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (this.m_ribbonImage != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(info.RibbonID);
 			if (ribbon == null)
 			{
@@ -481,41 +246,14 @@ public class UINavPanelPartyMember : MonoBehaviour
 		}
 		if (this.m_memberInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_memberInfo.AccountID == info.AccountID)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
 		this.m_isHidden = false;
 		if (this.m_playerContainer != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_playerContainer, true, null);
 		}
 		UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, info.IsLeader, null);
@@ -527,28 +265,10 @@ public class UINavPanelPartyMember : MonoBehaviour
 		this.m_memberInfo = info;
 		if (this.m_animController != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_animController.Play("UIBannerInviteIN", 1, 0f);
 		}
 		if (this.m_groupMenuClickListener != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_groupMenuClickListener.Refresh();
 		}
 	}
@@ -558,45 +278,14 @@ public class UINavPanelPartyMember : MonoBehaviour
 		this.m_isHidden = true;
 		if (this.m_playerContainer != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.DoHidden()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_playerContainer, false, null);
 		}
 		if (this.m_ribbonImage != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_ribbonImage, false, null);
 		}
 		if (this.m_animController != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_animController.Play("UIBannerDisabledIN", 1, 0f);
 		}
 		UIManager.SetGameObjectActive(this.m_PartyLeaderIconAnimator, false, null);
@@ -609,19 +298,6 @@ public class UINavPanelPartyMember : MonoBehaviour
 	{
 		if (!this.m_isHidden)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UINavPanelPartyMember.SetToHidden()).MethodHandle;
-			}
 			this.DoHidden();
 		}
 	}

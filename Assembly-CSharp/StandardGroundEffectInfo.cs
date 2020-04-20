@@ -12,19 +12,6 @@ public class StandardGroundEffectInfo
 	{
 		if (this.m_applyGroundEffect)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardGroundEffectInfo.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject, AbilityTooltipSubject)).MethodHandle;
-			}
 			this.m_groundEffectData.ReportAbilityTooltipNumbers(ref numbers, enemySubject, allySubject);
 		}
 	}

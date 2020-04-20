@@ -64,19 +64,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
 		if (this.m_targetSelectForDash != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetRelevantTargetSelectCompForEditor()).MethodHandle;
-			}
 			relevantTargetSelectCompForEditor.Add(this.m_targetSelectForDash);
 		}
 		return relevantTargetSelectCompForEditor;
@@ -94,19 +81,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		base.SetupTargetersAndCachedVars();
 		if (base.Targeter is AbilityUtil_Targeter_LaserChargeReverseCones)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetupTargetersAndCachedVars()).MethodHandle;
-			}
 			AbilityUtil_Targeter_LaserChargeReverseCones abilityUtil_Targeter_LaserChargeReverseCones = base.Targeter as AbilityUtil_Targeter_LaserChargeReverseCones;
 			GenericAbility_TargetSelectBase targetSelectComp = this.GetTargetSelectComp();
 			abilityUtil_Targeter_LaserChargeReverseCones.SetAffectedGroups(targetSelectComp.IncludeEnemies(), targetSelectComp.IncludeAllies(), true);
@@ -119,19 +93,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		bool result;
 		if (this.GetShieldPerEnemyHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.TargeterIncludeCaster(ActorData, List<ActorData>)).MethodHandle;
-			}
 			result = (actorsSoFar.Count > 0);
 		}
 		else
@@ -145,30 +106,8 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (this.IsInReadyStance())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (this.GetShieldPerEnemyHit() > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DinoDashOrShield.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, this.GetShieldPerEnemyHit(), actorHitContext, results);
 			}
 		}
@@ -178,30 +117,8 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (shieldPerEnemyHit > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetShieldPerEnemyHitTargetingNumbers(ActorData, ActorData, int, Dictionary<ActorData, ActorHitContext>, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (targetActor == caster)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = 0;
 				using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 				{
@@ -211,38 +128,11 @@ public class DinoDashOrShield : GenericAbility_Container
 						ActorData key = keyValuePair.Key;
 						if (key.GetTeam() != caster.GetTeam())
 						{
-							for (;;)
+							if (keyValuePair.Value.symbol_0012)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (keyValuePair.Value.\u0012)
-							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num++;
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (num > 0)
@@ -250,15 +140,6 @@ public class DinoDashOrShield : GenericAbility_Container
 					int num2 = shieldPerEnemyHit * num;
 					if (results.m_absorb >= 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_absorb += num2;
 					}
 					else
@@ -280,19 +161,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		StandardEffectInfo cachedShieldEffect;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetCachedFields()).MethodHandle;
-			}
 			cachedShieldEffect = this.m_abilityMod.m_shieldEffectMod.GetModifiedValue(this.m_shieldEffect);
 		}
 		else
@@ -302,7 +170,7 @@ public class DinoDashOrShield : GenericAbility_Container
 		this.m_cachedShieldEffect = cachedShieldEffect;
 		if (this.m_abilityMod != null)
 		{
-			this.m_cachedDashOnHitData = this.m_abilityMod.m_dashOnHitDataMod.\u001D(this.m_dashOnHitData);
+			this.m_cachedDashOnHitData = this.m_abilityMod.m_dashOnHitDataMod.symbol_001D(this.m_dashOnHitData);
 		}
 		else
 		{
@@ -315,19 +183,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetShieldPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(this.m_shieldPerEnemyHit);
 		}
 		else
@@ -342,19 +197,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetShieldDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldDurationMod.GetModifiedValue(this.m_shieldDuration);
 		}
 		else
@@ -369,19 +211,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		StandardEffectInfo result;
 		if (this.m_cachedShieldEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetShieldEffect()).MethodHandle;
-			}
 			result = this.m_cachedShieldEffect;
 		}
 		else
@@ -401,19 +230,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetCdrIfNoDash()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrIfNoDashMod.GetModifiedValue(this.m_cdrIfNoDash);
 		}
 		else
@@ -428,19 +244,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetDelayedCooldown()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_delayedCooldownMod.GetModifiedValue(this.m_delayedCooldown);
 		}
 		else
@@ -470,19 +273,6 @@ public class DinoDashOrShield : GenericAbility_Container
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.UseCustomAbilityIconColor()).MethodHandle;
-			}
 			result = this.m_syncComp.m_dashOrShieldInReadyStance;
 		}
 		else
@@ -496,19 +286,6 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (this.UseCustomAbilityIconColor())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetCustomAbilityIconColor(ActorData)).MethodHandle;
-			}
 			return this.m_iconColorWhileActive;
 		}
 		return base.GetCustomAbilityIconColor(actor);
@@ -518,19 +295,6 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (this.IsInReadyStance())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetTargetSelectComp()).MethodHandle;
-			}
 			return this.m_targetSelectForDash;
 		}
 		return base.GetTargetSelectComp();
@@ -549,19 +313,6 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (this.IsInReadyStance())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetMovementAdjustment()).MethodHandle;
-			}
 			return this.m_dashMovementAdjust;
 		}
 		return base.GetMovementAdjustment();
@@ -571,19 +322,6 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (this.IsInReadyStance())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetBaseTechPointInteractions()).MethodHandle;
-			}
 			return this.m_dashTechPointInteractions;
 		}
 		return base.GetBaseTechPointInteractions();
@@ -607,19 +345,6 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (this.IsInReadyStance())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.GetActionAnimType()).MethodHandle;
-			}
 			return this.m_dashAnimIndex;
 		}
 		return base.GetActionAnimType();
@@ -649,19 +374,6 @@ public class DinoDashOrShield : GenericAbility_Container
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoDashOrShield.SetTargetSelectModReference()).MethodHandle;
-			}
 			this.m_targetSelectComp.SetTargetSelectMod(this.m_abilityMod.m_initialCastTargetSelectMod);
 			this.m_targetSelectForDash.SetTargetSelectMod(this.m_abilityMod.m_dashTargetSelectMod);
 		}

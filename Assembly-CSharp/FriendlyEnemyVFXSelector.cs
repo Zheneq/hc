@@ -33,83 +33,25 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.UpdateVFX()).MethodHandle;
-			}
 		}
 		this.m_initialized = true;
 		this.m_friendly = FriendlyEnemyVFXSelector.IsFriendly(this.m_casterTeam, this.m_cachedLocalPlayerTeam);
 		if (this.m_hideByMoveOffScreen)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_friendly)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_enemyFxInstance != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.HideFxObject(this.m_enemyFxInstance);
 				}
 			}
 			else if (this.m_allyFxInstance != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HideFxObject(this.m_allyFxInstance);
 			}
 		}
 		else if (this.m_friendly)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_enemyFxInstance != null)
 			{
 				UnityEngine.Object.Destroy(this.m_enemyFxInstance);
@@ -124,15 +66,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		GameObject gameObject;
 		if (this.m_friendly)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = this.m_friendlyVFX;
 		}
 		else
@@ -142,26 +75,8 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		GameObject gameObject2 = gameObject;
 		if (gameObject2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_friendly)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.CreateInstanceIfNeeded(gameObject2, ref this.m_allyFxInstance);
 			}
 			else
@@ -175,19 +90,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 	{
 		if (obj != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.HideFxObject(GameObject)).MethodHandle;
-			}
 			obj.transform.localPosition = new Vector3(-10000f, -10000f, -10000f);
 		}
 	}
@@ -196,30 +98,8 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 	{
 		if (instance == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.CreateInstanceIfNeeded(GameObject, GameObject*)).MethodHandle;
-			}
 			if (fxPrefab != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				instance = UnityEngine.Object.Instantiate<GameObject>(fxPrefab);
 				instance.transform.parent = base.transform;
 				instance.gameObject.SetLayerRecursively(LayerMask.NameToLayer("DynamicLit"));
@@ -227,15 +107,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		}
 		if (instance != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			instance.transform.localPosition = Vector3.zero;
 			instance.transform.localRotation = Quaternion.identity;
 		}
@@ -247,19 +118,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		Team cachedLocalPlayerTeam;
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.Setup(Team)).MethodHandle;
-			}
 			cachedLocalPlayerTeam = GameFlowData.Get().activeOwnedActorData.GetTeam();
 		}
 		else
@@ -283,19 +141,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		GameObject currentActiveVfxInstance = this.GetCurrentActiveVfxInstance();
 		if (currentActiveVfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.SetAttribute(string, float)).MethodHandle;
-			}
 			Sequence.SetAttribute(currentActiveVfxInstance, attributeName, value);
 		}
 	}
@@ -305,19 +150,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		GameObject result;
 		if (this.m_friendly)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.GetCurrentActiveVfxInstance()).MethodHandle;
-			}
 			result = this.m_allyFxInstance;
 		}
 		else
@@ -331,31 +163,9 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.Update()).MethodHandle;
-			}
 			Team team;
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				team = GameFlowData.Get().activeOwnedActorData.GetTeam();
 			}
 			else
@@ -378,19 +188,6 @@ public class FriendlyEnemyVFXSelector : MonoBehaviour
 		{
 			if (team0 != Team.Invalid)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FriendlyEnemyVFXSelector.IsFriendly(Team, Team)).MethodHandle;
-				}
 				result = (team1 == Team.Invalid);
 			}
 			else

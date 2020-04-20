@@ -17,19 +17,6 @@ public class CardManager : NetworkBehaviour
 			GameObject[] result;
 			if (this.m_dataPrefabInstanceComponent == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CardManager.get_m_cardIndex()).MethodHandle;
-				}
 				result = null;
 			}
 			else
@@ -74,8 +61,7 @@ public class CardManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

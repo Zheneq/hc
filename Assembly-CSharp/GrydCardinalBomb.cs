@@ -31,19 +31,6 @@ public class GrydCardinalBomb : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBomb.Start()).MethodHandle;
-			}
 			this.m_abilityName = "GrydCardinalBomb";
 		}
 		this.Setup();
@@ -74,30 +61,8 @@ public class GrydCardinalBomb : Ability
 		AbilityUtil_Targeter_GrydCardinalBomb abilityUtil_Targeter_GrydCardinalBomb = base.Targeter as AbilityUtil_Targeter_GrydCardinalBomb;
 		if (abilityUtil_Targeter_GrydCardinalBomb != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCardinalBomb.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (abilityUtil_Targeter_GrydCardinalBomb.m_actorToHitContext.ContainsKey(targetActor))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int numHits = abilityUtil_Targeter_GrydCardinalBomb.m_actorToHitContext[targetActor].m_numHits;
 				int numHitsFromCover = abilityUtil_Targeter_GrydCardinalBomb.m_actorToHitContext[targetActor].m_numHitsFromCover;
 				int damage = ActorMultiHitContext.CalcDamageFromNumHits(numHits, numHitsFromCover, this.m_baseDamage, this.m_subseqHitDamage);

@@ -57,19 +57,6 @@ public class DecidingMovementState : TurnState
 			this.m_SM.NextState = TurnStateEnum.CONFIRMED;
 			if (SinglePlayerManager.Get())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DecidingMovementState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
 				SinglePlayerManager.Get().OnActorLockInEntered(this.m_SM.GetComponent<ActorData>());
 			}
 			break;
@@ -83,53 +70,13 @@ public class DecidingMovementState : TurnState
 	{
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DecidingMovementState.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == this.m_SM)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Input.GetMouseButtonUp(0))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetMouseButtonUp(1))
 					{
 						goto IL_B4;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				if (InterfaceManager.Get().ShouldHandleMouseClick() && !this.m_SM.HandledMouseInput)

@@ -51,19 +51,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		SenseiYingYangDash senseiYingYangDash = targetAbility as SenseiYingYangDash;
 		if (senseiYingYangDash != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiYingYangDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_secondCastTurnsMod, "SecondCastTurns", string.Empty, senseiYingYangDash.m_secondCastTurns, true, false);
 			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, senseiYingYangDash.m_damage, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", senseiYingYangDash.m_enemyHitEffect, true);
@@ -91,19 +78,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		AbilityAreaShape baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiYingYangDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = senseiYingYangDash.m_chooseDestShape;
 		}
 		else
@@ -118,15 +92,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiYingYangDash.m_secondCastTurns;
 		}
 		else
@@ -141,15 +106,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = senseiYingYangDash.m_secondDashAllowBothTeams;
 		}
 		else
@@ -164,15 +120,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiYingYangDash.m_damage;
 		}
 		else
@@ -187,15 +134,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiYingYangDash.m_enemyHitEffect;
 		}
 		else
@@ -210,15 +148,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiYingYangDash.m_extraDamageForDiffTeamSecondDash;
 		}
 		else
@@ -234,15 +163,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = senseiYingYangDash.m_enemyLowHealthThresh;
 		}
 		else
@@ -257,15 +177,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		bool baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = senseiYingYangDash.m_reverseHealthThreshForEnemy;
 		}
 		else
@@ -280,15 +191,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = senseiYingYangDash.m_healOnAlly;
 		}
 		else
@@ -303,15 +205,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		StandardEffectInfo baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = senseiYingYangDash.m_allyHitEffect;
 		}
 		else
@@ -326,15 +219,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = senseiYingYangDash.m_extraHealOnAllyForDiffTeamSecondDash;
 		}
 		else
@@ -349,15 +233,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = senseiYingYangDash.m_extraHealOnAllyForLowHealth;
 		}
 		else
@@ -372,15 +247,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		float baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = senseiYingYangDash.m_allyLowHealthThresh;
 		}
 		else
@@ -395,15 +261,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		bool baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = senseiYingYangDash.m_reverseHealthThreshForAlly;
 		}
 		else
@@ -418,15 +275,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = senseiYingYangDash.m_cdrIfNoSecondDash;
 		}
 		else

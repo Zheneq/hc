@@ -43,19 +43,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		ClaymoreCharge claymoreCharge = targetAbility as ClaymoreCharge;
 		if (claymoreCharge != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreCharge.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_widthMod, "ChargeLineWidth", "charge line width", claymoreCharge.m_width, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxRangeMod, "ChargeLineRange", "max charge range", claymoreCharge.m_maxRange, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_directHitDamageMod, "Damage_DirectHit", "direct hit damage from charge", claymoreCharge.m_directHitDamage, true, false);
@@ -81,19 +68,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreCharge.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = claymoreCharge.m_width;
 		}
 		else
@@ -110,15 +84,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = claymoreCharge.m_directHitDamage;
 		}
 		else
@@ -133,15 +98,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = claymoreCharge.m_directEnemyHitEffect;
 		}
 		else
@@ -156,15 +112,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = claymoreCharge.m_aoeDamage;
 		}
 		else
@@ -179,15 +126,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = claymoreCharge.m_aoeEnemyHitEffect;
 		}
 		else
@@ -202,15 +140,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = claymoreCharge.m_extraDirectHitDamagePerSquare;
 		}
 		else
@@ -225,15 +154,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = claymoreCharge.m_healOnSelfPerTargetHit;
 		}
 		else
@@ -248,15 +168,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = claymoreCharge.m_cooldownOnHit;
 		}
 		else
@@ -271,15 +182,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = claymoreCharge.m_chaseHitActor;
 		}
 		else

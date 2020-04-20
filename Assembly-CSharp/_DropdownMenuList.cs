@@ -29,32 +29,10 @@ public class _DropdownMenuList : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_listContainer, this.m_listVisible, null);
 		if (this.m_listVisible && this.m_openCallback != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DropdownMenuList.SetListContainerVisible(bool)).MethodHandle;
-			}
 			this.m_openCallback();
 		}
 		else if (!this.m_listVisible && this.m_closeCallback != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_closeCallback();
 		}
 	}

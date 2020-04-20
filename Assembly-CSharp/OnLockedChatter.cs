@@ -20,19 +20,6 @@ public class OnLockedChatter : ScriptableObject, IChatterData
 	{
 		if (GameFlowData.Get().activeOwnedActorData != component.gameObject.GetComponent<ActorData>())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnLockedChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
 			return false;
 		}
 		return ChatterData.ShouldPlayChatter(this, eventType, args, component);

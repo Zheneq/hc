@@ -20,19 +20,6 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.QuadEaseInOut(float, float, float, float)).MethodHandle;
-			}
 			return c / 2f * t * t + b;
 		}
 		return -c / 2f * ((t -= 1f) * (t - 2f) - 1f) + b;
@@ -49,19 +36,6 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.CubicEaseInOut(float, float, float, float)).MethodHandle;
-			}
 			return c / 2f * t * t * t + b;
 		}
 		return c / 2f * ((t -= 2f) * t * t + 2f) + b;
@@ -84,19 +58,6 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.QuartEaseInOut(float, float, float, float)).MethodHandle;
-			}
 			return c / 2f * t * t * t * t + b;
 		}
 		return -c / 2f * ((t -= 2f) * t * t * t - 2f) + b;
@@ -107,19 +68,6 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.QuintEaseInOut(float, float, float, float)).MethodHandle;
-			}
 			return c / 2f * t * t * t * t * t + b;
 		}
 		return c / 2f * ((t -= 2f) * t * t * t * t + 2f) + b;
@@ -130,45 +78,14 @@ internal class Easing
 		t = Mathf.Clamp(t, 0f, d);
 		if (t == 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Easing.ExpoEaseInOut(float, float, float, float)).MethodHandle;
-			}
 			return b;
 		}
 		if (t == d)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return b + c;
 		}
 		if ((t /= d / 2f) < 1f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return c / 2f * Mathf.Pow(2f, 10f * (t - 1f)) + b;
 		}
 		return c / 2f * (-Mathf.Pow(2f, -10f * (t -= 1f)) + 2f) + b;

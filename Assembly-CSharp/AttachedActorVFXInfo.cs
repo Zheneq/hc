@@ -46,30 +46,8 @@ public class AttachedActorVFXInfo
 		this.m_friendOrFoeVisibility = fofVisibility;
 		if (attachedToObject != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.Initialize(GameObject, GameObject, JointPopupProperty, bool, string, AttachedActorVFXInfo.FriendOrFoeVisibility)).MethodHandle;
-			}
 			if (vfxPrefab != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_joint.Initialize(attachedToObject);
 				if (this.m_joint.m_jointObject != null)
 				{
@@ -106,19 +84,6 @@ public class AttachedActorVFXInfo
 	{
 		if (this.m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.DestroyVfx()).MethodHandle;
-			}
 			this.m_fofSelector = null;
 			UnityEngine.Object.Destroy(this.m_vfxInstance);
 			this.m_vfxInstance = null;
@@ -134,55 +99,15 @@ public class AttachedActorVFXInfo
 	{
 		if (this.m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.UpdateVisibility(bool, bool)).MethodHandle;
-			}
 			if (this.m_attachParentObject != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag;
 				if (this.m_friendOrFoeVisibility != AttachedActorVFXInfo.FriendOrFoeVisibility.Both)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_friendOrFoeVisibility != AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly || !sameTeamAsClientActor)
 					{
 						if (this.m_friendOrFoeVisibility == AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = !sameTeamAsClientActor;
 						}
 						else
@@ -198,15 +123,6 @@ public class AttachedActorVFXInfo
 				bool flag3 = actorVisible && flag2;
 				if (this.m_vfxInstance.activeSelf != flag3)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_vfxInstance.SetActive(flag3);
 				}
 				if (flag3 && this.m_alignToRootOrientation)
@@ -235,19 +151,6 @@ public class AttachedActorVFXInfo
 	{
 		if (this.m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.SetInstanceScale(Vector3)).MethodHandle;
-			}
 			this.m_vfxInstance.transform.localScale = scale;
 		}
 	}
@@ -256,19 +159,6 @@ public class AttachedActorVFXInfo
 	{
 		if (this.m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.SetInstanceLocalPosition(Vector3)).MethodHandle;
-			}
 			this.m_vfxInstance.transform.localPosition = localPosition;
 		}
 	}
@@ -277,19 +167,6 @@ public class AttachedActorVFXInfo
 	{
 		if (this.m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.GetInstancePosition()).MethodHandle;
-			}
 			return this.m_vfxInstance.transform.position;
 		}
 		return Vector3.zero;
@@ -299,19 +176,6 @@ public class AttachedActorVFXInfo
 	{
 		if (this.m_vfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AttachedActorVFXInfo.SetInstanceLayer(int)).MethodHandle;
-			}
 			this.m_vfxInstance.transform.gameObject.SetLayerRecursively(layer);
 		}
 	}

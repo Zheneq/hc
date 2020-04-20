@@ -22,19 +22,6 @@ public class AsyncPumpProcessingLatency
 			double result;
 			if (this.Count > 0L)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPumpProcessingLatency.get_Avg()).MethodHandle;
-				}
 				result = (double)this.Sum / (double)this.Count;
 			}
 			else
@@ -50,19 +37,6 @@ public class AsyncPumpProcessingLatency
 		this.Current = ticks;
 		if (this.Max < ticks)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncPumpProcessingLatency.Update(long)).MethodHandle;
-			}
 			this.Max = ticks;
 		}
 		this.Sum += ticks;

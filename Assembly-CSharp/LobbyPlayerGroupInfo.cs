@@ -41,19 +41,6 @@ public class LobbyPlayerGroupInfo
 		bool flag;
 		if (this.m_ChararacterInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerGroupInfo.SetCharacterInfo(LobbyCharacterInfo, bool)).MethodHandle;
-			}
 			flag = (this.m_ChararacterInfo.CharacterType != newInfo.CharacterType);
 		}
 		else
@@ -68,26 +55,8 @@ public class LobbyPlayerGroupInfo
 		});
 		if (AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICharacterSelectScreenController.Get().QuickPlayUpdateCharacters(GameManager.Get().GameplayOverrides, switchedChars, isFromServerResponse);
 			}
 		}

@@ -109,31 +109,9 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (this.m_tags == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.AddTag(string)).MethodHandle;
-			}
 			this.m_tags = base.gameObject.GetComponent<ActorTag>();
 			if (this.m_tags == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_tags = base.gameObject.AddComponent<ActorTag>();
 			}
 		}
@@ -144,19 +122,6 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (this.m_tags != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.HasTag(string)).MethodHandle;
-			}
 			return this.m_tags.HasTag(powerupTag);
 		}
 		return false;
@@ -178,43 +143,12 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.ClientSpawnSequences()).MethodHandle;
-			}
 			if (this.m_clientSequenceIds.Count == 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.transform.position.x, base.transform.position.z);
 				PowerUp.ExtraParams extraParams = new PowerUp.ExtraParams();
 				if (this.m_restrictPickupByTeam)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					extraParams.m_pickupTeamAsInt = (int)this.m_pickupTeam;
 				}
 				else
@@ -240,39 +174,12 @@ public class PowerUp : NetworkBehaviour
 						this.m_clientSequenceIds.Add(array[i].Id);
 						if (!flag)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (PowerUpManager.Get() != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								array[i].transform.parent = PowerUpManager.Get().GetSpawnedPersistentSequencesRoot().transform;
 								flag = true;
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -293,19 +200,6 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Awake()).MethodHandle;
-			}
 			this.Networkm_guid = PowerUp.s_nextPowerupGuid++;
 			SequenceSource sequenceSource = this.SequenceSource;
 			this.Networkm_sequenceSourceId = sequenceSource.RootID;
@@ -322,19 +216,6 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (this.m_ability == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Start()).MethodHandle;
-			}
 			Log.Error("PowerUp " + this + " needs a valid Ability assigned in the inspector for its prefab", new object[0]);
 		}
 		base.transform.parent = PowerUpManager.Get().GetSpawnedPowerupsRoot().transform;
@@ -345,50 +226,14 @@ public class PowerUp : NetworkBehaviour
 		{
 			componentsInChildren[i].gameObject.layer = layer;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_boardSquare == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CalculateBoardSquare();
 		}
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (PowerUpManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PowerUpManager.Get().TrackClientPowerUp(this);
 			}
 			this.ClientSpawnSequences();
@@ -414,44 +259,13 @@ public class PowerUp : NetworkBehaviour
 		this.m_markedForRemoval = true;
 		if (SequenceManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.MarkSequencesForRemoval()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_clientSequenceIds.Count; i++)
 			{
 				Sequence sequence = SequenceManager.Get().FindSequence(this.m_clientSequenceIds[i]);
 				if (sequence != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					sequence.MarkForRemoval();
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -472,19 +286,6 @@ public class PowerUp : NetworkBehaviour
 				Vector3 localPosition;
 				if (hide)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.SetHideSequence(bool)).MethodHandle;
-					}
 					localPosition = new Vector3(0f, -100f, 0f);
 				}
 				else
@@ -508,43 +309,12 @@ public class PowerUp : NetworkBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Client_OnPickedUp(int)).MethodHandle;
-			}
 			if (clientFog.IsVisible(this.boardSquare))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string audioEventPickUp = this.m_audioEventPickUp;
 				GameObject gameObject;
 				if (actorData == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject = base.gameObject;
 				}
 				else
@@ -558,15 +328,6 @@ public class PowerUp : NetworkBehaviour
 		{
 			Transform child = base.transform.GetChild(i);
 			child.gameObject.SetActive(false);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.PowerUpActivated, new GameEventManager.PowerUpActivatedArgs
 		{
@@ -587,44 +348,13 @@ public class PowerUp : NetworkBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.Client_OnSteal(int)).MethodHandle;
-			}
 			if (clientFog.IsVisible(this.boardSquare))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndexFor3DAudio);
 				string audioEventPickUp = this.m_audioEventPickUp;
 				GameObject gameObject;
 				if (actorData == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					gameObject = base.gameObject;
 				}
 				else
@@ -656,30 +386,8 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.OnDestroy()).MethodHandle;
-			}
 			if (PowerUpManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PowerUpManager.Get().UntrackClientPowerUp(this);
 			}
 			this.MarkSequencesForRemoval();
@@ -687,15 +395,6 @@ public class PowerUp : NetworkBehaviour
 		}
 		if (PowerUpManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PowerUpManager.Get().OnPowerUpDestroy(this);
 		}
 	}
@@ -705,19 +404,6 @@ public class PowerUp : NetworkBehaviour
 		bool result;
 		if (this.m_restrictPickupByTeam)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.TeamAllowedForPickUp(Team)).MethodHandle;
-			}
 			result = (team == this.PickupTeam);
 		}
 		else
@@ -765,30 +451,8 @@ public class PowerUp : NetworkBehaviour
 			uint dirtyBit = 2U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.set_Networkm_guid(int)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetGuid(value);
 					base.syncVarHookGuard = false;
@@ -851,19 +515,6 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.InvokeRpcRpcOnSteal(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcOnSteal called on server.");
 			return;
 		}
@@ -874,19 +525,6 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.CallRpcOnPickedUp(int)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcOnPickedUp called on client.");
 			return;
 		}
@@ -919,19 +557,6 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.Write((int)this.m_pickupTeam);
 			writer.WritePackedUInt32((uint)this.m_guid);
 			writer.WritePackedUInt32(this.m_sequenceSourceId);
@@ -942,15 +567,6 @@ public class PowerUp : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -960,26 +576,8 @@ public class PowerUp : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -987,26 +585,8 @@ public class PowerUp : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1014,26 +594,8 @@ public class PowerUp : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1043,15 +605,6 @@ public class PowerUp : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1059,15 +612,6 @@ public class PowerUp : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -1087,19 +631,6 @@ public class PowerUp : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_pickupTeam = (Team)reader.ReadInt32();
 		}
 		if ((num & 2) != 0)
@@ -1108,41 +639,14 @@ public class PowerUp : NetworkBehaviour
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_sequenceSourceId = reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_isSpoil = reader.ReadBoolean();
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_ignoreSpawnSplineForSequence = reader.ReadBoolean();
 		}
 	}

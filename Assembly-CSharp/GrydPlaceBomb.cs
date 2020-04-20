@@ -45,19 +45,6 @@ public class GrydPlaceBomb : Ability
 		GridPos start;
 		if (targetIndex == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydPlaceBomb.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			start = caster.GetGridPosWithIncrementedHeight();
 		}
 		else
@@ -71,15 +58,6 @@ public class GrydPlaceBomb : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
@@ -93,19 +71,6 @@ public class GrydPlaceBomb : Ability
 		bool result;
 		if (!start.CoordsEqual(end))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydPlaceBomb.CardinallyAligned(GridPos, GridPos)).MethodHandle;
-			}
 			result = (start.x == end.x || start.y == end.y);
 		}
 		else

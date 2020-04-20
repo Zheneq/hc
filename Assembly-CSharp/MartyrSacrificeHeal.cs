@@ -45,19 +45,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Martyr Sacrifice Heal";
 		}
 		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
@@ -80,19 +67,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 				MartyrSacrificeThreshold item = enumerator.Current;
 				list.Add(item);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetThresholdBasedCrystalBonusList()).MethodHandle;
-			}
 		}
 		return list;
 	}
@@ -102,19 +76,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		AbilityUtil_Targeter.AffectsActor affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Always;
 		if (this.m_freeTargetPosition)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.SetupTargeter()).MethodHandle;
-			}
 			affectsBestTarget = AbilityUtil_Targeter.AffectsActor.Never;
 		}
 		AbilityUtil_Targeter_Shape abilityUtil_Targeter_Shape = new AbilityUtil_Targeter_Shape(this, this.m_targetShape, this.GetPenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.m_affectsEnemies, this.m_affectsAllies, AbilityUtil_Targeter.AffectsActor.Possible, affectsBestTarget);
@@ -168,19 +129,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCurrentDamageForSelf(ActorData)).MethodHandle;
-			}
 			num = martyrSacrificeThreshold.m_additionalDamageToSelf;
 		}
 		else
@@ -197,19 +145,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCurrentDamageForEnemy(ActorData)).MethodHandle;
-			}
 			num = martyrSacrificeThreshold.m_additionalDamageToEnemy;
 		}
 		else
@@ -226,19 +161,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		int num;
 		if (martyrSacrificeThreshold != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCurrentHealingForAlly(ActorData)).MethodHandle;
-			}
 			num = martyrSacrificeThreshold.m_additionalHealToAlly;
 		}
 		else
@@ -284,19 +206,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		}
 		else if (targetActor.GetTeam() == base.ActorData.GetTeam())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int currentHealingForAlly = this.GetCurrentHealingForAlly(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentHealingForAlly, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally);
 		}
@@ -323,19 +232,6 @@ public class MartyrSacrificeHeal : MartyrLaserBase
 		bool result = true;
 		if (!this.m_freeTargetPosition)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSacrificeHeal.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
 			result = base.CanTargetActorInDecision(caster, currentBestActorTarget, this.m_affectsEnemies, this.m_affectsAllies, false, Ability.ValidateCheckPath.Ignore, !this.GetPenetratesLoS(), false, false);
 		}

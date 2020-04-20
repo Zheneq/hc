@@ -23,19 +23,6 @@ public class BazookaGirlRocketJump : Ability
 		bool flag;
 		if (moddedEffectForAllies != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlRocketJump.SetupTargeter()).MethodHandle;
-			}
 			flag = moddedEffectForAllies.m_applyEffect;
 		}
 		else
@@ -47,15 +34,6 @@ public class BazookaGirlRocketJump : Ability
 		bool flag2;
 		if (moddedEffectForSelf != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = moddedEffectForSelf.m_applyEffect;
 		}
 		else
@@ -80,30 +58,8 @@ public class BazookaGirlRocketJump : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlRocketJump.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 				dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageAmount();
 				return dictionary;
@@ -120,19 +76,6 @@ public class BazookaGirlRocketJump : Ability
 		int val;
 		if (abilityMod_BazookaGirlRocketJump)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlRocketJump.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_BazookaGirlRocketJump.m_damageMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -151,19 +94,6 @@ public class BazookaGirlRocketJump : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BazookaGirlRocketJump))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlRocketJump.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_BazookaGirlRocketJump);
 			this.SetupTargeter();
 		}
@@ -184,19 +114,6 @@ public class BazookaGirlRocketJump : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlRocketJump.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_damageAmount;
 		}
 		else

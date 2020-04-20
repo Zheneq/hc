@@ -85,19 +85,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo cachedSelfBuffEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.SetCachedFields()).MethodHandle;
-			}
 			cachedSelfBuffEffect = this.m_abilityMod.m_selfBuffEffectMod.GetModifiedValue(this.m_selfBuffEffect);
 		}
 		else
@@ -108,15 +95,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo cachedGeneralEffectOnSelf;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedGeneralEffectOnSelf = this.m_abilityMod.m_generalEffectOnSelfMod.GetModifiedValue(this.m_generalEffectOnSelf);
 		}
 		else
@@ -131,19 +109,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfBuffEffect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetSelfBuffEffect()).MethodHandle;
-			}
 			result = this.m_cachedSelfBuffEffect;
 		}
 		else
@@ -158,19 +123,6 @@ public class SamuraiSelfBuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedGeneralEffectOnSelf != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetGeneralEffectOnSelf()).MethodHandle;
-			}
 			result = this.m_cachedGeneralEffectOnSelf;
 		}
 		else
@@ -185,19 +137,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetExtraDamageIfQueued()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageIfQueuedMod.GetModifiedValue(this.m_extraDamageIfQueued);
 		}
 		else
@@ -212,19 +151,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetBaseShielding()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_baseShieldingMod.GetModifiedValue(this.m_baseShielding);
 		}
 		else
@@ -244,19 +170,6 @@ public class SamuraiSelfBuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.SelfBuffLastsUntilYouDealDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfBuffLastsUntilYouDealDamageMod.GetModifiedValue(this.m_selfBuffLastsUntilYouDealDamage);
 		}
 		else
@@ -276,19 +189,6 @@ public class SamuraiSelfBuff : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetKnockbackDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDistMod.GetModifiedValue(this.m_knockbackDist);
 		}
 		else
@@ -313,19 +213,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetDamageIncreaseFirstHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageIncreaseFirstHitMod.GetModifiedValue(this.m_damageIncreaseFirstHit);
 		}
 		else
@@ -340,19 +227,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetDamageIncreaseSubseqHits()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageIncreaseSubseqHitsMod.GetModifiedValue(this.m_damageIncreaseSubseqHits);
 		}
 		else
@@ -367,19 +241,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetTechPointGainPerIncomingHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_techPointGainPerIncomingHitMod.GetModifiedValue(this.m_techPointGainPerIncomingHit);
 		}
 		else
@@ -394,19 +255,6 @@ public class SamuraiSelfBuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.BuffInResponseToIndirectDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_buffInResponseToIndirectDamageMod.GetModifiedValue(this.m_buffInResponseToIndirectDamage);
 		}
 		else
@@ -421,19 +269,6 @@ public class SamuraiSelfBuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetCdrIfNotHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrIfNotHitMod.GetModifiedValue(this.m_cdrIfNotHit);
 		}
 		else
@@ -470,31 +305,9 @@ public class SamuraiSelfBuff : Ability
 	{
 		if (targetActor == base.ActorData)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			int num = this.GetBaseShielding();
 			if (this.GetExtraShieldingIfOnlyAbility() > 0 && !this.HasOtherQueuedAbilities())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetExtraShieldingIfOnlyAbility();
 			}
 			results.m_absorb = num;
@@ -507,19 +320,6 @@ public class SamuraiSelfBuff : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			return this.m_syncComponent.m_lastSelfBuffTurn == -1;
 		}
 		return base.CustomCanCastValidation(caster);
@@ -529,19 +329,6 @@ public class SamuraiSelfBuff : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiSelfBuff))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SamuraiSelfBuff);
 			this.SetupTargeter();
 		}
@@ -558,43 +345,12 @@ public class SamuraiSelfBuff : Ability
 		bool result = false;
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSelfBuff.HasOtherQueuedAbilities()).MethodHandle;
-			}
 			for (int i = 0; i <= 4; i++)
 			{
 				if (i != (int)this.m_myActionType && this.m_abilityData.HasQueuedAction((AbilityData.ActionType)i))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;

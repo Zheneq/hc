@@ -19,30 +19,8 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 			ThiefPowerupReturnProjectileSequence.PowerupTypeExtraParams powerupTypeExtraParams = extraSequenceParams as ThiefPowerupReturnProjectileSequence.PowerupTypeExtraParams;
 			if (powerupTypeExtraParams != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPowerupReturnProjectileSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				this.m_powerupCategoryInt = powerupTypeExtraParams.powerupCategory;
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -51,19 +29,6 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 		GameObject gameObject = ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX.GetPrefabForCategory(this.m_powerupToProjectileVFXPrefab, this.m_powerupCategoryInt);
 		if (gameObject == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPowerupReturnProjectileSequence.GetProjectileFxPrefab()).MethodHandle;
-			}
 			gameObject = this.m_fxPrefab;
 		}
 		return gameObject;
@@ -106,32 +71,10 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 			GameObject result = null;
 			if (catToVfx != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX.GetPrefabForCategory(ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX[], int)).MethodHandle;
-				}
 				foreach (ThiefPowerupReturnProjectileSequence.PowerUpCategoryToVFX powerUpCategoryToVFX in catToVfx)
 				{
 					if (powerUpCategoryToVFX.m_category == (PowerUp.PowerUpCategory)categoryInt && powerUpCategoryToVFX.m_vfxPrefab != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = powerUpCategoryToVFX.m_vfxPrefab;
 						break;
 					}

@@ -66,45 +66,14 @@ public class BazookaGirlDelayedBombDrops : Ability
 	{
 		if (this.TargetAllEnemies())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.SetupTargeter()).MethodHandle;
-			}
 			base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, 30f, true, true, false, -1);
 		}
 		else if (this.m_targetingType == BazookaGirlDelayedBombDrops.TargetingType.Shape)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Targeter = new AbilityUtil_Targeter_Shape(this, this.m_targetingShape, this.PenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Possible);
 		}
 		else if (this.m_targetingType == BazookaGirlDelayedBombDrops.TargetingType.Cone)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, this.GetConeAngle(), this.GetConeLength(), this.m_coneBackwardOffset, this.PenetrateLos(), true, true, false, false, -1, false);
 		}
 	}
@@ -124,19 +93,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_bombInfo.m_damageAmount;
 		}
 		else
@@ -151,19 +107,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.GetConeLength()).MethodHandle;
-			}
 			result = this.m_coneLength;
 		}
 		else
@@ -178,19 +121,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.GetConeAngle()).MethodHandle;
-			}
 			result = this.m_coneWidthAngle;
 		}
 		else
@@ -205,19 +135,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.TargetAllEnemies()).MethodHandle;
-			}
 			result = this.m_targetAll;
 		}
 		else
@@ -232,19 +149,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.PenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -259,19 +163,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.GetMaxNumOfAreasForExtraDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(this.m_maxNumOfAreasForExtraDamage);
 		}
 		else
@@ -286,19 +177,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.GetExtraDamagePerFewerArea()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamagePerFewerAreaMod.GetModifiedValue(this.m_extraDamagePerFewerArea);
 		}
 		else
@@ -315,19 +193,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		AbilityTooltipSubject abilityTooltipSubject;
 		if (this.m_bombDropDelay <= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			abilityTooltipSubject = AbilityTooltipSubject.Primary;
 		}
 		else
@@ -338,15 +203,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		AbilityTooltipHelper.ReportDamage(ref result, subject, this.m_bombInfo.m_damageAmount);
 		if (this.m_bombInfo.m_damageAmount != this.m_bombInfo.m_subsequentDamageAmount)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Quaternary, this.m_bombInfo.m_subsequentDamageAmount);
 		}
 		return result;
@@ -356,19 +212,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 	{
 		if (this.m_bombDropDelay <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			ActorData actorData = base.ActorData;
 			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
@@ -380,39 +223,12 @@ public class BazookaGirlDelayedBombDrops : Ability
 					ActorData actorData2 = enumerator.Current;
 					list.Add(actorData2.GetCurrentBoardSquare());
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			int num = 0;
 			if (this.GetExtraDamagePerFewerArea() > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetMaxNumOfAreasForExtraDamage() > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2 = this.GetMaxNumOfAreasForExtraDamage() - visibleActorsInRangeByTooltipSubject.Count;
 					if (num2 > 0)
 					{
@@ -430,26 +246,8 @@ public class BazookaGirlDelayedBombDrops : Ability
 				{
 					if (x == targetActor)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 += this.m_bombInfo.m_subsequentDamageAmount;
 						}
 						else
@@ -475,19 +273,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int val;
 		if (abilityMod_BazookaGirlDelayedBombDrops)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_BazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(this.m_maxNumOfAreasForExtraDamage);
 		}
 		else
@@ -500,15 +285,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		int val2;
 		if (abilityMod_BazookaGirlDelayedBombDrops)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_BazookaGirlDelayedBombDrops.m_extraDamagePerFewerAreaMod.GetModifiedValue(this.m_extraDamagePerFewerArea);
 		}
 		else
@@ -523,19 +299,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		bool result;
 		if (animIndex != this.m_bombDropAnimIndexInEffect)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			result = base.CanTriggerAnimAtIndexForTaunt(animIndex);
 		}
 		else
@@ -549,19 +312,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BazookaGirlDelayedBombDrops))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_BazookaGirlDelayedBombDrops);
 			this.SetupTargeter();
 		}
@@ -587,19 +337,6 @@ public class BazookaGirlDelayedBombDrops : Ability
 		}
 		else if (this.m_targetingType == BazookaGirlDelayedBombDrops.TargetingType.Shape)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedBombDrops.CalcPointsOfInterestForCamera(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			AreaEffectUtils.AddShapeCornersToList(ref result, this.m_targetingShape, targets[0]);
 		}
 		else if (this.m_targetingType == BazookaGirlDelayedBombDrops.TargetingType.Cone)

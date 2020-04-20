@@ -72,19 +72,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			Vector3 vector;
 			if (this.UseGridPosSquarePosAsFreePos)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Shape.GetHighlightGoalPos(AbilityTarget, ActorData)).MethodHandle;
-				}
 				vector = gameplayRefSquare.ToVector3();
 			}
 			else
@@ -104,19 +91,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		BoardSquare result;
 		if (this.m_customCenterPosDelegate != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Shape.GetGameplayRefSquare(AbilityTarget, ActorData)).MethodHandle;
-			}
 			Vector3 vector2D = this.m_customCenterPosDelegate(targetingActor, currentTarget);
 			result = Board.Get().GetBoardSquare(vector2D);
 		}
@@ -125,15 +99,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			GridPos gridPos;
 			if (this.GetCurrentRangeInSquares() != 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gridPos = currentTarget.GridPos;
 			}
 			else
@@ -167,19 +132,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		bool flag = GameFlowData.Get().activeOwnedActorData == targetingActor;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Shape.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 		}
 		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
@@ -200,15 +152,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			Vector3 damageOrigin;
 			if (this.m_damageOriginType == AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				damageOrigin = targetingActor.GetTravelBoardSquareWorldPositionForLos();
 			}
 			else
@@ -221,27 +164,9 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Possible)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag3;
 				if (this.m_affectCasterDelegate == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = flag2;
 				}
 				else
@@ -257,26 +182,8 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			ActorData actorData = currentTarget.GetCurrentBestActorTarget();
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!actorData.IsVisibleToClient())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = null;
 				}
 			}
@@ -288,76 +195,22 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 					ActorData potentialTarget = enumerator.Current;
 					this.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, damageOrigin, actorData);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Always)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipSubject abilityTooltipSubject = this.m_casterTooltipSubject;
 				if (abilityTooltipSubject == AbilityTooltipSubject.None)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityTooltipSubject = this.m_allyTooltipSubject;
 				}
 				base.AddActorInRange(targetingActor, damageOrigin, targetingActor, abilityTooltipSubject, false);
 			}
 			if (this.m_affectsBestTarget == AbilityUtil_Targeter.AffectsActor.Always)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, damageOrigin, targetingActor, this.m_allyTooltipSubject, false);
 					}
 					else
@@ -368,29 +221,11 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AreaEffectUtils.OperateOnSquaresInShape(this.m_indicatorHandler, this.m_shape, freePos, gameplayRefSquare, this.m_penetrateLoS, targetingActor, null);
 			}
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.HideUnusedSquareIndicators();
 		}
 	}
@@ -400,19 +235,6 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		bool flag;
 		if (!(potentialTarget != targetingActor))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Shape.HandleAddActorInShape(ActorData, ActorData, AbilityTarget, Vector3, ActorData)).MethodHandle;
-			}
 			flag = (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Possible);
 		}
 		else
@@ -423,49 +245,13 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 		bool flag3 = potentialTarget != bestTarget || this.m_affectsBestTarget == AbilityUtil_Targeter.AffectsActor.Possible;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (potentialTarget == targetingActor)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityTooltipSubject abilityTooltipSubject = this.m_casterTooltipSubject;
 					if (abilityTooltipSubject == AbilityTooltipSubject.None)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						abilityTooltipSubject = this.m_allyTooltipSubject;
 					}
 					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, abilityTooltipSubject, false);

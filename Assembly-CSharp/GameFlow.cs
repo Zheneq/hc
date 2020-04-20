@@ -36,19 +36,6 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.SendCastAbility(ActorData, AbilityData.ActionType, List<AbilityTarget>)).MethodHandle;
-			}
 			Debug.LogWarning("[Client] function 'System.Void GameFlow::SendCastAbility(ActorData,AbilityData/ActionType,System.Collections.Generic.List`1<AbilityTarget>)' called on server");
 			return;
 		}
@@ -85,30 +72,8 @@ public class GameFlow : NetworkBehaviour
 		GameFlowData.s_onGameStateChanged += this.OnGameStateChanged;
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.Start()).MethodHandle;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnGameStateChanged(GameFlowData.Get().gameState);
 			}
 		}
@@ -124,19 +89,6 @@ public class GameFlow : NetworkBehaviour
 		this.Client_OnDestroy();
 		if (EventManager.Instance != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.OnDestroy()).MethodHandle;
-			}
 		}
 		GameFlowData.s_onGameStateChanged -= this.OnGameStateChanged;
 		GameFlow.s_instance = null;
@@ -151,30 +103,8 @@ public class GameFlow : NetworkBehaviour
 		}
 		if (newState != GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.OnGameStateChanged(GameState)).MethodHandle;
-			}
 			if (newState != GameState.BothTeams_Resolve)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -183,15 +113,6 @@ public class GameFlow : NetworkBehaviour
 				AudioManager.GetMixerSnapshotManager().SetMix_ResolveCam();
 				if (GameEventManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.ClientResolutionStarted, null);
 				}
 			}
@@ -207,19 +128,6 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (this.m_playerDetails.Count == 1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.CheckTutorialAutoselectCharacter()).MethodHandle;
-			}
 			if (GameFlowData.Get().GetNumAvailableCharacterResourceLinks() == 1)
 			{
 			}
@@ -238,19 +146,6 @@ public class GameFlow : NetworkBehaviour
 					return keyValuePair.Key;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.GetPlayerFromConnectionId(int)).MethodHandle;
-			}
 		}
 		return default(Player);
 	}
@@ -265,30 +160,8 @@ public class GameFlow : NetworkBehaviour
 				KeyValuePair<Player, PlayerDetails> keyValuePair = enumerator.Current;
 				if (keyValuePair.Key.m_connectionId == connectionId)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.GetPlayerHandleFromConnectionId(int)).MethodHandle;
-					}
 					return keyValuePair.Value.m_handle;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return empty;
@@ -304,30 +177,8 @@ public class GameFlow : NetworkBehaviour
 				KeyValuePair<Player, PlayerDetails> keyValuePair = enumerator.Current;
 				if (keyValuePair.Key.m_accountId == accountId)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.GetPlayerHandleFromAccountId(long)).MethodHandle;
-					}
 					return keyValuePair.Value.m_handle;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return empty;
@@ -338,71 +189,22 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (message.RestrictVisibiltyToTeam != Team.Invalid)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.RpcDisplayConsoleText(DisplayConsoleTextMessage)).MethodHandle;
-			}
 			if (!(GameFlowData.Get().activeOwnedActorData != null))
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (GameFlowData.Get().activeOwnedActorData.GetTeam() != message.RestrictVisibiltyToTeam)
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		string text = string.Empty;
 		if (!message.Unlocalized.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = message.Unlocalized;
 		}
 		else if (message.Token.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = StringUtil.TR(message.Term, message.Context);
 		}
 		else
@@ -429,44 +231,13 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.syncVarDirtyBits == 0U)
 			{
 				return false;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		NetworkWriterAdapter networkWriterAdapter = new NetworkWriterAdapter(writer);
@@ -474,15 +245,6 @@ public class GameFlow : NetworkBehaviour
 		networkWriterAdapter.Serialize(ref num);
 		if (num >= 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num <= 0x14)
 			{
 				goto IL_9F;
@@ -501,27 +263,9 @@ public class GameFlow : NetworkBehaviour
 				bool flag = value != null;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					key.OnSerializeHelper(networkWriterAdapter);
 					value.OnSerializeHelper(networkWriterAdapter);
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;
@@ -532,58 +276,18 @@ public class GameFlow : NetworkBehaviour
 		uint num = uint.MaxValue;
 		if (!initialState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			num = reader.ReadPackedUInt32();
 		}
 		if (num != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			NetworkReaderAdapter networkReaderAdapter = new NetworkReaderAdapter(reader);
 			int num2 = this.m_playerDetails.Count;
 			networkReaderAdapter.Serialize(ref num2);
 			if (num2 >= 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 <= 0x14)
 				{
 					goto IL_94;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Log.Error("Invalid number of players: " + num2, new object[0]);
@@ -600,26 +304,8 @@ public class GameFlow : NetworkBehaviour
 				this.m_playerDetails[key] = playerDetails;
 				if (GameFlowData.Get() && GameFlowData.Get().LocalPlayerData == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameFlowData.Get().SetLocalPlayerData();
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -632,19 +318,6 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.InvokeRpcRpcDisplayConsoleText(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcDisplayConsoleText called on server.");
 			return;
 		}
@@ -655,19 +328,6 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.InvokeRpcRpcSetMatchTime(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetMatchTime called on server.");
 			return;
 		}
@@ -678,19 +338,6 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.CallRpcDisplayConsoleText(DisplayConsoleTextMessage)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcDisplayConsoleText called on client.");
 			return;
 		}
@@ -707,19 +354,6 @@ public class GameFlow : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameFlow.CallRpcSetMatchTime(float)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcSetMatchTime called on client.");
 			return;
 		}

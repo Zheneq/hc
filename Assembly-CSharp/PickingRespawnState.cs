@@ -15,31 +15,9 @@ public class PickingRespawnState : TurnState
 		ActorData component = this.m_SM.GetComponent<ActorData>();
 		if (component == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PickingRespawnState.OnEnter()).MethodHandle;
-			}
 			GameObject gameObject = null;
 			if (component.RespawnPickedPositionSquare != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject = component.RespawnPickedPositionSquare.gameObject;
 			}
 			else if (!component.respawnSquares.IsNullOrEmpty<BoardSquare>())
@@ -49,15 +27,6 @@ public class PickingRespawnState : TurnState
 			this.focusedCameraYet = false;
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.Get().SetTargetObject(gameObject, CameraManager.CameraTargetReason.MustSelectRespawnLoc);
 				this.focusedCameraYet = true;
 				InterfaceManager.Get().DisplayAlert(StringUtil.TR("PickRespawnLocation", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true, 0);
@@ -87,15 +56,6 @@ public class PickingRespawnState : TurnState
 		case TurnMessage.CLIENTS_RESOLVED_ABILITIES:
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Received a 'CLIENTS_RESOLVED_ABILITIES' message in the PickingRespawn state, which is unexpected.", new object[0]);
 			}
 			else
@@ -114,19 +74,6 @@ public class PickingRespawnState : TurnState
 		default:
 			if (msg != TurnMessage.DISCONNECTED)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PickingRespawnState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
 				return;
 			}
 			break;
@@ -136,15 +83,6 @@ public class PickingRespawnState : TurnState
 		case TurnMessage.PICK_RESPAWN:
 			if (this.m_SM.GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				InterfaceManager.Get().CancelAlert(StringUtil.TR("PickRespawnLocation", "Global"));
 			}
 			return;
@@ -159,15 +97,6 @@ public class PickingRespawnState : TurnState
 		this.m_SM.NextState = TurnStateEnum.WAITING;
 		if (component.RespawnPickedPositionSquare == null && !component.respawnSquares.IsNullOrEmpty<BoardSquare>())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.RespawnPickedPositionSquare = component.respawnSquares[0];
 		}
 	}
@@ -177,30 +106,8 @@ public class PickingRespawnState : TurnState
 		ActorData component = this.m_SM.GetComponent<ActorData>();
 		if (!this.focusedCameraYet)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PickingRespawnState.Update()).MethodHandle;
-			}
 			if (component == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject gameObject = null;
 				if (component.RespawnPickedPositionSquare != null)
 				{

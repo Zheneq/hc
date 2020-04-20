@@ -12,30 +12,8 @@ public class SlashCommand_Replay_Restart : SlashCommand
 		ReplayPlayManager replayPlayManager = ReplayPlayManager.Get();
 		if (replayPlayManager != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Replay_Restart.OnSlashCommand(string)).MethodHandle;
-			}
 			if (replayPlayManager.IsPlayback())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				replayPlayManager.Seek(new ReplayTimestamp
 				{
 					turn = 1,

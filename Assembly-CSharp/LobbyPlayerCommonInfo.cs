@@ -71,19 +71,6 @@ public class LobbyPlayerCommonInfo
 			CharacterType result;
 			if (this.CharacterInfo == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.get_CharacterType()).MethodHandle;
-				}
 				result = CharacterType.None;
 			}
 			else
@@ -100,30 +87,8 @@ public class LobbyPlayerCommonInfo
 		{
 			if (this.ReadyState != ReadyState.Ready)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.get_IsReady()).MethodHandle;
-				}
 				if (!this.IsAIControlled)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.IsRemoteControlled;
 				}
 			}
@@ -139,30 +104,8 @@ public class LobbyPlayerCommonInfo
 		{
 			if (!this.IsNPCBot)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.get_IsAIControlled()).MethodHandle;
-				}
 				if (!this.IsLoadTestBot)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.ReplacedWithBots;
 				}
 			}
@@ -188,19 +131,6 @@ public class LobbyPlayerCommonInfo
 		{
 			if (value)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.set_IsNPCBot(bool)).MethodHandle;
-				}
 				this.GameAccountType = PlayerGameAccountType.None;
 			}
 		}
@@ -225,43 +155,12 @@ public class LobbyPlayerCommonInfo
 	{
 		if (this.IsLoadTestBot)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerCommonInfo.SetGameOption(LobbyGameplayOverrides)).MethodHandle;
-			}
 			if (gameplayOverrides.UseFakeGameServersForLoadTests)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.GameConnectionType = PlayerGameConnectionType.None;
 			}
 			else if (gameplayOverrides.UseFakeClientConnectionsForLoadTests)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.GameConnectionType = PlayerGameConnectionType.None;
 			}
 			else

@@ -55,19 +55,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		ExoDualCone exoDualCone = targetAbility as ExoDualCone;
 		if (exoDualCone != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoDualCone.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_ConeInfo(tokens, this.m_coneInfoMod, "ConeInfo", exoDualCone.m_coneInfo, true);
 			AbilityMod.AddToken(tokens, this.m_leftConeHorizontalOffsetMod, "LeftConeHorizontalOffset", string.Empty, exoDualCone.m_leftConeHorizontalOffset, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_rightConeHorizontalOffsetMod, "RightConeHorizontalOffset", string.Empty, exoDualCone.m_rightConeHorizontalOffset, true, false, false);
@@ -100,19 +87,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		ConeTargetingInfo baseConeInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoDualCone.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseConeInfo = exoDualCone.m_coneInfo;
 		}
 		else
@@ -128,15 +102,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = exoDualCone.m_rightConeHorizontalOffset;
 		}
 		else
@@ -151,15 +116,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoDualCone.m_coneForwardOffset;
 		}
 		else
@@ -174,15 +130,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoDualCone.m_leftConeDegreesFromForward;
 		}
 		else
@@ -197,15 +144,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoDualCone.m_rightConeDegreesFromForward;
 		}
 		else
@@ -220,15 +158,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoDualCone.m_interpolateAngle;
 		}
 		else
@@ -243,15 +172,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = exoDualCone.m_interpolateMinAngle;
 		}
 		else
@@ -266,15 +186,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = exoDualCone.m_interpolateMaxAngle;
 		}
 		else
@@ -289,15 +200,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = exoDualCone.m_interpolateMinDist;
 		}
 		else
@@ -312,15 +214,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = exoDualCone.m_interpolateMaxDist;
 		}
 		else
@@ -338,15 +231,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		StandardEffectInfo baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = exoDualCone.m_effectOnHit;
 		}
 		else
@@ -362,15 +246,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = exoDualCone.m_extraDamageForConsecutiveUse;
 		}
 		else

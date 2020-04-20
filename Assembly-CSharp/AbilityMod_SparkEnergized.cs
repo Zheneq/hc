@@ -48,19 +48,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		SparkEnergized sparkEnergized = targetAbility as SparkEnergized;
 		if (sparkEnergized != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkEnergized.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			SparkHealingBeam component = targetAbility.GetComponent<SparkHealingBeam>();
 			SparkBasicAttack component2 = targetAbility.GetComponent<SparkBasicAttack>();
 			AbilityMod.AddToken_EffectMod(tokens, this.m_allyBuffEffectMod, "AllyBuffEffect", sparkEnergized.m_allyBuffEffect, true);
@@ -73,15 +60,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 			int baseVal;
 			if (component2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = component2.m_additionalEnergizedDamage;
 			}
 			else
@@ -97,15 +75,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 				int baseVal2;
 				if (component)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					baseVal2 = component.m_healOnSelfOnTick;
 				}
 				else
@@ -119,15 +88,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 				int baseVal3;
 				if (component)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					baseVal3 = component.m_energyOnCasterPerTurn;
 				}
 				else
@@ -151,19 +111,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		SparkHealingBeam sparkHealingBeam;
 		if (sparkEnergized)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkEnergized.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			sparkHealingBeam = sparkEnergized.GetComponent<SparkHealingBeam>();
 		}
 		else
@@ -174,15 +121,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		SparkBasicAttack sparkBasicAttack;
 		if (sparkEnergized)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sparkBasicAttack = sparkEnergized.GetComponent<SparkBasicAttack>();
 		}
 		else
@@ -195,15 +133,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		bool flag3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = (sparkBasicAttack2 != null);
 		}
 		else
@@ -220,15 +149,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		StandardActorEffectData baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = sparkEnergized.m_enemyDebuffEffect;
 		}
 		else
@@ -243,15 +163,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sparkEnergized.m_healAmtPerBeam;
 		}
 		else
@@ -266,15 +177,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		int baseVal3;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sparkHealingBeam2.m_additionalEnergizedHealing;
 		}
 		else
@@ -289,15 +191,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		int baseVal4;
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sparkBasicAttack2.m_additionalEnergizedDamage;
 		}
 		else
@@ -312,26 +205,8 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (sparkHealingBeam2 != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal5 = sparkHealingBeam2.m_healOnSelfOnTick;
 				goto IL_1C9;
 			}
@@ -346,26 +221,8 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (sparkHealingBeam2 != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal6 = sparkHealingBeam2.m_energyOnCasterPerTurn;
 				goto IL_213;
 			}
@@ -380,15 +237,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		bool baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = sparkEnergized.m_needToSelectTarget;
 		}
 		else
@@ -404,15 +252,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = sparkEnergized.m_bothTetherExtraEffectOnSelf;
 		}
 		else
@@ -427,15 +266,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		StandardEffectInfo baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = sparkEnergized.m_bothTetherAllyEffect;
 		}
 		else
@@ -451,15 +281,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = sparkEnergized.m_bothTetherExtraHeal;
 		}
 		else
@@ -474,15 +295,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = sparkEnergized.m_bothTetherExtraDamage;
 		}
 		else

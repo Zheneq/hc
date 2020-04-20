@@ -54,19 +54,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		ThiefSpoilLaserUlt thiefSpoilLaserUlt = targetAbility as ThiefSpoilLaserUlt;
 		if (thiefSpoilLaserUlt != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefSpoilLaserUlt.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_targeterMaxAngleMod, "TargeterMaxAngle", string.Empty, thiefSpoilLaserUlt.m_targeterMaxAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserDamageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, thiefSpoilLaserUlt.m_laserSubsequentDamageAmount, true, false);
@@ -96,19 +83,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefSpoilLaserUlt.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = thiefSpoilLaserUlt.m_laserRange;
 		}
 		else
@@ -123,15 +97,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = thiefSpoilLaserUlt.m_laserWidth;
 		}
 		else
@@ -146,15 +111,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = thiefSpoilLaserUlt.m_laserMaxTargets;
 		}
 		else
@@ -169,15 +125,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = thiefSpoilLaserUlt.m_laserCount;
 		}
 		else
@@ -192,15 +139,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = thiefSpoilLaserUlt.m_laserPenetrateLos;
 		}
 		else
@@ -215,15 +153,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		SpoilsSpawnData baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = thiefSpoilLaserUlt.m_spoilSpawnData;
 		}
 		else
@@ -238,15 +167,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		bool baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = thiefSpoilLaserUlt.m_hitPowerups;
 		}
 		else
@@ -261,15 +181,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		bool baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = thiefSpoilLaserUlt.m_stopOnPowerupHit;
 		}
 		else
@@ -285,15 +196,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = thiefSpoilLaserUlt.m_ignorePickupTeamRestriction;
 		}
 		else
@@ -308,15 +210,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = thiefSpoilLaserUlt.m_maxPowerupsHit;
 		}
 		else
@@ -331,15 +224,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		bool baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = thiefSpoilLaserUlt.m_copyBuffsOnEnemyHit;
 		}
 		else
@@ -354,15 +238,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = thiefSpoilLaserUlt.m_copyBuffDuration;
 		}
 		else

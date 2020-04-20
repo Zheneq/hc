@@ -18,32 +18,10 @@ public class UIBuffTooltip : UITooltipBase
 		string text = iconForStatusType.buffDescription;
 		if (duration > 1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBuffTooltip.Setup(StatusType, int)).MethodHandle;
-			}
 			text = string.Format(StringUtil.TR("TurnsRemaining", "Buffs"), iconForStatusType.buffDescription, duration);
 		}
 		else if (duration == 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = string.Format(StringUtil.TR("OneTurnRemaining", "Buffs"), iconForStatusType.buffDescription);
 		}
 		this.m_buffDescriptionLabel.text = text;

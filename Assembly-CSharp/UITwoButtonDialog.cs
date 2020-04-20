@@ -34,55 +34,15 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (this.m_callLeftOnClose)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITwoButtonDialog.CloseCallback()).MethodHandle;
-			}
 			if (this.firstButtonCallback != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.firstButtonCallback(this);
 			}
 		}
 		if (this.m_callRightOnClose)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.secondButtonCallback != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.secondButtonCallback(this);
 			}
 		}
@@ -92,19 +52,6 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (this.firstButtonCallback != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITwoButtonDialog.FirstButtonClicked(BaseEventData)).MethodHandle;
-			}
 			this.firstButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -114,19 +61,6 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (this.secondButtonCallback != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITwoButtonDialog.SecondButtonClicked(BaseEventData)).MethodHandle;
-			}
 			this.secondButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -136,19 +70,6 @@ public class UITwoButtonDialog : UIDialogBox
 	{
 		if (this.m_secondButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITwoButtonDialog.Start()).MethodHandle;
-			}
 			this.m_secondButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SecondButtonClicked);
 		}
 		if (this.m_firstButton != null)
@@ -163,19 +84,6 @@ public class UITwoButtonDialog : UIDialogBox
 		{
 			this.m_firstButtonLabel[i].text = text;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITwoButtonDialog.SetFirstButtonLabels(string)).MethodHandle;
-		}
 	}
 
 	private void SetSecondButtonLabels(string text)
@@ -183,19 +91,6 @@ public class UITwoButtonDialog : UIDialogBox
 		for (int i = 0; i < this.m_secondButtonLabel.Length; i++)
 		{
 			this.m_secondButtonLabel[i].text = text;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITwoButtonDialog.SetSecondButtonLabels(string)).MethodHandle;
 		}
 	}
 

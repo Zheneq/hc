@@ -34,19 +34,6 @@ namespace TMPro
 			{
 				if (value != this.m_Name)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Style.set_name(string)).MethodHandle;
-					}
 					this.m_Name = value;
 				}
 			}
@@ -62,19 +49,6 @@ namespace TMPro
 			{
 				if (value != this.m_HashCode)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Style.set_hashCode(int)).MethodHandle;
-					}
 					this.m_HashCode = value;
 				}
 			}
@@ -119,19 +93,6 @@ namespace TMPro
 			for (int i = 0; i < this.m_OpeningDefinition.Length; i++)
 			{
 				this.m_OpeningTagArray[i] = (int)this.m_OpeningDefinition[i];
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_Style.RefreshStyle()).MethodHandle;
 			}
 			this.m_ClosingTagArray = new int[this.m_ClosingDefinition.Length];
 			for (int j = 0; j < this.m_ClosingDefinition.Length; j++)

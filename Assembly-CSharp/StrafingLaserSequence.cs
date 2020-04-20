@@ -65,19 +65,6 @@ public class StrafingLaserSequence : Sequence
 		GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
 		if (referenceModel != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.FinishSetup()).MethodHandle;
-			}
 			this.m_modelToTargetDir = base.TargetPos - referenceModel.transform.position;
 			this.m_modelToTargetDir.Normalize();
 			this.m_fxCasterJoint.Initialize(referenceModel);
@@ -105,33 +92,11 @@ public class StrafingLaserSequence : Sequence
 		this.m_targetToShotInfoMap[curTarget] = shotInfo;
 		if (!string.IsNullOrEmpty(this.m_shotStartAudioEvent))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.FireAtTarget(ActorData)).MethodHandle;
-			}
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
 			string shotStartAudioEvent = this.m_shotStartAudioEvent;
 			GameObject parentGameObject;
 			if (referenceModel)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				parentGameObject = referenceModel;
 			}
 			else
@@ -146,46 +111,15 @@ public class StrafingLaserSequence : Sequence
 	{
 		if (this.m_hitFxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.SpawnHitFx(StrafingLaserSequence.ShotInfo)).MethodHandle;
-			}
 			GameObject hitFx = base.InstantiateFX(this.m_hitFxPrefab, shotInfo.m_joint.m_jointObject.transform.position, Quaternion.identity, true, true);
 			shotInfo.m_hitFx = hitFx;
 		}
 		if (!string.IsNullOrEmpty(this.m_shotImpactAudioEvent))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string shotImpactAudioEvent = this.m_shotImpactAudioEvent;
 			GameObject parentGameObject;
 			if (shotInfo.m_target)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				parentGameObject = shotInfo.m_target.gameObject;
 			}
 			else
@@ -206,19 +140,6 @@ public class StrafingLaserSequence : Sequence
 	{
 		if (shotInfo.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.UpdateShot(StrafingLaserSequence.ShotInfo)).MethodHandle;
-			}
 			Vector3 position = shotInfo.m_fx.transform.position;
 			Vector3 forward = shotInfo.m_fx.transform.forward;
 			shotInfo.m_curTurnSpeed += this.m_projectileTurnAcceleration * GameTime.deltaTime;
@@ -233,15 +154,6 @@ public class StrafingLaserSequence : Sequence
 			{
 				if (Vector3.Dot(lhs, vector) <= 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (magnitude < 2f);
 				}
 				else
@@ -256,15 +168,6 @@ public class StrafingLaserSequence : Sequence
 			bool flag2 = flag;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnHitFx(shotInfo);
 				UnityEngine.Object.Destroy(shotInfo.m_fx);
 			}
@@ -291,56 +194,16 @@ public class StrafingLaserSequence : Sequence
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, this.m_fxCasterJointReferenceType);
 			if (base.Targets != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(StrafingLaserSequence.Update()).MethodHandle;
-				}
 				if (referenceModel != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < base.Targets.Length; i++)
 					{
 						if (!this.m_targetToShotInfoMap.ContainsKey(base.Targets[i]))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 lhs = base.Targets[i].transform.position - referenceModel.transform.position;
 							bool flag;
 							if (Vector3.Dot(lhs, this.m_modelToTargetDir) >= 0f)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = (lhs.magnitude < this.m_shotRange);
 							}
 							else
@@ -350,27 +213,9 @@ public class StrafingLaserSequence : Sequence
 							bool flag2 = flag;
 							if (flag2)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_fireShotStartDelay <= 0f)
 								{
 									goto IL_13B;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (this.m_timeSinceActionStarted >= this.m_fireShotStartDelay)
 								{
@@ -380,15 +225,6 @@ public class StrafingLaserSequence : Sequence
 							if (this.m_maxWaitBeforeFireShots <= 0f || this.m_timeSinceActionStarted < this.m_maxWaitBeforeFireShots)
 							{
 								goto IL_14B;
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							IL_13B:
 							this.FireAtTarget(base.Targets[i]);
@@ -401,15 +237,6 @@ public class StrafingLaserSequence : Sequence
 						{
 							KeyValuePair<ActorData, StrafingLaserSequence.ShotInfo> keyValuePair = enumerator.Current;
 							this.UpdateShot(keyValuePair.Value);
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

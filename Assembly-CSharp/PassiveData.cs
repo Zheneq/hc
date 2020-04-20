@@ -15,33 +15,11 @@ public class PassiveData : MonoBehaviour
 		{
 			if (passive != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PassiveData.GetPassiveOfType(Type)).MethodHandle;
-				}
 				if (passive.GetType() == passiveType)
 				{
 					return passive;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -52,30 +30,8 @@ public class PassiveData : MonoBehaviour
 		{
 			if (passive != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PassiveData.GetPassiveOfType()).MethodHandle;
-				}
 				if (passive.GetType() == typeof(T))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return passive as T;
 				}
 			}

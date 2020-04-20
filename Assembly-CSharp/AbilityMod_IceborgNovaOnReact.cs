@@ -44,19 +44,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 		IceborgNovaOnReact iceborgNovaOnReact = targetAbility as IceborgNovaOnReact;
 		if (iceborgNovaOnReact != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgNovaOnReact.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			base.AddOnHitDataTokens(tokens, this.m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData);
 			AbilityMod.AddToken(tokens, this.m_reactDurationMod, "ReactDuration", string.Empty, iceborgNovaOnReact.m_reactDuration, true, false);
@@ -74,19 +61,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgNovaOnReact != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgNovaOnReact.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgNovaOnReact.m_targetSelectComp, "-- Target Select --");
 			text += base.GetOnHitDataDesc(this.m_reactOnHitDataMod, iceborgNovaOnReact.m_reactOnHitData, "-- On Hit Data Mod --");
 			text += base.PropDesc(this.m_reactDurationMod, "[ReactDuration]", flag, (!flag) ? 0 : iceborgNovaOnReact.m_reactDuration);
@@ -97,15 +71,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			bool baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = iceborgNovaOnReact.m_reactRequireDamage;
 			}
 			else
@@ -120,15 +85,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			bool baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgNovaOnReact.m_reactEffectEndEarlyIfTriggered;
 			}
 			else
@@ -145,15 +101,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgNovaOnReact.m_extraEnergyPerNovaCoreTrigger;
 			}
 			else
@@ -168,15 +115,6 @@ public class AbilityMod_IceborgNovaOnReact : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = iceborgNovaOnReact.m_damageThreshForInstanceOnSelf;
 			}
 			else

@@ -43,38 +43,12 @@ public class UIChatroomList : MonoBehaviour
 			componentsInChildren[i].m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 			this.m_clickListenerExceptions.Add(componentsInChildren[i].m_hitbox.gameObject);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIChatroomList.Initialize()).MethodHandle;
-		}
 	}
 
 	private void OnDestroy()
 	{
 		if (UIClickListener.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChatroomList.OnDestroy()).MethodHandle;
-			}
 			UIClickListener.Get().Disable();
 		}
 	}
@@ -89,30 +63,8 @@ public class UIChatroomList : MonoBehaviour
 		UIManager.SetGameObjectActive(base.gameObject, visible, null);
 		if (UIClickListener.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChatroomList.SetVisible(bool)).MethodHandle;
-			}
 			if (!visible)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIClickListener.Get().Disable();
 			}
 			else
@@ -135,33 +87,11 @@ public class UIChatroomList : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(componentsInChildren[i], false, null);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIChatroomList.Setup(UITextConsole)).MethodHandle;
-		}
 		for (int j = 0; j < availableChatRooms.Count; j++)
 		{
 			UIAutocompleteEntry uiautocompleteEntry;
 			if (j < componentsInChildren.Length)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uiautocompleteEntry = componentsInChildren[j];
 			}
 			else
@@ -188,19 +118,6 @@ public class UIChatroomList : MonoBehaviour
 		PointerEventData pointerEventData = (PointerEventData)data;
 		if (pointerEventData.button != PointerEventData.InputButton.Left)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChatroomList.OnClick(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		UIAutocompleteEntry componentInParent = data.selectedObject.GetComponentInParent<UIAutocompleteEntry>();

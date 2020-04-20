@@ -29,30 +29,8 @@ public class SeasonWideData : MonoBehaviour
 				SeasonTemplate seasonTemplate = enumerator.Current;
 				if (seasonTemplate.Index == seasonNumber)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonWideData.GetSeasonExperience(int, int)).MethodHandle;
-					}
 					return seasonTemplate.GetSeasonExperience(seasonLevel);
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return 1;
@@ -67,30 +45,8 @@ public class SeasonWideData : MonoBehaviour
 				SeasonTemplate seasonTemplate = enumerator.Current;
 				if (seasonTemplate.Index == seasonNumber)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonWideData.GetSeasonTemplate(int)).MethodHandle;
-					}
 					return seasonTemplate;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -101,19 +57,6 @@ public class SeasonWideData : MonoBehaviour
 		SeasonTemplate seasonTemplate = this.GetSeasonTemplate(seasonIndex);
 		if (seasonTemplate != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonWideData.GetPlayerFacingSeasonNumber(int)).MethodHandle;
-			}
 			return seasonTemplate.GetPlayerFacingSeasonNumber();
 		}
 		return seasonIndex;
@@ -127,19 +70,6 @@ public class SeasonWideData : MonoBehaviour
 		{
 			if (QuestWideData.AreConditionsMet(conditionalSeasonEndRewards.Prerequisites.Conditions, conditionalSeasonEndRewards.Prerequisites.LogicStatement, false))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonWideData.GetAvailableEndRewards(SeasonTemplate)).MethodHandle;
-				}
 				list.Add(conditionalSeasonEndRewards);
 			}
 		}
@@ -152,31 +82,9 @@ public class SeasonWideData : MonoBehaviour
 		DateTime t2;
 		if (SeasonWideData.GetTimeBounds(season, out t, out t2))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonWideData.IsDateInTimedSeason(SeasonTemplate, DateTime)).MethodHandle;
-			}
 			bool result;
 			if (t < dateTime)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (dateTime <= t2);
 			}
 			else
@@ -195,44 +103,13 @@ public class SeasonWideData : MonoBehaviour
 		QuestPrerequisites prerequisites = season.Prerequisites;
 		if (prerequisites.Conditions.Count >= 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonWideData.GetTimeBounds(SeasonTemplate, DateTime*, DateTime*)).MethodHandle;
-			}
 			if (prerequisites.Conditions.Count <= 2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!prerequisites.LogicStatement.IsNullOrEmpty())
 				{
 					LogicOpClass logicOpClass = LogicStatement.EvaluateLogicStatement(prerequisites.LogicStatement);
 					if (logicOpClass is NegateLogicOpClass)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						NegateLogicOpClass negateLogicOpClass = logicOpClass as NegateLogicOpClass;
 						if (negateLogicOpClass.m_target is ConstantLogicOpClass)
 						{
@@ -263,42 +140,15 @@ public class SeasonWideData : MonoBehaviour
 							ConstantLogicOpClass constantLogicOpClass2 = null;
 							if (array[i] is ConstantLogicOpClass)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 								constantLogicOpClass2 = (array[i] as ConstantLogicOpClass);
 								index = constantLogicOpClass2.myIndex;
 							}
 							else if (array[i] is NegateLogicOpClass)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								NegateLogicOpClass negateLogicOpClass2 = array[i] as NegateLogicOpClass;
 								if (negateLogicOpClass2.m_target is ConstantLogicOpClass)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag2 = true;
 									constantLogicOpClass2 = (negateLogicOpClass2.m_target as ConstantLogicOpClass);
 									index2 = constantLogicOpClass2.myIndex;
@@ -306,65 +156,20 @@ public class SeasonWideData : MonoBehaviour
 							}
 							if (constantLogicOpClass2 == null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return false;
 							}
 							array2[i] = true;
 						}
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag2)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								for (int j = 0; j < array2.Length; j++)
 								{
 									if (!array2[j])
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										return false;
 									}
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								QuestCondition questCondition2 = prerequisites.Conditions[index];
 								startTime = new DateTime(questCondition2.typeSpecificDate[0], questCondition2.typeSpecificDate[1], questCondition2.typeSpecificDate[2], questCondition2.typeSpecificDate[3], questCondition2.typeSpecificDate[4], questCondition2.typeSpecificDate[5]);

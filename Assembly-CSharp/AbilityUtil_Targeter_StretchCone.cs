@@ -98,33 +98,11 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		BoardSquare coneStartSquare;
 		if (targets.Count >= 1 && currentTargetIndex >= 1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_StretchCone.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (targets[currentTargetIndex - 1] != null)
 			{
 				AbilityTarget abilityTarget = targets[currentTargetIndex - 1];
 				coneStartSquare = Board.Get().GetBoardSquareSafe(abilityTarget.GridPos);
 				goto IL_66;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		coneStartSquare = targetingActor.GetCurrentBoardSquare();
@@ -146,19 +124,6 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		AreaEffectUtils.GatherStretchConeDimensions(freePos, worldPositionForLoS, this.m_minLengthSquares, this.m_maxLengthSquares, this.m_minAngleDegrees, this.m_maxAngleDegrees, this.m_stretchStyle, out num, out num2, this.m_discreteWidthAngleChange, this.m_numDiscreteWidthChanges, this.m_interpMinDistOverride, this.m_interpRangeOverride);
 		if (this.m_coneLengthSquaresOverrideDelegate != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_StretchCone.UpdateTargetingAsIfFromSquare(AbilityTarget, ActorData, BoardSquare)).MethodHandle;
-			}
 			num = this.m_coneLengthSquaresOverrideDelegate();
 		}
 		this.LastConeAngle = num2;
@@ -166,15 +131,6 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		this.m_conePart.UpdateDimensions(num2, num);
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count >= 1)
 			{
 				goto IL_10E;
@@ -188,27 +144,9 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		List<ActorData> hitActors = this.m_conePart.GetHitActors(worldPositionForLoS, vector, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_includeAllies, this.m_includeEnemies));
 		if (this.m_knockbackDistance <= 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_knockbackDistanceOnSelf <= 0f)
 			{
 				goto IL_2AA;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num3 = 0;
@@ -219,26 +157,8 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 			float num4 = this.m_knockbackDistance;
 			if (this.m_extraKnockbackDist > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_useExtraKnockbackDistDelegate != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_useExtraKnockbackDistDelegate(targetingActor))
 					{
 						num4 += this.m_extraKnockbackDist;
@@ -252,41 +172,14 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 					ActorData actorData = enumerator.Current;
 					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector, sourcePos, num4);
 						num3 = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num3, false);
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (this.m_knockbackDistanceOnSelf > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquarePathInfo path2 = KnockbackUtils.BuildKnockbackPath(targetingActor, this.m_knockbackTypeOnSelf, vector, sourcePos, this.m_knockbackDistanceOnSelf);
 			num3 = base.AddMovementArrowWithPrevious(targetingActor, path2, AbilityUtil_Targeter.TargeterMovementType.Knockback, num3, false);
 		}
@@ -294,26 +187,8 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		IL_2AA:
 		if (this.m_includeCaster)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!hitActors.Contains(targetingActor))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				hitActors.Add(targetingActor);
 			}
 		}
@@ -324,15 +199,6 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 			{
 				base.AddActorInRange(actor, worldPositionForLoS, targetingActor, AbilityTooltipSubject.Primary, false);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.DrawInvalidSquareIndicators(targetingActor, worldPositionForLoS, forwardDir_degrees, num, num2);
 	}
@@ -358,55 +224,15 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_StretchCone.ShouldAddActor(ActorData, ActorData)).MethodHandle;
-				}
 				if (this.m_includeAllies)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
 			if (actor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_includeEnemies)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}

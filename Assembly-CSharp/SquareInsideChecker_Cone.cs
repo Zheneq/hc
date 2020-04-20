@@ -51,19 +51,6 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 		bool ignoreLoS;
 		if (!this.m_useLosPosOverride)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SquareInsideChecker_Cone.IsSquareInside(BoardSquare, bool*)).MethodHandle;
-			}
 			ignoreLoS = this.m_penetrateLos;
 		}
 		else
@@ -75,15 +62,6 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 		{
 			if (this.m_penetrateLos)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				inLos = true;
 			}
 			else
@@ -100,26 +78,8 @@ public class SquareInsideChecker_Cone : ISquareInsideChecker
 				}
 				if (boardSquare != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_useConeLosRulesForOverride)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						inLos = AreaEffectUtils.SquareHasLosForCone(vector, boardSquare, square, this.m_caster);
 					}
 					else

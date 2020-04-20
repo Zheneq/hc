@@ -12,19 +12,6 @@ public class AbilityModPropertyInt
 	{
 		if (this.operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyInt.GetModifiedValue(int)).MethodHandle;
-			}
 			return input + Mathf.RoundToInt(this.value);
 		}
 		if (this.operation == AbilityModPropertyInt.ModOp.Override)
@@ -33,15 +20,6 @@ public class AbilityModPropertyInt
 		}
 		if (this.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Mathf.FloorToInt((float)input * this.value);
 		}
 		if (this.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil)
@@ -50,15 +28,6 @@ public class AbilityModPropertyInt
 		}
 		if (this.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return MathUtil.RoundToIntPadded((float)input * this.value);
 		}
 		return input;

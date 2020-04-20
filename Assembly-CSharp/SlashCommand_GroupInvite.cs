@@ -11,19 +11,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_GroupInvite.OnSlashCommand(string)).MethodHandle;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				TextConsole.Get().Write(new TextConsole.Message
@@ -38,31 +25,9 @@ public class SlashCommand_GroupInvite : SlashCommand
 						string text;
 						if (r.LocalizedFailure != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>m__0(GroupInviteResponse)).MethodHandle;
-							}
 							bool flag;
 							if (ClientGameManager.Get().GroupInfo != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = ClientGameManager.Get().GroupInfo.InAGroup;
 							}
 							else
@@ -71,15 +36,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 							}
 							if (!flag && r.LocalizedFailure.Context == "Invite" && r.LocalizedFailure.Term == "OtherPlayerInOtherGroup")
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								string empty = string.Empty;
 								string description = string.Format(StringUtil.TR("OtherPlayerInOtherGroupSendJoinRequest", "Invite"), arguments);
 								string leftButtonLabel = StringUtil.TR("Yes", "Global");
@@ -88,38 +44,12 @@ public class SlashCommand_GroupInvite : SlashCommand
 								{
 									ClientGameManager clientGameManager = ClientGameManager.Get();
 									string arguments2 = arguments;
-									if (SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>f__am$cache1 == null)
+									if (SlashCommand_GroupInvite.OnSlashCommand_c__AnonStorey0.f__am_cache1 == null)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!true)
-										{
-											RuntimeMethodHandle runtimeMethodHandle3 = methodof(SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>m__1(UIDialogBox)).MethodHandle;
-										}
-										SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>f__am$cache1 = delegate(GroupJoinResponse response)
+										SlashCommand_GroupInvite.OnSlashCommand_c__AnonStorey0.f__am_cache1 = delegate(GroupJoinResponse response)
 										{
 											if (response.Success)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (!true)
-												{
-													RuntimeMethodHandle runtimeMethodHandle4 = methodof(SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>m__3(GroupJoinResponse)).MethodHandle;
-												}
 												return;
 											}
 											string text2;
@@ -129,15 +59,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 											}
 											else if (!response.ErrorMessage.IsNullOrEmpty())
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												text2 = string.Format("Failed: {0}#NeedsLocalization", response.ErrorMessage);
 											}
 											else
@@ -151,39 +72,21 @@ public class SlashCommand_GroupInvite : SlashCommand
 											}, null);
 										};
 									}
-									clientGameManager.RequestToJoinGroup(arguments2, SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>f__am$cache1);
+									clientGameManager.RequestToJoinGroup(arguments2, SlashCommand_GroupInvite.OnSlashCommand_c__AnonStorey0.f__am_cache1);
 								};
-								if (SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>f__am$cache0 == null)
+								if (SlashCommand_GroupInvite.OnSlashCommand_c__AnonStorey0.f__am_cache0 == null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>f__am$cache0 = delegate(UIDialogBox UIDialogBox)
+									SlashCommand_GroupInvite.OnSlashCommand_c__AnonStorey0.f__am_cache0 = delegate(UIDialogBox UIDialogBox)
 									{
 									};
 								}
-								UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, SlashCommand_GroupInvite.<OnSlashCommand>c__AnonStorey0.<>f__am$cache0, false, false);
+								UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, SlashCommand_GroupInvite.OnSlashCommand_c__AnonStorey0.f__am_cache0, false, false);
 								return;
 							}
 							text = r.LocalizedFailure.ToString();
 						}
 						else if (!r.ErrorMessage.IsNullOrEmpty())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = string.Format("Failed: {0}#NeedsLocalization", r.ErrorMessage);
 						}
 						else
@@ -198,15 +101,6 @@ public class SlashCommand_GroupInvite : SlashCommand
 					}
 				});
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		TextConsole.Get().Write(new TextConsole.Message

@@ -62,19 +62,6 @@ public class ControllerInputSnapshot
 		Camera main = Camera.main;
 		if (main != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerInputSnapshot.CacheInputThisFrame()).MethodHandle;
-			}
 			Vector3 forward = main.transform.forward;
 			Vector3 vector = new Vector3(forward.x, 0f, forward.z);
 			vector.Normalize();
@@ -145,19 +132,6 @@ public class ControllerInputSnapshot
 		{
 			if (this.m_allGamepadButtons[i].BeingUsed)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerInputSnapshot.IsUsingAnyGamepadButton()).MethodHandle;
-				}
 				return true;
 			}
 		}
@@ -178,122 +152,37 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.LeftStickY)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControllerInputSnapshot.GetValueOfInput(ControlpadInputValue)).MethodHandle;
-			}
 			result = this.LeftStickY;
 		}
 		else if (input == ControlpadInputValue.RightStickX)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.RightStickX;
 		}
 		else if (input == ControlpadInputValue.RightStickY)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.RightStickY;
 		}
 		else if (input == ControlpadInputValue.LeftTrigger)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.LeftTrigger;
 		}
 		else if (input == ControlpadInputValue.RightTrigger)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.RightTrigger;
 		}
 		else if (input == ControlpadInputValue.DpadX)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.DpadX;
 		}
 		else if (input == ControlpadInputValue.DpadY)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.DpadY;
 		}
 		else if (input == ControlpadInputValue.Button_A)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num;
 			if (this.Button_A.Value)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 1f;
 			}
 			else
@@ -304,27 +193,9 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.Button_B)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num2;
 			if (this.Button_A.Value)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 1f;
 			}
 			else
@@ -335,27 +206,9 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.Button_X)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num3;
 			if (this.Button_X.Value)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = 1f;
 			}
 			else
@@ -366,27 +219,9 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.Button_Y)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num4;
 			if (this.Button_Y.Value)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = 1f;
 			}
 			else
@@ -397,27 +232,9 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.Button_leftShoulder)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num5;
 			if (this.Button_leftShoulder.Value)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num5 = 1f;
 			}
 			else
@@ -428,27 +245,9 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.Button_rightShoulder)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num6;
 			if (this.Button_rightShoulder.Value)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num6 = 1f;
 			}
 			else
@@ -459,27 +258,9 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.Button_start)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num7;
 			if (this.Button_start.Value)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num7 = 1f;
 			}
 			else
@@ -494,27 +275,9 @@ public class ControllerInputSnapshot
 		}
 		else if (input == ControlpadInputValue.Button_leftStickIn)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num8;
 			if (this.Button_leftStickIn.Value)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num8 = 1f;
 			}
 			else
@@ -528,15 +291,6 @@ public class ControllerInputSnapshot
 			float num9;
 			if (this.Button_rightStickIn.Value)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num9 = 1f;
 			}
 			else

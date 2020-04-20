@@ -83,57 +83,17 @@ public class UIDynamicCone : MonoBehaviour
 		this.m_maxConePieces = 0x24;
 		if (this.m_maxConePieces * 0xA < 0x168)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.InitCone()).MethodHandle;
-			}
 			this.m_maxConePieces++;
 		}
 		if (!this.m_emptyCone)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_createdConeObject = this.CreateConeMesh(this.m_initialConeWidthAngle, this.m_initialConeRadius, this.m_coneMaterial);
 		}
 		if (this.m_showBorder)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_maxBorderPieces = 0x48;
 			if (this.m_maxBorderPieces * 5 < 0x168)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_maxBorderPieces++;
 			}
 			this.m_createBorderObject = this.CreateBorderConeMesh(this.m_initialConeWidthAngle, this.m_initialConeRadius, this.m_borderMaterial);
@@ -142,15 +102,6 @@ public class UIDynamicCone : MonoBehaviour
 		this.m_sideB = HighlightUtils.Get().CreateBoundaryLine(this.m_initialConeRadius, true, false);
 		if (this.m_sideA != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_sideAParent = new GameObject();
 			this.m_sideA.transform.parent = this.m_sideAParent.transform;
 			this.m_sideA.transform.localPosition = new Vector3(0f, 0f, -this.c_borderZOffset);
@@ -172,68 +123,19 @@ public class UIDynamicCone : MonoBehaviour
 			MeshFilter component = this.m_createdConeObject.GetComponent<MeshFilter>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.OnDestroy()).MethodHandle;
-				}
 				if (component.sharedMesh != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(component.sharedMesh);
 				}
 			}
 		}
 		if (this.m_createBorderObject != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MeshFilter component2 = this.m_createBorderObject.GetComponent<MeshFilter>();
 			if (component2 != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component2.sharedMesh != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(component2.sharedMesh);
 				}
 			}
@@ -244,19 +146,6 @@ public class UIDynamicCone : MonoBehaviour
 	{
 		if (child != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.SetAsChild(GameObject)).MethodHandle;
-			}
 			child.transform.parent = base.transform;
 			child.transform.localPosition = Vector3.zero;
 			child.transform.localRotation = Quaternion.identity;
@@ -285,19 +174,6 @@ public class UIDynamicCone : MonoBehaviour
 		{
 			array3[i] = new Vector3(0f, -1f, 0f);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.CreateConeMesh(float, float, Material)).MethodHandle;
-		}
 		array[0] = Vector3.zero;
 		array2[0] = new Vector2(0.5f, 0.5f);
 		int[] array4 = new int[3 * this.m_maxConePieces];
@@ -313,15 +189,6 @@ public class UIDynamicCone : MonoBehaviour
 			array4[num2 + 1] = num4;
 			array4[num2 + 2] = num3;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_coneMesh.triangles = array4;
 		this.m_coneMesh.normals = array3;
 		component.material = material;
@@ -335,19 +202,6 @@ public class UIDynamicCone : MonoBehaviour
 		coneRadius = Mathf.Max(0f, coneRadius);
 		if (Mathf.Approximately(coneWidthAngle, this.m_currentAngleInWorld))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.AdjustConeMeshVertices(float, float)).MethodHandle;
-			}
 			if (Mathf.Approximately(coneRadius, this.m_currentRadiusInWorld))
 			{
 				return;
@@ -377,65 +231,20 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		if (this.m_showBorder)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.AdjustConeBorderMeshVertices(coneWidthAngle, coneRadius);
 		}
 		if (coneWidthAngle < 360f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetBorderStartOffset(this.m_borderStartOffsetInSquares);
 			if (this.m_sideA != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_sideAParent != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_sideAParent.transform.localRotation = Quaternion.LookRotation(-1f * VectorUtils.AngleDegreesToVector(90f + num));
 				}
 			}
 			if (this.m_sideB != null && this.m_sideBParent != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_sideBParent.transform.localRotation = Quaternion.LookRotation(-1f * VectorUtils.AngleDegreesToVector(90f - num));
 			}
 			this.SetSidesActive(!this.m_forceHideSides);
@@ -450,19 +259,6 @@ public class UIDynamicCone : MonoBehaviour
 	{
 		if (this.m_createdConeObject != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.SetConeObjectActive(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_createdConeObject, active, null);
 		}
 	}
@@ -507,19 +303,6 @@ public class UIDynamicCone : MonoBehaviour
 			array2[num2 + 4] = num5;
 			array2[num2 + 5] = num6;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.CreateBorderConeMesh(float, float, Material)).MethodHandle;
-		}
 		this.m_borderMesh.triangles = array2;
 		this.m_borderMesh.normals = array;
 		component.material = material;
@@ -533,19 +316,6 @@ public class UIDynamicCone : MonoBehaviour
 		coneRadius = Mathf.Max(0f, coneRadius);
 		if (this.m_borderMesh != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.AdjustConeBorderMeshVertices(float, float)).MethodHandle;
-			}
 			Vector3[] vertices = this.m_borderMesh.vertices;
 			Vector2[] uv = this.m_borderMesh.uv;
 			float num = 0.5f * coneWidthAngle;
@@ -566,15 +336,6 @@ public class UIDynamicCone : MonoBehaviour
 				uv[2 * i + 1] = new Vector2(this.m_borderUvCenterX + num6 * num3, this.m_borderUvCenterY + num6 * num4);
 				num2 = Mathf.Min(coneWidthAngle, num2 + 5f);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_borderMesh.vertices = vertices;
 			this.m_borderMesh.uv = uv;
 		}
@@ -584,32 +345,10 @@ public class UIDynamicCone : MonoBehaviour
 	{
 		if (this.m_sideA != null && this.m_sideA.activeSelf != active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.SetSidesActive(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_sideA, active, null);
 		}
 		if (this.m_sideB != null && this.m_sideB.activeSelf != active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_sideB, active, null);
 		}
 		this.m_currentSidesActive = active;
@@ -624,30 +363,8 @@ public class UIDynamicCone : MonoBehaviour
 	{
 		if (this.m_createBorderObject != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.SetBorderActive(bool)).MethodHandle;
-			}
 			if (this.m_createBorderObject.activeSelf != active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_createBorderObject.SetActive(active);
 			}
 		}
@@ -662,19 +379,6 @@ public class UIDynamicCone : MonoBehaviour
 		float lengthInSquares = Mathf.Max(0f, num - this.m_borderStartOffsetInSquares);
 		if (this.m_sideA != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicCone.SetBorderStartOffset(float)).MethodHandle;
-			}
 			if (this.m_sideAParent != null)
 			{
 				HighlightUtils.Get().ResizeBoundaryLine(lengthInSquares, this.m_sideA);
@@ -683,26 +387,8 @@ public class UIDynamicCone : MonoBehaviour
 		}
 		if (this.m_sideB != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_sideBParent != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HighlightUtils.Get().ResizeBoundaryLine(lengthInSquares, this.m_sideB);
 				this.m_sideB.transform.localPosition = new Vector3(0f, 0f, -this.c_borderZOffset - num2);
 			}

@@ -23,32 +23,10 @@ public class AppState_InGameEnding : AppStateInGame
 	{
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameEnding.OnEnter()).MethodHandle;
-			}
 			HUD_UI.Get().m_mainScreenPanel.SetVisible(false);
 		}
 		if (UIGameOverScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIGameOverScreen.Get().SetVisible(true);
 			AudioManager.GetMixerSnapshotManager().SetMix_GameOver();
 		}

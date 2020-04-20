@@ -18,19 +18,6 @@ public class BoardRegion
 			{
 				if (boardQuad == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.CacheSquaresInRegion()).MethodHandle;
-					}
 					Log.Error("Null BoardQuad in BoardRegion; fix region coordinator's data.", new object[0]);
 				}
 				else
@@ -43,26 +30,8 @@ public class BoardRegion
 							BoardSquare item = enumerator.Current;
 							if (!this.m_squaresInRegion.Contains(item))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_squaresInRegion.Add(item);
 							}
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -86,19 +55,6 @@ public class BoardRegion
 	{
 		if (this.m_squaresInRegion == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetSquaresInRegion()).MethodHandle;
-			}
 			Log.Error("Did not call CacheSquaresInRegion before calling GetSquaresInRegion.  This will cause slowdowns", new object[0]);
 			this.CacheSquaresInRegion();
 		}
@@ -121,32 +77,10 @@ public class BoardRegion
 					float num2 = boardSquare.HorizontalDistanceInSquaresTo(centerSquare);
 					if (num2 < num)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetClosestToCenter()).MethodHandle;
-						}
 						num = num2;
 						result = boardSquare;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -164,42 +98,11 @@ public class BoardRegion
 				ActorData occupantActor = boardSquare.OccupantActor;
 				if (occupantActor != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetOccupantActors()).MethodHandle;
-					}
 					if (!list.Contains(occupantActor))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(occupantActor);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -219,30 +122,8 @@ public class BoardRegion
 				BoardSquare boardSquare = enumerator.Current;
 				if (boardSquare.OccupantActor == actor)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.IsActorInRegion(ActorData)).MethodHandle;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -253,47 +134,16 @@ public class BoardRegion
 		Vector3 vector = Vector3.zero;
 		if (this.m_quads.Length > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetCenter()).MethodHandle;
-			}
 			foreach (BoardQuad boardQuad in this.m_quads)
 			{
 				if (boardQuad == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error("Null BoardQuad in BoardRegion; fix region coordinator's data.", new object[0]);
 				}
 				else
 				{
 					vector += (boardQuad.m_corner1.position + boardQuad.m_corner2.position) / 2f;
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			vector /= (float)this.m_quads.Length;
 		}
@@ -313,19 +163,6 @@ public class BoardRegion
 		{
 			if (boardSquare.x == x)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.Contains(int, int)).MethodHandle;
-				}
 				if (boardSquare.y == y)
 				{
 					return true;
@@ -335,37 +172,15 @@ public class BoardRegion
 		return false;
 	}
 
-	public float \u001D(BoardSquare \u001D)
+	public float symbol_001D(BoardSquare symbol_001D)
 	{
-		if (\u001D == null)
+		if (symbol_001D == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.\u001D(BoardSquare)).MethodHandle;
-			}
 			return 0f;
 		}
 		List<BoardSquare> squaresInRegion = this.GetSquaresInRegion();
 		if (squaresInRegion != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (squaresInRegion.Count != 0)
 			{
 				BoardSquare boardSquare = null;
@@ -374,72 +189,27 @@ public class BoardRegion
 					BoardSquare boardSquare2 = squaresInRegion[i];
 					if (boardSquare2 == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
-					else if (\u001D == boardSquare2)
+					else if (symbol_001D == boardSquare2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						boardSquare = \u001D;
+						boardSquare = symbol_001D;
 						IL_E6:
 						if (boardSquare == null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return 0f;
 						}
-						return boardSquare.HorizontalDistanceOnBoardTo(\u001D);
+						return boardSquare.HorizontalDistanceOnBoardTo(symbol_001D);
 					}
 					else if (boardSquare == null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						boardSquare = boardSquare2;
 					}
 					else
 					{
-						float num = boardSquare.HorizontalDistanceOnBoardTo(\u001D);
-						float num2 = boardSquare2.HorizontalDistanceOnBoardTo(\u001D);
+						float num = boardSquare.HorizontalDistanceOnBoardTo(symbol_001D);
+						float num2 = boardSquare2.HorizontalDistanceOnBoardTo(symbol_001D);
 						if (num2 < num)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquare = boardSquare2;
 						}
 					}
@@ -466,19 +236,6 @@ public class BoardRegion
 		{
 			if (boardSquare.WorldBounds != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GizmosDrawRegion(Color)).MethodHandle;
-				}
 				Vector3 center = boardSquare.WorldBounds.Value.center;
 				center.y += 0.1f;
 				Gizmos.DrawWireCube(center, boardSquare.WorldBounds.Value.extents * 2f);
@@ -496,19 +253,6 @@ public class BoardRegion
 	{
 		if (CaptureTheFlag.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegion.GetTurnInRegionIcon()).MethodHandle;
-			}
 			return CaptureTheFlag.Get().m_turnInRegionIcon;
 		}
 		return null;

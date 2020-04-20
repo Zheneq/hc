@@ -12,30 +12,8 @@ public class PKFxPackDependent : MonoBehaviour
 		do
 		{
 			yield return null;
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxPackDependent.<_WaitForPack>c__Iterator0.MoveNext()).MethodHandle;
-			}
 		}
 		while (!PKFxManager.m_PackCopied);
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		yield break;
 	}
 
@@ -44,30 +22,8 @@ public class PKFxPackDependent : MonoBehaviour
 		do
 		{
 			yield return null;
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxPackDependent.<_WaitForPackLoaded>c__Iterator1.MoveNext()).MethodHandle;
-			}
 		}
 		while (!PKFxManager.m_PackLoaded);
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		yield break;
 	}
 
@@ -89,30 +45,8 @@ public class PKFxPackDependent : MonoBehaviour
 				KeyValuePair<string, string> keyValuePair = enumerator.Current;
 				if (keyValuePair.Key == entry.Key)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxPackDependent.checkHash(KeyValuePair<string, string>, List<KeyValuePair<string, string>>)).MethodHandle;
-					}
 					return keyValuePair.Value == entry.Value;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -122,44 +56,13 @@ public class PKFxPackDependent : MonoBehaviour
 	{
 		if (!PKFxManager.m_PackLoaded)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxPackDependent.BaseInitialize()).MethodHandle;
-			}
 			PKFxManager.Startup();
 			base.StartCoroutine("CopyPackAsyncOnAndroid");
 			this.WaitForPack(false);
 			if (Application.platform != RuntimePlatform.Android)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!PKFxManager.TryLoadPackRelative())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PKFxManager.LoadPack(PKFxManager.m_PackPath + "/PackFx");
 				}
 			}
@@ -185,33 +88,11 @@ public class PKFxPackDependent : MonoBehaviour
 			case 0U:
 				if (Application.platform == RuntimePlatform.Android)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxPackDependent.<CopyPackAsyncOnAndroid>c__Iterator2.MoveNext()).MethodHandle;
-					}
 					string fromPath = Application.streamingAssetsPath + "/";
 					toPath = Application.persistentDataPath + "/";
 					List<KeyValuePair<string, string>> archiveContent = new List<KeyValuePair<string, string>>();
 					WWW www = new WWW(fromPath + "Index.txt");
 					yield return www;
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 				goto IL_5AA;
@@ -228,28 +109,10 @@ public class PKFxPackDependent : MonoBehaviour
 				{
 					if (text.Length > 1)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string key = text.Substring(0, text.LastIndexOf(':'));
 						string value = text.Substring(text.LastIndexOf(':'));
 						archiveContent.Add(new KeyValuePair<string, string>(key, value));
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (File.Exists(toPath + "Index.txt"))
 				{
@@ -261,15 +124,6 @@ public class PKFxPackDependent : MonoBehaviour
 						string key2 = line.Substring(0, line.LastIndexOf(':'));
 						string value2 = line.Substring(line.LastIndexOf(':'));
 						deviceContent.Add(new KeyValuePair<string, string>(key2, value2));
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					sr.Close();
 					List<KeyValuePair<string, string>>.Enumerator enumerator = archiveContent.GetEnumerator();
@@ -311,15 +165,6 @@ public class PKFxPackDependent : MonoBehaviour
 						Debug.Log("[PKFX] " + fromPath + entry.Key + " : file doesn't exist or hash differs");
 						WWW www = new WWW(fromPath + entry.Key);
 						yield return www;
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 						string dir = new string((toPath + entry.Key).ToCharArray(), 0, toPath.Length + entry.Key.LastIndexOf('/'));
 						if (!Directory.Exists(dir))
@@ -329,29 +174,11 @@ public class PKFxPackDependent : MonoBehaviour
 						File.WriteAllBytes(toPath + entry.Key, www.bytes);
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			finally
 			{
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -371,28 +198,10 @@ public class PKFxPackDependent : MonoBehaviour
 					string fromPath;
 					WWW www = new WWW(fromPath + entry2.Key);
 					yield return www;
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					string dir2 = new string((toPath + entry2.Key).ToCharArray(), 0, toPath.Length + entry2.Key.LastIndexOf('/'));
 					if (!Directory.Exists(dir2))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Directory.CreateDirectory(dir2);
 					}
 					File.WriteAllBytes(toPath + entry2.Key, www.bytes);
@@ -402,15 +211,6 @@ public class PKFxPackDependent : MonoBehaviour
 			{
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{

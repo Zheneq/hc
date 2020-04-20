@@ -16,30 +16,8 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 	{
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.GetDebugItemValue()).MethodHandle;
-			}
 			if (Options_UI.Get().GetCurrentGraphicsQuality() == GraphicsQuality.VeryLow)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "on";
 			}
 		}
@@ -60,19 +38,6 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 	{
 		if (base.CheatEnabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.OnIncreaseClick()).MethodHandle;
-			}
 			if (Options_UI.Get() == null)
 			{
 				return;
@@ -86,19 +51,6 @@ public class DebugCommand_SetExtraLowGraphicsQuality : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("lowgraphics"))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_SetExtraLowGraphicsQuality.OnSlashCommand(string)).MethodHandle;
-			}
 			this.OnIncreaseClick();
 			return true;
 		}

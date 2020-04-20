@@ -37,19 +37,6 @@ public class BarrierSerializeInfo
 	{
 		if (info == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierSerializeInfo.SerializeBarrierInfo(IBitStream, BarrierSerializeInfo*)).MethodHandle;
-			}
 			info = new BarrierSerializeInfo();
 			if (stream.isWriting)
 			{

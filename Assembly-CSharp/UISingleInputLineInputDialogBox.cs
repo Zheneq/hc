@@ -36,19 +36,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 	{
 		if (this.firstButtonCallback != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.FirstButtonClicked(BaseEventData)).MethodHandle;
-			}
 			this.firstButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -58,19 +45,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 	{
 		if (this.secondButtonCallback != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.SecondButtonClicked(BaseEventData)).MethodHandle;
-			}
 			this.secondButtonCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);
@@ -80,19 +54,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 	{
 		if (this.m_secondButton != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.Start()).MethodHandle;
-			}
 			this.m_secondButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SecondButtonClicked);
 		}
 		if (this.m_firstButton != null)
@@ -108,19 +69,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 		{
 			this.m_firstButtonLabel[i].text = text;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.SetFirstButtonLabels(string)).MethodHandle;
-		}
 	}
 
 	private void SetSecondButtonLabels(string text)
@@ -128,19 +76,6 @@ public class UISingleInputLineInputDialogBox : UIDialogBox
 		for (int i = 0; i < this.m_secondButtonLabel.Length; i++)
 		{
 			this.m_secondButtonLabel[i].text = text;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISingleInputLineInputDialogBox.SetSecondButtonLabels(string)).MethodHandle;
 		}
 	}
 

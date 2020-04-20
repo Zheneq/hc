@@ -80,19 +80,6 @@ public class MixSnapshots : MonoBehaviour
 	{
 		if (this.previousMixState == this.snapshot_match_intro)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MixSnapshots.SetMix_DecisionCam()).MethodHandle;
-			}
 			this.snapshot_game.TransitionToOnRealMixer(this.transitionTime_match_intro_to_match_start);
 		}
 		else if (this.previousMixState == this.snapshot_taunt)
@@ -107,27 +94,9 @@ public class MixSnapshots : MonoBehaviour
 			}
 			if (!(this.previousMixState != this.snapshot_taunt))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(this.previousMixState != this.snapshot_resolve))
 				{
 					goto IL_D7;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.snapshot_game.TransitionToOnRealMixer(this.transitionTime_game);
@@ -146,19 +115,6 @@ public class MixSnapshots : MonoBehaviour
 	{
 		if (this.previousMixState == this.snapshot_taunt)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MixSnapshots.SetMix_ResolveCam()).MethodHandle;
-			}
 			this.snapshot_resolve.TransitionToOnRealMixer(this.transitionTime_resolve_from_taunt);
 		}
 		else

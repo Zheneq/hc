@@ -24,13 +24,13 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0011.GetName(), "on every non-caster hit actor, order in which they are hit in laser", true) + base.GetContextUsageStr(ContextKeys.\u0018.GetName(), "on every non-caster hit actor, distance from caster", true);
+		return base.GetContextUsageStr(ContextKeys.symbol_0011.GetName(), "on every non-caster hit actor, order in which they are hit in laser", true) + base.GetContextUsageStr(ContextKeys.symbol_0018.GetName(), "on every non-caster hit actor, distance from caster", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0011.GetName());
-		names.Add(ContextKeys.\u0018.GetName());
+		names.Add(ContextKeys.symbol_0011.GetName());
+		names.Add(ContextKeys.symbol_0018.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
@@ -39,19 +39,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		AbilityUtil_Targeter abilityUtil_Targeter;
 		if (this.GetAoeRadiusAroundStart() <= 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Laser.CreateTargeters(Ability)).MethodHandle;
-			}
 			abilityUtil_Targeter = new AbilityUtil_Targeter_Laser(ability, this.GetLaserWidth(), this.GetLaserRange(), base.IgnoreLos(), this.GetMaxTargets(), base.IncludeAllies(), base.IncludeCaster());
 		}
 		else
@@ -73,19 +60,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Laser.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -100,19 +74,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		int result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Laser.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -127,19 +88,6 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Laser.GetAoeRadiusAroundStart()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_aoeRadiusAroundStartMod.GetModifiedValue(this.m_aoeRadiusAroundStart);
 		}
 		else

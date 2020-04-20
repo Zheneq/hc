@@ -21,19 +21,6 @@ public static class CompilerExtensions
 		bool result;
 		if (t != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(T[].IsNullOrEmpty()).MethodHandle;
-			}
 			result = (t.Length == 0);
 		}
 		else
@@ -48,19 +35,6 @@ public static class CompilerExtensions
 		bool result;
 		if (t != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IEnumerable<T>.IsNullOrEmpty()).MethodHandle;
-			}
 			result = !t.Any<T>();
 		}
 		else
@@ -75,19 +49,6 @@ public static class CompilerExtensions
 		string result;
 		if (value == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(string.SafeReplace(string, string)).MethodHandle;
-			}
 			result = null;
 		}
 		else
@@ -107,19 +68,6 @@ public static class CompilerExtensions
 		bool result;
 		if (value == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(string.SafeEquals(string)).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -134,19 +82,6 @@ public static class CompilerExtensions
 		string result;
 		if (value.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(string.SafeGetFullPath()).MethodHandle;
-			}
 			result = value;
 		}
 		else
@@ -162,34 +97,12 @@ public static class CompilerExtensions
 		int num = 0;
 		for (int i = value.Length - 1; i >= 0; i--)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num >= occurence)
 			{
 				break;
 			}
 			if (value[i] == charToSearch)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(string.GetLastIndexOf(char, int)).MethodHandle;
-				}
 				result = i;
 				num++;
 			}
@@ -201,19 +114,6 @@ public static class CompilerExtensions
 	{
 		if (value.Kind == DateTimeKind.Local)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DateTime.ToISOString()).MethodHandle;
-			}
 			return value.ToString("yyyy-MM-dd HH:mm:sszzz");
 		}
 		return value.ToString("yyyy-MM-dd HH:mm:ss+00");
@@ -234,19 +134,6 @@ public static class CompilerExtensions
 		string result;
 		if (value == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(string.ToInitialCharUpper()).MethodHandle;
-			}
 			result = null;
 		}
 		else
@@ -272,33 +159,11 @@ public static class CompilerExtensions
 	{
 		if (value == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(XmlNode.GetAttribute(string)).MethodHandle;
-			}
 			return null;
 		}
 		XmlAttribute xmlAttribute = value.Attributes[attributeName];
 		if (xmlAttribute == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("Could not find XML attribute '{0}'", xmlAttribute));
 		}
 		return xmlAttribute.Value;
@@ -313,19 +178,6 @@ public static class CompilerExtensions
 		XmlAttribute xmlAttribute = value.Attributes[attributeName];
 		if (xmlAttribute == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(XmlNode.GetAttribute(string, string)).MethodHandle;
-			}
 			return defaultValue;
 		}
 		return xmlAttribute.Value;
@@ -335,33 +187,11 @@ public static class CompilerExtensions
 	{
 		if (value == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(XmlNode.GetChildNodeAsString(string)).MethodHandle;
-			}
 			return null;
 		}
 		XmlNode xmlNode = value.SelectSingleNode(childNodeName);
 		if (xmlNode == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("Could not find child XML node '{0}'", childNodeName));
 		}
 		return xmlNode.InnerText;
@@ -371,33 +201,11 @@ public static class CompilerExtensions
 	{
 		if (value == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(XmlNode.GetChildNodeAsString(string, string)).MethodHandle;
-			}
 			return null;
 		}
 		XmlNode xmlNode = value.SelectSingleNode(childNodeName);
 		if (xmlNode == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return defaultValue;
 		}
 		return xmlNode.InnerText;
@@ -424,19 +232,6 @@ public static class CompilerExtensions
 		{
 			return Convert.ToInt64(childNodeAsString);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(XmlNode.GetChildNodeAsInt64(string, long?)).MethodHandle;
-		}
 		if (defaultValue != null)
 		{
 			return defaultValue.Value;
@@ -453,19 +248,6 @@ public static class CompilerExtensions
 		}
 		if (defaultValue != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(XmlNode.GetChildNodeAsUInt64(string, ulong?)).MethodHandle;
-			}
 			return defaultValue.Value;
 		}
 		throw new Exception(string.Format("Could not find child XML node '{0}'", childNodeName));
@@ -543,55 +325,15 @@ public static class CompilerExtensions
 	{
 		if (onDiskFileInfo == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FileInfo.HasBeenModified(FileInfo)).MethodHandle;
-			}
 			onDiskFileInfo = new FileInfo(fileInfo.FullName);
 		}
 		if (onDiskFileInfo.Exists == fileInfo.Exists)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(onDiskFileInfo.CreationTimeUtc > fileInfo.CreationTimeUtc))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(onDiskFileInfo.LastWriteTimeUtc > fileInfo.LastWriteTimeUtc))
 				{
 					return false;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -607,19 +349,6 @@ public static class CompilerExtensions
 	{
 		if (t.IsValueType)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Type.GetDefaultValue()).MethodHandle;
-			}
 			return Activator.CreateInstance(t);
 		}
 		return null;
@@ -631,71 +360,22 @@ public static class CompilerExtensions
 		StringBuilder stringBuilder = new StringBuilder();
 		if (method.IsPublic)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MethodBase.ToSignatureString()).MethodHandle;
-			}
 			stringBuilder.Append("public ");
 		}
 		else if (method.IsPrivate)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("private ");
 		}
 		else if (method.IsAssembly)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("internal ");
 		}
 		if (method.IsFamily)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("protected ");
 		}
 		if (method.IsStatic)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("static ");
 		}
 		stringBuilder.Append(method.ReflectedType.FullName);
@@ -703,15 +383,6 @@ public static class CompilerExtensions
 		stringBuilder.Append(method.Name);
 		if (method.IsGenericMethod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append("<");
 			foreach (Type type in method.GetGenericArguments())
 			{
@@ -725,15 +396,6 @@ public static class CompilerExtensions
 				}
 				stringBuilder.Append(type.ToTypeString());
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stringBuilder.Append(">");
 		}
 		stringBuilder.Append("(");
@@ -743,41 +405,14 @@ public static class CompilerExtensions
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 				if (method.IsDefined(typeof(ExtensionAttribute), false))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringBuilder.Append("this ");
 				}
 			}
 			else if (flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = false;
 			}
 			else
@@ -790,29 +425,11 @@ public static class CompilerExtensions
 			}
 			else if (parameterInfo.IsOut)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("out ");
 			}
 			stringBuilder.Append(parameterInfo.ParameterType.ToTypeString());
 			stringBuilder.Append(' ');
 			stringBuilder.Append(parameterInfo.Name);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		stringBuilder.Append(")");
 		return stringBuilder.ToString();
@@ -823,56 +440,16 @@ public static class CompilerExtensions
 		Type underlyingType = Nullable.GetUnderlyingType(type);
 		if (underlyingType != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Type.ToTypeString()).MethodHandle;
-			}
 			return underlyingType.Name + "?";
 		}
 		if (!type.IsGenericType)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string name = type.Name;
 			if (name != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (name == "String")
 				{
 					return "string";
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (name == "Int32")
 				{
@@ -886,15 +463,6 @@ public static class CompilerExtensions
 				{
 					return "object";
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (name == "Void")
 				{
 					return "void";
@@ -903,15 +471,6 @@ public static class CompilerExtensions
 			string result;
 			if (string.IsNullOrEmpty(type.FullName))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = type.Name;
 			}
 			else
@@ -927,28 +486,10 @@ public static class CompilerExtensions
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append(',');
 			}
 			stringBuilder.Append(type2.ToTypeString());
 			flag = false;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		stringBuilder.Append('>');
 		return stringBuilder.ToString();
@@ -960,42 +501,11 @@ public static class CompilerExtensions
 		{
 			if (type.IsClass)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CompilerExtensions.<GetClassesOfType>c__AnonStorey1.<>m__0(Type)).MethodHandle;
-				}
 				if (!namespaceName.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!type.Namespace.EqualsIgnoreCase(namespaceName))
 					{
 						goto IL_67;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				return baseClass.IsAssignableFrom(type);
@@ -1014,31 +524,9 @@ public static class CompilerExtensions
 		{
 			if (smallPrecision == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(CompilerExtensions.<ToLowPrecisionString>c__AnonStorey2.<>m__0(double, TimeSpan, char)).MethodHandle;
-				}
 				int num = (int)Math.Floor(count);
 				if (num <= 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (bigPrecision == null)
 					{
 						return;
@@ -1048,15 +536,6 @@ public static class CompilerExtensions
 				string text = string.Format("{0}{1}", num, unitChar);
 				if (bigPrecision == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bigPrecision = text;
 				}
 				else
@@ -1076,19 +555,6 @@ public static class CompilerExtensions
 		}
 		if (bigPrecision != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TimeSpan.ToLowPrecisionString()).MethodHandle;
-			}
 			return bigPrecision;
 		}
 		return "soon";
@@ -1107,19 +573,6 @@ public static class CompilerExtensions
 			object arg2;
 			if (timespan.Days == 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TimeSpan.ToReadableString()).MethodHandle;
-				}
 				arg2 = string.Empty;
 			}
 			else
@@ -1138,29 +591,11 @@ public static class CompilerExtensions
 		object obj2;
 		if (timespan.Duration().Minutes > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string format3 = "{0:0} minute{1}, ";
 			object arg3 = timespan.Minutes;
 			object arg4;
 			if (timespan.Minutes == 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg4 = string.Empty;
 			}
 			else
@@ -1178,28 +613,10 @@ public static class CompilerExtensions
 		string text = string.Format(format, array);
 		if (text.EndsWith(", "))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text.Substring(0, text.Length - 2);
 		}
 		if (string.IsNullOrEmpty(text))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "0 seconds";
 		}
 		return text;
@@ -1220,52 +637,12 @@ public static class CompilerExtensions
 			string text2 = array[i];
 			if (!text2.Contains("System.Enum."))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JsonSerializationException.ToReadableString()).MethodHandle;
-				}
 				if (!text2.Contains("Newtonsoft.Json.Serialization.") && !text2.Contains("Newtonsoft.Json.JsonSerializer."))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!text2.Contains("Newtonsoft.Json.JsonConvert."))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (text2.Contains("--- End of inner exception stack trace ---"))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -1297,41 +674,10 @@ public static class CompilerExtensions
 			string text2 = array[i];
 			if (!text2.Contains("System.Runtime.CompilerServices.TaskAwaiter"))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Exception.ToReadableString()).MethodHandle;
-				}
 				if (!text2.Contains("System.Runtime.ExceptionServices.ExceptionDispatchInfo"))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (text2.Contains("--- End of stack trace"))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -1340,15 +686,6 @@ public static class CompilerExtensions
 						int num4 = text2.IndexOf("MoveNext()");
 						if (num2 > 0)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num3 > 0 && num4 > 0)
 							{
 								StringBuilder stringBuilder = new StringBuilder();
@@ -1376,19 +713,6 @@ public static class CompilerExtensions
 	{
 		if (!obj.GetType().IsSerializable)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(object.ToJson()).MethodHandle;
-			}
 			throw new Exception(string.Format("{0} is not serializable", obj.GetType().FullName));
 		}
 		return JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented, new JsonConverter[]
@@ -1427,19 +751,6 @@ public static class CompilerExtensions
 					{
 						T child = enumerator2.Current;
 						yield return child;
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(CompilerExtensions.<Descendants>c__Iterator0.MoveNext()).MethodHandle;
-						}
 						flag = true;
 					}
 				}
@@ -1447,27 +758,9 @@ public static class CompilerExtensions
 				{
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else if (enumerator2 != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						enumerator2.Dispose();
 					}
 				}
@@ -1477,27 +770,9 @@ public static class CompilerExtensions
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -1518,19 +793,6 @@ public static class CompilerExtensions
 		{
 			stringBuilder.Append(bytes[i].ToString("X2"));
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(byte[].ToHexString()).MethodHandle;
-		}
 		return stringBuilder.ToString();
 	}
 
@@ -1542,24 +804,11 @@ public static class CompilerExtensions
 	public static byte[] FromHexString(this string s)
 	{
 		IEnumerable<int> source = Enumerable.Range(0, s.Length);
-		if (CompilerExtensions.<>f__am$cache0 == null)
+		if (CompilerExtensions.f__am_cache0 == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(string.FromHexString()).MethodHandle;
-			}
-			CompilerExtensions.<>f__am$cache0 = ((int x) => x % 2 == 0);
+			CompilerExtensions.f__am_cache0 = ((int x) => x % 2 == 0);
 		}
-		return (from x in source.Where(CompilerExtensions.<>f__am$cache0)
+		return (from x in source.Where(CompilerExtensions.f__am_cache0)
 		select Convert.ToByte(s.Substring(x, 2), 0x10)).ToArray<byte>();
 	}
 
@@ -1571,43 +820,12 @@ public static class CompilerExtensions
 		});
 		if (array.Length == 3)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(string.IsTimeSpanFormat()).MethodHandle;
-			}
 			int num;
 			if (int.TryParse(array[0], out num))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2;
 				if (int.TryParse(array[1], out num2))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num3;
 					return int.TryParse(array[2], out num3);
 				}

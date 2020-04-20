@@ -27,19 +27,6 @@ public class UIActorDebugPanel : MonoBehaviour
 	{
 		if (this.m_actorLabels.ContainsKey(actor))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugPanel.OnActorDestroyed(ActorData)).MethodHandle;
-			}
 			UIActorDebugLabel uiactorDebugLabel = this.m_actorLabels[actor];
 			uiactorDebugLabel.m_label.text = string.Empty;
 			this.m_actorLabels.Remove(actor);
@@ -60,19 +47,6 @@ public class UIActorDebugPanel : MonoBehaviour
 				UIActorDebugLabel uiactorDebugLabel = enumerator.Current;
 				UnityEngine.Object.Destroy(uiactorDebugLabel.gameObject);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugPanel.Reset()).MethodHandle;
-			}
 		}
 		this.m_actorLabels.Clear();
 		this.m_shouldDisplay.Clear();
@@ -84,19 +58,6 @@ public class UIActorDebugPanel : MonoBehaviour
 		UIActorDebugLabel uiactorDebugLabel;
 		if (!this.m_actorLabels.ContainsKey(actorData))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugPanel.SetActorValue(ActorData, string, string)).MethodHandle;
-			}
 			uiactorDebugLabel = UnityEngine.Object.Instantiate<UIActorDebugLabel>(this.m_actorDebugLabelPrefab);
 			uiactorDebugLabel.Setup(actorData);
 			uiactorDebugLabel.transform.SetParent(base.transform);

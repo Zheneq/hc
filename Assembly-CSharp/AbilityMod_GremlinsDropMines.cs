@@ -23,31 +23,9 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		GremlinsDropMines gremlinsDropMines = targetAbility as GremlinsDropMines;
 		if (gremlinsDropMines != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsDropMines.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			GremlinsLandMineInfoComponent component = gremlinsDropMines.GetComponent<GremlinsLandMineInfoComponent>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken(tokens, this.m_mineDamageMod, "MineDamage", string.Empty, component.m_damageAmount, true, false);
 				AbilityMod.AddToken(tokens, this.m_mineDurationMod, "MineDuration", string.Empty, component.m_mineDuration, true, false);
 				AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyOverride, "EnemyHitEffect", component.m_enemyHitEffect, true);
@@ -69,19 +47,6 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsDropMines.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = gremlinsLandMineInfoComponent.m_damageAmount;
 		}
 		else
@@ -96,15 +61,6 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsLandMineInfoComponent.m_mineDuration;
 		}
 		else
@@ -120,34 +76,12 @@ public class AbilityMod_GremlinsDropMines : AbilityMod
 	{
 		if (abilityAsBase != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsDropMines.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
-			}
 			if (abilityAsBase.GetType() == this.GetTargetAbilityType())
 			{
 				GremlinsDropMines gremlinsDropMines = abilityAsBase as GremlinsDropMines;
 				GremlinsLandMineInfoComponent component = gremlinsDropMines.gameObject.GetComponent<GremlinsLandMineInfoComponent>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					numbers.Add(this.m_mineDamageMod.GetModifiedValue(component.m_damageAmount));
 					StandardEffectInfo modifiedValue = this.m_effectOnEnemyOverride.GetModifiedValue(component.m_enemyHitEffect);
 					AbilityModHelper.AddTooltipNumbersFromEffect(modifiedValue, numbers);

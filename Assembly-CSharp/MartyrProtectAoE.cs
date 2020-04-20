@@ -61,19 +61,6 @@ public class MartyrProtectAoE : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAoE.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Martyr Protect Ally";
 		}
 		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
@@ -126,19 +113,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAoE.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyHitEffect;
 		}
 		else
@@ -153,19 +127,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnSelf != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAoE.GetEffectOnSelf()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnSelf;
 		}
 		else
@@ -180,19 +141,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedThornsEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAoE.GetThornsEffect()).MethodHandle;
-			}
 			result = this.m_cachedThornsEffect;
 		}
 		else
@@ -207,19 +155,6 @@ public class MartyrProtectAoE : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedReturnEffectOnEnemy != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAoE.GetReturnEffectOnEnemy()).MethodHandle;
-			}
 			result = this.m_cachedReturnEffectOnEnemy;
 		}
 		else
@@ -288,19 +223,6 @@ public class MartyrProtectAoE : Ability
 		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAoE.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int currentAbsorb = this.GetCurrentAbsorb(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
@@ -317,44 +239,13 @@ public class MartyrProtectAoE : Ability
 		int result = 0;
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAoE.GetBonusAbsorbForCurrentThreshold(ActorData, bool)).MethodHandle;
-			}
 			if (this.m_syncComponent.IsBonusActive(caster))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = this.m_syncComponent.SpentDamageCrystals(caster);
 				for (int i = 0; i < this.m_thresholdBasedCrystalBonuses.Count; i++)
 				{
 					if (num >= this.m_thresholdBasedCrystalBonuses[i].m_crystalThreshold)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (forAlly)
 						{
 							result = this.m_thresholdBasedCrystalBonuses[i].m_additionalAbsorbOnAlly;

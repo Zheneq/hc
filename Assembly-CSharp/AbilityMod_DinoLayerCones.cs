@@ -24,19 +24,6 @@ public class AbilityMod_DinoLayerCones : GenericAbility_AbilityMod
 		DinoLayerCones dinoLayerCones = targetAbility as DinoLayerCones;
 		if (dinoLayerCones != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_DinoLayerCones.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, this.m_powerLevelAdjustIfNoInnerHitsMod, "PowerLevelAdjustIfNoInnerHits", string.Empty, dinoLayerCones.m_powerLevelAdjustIfNoInnerHits, true, false);
 		}
@@ -49,19 +36,6 @@ public class AbilityMod_DinoLayerCones : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (dinoLayerCones != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_DinoLayerCones.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, dinoLayerCones.m_targetSelectComp, "-- Target Select Mod --");
 			text += base.PropDesc(this.m_powerLevelAdjustIfNoInnerHitsMod, "[PowerLevelAdjustIfNoInnerHits]", flag, (!flag) ? 0 : dinoLayerCones.m_powerLevelAdjustIfNoInnerHits);
 		}

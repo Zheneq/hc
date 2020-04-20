@@ -19,19 +19,6 @@ public class TargetSelectMod_ConeOrLaser : TargetSelectModBase
 		TargetSelect_ConeOrLaser targetSelect_ConeOrLaser = targetSelectBase as TargetSelect_ConeOrLaser;
 		if (targetSelect_ConeOrLaser != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_ConeOrLaser.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(this.m_coneDistThresholdMod, "[ConeDistThreshold]", true, targetSelect_ConeOrLaser.m_coneDistThreshold);
 			text += AbilityModHelper.GetModPropertyDesc(this.m_coneInfoMod, "[ConeInfo]", true, targetSelect_ConeOrLaser.m_coneInfo);
 			text += AbilityModHelper.GetModPropertyDesc(this.m_laserInfoMod, "[LaserInfo]", true, targetSelect_ConeOrLaser.m_laserInfo);

@@ -7,19 +7,6 @@ public class TeamBalanceElement
 	{
 		if (players.Count >= 2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamBalanceElement.Balance(List<ELOProvider>, BestSolutions.ILegalityValidator, float, double, FreelancerDuplicationRuleTypes)).MethodHandle;
-			}
 			if (players.Count % 2 != 1)
 			{
 				float num = 0f;
@@ -30,27 +17,9 @@ public class TeamBalanceElement
 						ELOProvider eloprovider = enumerator.Current;
 						if (eloprovider.ELO <= 0f)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return BestSolutions.BalanceResults.MakeError("InternalError", "Global");
 						}
 						num += eloprovider.ELO;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				List<int> list = new List<int>();
@@ -58,15 +27,6 @@ public class TeamBalanceElement
 				{
 					if (i < players.Count / 2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(1);
 					}
 					else
@@ -90,15 +50,6 @@ public class TeamBalanceElement
 							num2 += players[j].ELO;
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num3 = num - num2;
 					float aVbEloDifference = num2 - num3;
 					bestSolutions.Register(list, players, aVbEloDifference, maxTeamDifference, validator);
@@ -108,15 +59,6 @@ public class TeamBalanceElement
 					bool flag2 = false;
 					while (num4 == -1)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num5 >= list.Count)
 						{
 							for (;;)
@@ -131,15 +73,6 @@ public class TeamBalanceElement
 						}
 						else if (list[num5] == 1)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag2)
 							{
 								flag2 = true;
@@ -153,15 +86,6 @@ public class TeamBalanceElement
 						}
 						else if (!flag2)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num5++;
 						}
 						else
@@ -172,43 +96,16 @@ public class TeamBalanceElement
 					IL_21E:
 					if (num4 != -1)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int k = 0; k < num4; k++)
 						{
 							if (k < num6)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list[k] = 1;
 							}
 							else
 							{
 								list[k] = 0;
 							}
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						list[num4] = 1;
 					}
@@ -217,39 +114,12 @@ public class TeamBalanceElement
 						flag = true;
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BestSolutions.BalanceResults result = bestSolutions.Resolve(rnd);
 				for (int l = 0; l < players.Count; l++)
 				{
 					players[l].Team = ((!bestSolutions.OnTeamA(l)) ? Team.TeamB : Team.TeamA);
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return result;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return BestSolutions.BalanceResults.MakeError("OnlyBalanceEvenTeams", "TeamBalance");

@@ -61,19 +61,6 @@ public class NanoSmithChainLightning : Ability
 		base.ClearTargeters();
 		if (this.GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.SetupTargeter()).MethodHandle;
-			}
 			base.Targeter = new AbilityUtil_Targeter_ChainLightningLaser(this, this.GetLaserWidth(), this.GetLaserRange(), this.m_penetrateLos, this.GetLaserMaxTargets(), false, this.GetChainMaxHits(), this.GetChainRadius());
 		}
 		else
@@ -83,15 +70,6 @@ public class NanoSmithChainLightning : Ability
 				base.Targeters.Add(new AbilityUtil_Targeter_ChainLightningLaser(this, this.GetLaserWidth(), this.GetLaserRange(), this.m_penetrateLos, this.GetLaserMaxTargets(), false, this.GetChainMaxHits(), this.GetChainRadius()));
 				base.Targeters[i].SetUseMultiTargetUpdate(true);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -100,41 +78,10 @@ public class NanoSmithChainLightning : Ability
 		int result = 1;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useTargetDataOverrides)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_targetDataOverrides.Length > 1)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = this.m_abilityMod.m_targetDataOverrides.Length;
 				}
 			}
@@ -157,19 +104,6 @@ public class NanoSmithChainLightning : Ability
 		StandardEffectInfo cachedLaserEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserEnemyHitEffect = this.m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(this.m_laserEnemyHitEffect);
 		}
 		else
@@ -185,19 +119,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserDamage()).MethodHandle;
-			}
 			result = this.m_laserDamage;
 		}
 		else
@@ -212,19 +133,6 @@ public class NanoSmithChainLightning : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedLaserEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserEnemyHitEffect;
 		}
 		else
@@ -239,19 +147,6 @@ public class NanoSmithChainLightning : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -271,19 +166,6 @@ public class NanoSmithChainLightning : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.PenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -298,19 +180,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetLaserMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserMaxHitsMod.GetModifiedValue(this.m_laserMaxHits);
 		}
 		else
@@ -325,19 +194,6 @@ public class NanoSmithChainLightning : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetChainRadius()).MethodHandle;
-			}
 			result = this.m_chainRadius;
 		}
 		else
@@ -352,19 +208,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetChainMaxHits()).MethodHandle;
-			}
 			result = this.m_chainMaxHits;
 		}
 		else
@@ -384,19 +227,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetEnergyGainPerChainHit()).MethodHandle;
-			}
 			result = this.m_energyGainPerChainHit;
 		}
 		else
@@ -411,19 +241,6 @@ public class NanoSmithChainLightning : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedChainEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetChainEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedChainEnemyHitEffect;
 		}
 		else
@@ -443,19 +260,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetExtraAbsorbPerHitForVacuumBomb()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraAbsorbPerHitForVacuumBombMod.GetModifiedValue(this.m_extraAbsorbPerHitForVacuumBomb);
 		}
 		else
@@ -470,19 +274,6 @@ public class NanoSmithChainLightning : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.GetMaxExtraAbsorbForVacuumBomb()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxExtraAbsorbForVacuumBombMod.GetModifiedValue(this.m_maxExtraAbsorbForVacuumBomb);
 		}
 		else
@@ -528,19 +319,6 @@ public class NanoSmithChainLightning : Ability
 		int val;
 		if (abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_NanoSmithChainLightning.m_laserDamageMod.GetModifiedValue(this.m_laserDamage);
 		}
 		else
@@ -555,15 +333,6 @@ public class NanoSmithChainLightning : Ability
 		int val2;
 		if (abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_NanoSmithChainLightning.m_chainMaxHitsMod.GetModifiedValue(this.m_chainMaxHits);
 		}
 		else
@@ -576,15 +345,6 @@ public class NanoSmithChainLightning : Ability
 		int val3;
 		if (abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_NanoSmithChainLightning.m_chainDamageMod.GetModifiedValue(this.m_chainDamage);
 		}
 		else
@@ -598,15 +358,6 @@ public class NanoSmithChainLightning : Ability
 		int val4;
 		if (abilityMod_NanoSmithChainLightning)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_NanoSmithChainLightning.m_energyPerChainHitMod.GetModifiedValue(this.m_energyGainPerChainHit);
 		}
 		else
@@ -620,19 +371,6 @@ public class NanoSmithChainLightning : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithChainLightning))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithChainLightning.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NanoSmithChainLightning);
 			this.SetupTargeter();
 		}

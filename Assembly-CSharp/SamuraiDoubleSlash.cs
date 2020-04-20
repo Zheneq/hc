@@ -52,19 +52,6 @@ public class SamuraiDoubleSlash : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Double Slash";
 		}
 		this.m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
@@ -85,20 +72,6 @@ public class SamuraiDoubleSlash : Ability
 			{
 				goto IL_4B;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.SetupTargeter()).MethodHandle;
-				goto IL_2B;
-			}
 			goto IL_2B;
 			IL_E8:
 			i++;
@@ -112,15 +85,6 @@ public class SamuraiDoubleSlash : Ability
 			IL_2B:
 			if (i == 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_coneSecondSlash)
 				{
 					for (;;)
@@ -139,15 +103,6 @@ public class SamuraiDoubleSlash : Ability
 			abilityUtil_Targeter_Laser.m_getClampedAimDirection = new AbilityUtil_Targeter_Laser.ClampedAimDirectionDelegate(this.GetTargeterClampedAimDirection);
 			base.Targeters.Add(abilityUtil_Targeter_Laser);
 			goto IL_E8;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -177,19 +132,6 @@ public class SamuraiDoubleSlash : Ability
 		StandardEffectInfo cachedExtraEnemyHitEffectIfSelfBuffed;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.SetCachedFields()).MethodHandle;
-			}
 			cachedExtraEnemyHitEffectIfSelfBuffed = this.m_abilityMod.m_extraEnemyHitEffectIfSelfBuffedMod.GetModifiedValue(this.m_extraEnemyHitEffectIfSelfBuffed);
 		}
 		else
@@ -204,19 +146,6 @@ public class SamuraiDoubleSlash : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.PenetrateLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
 		else
@@ -231,19 +160,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetMaxAngleBetween()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxAngleBetweenMod.GetModifiedValue(this.m_maxAngleBetween);
 		}
 		else
@@ -263,19 +179,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -295,19 +198,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -322,19 +212,6 @@ public class SamuraiDoubleSlash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetLaserLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserLengthMod.GetModifiedValue(this.m_laserLength);
 		}
 		else
@@ -349,19 +226,6 @@ public class SamuraiDoubleSlash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -376,19 +240,6 @@ public class SamuraiDoubleSlash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetOverlapExtraDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_overlapExtraDamageMod.GetModifiedValue(this.m_overlapExtraDamage);
 		}
 		else
@@ -403,19 +254,6 @@ public class SamuraiDoubleSlash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedTargetHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetTargetHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedTargetHitEffect;
 		}
 		else
@@ -430,19 +268,6 @@ public class SamuraiDoubleSlash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedExtraEnemyHitEffectIfSelfBuffed != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetExtraEnemyHitEffectIfSelfBuffed()).MethodHandle;
-			}
 			result = this.m_cachedExtraEnemyHitEffectIfSelfBuffed;
 		}
 		else
@@ -479,19 +304,6 @@ public class SamuraiDoubleSlash : Ability
 		}
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (dictionary.ContainsKey(AbilityTooltipSymbol.Damage))
 			{
 				Dictionary<AbilityTooltipSymbol, int> dictionary2;
@@ -508,19 +320,6 @@ public class SamuraiDoubleSlash : Ability
 		float maxAngleBetween = this.GetMaxAngleBetween();
 		if (maxAngleBetween > 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.GetTargeterClampedAimDirection(Vector3, Vector3)).MethodHandle;
-			}
 			if (maxAngleBetween < 360f)
 			{
 				aimDir = Vector3.RotateTowards(prevAimDir, aimDir, 0.0174532924f * maxAngleBetween, 0f);
@@ -533,19 +332,6 @@ public class SamuraiDoubleSlash : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiDoubleSlash))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDoubleSlash.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SamuraiDoubleSlash);
 			this.SetupTargeter();
 		}

@@ -40,19 +40,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		ExoTetherTrap exoTetherTrap = targetAbility as ExoTetherTrap;
 		if (exoTetherTrap != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoTetherTrap.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, exoTetherTrap.m_laserDamageAmount, true, false);
 			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", exoTetherTrap.m_laserInfo, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_baseEffectDataMod, "BaseEffectData", exoTetherTrap.m_baseEffectData, true);
@@ -78,19 +65,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoTetherTrap.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = exoTetherTrap.m_laserDamageAmount;
 		}
 		else
@@ -105,15 +79,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = exoTetherTrap.m_laserInfo;
 		}
 		else
@@ -128,15 +93,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		StandardActorEffectData baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoTetherTrap.m_baseEffectData;
 		}
 		else
@@ -152,15 +108,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoTetherTrap.m_tetherDistance;
 		}
 		else
@@ -175,15 +122,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoTetherTrap.m_tetherBreakDamage;
 		}
 		else
@@ -198,15 +136,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoTetherTrap.m_tetherBreakEffect;
 		}
 		else
@@ -221,15 +150,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		bool baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = exoTetherTrap.m_breakTetherOnNonGroundBasedMovement;
 		}
 		else
@@ -245,15 +165,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = exoTetherTrap.m_maxExtraDamageFromMoveDist;
 		}
 		else

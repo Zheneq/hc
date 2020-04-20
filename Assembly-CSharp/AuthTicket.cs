@@ -44,19 +44,6 @@ public class AuthTicket
 			long result;
 			if (this.AuthInfo == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.get_AccountId()).MethodHandle;
-				}
 				result = 0L;
 			}
 			else
@@ -74,19 +61,6 @@ public class AuthTicket
 			string result;
 			if (this.AuthInfo == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.get_UserName()).MethodHandle;
-				}
 				result = null;
 			}
 			else
@@ -128,19 +102,6 @@ public class AuthTicket
 			string result;
 			if (this.AuthInfo == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.get_AccountCurrency()).MethodHandle;
-				}
 				result = null;
 			}
 			else
@@ -157,30 +118,8 @@ public class AuthTicket
 		{
 			if (this.ChannelId != 0L)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.get_IsRealTicket()).MethodHandle;
-				}
 				if (this.AccountId != 0L && !this.UserName.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return !this.Handle.IsNullOrEmpty();
 				}
 			}
@@ -194,44 +133,13 @@ public class AuthTicket
 		string xml;
 		if (ticketData.StartsWith("Signature: "))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.Parse(string, string)).MethodHandle;
-			}
 			int num = ticketData.IndexOf('\n');
 			if (num >= 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num <= 0x400)
 				{
 					xml = ticketData.Substring(num + 1);
 					goto IL_6A;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			throw new Exception("Could not parse signature for ticket");
@@ -244,41 +152,14 @@ public class AuthTicket
 		XmlNode xmlNode2 = xmlDocument.SelectSingleNode("authTicket/account");
 		if (xmlNode2 == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			xmlNode2 = xmlDocument.SelectSingleNode("authAccount/account");
 		}
 		if (xmlNode2 == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception("Could not find account node in XML");
 		}
 		if (xmlNode != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			authTicket.ChannelId = xmlNode.GetChildNodeAsInt64("channelId", null);
 		}
 		authTicket.AuthInfo = new AuthInfo();
@@ -297,15 +178,6 @@ public class AuthTicket
 			string text;
 			if (authTicket.AuthInfo.UserName.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "???";
 			}
 			else
@@ -315,15 +187,6 @@ public class AuthTicket
 			string text2 = text;
 			if (authTicket.AuthInfo.AccountId != 0L)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 += string.Format(" ({0})", authTicket.AuthInfo.AccountId);
 			}
 			throw new Exception(string.Format("Malformed account node for {0}: {1}", text2, ex.Message));
@@ -339,30 +202,12 @@ public class AuthTicket
 				string a = Convert.ToString(xmlNode3.SelectSingleNode("accountEntitlementStatus").InnerText);
 				if (a != "ACTIVE")
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					string lhs = Convert.ToString(xmlNode3.SelectSingleNode("channel").InnerText);
 					if (channelName != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!lhs.EqualsIgnoreCase(channelName))
 						{
 							continue;
@@ -376,15 +221,6 @@ public class AuthTicket
 					string childNodeAsString = xmlNode3.GetChildNodeAsString("modifiedDate", null);
 					if (!childNodeAsString.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						entitlement.modifiedDate = DateTimeOffset.Parse(childNodeAsString).UtcDateTime;
 					}
 					else
@@ -403,30 +239,12 @@ public class AuthTicket
 					authTicket.AddEntitlement(entitlement);
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		finally
 		{
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disposable.Dispose();
 			}
 		}
@@ -443,30 +261,8 @@ public class AuthTicket
 	{
 		if (authInfo.AccountId != 0L)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.ParseFakeTicket(AuthInfo)).MethodHandle;
-			}
 			if (!authInfo.Handle.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!authInfo.UserName.IsNullOrEmpty())
 				{
 					AuthTicket authTicket = new AuthTicket();
@@ -474,15 +270,6 @@ public class AuthTicket
 					string ticketData = authInfo.TicketData;
 					authTicket.AddFakeEntitlements(ticketData);
 					return authTicket;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -496,19 +283,6 @@ public class AuthTicket
 		authTicket.AuthInfo.Type = AuthType.FakeTicket;
 		if (!resourceName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.CreateFakeTicket(string, string, int, string[])).MethodHandle;
-			}
 			userIndex = AuthTicket.GetUserIndex(resourceName);
 		}
 		authTicket.AuthInfo.UserName = string.Format("{0}{1}", userName, userIndex + 1);
@@ -540,42 +314,11 @@ public class AuthTicket
 		authTicket.AuthInfo.AccountCurrency = "USD";
 		if (!resourceName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.CreateRequestTicket(string, string, string)).MethodHandle;
-			}
 			if (!userName.Contains("+"))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int userIndex = AuthTicket.GetUserIndex(resourceName);
 				if (userIndex != 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					authTicket.AuthInfo.UserName = userName.Replace("@", string.Format("+{0}@", userIndex));
 				}
 			}
@@ -583,15 +326,6 @@ public class AuthTicket
 		int num = authTicket.AuthInfo.UserName.IndexOf('@');
 		if (num >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			authTicket.AuthInfo.Handle = authTicket.AuthInfo.UserName.Substring(0, num);
 		}
 		return authTicket;
@@ -602,44 +336,13 @@ public class AuthTicket
 		string text = this.Handle;
 		if (!text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.GetFormattedHandle(int)).MethodHandle;
-			}
 			int num = text.IndexOf('#');
 			if (num > -1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text2 = text.Substring(0, num);
 				string text3 = text.Substring(num, text.Length - num);
 				if (poundNumberFontSize > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = string.Concat(new object[]
 					{
 						text2,
@@ -663,31 +366,9 @@ public class AuthTicket
 		});
 		if (array.Length == 2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.GetFakeHandle(string)).MethodHandle;
-			}
 			int num = array[1].GetHashCode() % 0x384 + 0x64;
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = -num;
 			}
 			return string.Format("{0}#{1}", array[0], num);
@@ -701,19 +382,6 @@ public class AuthTicket
 		AuthEntitlement value;
 		if (!this.m_entitlementsByCode.TryGetValue(entitlement.entitlementCode, out value))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.AddEntitlement(AuthEntitlement)).MethodHandle;
-			}
 			value = default(AuthEntitlement);
 			value.accountEntitlementId = entitlement.accountEntitlementId;
 			value.entitlementId = entitlement.entitlementId;
@@ -722,28 +390,10 @@ public class AuthTicket
 		value.entitlementAmount += entitlement.entitlementAmount;
 		if (value.expirationDate < entitlement.expirationDate)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value.expirationDate = entitlement.expirationDate;
 		}
 		if (value.modifiedDate < entitlement.modifiedDate)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value.modifiedDate = entitlement.modifiedDate;
 		}
 		this.m_entitlementsByCode[value.entitlementCode] = value;
@@ -773,30 +423,8 @@ public class AuthTicket
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.AddFakeEntitlements(string)).MethodHandle;
-				}
 				this.AddFakeEntitlement(text);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -805,19 +433,6 @@ public class AuthTicket
 		AuthEntitlement value;
 		if (this.m_entitlementsByCode.TryGetValue(entitlementCode, out value))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.GetEntitlement(string)).MethodHandle;
-			}
 			return new AuthEntitlement?(value);
 		}
 		return null;
@@ -832,19 +447,6 @@ public class AuthTicket
 	{
 		if (AuthTicket.s_userIndex != -1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AuthTicket.GetUserIndex(string)).MethodHandle;
-			}
 			return AuthTicket.s_userIndex;
 		}
 		for (int i = 0; i < 0xA; i++)
@@ -854,27 +456,9 @@ public class AuthTicket
 			AuthTicket.s_userNameMutex = new Mutex(true, name, ref flag);
 			if (flag && AuthTicket.s_userNameMutex != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AuthTicket.s_userIndex = i;
 				return AuthTicket.s_userIndex;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		AuthTicket.s_userIndex = -1;
 		return AuthTicket.s_userIndex;

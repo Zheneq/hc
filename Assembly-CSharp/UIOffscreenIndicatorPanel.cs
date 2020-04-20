@@ -32,19 +32,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 		uioffscreenIndicator.transform.localScale = new Vector3(this.m_indicatorScale, this.m_indicatorScale, this.m_indicatorScale);
 		if (uioffscreenIndicator.transform as RectTransform != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.AddActor(ActorData)).MethodHandle;
-			}
 			(uioffscreenIndicator.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
 		}
 		UILastKnownPosIndicator uilastKnownPosIndicator = UnityEngine.Object.Instantiate<UILastKnownPosIndicator>(this.m_lastKnownPosIndicatorPrefab);
@@ -55,15 +42,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 		uilastKnownPosIndicator.transform.localScale = new Vector3(this.m_lastKnownPosIndicatorScale, this.m_lastKnownPosIndicatorScale, this.m_lastKnownPosIndicatorScale);
 		if (uilastKnownPosIndicator.transform as RectTransform != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			(uilastKnownPosIndicator.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
 		}
 	}
@@ -93,19 +71,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 		List<UIBaseIndicator> list = this.m_uiIndicators.FindAll((UIBaseIndicator indicator) => indicator.GetAttachedRegion() == region);
 		if (list.Count > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.AddCtfFlagTurnInRegion(BoardRegion, Team)).MethodHandle;
-			}
 			return;
 		}
 		UIOffscreenIndicator uioffscreenIndicator = UnityEngine.Object.Instantiate<UIOffscreenIndicator>(this.m_offscreenIndicatorPrefab);
@@ -136,42 +101,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator uibaseIndicator = enumerator.Current;
 				if (uibaseIndicator != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.RemoveCtfFlagTurnInRegion(BoardRegion)).MethodHandle;
-					}
 					if (uibaseIndicator.gameObject != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(uibaseIndicator.gameObject);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedRegion() == region);
@@ -187,33 +121,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator uibaseIndicator = enumerator.Current;
 				if (uibaseIndicator != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.RemoveActor(ActorData)).MethodHandle;
-					}
 					if (uibaseIndicator.gameObject != null)
 					{
 						UnityEngine.Object.Destroy(uibaseIndicator.gameObject);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedActor() == actorData);
@@ -229,42 +141,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator uibaseIndicator = enumerator.Current;
 				if (uibaseIndicator != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.RemoveControlPoint(ControlPoint)).MethodHandle;
-					}
 					if (uibaseIndicator.gameObject != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(uibaseIndicator.gameObject);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedControlPoint() == controlPoint);
@@ -280,42 +161,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator uibaseIndicator = enumerator.Current;
 				if (uibaseIndicator != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.RemoveCtfFlag(CTF_Flag)).MethodHandle;
-					}
 					if (uibaseIndicator.gameObject != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(uibaseIndicator.gameObject);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedFlag() == flag);
@@ -331,42 +181,11 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 				UIBaseIndicator uibaseIndicator = enumerator.Current;
 				if (uibaseIndicator != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.RemovePing(UIWorldPing)).MethodHandle;
-					}
 					if (uibaseIndicator.gameObject != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(uibaseIndicator.gameObject);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_uiIndicators.RemoveAll((UIBaseIndicator indicator) => indicator.GetAttachedPing() == ping);
@@ -379,19 +198,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 			Transform child = base.transform.GetChild(i);
 			UnityEngine.Object.Destroy(child.gameObject);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.Clear()).MethodHandle;
-		}
 		this.m_uiIndicators.Clear();
 	}
 
@@ -402,19 +208,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 			UIBaseIndicator uibaseIndicator = this.m_uiIndicators[i];
 			if (uibaseIndicator != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.MarkFramesForForceUpdate()).MethodHandle;
-				}
 				uibaseIndicator.MarkFrameForUpdate();
 			}
 		}
@@ -430,19 +223,6 @@ public class UIOffscreenIndicatorPanel : MonoBehaviour
 			}
 			else if (uibaseIndicator is UILastKnownPosIndicator)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIOffscreenIndicatorPanel.OnValidate()).MethodHandle;
-				}
 				uibaseIndicator.transform.localScale = new Vector3(this.m_lastKnownPosIndicatorScale, this.m_lastKnownPosIndicatorScale, this.m_lastKnownPosIndicatorScale);
 			}
 		}

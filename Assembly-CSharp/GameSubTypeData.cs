@@ -12,30 +12,8 @@ public class GameSubTypeData : MonoBehaviour
 		GameSubTypeData.GameSubTypeInstructions instructionSet = this.GetInstructionSet(setIndex);
 		if (instructionSet != null && -1 < displayIndex)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.GetDisplayPanelInfo(int, int)).MethodHandle;
-			}
 			if (displayIndex < instructionSet.DisplayInfos.Length)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return instructionSet.DisplayInfos[displayIndex];
 			}
 		}
@@ -46,19 +24,6 @@ public class GameSubTypeData : MonoBehaviour
 	{
 		if (-1 < setIndex && setIndex < this.Instructions.Length)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.GetInstructionSet(int)).MethodHandle;
-			}
 			return this.Instructions[setIndex];
 		}
 		return null;
@@ -70,30 +35,8 @@ public class GameSubTypeData : MonoBehaviour
 		{
 			if (this.Instructions[i].InstructionType == instructionType)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.GetInstructionSet(GameSubType.GameLoadScreenInstructions)).MethodHandle;
-				}
 				return this.Instructions[i];
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -109,28 +52,6 @@ public class GameSubTypeData : MonoBehaviour
 				gameSubTypeInstructions.DisplayInfos[j].InstructionSetIndex = i;
 				gameSubTypeInstructions.DisplayInfos[j].DisplayIndex = j;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameSubTypeData.Awake()).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 

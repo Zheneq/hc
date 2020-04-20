@@ -47,19 +47,6 @@ public class ArcherBendingArrow : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Bending Arrow";
 		}
 		this.m_syncComp = base.GetComponent<Archer_SyncComponent>();
@@ -75,19 +62,6 @@ public class ArcherBendingArrow : Ability
 			this.m_healArrowAbility = (base.GetAbilityOfType(typeof(ArcherHealingDebuffArrow)) as ArcherHealingDebuffArrow);
 			if (this.m_healArrowAbility != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.SetupTargeter()).MethodHandle;
-				}
 				this.m_healArrowActionType = component.GetActionTypeOfAbility(this.m_healArrowAbility);
 			}
 		}
@@ -100,46 +74,15 @@ public class ArcherBendingArrow : Ability
 			abilityUtil_Targeter_BendingLaser.m_startFadeAtActorRadius = this.m_startTargeterFadeAtActorRadius;
 			base.Targeters.Add(abilityUtil_Targeter_BendingLaser);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
 		if (!base.Targeters.IsNullOrEmpty<AbilityUtil_Targeter>())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
 			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 		}
@@ -202,19 +145,6 @@ public class ArcherBendingArrow : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_laserDamageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_laserDamageAmount);
 		}
 		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
@@ -229,19 +159,6 @@ public class ArcherBendingArrow : Ability
 		AbilityUtil_Targeter.ActorTarget actorTarget = base.Targeters[currentTargeterIndex].GetActorsInRange().Find((AbilityUtil_Targeter.ActorTarget t) => t.m_actor == targetActor);
 		if (actorTarget == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (currentTargeterIndex > 0)
 			{
 				actorTarget = base.Targeters[0].GetActorsInRange().Find((AbilityUtil_Targeter.ActorTarget t) => t.m_actor == targetActor);
@@ -250,42 +167,15 @@ public class ArcherBendingArrow : Ability
 		}
 		if (actorTarget != null && !actorTarget.m_subjectTypes.Contains(AbilityTooltipSubject.Near))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = this.GetDamageAfterPierce();
 		}
 		if (this.IsReactionHealTarget(targetActor))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += this.GetExtraDamageToHealingDebuffTarget();
 			num += this.m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += this.GetExtraDamageAfterBend();
 		}
 		dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -304,30 +194,8 @@ public class ArcherBendingArrow : Ability
 					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 					if (this.IsReactionHealTarget(actorTarget.m_actor))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-						}
 						return this.m_healArrowAbility.GetTechPointsPerHeal();
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -338,82 +206,24 @@ public class ArcherBendingArrow : Ability
 	{
 		if (this.m_syncComp.m_healReactionTargetActor == targetActor.ActorIndex)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.IsReactionHealTarget(ActorData)).MethodHandle;
-			}
 			if (!this.m_syncComp.ActorHasUsedHealReaction(base.ActorData))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
 		if (this.m_healArrowActionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actorTargeting != null)
 			{
 				List<AbilityTarget> abilityTargetsInRequest = this.m_actorTargeting.GetAbilityTargetsInRequest(this.m_healArrowActionType);
 				if (abilityTargetsInRequest != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
 						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
 					}
@@ -434,34 +244,12 @@ public class ArcherBendingArrow : Ability
 	{
 		if (targetIndex == 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
 			min = this.GetMinRangeBeforeBend() * Board.Get().squareSize;
 			max = this.GetMaxRangeBeforeBend() * Board.Get().squareSize;
 			return true;
 		}
 		if (targetIndex == 1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			min = 1f;
 			max = 1f;
 			return true;
@@ -473,19 +261,6 @@ public class ArcherBendingArrow : Ability
 	{
 		if (targetIndex == 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.HasRestrictedFreeAimDegrees(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
 			Vector3 aimDirection = targetsSoFar[0].AimDirection;
 			float num = VectorUtils.HorizontalAngle_Deg(aimDirection);
 			min = num - this.GetMaxBendAngle();
@@ -505,32 +280,10 @@ public class ArcherBendingArrow : Ability
 			float d;
 			if (magnitude < this.GetMinRangeBeforeBend() * Board.Get().squareSize)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.HasAimingOriginOverride(ActorData, int, List<AbilityTarget>, Vector3*)).MethodHandle;
-				}
 				d = this.GetMinRangeBeforeBend() * Board.Get().squareSize;
 			}
 			else if (magnitude > this.GetMaxRangeBeforeBend() * Board.Get().squareSize)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				d = this.GetMaxRangeBeforeBend() * Board.Get().squareSize;
 			}
 			else
@@ -548,19 +301,6 @@ public class ArcherBendingArrow : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ArcherBendingArrow))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ArcherBendingArrow);
 			this.SetupTargeter();
 		}
@@ -577,19 +317,6 @@ public class ArcherBendingArrow : Ability
 		StandardEffectInfo cachedLaserHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
 		}
 		else
@@ -600,15 +327,6 @@ public class ArcherBendingArrow : Ability
 		StandardEffectInfo cachedEffectToHealingDebuffTarget;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectToHealingDebuffTarget = this.m_abilityMod.m_effectToHealingDebuffTarget.GetModifiedValue(null);
 		}
 		else
@@ -623,19 +341,6 @@ public class ArcherBendingArrow : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -650,19 +355,6 @@ public class ArcherBendingArrow : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetMinRangeBeforeBend()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minRangeBeforeBendMod.GetModifiedValue(this.m_minRangeBeforeBend);
 		}
 		else
@@ -682,19 +374,6 @@ public class ArcherBendingArrow : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetMaxTotalRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTotalRangeMod.GetModifiedValue(this.m_maxTotalRange);
 		}
 		else
@@ -719,19 +398,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -751,19 +417,6 @@ public class ArcherBendingArrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedLaserHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetLaserHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserHitEffect;
 		}
 		else
@@ -778,19 +431,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetExtraAbsorbForShieldGeneratorPerHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_nextShieldGeneratorExtraAbsorbPerHit.GetModifiedValue(0);
 		}
 		else
@@ -805,19 +445,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetExtraAbsorbForShieldGeneratorMax()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_nextShieldGeneratorExtraAbsorbMax.GetModifiedValue(0);
 		}
 		else
@@ -832,19 +459,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetExtraDamageToHealingDebuffTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageToHealingDebuffTarget.GetModifiedValue(0);
 		}
 		else
@@ -859,19 +473,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetExtraDamageAfterBend()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageAfterBend.GetModifiedValue(0);
 		}
 		else
@@ -886,19 +487,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetDamageAfterPierce()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAfterPiercingMod.GetModifiedValue(this.GetLaserDamageAmount());
 		}
 		else
@@ -918,19 +506,6 @@ public class ArcherBendingArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherBendingArrow.GetExtraHealingFromHealingDebuffTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraHealingFromHealingDebuffTarget.GetModifiedValue(0);
 		}
 		else

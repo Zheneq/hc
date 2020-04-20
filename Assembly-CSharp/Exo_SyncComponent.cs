@@ -51,19 +51,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (this.m_owner == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.GetOwner()).MethodHandle;
-			}
 			this.m_owner = base.GetComponent<ActorData>();
 		}
 		return this.m_owner;
@@ -74,19 +61,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		AbilityData component = base.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.Start()).MethodHandle;
-			}
 			this.m_anchorLaserAbility = (component.GetAbilityOfType(typeof(ExoAnchorLaser)) as ExoAnchorLaser);
 		}
 	}
@@ -95,19 +69,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.UsedBasicAttackLastTurn()).MethodHandle;
-			}
 			if (this.m_lastBasicAttackUsedTurn > 0)
 			{
 				return GameFlowData.Get().CurrentTurn - (int)this.m_lastBasicAttackUsedTurn == 1;
@@ -121,30 +82,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 		this.Networkm_wasAnchoredOnTurnStart = value;
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.HookSetWasAnchoredOnTurnStart(bool)).MethodHandle;
-			}
 			if (!NetworkServer.active && this.m_anchorLaserAbility != null && this.m_anchorLaserAbility.ShouldUpdateMovementOnAnchorChange())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.GetOwner().GetActorMovement().UpdateSquaresCanMoveTo();
 			}
 		}
@@ -158,34 +97,12 @@ public class Exo_SyncComponent : NetworkBehaviour
 			ActorData owner = this.GetOwner();
 			if (owner != null && owner.GetModelAnimator() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.RpcSetIdleType(int)).MethodHandle;
-				}
 				int integer = owner.GetModelAnimator().GetInteger(Exo_SyncComponent.animIdleType);
 				if (integer != idleType)
 				{
 					owner.GetModelAnimator().SetInteger(Exo_SyncComponent.animIdleType, idleType);
 					if (idleType == 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						owner.GetModelAnimator().SetTrigger(Exo_SyncComponent.animExitAnchor);
 					}
 				}
@@ -198,19 +115,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.RpcSetFacingDirection(Vector3)).MethodHandle;
-			}
 			ActorData owner = this.GetOwner();
 			if (owner != null)
 			{
@@ -224,19 +128,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.RpcSetSweepingRight(bool)).MethodHandle;
-			}
 			ActorData owner = this.GetOwner();
 			if (owner != null && owner.GetModelAnimator() != null)
 			{
@@ -274,30 +165,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 			uint dirtyBit = 2U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.set_Networkm_wasAnchoredOnTurnStart(bool)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetWasAnchoredOnTurnStart(value);
 					base.syncVarHookGuard = false;
@@ -363,19 +232,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.InvokeRpcRpcSetIdleType(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetIdleType called on server.");
 			return;
 		}
@@ -386,19 +242,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.InvokeRpcRpcSetFacingDirection(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetFacingDirection called on server.");
 			return;
 		}
@@ -409,19 +252,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.InvokeRpcRpcSetSweepingRight(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetSweepingRight called on server.");
 			return;
 		}
@@ -432,19 +262,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.CallRpcSetIdleType(int)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcSetIdleType called on client.");
 			return;
 		}
@@ -461,19 +278,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.CallRpcSetFacingDirection(Vector3)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
 			return;
 		}
@@ -490,19 +294,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.CallRpcSetSweepingRight(bool)).MethodHandle;
-			}
 			Debug.LogError("RPC Function RpcSetSweepingRight called on client.");
 			return;
 		}
@@ -530,30 +321,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -572,15 +341,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -588,26 +348,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -615,26 +357,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x10U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -642,15 +366,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -660,15 +375,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -678,19 +384,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Exo_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_anchored = reader.ReadBoolean();
 			this.m_wasAnchoredOnTurnStart = reader.ReadBoolean();
 			this.m_laserBarrierIsUp = reader.ReadBoolean();
@@ -702,15 +395,6 @@ public class Exo_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_anchored = reader.ReadBoolean();
 		}
 		if ((num & 2) != 0)
@@ -723,28 +407,10 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_anchoredLaserAimDirection = reader.ReadVector3();
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_turnsAnchored = (short)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)

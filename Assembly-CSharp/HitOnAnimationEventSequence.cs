@@ -24,49 +24,14 @@ public class HitOnAnimationEventSequence : Sequence
 				this.m_hitPositionsList = extraParams2.hitPositionsList;
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-		}
 	}
 
 	protected override void OnAnimationEvent(UnityEngine.Object parameter, GameObject sourceObject)
 	{
 		if (this.m_hitEvent != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (this.m_hitEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HandleAnimationEvent();
 			}
 		}
@@ -80,32 +45,10 @@ public class HitOnAnimationEventSequence : Sequence
 		}
 		if (this.m_hitPositionsList.Count != this.m_hitTargetsList.Count)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.HandleAnimationEvent()).MethodHandle;
-			}
 			Debug.LogError("HitOnAnimationEventSequences: mismatch between targets list and positions list");
 		}
 		if (this.m_hitsSoFar < this.m_hitPositionsList.Count)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_hitsSoFar < this.m_hitTargetsList.Count)
 			{
 				base.Source.OnSequenceHit(this, this.m_hitPositionsList[this.m_hitsSoFar], null);
@@ -115,15 +58,6 @@ public class HitOnAnimationEventSequence : Sequence
 					{
 						ActorData actorData = enumerator.Current;
 						base.Source.OnSequenceHit(this, actorData, Sequence.CreateImpulseInfoWithActorForward(actorData), ActorModelData.RagdollActivation.HealthBased, true);
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.m_hitsSoFar++;
@@ -142,19 +76,6 @@ public class HitOnAnimationEventSequence : Sequence
 			int num;
 			if (this.hitTargetsList != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.ExtraParams.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
 				num = this.hitTargetsList.Count;
 			}
 			else
@@ -169,15 +90,6 @@ public class HitOnAnimationEventSequence : Sequence
 				int num3;
 				if (list != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = list.Count;
 				}
 				else
@@ -192,15 +104,6 @@ public class HitOnAnimationEventSequence : Sequence
 					int num5;
 					if (actorData != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num5 = actorData.ActorIndex;
 					}
 					else
@@ -210,37 +113,10 @@ public class HitOnAnimationEventSequence : Sequence
 					int num6 = num5;
 					stream.Serialize(ref num6);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			int num7;
 			if (this.hitPositionsList != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num7 = this.hitPositionsList.Count;
 			}
 			else
@@ -275,19 +151,6 @@ public class HitOnAnimationEventSequence : Sequence
 				}
 				this.hitTargetsList.Add(list);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitOnAnimationEventSequence.ExtraParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
-			}
 			int num3 = 0;
 			stream.Serialize(ref num3);
 			this.hitPositionsList = new List<Vector3>(num3);
@@ -296,15 +159,6 @@ public class HitOnAnimationEventSequence : Sequence
 				Vector3 zero = Vector3.zero;
 				stream.Serialize(ref zero);
 				this.hitPositionsList.Add(zero);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

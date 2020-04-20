@@ -67,19 +67,6 @@ public class UITeamSizeButton : MonoBehaviour
 	{
 		if (!this.IsChecked())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamSizeButton.BtnExit(BaseEventData)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_hover, false, null);
 			this.m_textLabel.color = Color.white;
 		}
@@ -89,19 +76,6 @@ public class UITeamSizeButton : MonoBehaviour
 	{
 		if (this.m_callback != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamSizeButton.BtnClicked(BaseEventData)).MethodHandle;
-			}
 			if (this.Clickable)
 			{
 				this.m_callback(this);
@@ -116,19 +90,6 @@ public class UITeamSizeButton : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_hover, this.m_isChecked, null);
 		if (this.m_isChecked)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITeamSizeButton.SetChecked(bool)).MethodHandle;
-			}
 			this.m_textLabel.color = Color.white;
 		}
 		else

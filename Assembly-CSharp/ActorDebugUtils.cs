@@ -31,46 +31,15 @@ public class ActorDebugUtils : MonoBehaviour
 	{
 		if (!this.ShowDebugGUI)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorDebugUtils.ShowingCategory(ActorDebugUtils.DebugCategory, bool)).MethodHandle;
-			}
 			if (requireDebugWindowVisible)
 			{
 				return false;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		ActorDebugUtils.DebugCategoryInfo debugCategoryInfo = this.GetDebugCategoryInfo(cat);
 		bool result;
 		if (debugCategoryInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = debugCategoryInfo.m_enabled;
 		}
 		else
@@ -84,30 +53,8 @@ public class ActorDebugUtils : MonoBehaviour
 	{
 		if (this.m_categoryToDebugContainer != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorDebugUtils.GetDebugCategoryInfo(ActorDebugUtils.DebugCategory)).MethodHandle;
-			}
 			if (this.m_categoryToDebugContainer.ContainsKey(cat))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_categoryToDebugContainer[cat];
 			}
 		}
@@ -119,35 +66,22 @@ public class ActorDebugUtils : MonoBehaviour
 		return this.m_debugContextActor;
 	}
 
-	public static void \u001D(Bounds \u001D, Color \u000E, float \u0012 = 0f)
+	public static void symbol_001D(Bounds symbol_001D, Color symbol_000E, float symbol_0012 = 0f)
 	{
-		Vector3 vector = new Vector3(\u001D.center.x - \u001D.extents.x, \u001D.center.y - \u001D.extents.y, \u001D.center.z + \u001D.extents.z);
-		Vector3 vector2 = new Vector3(\u001D.center.x + \u001D.extents.x, \u001D.center.y - \u001D.extents.y, \u001D.center.z + \u001D.extents.z);
-		Vector3 vector3 = new Vector3(\u001D.center.x - \u001D.extents.x, \u001D.center.y - \u001D.extents.y, \u001D.center.z - \u001D.extents.z);
-		Vector3 vector4 = new Vector3(\u001D.center.x + \u001D.extents.x, \u001D.center.y - \u001D.extents.y, \u001D.center.z - \u001D.extents.z);
-		Debug.DrawLine(vector, vector2, \u000E, \u0012);
-		Debug.DrawLine(vector2, vector4, \u000E, \u0012);
-		Debug.DrawLine(vector4, vector3, \u000E, \u0012);
-		Debug.DrawLine(vector3, vector, \u000E, \u0012);
+		Vector3 vector = new Vector3(symbol_001D.center.x - symbol_001D.extents.x, symbol_001D.center.y - symbol_001D.extents.y, symbol_001D.center.z + symbol_001D.extents.z);
+		Vector3 vector2 = new Vector3(symbol_001D.center.x + symbol_001D.extents.x, symbol_001D.center.y - symbol_001D.extents.y, symbol_001D.center.z + symbol_001D.extents.z);
+		Vector3 vector3 = new Vector3(symbol_001D.center.x - symbol_001D.extents.x, symbol_001D.center.y - symbol_001D.extents.y, symbol_001D.center.z - symbol_001D.extents.z);
+		Vector3 vector4 = new Vector3(symbol_001D.center.x + symbol_001D.extents.x, symbol_001D.center.y - symbol_001D.extents.y, symbol_001D.center.z - symbol_001D.extents.z);
+		Debug.DrawLine(vector, vector2, symbol_000E, symbol_0012);
+		Debug.DrawLine(vector2, vector4, symbol_000E, symbol_0012);
+		Debug.DrawLine(vector4, vector3, symbol_000E, symbol_0012);
+		Debug.DrawLine(vector3, vector, symbol_000E, symbol_0012);
 	}
 
 	public static void SetTempDebugString(string value)
 	{
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorDebugUtils.SetTempDebugString(string)).MethodHandle;
-			}
 		}
 	}
 

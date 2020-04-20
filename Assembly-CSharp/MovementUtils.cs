@@ -13,19 +13,6 @@ public static class MovementUtils
 		writer.Write(flag);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.SerializePath(BoardSquarePathInfo, NetworkWriter)).MethodHandle;
-			}
 			b = path.segmentMovementSpeed;
 			b2 = path.segmentMovementDuration;
 			writer.Write(path.segmentMovementSpeed);
@@ -38,55 +25,19 @@ public static class MovementUtils
 			byte value = 0;
 			if (boardSquarePathInfo.square.x <= 0xFF)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value = (byte)boardSquarePathInfo.square.x;
 			}
 			else if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("MovementUtils.SerializePath, x coordinate value too large for byte");
 			}
 			byte value2 = 0;
 			if (boardSquarePathInfo.square.y <= 0xFF)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				value2 = (byte)boardSquarePathInfo.square.y;
 			}
 			else if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("MovementUtils.SerializePath, y coordinate value too large for byte");
 			}
 			sbyte value3 = (sbyte)boardSquarePathInfo.connectionType;
@@ -111,27 +62,9 @@ public static class MovementUtils
 			{
 				goto IL_1FC;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquarePathInfo.connectionType == BoardSquarePathInfo.ConnectionType.Vault)
 			{
 				goto IL_1FC;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag4 = boardSquarePathInfo.connectionType == BoardSquarePathInfo.ConnectionType.Knockback;
 			IL_1FD:
@@ -144,29 +77,11 @@ public static class MovementUtils
 			writer.Write(value7);
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float segmentMovementSpeed = boardSquarePathInfo.segmentMovementSpeed;
 				writer.Write(segmentMovementSpeed);
 			}
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float segmentMovementDuration = boardSquarePathInfo.segmentMovementDuration;
 				writer.Write(segmentMovementDuration);
 			}
@@ -182,19 +97,6 @@ public static class MovementUtils
 	{
 		if (stream.isReading)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.SerializePath(BoardSquarePathInfo, IBitStream)).MethodHandle;
-			}
 			Log.Error("Trying to serialize a path while reading", new object[0]);
 		}
 		else
@@ -217,15 +119,6 @@ public static class MovementUtils
 				byte b3 = 0;
 				if (boardSquarePathInfo.square.x <= 0xFF)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					b3 = (byte)boardSquarePathInfo.square.x;
 				}
 				else if (Application.isEditor)
@@ -239,15 +132,6 @@ public static class MovementUtils
 				}
 				else if (Application.isEditor)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("MovementUtils.SerializePath, y coordinate value too large for byte");
 				}
 				sbyte b5 = (sbyte)boardSquarePathInfo.connectionType;
@@ -272,15 +156,6 @@ public static class MovementUtils
 				{
 					goto IL_200;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo.connectionType == BoardSquarePathInfo.ConnectionType.Vault)
 				{
 					goto IL_200;
@@ -296,15 +171,6 @@ public static class MovementUtils
 				stream.Serialize(ref b10);
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float segmentMovementSpeed = boardSquarePathInfo.segmentMovementSpeed;
 					stream.Serialize(ref segmentMovementSpeed);
 				}
@@ -326,19 +192,6 @@ public static class MovementUtils
 	{
 		if (path == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.SerializePath(BoardSquarePathInfo)).MethodHandle;
-			}
 			return null;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
@@ -387,45 +240,14 @@ public static class MovementUtils
 			{
 				goto IL_CA;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.DeSerializePath(IBitStream)).MethodHandle;
-			}
 			if ((int)b3 == 3)
 			{
 				goto IL_CA;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag3 = (int)b3 == 1;
 			IL_CB:
 			if (!flag3)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stream.Serialize(ref b4);
 				stream.Serialize(ref b5);
 			}
@@ -448,15 +270,6 @@ public static class MovementUtils
 			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)b, (int)b2);
 			if (boardSquare == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(string.Concat(new object[]
 				{
 					"Failed to find square from index [",
@@ -489,15 +302,6 @@ public static class MovementUtils
 			flag2 = (flag2 || !stream.isReading);
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquarePathInfo3 = boardSquarePathInfo2;
 				boardSquarePathInfo2 = new BoardSquarePathInfo();
 				continue;
@@ -506,15 +310,6 @@ public static class MovementUtils
 			IL_CA:
 			flag3 = true;
 			goto IL_CB;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		boardSquarePathInfo.moveCost = moveCost2;
 		boardSquarePathInfo.CalcAndSetMoveCostToEnd();
@@ -537,19 +332,6 @@ public static class MovementUtils
 		bool flag = reader.ReadBoolean();
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.DeSerializePath(NetworkReader)).MethodHandle;
-			}
 			num = reader.ReadSingle();
 			num2 = reader.ReadSingle();
 			moveCost2 = reader.ReadSingle();
@@ -569,41 +351,14 @@ public static class MovementUtils
 			{
 				goto IL_E1;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((int)b5 == 3)
 			{
 				goto IL_E1;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag3 = (int)b5 == 1;
 			IL_E2:
 			if (!flag3)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				b = reader.ReadSByte();
 				b2 = reader.ReadSByte();
 			}
@@ -617,42 +372,15 @@ public static class MovementUtils
 			float segmentMovementDuration = num2;
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				segmentMovementSpeed = reader.ReadSingle();
 			}
 			if (flag5)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				segmentMovementDuration = reader.ReadSingle();
 			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)b3, (int)b4);
 			if (boardSquare == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(string.Concat(new object[]
 				{
 					"Failed to find square from index [",
@@ -680,15 +408,6 @@ public static class MovementUtils
 			boardSquarePathInfo2.prev = boardSquarePathInfo3;
 			if (boardSquarePathInfo3 != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquarePathInfo3.next = boardSquarePathInfo2;
 			}
 			if (!flag2)
@@ -702,15 +421,6 @@ public static class MovementUtils
 			flag3 = true;
 			goto IL_E2;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		boardSquarePathInfo.moveCost = moveCost2;
 		boardSquarePathInfo.CalcAndSetMoveCostToEnd();
 		return boardSquarePathInfo;
@@ -720,19 +430,6 @@ public static class MovementUtils
 	{
 		if (data == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.DeSerializePath(byte[])).MethodHandle;
-			}
 			return null;
 		}
 		NetworkReader reader = new NetworkReader(data);
@@ -748,33 +445,11 @@ public static class MovementUtils
 	{
 		if (stream == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.SerializeLightweightPath(BoardSquarePathInfo, IBitStream)).MethodHandle;
-			}
 			Debug.LogError("Calling SerializeLightweightPath with a null stream");
 			return;
 		}
 		if (stream.isReading)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Trying to serialize a (lightweight) path while reading", new object[0]);
 		}
 		else
@@ -793,15 +468,6 @@ public static class MovementUtils
 				{
 					b2 = (sbyte)((int)b2 + 1);
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				sbyte b3 = 0;
 				for (boardSquarePathInfo = path.prev; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.prev)
 				{
@@ -817,15 +483,6 @@ public static class MovementUtils
 					short num3;
 					if (boardSquarePathInfo.square != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = (short)boardSquarePathInfo.square.x;
 						num3 = (short)boardSquarePathInfo.square.y;
 					}
@@ -838,15 +495,6 @@ public static class MovementUtils
 					stream.Serialize(ref num2);
 					stream.Serialize(ref num3);
 					boardSquarePathInfo = boardSquarePathInfo.next;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				boardSquarePathInfo = path.prev;
 				for (int j = 0; j < (int)b3; j++)
@@ -868,31 +516,13 @@ public static class MovementUtils
 					stream.Serialize(ref num5);
 					boardSquarePathInfo = boardSquarePathInfo.prev;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("Calling SerializeLightweightPath with a path that has " + num + " null square(s).");
 				}
 			}
 			uint num6 = stream.Position - position;
-			if (ClientAbilityResults.\u000E)
+			if (ClientAbilityResults.symbol_000E)
 			{
 				Debug.LogWarning("\t\t\t Serializing Lightweight Movement Path: \n\t\t\t numBytes: " + num6);
 			}
@@ -918,19 +548,6 @@ public static class MovementUtils
 			stream.Serialize(ref b);
 			if ((int)b <= 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.DeSerializeLightweightPath(IBitStream)).MethodHandle;
-				}
 				boardSquarePathInfo = null;
 			}
 			else
@@ -948,15 +565,6 @@ public static class MovementUtils
 					BoardSquare square;
 					if (num == -1 && num2 == -1)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						square = null;
 					}
 					else
@@ -976,15 +584,6 @@ public static class MovementUtils
 						boardSquarePathInfo = boardSquarePathInfo3;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquarePathInfo boardSquarePathInfo4 = boardSquarePathInfo;
 				int j = 0;
 				while (j < (int)b2)
@@ -997,27 +596,9 @@ public static class MovementUtils
 					{
 						goto IL_135;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num4 != -1)
 					{
 						goto IL_135;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					BoardSquare square2 = null;
 					IL_147:
@@ -1048,44 +629,13 @@ public static class MovementUtils
 		{
 			if (boardSquarePathInfo4 != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.CreateClonePathEndingAt(BoardSquarePathInfo)).MethodHandle;
-				}
 				if (boardSquarePathInfo4.square != boardSquarePathInfo3.square)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (boardSquarePathInfo3 == desiredEnding)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						boardSquarePathInfo2 = boardSquarePathInfo4;
 						goto IL_95;
 					}
@@ -1098,15 +648,6 @@ public static class MovementUtils
 			IL_95:
 			if (boardSquarePathInfo2 != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquarePathInfo2.next = null;
 			}
 			return boardSquarePathInfo2;
@@ -1125,25 +666,12 @@ public static class MovementUtils
 	public static bool ShouldVault(BoardSquare srcSquare, BoardSquare destSquare)
 	{
 		bool result = false;
-		if (Board.Get().\u0015(srcSquare, destSquare))
+		if (Board.Get().symbol_0015(srcSquare, destSquare))
 		{
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(srcSquare.GetGridPos().x, destSquare.GetGridPos().y);
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(destSquare.GetGridPos().x, srcSquare.GetGridPos().y);
 			if (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, boardSquare)) == ThinCover.CoverType.Half)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.ShouldVault(BoardSquare, BoardSquare)).MethodHandle;
-				}
 				result = true;
 			}
 			else if (srcSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(srcSquare, boardSquare2)) == ThinCover.CoverType.Half)
@@ -1152,28 +680,10 @@ public static class MovementUtils
 			}
 			else if (destSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(destSquare, boardSquare)) == ThinCover.CoverType.Half)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else if (destSquare.GetCoverInDirection(VectorUtils.GetCoverDirection(destSquare, boardSquare2)) == ThinCover.CoverType.Half)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -1191,19 +701,6 @@ public static class MovementUtils
 			BoardSquarePathInfo prev = boardSquarePathInfo.prev;
 			if (prev == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.CalculateVaultConnectionTypes(BoardSquarePathInfo*)).MethodHandle;
-				}
 				boardSquarePathInfo.connectionType = BoardSquarePathInfo.ConnectionType.Run;
 			}
 			else
@@ -1212,15 +709,6 @@ public static class MovementUtils
 				BoardSquare square2 = boardSquarePathInfo.square;
 				if (MovementUtils.ShouldVault(square, square2))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquarePathInfo.connectionType = BoardSquarePathInfo.ConnectionType.Vault;
 				}
 				else
@@ -1228,15 +716,6 @@ public static class MovementUtils
 					boardSquarePathInfo.connectionType = BoardSquarePathInfo.ConnectionType.Run;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1251,30 +730,8 @@ public static class MovementUtils
 				BoardSquare boardSquare = enumerator.Current;
 				if (boardSquare.height < Board.Get().BaselineHeight)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.MovingOverHole(BoardSquare, BoardSquare)).MethodHandle;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -1294,52 +751,12 @@ public static class MovementUtils
 		RaycastHit raycastHit;
 		if (!MovementUtils.MovingOverHole(src, dst) && !Physics.Raycast(vector + b2, vector2, out raycastHit, magnitude, mask))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.CanRunDirectly(BoardSquare, BoardSquare, ActorData)).MethodHandle;
-			}
 			if (!Physics.Raycast(vector, vector2, out raycastHit, magnitude, mask))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Physics.Raycast(vector - b2, vector2, out raycastHit, magnitude, mask))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!BarrierManager.Get().IsMovementBlocked(mover, src, dst))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 				}
@@ -1363,19 +780,6 @@ public static class MovementUtils
 		}
 		else if (movementType == ActorData.MovementType.WaypointFlight)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.CreateUnskippableAestheticPath(BoardSquarePathInfo*, ActorData.MovementType)).MethodHandle;
-			}
 			connectionType = BoardSquarePathInfo.ConnectionType.Charge;
 		}
 		else
@@ -1388,15 +792,6 @@ public static class MovementUtils
 			bool flag;
 			if (boardSquarePathInfo.connectionType != BoardSquarePathInfo.ConnectionType.Run)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (boardSquarePathInfo.connectionType == BoardSquarePathInfo.ConnectionType.Vault);
 			}
 			else
@@ -1406,49 +801,13 @@ public static class MovementUtils
 			bool flag2 = flag;
 			if (boardSquarePathInfo != path)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!boardSquarePathInfo.m_unskippable)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquarePathInfo.m_moverClashesHere)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
 							goto IL_A9;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (boardSquarePathInfo.next != null)
@@ -1459,15 +818,6 @@ public static class MovementUtils
 				IL_A9:
 				if (boardSquarePathInfo2 != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquarePathInfo2.next = boardSquarePathInfo;
 					boardSquarePathInfo.prev = boardSquarePathInfo2;
 				}
@@ -1482,15 +832,6 @@ public static class MovementUtils
 			IL_DA:
 			boardSquarePathInfo = boardSquarePathInfo.next;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public unsafe static void CreateRunAndVaultAestheticPath(ref BoardSquarePathInfo path, ActorData mover)
@@ -1501,72 +842,23 @@ public static class MovementUtils
 		BoardSquarePathInfo boardSquarePathInfo3 = null;
 		if (path != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.CreateRunAndVaultAestheticPath(BoardSquarePathInfo*, ActorData)).MethodHandle;
-			}
 			boardSquarePathInfo = path;
 		}
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo2 = path.next;
 		}
 		if (boardSquarePathInfo2 != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo3 = path.next.next;
 		}
 		while (boardSquarePathInfo != null && boardSquarePathInfo2 != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquarePathInfo3 != null)
 			{
 				bool flag;
 				if (boardSquarePathInfo2.connectionType != BoardSquarePathInfo.ConnectionType.Run)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (boardSquarePathInfo2.connectionType == BoardSquarePathInfo.ConnectionType.Vault);
 				}
 				else
@@ -1577,26 +869,8 @@ public static class MovementUtils
 				int num;
 				if (!boardSquarePathInfo2.m_unskippable)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (boardSquarePathInfo2.m_moverClashesHere ? 1 : 0);
 					}
 					else
@@ -1613,15 +887,6 @@ public static class MovementUtils
 				bool flag5;
 				if (boardSquarePathInfo.connectionType == BoardSquarePathInfo.ConnectionType.Run)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (boardSquarePathInfo2.connectionType == BoardSquarePathInfo.ConnectionType.Run);
 				}
 				else
@@ -1632,15 +897,6 @@ public static class MovementUtils
 				bool flag7;
 				if (boardSquarePathInfo2.connectionType == BoardSquarePathInfo.ConnectionType.Run)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag7 = (boardSquarePathInfo3.connectionType == BoardSquarePathInfo.ConnectionType.Run);
 				}
 				else
@@ -1652,55 +908,19 @@ public static class MovementUtils
 				{
 					goto IL_12D;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag4)
 				{
 					goto IL_12D;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag6)
 				{
 					goto IL_12D;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				bool flag9 = flag8;
 				IL_12E:
 				bool flag10 = flag9;
 				if (flag10)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquarePathInfo.next = boardSquarePathInfo3;
 					boardSquarePathInfo3.prev = boardSquarePathInfo;
 					boardSquarePathInfo2 = boardSquarePathInfo.next;
@@ -1732,19 +952,6 @@ public static class MovementUtils
 		MoveState.LinkType result = MoveState.LinkType.None;
 		if (info != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.GetLinkType(BoardSquarePathInfo)).MethodHandle;
-			}
 			switch (info.connectionType)
 			{
 			case BoardSquarePathInfo.ConnectionType.Run:
@@ -1783,19 +990,6 @@ public static class MovementUtils
 		boardSquarePathInfo.moveCost = 0f;
 		if (start == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.Build2PointTeleportPath(BoardSquare, BoardSquare)).MethodHandle;
-			}
 			boardSquarePathInfo2.moveCost = 0f;
 		}
 		else
@@ -1820,31 +1014,9 @@ public static class MovementUtils
 				{
 					goto IL_8C;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.GetClosestAdjacentSquareTo(BoardSquare, BoardSquare, BoardSquare)).MethodHandle;
-				}
 				if (j != 0)
 				{
 					goto IL_8C;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_10F:
 				j++;
@@ -1855,41 +1027,14 @@ public static class MovementUtils
 				{
 					goto IL_10F;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector2 vector2 = new Vector2(a.x - (float)boardSquare.x, a.y - (float)boardSquare.y);
 				if (vector2.sqrMagnitude < sqrMagnitude)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(boardSquare);
 					goto IL_10F;
 				}
 				goto IL_10F;
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		float num = 99999.9f;
 		BoardSquare result = null;
@@ -1908,27 +1053,9 @@ public static class MovementUtils
 				float magnitude = (a2 - vector5).magnitude;
 				if (magnitude < num)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = magnitude;
 					result = boardSquare2;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -1939,19 +1066,6 @@ public static class MovementUtils
 		bool result;
 		if (square != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.CanStopOnSquare(BoardSquare)).MethodHandle;
-			}
 			result = (square.height >= 0);
 		}
 		else
@@ -1965,57 +1079,17 @@ public static class MovementUtils
 	{
 		if (pathA != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.ArePathSegmentsEquivalent_ForwardAndBackward(BoardSquarePathInfo, BoardSquarePathInfo)).MethodHandle;
-			}
 			if (pathB != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(pathA.square == null))
 				{
 					if (pathB.square == null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						if (pathA.square != pathB.square)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
 						bool flag = true;
@@ -2028,15 +1102,6 @@ public static class MovementUtils
 						int num2 = 0;
 						while (flag)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num >= 0x64)
 							{
 								for (;;)
@@ -2055,26 +1120,8 @@ public static class MovementUtils
 								boardSquarePathInfo2 = boardSquarePathInfo2.next;
 								if (boardSquarePathInfo == null)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (boardSquarePathInfo2 == null)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 								}
@@ -2082,27 +1129,9 @@ public static class MovementUtils
 								{
 									goto IL_D2;
 								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquarePathInfo2 == null)
 								{
 									goto IL_D2;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								flag = false;
 								IL_107:
@@ -2111,29 +1140,11 @@ public static class MovementUtils
 								IL_D2:
 								if (boardSquarePathInfo != null && boardSquarePathInfo2 == null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = false;
 									goto IL_107;
 								}
 								if (boardSquarePathInfo.square != boardSquarePathInfo2.square)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = false;
 									goto IL_107;
 								}
@@ -2145,15 +1156,6 @@ public static class MovementUtils
 						{
 							while (flag2)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num2 >= 0x64)
 								{
 									break;
@@ -2162,26 +1164,8 @@ public static class MovementUtils
 								boardSquarePathInfo4 = boardSquarePathInfo4.prev;
 								if (boardSquarePathInfo3 == null)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (boardSquarePathInfo4 == null)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										break;
 									}
 								}
@@ -2189,27 +1173,9 @@ public static class MovementUtils
 								{
 									goto IL_18B;
 								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquarePathInfo4 == null)
 								{
 									goto IL_18B;
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								flag2 = false;
 								IL_1CE:
@@ -2218,41 +1184,14 @@ public static class MovementUtils
 								IL_18B:
 								if (boardSquarePathInfo3 != null)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (boardSquarePathInfo4 == null)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag2 = false;
 										goto IL_1CE;
 									}
 								}
 								if (boardSquarePathInfo3.square != boardSquarePathInfo4.square)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag2 = false;
 									goto IL_1CE;
 								}
@@ -2261,15 +1200,6 @@ public static class MovementUtils
 						}
 						if (num < 0x64)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num2 < 0x64)
 							{
 								goto IL_20A;
@@ -2280,15 +1210,6 @@ public static class MovementUtils
 						bool result;
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = flag2;
 						}
 						else
@@ -2307,66 +1228,17 @@ public static class MovementUtils
 	{
 		if (pathA != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementUtils.ArePathSegmentsEquivalent_FromBeginning(BoardSquarePathInfo, BoardSquarePathInfo)).MethodHandle;
-			}
 			if (pathB != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(pathA.square == null))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (pathB.square == null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						if (pathA.square != pathB.square)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
 						bool flag = true;
@@ -2375,15 +1247,6 @@ public static class MovementUtils
 						int num = 0;
 						while (flag)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num >= 0x64)
 							{
 								break;
@@ -2392,15 +1255,6 @@ public static class MovementUtils
 							boardSquarePathInfo2 = boardSquarePathInfo2.prev;
 							if (boardSquarePathInfo == null && boardSquarePathInfo2 == null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								break;
 							}
 							if (boardSquarePathInfo == null && boardSquarePathInfo2 != null)
@@ -2411,15 +1265,6 @@ public static class MovementUtils
 							{
 								if (boardSquarePathInfo != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (boardSquarePathInfo2 == null)
 									{
 										flag = false;
@@ -2436,15 +1281,6 @@ public static class MovementUtils
 						}
 						if (num >= 0x64)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Debug.LogError("Infinite/circular (or maybe just massive) loop detected in ArePathSegmentsEquivalent_FromBeginning.");
 						}
 						return flag;

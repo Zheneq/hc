@@ -45,19 +45,6 @@ public class DebugParameters
 	{
 		if (this.m_parameters.ContainsKey(key))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugParameters.GetParameter(string)).MethodHandle;
-			}
 			return this.m_parameters[key];
 		}
 		return string.Empty;
@@ -67,19 +54,6 @@ public class DebugParameters
 	{
 		if (this.m_parameters.ContainsKey(key))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugParameters.GetParameterAsFloat(string)).MethodHandle;
-			}
 			return Convert.ToSingle(this.m_parameters[key]);
 		}
 		return 0f;
@@ -89,19 +63,6 @@ public class DebugParameters
 	{
 		if (this.m_parameters.ContainsKey(key))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugParameters.GetParameterAsBool(string)).MethodHandle;
-			}
 			return Convert.ToInt32(this.m_parameters[key]) == 1;
 		}
 		return false;
@@ -111,19 +72,6 @@ public class DebugParameters
 	{
 		if (this.m_parameters.ContainsKey(key))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugParameters.GetParameterAsInt(string)).MethodHandle;
-			}
 			return Convert.ToInt32(this.m_parameters[key]);
 		}
 		return 0;
@@ -133,19 +81,6 @@ public class DebugParameters
 	{
 		if (this.m_parameters.ContainsKey(key))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugParameters.GetParameterAs(string)).MethodHandle;
-			}
 			return (T)((object)Convert.ChangeType(this.m_parameters[key], typeof(T)));
 		}
 		return (T)((object)Convert.ChangeType(0, typeof(T)));

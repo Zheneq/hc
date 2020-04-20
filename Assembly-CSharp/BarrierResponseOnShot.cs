@@ -28,41 +28,10 @@ public class BarrierResponseOnShot
 	{
 		if (this.m_healOnOwnerFromEnemyShot <= 0 && this.m_energyGainOnOwnerFromEnemyShot <= 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierResponseOnShot.HasResponses()).MethodHandle;
-			}
 			if (!this.m_effectOnOwnerFromEnemyShot.m_applyEffect)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_damageOnEnemyOnShot <= 0 && this.m_energyLossOnEnemyOnShot <= 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_effectOnEnemyOnShot.m_applyEffect;
 				}
 			}
@@ -85,19 +54,6 @@ public class BarrierResponseOnShot
 		int otherVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierResponseOnShot.AddTooltipTokens(List<TooltipTokenEntry>, string, bool, BarrierResponseOnShot)).MethodHandle;
-			}
 			otherVal = other.m_healOnOwnerFromEnemyShot;
 		}
 		else
@@ -112,15 +68,6 @@ public class BarrierResponseOnShot
 		int otherVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.m_energyGainOnOwnerFromEnemyShot;
 		}
 		else
@@ -133,15 +80,6 @@ public class BarrierResponseOnShot
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effectOnOwnerFromEnemyShot;
 		}
 		else
@@ -156,15 +94,6 @@ public class BarrierResponseOnShot
 		int otherVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_damageOnEnemyOnShot;
 		}
 		else
@@ -179,15 +108,6 @@ public class BarrierResponseOnShot
 		int otherVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal4 = other.m_energyLossOnEnemyOnShot;
 		}
 		else
@@ -200,15 +120,6 @@ public class BarrierResponseOnShot
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = other.m_effectOnEnemyOnShot;
 		}
 		else
@@ -223,19 +134,6 @@ public class BarrierResponseOnShot
 		bool flag;
 		if (showDiff)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierResponseOnShot.GetInEditorDescription(string, string, bool, BarrierResponseOnShot)).MethodHandle;
-			}
 			flag = (other != null);
 		}
 		else
@@ -255,15 +153,6 @@ public class BarrierResponseOnShot
 		float num;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = (float)other.m_energyGainOnOwnerFromEnemyShot;
 		}
 		else
@@ -278,15 +167,6 @@ public class BarrierResponseOnShot
 		StandardEffectInfo baseVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effectOnOwnerFromEnemyShot;
 		}
 		else
@@ -305,15 +185,6 @@ public class BarrierResponseOnShot
 		GameObject otherVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.m_onShotSequencePrefab;
 		}
 		else
@@ -329,15 +200,6 @@ public class BarrierResponseOnShot
 		bool otherVal2;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.m_useShooterPosAsReactionSequenceTargetPos;
 		}
 		else

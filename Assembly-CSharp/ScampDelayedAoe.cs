@@ -62,19 +62,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		StandardActorEffectData cachedDelayedEffectBase;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.SetCachedFields()).MethodHandle;
-			}
 			cachedDelayedEffectBase = this.m_abilityMod.m_delayedEffectBaseMod.GetModifiedValue(this.m_delayedEffectBase);
 		}
 		else
@@ -94,19 +81,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.GetExtraDamageIfShieldDownForm()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageIfShieldDownFormMod.GetModifiedValue(this.m_extraDamageIfShieldDownForm);
 		}
 		else
@@ -121,19 +95,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		float result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.GetSubseqTurnDamageMultiplier()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_subseqTurnDamageMultiplierMod.GetModifiedValue(this.m_subseqTurnDamageMultiplier);
 		}
 		else
@@ -148,19 +109,6 @@ public class ScampDelayedAoe : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.SubseqTurnNoEnergyGain()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_subseqTurnNoEnergyGainMod.GetModifiedValue(this.m_subseqTurnNoEnergyGain);
 		}
 		else
@@ -181,30 +129,8 @@ public class ScampDelayedAoe : GenericAbility_Container
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDelayedAoe.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}

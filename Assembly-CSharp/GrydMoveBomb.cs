@@ -23,19 +23,6 @@ public class GrydMoveBomb : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydMoveBomb.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Move Bomb";
 		}
 		this.m_placeBombAbility = (base.ActorData.GetAbilityData().GetAbilityOfType(typeof(GrydPlaceBomb)) as GrydPlaceBomb);

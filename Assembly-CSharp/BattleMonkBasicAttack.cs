@@ -28,19 +28,6 @@ public class BattleMonkBasicAttack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Siphon Slash";
 		}
 		this.SetupTargeter();
@@ -94,33 +81,11 @@ public class BattleMonkBasicAttack : Ability
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				int num = this.ModdedHealPerTargetHit() * visibleActorsCountByTooltipSubject;
 				dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt((float)num);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedConeDamage(visibleActorsCountByTooltipSubject);
 			}
 		}
@@ -151,19 +116,6 @@ public class BattleMonkBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBasicAttack.ModdedConeAngle()).MethodHandle;
-			}
 			result = this.m_coneWidthAngle;
 		}
 		else
@@ -178,19 +130,6 @@ public class BattleMonkBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBasicAttack.ModdedConeLength()).MethodHandle;
-			}
 			result = this.m_coneLength;
 		}
 		else
@@ -216,19 +155,6 @@ public class BattleMonkBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkBasicAttack.ModdedHealPerTargetHit()).MethodHandle;
-			}
 			result = this.m_healAmountPerTargetHit;
 		}
 		else

@@ -51,19 +51,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			string temporaryCachePath;
 			if (Application.temporaryCachePath == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob..ctor(string, BugReportType, string, string)).MethodHandle;
-				}
 				temporaryCachePath = string.Empty;
 			}
 			else
@@ -73,15 +60,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			this.m_temporaryCachePath = temporaryCachePath;
 			if (Path.DirectorySeparatorChar == '\\')
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_temporaryCachePath = this.m_temporaryCachePath.Replace("/", "\\");
 			}
 			this.m_outputLogPathCopy = Path.Combine(this.m_temporaryCachePath, Path.GetFileName(this.m_outputLogPath));
@@ -93,15 +71,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				this.m_userKeyValues["MemoryTotalPhysical"] = num.ToString();
 				if (Environment.GetCommandLineArgs() == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string[] array = new string[0];
 				}
 				this.m_userKeyValues["CommandLine"] = string.Format("\"{0}\"", string.Join(string.Empty, Environment.GetCommandLineArgs()));
@@ -119,15 +88,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				Resolution[] resolutions = Screen.resolutions;
 				if (resolutions != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < resolutions.Length; i++)
 					{
 						this.m_userKeyValues[string.Format("Resolution{0}", i)] = resolutions[i].ToString();
@@ -140,15 +100,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				foreach (PropertyInfo propertyInfo in typeof(SystemInfo).GetProperties(BindingFlags.Static | BindingFlags.Public))
 				{
 					this.m_userKeyValues.Add(propertyInfo.Name, propertyInfo.GetValue(null, null).ToString());
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			catch (Exception exception)
@@ -191,19 +142,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob.Cancel()).MethodHandle;
-			}
 			ClientGameManager.Get().OnConnectedToLobbyServer -= this.OnRegisterGameClientResponse;
 		}
 		try
@@ -224,41 +162,10 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 			ClientCrashReportThreadedJob.State state = this.m_state;
 			if (state != ClientCrashReportThreadedJob.State.CreatingArchive)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob.ThreadFunction()).MethodHandle;
-				}
 				if (state != ClientCrashReportThreadedJob.State.MoveArchiveAndReadBytes)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (state != ClientCrashReportThreadedJob.State.CleanUp)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -266,15 +173,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 						this.m_progressValue = 0.95f;
 						if (this.m_stateSucceeeded)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							try
 							{
 								Directory.Delete(this.m_crashDumpDirectoryPath, true);
@@ -304,15 +202,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 					this.m_progressValue = 0.6f;
 					if (File.Exists(text))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						try
 						{
 							this.m_crashReportBytes = File.ReadAllBytes(text);
@@ -341,52 +230,16 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				this.m_stateSucceeeded = true;
 				if (!Directory.Exists(this.m_crashDumpDirectoryPath))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_bugReportType != BugReportType.Crash)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						try
 						{
 							DirectoryInfo directoryInfo = Directory.CreateDirectory(this.m_crashDumpDirectoryPath);
 							if (directoryInfo != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (directoryInfo.Exists)
 								{
 									goto IL_D6;
-								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							Log.Error("Failed to create temp directory for user bug report at {0}", new object[]
@@ -416,26 +269,8 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				}
 				if (this.m_stateSucceeeded)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!string.IsNullOrEmpty(this.m_userMessage))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						try
 						{
 							StreamWriter streamWriter2 = new StreamWriter(this.m_crashDumpDirectoryPath + "\\UserMessage.txt");
@@ -447,15 +282,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 							{
 								if (streamWriter2 != null)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									((IDisposable)streamWriter2).Dispose();
 								}
 							}
@@ -466,15 +292,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 							bool stateSucceeeded;
 							if (this.m_bugReportType != BugReportType.Bug)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								stateSucceeeded = (this.m_bugReportType != BugReportType.Exception);
 							}
 							else
@@ -487,26 +304,8 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				}
 				if (this.m_stateSucceeeded)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_bugReportType != BugReportType.Crash)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						try
 						{
 							StringBuilder stringBuilder = new StringBuilder((this.m_logMessage != null) ? (this.m_logMessage + "\n") : string.Empty);
@@ -515,29 +314,11 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 								File.Copy(this.m_outputLogPath, this.m_outputLogPathCopy, true);
 								if (File.Exists(this.m_outputLogPathCopy))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									StreamReader streamReader = File.OpenText(this.m_outputLogPathCopy);
 									try
 									{
 										if (streamReader.BaseStream.Length <= 0x40000L)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											streamReader.BaseStream.Seek(-streamReader.BaseStream.Length, SeekOrigin.End);
 										}
 										else
@@ -551,15 +332,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 									{
 										if (streamReader != null)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											((IDisposable)streamReader).Dispose();
 										}
 									}
@@ -572,15 +344,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 									{
 										if (streamWriter3 != null)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											((IDisposable)streamWriter3).Dispose();
 										}
 									}
@@ -595,68 +358,23 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				}
 				if (this.m_stateSucceeeded)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					try
 					{
 						StringBuilder stringBuilder2 = new StringBuilder();
 						if (ClientBootstrap.Instance != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (File.Exists(ClientBootstrap.Instance.GetFileLogCurrentPath()))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								string path = "AtlasReactor.txt";
 								string text2 = Path.Combine(this.m_temporaryCachePath, path);
 								File.Copy(ClientBootstrap.Instance.GetFileLogCurrentPath(), text2, true);
 								if (File.Exists(text2))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									StreamReader streamReader2 = File.OpenText(text2);
 									try
 									{
 										if (streamReader2.BaseStream.Length <= 0x40000L)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											streamReader2.BaseStream.Seek(-streamReader2.BaseStream.Length, SeekOrigin.End);
 										}
 										else
@@ -670,15 +388,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 									{
 										if (streamReader2 != null)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											((IDisposable)streamReader2).Dispose();
 										}
 									}
@@ -691,15 +400,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 									{
 										if (streamWriter4 != null)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											((IDisposable)streamWriter4).Dispose();
 										}
 									}
@@ -714,15 +414,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 				}
 				if (this.m_stateSucceeeded)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_stateSucceeeded = CrashReportArchiver.CreateArchiveFromCrashDumpDirectory(out this.m_tempArchivePath, out this.m_tempArchiveFileSize, this.m_crashDumpDirectoryPath, this.m_temporaryCachePath, this.m_userKeyValues, this.m_bugReportType);
 				}
 				this.m_progressValue = 0.2f;
@@ -742,19 +433,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 		case ClientCrashReportThreadedJob.State.CreatingArchive:
 			if (this.m_stateSucceeeded)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob.OnThreadFunctionReturned()).MethodHandle;
-				}
 				if (!ClientGameManager.Get().IsConnectedToLobbyServer)
 				{
 					ClientGameManager.Get().OnConnectedToLobbyServer += this.OnRegisterGameClientResponse;
@@ -773,15 +451,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 		case ClientCrashReportThreadedJob.State.MoveArchiveAndReadBytes:
 			if (this.m_stateSucceeeded)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info("Move and read of {0} succeeded: {1}", new object[]
 				{
 					this.m_archiveFileName,
@@ -837,19 +506,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 	{
 		if (ClientGameManager.Get().RequestCrashReportArchiveName(this.m_tempArchiveFileSize, new Action<CrashReportArchiveNameResponse>(this.OnCrashReportArchiveNameResponse)))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob.RequestArchiveName()).MethodHandle;
-			}
 			this.m_state = ClientCrashReportThreadedJob.State.WaitingForArchiveNameResponse;
 		}
 		else
@@ -863,53 +519,13 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 	{
 		if (response.Success)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob.OnCrashReportArchiveNameResponse(CrashReportArchiveNameResponse)).MethodHandle;
-			}
 			ClientCrashReportThreadedJob.State state = this.m_state;
 			if (state != ClientCrashReportThreadedJob.State.Failed)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (state != ClientCrashReportThreadedJob.State.Canceled)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (state != ClientCrashReportThreadedJob.State.WaitingForArchiveNameResponse)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Error("Unexpected worker thread state when receiving archive name: {0}", new object[]
 						{
 							this.m_state.ToString()
@@ -953,19 +569,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 	{
 		if (!response.Success)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob.OnRegisterGameClientResponse(RegisterGameClientResponse)).MethodHandle;
-			}
 			Log.Error("Client encountered an error while connecting to lobby server {0}", new object[]
 			{
 				response.ErrorMessage
@@ -997,19 +600,6 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 	{
 		if (success)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCrashReportThreadedJob.OnUploadArchiveEndStatus(bool)).MethodHandle;
-			}
 			this.m_state = ClientCrashReportThreadedJob.State.CleanUp;
 			base.StartThread();
 		}

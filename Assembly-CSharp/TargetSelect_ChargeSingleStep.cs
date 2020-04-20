@@ -41,19 +41,6 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 		AbilityAreaShape result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeSingleStep.GetDestShape()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_destShapeMod.GetModifiedValue(this.m_destShape);
 		}
 		else
@@ -68,30 +55,8 @@ public class TargetSelect_ChargeSingleStep : GenericAbility_TargetSelectBase
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_ChargeSingleStep.HandleCustomTargetValidation(Ability, ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe != caster.GetCurrentBoardSquare())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num;
 				return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 			}

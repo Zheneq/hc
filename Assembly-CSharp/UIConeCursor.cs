@@ -18,19 +18,6 @@ public class UIConeCursor : MonoBehaviour
 		this.m_worldRadius = newWorldRadius;
 		if (this.m_worldRadius <= 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIConeCursor.OnRadiusChanged(float)).MethodHandle;
-			}
 			Log.Error("ConeCursor with invalid radius (" + this.m_worldRadius + ").  Disabling...", new object[0]);
 			UIManager.SetGameObjectActive(base.gameObject, false, null);
 		}
@@ -48,19 +35,6 @@ public class UIConeCursor : MonoBehaviour
 	{
 		if (this.m_innerArc != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIConeCursor.Start()).MethodHandle;
-			}
 			this.m_innerArc.transform.localPosition = new Vector3(0f, this.m_heightOffset, 0f);
 		}
 		if (this.m_outerArc != null)

@@ -26,19 +26,6 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 		RobotAnimalStealth x = targetAbility as RobotAnimalStealth;
 		if (x != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalStealth.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 		}
 	}
 
@@ -62,19 +49,6 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 		}
 		if (this.m_selfEffectOverride != null && this.m_selfEffectOverride.m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalStealth.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			string str = text;
 			StandardActorEffectData effectData = this.m_selfEffectOverride.m_effectData;
 			string prefix = "{ Override for the Stealth Effect }";
@@ -83,15 +57,6 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 			StandardActorEffectData baseVal;
 			if (robotAnimalStealth != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = robotAnimalStealth.m_selfEffect;
 			}
 			else

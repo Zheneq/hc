@@ -53,32 +53,10 @@ public class RampartBarricade_Prep : Ability
 		}
 		if (this.m_passive != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.Setup()).MethodHandle;
-			}
 			Passive_Rampart passive = this.m_passive;
 			AbilityModPropertyBarrierDataV2 cachedShieldBarrierData;
 			if (this.m_abilityMod != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				cachedShieldBarrierData = this.m_abilityMod.m_shieldBarrierDataMod;
 			}
 			else
@@ -101,19 +79,6 @@ public class RampartBarricade_Prep : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -128,19 +93,6 @@ public class RampartBarricade_Prep : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.AllowAimAtDiagonals()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allowAimAtDiagonalsMod.GetModifiedValue(this.m_allowAimAtDiagonals);
 		}
 		else
@@ -160,19 +112,6 @@ public class RampartBarricade_Prep : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -192,19 +131,6 @@ public class RampartBarricade_Prep : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.LaserLengthIgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserLengthIgnoreLosMod.GetModifiedValue(this.m_laserLengthIgnoreLos);
 		}
 		else
@@ -224,19 +150,6 @@ public class RampartBarricade_Prep : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.GetKnockbackDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(this.m_knockbackDistance);
 		}
 		else
@@ -261,19 +174,6 @@ public class RampartBarricade_Prep : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.AffectCaster()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_effectToSelfOnCast.m_applyEffect;
 		}
 		else
@@ -296,19 +196,6 @@ public class RampartBarricade_Prep : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartBarricade_Prep))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RampartBarricade_Prep);
 		}
 		this.Setup();
@@ -329,19 +216,6 @@ public class RampartBarricade_Prep : Ability
 		int val;
 		if (abilityMod_RampartBarricade_Prep)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Prep.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_RampartBarricade_Prep.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -352,15 +226,6 @@ public class RampartBarricade_Prep : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_RampartBarricade_Prep)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RampartBarricade_Prep.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -371,26 +236,8 @@ public class RampartBarricade_Prep : Ability
 		Passive_Rampart component = base.GetComponent<Passive_Rampart>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.m_normalShieldBarrierData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.m_normalShieldBarrierData.AddTooltipTokens(tokens, "ShieldBarrier", false, null);
 			}
 		}

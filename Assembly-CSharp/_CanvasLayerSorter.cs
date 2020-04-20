@@ -28,19 +28,6 @@ public class _CanvasLayerSorter : MonoBehaviour
 	{
 		if (this.m_theCanvas != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CanvasLayerSorter.DoCanvasRefresh()).MethodHandle;
-			}
 			this.m_theCanvas.overrideSorting = false;
 			this.m_theCanvas.overrideSorting = true;
 		}

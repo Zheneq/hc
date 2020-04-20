@@ -23,31 +23,9 @@ public class TooltipTokenHelper
 	{
 		if (value <= 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenHelper.AddTokenInt(List<TooltipTokenEntry>, string, int, string, bool)).MethodHandle;
-			}
 			if (!addIfNonPositive)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		tokens.Add(new TooltipTokenInt(name, desc, value));
@@ -60,19 +38,6 @@ public class TooltipTokenHelper
 			if (!addIfNonPositive)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenHelper.AddTokenFloat(List<TooltipTokenEntry>, string, float, string, bool)).MethodHandle;
 			}
 		}
 		tokens.Add(new TooltipTokenFloat(name, desc, value));

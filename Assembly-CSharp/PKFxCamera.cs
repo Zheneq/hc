@@ -123,19 +123,6 @@ public class PKFxCamera : PKFxPackDependent
 		this.m_CurrentCameraID = this.m_CameraID;
 		if (Application.platform != RuntimePlatform.IPhonePlayer)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.Awake()).MethodHandle;
-			}
 			if (VRSettings.enabled && VRDevice.isPresent)
 			{
 				this.m_VRReservedID = PKFxCamera.GetUniqueID();
@@ -156,19 +143,6 @@ public class PKFxCamera : PKFxPackDependent
 		PKFxCamera.g_DepthShaderName = "Hidden/PKFx Depth Copy";
 		if (Shader.Find(PKFxCamera.g_DepthShaderName).isSupported)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.ResolveDepthShaderAndTextureFormat()).MethodHandle;
-			}
 			if (SystemInfo.SupportsRenderTextureFormat(PKFxCamera.g_DepthFormat))
 			{
 				goto IL_138;
@@ -186,15 +160,6 @@ public class PKFxCamera : PKFxPackDependent
 		PKFxCamera.g_DepthFormat = RenderTextureFormat.RFloat;
 		if (!SystemInfo.SupportsRenderTextureFormat(PKFxCamera.g_DepthFormat))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning("[PKFX] " + PKFxCamera.g_DepthFormat + " fallback texture format not supported.");
 			PKFxCamera.g_DepthFormat = RenderTextureFormat.RHalf;
 			Debug.LogWarning("[PKFX] Resorting to " + PKFxCamera.g_DepthFormat + " (may produce artefacts).");
@@ -217,41 +182,10 @@ public class PKFxCamera : PKFxPackDependent
 		bool flag = PKFxCamera.ResolveDepthShaderAndTextureFormat();
 		if (this.m_DepthGrabMat == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.SetupDepthGrab()).MethodHandle;
-			}
 			if (!SystemInfo.SupportsRenderTextureFormat(PKFxCamera.g_DepthFormat))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("[PKFX] " + PKFxCamera.g_DepthFormat + " texture format not supported.");
 					Debug.LogError("[PKFX] Soft particles/distortion disabled.");
 				}
@@ -261,15 +195,6 @@ public class PKFxCamera : PKFxPackDependent
 			this.m_DepthGrabMat = new Material(Shader.Find(PKFxCamera.g_DepthShaderName));
 			if (this.m_DepthGrabMat == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					Debug.LogError("[PKFX] Depth copy shader not found.");
@@ -281,28 +206,10 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_DepthRT == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_DepthRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, (int)this.m_DepthGrabFormat, PKFxCamera.g_DepthFormat);
 		}
 		if (!this.m_DepthRT.IsCreated())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_DepthRT.Create();
 		}
 		if (this.m_CmdBufDepthGrabber == null)
@@ -312,28 +219,10 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredShading)
 			{
 				this.m_Camera.AddCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
 				goto IL_1C1;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_Camera.AddCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
@@ -348,19 +237,6 @@ public class PKFxCamera : PKFxPackDependent
 	{
 		if (this.m_CmdBufDepthGrabber != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.ReleaseDepthGrabResources()).MethodHandle;
-			}
 			this.m_CmdBufDepthGrabber.Clear();
 			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
 			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
@@ -379,32 +255,10 @@ public class PKFxCamera : PKFxPackDependent
 	{
 		if (SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBFloat))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.SetupDistortionPass()).MethodHandle;
-			}
 			this.m_DistortionRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.sRGB);
 		}
 		else if (SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_DistortionRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, 0, RenderTextureFormat.ARGBHalf, RenderTextureReadWrite.sRGB);
 		}
 		else
@@ -416,52 +270,16 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_DistortionRT != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_DistortionRT.IsCreated())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_DistortionRT.Create();
 			}
 		}
 		if (this.m_DistortionMat == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_DistortionMat = new Material(Shader.Find("Hidden/PKFx Distortion"));
 			if (this.m_DistortionMat == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("[PKFX] Failed to load FxDistortionEffect shader...");
 				Debug.LogError("[PKFX] Distortion disabled.");
 				this.m_EnableDistortion = false;
@@ -470,15 +288,6 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_DistBlurMat == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_DistBlurMat = new Material(Shader.Find("Hidden/PKFx Blur Shader for Distortion Pass"));
 			if (this.m_DistBlurMat == null)
 			{
@@ -489,15 +298,6 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_Camera.actualRenderingPath != RenderingPath.Forward)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_CmdBufDisto = new CommandBuffer();
 			this.m_CmdBufDisto.name = "PopcornFX Distortion Post-Effect";
 			this.m_Camera.AddCommandBuffer(CameraEvent.BeforeImageEffects, this.m_CmdBufDisto);
@@ -532,31 +332,9 @@ public class PKFxCamera : PKFxPackDependent
 			{
 				goto IL_179;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.SetupRendering()).MethodHandle;
-			}
 		}
 		if (this.m_CmdBufDepthGrabber == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.SetupDepthGrab())
 			{
 				goto IL_179;
@@ -564,28 +342,10 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_DepthRT != null && !this.m_DepthRT.IsCreated())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_DepthRT.Release();
 			this.m_DepthRT = new RenderTexture(this.m_Camera.pixelWidth, this.m_Camera.pixelHeight, (int)this.m_DepthGrabFormat, PKFxCamera.g_DepthFormat);
 			if (!this.m_DepthRT.IsCreated())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_DepthRT.Create();
 			}
 			this.DepthRT = this.m_DepthRT.GetNativeTexturePtr();
@@ -594,26 +354,8 @@ public class PKFxCamera : PKFxPackDependent
 		{
 			if (this.m_Camera.actualRenderingPath == RenderingPath.Forward)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_FlipRendering)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SystemInfo.graphicsDeviceVersion.Contains("Direct3D"))
 					{
 						this.m_DepthGrabMat.SetFloat("_Flip", 1f);
@@ -626,15 +368,6 @@ public class PKFxCamera : PKFxPackDependent
 		IL_179:
 		if (this.m_CmdBufDepthGrabber != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_CmdBufDepthGrabber.Clear();
 			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
 			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
@@ -648,15 +381,6 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_Camera.actualRenderingPath != RenderingPath.Forward)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_EnableDistortion)
 			{
 				if (this.m_CmdBufDisto != null)
@@ -665,28 +389,10 @@ public class PKFxCamera : PKFxPackDependent
 					{
 						goto IL_23E;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!this.SetupDistortionPass())
 				{
 					goto IL_302;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_23E:
 				int nameID = Shader.PropertyToID("PKFxDistTmp");
@@ -696,15 +402,6 @@ public class PKFxCamera : PKFxPackDependent
 				this.m_CmdBufDisto.Blit(BuiltinRenderTextureType.CameraTarget, renderTargetIdentifier, this.m_DistortionMat);
 				if (this.m_EnableBlur)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_DistBlurMat.SetTexture("_DistortionTex", this.m_DistortionRT);
 					this.m_DistBlurMat.SetFloat("_BlurFactor", this.m_BlurFactor);
 					this.m_CmdBufDisto.Blit(renderTargetIdentifier, BuiltinRenderTextureType.CameraTarget, this.m_DistBlurMat);
@@ -743,69 +440,20 @@ public class PKFxCamera : PKFxPackDependent
 		this.m_CameraDescription.Flags = (this.m_CameraDescription.Flags | ((!this.m_UseDepthGrabToZTest) ? 0 : 1));
 		if (this.m_Camera.pixelWidth == this.m_PrevScreenWidth)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.UpdateFrame()).MethodHandle;
-			}
 			if (this.m_Camera.pixelHeight == this.m_PrevScreenHeight)
 			{
 				goto IL_2C4;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_CameraDescription.Flags = (this.m_CameraDescription.Flags | 2);
 		if (this.m_CmdBufDepthGrabber != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredShading)
 				{
 					this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, this.m_CmdBufDepthGrabber);
 					goto IL_199;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_Camera.RemoveCommandBuffer(CameraEvent.AfterFinalPass, this.m_CmdBufDepthGrabber);
@@ -821,15 +469,6 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (this.m_DistortionRT != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_DistortionRT.Release();
 			this.m_DistortionRT = null;
 		}
@@ -841,41 +480,14 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		else if (this.m_EnableDistortion)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_DistortionRT == null)
 			{
 				this.SetupDistortionPass();
 				if (this.m_Camera.actualRenderingPath == RenderingPath.Forward)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PKFxDistortionEffect component = base.GetComponent<PKFxDistortionEffect>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component._DistortionRT = this.m_DistortionRT;
 					}
 				}
@@ -887,15 +499,6 @@ public class PKFxCamera : PKFxPackDependent
 		PKFxManager.LogicalUpdate(this.m_CameraDescription.DT);
 		if (!this.m_Camera.stereoEnabled)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateViewMatrix(false, Camera.StereoscopicEye.Left);
 			this.UpdateProjectionMatrix(false, Camera.StereoscopicEye.Left);
 			this.m_CurrentCameraID = this.m_CameraID;
@@ -931,30 +534,8 @@ public class PKFxCamera : PKFxPackDependent
 		bool flag;
 		if (!this.m_FlipRendering)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.UpdateProjectionMatrix(bool, Camera.StereoscopicEye)).MethodHandle;
-			}
 			if (this.m_Camera.actualRenderingPath != RenderingPath.DeferredLighting)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (this.m_Camera.actualRenderingPath == RenderingPath.DeferredShading);
 				goto IL_46;
 			}
@@ -983,32 +564,10 @@ public class PKFxCamera : PKFxPackDependent
 	{
 		if (!PKFxManager.m_PackLoaded)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxCamera.OnPreRender()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_CurrentFrameID != this.m_LastUpdateFrameID)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_CurrentCameraID = this.m_CameraID;
 			this.SetupRendering();
 			this.m_LastUpdateFrameID = this.m_CurrentFrameID;
@@ -1020,15 +579,6 @@ public class PKFxCamera : PKFxPackDependent
 		}
 		if (PKFxCamera.m_LastFrameCount != Time.frameCount)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PKFxManager.UpdateParticles(this.m_CameraDescription);
 			PKFxCamera.m_LastFrameCount = Time.frameCount;
 		}

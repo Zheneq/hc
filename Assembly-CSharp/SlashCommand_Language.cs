@@ -14,19 +14,6 @@ public class SlashCommand_Language : SlashCommand
 		{
 			if (LocalizationManager.HasLanguage(arguments, true, true))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Language.OnSlashCommand(string)).MethodHandle;
-				}
 				LocalizationManager.CurrentLanguage = arguments;
 				string text = string.Format("Language changed to: {0}", LocalizationManager.CurrentLanguage);
 				TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);

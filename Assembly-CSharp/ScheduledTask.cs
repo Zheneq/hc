@@ -31,32 +31,10 @@ public class ScheduledTask
 		this.Timer.Stop();
 		if (this.IsOneShot)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScheduledTask.TimerElapsed(object, ElapsedEventArgs)).MethodHandle;
-			}
 			this.Timer.Elapsed -= this.TimerElapsed;
 			this.Timer = null;
 			if (this.TaskComplete != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.TaskComplete(this, EventArgs.Empty);
 				this.Action();
 			}

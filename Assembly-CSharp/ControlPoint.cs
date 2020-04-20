@@ -236,41 +236,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			this.Networkm_currentControlPointState = newState;
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetCurrentControlPointState(ControlPoint.State)).MethodHandle;
-				}
 				if (newState == ControlPoint.State.Disabled)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_resetProgressOnceDisabled)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.Networkm_progressTeamA = 0;
 						this.Networkm_progressTeamB = 0;
 						this.Networkm_currentProgressTugOfWar = 0;
@@ -284,31 +253,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_lockedTurnsRemaining != lockedTurnsRemaining)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetLockedTurnsRemaining(int)).MethodHandle;
-			}
 			this.Networkm_lockedTurnsRemaining = lockedTurnsRemaining;
 			if (this.CurrentControlPointState == ControlPoint.State.Locked)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lockedTurnsRemaining == 0)
 				{
 					this.SetCurrentControlPointState(ControlPoint.State.Enabled);
@@ -317,15 +264,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (this.CurrentControlPointState == ControlPoint.State.Enabled && lockedTurnsRemaining > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetCurrentControlPointState(ControlPoint.State.Locked);
 			}
 		}
@@ -335,32 +273,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_boundaryNeutral != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.Start()).MethodHandle;
-			}
 			this.m_boundaryNeutral.SetActive(false);
 		}
 		if (this.m_boundaryAllied != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_boundaryAllied.SetActive(false);
 		}
 		if (this.m_boundaryEnemy != null)
@@ -392,19 +308,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		this.SetLockedTurnsRemaining(this.m_turnsLockedAfterActivated);
 		if (ControlPoint.s_controlPoints == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.Awake()).MethodHandle;
-			}
 			ControlPoint.s_controlPoints = new List<ControlPoint>();
 		}
 		ControlPoint.s_controlPoints.Add(this);
@@ -416,33 +319,11 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.TurnTick);
 		if (this.m_autoBoundary != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnDestroy()).MethodHandle;
-			}
 			HighlightUtils.DestroyBoundaryHighlightObject(this.m_autoBoundary);
 			this.m_autoBoundary = null;
 		}
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HUD_UI.Get().m_mainScreenPanel.m_controlPointNameplatePanel.RemoveControlPoint(this);
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveControlPoint(this);
 		}
@@ -465,19 +346,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		List<BoardSquare> squaresInRegion = this.m_visionRegionOverride.GetSquaresInRegion();
 		if (squaresInRegion.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetSquaresForVision()).MethodHandle;
-			}
 			return squaresInRegion;
 		}
 		return this.m_region.GetSquaresInRegion();
@@ -495,47 +363,16 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!this.m_initializedControlPointHud)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.Update()).MethodHandle;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_controlPointNameplatePanel.AddControlPoint(this);
 				HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddControlPoint(this);
 				this.m_initializedControlPointHud = true;
 			}
 			if (this.m_boundaryToShow != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_boundaryVFX != this.m_boundaryToShow)
 				{
 					if (this.m_boundaryVFX != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_boundaryVFX.SetActive(false);
 					}
 					this.m_boundaryToShow.SetActive(true);
@@ -548,55 +385,19 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		this.GenerateBoundaryVisuals(false);
 		if (this.m_autoBoundary != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num = (1f - Mathf.Cos(Time.time * this.m_boundaryOscillationSpeed)) / 2f;
 			float num2 = num * this.m_boundaryOscillationHeight;
 			this.m_autoBoundary.transform.position = new Vector3(this.m_autoBoundary.transform.position.x, this.m_autoBoundaryHeight + num2, this.m_autoBoundary.transform.position.z);
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().LocalPlayerData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					Team controllingTeam = this.GetControllingTeam();
 					Color mainColor = this.GetMainColor(controllingTeam, teamViewing);
 					bool flag;
 					if (this.m_numTeamAPlayers > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (this.m_numTeamBPlayers > 0);
 					}
 					else
@@ -608,15 +409,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					bool flag3;
 					if (this.m_canContributeProgressWhileContested)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = (this.m_numTeamAPlayers > this.m_numTeamBPlayers);
 						flag3 = (this.m_numTeamBPlayers > this.m_numTeamAPlayers);
 					}
@@ -625,15 +417,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						bool flag4;
 						if (this.m_numTeamAPlayers > 0)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag4 = (this.m_numTeamBPlayers == 0);
 						}
 						else
@@ -653,15 +436,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 							flag5 = true;
 							goto IL_2C1;
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					flag5 = (flag3 && teamViewing == Team.TeamB);
 					IL_2C1:
@@ -669,15 +443,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					bool flag6;
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (teamViewing != Team.TeamA)
 						{
 							flag6 = true;
@@ -686,15 +451,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (flag3)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag6 = (teamViewing != Team.TeamB);
 					}
 					else
@@ -717,44 +473,13 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_autoBoundary != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GenerateBoundaryVisuals(bool)).MethodHandle;
-			}
 			if (this.m_autoGenerateBoundaryVisuals)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentControlPointState != ControlPoint.State.Disabled)
 				{
 					if (!forceRefreshBoundary)
 					{
 						goto IL_5B;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -764,37 +489,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		IL_5B:
 		if (this.m_autoBoundary == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_autoGenerateBoundaryVisuals)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentControlPointState != ControlPoint.State.Disabled)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_autoBoundary = HighlightUtils.Get().CreateBoundaryHighlight(this.m_region.GetSquaresInRegion(), Color.yellow, false);
 					this.m_autoBoundary.name = this.m_displayName + " Auto-Boundary";
 					UnityEngine.Object.DontDestroyOnLoad(this.m_autoBoundary);
@@ -808,19 +506,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_autoBoundary != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetBoundaryColor(Color)).MethodHandle;
-			}
 			this.m_autoBoundary.GetComponent<Renderer>().material.SetColor("_TintColor", newColor);
 		}
 	}
@@ -830,19 +515,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		this.m_boundaryToShow = null;
 		if (this.m_autoGenerateBoundaryVisuals)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.RefreshBoundaryVFX()).MethodHandle;
-			}
 			this.m_boundaryToShow = this.m_autoBoundary;
 		}
 		else if (this.m_currentControlPointState == ControlPoint.State.Disabled)
@@ -852,26 +524,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		else if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 				Team controllingTeam = this.GetControllingTeam();
 				if (controllingTeam == Team.Invalid)
@@ -881,15 +535,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				else if (controllingTeam == teamViewing)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_boundaryToShow = this.m_boundaryAllied;
 					this.m_currentMinimapColor = this.m_miniMapColorAllied;
 				}
@@ -907,32 +552,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		Color result;
 		if (controllingTeam == Team.Invalid)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetMainColor(Team, Team)).MethodHandle;
-			}
 			result = this.m_primaryColor_neutral;
 		}
 		else if (controllingTeam == clientTeam)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_primaryColor_friendly;
 		}
 		else
@@ -947,30 +570,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		Color result;
 		if (alliedCapturing)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetSecondaryColor(bool, bool, bool, bool, bool, Color)).MethodHandle;
-			}
 			if (alliedControlled)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = mainColor;
 			}
 			else
@@ -980,26 +581,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		else if (enemyCapturing)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (enemyControlled)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = mainColor;
 			}
 			else
@@ -1009,15 +592,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		else if (contested)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_secondaryColor_contested;
 		}
 		else
@@ -1041,19 +615,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		Vector3 b2;
 		if (Camera.main != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetGUIPosition(float)).MethodHandle;
-			}
 			if (Camera.main.transform != null)
 			{
 				Vector3 a = Camera.main.WorldToScreenPoint(vector);
@@ -1074,19 +635,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.SetupRectNameplate(TextMeshProUGUI*, TextMeshProUGUI*, Slider*)).MethodHandle;
-			}
 			if (!(GameFlowData.Get().LocalPlayerData == null))
 			{
 				bool flag;
@@ -1109,28 +657,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					int num = Mathf.Abs(this.CurrentProgressTugOfWar);
 					if (this.CurrentProgressTugOfWar > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bar.value = (float)num / (float)this.m_maxTotalProgressForTeamA;
 					}
 					else if (this.CurrentProgressTugOfWar < 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bar.value = (float)num / (float)this.m_maxTotalProgressForTeamB;
 					}
 					else
@@ -1142,15 +672,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					bool active;
 					if (num <= 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						active = (this.CurrentControlPointState == ControlPoint.State.Enabled);
 					}
 					else
@@ -1173,15 +694,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				if (this.CurrentControlPointState != ControlPoint.State.Enabled)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					progressLabel.color = this.m_uiTextColor_Locked;
 				}
 				else if (flag5)
@@ -1194,15 +706,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				else if (flag9)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					progressLabel.color = this.m_secondaryColor_contested;
 				}
 				else
@@ -1213,15 +716,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				{
 					if (teamViewing == Team.TeamA)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						controllerLabel.text = "Friendly Controlled";
 					}
 					else
@@ -1231,15 +725,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				else if (controllingTeam == Team.TeamB)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (teamViewing == Team.TeamB)
 					{
 						controllerLabel.text = "Friendly Controlled";
@@ -1255,15 +740,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				if (this.m_totalObjectivePointsToDispense >= 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string str = " (" + (this.m_totalObjectivePointsToDispense - this.m_numObjectivePointsDispensed).ToString() + " ObjPts)";
 					TextMeshProUGUI textMeshProUGUI = controllerLabel;
 					textMeshProUGUI.text += str;
@@ -1271,28 +747,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				string str2 = string.Empty;
 				if (this.m_progressType == ControlPoint.ControlProgressType.IndependentProgress)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2;
 					int num3;
 					if (teamViewing == Team.TeamA)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = this.m_progressTeamA;
 						num3 = this.m_progressTeamB;
 					}
@@ -1322,15 +780,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				{
 					if (flag5)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag6)
 						{
 							progressLabel.text = "Friendly Occupied";
@@ -1342,15 +791,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					else if (flag7)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag8)
 						{
 							progressLabel.text = "Enemy Occupied";
@@ -1362,15 +802,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					else if (!flag9)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						progressLabel.text = "Uncontested";
 					}
 					else
@@ -1382,15 +813,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				return;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -1398,19 +820,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnTurnStart_ControlPoint_Client()).MethodHandle;
-			}
 			return;
 		}
 		this.RefreshBoundaryVFX();
@@ -1426,19 +835,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.TurnTick)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			this.OnTurnStart_ControlPoint();
 		}
 	}
@@ -1462,19 +858,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (this.CurrentProgressTugOfWar > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.GetWinningTeam()).MethodHandle;
-			}
 			return Team.TeamA;
 		}
 		if (this.CurrentProgressTugOfWar < 0)
@@ -1489,19 +872,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnCapturedBy(Team, Team)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ControlPoint::OnCapturedBy(Team,Team)' called on client");
 			return;
 		}
@@ -1513,26 +883,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			{
 				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyCapture)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData.GetTeam() == capturedByTeam)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 						goto IL_260;
 					}
@@ -1545,37 +897,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				{
 					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamACapture)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (capturedByTeam == Team.TeamA)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 								goto IL_260;
 							}
@@ -1583,37 +908,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyTeamACapture)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() != capturedByTeam)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (capturedByTeam == Team.TeamA)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 								goto IL_260;
 							}
@@ -1621,37 +919,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamBCapture)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() == capturedByTeam)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (capturedByTeam == Team.TeamB)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 								goto IL_260;
 							}
@@ -1660,15 +931,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					if (captureMessage.condition != ControlPoint.CaptureMessageCondition.OnEnemyTeamBCapture || activeOwnedActorData.GetTeam() == capturedByTeam)
 					{
 						goto IL_249;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (capturedByTeam != Team.TeamB)
 					{
@@ -1703,19 +965,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		Team controllingTeam = this.GetControllingTeam();
 		if (controllingTeam == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.CalcCurrentStatus(bool*, bool*, bool*, bool*, bool*, bool*, bool*, bool*, bool*)).MethodHandle;
-			}
 			teamAControlled = true;
 			teamBControlled = false;
 		}
@@ -1732,15 +981,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		bool flag;
 		if (this.m_numTeamAPlayers > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (this.m_numTeamBPlayers > 0);
 		}
 		else
@@ -1750,15 +990,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		contested = flag;
 		if (this.m_canContributeProgressWhileContested)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			teamACapturing = (this.m_numTeamAPlayers > this.m_numTeamBPlayers);
 			teamBCapturing = (this.m_numTeamBPlayers > this.m_numTeamAPlayers);
 		}
@@ -1767,15 +998,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			bool flag2;
 			if (this.m_numTeamAPlayers > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = (this.m_numTeamBPlayers == 0);
 			}
 			else
@@ -1786,15 +1008,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			bool flag3;
 			if (this.m_numTeamBPlayers > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = (this.m_numTeamAPlayers == 0);
 			}
 			else
@@ -1805,26 +1018,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().LocalPlayerData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 				bool flag4;
 				if (controllingTeam == Team.TeamA)
@@ -1834,27 +1029,9 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						flag4 = true;
 						goto IL_157;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (controllingTeam == Team.TeamB)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = (teamViewing == Team.TeamB);
 				}
 				else
@@ -1866,41 +1043,14 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				bool flag5;
 				if (controllingTeam == Team.TeamA)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (teamViewing == Team.TeamB)
 					{
 						flag5 = true;
 						goto IL_18D;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (controllingTeam == Team.TeamB)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (teamViewing == Team.TeamA);
 				}
 				else
@@ -1917,15 +1067,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 						flag6 = true;
 						goto IL_1AF;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				flag6 = (teamBCapturing && teamViewing == Team.TeamB);
 				IL_1AF:
@@ -1933,15 +1074,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				bool flag7;
 				if (teamACapturing)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (teamViewing != Team.TeamA)
 					{
 						flag7 = true;
@@ -1950,15 +1082,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 				}
 				if (teamBCapturing)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag7 = (teamViewing != Team.TeamB);
 				}
 				else
@@ -1984,32 +1107,10 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if (team == Team.TeamA)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.IsGrantingVisionForTeam(Team)).MethodHandle;
-			}
 			return this.m_grantingVisionForTeamA;
 		}
 		if (team == Team.TeamB)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_grantingVisionForTeamB;
 		}
 		return false;
@@ -2019,30 +1120,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.HookSetGrantingVisionForTeamA(bool)).MethodHandle;
-			}
 			if (this.m_grantingVisionForTeamA != grantingVisionForTeamA)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.Networkm_grantingVisionForTeamA = grantingVisionForTeamA;
 				List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamA);
 				using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
@@ -2051,15 +1130,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					{
 						ActorData actorData = enumerator.Current;
 						actorData.GetFogOfWar().MarkForRecalculateVisibility();
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -2070,19 +1140,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 	{
 		if (NetworkClient.active && this.m_grantingVisionForTeamB != grantingVisionForTeamB)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.HookSetGrantingVisionForTeamB(bool)).MethodHandle;
-			}
 			this.Networkm_grantingVisionForTeamB = grantingVisionForTeamB;
 			List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(Team.TeamB);
 			foreach (ActorData actorData in allTeamMembers)
@@ -2173,19 +1230,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x20U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_currentControlPointState(ControlPoint.State)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -2209,19 +1253,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x40U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_lockedTurnsRemaining(int)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -2271,30 +1302,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x200U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_grantingVisionForTeamA(bool)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.HookSetGrantingVisionForTeamA(value);
 					base.syncVarHookGuard = false;
@@ -2316,19 +1325,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			uint dirtyBit = 0x400U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.set_Networkm_grantingVisionForTeamB(bool)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
 					base.syncVarHookGuard = true;
@@ -2360,30 +1356,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2391,26 +1365,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2420,15 +1376,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2436,26 +1383,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2463,15 +1392,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x10U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -2483,15 +1403,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2499,26 +1410,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x40U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2526,15 +1419,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x80U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -2546,15 +1430,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2562,26 +1437,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x200U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2589,26 +1446,8 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((base.syncVarDirtyBits & 0x400U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -2645,136 +1484,42 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlPoint.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_progressTeamA = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_progressTeamB = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_controllingTeam = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_numObjectivePointsDispensed = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetCurrentState((ControlPoint.State)reader.ReadInt32());
 		}
 		if ((num & 0x40) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetLockedTurnsRemaining((int)reader.ReadPackedUInt32());
 		}
 		if ((num & 0x80) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_numTeamAPlayers = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x100) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_numTeamBPlayers = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x200) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetGrantingVisionForTeamA(reader.ReadBoolean());
 		}
 		if ((num & 0x400) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HookSetGrantingVisionForTeamB(reader.ReadBoolean());
 		}
 	}

@@ -39,19 +39,6 @@ public class MantaBasicAttack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Crush & Quake";
 		}
 		this.m_syncComp = base.GetComponent<Manta_SyncComponent>();
@@ -100,19 +87,6 @@ public class MantaBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -127,19 +101,6 @@ public class MantaBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetConeLengthInner()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(this.m_coneLengthInner);
 		}
 		else
@@ -159,19 +120,6 @@ public class MantaBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetDamageAmountInner()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountInnerMod.GetModifiedValue(this.m_damageAmountInner);
 		}
 		else
@@ -186,19 +134,6 @@ public class MantaBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetDamageAmountThroughWalls()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountThroughWallsMod.GetModifiedValue(this.m_damageAmountThroughWalls);
 		}
 		else
@@ -213,19 +148,6 @@ public class MantaBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetExtraDamageNoLoS()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageNoLoSMod.GetModifiedValue(0);
 		}
 		else
@@ -240,19 +162,6 @@ public class MantaBasicAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectInner != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetEffectInner()).MethodHandle;
-			}
 			result = this.m_cachedEffectInner;
 		}
 		else
@@ -267,19 +176,6 @@ public class MantaBasicAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOuter != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetEffectOuter()).MethodHandle;
-			}
 			result = this.m_cachedEffectOuter;
 		}
 		else
@@ -293,30 +189,8 @@ public class MantaBasicAttack : Ability
 	{
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetAdditionalDirtyFightingExplosionEffect()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
 			}
 		}
@@ -328,19 +202,6 @@ public class MantaBasicAttack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.ShouldDisruptBrushInCone()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_disruptBrushInConeMod.GetModifiedValue(false);
 		}
 		else
@@ -354,19 +215,6 @@ public class MantaBasicAttack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MantaBasicAttack))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_MantaBasicAttack);
 			this.Setup();
 		}
@@ -388,25 +236,12 @@ public class MantaBasicAttack : Ability
 		return list;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
-		List<int> list = base.\u001D();
+		List<int> list = base.symbol_001D();
 		int num = Mathf.Abs(this.m_damageAmountInner - this.m_damageAmountThroughWalls);
 		if (num != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.\u001D()).MethodHandle;
-			}
 			list.Add(num);
 		}
 		return list;
@@ -426,57 +261,17 @@ public class MantaBasicAttack : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int num = 0;
-			if (!base.ActorData.CurrentBoardSquare.\u0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
+			if (!base.ActorData.CurrentBoardSquare.symbol_0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetExtraDamageNoLoS();
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageAmountInner() + num;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageAmountThroughWalls() + num;
 			}
 		}
@@ -487,19 +282,6 @@ public class MantaBasicAttack : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			int num = 0;
 			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
 			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
@@ -508,15 +290,6 @@ public class MantaBasicAttack : Ability
 				{
 					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 					num += this.m_syncComp.GetDirtyFightingExtraTP(actorTarget.m_actor);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return num;
@@ -528,30 +301,8 @@ public class MantaBasicAttack : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
 			}
 		}
@@ -562,19 +313,6 @@ public class MantaBasicAttack : Ability
 	{
 		if (targetActor != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.ForceIgnoreCover(ActorData)).MethodHandle;
-			}
 			return this.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.GetTravelBoardSquareWorldPosition(), base.ActorData);
 		}
 		return false;
@@ -588,19 +326,6 @@ public class MantaBasicAttack : Ability
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.InsideNearRadius(ActorData, Vector3)).MethodHandle;
-			}
 			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		return num2 <= num;
@@ -610,34 +335,12 @@ public class MantaBasicAttack : Ability
 	{
 		if (subjectType != AbilityTooltipSubject.Near)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaBasicAttack.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
-			}
 			if (subjectType != AbilityTooltipSubject.Far)
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
-		bool flag = targetingActor.CurrentBoardSquare.\u0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y);
+		bool flag = targetingActor.CurrentBoardSquare.symbol_0013(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y);
 		bool result;
 		if (flag)
 		{

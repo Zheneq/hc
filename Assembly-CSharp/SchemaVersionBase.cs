@@ -28,19 +28,6 @@ public class SchemaVersionBase
 		{
 			if (value.StartsWith("0x"))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SchemaVersionBase.set_StringValue(string)).MethodHandle;
-				}
 				value = value.Substring(2);
 			}
 			this.IntValue = ulong.Parse(value, NumberStyles.HexNumber);

@@ -52,19 +52,6 @@ public class BlasterOvercharge : Ability
 	{
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.SetupTargeter()).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Blaster_SyncComponent>();
 		}
 		if (this.m_ultAbility == null)
@@ -81,19 +68,6 @@ public class BlasterOvercharge : Ability
 		StandardEffectInfo cachedEffectOnSelfOnCast;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectOnSelfOnCast = this.m_abilityMod.m_effectOnSelfOnCastMod.GetModifiedValue(this.m_effectOnSelfOnCast);
 		}
 		else
@@ -104,15 +78,6 @@ public class BlasterOvercharge : Ability
 		StandardEffectInfo cachedExtraEffectOnOtherAbilities;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExtraEffectOnOtherAbilities = this.m_abilityMod.m_extraEffectOnOtherAbilitiesMod.GetModifiedValue(this.m_extraEffectOnOtherAbilities);
 		}
 		else
@@ -127,19 +92,6 @@ public class BlasterOvercharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetMaxCastCount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxCastCountMod.GetModifiedValue(this.m_maxCastCount);
 		}
 		else
@@ -154,19 +106,6 @@ public class BlasterOvercharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageMod.GetModifiedValue(this.m_extraDamage);
 		}
 		else
@@ -181,19 +120,6 @@ public class BlasterOvercharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamageForDelayedLaser()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageForDelayedLaserMod.GetModifiedValue(this.m_extraDamageForDelayedLaser);
 		}
 		else
@@ -208,19 +134,6 @@ public class BlasterOvercharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamageForMultiCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageForMultiCastMod.GetModifiedValue(this.m_extraDamageForMultiCast);
 		}
 		else
@@ -235,19 +148,6 @@ public class BlasterOvercharge : Ability
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraDamageCount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageCountMod.GetModifiedValue(this.m_extraDamageCount);
 		}
 		else
@@ -262,19 +162,6 @@ public class BlasterOvercharge : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnSelfOnCast != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetEffectOnSelfOnCast()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnSelfOnCast;
 		}
 		else
@@ -289,19 +176,6 @@ public class BlasterOvercharge : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedExtraEffectOnOtherAbilities != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraEffectOnOtherAbilities()).MethodHandle;
-			}
 			result = this.m_cachedExtraEffectOnOtherAbilities;
 		}
 		else
@@ -315,19 +189,6 @@ public class BlasterOvercharge : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.GetExtraEffectTargetActionTypes()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useExtraEffectActionTypeOverride)
 			{
 				return this.m_abilityMod.m_extraEffectActionTypesOverride;
@@ -340,41 +201,10 @@ public class BlasterOvercharge : Ability
 	{
 		if (this.m_ultAbility != null && this.m_ultAbility.OverchargeAsFreeActionAfterCast())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.IsFreeAction()).MethodHandle;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp.m_lastUltCastTurn > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return GameFlowData.Get().CurrentTurn > this.m_syncComp.m_lastUltCastTurn;
 				}
 			}
@@ -395,31 +225,9 @@ public class BlasterOvercharge : Ability
 		{
 			return true;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.CustomCanCastValidation(ActorData)).MethodHandle;
-		}
 		int maxCastCount = this.GetMaxCastCount();
 		if (maxCastCount > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_syncComp.m_overchargeBuffs < maxCastCount;
 		}
 		return this.m_syncComp.m_overchargeBuffs <= 0;
@@ -433,19 +241,6 @@ public class BlasterOvercharge : Ability
 		int val;
 		if (abilityMod_BlasterOvercharge)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_BlasterOvercharge.m_maxCastCountMod.GetModifiedValue(this.m_maxCastCount);
 		}
 		else
@@ -458,15 +253,6 @@ public class BlasterOvercharge : Ability
 		int val2;
 		if (abilityMod_BlasterOvercharge)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_BlasterOvercharge.m_extraDamageForDelayedLaserMod.GetModifiedValue(this.m_extraDamageForDelayedLaser);
 		}
 		else
@@ -479,15 +265,6 @@ public class BlasterOvercharge : Ability
 		int val3;
 		if (abilityMod_BlasterOvercharge)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_BlasterOvercharge.m_extraDamageForMultiCastMod.GetModifiedValue(this.m_extraDamageForMultiCast);
 		}
 		else
@@ -498,15 +275,6 @@ public class BlasterOvercharge : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_BlasterOvercharge)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_BlasterOvercharge.m_effectOnSelfOnCastMod.GetModifiedValue(this.m_effectOnSelfOnCast);
 		}
 		else
@@ -520,15 +288,6 @@ public class BlasterOvercharge : Ability
 		int val4;
 		if (abilityMod_BlasterOvercharge)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_BlasterOvercharge.m_extraDamageMod.GetModifiedValue(this.m_extraDamage);
 		}
 		else
@@ -542,19 +301,6 @@ public class BlasterOvercharge : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_BlasterOvercharge))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterOvercharge.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_BlasterOvercharge);
 			this.SetupTargeter();
 		}

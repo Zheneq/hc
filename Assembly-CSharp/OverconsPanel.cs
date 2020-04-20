@@ -42,19 +42,6 @@ public class OverconsPanel : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
 		}
 	}
@@ -70,19 +57,6 @@ public class OverconsPanel : MonoBehaviour
 		bool flag;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.Init()).MethodHandle;
-			}
 			flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 		}
 		else
@@ -96,26 +70,8 @@ public class OverconsPanel : MonoBehaviour
 			bool flag4 = ClientGameManager.Get().IsOverconUnlocked(nameToOverconEntry.m_overconId);
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag4)
 					{
 						continue;
@@ -144,19 +100,6 @@ public class OverconsPanel : MonoBehaviour
 		overconSelectBtn.Setup(overcon, unlocked);
 		if (this.m_scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.CreateNewOverconBtn(UIOverconData.NameToOverconEntry, bool)).MethodHandle;
-			}
 			overconSelectBtn.m_selectableBtn.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 		}
 		return overconSelectBtn;
@@ -173,19 +116,6 @@ public class OverconsPanel : MonoBehaviour
 		bool flag;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.HandleAccountDataUpdated(PersistedAccountData)).MethodHandle;
-			}
 			flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 		}
 		else
@@ -201,15 +131,6 @@ public class OverconsPanel : MonoBehaviour
 				bool flag3;
 				if (!nameToOverconEntry.m_isHidden)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = !GameBalanceVarsExtensions.MeetsVisibilityConditions(nameToOverconEntry.CreateUnlockDataEntry());
 				}
 				else
@@ -220,38 +141,11 @@ public class OverconsPanel : MonoBehaviour
 				bool flag5 = ClientGameManager.Get().IsOverconUnlocked(nameToOverconEntry.m_overconId);
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag4)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag5)
 						{
 							continue;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -260,41 +154,14 @@ public class OverconsPanel : MonoBehaviour
 				{
 					if (this.overconButtons[i].GetOvercon() == nameToOverconEntry)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag6 = true;
 						this.overconButtons[i].Setup(nameToOverconEntry, flag5);
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (!flag6)
 				{
 					this.overconButtons.Add(this.CreateNewOverconBtn(nameToOverconEntry, flag5));
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.SortDisplayList();
@@ -311,38 +178,12 @@ public class OverconsPanel : MonoBehaviour
 				overconSelectBtn.transform.SetSiblingIndex(i);
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.SortDisplayList()).MethodHandle;
-		}
 	}
 
 	private int CompareOverconButton(OverconSelectBtn first, OverconSelectBtn second)
 	{
 		if (first == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.CompareOverconButton(OverconSelectBtn, OverconSelectBtn)).MethodHandle;
-			}
 			return -1;
 		}
 		if (second == null)
@@ -359,26 +200,8 @@ public class OverconsPanel : MonoBehaviour
 		}
 		if (!first.IsUnlocked)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (second.IsUnlocked)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 		}
@@ -386,28 +209,10 @@ public class OverconsPanel : MonoBehaviour
 		UIOverconData.NameToOverconEntry overcon2 = second.GetOvercon();
 		if (overcon.m_sortOrder == -1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return -1;
 		}
 		if (overcon2.m_sortOrder == -1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 1;
 		}
 		if (overcon.m_sortOrder < overcon2.m_sortOrder)
@@ -430,19 +235,6 @@ public class OverconsPanel : MonoBehaviour
 	{
 		if (this.m_panelOpen != open)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.SetPanelOpen(bool)).MethodHandle;
-			}
 			this.DoPanelOpen(open);
 		}
 	}
@@ -464,68 +256,19 @@ public class OverconsPanel : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OverconsPanel.Update()).MethodHandle;
-			}
 			bool flag = true;
 			if (EventSystem.current != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (EventSystem.current.IsPointerOverGameObject(-1))
 				{
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							OverconsPanel componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<OverconsPanel>();
 							if (componentInParent != null)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = false;
 							}
 						}
@@ -534,15 +277,6 @@ public class OverconsPanel : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetPanelOpen(false);
 			}
 		}
@@ -551,52 +285,16 @@ public class OverconsPanel : MonoBehaviour
 		bool flag2;
 		if (clientGameManager != null && clientGameManager.PlayerInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (clientGameManager.PlayerInfo.TeamId == Team.Spectator)
 			{
 				flag2 = true;
 				goto IL_15E;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (gameManager != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameManager.PlayerInfo != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = (gameManager.PlayerInfo.TeamId == Team.Spectator);
 				goto IL_15B;
 			}
@@ -608,26 +306,8 @@ public class OverconsPanel : MonoBehaviour
 		bool flag4;
 		if (gameManager != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameManager.GameConfig != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = (gameManager.GameConfig.GameType == GameType.Tutorial);
 				goto IL_19B;
 			}
@@ -637,15 +317,6 @@ public class OverconsPanel : MonoBehaviour
 		bool flag5 = flag4;
 		if (!flag3)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag5)
 			{
 				return;

@@ -26,32 +26,10 @@ public class UICharacterPanelSelectRankModeButton : UICharacterPanelSelectButton
 	{
 		if (!this.m_button.spriteController.IsClickable())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterPanelSelectRankModeButton.OnButtonClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		if (!this.m_isDisabled)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIRankedModeDraftScreen.Get().NotifyButtonClicked(this);
 		}
 	}

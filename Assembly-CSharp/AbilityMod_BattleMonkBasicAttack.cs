@@ -29,19 +29,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		BattleMonkBasicAttack battleMonkBasicAttack = targetAbility as BattleMonkBasicAttack;
 		if (battleMonkBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneAngleMod, "ConeWidthAngle", string.Empty, battleMonkBasicAttack.m_coneWidthAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneLengthMod, "ConeLength", string.Empty, battleMonkBasicAttack.m_coneLength, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneDamageMod, "DamageAmount", string.Empty, battleMonkBasicAttack.m_damageAmount, true, false);
@@ -62,19 +49,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = battleMonkBasicAttack.m_coneWidthAngle;
 		}
 		else
@@ -89,15 +63,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = battleMonkBasicAttack.m_coneLength;
 		}
 		else
@@ -113,15 +78,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = battleMonkBasicAttack.m_healAmountPerTargetHit;
 		}
 		else

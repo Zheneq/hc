@@ -14,42 +14,11 @@ public class PathStart : MonoBehaviour
 		{
 			if (meshRenderer.materials.Length > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PathStart.SetColor(Color)).MethodHandle;
-				}
 				if (meshRenderer.materials[0] != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					meshRenderer.materials[0].SetColor("_TintColor", newColor);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

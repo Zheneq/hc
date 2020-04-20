@@ -35,19 +35,6 @@ public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 		TrackerFlewTheCoop x = targetAbility as TrackerFlewTheCoop;
 		if (x != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerFlewTheCoop.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectInfo(tokens, this.m_additionalEffectOnSelf, "Effect_AdditionalOnSelf", null, true);
 		}
 	}
@@ -61,19 +48,6 @@ public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 		str += AbilityModHelper.GetModEffectInfoDesc(this.m_additionalEffectOnSelf, "[Additional Effect on Self]", string.Empty, flag, null);
 		if (this.m_addVisionAroundStartSquare)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerFlewTheCoop.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			str += "* Adding Vision on Starting Square\n";
 			str = str + "[Vision Radius] = " + InEditorDescHelper.ColoredString(this.m_visionRadius.ToString(), "cyan", false) + "\n";
 			str = str + "[Vision Duration] = " + InEditorDescHelper.ColoredString(this.m_visionDuration.ToString(), "cyan", false) + "\n";

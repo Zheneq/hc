@@ -32,19 +32,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		RageBeastUltimate rageBeastUltimate = targetAbility as RageBeastUltimate;
 		if (rageBeastUltimate != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastUltimate.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_plasmaDamageMod, "PlasmaDamage", string.Empty, rageBeastUltimate.m_plasmaDamage, true, false);
 			AbilityMod.AddToken(tokens, this.m_plasmaDurationMod, "PlasmaDuration", string.Empty, rageBeastUltimate.m_plasmaDuration, true, false);
 			AbilityMod.AddToken(tokens, this.m_selfHealOnCastMod, "SelfHealOnCast", string.Empty, rageBeastUltimate.m_selfHealOnCast, true, false);
@@ -64,19 +51,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastUltimate.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = rageBeastUltimate.m_plasmaDamage;
 		}
 		else
@@ -87,15 +61,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		text += base.PropDesc(this.m_plasmaDurationMod, "[Plasma Duration]", flag, (!flag) ? 0 : rageBeastUltimate.m_plasmaDuration);
 		if (this.m_passiveTechPointRegen > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -114,15 +79,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastUltimate.m_selfHealOnCast;
 		}
 		else
@@ -137,15 +93,6 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastUltimate.m_extraEffectOnSelf;
 		}
 		else

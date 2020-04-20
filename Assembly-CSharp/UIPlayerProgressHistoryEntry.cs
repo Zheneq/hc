@@ -49,31 +49,9 @@ public class UIPlayerProgressHistoryEntry : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_drawLabel, entry.MatchComponent.Result == PlayerGameResult.Tie, null);
 		if (entry.MatchComponent.GetFirstPlayerCharacter() != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistoryEntry.Setup(PersistedCharacterMatchData, UIPlayerProgressHistory)).MethodHandle;
-			}
 			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(entry.MatchComponent.GetFirstPlayerCharacter());
 			if (characterResourceLink != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_heroIcon.sprite = characterResourceLink.GetCharacterSelectIcon();
 				this.m_heroIcon.enabled = true;
 				this.SetAllLabels(this.m_heroLabels, characterResourceLink.GetDisplayName());
@@ -95,15 +73,6 @@ public class UIPlayerProgressHistoryEntry : MonoBehaviour
 		this.m_replayPath = parent.GetReplayFilename(this.GameServerProcessCode);
 		if (!this.m_replayPath.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string json = File.ReadAllText(this.m_replayPath);
 			Replay replay = JsonUtility.FromJson<Replay>(json);
 			LobbyGameInfo lobbyGameInfo = JsonUtility.FromJson<LobbyGameInfo>(replay.m_gameInfo_Serialized);
@@ -117,19 +86,6 @@ public class UIPlayerProgressHistoryEntry : MonoBehaviour
 		for (int i = 0; i < labels.Length; i++)
 		{
 			labels[i].text = text;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressHistoryEntry.SetAllLabels(TextMeshProUGUI[], string)).MethodHandle;
 		}
 	}
 

@@ -47,19 +47,6 @@ public class UIRatingDialogBox : UIDialogBox
 		{
 			if (this.m_ratingButtons[i].m_hitBox.gameObject == data.selectedObject)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.RatingButtonClicked(BaseEventData)).MethodHandle;
-				}
 				this.m_ratingButtons[i].SetSelected(true);
 				this.selectedButton = i;
 			}
@@ -67,15 +54,6 @@ public class UIRatingDialogBox : UIDialogBox
 			{
 				this.m_ratingButtons[i].SetSelected(false);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_submitButton.interactable = true;
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
@@ -98,30 +76,8 @@ public class UIRatingDialogBox : UIDialogBox
 	{
 		if (this.m_submitButton.interactable)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.SubmitClicked(BaseEventData)).MethodHandle;
-			}
 			if (this.submitCallback != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.submitCallback(this);
 			}
 			UIDialogPopupManager.Get().CloseDialog(this);
@@ -137,19 +93,6 @@ public class UIRatingDialogBox : UIDialogBox
 		for (int i = 0; i < this.m_ratingButtons.Length; i++)
 		{
 			this.m_ratingButtons[i].m_hitBox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.RatingButtonClicked);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.Start()).MethodHandle;
 		}
 		this.selectedButton = -1;
 	}
@@ -185,19 +128,6 @@ public class UIRatingDialogBox : UIDialogBox
 		{
 			this.m_ratingButtons[i].m_numberLabel.text = (i + 1).ToString();
 			this.m_ratingButtons[i].m_ratingDescription.text = this.GetDescriptionText(i);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIRatingDialogBox.Setup(string, string, UIDialogBox.DialogButtonCallback, UIDialogBox.DialogButtonCallback)).MethodHandle;
 		}
 		this.m_submitButton.interactable = false;
 	}

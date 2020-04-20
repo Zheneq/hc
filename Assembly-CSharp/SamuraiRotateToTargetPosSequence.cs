@@ -14,19 +14,6 @@ public class SamuraiRotateToTargetPosSequence : Sequence
 	{
 		if (parameter == this.m_rotateSignalAnimEvent && base.Caster != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiRotateToTargetPosSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (this.m_rotateDuration <= 0f)
 			{
 				base.Caster.TurnToPositionInstant(base.TargetPos);

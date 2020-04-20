@@ -60,19 +60,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		TricksterCones tricksterCones = targetAbility as TricksterCones;
 		if (tricksterCones != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCones.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_ConeInfo(tokens, this.m_coneInfoMod, "ConeInfo", tricksterCones.m_coneInfo, true);
 			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, tricksterCones.m_damageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_subsequentDamageAmountMod, "SubsequentDamageAmount", string.Empty, tricksterCones.m_subsequentDamageAmount, true, false);
@@ -102,19 +89,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCones.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = tricksterCones.m_damageAmount;
 		}
 		else
@@ -129,15 +103,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = tricksterCones.m_subsequentDamageAmount;
 		}
 		else
@@ -152,15 +117,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = tricksterCones.m_enemyHitEffect;
 		}
 		else
@@ -177,15 +133,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = tricksterCones.m_allyHealAmount;
 		}
 		else
@@ -202,15 +149,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = tricksterCones.m_useAllyMultiHitEffect;
 		}
 		else
@@ -225,15 +163,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = tricksterCones.m_allyMultipleHitEffect;
 		}
 		else
@@ -248,15 +177,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = tricksterCones.m_selfHealAmount;
 		}
 		else
@@ -271,15 +191,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = tricksterCones.m_selfHitEffect;
 		}
 		else
@@ -295,15 +206,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = tricksterCones.m_cooldownReductionPerHitByClone;
 		}
 		else
@@ -318,15 +220,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		bool baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = tricksterCones.m_spawnSpoilForEnemyHit;
 		}
 		else
@@ -342,15 +235,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		SpoilsSpawnData baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = tricksterCones.m_spoilSpawnInfo;
 		}
 		else
@@ -365,15 +249,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		bool baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = tricksterCones.m_onlySpawnSpoilOnMultiHit;
 		}
 		else

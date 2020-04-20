@@ -33,43 +33,14 @@ public class Loot
 	public IEnumerable<int> GetItemTemplateIds()
 	{
 		IEnumerable<InventoryItem> items = this.Items;
-		if (Loot.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Loot.GetItemTemplateIds()).MethodHandle;
-			}
-			Loot.<>f__am$cache0 = ((InventoryItem i) => i.TemplateId);
-		}
-		return items.Select(Loot.<>f__am$cache0);
+		
+		return items.Select(((InventoryItem i) => i.TemplateId));
 	}
 
 	public void AddKarma(Karma karma)
 	{
 		if (this.Karmas.ContainsKey(karma.TemplateId))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Loot.AddKarma(Karma)).MethodHandle;
-			}
 			this.Karmas[karma.TemplateId].Quantity += karma.Quantity;
 		}
 		else
@@ -95,19 +66,6 @@ public class Loot
 		Karma karma = this.GetKarma(karmaTemplateId);
 		if (karma != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Loot.GetKarmaQuantity(int)).MethodHandle;
-			}
 			result = karma.Quantity;
 		}
 		return result;

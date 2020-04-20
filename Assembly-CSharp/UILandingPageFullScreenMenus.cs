@@ -244,50 +244,19 @@ public class UILandingPageFullScreenMenus : UIScene
 		_ButtonSwapSprite[] componentsInChildren = base.gameObject.GetComponentsInChildren<_ButtonSwapSprite>(true);
 		if (componentsInChildren != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.Awake()).MethodHandle;
-			}
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
 				componentsInChildren[i].m_ignoreDialogboxes = true;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_textScrollRect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_textScrollRect.verticalScrollbar.value = 1f;
 		}
 		this.m_textScrollRect.scrollSensitivity = 100f;
 		UIManager.SetGameObjectActive(this.m_backgroundContainer, false, null);
 		UIManager.SetGameObjectActive(this.m_contentContainer, false, null);
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0015;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0015;
 		this.TextListItemBtns.AddRange(this.m_TextListItemParent.GetComponentsInChildren<_SelectableBtn>(true));
 		for (int j = 0; j < this.TextListItemBtns.Count; j++)
 		{
@@ -306,63 +275,14 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (!this.m_messageVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.IsActive()).MethodHandle;
-			}
 			if (!this.m_feedbackVisible)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_reportVisible)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_facebookVisible)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_textVisible && !this.m_videoVisible)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return Options_UI.Get().IsVisible();
 						}
 					}
@@ -385,19 +305,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIManager.SetGameObjectActive(this.m_animator, true, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DoVisible(bool)).MethodHandle;
-			}
 			this.m_animator.Play("PanelDefaultIN", 0, 0f);
 		}
 		else
@@ -410,19 +317,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (this.m_windowVisible == visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetVisible(bool)).MethodHandle;
-			}
 			return;
 		}
 		this.DoVisible(visible);
@@ -432,32 +326,10 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (this.m_messageVisible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.CloseMenu()).MethodHandle;
-			}
 			this.CloseMessage(null);
 		}
 		else if (this.m_feedbackVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CloseFeedback(null);
 		}
 		else if (this.m_reportVisible)
@@ -466,41 +338,14 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		else if (this.m_facebookVisible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CloseFacebook(null);
 		}
 		else if (this.m_textVisible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CloseText(null);
 		}
 		else if (this.m_videoVisible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CloseVideo(null);
 		}
 		else if (Options_UI.Get().IsVisible())
@@ -509,15 +354,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		else if (KeyBinding_UI.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetKeyBindingContainerVisible(false);
 		}
 	}
@@ -527,19 +363,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		this.SetMessageContainerVisible(false);
 		if (this.m_onClose != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.CloseMessage(BaseEventData)).MethodHandle;
-			}
 			this.m_onClose();
 			this.m_onClose = null;
 		}
@@ -600,19 +423,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIVideoOverlayPanel component = this.m_videoContainer.GetComponent<UIVideoOverlayPanel>();
 		if (component)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DisplayVideo(string, string)).MethodHandle;
-			}
 			this.SetVideoContainerVisible(true);
 			component.PlayVideo(movieAssetName);
 		}
@@ -633,31 +443,9 @@ public class UILandingPageFullScreenMenus : UIScene
 			SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(i + 1);
 			if (seasonTemplate.IsTutorial)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetupDisplayInfo()).MethodHandle;
-				}
 			}
 			else if (seasonTemplate.Index < activeSeason)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < seasonTemplate.Chapters.Count; j++)
 				{
 					SeasonChapter seasonChapter = seasonTemplate.Chapters[j];
@@ -670,15 +458,6 @@ public class UILandingPageFullScreenMenus : UIScene
 					}
 					if (num >= this.TextListItemBtns.Count)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_SelectableBtn selectableBtn = UnityEngine.Object.Instantiate<_SelectableBtn>(this.m_TextListItem);
 						UIManager.ReparentTransform(selectableBtn.transform, this.m_TextListItemParent.transform);
 						selectableBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TextItemClicked);
@@ -689,15 +468,6 @@ public class UILandingPageFullScreenMenus : UIScene
 					for (int l = 0; l < componentsInChildren.Length; l++)
 					{
 						componentsInChildren[l].text = string.Format(StringUtil.TR("ChapterNumber", "Global"), j + 1);
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					string label = string.Empty;
 					if (j == 0)
@@ -714,25 +484,7 @@ public class UILandingPageFullScreenMenus : UIScene
 					});
 					num++;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -744,41 +496,10 @@ public class UILandingPageFullScreenMenus : UIScene
 		{
 			if (i < this.SeasonLoreDisplayInfos.Count)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetupSeasonLoreButtons()).MethodHandle;
-				}
 				if (!this.SeasonLoreDisplayInfos[i].Label.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num >= this.TextListItemLabels.Count)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TextMeshProUGUI textMeshProUGUI = UnityEngine.Object.Instantiate<TextMeshProUGUI>(this.m_TextListLabel);
 						UIManager.ReparentTransform(textMeshProUGUI.transform, this.m_TextListItemParent.transform);
 						this.TextListItemLabels.Add(textMeshProUGUI);
@@ -803,34 +524,12 @@ public class UILandingPageFullScreenMenus : UIScene
 		{
 			UIManager.SetGameObjectActive(this.TextListItemLabels[j], false, null);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	private void SetupLoreInfo()
 	{
 		if (this.SeasonLoreDisplayInfos.Count == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetupLoreInfo()).MethodHandle;
-			}
 			this.SetupDisplayInfo();
 		}
 		this.SetupSeasonLoreButtons();
@@ -844,33 +543,11 @@ public class UILandingPageFullScreenMenus : UIScene
 		{
 			UIManager.SetGameObjectActive(this.TextListItemBtns[i], i < this.SeasonLoreDisplayInfos.Count, null);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DisplayPreviousSeasonChapter()).MethodHandle;
-		}
 		if (this.SeasonLoreDisplayInfos.Count > 0)
 		{
 			for (int j = 0; j < this.SeasonLoreDisplayInfos.Count - 1; j++)
 			{
 				this.SeasonLoreDisplayInfos[j].DisplayBtn.SetSelected(false, false, string.Empty, string.Empty);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.SeasonLoreDisplayInfos[this.SeasonLoreDisplayInfos.Count - 1].DisplayBtn.SetSelected(true, false, string.Empty, string.Empty);
 			this.DisplaySeasonLore(this.SeasonLoreDisplayInfos.Count - 1, false);
@@ -881,43 +558,12 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		this.m_textHeader.text = this.SeasonLoreDisplayInfos[index].TitleTextString;
 		yield return 0;
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.<SetupText>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		this.m_textDescription.text = this.SeasonLoreDisplayInfos[index].HeaderTextString;
 		yield return 0;
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		string ContentString = string.Empty;
 		for (int i = 0; i < this.SeasonLoreDisplayInfos[index].ContentTextString.Count; i++)
 		{
 			ContentString += this.SeasonLoreDisplayInfos[index].ContentTextString[i];
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_textContent.text = ContentString;
 		yield break;
@@ -927,19 +573,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (stagger)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.DisplaySeasonLore(int, bool)).MethodHandle;
-			}
 			base.StartCoroutine(this.SetupText(index));
 		}
 		else
@@ -950,15 +583,6 @@ public class UILandingPageFullScreenMenus : UIScene
 			for (int i = 0; i < this.SeasonLoreDisplayInfos[index].ContentTextString.Count; i++)
 			{
 				text += this.SeasonLoreDisplayInfos[index].ContentTextString[i];
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_textContent.text = text;
 		}
@@ -980,19 +604,6 @@ public class UILandingPageFullScreenMenus : UIScene
 			{
 				this.SeasonLoreDisplayInfos[i].DisplayBtn.SetSelected(false, false, string.Empty, string.Empty);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.TextItemClicked(BaseEventData)).MethodHandle;
 		}
 	}
 
@@ -1044,11 +655,11 @@ public class UILandingPageFullScreenMenus : UIScene
 		clientFeedbackReport.Message = this.m_feedbackInput.text;
 		if (this.m_feedbackSuggestionBtn.IsSelected())
 		{
-			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason.\u000E;
+			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason.symbol_000E;
 		}
 		else if (this.m_feedbackBugBtn.IsSelected())
 		{
-			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason.\u0012;
+			clientFeedbackReport.Reason = ClientFeedbackReport.FeedbackReason.symbol_0012;
 		}
 		ClientGameManager.Get().SendFeedbackReport(clientFeedbackReport);
 		UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReportSent", "Global"), StringUtil.TR("BugReportSentBody", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
@@ -1059,19 +670,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (!this.m_botMasqueradingAsHuman)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SubmitReport(BaseEventData)).MethodHandle;
-			}
 			ClientFeedbackReport clientFeedbackReport = new ClientFeedbackReport();
 			clientFeedbackReport.Reason = this.m_reportReason;
 			clientFeedbackReport.ReportedPlayerHandle = this.m_reportPlayerHandle;
@@ -1125,19 +723,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIManager.SetGameObjectActive(this.m_feedbackContainer, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetFeedbackContainerVisible(bool)).MethodHandle;
-			}
 			this.m_feedbackInput.text = string.Empty;
 			float num = this.m_feedbackInput.textComponent.preferredHeight;
 			num = Mathf.Max(num, (this.m_feedbackTextContainer.transform.parent.transform as RectTransform).sizeDelta.y);
@@ -1159,19 +744,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIManager.SetGameObjectActive(this.m_reportContainer, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetReportContainerVisible(bool, string, long, bool)).MethodHandle;
-			}
 			this.m_reportPlayerHandle = playerHandle;
 			this.m_reportPlayerAccountId = playerAccountId;
 			this.m_botMasqueradingAsHuman = masqueradeBot;
@@ -1198,19 +770,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		UIManager.SetGameObjectActive(this.m_facebookContainer, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetFacebookContainerVisible(bool, Texture2D)).MethodHandle;
-			}
 			this.m_facebookInput.text = string.Empty;
 			this.m_facebookScreenshotPreview.sprite = Sprite.Create(texture, new Rect(0f, 0f, (float)texture.width, (float)texture.height), Vector2.one * 0.5f);
 			this.m_facebookScreenshotPreview.enabled = true;
@@ -1232,19 +791,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		StaggerComponent.SetStaggerComponent(this.m_TextItemListContainer.gameObject, setTextListVisible, true);
 		if (this.m_textVisible != visible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetTextContainerVisible(bool, bool)).MethodHandle;
-			}
 			this.m_textVisible = visible;
 			StaggerComponent.SetStaggerComponent(this.m_TextContainerContainer.gameObject, visible, true);
 			UIManager.SetGameObjectActive(this.m_textContainer, visible, null);
@@ -1252,15 +798,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_setScrollBar = 2;
 			this.m_textScrollRect.verticalNormalizedPosition = 1f;
 		}
@@ -1270,52 +807,12 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (this.m_videoVisible != visible && GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetVideoContainerVisible(bool)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().IsAllowingPlayerRequestedPause())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 						activeOwnedActorData.GetActorController().RequestCustomGamePause(visible, activeOwnedActorData.ActorIndex);
 					}
@@ -1344,19 +841,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetKeyBindingContainerVisible(bool)).MethodHandle;
-			}
 			KeyBinding_UI.Get().ShowKeybinds();
 		}
 		else
@@ -1375,30 +859,8 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (this.m_shouldSelectFeedbackInput)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.Update()).MethodHandle;
-			}
 			if (EventSystem.current.currentSelectedGameObject != this.m_feedbackInput.gameObject)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.CleanCurrentlySelectedTextConsole();
 				EventSystem.current.SetSelectedGameObject(this.m_feedbackInput.gameObject);
 				goto IL_11B;
@@ -1406,40 +868,13 @@ public class UILandingPageFullScreenMenus : UIScene
 		}
 		if (this.m_shouldSelectReportInput && EventSystem.current.currentSelectedGameObject != this.m_reportInput.gameObject)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CleanCurrentlySelectedTextConsole();
 			EventSystem.current.SetSelectedGameObject(this.m_reportInput.gameObject);
 		}
 		else if (this.m_shouldSelectFacebookInput)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (EventSystem.current.currentSelectedGameObject != this.m_facebookInput.gameObject)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.CleanCurrentlySelectedTextConsole();
 				EventSystem.current.SetSelectedGameObject(this.m_facebookInput.gameObject);
 			}
@@ -1447,27 +882,9 @@ public class UILandingPageFullScreenMenus : UIScene
 		IL_11B:
 		if (this.m_setScrollBar > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_setScrollBar--;
 			if (this.m_setScrollBar == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textScrollRect.verticalScrollbar.value = 1f;
 			}
 		}
@@ -1477,19 +894,6 @@ public class UILandingPageFullScreenMenus : UIScene
 	{
 		if (EventSystem.current.currentSelectedGameObject != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.CleanCurrentlySelectedTextConsole()).MethodHandle;
-			}
 			UITextConsole componentInParent = EventSystem.current.currentSelectedGameObject.GetComponentInParent<UITextConsole>();
 			if (componentInParent != null)
 			{
@@ -1504,19 +908,6 @@ public class UILandingPageFullScreenMenus : UIScene
 		{
 			this.m_reportPlayerText[i].text = text;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UILandingPageFullScreenMenus.SetReportPlayerText(string)).MethodHandle;
-		}
 	}
 
 	public void OnReportPlayer(BaseEventData data)
@@ -1526,63 +917,63 @@ public class UILandingPageFullScreenMenus : UIScene
 
 	public void OnReportPlayer1(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0016;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0016;
 		this.SetReportPlayerText(StringUtil.TR("VerbalHarassment", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer2(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0013;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0013;
 		this.SetReportPlayerText(StringUtil.TR("LeavingtheGameAFKing", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer3(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0018;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0018;
 		this.SetReportPlayerText(StringUtil.TR("HateSpeech", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer4(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0009;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0009;
 		this.SetReportPlayerText(StringUtil.TR("IntentionallyFeeding", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer5(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0004;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0004;
 		this.SetReportPlayerText(StringUtil.TR("Botting", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer6(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0019;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0019;
 		this.SetReportPlayerText(StringUtil.TR("SpammingAdvertising", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer7(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0011;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0011;
 		this.SetReportPlayerText(StringUtil.TR("OffensiveName", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer8(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u0015;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_0015;
 		this.SetReportPlayerText(StringUtil.TR("UnsportsmanlikeConduct", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}
 
 	public void OnReportPlayer9(BaseEventData data)
 	{
-		this.m_reportReason = ClientFeedbackReport.FeedbackReason.\u001A;
+		this.m_reportReason = ClientFeedbackReport.FeedbackReason.symbol_001A;
 		this.SetReportPlayerText(StringUtil.TR("Other", "PersistentScene"));
 		UIManager.SetGameObjectActive(this.m_reportPlayerDropdown, false, null);
 	}

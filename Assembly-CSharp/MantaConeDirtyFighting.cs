@@ -53,19 +53,6 @@ public class MantaConeDirtyFighting : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Dirty Fighting Cone";
 		}
 		this.SetupTargeter();
@@ -86,19 +73,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardActorEffectData cachedDirtyFightingEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.SetCachedFields()).MethodHandle;
-			}
 			cachedDirtyFightingEffectData = this.m_abilityMod.m_dirtyFightingEffectDataMod.GetModifiedValue(this.m_dirtyFightingEffectData);
 		}
 		else
@@ -109,15 +83,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo cachedEnemyHitEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffectData = this.m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(this.m_enemyHitEffectData);
 		}
 		else
@@ -128,15 +93,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo cachedEffectOnTargetFromExplosion;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnTargetFromExplosion = this.m_abilityMod.m_effectOnTargetFromExplosionMod.GetModifiedValue(this.m_effectOnTargetFromExplosion);
 		}
 		else
@@ -152,19 +108,6 @@ public class MantaConeDirtyFighting : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetConeRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneRangeMod.GetModifiedValue(this.m_coneRange);
 		}
 		else
@@ -179,19 +122,6 @@ public class MantaConeDirtyFighting : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetConeWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneWidthMod.GetModifiedValue(this.m_coneWidth);
 		}
 		else
@@ -206,19 +136,6 @@ public class MantaConeDirtyFighting : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.PenetrateLoS()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLoSMod.GetModifiedValue(this.m_penetrateLoS);
 		}
 		else
@@ -238,19 +155,6 @@ public class MantaConeDirtyFighting : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -265,19 +169,6 @@ public class MantaConeDirtyFighting : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetOnCastDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(this.m_onCastDamageAmount);
 		}
 		else
@@ -292,19 +183,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedDirtyFightingEffectData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetDirtyFightingEffectData()).MethodHandle;
-			}
 			result = this.m_cachedDirtyFightingEffectData;
 		}
 		else
@@ -319,19 +197,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffectData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEnemyHitEffectData()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffectData;
 		}
 		else
@@ -346,19 +211,6 @@ public class MantaConeDirtyFighting : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnTargetFromExplosion != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEffectOnTargetFromExplosion()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnTargetFromExplosion;
 		}
 		else
@@ -372,19 +224,6 @@ public class MantaConeDirtyFighting : Ability
 	{
 		if (this.m_cachedEffectOnTargetWhenExpiresWithoutExplosion != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEffectOnTargetWhenExpiresWithoutExplosion()).MethodHandle;
-			}
 			if (this.m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_applyEffect)
 			{
 				return this.m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_effectData;
@@ -398,19 +237,6 @@ public class MantaConeDirtyFighting : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetEffectExplosionDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(this.m_effectExplosionDamage);
 		}
 		else
@@ -435,19 +261,6 @@ public class MantaConeDirtyFighting : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.GetHealAmountPerExplosion()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healPerExplosionMod.GetModifiedValue(this.m_healAmountPerExplosion);
 		}
 		else
@@ -461,19 +274,6 @@ public class MantaConeDirtyFighting : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MantaConeDirtyFighting))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaConeDirtyFighting.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_MantaConeDirtyFighting);
 			this.SetupTargeter();
 		}

@@ -50,19 +50,6 @@ public class CanvasLayerManager
 	{
 		if (this.m_addedNewNameplate)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.Update()).MethodHandle;
-			}
 			foreach (_CanvasLayerSorter canvasLayerSorter in this.m_canvases)
 			{
 				canvasLayerSorter.DoCanvasRefresh();
@@ -144,19 +131,6 @@ public class CanvasLayerManager
 		bool result;
 		if (this.nameplateItemBeginIndex <= this.GetIndex(layerName))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.IsLayerNameplate(CanvasLayerName)).MethodHandle;
-			}
 			result = (this.GetIndex(layerName) <= this.nameplateItemEndIndex);
 		}
 		else
@@ -171,19 +145,6 @@ public class CanvasLayerManager
 		bool result;
 		if (this.nameplateItemBeginIndex <= layer)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.IsLayerNameplate(int)).MethodHandle;
-			}
 			result = (layer <= this.nameplateItemEndIndex);
 		}
 		else
@@ -204,34 +165,12 @@ public class CanvasLayerManager
 				CanvasLayerName canvasLayerName = enumerator.Current;
 				if (canvasLayerName != layerName)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.GetIndex(CanvasLayerName)).MethodHandle;
-					}
 					num++;
 				}
 				else
 				{
 					result = num;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -249,56 +188,16 @@ public class CanvasLayerManager
 				int index = this.GetIndex(canvasLayerSorter.m_layerName);
 				if (this.IsLayerNameplate(index))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.UpdateNameplateOrder()).MethodHandle;
-					}
 					UINameplateItem componentInParent = canvasLayerSorter.GetComponentInParent<UINameplateItem>();
 					if (componentInParent != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = UIManager.Get().GetNameplateCanvasLayer() + componentInParent.GetSortOrder();
 						if (canvas.sortingOrder != index + num)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							canvas.sortingOrder = index + num;
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -306,75 +205,23 @@ public class CanvasLayerManager
 	public void AddCanvas(_CanvasLayerSorter newCanvas)
 	{
 		List<_CanvasLayerSorter> canvases = this.m_canvases;
-		if (CanvasLayerManager.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CanvasLayerManager.AddCanvas(_CanvasLayerSorter)).MethodHandle;
-			}
-			CanvasLayerManager.<>f__am$cache1 = ((_CanvasLayerSorter item) => item == null);
-		}
-		canvases.RemoveAll(CanvasLayerManager.<>f__am$cache1);
+		
+		canvases.RemoveAll(((_CanvasLayerSorter item) => item == null));
 		if (!this.m_canvases.Contains(newCanvas))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_canvases.Add(newCanvas);
 			Canvas canvas = newCanvas.GetCanvas();
 			int index = this.GetIndex(newCanvas.m_layerName);
 			if (this.IsLayerNameplate(index))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UINameplateItem componentInParent = newCanvas.GetComponentInParent<UINameplateItem>();
 				if (componentInParent != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					canvas.sortingOrder = index + (this.nameplateItemEndIndex - this.nameplateItemBeginIndex + 1) * componentInParent.GetSortOrder();
 				}
 			}
 			else if (index > this.nameplateItemEndIndex)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				canvas.sortingOrder = index + 0x1F4;
 			}
 			else

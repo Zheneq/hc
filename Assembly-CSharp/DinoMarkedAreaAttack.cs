@@ -53,31 +53,9 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	{
 		if (base.ActorData.GetTeam() != targetActor.GetTeam())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
-			}
 			if (actorHitContext.ContainsKey(targetActor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				actorHitContext[targetActor].\u0015.SetInt(DinoMarkedAreaAttack.s_cvarInCenter.GetHash(), 1);
+				actorHitContext[targetActor].symbol_0015.SetInt(DinoMarkedAreaAttack.s_cvarInCenter.GetHash(), 1);
 			}
 		}
 	}
@@ -86,44 +64,13 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 	{
 		if (actorHitContext.ContainsKey(targetActor))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (targetActor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorHitContext actorContext = actorHitContext[targetActor];
 				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, this.m_delayedOnHitData.m_enemyHitIntFields, this.m_calculatedValuesForTargeter);
 				results.m_damage = this.m_calculatedValuesForTargeter.m_damage;
 				if (this.GetExtraDamageForSingleMark() > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = 0;
 					using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
 					{
@@ -132,53 +79,17 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 							KeyValuePair<ActorData, ActorHitContext> keyValuePair = enumerator.Current;
 							ActorData key = keyValuePair.Key;
 							ActorHitContext value = keyValuePair.Value;
-							if (value.\u0012)
+							if (value.symbol_0012)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (key.GetTeam() != caster.GetTeam())
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num++;
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (num == 1)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage += this.GetExtraDamageForSingleMark();
 					}
 				}
@@ -193,30 +104,8 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		{
 			if (this.m_delayedOnHitData.m_enemyHitIntFields[i].m_hitType == OnHitIntField.HitType.Damage)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetDelayedHitDamage()).MethodHandle;
-				}
 				num += this.m_delayedOnHitData.m_enemyHitIntFields[i].m_baseValue;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return num;
 	}
@@ -226,19 +115,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetDelayTurns()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_delayTurnsMod.GetModifiedValue(this.m_delayTurns);
 		}
 		else
@@ -253,19 +129,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		AbilityAreaShape result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shapeMod.GetModifiedValue(this.m_shape);
 		}
 		else
@@ -280,19 +143,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.DelayedHitIgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_delayedHitIgnoreLosMod.GetModifiedValue(this.m_delayedHitIgnoreLos);
 		}
 		else
@@ -307,19 +157,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetExtraDamageForSingleMark()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageForSingleMarkMod.GetModifiedValue(this.m_extraDamageForSingleMark);
 		}
 		else
@@ -334,19 +171,6 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoMarkedAreaAttack.GetEnergyToAllyOnDamageHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyToAllyOnDamageHitMod.GetModifiedValue(this.m_energyToAllyOnDamageHit);
 		}
 		else

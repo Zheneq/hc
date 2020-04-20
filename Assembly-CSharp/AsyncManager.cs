@@ -36,43 +36,12 @@ public class AsyncManager : MonoBehaviour
 	{
 		if (delay > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncManager.<InternalRoutine>c__Iterator0.MoveNext()).MethodHandle;
-			}
 			yield return new WaitForSeconds(delay);
 		}
 		while (coroutine.MoveNext())
 		{
 			object obj = coroutine.Current;
 			yield return obj;
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.doneTickets.Add(ticket);
 		yield break;
@@ -84,19 +53,6 @@ public class AsyncManager : MonoBehaviour
 		Coroutine routine;
 		if (this.runningCoroutines.TryGetValue(ticket, out routine))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncManager.CancelAsyncOperation(int)).MethodHandle;
-			}
 			base.StopCoroutine(routine);
 			this.doneTickets.Add(ticket);
 		}
@@ -124,19 +80,6 @@ public class AsyncManager : MonoBehaviour
 			{
 				int key = enumerator.Current;
 				this.runningCoroutines.Remove(key);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncManager.Update()).MethodHandle;
 			}
 		}
 		this.doneTickets.Clear();

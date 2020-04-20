@@ -17,19 +17,6 @@ public class FactionRewards
 		{
 			list.Add(this.CurrencyRewards[i]);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FactionRewards.GetAllRewards()).MethodHandle;
-		}
 		for (int j = 0; j < this.UnlockRewards.Count; j++)
 		{
 			list.Add(this.UnlockRewards[j]);
@@ -37,15 +24,6 @@ public class FactionRewards
 		for (int k = 0; k < this.ItemRewards.Count; k++)
 		{
 			list.Add(this.ItemRewards[k]);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}

@@ -9,41 +9,10 @@ public class OffsetVFXTowardsCamera : MonoBehaviour
 		Camera main = Camera.main;
 		if (main)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OffsetVFXTowardsCamera.ProcessOffset(Vector3)).MethodHandle;
-			}
 			if (boardSquare)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.occupant)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 direction = main.WorldToRay(position).direction;
 					float num = 0f;
 					foreach (Renderer renderer in boardSquare.occupant.GetComponentsInChildren<Renderer>())

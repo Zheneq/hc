@@ -36,19 +36,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		RobotAnimalDrag robotAnimalDrag = targetAbility as RobotAnimalDrag;
 		if (robotAnimalDrag != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalDrag.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_distanceMod, "Distance", string.Empty, robotAnimalDrag.m_distance, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_widthMod, "Width", string.Empty, robotAnimalDrag.m_width, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, robotAnimalDrag.m_damage, true, false);
@@ -71,19 +58,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalDrag.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = robotAnimalDrag.m_width;
 		}
 		else
@@ -98,15 +72,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = robotAnimalDrag.m_damage;
 		}
 		else
@@ -123,15 +88,6 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = robotAnimalDrag.m_casterEffect;
 		}
 		else
@@ -141,26 +97,8 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 		text = str3 + base.PropDesc(casterEffectMod, prefix3, showBaseVal3, baseVal3);
 		if (this.m_powerUpsToSpawn != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_powerUpsToSpawn.Count > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "[Spoils to Spawn] = ";
 				using (List<PowerUp>.Enumerator enumerator = this.m_powerUpsToSpawn.GetEnumerator())
 				{
@@ -169,26 +107,8 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 						PowerUp powerUp = enumerator.Current;
 						if (powerUp != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text = text + powerUp.name + ", ";
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				text += "\n";

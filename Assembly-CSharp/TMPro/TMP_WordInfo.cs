@@ -20,19 +20,6 @@ namespace TMPro
 			{
 				text += characterInfo[i].character;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_WordInfo.GetWord()).MethodHandle;
-			}
 			return text;
 		}
 	}

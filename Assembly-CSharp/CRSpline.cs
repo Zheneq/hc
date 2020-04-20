@@ -53,19 +53,6 @@ public class CRSpline
 			Gizmos.DrawLine(vector, to);
 			to = vector;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CRSpline.GizmoDraw(float)).MethodHandle;
-		}
 		Gizmos.color = Color.blue;
 		Vector3 vector2 = this.Interp(t);
 		Gizmos.DrawLine(vector2, vector2 + this.Velocity(t));

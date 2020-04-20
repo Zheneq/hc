@@ -12,19 +12,6 @@ public class StandardEffectInfo
 	{
 		if (this.m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardEffectInfo.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject)).MethodHandle;
-			}
 			this.m_effectData.ReportAbilityTooltipNumbers(ref numbers, subject);
 		}
 	}

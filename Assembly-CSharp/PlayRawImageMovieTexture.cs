@@ -27,30 +27,8 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 		AudioSource component = base.GetComponent<AudioSource>();
 		if (this.m_movieTexture)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayRawImageMovieTexture.Update()).MethodHandle;
-			}
 			if (this.m_movieTexture.isPlaying)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_playingStateFrameCounter++;
 			}
 			else
@@ -59,55 +37,19 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			}
 			if (this.m_movieState == PlayRawImageMovieTexture.MovieStates.Loading)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_movieTexture.isReadyToPlay)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_movieTexture.isPlaying)
 					{
 						this.m_movieTexture.Play();
 						RawImage component2 = base.GetComponent<RawImage>();
 						if (component2)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							component2.texture = this.m_movieTexture;
 							component2.color = Color.white;
 						}
 						if (component && component.clip != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							component.Play();
 						}
 					}
@@ -115,51 +57,15 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			}
 			if (this.m_movieState == PlayRawImageMovieTexture.MovieStates.Loading)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_playingStateFrameCounter >= 2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_movieState = PlayRawImageMovieTexture.MovieStates.Playing;
 				}
 			}
 			if (this.m_movieState == PlayRawImageMovieTexture.MovieStates.Playing)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_movieTexture.loop)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_movieTexture.isPlaying)
 					{
 						this.m_movieState = PlayRawImageMovieTexture.MovieStates.Done;
@@ -200,19 +106,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			AudioClip clip;
 			if (silent)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PlayRawImageMovieTexture.Play(string, bool, bool, bool)).MethodHandle;
-				}
 				clip = null;
 			}
 			else
@@ -222,15 +115,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			audioSource.clip = clip;
 			if (component2.clip != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (useVideoAudioBus && AudioManager.GetMixerSnapshotManager() != null)
 				{
 					AudioManager.GetMixerSnapshotManager().SetMix_StartVideoPlayback();
@@ -253,19 +137,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 		RawImage component = base.GetComponent<RawImage>();
 		if (component)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayRawImageMovieTexture.Unload()).MethodHandle;
-			}
 			component.texture = null;
 		}
 		AudioSource component2 = base.GetComponent<AudioSource>();
@@ -274,41 +145,14 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 			component2.Stop();
 			if (component2.clip != null && AudioManager.GetMixerSnapshotManager() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.GetMixerSnapshotManager().SetMix_StopVideoPlayback();
 			}
 			component2.clip = null;
 		}
 		if (this.m_movieTexture)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_isAssetMovieTexture)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_movieTexture.Stop();
 			}
 			else
@@ -319,15 +163,6 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 		}
 		if (this.m_streamer != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_streamer.Dispose();
 			this.m_streamer = null;
 		}

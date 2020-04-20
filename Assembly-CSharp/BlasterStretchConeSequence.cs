@@ -104,19 +104,6 @@ public class BlasterStretchConeSequence : Sequence
 			BlasterStretchConeSequence.ExtraParams extraParams2 = extraSequenceParams as BlasterStretchConeSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				this.m_maxDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
 				this.m_angleRangeDegrees = extraParams2.angleInDegrees;
 				this.m_aimForwardDir = VectorUtils.AngleDegreesToVector(extraParams2.forwardAngle);
@@ -125,34 +112,12 @@ public class BlasterStretchConeSequence : Sequence
 				this.m_didSetValuesFromExtraParams = true;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public override void FinishSetup()
 	{
 		if (this.m_staggeredRateOfFire <= 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.FinishSetup()).MethodHandle;
-			}
 			this.m_staggeredRateOfFire = 0.5f;
 		}
 		this.m_projectileFxInstances = new List<GameObject>();
@@ -160,39 +125,12 @@ public class BlasterStretchConeSequence : Sequence
 		this.m_projectileActorImpacts = new Dictionary<ActorData, float>();
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SpawnFX();
 		}
 		if (this.m_hitReactEvent == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_lastHitReactEvent == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnImpactFX(true, null);
 			}
 		}
@@ -211,19 +149,6 @@ public class BlasterStretchConeSequence : Sequence
 		int maxTargets;
 		if (this.m_projectilesStopOnEnemy)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.GetProjectileDistanceWithActorCollisions(Vector3, Vector3, float, int)).MethodHandle;
-			}
 			maxTargets = 1;
 		}
 		else
@@ -256,19 +181,6 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		else if (this.m_projectileDistanceMode == BlasterStretchConeSequence.ProjectileDistanceMode.RandomChoice_MaxVsRandDist)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.GetProjectileDistance(Vector3, Vector3, float, int)).MethodHandle;
-			}
 			flag = (UnityEngine.Random.value >= 0.5f);
 		}
 		else
@@ -292,19 +204,6 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (this.m_useStartPosOverride)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.GetConeStartPos()).MethodHandle;
-			}
 			return this.m_startPosOverride;
 		}
 		if (this.m_fxJoint.IsInitialized())
@@ -323,30 +222,8 @@ public class BlasterStretchConeSequence : Sequence
 		Vector3 vector;
 		if (this.m_setBlastFxRotationToGamplayAim)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.SpawnFX()).MethodHandle;
-			}
 			if (this.m_didSetValuesFromExtraParams)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector = this.m_aimForwardDir;
 				goto IL_85;
 			}
@@ -357,28 +234,10 @@ public class BlasterStretchConeSequence : Sequence
 		float value = this.m_angleRangeDegrees / 2f * 0.0174532924f;
 		if (this.m_blastFxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_blastFxInstance = base.InstantiateFX(this.m_blastFxPrefab, this.GetConeStartPos(), Quaternion.LookRotation(vector), true, true);
 			FriendlyEnemyVFXSelector component = this.m_blastFxInstance.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.Setup(base.Caster.GetTeam());
 				component.SetAttribute("angleControl", value);
 				component.SetAttribute("lengthControl", this.m_maxDistInWorld / Board.Get().squareSize);
@@ -396,15 +255,6 @@ public class BlasterStretchConeSequence : Sequence
 			float num2;
 			if (this.m_numProjectilesToSpawn < 2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 0f;
 			}
 			else
@@ -415,15 +265,6 @@ public class BlasterStretchConeSequence : Sequence
 			for (int i = 0; i < this.m_numProjectilesToSpawn; i++)
 			{
 				this.m_projectileAngleOrder.Add(num + num3 * (float)i);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_projectileAngleOrder.Shuffle(new System.Random());
 			this.m_forwardDirForProjectileSpawns = vector;
@@ -439,15 +280,6 @@ public class BlasterStretchConeSequence : Sequence
 		}
 		if (this.m_projectilesCauseHitReacts)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorData[] targets = base.Targets;
 			int k = 0;
 			while (k < targets.Length)
@@ -482,27 +314,9 @@ public class BlasterStretchConeSequence : Sequence
 				this.m_projectileActorImpacts[actorData] = num5;
 				goto IL_325;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 		}
 	}
@@ -512,19 +326,6 @@ public class BlasterStretchConeSequence : Sequence
 		Quaternion rotation;
 		if (randomAngle)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.CreateProjectile(Vector3, int, bool)).MethodHandle;
-			}
 			rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(-this.m_angleRangeDegrees, this.m_angleRangeDegrees), Vector3.up);
 		}
 		else
@@ -534,29 +335,11 @@ public class BlasterStretchConeSequence : Sequence
 		Vector3 vector = rotation * forward;
 		if (this.m_projectileFxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 coneStartPos = this.GetConeStartPos();
 			GameObject gameObject = base.InstantiateFX(this.m_projectileFxPrefab, coneStartPos, Quaternion.LookRotation(vector), true, true);
 			float value;
 			if (this.m_projectilesCauseHitReacts)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 lhs = this.m_fxJoint.m_jointObject.transform.position - base.Caster.GetTravelBoardSquareWorldPositionForLos();
 				lhs = Vector3.Dot(lhs, vector) * vector.normalized;
 				value = this.GetProjectileDistanceWithActorCollisions(coneStartPos, vector, this.m_maxDistInWorld - lhs.magnitude, projectileIndex);
@@ -574,34 +357,12 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (base.Targets != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.SpawnImpactFX(bool, ActorData)).MethodHandle;
-			}
 			int i = 0;
 			while (i < base.Targets.Length)
 			{
 				if (specificTarget == null)
 				{
 					goto IL_5B;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (base.Targets[i] == specificTarget)
 				{
@@ -626,38 +387,11 @@ public class BlasterStretchConeSequence : Sequence
 				ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(targetHitPosition, vector);
 				if (this.m_impactFxPrefab != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.IsHitFXVisibleWrtTeamFilter(base.Targets[i], this.m_hitVfxSpawnTeamMode))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Quaternion rotation;
 						if (this.m_setBlastFxRotationToGamplayAim)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							rotation = Quaternion.LookRotation(vector);
 						}
 						else
@@ -668,15 +402,6 @@ public class BlasterStretchConeSequence : Sequence
 						FriendlyEnemyVFXSelector component = gameObject.GetComponent<FriendlyEnemyVFXSelector>();
 						if (component != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							component.Setup(base.Caster.GetTeam());
 						}
 						this.m_impactFxInstances.Add(gameObject);
@@ -684,15 +409,6 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent(this.m_impactAudioEvent, base.Targets[i].gameObject);
 				}
 				if (base.Targets[i] != null)
@@ -703,15 +419,6 @@ public class BlasterStretchConeSequence : Sequence
 					ActorModelData.RagdollActivation ragdollActivation;
 					if (lastHit)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ragdollActivation = ActorModelData.RagdollActivation.HealthBased;
 					}
 					else
@@ -723,15 +430,6 @@ public class BlasterStretchConeSequence : Sequence
 				}
 				goto IL_1D0;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		base.Source.OnSequenceHit(this, base.TargetPos, null);
 	}
@@ -740,56 +438,16 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (this.m_blastFxInstance != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.StopFX()).MethodHandle;
-			}
 			this.m_blastFxInstance.SetActive(false);
 		}
 		if (this.m_projectileFxInstances != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_projectileFxInstances.Count; i++)
 			{
 				if (this.m_projectileFxInstances[i] != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_projectileFxInstances[i].SetActive(false);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -798,19 +456,6 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (this.m_projectilesCauseHitReacts)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.CheckProjectileImpacts()).MethodHandle;
-			}
 			if (this.m_projectileFxInstances.Count > 0)
 			{
 				using (Dictionary<ActorData, float>.Enumerator enumerator = this.m_projectileActorImpacts.GetEnumerator())
@@ -820,28 +465,10 @@ public class BlasterStretchConeSequence : Sequence
 						KeyValuePair<ActorData, float> keyValuePair = enumerator.Current;
 						if (keyValuePair.Value >= GameTime.time)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.SpawnImpactFX(false, keyValuePair.Key);
 							this.m_projectileActorImpacts.Remove(keyValuePair.Key);
 							return;
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -861,19 +488,6 @@ public class BlasterStretchConeSequence : Sequence
 					return false;
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.ImpactsFinished()).MethodHandle;
-			}
 		}
 		return result;
 	}
@@ -884,41 +498,10 @@ public class BlasterStretchConeSequence : Sequence
 		{
 			if (this.m_staggerProjectiles)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.Update()).MethodHandle;
-				}
 				if (this.m_timeForNextStaggeredProjectile > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_projectileFxInstances.Count < this.m_numProjectilesToSpawn)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameTime.time >= this.m_timeForNextStaggeredProjectile)
 						{
 							this.CreateProjectile(this.m_forwardDirForProjectileSpawns, this.m_projectileFxInstances.Count, false);
@@ -935,58 +518,18 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (parameter == this.m_startEvent)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 		if (parameter == this.m_hitReactEvent)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SpawnImpactFX(this.m_lastHitReactEvent == null, null);
 		}
 		else if (parameter == this.m_lastHitReactEvent)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SpawnImpactFX(true, null);
 		}
 		if (parameter == this.m_stopEvent)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.StopFX();
 		}
 	}
@@ -995,48 +538,17 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		if (this.m_blastFxInstance != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_blastFxInstance.gameObject);
 			this.m_blastFxInstance = null;
 		}
 		if (this.m_projectileFxInstances != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<GameObject>.Enumerator enumerator = this.m_projectileFxInstances.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					GameObject gameObject = enumerator.Current;
 					UnityEngine.Object.Destroy(gameObject.gameObject);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_projectileFxInstances = null;
@@ -1049,15 +561,6 @@ public class BlasterStretchConeSequence : Sequence
 				{
 					GameObject gameObject2 = enumerator2.Current;
 					UnityEngine.Object.Destroy(gameObject2.gameObject);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_impactFxInstances = null;
@@ -1105,19 +608,6 @@ public class BlasterStretchConeSequence : Sequence
 			stream.Serialize(ref this.useStartPosOverride);
 			if (this.useStartPosOverride)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterStretchConeSequence.ExtraParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
-				}
 				stream.Serialize(ref this.startPosOverride);
 			}
 		}

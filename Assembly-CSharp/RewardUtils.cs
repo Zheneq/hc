@@ -90,33 +90,11 @@ public class RewardUtils
 		GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 		if (gameBalanceVars == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetNextAccountRewards(int)).MethodHandle;
-			}
 			return new List<RewardUtils.RewardData>();
 		}
 		int num = currentLevel + 1;
 		if (num > gameBalanceVars.MaxPlayerLevel)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new List<RewardUtils.RewardData>();
 		}
 		return RewardUtils.GetAccountRewards(new List<int>
@@ -131,32 +109,10 @@ public class RewardUtils
 		GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 		if (gameBalanceVars == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetAccountRewards(List<int>)).MethodHandle;
-			}
 			return list;
 		}
 		if (filterLevels == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			filterLevels = new List<int>();
 			for (int i = 2; i <= gameBalanceVars.MaxPlayerLevel; i++)
 			{
@@ -169,15 +125,6 @@ public class RewardUtils
 			level = gameBalanceVars.PlayerTitles[j].GetUnlockPlayerLevel();
 			if (filterLevels.Exists((int x) => x == level) && !gameBalanceVars.PlayerTitles[j].m_isHidden)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(new RewardUtils.RewardData
 				{
 					Level = level,
@@ -188,29 +135,11 @@ public class RewardUtils
 				});
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int k = 0; k < gameBalanceVars.ChatEmojis.Length; k++)
 		{
 			level = gameBalanceVars.ChatEmojis[k].GetUnlockPlayerLevel();
 			if (filterLevels.Exists((int x) => x == level))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!gameBalanceVars.ChatEmojis[k].m_isHidden)
 				{
 					list.Add(new RewardUtils.RewardData
@@ -224,29 +153,11 @@ public class RewardUtils
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int l = 0; l < gameBalanceVars.Overcons.Length; l++)
 		{
 			level = gameBalanceVars.Overcons[l].GetUnlockPlayerLevel();
 			if (filterLevels.Exists((int x) => x == level) && !gameBalanceVars.Overcons[l].m_isHidden)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(new RewardUtils.RewardData
 				{
 					Level = level,
@@ -256,15 +167,6 @@ public class RewardUtils
 					SpritePath = "QuestRewards/general"
 				});
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int m = 0; m < gameBalanceVars.LoadingScreenBackgrounds.Length; m++)
 		{
@@ -291,15 +193,6 @@ public class RewardUtils
 				rewardData.Amount = 1;
 				if (gameBalanceVars.PlayerBanners[n].m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					rewardData.Type = RewardUtils.RewardType.Banner;
 				}
 				else
@@ -310,15 +203,6 @@ public class RewardUtils
 				rewardData.SpritePath = gameBalanceVars.PlayerBanners[n].m_iconResourceString;
 				list.Add(rewardData);
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		foreach (int num in filterLevels)
 		{
@@ -332,31 +216,10 @@ public class RewardUtils
 				rewardData2.Level = num;
 				list.Add(rewardData2);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		List<RewardUtils.RewardData> list2 = list;
-		if (RewardUtils.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			RewardUtils.<>f__am$cache0 = ((RewardUtils.RewardData first, RewardUtils.RewardData second) => first.Level - second.Level);
-		}
-		list2.Sort(RewardUtils.<>f__am$cache0);
+		
+		list2.Sort(((RewardUtils.RewardData first, RewardUtils.RewardData second) => first.Level - second.Level));
 		return list;
 	}
 
@@ -376,33 +239,11 @@ public class RewardUtils
 		GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 		if (gameBalanceVars == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetNextCharacterRewards(CharacterResourceLink, int)).MethodHandle;
-			}
 			return new List<RewardUtils.RewardData>();
 		}
 		int num = currentLevel + 1;
 		if (num > gameBalanceVars.MaxCharacterLevelForRewards)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new List<RewardUtils.RewardData>();
 		}
 		return RewardUtils.GetCharacterRewards(charLink, new List<int>
@@ -437,30 +278,8 @@ public class RewardUtils
 			{
 				if (currencyType != CurrencyType.GGPack)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetRewardTypeFromInventoryItem(InventoryItemTemplate)).MethodHandle;
-					}
 					if (currencyType != CurrencyType.ISO)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -510,32 +329,10 @@ public class RewardUtils
 		}
 		if (filterLevels == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetCharacterRewards(CharacterResourceLink, List<int>)).MethodHandle;
-			}
 			filterLevels = new List<int>();
 			for (int i = 2; i <= gameBalanceVars.MaxCharacterLevelForRewards; i++)
 			{
 				filterLevels.Add(i);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int level;
@@ -544,15 +341,6 @@ public class RewardUtils
 			level = gameBalanceVars.PlayerTitles[j].GetUnlockCharacterLevel(charLink.m_characterType, false);
 			if (!gameBalanceVars.PlayerTitles[j].m_isHidden)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (filterLevels.Exists((int x) => x == level))
 				{
 					list.Add(new RewardUtils.RewardData
@@ -566,29 +354,11 @@ public class RewardUtils
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int k = 0; k < gameBalanceVars.ChatEmojis.Length; k++)
 		{
 			level = gameBalanceVars.ChatEmojis[k].GetUnlockCharacterLevel(charLink.m_characterType, false);
 			if (!gameBalanceVars.ChatEmojis[k].m_isHidden && filterLevels.Exists((int x) => x == level))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(new RewardUtils.RewardData
 				{
 					Level = level,
@@ -599,29 +369,11 @@ public class RewardUtils
 				});
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int l = 0; l < gameBalanceVars.Overcons.Length; l++)
 		{
 			level = gameBalanceVars.Overcons[l].GetUnlockCharacterLevel(charLink.m_characterType, false);
 			if (!gameBalanceVars.Overcons[l].m_isHidden && filterLevels.Exists((int x) => x == level))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(new RewardUtils.RewardData
 				{
 					Level = level,
@@ -632,40 +384,13 @@ public class RewardUtils
 				});
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int m = 0; m < gameBalanceVars.LoadingScreenBackgrounds.Length; m++)
 		{
 			level = gameBalanceVars.LoadingScreenBackgrounds[m].GetUnlockCharacterLevel(charLink.m_characterType, false);
 			if (!gameBalanceVars.LoadingScreenBackgrounds[m].m_isHidden)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (filterLevels.Exists((int x) => x == level))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(new RewardUtils.RewardData
 					{
 						Level = level,
@@ -682,40 +407,13 @@ public class RewardUtils
 			level = gameBalanceVars.PlayerBanners[n].GetUnlockCharacterLevel(charLink.m_characterType, false);
 			if (!gameBalanceVars.PlayerBanners[n].m_isHidden)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (filterLevels.Exists((int x) => x == level))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
 					rewardData.Level = level;
 					rewardData.Amount = 1;
 					if (gameBalanceVars.PlayerBanners[n].m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rewardData.Type = RewardUtils.RewardType.Banner;
 					}
 					else
@@ -734,26 +432,8 @@ public class RewardUtils
 			level = characterUnlockData.tauntUnlockData[num].GetUnlockCharacterLevel(charLink.m_characterType, false);
 			if (!charLink.m_taunts[num].m_isHidden)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (filterLevels.Exists((int x) => x == level))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					RewardUtils.RewardData rewardData2 = new RewardUtils.RewardData();
 					rewardData2.Level = level;
 					rewardData2.Amount = 1;
@@ -767,41 +447,14 @@ public class RewardUtils
 					}
 					else if (charLink.m_taunts[num].m_actionForTaunt == AbilityData.ActionType.ABILITY_1)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rewardData2.Foreground = component.m_sprite1;
 					}
 					else if (charLink.m_taunts[num].m_actionForTaunt == AbilityData.ActionType.ABILITY_2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rewardData2.Foreground = component.m_sprite2;
 					}
 					else if (charLink.m_taunts[num].m_actionForTaunt == AbilityData.ActionType.ABILITY_3)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rewardData2.Foreground = component.m_sprite3;
 					}
 					else if (charLink.m_taunts[num].m_actionForTaunt == AbilityData.ActionType.ABILITY_4)
@@ -810,42 +463,15 @@ public class RewardUtils
 					}
 					else if (charLink.m_taunts[num].m_actionForTaunt == AbilityData.ActionType.ABILITY_5)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rewardData2.Foreground = component.m_sprite5;
 					}
 					else if (charLink.m_taunts[num].m_actionForTaunt == AbilityData.ActionType.ABILITY_6)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						rewardData2.Foreground = component.m_sprite6;
 					}
 					list.Add(rewardData2);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(charLink.m_characterType);
 		int num2 = 0;
@@ -855,41 +481,14 @@ public class RewardUtils
 			PlayerSkinData skin = playerCharacterData.CharacterComponent.GetSkin(num2);
 			if (!charLink.m_skins[num2].m_isHidden)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!skin.Unlocked)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					level = skinUnlockData.GetUnlockCharacterLevel(charLink.m_characterType, false);
 					if (filterLevels.Exists((int x) => x == level))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(new RewardUtils.RewardData
 						{
 							Level = level,
@@ -907,30 +506,12 @@ public class RewardUtils
 							CharacterColor characterColor = charLink.m_skins[num2].m_patterns[num3].m_colors[num4];
 							if (characterColor.m_isHidden)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								level = playerUnlockable.GetUnlockCharacterLevel(charLink.m_characterType, false);
 								if (filterLevels.Exists((int x) => x == level))
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(new RewardUtils.RewardData
 									{
 										Level = level,
@@ -942,24 +523,6 @@ public class RewardUtils
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -969,30 +532,9 @@ public class RewardUtils
 			goto IL_8CF;
 		}
 		List<int> list2 = filterLevels;
-		if (RewardUtils.<>f__am$cache1 == null)
+		
+		if (list2.Exists(((int x) => x == GameWideData.Get().AdvancedSkinUnlockLevel)))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			RewardUtils.<>f__am$cache1 = ((int x) => x == GameWideData.Get().AdvancedSkinUnlockLevel);
-		}
-		if (list2.Exists(RewardUtils.<>f__am$cache1))
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(new RewardUtils.RewardData
 			{
 				Level = GameWideData.Get().AdvancedSkinUnlockLevel,
@@ -1003,30 +545,9 @@ public class RewardUtils
 			});
 		}
 		List<int> list3 = filterLevels;
-		if (RewardUtils.<>f__am$cache2 == null)
+		
+		if (list3.Exists(((int x) => x == GameWideData.Get().ExpertSkinUnlockLevel)))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			RewardUtils.<>f__am$cache2 = ((int x) => x == GameWideData.Get().ExpertSkinUnlockLevel);
-		}
-		if (list3.Exists(RewardUtils.<>f__am$cache2))
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(new RewardUtils.RewardData
 			{
 				Level = GameWideData.Get().ExpertSkinUnlockLevel,
@@ -1038,15 +559,6 @@ public class RewardUtils
 		}
 		if (filterLevels.Exists((int x) => x == GameWideData.Get().MasterySkinUnlockLevel))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(new RewardUtils.RewardData
 			{
 				Level = GameWideData.Get().MasterySkinUnlockLevel,
@@ -1060,27 +572,9 @@ public class RewardUtils
 		{
 			if (-1 < num5 - 2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CurrencyData[] currencyRewards;
 				if (num5 - 2 < gameBalanceVars.CharacterProgressInfo.Length)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					currencyRewards = gameBalanceVars.CharacterProgressInfo[num5 - 2].CurrencyRewards;
 				}
 				else
@@ -1096,30 +590,12 @@ public class RewardUtils
 					rewardData3.Level = num5;
 					list.Add(rewardData3);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		for (int num7 = 0; num7 < gameBalanceVars.RepeatingCharacterLevelRewards.Length; num7++)
 		{
 			if (gameBalanceVars.RepeatingCharacterLevelRewards[num7].charType == (int)charLink.m_characterType)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num8 = gameBalanceVars.RepeatingCharacterLevelRewards[num7].startLevel;
 				while (filterLevels.Contains(num8))
 				{
@@ -1136,53 +612,14 @@ public class RewardUtils
 					{
 						goto IL_C87;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num8 += gameBalanceVars.RepeatingCharacterLevelRewards[num7].repeatingLevel;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			IL_C87:;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		List<RewardUtils.RewardData> list4 = list;
-		if (RewardUtils.<>f__am$cache4 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			RewardUtils.<>f__am$cache4 = ((RewardUtils.RewardData first, RewardUtils.RewardData second) => first.Level - second.Level);
-		}
-		list4.Sort(RewardUtils.<>f__am$cache4);
+		
+		list4.Sort(((RewardUtils.RewardData first, RewardUtils.RewardData second) => first.Level - second.Level));
 		return list;
 	}
 
@@ -1195,49 +632,14 @@ public class RewardUtils
 			RequirementCollection requirementCollection = null;
 			if (ClientGameManager.Get().GameTypeAvailabilies != null && ClientGameManager.Get().GameTypeAvailabilies.ContainsKey(GameType.PvP))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.DidPlayerUnlockPvPQueue(int, bool)).MethodHandle;
-				}
 				RequirementCollection requirements = ClientGameManager.Get().GameTypeAvailabilies[GameType.PvP].Requirements;
 				if (requirements != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					requirementCollection = requirements.Where(delegate(QueueRequirement p)
 					{
 						bool result2;
 						if (p.Requirement != QueueRequirement.RequirementType.TotalLevel)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(RewardUtils.<DidPlayerUnlockPvPQueue>m__5(QueueRequirement)).MethodHandle;
-							}
 							result2 = (p.Requirement == QueueRequirement.RequirementType.TotalMatches);
 						}
 						else
@@ -1254,15 +656,6 @@ public class RewardUtils
 			bool isInTutorial;
 			if (seasonTemplate != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				isInTutorial = seasonTemplate.IsTutorial;
 			}
 			else
@@ -1276,26 +669,8 @@ public class RewardUtils
 			}
 			if (requirementCollection != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!requirementCollection.DoesApplicantPass(queueRequirementSystemInfo, tmpRequirementCheckApplicant, GameType.PvP, null))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					tmpRequirementCheckApplicant.SeasonLevel = nextSeasonLevel;
 					result = requirementCollection.DoesApplicantPass(queueRequirementSystemInfo, tmpRequirementCheckApplicant, GameType.PvP, null);
 				}
@@ -1317,19 +692,6 @@ public class RewardUtils
 		List<RewardUtils.RewardData> list = new List<RewardUtils.RewardData>();
 		if (RewardUtils.DidPlayerUnlockPvPQueue(seasonLevel, true))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetAccountLevelRewards(int)).MethodHandle;
-			}
 			list.Add(new RewardUtils.RewardData
 			{
 				Level = seasonLevel,
@@ -1359,55 +721,15 @@ public class RewardUtils
 			{
 				goto IL_146;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetSeasonLevelRewards(int)).MethodHandle;
-			}
 			if (allRewards[i].repeatEveryXLevels == 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (allRewards[i].level != onlyForLevel)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_37C;
 				}
 			}
 			else if ((onlyForLevel - allRewards[i].level) % allRewards[i].repeatEveryXLevels != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				goto IL_37C;
 			}
 			if (!(allRewards[i] is SeasonItemReward))
@@ -1420,27 +742,9 @@ public class RewardUtils
 			{
 				goto IL_146;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (QuestWideData.AreConditionsMet(seasonItemReward.Conditions, seasonItemReward.LogicStatement, tryUseCharDataOnInitialLoad))
 			{
 				goto IL_146;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_37C:
 			i++;
@@ -1448,15 +752,6 @@ public class RewardUtils
 			IL_146:
 			if (allRewards[i] is SeasonCurrencyReward)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SeasonCurrencyReward seasonCurrencyReward = allRewards[i] as SeasonCurrencyReward;
 				InventoryItemTemplate itemTemplate = seasonCurrencyReward.GetItemTemplate();
 				RewardUtils.RewardData rewardData = new RewardUtils.RewardData();
@@ -1480,15 +775,6 @@ public class RewardUtils
 				default:
 					if (type != CurrencyType.FreelancerCurrency)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (type == CurrencyType.UnlockFreelancerToken)
 						{
 							rewardData.Type = RewardUtils.RewardType.UnlockFreelancerToken;
@@ -1508,15 +794,6 @@ public class RewardUtils
 			}
 			if (allRewards[i] is SeasonItemReward)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				InventoryItemTemplate itemTemplate2 = InventoryWideData.Get().GetItemTemplate((allRewards[i] as SeasonItemReward).ItemReward.ItemTemplateId);
 				list.Add(new RewardUtils.RewardData
 				{
@@ -1533,15 +810,6 @@ public class RewardUtils
 				goto IL_37C;
 			}
 			goto IL_37C;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		list.Sort((RewardUtils.RewardData first, RewardUtils.RewardData second) => first.Level - second.Level);
 		return list;
@@ -1564,19 +832,6 @@ public class RewardUtils
 				rewardData.Name = RewardUtils.GetDisplayString(rewardData, false);
 				list.Add(rewardData);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetAvailableSeasonEndRewards(SeasonTemplate)).MethodHandle;
-			}
 			for (int k = 0; k < availableEndRewards[i].ItemRewards.Count; k++)
 			{
 				InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(availableEndRewards[i].ItemRewards[k].ItemTemplateId);
@@ -1591,15 +846,6 @@ public class RewardUtils
 					Type = RewardUtils.GetRewardTypeFromInventoryItem(itemTemplate)
 				});
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return list;
 	}
@@ -1611,30 +857,8 @@ public class RewardUtils
 		{
 			if (styleLevelType != StyleLevelType.Expert)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetStyleLevelTypeStr(StyleLevelType)).MethodHandle;
-				}
 				if (styleLevelType != StyleLevelType.Mastery)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -1666,19 +890,6 @@ public class RewardUtils
 			string result;
 			if (isPlural)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetTypeDisplayString(RewardUtils.RewardType, bool)).MethodHandle;
-				}
 				result = StringUtil.TR("GGBoosts", "Rewards");
 			}
 			else
@@ -1696,15 +907,6 @@ public class RewardUtils
 			string result2;
 			if (isPlural)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result2 = StringUtil.TR("SystemRewards", "Rewards");
 			}
 			else
@@ -1718,15 +920,6 @@ public class RewardUtils
 			string result3;
 			if (isPlural)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result3 = StringUtil.TR("LootMatrices", "Rewards");
 			}
 			else
@@ -1740,15 +933,6 @@ public class RewardUtils
 			string result4;
 			if (isPlural)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result4 = StringUtil.TR("AbilityEffects", "Rewards");
 			}
 			else
@@ -1771,15 +955,6 @@ public class RewardUtils
 		string str2;
 		if (isPlural)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str2 = "s";
 		}
 		else
@@ -1804,19 +979,6 @@ public class RewardUtils
 			if (type == RewardUtils.RewardType.System)
 			{
 				return reward.Name;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.GetDisplayString(RewardUtils.RewardData, bool)).MethodHandle;
 			}
 			if (type != RewardUtils.RewardType.UnlockFreelancerToken)
 			{
@@ -1998,19 +1160,6 @@ public class RewardUtils
 			int num = this.m_baseApplicant.GetReactorLevel(seasons);
 			if (!this.IsInTutorial)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.TmpRequirementCheckApplicant.GetReactorLevel(List<SeasonTemplate>)).MethodHandle;
-				}
 				num += this.SeasonLevel - this.InitialSeasonLevel;
 			}
 			return num;
@@ -2022,19 +1171,6 @@ public class RewardUtils
 			{
 				if (this.IsInTutorial)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(RewardUtils.TmpRequirementCheckApplicant.get_TotalMatches()).MethodHandle;
-					}
 					return this.SeasonLevel - 1;
 				}
 				return this.m_baseApplicant.TotalMatches;

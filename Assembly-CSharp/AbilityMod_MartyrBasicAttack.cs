@@ -69,19 +69,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MartyrBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseLaserInfo = martyrBasicAttack.m_laserInfo;
 		}
 		else
@@ -98,15 +85,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = martyrBasicAttack.m_baseLaserDamage;
 		}
 		else
@@ -121,15 +99,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = martyrBasicAttack.m_baseExplosionDamage;
 		}
 		else
@@ -144,15 +113,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = martyrBasicAttack.m_additionalDamagePerCrystalSpent;
 		}
 		else
@@ -167,15 +127,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = martyrBasicAttack.m_additionalRadiusPerCrystalSpent;
 		}
 		else
@@ -190,15 +141,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = martyrBasicAttack.m_extraDamageIfSingleHit;
 		}
 		else
@@ -213,15 +155,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrBasicAttack.m_innerRingRadius;
 		}
 		else
@@ -236,15 +169,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = martyrBasicAttack.m_innerRingExtraRadiusPerCrystal;
 		}
 		else
@@ -259,15 +183,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = martyrBasicAttack.m_innerRingDamage;
 		}
 		else

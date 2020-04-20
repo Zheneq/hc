@@ -38,34 +38,12 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 	{
 		if (this.m_isInitialized)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.Initialize()).MethodHandle;
-			}
 			return;
 		}
 		this.m_isInitialized = true;
 		this.m_purchaseableItems = this.GetPurchasableItems();
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HitchDetector.Get().AddNewLayoutGroup(this.m_itemsGrid);
 		}
 		this.m_pageNum = 0;
@@ -77,15 +55,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		}
 		if (this.m_pageMarkers == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_pageMarkers = new List<UIStorePageIndicator>();
 		}
 		for (int i = this.m_pageMarkers.Count; i < this.m_numberOfPages; i++)
@@ -118,15 +87,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 			UIPurchaseableItem item;
 			if (k < this.m_purchaseableItems.Length)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				item = this.m_purchaseableItems[k];
 			}
 			else
@@ -149,19 +109,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		Image component = base.GetComponent<Image>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(component.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 		}
 	}
@@ -175,19 +122,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		}
 		else if (pointerEventData.scrollDelta.y < 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.OnScroll(BaseEventData)).MethodHandle;
-			}
 			this.ClickedOnNextPage(null);
 		}
 	}
@@ -196,19 +130,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 	{
 		if (this.m_pageNum - 1 < 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.ClickedOnPrevPage(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		this.m_pageNum--;
@@ -220,19 +141,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 	{
 		if (this.m_pageNum + 1 >= this.m_numberOfPages)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.ClickedOnNextPage(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
@@ -246,19 +154,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 		{
 			this.m_pageMarkers[i].SetSelected(i == pageNum);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanelBase.ShowPage(int)).MethodHandle;
-		}
 		this.m_pageNum = pageNum;
 		int num = this.m_itemBtns.Length * pageNum;
 		for (int j = 0; j < this.m_itemBtns.Length; j++)
@@ -267,15 +162,6 @@ public abstract class UICashShopPanelBase : UIStoreBasePanel
 			int num2 = j + num;
 			if (num2 < this.m_purchaseableItems.Length)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				item = this.m_purchaseableItems[num2];
 			}
 			this.m_itemBtns[j].Setup(item);

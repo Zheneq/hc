@@ -49,7 +49,7 @@ public enum SceneType
 	GameLoadingScreen,
 	FullScreenMovie,
 	SystemMessage,
-	\u001D,
+	symbol_001D,
 	TestScene,
 	StoreViewHero,
 	GameOverResultEnvironment,

@@ -68,32 +68,10 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 				base.AddActorInRange(actorData, laserCoords.start, targetingActor, AbilityTooltipSubject.Primary, false);
 				list.Add(actorData);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ChainLightningLaser.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 		}
 		int num = 0;
 		if (actorsInLaser.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorData actorData2 = actorsInLaser[actorsInLaser.Count - 1];
 			while (actorData2 != null)
 			{
@@ -114,28 +92,10 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 					ActorData actorData3 = this.FindChainHitActor(actorData2, targetingActor, list);
 					if (actorData3 != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData3, actorData2.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Secondary, false);
 						list.Add(actorData3);
 						if (num + 1 < this.m_highlights.Count)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GameObject gameObject = this.m_highlights[1 + num];
 							this.AdjustLaserHighlight(gameObject, actorData2.GetTravelBoardSquareWorldPosition(), actorData3.GetTravelBoardSquareWorldPosition(), this.m_chainHighlightWidthInSquares);
 							gameObject.SetActive(true);
@@ -153,15 +113,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		{
 			this.m_highlights[i].SetActive(false);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = num + 1; j < this.m_squarePosCheckerList.Count; j++)
 		{
 			SquareInsideChecker_Box squareInsideChecker_Box3 = this.m_squarePosCheckerList[j] as SquareInsideChecker_Box;
@@ -169,30 +120,12 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		}
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, laserCoords.start, laserCoords.end, this.m_width, targetingActor, this.m_penetrateLos, null, this.m_squarePosCheckerList, true);
 			for (int k = 0; k < num; k++)
 			{
 				SquareInsideChecker_Box squareInsideChecker_Box4 = this.m_squarePosCheckerList[1 + k] as SquareInsideChecker_Box;
 				AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, squareInsideChecker_Box4.GetStartPos(), squareInsideChecker_Box4.GetEndPos(), this.m_chainHighlightWidthInSquares, targetingActor, true, null, this.m_squarePosCheckerList, true);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			base.HideUnusedSquareIndicators();
 		}
@@ -213,30 +146,8 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 				ActorData actorData = enumerator.Current;
 				if (!actorsAddedSoFar.Contains(actorData))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ChainLightningLaser.FindChainHitActor(ActorData, ActorData, List<ActorData>)).MethodHandle;
-					}
 					return actorData;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -247,19 +158,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		float widthInWorld = this.m_width * Board.Get().squareSize;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ChainLightningLaser.AllocateHighlights()).MethodHandle;
-			}
 			if (this.m_highlights.Count >= this.m_numChainHighlights + 1)
 			{
 				return;
@@ -270,15 +168,6 @@ public class AbilityUtil_Targeter_ChainLightningLaser : AbilityUtil_Targeter
 		for (int i = 0; i < this.m_numChainHighlights; i++)
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(this.m_chainHighlightWidthInSquares, 1f, null));
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 

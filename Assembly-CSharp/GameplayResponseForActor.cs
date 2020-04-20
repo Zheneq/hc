@@ -26,19 +26,6 @@ public class GameplayResponseForActor
 	{
 		if (this.m_damage != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject)).MethodHandle;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, subject, this.m_damage));
 		}
 		if (this.m_healing != 0)
@@ -58,19 +45,6 @@ public class GameplayResponseForActor
 		bool flag;
 		if (addCompare)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.AddTooltipTokens(List<TooltipTokenEntry>, string, bool, GameplayResponseForActor)).MethodHandle;
-			}
 			flag = (other != null);
 		}
 		else
@@ -86,15 +60,6 @@ public class GameplayResponseForActor
 		int otherVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.m_healing;
 		}
 		else
@@ -107,15 +72,6 @@ public class GameplayResponseForActor
 		StandardEffectInfo baseVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effect;
 		}
 		else
@@ -139,19 +95,6 @@ public class GameplayResponseForActor
 		float num;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.GetInEditorDescription(string, string, bool, GameplayResponseForActor)).MethodHandle;
-			}
 			num = (float)other.m_credits;
 		}
 		else
@@ -159,20 +102,8 @@ public class GameplayResponseForActor
 			num = (float)0;
 		}
 		float otherVal = num;
-		if (GameplayResponseForActor.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameplayResponseForActor.<>f__am$cache0 = ((float f) => f != 0f);
-		}
-		text3 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, showOther, otherVal, GameplayResponseForActor.<>f__am$cache0);
+		
+		text3 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, showOther, otherVal, ((float f) => f != 0f));
 		string str2 = text3;
 		string header3 = "[ Healing ] = ";
 		string otherSep2 = text;
@@ -181,15 +112,6 @@ public class GameplayResponseForActor
 		float num2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = (float)other.m_healing;
 		}
 		else
@@ -205,15 +127,6 @@ public class GameplayResponseForActor
 		float num3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = (float)other.m_damage;
 		}
 		else
@@ -229,15 +142,6 @@ public class GameplayResponseForActor
 		float num4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = (float)other.m_techPoints;
 		}
 		else
@@ -245,20 +149,8 @@ public class GameplayResponseForActor
 			num4 = (float)0;
 		}
 		float otherVal2 = num4;
-		if (GameplayResponseForActor.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameplayResponseForActor.<>f__am$cache1 = ((float f) => f != 0f);
-		}
-		text3 = str4 + InEditorDescHelper.AssembleFieldWithDiff(header5, indent, otherSep4, myVal4, showOther4, otherVal2, GameplayResponseForActor.<>f__am$cache1);
+		
+		text3 = str4 + InEditorDescHelper.AssembleFieldWithDiff(header5, indent, otherSep4, myVal4, showOther4, otherVal2, ((float f) => f != 0f));
 		string str5 = text3;
 		StandardEffectInfo effect = this.m_effect;
 		string prefix = "{ Effect on Moved-Through }";
@@ -266,15 +158,6 @@ public class GameplayResponseForActor
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = other.m_effect;
 		}
 		else
@@ -289,15 +172,6 @@ public class GameplayResponseForActor
 		AbilityStatMod[] otherObjList;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList = other.m_permanentStatMods;
 		}
 		else
@@ -312,15 +186,6 @@ public class GameplayResponseForActor
 		StatusType[] otherObjList2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherObjList2 = other.m_permanentStatusChanges;
 		}
 		else
@@ -336,15 +201,6 @@ public class GameplayResponseForActor
 		GameObject otherVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_sequenceToPlay;
 		}
 		else
@@ -368,19 +224,6 @@ public class GameplayResponseForActor
 		bool flag3;
 		if (this.m_permanentStatusChanges != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayResponseForActor.HasResponse()).MethodHandle;
-			}
 			flag3 = (this.m_permanentStatusChanges.Length > 0);
 		}
 		else

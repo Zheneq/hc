@@ -51,19 +51,6 @@ public class QueueRequirement_AccessLevel : QueueRequirement
 		}
 		if (context == RequirementMessageContext.GroupQueueing)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_AccessLevel.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-			}
 			return LocalizationPayload.Create("OneGroupMemberNeedsAccessLevelToQueue", "Matchmaking", new LocalizationArg[]
 			{
 				localizationArg_AccessLevel
@@ -94,19 +81,6 @@ public class QueueRequirement_AccessLevel : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_AccessLevel.Create(JsonReader)).MethodHandle;
-			}
 			if (reader.Value != null && reader.Value.ToString() == "AnyGroupMember")
 			{
 				reader.Read();

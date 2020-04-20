@@ -31,30 +31,8 @@ public class QueueRequirement_DateTime : QueueRequirement
 		{
 			return systemInfo.GetCurrentUTCTime() < this.m_dateTime;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_DateTime.DoesApplicantPass(IQueueRequirementSystemInfo, IQueueRequirementApplicant, GameType, GameSubType)).MethodHandle;
-		}
 		if (requirement != QueueRequirement.RequirementType.AfterDate)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("Unknown QueueRequirement_DateTime requirement: {0}", this.Requirement));
 		}
 		return systemInfo.GetCurrentUTCTime() > this.m_dateTime;
@@ -79,30 +57,8 @@ public class QueueRequirement_DateTime : QueueRequirement
 				localizationArg_TimeSpan
 			});
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_DateTime.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-		}
 		if (requirement != QueueRequirement.RequirementType.AfterDate)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("Unknown requirement is failed: {0}", this.Requirement));
 		}
 		TimeSpan span2 = this.m_dateTime - systemInfo.GetCurrentUTCTime();

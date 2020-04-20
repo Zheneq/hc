@@ -42,19 +42,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		ArcherShieldGeneratorArrow archerShieldGeneratorArrow = targetAbility as ArcherShieldGeneratorArrow;
 		if (archerShieldGeneratorArrow != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherShieldGeneratorArrow.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_lessAbsorbPerTurnMod, "LessAbsorbPerTurn", string.Empty, archerShieldGeneratorArrow.m_lessAbsorbPerTurn, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_directHitEnemyEffectMod, "DirectHitEnemyEffect", archerShieldGeneratorArrow.m_directHitEnemyEffect, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_directHitAllyEffectMod, "DirectHitAllyEffect", archerShieldGeneratorArrow.m_directHitAllyEffect, true);
@@ -79,19 +66,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherShieldGeneratorArrow.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = archerShieldGeneratorArrow.m_affectsEnemies;
 		}
 		else
@@ -106,15 +80,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = archerShieldGeneratorArrow.m_affectsAllies;
 		}
 		else
@@ -129,15 +94,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = archerShieldGeneratorArrow.m_affectsCaster;
 		}
 		else
@@ -152,15 +108,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = archerShieldGeneratorArrow.m_lessAbsorbPerTurn;
 		}
 		else
@@ -175,15 +122,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = archerShieldGeneratorArrow.m_directHitEnemyEffect;
 		}
 		else
@@ -198,15 +136,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = archerShieldGeneratorArrow.m_directHitAllyEffect;
 		}
 		else

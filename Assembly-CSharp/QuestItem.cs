@@ -66,19 +66,6 @@ public class QuestItem : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnAccountDataUpdated -= this.HandleAccountDataUpdated;
 		}
 	}
@@ -87,19 +74,6 @@ public class QuestItem : MonoBehaviour
 	{
 		if (this.m_questId > 0 && this.m_questItemState != QuestItemState.Finished)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.HandleAccountDataUpdated(PersistedAccountData)).MethodHandle;
-			}
 			this.SetQuestId(this.m_questId);
 		}
 	}
@@ -114,19 +88,6 @@ public class QuestItem : MonoBehaviour
 	{
 		if (this.m_questItemState == QuestItemState.Finished)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.HandleExpandClick(BaseEventData)).MethodHandle;
-			}
 			if (!this.m_isAnimatingOut)
 			{
 				this.m_isAnimatingOut = true;
@@ -144,32 +105,10 @@ public class QuestItem : MonoBehaviour
 		int rejectedCount = 0;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.SetQuestId(int)).MethodHandle;
-			}
 			PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 			QuestComponent questComponent = playerAccountData.QuestComponent;
 			if (questComponent != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				rejectedCount = questComponent.GetRejectedCount(questId);
 			}
 		}
@@ -193,19 +132,6 @@ public class QuestItem : MonoBehaviour
 		string text3 = StringUtil.TR_QuestDescription(questId);
 		if (text2 != string.Empty)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.SetQuestId(int, int, bool, bool)).MethodHandle;
-			}
 			text = string.Format("<size=20>{0}</size>\n<#a9a9a9>{1}", text2, text3);
 		}
 		else
@@ -216,15 +142,6 @@ public class QuestItem : MonoBehaviour
 		Sprite sprite = (Sprite)Resources.Load(questTemplate.IconFilename, typeof(Sprite));
 		if (sprite)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_contractIcon.sprite = sprite;
 		}
 		else
@@ -236,15 +153,6 @@ public class QuestItem : MonoBehaviour
 		QuestItem.GetQuestProgress(questId, out num, out num2);
 		if (questComplete)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = num2;
 		}
 		string text4 = string.Format("{0}/{1}", num, num2);
@@ -256,15 +164,6 @@ public class QuestItem : MonoBehaviour
 		num3 += questTemplate.Rewards.ItemRewards.Count;
 		if (questTemplate.ConditionalRewards != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < questTemplate.ConditionalRewards.Length; i++)
 			{
 				if (QuestWideData.AreConditionsMet(questTemplate.ConditionalRewards[i].Prerequisites.Conditions, questTemplate.ConditionalRewards[i].Prerequisites.LogicStatement, false))
@@ -274,28 +173,10 @@ public class QuestItem : MonoBehaviour
 					num3 += questTemplate.ConditionalRewards[i].ItemRewards.Count;
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		num3 = Mathf.Max(0, Mathf.Min(3, num3));
 		if (num3 == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_rewardText, false, null);
 		}
 		else
@@ -306,28 +187,10 @@ public class QuestItem : MonoBehaviour
 		{
 			if (j == num3 - 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_rewardStates[j], true, null);
 				QuestRewardGroup component = this.m_rewardStates[j].GetComponent<QuestRewardGroup>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.SetupChildren(questId, rejectedCount, removedQuestCompleteNotification);
 				}
 			}
@@ -335,15 +198,6 @@ public class QuestItem : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(this.m_rewardStates[j], false, null);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -353,71 +207,22 @@ public class QuestItem : MonoBehaviour
 		maxProgress = 0;
 		if (questId > QuestWideData.Get().m_quests.Count)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.GetQuestProgress(int, int*, int*)).MethodHandle;
-			}
 			return false;
 		}
 		QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(questId);
 		QuestComponent questComponent = null;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
 			questComponent = playerAccountData.QuestComponent;
 		}
 		if (questTemplate.ObjectiveCountType == RequiredObjectiveCountType.SumObjectiveProgress)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			maxProgress = QuestItem.GetRequiredObjectiveCount(questTemplate);
 			if (questComponent != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.Progress != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (questComponent.Progress.ContainsKey(questId))
 					{
 						QuestProgress questProgress = questComponent.Progress[questId];
@@ -427,26 +232,8 @@ public class QuestItem : MonoBehaviour
 							int value = keyValuePair.Value;
 							if (questTemplate.Objectives.Count > key)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!questTemplate.Objectives[key].SuperHidden)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									currentProgress += value;
 								}
 							}
@@ -457,27 +244,9 @@ public class QuestItem : MonoBehaviour
 		}
 		else if (questTemplate.Objectives.Count == 1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			maxProgress = questTemplate.Objectives[0].MaxCount;
 			if (maxProgress == 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				QuestCondition questCondition = null;
 				using (List<QuestTrigger>.Enumerator enumerator2 = questTemplate.Objectives[0].Triggers.GetEnumerator())
 				{
@@ -486,29 +255,11 @@ public class QuestItem : MonoBehaviour
 						QuestTrigger questTrigger = enumerator2.Current;
 						if (questTrigger.Conditions.Count != 1)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							if (questCondition == null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								questCondition = questTrigger.Conditions[0];
 								continue;
 							}
@@ -520,15 +271,6 @@ public class QuestItem : MonoBehaviour
 						}
 						goto IL_25C;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				IL_25C:
 				if (questCondition != null)
@@ -536,15 +278,6 @@ public class QuestItem : MonoBehaviour
 					QuestConditionType conditionType = questCondition.ConditionType;
 					if (conditionType != QuestConditionType.HasAccountLevel)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (conditionType == QuestConditionType.HasFriendCountOrMore)
 						{
 							maxProgress = questCondition.typeSpecificData;
@@ -558,15 +291,6 @@ public class QuestItem : MonoBehaviour
 						maxProgress = questCondition.typeSpecificData;
 						if (ClientGameManager.Get() != null && ClientGameManager.Get().IsPlayerAccountDataAvailable())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							currentProgress = ClientGameManager.Get().GetPlayerAccountData().GetReactorLevel(SeasonWideData.Get().m_seasons);
 						}
 						else
@@ -578,38 +302,11 @@ public class QuestItem : MonoBehaviour
 			}
 			else if (questComponent != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.Progress.ContainsKey(questId))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					QuestProgress questProgress2 = questComponent.Progress[questId];
 					if (questProgress2.ObjectiveProgress.ContainsKey(0))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentProgress += questProgress2.ObjectiveProgress[0];
 					}
 				}
@@ -620,15 +317,6 @@ public class QuestItem : MonoBehaviour
 			maxProgress = QuestItem.GetRequiredObjectiveCount(questTemplate);
 			if (questComponent != null && questComponent.Progress.ContainsKey(questId))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				QuestProgress questProgress3 = questComponent.Progress[questId];
 				foreach (KeyValuePair<int, int> keyValuePair2 in questProgress3.ObjectiveProgress)
 				{
@@ -642,37 +330,10 @@ public class QuestItem : MonoBehaviour
 		currentProgress = Mathf.Min(currentProgress, maxProgress);
 		if (questComponent != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!questComponent.Progress.ContainsKey(questId))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questComponent.GetCompletedCount(questId) > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					currentProgress = maxProgress;
 				}
 			}
@@ -684,19 +345,6 @@ public class QuestItem : MonoBehaviour
 	{
 		if (this.m_questItemState == newState)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.SetState(QuestItemState)).MethodHandle;
-			}
 			return;
 		}
 		this.m_questItemState = newState;
@@ -712,15 +360,6 @@ public class QuestItem : MonoBehaviour
 		}
 		else if (this.m_questItemState == QuestItemState.Filled)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 			UIManager.SetGameObjectActive(this.m_emptyState, false, null);
 			UIManager.SetGameObjectActive(this.m_defaultState, true, null);
@@ -741,15 +380,6 @@ public class QuestItem : MonoBehaviour
 		}
 		else if (this.m_questItemState == QuestItemState.Finished)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 			UIManager.SetGameObjectActive(this.m_emptyState, false, null);
 			UIManager.SetGameObjectActive(this.m_defaultState, true, null);
@@ -765,34 +395,12 @@ public class QuestItem : MonoBehaviour
 		int num = 0;
 		if (questTemplate.ObjectiveCountType == RequiredObjectiveCountType.SumObjectiveProgress)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestItem.GetRequiredObjectiveCount(QuestTemplate)).MethodHandle;
-			}
 			using (List<QuestObjective>.Enumerator enumerator = questTemplate.Objectives.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					QuestObjective questObjective = enumerator.Current;
 					num += questObjective.MaxCount;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -802,28 +410,10 @@ public class QuestItem : MonoBehaviour
 		}
 		if (questTemplate.RequiredObjectiveCount != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = questTemplate.RequiredObjectiveCount;
 		}
 		if (questTemplate.CosmeticRequiredObjectiveCount != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = questTemplate.CosmeticRequiredObjectiveCount;
 		}
 		return num;

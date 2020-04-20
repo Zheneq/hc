@@ -13,7 +13,7 @@ public class TextConsole
 		this.OnMessage = delegate(TextConsole.Message A_0, TextConsole.AllowedEmojis A_1)
 		{
 		};
-		base..ctor();
+		
 		ClientGameManager.Get().OnChatNotification += this.HandleChatNotification;
 	}
 
@@ -41,19 +41,6 @@ public class TextConsole
 				action = Interlocked.CompareExchange<Action<TextConsole.Message, TextConsole.AllowedEmojis>>(ref this.OnMessage, (Action<TextConsole.Message, TextConsole.AllowedEmojis>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TextConsole.add_OnMessage(Action<TextConsole.Message, TextConsole.AllowedEmojis>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -90,30 +77,8 @@ public class TextConsole
 		string text = theString;
 		if (text.IndexOf('<') != -1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TextConsole.RemoveRichTextTags(string)).MethodHandle;
-			}
 			if (text.IndexOf('>') != -1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text.Replace("<", "< ");
 			}
 		}
@@ -124,44 +89,13 @@ public class TextConsole
 	{
 		if (string.IsNullOrEmpty(input))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TextConsole.OnInputSubmitted(string)).MethodHandle;
-			}
 			return;
 		}
 		bool flag = false;
 		if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 		}
@@ -171,15 +105,6 @@ public class TextConsole
 		string arguments;
 		if (input[0] != '/')
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
 				text = "/team";
@@ -195,15 +120,6 @@ public class TextConsole
 			string[] array = input.Split(null, 2, StringSplitOptions.RemoveEmptyEntries);
 			if (array.Length >= 2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = array[0];
 				arguments = array[1];
 			}
@@ -216,26 +132,8 @@ public class TextConsole
 		text = text.Trim();
 		if (!SlashCommands.Get().RunSlashCommand(text, arguments))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (DebugCommands.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag2 = DebugCommands.Get().RunDebugCommand(text, arguments);
 			}
 		}
@@ -246,19 +144,6 @@ public class TextConsole
 		string text = string.Empty;
 		if (response.Success)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TextConsole.HandleSetDevTagResponse(SetDevTagResponse)).MethodHandle;
-			}
 			text = "Success";
 		}
 		else
@@ -276,30 +161,8 @@ public class TextConsole
 	{
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TextConsole.HandleChatNotification(ChatNotification)).MethodHandle;
-			}
 			if (Options_UI.Get().GetEnableProfanityFilter() && notification.ConsoleMessageType != ConsoleMessageType.BroadcastMessage)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				notification.Text = BannedWords.Get().FilterPhrase(notification.Text, LocalizationManager.CurrentLanguageCode);
 			}
 		}
@@ -319,27 +182,9 @@ public class TextConsole
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (!(clientGameManager == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(clientGameManager.Handle != notification.SenderHandle))
 				{
 					goto IL_148;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.LastWhisperSenderHandle = notification.SenderHandle;

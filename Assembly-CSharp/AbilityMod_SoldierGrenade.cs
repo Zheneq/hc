@@ -34,34 +34,12 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		SoldierGrenade soldierGrenade = targetAbility as SoldierGrenade;
 		if (soldierGrenade != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierGrenade.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, soldierGrenade.m_damageAmount, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", soldierGrenade.m_enemyHitEffect, true);
 			AbilityMod.AddToken(tokens, this.m_allyHealAmountMod, "AllyHealAmount", string.Empty, soldierGrenade.m_allyHealAmount, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "AllyHitEffect", soldierGrenade.m_allyHitEffect, true);
 			if (this.m_useAdditionalShapeOverride && this.m_additionalShapeToDamageOverride != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_additionalShapeToDamageOverride.Count; i++)
 				{
 					SoldierGrenade.ShapeToDamage shapeToDamage = this.m_additionalShapeToDamageOverride[i];
@@ -83,19 +61,6 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		AbilityAreaShape baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierGrenade.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = soldierGrenade.m_shape;
 		}
 		else
@@ -106,26 +71,8 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		text += base.PropDesc(this.m_penetrateLosMod, "[PenetrateLos]", flag, flag && soldierGrenade.m_penetrateLos);
 		if (this.m_useAdditionalShapeOverride)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_additionalShapeToDamageOverride != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Using Layered Shape Override, entries:\n";
 				for (int i = 0; i < this.m_additionalShapeToDamageOverride.Count; i++)
 				{
@@ -140,15 +87,6 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 					int baseVal2;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						baseVal2 = soldierGrenade.m_damageAmount;
 					}
 					else
@@ -159,15 +97,6 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 					array[5] = "\n";
 					text = string.Concat(array);
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		string str2 = text;
@@ -177,15 +106,6 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierGrenade.m_damageAmount;
 		}
 		else
@@ -200,15 +120,6 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierGrenade.m_enemyHitEffect;
 		}
 		else
@@ -223,15 +134,6 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = soldierGrenade.m_allyHealAmount;
 		}
 		else
@@ -246,15 +148,6 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = soldierGrenade.m_allyHitEffect;
 		}
 		else

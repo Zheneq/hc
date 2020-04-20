@@ -41,19 +41,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		{
 			if (requirement != QueueRequirement.RequirementType.AvailableCharacterCount)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_GreaterThan.DoesApplicantPass(IQueueRequirementSystemInfo, IQueueRequirementApplicant, GameType, GameSubType)).MethodHandle;
-				}
 				throw new Exception(string.Format("Unknown QueueRequirement_GreaterThan requirement: {0}", this.Requirement));
 			}
 			int num = 0;
@@ -62,29 +49,11 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 				CharacterType characterType = (CharacterType)i;
 				if (applicant.IsCharacterTypeAvailable(characterType))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (systemInfo.IsCharacterAllowed(characterType, gameType, gameSubType))
 					{
 						num++;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num >= this.MinValue;
 		}
@@ -108,15 +77,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		{
 			if (context == RequirementMessageContext.SoloQueueing)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NotEnoughGamesPlayedForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizedHandle,
@@ -125,15 +85,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			}
 			if (context == RequirementMessageContext.GroupQueueing)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NoGroupMemberHasEnoughGamesPlayedForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizationArg_Int
@@ -150,15 +101,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(applicant.CharacterType);
 			if (context == RequirementMessageContext.SoloQueueing)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NotEnoughCharacterGamesPlayedForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizedHandle,
@@ -189,15 +131,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			Details.NumGamesRequired = new int?(this.MinValue);
 			if (context == RequirementMessageContext.SoloQueueing)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NotEnoughGamesPlayedAgainstHumansForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizedHandle,
@@ -207,15 +140,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			}
 			if (context == RequirementMessageContext.GroupQueueing)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NoGroupMemberHasEnoughGamesPlayedAgainstHumansForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizationArg_Int
@@ -230,32 +154,10 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		default:
 			if (requirement != QueueRequirement.RequirementType.AvailableCharacterCount)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_GreaterThan.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-				}
 				throw new Exception(string.Format("Unknown requirement is failed: {0}", this.Requirement));
 			}
 			if (context == RequirementMessageContext.SoloQueueing)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NotEnoughAvailableCharactersForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizedHandle,
@@ -264,15 +166,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			}
 			if (context == RequirementMessageContext.GroupQueueing)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NoGroupMemberHasEnoughAvailableCharactersForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizationArg_Int
@@ -285,15 +178,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		case QueueRequirement.RequirementType.TotalLevel:
 			if (context == RequirementMessageContext.SoloQueueing)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NotEnoughAccountlevelForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizedHandle,
@@ -322,15 +206,6 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 			}
 			if (context == RequirementMessageContext.GroupQueueing)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("NoGroupMemberHasEnoughSeasonLevelForQueue", "Matchmaking", new LocalizationArg[]
 				{
 					localizationArg_Int
@@ -366,30 +241,8 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName && reader.Value != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_GreaterThan.Create(QueueRequirement.RequirementType, JsonReader)).MethodHandle;
-			}
 			if (reader.Value.ToString() == "AnyGroupMember")
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				reader.Read();
 				queueRequirement_GreaterThan.m_anyGroupMember = bool.Parse(reader.Value.ToString());
 				reader.Read();

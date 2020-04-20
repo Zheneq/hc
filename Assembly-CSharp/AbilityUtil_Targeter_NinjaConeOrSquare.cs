@@ -82,19 +82,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		this.m_lastCenterSquareActor = null;
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NinjaConeOrSquare.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			return;
 		}
 		if (!this.m_syncComp.m_shurikenDashingThisTurn)
@@ -109,15 +96,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 				if (this.m_affectsTargetingActor && !actorsInCone.Contains(targetingActor))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsInCone.Add(targetingActor);
 				}
 				for (int i = 0; i < actorsInCone.Count; i++)
@@ -133,15 +111,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 				base.SetMovementArrowEnabledFromIndex(0, false);
 				return;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		base.ResetSquareIndicatorIndexToUse();
 		base.HideUnusedSquareIndicators();
@@ -150,15 +119,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor);
 			gameObject.transform.position = TargeterUtils.MoveHighlightTowards(highlightGoalPos, base.Highlight, ref this.m_curSpeed);
 			gameObject.SetActive(true);
@@ -171,53 +131,17 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Possible)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag2 = (this.m_affectCasterDelegate != null) ? this.m_affectCasterDelegate(targetingActor, actorsInShape, flag) : flag;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsInShape.Add(targetingActor);
 				}
 			}
 			ActorData actorData = currentTarget.GetCurrentBestActorTarget();
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!actorData.IsVisibleToClient())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = null;
 				}
 			}
@@ -229,67 +153,22 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 					ActorData potentialTarget = enumerator.Current;
 					this.HandleAddActorInShape(potentialTarget, targetingActor, currentTarget, centerOfShape, actorData);
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Always)
 			{
 				AbilityTooltipSubject abilityTooltipSubject = this.m_casterTooltipSubject;
 				if (abilityTooltipSubject == AbilityTooltipSubject.None)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityTooltipSubject = this.m_allyTooltipSubject;
 				}
 				base.AddActorInRange(targetingActor, centerOfShape, targetingActor, abilityTooltipSubject, false);
 			}
 			if (this.m_affectsBestTarget == AbilityUtil_Targeter.AffectsActor.Always)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, centerOfShape, targetingActor, this.m_allyTooltipSubject, false);
 					}
 					else
@@ -300,15 +179,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			}
 			if (this.ShowTeleportLines)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.InstantiateTeleportPathUIEffect();
 				base.UpdateEffectOnCaster(currentTarget, targetingActor);
 				base.UpdateTargetAreaEffect(currentTarget, targetingActor);
@@ -328,19 +198,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		bool flag;
 		if (!(potentialTarget != targetingActor))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NinjaConeOrSquare.HandleAddActorInShape(ActorData, ActorData, AbilityTarget, Vector3, ActorData)).MethodHandle;
-			}
 			flag = (this.m_affectsCaster == AbilityUtil_Targeter.AffectsActor.Possible);
 		}
 		else
@@ -351,49 +208,13 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 		bool flag3 = potentialTarget != bestTarget || this.m_affectsBestTarget == AbilityUtil_Targeter.AffectsActor.Possible;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (potentialTarget == targetingActor)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityTooltipSubject abilityTooltipSubject = this.m_casterTooltipSubject;
 					if (abilityTooltipSubject == AbilityTooltipSubject.None)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						abilityTooltipSubject = this.m_allyTooltipSubject;
 					}
 					base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, abilityTooltipSubject, false);
@@ -419,19 +240,6 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			if (this.m_highlights.Count >= 2)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NinjaConeOrSquare.CreateHighlightObjects(ActorData)).MethodHandle;
 			}
 		}
 		this.m_highlights = new List<GameObject>();

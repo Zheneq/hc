@@ -44,30 +44,8 @@ public class Targeting : MonoBehaviour
 	{
 		if (material == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Targeting.CreateLineMesh(List<Vector3>, float, Color, bool, Material, GameObject, bool)).MethodHandle;
-			}
 			if (isChasing)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				material = HighlightUtils.Get().m_ArrowChaseLineMaterial;
 			}
 			else
@@ -78,15 +56,6 @@ public class Targeting : MonoBehaviour
 		GameObject gameObject;
 		if (previousGameObject == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = new GameObject("ArrowLine");
 		}
 		else
@@ -96,15 +65,6 @@ public class Targeting : MonoBehaviour
 		MeshFilter meshFilter;
 		if (previousGameObject == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			meshFilter = gameObject.AddComponent<MeshFilter>();
 			gameObject.AddComponent<MeshRenderer>();
 		}
@@ -125,15 +85,6 @@ public class Targeting : MonoBehaviour
 			Vector3 direction = Camera.main.WorldToRay(points[i]).direction;
 			if (i == 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 lhs = points[i + 1] - points[i];
 				Vector3 normalized;
 				if (faceTowardCamera)
@@ -154,28 +105,10 @@ public class Targeting : MonoBehaviour
 			}
 			else if (i == points.Count - 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 normalized2 = (points[i] - points[i - 1]).normalized;
 				Vector3 normalized3;
 				if (faceTowardCamera)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					normalized3 = Vector3.Cross(normalized2, direction).normalized;
 				}
 				else
@@ -228,39 +161,12 @@ public class Targeting : MonoBehaviour
 				float num = Vector3.Dot(vector2, normalized7);
 				if (num == 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
 				}
 				if (faceTowardCamera)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((double)num < 0.9)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_809;
 					}
 				}
@@ -269,15 +175,6 @@ public class Targeting : MonoBehaviour
 				Vector3 vector3 = tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 3];
 				if (!faceTowardCamera)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector3.y = 0f;
 				}
 				float magnitude2 = vector3.magnitude;
@@ -287,41 +184,14 @@ public class Targeting : MonoBehaviour
 				vector3 = tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 3];
 				if (!faceTowardCamera)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector3.y = 0f;
 				}
 				magnitude2 = vector3.magnitude;
 				tempUvsList.Add(new Vector2(tempUvsList[tempUvsList.Count - 3].x + magnitude2 / 1f, 1f));
 				if (faceTowardCamera)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 3]).sqrMagnitude > (tempVerticesList[tempVerticesList.Count - 1] - tempVerticesList[tempVerticesList.Count - 4]).sqrMagnitude)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 value = tempVerticesList[tempVerticesList.Count - 1];
 						tempVerticesList[tempVerticesList.Count - 1] = tempVerticesList[tempVerticesList.Count - 2];
 						tempVerticesList[tempVerticesList.Count - 2] = value;
@@ -329,15 +199,6 @@ public class Targeting : MonoBehaviour
 				}
 			}
 			IL_809:;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_tempTrianglesList.Clear();
 		List<int> tempTrianglesList = this.m_tempTrianglesList;
@@ -349,15 +210,6 @@ public class Targeting : MonoBehaviour
 			tempTrianglesList.Add(j + 1);
 			tempTrianglesList.Add(j + 2);
 			tempTrianglesList.Add(j + 3);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		mesh.vertices = tempVerticesList.ToArray();
 		mesh.normals = tempNormalsList.ToArray();
@@ -377,19 +229,6 @@ public class Targeting : MonoBehaviour
 		GameObject gameObject;
 		if (previousLine != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Targeting.CreateFancyArrowMesh(List<Vector3>*, float, Color, bool, ActorData, AbilityUtil_Targeter.TargeterMovementType, Material, MovementPathStart, bool, float, float)).MethodHandle;
-			}
 			gameObject = previousLine.gameObject.transform.parent.gameObject;
 		}
 		else
@@ -401,26 +240,8 @@ public class Targeting : MonoBehaviour
 		Vector3 vector2 = points[points.Count - 1] - points[points.Count - 2];
 		if (vector.sqrMagnitude > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (vector2.sqrMagnitude > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector.y = 0f;
 				vector2.y = 0f;
 				vector.Normalize();
@@ -432,15 +253,6 @@ public class Targeting : MonoBehaviour
 					previousLine.Setup(theActor, isChasing, movementType);
 					if (!glowOn)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						previousLine.SetGlow(glowOn);
 					}
 					gameObject2.transform.position = points[0];
@@ -469,15 +281,6 @@ public class Targeting : MonoBehaviour
 					movementPathStart.Setup(theActor, isChasing, movementType);
 					if (!glowOn)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						movementPathStart.SetGlow(glowOn);
 					}
 					gameObject5.transform.position = points[0];
@@ -520,34 +323,12 @@ public class Targeting : MonoBehaviour
 			array2[i] = new Vector3(0f, 1f, 0f);
 			array3[i] = Vector2.zero;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(Targeting.CreateMesh(Vector3[], string, Material)).MethodHandle;
-		}
 		int[] array4 = new int[(perimeterPts.Length - 2) * 3];
 		for (int j = 1; j < perimeterPts.Length - 1; j++)
 		{
 			array4[(j - 1) * 3] = 0;
 			array4[(j - 1) * 3 + 1] = j + 1;
 			array4[(j - 1) * 3 + 2] = j;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		mesh.vertices = array;
 		mesh.normals = array2;
@@ -577,19 +358,6 @@ public class Targeting : MonoBehaviour
 			a *= borderThickness;
 			array[j] = new Vector3(perimeterPts[j].x + a.x, perimeterPts[j].y, perimeterPts[j].z + a.z);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(Targeting.CreateMeshWithBorder(Vector3[], float, string, GameObject*, Material, Material)).MethodHandle;
-		}
 		GameObject result = Targeting.CreateMesh(perimeterPts, objectName, meshMaterial);
 		outlineMeshObject = new GameObject(objectName + "_outline");
 		MeshFilter meshFilter = outlineMeshObject.AddComponent<MeshFilter>();
@@ -608,15 +376,6 @@ public class Targeting : MonoBehaviour
 			array4[k] = Vector2.zero;
 			array4[4 + k] = Vector2.zero;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		int[] array5 = new int[perimeterPts.Length * 2 * 3];
 		for (int l = 0; l < perimeterPts.Length; l++)
 		{
@@ -629,15 +388,6 @@ public class Targeting : MonoBehaviour
 			array5[num3 + 3] = num;
 			array5[num3 + 4] = num2;
 			array5[num3 + 5] = 4 + num2;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		mesh.vertices = array2;
 		mesh.normals = array3;

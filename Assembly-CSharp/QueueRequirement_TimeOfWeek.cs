@@ -31,31 +31,9 @@ public class QueueRequirement_TimeOfWeek : QueueRequirement
 		DateTime t = date + this.Start;
 		if (currentUTCTime > t)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_TimeOfWeek.DoesApplicantPass(IQueueRequirementSystemInfo, IQueueRequirementApplicant, GameType, GameSubType)).MethodHandle;
-			}
 			DateTime dateTime = date + this.End;
 			if (dateTime < t)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dateTime = dateTime.AddDays(7.0);
 			}
 			return currentUTCTime < dateTime;
@@ -77,33 +55,11 @@ public class QueueRequirement_TimeOfWeek : QueueRequirement
 		DateTime dateTime = date + this.Start;
 		if (dateTime < currentUTCTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_TimeOfWeek.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-			}
 			dateTime = dateTime.AddDays(7.0);
 		}
 		LocalizationArg_TimeSpan localizationArg_TimeSpan = LocalizationArg_TimeSpan.Create(dateTime - currentUTCTime);
 		if (context == RequirementMessageContext.Generic)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return LocalizationPayload.Create("WillBeEnabledInXTimeSpan", "Requirement", new LocalizationArg[]
 			{
 				localizationArg_TimeSpan

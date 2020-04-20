@@ -69,19 +69,6 @@ public class LobbyGameConfig
 	{
 		if (on)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.SetGameOption(GameOptionFlag, bool)).MethodHandle;
-			}
 			this.GameOptionFlags = this.GameOptionFlags.WithGameOption(flag);
 		}
 		else
@@ -96,24 +83,8 @@ public class LobbyGameConfig
 		get
 		{
 			List<GameSubType> subTypes = this.SubTypes;
-			if (LobbyGameConfig.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.get_NeedsPreSelectedFreelancer()).MethodHandle;
-				}
-				LobbyGameConfig.<>f__am$cache0 = ((GameSubType p) => p.NeedsPreSelectedFreelancer);
-			}
-			return subTypes.Exists(LobbyGameConfig.<>f__am$cache0);
+			
+			return subTypes.Exists(((GameSubType p) => p.NeedsPreSelectedFreelancer));
 		}
 	}
 
@@ -124,32 +95,10 @@ public class LobbyGameConfig
 		{
 			if (this.SubTypes.IsNullOrEmpty<GameSubType>())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.get_HasSelectedSubType()).MethodHandle;
-				}
 				throw new Exception(string.Format("LobbyGameConfig for {0} has no SubTypes defined", this.GameType));
 			}
 			if (this.SubTypes.Count<GameSubType>() == 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 			if (this.InstanceSubTypeBit == 0)
@@ -174,59 +123,19 @@ public class LobbyGameConfig
 	{
 		if (this.SubTypes.IsNullOrEmpty<GameSubType>())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.GetSubType(ushort)).MethodHandle;
-			}
 			throw new Exception(string.Format("LobbyGameConfig for {0} has no SubTypes defined", this.GameType));
 		}
 		if (this.SubTypes.Count<GameSubType>() == 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.SubTypes.First<GameSubType>();
 		}
 		if (subtypeBit == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("LobbyGameConfig instance created for a specific game of {0} but no subtype chosen (there are {1} subtypes)", this.GameType, this.SubTypes.Count<GameSubType>()));
 		}
 		IEnumerable<GameSubType> subTypes = this.GetSubTypes(subtypeBit);
 		if (subTypes.Count<GameSubType>() > 1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("LobbyGameConfig instance created for a specific game of {0} but multiple subtypes selected", this.GameType));
 		}
 		return subTypes.First<GameSubType>();
@@ -275,58 +184,18 @@ public class LobbyGameConfig
 		{
 			if (!this.SubTypes.IsNullOrEmpty<GameSubType>())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.get_TurnTime()).MethodHandle;
-				}
 				if (this.InstanceSubTypeBit != 0)
 				{
 					if (this.InstanceSubType.GameOverrides != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TimeSpan? turnTimeSpan = this.InstanceSubType.GameOverrides.TurnTimeSpan;
 						if (turnTimeSpan != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							TimeSpan? turnTimeSpan2 = this.InstanceSubType.GameOverrides.TurnTimeSpan;
 							return turnTimeSpan2.Value.TotalSeconds;
 						}
 					}
 					return TimeSpan.FromSeconds(20.0).TotalSeconds;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return 20.0;
@@ -359,30 +228,8 @@ public class LobbyGameConfig
 				GameSubType gst = enumerator.Current;
 				if ((bit & subTypeMask) != 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.<GetSubTypes>c__Iterator0.MoveNext()).MethodHandle;
-					}
 					bFoundSomething = true;
 					yield return gst;
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 				bit = (ushort)(bit << 1);
@@ -392,15 +239,6 @@ public class LobbyGameConfig
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -479,19 +317,6 @@ public class LobbyGameConfig
 				this.IsActive = false;
 				throw new Exception(string.Format("Why does the {0} json config have no sub-types defined?", this.GameType));
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameConfig.ApplyDisabledMaps(List<string>, LobbyGameConfig)).MethodHandle;
-			}
 			foreach (GameSubType gameSubType in defaultGameConfig.SubTypes)
 			{
 				GameSubType gameSubType2 = gameSubType.Clone();
@@ -500,15 +325,6 @@ public class LobbyGameConfig
 				{
 					if (gameMapConfig.IsActive)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (disabledMaps.Contains(gameMapConfig.Map))
 						{
 							result = true;

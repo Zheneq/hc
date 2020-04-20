@@ -25,19 +25,6 @@ public class WanderState : FSMState
 		this.WanderData.MinWanderDistanceInSquares = Mathf.Clamp(this.WanderData.MinWanderDistanceInSquares, 0, this.WanderData.MaxWanderDistanceInSquares);
 		if (this.WanderData.MinWanderDistanceInSquares == this.WanderData.MaxWanderDistanceInSquares)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WanderState.Start()).MethodHandle;
-			}
 			Log.Warning(string.Concat(new object[]
 			{
 				"Min and Max wander distance of ",
@@ -58,34 +45,12 @@ public class WanderState : FSMState
 		position.y = 0f;
 		Bounds minBounds = new Bounds(position, size);
 		Bounds u001D = new Bounds(position, size2);
-		List<BoardSquare> list = Board.Get().\u000E(u001D, delegate(BoardSquare x)
+		List<BoardSquare> list = Board.Get().symbol_000E(u001D, delegate(BoardSquare x)
 		{
 			if (x.OccupantActor == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WanderState.<PickNewWanderPoint>c__AnonStorey1.<>m__0(BoardSquare)).MethodHandle;
-				}
 				if (x.IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return !minBounds.Contains(x.transform.position);
 				}
 			}
@@ -120,30 +85,8 @@ public class WanderState : FSMState
 		BoardSquare currentBoardSquare = base.MyActorData.GetCurrentBoardSquare();
 		if (this.currentDestination == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WanderState.<OnTurn>c__Iterator0.MoveNext()).MethodHandle;
-			}
 			if (!this.PickNewWanderPoint(thisBrain))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info(string.Concat(new object[]
 				{
 					"Could not find a valid point to wander to. Waiting a turn! Min/Max: ",
@@ -158,52 +101,16 @@ public class WanderState : FSMState
 		float remainingHorizontalMovement = base.MyActorData.RemainingHorizontalMovement;
 		if (this.turnsToDelayRemaining == -1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(currentBoardSquare == this.currentDestination))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num >= remainingHorizontalMovement || !(this.currentDestination.OccupantActor != null))
 				{
 					goto IL_228;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.turnsToDelayRemaining = GameplayRandom.Range(this.WanderData.MinWaitTurns, this.WanderData.MaxWaitTurns);
 			if (this.turnsToDelayRemaining <= 0 && !this.PickNewWanderPoint(thisBrain))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info(string.Concat(new object[]
 				{
 					"Could not find a valid point to wander to. Waiting a turn! Min/Max: ",
@@ -217,38 +124,11 @@ public class WanderState : FSMState
 		IL_228:
 		if (this.turnsToDelayRemaining > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.turnsToDelayRemaining--;
 			if (this.turnsToDelayRemaining <= 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.PickNewWanderPoint(thisBrain))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Info(string.Concat(new object[]
 					{
 						"Could not find a valid point to wander to. Waiting a turn! Min/Max: ",
@@ -262,15 +142,6 @@ public class WanderState : FSMState
 		}
 		else if (this.currentDestination)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorTurnSM component = base.MyFSMBrain.GetComponent<ActorTurnSM>();
 			this.totalTurnsTravelling++;
 			component.SelectMovementSquareForMovement(this.currentDestination);

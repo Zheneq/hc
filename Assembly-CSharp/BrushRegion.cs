@@ -33,19 +33,6 @@ public class BrushRegion : BoardRegion
 		{
 			if (!(this.m_quads[0].m_corner1 == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.Initialize()).MethodHandle;
-				}
 				if (!(this.m_quads[0].m_corner2 == null))
 				{
 					Vector3 position = this.m_quads[0].m_corner1.position;
@@ -56,27 +43,9 @@ public class BrushRegion : BoardRegion
 					{
 						goto IL_16D;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(boardSquareUnsafe2 != null))
 					{
 						goto IL_16D;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					Vector3 position3 = (boardSquareUnsafe.ToVector3() + boardSquareUnsafe2.ToVector3()) * 0.5f;
 					if (this.m_functioningVFX != null)
@@ -85,15 +54,6 @@ public class BrushRegion : BoardRegion
 					}
 					if (this.m_disruptedVFX != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_disruptedVFX.transform.position = position3;
 						goto IL_16D;
 					}
@@ -114,38 +74,11 @@ public class BrushRegion : BoardRegion
 				BoardSquare boardSquare = enumerator.Current;
 				if (boardSquare.IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position4 = boardSquare.ToVector3();
 					if (HighlightUtils.Get() != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (HighlightUtils.Get().m_brushDisruptedSquarePrefab != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_brushDisruptedSquarePrefab);
 							gameObject.transform.position = position4;
 							gameObject.transform.parent = BrushCoordinator.Get().transform;
@@ -153,15 +86,6 @@ public class BrushRegion : BoardRegion
 						}
 						if (HighlightUtils.Get().m_brushFunctioningSquarePrefab != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(HighlightUtils.Get().m_brushFunctioningSquarePrefab);
 							gameObject2.transform.position = position4;
 							gameObject2.transform.parent = BrushCoordinator.Get().transform;
@@ -172,42 +96,15 @@ public class BrushRegion : BoardRegion
 					BrushRegion.MaskSideFlagForSquare(ref b, boardSquare, squaresInRegion);
 					if (b != 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_exteriorSquareFlags[boardSquare] = b;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float x = 0f;
 		float y;
 		if (HighlightUtils.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			y = HighlightUtils.Get().m_brushBorderHeightOffset;
 		}
 		else
@@ -225,28 +122,10 @@ public class BrushRegion : BoardRegion
 		this.m_borderVfxParentFunctioning.transform.localRotation = Quaternion.identity;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_borderVfxParentFunctioning.transform.parent = GameFlowData.Get().GetBrushBordersRoot().transform;
 		}
 		if (this.m_borderVfxParentDisrupted != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Brush region border vfx parent already exists when initializing region", new object[0]);
 			UnityEngine.Object.Destroy(this.m_borderVfxParentDisrupted);
 		}
@@ -255,15 +134,6 @@ public class BrushRegion : BoardRegion
 		this.m_borderVfxParentDisrupted.transform.localRotation = Quaternion.identity;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_borderVfxParentDisrupted.transform.parent = GameFlowData.Get().GetBrushBordersRoot().transform;
 		}
 		this.m_borderVfxListFunctioning.Clear();
@@ -271,15 +141,6 @@ public class BrushRegion : BoardRegion
 		GameObject gameObject3;
 		if (HighlightUtils.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject3 = HighlightUtils.Get().m_brushFunctioningBorderPrefab;
 		}
 		else
@@ -290,15 +151,6 @@ public class BrushRegion : BoardRegion
 		GameObject gameObject4;
 		if (HighlightUtils.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject4 = HighlightUtils.Get().m_brushDisruptedBorderPrefab;
 		}
 		else
@@ -312,15 +164,6 @@ public class BrushRegion : BoardRegion
 			{
 				KeyValuePair<BoardSquare, byte> keyValuePair = enumerator2.Current;
 				BrushRegion.AddSideVfxPrefabs(keyValuePair.Key, keyValuePair.Value, functioningPrefab, disruptedPrefab, this.m_borderVfxParentFunctioning, this.m_borderVfxParentDisrupted, this.m_borderVfxListFunctioning, this.m_borderVfxListDisrupted);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_borderVfxParentDisrupted.SetActive(false);
@@ -340,30 +183,8 @@ public class BrushRegion : BoardRegion
 					ActorData actorData = enumerator.Current;
 					if (actorData.GetTravelBoardSquareBrushRegion() == regionIndex)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.HasTeamMemberInRegion(Team, int)).MethodHandle;
-						}
 						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return result;
@@ -377,19 +198,6 @@ public class BrushRegion : BoardRegion
 		bool flag2;
 		if (!(CameraManager.Get() == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.UpdateBorderVisibility(bool)).MethodHandle;
-			}
 			flag2 = !CameraManager.Get().ShouldHideBrushVfx();
 		}
 		else
@@ -403,15 +211,6 @@ public class BrushRegion : BoardRegion
 			{
 				goto IL_E6;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.m_borderVfxParentFunctioning.SetActive(functioning);
 		for (int i = 0; i < this.m_borderVfxListFunctioning.Count; i++)
@@ -419,37 +218,10 @@ public class BrushRegion : BoardRegion
 			PKFxFX pkfxFX = this.m_borderVfxListFunctioning[i];
 			if (pkfxFX != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (functioning)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag && flag3)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pkfxFX.StartEffect();
 						goto IL_CA;
 					}
@@ -457,15 +229,6 @@ public class BrushRegion : BoardRegion
 				pkfxFX.TerminateEffect();
 			}
 			IL_CA:;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_E6:
 		if (functioning == this.m_borderVfxParentDisrupted.activeSelf || this.m_lastBorderCanBeVisible != flag3)
@@ -476,37 +239,10 @@ public class BrushRegion : BoardRegion
 				PKFxFX pkfxFX2 = this.m_borderVfxListDisrupted[j];
 				if (pkfxFX2 != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!functioning)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag3)
 							{
 								pkfxFX2.StartEffect();
@@ -518,15 +254,6 @@ public class BrushRegion : BoardRegion
 				}
 				IL_168:;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.m_lastBorderCanBeVisible = flag3;
 	}
@@ -536,19 +263,6 @@ public class BrushRegion : BoardRegion
 		byte result;
 		if (this.m_exteriorSquareFlags.ContainsKey(square))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.GetExteriorSideFlags(BoardSquare)).MethodHandle;
-			}
 			result = this.m_exteriorSquareFlags[square];
 		}
 		else
@@ -563,19 +277,6 @@ public class BrushRegion : BoardRegion
 		Color color;
 		if (functioning)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.DrawOutlineGizmos(bool)).MethodHandle;
-			}
 			color = Color.white;
 		}
 		else
@@ -585,15 +286,6 @@ public class BrushRegion : BoardRegion
 		Gizmos.color = color;
 		if (this.m_exteriorSquareFlags != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (KeyValuePair<BoardSquare, byte> keyValuePair in this.m_exteriorSquareFlags)
 			{
 				BrushRegion.DrawDebugGizmos(keyValuePair.Key, keyValuePair.Value);
@@ -617,42 +309,11 @@ public class BrushRegion : BoardRegion
 	{
 		if (!(squareToTest == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.ApplyMarkForSide(byte*, SideFlags, BoardSquare, List<BoardSquare>)).MethodHandle;
-			}
 			if (squareToTest.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (squaresInSet.Contains(squareToTest))
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -673,30 +334,8 @@ public class BrushRegion : BoardRegion
 					SideFlags sideFlags2 = (SideFlags)obj;
 					if ((sideFlags & (byte)sideFlags2) != 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.AddSideVfxPrefabs(BoardSquare, byte, GameObject, GameObject, GameObject, GameObject, List<PKFxFX>, List<PKFxFX>)).MethodHandle;
-						}
 						BrushRegion.AddSideVfxForSide(sideFlags2, vfxPos, functioningPrefab, disruptedPrefab, functioningRoot, disruptedRoot, functioningVfxList, disruptedVfxList);
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -704,15 +343,6 @@ public class BrushRegion : BoardRegion
 				IDisposable disposable;
 				if ((disposable = (enumerator as IDisposable)) != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					disposable.Dispose();
 				}
 			}
@@ -724,19 +354,6 @@ public class BrushRegion : BoardRegion
 		Quaternion rotationForSidePrefab = BrushRegion.GetRotationForSidePrefab(side);
 		if (functioningPrefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.AddSideVfxForSide(SideFlags, Vector3, GameObject, GameObject, GameObject, GameObject, List<PKFxFX>, List<PKFxFX>)).MethodHandle;
-			}
 			GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(functioningPrefab);
 			gameObject.transform.localPosition = vfxPos;
 			gameObject.transform.localRotation = rotationForSidePrefab;
@@ -746,27 +363,9 @@ public class BrushRegion : BoardRegion
 			{
 				functioningVfxList.Add(item);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (disruptedPrefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(disruptedPrefab);
 			gameObject2.transform.localPosition = vfxPos;
 			gameObject2.transform.localRotation = rotationForSidePrefab;
@@ -776,15 +375,6 @@ public class BrushRegion : BoardRegion
 			{
 				disruptedVfxList.Add(item2);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -792,19 +382,6 @@ public class BrushRegion : BoardRegion
 	{
 		if (side == SideFlags.Up)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.GetRotationForSidePrefab(SideFlags)).MethodHandle;
-			}
 			return Quaternion.identity;
 		}
 		if (side == SideFlags.Down)
@@ -813,15 +390,6 @@ public class BrushRegion : BoardRegion
 		}
 		if (side == SideFlags.Left)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Quaternion.Euler(0f, 270f, 0f);
 		}
 		if (side == SideFlags.Right)
@@ -840,58 +408,18 @@ public class BrushRegion : BoardRegion
 			Vector3 b2 = new Vector3(0.5f * Board.Get().squareSize, 0f, 0f);
 			if ((sideFlags & 1) != 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BrushRegion.DrawDebugGizmos(BoardSquare, byte)).MethodHandle;
-				}
 				Gizmos.DrawLine(a + b - b2, a + b + b2);
 			}
 			if ((sideFlags & 2) != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Gizmos.DrawLine(a - b + b2, a - b - b2);
 			}
 			if ((sideFlags & 4) != 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Gizmos.DrawLine(a - b2 + b, a - b2 - b);
 			}
 			if ((sideFlags & 8) != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Gizmos.DrawLine(a + b2 + b, a + b2 - b);
 			}
 		}

@@ -48,19 +48,6 @@ public class SoldierCardinalLine : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Cardinal Line";
 		}
 		this.Setup();
@@ -87,19 +74,6 @@ public class SoldierCardinalLine : Ability
 	{
 		if (targetIndex == 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetControlpadTargetingParadigm(int)).MethodHandle;
-			}
 			return Ability.TargetingParadigm.Direction;
 		}
 		return base.GetControlpadTargetingParadigm(targetIndex);
@@ -119,19 +93,6 @@ public class SoldierCardinalLine : Ability
 	{
 		if (targetIndex == 1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
 			min = 1f;
 			max = 1f;
 			return true;
@@ -144,19 +105,6 @@ public class SoldierCardinalLine : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -172,19 +120,6 @@ public class SoldierCardinalLine : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.UseBothCardinalDir()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_useBothCardinalDirMod.GetModifiedValue(this.m_useBothCardinalDir);
 		}
 		else
@@ -199,19 +134,6 @@ public class SoldierCardinalLine : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetPositionShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_positionShapeMod.GetModifiedValue(this.m_positionShape);
 		}
 		else
@@ -226,19 +148,6 @@ public class SoldierCardinalLine : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetLineWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_lineWidthMod.GetModifiedValue(this.m_lineWidth);
 		}
 		else
@@ -258,19 +167,6 @@ public class SoldierCardinalLine : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -290,19 +186,6 @@ public class SoldierCardinalLine : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetNearCenterDistThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_nearCenterDistThresholdMod.GetModifiedValue(this.m_nearCenterDistThreshold);
 		}
 		else
@@ -322,19 +205,6 @@ public class SoldierCardinalLine : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetAoeShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeShapeMod.GetModifiedValue(this.m_aoeShape);
 		}
 		else
@@ -349,19 +219,6 @@ public class SoldierCardinalLine : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetAoeDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeDamageMod.GetModifiedValue(this.m_aoeDamage);
 		}
 		else
@@ -376,19 +233,6 @@ public class SoldierCardinalLine : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetNumSubsequentTurns()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_numSubsequentTurnsMod.GetModifiedValue(this.m_numSubsequentTurns);
 		}
 		else
@@ -408,19 +252,6 @@ public class SoldierCardinalLine : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyEffectOnSubsequentTurns != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetEnemyEffectOnSubsequentTurns()).MethodHandle;
-			}
 			result = this.m_cachedEnemyEffectOnSubsequentTurns;
 		}
 		else
@@ -442,54 +273,14 @@ public class SoldierCardinalLine : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (currentTargeterIndex > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (currentTargeterIndex < base.Targeters.Count)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_SoldierCardinalLines abilityUtil_Targeter_SoldierCardinalLines = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SoldierCardinalLines;
 				if (abilityUtil_Targeter_SoldierCardinalLines != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<AbilityTooltipSubject> tooltipSubjectTypes = abilityUtil_Targeter_SoldierCardinalLines.GetTooltipSubjectTypes(targetActor);
 					if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 						int num = 0;
 						if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist.ContainsKey(targetActor))
@@ -497,41 +288,14 @@ public class SoldierCardinalLine : Ability
 							num += this.GetDamageAmount();
 							if (this.GetExtraDamageForNearCenterTargets() > 0)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist[targetActor] <= this.GetNearCenterDistThreshold() * Board.Get().squareSize)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num += this.GetExtraDamageForNearCenterTargets();
 								}
 							}
 						}
 						if (abilityUtil_Targeter_SoldierCardinalLines.m_aoeHitActors.Contains(targetActor))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += this.GetAoeDamage();
 						}
 						dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -550,19 +314,6 @@ public class SoldierCardinalLine : Ability
 		int val;
 		if (abilityMod_SoldierCardinalLine)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SoldierCardinalLine.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -577,15 +328,6 @@ public class SoldierCardinalLine : Ability
 		int val2;
 		if (abilityMod_SoldierCardinalLine)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SoldierCardinalLine.m_extraDamageForNearCenterTargetsMod.GetModifiedValue(this.m_extraDamageForNearCenterTargets);
 		}
 		else
@@ -598,15 +340,6 @@ public class SoldierCardinalLine : Ability
 		int val3;
 		if (abilityMod_SoldierCardinalLine)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SoldierCardinalLine.m_numSubsequentTurnsMod.GetModifiedValue(this.m_numSubsequentTurns);
 		}
 		else
@@ -619,15 +352,6 @@ public class SoldierCardinalLine : Ability
 		int val4;
 		if (abilityMod_SoldierCardinalLine)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_SoldierCardinalLine.m_damageOnSubsequentTurnsMod.GetModifiedValue(this.m_damageOnSubsequentTurns);
 		}
 		else
@@ -642,19 +366,6 @@ public class SoldierCardinalLine : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SoldierCardinalLine))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierCardinalLine.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SoldierCardinalLine);
 			this.Setup();
 		}

@@ -36,19 +36,6 @@ public class CopyMainCameraDepth : MonoBehaviour
 		this.m_Camera2.RemoveCommandBuffer(CameraEvent.BeforeForwardOpaque, this.m_CmdDepthWrite);
 		if (this.m_CamDepth == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CopyMainCameraDepth.Update()).MethodHandle;
-			}
 			this.m_CamDepth = new RenderTexture(this.m_Camera1.pixelWidth, this.m_Camera1.pixelHeight, 0x20, RenderTextureFormat.Depth);
 		}
 		if (!this.m_CamDepth.IsCreated())

@@ -31,19 +31,6 @@ public class NanoSmithBoltInfo
 		Vector3 start = boltStartPos;
 		if (startTargetingFromCaster)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.GetActorsHitByBolt(Vector3, Vector3, ActorData, AbilityPriority, VectorUtils.LaserCoords*, List<NonActorTargetInfo>, bool, bool, bool)).MethodHandle;
-			}
 			start = caster.GetTravelBoardSquareWorldPositionForLos();
 		}
 		VectorUtils.LaserCoords coords;
@@ -51,49 +38,13 @@ public class NanoSmithBoltInfo
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(coords.start, boltDirection, this.range, this.width, caster, TargeterUtils.GetRelevantTeams(caster, this.includeAllies, this.includeEnemies), this.penetrateLineOfSight, -1, false, true, out coords.end, nonActorTargetInfo, null, false, true);
 		if (!includeActorAtStartPos)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(boltStartPos);
 			if (boardSquare != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare.OccupantActor != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorsInLaser.Contains(boardSquare.OccupantActor))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorsInLaser.Remove(boardSquare.OccupantActor);
 					}
 				}
@@ -101,26 +52,8 @@ public class NanoSmithBoltInfo
 		}
 		if (!includeCaster)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorsInLaser.Contains(caster))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsInLaser.Remove(caster);
 			}
 		}
@@ -135,19 +68,6 @@ public class NanoSmithBoltInfo
 		sequenceEndPoints = new List<VectorUtils.LaserCoords>();
 		if (count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.GetRadialBoltHitActors(ActorData, AbilityPriority, Vector3, int, bool, Vector3, float, List<List<ActorData>>*, List<VectorUtils.LaserCoords>*, List<NonActorTargetInfo>)).MethodHandle;
-			}
 			float num = startAngleOffset;
 			if (relativeToAimDirection)
 			{
@@ -166,39 +86,12 @@ public class NanoSmithBoltInfo
 						ActorData item2 = enumerator.Current;
 						if (!list.Contains(item2))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(item2);
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				sequenceActors.Add(actorsHitByBolt);
 				sequenceEndPoints.Add(item);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -227,19 +120,6 @@ public class NanoSmithBoltInfo
 				ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(sequencePrefab, end, sequenceActors[i].ToArray(), caster, source, delayedProjectileExtraParams.ToArray());
 				startDataList.Add(item);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.AddSequenceStartDataForBolts(GameObject, ActorData, SequenceSource, List<List<ActorData>>, List<VectorUtils.LaserCoords>, List<ServerClientUtils.SequenceStartData>*)).MethodHandle;
-			}
 		}
 	}
 
@@ -247,19 +127,6 @@ public class NanoSmithBoltInfo
 	{
 		if (this.includeAllies)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBoltInfo.ReportAbilityTooltipNumbers(List<AbilityTooltipNumber>*, AbilityTooltipSubject, AbilityTooltipSubject)).MethodHandle;
-			}
 			this.effectOnAllyHit.ReportAbilityTooltipNumbers(ref numbers, allySubject);
 		}
 		if (this.includeEnemies)

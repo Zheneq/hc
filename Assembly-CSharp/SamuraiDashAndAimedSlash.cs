@@ -42,19 +42,6 @@ public class SamuraiDashAndAimedSlash : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.Start()).MethodHandle;
-			}
 			this.m_abilityName = "SamuraiDashAndAimedSlash";
 		}
 		this.m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
@@ -113,19 +100,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		float num = Vector3.Angle(neutralDir, vector);
 		if (num > this.GetMaxAngleForLaser())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetClampedLaserDirection(AbilityTarget, AbilityTarget, Vector3)).MethodHandle;
-			}
 			vector = Vector3.RotateTowards(vector, neutralDir, (num - this.GetMaxAngleForLaser()) * 0.0174532924f, 0f);
 		}
 		return vector.normalized;
@@ -136,19 +110,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		StandardEffectInfo cachedTargetEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.SetCachedFields()).MethodHandle;
-			}
 			cachedTargetEffect = this.m_abilityMod.m_targetEffectMod.GetModifiedValue(this.m_targetEffect);
 		}
 		else
@@ -159,15 +120,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		StandardEffectInfo cachedEffectOnSelf;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelf = this.m_abilityMod.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
 		}
 		else
@@ -187,19 +139,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -214,19 +153,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -241,19 +167,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -273,19 +186,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetExtraDamageIfSingleTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageIfSingleTargetMod.GetModifiedValue(this.m_extraDamageIfSingleTarget);
 		}
 		else
@@ -305,19 +205,6 @@ public class SamuraiDashAndAimedSlash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnSelf != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetEffectOnSelf()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnSelf;
 		}
 		else
@@ -349,33 +236,11 @@ public class SamuraiDashAndAimedSlash : Ability
 		AbilityUtil_Targeter_DashAndAim abilityUtil_Targeter_DashAndAim = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_DashAndAim;
 		if (abilityUtil_Targeter_DashAndAim != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 			{
 				results.m_damage = this.GetDamageAmount();
 				if (this.m_syncComponent != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_damage += this.m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
 				}
 				if (this.GetExtraDamageIfSingleTarget() > 0)
@@ -383,42 +248,15 @@ public class SamuraiDashAndAimedSlash : Ability
 					int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_DashAndAim.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 					if (visibleActorsCountByTooltipSubject == 1)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						results.m_damage += this.GetExtraDamageIfSingleTarget();
 					}
 				}
 			}
 			else if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int absorb;
 				if (this.GetEffectOnSelf().m_applyEffect)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					absorb = this.GetEffectOnSelf().m_effectData.m_absorbAmount;
 				}
 				else
@@ -436,19 +274,6 @@ public class SamuraiDashAndAimedSlash : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiDashAndAimedSlash))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiDashAndAimedSlash.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SamuraiDashAndAimedSlash);
 			this.Setup();
 		}

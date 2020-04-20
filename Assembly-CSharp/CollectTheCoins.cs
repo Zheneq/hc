@@ -70,19 +70,6 @@ public class CollectTheCoins : NetworkBehaviour
 	{
 		if (CollectTheCoins.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.Awake()).MethodHandle;
-			}
 			CollectTheCoins.s_instance = this;
 		}
 		else
@@ -91,15 +78,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SequenceSource sequenceSource = new SequenceSource(null, null, false, null, null);
 			this.m_sequenceSourceId = sequenceSource.RootID;
 		}
@@ -122,19 +100,6 @@ public class CollectTheCoins : NetworkBehaviour
 		{
 			if (this._sequenceSource == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.get_SequenceSource()).MethodHandle;
-				}
 				this._sequenceSource = new SequenceSource(null, null, this.m_sequenceSourceId, false);
 			}
 			return this._sequenceSource;
@@ -158,19 +123,6 @@ public class CollectTheCoins : NetworkBehaviour
 			dictionary.Add(key, (int)b5);
 			b3 = (sbyte)((int)b3 + 1);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.OnDeserialize(NetworkReader, bool)).MethodHandle;
-		}
 		sbyte b6 = 0;
 		while ((int)b6 < (int)b2)
 		{
@@ -180,15 +132,6 @@ public class CollectTheCoins : NetworkBehaviour
 			BoardSquare boardSquare = Board.Get().GetBoardSquare((int)b7, (int)b8);
 			dictionary2.Add(boardSquare, (int)b9);
 			b6 = (sbyte)((int)b6 + 1);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.SynchCoinVisualsToDictionary(dictionary2);
 		this.m_clientData.m_actorsToCoins_unresolved = dictionary;
@@ -213,31 +156,9 @@ public class CollectTheCoins : NetworkBehaviour
 		GameModeEventType eventType = gameModeEvent.m_eventType;
 		if (eventType == GameModeEventType.Ctc_CoinPickedUp)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.ExecuteClientGameModeEvent(ClientGameModeEvent)).MethodHandle;
-			}
 			BoardSquare square = gameModeEvent.m_square;
 			if (this.m_clientData.m_squaresToCoins_unresolved.ContainsKey(square))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int numCoins = this.m_clientData.m_squaresToCoins_unresolved[square];
 				this.OnActorGainedCoins_Client(gameModeEvent.m_primaryActor, numCoins);
 				this.RemoveCoinVisualsFromSquare(square);
@@ -261,15 +182,6 @@ public class CollectTheCoins : NetworkBehaviour
 				Debug.LogError("CollectTheCoins trying to handle non-Ctc event type " + eventType.ToString() + ".");
 				return;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnActorGainedCoins_Client(gameModeEvent.m_primaryActor, this.m_numCoinsToAwardPerCoinPowerup);
 		}
 	}
@@ -283,33 +195,11 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		if (numCoins == 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.OnActorGainedCoins_Client(ActorData, int)).MethodHandle;
-			}
 			Debug.LogError(string.Format("CollectTheCoins (client)-- trying to assign 0 spawn coins to actor {0}.", actor.GetDebugName()));
 			return;
 		}
 		if (!this.m_clientData.m_actorsToCoins_unresolved.ContainsKey(actor))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_clientData.m_actorsToCoins_unresolved.Add(actor, numCoins);
 		}
 		else
@@ -319,15 +209,6 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		if (this.m_gainObjPointPerCoinPickedUp)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Team team = actor.GetTeam();
 			ObjectivePoints.Get().AdjustUnresolvedPoints(numCoins, team);
 		}
@@ -337,48 +218,17 @@ public class CollectTheCoins : NetworkBehaviour
 	{
 		if (actor == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.OnActorDroppedCoins_Client(ActorData, BoardSquare)).MethodHandle;
-			}
 			Debug.LogError("CollectTheCoins (client)-- null actor trying to drop coins.");
 			return;
 		}
 		if (square == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on a null square.", actor.GetDebugName()));
 			return;
 		}
 		if (!this.m_clientData.m_actorsToCoins_unresolved.ContainsKey(actor))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor isn't in m_clientData.m_actorsToCoins_unresolved.", actor.GetDebugName(), BoardSquare.\u001D(square, false)));
+			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor isn't in m_clientData.m_actorsToCoins_unresolved.", actor.GetDebugName(), BoardSquare.symbol_001D(square, false)));
 			return;
 		}
 		int num = this.m_clientData.m_actorsToCoins_unresolved[actor];
@@ -386,30 +236,12 @@ public class CollectTheCoins : NetworkBehaviour
 		this.m_clientData.m_actorsToCoins_unresolved.Remove(actor);
 		if (num == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor has 0 coins.", actor.GetDebugName(), BoardSquare.\u001D(square, false)));
+			Debug.LogError(string.Format("CollectTheCoins (client)-- actor {0} trying to drop coins on square {1}, but that actor has 0 coins.", actor.GetDebugName(), BoardSquare.symbol_001D(square, false)));
 			return;
 		}
 		this.AddCoinSpillVisualToSquare(square, num);
 		if (this.m_loseObjPointPerCoinDropped)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Team team = actor.GetTeam();
 			ObjectivePoints.Get().AdjustUnresolvedPoints(-num, team);
 		}
@@ -420,19 +252,6 @@ public class CollectTheCoins : NetworkBehaviour
 		List<GameObject> list;
 		if (!this.m_clientData.m_squaresToCoinVisuals.ContainsKey(square))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.AddCoinVisualToSquare(BoardSquare)).MethodHandle;
-			}
 			list = new List<GameObject>();
 			this.m_clientData.m_squaresToCoinVisuals.Add(square, list);
 		}
@@ -449,19 +268,6 @@ public class CollectTheCoins : NetworkBehaviour
 	{
 		if (!this.m_clientData.m_squaresToCoinVisuals.ContainsKey(square))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.RemoveCoinVisualsFromSquare(BoardSquare)).MethodHandle;
-			}
 			return;
 		}
 		List<GameObject> list = this.m_clientData.m_squaresToCoinVisuals[square];
@@ -469,15 +275,6 @@ public class CollectTheCoins : NetworkBehaviour
 		{
 			GameObject obj = list[i];
 			UnityEngine.Object.Destroy(obj);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		list.Clear();
 		this.m_clientData.m_squaresToCoinVisuals.Remove(square);
@@ -493,19 +290,6 @@ public class CollectTheCoins : NetworkBehaviour
 			int num;
 			if (squaresToCoins.ContainsKey(key))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.SynchCoinVisualsToDictionary(Dictionary<BoardSquare, int>)).MethodHandle;
-				}
 				num = squaresToCoins[key];
 			}
 			else
@@ -514,15 +298,6 @@ public class CollectTheCoins : NetworkBehaviour
 			}
 			if (count > num)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(key);
 			}
 		}
@@ -532,15 +307,6 @@ public class CollectTheCoins : NetworkBehaviour
 			{
 				BoardSquare square = enumerator2.Current;
 				this.RemoveCoinVisualsFromSquare(square);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		using (Dictionary<BoardSquare, int>.Enumerator enumerator3 = squaresToCoins.GetEnumerator())
@@ -553,15 +319,6 @@ public class CollectTheCoins : NetworkBehaviour
 				int num2;
 				if (this.m_clientData.m_squaresToCoinVisuals.ContainsKey(key2))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = this.m_clientData.m_squaresToCoinVisuals[key2].Count;
 				}
 				else
@@ -574,25 +331,7 @@ public class CollectTheCoins : NetworkBehaviour
 					{
 						this.AddCoinVisualToSquare(key2);
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -601,33 +340,11 @@ public class CollectTheCoins : NetworkBehaviour
 	{
 		if (this.m_spillInAirPrefab == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.AddCoinSpillVisualToSquare(BoardSquare, int)).MethodHandle;
-			}
 			return;
 		}
 		List<GameObject> list;
 		if (!this.m_clientData.m_squaresToSpillsVisuals.ContainsKey(square))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = new List<GameObject>();
 			this.m_clientData.m_squaresToSpillsVisuals.Add(square, list);
 		}
@@ -653,29 +370,7 @@ public class CollectTheCoins : NetworkBehaviour
 					GameObject obj = value[i];
 					UnityEngine.Object.Destroy(obj);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.ClearCoinSpillVisuals()).MethodHandle;
-				}
 				value.Clear();
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_clientData.m_squaresToSpillsVisuals.Clear();
@@ -685,19 +380,6 @@ public class CollectTheCoins : NetworkBehaviour
 	{
 		if (this.m_clientData.m_actorsToCoins_unresolved.ContainsKey(actor) && this.m_clientData.m_actorsToCoins_unresolved[actor] > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.Client_OnActorDeath(ActorData)).MethodHandle;
-			}
 			BoardSquare travelBoardSquare = actor.GetTravelBoardSquare();
 			this.OnActorDroppedCoins_Client(actor, travelBoardSquare);
 		}
@@ -720,19 +402,6 @@ public class CollectTheCoins : NetworkBehaviour
 		coinsTeamB = 0;
 		if (this.m_clientData.m_actorsToCoins_unresolved != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.CalculateCoins_Client(int*, int*)).MethodHandle;
-			}
 			using (Dictionary<ActorData, int>.Enumerator enumerator = this.m_clientData.m_actorsToCoins_unresolved.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -742,40 +411,13 @@ public class CollectTheCoins : NetworkBehaviour
 					{
 						if (keyValuePair.Key.GetTeam() == Team.TeamA)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							coinsTeamA += keyValuePair.Value;
 						}
 						else if (keyValuePair.Key.GetTeam() == Team.TeamB)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							coinsTeamB += keyValuePair.Value;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -789,43 +431,12 @@ public class CollectTheCoins : NetworkBehaviour
 		}
 		if (conditions != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.AreCtcVictoryConditionsMetForTeam(CollectTheCoins.CollectTheCoins_VictoryCondition[], Team)).MethodHandle;
-			}
 			if (conditions.Length != 0)
 			{
 				if (checkTeam != Team.TeamA)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (checkTeam != Team.TeamB)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
@@ -833,15 +444,6 @@ public class CollectTheCoins : NetworkBehaviour
 				int num2;
 				if (NetworkServer.active)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CollectTheCoins.Get().CalculateCoins_Server(out num, out num2);
 				}
 				else
@@ -864,15 +466,6 @@ public class CollectTheCoins : NetworkBehaviour
 				{
 					if (collectTheCoins_VictoryCondition == CollectTheCoins.CollectTheCoins_VictoryCondition.TeamMustHaveMostCoins)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num3 <= num4)
 						{
 							return false;
@@ -880,49 +473,13 @@ public class CollectTheCoins : NetworkBehaviour
 					}
 					else if (collectTheCoins_VictoryCondition == CollectTheCoins.CollectTheCoins_VictoryCondition.TeamMustNotHaveMostCoins)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num3 > num4)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;
@@ -934,8 +491,7 @@ public class CollectTheCoins : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public enum CollectTheCoins_VictoryCondition
@@ -961,30 +517,8 @@ public class CollectTheCoins : NetworkBehaviour
 		{
 			if (this.m_bonusForHavingMin == 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.CoinAbilityMod.BeingActiveMatters()).MethodHandle;
-				}
 				if (this.m_bonusPerCoinOverMin == 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 			}
@@ -996,19 +530,6 @@ public class CollectTheCoins : NetworkBehaviour
 			bool flag;
 			if ((float)numCoins < this.m_minCoinsForAnyBonus)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.CoinAbilityMod.GetBonusForCoins(int)).MethodHandle;
-				}
 				flag = (this.m_minCoinsForAnyBonus == -1f);
 			}
 			else
@@ -1019,15 +540,6 @@ public class CollectTheCoins : NetworkBehaviour
 			bool flag3;
 			if ((float)numCoins > this.m_maxCoinsForAnyBonus)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = (this.m_maxCoinsForAnyBonus == -1f);
 			}
 			else
@@ -1037,38 +549,11 @@ public class CollectTheCoins : NetworkBehaviour
 			bool flag4 = flag3;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = this.m_bonusForHavingMin + this.m_bonusPerCoinOverMin * ((float)numCoins - this.m_minCoinsForAnyBonus);
 					if (this.m_maxBonus >= 0f)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = Mathf.Min(num, this.m_maxBonus);
 					}
 					return num;
@@ -1081,33 +566,11 @@ public class CollectTheCoins : NetworkBehaviour
 		{
 			if (!this.BeingActiveMatters())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CollectTheCoins.CoinAbilityMod.GetBonus_Client(ActorData)).MethodHandle;
-				}
 				return 0f;
 			}
 			int numCoins = 0;
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numCoins = CollectTheCoins.Get().GetCoinsForActor_Client(actor);
 			}
 			return this.GetBonusForCoins(numCoins);

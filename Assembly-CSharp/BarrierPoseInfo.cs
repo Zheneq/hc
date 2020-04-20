@@ -21,30 +21,8 @@ public class BarrierPoseInfo
 	{
 		if (numSides > 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierPoseInfo.GetBarrierPosesForRegularPolygon(Vector3, int, float, float)).MethodHandle;
-			}
 			if (radiusInWorld > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<BarrierPoseInfo> list = new List<BarrierPoseInfo>();
 				float num = 360f / (float)numSides;
 				float barrierWidthInWorld = 2f * radiusInWorld * Mathf.Tan(0.0174532924f * num / 2f);
@@ -54,15 +32,6 @@ public class BarrierPoseInfo
 					Vector3 midPos = centerPos + radiusInWorld * vector;
 					BarrierPoseInfo item = new BarrierPoseInfo(midPos, vector, barrierWidthInWorld);
 					list.Add(item);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				return list;
 			}
@@ -76,41 +45,10 @@ public class BarrierPoseInfo
 		midSections = new List<BarrierPoseInfo>();
 		if (cornerLength > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BarrierPoseInfo.GetBarrierPosesForSquaresMadeOfCornerAndMidsection(BoardSquare, float, float, float, List<List<BarrierPoseInfo>>*, List<BarrierPoseInfo>*)).MethodHandle;
-			}
 			if (midsectionLength >= 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetSquare != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float squareSize = Board.Get().squareSize;
 					float num = cornerLengthAdjustInSquares * squareSize;
 					float num2 = cornerLength * squareSize + num;

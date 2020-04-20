@@ -25,19 +25,6 @@ public class UIProgressCancelDialog : UIDialogBox
 	{
 		if (this.progressBarCallback != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIProgressCancelDialog.CloseCallback()).MethodHandle;
-			}
 			this.progressBarCallback(this);
 		}
 	}
@@ -71,19 +58,6 @@ public class UIProgressCancelDialog : UIDialogBox
 		for (int i = 0; i < this.m_progressCancelLabel.Length; i++)
 		{
 			this.m_progressCancelLabel[i].text = text;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIProgressCancelDialog.SetButtonLabels(string)).MethodHandle;
 		}
 	}
 

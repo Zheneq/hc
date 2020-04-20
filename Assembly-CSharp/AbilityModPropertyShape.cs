@@ -11,19 +11,6 @@ public class AbilityModPropertyShape
 	{
 		if (this.operation == AbilityModPropertyShape.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyShape.GetModifiedValue(AbilityAreaShape)).MethodHandle;
-			}
 			return this.value;
 		}
 		return input;

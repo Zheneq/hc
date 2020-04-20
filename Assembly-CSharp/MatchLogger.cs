@@ -38,19 +38,6 @@ public class MatchLogger : MonoBehaviour
 	{
 		if (NetworkServer.active && this.m_logMatch)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchLogger.NewMatch()).MethodHandle;
-			}
 			string arg = string.Format("Match-{0}.log", HydrogenConfig.Get().ProcessCode);
 			DateTime now = DateTime.Now;
 			string arg2 = string.Format("{0:d4}-{1:d2}-{2:d2}", now.Year, now.Month, now.Day);
@@ -76,19 +63,6 @@ public class MatchLogger : MonoBehaviour
 	{
 		if (inSeconds)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchLogger.GetTimeForLogging(bool)).MethodHandle;
-			}
 			return ((int)(Time.time - this.m_matchStartTime)).ToString();
 		}
 		float num = Time.time - this.m_matchStartTime;
@@ -119,41 +93,10 @@ public class MatchLogger : MonoBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchLogger.LogTime()).MethodHandle;
-			}
 			if (this.m_logMatch)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentLogFile != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string value = "Match time: " + this.GetTimeForLogging(false);
 					this.m_currentLogFile.WriteLine(value);
 				}
@@ -165,41 +108,10 @@ public class MatchLogger : MonoBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchLogger.Log(string)).MethodHandle;
-			}
 			if (this.m_logMatch)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentLogFile != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_currentLogFile.WriteLine(text);
 				}
 			}
@@ -210,30 +122,8 @@ public class MatchLogger : MonoBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchLogger.EndMatch()).MethodHandle;
-			}
 			if (this.m_currentLogFile != null && this.m_logMatch)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_currentLogFile.Close();
 				this.m_currentLogFile = null;
 				Application.logMessageReceived -= this.HandleLog;

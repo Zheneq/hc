@@ -19,19 +19,6 @@ public class AsyncTimer
 	{
 		if (intervalMilliseconds < 0xAL)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncTimer.Initialize(SendOrPostCallback, object, MethodBase, long, bool)).MethodHandle;
-			}
 			if (!isOneShot)
 			{
 				throw new ArgumentOutOfRangeException("IntervalMilliseconds");
@@ -51,19 +38,6 @@ public class AsyncTimer
 	{
 		if (this.IsScheduled)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncTimer.Schedule()).MethodHandle;
-			}
 			throw new Exception("Already scheduled");
 		}
 		this.IsScheduled = true;
@@ -109,30 +83,8 @@ public class AsyncTimer
 		{
 			if (obj1 == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AsyncTimer.ScheduledTickComparer.Compare(AsyncTimer, AsyncTimer)).MethodHandle;
-				}
 				if (obj2 == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return 0;
 				}
 			}

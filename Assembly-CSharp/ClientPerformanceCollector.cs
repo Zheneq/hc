@@ -64,19 +64,6 @@ public class ClientPerformanceCollector : MonoBehaviour
 	{
 		if (this.m_collect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPerformanceCollector.StopCollecting()).MethodHandle;
-			}
 			this.m_collect = false;
 			base.StopCoroutine(this.m_collectCoroutine);
 		}
@@ -103,19 +90,6 @@ public class ClientPerformanceCollector : MonoBehaviour
 				this.m_performanceInfo.AvgLatency = this.GetAverage(this.m_performanceInfo.AvgLatency, this.m_roundtripSamples++, this.m_performanceInfo.CurrentLatency);
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPerformanceCollector.<CollectInternal>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		yield break;
 	}
 
@@ -133,19 +107,6 @@ public class ClientPerformanceCollector : MonoBehaviour
 	{
 		if (this.m_collect)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientPerformanceCollector.Collect()).MethodHandle;
-			}
 			this.m_cpuCounterSamples = 0;
 			this.m_ramCounterSamples = 0;
 			this.m_roundtripSamples = 0;

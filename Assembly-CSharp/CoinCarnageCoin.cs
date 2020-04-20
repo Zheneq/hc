@@ -30,33 +30,11 @@ public class CoinCarnageCoin : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageCoin.PickUp(ActorData)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void CoinCarnageCoin::PickUp(ActorData)' called on client");
 			return;
 		}
 		if (!this.m_pickedUp)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.Networkm_pickedUp = true;
 		}
 	}
@@ -66,19 +44,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 		this.Networkm_pickedUp = value;
 		if (value)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageCoin.HookSetPickedUp(bool)).MethodHandle;
-			}
 			base.gameObject.SetActive(false);
 		}
 	}
@@ -88,19 +53,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageCoin.Destroy()).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void CoinCarnageCoin::Destroy()' called on client");
 			return;
 		}
@@ -123,19 +75,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 			uint dirtyBit = 1U;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageCoin.set_Networkm_pickedUp(bool)).MethodHandle;
-				}
 				base.syncVarHookGuard = true;
 				this.HookSetPickedUp(value);
 				base.syncVarHookGuard = false;
@@ -148,34 +87,12 @@ public class CoinCarnageCoin : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageCoin.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.Write(this.m_pickedUp);
 			return true;
 		}
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -185,15 +102,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -203,19 +111,6 @@ public class CoinCarnageCoin : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoinCarnageCoin.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_pickedUp = reader.ReadBoolean();
 			return;
 		}

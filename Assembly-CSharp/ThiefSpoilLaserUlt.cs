@@ -69,19 +69,6 @@ public class ThiefSpoilLaserUlt : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Ult 2";
 		}
 		this.Setup();
@@ -92,33 +79,11 @@ public class ThiefSpoilLaserUlt : Ability
 		this.SetCachedFields();
 		if (this.m_targeterMultiTarget)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.Setup()).MethodHandle;
-			}
 			base.ClearTargeters();
 			for (int i = 0; i < this.GetLaserCount(); i++)
 			{
 				base.Targeters.Add(new AbilityUtil_Targeter_ThiefFanLaser(this, 0f, this.GetTargeterMaxAngle(), this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, this.GetLaserRange(), this.GetLaserWidth(), this.GetLaserMaxTargets(), this.GetLaserCount(), this.LaserPenetrateLos(), this.HitPowerups(), this.StopOnPowerupHit(), this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), this.GetMaxPowerupsHit(), 0f, 0f));
 				base.Targeters[i].SetUseMultiTargetUpdate(true);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -132,19 +97,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if (this.m_targeterMultiTarget)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			result = this.GetLaserCount();
 		}
 		else
@@ -169,19 +121,6 @@ public class ThiefSpoilLaserUlt : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -192,15 +131,6 @@ public class ThiefSpoilLaserUlt : Ability
 		SpoilsSpawnData cachedSpoilSpawnData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSpoilSpawnData = this.m_abilityMod.m_spoilSpawnDataMod.GetModifiedValue(this.m_spoilSpawnData);
 		}
 		else
@@ -220,19 +150,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetLaserDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -247,19 +164,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetLaserSubsequentDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(this.m_laserSubsequentDamageAmount);
 		}
 		else
@@ -274,19 +178,6 @@ public class ThiefSpoilLaserUlt : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -301,19 +192,6 @@ public class ThiefSpoilLaserUlt : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -333,19 +211,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetLaserMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
 		}
 		else
@@ -375,19 +240,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.HitPowerups()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_hitPowerupsMod.GetModifiedValue(this.m_hitPowerups);
 		}
 		else
@@ -402,19 +254,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.StopOnPowerupHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_stopOnPowerupHitMod.GetModifiedValue(this.m_stopOnPowerupHit);
 		}
 		else
@@ -429,19 +268,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.IncludeSpoilsPowerups()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_includeSpoilsPowerupsMod.GetModifiedValue(this.m_includeSpoilsPowerups);
 		}
 		else
@@ -456,19 +282,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.IgnorePickupTeamRestriction()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_ignorePickupTeamRestrictionMod.GetModifiedValue(this.m_ignorePickupTeamRestriction);
 		}
 		else
@@ -483,19 +296,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetMaxPowerupsHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxPowerupsHitMod.GetModifiedValue(this.m_maxPowerupsHit);
 		}
 		else
@@ -510,19 +310,6 @@ public class ThiefSpoilLaserUlt : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.CopyBuffsOnEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_copyBuffsOnEnemyHitMod.GetModifiedValue(this.m_copyBuffsOnEnemyHit);
 		}
 		else
@@ -537,19 +324,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetCopyBuffDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_copyBuffDurationMod.GetModifiedValue(this.m_copyBuffDuration);
 		}
 		else
@@ -571,19 +345,6 @@ public class ThiefSpoilLaserUlt : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (this.GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			this.AccumulateDamageFromTargeter(targetActor, base.Targeter, dictionary);
 		}
 		else
@@ -591,15 +352,6 @@ public class ThiefSpoilLaserUlt : Ability
 			for (int i = 0; i <= currentTargeterIndex; i++)
 			{
 				this.AccumulateDamageFromTargeter(targetActor, base.Targeters[i], dictionary);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return dictionary;
@@ -610,43 +362,12 @@ public class ThiefSpoilLaserUlt : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.AccumulateDamageFromTargeter(ActorData, AbilityUtil_Targeter, Dictionary<AbilityTooltipSymbol, int>)).MethodHandle;
-			}
 			foreach (AbilityTooltipSubject abilityTooltipSubject in tooltipSubjectTypes)
 			{
 				if (abilityTooltipSubject == AbilityTooltipSubject.Primary)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!symbolToDamage.ContainsKey(AbilityTooltipSymbol.Damage))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						symbolToDamage[AbilityTooltipSymbol.Damage] = this.GetLaserDamageAmount();
 					}
 					else
@@ -666,19 +387,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val;
 		if (abilityMod_ThiefSpoilLaserUlt)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ThiefSpoilLaserUlt.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -691,15 +399,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val2;
 		if (abilityMod_ThiefSpoilLaserUlt)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ThiefSpoilLaserUlt.m_laserSubsequentDamageAmountMod.GetModifiedValue(this.m_laserSubsequentDamageAmount);
 		}
 		else
@@ -711,15 +410,6 @@ public class ThiefSpoilLaserUlt : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_ThiefSpoilLaserUlt)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ThiefSpoilLaserUlt.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -732,15 +422,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val3;
 		if (abilityMod_ThiefSpoilLaserUlt)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ThiefSpoilLaserUlt.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
 		}
 		else
@@ -753,15 +434,6 @@ public class ThiefSpoilLaserUlt : Ability
 		int val4;
 		if (abilityMod_ThiefSpoilLaserUlt)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ThiefSpoilLaserUlt.m_laserCountMod.GetModifiedValue(this.m_laserCount);
 		}
 		else
@@ -784,19 +456,6 @@ public class ThiefSpoilLaserUlt : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ThiefSpoilLaserUlt))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefSpoilLaserUlt.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ThiefSpoilLaserUlt);
 			this.Setup();
 		}

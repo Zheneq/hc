@@ -54,19 +54,6 @@ namespace TMPro
 		{
 			if (parent == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_DefaultControls.SetParentAndAlign(GameObject, GameObject)).MethodHandle;
-				}
 				return;
 			}
 			child.transform.SetParent(parent.transform, false);
@@ -80,19 +67,6 @@ namespace TMPro
 			for (int i = 0; i < transform.childCount; i++)
 			{
 				TMP_DefaultControls.SetLayerRecursively(transform.GetChild(i).gameObject, layer);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_DefaultControls.SetLayerRecursively(GameObject, int)).MethodHandle;
 			}
 		}
 

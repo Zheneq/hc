@@ -57,19 +57,6 @@ public class SenseiBide : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.Start()).MethodHandle;
-			}
 			this.m_abilityName = "SenseiBide";
 		}
 		this.Setup();
@@ -101,19 +88,6 @@ public class SenseiBide : Ability
 		StandardActorEffectData cachedOnCastTargetEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.SetCachedFields()).MethodHandle;
-			}
 			cachedOnCastTargetEffectData = this.m_abilityMod.m_onCastTargetEffectDataMod.GetModifiedValue(this.m_onCastTargetEffectData);
 		}
 		else
@@ -124,15 +98,6 @@ public class SenseiBide : Ability
 		StandardEffectInfo cachedAdditionalTargetHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAdditionalTargetHitEffect = this.m_abilityMod.m_additionalTargetHitEffectMod.GetModifiedValue(this.m_additionalTargetHitEffect);
 		}
 		else
@@ -143,15 +108,6 @@ public class SenseiBide : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -166,19 +122,6 @@ public class SenseiBide : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.TargetingIgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(this.m_targetingIgnoreLos);
 		}
 		else
@@ -203,19 +146,6 @@ public class SenseiBide : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetExplosionRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionRadiusMod.GetModifiedValue(this.m_explosionRadius);
 		}
 		else
@@ -230,19 +160,6 @@ public class SenseiBide : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.IgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_ignoreLosMod.GetModifiedValue(this.m_ignoreLos);
 		}
 		else
@@ -267,19 +184,6 @@ public class SenseiBide : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetDamageMult()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageMultMod.GetModifiedValue(this.m_damageMult);
 		}
 		else
@@ -294,19 +198,6 @@ public class SenseiBide : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -321,19 +212,6 @@ public class SenseiBide : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetAbsorbMultForHeal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_absorbMultForHealMod.GetModifiedValue(this.m_absorbMultForHeal);
 		}
 		else
@@ -348,19 +226,6 @@ public class SenseiBide : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetMultOnInitialDamageForSubseqHits()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_multOnInitialDamageForSubseqHitsMod.GetModifiedValue(this.m_multOnInitialDamageForSubseqHits);
 		}
 		else
@@ -375,19 +240,6 @@ public class SenseiBide : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.GetExtraHealOnHealAoeIfQueued()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraHealOnHealAoeIfQueuedMod.GetModifiedValue(this.m_extraHealOnHealAoeIfQueued);
 		}
 		else
@@ -425,19 +277,6 @@ public class SenseiBide : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SenseiBide))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiBide.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SenseiBide);
 			this.Setup();
 		}

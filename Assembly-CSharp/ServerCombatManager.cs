@@ -7,19 +7,6 @@ public class ServerCombatManager : MonoBehaviour
 	{
 		if (target == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerCombatManager.ExecuteObjectivePointGain(ActorData, ActorData, int)).MethodHandle;
-			}
 			throw new ApplicationException("Objective point change requires a target");
 		}
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();

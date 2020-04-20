@@ -131,19 +131,6 @@ public class Ability : MonoBehaviour
 		{
 			if (this.m_actorData == null && !this.m_searchedForActorData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.get_ActorData()).MethodHandle;
-				}
 				this.m_actorData = ((this.m_overrideActorDataIndex != ActorData.s_invalidActorIndex) ? GameFlowData.Get().FindActorByActorIndex(this.m_overrideActorDataIndex) : base.GetComponent<ActorData>());
 				this.m_searchedForActorData = true;
 			}
@@ -172,19 +159,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.Targeters != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ClearTargeters()).MethodHandle;
-			}
 			this.ResetAbilityTargeters();
 			this.Targeters.Clear();
 		}
@@ -206,19 +180,6 @@ public class Ability : MonoBehaviour
 		string text = StringUtil.TR_AbilityFinalFullTooltip(base.GetType().ToString(), this.m_abilityName);
 		if (text.Length == 0 && this.m_toolTip.Length > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetToolTipString(bool)).MethodHandle;
-			}
 			text = this.m_toolTip;
 		}
 		return TooltipTokenEntry.GetTooltipWithSubstitutes(text, tooltipTokenEntries, false);
@@ -249,19 +210,6 @@ public class Ability : MonoBehaviour
 		this.AddSpecificTooltipTokens(list, mod);
 		if (this.m_techPointInteractions != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTooltipTokenEntries(AbilityMod)).MethodHandle;
-			}
 			if (this.m_techPointInteractions.Length > 0)
 			{
 				foreach (TechPointInteraction techPointInteraction in this.m_techPointInteractions)
@@ -269,41 +217,14 @@ public class Ability : MonoBehaviour
 					int num = techPointInteraction.m_amount;
 					if (mod != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = mod.GetModdedTechPointForInteraction(techPointInteraction.m_type, num);
 					}
 					list.Add(new TooltipTokenInt(techPointInteraction.m_type.ToString(), "Energy Gain", num));
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (this.m_techPointsCost > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(new TooltipTokenInt("EnergyCost", "Energy Cost", this.m_techPointsCost));
 		}
 		if (this.m_maxStocks > 0)
@@ -332,31 +253,9 @@ public class Ability : MonoBehaviour
 	{
 		if (!addForNonPositive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddTokenFloat(List<TooltipTokenEntry>, string, string, float, bool)).MethodHandle;
-			}
 			if (val <= 0f)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		tokens.Add(new TooltipTokenFloat(name, desc, val));
@@ -375,31 +274,9 @@ public class Ability : MonoBehaviour
 	{
 		if (!addForNonPositive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddTokenFloatAsPct(List<TooltipTokenEntry>, string, string, float, bool)).MethodHandle;
-			}
 			if (val <= 0f)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int val2 = Mathf.RoundToInt(val * 100f);
@@ -422,30 +299,8 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetRunPriority()).MethodHandle;
-			}
 			if (this.m_currentAbilityMod.m_useRunPriorityOverride)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_currentAbilityMod.m_runPriorityOverride;
 			}
 		}
@@ -510,19 +365,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.GetBaseCost() > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetCostString()).MethodHandle;
-			}
 			return string.Format("{0} energy", this.GetBaseCost());
 		}
 		return string.Empty;
@@ -533,19 +375,6 @@ public class Ability : MonoBehaviour
 		int result;
 		if (this.m_techPointsCost > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetBaseCost()).MethodHandle;
-			}
 			result = this.m_techPointsCost;
 		}
 		else
@@ -560,19 +389,6 @@ public class Ability : MonoBehaviour
 		int num = this.GetBaseCost();
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedCost()).MethodHandle;
-			}
 			num = Mathf.Max(0, this.m_currentAbilityMod.m_techPointCostMod.GetModifiedValue(num));
 		}
 		return num;
@@ -588,19 +404,6 @@ public class Ability : MonoBehaviour
 		string text = StringUtil.TR_AbilityName(base.GetType().ToString(), this.m_abilityName);
 		if (text.Length == 0 && this.m_abilityName.Length > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetNameString()).MethodHandle;
-			}
 			text = this.m_abilityName;
 		}
 		return text;
@@ -631,54 +434,14 @@ public class Ability : MonoBehaviour
 		TargetData[] targetData = this.GetTargetData();
 		if (targetData.Length > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CanShowTargetableRadiusPreview()).MethodHandle;
-			}
 			TargetData targetData2 = targetData[0];
 			float num = Mathf.Max(0f, targetData2.m_range - 0.5f);
 			if (num > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < 15f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (targetData2.m_targetingParadigm != Ability.TargetingParadigm.Direction)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
@@ -727,30 +490,8 @@ public class Ability : MonoBehaviour
 		int num = this.GetBaseCooldown();
 		if (num >= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedCooldown()).MethodHandle;
-			}
 			if (this.m_currentAbilityMod != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Max(0, this.m_currentAbilityMod.m_maxCooldownMod.GetModifiedValue(num));
 			}
 		}
@@ -775,19 +516,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedEffectForAllies()).MethodHandle;
-			}
 			return this.m_currentAbilityMod.m_effectToTargetAllyOnHit;
 		}
 		return null;
@@ -808,19 +536,6 @@ public class Ability : MonoBehaviour
 		bool result;
 		if (moddedEffectForSelf != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.HasSelfEffectFromBaseMod()).MethodHandle;
-			}
 			result = moddedEffectForSelf.m_applyEffect;
 		}
 		else
@@ -834,19 +549,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedUseAllyEffectForTargetedCaster()).MethodHandle;
-			}
 			return this.m_currentAbilityMod.m_useAllyEffectForTargetedCaster;
 		}
 		return false;
@@ -856,19 +558,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedChanceToTriggerEffects()).MethodHandle;
-			}
 			return this.m_currentAbilityMod.m_effectTriggerChance;
 		}
 		return 1f;
@@ -889,19 +578,6 @@ public class Ability : MonoBehaviour
 		int num = this.m_maxStocks;
 		if (this.m_maxStocks >= 0 && this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetModdedMaxStocks()).MethodHandle;
-			}
 			num = Mathf.Max(0, this.m_currentAbilityMod.m_maxStocksMod.GetModifiedValue(num));
 		}
 		return num;
@@ -912,19 +588,6 @@ public class Ability : MonoBehaviour
 		bool result;
 		if (this.m_currentAbilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.RefillAllStockOnRefresh()).MethodHandle;
-			}
 			result = this.m_currentAbilityMod.m_refillAllStockOnRefreshMod.GetModifiedValue(this.m_refillAllStockOnRefresh);
 		}
 		else
@@ -954,45 +617,14 @@ public class Ability : MonoBehaviour
 		this.m_toolTipForUI = this.GetNameString();
 		if (this.GetBaseCost() > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.RebuildTooltipForUI()).MethodHandle;
-			}
 			this.m_toolTipForUI += string.Format(" - {0} TP", this.GetBaseCost());
 		}
 		if (this.m_cooldown > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_toolTipForUI += string.Format(" - {0} turn cooldown", this.m_cooldown);
 		}
 		if (this.IsFreeAction())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_toolTipForUI = "This is a Free Action.\n" + this.m_toolTipForUI;
 		}
 		this.m_toolTipForUI = this.m_toolTipForUI + "\n" + this.GetFullTooltip();
@@ -1022,31 +654,9 @@ public class Ability : MonoBehaviour
 		{
 			if (enemyEffectSubject != AbilityTooltipSubject.None)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AppendTooltipNumbersFromBaseModEffects(List<AbilityTooltipNumber>*, AbilityTooltipSubject, AbilityTooltipSubject, AbilityTooltipSubject)).MethodHandle;
-				}
 				StandardEffectInfo moddedEffectForEnemies = this.GetModdedEffectForEnemies();
 				if (moddedEffectForEnemies != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					moddedEffectForEnemies.ReportAbilityTooltipNumbers(ref numbers, enemyEffectSubject);
 				}
 			}
@@ -1054,64 +664,19 @@ public class Ability : MonoBehaviour
 			StandardEffectInfo moddedEffectForSelf = this.GetModdedEffectForSelf();
 			if (allyEffectSubject != AbilityTooltipSubject.None)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (moddedEffectForAllies != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, allyEffectSubject);
 				}
 			}
 			if (selfEffectSubject != AbilityTooltipSubject.None)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentAbilityMod.m_useAllyEffectForTargetedCaster && moddedEffectForAllies != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
 				}
 				if (moddedEffectForSelf != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					moddedEffectForSelf.ReportAbilityTooltipNumbers(ref numbers, selfEffectSubject);
 				}
 			}
@@ -1123,25 +688,12 @@ public class Ability : MonoBehaviour
 		return new List<AbilityTooltipNumber>();
 	}
 
-	public virtual List<int> \u001D()
+	public virtual List<int> symbol_001D()
 	{
 		List<int> list = new List<int>();
 		List<AbilityTooltipNumber> list2 = this.BaseCalculateAbilityTooltipNumbers();
 		if (list2 != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.\u001D()).MethodHandle;
-			}
 			foreach (AbilityTooltipNumber abilityTooltipNumber in list2)
 			{
 				list.Add(abilityTooltipNumber.m_value);
@@ -1154,31 +706,9 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_savedStatusTypesForTooltips != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetStatusTypesForTooltip()).MethodHandle;
-			}
 			if (this.m_savedStatusTypesForTooltips.Count != 0)
 			{
 				return this.m_savedStatusTypesForTooltips;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return TooltipTokenEntry.GetStatusTypesFromTooltip(this.m_toolTip);
@@ -1240,41 +770,10 @@ public class Ability : MonoBehaviour
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddNameplateValueForSingleHit(Dictionary<AbilityTooltipSymbol, int>*, AbilityUtil_Targeter, ActorData, int, AbilityTooltipSymbol, AbilityTooltipSubject)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Count > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(targetSubject))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					symbolToValue[symbolOfInterest] = damageAmount;
 				}
 			}
@@ -1286,30 +785,8 @@ public class Ability : MonoBehaviour
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.AddNameplateValueForOverlap(Dictionary<AbilityTooltipSymbol, int>*, AbilityUtil_Targeter, ActorData, int, int, int, AbilityTooltipSymbol, AbilityTooltipSubject)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Count > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (List<AbilityTooltipSubject>.Enumerator enumerator = tooltipSubjectTypes.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -1317,15 +794,6 @@ public class Ability : MonoBehaviour
 						AbilityTooltipSubject abilityTooltipSubject = enumerator.Current;
 						if (abilityTooltipSubject == targetSubject)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!symbolToValue.ContainsKey(symbolOfInterest))
 							{
 								symbolToValue[symbolOfInterest] = firstAmount;
@@ -1336,15 +804,6 @@ public class Ability : MonoBehaviour
 								(dictionary = symbolToValue)[symbolOfInterest] = dictionary[symbolOfInterest] + subsequentAmount;
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1370,70 +829,21 @@ public class Ability : MonoBehaviour
 	{
 		if (this.Targeter != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.Update()).MethodHandle;
-			}
 			if (this.IsAbilitySelected())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = HighlightUtils.Get() != null && HighlightUtils.Get().m_cachedShouldShowAffectedSquares;
 				bool flag2 = this.m_lastUpdateShowingAffectedSquares != flag;
 				this.m_lastUpdateShowingAffectedSquares = flag;
 				bool flag3 = false;
 				if (this.ActorData == GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = true;
 				}
 				if (GameFlowData.Get().activeOwnedActorData == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 					if (teamViewing != Team.Invalid)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (teamViewing != this.ActorData.GetTeam())
 						{
 							goto IL_ED;
@@ -1444,75 +854,21 @@ public class Ability : MonoBehaviour
 				IL_ED:
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 					ActorTurnSM actorTurnSM = this.ActorData.GetActorTurnSM();
 					if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityTarget.UpdateAbilityTargetForForTargeterUpdate();
 						AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
 						if (this.GetExpectedNumberOfTargeters() < 2)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag2)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!this.Targeter.MarkedForForceUpdate)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.Targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
 									{
 										goto IL_1FC;
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -1528,50 +884,14 @@ public class Ability : MonoBehaviour
 							int count = actorTurnSM.GetAbilityTargets().Count;
 							if (count < this.Targeters.Count)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								AbilityUtil_Targeter abilityUtil_Targeter = this.Targeters[count];
 								if (!flag2)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!this.Targeters[0].MarkedForForceUpdate)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (abilityUtil_Targeter.IsCursorStateSameAsLastUpdate(abilityTargetForTargeterUpdate))
 										{
 											goto IL_2FA;
-										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 								}
@@ -1579,15 +899,6 @@ public class Ability : MonoBehaviour
 								abilityUtil_Targeter.SetLastUpdateCursorState(abilityTargetForTargeterUpdate);
 								if (abilityUtil_Targeter.IsUsingMultiTargetUpdate())
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									abilityUtil_Targeter.UpdateTargetingMultiTargets(abilityTargetForTargeterUpdate, this.ActorData, count, actorTurnSM.GetAbilityTargets());
 								}
 								else
@@ -1599,15 +910,6 @@ public class Ability : MonoBehaviour
 								IL_2FA:
 								if (HighlightUtils.Get().GetCurrentCursorType() != abilityUtil_Targeter.GetCursorType())
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									HighlightUtils.Get().SetCursorType(abilityUtil_Targeter.GetCursorType());
 								}
 							}
@@ -1619,15 +921,6 @@ public class Ability : MonoBehaviour
 		}
 		if (this.Targeters != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.ActorData != null)
 			{
 				for (int i = 0; i < this.Targeters.Count; i++)
@@ -1635,26 +928,8 @@ public class Ability : MonoBehaviour
 					AbilityUtil_Targeter abilityUtil_Targeter2 = this.Targeters[i];
 					if (abilityUtil_Targeter2 != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						abilityUtil_Targeter2.UpdateFadeOutHighlights(this.ActorData);
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1679,140 +954,37 @@ public class Ability : MonoBehaviour
 	{
 		if (caster != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CanTargetActorInDecision(ActorData, ActorData, bool, bool, bool, Ability.ValidateCheckPath, bool, bool, bool)).MethodHandle;
-			}
 			if (!caster.IsDead() && caster.GetCurrentBoardSquare() != null && targetActor != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!targetActor.IsDead())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (targetActor.GetCurrentBoardSquare() != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!targetActor.IgnoreForAbilityHits)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							BoardSquare currentBoardSquare = targetActor.GetCurrentBoardSquare();
 							bool flag = (!NetworkClient.active) ? targetActor.IsActorVisibleToActor(caster, false) : targetActor.IsVisibleToClient();
 							bool flag2 = caster.GetTeam() == targetActor.GetTeam();
 							if (flag)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag2)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (allowAllies)
 									{
 										goto IL_12B;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								if (flag2)
 								{
 									return false;
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								if (!allowEnemies)
 								{
 									return false;
 								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								IL_12B:
 								if (!allowSelf)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(caster != targetActor))
 									{
 										return false;
@@ -1825,46 +997,19 @@ public class Ability : MonoBehaviour
 								{
 									if (ignoreLosSettingOnTargetData)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										flag3 = (flag3 && caster.GetCurrentBoardSquare().\u0013(currentBoardSquare.x, currentBoardSquare.y));
+										flag3 = (flag3 && caster.GetCurrentBoardSquare().symbol_0013(currentBoardSquare.x, currentBoardSquare.y));
 									}
 									else
 									{
-										flag3 = (flag3 && (!this.GetCheckLoS(0) || caster.GetCurrentBoardSquare().\u0013(currentBoardSquare.x, currentBoardSquare.y)));
+										flag3 = (flag3 && (!this.GetCheckLoS(0) || caster.GetCurrentBoardSquare().symbol_0013(currentBoardSquare.x, currentBoardSquare.y)));
 									}
 								}
 								bool flag4 = true;
 								ActorStatus actorStatus = targetActor.GetActorStatus();
 								if (checkStatusImmunities && actorStatus != null)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag2)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (actorStatus.HasStatus(StatusType.CantBeHelpedByTeam, true))
 										{
 											goto IL_29E;
@@ -1872,52 +1017,16 @@ public class Ability : MonoBehaviour
 									}
 									if (flag2)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (actorStatus.HasStatus(StatusType.BuffImmune, true))
 										{
 											goto IL_29E;
 										}
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (!flag2)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (actorStatus.HasStatus(StatusType.DebuffImmune, true))
 										{
 											goto IL_29E;
-										}
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									bool flag5;
@@ -1934,26 +1043,8 @@ public class Ability : MonoBehaviour
 								bool result = true;
 								if (checkPath != Ability.ValidateCheckPath.Ignore)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag3)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (flag4)
 										{
 											bool passThroughInvalidSquares = checkPath == Ability.ValidateCheckPath.CanBuildPathAllowThroughInvalid;
@@ -1964,26 +1055,8 @@ public class Ability : MonoBehaviour
 								}
 								if (flag3)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag4)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										return result;
 									}
 								}
@@ -2001,31 +1074,9 @@ public class Ability : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.HasTargetableActorsInDecision(ActorData, bool, bool, bool, Ability.ValidateCheckPath, bool, bool, bool)).MethodHandle;
-			}
 			List<ActorData> actorsVisibleToActor;
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsVisibleToActor = GameFlowData.Get().GetActorsVisibleToActor(caster, true);
 			}
 			else
@@ -2041,15 +1092,6 @@ public class Ability : MonoBehaviour
 					return true;
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -2058,19 +1100,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.Targeter != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.OnAbilitySelect()).MethodHandle;
-			}
 			this.Targeter.TargeterAbilitySelected();
 		}
 	}
@@ -2079,30 +1108,8 @@ public class Ability : MonoBehaviour
 	{
 		if (this.Targeter != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.OnAbilityDeselect()).MethodHandle;
-			}
 			if (this.GetExpectedNumberOfTargeters() < 2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.Targeter.TargeterAbilityDeselected(0);
 			}
 			else
@@ -2111,15 +1118,6 @@ public class Ability : MonoBehaviour
 				{
 					if (this.Targeters[i] != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.Targeters[i].TargeterAbilityDeselected(i);
 					}
 				}
@@ -2138,20 +1136,6 @@ public class Ability : MonoBehaviour
 		{
 			if (i >= this.GetExpectedNumberOfTargeters())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.BackupTargetingForRedo(ActorTurnSM)).MethodHandle;
-					break;
-				}
 				break;
 			}
 			else
@@ -2165,15 +1149,6 @@ public class Ability : MonoBehaviour
 		}
 		if (!list.IsNullOrEmpty<AbilityTarget>())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.BackupTargets = new List<AbilityTarget>();
 			using (List<AbilityTarget>.Enumerator enumerator = list.GetEnumerator())
 			{
@@ -2183,15 +1158,6 @@ public class Ability : MonoBehaviour
 					AbilityTarget copy = abilityTarget2.GetCopy();
 					this.BackupTargets.Add(copy);
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -2200,19 +1166,6 @@ public class Ability : MonoBehaviour
 	{
 		if (!this.BackupTargeterHighlights.IsNullOrEmpty<GameObject>())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.DestroyBackupTargetingInfo(bool)).MethodHandle;
-			}
 			using (List<GameObject>.Enumerator enumerator = this.BackupTargeterHighlights.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -2220,26 +1173,8 @@ public class Ability : MonoBehaviour
 					GameObject gameObject = enumerator.Current;
 					if (gameObject != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						HighlightUtils.DestroyObjectAndMaterials(gameObject);
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2255,19 +1190,6 @@ public class Ability : MonoBehaviour
 		AbilityData abilityData;
 		if (this.ActorData == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsAbilitySelected()).MethodHandle;
-			}
 			abilityData = null;
 		}
 		else
@@ -2278,15 +1200,6 @@ public class Ability : MonoBehaviour
 		bool result;
 		if (abilityData2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (abilityData2.GetSelectedAbility() == this);
 		}
 		else
@@ -2318,19 +1231,6 @@ public class Ability : MonoBehaviour
 		{
 			if (this.m_targeters.Count == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.set_Targeter(AbilityUtil_Targeter)).MethodHandle;
-				}
 				this.m_targeters.Add(value);
 			}
 			else
@@ -2378,30 +1278,8 @@ public class Ability : MonoBehaviour
 		{
 			if (this.GetExpectedNumberOfTargeters() >= 2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsActorInTargetRange(ActorData, bool*)).MethodHandle;
-				}
 				if (this.Targeters.Count < 2)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -2410,15 +1288,6 @@ public class Ability : MonoBehaviour
 					{
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!inCover)
 							{
 								for (;;)
@@ -2434,40 +1303,13 @@ public class Ability : MonoBehaviour
 						}
 						if (this.Targeters[i] != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag3;
 							bool flag2 = this.Targeters[i].IsActorInTargetRange(actor, out flag3);
 							if (flag2)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 								if (i == 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									inCover = flag3;
 								}
 								else
@@ -2480,15 +1322,6 @@ public class Ability : MonoBehaviour
 					IL_F8:
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						inCover = false;
 						goto IL_108;
 					}
@@ -2520,30 +1353,8 @@ public class Ability : MonoBehaviour
 		HashSet<int> hashSet = new HashSet<int>();
 		if (this.Targeters != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTargetCounts(ActorData, int, int*, int*, bool*)).MethodHandle;
-			}
 			for (int i = 0; i < this.Targeters.Count; i++)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i > upToTargeterIndex)
 				{
 					break;
@@ -2556,52 +1367,16 @@ public class Ability : MonoBehaviour
 						AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 						if (!this.ActorCountTowardsEnergyGain(actorTarget.m_actor, caster))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (!hashSet.Contains(actorTarget.m_actor.ActorIndex))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							hashSet.Add(actorTarget.m_actor.ActorIndex);
 							if (!actorTarget.m_actor.IgnoreForEnergyOnHit)
 							{
 								if (caster.GetTeam() == actorTarget.m_actor.GetTeam())
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (caster != actorTarget.m_actor)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										numAlliesExcludingSelf++;
 									}
 									else
@@ -2615,15 +1390,6 @@ public class Ability : MonoBehaviour
 								}
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -2641,19 +1407,6 @@ public class Ability : MonoBehaviour
 		TargetData[] result = this.GetBaseTargetData();
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTargetData()).MethodHandle;
-			}
 			if (this.m_currentAbilityMod.m_useTargetDataOverrides)
 			{
 				result = this.m_currentAbilityMod.m_targetDataOverrides;
@@ -2668,30 +1421,8 @@ public class Ability : MonoBehaviour
 		float num = 0f;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetRangeInSquares(int)).MethodHandle;
-			}
 			if (targetData.Length > targetIndex)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = targetData[targetIndex].m_range;
 			}
 		}
@@ -2708,30 +1439,8 @@ public class Ability : MonoBehaviour
 		float num = 0f;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetMinRangeInSquares(int)).MethodHandle;
-			}
 			if (targetData.Length > targetIndex)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = targetData[targetIndex].m_minRange;
 			}
 		}
@@ -2748,31 +1457,9 @@ public class Ability : MonoBehaviour
 		bool flag = true;
 		if (targetData != null && targetData.Length > targetIndex)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetCheckLoS(int)).MethodHandle;
-			}
 			flag = targetData[targetIndex].m_checkLineOfSight;
 			if (this.m_currentAbilityMod != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = this.m_currentAbilityMod.m_targetDataCheckLosMod.GetModifiedValue(flag);
 			}
 		}
@@ -2796,19 +1483,6 @@ public class Ability : MonoBehaviour
 		bool result;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsAutoSelect()).MethodHandle;
-			}
 			result = (targetData.Length == 0);
 		}
 		else
@@ -2823,19 +1497,6 @@ public class Ability : MonoBehaviour
 		bool result = this.m_freeAction;
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsFreeAction()).MethodHandle;
-			}
 			result = this.m_currentAbilityMod.m_isFreeActionMod.GetModifiedValue(this.m_freeAction);
 		}
 		return result;
@@ -2853,30 +1514,8 @@ public class Ability : MonoBehaviour
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ShouldRotateToTargetPos()).MethodHandle;
-					}
 					if (actorData != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (activeOwnedActorData.GetTeam() == actorData.GetTeam());
 					}
 				}
@@ -2884,28 +1523,10 @@ public class Ability : MonoBehaviour
 		}
 		else if (this.m_rotationVisibilityMode == Ability.RotationVisibilityMode.Always)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = true;
 		}
 		else if (this.m_rotationVisibilityMode == Ability.RotationVisibilityMode.Never)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		return result;
@@ -2916,44 +1537,13 @@ public class Ability : MonoBehaviour
 		TargetData[] targetData = this.GetTargetData();
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetRotateToTargetPos(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			if (targetData.Length > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetData[0].m_targetingParadigm == Ability.TargetingParadigm.BoardSquare)
 				{
 					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 					if (boardSquareSafe != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return boardSquareSafe.ToVector3();
 					}
 				}
@@ -2984,30 +1574,8 @@ public class Ability : MonoBehaviour
 		TargetData[] targetData = this.GetTargetData();
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetTargetingParadigm(int)).MethodHandle;
-			}
 			if (targetData.Length > targetIndex)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = targetData[targetIndex].m_targetingParadigm;
 			}
 		}
@@ -3025,19 +1593,6 @@ public class Ability : MonoBehaviour
 		int result = 0;
 		if (targetData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetNumTargets()).MethodHandle;
-			}
 			result = targetData.Length;
 		}
 		return result;
@@ -3052,19 +1607,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_currentAbilityMod != null && this.m_currentAbilityMod.m_useStatusWhenRequestedOverride)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetStatusToApplyWhenRequested()).MethodHandle;
-			}
 			return this.m_currentAbilityMod.m_statusWhenRequestedOverride;
 		}
 		return this.m_statusWhenRequested;
@@ -3104,19 +1646,6 @@ public class Ability : MonoBehaviour
 		Ability[] result = this.m_chainAbilities;
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetChainAbilities()).MethodHandle;
-			}
 			if (this.m_currentAbilityMod.m_useChainAbilityOverrides)
 			{
 				result = this.m_currentAbilityMod.m_chainAbilityOverrides;
@@ -3132,30 +1661,8 @@ public class Ability : MonoBehaviour
 		{
 			if (ability == y)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.HasAbilityAsPartOfChain(Ability)).MethodHandle;
-				}
 				return true;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return false;
 	}
@@ -3165,30 +1672,8 @@ public class Ability : MonoBehaviour
 		bool flag = AbilityUtils.AbilityHasTag(this, AbilityTags.AutoQueueIfValid);
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ShouldAutoQueueIfValid()).MethodHandle;
-			}
 			if (this.m_currentAbilityMod.m_autoQueueIfValidMod.operation != AbilityModPropertyBool.ModOp.Ignore)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_currentAbilityMod.m_autoQueueIfValidMod.GetModifiedValue(flag);
 			}
 		}
@@ -3204,30 +1689,8 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetMovementAdjustment()).MethodHandle;
-			}
 			if (this.m_currentAbilityMod.m_useMovementAdjustmentOverride)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_currentAbilityMod.m_movementAdjustmentOverride;
 			}
 		}
@@ -3264,19 +1727,6 @@ public class Ability : MonoBehaviour
 		bool result;
 		if (this.GetMovementType() != ActorData.MovementType.Charge)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsCharge()).MethodHandle;
-			}
 			result = (this.GetMovementType() == ActorData.MovementType.WaypointFlight);
 		}
 		else
@@ -3291,19 +1741,6 @@ public class Ability : MonoBehaviour
 		bool result;
 		if (this.GetMovementType() != ActorData.MovementType.Teleport)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.IsTeleport()).MethodHandle;
-			}
 			result = (this.GetMovementType() == ActorData.MovementType.Flight);
 		}
 		else
@@ -3328,41 +1765,10 @@ public class Ability : MonoBehaviour
 		BoardSquare result = null;
 		if (targets != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetEvadeDestinationForTargeter(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			if (targets.Count > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetRunPriority() == AbilityPriority.Evasion)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = Board.Get().GetBoardSquareSafe(targets[targets.Count - 1].GridPos);
 				}
 			}
@@ -3375,19 +1781,6 @@ public class Ability : MonoBehaviour
 		float result;
 		if (this.m_movementDuration > 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CalcMovementSpeed(float)).MethodHandle;
-			}
 			result = distance / this.m_movementDuration;
 		}
 		else
@@ -3411,30 +1804,8 @@ public class Ability : MonoBehaviour
 		ActorModelData.ActionAnimationType result = this.m_actionAnimType;
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetActionAnimType()).MethodHandle;
-			}
 			if (this.m_currentAbilityMod.m_useActionAnimTypeOverride)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = this.m_currentAbilityMod.m_actionAnimTypeOverride;
 			}
 		}
@@ -3451,32 +1822,10 @@ public class Ability : MonoBehaviour
 		bool flag = animIndex == (int)this.GetActionAnimType();
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			Ability[] chainAbilities = this.GetChainAbilities();
 			int i = 0;
 			while (i < chainAbilities.Length)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					for (;;)
@@ -3508,19 +1857,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_chainAbilities == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.SanitizeChainAbilities()).MethodHandle;
-			}
 			this.m_chainAbilities = new Ability[0];
 		}
 		foreach (Ability ability in this.GetChainAbilities())
@@ -3535,85 +1871,31 @@ public class Ability : MonoBehaviour
 			});
 			if (ability.m_techPointsCost != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(str + "has non-zero tech point cost.  Zeroing...", new object[0]);
 				ability.m_techPointsCost = 0;
 			}
 			if (ability.GetAffectsMovement())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(str + "adjusts movement.  Removing...", new object[0]);
 				ability.m_movementAdjustment = Ability.MovementAdjustment.FullMovement;
 			}
 			if (ability.m_cooldown != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(str + "has non-zero cooldown.  Zeroing...", new object[0]);
 				ability.m_cooldown = 0;
 			}
 			if (!ability.IsFreeAction())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(str + "is not a free action.  Liberating...", new object[0]);
 				ability.m_freeAction = true;
 			}
 			if (ability.m_chainAbilities.Length != 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(str + "has its own chain abilities.  Breaking...", new object[0]);
 				ability.m_chainAbilities = new Ability[0];
 			}
 			if (this.RunPriority > ability.RunPriority)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(str + "has an earlier run priority than its predecessor.  Make sure chain abilities happen later than the 'master' ability for things to look right.", new object[0]);
 			}
 		}
@@ -3649,19 +1931,6 @@ public class Ability : MonoBehaviour
 			ActorTargeting actorTargeting = actor.GetActorTargeting();
 			if (actorTargeting != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ApplyAbilityMod(AbilityMod, ActorData)).MethodHandle;
-				}
 				actorTargeting.MarkForForceRedraw();
 			}
 			this.ClearAbilityMod(actor);
@@ -3683,19 +1952,6 @@ public class Ability : MonoBehaviour
 	{
 		if (this.m_currentAbilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.ClearAbilityMod(ActorData)).MethodHandle;
-			}
 			this.m_currentAbilityMod = null;
 			this.OnRemoveAbilityMod();
 			this.ResetNameplateTargetingNumbers();
@@ -3710,54 +1966,14 @@ public class Ability : MonoBehaviour
 	{
 		if (this.Targeter != null && this.IsAbilitySelected())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.DrawGizmos()).MethodHandle;
-			}
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (activeOwnedActorData == this.ActorData)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorTurnSM actorTurnSM = activeOwnedActorData.GetActorTurnSM();
 					if (actorTurnSM != null && actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityTarget currentTarget = AbilityTarget.CreateAbilityTargetFromInterface();
 						this.Targeter.DrawGizmos(currentTarget, activeOwnedActorData);
 					}
@@ -3787,19 +2003,6 @@ public class Ability : MonoBehaviour
 		bool result;
 		if (this.GetTargetData() != null && this.GetTargetData().Length > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.UseTargeterGridPosForCameraBounds()).MethodHandle;
-			}
 			result = (this.GetTargetingParadigm(0) != Ability.TargetingParadigm.Direction);
 		}
 		else
@@ -3839,19 +2042,6 @@ public class Ability : MonoBehaviour
 		bool flag;
 		if (list != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.CalcBoundsOfInterestForCamera(Bounds*, List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			flag = (list.Count > 0);
 		}
 		else
@@ -3875,19 +2065,6 @@ public class Ability : MonoBehaviour
 		PassiveData component = base.GetComponent<PassiveData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetPassiveOfType(Type)).MethodHandle;
-			}
 			return component.GetPassiveOfType(passiveType);
 		}
 		return null;
@@ -3918,19 +2095,6 @@ public class Ability : MonoBehaviour
 		AbilityData component = base.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetAbilityOfType()).MethodHandle;
-			}
 			return component.GetAbilityOfType<T>();
 		}
 		return (T)((object)null);
@@ -3952,30 +2116,8 @@ public class Ability : MonoBehaviour
 		string text = string.Empty;
 		if (this.m_techPointInteractions != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetBaseAbilityDesc()).MethodHandle;
-			}
 			if (this.m_techPointInteractions.Length > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "TechPoint Interactions:\n";
 			}
 			for (int i = 0; i < this.m_techPointInteractions.Length; i++)
@@ -3994,40 +2136,13 @@ public class Ability : MonoBehaviour
 		}
 		if (this.m_tags != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_tags.Count > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Tags:\n";
 			}
 			for (int j = 0; j < this.m_tags.Count; j++)
 			{
 				text = text + "    [" + this.m_tags[j].ToString() + "]\n";
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (text.Length > 0)
@@ -4059,19 +2174,6 @@ public class Ability : MonoBehaviour
 		});
 		if (colorString.Length > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Ability.GetDebugIdentifier(string)).MethodHandle;
-			}
 			return string.Concat(new string[]
 			{
 				"<color=",

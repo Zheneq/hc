@@ -12,9 +12,9 @@ namespace AbilityContextNamespace
 
 		public Dictionary<int, Vector3> VectorVars = new Dictionary<int, Vector3>();
 
-		public static int GetHash(string \u001D)
+		public static int GetHash(string symbol_001D)
 		{
-			return Animator.StringToHash(\u001D.Trim().ToUpper());
+			return Animator.StringToHash(symbol_001D.Trim().ToUpper());
 		}
 
 		public void Clear()
@@ -73,45 +73,14 @@ namespace AbilityContextNamespace
 		{
 			if (type == ContextValueType.INT)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ContextVars.Contains(int, ContextValueType)).MethodHandle;
-				}
 				return this.IntVars.ContainsKey(index);
 			}
 			if (type == ContextValueType.FLOAT)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.FloatVars.ContainsKey(index);
 			}
 			if (type == ContextValueType.VECTOR)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.VectorVars.ContainsKey(index);
 			}
 			return false;

@@ -57,57 +57,17 @@ public class SimpleVerticalProjectileSequence : Sequence
 		this.m_impactDuration = Sequence.GetFXDuration(this.m_fxImpactPrefab);
 		if (!(this.m_startEvent == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.FinishSetup()).MethodHandle;
-			}
 			if (!this.m_spawnFxOnStartIfCasterIsDead)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!(base.Caster != null))
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!base.Caster.IsDead())
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.SpawnFX();
@@ -118,32 +78,10 @@ public class SimpleVerticalProjectileSequence : Sequence
 		base.ProcessSequenceVisibility();
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.Update()).MethodHandle;
-			}
 			if (this.m_fx != null)
 			{
 				if (this.m_fx.activeSelf)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 vector = this.m_fx.transform.position + this.m_travelDir * this.m_projectileSpeed * GameTime.deltaTime;
 					Vector3 lhs = this.m_endPos - vector;
 					Vector3 rhs = this.m_startPos - vector;
@@ -152,15 +90,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 						this.m_fx.SetActive(false);
 						if (this.m_fxImpactPrefab != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.SpawnImpactFX(this.m_endPos);
 						}
 						else
@@ -168,27 +97,9 @@ public class SimpleVerticalProjectileSequence : Sequence
 							base.Source.OnSequenceHit(this, base.TargetPos, null);
 							if (base.Targets != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								foreach (ActorData target in base.Targets)
 								{
 									base.Source.OnSequenceHit(this, target, Sequence.CreateImpulseInfoWithObjectPose(this.m_fx), ActorModelData.RagdollActivation.HealthBased, true);
-								}
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							base.MarkForRemoval();
@@ -203,15 +114,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 				{
 					if (this.m_impactDurationLeft > 0f)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_impactDurationLeft -= GameTime.deltaTime;
 					}
 					if (this.m_impactDurationLeft <= 0f)
@@ -227,33 +129,11 @@ public class SimpleVerticalProjectileSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx);
 			this.m_fx = null;
 		}
 		if (this.m_fxImpact != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UnityEngine.Object.Destroy(this.m_fxImpact);
 			this.m_fxImpact = null;
 		}
@@ -264,33 +144,11 @@ public class SimpleVerticalProjectileSequence : Sequence
 	{
 		if (this.m_fxImpactPrefab)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.SpawnImpactFX(Vector3)).MethodHandle;
-			}
 			this.m_fxImpact = base.InstantiateFX(this.m_fxImpactPrefab, impactPos, Quaternion.identity, true, true);
 			this.m_impactDurationLeft = this.m_impactDuration;
 		}
 		if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_impactAudioEvent, this.m_fx.gameObject);
 		}
 		base.CallHitSequenceOnTargets(impactPos, 1f, null, true);
@@ -309,66 +167,17 @@ public class SimpleVerticalProjectileSequence : Sequence
 	{
 		if (this.m_fx == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleVerticalProjectileSequence.SpawnFX()).MethodHandle;
-			}
 			if (this.m_fxPrefab != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Quaternion rotation = default(Quaternion);
 				if (this.m_travelingUp)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_startPos = this.m_fxJoint.m_jointObject.transform.position;
 					this.m_travelDir = Vector3.up;
 					if (this.m_useJointDirectionForProjectile)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!base.Caster.IsDead())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_travelDir = this.m_fxJoint.m_jointObject.transform.forward;
 						}
 					}
@@ -387,15 +196,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 				this.m_fx = base.InstantiateFX(this.m_fxPrefab, this.m_startPos, rotation, true, true);
 				if (this.m_fx != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FriendlyEnemyVFXSelector component = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 					if (component != null)
 					{
@@ -404,15 +204,6 @@ public class SimpleVerticalProjectileSequence : Sequence
 				}
 				if (!string.IsNullOrEmpty(this.m_audioEvent))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 				}
 			}

@@ -4,7 +4,7 @@ namespace Theatrics
 {
 	internal enum OrderIndex
 	{
-		\u001D = -2,
-		\u000E
+		symbol_001D = -2,
+		symbol_000E
 	}
 }

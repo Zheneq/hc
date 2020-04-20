@@ -30,19 +30,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					{
 						UnityEngine.Object.Destroy(materials[i]);
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.OnTempSatelliteDestroy()).MethodHandle;
-					}
 				}
 			}
 		}
@@ -62,42 +49,11 @@ public class BlasterLurkerMineSatellite : TempSatellite
 		ActorData owner = base.GetOwner();
 		if (owner != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.EnableStealth()).MethodHandle;
-			}
 			float num;
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (owner.GetOpposingTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
 					goto IL_A5;
 				}
@@ -125,19 +81,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 				material.SetFloat(propertyID, value);
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.SetMaterialFloat(int, float)).MethodHandle;
-		}
 	}
 
 	private void SetMaterialRenderQueue(int renderQueue)
@@ -153,19 +96,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 				int renderQueue2;
 				if (renderQueue < -1)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.SetMaterialRenderQueue(int)).MethodHandle;
-					}
 					renderQueue2 = renderer.sharedMaterials[j].renderQueue;
 				}
 				else
@@ -173,15 +103,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					renderQueue2 = renderQueue;
 				}
 				material2.renderQueue = renderQueue2;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -205,28 +126,6 @@ public class BlasterLurkerMineSatellite : TempSatellite
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.SetMaterialKeyword(string, bool)).MethodHandle;
-			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -234,31 +133,9 @@ public class BlasterLurkerMineSatellite : TempSatellite
 	{
 		if (this.m_renderers != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterLurkerMineSatellite.Update()).MethodHandle;
-			}
 			ActorData actorData;
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorData = GameFlowData.Get().activeOwnedActorData;
 			}
 			else
@@ -270,26 +147,8 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			bool flag;
 			if (!this.m_attackTriggered)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData2 != null && owner != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (actorData2.GetTeam() == owner.GetTeam());
 				}
 				else
@@ -304,38 +163,11 @@ public class BlasterLurkerMineSatellite : TempSatellite
 			bool flag2 = flag;
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_modelAnimator != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AnimatorStateInfo currentAnimatorStateInfo = this.m_modelAnimator.GetCurrentAnimatorStateInfo(0);
 					if (!currentAnimatorStateInfo.IsTag("Despawn"))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!currentAnimatorStateInfo.IsTag("Attack"))
 						{
 							goto IL_FB;
@@ -351,26 +183,8 @@ public class BlasterLurkerMineSatellite : TempSatellite
 				{
 					if (this.m_renderers[i] != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_renderers[i].enabled = flag2;
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				this.m_visible = flag2;
 			}

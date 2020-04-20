@@ -11,19 +11,6 @@ public class AbilityModPropertyBool
 	{
 		if (this.operation == AbilityModPropertyBool.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyBool.GetModifiedValue(bool)).MethodHandle;
-			}
 			return this.value;
 		}
 		return input;

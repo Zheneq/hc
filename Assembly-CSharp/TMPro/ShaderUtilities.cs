@@ -133,19 +133,6 @@ namespace TMPro
 		{
 			if (!ShaderUtilities.isInitialized)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.GetShaderPropertyIDs()).MethodHandle;
-				}
 				ShaderUtilities.isInitialized = true;
 				ShaderUtilities.ID_MainTex = Shader.PropertyToID("_MainTex");
 				ShaderUtilities.ID_FaceTex = Shader.PropertyToID("_FaceTex");
@@ -217,19 +204,6 @@ namespace TMPro
 				float num4;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.UpdateShaderRatios(Material)).MethodHandle;
-					}
 					num4 = Mathf.Max(0f, @float - ShaderUtilities.m_clamp - num3) / (@float * num2);
 				}
 				else
@@ -241,15 +215,6 @@ namespace TMPro
 			}
 			if (mat.HasProperty(ShaderUtilities.ID_UnderlayOffsetX))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float float7 = mat.GetFloat(ShaderUtilities.ID_UnderlayOffsetX);
 				float float8 = mat.GetFloat(ShaderUtilities.ID_UnderlayOffsetY);
 				float float9 = mat.GetFloat(ShaderUtilities.ID_UnderlayDilate);
@@ -274,55 +239,15 @@ namespace TMPro
 				{
 					if (!material.shaderKeywords.Contains(ShaderUtilities.Keyword_MASK_SOFT))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!material.shaderKeywords.Contains(ShaderUtilities.Keyword_MASK_HARD))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!material.shaderKeywords.Contains(ShaderUtilities.Keyword_MASK_TEX))
 							{
 								return false;
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 					return true;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.IsMaskingEnabled(Material)).MethodHandle;
 				}
 			}
 			return false;
@@ -332,46 +257,15 @@ namespace TMPro
 		{
 			if (!ShaderUtilities.isInitialized)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.GetPadding(Material, bool, bool)).MethodHandle;
-				}
 				ShaderUtilities.GetShaderPropertyIDs();
 			}
 			if (material == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 0f;
 			}
 			int num = (!enableExtraPadding) ? 0 : 4;
 			if (!material.HasProperty(ShaderUtilities.ID_GradientScale))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return (float)num;
 			}
 			Vector4 a = Vector4.zero;
@@ -392,28 +286,10 @@ namespace TMPro
 			}
 			if (material.HasProperty(ShaderUtilities.ID_FaceDilate))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = material.GetFloat(ShaderUtilities.ID_FaceDilate) * num5;
 			}
 			if (material.HasProperty(ShaderUtilities.ID_OutlineSoftness))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = material.GetFloat(ShaderUtilities.ID_OutlineSoftness) * num5;
 			}
 			if (material.HasProperty(ShaderUtilities.ID_OutlineWidth))
@@ -423,37 +299,10 @@ namespace TMPro
 			float num10 = num4 + num3 + num2;
 			if (material.HasProperty(ShaderUtilities.ID_GlowOffset))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (shaderKeywords.Contains(ShaderUtilities.Keyword_Glow))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (material.HasProperty(ShaderUtilities.ID_ScaleRatio_B))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num6 = material.GetFloat(ShaderUtilities.ID_ScaleRatio_B);
 					}
 					num8 = material.GetFloat(ShaderUtilities.ID_GlowOffset) * num6;
@@ -463,26 +312,8 @@ namespace TMPro
 			num10 = Mathf.Max(num10, num2 + num8 + num9);
 			if (material.HasProperty(ShaderUtilities.ID_UnderlaySoftness) && shaderKeywords.Contains(ShaderUtilities.Keyword_Underlay))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (material.HasProperty(ShaderUtilities.ID_ScaleRatio_C))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num7 = material.GetFloat(ShaderUtilities.ID_ScaleRatio_C);
 				}
 				float num11 = material.GetFloat(ShaderUtilities.ID_UnderlayOffsetX) * num7;
@@ -509,15 +340,6 @@ namespace TMPro
 			float x;
 			if (zero.x < a.x)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				x = a.x;
 			}
 			else
@@ -528,15 +350,6 @@ namespace TMPro
 			float y;
 			if (zero.y < a.y)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				y = a.y;
 			}
 			else
@@ -547,15 +360,6 @@ namespace TMPro
 			float z;
 			if (zero.z < a.z)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				z = a.z;
 			}
 			else
@@ -566,15 +370,6 @@ namespace TMPro
 			float w;
 			if (zero.w < a.w)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				w = a.w;
 			}
 			else
@@ -594,46 +389,15 @@ namespace TMPro
 		{
 			if (!ShaderUtilities.isInitialized)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderUtilities.GetPadding(Material[], bool, bool)).MethodHandle;
-				}
 				ShaderUtilities.GetShaderPropertyIDs();
 			}
 			if (materials == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 0f;
 			}
 			int num = (!enableExtraPadding) ? 0 : 4;
 			if (!materials[0].HasProperty(ShaderUtilities.ID_GradientScale))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return (float)num;
 			}
 			Vector4 a = Vector4.zero;
@@ -657,68 +421,23 @@ namespace TMPro
 				}
 				if (materials[i].HasProperty(ShaderUtilities.ID_FaceDilate))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = materials[i].GetFloat(ShaderUtilities.ID_FaceDilate) * num5;
 				}
 				if (materials[i].HasProperty(ShaderUtilities.ID_OutlineSoftness))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = materials[i].GetFloat(ShaderUtilities.ID_OutlineSoftness) * num5;
 				}
 				if (materials[i].HasProperty(ShaderUtilities.ID_OutlineWidth))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = materials[i].GetFloat(ShaderUtilities.ID_OutlineWidth) * num5;
 				}
 				num10 = num4 + num3 + num2;
 				if (materials[i].HasProperty(ShaderUtilities.ID_GlowOffset))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (shaderKeywords.Contains(ShaderUtilities.Keyword_Glow))
 					{
 						if (materials[i].HasProperty(ShaderUtilities.ID_ScaleRatio_B))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num6 = materials[i].GetFloat(ShaderUtilities.ID_ScaleRatio_B);
 						}
 						num8 = materials[i].GetFloat(ShaderUtilities.ID_GlowOffset) * num6;
@@ -728,28 +447,10 @@ namespace TMPro
 				num10 = Mathf.Max(num10, num2 + num8 + num9);
 				if (materials[i].HasProperty(ShaderUtilities.ID_UnderlaySoftness))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (shaderKeywords.Contains(ShaderUtilities.Keyword_Underlay))
 					{
 						if (materials[i].HasProperty(ShaderUtilities.ID_ScaleRatio_C))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num7 = materials[i].GetFloat(ShaderUtilities.ID_ScaleRatio_C);
 						}
 						float num11 = materials[i].GetFloat(ShaderUtilities.ID_UnderlayOffsetX) * num7;
@@ -777,15 +478,6 @@ namespace TMPro
 				float x;
 				if (zero.x < a.x)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					x = a.x;
 				}
 				else
@@ -796,15 +488,6 @@ namespace TMPro
 				float y;
 				if (zero.y < a.y)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					y = a.y;
 				}
 				else
@@ -815,15 +498,6 @@ namespace TMPro
 				float z;
 				if (zero.z < a.z)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					z = a.z;
 				}
 				else
@@ -834,15 +508,6 @@ namespace TMPro
 				float w;
 				if (zero.w < a.w)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					w = a.w;
 				}
 				else

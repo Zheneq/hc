@@ -39,19 +39,6 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 		int numDirs;
 		if (this.m_useBothCardinalDirs)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SoldierCardinalLines..ctor(Ability, AbilityAreaShape, float, bool, bool, bool, AbilityAreaShape)).MethodHandle;
-			}
 			numDirs = 2;
 		}
 		else
@@ -72,41 +59,10 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 		base.ClearActorsInRange();
 		if (currentTargetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SoldierCardinalLines.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (targets != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targets.Count > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.CreateHighlights();
 					float num = this.m_targetLineLengthInSquares * Board.Get().squareSize;
 					AbilityTarget target = targets[currentTargetIndex - 1];
@@ -121,27 +77,9 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					List<Vector3> list = new List<Vector3>();
 					if (this.m_useBothCardinalDirs)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float angle = 0f;
 						if (vec.x < 0f)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							angle = 180f;
 						}
 						list.Add(VectorUtils.AngleDegreesToVector(angle));
@@ -174,15 +112,6 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 							ActorData actor = list5[j];
 							base.AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 forward = vector2;
 						vector2.x = Mathf.Abs(vector2.x);
 						vector2.z = Mathf.Abs(vector2.z);
@@ -201,40 +130,13 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 						this.m_highlights[num2 + 2].transform.position = position;
 						this.m_highlights[num2 + 2].transform.rotation = Quaternion.LookRotation(forward);
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_useAoeHits)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num3 = this.m_numDirs * 3;
 						foreach (KeyValuePair<ActorData, float> keyValuePair in this.m_directHitActorToCenterDist)
 						{
 							if (this.m_highlights.Count <= num3)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_aoeShape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 							}
 							Vector3 travelBoardSquareWorldPosition = keyValuePair.Key.GetTravelBoardSquareWorldPosition();
@@ -247,15 +149,6 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 						{
 							this.m_highlights[k].SetActive(false);
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 			}
@@ -266,31 +159,9 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 	{
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SoldierCardinalLines.CreateHighlights()).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 3 * this.m_numDirs)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -302,15 +173,6 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 			this.m_highlights.Add(item2);
 			GameObject item3 = AbilityUtil_Targeter_SoldierCardinalLines.CreateArrowPointerHighlight(1.5f);
 			this.m_highlights.Add(item3);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -378,19 +240,6 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					{
 						goto IL_1F9;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SoldierCardinalLines.GetHitActors(List<Vector3>, Vector3, ActorData, Dictionary<ActorData, Vector3>*, List<List<ActorData>>*, List<Vector3>*, List<Vector3>*, Dictionary<ActorData, float>*, HashSet<ActorData>*)).MethodHandle;
-					}
 					if (directHitActorToWorldDist[actorData] > num3)
 					{
 						for (;;)
@@ -406,29 +255,11 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					IL_205:
 					if (!actorToHitOrigin.ContainsKey(actorData))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitOrigin[actorData] = vector;
 						continue;
 					}
 					if (actorData.GetActorCover().IsInCoverWrt(actorToHitOrigin[actorData]))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorToHitOrigin[actorData] = vector;
 						continue;
 					}
@@ -436,15 +267,6 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 					IL_1F9:
 					directHitActorToWorldDist[actorData] = num3;
 					goto IL_205;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (this.m_useAoeHits)
@@ -463,39 +285,12 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 							actorsInDirsDirect[i].Add(actorData3);
 							if (!actorToHitOrigin.ContainsKey(actorData3))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								actorToHitOrigin[actorData3] = vector;
 							}
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

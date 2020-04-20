@@ -33,44 +33,13 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 		BattleMonkSelfBuff battleMonkSelfBuff = targetAbility as BattleMonkSelfBuff;
 		if (battleMonkSelfBuff != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkSelfBuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_absorbMod, "Absorb", string.Empty, battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_damageReturnMod, "DamagePerHit", string.Empty, battleMonkSelfBuff.m_damagePerHit, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_returnEffectOnEnemyMod, "ReturnEffectOnEnemy", battleMonkSelfBuff.m_returnEffectOnEnemy, true);
 			if (this.m_hitNearbyAlliesMod != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_hitNearbyAlliesMod.GetModifiedValue(false))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnAllyHit, "EffectOnAllyHit", null, false);
 				}
 			}
@@ -89,19 +58,6 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkSelfBuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = battleMonkSelfBuff.m_standardActorEffectData.m_absorbAmount;
 		}
 		else

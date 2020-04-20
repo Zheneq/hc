@@ -556,19 +556,6 @@ public class DeathData
 	{
 		if (DeathData.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DeathData.Get()).MethodHandle;
-			}
 			DeathData.s_instance = new DeathData();
 			DeathData.s_instance.Initialize();
 		}
@@ -588,30 +575,8 @@ public class DeathData
 			this.m_deathsAtSquare[this.rawData[i], this.rawData[i + 1]] = this.rawData[i + 2];
 			if (this.rawData[i + 2] > this.m_maxDeaths)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DeathData.Initialize()).MethodHandle;
-				}
 				this.m_maxDeaths = this.rawData[i + 2];
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

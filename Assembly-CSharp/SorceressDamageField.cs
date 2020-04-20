@@ -44,19 +44,6 @@ public class SorceressDamageField : Ability
 		bool flag;
 		if (this.GetDamage() <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.SetupTargeter()).MethodHandle;
-			}
 			flag = this.GetEnemyHitEffect().m_applyEffect;
 		}
 		else
@@ -67,15 +54,6 @@ public class SorceressDamageField : Ability
 		bool flag2;
 		if (this.GetHealing() <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = this.GetAllyHitEffect().m_applyEffect;
 		}
 		else
@@ -118,19 +96,6 @@ public class SorceressDamageField : Ability
 		int val;
 		if (abilityMod_SorceressDamageField)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SorceressDamageField.m_durationMod.GetModifiedValue(this.m_duration);
 		}
 		else
@@ -144,15 +109,6 @@ public class SorceressDamageField : Ability
 		int val2;
 		if (abilityMod_SorceressDamageField)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SorceressDamageField.m_healingMod.GetModifiedValue(this.m_healing);
 		}
 		else
@@ -163,15 +119,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_SorceressDamageField)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_SorceressDamageField.m_onEnemyEffectOverride.GetModifiedValue(this.m_effectOnEnemies);
 		}
 		else
@@ -186,19 +133,6 @@ public class SorceressDamageField : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SorceressDamageField))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SorceressDamageField);
 			this.SetupTargeter();
 		}
@@ -223,31 +157,9 @@ public class SorceressDamageField : Ability
 	{
 		if (!(this.m_abilityMod == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.GetPersistentSequencePrefab()).MethodHandle;
-			}
 			if (!(this.m_abilityMod.m_persistentSequencePrefabOverride == null))
 			{
 				return this.m_abilityMod.m_persistentSequencePrefabOverride;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return this.m_persistentGroundPrefab;
@@ -263,19 +175,6 @@ public class SorceressDamageField : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.GetDamage()).MethodHandle;
-			}
 			result = this.m_damage;
 		}
 		else
@@ -290,19 +189,6 @@ public class SorceressDamageField : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.GetHealing()).MethodHandle;
-			}
 			result = this.m_healing;
 		}
 		else
@@ -317,19 +203,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo cachedEffectOnEnemies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectOnEnemies = this.m_abilityMod.m_onEnemyEffectOverride.GetModifiedValue(this.m_effectOnEnemies);
 		}
 		else
@@ -340,15 +213,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo cachedEffectOnAllies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnAllies = this.m_abilityMod.m_onAllyEffectOverride.GetModifiedValue(this.m_effectOnAllies);
 		}
 		else
@@ -363,19 +227,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnAllies != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnAllies;
 		}
 		else
@@ -390,19 +241,6 @@ public class SorceressDamageField : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnEnemies != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDamageField.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnEnemies;
 		}
 		else

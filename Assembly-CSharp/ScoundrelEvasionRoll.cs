@@ -13,19 +13,6 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Evasion Roll";
 		}
 		this.SetupTargeter();
@@ -36,32 +23,10 @@ public class ScoundrelEvasionRoll : Ability
 		base.Targeter = new AbilityUtil_Targeter_ScoundrelEvasionRoll(this, this.ShouldCreateTrapWire(), this.GetTrapwirePattern());
 		if (this.HasAdditionalEffectFromMod())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.SetupTargeter()).MethodHandle;
-			}
 			(base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
 		}
 		else if (this.EffectForLandingInBrush() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			(base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll).m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		}
 	}
@@ -71,30 +36,8 @@ public class ScoundrelEvasionRoll : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
 					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
@@ -110,32 +53,10 @@ public class ScoundrelEvasionRoll : Ability
 		StandardEffectInfo standardEffectInfo = this.EffectForLandingInBrush();
 		if (standardEffectInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			standardEffectInfo.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
 		}
 		if (this.HasAdditionalEffectFromMod())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_abilityMod.m_additionalEffectOnStart.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Self);
 		}
 		return result;
@@ -145,32 +66,10 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (this.GetExtraEnergyPerStep() > 0 && base.Targeter is AbilityUtil_Targeter_ScoundrelEvasionRoll)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			AbilityUtil_Targeter_ScoundrelEvasionRoll abilityUtil_Targeter_ScoundrelEvasionRoll = base.Targeter as AbilityUtil_Targeter_ScoundrelEvasionRoll;
 			int numNodesInPath = abilityUtil_Targeter_ScoundrelEvasionRoll.m_numNodesInPath;
 			if (numNodesInPath > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.GetExtraEnergyPerStep() * (numNodesInPath - 1);
 			}
 		}
@@ -181,19 +80,6 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelEvasionRoll))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ScoundrelEvasionRoll);
 			this.SetupTargeter();
 		}
@@ -218,30 +104,8 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.ShouldCreateTrapWire()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_dropTrapWireOnStart)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityMod.m_trapwirePattern != AbilityGridPattern.NoPattern;
 			}
 		}
@@ -253,19 +117,6 @@ public class ScoundrelEvasionRoll : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.HasAdditionalEffectFromMod()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_additionalEffectOnStart.m_applyEffect;
 		}
 		else
@@ -294,41 +145,10 @@ public class ScoundrelEvasionRoll : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.EffectForLandingInBrush()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_effectToSelfForLandingInBrush != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_effectToSelfForLandingInBrush.m_applyEffect)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_abilityMod.m_effectToSelfForLandingInBrush;
 				}
 			}
@@ -349,19 +169,6 @@ public class ScoundrelEvasionRoll : Ability
 		int val;
 		if (abilityMod_ScoundrelEvasionRoll)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelEvasionRoll.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ScoundrelEvasionRoll.m_extraEnergyPerStepMod.GetModifiedValue(this.m_extraEnergyPerStep);
 		}
 		else
@@ -375,15 +182,6 @@ public class ScoundrelEvasionRoll : Ability
 		int val2;
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (component.m_damageToAdvanceCooldown > 0)
 			{
 				val2 = 1;

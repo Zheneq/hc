@@ -14,7 +14,7 @@ namespace TMPro.Examples
 
 		public float alpha;
 
-		private void \u0016()
+		private void symbol_0016()
 		{
 			this.renderer = base.GetComponent<Renderer>();
 			this.material = this.renderer.material;
@@ -34,19 +34,6 @@ namespace TMPro.Examples
 				this.material.SetFloat(ShaderUtilities.ID_GlowPower, value);
 				this.alpha += Time.deltaTime * UnityEngine.Random.Range(0.2f, 0.3f);
 				yield return new WaitForEndOfFrame();
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ShaderPropAnimator.<AnimateProperties>c__Iterator0.MoveNext()).MethodHandle;
-				}
 			}
 			yield break;
 		}

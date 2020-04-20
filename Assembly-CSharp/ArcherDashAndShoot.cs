@@ -51,46 +51,15 @@ public class ArcherDashAndShoot : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.Start()).MethodHandle;
-			}
 			this.m_abilityName = "ArcherDashAndShoot";
 		}
 		this.m_shieldGenAbility = (base.GetAbilityOfType(typeof(ArcherShieldGeneratorArrow)) as ArcherShieldGeneratorArrow);
 		AbilityData component = base.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_healArrowAbility = (base.GetAbilityOfType(typeof(ArcherHealingDebuffArrow)) as ArcherHealingDebuffArrow);
 			if (this.m_healArrowAbility != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_healArrowActionType = component.GetActionTypeOfAbility(this.m_healArrowAbility);
 			}
 		}
@@ -108,19 +77,6 @@ public class ArcherDashAndShoot : Ability
 			AbilityUtil_Targeter_DashAndAim abilityUtil_Targeter_DashAndAim = new AbilityUtil_Targeter_DashAndAim(this, this.GetAoeRadius(), this.AoePenetratesLoS(), this.GetLaserWidth(), this.GetLaserRange(), this.GetMaxAngleForLaser(), new AbilityUtil_Targeter_DashAndAim.GetClampedLaserDirection(this.GetClampedLaserDirection), true, this.GetMovementType() != ActorData.MovementType.Charge, 1);
 			abilityUtil_Targeter_DashAndAim.SetUseMultiTargetUpdate(true);
 			base.Targeters.Add(abilityUtil_Targeter_DashAndAim);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.Setup()).MethodHandle;
 		}
 	}
 
@@ -140,19 +96,6 @@ public class ArcherDashAndShoot : Ability
 		float num = Vector3.Angle(neutralDir, vector);
 		if (num > this.GetMaxAngleForLaser())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetClampedLaserDirection(AbilityTarget, AbilityTarget, Vector3)).MethodHandle;
-			}
 			vector = Vector3.RotateTowards(vector, neutralDir, (num - this.GetMaxAngleForLaser()) * 0.0174532924f, 0f);
 		}
 		return vector;
@@ -164,31 +107,9 @@ public class ArcherDashAndShoot : Ability
 		{
 			return true;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-		}
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null && boardSquareSafe.IsBaselineHeight() && boardSquareSafe != caster.GetCurrentBoardSquare())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num;
 			return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out num);
 		}
@@ -209,57 +130,17 @@ public class ArcherDashAndShoot : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int num = this.GetDirectDamage();
 			List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeters[1].GetTooltipSubjectTypes(targetActor);
 			if (!tooltipSubjectTypes.IsNullOrEmpty<AbilityTooltipSubject>())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = this.GetAoeDamage();
 				}
 			}
 			if (this.IsReactionHealTarget(targetActor))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
 			}
 			dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -280,19 +161,6 @@ public class ArcherDashAndShoot : Ability
 					return this.m_healArrowAbility.GetTechPointsPerHeal();
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}
@@ -301,91 +169,24 @@ public class ArcherDashAndShoot : Ability
 	{
 		if (this.m_syncComp.m_healReactionTargetActor == targetActor.ActorIndex)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.IsReactionHealTarget(ActorData)).MethodHandle;
-			}
 			if (!this.m_syncComp.ActorHasUsedHealReaction(base.ActorData))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
 		if (this.m_healArrowActionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actorTargeting != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityTarget> abilityTargetsInRequest = this.m_actorTargeting.GetAbilityTargetsInRequest(this.m_healArrowActionType);
 				if (abilityTargetsInRequest != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
 						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
 					}
@@ -407,19 +208,6 @@ public class ArcherDashAndShoot : Ability
 	{
 		if (targetIndex == 1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.HasRestrictedFreeAimDegrees(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
 			Vector3 b;
 			this.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out b);
 			Vector3 vec = aimingActor.GetTravelBoardSquareWorldPosition() - b;
@@ -458,19 +246,6 @@ public class ArcherDashAndShoot : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ArcherDashAndShoot))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ArcherDashAndShoot);
 			this.Setup();
 		}
@@ -488,19 +263,6 @@ public class ArcherDashAndShoot : Ability
 		StandardEffectInfo cachedAoeTargetEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.SetCachedFields()).MethodHandle;
-			}
 			cachedAoeTargetEffect = this.m_abilityMod.m_aoeTargetEffectMod.GetModifiedValue(this.m_aoeTargetEffect);
 		}
 		else
@@ -511,15 +273,6 @@ public class ArcherDashAndShoot : Ability
 		StandardEffectInfo cachedHealingDebuffTargetEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedHealingDebuffTargetEffect = this.m_abilityMod.m_healingDebuffTargetEffect.GetModifiedValue(null);
 		}
 		else
@@ -534,19 +287,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetMaxAngleForLaser()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxAngleForLaserMod.GetModifiedValue(this.m_maxAngleForLaser);
 		}
 		else
@@ -561,19 +301,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -593,19 +320,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetAoeRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeRadiusMod.GetModifiedValue(this.m_aoeRadius);
 		}
 		else
@@ -635,19 +349,6 @@ public class ArcherDashAndShoot : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedDirectTargetEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetDirectTargetEffect()).MethodHandle;
-			}
 			result = this.m_cachedDirectTargetEffect;
 		}
 		else
@@ -662,19 +363,6 @@ public class ArcherDashAndShoot : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAoeTargetEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetAoeTargetEffect()).MethodHandle;
-			}
 			result = this.m_cachedAoeTargetEffect;
 		}
 		else
@@ -694,19 +382,6 @@ public class ArcherDashAndShoot : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetCooldownAdjustmentEachTurnIfUnderHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownAdjustmentEachTurnUnderHealthThreshold.GetModifiedValue(0);
 		}
 		else
@@ -721,19 +396,6 @@ public class ArcherDashAndShoot : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherDashAndShoot.GetHealthThresholdForCooldownOverride()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healthThresholdForCooldownOverride.GetModifiedValue(0f);
 		}
 		else

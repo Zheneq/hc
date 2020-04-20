@@ -84,43 +84,12 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (targetData.Length > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.CanShowTargeterRangePreview(TargetData[])).MethodHandle;
-			}
 			TargetData targetData2 = targetData[0];
 			float num = Mathf.Max(0f, targetData2.m_range - 0.5f);
 			if (num > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < 15f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (targetData2.m_targetingParadigm != Ability.TargetingParadigm.Direction)
 					{
 						return true;
@@ -140,19 +109,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (modBase != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.SetTargetSelectMod(TargetSelectModBase)).MethodHandle;
-			}
 			this.m_currentTargetSelectMod = modBase;
 			this.OnTargetSelModApplied(modBase);
 		}
@@ -166,19 +122,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (this.m_currentTargetSelectMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.ClearTargetSelectMod()).MethodHandle;
-			}
 			this.m_currentTargetSelectMod = null;
 			this.OnTargetSelModRemoved();
 		}
@@ -199,19 +142,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 		bool result;
 		if (this.m_currentTargetSelectMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.IncludeEnemies()).MethodHandle;
-			}
 			result = this.m_currentTargetSelectMod.m_includeEnemiesMod.GetModifiedValue(this.m_includeEnemies);
 		}
 		else
@@ -226,19 +156,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 		bool result;
 		if (this.m_currentTargetSelectMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.IncludeAllies()).MethodHandle;
-			}
 			result = this.m_currentTargetSelectMod.m_includeAlliesMod.GetModifiedValue(this.m_includeAllies);
 		}
 		else
@@ -258,19 +175,6 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 		bool result;
 		if (this.m_currentTargetSelectMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.IgnoreLos()).MethodHandle;
-			}
 			result = this.m_currentTargetSelectMod.m_ignoreLosMod.GetModifiedValue(this.m_ignoreLos);
 		}
 		else
@@ -284,30 +188,8 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 	{
 		if (this.m_currentTargetSelectMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericAbility_TargetSelectBase.GetTargetDataOverride()).MethodHandle;
-			}
 			if (this.m_currentTargetSelectMod.m_overrideTargetDataOnTargetSelect)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_currentTargetSelectMod.m_targetDataOverride;
 			}
 		}

@@ -24,33 +24,11 @@ public class FactionWideData : MonoBehaviour
 		FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(faction.FactionGroupIDToUse);
 		if (factionGroup.ColorHex != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.GetRBGA(Faction)).MethodHandle;
-			}
 			if (factionGroup.ColorHex.Length == 8)
 			{
 				for (int i = 0; i < 4; i++)
 				{
 					array[i] = (float)Convert.ToByte(factionGroup.ColorHex.Substring(i * 2, 2), 0x10) / 255f;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				return array;
 			}
@@ -64,30 +42,8 @@ public class FactionWideData : MonoBehaviour
 		{
 			if (GroupID == this.m_factionGroups[i].FactionGroupID)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.GetFactionGroup(int)).MethodHandle;
-				}
 				return this.m_factionGroups[i];
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return new FactionGroup();
 	}
@@ -102,31 +58,9 @@ public class FactionWideData : MonoBehaviour
 				FactionCompetition result = enumerator.Current;
 				if (num == index)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.GetFactionCompetition(int)).MethodHandle;
-					}
 					return result;
 				}
 				num++;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -137,19 +71,6 @@ public class FactionWideData : MonoBehaviour
 		FactionCompetition factionCompetition = this.GetFactionCompetition(competitionId);
 		if (factionCompetition != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.GetFaction(int, int)).MethodHandle;
-			}
 			int num = 0;
 			using (List<Faction>.Enumerator enumerator = factionCompetition.Factions.GetEnumerator())
 			{
@@ -161,15 +82,6 @@ public class FactionWideData : MonoBehaviour
 						return result;
 					}
 					num++;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -191,19 +103,6 @@ public class FactionWideData : MonoBehaviour
 		Faction faction = this.GetFaction(competitionId, factionId);
 		if (faction != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.GetCompetitionFactionTierReached(int, int, long)).MethodHandle;
-			}
 			int num = 0;
 			long num2 = 0L;
 			foreach (FactionTier factionTier in faction.Tiers)
@@ -211,15 +110,6 @@ public class FactionWideData : MonoBehaviour
 				num2 += factionTier.ContributionToComplete;
 				if (num2 <= factionScore)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 			}
@@ -233,19 +123,6 @@ public class FactionWideData : MonoBehaviour
 		FactionTier factionTier = this.GetFactionTier(competitionId, factionId, tierId);
 		if (factionTier != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.SetCompetitionFactionTierInfo(int, int, int, long)).MethodHandle;
-			}
 			factionTier.ContributionToComplete = contributionToComplete;
 		}
 	}
@@ -255,42 +132,11 @@ public class FactionWideData : MonoBehaviour
 		Faction faction = this.GetFaction(competitionId, factionID);
 		if (faction != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.PlayerFactionExperienceToLevel(int, int, int)).MethodHandle;
-			}
 			if (currentLevel >= 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentLevel <= faction.FactionPlayerProgressInfo.Length)
 				{
 					return faction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			throw new ArgumentException(string.Format("Current level {0} is outside the player faction level range {1}-{2}", currentLevel, 1, faction.FactionPlayerProgressInfo.Length));
@@ -303,56 +149,16 @@ public class FactionWideData : MonoBehaviour
 		FactionCompetition factionCompetition = this.GetFactionCompetition(competitionId);
 		if (factionCompetition != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.IsRibbonInCompetition(int, int)).MethodHandle;
-			}
 			if (factionCompetition.Factions != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int i = 0;
 				while (i < factionCompetition.Factions.Count)
 				{
 					Faction faction = factionCompetition.Factions[i];
 					if (faction != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (faction.RibbonIds == null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -360,26 +166,8 @@ public class FactionWideData : MonoBehaviour
 							{
 								if (ribbonId == faction.RibbonIds[j])
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return true;
 								}
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -398,19 +186,6 @@ public class FactionWideData : MonoBehaviour
 		FactionWideData.s_instance = this;
 		if (this.m_factionCompetitions.Count == 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.Awake()).MethodHandle;
-			}
 			throw new Exception("FactionWideData failed to load");
 		}
 	}
@@ -428,41 +203,10 @@ public class FactionWideData : MonoBehaviour
 		{
 			if (!this.m_factionGroups[i].FilterDisplayStartTime.IsNullOrEmpty() && !this.m_factionGroups[i].FilterDisplayEndTime.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.FactionGroupsToDisplayFilter()).MethodHandle;
-				}
 				if (t > Convert.ToDateTime(this.m_factionGroups[i].FilterDisplayStartTime))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (t < Convert.ToDateTime(this.m_factionGroups[i].FilterDisplayEndTime))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(this.m_factionGroups[i]);
 					}
 				}
@@ -480,19 +224,6 @@ public class FactionWideData : MonoBehaviour
 			{
 				return i + 1;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FactionWideData.GetCurrentFactionCompetition()).MethodHandle;
 		}
 		return -1;
 	}

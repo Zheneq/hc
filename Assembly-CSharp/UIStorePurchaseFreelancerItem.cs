@@ -67,19 +67,6 @@ public class UIStorePurchaseFreelancerItem : MonoBehaviour
 		this.m_hitBox.ResetMouseState();
 		if (this.m_charLinkRef != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStorePurchaseFreelancerItem.FreelancerSelected(BaseEventData)).MethodHandle;
-			}
 			UIStorePanel.Get().m_freelancerPanel.FreeLancerClicked(this);
 		}
 	}

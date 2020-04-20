@@ -22,19 +22,6 @@ public class GenericLocation : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericLocation.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "locationIcon.png");

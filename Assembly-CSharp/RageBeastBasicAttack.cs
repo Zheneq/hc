@@ -36,19 +36,6 @@ public class RageBeastBasicAttack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Flurry";
 		}
 		this.Setup();
@@ -81,19 +68,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo cachedEffectOuter;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectOuter = this.m_abilityMod.m_effectOuterMod.GetModifiedValue(this.m_effectOuter);
 		}
 		else
@@ -108,19 +82,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectInner != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.GetEffectInner()).MethodHandle;
-			}
 			result = this.m_cachedEffectInner;
 		}
 		else
@@ -140,19 +101,6 @@ public class RageBeastBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.ModdedConeAngle()).MethodHandle;
-			}
 			result = this.m_coneWidthAngle;
 		}
 		else
@@ -167,19 +115,6 @@ public class RageBeastBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.ModdedInnerRadius()).MethodHandle;
-			}
 			result = this.m_coneLengthInner;
 		}
 		else
@@ -194,19 +129,6 @@ public class RageBeastBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.ModdedOuterRadius()).MethodHandle;
-			}
 			result = this.m_coneLengthOuter;
 		}
 		else
@@ -221,19 +143,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.ModdedInnerDamage()).MethodHandle;
-			}
 			result = this.m_damageAmountInner;
 		}
 		else
@@ -253,19 +162,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.ModdedDamagePerAdjacentEnemy()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -280,19 +176,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.ModdedTechPointsPerAdjacentEnemy()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -307,19 +190,6 @@ public class RageBeastBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.ModdedInnerTpGain()).MethodHandle;
-			}
 			result = this.m_tpGainInner;
 		}
 		else
@@ -344,9 +214,9 @@ public class RageBeastBasicAttack : Ability
 		return list;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
-		List<int> list = base.\u001D();
+		List<int> list = base.symbol_001D();
 		int num = Mathf.Abs(this.m_damageAmountInner - this.m_damageAmountOuter);
 		if (num != 0)
 		{
@@ -363,19 +233,6 @@ public class RageBeastBasicAttack : Ability
 		int val;
 		if (abilityMod_RageBeastBasicAttack)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_RageBeastBasicAttack.m_innerDamageMod.GetModifiedValue(this.m_damageAmountInner);
 		}
 		else
@@ -388,15 +245,6 @@ public class RageBeastBasicAttack : Ability
 		int val2;
 		if (abilityMod_RageBeastBasicAttack)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastBasicAttack.m_outerDamageMod.GetModifiedValue(this.m_damageAmountOuter);
 		}
 		else
@@ -407,15 +255,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_RageBeastBasicAttack)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RageBeastBasicAttack.m_effectInnerMod.GetModifiedValue(this.m_effectInner);
 		}
 		else
@@ -426,15 +265,6 @@ public class RageBeastBasicAttack : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_RageBeastBasicAttack)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_RageBeastBasicAttack.m_effectOuterMod.GetModifiedValue(this.m_effectOuter);
 		}
 		else
@@ -447,15 +277,6 @@ public class RageBeastBasicAttack : Ability
 		int val3;
 		if (abilityMod_RageBeastBasicAttack)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_RageBeastBasicAttack.m_innerTpGain.GetModifiedValue(this.m_tpGainInner);
 		}
 		else
@@ -468,15 +289,6 @@ public class RageBeastBasicAttack : Ability
 		int val4;
 		if (abilityMod_RageBeastBasicAttack)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_RageBeastBasicAttack.m_outerTpGain.GetModifiedValue(this.m_tpGainOuter);
 		}
 		else
@@ -490,19 +302,6 @@ public class RageBeastBasicAttack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastBasicAttack))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RageBeastBasicAttack);
 			this.Setup();
 		}
@@ -524,19 +323,6 @@ public class RageBeastBasicAttack : Ability
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.GetExtraDamageAndTPForCurrentLocation(bool, int*, int*)).MethodHandle;
-			}
 		}
 		int num = 0;
 		List<BoardSquare> list = new List<BoardSquare>();
@@ -548,66 +334,21 @@ public class RageBeastBasicAttack : Ability
 				BoardSquare boardSquare = enumerator.Current;
 				if (boardSquare.OccupantActor != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquare.OccupantActor.GetTeam() != base.ActorData.GetTeam())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!boardSquare.OccupantActor.IgnoreForAbilityHits)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (visibleActorsOnly)
 							{
 								if (!boardSquare.OccupantActor.IsVisibleToClient())
 								{
 									continue;
 								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							num++;
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		damageAmount *= num;
@@ -625,32 +366,10 @@ public class RageBeastBasicAttack : Ability
 			this.GetExtraDamageAndTPForCurrentLocation(true, out num, out num2);
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedInnerDamage() + num;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedOuterDamage() + num;
 			}
 		}
@@ -684,19 +403,6 @@ public class RageBeastBasicAttack : Ability
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastBasicAttack.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
-			}
 		}
 		float num = this.ModdedInnerRadius() * Board.Get().squareSize;
 		Vector3 vector = targetActor.GetTravelBoardSquareWorldPosition() - damageOrigin;
@@ -709,15 +415,6 @@ public class RageBeastBasicAttack : Ability
 		bool flag;
 		if (num2 > num)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = false;
 		}
 		else
@@ -727,15 +424,6 @@ public class RageBeastBasicAttack : Ability
 		bool result;
 		if (subjectType == AbilityTooltipSubject.Near)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag;
 		}
 		else

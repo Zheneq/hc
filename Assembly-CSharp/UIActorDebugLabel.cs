@@ -38,30 +38,8 @@ public class UIActorDebugLabel : MonoBehaviour
 				KeyValuePair<string, string> keyValuePair = enumerator.Current;
 				if (this.m_shouldKeep.Contains(keyValuePair.Key))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIActorDebugLabel.Update()).MethodHandle;
-					}
 					text = text + keyValuePair.Value + "\n\n";
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_label.text = text;

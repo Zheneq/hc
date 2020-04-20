@@ -43,19 +43,6 @@ public class ClericBasicAttack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Cleric Bash";
 		}
 		this.m_syncComp = base.GetComponent<Cleric_SyncComponent>();
@@ -77,19 +64,6 @@ public class ClericBasicAttack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ClericBasicAttack))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ClericBasicAttack);
 			this.SetupTargeter();
 		}
@@ -106,19 +80,6 @@ public class ClericBasicAttack : Ability
 		StandardEffectInfo cachedTargetHitEffectInner;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.SetCachedFields()).MethodHandle;
-			}
 			cachedTargetHitEffectInner = this.m_abilityMod.m_targetHitEffectInnerMod.GetModifiedValue(this.m_targetHitEffectInner);
 		}
 		else
@@ -129,15 +90,6 @@ public class ClericBasicAttack : Ability
 		StandardEffectInfo cachedTargetHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTargetHitEffect = this.m_abilityMod.m_targetHitEffectMod.GetModifiedValue(this.m_targetHitEffect);
 		}
 		else
@@ -152,19 +104,6 @@ public class ClericBasicAttack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.PenetrateLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
 		else
@@ -179,19 +118,6 @@ public class ClericBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneAngleMod.GetModifiedValue(this.m_coneAngle);
 		}
 		else
@@ -206,19 +132,6 @@ public class ClericBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeLengthInner()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(this.m_coneLengthInner);
 		}
 		else
@@ -233,19 +146,6 @@ public class ClericBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneLengthMod.GetModifiedValue(this.m_coneLength);
 		}
 		else
@@ -260,19 +160,6 @@ public class ClericBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -287,19 +174,6 @@ public class ClericBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -319,19 +193,6 @@ public class ClericBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -356,19 +217,6 @@ public class ClericBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetExtraDamageToTargetsWhoEvaded()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageToTargetsWhoEvaded.GetModifiedValue(0);
 		}
 		else
@@ -382,30 +230,8 @@ public class ClericBasicAttack : Ability
 	{
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetCooldownReduction()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useCooldownReductionOverride)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityMod.m_cooldownReductionOverrideMod;
 			}
 		}
@@ -416,19 +242,6 @@ public class ClericBasicAttack : Ability
 	{
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetHitsToIgnoreForCooldownReductionMultiplier()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useCooldownReductionOverride)
 			{
 				return this.m_abilityMod.m_hitsToIgnoreForCooldownReductionMultiplier.GetModifiedValue(0);
@@ -442,19 +255,6 @@ public class ClericBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetExtraTechPointGainInAreaBuff()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraTechPointGainInAreaBuff.GetModifiedValue(0);
 		}
 		else
@@ -490,19 +290,6 @@ public class ClericBasicAttack : Ability
 		float num2 = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.InsideNearRadius(ActorData, Vector3)).MethodHandle;
-			}
 			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
 		return num2 <= num;
@@ -516,32 +303,10 @@ public class ClericBasicAttack : Ability
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
-			}
 		}
 		bool result;
 		if (this.InsideNearRadius(targetActor, damageOrigin))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (subjectType == AbilityTooltipSubject.Near);
 		}
 		else
@@ -555,19 +320,6 @@ public class ClericBasicAttack : Ability
 	{
 		if (caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			return this.GetExtraTechPointGainInAreaBuff() * base.Targeter.GetNumActorsInRange();
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);

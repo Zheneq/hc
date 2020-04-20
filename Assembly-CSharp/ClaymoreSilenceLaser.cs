@@ -40,19 +40,6 @@ public class ClaymoreSilenceLaser : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Dirty Fighting";
 		}
 		this.SetupTargeter();
@@ -73,19 +60,6 @@ public class ClaymoreSilenceLaser : Ability
 		StandardActorEffectData cachedEnemyHitEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffectData = this.m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(this.m_enemyHitEffectData);
 		}
 		else
@@ -100,19 +74,6 @@ public class ClaymoreSilenceLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -137,19 +98,6 @@ public class ClaymoreSilenceLaser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetPenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -164,19 +112,6 @@ public class ClaymoreSilenceLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetOnCastDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(this.m_onCastDamageAmount);
 		}
 		else
@@ -191,19 +126,6 @@ public class ClaymoreSilenceLaser : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedEnemyHitEffectData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetEnemyHitEffectData()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffectData;
 		}
 		else
@@ -218,19 +140,6 @@ public class ClaymoreSilenceLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetEffectExplosionDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(this.m_effectExplosionDamage);
 		}
 		else
@@ -245,19 +154,6 @@ public class ClaymoreSilenceLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetExplosionDamageAfterFirstHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionDamageAfterFirstHitMod.GetModifiedValue(this.m_explosionDamageAfterFirstHit);
 		}
 		else
@@ -277,19 +173,6 @@ public class ClaymoreSilenceLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetExplosionCooldownReduction()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionCooldownReductionMod.GetModifiedValue(this.m_explosionCooldownReduction);
 		}
 		else
@@ -304,19 +187,6 @@ public class ClaymoreSilenceLaser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.CanExplodeOncePerTurn()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canExplodeOncePerTurnMod.GetModifiedValue(false);
 		}
 		else
@@ -350,19 +220,6 @@ public class ClaymoreSilenceLaser : Ability
 		int val;
 		if (abilityMod_ClaymoreSilenceLaser)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ClaymoreSilenceLaser.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
 		}
 		else
@@ -375,15 +232,6 @@ public class ClaymoreSilenceLaser : Ability
 		int val2;
 		if (abilityMod_ClaymoreSilenceLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ClaymoreSilenceLaser.m_onCastDamageAmountMod.GetModifiedValue(this.m_onCastDamageAmount);
 		}
 		else
@@ -396,15 +244,6 @@ public class ClaymoreSilenceLaser : Ability
 		int val3;
 		if (abilityMod_ClaymoreSilenceLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ClaymoreSilenceLaser.m_effectExplosionDamageMod.GetModifiedValue(this.m_effectExplosionDamage);
 		}
 		else
@@ -416,15 +255,6 @@ public class ClaymoreSilenceLaser : Ability
 		StandardActorEffectData standardActorEffectData;
 		if (abilityMod_ClaymoreSilenceLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardActorEffectData = abilityMod_ClaymoreSilenceLaser.m_enemyHitEffectDataMod.GetModifiedValue(this.m_enemyHitEffectData);
 		}
 		else
@@ -440,19 +270,6 @@ public class ClaymoreSilenceLaser : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.GetOnCastDamageAmount() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetOnCastDamageAmount());
 		}
 		else
@@ -467,41 +284,10 @@ public class ClaymoreSilenceLaser : Ability
 	{
 		if (this.GetOnCastDamageAmount() <= 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targeter is AbilityUtil_Targeter_Laser)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
 					List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
 					for (int i = 0; i < hitActorContext.Count; i++)
@@ -511,15 +297,6 @@ public class ClaymoreSilenceLaser : Ability
 							results.m_damage = this.CalcExplosionDamageForOrderIndex(i);
 							return true;
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -531,19 +308,6 @@ public class ClaymoreSilenceLaser : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ClaymoreSilenceLaser))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSilenceLaser.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ClaymoreSilenceLaser);
 			this.SetupTargeter();
 		}

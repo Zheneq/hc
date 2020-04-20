@@ -38,19 +38,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		NekoEnlargeDisc nekoEnlargeDisc = targetAbility as NekoEnlargeDisc;
 		if (nekoEnlargeDisc != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoEnlargeDisc.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_laserWidthOverrideMod, "LaserWidthOverride", string.Empty, nekoEnlargeDisc.m_laserWidthOverride, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_aoeRadiusOverrideMod, "AoeRadiusOverride", string.Empty, nekoEnlargeDisc.m_aoeRadiusOverride, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_returnEndRadiusOverrideMod, "ReturnEndRadiusOverride", string.Empty, nekoEnlargeDisc.m_returnEndRadiusOverride, true, false, false);
@@ -77,19 +64,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NekoEnlargeDisc.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = nekoEnlargeDisc.m_aoeRadiusOverride;
 		}
 		else
@@ -104,15 +78,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = nekoEnlargeDisc.m_returnEndRadiusOverride;
 		}
 		else
@@ -128,15 +93,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = nekoEnlargeDisc.m_effectOnEnemies;
 		}
 		else
@@ -151,15 +107,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = nekoEnlargeDisc.m_allyHeal;
 		}
 		else
@@ -174,15 +121,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = nekoEnlargeDisc.m_allyHitEffect;
 		}
 		else
@@ -197,15 +135,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = nekoEnlargeDisc.m_shieldPerTargetHitOnReturn;
 		}
 		else
@@ -220,15 +149,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		StandardActorEffectData baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = nekoEnlargeDisc.m_shieldEffectData;
 		}
 		else
@@ -243,15 +163,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = nekoEnlargeDisc.m_cdrIfHitNoOne;
 		}
 		else

@@ -31,44 +31,13 @@ public class LocalizationArg_BroadcastMessage : LocalizationArg
 		string currentLanguageCode = LocalizationManager.CurrentLanguageCode;
 		if (this.m_packedMessages.ContainsKey(currentLanguageCode))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_BroadcastMessage.TR()).MethodHandle;
-			}
 			if (!this.m_packedMessages[currentLanguageCode].IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_packedMessages[currentLanguageCode].SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(this.m_timeInAdvance, true));
 			}
 		}
 		if (this.m_packedMessages.ContainsKey("en"))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_packedMessages["en"].SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(this.m_timeInAdvance, true));
 		}
 		return string.Empty;

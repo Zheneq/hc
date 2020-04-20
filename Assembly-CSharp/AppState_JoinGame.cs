@@ -62,30 +62,8 @@ public class AppState_JoinGame : AppState
 					CharacterResourceLink characterResourceLink = characterResourceLinks[i];
 					if (characterResourceLink.m_characterType != CharacterType.None)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_JoinGame.OnJoinClicked(LobbyGameInfo, bool)).MethodHandle;
-						}
 						if (characterResourceLink.m_isHidden)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType, gameInfo.GameConfig.GameType))
 						{
@@ -98,61 +76,21 @@ public class AppState_JoinGame : AppState
 					continue;
 					goto IL_B6;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_CA:
 			AppState_JoinGame.s_joinPending = true;
 			ClientGameManager clientGameManager = ClientGameManager.Get();
-			if (AppState_JoinGame.<>f__am$cache0 == null)
+			if (AppState_JoinGame.f__am_cache0 == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AppState_JoinGame.<>f__am$cache0 = delegate(JoinGameResponse response)
+				AppState_JoinGame.f__am_cache0 = delegate(JoinGameResponse response)
 				{
 					AppState_JoinGame.s_joinPending = false;
 					if (response.Success)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_JoinGame.<OnJoinClicked>m__0(JoinGameResponse)).MethodHandle;
-						}
 						AppState_CharacterSelect.Get().Enter();
 					}
 					else if (response.LocalizedFailure != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.LocalizedFailure.ToString(), StringUtil.TR("Ok", "Global"), null, -1, false);
 					}
 					else
@@ -161,7 +99,7 @@ public class AppState_JoinGame : AppState
 					}
 				};
 			}
-			clientGameManager.JoinGame(gameInfo, asSpectator, AppState_JoinGame.<>f__am$cache0);
+			clientGameManager.JoinGame(gameInfo, asSpectator, AppState_JoinGame.f__am_cache0);
 		}
 	}
 

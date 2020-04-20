@@ -36,19 +36,6 @@ public class PersistentSatelliteActionSequence : Sequence
 	{
 		if (this.m_startActionEvent == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.FinishSetup()).MethodHandle;
-			}
 			this.ProcessAction();
 		}
 	}
@@ -60,19 +47,6 @@ public class PersistentSatelliteActionSequence : Sequence
 		{
 			if (extraSequenceParams is Sequence.GenericActorListParam)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				Sequence.GenericActorListParam genericActorListParam = extraSequenceParams as Sequence.GenericActorListParam;
 				this.m_actorToHitOnMoveEnd.AddRange(genericActorListParam.m_actors);
 			}
@@ -92,81 +66,23 @@ public class PersistentSatelliteActionSequence : Sequence
 			SatelliteController component = base.Caster.GetComponent<SatelliteController>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.ProcessAction()).MethodHandle;
-				}
 				this.m_persistentSatellite = component.GetSatellite(this.m_satelliteIndex);
 				if (this.m_persistentSatellite != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_action == PersistentSatelliteActionSequence.SatelliteAction.Attack)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Target != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_persistentSatellite.TriggerAttack(base.Target.gameObject);
 							goto IL_109;
 						}
 					}
 					if (this.m_action == PersistentSatelliteActionSequence.SatelliteAction.Move)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_persistentSatellite.MoveToPosition(base.TargetPos, PersistentSatellite.SatelliteMoveStartType.Normal);
 					}
 					else if (this.m_action == PersistentSatelliteActionSequence.SatelliteAction.AltMove)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_persistentSatellite.AltMoveToPosition(base.TargetPos);
 					}
 					IL_109:
@@ -180,32 +96,10 @@ public class PersistentSatelliteActionSequence : Sequence
 	{
 		if (parameter == this.m_startActionEvent)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.ProcessAction();
 		}
 		else if (parameter == this.m_hitEvent)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HandleOnDestinationHits();
 		}
 	}
@@ -216,32 +110,10 @@ public class PersistentSatelliteActionSequence : Sequence
 		{
 			if (!string.IsNullOrEmpty(this.m_audioEventOnMoveFinish))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.HandleOnDestinationAudio()).MethodHandle;
-				}
 				string audioEventOnMoveFinish = this.m_audioEventOnMoveFinish;
 				GameObject parentGameObject;
 				if (base.Caster)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					parentGameObject = base.Caster.gameObject;
 				}
 				else
@@ -258,19 +130,6 @@ public class PersistentSatelliteActionSequence : Sequence
 	{
 		if (!this.m_hitDestination)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.HandleOnDestinationHits()).MethodHandle;
-			}
 			ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(0f, base.TargetPos);
 			base.Source.OnSequenceHit(this, base.TargetPos, impulseInfo);
 			if (this.m_actorToHitOnMoveEnd != null)
@@ -289,102 +148,26 @@ public class PersistentSatelliteActionSequence : Sequence
 	{
 		if (this.m_processedAction)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteActionSequence.Update()).MethodHandle;
-			}
 			if (this.m_persistentSatellite != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_action != PersistentSatelliteActionSequence.SatelliteAction.Move)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_action != PersistentSatelliteActionSequence.SatelliteAction.AltMove)
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!this.m_hitDestination)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_persistentSatellite.IsMoving())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_hitEvent == null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.HandleOnDestinationHits();
 						}
 					}
 					if (this.m_updateFogOfWarOnMovement)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquare = Board.Get().GetBoardSquare(this.m_persistentSatellite.transform.position);
 						if (boardSquare != this.m_lastBoardSquare)
 						{

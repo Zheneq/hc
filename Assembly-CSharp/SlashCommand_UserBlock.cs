@@ -11,19 +11,6 @@ public class SlashCommand_UserBlock : SlashCommand
 	{
 		if (!arguments.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_UserBlock.OnSlashCommand(string)).MethodHandle;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				ClientGameManager.Get().UpdateFriend(arguments, 0L, FriendOperation.Block, string.Empty, delegate(FriendUpdateResponse r)
@@ -41,19 +28,6 @@ public class SlashCommand_UserBlock : SlashCommand
 						}
 						else if (r.ErrorMessage.IsNullOrEmpty())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(SlashCommand_UserBlock.<OnSlashCommand>c__AnonStorey0.<>m__0(FriendUpdateResponse)).MethodHandle;
-							}
 							r.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 						}
 						text = string.Format(StringUtil.TR("FailedMessage", "Global"), r.ErrorMessage);
@@ -65,15 +39,6 @@ public class SlashCommand_UserBlock : SlashCommand
 					}, null);
 				});
 				return;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		TextConsole.Get().Write(new TextConsole.Message

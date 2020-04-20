@@ -51,19 +51,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 	{
 		if (this.m_disabled != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.Start()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_disabled, false, null);
 		}
 		this.m_selectedModIndex = -1;
@@ -75,34 +62,12 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 	{
 		if (this.m_theAbility != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.ShowAbilityTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (!(this.m_theAbility.ability == null))
 			{
 				UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
 				string movieAssetName = "Video/AbilityPreviews/" + this.m_theAbility.ability.m_previewVideo;
 				uiabilityTooltip.Setup(this.m_theAbility.ability, this.m_selectedMod, movieAssetName);
 				return true;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -123,19 +88,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		this.m_selectedMod = theMod;
 		if (this.m_selectedMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetSelectedMod(AbilityMod)).MethodHandle;
-			}
 			this.m_selectedModIcon.sprite = this.m_selectedMod.m_iconSprite;
 			UIManager.SetGameObjectActive(this.m_selectedModIcon, true, null);
 		}
@@ -182,38 +134,12 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		{
 			this.m_hotkey[i].text = text;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetHotKeyText(string)).MethodHandle;
-		}
 	}
 
 	public void RefreshHotkey()
 	{
 		if (this.m_theAbility != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.RefreshHotkey()).MethodHandle;
-			}
 			this.m_theAbility.InitHotkey();
 			this.SetHotKeyText(this.m_theAbility.hotkey);
 		}
@@ -225,19 +151,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		{
 			this.m_abilityIcon[i].sprite = sprite;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetAbilityIconSprite(Sprite)).MethodHandle;
-		}
 	}
 
 	public void Setup(AbilityData.AbilityEntry theAbilityEntry)
@@ -245,19 +158,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 		this.m_theAbility = theAbilityEntry;
 		if (this.m_theAbility != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.Setup(AbilityData.AbilityEntry)).MethodHandle;
-			}
 			if (this.m_theAbility.ability != null)
 			{
 				UIManager.SetGameObjectActive(base.gameObject, true, null);
@@ -269,15 +169,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 				{
 					UIManager.SetGameObjectActive(this.m_phaseIndicators[i], i == num, null);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Color color;
 				if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Blast", "Global"))
 				{
@@ -285,28 +176,10 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 				}
 				else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Dash", "Global"))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color = this.m_dashColor;
 				}
 				else if (theAbilityEntry.ability.GetPhaseString() == StringUtil.TR("Prep", "Global"))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color = this.m_prepColor;
 				}
 				else
@@ -330,19 +203,6 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 	{
 		if (this.m_selectBtn != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityButtonModPanel.SetSelected(bool, bool)).MethodHandle;
-			}
 			this.m_selectBtn.SetSelected(selected, forceAnimation, string.Empty, string.Empty);
 		}
 	}

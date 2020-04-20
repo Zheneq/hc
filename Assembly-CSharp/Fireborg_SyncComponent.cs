@@ -67,19 +67,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		this.m_superheatAbility = this.m_abilityData.GetAbilityOfType<FireborgSuperheat>();
 		if (this.m_superheatAbility != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Fireborg_SyncComponent.Start()).MethodHandle;
-			}
 			this.m_superheatActionType = this.m_abilityData.GetActionTypeOfAbility(this.m_superheatAbility);
 		}
 	}
@@ -93,47 +80,16 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 	{
 		if (this.m_superheatAbility != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Fireborg_SyncComponent.InSuperheatMode()).MethodHandle;
-			}
 			bool flag = false;
 			int currentTurn = GameFlowData.Get().CurrentTurn;
 			int superheatDuration = this.m_superheatAbility.GetSuperheatDuration();
 			if (this.m_superheatLastCastTurn > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (currentTurn < this.m_superheatLastCastTurn + superheatDuration);
 			}
 			bool result;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = this.m_abilityData.HasQueuedAction(this.m_superheatActionType);
 			}
 			else
@@ -155,31 +111,9 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 	{
 		if (target.GetTeam() != caster.GetTeam())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Fireborg_SyncComponent.AddGroundFireTargetingNumber(ActorData, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			int num;
 			if (this.InSuperheatMode())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_groundFireDamageSuperheated;
 			}
 			else
@@ -189,15 +123,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 			int num2 = num;
 			if (num2 > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				results.m_damage += num2;
 			}
 		}
@@ -210,19 +135,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 			int num;
 			if (this.InSuperheatMode())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Fireborg_SyncComponent.GetTargetPreviewAccessoryString(AbilityTooltipSymbol, Ability, ActorData, ActorData)).MethodHandle;
-				}
 				num = this.m_groundFireDamageSuperheated;
 			}
 			else
@@ -232,15 +144,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 			int num2 = num;
 			if (num2 > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, num2, false).ToString();
 			}
 		}
@@ -268,19 +171,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Fireborg_SyncComponent.InvokeSyncListm_actorsInGroundFireOnTurnStart(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_actorsInGroundFireOnTurnStart called on server.");
 			return;
 		}
@@ -296,19 +186,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Fireborg_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_superheatLastCastTurn);
 			SyncListUInt.WriteInstance(writer, this.m_actorsInGroundFireOnTurnStart);
 			return true;
@@ -316,15 +193,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -334,26 +202,8 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -370,19 +220,6 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Fireborg_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_superheatLastCastTurn = (int)reader.ReadPackedUInt32();
 			SyncListUInt.ReadReference(reader, this.m_actorsInGroundFireOnTurnStart);
 			return;
@@ -390,28 +227,10 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_superheatLastCastTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, this.m_actorsInGroundFireOnTurnStart);
 		}
 	}

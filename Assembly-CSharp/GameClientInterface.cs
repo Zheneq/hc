@@ -17,61 +17,21 @@ public class GameClientInterface : WebSocketInterface
 
 	public GameClientInterface()
 	{
-		if (GameClientInterface.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface..ctor()).MethodHandle;
-			}
-			GameClientInterface.<>f__am$cache0 = delegate()
+		
+		this.OnConnected = delegate()
 			{
 			};
-		}
-		this.OnConnected = GameClientInterface.<>f__am$cache0;
-		if (GameClientInterface.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameClientInterface.<>f__am$cache1 = delegate(string A_0, bool A_1, CloseStatusCode A_2)
+		
+		this.OnDisconnected = delegate(string A_0, bool A_1, CloseStatusCode A_2)
 			{
 			};
-		}
-		this.OnDisconnected = GameClientInterface.<>f__am$cache1;
 		this.OnConnectionError = delegate(string A_0)
 		{
 		};
-		if (GameClientInterface.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			GameClientInterface.<>f__am$cache3 = delegate(BinaryMessageNotification A_0)
+		
+		this.OnMessage = delegate(BinaryMessageNotification A_0)
 			{
 			};
-		}
-		this.OnMessage = GameClientInterface.<>f__am$cache3;
 		base..ctor(new WebSocketMessageFactory());
 		base.HeartbeatPeriod = TimeSpan.FromMinutes(1.0);
 		base.HeartbeatTimeout = TimeSpan.FromMinutes(5.0);
@@ -93,19 +53,6 @@ public class GameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action>(ref this.OnConnected, (Action)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.add_OnConnected(Action)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -117,19 +64,6 @@ public class GameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action>(ref this.OnConnected, (Action)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.remove_OnConnected(Action)).MethodHandle;
-			}
 		}
 	}
 
@@ -148,19 +82,6 @@ public class GameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionError, (Action<string>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.add_OnConnectionError(Action<string>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -172,19 +93,6 @@ public class GameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<string>>(ref this.OnConnectionError, (Action<string>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.remove_OnConnectionError(Action<string>)).MethodHandle;
-			}
 		}
 	}
 
@@ -200,19 +108,6 @@ public class GameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.add_OnMessage(Action<BinaryMessageNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -224,19 +119,6 @@ public class GameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<BinaryMessageNotification>>(ref this.OnMessage, (Action<BinaryMessageNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.remove_OnMessage(Action<BinaryMessageNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -286,19 +168,6 @@ public class GameClientInterface : WebSocketInterface
 	{
 		if (this.m_registered)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.HandleConnectionClosedNotification(ConnectionClosedNotification)).MethodHandle;
-			}
 			base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", new object[]
 			{
 				this.m_serverAddress,
@@ -310,26 +179,8 @@ public class GameClientInterface : WebSocketInterface
 		}
 		else if (this.m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Logger.Info("Retrying connection to game server {0}: {1} CloseStatusCode={2}", new object[]
 				{
 					this.m_serverAddress,
@@ -373,32 +224,10 @@ public class GameClientInterface : WebSocketInterface
 	{
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameClientInterface.SendMessage(byte[])).MethodHandle;
-			}
 			if (this.m_webSocket.State == global::WebSocket.SocketState.Open)
 			{
 				this.m_webSocket.Send(bytes);
 				return true;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

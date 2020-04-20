@@ -30,31 +30,9 @@ namespace Fabric
 			FabricManager fabricManagerInEditor = FabricSpringBoard.GetFabricManagerInEditor();
 			if (!fabricManagerInEditor)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FabricSpringBoard.Load()).MethodHandle;
-				}
 				GameObject gameObject = Resources.Load(this._fabricManagerPrefabPath, typeof(GameObject)) as GameObject;
 				if (gameObject)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Instantiate<GameObject>(gameObject);
 				}
 			}
@@ -67,19 +45,6 @@ namespace Fabric
 			{
 				if (array[i].gameObject != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(FabricSpringBoard.GetFabricManagerInEditor()).MethodHandle;
-					}
 					if (array[i].hideFlags != HideFlags.HideInHierarchy)
 					{
 						return array[i];

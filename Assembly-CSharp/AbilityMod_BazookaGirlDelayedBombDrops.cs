@@ -40,31 +40,9 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_extraDamagePerFewerAreaMod, "ExtraDamagePerFewerArea", string.Empty, bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea, true, false);
 			if (this.m_maxNumOfAreasForExtraDamageMod != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedBombDrops.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
 				int modifiedValue = this.m_maxNumOfAreasForExtraDamageMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage);
 				if (modifiedValue > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int modifiedValue2 = this.m_extraDamagePerFewerAreaMod.GetModifiedValue(bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea);
 					int val = modifiedValue2 * (modifiedValue - 1);
 					AbilityMod.AddToken_IntDiff(tokens, "MaxExtraDamage_Diff", string.Empty, val, false, 0);
@@ -85,19 +63,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedBombDrops.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = bazookaGirlDelayedBombDrops.m_bombInfo.m_damageAmount;
 		}
 		else
@@ -112,15 +77,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlDelayedBombDrops.m_coneLength;
 		}
 		else
@@ -135,15 +91,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = bazookaGirlDelayedBombDrops.m_coneWidthAngle;
 		}
 		else
@@ -159,15 +106,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = bazookaGirlDelayedBombDrops.m_penetrateLos;
 		}
 		else
@@ -183,15 +121,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea;
 		}
 		else

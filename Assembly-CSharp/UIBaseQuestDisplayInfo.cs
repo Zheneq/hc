@@ -26,74 +26,25 @@ public class UIBaseQuestDisplayInfo
 	{
 		if (!(obj is UIBaseQuestDisplayInfo))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseQuestDisplayInfo.Equals(object)).MethodHandle;
-			}
 			return false;
 		}
 		UIBaseQuestDisplayInfo info = (UIBaseQuestDisplayInfo)obj;
 		bool flag = false;
 		if (this.QuestProgressRef == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (info.QuestProgressRef == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 				goto IL_39F;
 			}
 		}
 		if (this.QuestProgressRef != null && info.QuestProgressRef != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag2 = true;
 			if (this.QuestProgressRef.ObjectiveProgressLastDate != null && info.QuestProgressRef.ObjectiveProgressLastDate != null)
 			{
 				if (this.QuestProgressRef.ObjectiveProgressLastDate.Count != info.QuestProgressRef.ObjectiveProgressLastDate.Count)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = false;
 				}
 				else
@@ -105,15 +56,6 @@ public class UIBaseQuestDisplayInfo
 							int key = enumerator.Current;
 							if (!info.QuestProgressRef.ObjectiveProgressLastDate.ContainsKey(key))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = false;
 							}
 							else
@@ -122,27 +64,9 @@ public class UIBaseQuestDisplayInfo
 								{
 									continue;
 								}
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = false;
 							}
 							goto IL_1AF;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -150,63 +74,18 @@ public class UIBaseQuestDisplayInfo
 			}
 			else if (this.QuestProgressRef.ObjectiveProgressLastDate == null && info.QuestProgressRef.ObjectiveProgressLastDate != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = false;
 			}
 			else if (this.QuestProgressRef.ObjectiveProgressLastDate != null && info.QuestProgressRef.ObjectiveProgressLastDate == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = false;
 			}
 			if (this.QuestProgressRef.ObjectiveProgress != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (info.QuestProgressRef.ObjectiveProgress != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.QuestProgressRef.ObjectiveProgress.Count != info.QuestProgressRef.ObjectiveProgress.Count)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = false;
 					}
 					else
@@ -215,29 +94,11 @@ public class UIBaseQuestDisplayInfo
 						{
 							if (!info.QuestProgressRef.ObjectiveProgress.ContainsKey(key2))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = false;
 								break;
 							}
 							if (info.QuestProgressRef.ObjectiveProgress[key2] != this.QuestProgressRef.ObjectiveProgress[key2])
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag2 = false;
 								break;
 							}
@@ -248,15 +109,6 @@ public class UIBaseQuestDisplayInfo
 			}
 			if (this.QuestProgressRef.ObjectiveProgress == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (info.QuestProgressRef.ObjectiveProgress != null)
 				{
 					flag2 = false;
@@ -265,15 +117,6 @@ public class UIBaseQuestDisplayInfo
 			}
 			if (this.QuestProgressRef.ObjectiveProgress != null && info.QuestProgressRef.ObjectiveProgress == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = false;
 			}
 			IL_39D:
@@ -283,85 +126,22 @@ public class UIBaseQuestDisplayInfo
 		bool flag3 = false;
 		if (info.QuestTemplateRef != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.QuestTemplateRef != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = (this.QuestTemplateRef.Index == info.QuestTemplateRef.Index);
 			}
 		}
 		bool flag4 = false;
 		if (info.QuestRewardsRef != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.QuestRewardsRef != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (info.QuestRewardsRef.CurrencyRewards.Count == this.QuestRewardsRef.CurrencyRewards.Count)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (info.QuestRewardsRef.ItemRewards.Count == this.QuestRewardsRef.ItemRewards.Count)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (info.QuestRewardsRef.UnlockRewards.Count == this.QuestRewardsRef.UnlockRewards.Count)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag4 = true;
 							int i = 0;
 							while (i < info.QuestRewardsRef.CurrencyRewards.Count)
@@ -371,19 +151,6 @@ public class UIBaseQuestDisplayInfo
 									bool result;
 									if (reward.Type == info.QuestRewardsRef.CurrencyRewards[i].Type)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!true)
-										{
-											RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIBaseQuestDisplayInfo.<Equals>c__AnonStorey1.<>m__0(QuestCurrencyReward)).MethodHandle;
-										}
 										result = (reward.Amount == info.QuestRewardsRef.CurrencyRewards[i].Amount);
 									}
 									else
@@ -393,15 +160,6 @@ public class UIBaseQuestDisplayInfo
 									return result;
 								}))
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag4 = false;
 									IL_548:
 									if (!flag4)
@@ -416,19 +174,6 @@ public class UIBaseQuestDisplayInfo
 											bool result;
 											if (reward.ItemTemplateId == info.QuestRewardsRef.ItemRewards[i].ItemTemplateId)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (!true)
-												{
-													RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIBaseQuestDisplayInfo.<Equals>c__AnonStorey2.<>m__0(QuestItemReward)).MethodHandle;
-												}
 												result = (reward.Amount == info.QuestRewardsRef.ItemRewards[i].Amount);
 											}
 											else
@@ -444,15 +189,6 @@ public class UIBaseQuestDisplayInfo
 											{
 												goto IL_664;
 											}
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int i;
 											for (i = 0; i < info.QuestRewardsRef.UnlockRewards.Count; i++)
 											{
@@ -461,19 +197,6 @@ public class UIBaseQuestDisplayInfo
 													int i;
 													if (reward.purchaseType == info.QuestRewardsRef.UnlockRewards[i].purchaseType)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
-														if (!true)
-														{
-															RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIBaseQuestDisplayInfo.<Equals>c__AnonStorey3.<>m__0(QuestUnlockReward)).MethodHandle;
-														}
 														if (reward.typeSpecificData.Length == info.QuestRewardsRef.UnlockRewards[i].typeSpecificData.Length)
 														{
 															for (i = 0; i < reward.typeSpecificData.Length; i++)
@@ -483,39 +206,12 @@ public class UIBaseQuestDisplayInfo
 																	return false;
 																}
 															}
-															for (;;)
-															{
-																switch (5)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															return true;
-														}
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
 														}
 													}
 													return false;
 												}))
 												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													flag4 = false;
 													goto IL_664;
 												}
@@ -567,15 +263,6 @@ public class UIBaseQuestDisplayInfo
 		IL_664:
 		if (this.Completed == info.Completed)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag && flag3)
 			{
 				return flag4;
@@ -588,30 +275,8 @@ public class UIBaseQuestDisplayInfo
 	{
 		if (this.QuestProgressRef != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseQuestDisplayInfo.GetHashCode()).MethodHandle;
-			}
 			if (this.QuestProgressRef.ObjectiveProgressLastDate != null && this.QuestProgressRef.ObjectiveProgress != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.Completed.GetHashCode() ^ this.QuestProgressRef.ObjectiveProgressLastDate.GetHashCode() ^ this.QuestProgressRef.ObjectiveProgress.GetHashCode();
 			}
 		}
@@ -625,44 +290,13 @@ public class UIBaseQuestDisplayInfo
 		PersistedAccountData persistedAccountData = null;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseQuestDisplayInfo.Setup(int)).MethodHandle;
-			}
 			persistedAccountData = ClientGameManager.Get().GetPlayerAccountData();
 		}
 		this.QuestTemplateRef = null;
 		if (-1 < QuestIndex - 1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (QuestIndex - 1 < QuestWideData.Get().m_quests.Count)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.QuestTemplateRef = QuestWideData.Get().m_quests[QuestIndex - 1];
 			}
 		}
@@ -686,15 +320,6 @@ public class UIBaseQuestDisplayInfo
 						this.QuestRewardsRef.UnlockRewards.AddRange(this.QuestTemplateRef.ConditionalRewards[i].UnlockRewards);
 					}
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (persistedAccountData != null)
 			{
@@ -707,39 +332,12 @@ public class UIBaseQuestDisplayInfo
 			this.QuestAbandonDate = DateTime.MinValue;
 			if (!this.QuestTemplateRef.AbandonDateTime.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DateTime.TryParse(this.QuestTemplateRef.AbandonDateTime, out this.QuestAbandonDate);
 			}
 			else if (persistedAccountData != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (persistedAccountData.QuestComponent.GetOrCreateQuestMetaData(QuestIndex).PstAbandonDate != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.QuestAbandonDate = persistedAccountData.QuestComponent.GetOrCreateQuestMetaData(QuestIndex).PstAbandonDate.Value;
 				}
 			}

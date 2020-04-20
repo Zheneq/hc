@@ -25,44 +25,13 @@ public class ScampVfxController : CopyableVfxControllerComponent
 				AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 				if (attachedActorVFXInfo.HasVfxInstance())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ScampVfxController.Start()).MethodHandle;
-					}
 					attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 					this.m_vfxInstances.Add(attachedActorVFXInfo);
 				}
 				else if (Application.isEditor)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogWarning("Failed to spawn vfx on joint in " + base.GetType().ToString());
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -72,19 +41,6 @@ public class ScampVfxController : CopyableVfxControllerComponent
 		ActorData actorData;
 		if (this.m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampVfxController.LateUpdate()).MethodHandle;
-			}
 			actorData = this.m_actorModelData.m_parentActorData;
 		}
 		else
@@ -94,41 +50,14 @@ public class ScampVfxController : CopyableVfxControllerComponent
 		ActorData actorData2 = actorData;
 		if (this.m_suitJoint.IsInitialized() && this.m_suitJoint.m_jointObject != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag = !this.IsSuitVisuallyShown();
 			bool flag2;
 			if (!(actorData2 == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData2.IsVisibleToClient())
 				{
 					if (!(actorData2.GetActorModelData() == null))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = actorData2.GetActorModelData().IsVisibleToClient();
 					}
 					else
@@ -152,15 +81,6 @@ public class ScampVfxController : CopyableVfxControllerComponent
 				bool actorVisible;
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorVisible = !flag;
 				}
 				else
@@ -168,15 +88,6 @@ public class ScampVfxController : CopyableVfxControllerComponent
 					actorVisible = false;
 				}
 				attachedActorVFXInfo.UpdateVisibility(actorVisible, true);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

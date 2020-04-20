@@ -28,19 +28,6 @@ public class TriggerCoordinator : MonoBehaviour
 		{
 			triggerRegion.Initialize();
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerCoordinator.Start()).MethodHandle;
-		}
 	}
 
 	public void OnTurnTick()
@@ -48,19 +35,6 @@ public class TriggerCoordinator : MonoBehaviour
 		foreach (TriggerRegion triggerRegion in this.m_regions)
 		{
 			triggerRegion.OnTurnTick();
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerCoordinator.OnTurnTick()).MethodHandle;
 		}
 	}
 }

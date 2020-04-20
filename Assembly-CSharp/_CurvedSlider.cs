@@ -36,19 +36,6 @@ public class _CurvedSlider : MonoBehaviour
 	{
 		if (this.m_rotatingImage == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CurvedSlider.UpdateSliderAmount(float)).MethodHandle;
-			}
 			return;
 		}
 		this.previousSteps = this.m_numSteps;
@@ -56,15 +43,6 @@ public class _CurvedSlider : MonoBehaviour
 		this.previousVal = this.m_currentVal;
 		if (this.m_numSteps > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_currentVal = Mathf.Round(this.m_currentVal * (float)this.m_numSteps) * (1f / (float)this.m_numSteps);
 		}
 		this.m_currentVal = Mathf.Clamp(this.m_currentVal, 0f, 1f);
@@ -77,19 +55,6 @@ public class _CurvedSlider : MonoBehaviour
 	{
 		if (this.OnValueChanged != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CurvedSlider.CallValuedChanged()).MethodHandle;
-			}
 			this.OnValueChanged(this.m_currentVal);
 		}
 	}
@@ -105,31 +70,9 @@ public class _CurvedSlider : MonoBehaviour
 	{
 		if (this.previousVal == this.m_currentVal)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_CurvedSlider.Update()).MethodHandle;
-			}
 			if (this.previousSteps == this.m_numSteps)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.UpdateNewVal();

@@ -52,19 +52,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		this.LastUpdatePathSquareCount = 0;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreCharge.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 2)
 			{
 				goto IL_92;
@@ -92,15 +79,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		bool active = false;
 		if (actorsInLaser.Count > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector2 = (!this.m_directHitIgnoreCover) ? targetingActor.GetTravelBoardSquareWorldPosition() : actorsInLaser[0].GetTravelBoardSquareWorldPosition();
 			base.AddActorInRange(actorsInLaser[0], vector2, targetingActor, AbilityTooltipSubject.Primary, false);
 			Vector3 lhs = vector2 - travelBoardSquareWorldPositionForLos;
@@ -111,15 +89,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 			BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, actorsInLaser[0].GetCurrentBoardSquare(), pathToDesired);
 			if (chargeDestination != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_aoeShape, chargeDestination.ToVector3(), chargeDestination, false, targetingActor, targetingActor.GetOpposingTeam(), null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInShape);
 				using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
@@ -128,15 +97,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 					{
 						ActorData actor = enumerator.Current;
 						base.AddActorInRange(actor, chargeDestination.ToVector3(), targetingActor, AbilityTooltipSubject.Secondary, false);
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				active = true;
@@ -148,26 +108,8 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		this.m_laserLosChecker.UpdateBoxProperties(travelBoardSquareWorldPositionForLos, vector, targetingActor);
 		if (this.m_affectCasterDelegate != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_affectCasterDelegate(targetingActor, this.GetVisibleActorsInRange()))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 			}
 		}
@@ -180,15 +122,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		BoardSquare boardSquare3;
 		if (boardSquare2 != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquare3 = boardSquare2;
 		}
 		else
@@ -204,62 +137,17 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		bool flag = false;
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquarePathInfo.next != null && boardSquare2 == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare4 = ClaymoreCharge.GetTrimmedDestinationInPath(boardSquarePathInfo, out flag);
 			}
 		}
 		if (boardSquare4 != null && boardSquare4.OccupantActor != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquare4.OccupantActor != targetingActor)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare4.OccupantActor.IsVisibleToClient())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquare4 = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(targetingActor, boardSquare4.OccupantActor.GetCurrentBoardSquare(), boardSquarePathInfo);
 					flag = true;
 				}
@@ -267,15 +155,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquare4, targetingActor.GetCurrentBoardSquare(), true);
 		}
 		int num2 = 0;
@@ -285,29 +164,11 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		this.m_pathLosChecker.UpdateSquaresInPath(boardSquarePathInfo);
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.LastUpdatePathSquareCount = boardSquarePathInfo.GetNumSquaresToEnd(true);
 		}
 		Vector3 a = vector5;
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquarePathInfo pathEndpoint = boardSquarePathInfo.GetPathEndpoint();
 			a = pathEndpoint.square.ToVector3();
 		}
@@ -319,15 +180,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		HighlightUtils.Get().RotateAndResizeRectangularCursor(highlightObj, travelBoardSquareWorldPositionForLos, endPos, this.m_dashWidthInSquares);
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			IOperationOnSquare indicatorHandler = this.m_indicatorHandler;
 			Vector3 startPos = travelBoardSquareWorldPositionForLos;
@@ -338,15 +190,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 			List<ISquareInsideChecker> losCheckOverrides;
 			if (boardSquare2 != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				losCheckOverrides = this.m_squarePosCheckerList;
 			}
 			else
@@ -356,15 +199,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(indicatorHandler, startPos, endPos2, dashWidthInSquares, targetingActor, ignoreLos, additionalLosSources, losCheckOverrides, true);
 			if (boardSquare2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AreaEffectUtils.OperateOnSquaresInShape(this.m_indicatorHandler, this.m_aoeShape, this.m_shapeLosChecker.m_freePos, this.m_shapeLosChecker.m_centerSquare, false, targetingActor, this.m_squarePosCheckerList);
 			}
 			base.HideUnusedSquareIndicators();
@@ -376,31 +210,9 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 		BoardSquare secondToLastInOrigPath = null;
 		if (pathToDesired != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(ActorData, BoardSquare, BoardSquarePathInfo)).MethodHandle;
-			}
 			BoardSquarePathInfo pathEndpoint = pathToDesired.GetPathEndpoint();
 			if (pathEndpoint.prev != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				secondToLastInOrigPath = pathEndpoint.prev.square;
 			}
 		}
@@ -445,53 +257,13 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 					BoardSquare boardSquare2 = squaresInBorderLayer[j];
 					if (boardSquare2.IsBaselineHeight())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreCharge.GetBestDestinationInLayers(BoardSquare, BoardSquare, ActorData, Vector3, BoardSquare, int, bool)).MethodHandle;
-						}
 						if (!(boardSquare2.OccupantActor == null))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquare2.OccupantActor.IsVisibleToClient())
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(boardSquare2.OccupantActor == caster))
 								{
 									goto IL_180;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -501,80 +273,26 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 						float num2 = Vector3.Dot(idealTestVector, rhs);
 						if (secondToLastInOrigPath != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquare2 == secondToLastInOrigPath)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 += 0.5f;
 							}
 						}
-						bool flag = startSquare.\u0013(boardSquare2.x, boardSquare2.y);
+						bool flag = startSquare.symbol_0013(boardSquare2.x, boardSquare2.y);
 						if (!flag && requireLosToStart)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							if (!flag)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 -= 2f;
 							}
 							if (!(boardSquare == null))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num2 <= num)
 								{
 									goto IL_180;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							boardSquare = boardSquare2;
@@ -582,15 +300,6 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 						}
 					}
 					IL_180:;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				i++;
 			}

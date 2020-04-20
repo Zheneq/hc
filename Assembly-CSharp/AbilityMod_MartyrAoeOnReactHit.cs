@@ -83,19 +83,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MartyrAoeOnReactHit.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = martyrAoeOnReactHit.m_canTargetEnemy;
 		}
 		else
@@ -110,15 +97,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = martyrAoeOnReactHit.m_canTargetAlly;
 		}
 		else
@@ -133,15 +111,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = martyrAoeOnReactHit.m_canTargetSelf;
 		}
 		else
@@ -156,15 +125,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = martyrAoeOnReactHit.m_targetingIgnoreLos;
 		}
 		else
@@ -179,15 +139,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		StandardActorEffectData baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = martyrAoeOnReactHit.m_enemyBaseEffectData;
 		}
 		else
@@ -202,15 +153,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		StandardActorEffectData baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrAoeOnReactHit.m_allyBaseEffectData;
 		}
 		else
@@ -226,15 +168,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = martyrAoeOnReactHit.m_reactBaseRadius;
 		}
 		else
@@ -249,15 +182,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = martyrAoeOnReactHit.m_reactRadiusPerCrystal;
 		}
 		else
@@ -272,15 +196,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = martyrAoeOnReactHit.m_reactOnlyOncePerTurn;
 		}
 		else
@@ -296,15 +211,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		bool baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = martyrAoeOnReactHit.m_reactIncludeEffectTarget;
 		}
 		else
@@ -321,15 +227,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = martyrAoeOnReactHit.m_reactEnemyHitEffect;
 		}
 		else
@@ -344,15 +241,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = martyrAoeOnReactHit.m_reactHealOnTarget;
 		}
 		else
@@ -367,15 +255,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = martyrAoeOnReactHit.m_reactEnergyOnCasterPerReact;
 		}
 		else
@@ -390,15 +269,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = martyrAoeOnReactHit.m_cdrIfNoReactionTriggered;
 		}
 		else

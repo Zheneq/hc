@@ -49,45 +49,14 @@ public class UISpectatorHUD : MonoBehaviour
 		this.SetTimerMode(this.m_decisionMode);
 		if (this.m_timer)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.Start()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_timer, false, null);
 		}
 		if (this.m_teamAButton)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(this.m_teamAButton, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnTeamClicked));
 		}
 		if (this.m_teamBButton)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(this.m_teamBButton, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnTeamClicked));
 		}
 		if (this.m_teamAllButton)
@@ -108,19 +77,6 @@ public class UISpectatorHUD : MonoBehaviour
 		UISpectatorHUD.SpectatorToggleOption[] array = null;
 		if (HUD_UIResources.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.SetupOptions()).MethodHandle;
-			}
 			array = HUD_UIResources.Get().m_spectatorOptionsToShow;
 			num = array.Length;
 		}
@@ -141,27 +97,9 @@ public class UISpectatorHUD : MonoBehaviour
 			}
 			this.SetupOptionBtn(this.m_optionsList[i], array[i]);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = num; j < this.m_optionsList.Count; j++)
 		{
 			UIManager.SetGameObjectActive(this.m_optionsList[j], false, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -178,19 +116,6 @@ public class UISpectatorHUD : MonoBehaviour
 		string text = StringUtil.GetSpectatorToggleOptionName(option);
 		if (string.IsNullOrEmpty(text))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.SetupOptionBtn(_SelectableBtn, UISpectatorHUD.SpectatorToggleOption)).MethodHandle;
-			}
 			text = option.ToString();
 		}
 		TextMeshProUGUI[] componentsInChildren = btn.GetComponentsInChildren<TextMeshProUGUI>(true);
@@ -214,19 +139,6 @@ public class UISpectatorHUD : MonoBehaviour
 		PointerEventData pointerEventData = data as PointerEventData;
 		if (pointerEventData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.OptionClicked(BaseEventData)).MethodHandle;
-			}
 			if (!(pointerEventData.pointerCurrentRaycast.gameObject == null))
 			{
 				_ButtonSwapSprite component = pointerEventData.pointerCurrentRaycast.gameObject.GetComponent<_ButtonSwapSprite>();
@@ -235,26 +147,8 @@ public class UISpectatorHUD : MonoBehaviour
 					_SelectableBtn selectableBtn = this.m_optionsList[i];
 					if (component == selectableBtn.spriteController)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_buttonToContext.ContainsKey(selectableBtn))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UISpectatorHUD.OptionButtonContext optionButtonContext = this.m_buttonToContext[selectableBtn];
 							this.SetToggleOption(optionButtonContext.m_toggleOption, !component.selectableButton.IsSelected());
 						}
@@ -279,44 +173,13 @@ public class UISpectatorHUD : MonoBehaviour
 	{
 		if (option == UISpectatorHUD.SpectatorToggleOption.HideAbilityTemplates)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.SetToggleOption(UISpectatorHUD.SpectatorToggleOption, bool)).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().SpectatorHideAbilityTargeter = desiredValue;
 			}
 		}
 		if (option == UISpectatorHUD.SpectatorToggleOption.HideMovementLines)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			LineData.SpectatorHideMovementLines = desiredValue;
 		}
 	}
@@ -326,46 +189,15 @@ public class UISpectatorHUD : MonoBehaviour
 		this.SetDecisionMode(GameFlowData.Get().gameState == GameState.BothTeams_Decision);
 		if (this.m_decisionMode)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.Update()).MethodHandle;
-			}
 			string text = ((int)GameFlowData.Get().GetTimeRemainingInDecision()).ToString();
 			if (this.m_timerText != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (text != this.m_timerText.text)
 				{
 					this.m_timerText.text = text;
 					Animator component = this.m_timer.GetComponent<Animator>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component.Play("SpectatorTimerNumberChangeIN", 1, 0f);
 					}
 				}
@@ -386,33 +218,11 @@ public class UISpectatorHUD : MonoBehaviour
 	{
 		if (this.m_timer != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.SetTimerMode(bool)).MethodHandle;
-			}
 			Animator component = this.m_timer.GetComponent<Animator>();
 			if (component != null)
 			{
 				if (decisionMode)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_timer, true, null);
 					component.Play("SpectatorTimerDefaultIN", 0, 0f);
 					component.Play("SpectatorTimerNumberChangeIN", 1, 0f);
@@ -429,43 +239,12 @@ public class UISpectatorHUD : MonoBehaviour
 	{
 		if (this.m_teamAPanel)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.SetTeamViewing(Team)).MethodHandle;
-			}
 			if (this.m_teamBPanel)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_teamAllPanel)
 				{
 					if (team == Team.TeamA)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_teamAPanel, true, null);
 						UIManager.SetGameObjectActive(this.m_teamBPanel, false, null);
 						UIManager.SetGameObjectActive(this.m_teamAllPanel, false, null);
@@ -492,54 +271,14 @@ public class UISpectatorHUD : MonoBehaviour
 		PointerEventData pointerEventData = data as PointerEventData;
 		if (GameFlowData.Get().LocalPlayerData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorHUD.OnTeamClicked(BaseEventData)).MethodHandle;
-			}
 			if (pointerEventData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (pointerEventData.pointerPress == this.m_teamAButton)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameFlowData.Get().LocalPlayerData.SetSpectatingTeam(Team.TeamA);
 				}
 				else if (pointerEventData.pointerPress == this.m_teamBButton)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameFlowData.Get().LocalPlayerData.SetSpectatingTeam(Team.TeamB);
 				}
 				else if (pointerEventData.pointerPress == this.m_teamAllButton)

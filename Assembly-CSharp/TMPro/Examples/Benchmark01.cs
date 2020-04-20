@@ -6,193 +6,90 @@ namespace TMPro.Examples
 {
 	public class Benchmark01 : MonoBehaviour
 	{
-		public int \u001D;
+		public int symbol_001D;
 
-		public TMP_FontAsset \u000E;
+		public TMP_FontAsset symbol_000E;
 
-		public Font \u0012;
+		public Font symbol_0012;
 
-		private TextMeshPro \u0015;
+		private TextMeshPro symbol_0015;
 
-		private TextContainer \u0016;
+		private TextContainer symbol_0016;
 
-		private TextMesh \u0013;
+		private TextMesh symbol_0013;
 
-		private const string \u0018 = "The <#0050FF>count is: </color>{0}";
+		private const string symbol_0018 = "The <#0050FF>count is: </color>{0}";
 
-		private const string \u0009 = "The <color=#0050FF>count is: </color>";
+		private const string symbol_0009 = "The <color=#0050FF>count is: </color>";
 
-		private Material \u0019;
+		private Material symbol_0019;
 
-		private Material \u0011;
+		private Material symbol_0011;
 
-		private IEnumerator \u001A()
+		private IEnumerator symbol_001A()
 		{
-			if (this.\u001D == 0)
+			if (this.symbol_001D == 0)
 			{
-				for (;;)
+				this.symbol_0015 = base.gameObject.AddComponent<TextMeshPro>();
+				this.symbol_0015.autoSizeTextContainer = true;
+				if (this.symbol_000E != null)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					this.symbol_0015.font = this.symbol_000E;
 				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Benchmark01.<Start>c__Iterator0.MoveNext()).MethodHandle;
-				}
-				this.\u0015 = base.gameObject.AddComponent<TextMeshPro>();
-				this.\u0015.autoSizeTextContainer = true;
-				if (this.\u000E != null)
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.\u0015.font = this.\u000E;
-				}
-				this.\u0015.fontSize = 48f;
-				this.\u0015.alignment = TextAlignmentOptions.Center;
-				this.\u0015.extraPadding = true;
-				this.\u0015.enableWordWrapping = false;
-				this.\u0019 = this.\u0015.font.material;
-				this.\u0011 = (Resources.Load("Fonts & Materials/LiberationSans SDF - Drop Shadow", typeof(Material)) as Material);
+				this.symbol_0015.fontSize = 48f;
+				this.symbol_0015.alignment = TextAlignmentOptions.Center;
+				this.symbol_0015.extraPadding = true;
+				this.symbol_0015.enableWordWrapping = false;
+				this.symbol_0019 = this.symbol_0015.font.material;
+				this.symbol_0011 = (Resources.Load("Fonts & Materials/LiberationSans SDF - Drop Shadow", typeof(Material)) as Material);
 			}
-			else if (this.\u001D == 1)
+			else if (this.symbol_001D == 1)
 			{
-				for (;;)
+				this.symbol_0013 = base.gameObject.AddComponent<TextMesh>();
+				if (this.symbol_0012 != null)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				this.\u0013 = base.gameObject.AddComponent<TextMesh>();
-				if (this.\u0012 != null)
-				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.\u0013.font = this.\u0012;
-					this.\u0013.GetComponent<Renderer>().sharedMaterial = this.\u0013.font.material;
+					this.symbol_0013.font = this.symbol_0012;
+					this.symbol_0013.GetComponent<Renderer>().sharedMaterial = this.symbol_0013.font.material;
 				}
 				else
 				{
-					this.\u0013.font = (Resources.Load("Fonts/ARIAL", typeof(Font)) as Font);
-					this.\u0013.GetComponent<Renderer>().sharedMaterial = this.\u0013.font.material;
+					this.symbol_0013.font = (Resources.Load("Fonts/ARIAL", typeof(Font)) as Font);
+					this.symbol_0013.GetComponent<Renderer>().sharedMaterial = this.symbol_0013.font.material;
 				}
-				this.\u0013.fontSize = 0x30;
-				this.\u0013.anchor = TextAnchor.MiddleCenter;
+				this.symbol_0013.fontSize = 0x30;
+				this.symbol_0013.anchor = TextAnchor.MiddleCenter;
 			}
 			for (int i = 0; i <= 0xF4240; i++)
 			{
-				if (this.\u001D == 0)
+				if (this.symbol_001D == 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.\u0015.SetText("The <#0050FF>count is: </color>{0}", (float)(i % 0x3E8));
+					this.symbol_0015.SetText("The <#0050FF>count is: </color>{0}", (float)(i % 0x3E8));
 					if (i % 0x3E8 == 0x3E7)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						TMP_Text u = this.\u0015;
+						TMP_Text u = this.symbol_0015;
 						Material fontSharedMaterial;
-						if (this.\u0015.fontSharedMaterial == this.\u0019)
+						if (this.symbol_0015.fontSharedMaterial == this.symbol_0019)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							Material material = this.\u0011;
-							this.\u0015.fontSharedMaterial = material;
+							Material material = this.symbol_0011;
+							this.symbol_0015.fontSharedMaterial = material;
 							fontSharedMaterial = material;
 						}
 						else
 						{
-							Material material = this.\u0019;
-							this.\u0015.fontSharedMaterial = material;
+							Material material = this.symbol_0019;
+							this.symbol_0015.fontSharedMaterial = material;
 							fontSharedMaterial = material;
 						}
 						u.fontSharedMaterial = fontSharedMaterial;
 					}
 				}
-				else if (this.\u001D == 1)
+				else if (this.symbol_001D == 1)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.\u0013.text = "The <color=#0050FF>count is: </color>" + (i % 0x3E8).ToString();
+					this.symbol_0013.text = "The <color=#0050FF>count is: </color>" + (i % 0x3E8).ToString();
 				}
 				yield return null;
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			yield return null;
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			yield break;
 		}
 	}

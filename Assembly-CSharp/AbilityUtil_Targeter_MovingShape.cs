@@ -27,19 +27,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 		base.UpdateTargeting(currentTarget, targetingActor);
 		if (this.m_highlights.Count < 4)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MovingShape.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 			this.m_highlights.Add(TargeterUtils.CreateLaserBoxHighlight(Vector3.zero, Vector3.one, this.m_moveLineWidth, TargeterUtils.HeightAdjustType.DontAdjustHeight));
 			float num = this.m_moveLineWidth * 0.4f;
@@ -53,27 +40,9 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 		bool flag = this.IsMovingShape(targetingActor);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare moveStartSquare = this.GetMoveStartSquare(currentTarget, targetingActor);
 			if (moveStartSquare != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 moveStartFreePos = this.GetMoveStartFreePos(currentTarget, targetingActor);
 				Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, moveStartFreePos, moveStartSquare);
 				Vector3 highlightGoalPos = base.GetHighlightGoalPos(currentTarget, targetingActor);
@@ -87,15 +56,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 						ActorData actor = enumerator.Current;
 						base.AddActorInRange(actor, centerOfShape, targetingActor, AbilityTooltipSubject.Primary, false);
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(centerOfShape, highlightGoalPos, 0f, 0f, 0.5f * this.m_moveLineWidth, this.m_penetrateLoS, targetingActor, relevantTeams, null);
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInRadiusOfLine);
@@ -105,15 +65,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 					{
 						ActorData actor2 = enumerator2.Current;
 						base.AddActorInRange(actor2, centerOfShape, targetingActor, AbilityTooltipSubject.Primary, false);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Vector3 vector = centerOfShape;
@@ -127,15 +78,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 				gameObject3.transform.rotation = Quaternion.LookRotation(forward);
 				if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					SquareInsideChecker_Shape squareInsideChecker_Shape = this.m_squarePosCheckerList[0] as SquareInsideChecker_Shape;
 					SquareInsideChecker_Shape squareInsideChecker_Shape2 = this.m_squarePosCheckerList[1] as SquareInsideChecker_Shape;
 					SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[2] as SquareInsideChecker_Box;
@@ -161,19 +103,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 	{
 		if (this.m_delegateIsMovingShape != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MovingShape.IsMovingShape(ActorData)).MethodHandle;
-			}
 			return this.m_delegateIsMovingShape(targetingActor);
 		}
 		return false;
@@ -183,19 +112,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 	{
 		if (this.m_delegateMoveStartSquare != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MovingShape.GetMoveStartSquare(AbilityTarget, ActorData)).MethodHandle;
-			}
 			return this.m_delegateMoveStartSquare(currentTarget, targetingActor);
 		}
 		return targetingActor.GetCurrentBoardSquare();
@@ -205,19 +121,6 @@ public class AbilityUtil_Targeter_MovingShape : AbilityUtil_Targeter_Shape
 	{
 		if (this.m_delegateMoveStartFreePos != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_MovingShape.GetMoveStartFreePos(AbilityTarget, ActorData)).MethodHandle;
-			}
 			return this.m_delegateMoveStartFreePos(currentTarget, targetingActor);
 		}
 		return targetingActor.GetTravelBoardSquareWorldPosition();

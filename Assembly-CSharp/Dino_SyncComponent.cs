@@ -57,19 +57,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		if (this.m_dashOrShieldAbility != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Dino_SyncComponent.ResetDashOrShieldTargeter()).MethodHandle;
-			}
 			this.m_dashOrShieldAbility.ResetTargetersForStanceChange();
 		}
 	}
@@ -85,33 +72,11 @@ public class Dino_SyncComponent : NetworkBehaviour
 		Animator modelAnimator = this.m_actor.GetModelAnimator();
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Dino_SyncComponent.SetDashReadyStanceAnimParams(int, bool)).MethodHandle;
-			}
 			if (modelAnimator != null)
 			{
 				modelAnimator.SetInteger(Dino_SyncComponent.s_aHashIdleType, idleType);
 				if (forceIdle)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					modelAnimator.SetTrigger(Dino_SyncComponent.s_aHashForceIdle);
 				}
 			}
@@ -165,19 +130,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Dino_SyncComponent.InvokeRpcRpcResetDashOrShieldTargeter(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcResetDashOrShieldTargeter called on server.");
 			return;
 		}
@@ -188,19 +140,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Dino_SyncComponent.InvokeRpcRpcSetDashReadyStanceAnimParams(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("RPC RpcSetDashReadyStanceAnimParams called on server.");
 			return;
 		}
@@ -244,19 +183,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Dino_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_dashOrShieldLastCastTurn);
 			writer.Write(this.m_dashOrShieldInReadyStance);
 			writer.WritePackedUInt32((uint)this.m_layerConePowerLevel);
@@ -265,26 +191,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -292,26 +200,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -319,26 +209,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -355,19 +227,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Dino_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_dashOrShieldLastCastTurn = (int)reader.ReadPackedUInt32();
 			this.m_dashOrShieldInReadyStance = reader.ReadBoolean();
 			this.m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
@@ -376,15 +235,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_dashOrShieldLastCastTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
@@ -393,15 +243,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
 		}
 	}

@@ -37,58 +37,18 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (LineData.MovementLinesCanBeVisibleForHud)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.MovementLinesCanBeVisible()).MethodHandle;
-			}
 			if (!LineData.SpectatorHideMovementLines)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
 		if (!LineData.MovementLinesCanBeVisibleForHud)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		bool flag;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().PlayerInfo != null)
 			{
 				flag = ClientGameManager.Get().PlayerInfo.IsSpectator;
@@ -101,15 +61,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		bool result;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = !LineData.SpectatorHideMovementLines;
 		}
 		else
@@ -124,19 +75,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		LineData.MovementLinesCanBeVisibleForHud = visible;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.SetAllowMovementLinesVisibleForHud(bool)).MethodHandle;
-			}
 			List<ActorData> actors = GameFlowData.Get().GetActors();
 			using (List<ActorData>.Enumerator enumerator = actors.GetEnumerator())
 			{
@@ -150,15 +88,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 						component.RefreshLineVisibility(LineData.MovementLinesCanBeVisible(), actorData == GameFlowData.Get().activeOwnedActorData);
 					}
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -170,30 +99,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		Color result = Color.clear;
 		if (chasing)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.GetColor(bool, bool, bool)).MethodHandle;
-			}
 			if (potential)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = HighlightUtils.Get().s_defaultPotentialChasingColor;
 			}
 			else
@@ -203,15 +110,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		}
 		else if (potential)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = HighlightUtils.Get().s_defaultPotentialMovementColor;
 		}
 		else
@@ -220,15 +118,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		}
 		if (!clientPlayer)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float s_defaultDimMultiplier = HighlightUtils.Get().s_defaultDimMultiplier;
 			result.r *= s_defaultDimMultiplier;
 			result.g *= s_defaultDimMultiplier;
@@ -247,19 +136,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.Start()).MethodHandle;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedDecision);
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedPrep);
 		}
@@ -288,19 +164,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (Time.time > this.m_lastMoveSquareUpdatedTime)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.OnClientRequestedMovementChange()).MethodHandle;
-			}
 			this.m_waitingForNextMoveSquaresUpdate = true;
 			this.ClearMovementPreviewLine();
 		}
@@ -316,33 +179,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.UIPhaseStartedDecision)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			this.OnMovementPhaseEnd();
 			this.m_alphaEased.EaseTo(1f, 0.01f);
 		}
 		if (eventType == GameEventManager.EventType.UIPhaseStartedPrep)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_alphaEased.EaseTo(0f, 2f);
 		}
 	}
@@ -358,64 +199,15 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			InterfaceManager exists = InterfaceManager.Get();
 			if (gameFlowData)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.Update()).MethodHandle;
-				}
 				if (exists)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameFlowData.activeOwnedActorData == actor)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorTurnSM.CurrentState == TurnStateEnum.DECIDING_MOVEMENT)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!actor.HasQueuedMovement())
 							{
 								goto IL_AE;
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						this.ClearLine(ref this.m_potentialMovementLine);
@@ -426,26 +218,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		IL_AE:
 		if (this.m_movementLine == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_movementSnaredLine == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_potentialMovementLine == null)
 				{
 					goto IL_1E4;
@@ -455,41 +229,14 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		bool flag = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_alphaEased = new EasedFloatCubic(1f);
 			this.m_alphaEased.EaseTo(1f, 0.1f);
 		}
 		bool flag2;
 		if (!(gameFlowData.activeOwnedActorData == actor))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(gameFlowData.activeOwnedActorData == null))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(Board.Get().PlayerClampedSquare != null) || !(Board.Get().PlayerClampedSquare.OccupantActor == actor))
 				{
 					flag2 = flag;
@@ -503,26 +250,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		this.RefreshLineVisibility(LineData.MovementLinesCanBeVisible(), isClient);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_alphaEased.EaseTo(0f, 1f);
 			}
 		}
@@ -531,15 +260,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		bool flag4;
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag4 = (Options_UI.Get().GetShiftClickForMovementWaypoints() == InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier));
 		}
 		else
@@ -550,38 +270,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		bool flag6 = this.m_waitingForNextMoveSquaresUpdate;
 		if (actorTurnSM != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorTurnSM.CurrentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorTurnSM.CurrentState != TurnStateEnum.VALIDATING_ACTION_REQUEST)
 				{
 					goto IL_272;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag6 = true;
@@ -590,26 +283,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		bool flag7;
 		if (HighlightUtils.Get().m_showMovementPreview && this.m_actor.GetAbilityData().GetSelectedAbility() == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().IsInDecisionState() && !flag6)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData == this.m_actor && GameFlowData.Get().activeOwnedActorData != null)
 				{
 					flag7 = !this.m_actor.IsDead();
@@ -622,89 +297,26 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		bool flag8 = flag7;
 		if (flag8)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag3)
 			{
 				if (flag5)
 				{
 					goto IL_6AF;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (Board.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null && Time.time - this.m_lastPreviewDrawnTime >= 0.1f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BoardSquare currentBoardSquare = GameFlowData.Get().activeOwnedActorData.CurrentBoardSquare;
 					if (Board.Get().PlayerClampedSquare != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentBoardSquare != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							GridPos gridPos = currentBoardSquare.GetGridPos();
 							GridPos gridPos2 = Board.Get().PlayerClampedSquare.GetGridPos();
 							if (this.m_movementLine != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag5)
 								{
 									BoardSquare moveFromBoardSquare = GameFlowData.Get().activeOwnedActorData.MoveFromBoardSquare;
@@ -712,15 +324,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 									bool flag9;
 									if (this.m_lastDrawnStartPreview.x == gridPos3.x)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_lastDrawnStartPreview.y == gridPos3.y && this.m_lastDrawnEndPreview.x == gridPos2.x)
 										{
 											flag9 = (this.m_lastDrawnEndPreview.y != gridPos2.y);
@@ -732,26 +335,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 									bool flag10 = flag9;
 									if (flag10)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (actor.RemainingHorizontalMovement > 0f)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											BoardSquare boardSquare = Board.Get().PlayerClampedSquare;
 											if (!actor.CanMoveToBoardSquare(boardSquare))
 											{
@@ -775,37 +360,10 @@ public class LineData : NetworkBehaviour, IGameEventListener
 							bool flag11;
 							if (this.m_lastDrawnStartPreview.x == gridPos.x)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_lastDrawnStartPreview.y == gridPos.y)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_lastDrawnEndPreview.x == gridPos2.x)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag11 = (this.m_lastDrawnEndPreview.y != gridPos2.y);
 										goto IL_5E7;
 									}
@@ -847,31 +405,9 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("DisplayLineData"))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.DisplayLineDataDebugInfo()).MethodHandle;
-			}
 			string text = string.Empty;
 			if (this.m_movementLine != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text + "Movement:\n" + this.m_movementLine.ToString();
 			}
 			UIActorDebugPanel.Get().SetActorValue(this.m_actor, "DisplayLineData", text);
@@ -889,30 +425,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		this.HideAllyMovementLinesIfResolving();
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.OnDeserializedData(LineData.LineInstance, sbyte)).MethodHandle;
-			}
 			if (SinglePlayerManager.Get().GetLocalPlayer() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SinglePlayerManager.Get().OnActorMovementChanged(SinglePlayerManager.Get().GetLocalPlayer());
 			}
 		}
@@ -935,46 +449,15 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			{
 				goto IL_93;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.SerializeLine(LineData.LineInstance, NetworkWriter)).MethodHandle;
-			}
 			if (x > 0xFF)
 			{
 				goto IL_93;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			value = (byte)x;
 			IL_B0:
 			if (y < 0)
 			{
 				goto IL_CF;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (y > 0xFF)
 			{
@@ -989,15 +472,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			IL_CF:
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Trying to serialize invalid grid pos y for LineData");
 				goto IL_EC;
 			}
@@ -1005,28 +479,10 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			IL_93:
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Trying to serialize invalid grid pos x for LineData");
 				goto IL_B0;
 			}
 			goto IL_B0;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1047,19 +503,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			item.height = (int)Board.Get().GetSquareHeight(item.x, item.y);
 			lineInstance.m_positions.Add(item);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.DeSerializeLine(NetworkReader)).MethodHandle;
-		}
 		return lineInstance;
 	}
 
@@ -1067,55 +510,15 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if ((int)numNodesInSnaredLine > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.OnDeSerializeNumNodesInSnaredLine(sbyte)).MethodHandle;
-			}
 			if (this.m_movementLine != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numNodesInSnaredLine = (sbyte)Mathf.Min((int)numNodesInSnaredLine, (int)((sbyte)this.m_movementLine.m_positions.Count));
 				if (this.m_movementSnaredLine == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_movementSnaredLine = new LineData.LineInstance();
 				}
 				if (this.m_movementLostLine == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_movementLostLine = new LineData.LineInstance();
 				}
 				this.m_movementSnaredLine.m_positions.Clear();
@@ -1127,29 +530,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 					GridPos item = this.m_movementLine.m_positions[i];
 					this.m_movementSnaredLine.m_positions.Add(item);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = Mathf.Max(0, (int)numNodesInSnaredLine - 1);
 				for (int j = num; j < this.m_movementLine.m_positions.Count; j++)
 				{
 					GridPos item2 = this.m_movementLine.m_positions[j];
 					this.m_movementLostLine.m_positions.Add(item2);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				this.ChangeLineColor(this.m_movementLine, Color.red);
 			}
@@ -1159,15 +544,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			this.ClearLine(ref this.m_movementSnaredLine);
 			if (this.m_movementLine != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_movementLostLine == null)
 				{
 					this.m_movementLostLine = new LineData.LineInstance();
@@ -1178,15 +554,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 				{
 					GridPos item3 = this.m_movementLine.m_positions[k];
 					this.m_movementLostLine.m_positions.Add(item3);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			else
@@ -1208,47 +575,16 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		fullPathColor = (snaredColor = HighlightUtils.Get().s_defaultMovementColor * colorMult);
 		if (this.m_actor != null && this.m_actor.GetActorStatus() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.GetMovementLineVisibilityFromStatus(float, bool*, bool*, bool*, Color*, Color*)).MethodHandle;
-			}
 			ActorStatus actorStatus = this.m_actor.GetActorStatus();
 			AbilityData abilityData = this.m_actor.GetAbilityData();
 			bool flag = actorStatus.IsMovementDebuffImmune(true);
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (abilityData != null && (abilityData.HasPendingStatusFromQueuedAbilities(StatusType.MovementDebuffImmunity) || abilityData.HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable)));
 			}
 			bool flag2;
 			if (!actorStatus.HasStatus(StatusType.MovementDebuffSuppression, false))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = !flag;
 			}
 			else
@@ -1267,53 +603,17 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			{
 				if (!flag4)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag5)
 					{
 						goto IL_179;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (flag5)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					fullMovement = false;
 				}
 				else if (flag4)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					fullPathColor = HighlightUtils.Get().s_defaultLostMovementColor * colorMult;
 				}
 				goto IL_209;
@@ -1321,39 +621,12 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			IL_179:
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorStatus.HasStatus(StatusType.Snared, false))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!actorStatus.HasStatus(StatusType.Hasted, false))
 					{
 						if (!(abilityData == null))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (abilityData.HasPendingStatusFromQueuedAbilities(StatusType.Hasted))
 							{
 								goto IL_209;
@@ -1377,30 +650,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.OnMovementStatusGained()).MethodHandle;
-			}
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().activeOwnedActorData == this.m_actor)
 				{
 					this.m_alphaEased = new EasedFloatCubic(1f);
@@ -1430,58 +681,18 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (theLine != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.ClearLine(LineData.LineInstance*)).MethodHandle;
-			}
 			if (theLine == this.m_movementLine)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HideMovementDestIndicator(this.m_movementLine);
 			}
 			theLine.m_positions.Clear();
 			if (theLine.m_lineObject != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				theLine.DestroyLineObject();
 			}
 			theLine = null;
 			if (NetworkServer.active)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.MarkForSerializationUpdate();
 			}
 		}
@@ -1492,56 +703,16 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		float timeSinceChange = Time.time - this.m_lastAllyMovementChange;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.RefreshLineVisibility(bool, bool)).MethodHandle;
-			}
 			float num = 1f;
 			if (!isClient)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = AbilityUtil_Targeter.GetOpacityFromTargeterData(HighlightUtils.Get().m_movementLineOpacity, timeSinceChange);
 			}
 			bool flag;
 			if (this.m_movementLine != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_movementSnaredLine == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = this.m_movementLine.isChasing;
 					goto IL_82;
 				}
@@ -1557,26 +728,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			this.GetMovementLineVisibilityFromStatus(num, out flag3, out flag4, out flag5, out lineColor, out lineColor2);
 			if (lineColor.a > 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag3)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag2)
 					{
 						goto IL_E2;
@@ -1592,15 +745,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			IL_FA:
 			if (lineColor2.a > 0f && flag4 && !flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ShowLine(this.m_movementSnaredLine, lineColor2, false, true);
 			}
 			else
@@ -1609,37 +753,10 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			}
 			if (lineColor.a > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag5)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag2)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ShowLine(this.m_movementLostLine, lineColor, true, true);
 						goto IL_188;
 					}
@@ -1650,26 +767,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			this.ShowLine(this.m_potentialMovementLine, HighlightUtils.Get().s_defaultPotentialMovementColor * num, false, true);
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_potentialMovementLine != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ShowMovementDestIndicator(this.m_potentialMovementLine);
 				}
 			}
@@ -1691,34 +790,12 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		GameFlowData gameFlowData = GameFlowData.Get();
 		if (actor && gameFlowData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.DrawLine(LineData.LineInstance*, float)).MethodHandle;
-			}
 			if (gameFlowData.LocalPlayerData != null)
 			{
 				Team teamViewing = gameFlowData.LocalPlayerData.GetTeamViewing();
 				bool flag2;
 				if (teamViewing != Team.Invalid)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = (teamViewing == actor.GetTeam());
 				}
 				else
@@ -1730,26 +807,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		}
 		if (theLine != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Color color = LineData.GetColor(theLine.isChasing, false, actor == GameFlowData.Get().activeOwnedActorData);
 				MovementPathStart previousLine = null;
 				if (theLine.m_lineObject != null)
@@ -1762,15 +821,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 				MovementPathStart movePathStart;
 				if (theLine.m_lineObject != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					movePathStart = theLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
 				}
 				else
@@ -1792,65 +842,16 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		GameFlowData gameFlowData = GameFlowData.Get();
 		if (this.m_potentialMovementLine != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.ActivatePotentialMovementLine()).MethodHandle;
-			}
 			if (actor)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameFlowData)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (gameFlowData.activeOwnedActorData == actor)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Color color = LineData.GetColor(this.m_potentialMovementLine.isChasing, true, true);
 						MovementPathStart previousLine = null;
 						if (this.m_potentialMovementLine.m_lineObject != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							previousLine = this.m_potentialMovementLine.m_movePathStart;
 						}
 						this.m_potentialMovementLine.m_lineObject = this.CreateLineObject(this.m_potentialMovementLine.m_positions, color, previousLine, this.m_potentialMovementLine.isChasing, actor, 0.4f);
@@ -1859,15 +860,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 						MovementPathStart movePathStart;
 						if (this.m_potentialMovementLine.m_lineObject != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							movePathStart = this.m_potentialMovementLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true);
 						}
 						else
@@ -1877,15 +869,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 						potentialMovementLine.m_movePathStart = movePathStart;
 						if (!LineData.MovementLinesCanBeVisible())
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.HideLine(this.m_potentialMovementLine);
 						}
 					}
@@ -1898,19 +881,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (targetSquares.Count < 2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.CreateLineObject(List<GridPos>, Color, MovementPathStart, bool, ActorData, float)).MethodHandle;
-			}
 			return null;
 		}
 		this.m_lastAllyMovementChange = Time.time;
@@ -1919,15 +889,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		{
 			Vector3 worldPosition = Board.Get().GetBoardSquareSafe(targetSquares[i]).GetWorldPosition();
 			list.Add(new Vector3(worldPosition.x, worldPosition.y + 0.1f, worldPosition.z));
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return Targeting.GetTargeting().CreateFancyArrowMesh(ref list, 0.2f, lineColor, isChasing, theActor, AbilityUtil_Targeter.TargeterMovementType.Movement, null, previousLine, true, startOffset, 0.4f);
 	}
@@ -1947,34 +908,12 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		List<GridPos> list = null;
 		if (isChasing)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.GetGridPosPathForPath(BoardSquarePathInfo, bool, ActorData)).MethodHandle;
-			}
 			list = new List<GridPos>();
 			list.Add(this.m_actor.MoveFromBoardSquare.GetGridPos());
 			list.Add(chaseTarget.GetCurrentBoardSquare().GetGridPos());
 		}
 		else if (path != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = path.ToGridPosPath();
 		}
 		return list;
@@ -1994,30 +933,8 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		bool flag;
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.HideAllyMovementLinesIfResolving()).MethodHandle;
-			}
 			if (!(this.m_actor == GameFlowData.Get().activeOwnedActorData))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (GameFlowData.Get().gameState != GameState.BothTeams_Resolve);
 				goto IL_5C;
 			}
@@ -2042,56 +959,16 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (theLine != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.ChangeLineColor(LineData.LineInstance, Color)).MethodHandle;
-			}
 			if (theLine.m_lineObject != null && theLine.m_currentColor != newColor)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				theLine.m_currentColor = newColor;
 				MeshRenderer[] componentsInChildren = theLine.m_lineObject.GetComponentsInChildren<MeshRenderer>();
 				for (int i = 0; i < componentsInChildren.Length; i++)
 				{
 					if (componentsInChildren[i].materials.Length > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						componentsInChildren[i].materials[0].SetColor("_TintColor", newColor);
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -2102,45 +979,14 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		this.ChangeLineColor(theLine, lineColor);
 		if (theLine != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.ShowLine(LineData.LineInstance, Color, bool, bool)).MethodHandle;
-			}
 			if (theLine.m_lineObject != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				MovementPathStart movePathStart = theLine.m_movePathStart;
 				if (movePathStart != null)
 				{
 					movePathStart.SetGlow(setGlow);
 					if (hideStart)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						movePathStart.m_movementContainer.SetActive(false);
 					}
 				}
@@ -2153,19 +999,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		this.ChangeLineColor(theLine, Color.clear);
 		if (theLine != null && theLine.m_lineObject != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.HideLine(LineData.LineInstance)).MethodHandle;
-			}
 			MovementPathStart movePathStart = theLine.m_movePathStart;
 			if (movePathStart != null)
 			{
@@ -2178,41 +1011,10 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (inst != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.ShowMovementDestIndicator(LineData.LineInstance)).MethodHandle;
-			}
 			if (inst.m_lineObject != null && inst.m_movePathStart != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (inst.m_positions.Count > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MovementPathStart movePathStart = inst.m_movePathStart;
 					GridPos gridPos = inst.m_positions[inst.m_positions.Count - 1];
 					BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(gridPos);
@@ -2229,33 +1031,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (inst != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.HideMovementDestIndicator(LineData.LineInstance)).MethodHandle;
-			}
 			if (inst.m_lineObject != null)
 			{
 				MovementPathStart movePathStart = inst.m_movePathStart;
 				if (movePathStart != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					movePathStart.HideCharacterMovementPanel();
 				}
 			}
@@ -2266,69 +1046,20 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (!rebuildLine)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.SetMovementSnaredLine(List<GridPos>, bool, bool)).MethodHandle;
-			}
 			if (!isChasing)
 			{
 				goto IL_2F;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.ClearLine(ref this.m_movementSnaredLine);
 		IL_2F:
 		if (gridPosPath.Count > 1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!rebuildLine)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_movementSnaredLine != null)
 				{
 					goto IL_71;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_movementSnaredLine = new LineData.LineInstance();
@@ -2338,38 +1069,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			this.DrawLine(ref this.m_movementSnaredLine, 0.4f);
 			if (this.m_movementLine != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_movementLine.m_lineObject != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MovementPathStart movePathStart = this.m_movementLine.m_movePathStart;
 					if (movePathStart != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						movePathStart.SetGlow(false);
 					}
 				}
@@ -2377,37 +1081,10 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		}
 		else if (gridPosPath.Count == 1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_movementLine != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_movementLine.m_lineObject != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MovementPathStart movePathStart2 = this.m_movementLine.m_movePathStart;
 					if (movePathStart2 != null)
 					{
@@ -2423,19 +1100,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (!rebuildLine)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.SetMovementLine(List<GridPos>, bool, bool)).MethodHandle;
-			}
 			if (!isChasing)
 			{
 				goto IL_25;
@@ -2445,29 +1109,11 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		IL_25:
 		if (gridPosPath.Count > 1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!rebuildLine)
 			{
 				if (this.m_movementLine != null)
 				{
 					goto IL_5A;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_movementLine = new LineData.LineInstance();
@@ -2487,19 +1133,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			{
 				goto IL_25;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.SetMouseOverMovementLine(List<GridPos>, bool, bool)).MethodHandle;
-			}
 		}
 		this.ClearLine(ref this.m_mousePotentialMovementLine);
 		IL_25:
@@ -2507,15 +1140,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		{
 			if (!rebuildLine)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_mousePotentialMovementLine != null)
 				{
 					goto IL_59;
@@ -2531,30 +1155,12 @@ public class LineData : NetworkBehaviour, IGameEventListener
 				MovementPathStart movePathStart = this.m_mousePotentialMovementLine.m_movePathStart;
 				if (movePathStart != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					movePathStart.SetGlow(false);
 				}
 			}
 		}
 		else if (this.m_mousePotentialMovementLine != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ClearLine(ref this.m_mousePotentialMovementLine);
 		}
 	}
@@ -2563,19 +1169,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (!rebuildLine)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.SetMovementLostLine(List<GridPos>, int, bool, bool)).MethodHandle;
-			}
 			if (!isChasing)
 			{
 				goto IL_26;
@@ -2589,40 +1182,13 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		{
 			list.Add(fullGridPosPath[i]);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (list.Count > 1)
 		{
 			if (!rebuildLine)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_movementLostLine != null)
 				{
 					goto IL_96;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_movementLostLine = new LineData.LineInstance();
@@ -2639,19 +1205,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 		this.ClearLine(ref this.m_potentialMovementLine);
 		if (gridPosPath.Count > 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.SetPotentialMovementLine(List<GridPos>, bool)).MethodHandle;
-			}
 			this.m_potentialMovementLine = new LineData.LineInstance();
 			this.m_potentialMovementLine.m_positions = gridPosPath;
 			this.m_potentialMovementLine.isChasing = isChasing;
@@ -2663,32 +1216,10 @@ public class LineData : NetworkBehaviour, IGameEventListener
 	{
 		if (this.m_movementLine != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.GetGridPosPath()).MethodHandle;
-			}
 			return this.m_movementLine.m_positions;
 		}
 		if (this.m_potentialMovementLine != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_potentialMovementLine.m_positions;
 		}
 		return new List<GridPos>();
@@ -2709,8 +1240,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
@@ -2739,19 +1269,6 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			this.m_movePathStart = null;
 			if (this.m_lineObject != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.LineInstance.DestroyLineObject()).MethodHandle;
-				}
 				UnityEngine.Object.Destroy(this.m_lineObject);
 				this.m_lineObject = null;
 			}
@@ -2777,34 +1294,12 @@ public class LineData : NetworkBehaviour, IGameEventListener
 				}
 				else if (i == this.m_positions.Count - 1)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LineData.LineInstance.ToString()).MethodHandle;
-					}
 					text += string.Format(",\n({0}, {1}) (end)", gridPos.x, gridPos.y);
 				}
 				else
 				{
 					text += string.Format(",\n({0}, {1})", gridPos.x, gridPos.y);
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return text;
 		}

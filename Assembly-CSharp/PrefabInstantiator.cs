@@ -21,47 +21,16 @@ public class PrefabInstantiator : MonoBehaviour
 	{
 		if (this.m_dontDestroyOnLoad)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabInstantiator.Awake()).MethodHandle;
-			}
 			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		}
 		this.m_instantiatedGameObjects = new GameObject[this.m_prefabs.Length];
 		if (this.m_prefabs != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_prefabs.Length; i++)
 			{
 				GameObject gameObject = this.m_prefabs[i];
 				if (gameObject == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -69,26 +38,8 @@ public class PrefabInstantiator : MonoBehaviour
 					this.m_instantiatedGameObjects[i] = gameObject2;
 					if (this.m_dontDestroyOnLoad)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_parentSpawnedObjectsIfPersistent)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							gameObject2.transform.parent = base.transform;
 							goto IL_CE;
 						}
@@ -100,15 +51,6 @@ public class PrefabInstantiator : MonoBehaviour
 				}
 				IL_CE:;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -117,19 +59,6 @@ public class PrefabInstantiator : MonoBehaviour
 		for (int i = 0; i < this.m_instantiatedGameObjects.Length; i++)
 		{
 			UnityEngine.Object.Destroy(this.m_instantiatedGameObjects[i]);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabInstantiator.OnDestroy()).MethodHandle;
 		}
 	}
 }

@@ -25,33 +25,11 @@ public struct CharacterCardInfo
 	{
 		if (!(obj is CharacterCardInfo))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterCardInfo.Equals(object)).MethodHandle;
-			}
 			return false;
 		}
 		CharacterCardInfo characterCardInfo = (CharacterCardInfo)obj;
 		if (this.PrepCard == characterCardInfo.PrepCard)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.CombatCard == characterCardInfo.CombatCard)
 			{
 				return this.DashCard == characterCardInfo.DashCard;
@@ -64,30 +42,8 @@ public struct CharacterCardInfo
 	{
 		if (this.PrepCard > CardType.NoOverride)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterCardInfo.HasEmptySelection()).MethodHandle;
-			}
 			if (this.DashCard > CardType.NoOverride)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.CombatCard <= CardType.NoOverride;
 			}
 		}
@@ -98,19 +54,6 @@ public struct CharacterCardInfo
 	{
 		if (this.PrepCard == CardType.NoOverride)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterCardInfo.Uninitialized()).MethodHandle;
-			}
 			if (this.DashCard == CardType.NoOverride)
 			{
 				return this.CombatCard == CardType.NoOverride;

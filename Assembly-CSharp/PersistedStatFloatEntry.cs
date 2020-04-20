@@ -43,58 +43,18 @@ public class PersistedStatFloatEntry : ICloneable, IPersistedGameplayStat
 		this.NumGamesInSum++;
 		if (val <= this.Max)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStatFloatEntry.Adjust(float)).MethodHandle;
-			}
 			if (!flag)
 			{
 				goto IL_5C;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.Max = val;
 		IL_5C:
 		if (val >= this.Min)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.Min = val;

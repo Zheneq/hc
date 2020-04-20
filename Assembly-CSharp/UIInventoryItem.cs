@@ -71,32 +71,10 @@ public class UIInventoryItem : MonoBehaviour
 		int amount = 1;
 		if (item != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.Setup(InventoryItemTemplate, InventoryItem)).MethodHandle;
-			}
 			amount = item.Count;
 		}
 		if (this.m_mainAnimator != null && this.m_mainAnimator.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_mainAnimator.Play("InventoryItemSalvageIDLE");
 		}
 		this.MakeBorderError(false);
@@ -105,15 +83,6 @@ public class UIInventoryItem : MonoBehaviour
 		string spritePath = InventoryWideData.GetSpritePath(itemTemplate);
 		if (!spritePath.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_itemImage.sprite = (Sprite)Resources.Load(spritePath, typeof(Sprite));
 		}
 		UIManager.SetGameObjectActive(this.m_itemImage, !spritePath.IsNullOrEmpty(), null);
@@ -126,15 +95,6 @@ public class UIInventoryItem : MonoBehaviour
 		bool doActive;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = (itemTemplate.Rarity == InventoryItemRarity.Common);
 		}
 		else
@@ -146,15 +106,6 @@ public class UIInventoryItem : MonoBehaviour
 		bool doActive2;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = (itemTemplate.Rarity == InventoryItemRarity.Uncommon);
 		}
 		else
@@ -166,15 +117,6 @@ public class UIInventoryItem : MonoBehaviour
 		bool doActive3;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive3 = (itemTemplate.Rarity == InventoryItemRarity.Rare);
 		}
 		else
@@ -187,15 +129,6 @@ public class UIInventoryItem : MonoBehaviour
 		bool doActive4;
 		if (itemTemplate != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive4 = (itemTemplate.Rarity == InventoryItemRarity.Legendary);
 		}
 		else
@@ -210,15 +143,6 @@ public class UIInventoryItem : MonoBehaviour
 			bool doActive5;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive5 = (itemTemplate.Rarity == InventoryItemRarity.Uncommon);
 			}
 			else
@@ -230,15 +154,6 @@ public class UIInventoryItem : MonoBehaviour
 			bool doActive6;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive6 = (itemTemplate.Rarity == InventoryItemRarity.Rare);
 			}
 			else
@@ -250,15 +165,6 @@ public class UIInventoryItem : MonoBehaviour
 			bool doActive7;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive7 = (itemTemplate.Rarity == InventoryItemRarity.Epic);
 			}
 			else
@@ -270,15 +176,6 @@ public class UIInventoryItem : MonoBehaviour
 			bool doActive8;
 			if (itemTemplate != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive8 = (itemTemplate.Rarity == InventoryItemRarity.Legendary);
 			}
 			else
@@ -289,15 +186,6 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		if (this.m_tooltipHoverObj != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_tooltipHoverObj.Refresh();
 		}
 	}
@@ -308,51 +196,16 @@ public class UIInventoryItem : MonoBehaviour
 		{
 			this.m_dimmables[i].alpha = ((!isDimmed) ? 1f : 0.25f);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.SetDimmed(bool)).MethodHandle;
-		}
 	}
 
 	public void SetCollected(bool isCollected)
 	{
 		if (this.m_mainAnimator == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.SetCollected(bool)).MethodHandle;
-			}
 			return;
 		}
 		if (!this.m_mainAnimator.isInitialized)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
@@ -372,19 +225,6 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (this.m_itemTemplate == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.TooltipSetup(UITooltipBase)).MethodHandle;
-			}
 			return false;
 		}
 		(tooltip as UIInventoryItemTooltip).Setup(this.m_itemTemplate);
@@ -395,32 +235,10 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (this.m_normalBorder != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.MakeBorderError(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_normalBorder, !makeError, null);
 		}
 		if (this.m_redBorder != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_redBorder, makeError, null);
 		}
 	}
@@ -429,19 +247,6 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (this.m_itemTemplate == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.GetTemplateId()).MethodHandle;
-			}
 			return -1;
 		}
 		return this.m_itemTemplate.Index;
@@ -451,19 +256,6 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (this.m_item == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.GetItemId()).MethodHandle;
-			}
 			return -1;
 		}
 		return this.m_item.Id;
@@ -473,45 +265,14 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (this.m_item != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.UpdateItemData(InventoryItem)).MethodHandle;
-			}
 			if (item.TemplateId == this.m_item.TemplateId)
 			{
 				if (this.m_item.Count != item.Count)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_item.Count = item.Count;
 					this.UpdateItemCount(item.Count, true, false, false);
 				}
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -520,56 +281,16 @@ public class UIInventoryItem : MonoBehaviour
 	{
 		if (this.m_amountContainer == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIInventoryItem.UpdateItemCount(int, bool, bool, bool)).MethodHandle;
-			}
 			this.m_amountContainer = this.m_amount.rectTransform;
 		}
 		if (amount > 0x63)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (capAt99)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_Text amount2 = this.m_amount;
 				string str;
 				if (includeX)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					str = "x";
 				}
 				else
@@ -583,26 +304,8 @@ public class UIInventoryItem : MonoBehaviour
 		}
 		if (amount <= 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (showIf1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (amount == 1)
 				{
 					goto IL_AD;
@@ -616,15 +319,6 @@ public class UIInventoryItem : MonoBehaviour
 		object arg;
 		if (includeX)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			arg = "x";
 		}
 		else

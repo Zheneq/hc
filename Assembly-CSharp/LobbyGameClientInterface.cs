@@ -34,524 +34,148 @@ public class LobbyGameClientInterface : WebSocketInterface
 		this.OnConnected = delegate(RegisterGameClientResponse A_0)
 		{
 		};
-		if (LobbyGameClientInterface.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface..ctor()).MethodHandle;
-			}
-			LobbyGameClientInterface.<>f__am$cache1 = delegate(string A_0, bool A_1, CloseStatusCode A_2)
+		
+		this.OnDisconnected = delegate(string A_0, bool A_1, CloseStatusCode A_2)
 			{
 			};
-		}
-		this.OnDisconnected = LobbyGameClientInterface.<>f__am$cache1;
 		this.OnLobbyServerReadyNotification = delegate(LobbyServerReadyNotification A_0)
 		{
 		};
-		if (LobbyGameClientInterface.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache3 = delegate(LobbyStatusNotification A_0)
+		
+		this.OnLobbyStatusNotification = delegate(LobbyStatusNotification A_0)
 			{
 			};
-		}
-		this.OnLobbyStatusNotification = LobbyGameClientInterface.<>f__am$cache3;
-		if (LobbyGameClientInterface.<>f__am$cache4 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache4 = delegate(LobbyGameplayOverridesNotification A_0)
+		
+		this.OnLobbyGameplayOverridesNotification = delegate(LobbyGameplayOverridesNotification A_0)
 			{
 			};
-		}
-		this.OnLobbyGameplayOverridesNotification = LobbyGameClientInterface.<>f__am$cache4;
-		if (LobbyGameClientInterface.<>f__am$cache5 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache5 = delegate(LobbyCustomGamesNotification A_0)
+		
+		this.OnLobbyCustomGamesNotification = delegate(LobbyCustomGamesNotification A_0)
 			{
 			};
-		}
-		this.OnLobbyCustomGamesNotification = LobbyGameClientInterface.<>f__am$cache5;
 		this.OnQueueAssignmentNotification = delegate(MatchmakingQueueAssignmentNotification A_0)
 		{
 		};
-		if (LobbyGameClientInterface.<>f__am$cache7 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache7 = delegate(MatchmakingQueueStatusNotification A_0)
+		
+		this.OnQueueStatusNotification = delegate(MatchmakingQueueStatusNotification A_0)
 			{
 			};
-		}
-		this.OnQueueStatusNotification = LobbyGameClientInterface.<>f__am$cache7;
-		if (LobbyGameClientInterface.<>f__am$cache8 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache8 = delegate(GameAssignmentNotification A_0)
+		
+		this.OnGameAssignmentNotification = delegate(GameAssignmentNotification A_0)
 			{
 			};
-		}
-		this.OnGameAssignmentNotification = LobbyGameClientInterface.<>f__am$cache8;
-		if (LobbyGameClientInterface.<>f__am$cache9 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache9 = delegate(GameInfoNotification A_0)
+		
+		this.OnGameInfoNotification = delegate(GameInfoNotification A_0)
 			{
 			};
-		}
-		this.OnGameInfoNotification = LobbyGameClientInterface.<>f__am$cache9;
-		if (LobbyGameClientInterface.<>f__am$cacheA == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheA = delegate(GameStatusNotification A_0)
+		
+		this.OnGameStatusNotification = delegate(GameStatusNotification A_0)
 			{
 			};
-		}
-		this.OnGameStatusNotification = LobbyGameClientInterface.<>f__am$cacheA;
-		if (LobbyGameClientInterface.<>f__am$cacheB == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheB = delegate(PlayerAccountDataUpdateNotification A_0)
+		
+		this.OnAccountDataUpdated = delegate(PlayerAccountDataUpdateNotification A_0)
 			{
 			};
-		}
-		this.OnAccountDataUpdated = LobbyGameClientInterface.<>f__am$cacheB;
-		if (LobbyGameClientInterface.<>f__am$cacheC == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheC = delegate(ForcedCharacterChangeFromServerNotification A_0)
+		
+		this.OnForcedCharacterChangeFromServerNotification = delegate(ForcedCharacterChangeFromServerNotification A_0)
 			{
 			};
-		}
-		this.OnForcedCharacterChangeFromServerNotification = LobbyGameClientInterface.<>f__am$cacheC;
-		if (LobbyGameClientInterface.<>f__am$cacheD == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheD = delegate(PlayerCharacterDataUpdateNotification A_0)
+		
+		this.OnCharacterDataUpdateNotification = delegate(PlayerCharacterDataUpdateNotification A_0)
 			{
 			};
-		}
-		this.OnCharacterDataUpdateNotification = LobbyGameClientInterface.<>f__am$cacheD;
-		if (LobbyGameClientInterface.<>f__am$cacheE == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheE = delegate(InventoryComponentUpdateNotification A_0)
+		
+		this.OnInventoryComponentUpdateNotification = delegate(InventoryComponentUpdateNotification A_0)
 			{
 			};
-		}
-		this.OnInventoryComponentUpdateNotification = LobbyGameClientInterface.<>f__am$cacheE;
-		if (LobbyGameClientInterface.<>f__am$cacheF == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cacheF = delegate(BankBalanceChangeNotification A_0)
+		
+		this.OnBankBalanceChangeNotification = delegate(BankBalanceChangeNotification A_0)
 			{
 			};
-		}
-		this.OnBankBalanceChangeNotification = LobbyGameClientInterface.<>f__am$cacheF;
-		if (LobbyGameClientInterface.<>f__am$cache10 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache10 = delegate(SeasonStatusNotification A_0)
+		
+		this.OnSeasonStatusNotification = delegate(SeasonStatusNotification A_0)
 			{
 			};
-		}
-		this.OnSeasonStatusNotification = LobbyGameClientInterface.<>f__am$cache10;
 		this.OnChapterStatusNotification = delegate(ChapterStatusNotification A_0)
 		{
 		};
-		if (LobbyGameClientInterface.<>f__am$cache12 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache12 = delegate(GroupUpdateNotification A_0)
+		
+		this.OnGroupUpdateNotification = delegate(GroupUpdateNotification A_0)
 			{
 			};
-		}
-		this.OnGroupUpdateNotification = LobbyGameClientInterface.<>f__am$cache12;
-		if (LobbyGameClientInterface.<>f__am$cache13 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache13 = delegate(UseGGPackNotification A_0)
+		
+		this.OnUseGGPackNotification = delegate(UseGGPackNotification A_0)
 			{
 			};
-		}
-		this.OnUseGGPackNotification = LobbyGameClientInterface.<>f__am$cache13;
-		if (LobbyGameClientInterface.<>f__am$cache14 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache14 = delegate(ChatNotification A_0)
+		
+		this.OnChatNotification = delegate(ChatNotification A_0)
 			{
 			};
-		}
-		this.OnChatNotification = LobbyGameClientInterface.<>f__am$cache14;
-		if (LobbyGameClientInterface.<>f__am$cache15 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache15 = delegate(UseOverconResponse A_0)
+		
+		this.OnUseOverconNotification = delegate(UseOverconResponse A_0)
 			{
 			};
-		}
-		this.OnUseOverconNotification = LobbyGameClientInterface.<>f__am$cache15;
-		if (LobbyGameClientInterface.<>f__am$cache16 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache16 = delegate(FriendStatusNotification A_0)
+		
+		this.OnFriendStatusNotification = delegate(FriendStatusNotification A_0)
 			{
 			};
-		}
-		this.OnFriendStatusNotification = LobbyGameClientInterface.<>f__am$cache16;
 		this.OnGroupConfirmation = delegate(GroupConfirmationRequest A_0)
 		{
 		};
-		if (LobbyGameClientInterface.<>f__am$cache18 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache18 = delegate(GroupSuggestionRequest A_0)
+		
+		this.OnGroupSuggestion = delegate(GroupSuggestionRequest A_0)
 			{
 			};
-		}
-		this.OnGroupSuggestion = LobbyGameClientInterface.<>f__am$cache18;
-		if (LobbyGameClientInterface.<>f__am$cache19 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache19 = delegate(ForceMatchmakingQueueNotification A_0)
+		
+		this.OnForceQueueNotification = delegate(ForceMatchmakingQueueNotification A_0)
 			{
 			};
-		}
-		this.OnForceQueueNotification = LobbyGameClientInterface.<>f__am$cache19;
-		if (LobbyGameClientInterface.<>f__am$cache1A == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1A = delegate(GameInviteConfirmationRequest A_0)
+		
+		this.OnGameInviteConfirmationRequest = delegate(GameInviteConfirmationRequest A_0)
 			{
 			};
-		}
-		this.OnGameInviteConfirmationRequest = LobbyGameClientInterface.<>f__am$cache1A;
-		if (LobbyGameClientInterface.<>f__am$cache1B == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1B = delegate(QuestCompleteNotification A_0)
+		
+		this.OnQuestCompleteNotification = delegate(QuestCompleteNotification A_0)
 			{
 			};
-		}
-		this.OnQuestCompleteNotification = LobbyGameClientInterface.<>f__am$cache1B;
-		if (LobbyGameClientInterface.<>f__am$cache1C == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1C = delegate(MatchResultsNotification A_0)
+		
+		this.OnMatchResultsNotification = delegate(MatchResultsNotification A_0)
 			{
 			};
-		}
-		this.OnMatchResultsNotification = LobbyGameClientInterface.<>f__am$cache1C;
-		if (LobbyGameClientInterface.<>f__am$cache1D == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1D = delegate(ServerQueueConfigurationUpdateNotification A_0)
+		
+		this.OnServerQueueConfigurationUpdateNotification = delegate(ServerQueueConfigurationUpdateNotification A_0)
 			{
 			};
-		}
-		this.OnServerQueueConfigurationUpdateNotification = LobbyGameClientInterface.<>f__am$cache1D;
-		if (LobbyGameClientInterface.<>f__am$cache1E == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache1E = delegate(RankedOverviewChangeNotification A_0)
+		
+		this.OnRankedOverviewChangeNotification = delegate(RankedOverviewChangeNotification A_0)
 			{
 			};
-		}
-		this.OnRankedOverviewChangeNotification = LobbyGameClientInterface.<>f__am$cache1E;
 		this.OnFactionCompetitionNotification = delegate(FactionCompetitionNotification A_0)
 		{
 		};
 		this.OnTrustBoostUsedNotification = delegate(TrustBoostUsedNotification A_0)
 		{
 		};
-		if (LobbyGameClientInterface.<>f__am$cache21 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache21 = delegate(FacebookAccessTokenNotification A_0)
+		
+		this.OnFacebookAccessTokenNotification = delegate(FacebookAccessTokenNotification A_0)
 			{
 			};
-		}
-		this.OnFacebookAccessTokenNotification = LobbyGameClientInterface.<>f__am$cache21;
-		if (LobbyGameClientInterface.<>f__am$cache22 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache22 = delegate(PlayerFactionContributionChangeNotification A_0)
+		
+		this.OnPlayerFactionContributionChange = delegate(PlayerFactionContributionChangeNotification A_0)
 			{
 			};
-		}
-		this.OnPlayerFactionContributionChange = LobbyGameClientInterface.<>f__am$cache22;
-		if (LobbyGameClientInterface.<>f__am$cache23 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache23 = delegate(FactionLoginRewardNotification A_0)
+		
+		this.OnFactionLoginRewardNotification = delegate(FactionLoginRewardNotification A_0)
 			{
 			};
-		}
-		this.OnFactionLoginRewardNotification = LobbyGameClientInterface.<>f__am$cache23;
-		if (LobbyGameClientInterface.<>f__am$cache24 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache24 = delegate(LobbyAlertMissionDataNotification A_0)
+		
+		this.OnLobbyAlertMissionDataNotification = delegate(LobbyAlertMissionDataNotification A_0)
 			{
 			};
-		}
-		this.OnLobbyAlertMissionDataNotification = LobbyGameClientInterface.<>f__am$cache24;
-		if (LobbyGameClientInterface.<>f__am$cache25 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameClientInterface.<>f__am$cache25 = delegate(LobbySeasonQuestDataNotification A_0)
+		
+		this.OnLobbySeasonQuestDataNotification = delegate(LobbySeasonQuestDataNotification A_0)
 			{
 			};
-		}
-		this.OnLobbySeasonQuestDataNotification = LobbyGameClientInterface.<>f__am$cache25;
 		base..ctor(Factory.Get());
 		this.m_registered = false;
 		this.m_sessionInfo = new LobbySessionInfo();
@@ -581,19 +205,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<RegisterGameClientResponse>>(ref this.OnConnected, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnConnected(Action<RegisterGameClientResponse>)).MethodHandle;
-			}
 		}
 	}
 
@@ -609,19 +220,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<string, bool, CloseStatusCode>>(ref this.OnDisconnected, (Action<string, bool, CloseStatusCode>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnDisconnected(Action<string, bool, CloseStatusCode>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -648,19 +246,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyServerReadyNotification>>(ref this.OnLobbyServerReadyNotification, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyServerReadyNotification(Action<LobbyServerReadyNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -698,19 +283,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyStatusNotification>>(ref this.OnLobbyStatusNotification, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyStatusNotification(Action<LobbyStatusNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -726,19 +298,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyGameplayOverridesNotification(Action<LobbyGameplayOverridesNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -750,19 +309,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyGameplayOverridesNotification>>(ref this.OnLobbyGameplayOverridesNotification, (Action<LobbyGameplayOverridesNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyGameplayOverridesNotification(Action<LobbyGameplayOverridesNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -778,19 +324,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyCustomGamesNotification(Action<LobbyCustomGamesNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -802,19 +335,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyCustomGamesNotification>>(ref this.OnLobbyCustomGamesNotification, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyCustomGamesNotification(Action<LobbyCustomGamesNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -841,19 +361,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<MatchmakingQueueAssignmentNotification>>(ref this.OnQueueAssignmentNotification, (Action<MatchmakingQueueAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnQueueAssignmentNotification(Action<MatchmakingQueueAssignmentNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -869,19 +376,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnQueueStatusNotification(Action<MatchmakingQueueStatusNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -893,19 +387,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<MatchmakingQueueStatusNotification>>(ref this.OnQueueStatusNotification, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnQueueStatusNotification(Action<MatchmakingQueueStatusNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -921,19 +402,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGameAssignmentNotification(Action<GameAssignmentNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -945,19 +413,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GameAssignmentNotification>>(ref this.OnGameAssignmentNotification, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGameAssignmentNotification(Action<GameAssignmentNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -984,19 +439,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GameInfoNotification>>(ref this.OnGameInfoNotification, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGameInfoNotification(Action<GameInfoNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1012,19 +454,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GameStatusNotification>>(ref this.OnGameStatusNotification, (Action<GameStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGameStatusNotification(Action<GameStatusNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1062,19 +491,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<PlayerAccountDataUpdateNotification>>(ref this.OnAccountDataUpdated, (Action<PlayerAccountDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnAccountDataUpdated(Action<PlayerAccountDataUpdateNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1093,19 +509,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnCharacterDataUpdateNotification(Action<PlayerCharacterDataUpdateNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1117,19 +520,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<PlayerCharacterDataUpdateNotification>>(ref this.OnCharacterDataUpdateNotification, (Action<PlayerCharacterDataUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnCharacterDataUpdateNotification(Action<PlayerCharacterDataUpdateNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1145,19 +535,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<InventoryComponentUpdateNotification>>(ref this.OnInventoryComponentUpdateNotification, (Action<InventoryComponentUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnInventoryComponentUpdateNotification(Action<InventoryComponentUpdateNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1184,19 +561,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnBankBalanceChangeNotification(Action<BankBalanceChangeNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1208,19 +572,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<BankBalanceChangeNotification>>(ref this.OnBankBalanceChangeNotification, (Action<BankBalanceChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnBankBalanceChangeNotification(Action<BankBalanceChangeNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1236,19 +587,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnSeasonStatusNotification(Action<SeasonStatusNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1260,19 +598,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<SeasonStatusNotification>>(ref this.OnSeasonStatusNotification, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnSeasonStatusNotification(Action<SeasonStatusNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1299,19 +624,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<ChapterStatusNotification>>(ref this.OnChapterStatusNotification, (Action<ChapterStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnChapterStatusNotification(Action<ChapterStatusNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1327,19 +639,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GroupUpdateNotification>>(ref this.OnGroupUpdateNotification, (Action<GroupUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGroupUpdateNotification(Action<GroupUpdateNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1366,19 +665,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<UseGGPackNotification>>(ref this.OnUseGGPackNotification, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnUseGGPackNotification(Action<UseGGPackNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1405,19 +691,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnChatNotification(Action<ChatNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1429,19 +702,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<ChatNotification>>(ref this.OnChatNotification, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnChatNotification(Action<ChatNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1457,19 +717,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnUseOverconNotification(Action<UseOverconResponse>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1481,19 +728,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<UseOverconResponse>>(ref this.OnUseOverconNotification, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnUseOverconNotification(Action<UseOverconResponse>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1520,19 +754,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<FriendStatusNotification>>(ref this.OnFriendStatusNotification, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFriendStatusNotification(Action<FriendStatusNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1548,19 +769,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGroupConfirmation(Action<GroupConfirmationRequest>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1572,19 +780,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GroupConfirmationRequest>>(ref this.OnGroupConfirmation, (Action<GroupConfirmationRequest>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGroupConfirmation(Action<GroupConfirmationRequest>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1600,19 +795,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnGroupSuggestion(Action<GroupSuggestionRequest>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1624,19 +806,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<GroupSuggestionRequest>>(ref this.OnGroupSuggestion, (Action<GroupSuggestionRequest>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnGroupSuggestion(Action<GroupSuggestionRequest>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1652,19 +821,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<ForceMatchmakingQueueNotification>>(ref this.OnForceQueueNotification, (Action<ForceMatchmakingQueueNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnForceQueueNotification(Action<ForceMatchmakingQueueNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1694,19 +850,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnQuestCompleteNotification(Action<QuestCompleteNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1718,19 +861,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<QuestCompleteNotification>>(ref this.OnQuestCompleteNotification, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnQuestCompleteNotification(Action<QuestCompleteNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1746,19 +876,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<MatchResultsNotification>>(ref this.OnMatchResultsNotification, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnMatchResultsNotification(Action<MatchResultsNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1785,19 +902,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnServerQueueConfigurationUpdateNotification(Action<ServerQueueConfigurationUpdateNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1809,19 +913,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<ServerQueueConfigurationUpdateNotification>>(ref this.OnServerQueueConfigurationUpdateNotification, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnServerQueueConfigurationUpdateNotification(Action<ServerQueueConfigurationUpdateNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1837,19 +928,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnRankedOverviewChangeNotification(Action<RankedOverviewChangeNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1861,19 +939,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<RankedOverviewChangeNotification>>(ref this.OnRankedOverviewChangeNotification, (Action<RankedOverviewChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnRankedOverviewChangeNotification(Action<RankedOverviewChangeNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1889,19 +954,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnFactionCompetitionNotification(Action<FactionCompetitionNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1913,19 +965,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<FactionCompetitionNotification>>(ref this.OnFactionCompetitionNotification, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFactionCompetitionNotification(Action<FactionCompetitionNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1941,19 +980,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnTrustBoostUsedNotification(Action<TrustBoostUsedNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -1965,19 +991,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<TrustBoostUsedNotification>>(ref this.OnTrustBoostUsedNotification, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnTrustBoostUsedNotification(Action<TrustBoostUsedNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -1993,19 +1006,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnFacebookAccessTokenNotification(Action<FacebookAccessTokenNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -2017,19 +1017,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<FacebookAccessTokenNotification>>(ref this.OnFacebookAccessTokenNotification, (Action<FacebookAccessTokenNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFacebookAccessTokenNotification(Action<FacebookAccessTokenNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -2045,19 +1032,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnPlayerFactionContributionChange(Action<PlayerFactionContributionChangeNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -2069,19 +1043,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<PlayerFactionContributionChangeNotification>>(ref this.OnPlayerFactionContributionChange, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnPlayerFactionContributionChange(Action<PlayerFactionContributionChangeNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -2097,19 +1058,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnFactionLoginRewardNotification(Action<FactionLoginRewardNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -2121,19 +1069,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<FactionLoginRewardNotification>>(ref this.OnFactionLoginRewardNotification, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnFactionLoginRewardNotification(Action<FactionLoginRewardNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -2149,19 +1084,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbyAlertMissionDataNotification(Action<LobbyAlertMissionDataNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -2173,19 +1095,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbyAlertMissionDataNotification>>(ref this.OnLobbyAlertMissionDataNotification, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbyAlertMissionDataNotification(Action<LobbyAlertMissionDataNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -2201,19 +1110,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Combine(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.add_OnLobbySeasonQuestDataNotification(Action<LobbySeasonQuestDataNotification>)).MethodHandle;
-			}
 		}
 		remove
 		{
@@ -2225,19 +1121,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				action = Interlocked.CompareExchange<Action<LobbySeasonQuestDataNotification>>(ref this.OnLobbySeasonQuestDataNotification, (Action<LobbySeasonQuestDataNotification>)Delegate.Remove(action2, value), action);
 			}
 			while (action != action2);
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.remove_OnLobbySeasonQuestDataNotification(Action<LobbySeasonQuestDataNotification>)).MethodHandle;
-			}
 		}
 	}
 
@@ -2370,31 +1253,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 							scheme = newDirectoryServerUri.Scheme;
 							goto IL_1AC;
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					scheme = "https";
 					goto IL_1AC;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.AssignGameClient(string)).MethodHandle;
 				}
 			}
 			scheme = "http";
@@ -2405,26 +1266,8 @@ public class LobbyGameClientInterface : WebSocketInterface
 			int port;
 			if (uri.Port > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!uri.IsDefaultPort)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					port = uri.Port;
 					goto IL_211;
 				}
@@ -2436,15 +1279,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 			string path;
 			if (uri.AbsolutePath != "/")
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				path = uri.AbsolutePath;
 			}
 			else
@@ -2463,19 +1297,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 				{
 					if (exception != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameClientInterface.<AssignGameClient>c__AnonStorey1.<>m__0(AssignGameClientResponse, Exception)).MethodHandle;
-						}
 						if (this.m_overallConnectionTimer.Elapsed.TotalSeconds >= (double)this.ConnectionTimeout)
 						{
 							this.m_overallConnectionTimer.Reset();
@@ -2492,28 +1313,10 @@ public class LobbyGameClientInterface : WebSocketInterface
 					{
 						if (!assignResponse.Success)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							throw new ClientRequestFailed(assignResponse.ErrorMessage);
 						}
 						if (assignResponse.LobbyServerAddress.IsNullOrEmpty())
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							throw new ClientRequestFailed("Empty response from server");
 						}
 						this.m_lobbyServerAddress = assignResponse.LobbyServerAddress;
@@ -2568,51 +1371,20 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	private void HandleQueueToPlayerNotification(MatchmakingQueueToPlayersNotification notification)
 	{
-		if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.\u0012)
+		if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.symbol_0012)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleQueueToPlayerNotification(MatchmakingQueueToPlayersNotification)).MethodHandle;
-			}
 			AppState_GroupCharacterSelect.Get().ReEnter(true);
 			UIManager.SetGameObjectActive(UIFrontEnd.Get().m_frontEndNavPanel, true, null);
 		}
-		else if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.\u0015)
+		else if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.symbol_0015)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string description = StringUtil.TR("RuinedGameStartSoThrownOutOfQueue", "Global");
 			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), description, StringUtil.TR("Ok", "Global"), null, -1, false);
 			Log.Info("Updating ready state to false because ruined game, thrown out of queue, current Appstate: " + AppState.GetCurrent().ToString(), new object[0]);
 			AppState_GroupCharacterSelect.Get().UpdateReadyState(false);
 		}
-		else if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.\u000E)
+		else if (notification.MessageToSend == MatchmakingQueueToPlayersNotification.MatchmakingQueueMessage.symbol_000E)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().HandleQueueConfirmation();
 		}
 		else
@@ -2636,98 +1408,31 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (notification.SubPhase == FreelancerResolutionPhaseSubType.DUPLICATE_FREELANCER)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleResolvingDuplicateFreelancerNotification(EnterFreelancerResolutionPhaseNotification)).MethodHandle;
-			}
 			UIMatchStartPanel.Get().NotifyDuplicateFreelancer(true);
 		}
 		else if (notification.RankedData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (notification.SubPhase != FreelancerResolutionPhaseSubType.WAITING_FOR_ALL_PLAYERS)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIRankedModeDraftScreen.Get() == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 				if (AppState_RankModeDraft.Get() != AppState.GetCurrent())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AppState_RankModeDraft.Get().Enter();
 				}
 				UIRankedModeDraftScreen.Get().HandleResolvingDuplicateFreelancerNotification(notification);
 				if (!notification.SubPhase.IsPickBanSubPhase())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!notification.SubPhase.IsPickFreelancerSubPhase())
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				RankedResolutionPhaseData value = notification.RankedData.Value;
 				int ourPlayerId = UIRankedModeDraftScreen.Get().OurPlayerId;
-				if (value.\u001D(ourPlayerId))
+				if (value.symbol_001D(ourPlayerId))
 				{
 					System.Random rnd = new System.Random();
 					List<CharacterType> list = new List<CharacterType>();
@@ -2745,15 +1450,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 							CharacterType item = enumerator.Current;
 							list.Remove(item);
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					using (List<CharacterType>.Enumerator enumerator2 = value.EnemyBans.GetEnumerator())
 					{
@@ -2761,15 +1457,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 						{
 							CharacterType item2 = enumerator2.Current;
 							list.Remove(item2);
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					foreach (CharacterType item3 in value.EnemyTeamSelections.Values)
@@ -2790,32 +1477,10 @@ public class LobbyGameClientInterface : WebSocketInterface
 		string text;
 		if (localizedFailure != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.WriteErrorToConsole(LocalizationPayload, string)).MethodHandle;
-			}
 			text = localizedFailure.ToString();
 		}
 		else if (!unlocalizedFailure.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = string.Format("{0}#NeedsLocalization", unlocalizedFailure);
 		}
 		else
@@ -2839,19 +1504,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		{
 			if (!response.Success)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.<SendRankedTradeRequest>m__26(RankedTradeResponse)).MethodHandle;
-				}
 				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		});
@@ -2866,19 +1518,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		{
 			if (!response.Success)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.<SendRankedBanRequest>m__27(RankedBanResponse)).MethodHandle;
-				}
 				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		});
@@ -2893,19 +1532,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		{
 			if (!response.Success)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.<SendRankedSelectionRequest>m__28(RankedSelectionResponse)).MethodHandle;
-				}
 				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		});
@@ -2931,19 +1557,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		string text;
 		if (characterResourceLink != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleFreelancerUnavailableNotification(FreelancerUnavailableNotification)).MethodHandle;
-			}
 			text = characterResourceLink.GetDisplayName();
 		}
 		else
@@ -2968,15 +1581,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 			string text2;
 			if (notification.thiefName.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = string.Format(StringUtil.TR("AlreadyClaimedChooseNewFreelancer", "Global"), arg);
 			}
 			else
@@ -2988,15 +1592,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		if (!notification.oldCharacterType.IsWillFill())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIDialogPopupManager.OpenOneButtonDialog(title, description, StringUtil.TR("Ok", "Global"), null, -1, false);
 		}
 	}
@@ -3010,19 +1605,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (this.m_registered)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleConnectionClosedNotification(ConnectionClosedNotification)).MethodHandle;
-			}
 			base.Logger.Info("Disconnected from {0} ({1}) CloseStatusCode={2}", new object[]
 			{
 				this.m_serverAddress,
@@ -3035,26 +1617,8 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		else if (this.m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_overallConnectionTimer.Elapsed.TotalSeconds < (double)base.ConnectionTimeout)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Logger.Info("Retrying connection to {0}: {1} CloseStatusCode={2}", new object[]
 				{
 					this.m_serverAddress,
@@ -3142,69 +1706,20 @@ public class LobbyGameClientInterface : WebSocketInterface
 			this.m_overallConnectionTimer.Reset();
 			if (response.SessionInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleRegisterGameClientResponse(RegisterGameClientResponse)).MethodHandle;
-				}
 				this.m_sessionInfo = response.SessionInfo;
 			}
 			else if (response.AuthInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_sessionInfo.AccountId = response.AuthInfo.AccountId;
 			}
 			if (response.Status != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HandleLobbyStatusNotification(response.Status);
 			}
 			if (response.AuthInfo != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(response.AuthInfo.Handle))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_ticket.AuthInfo = response.AuthInfo;
 				}
 			}
@@ -3220,32 +1735,10 @@ public class LobbyGameClientInterface : WebSocketInterface
 			base.Logger.Info("Lobby server is ready", new object[0]);
 			if (notification.FriendStatus != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleLobbyServerReadyNotification(LobbyServerReadyNotification)).MethodHandle;
-				}
 				this.HandleFriendStatusNotification(notification.FriendStatus);
 			}
 			if (notification.ServerQueueConfiguration != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HandleServerQueueConfigurationUpdateNotification(notification.ServerQueueConfiguration);
 			}
 		}
@@ -3298,19 +1791,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.SetGameTypeSubMasks(GameType, ushort, Action<SetGameSubTypeResponse>)).MethodHandle;
-			}
 			Log.Error("Attempted to send a group update in response to one - bad! - SetGameTypeSubMasks \r\nCall Stack: {0}", new object[]
 			{
 				"n/a"
@@ -3348,19 +1828,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateQueueEnemyBotDifficulty(LobbyMatchmakingQueueInfo, BotDifficulty)).MethodHandle;
-			}
 			Log.Error("Attempted to send a group update in response to one - bad! - UpdateQueueEnemyBotDifficulty", new object[0]);
 			return;
 		}
@@ -3462,19 +1929,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdatePlayerInfo(LobbyPlayerInfoUpdate, Action<PlayerInfoUpdateResponse>)).MethodHandle;
-			}
 			Log.Error("Attempted to send a group update in response to one - bad! - UpdatePlayerInfo \r\nCall stack: {0}", new object[]
 			{
 				"n/a"
@@ -3493,19 +1947,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateGameCheats(GameOptionFlag, PlayerGameOptionFlag, Action<GameCheatUpdateResponse>)).MethodHandle;
-			}
 			Log.Error("Attempted to send a group update in response to one - bad! - UpdateGameCheats", new object[0]);
 			return;
 		}
@@ -3521,19 +1962,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateGroupGameType(GameType, Action<PlayerGroupInfoUpdateResponse>)).MethodHandle;
-			}
 			Log.Error("Attempted to send a group update in response to one - bad! - UpdateGroupGameType", new object[0]);
 			return;
 		}
@@ -3548,19 +1976,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (LobbyGameClientInterface.BlockSendingGroupUpdates)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.UpdateGameInfo(LobbyGameInfo, LobbyTeamInfo)).MethodHandle;
-			}
 			Log.Error("Attempted to send a group update in response to one - bad! - UpdateGameInfo", new object[0]);
 			return;
 		}
@@ -3572,19 +1987,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 		{
 			if (!response.Success)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameClientInterface.<UpdateGameInfo>m__2A(GameInfoUpdateResponse)).MethodHandle;
-				}
 				this.WriteErrorToConsole(response.LocalizedFailure, response.ErrorMessage);
 			}
 		};
@@ -3880,19 +2282,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (paymentMethodId == 0L)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.PurchaseLootMatrixPack(int, long, Action<PurchaseLootMatrixPackResponse>)).MethodHandle;
-			}
 			return;
 		}
 		this.SendRequestMessage<PurchaseLootMatrixPackResponse>(new PurchaseLootMatrixPackRequest
@@ -3908,19 +2297,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (paymentMethodId == 0L)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.PurchaseGame(int, long, Action<PurchaseGameResponse>)).MethodHandle;
-			}
 			return;
 		}
 		this.SendRequestMessage<PurchaseGameResponse>(new PurchaseGameRequest
@@ -3936,19 +2312,6 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (paymentMethodId == 0L)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.PurchaseGGPack(int, long, Action<PurchaseGGPackResponse>)).MethodHandle;
-			}
 			return;
 		}
 		this.SendRequestMessage<PurchaseGGPackResponse>(new PurchaseGGPackRequest
@@ -4287,7 +2650,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		this.SendRequestMessage<SeasonQuestActionResponse>(new SeasonQuestActionRequest
 		{
 			RequestId = this.m_messageDispatcher.GetRequestId(),
-			Action = SeasonQuestActionRequest.ActionType.\u001D,
+			Action = SeasonQuestActionRequest.ActionType.symbol_001D,
 			SeasonId = seasonId,
 			ChapterId = chapterId
 		}, onResponseCallback);
@@ -4297,7 +2660,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		this.SendRequestMessage<SeasonQuestActionResponse>(new SeasonQuestActionRequest
 		{
-			Action = SeasonQuestActionRequest.ActionType.\u000E,
+			Action = SeasonQuestActionRequest.ActionType.symbol_000E,
 			RequestId = this.m_messageDispatcher.GetRequestId(),
 			SeasonId = seasonId,
 			ChapterId = chapterId,
@@ -4514,31 +2877,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 		ClientExceptionDetector clientExceptionDetector = ClientExceptionDetector.Get();
 		if (clientExceptionDetector != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandleErrorReportSummaryRequest(ErrorReportSummaryRequest)).MethodHandle;
-			}
 			ClientErrorReport clientErrorReport;
 			if (clientExceptionDetector.GetClientErrorReport(request.CrashReportHash, out clientErrorReport))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Info("Informing lobby about error report {0}: {1}", new object[]
 				{
 					request.CrashReportHash,
@@ -4563,41 +2904,15 @@ public class LobbyGameClientInterface : WebSocketInterface
 	{
 		if (UIStorePanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.HandlePendingPurchaseResult(PendingPurchaseResult)).MethodHandle;
-			}
 			UIStorePanel.Get().HandlePendingPurchaseResult(resultMsg);
 		}
 	}
 
-	private void \u001D(DEBUG_ResetCompletedChaptersResponse \u001D)
+	private void symbol_001D(DEBUG_ResetCompletedChaptersResponse symbol_001D)
 	{
 		string text = string.Empty;
-		if (\u001D.Success)
+		if (symbol_001D.Success)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientInterface.\u001D(DEBUG_ResetCompletedChaptersResponse)).MethodHandle;
-			}
 			text = "Cleared completed chapters list";
 			Log.Info(text, new object[0]);
 		}
@@ -4714,28 +3029,28 @@ public class LobbyGameClientInterface : WebSocketInterface
 		});
 	}
 
-	public void \u001D(string \u001D, string \u000E)
+	public void symbol_001D(string symbol_001D, string symbol_000E)
 	{
 		base.SendMessage(new DEBUG_AdminSlashCommandNotification
 		{
-			Command = \u001D,
-			Arguments = \u000E
+			Command = symbol_001D,
+			Arguments = symbol_000E
 		});
 	}
 
-	public void \u001D(Action<DEBUG_ForceMatchmakingResponse> \u001D)
+	public void symbol_001D(Action<DEBUG_ForceMatchmakingResponse> symbol_001D)
 	{
 		this.SendRequestMessage<DEBUG_ForceMatchmakingResponse>(new DEBUG_ForceMatchmakingRequest
 		{
 			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, \u001D);
+		}, symbol_001D);
 	}
 
-	public void \u001D(Action<DEBUG_TakeSnapshotResponse> \u001D)
+	public void symbol_001D(Action<DEBUG_TakeSnapshotResponse> symbol_001D)
 	{
 		this.SendRequestMessage<DEBUG_TakeSnapshotResponse>(new DEBUG_TakeSnapshotRequest
 		{
 			RequestId = this.m_messageDispatcher.GetRequestId()
-		}, \u001D);
+		}, symbol_001D);
 	}
 }

@@ -53,19 +53,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		base.StartConfirmedTargeting(currentTarget, targetingActor);
 		if (this.m_highlights.Count >= 2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DashAndAim.StartConfirmedTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			this.m_highlights[0].SetActive(false);
 			this.m_highlights[1].SetActive(false);
 		}
@@ -86,19 +73,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		AbilityTarget abilityTarget;
 		if (currentTargetIndex == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DashAndAim.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			abilityTarget = currentTarget;
 		}
 		else
@@ -137,15 +111,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		if (currentTargetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float laserRange = this.m_laserRange;
 			float widthInWorld = this.m_laserWidth * Board.Get().squareSize;
 			Vector3 vector3 = this.getClampedLaserDirection(targets[0], currentTarget, vector2);
@@ -165,28 +130,10 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 					ActorData actor = enumerator.Current;
 					base.AddActorInRange(actor, laserCoords.start, targetingActor, AbilityTooltipSubject.Primary, false);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			bool flag = false;
 			if (this.m_highlights.Count < num + 2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f, null));
 				this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_aoeRadius * Board.Get().squareSize, 360f));
 				flag = true;
@@ -197,15 +144,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			Vector3 vector4 = end;
 			if (!this.m_aoePenetratesLoS)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector4 = AbilityCommon_LaserWithCone.GetConeLosCheckPos(laserCoords.start, laserCoords.end);
 			}
 			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(end, 0f, 360f, this.m_aoeRadius, 0f, this.m_aoePenetratesLoS, targetingActor, targetingActor.GetOpposingTeam(), null, true, vector4);
@@ -217,40 +155,13 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 					ActorData actorData = enumerator2.Current;
 					if (!actorsInLaser.Contains(actorData))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, end, targetingActor, AbilityTooltipSubject.Secondary, true);
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Vector3 position = end;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				position = TargeterUtils.MoveHighlightTowards(end, gameObject4, ref this.m_cursorSpeed);
 			}
 			position.y = (float)Board.Get().BaselineHeight + 0.1f;
@@ -261,15 +172,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			gameObject3.transform.position = laserCoords.start + new Vector3(0f, 0.1f - BoardSquare.s_LoSHeightOffset, 0f);
 			if (vector3 != Vector3.zero)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject3.transform.rotation = Quaternion.LookRotation(vector3);
 			}
 			if (GameFlowData.Get().activeOwnedActorData == targetingActor)
@@ -290,27 +192,9 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		if (currentTargetIndex == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquareSafe2;
 			if (currentTargetIndex == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 			}
 			else
@@ -319,15 +203,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 			}
 			if (boardSquareSafe2 != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquarePathInfo boardSquarePathInfo;
 				if (this.m_teleportPath)
 				{
@@ -348,15 +223,6 @@ public class AbilityUtil_Targeter_DashAndAim : AbilityUtil_Targeter
 		}
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 	}

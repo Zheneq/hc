@@ -36,19 +36,6 @@ public class ArcherHealingDebuffArrow : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Bacta Arrow";
 		}
 		this.SetupTargeter();
@@ -70,19 +57,6 @@ public class ArcherHealingDebuffArrow : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.OccupantActor != null && base.CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, true, false, false, Ability.ValidateCheckPath.Ignore, true, false, false))
 			{
 				return true;
@@ -127,19 +101,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo cachedLaserHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
 		}
 		else
@@ -150,15 +111,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo cachedExtraModEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExtraModEffect = this.m_abilityMod.m_extraHitEffectMod.GetModifiedValue(null);
 		}
 		else
@@ -169,15 +121,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo cachedReactionEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedReactionEffect = this.m_abilityMod.m_reactionEffectMod.GetModifiedValue(this.m_reactionEffect);
 		}
 		else
@@ -192,19 +135,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedLaserHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetLaserHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserHitEffect;
 		}
 		else
@@ -224,19 +154,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetReactionHealing()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_reactionHealingMod.GetModifiedValue(this.m_reactionHealing);
 		}
 		else
@@ -251,19 +168,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetReactionHealingOnSelf()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_reactionHealingOnSelfMod.GetModifiedValue(this.m_reactionHealingOnSelf);
 		}
 		else
@@ -293,19 +197,6 @@ public class ArcherHealingDebuffArrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedReactionEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetReactionEffect()).MethodHandle;
-			}
 			result = this.m_cachedReactionEffect;
 		}
 		else
@@ -325,19 +216,6 @@ public class ArcherHealingDebuffArrow : Ability
 		AbilityModCooldownReduction result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetCooldownReductionIfNoHeals()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownReductionIfNoHeals;
 		}
 		else
@@ -352,19 +230,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetExtraHealBelowHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraHealBelowHealthThresholdMod.GetModifiedValue(0);
 		}
 		else
@@ -379,19 +244,6 @@ public class ArcherHealingDebuffArrow : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetHealthThresholdForExtraHeal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healthThresholdMod.GetModifiedValue(0f);
 		}
 		else
@@ -406,19 +258,6 @@ public class ArcherHealingDebuffArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherHealingDebuffArrow.GetExtraDamageToThisTargetFromCaster()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageToThisTargetFromCasterMod.GetModifiedValue(0);
 		}
 		else

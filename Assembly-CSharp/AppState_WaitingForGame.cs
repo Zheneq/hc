@@ -45,19 +45,6 @@ public class AppState_WaitingForGame : AppState
 		gameManager.OnGameSelecting += this.HandleGameSelecting;
 		if (this.m_wasRequeued && this.m_messageBox == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_WaitingForGame.OnEnter()).MethodHandle;
-			}
 			this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(string.Empty, StringUtil.TR("SomeoneDroppedReaddedQueue", "Global"), StringUtil.TR("Ok", "Global"), null, -1, false);
 		}
 	}
@@ -84,27 +71,11 @@ public class AppState_WaitingForGame : AppState
 		Log.Info("Clicked on cancel, leaving Queue", new object[0]);
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		LobbyGameClientInterface lobbyInterface = clientGameManager.LobbyInterface;
-		if (AppState_WaitingForGame.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_WaitingForGame.HandleCancelClicked()).MethodHandle;
-			}
-			AppState_WaitingForGame.<>f__am$cache0 = delegate(LeaveMatchmakingQueueResponse response)
+		
+		lobbyInterface.LeaveQueue(delegate(LeaveMatchmakingQueueResponse response)
 			{
 				AppState_GameTypeSelect.Get().Enter();
-			};
-		}
-		lobbyInterface.LeaveQueue(AppState_WaitingForGame.<>f__am$cache0);
+			});
 	}
 
 	public void HandleQueueStatusNotification(MatchmakingQueueStatusNotification notification)

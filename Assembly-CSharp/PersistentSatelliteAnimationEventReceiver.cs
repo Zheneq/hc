@@ -14,33 +14,11 @@ public class PersistentSatelliteAnimationEventReceiver : MonoBehaviour, IAnimati
 	{
 		if (this.m_persistentSatellite == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteAnimationEventReceiver.NewEvent(UnityEngine.Object)).MethodHandle;
-			}
 			Log.Error(this + " NewEvent called before setup", new object[0]);
 			return;
 		}
 		if (eventObject == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		this.m_persistentSatellite.OnAnimationEvent(eventObject);
@@ -65,19 +43,6 @@ public class PersistentSatelliteAnimationEventReceiver : MonoBehaviour, IAnimati
 	{
 		if (this.m_persistentSatellite == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistentSatelliteAnimationEventReceiver.AudioEvent(string)).MethodHandle;
-			}
 			Log.Error(this + " NewEvent called before Start", new object[0]);
 			return;
 		}

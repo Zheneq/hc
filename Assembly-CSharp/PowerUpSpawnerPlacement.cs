@@ -20,19 +20,6 @@ public class PowerUpSpawnerPlacement : MonoBehaviour, IGameEventListener
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpSpawnerPlacement.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "icon_PowerUp.png");

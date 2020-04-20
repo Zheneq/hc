@@ -18,19 +18,6 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (AbilityModManager.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.Awake()).MethodHandle;
-			}
 			AbilityModManager.s_instance = this;
 		}
 	}
@@ -56,31 +43,9 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (newState == GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.OnGameStateChanged(GameState)).MethodHandle;
-			}
 		}
 		else if (newState == GameState.BothTeams_Resolve)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ShowDebugGUI = false;
 		}
 		else if (newState == GameState.EndingGame)
@@ -95,33 +60,11 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.OnActiveOwnedActorChange(ActorData)).MethodHandle;
-			}
 			Debug.LogWarning("[Client] function 'System.Void AbilityModManager::OnActiveOwnedActorChange(ActorData)' called on server");
 			return;
 		}
 		if (activeActor != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.LoadAvailableModsForActor(activeActor);
 		}
 	}
@@ -133,19 +76,6 @@ public class AbilityModManager : NetworkBehaviour
 		{
 			if (!this.m_abilityTypeToMods.ContainsKey(ability.GetType()))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetAvailableModsForAbility(Ability)).MethodHandle;
-				}
 				this.LoadAvailableModsForAbility(ability);
 			}
 			using (List<AbilityMod>.Enumerator enumerator = this.m_abilityTypeToMods[ability.GetType()].GetEnumerator())
@@ -154,15 +84,6 @@ public class AbilityModManager : NetworkBehaviour
 				{
 					AbilityMod item = enumerator.Current;
 					list.Add(item);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -173,30 +94,8 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetDefaultModForAbility(Ability)).MethodHandle;
-			}
 			if (!this.m_abilityTypeToMods.ContainsKey(ability.GetType()))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.LoadAvailableModsForAbility(ability);
 			}
 			using (List<AbilityMod>.Enumerator enumerator = this.m_abilityTypeToMods[ability.GetType()].GetEnumerator())
@@ -206,29 +105,11 @@ public class AbilityModManager : NetworkBehaviour
 					AbilityMod abilityMod = enumerator.Current;
 					if (abilityMod.m_availableInGame)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (abilityMod.m_defaultEquip)
 						{
 							return abilityMod;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -249,30 +130,8 @@ public class AbilityModManager : NetworkBehaviour
 				AbilityMod abilityMod = enumerator.Current;
 				if (abilityMod != null && abilityMod.m_abilityScopeId == abilityScopeId)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetAbilityModForAbilityById(Ability, int)).MethodHandle;
-					}
 					return abilityMod;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -283,31 +142,9 @@ public class AbilityModManager : NetworkBehaviour
 		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 		if (actorData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.GetAbilityModOnActor(int, int, int)).MethodHandle;
-			}
 			AbilityData component = actorData.GetComponent<AbilityData>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability abilityOfActionType = component.GetAbilityOfActionType((AbilityData.ActionType)actionTypeInt);
 				return this.GetAbilityModForAbilityById(abilityOfActionType, abilityScopeId);
 			}
@@ -319,19 +156,6 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (actor != null && actor.GetAbilityData() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.LoadAvailableModsForActor(ActorData)).MethodHandle;
-			}
 			for (int i = 0; i <= 4; i++)
 			{
 				Ability abilityOfActionType = actor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)i);
@@ -344,33 +168,11 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (ability == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModManager.LoadAvailableModsForAbility(Ability)).MethodHandle;
-			}
 			return;
 		}
 		Type type = ability.GetType();
 		if (this.m_abilityTypeToMods.ContainsKey(type))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_abilityTypeToMods[type].Clear();
 		}
 		else
@@ -385,15 +187,6 @@ public class AbilityModManager : NetworkBehaviour
 				AbilityMod item = enumerator.Current;
 				this.m_abilityTypeToMods[type].Add(item);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -405,8 +198,7 @@ public class AbilityModManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

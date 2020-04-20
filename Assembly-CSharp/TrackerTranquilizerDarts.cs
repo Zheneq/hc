@@ -56,33 +56,11 @@ public class TrackerTranquilizerDarts : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Tranquilizer Darts";
 		}
 		this.m_droneTracker = base.GetComponent<TrackerDroneTrackerComponent>();
 		if (this.m_droneTracker == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("No drone tracker component");
 		}
 		this.SetupTargeter();
@@ -93,19 +71,6 @@ public class TrackerTranquilizerDarts : Ability
 		this.SetCachedFields();
 		if (this.m_droneInfoComp == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.SetupTargeter()).MethodHandle;
-			}
 			this.m_droneInfoComp = base.GetComponent<TrackerDroneInfoComponent>();
 		}
 		this.m_targeterMinAngle = Mathf.Max(0f, this.m_targeterMinAngle);
@@ -129,19 +94,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo standardEffectInfo;
 		if (abilityMod_TrackerTranquilizerDarts)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			standardEffectInfo = abilityMod_TrackerTranquilizerDarts.m_enemySingleHitEffectMod.GetModifiedValue(this.m_enemySingleHitEffect);
 		}
 		else
@@ -153,15 +105,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo standardEffectInfo2;
 		if (abilityMod_TrackerTranquilizerDarts)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo2 = abilityMod_TrackerTranquilizerDarts.m_allySingleHitEffectMod.GetModifiedValue(this.m_allySingleHitEffect);
 		}
 		else
@@ -172,15 +115,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo standardEffectInfo3;
 		if (abilityMod_TrackerTranquilizerDarts)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo3 = abilityMod_TrackerTranquilizerDarts.m_allyMultiHitEffectMod.GetModifiedValue(this.m_allyMultiHitEffect);
 		}
 		else
@@ -195,15 +129,6 @@ public class TrackerTranquilizerDarts : Ability
 		TrackerHuntingCrossbow component = base.GetComponent<TrackerHuntingCrossbow>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.m_huntedEffectData.AddTooltipTokens(tokens, "TrackedEffect", false, null);
 		}
 	}
@@ -249,19 +174,6 @@ public class TrackerTranquilizerDarts : Ability
 		LaserTargetingInfo cachedLaserTargetingInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserTargetingInfo = this.m_abilityMod.m_laserTargetingInfoMod.GetModifiedValue(this.m_laserTargetingInfo);
 		}
 		else
@@ -281,19 +193,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetAllySingleHitEffect()).MethodHandle;
-			}
 			result = this.m_allySingleHitEffect;
 		}
 		else
@@ -308,19 +207,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetAllyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_allyMultiHitEffect;
 		}
 		else
@@ -335,19 +221,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetEnemySingleHitEffect()).MethodHandle;
-			}
 			result = this.m_enemySingleHitEffect;
 		}
 		else
@@ -362,19 +235,6 @@ public class TrackerTranquilizerDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetEnemyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_enemyMultiHitEffect;
 		}
 		else
@@ -389,19 +249,6 @@ public class TrackerTranquilizerDarts : Ability
 		int num;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.GetLaserCount()).MethodHandle;
-			}
 			num = this.m_laserCount;
 		}
 		else
@@ -416,19 +263,6 @@ public class TrackerTranquilizerDarts : Ability
 	{
 		if (this.GetLaserCount() > 1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TrackerTranquilizerDarts.HasRestrictedFreePosDistance(ActorData, int, List<AbilityTarget>, float*, float*)).MethodHandle;
-			}
 			min = this.m_targeterMinInterpDistance * Board.Get().squareSize;
 			max = this.m_targeterMaxInterpDistance * Board.Get().squareSize;
 			return true;

@@ -25,19 +25,6 @@ public class UIDynamicButton : MonoBehaviour
 				TextMeshProUGUI componentInChildren = transform.GetComponentInChildren<TextMeshProUGUI>();
 				if (componentInChildren == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicButton.Initialize()).MethodHandle;
-					}
 				}
 				else
 				{
@@ -46,28 +33,10 @@ public class UIDynamicButton : MonoBehaviour
 					{
 						if (image.gameObject.GetInstanceID() != transform.gameObject.GetInstanceID())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_icons.Add(image);
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -84,19 +53,6 @@ public class UIDynamicButton : MonoBehaviour
 	{
 		if (this.m_labels == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicButton.SetText(string, string)).MethodHandle;
-			}
 			this.Initialize();
 		}
 		using (List<TextMeshProUGUI>.Enumerator enumerator = this.m_labels.GetEnumerator())
@@ -105,15 +61,6 @@ public class UIDynamicButton : MonoBehaviour
 			{
 				TextMeshProUGUI textMeshProUGUI = enumerator.Current;
 				textMeshProUGUI.text = "<sprite name=\"" + spriteName + "\"> " + text;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

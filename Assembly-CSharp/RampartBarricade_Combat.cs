@@ -18,19 +18,6 @@ public class RampartBarricade_Combat : Ability
 		this.m_prepAbility = (base.GetComponent<AbilityData>().GetAbilityOfType(typeof(RampartBarricade_Prep)) as RampartBarricade_Prep);
 		if (this.m_prepAbility == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartBarricade_Combat.Start()).MethodHandle;
-			}
 			Debug.LogError("Rampart Barricade Chain: did not find parent ability");
 		}
 	}

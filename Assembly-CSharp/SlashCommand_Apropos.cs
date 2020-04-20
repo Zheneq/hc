@@ -12,32 +12,10 @@ public class SlashCommand_Apropos : SlashCommand
 		bool flag = arguments.IsNullOrEmpty() || command.Contains(arguments);
 		if (!flag && !aliases.IsNullOrEmpty<string>())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Apropos.DumpCommand(string, string, List<string>, bool, bool)).MethodHandle;
-			}
 			foreach (string text in aliases)
 			{
 				if (text.Contains(arguments))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					break;
 				}
@@ -45,26 +23,8 @@ public class SlashCommand_Apropos : SlashCommand
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!bAvailableBecauseWereInFrontEnd)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!bAvailableBecauseWereInGame)
 				{
 					return;
@@ -75,30 +35,12 @@ public class SlashCommand_Apropos : SlashCommand
 			message.Text = command;
 			if (!aliases.IsNullOrEmpty<string>())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (List<string>.Enumerator enumerator2 = aliases.GetEnumerator())
 				{
 					while (enumerator2.MoveNext())
 					{
 						string str = enumerator2.Current;
 						message.Text = message.Text + ", " + str;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -111,19 +53,6 @@ public class SlashCommand_Apropos : SlashCommand
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Apropos.OnSlashCommand(string)).MethodHandle;
-			}
 			bool flag = GameFlowData.Get() == null;
 			using (List<SlashCommand>.Enumerator enumerator = SlashCommands.Get().m_slashCommands.GetEnumerator())
 			{
@@ -132,15 +61,6 @@ public class SlashCommand_Apropos : SlashCommand
 					SlashCommand slashCommand = enumerator.Current;
 					if (!slashCommand.PublicFacing)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!clientGameManager.HasDeveloperAccess())
 						{
 							continue;
@@ -150,15 +70,6 @@ public class SlashCommand_Apropos : SlashCommand
 					bool flag2;
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = slashCommand.AvailableInGame;
 					}
 					else
@@ -167,15 +78,6 @@ public class SlashCommand_Apropos : SlashCommand
 					}
 					bool bAvailableBecauseWereInGame = flag2;
 					this.DumpCommand(arguments, slashCommand.Command, slashCommand.Aliases, bAvailableBecauseWereInFrontEnd, bAvailableBecauseWereInGame);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

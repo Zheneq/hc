@@ -35,19 +35,6 @@ public class SequenceSource
 		this.WaitForClientEnable = false;
 		if (stream == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource..ctor(SequenceSource.ActorDelegate, SequenceSource.Vector3Delegate, bool, SequenceSource, IBitStream)).MethodHandle;
-			}
 			this.RootID = ((!(parentSource == null)) ? parentSource.RootID : SequenceSource.AllocateID());
 		}
 		else
@@ -68,30 +55,8 @@ public class SequenceSource
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.AllocateID()).MethodHandle;
-			}
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Code Error: SequenceSource IDs should only be allocated on the server", new object[0]);
 			}
 		}
@@ -108,42 +73,11 @@ public class SequenceSource
 		{
 			if (this._rootID == 0U)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.set_RootID(uint)).MethodHandle;
-				}
 				if (value > 0U)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<SequenceSource> list;
 					if (SequenceSource.s_idsToSrcs.ContainsKey(value))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list = SequenceSource.s_idsToSrcs[value];
 					}
 					else
@@ -179,19 +113,6 @@ public class SequenceSource
 		{
 			if (SequenceSource.s_idsToSrcs.ContainsKey(this._rootID))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.Finalize()).MethodHandle;
-				}
 				List<SequenceSource> list = SequenceSource.s_idsToSrcs[this._rootID];
 				list.Remove(this);
 			}
@@ -226,19 +147,6 @@ public class SequenceSource
 		}
 		if (this.RemoveAtEndOfTurn != removeAtEndOfTurn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.OnSerializeHelper(IBitStream)).MethodHandle;
-			}
 			this.RemoveAtEndOfTurn = removeAtEndOfTurn;
 		}
 		if (this.WaitForClientEnable != waitForClientEnable)
@@ -252,31 +160,9 @@ public class SequenceSource
 		AbilityPriority currentAbilityPhase = ServerClientUtils.GetCurrentAbilityPhase();
 		if (this.m_hitTurn == GameFlowData.Get().CurrentTurn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.OnSequenceHit(Sequence, ActorData, ActorModelData.ImpulseInfo, ActorModelData.RagdollActivation, bool)).MethodHandle;
-			}
 			if (this.m_hitPhase == currentAbilityPhase)
 			{
 				goto IL_73;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_hitTurn = GameFlowData.Get().CurrentTurn;
@@ -287,26 +173,8 @@ public class SequenceSource
 		bool flag = false;
 		if (!this.m_hitActors.Contains(target))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_onHitActor != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_onHitActor(target);
 			}
 		}
@@ -317,26 +185,8 @@ public class SequenceSource
 		this.m_hitActors.Add(target);
 		if (seq != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!tryHitReactIfAlreadyHit)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					goto IL_F7;
@@ -370,19 +220,6 @@ public class SequenceSource
 			{
 				goto IL_67;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.OnSequenceHit(Sequence, Vector3, ActorModelData.ImpulseInfo)).MethodHandle;
-			}
 		}
 		this.m_hitTurn = GameFlowData.Get().CurrentTurn;
 		this.m_hitPhase = currentAbilityPhase;
@@ -391,41 +228,14 @@ public class SequenceSource
 		IL_67:
 		if (!this.m_hitPositions.Contains(position))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_hitPositions.Add(position);
 			if (this.m_onHitPosition != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_onHitPosition(position);
 			}
 		}
 		if (SequenceManager.SequenceDebugTraceOn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning(string.Concat(new object[]
 			{
 				"<color=yellow>Sequence Position Hit: </color><<color=lightblue>",
@@ -444,19 +254,6 @@ public class SequenceSource
 	{
 		if (SequenceSource.s_idsToSrcs.ContainsKey(src.RootID))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.DidSequenceHit(SequenceSource, ActorData)).MethodHandle;
-			}
 			List<SequenceSource> list = SequenceSource.s_idsToSrcs[src.RootID];
 			for (int i = 0; i < list.Count; i++)
 			{
@@ -464,15 +261,6 @@ public class SequenceSource
 				{
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -482,44 +270,13 @@ public class SequenceSource
 	{
 		if (SequenceSource.s_idsToSrcs.ContainsKey(src.RootID))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.DidSequenceHit(SequenceSource, Vector3)).MethodHandle;
-			}
 			List<SequenceSource> list = SequenceSource.s_idsToSrcs[src.RootID];
 			for (int i = 0; i < list.Count; i++)
 			{
 				if (list[i].m_hitPositions.Contains(position))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -535,58 +292,18 @@ public class SequenceSource
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.GetHitActorsString()).MethodHandle;
-					}
 					if (text.Length > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text += " | ";
 					}
 					text += actorData.ActorIndex;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		string str = "Did Hit Actor IDs: ";
 		string str2;
 		if (text.Length > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str2 = text;
 		}
 		else
@@ -606,19 +323,6 @@ public class SequenceSource
 				Vector3 vector = enumerator.Current;
 				text = text + "\t" + vector.ToString() + "\n";
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.GetHitPositionsString()).MethodHandle;
-			}
 		}
 		return text;
 	}
@@ -628,19 +332,6 @@ public class SequenceSource
 		SequenceSource sequenceSource = obj as SequenceSource;
 		if (sequenceSource == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource.Equals(object)).MethodHandle;
-			}
 			return false;
 		}
 		return this.RootID == sequenceSource.RootID;
@@ -655,44 +346,13 @@ public class SequenceSource
 	{
 		if (object.ReferenceEquals(a, b))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceSource == SequenceSource).MethodHandle;
-			}
 			return true;
 		}
 		if (a != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (b != null)
 			{
 				return a.RootID == b.RootID;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

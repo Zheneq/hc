@@ -21,14 +21,14 @@ public class IceborgSelfShield : GenericAbility_Container
 	public override List<string> GetContextNamesForEditor()
 	{
 		List<string> contextNamesForEditor = base.GetContextNamesForEditor();
-		contextNamesForEditor.Add(ContextKeys.\u0012.GetName());
+		contextNamesForEditor.Add(ContextKeys.symbol_0012.GetName());
 		return contextNamesForEditor;
 	}
 
 	public override string GetUsageForEditor()
 	{
 		string usageForEditor = base.GetUsageForEditor();
-		return usageForEditor + ContextVars.GetDebugString(ContextKeys.\u0012.GetName(), "set to 1 if caster is low health, 0 otherwise", false);
+		return usageForEditor + ContextVars.GetDebugString(ContextKeys.symbol_0012.GetName(), "set to 1 if caster is low health, 0 otherwise", false);
 	}
 
 	protected override void SetupTargetersAndCachedVars()
@@ -59,30 +59,8 @@ public class IceborgSelfShield : GenericAbility_Container
 		bool result = false;
 		if (this.GetLowHealthThresh() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgSelfShield.IsCasterLowHealth(ActorData)).MethodHandle;
-			}
 			if (caster.HitPoints < this.GetLowHealthThresh())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -93,41 +71,10 @@ public class IceborgSelfShield : GenericAbility_Container
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgSelfShield.GetStatusToApplyWhenRequested()).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp.m_selfShieldLowHealthOnTurnStart)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_abilityMod.m_lowHealthStatusWhenRequested;
 				}
 			}

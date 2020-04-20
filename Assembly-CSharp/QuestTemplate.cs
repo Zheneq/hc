@@ -68,19 +68,6 @@ public class QuestTemplate
 	{
 		if (resetIndex)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestTemplate.ResetToDefaultValuesForNewEntry(bool)).MethodHandle;
-			}
 			this.Index = 0;
 		}
 		this.DisplayName = string.Empty;

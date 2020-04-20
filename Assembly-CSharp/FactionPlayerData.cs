@@ -21,19 +21,6 @@ public class FactionPlayerData
 			{
 				break;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FactionPlayerData.GetXPThroughCurrentLevel(PlayerFactionProgressInfo[])).MethodHandle;
-			}
 			num -= FactionPlayerProgressInfo[i].ExperienceToNextLevel;
 		}
 		return num;

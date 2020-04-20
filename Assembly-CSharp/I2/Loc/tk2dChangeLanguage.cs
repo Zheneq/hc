@@ -24,19 +24,6 @@ namespace I2.Loc
 		{
 			if (LocalizationManager.HasLanguage(LangName, true, true))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(tk2dChangeLanguage.SetLanguage(string)).MethodHandle;
-				}
 				LocalizationManager.CurrentLanguage = LangName;
 			}
 		}

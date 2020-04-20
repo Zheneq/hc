@@ -32,19 +32,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		SorceressDamageField sorceressDamageField = targetAbility as SorceressDamageField;
 		if (sorceressDamageField != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressDamageField.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_durationMod, "Duration", string.Empty, sorceressDamageField.m_duration, true, false);
 			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, sorceressDamageField.m_damage, true, false);
 			AbilityMod.AddToken(tokens, this.m_healingMod, "Healing", string.Empty, sorceressDamageField.m_healing, true, false);
@@ -65,19 +52,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		AbilityAreaShape baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressDamageField.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sorceressDamageField.m_shape;
 		}
 		else
@@ -95,15 +69,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressDamageField.m_healing;
 		}
 		else
@@ -118,15 +83,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressDamageField.m_effectOnEnemies;
 		}
 		else

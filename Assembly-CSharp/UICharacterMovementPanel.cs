@@ -44,31 +44,9 @@ public class UICharacterMovementPanel : MonoBehaviour
 	{
 		if (instances != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementPanel.DestroyRecycledInstances(List<UICharacterMovementItem>)).MethodHandle;
-			}
 			for (int i = 0; i < instances.Count; i++)
 			{
 				UnityEngine.Object.Destroy(instances[i].gameObject);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			instances.Clear();
 		}
@@ -104,57 +82,17 @@ public class UICharacterMovementPanel : MonoBehaviour
 				KeyValuePair<BoardSquare, UICharacterMovementItem> keyValuePair = enumerator.Current;
 				if (keyValuePair.Value.Actors.Contains(data))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementPanel.RemoveIndicator(ActorData, Dictionary<BoardSquare, UICharacterMovementItem>, UICharacterMovementPanel.IndicatorType)).MethodHandle;
-					}
 					if (keyValuePair.Value.RemoveActor(data))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.RecycleInstance(keyValuePair.Value, indicatorType);
 						list.Add(keyValuePair.Key);
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		for (int i = 0; i < list.Count; i++)
 		{
 			displayedCharacters.Remove(list[i]);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -168,82 +106,24 @@ public class UICharacterMovementPanel : MonoBehaviour
 				KeyValuePair<BoardSquare, UICharacterMovementItem> keyValuePair = enumerator.Current;
 				if (keyValuePair.Value.Actors.Contains(data))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementPanel.AddIndicator(BoardSquare, ActorData, Dictionary<BoardSquare, UICharacterMovementItem>, UICharacterMovementItem, UICharacterMovementPanel.IndicatorType)).MethodHandle;
-					}
 					if (!(keyValuePair.Key != square))
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (keyValuePair.Value.RemoveActor(data))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.RecycleInstance(keyValuePair.Value, indicatorType);
 						list.Add(keyValuePair.Key);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int i = 0; i < list.Count; i++)
 		{
 			displayedCharacters.Remove(list[i]);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (displayedCharacters.ContainsKey(square))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			displayedCharacters[square].AddActor(data);
 		}
 		else
@@ -266,30 +146,8 @@ public class UICharacterMovementPanel : MonoBehaviour
 	{
 		if (item != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementPanel.RecycleInstance(UICharacterMovementItem, UICharacterMovementPanel.IndicatorType)).MethodHandle;
-			}
 			if (indicatorType == UICharacterMovementPanel.IndicatorType.Movement)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_recycledMoveIndicatorInstances.Add(item);
 			}
 			else if (indicatorType == UICharacterMovementPanel.IndicatorType.Respawn)
@@ -314,32 +172,10 @@ public class UICharacterMovementPanel : MonoBehaviour
 		}
 		else if (indicatorType == UICharacterMovementPanel.IndicatorType.Respawn)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementPanel.PopRecycledInstance(UICharacterMovementPanel.IndicatorType)).MethodHandle;
-			}
 			list = this.m_recycledRespawnIndicatorInstances;
 		}
 		if (list != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 0)
 			{
 				result = list[0];

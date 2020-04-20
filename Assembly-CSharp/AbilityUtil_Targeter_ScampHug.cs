@@ -44,19 +44,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ScampHug.IsInKnockbackMode()).MethodHandle;
-			}
 			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
 		}
 		else
@@ -72,31 +59,9 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		this.LastUpdatePathSquareCount = 0;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ScampHug.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 3)
 			{
 				goto IL_CD;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -109,15 +74,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		GameObject gameObject3 = this.m_highlights[2];
 		if (this.IsInKnockbackMode())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag = this.m_targetingMode == ScampHug.TargetingMode.Laser;
 			ActorData actorData;
 			List<ActorData> list;
@@ -130,15 +86,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 				Vector3 travelBoardSquareWorldPosition;
 				if (this.m_directHitIgnoreCover)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
 				}
 				else
@@ -156,15 +103,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 			}
 			else if (!flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				active = true;
 				Vector3 position2 = boardSquare.ToVector3();
 				position2.y = HighlightUtils.GetHighlightHeight();
@@ -178,38 +116,11 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 					ActorData actor = enumerator.Current;
 					base.AddActorInRange(actor, damageOrigin, targetingActor, AbilityTooltipSubject.Secondary, false);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_affectCasterDelegate != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_affectCasterDelegate(targetingActor, this.GetVisibleActorsInRange()))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 				}
 			}
@@ -225,37 +136,10 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 			num = base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 			if (this.m_enemyKnockbackDist > 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!list.Contains(actorData))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(actorData);
 					}
 				}
@@ -268,68 +152,23 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 						aimDir.y = 0f;
 						if (aimDir.sqrMagnitude > 0f)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							aimDir.Normalize();
 						}
 						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData2, this.m_enemyKnockbackType, aimDir2, vector, this.m_enemyKnockbackDist);
 						num = base.AddMovementArrowWithPrevious(actorData2, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			base.SetMovementArrowEnabledFromIndex(num, false);
 			if (boardSquarePathInfo != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.LastUpdatePathSquareCount = boardSquarePathInfo.GetNumSquaresToEnd(true);
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 a = vector;
 				if (boardSquarePathInfo != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					BoardSquarePathInfo pathEndpoint = boardSquarePathInfo.GetPathEndpoint();
 					a = pathEndpoint.square.ToVector3();
 				}
@@ -354,15 +193,6 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position3 = boardSquareSafe.ToVector3();
 				position3.y = HighlightUtils.GetHighlightHeight();
 				gameObject3.transform.position = position3;

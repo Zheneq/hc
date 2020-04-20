@@ -26,19 +26,6 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			string text2;
 			if (this.m_span.Days == 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_TimeSpan.TR()).MethodHandle;
-				}
 				text2 = "Day";
 			}
 			else
@@ -51,15 +38,6 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 				string text3;
 				if (this.m_span.Hours == 1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text3 = "Hour";
 				}
 				else
@@ -71,29 +49,11 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 		}
 		else if (this.m_span.Hours > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.m_span.Hours;
 			num = this.m_span.Minutes;
 			string text4;
 			if (this.m_span.Hours == 1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text4 = "Hour";
 			}
 			else
@@ -103,27 +63,9 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			arg = text4;
 			if (this.m_span.Minutes > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text5;
 				if (this.m_span.Minutes == 1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text5 = "Minute";
 				}
 				else
@@ -135,29 +77,11 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 		}
 		else if (this.m_span.Minutes > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.m_span.Minutes;
 			num = this.m_span.Seconds;
 			string text6;
 			if (this.m_span.Minutes == 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text6 = "Minute";
 			}
 			else
@@ -167,27 +91,9 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			arg = text6;
 			if (this.m_span.Seconds > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text7;
 				if (this.m_span.Seconds == 1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text7 = "Second";
 				}
 				else
@@ -207,15 +113,6 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			string text8;
 			if (this.m_span.Seconds == 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text8 = "Second";
 			}
 			else

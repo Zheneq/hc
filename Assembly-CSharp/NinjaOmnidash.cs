@@ -70,19 +70,6 @@ public class NinjaOmnidash : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Omnidash";
 		}
 		this.Setup();
@@ -93,19 +80,6 @@ public class NinjaOmnidash : Ability
 		this.SetCachedFields();
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.Setup()).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Ninja_SyncComponent>();
 		}
 		if (this.SkipEvade())
@@ -127,45 +101,14 @@ public class NinjaOmnidash : Ability
 	{
 		if (this.GetDeathmarkTriggerSelfHeal() > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.ShouldAddCasterForTargeter(ActorData, List<ActorData>)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
 				for (int i = 0; i < addedSoFar.Count; i++)
 				{
 					if (this.IsActorMarked(addedSoFar[i]))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				return false;
 			}
@@ -182,19 +125,6 @@ public class NinjaOmnidash : Ability
 	{
 		if (this.SkipEvade())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetMovementType()).MethodHandle;
-			}
 			return ActorData.MovementType.None;
 		}
 		return (!this.DashIsTeleport()) ? ActorData.MovementType.Charge : ActorData.MovementType.Teleport;
@@ -205,19 +135,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if (this.CanQueueMoveAfterEvade())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.CanOverrideMoveStartSquare()).MethodHandle;
-			}
 			result = !this.SkipEvade();
 		}
 		else
@@ -231,19 +148,6 @@ public class NinjaOmnidash : Ability
 	{
 		if (this.SkipEvade())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetTargetData()).MethodHandle;
-			}
 			return this.m_noEvadeTargetData;
 		}
 		return base.GetTargetData();
@@ -266,19 +170,6 @@ public class NinjaOmnidash : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -290,15 +181,6 @@ public class NinjaOmnidash : Ability
 		StandardEffectInfo cachedExtraSingleHitEnemyEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExtraSingleHitEnemyEffect = this.m_abilityMod.m_extraSingleHitEnemyEffectMod.GetModifiedValue(this.m_extraSingleHitEnemyEffect);
 		}
 		else
@@ -313,19 +195,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetBaseDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_baseDamageMod.GetModifiedValue(this.m_baseDamage);
 		}
 		else
@@ -345,19 +214,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetMinDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minDamageMod.GetModifiedValue(this.m_minDamage);
 		}
 		else
@@ -372,19 +228,6 @@ public class NinjaOmnidash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -409,19 +252,6 @@ public class NinjaOmnidash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetEnergyGainPerMarkedHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyGainPerMarkedHitMod.GetModifiedValue(this.m_energyGainPerMarkedHit);
 		}
 		else
@@ -436,19 +266,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.SkipEvade()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_skipEvadeMod.GetModifiedValue(this.m_skipEvade);
 		}
 		else
@@ -468,19 +285,6 @@ public class NinjaOmnidash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetDashRadiusAtStart()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_dashRadiusAtStartMod.GetModifiedValue(this.m_dashRadiusAtStart);
 		}
 		else
@@ -495,19 +299,6 @@ public class NinjaOmnidash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetDashRadiusMiddle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_dashRadiusMiddleMod.GetModifiedValue(this.m_dashRadiusMiddle);
 		}
 		else
@@ -522,19 +313,6 @@ public class NinjaOmnidash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetDashRadiusAtEnd()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_dashRadiusAtEndMod.GetModifiedValue(this.m_dashRadiusAtEnd);
 		}
 		else
@@ -549,19 +327,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.DashPenetrateLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_dashPenetrateLineOfSightMod.GetModifiedValue(this.m_dashPenetrateLineOfSight);
 		}
 		else
@@ -576,19 +341,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.CanQueueMoveAfterEvade()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(this.m_canQueueMoveAfterEvade);
 		}
 		else
@@ -603,19 +355,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.ApplyDeathmarkEffect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(this.m_applyDeathmarkEffect);
 		}
 		else
@@ -635,19 +374,6 @@ public class NinjaOmnidash : Ability
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.IsActorMarked(ActorData)).MethodHandle;
-			}
 			result = this.m_syncComp.ActorHasDeathmark(actor);
 		}
 		else
@@ -669,19 +395,6 @@ public class NinjaOmnidash : Ability
 		int result = 0;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetDeathmarkTriggerDamage()).MethodHandle;
-			}
 			result = ((!(this.m_abilityMod != null)) ? this.m_syncComp.m_deathmarkOnTriggerDamage : this.m_abilityMod.m_deathmarkDamageMod.GetModifiedValue(this.m_syncComp.m_deathmarkOnTriggerDamage));
 		}
 		return result;
@@ -692,19 +405,6 @@ public class NinjaOmnidash : Ability
 		int result = 0;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetDeathmarkTriggerSelfHeal()).MethodHandle;
-			}
 			result = ((!(this.m_abilityMod != null)) ? this.m_syncComp.m_deathmarkOnTriggerCasterHeal : this.m_abilityMod.m_deathmarkCasterHealMod.GetModifiedValue(this.m_syncComp.m_deathmarkOnTriggerCasterHeal));
 		}
 		return result;
@@ -722,60 +422,20 @@ public class NinjaOmnidash : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 			int damage = this.CalcDamageForNumEnemies(visibleActorsCountByTooltipSubject);
 			results.m_damage = damage;
 		}
 		else if (targetActor == base.ActorData && this.GetDeathmarkTriggerSelfHeal() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = 0;
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
 					if (this.m_syncComp.ActorHasDeathmark(visibleActorsInRangeByTooltipSubject[i]))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += this.GetDeathmarkTriggerSelfHeal();
 					}
 				}
@@ -790,30 +450,8 @@ public class NinjaOmnidash : Ability
 		int num = 0;
 		if (this.GetEnergyGainPerMarkedHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 				{
@@ -821,15 +459,6 @@ public class NinjaOmnidash : Ability
 					{
 						num += this.GetEnergyGainPerMarkedHit();
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -840,41 +469,10 @@ public class NinjaOmnidash : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetDeathmarkTriggerDamage() > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsActorMarked(targetActor))
 					{
 						return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, this.GetDeathmarkTriggerDamage(), false).ToString();
@@ -891,52 +489,12 @@ public class NinjaOmnidash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe != caster.GetCurrentBoardSquare())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.DashIsTeleport())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 					}
 					else
@@ -953,19 +511,6 @@ public class NinjaOmnidash : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NinjaOmnidash))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaOmnidash.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NinjaOmnidash);
 			this.Setup();
 		}

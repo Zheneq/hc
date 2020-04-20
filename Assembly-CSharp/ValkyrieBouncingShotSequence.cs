@@ -23,43 +23,12 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 		base.UpdateProjectileFX();
 		if (this.m_fx != null && !this.m_segmentPts.IsNullOrEmpty<Vector3>())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieBouncingShotSequence.UpdateProjectileFX()).MethodHandle;
-			}
 			Animator modelAnimator = base.Caster.GetModelAnimator();
 			modelAnimator.SetFloat(ValkyrieBouncingShotSequence.animDistToGoal, this.m_totalTravelDistance - this.m_distanceTraveled);
 			if (this.m_curSegment != curSegment && this.m_curSegment == this.m_segmentPts.Count - 2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_returnProjectileVfxPrefab != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool sequenceVisibility = this.m_fx != null && this.m_fx.activeInHierarchy;
 					UnityEngine.Object.Destroy(this.m_fx);
 					Quaternion rotation = default(Quaternion);
@@ -68,26 +37,8 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 					base.SetSequenceVisibility(sequenceVisibility);
 					if (this.m_fx != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_projectileFxAttributes != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							foreach (KeyValuePair<string, float> keyValuePair in this.m_projectileFxAttributes)
 							{
 								Sequence.SetAttribute(this.m_fx, keyValuePair.Key, keyValuePair.Value);
@@ -101,15 +52,6 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 				}
 				if (!string.IsNullOrEmpty(this.m_beginReturnAudioEvent))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent(this.m_beginReturnAudioEvent, this.m_fx.gameObject);
 				}
 				Vector3 value = this.m_segmentPts[this.m_segmentPts.Count - 1];
@@ -118,15 +60,6 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 			}
 			else if (this.m_reachedDestination && !string.IsNullOrEmpty(this.m_endReturnAudioEvent))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(this.m_endReturnAudioEvent, base.Caster.gameObject);
 			}
 		}

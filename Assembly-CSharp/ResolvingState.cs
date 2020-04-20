@@ -16,19 +16,6 @@ public class ResolvingState : TurnState
 		{
 			if (component == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.OnEnter()).MethodHandle;
-				}
 				InterfaceManager.Get().CancelAlert(StringUtil.TR("PostRespawnMovement", "Global"));
 				UINotificationPanel notificationPanel = HUD_UI.Get().m_mainScreenPanel.m_notificationPanel;
 				notificationPanel.DisplayNotification(UINotificationPanel.GamePhaseDisplay.Resolving);
@@ -44,15 +31,6 @@ public class ResolvingState : TurnState
 		bool flag2;
 		if (component2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = component2.HasQueuedAbilities();
 			component2.ClearSelectedAbility();
 			component2.ClearLastSelectedAbility();
@@ -63,26 +41,8 @@ public class ResolvingState : TurnState
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_SM.NextState = TurnStateEnum.WAITING;
 			}
 		}
@@ -96,19 +56,6 @@ public class ResolvingState : TurnState
 			string str;
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
 				str = component.GetDebugName();
 			}
 			else
@@ -121,41 +68,14 @@ public class ResolvingState : TurnState
 		}
 		else if (msg == TurnMessage.MOVEMENT_RESOLVED)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SM.NextState = TurnStateEnum.WAITING;
 		}
 		else if (msg == TurnMessage.CLIENTS_RESOLVED_ABILITIES)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SM.NextState = TurnStateEnum.WAITING;
 		}
 		else if (msg == TurnMessage.RESPAWN)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SM.NextState = TurnStateEnum.RESPAWNING;
 		}
 	}
@@ -173,19 +93,6 @@ public class ResolvingState : TurnState
 		ActorData component = this.m_SM.GetComponent<ActorData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ResolvingState.Update()).MethodHandle;
-			}
 			if (component.IsDead())
 			{
 				this.m_SM.NextState = TurnStateEnum.WAITING;
@@ -194,26 +101,8 @@ public class ResolvingState : TurnState
 		bool flag = this.m_stateTime >= GameFlowData.Get().m_resolveTimeoutLimit * 0.9f;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!GameplayUtils.IsMinion(this.m_SM))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string message = "{0} timed out {1} of resolving state (owned actor = {2})";
 				object[] array = new object[3];
 				array[0] = ((!NetworkServer.active) ? "Client" : "Server");
@@ -222,15 +111,6 @@ public class ResolvingState : TurnState
 				object obj;
 				if (GameFlowData.Get().activeOwnedActorData == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = "NULL";
 				}
 				else
@@ -244,27 +124,9 @@ public class ResolvingState : TurnState
 		}
 		if (!(GameFlowData.Get() == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().IsResolutionPaused())
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_stateTime += GameTime.deltaTime;

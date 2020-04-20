@@ -67,43 +67,12 @@ public class ExperienceComponent : ICloneable
 				GameType gameType = (GameType)i;
 				if (gameType.IsHumanVsHumanGame())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ExperienceComponent.get_VsHumanMatches()).MethodHandle;
-					}
 					int num2;
 					if (this.MatchesPerGameType.TryGetValue(gameType, out num2))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += num2;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -124,19 +93,6 @@ public class ExperienceComponent : ICloneable
 					GameType gameType = (GameType)obj;
 					if (gameType.IsHumanVsHumanGame())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ExperienceComponent.get_VsHumanWins()).MethodHandle;
-						}
 						int num2;
 						if (this.WinsPerGameType.TryGetValue(gameType, out num2))
 						{
@@ -144,30 +100,12 @@ public class ExperienceComponent : ICloneable
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			finally
 			{
 				IDisposable disposable;
 				if ((disposable = (enumerator as IDisposable)) != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					disposable.Dispose();
 				}
 			}

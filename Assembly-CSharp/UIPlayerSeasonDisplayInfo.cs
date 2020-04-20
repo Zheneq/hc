@@ -49,19 +49,6 @@ public class UIPlayerSeasonDisplayInfo
 	{
 		if (!(obj is UIPlayerSeasonDisplayInfo))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerSeasonDisplayInfo.Equals(object)).MethodHandle;
-			}
 			return false;
 		}
 		UIPlayerSeasonDisplayInfo uiplayerSeasonDisplayInfo = (UIPlayerSeasonDisplayInfo)obj;
@@ -72,122 +59,41 @@ public class UIPlayerSeasonDisplayInfo
 			{
 				if (!this.SeasonRewardEntries[i].Equals(uiplayerSeasonDisplayInfo.SeasonRewardEntries[i]))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 					goto IL_97;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_97:
 		bool flag2 = this.FullSeasonRewardEntries.Count == uiplayerSeasonDisplayInfo.FullSeasonRewardEntries.Count;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.FullSeasonRewardEntries.Count; j++)
 			{
 				if (!this.FullSeasonRewardEntries[j].Equals(uiplayerSeasonDisplayInfo.FullSeasonRewardEntries[j]))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = false;
 					goto IL_118;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_118:
 		bool flag3 = this.RepeatingRewards.Count == uiplayerSeasonDisplayInfo.RepeatingRewards.Count;
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int k = 0; k < this.RepeatingRewards.Count; k++)
 			{
 				if (!this.RepeatingRewards[k].Equals(uiplayerSeasonDisplayInfo.RepeatingRewards[k]))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = false;
 					goto IL_19E;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_19E:
 		bool flag4 = this.ChapterEntries.Count == uiplayerSeasonDisplayInfo.ChapterEntries.Count;
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int l = 0; l < this.ChapterEntries.Count; l++)
 			{
 				if (!this.ChapterEntries[l].Equals(uiplayerSeasonDisplayInfo.ChapterEntries[l]))
@@ -196,105 +102,24 @@ public class UIPlayerSeasonDisplayInfo
 					goto IL_214;
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		IL_214:
 		if (this.SeasonNumber == uiplayerSeasonDisplayInfo.SeasonNumber)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.CurrentChapter == uiplayerSeasonDisplayInfo.CurrentChapter)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.SeasonName == uiplayerSeasonDisplayInfo.SeasonName)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.PlayerSeasonLevel == uiplayerSeasonDisplayInfo.PlayerSeasonLevel && this.currentPercentThroughPlayerSeasonLevel == uiplayerSeasonDisplayInfo.currentPercentThroughPlayerSeasonLevel)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.currentXPThroughPlayerLevel == uiplayerSeasonDisplayInfo.currentXPThroughPlayerLevel)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.currentLevelDisplayIndex == uiplayerSeasonDisplayInfo.currentLevelDisplayIndex)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (flag2 && flag3)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										return flag4;
 									}
 								}
@@ -319,19 +144,6 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			if (level >= uiseasonRepeatingRewardInfo.StartLevel)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerSeasonDisplayInfo.GetRepeatingRewardsForLevel(int)).MethodHandle;
-				}
 				if ((level - uiseasonRepeatingRewardInfo.StartLevel) % uiseasonRepeatingRewardInfo.RepeatEveryXLevels == 0)
 				{
 					list.Add(uiseasonRepeatingRewardInfo);
@@ -349,32 +161,10 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			this.ChapterEntries[i].Clear();
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerSeasonDisplayInfo.Clear()).MethodHandle;
-		}
 		this.ChapterEntries.Clear();
 		for (int j = 0; j < this.SeasonRewardEntries.Count; j++)
 		{
 			this.SeasonRewardEntries[j].Clear();
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.SeasonRewardEntries.Clear();
 		for (int k = 0; k < this.FullSeasonRewardEntries.Count; k++)
@@ -385,15 +175,6 @@ public class UIPlayerSeasonDisplayInfo
 		for (int l = 0; l < this.CommunityRankRewardEntries.Count; l++)
 		{
 			this.CommunityRankRewardEntries[l].Clear();
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.CommunityRankRewardEntries.Clear();
 		this.PlayerSeasonLevel = 0;
@@ -422,19 +203,6 @@ public class UIPlayerSeasonDisplayInfo
 		this.SeasonEndTime = string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.StartTime.Value.Day, StringUtil.TR("Month" + timeRange.StartTime.Value.Month, "Global"), timeRange.StartTime.Value.Year) + " - ";
 		if (timeRange.EndTime != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerSeasonDisplayInfo.Setup(int, PersistedAccountData)).MethodHandle;
-			}
 			this.SeasonEndTime += string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.EndTime.Value.Day, StringUtil.TR("Month" + timeRange.EndTime.Value.Month, "Global"), timeRange.EndTime.Value.Year);
 		}
 		else
@@ -448,26 +216,8 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			if (unlockedSeasonChapters[i] > num)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = unlockedSeasonChapters[i];
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.CurrentChapter = num;
 		List<SeasonChapter> chapters = SeasonWideData.Get().GetSeasonTemplate(this.SeasonNumber).Chapters;
@@ -482,40 +232,13 @@ public class UIPlayerSeasonDisplayInfo
 			SeasonChapter nextChapterInfo = null;
 			if (j + 1 < count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				nextChapterInfo = chapters[j + 1];
 			}
 			uiseasonChapterEntry.Setup(chapters[j], previousChapterInfo, nextChapterInfo, this.SeasonNumber, j);
 			this.ChapterEntries.Add(uiseasonChapterEntry);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.SeasonNumber != accountData.QuestComponent.ActiveSeason)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		List<SeasonReward> allRewards = SeasonWideData.Get().GetSeasonTemplate(this.SeasonNumber).Rewards.GetAllRewards();
@@ -524,15 +247,6 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			if (allRewards[k].level > num2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = allRewards[k].level;
 			}
 			if (allRewards[k].repeatEveryXLevels > 0)
@@ -542,78 +256,26 @@ public class UIPlayerSeasonDisplayInfo
 			}
 		}
 		List<UISeasonRepeatingRewardInfo> repeatingRewards = this.RepeatingRewards;
-		if (UIPlayerSeasonDisplayInfo.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIPlayerSeasonDisplayInfo.<>f__am$cache0 = delegate(UISeasonRepeatingRewardInfo info1, UISeasonRepeatingRewardInfo info2)
+		
+		repeatingRewards.Sort(delegate(UISeasonRepeatingRewardInfo info1, UISeasonRepeatingRewardInfo info2)
 			{
 				if (info1 == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerSeasonDisplayInfo.<Setup>m__0(UISeasonRepeatingRewardInfo, UISeasonRepeatingRewardInfo)).MethodHandle;
-					}
 					if (info2 == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return 0;
 					}
 				}
 				if (info1 == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return 1;
 				}
 				if (info2 == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return -1;
 				}
 				return info1.CompareTo(info2);
-			};
-		}
-		repeatingRewards.Sort(UIPlayerSeasonDisplayInfo.<>f__am$cache0);
+			});
 		int num3 = Mathf.Max(seasonExperienceComponent.Level + 0x64, num2 + 1);
 		List<SeasonReward>[] array = new List<SeasonReward>[num3];
 		for (int l = 0; l < allRewards.Count; l++)
@@ -621,78 +283,24 @@ public class UIPlayerSeasonDisplayInfo
 			int level = allRewards[l].level;
 			if (array[level] == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				array[level] = new List<SeasonReward>();
 			}
 			if (allRewards[l].repeatEveryXLevels == 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = true;
 				if (level <= this.PlayerSeasonLevel)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (allRewards[l] is SeasonItemReward)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						SeasonItemReward seasonItemReward = allRewards[l] as SeasonItemReward;
 						if (!seasonItemReward.Conditions.IsNullOrEmpty<QuestCondition>() && accountData.QuestComponent.SeasonItemRewardsGranted.ContainsKey(level))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = accountData.QuestComponent.SeasonItemRewardsGranted[level].Contains(seasonItemReward.ItemReward.ItemTemplateId);
 						}
 					}
 				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array[allRewards[l].level].Add(allRewards[l]);
 				}
 			}
@@ -704,15 +312,6 @@ public class UIPlayerSeasonDisplayInfo
 			bool flag2;
 			if (array != null && array[m] != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = (array[m].Count > 0);
 			}
 			else
@@ -724,27 +323,9 @@ public class UIPlayerSeasonDisplayInfo
 			{
 				goto IL_658;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (repeatingRewardsForLevel.Count > 0)
 			{
 				goto IL_658;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (m == 1)
 			{
@@ -762,30 +343,12 @@ public class UIPlayerSeasonDisplayInfo
 			List<SeasonReward> list = new List<SeasonReward>();
 			if (array[m] != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (List<SeasonReward>.Enumerator enumerator = array[m].GetEnumerator())
 				{
 					while (enumerator.MoveNext())
 					{
 						SeasonReward item2 = enumerator.Current;
 						list.Add(item2);
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -794,15 +357,6 @@ public class UIPlayerSeasonDisplayInfo
 				for (int n = 0; n < repeatingRewardsForLevel.Count; n++)
 				{
 					list.Add(repeatingRewardsForLevel[n].GetSeasonRewardReference());
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UISeasonRewardEntry uiseasonRewardEntry = new UISeasonRewardEntry();
@@ -819,52 +373,16 @@ public class UIPlayerSeasonDisplayInfo
 					UISeasonRepeatingRewardInfo uiseasonRepeatingRewardInfo = enumerator2.Current;
 					if (uiseasonRepeatingRewardInfo.RepeatEveryXLevels > 1)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag4 = true;
 						goto IL_6B1;
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			IL_6B1:
 			if (!flag3 && !flag4)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (m != 1 && m != this.PlayerSeasonLevel)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (m != this.PlayerSeasonLevel + 1)
 					{
 						goto IL_78F;
@@ -884,27 +402,9 @@ public class UIPlayerSeasonDisplayInfo
 			{
 				array[m].Add(repeatingRewardsForLevel[num4].GetSeasonRewardReference());
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			uiseasonRewardEntry2.Init(m, m <= this.PlayerSeasonLevel, array[m], null, m == this.PlayerSeasonLevel);
 			this.SeasonRewardEntries.Add(uiseasonRewardEntry2);
 			goto IL_78F;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

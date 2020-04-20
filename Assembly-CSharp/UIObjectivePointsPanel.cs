@@ -34,31 +34,9 @@ public class UIObjectivePointsPanel : UIGameModePanel
 	{
 		if (textLabel.text != score.ToString())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.SetScoreText(TextMeshProUGUI, int, bool)).MethodHandle;
-			}
 			textLabel.text = score.ToString();
 			if (friendly)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.FriendlyScoreAC.Play("ObjectiveScoreDefaultIN", 0, 0f);
 			}
 			else
@@ -72,34 +50,12 @@ public class UIObjectivePointsPanel : UIGameModePanel
 	{
 		if (this.myTeamScoreToDisplay != myTeamScore)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.SetInMatchValues(string, Color, int, string, Color, int, string, string)).MethodHandle;
-			}
 			this.SetScoreText(this.FriendlyScore, this.myTeamScoreToDisplay, true);
 			this.myTeamScoreToDisplay = myTeamScore;
 			this.m_TimeMyScoreToChange = Time.time + this.delayTimeToChangeScore;
 		}
 		if (this.enemyTeamScoreToDisplay != myEnemyScore)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetScoreText(this.EnemyScore, this.enemyTeamScoreToDisplay, false);
 			this.enemyTeamScoreToDisplay = myEnemyScore;
 			this.m_TimeEnemyScoreTChange = Time.time + this.delayTimeToChangeScore;
@@ -122,41 +78,10 @@ public class UIObjectivePointsPanel : UIGameModePanel
 	{
 		if (0 <= index && index < this.PhaseIndicators.Length)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.SetPhaseIndicatorActive(bool, int)).MethodHandle;
-			}
 			if (!this.PhaseIndicators[index].m_phaseImage.gameObject.activeSelf && active)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.PhaseIndicators[index].gameObject.activeInHierarchy)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PhaseIndicators[index].m_phaseAnimationController.Play("PhaseIndicatorAnimation");
 				}
 			}
@@ -177,19 +102,6 @@ public class UIObjectivePointsPanel : UIGameModePanel
 	{
 		if (ObjectivePoints.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIObjectivePointsPanel.Update()).MethodHandle;
-			}
 			ObjectivePoints.Get().SetUpGameUI(this);
 		}
 		if (Tutorial.Get() != null)
@@ -198,15 +110,6 @@ public class UIObjectivePointsPanel : UIGameModePanel
 		}
 		if (Time.time >= this.m_TimeMyScoreToChange)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetScoreText(this.FriendlyScore, this.myTeamScoreToDisplay, true);
 		}
 		if (Time.time >= this.m_TimeEnemyScoreTChange)

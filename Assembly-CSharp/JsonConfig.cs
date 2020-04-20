@@ -16,19 +16,6 @@ public class JsonConfig
 		int num = this.HostName.IndexOf('.');
 		if (num >= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig..ctor()).MethodHandle;
-			}
 			this.HostName = this.HostName.Substring(0, num);
 		}
 		string text = null;
@@ -45,30 +32,12 @@ public class JsonConfig
 		}
 		if (text == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "unknown";
 		}
 		this.SystemUserName = text.ToLower();
 		int num2 = this.SystemUserName.IndexOf('\\');
 		if (num2 != -1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SystemUserName = this.SystemUserName.Substring(num2 + 1);
 		}
 		this.LoadedFileInfo = new List<FileInfo>();
@@ -103,32 +72,10 @@ public class JsonConfig
 		JsonConvert.PopulateObject(data, this, settings);
 		if (this.EnablePostProcess)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.Load(string)).MethodHandle;
-			}
 			this.PostProcess();
 		}
 		if (this.EnablePatches)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ApplyPatches();
 		}
 	}
@@ -148,31 +95,9 @@ public class JsonConfig
 		FileInfo fileInfo = new FileInfo(fileName);
 		if (!fileInfo.Exists)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.LoadFromFile(string, bool)).MethodHandle;
-			}
 			if (!failIfNotFound)
 			{
 				goto IL_4C;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		data = File.ReadAllText(fileName);
@@ -196,30 +121,8 @@ public class JsonConfig
 				FileInfo fileInfo = enumerator.Current;
 				if (fileInfo.HasBeenModified(null))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.HasBeenModified()).MethodHandle;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -240,34 +143,12 @@ public class JsonConfig
 		{
 			if ((fieldInfo.Attributes & FieldAttributes.NotSerialized) == FieldAttributes.PrivateScope)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JsonConfig.StripSensitiveData(object)).MethodHandle;
-				}
 				if (fieldInfo.GetCustomAttributes(typeof(SensitiveDataAttribute), false).Length > 0)
 				{
 					object defaultValue = fieldInfo.FieldType.GetDefaultValue();
 					fieldInfo.SetValue(obj, defaultValue);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

@@ -23,32 +23,10 @@ public class AbilityModPropertyLaserInfo
 	{
 		if (info != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyLaserInfo.GetModifiedValue(LaserTargetingInfo)).MethodHandle;
-			}
 			return info.GetModifiedCopy(this);
 		}
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("null passed in to generate modified modded LaserTargetingInfo, returning an instance with default values");
 		}
 		return new LaserTargetingInfo();

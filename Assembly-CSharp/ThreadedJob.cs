@@ -38,19 +38,6 @@ public abstract class ThreadedJob
 			bool result;
 			if (this.m_thread != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.get_IsThreadAlive()).MethodHandle;
-				}
 				result = this.m_thread.IsAlive;
 			}
 			else
@@ -72,19 +59,6 @@ public abstract class ThreadedJob
 	{
 		if (this.m_thread != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.Abort()).MethodHandle;
-			}
 			this.m_thread.Abort();
 		}
 	}
@@ -99,19 +73,6 @@ public abstract class ThreadedJob
 	{
 		if (this.ThreadFunctionReturned)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThreadedJob.Update()).MethodHandle;
-			}
 			this.OnThreadFunctionReturned();
 			this.ThreadFunctionReturned = false;
 		}

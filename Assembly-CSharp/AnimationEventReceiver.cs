@@ -19,32 +19,10 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (this.m_actorData == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.GetActorData()).MethodHandle;
-			}
 			string text = string.Empty;
 			GameObject gameObject = base.gameObject;
 			while (this.m_actorData == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(gameObject.transform.parent != null))
 				{
 					for (;;)
@@ -67,15 +45,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 					this.m_actorData = gameObject.GetComponent<ActorData>();
 					if (gameObject.GetComponent<UIActorModelData>() != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return null;
 					}
 					gameObject = gameObject.transform.parent.gameObject;
@@ -84,15 +53,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 			IL_D9:
 			if (this.m_actorData == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(base.gameObject.name + " AnimationEventReceiver failed to initialize properly, can't find ActorData in the hierarchy " + text, new object[0]);
 			}
 		}
@@ -103,19 +63,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (this.m_renderers == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.GetRenderers()).MethodHandle;
-			}
 			this.m_renderers = base.GetComponentsInChildren<Renderer>(true);
 		}
 		return this.m_renderers;
@@ -134,19 +81,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 			Rigidbody[] componentsInChildren = child.GetComponentsInChildren<Rigidbody>();
 			if (componentsInChildren != null && componentsInChildren.Length > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.Start()).MethodHandle;
-				}
 				this.m_attachmentsParent = child.gameObject;
 				break;
 			}
@@ -176,19 +110,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		if (this.ShouldPostAudioEvent())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.AudioEvent(string)).MethodHandle;
-			}
 			this.GetActorData().PostAnimationAudioEvent(eventName);
 		}
 	}
@@ -197,42 +118,11 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (this.GetActorData() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.ShouldPostAudioEvent()).MethodHandle;
-			}
 			bool result;
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!false)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = this.GetActorData().IsVisibleToClient();
 				}
 				else
@@ -253,32 +143,10 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (this.GetActorData() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.ProcessAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			return;
 		}
 		if (eventObject == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Application.isEditor)
 			{
 				string text = (!(this.GetActorData() == null) && !(this.GetActorData().GetActorModelData() == null)) ? this.GetActorData().GetActorModelData().GetCurrentAnimatorStateName() : "NULL";
@@ -293,26 +161,8 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		if (this.ShouldPostAudioEvent())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_surfaceFoleyEventNames.ContainsKey(eventObject.name))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal", null);
 				AudioManager.PostEvent(this.m_surfaceFoleyEventNames[eventObject.name], this.GetActorData().gameObject);
 			}
@@ -320,42 +170,15 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		ActorData actorData = this.GetActorData();
 		if (TheatricsManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TheatricsManager.Get().OnAnimationEvent(actorData, eventObject, sourceObject);
 		}
 		if (CameraManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraManager.Get().OnAnimationEvent(actorData, eventObject);
 		}
 		actorData.OnAnimEvent(eventObject, sourceObject);
 		if (this.m_attachmentsParent != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (eventObject.name == "VFX_ShowAttachments")
 			{
 				this.m_attachmentsParent.SetActive(true);
@@ -380,19 +203,6 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.ShowGeometryEvent(string)).MethodHandle;
-			}
 			Debug.LogWarning(string.Format("ShowGeometryEvent: attempted to show object name '{0}', no such object found", eventName));
 		}
 	}
@@ -404,34 +214,12 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		{
 			if (eventName == renderer.name)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AnimationEventReceiver.HideGeometryEvent(string)).MethodHandle;
-				}
 				renderer.enabled = false;
 				flag = true;
 			}
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogWarning(string.Format("HideGeometryEvent: attempted to hide object name '{0}', no such object found", eventName));
 		}
 	}

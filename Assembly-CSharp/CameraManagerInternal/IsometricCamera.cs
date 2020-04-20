@@ -105,19 +105,6 @@ namespace CameraManagerInternal
 				{
 					return;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.Awake()).MethodHandle;
-				}
 			}
 			Log.Warning("Please remove misconfigured IsometricCamera component from " + base.gameObject, new object[0]);
 			base.enabled = false;
@@ -139,44 +126,13 @@ namespace CameraManagerInternal
 			this.m_defaultEulerRotation.y = this.m_defaultRotationY;
 			if (CameraControls.Get())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.Start()).MethodHandle;
-				}
 				CameraControls.Get().m_desiredRotationEulerAngles = this.m_defaultEulerRotation;
 			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager.Get().OnActiveOwnedActorChange(activeOwnedActorData);
 					this.ResetCameraRotation();
 				}
@@ -188,19 +144,6 @@ namespace CameraManagerInternal
 		{
 			if (GameEventManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.OnDestroy()).MethodHandle;
-				}
 				GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.CharacterRespawn);
 			}
 		}
@@ -209,34 +152,12 @@ namespace CameraManagerInternal
 		{
 			if (eventType != GameEventManager.EventType.CharacterRespawn)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-				}
 			}
 			else
 			{
 				GameEventManager.CharacterRespawnEventArgs characterRespawnEventArgs = (GameEventManager.CharacterRespawnEventArgs)args;
 				if (GameFlowData.Get().activeOwnedActorData == characterRespawnEventArgs.respawningCharacter)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_respawnedBeforeUpdateEnd = true;
 				}
 			}
@@ -251,34 +172,12 @@ namespace CameraManagerInternal
 		{
 			if (CameraManager.CamDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.SetTargetObject(GameObject, CameraManager.CameraTargetReason, bool)).MethodHandle;
-				}
 				if (targetObject != this.m_targetObject)
 				{
 					string str = "SetTargetObject to ";
 					string str2;
 					if (targetObject)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						str2 = targetObject.name;
 					}
 					else
@@ -291,15 +190,6 @@ namespace CameraManagerInternal
 			ActorData actorData;
 			if (targetObject == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorData = null;
 			}
 			else
@@ -311,15 +201,6 @@ namespace CameraManagerInternal
 			{
 				if (this.m_targetWithBoardSquareWasNeverSet && actorData2.GetCurrentBoardSquare() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ResetCameraRotation();
 					this.m_cutToTarget = true;
 					this.m_targetWithBoardSquareWasNeverSet = false;
@@ -331,30 +212,12 @@ namespace CameraManagerInternal
 			this.m_targetReason = reason;
 			if (putUnderMouse)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				EasedOutVector3 targetPosition = this.m_targetPosition;
 				Plane plane = new Plane(Vector3.up, targetPosition);
 				float distance;
 				if (plane.Raycast(ray, out distance))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_targetObjectOffset = targetPosition - ray.GetPoint(distance);
 				}
 			}
@@ -364,26 +227,8 @@ namespace CameraManagerInternal
 			}
 			if (this.m_targetObject != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get().ShouldAutoCameraMove())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_targetPosition.EaseTo(this.m_targetObject.transform.position + this.m_targetObjectOffset, this.m_easeInTime);
 				}
 			}
@@ -400,19 +245,6 @@ namespace CameraManagerInternal
 			Vector3 position;
 			if (GameFlowData.Get().activeOwnedActorData == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.GetInitialYAngle()).MethodHandle;
-				}
 				position = base.transform.position;
 			}
 			else
@@ -424,26 +256,8 @@ namespace CameraManagerInternal
 			bool flag = false;
 			if (SinglePlayerManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerCoordinator.Get().m_initialCameraRotationTarget != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a = SinglePlayerCoordinator.Get().m_initialCameraRotationTarget.transform.position;
 					flag = true;
 				}
@@ -453,28 +267,10 @@ namespace CameraManagerInternal
 			float magnitude = vector.magnitude;
 			if (!Mathf.Approximately(magnitude, 0f))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector /= magnitude;
 				Quaternion quaternion = Quaternion.LookRotation(vector);
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (float)((int)quaternion.eulerAngles.y / 0x2D * 0x2D);
 				}
 				else
@@ -483,15 +279,6 @@ namespace CameraManagerInternal
 					int num2 = num / 0x5A * 0x5A;
 					if (num - num2 > num2 + 0x5A - num)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += 0x5A;
 					}
 					result = (float)num2;
@@ -506,19 +293,6 @@ namespace CameraManagerInternal
 			Vector3 position;
 			if (GameFlowData.Get().activeOwnedActorData == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.ResetCameraRotation()).MethodHandle;
-				}
 				position = base.transform.position;
 			}
 			else
@@ -530,26 +304,8 @@ namespace CameraManagerInternal
 			bool flag = false;
 			if (SinglePlayerManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (SinglePlayerCoordinator.Get().m_initialCameraRotationTarget != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					a = SinglePlayerCoordinator.Get().m_initialCameraRotationTarget.transform.position;
 					flag = true;
 				}
@@ -571,15 +327,6 @@ namespace CameraManagerInternal
 					int num2 = num / 0x5A * 0x5A;
 					if (num - num2 > num2 + 0x5A - num)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += 0x5A;
 					}
 					CameraControls.Get().m_desiredRotationEulerAngles.y = (float)num2;
@@ -604,30 +351,8 @@ namespace CameraManagerInternal
 			ActionBufferPhase currentActionPhase = ServerClientUtils.GetCurrentActionPhase();
 			if (currentActionPhase != ActionBufferPhase.Movement && currentActionPhase != ActionBufferPhase.MovementChase)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.IsInMovementPhase()).MethodHandle;
-				}
 				if (currentActionPhase != ActionBufferPhase.AbilitiesWait)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return currentActionPhase == ActionBufferPhase.MovementWait;
 				}
 			}
@@ -642,19 +367,6 @@ namespace CameraManagerInternal
 			float num = 0f;
 			if (!(CameraControls.Get() == null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.Update()).MethodHandle;
-				}
 				if (!(GameFlowData.Get() == null))
 				{
 					bool flag = false;
@@ -663,15 +375,6 @@ namespace CameraManagerInternal
 					bool flag3;
 					if (GameFlowData.Get().LocalPlayerData != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = (GameFlowData.Get().activeOwnedActorData == null);
 					}
 					else
@@ -681,15 +384,6 @@ namespace CameraManagerInternal
 					flag = (flag2 || flag3);
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						CameraControls.Get().CalcDesiredTransform(base.transform, out zero, out quaternion, out num);
 					}
 					if (!Mathf.Approximately(num, 0f))
@@ -721,15 +415,6 @@ namespace CameraManagerInternal
 						Vector3 vector = this.m_targetObject.transform.position + this.m_targetObjectOffset;
 						if (this.m_cutToTarget)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_targetPosition = new EasedOutVector3(vector);
 							this.m_zoomVertOffsetForAnimatedActor = new EasedOutFloat(this.GetZoomVertOffsetForActiveAnimatedActor(this.m_zoomParameter * this.m_zoomParameterScale > this.m_minZoomParamForCoverZoomOffset));
 							this.m_cutToTarget = false;
@@ -739,26 +424,8 @@ namespace CameraManagerInternal
 							bool flag4;
 							if (!this.m_respawnedBeforeUpdateEnd)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!InputManager.Get().IsKeyBindingHeld(KeyPreference.CameraCenterOnAction) && this.m_targetReason != CameraManager.CameraTargetReason.UserFocusingOnActor && this.m_targetReason != CameraManager.CameraTargetReason.CtfTurninRegionSpawned)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag4 = (this.m_targetReason == CameraManager.CameraTargetReason.CtfFlagTurnedIn);
 									goto IL_309;
 								}
@@ -768,52 +435,16 @@ namespace CameraManagerInternal
 							bool flag5 = flag4;
 							if (this.m_targetObjectActor != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								bool flag6 = this.m_targetObjectActor.GetActorMovement().AmMoving();
 								if (flag6)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									BoardSquarePathInfo aestheticPath = this.m_targetObjectActor.GetActorMovement().GetAestheticPath();
 									if (aestheticPath != null)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (aestheticPath.square != null)
 										{
 											if (CameraManager.Get().ShouldAutoCameraMove())
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												vector = aestheticPath.square.GetWorldPosition() + this.m_targetObjectOffset;
 												Vector3 startValue = (vector - this.m_targetPosition) * Time.deltaTime * this.m_movementCatchUpMult + this.m_targetPosition;
 												this.m_targetPosition = new EasedOutVector3(startValue);
@@ -832,52 +463,16 @@ namespace CameraManagerInternal
 								}
 								else if (!flag5)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (CameraManager.Get().ShouldAutoCameraMove())
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.IsInMovementPhase())
 										{
 											float magnitude = (vector - this.m_targetPosition).magnitude;
 											if (magnitude > 0f)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												Vector3 vector2;
 												if (magnitude < 1f)
 												{
-													for (;;)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													vector2 = vector;
 												}
 												else
@@ -893,15 +488,6 @@ namespace CameraManagerInternal
 							}
 							if (flag5)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_targetPosition.EaseTo(vector, this.m_easeInTime);
 							}
 						}
@@ -909,43 +495,16 @@ namespace CameraManagerInternal
 					Vector3 vector3 = this.CalcZoomOffsetForActiveAnimatedActor(quaternion);
 					if (!CameraControls.Get().IsTiltUserControlled())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						quaternion = Quaternion.Euler(new Vector3(this.CalcZoomRotationX(), quaternion.eulerAngles.y, 0f));
 					}
 					Vector3 vector4 = this.m_targetPosition + vector3;
 					if (this.m_transitionInTimeLeft > 0f)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num4 = Easing.ExpoEaseInOut(this.m_transitionInTime - this.m_transitionInTimeLeft, 0f, 1f, this.m_transitionInTime);
 						base.transform.position = Vector3.Lerp(this.m_transitionInPosition, vector4, num4);
 						base.transform.rotation = Quaternion.Slerp(this.m_transitionInRotation, quaternion, num4);
 						if (Camera.main != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Camera.main.fieldOfView = (this.CalcFOV() - this.m_transitionFOV) * num4 + this.m_transitionFOV;
 						}
 						this.m_transitionInTimeLeft -= Time.deltaTime;
@@ -967,15 +526,6 @@ namespace CameraManagerInternal
 					{
 						if (this.m_nextNameplateSortUpdateTime >= 0f)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Time.time <= this.m_nextNameplateSortUpdateTime)
 							{
 								goto IL_7C7;
@@ -983,37 +533,10 @@ namespace CameraManagerInternal
 						}
 						if (HUD_UI.Get() != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (HUD_UI.Get().m_mainScreenPanel != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel != null)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SortNameplates();
 								}
 							}
@@ -1025,26 +548,8 @@ namespace CameraManagerInternal
 					this.m_respawnedBeforeUpdateEnd = false;
 					if (ActorDebugUtils.Get() != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.CameraManager, true))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorDebugUtils.DebugCategoryInfo debugCategoryInfo = ActorDebugUtils.Get().GetDebugCategoryInfo(ActorDebugUtils.DebugCategory.CameraManager);
 							debugCategoryInfo.m_stringToDisplay = "Updating Isometric Camera:\n\n";
 							ActorDebugUtils.DebugCategoryInfo debugCategoryInfo2 = debugCategoryInfo;
@@ -1115,19 +620,6 @@ namespace CameraManagerInternal
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targetPos.x, targetPos.z);
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.ForceTransformAtDefaultAngle(Vector3, float)).MethodHandle;
-				}
 				targetPos.y = (float)boardSquareSafe.height;
 			}
 			else
@@ -1145,33 +637,11 @@ namespace CameraManagerInternal
 			{
 				if (type != CameraTransitionType.Move)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.OnTransitionIn(CameraTransitionType)).MethodHandle;
-					}
 				}
 				else
 				{
 					if (CameraManager.Get().SecondsRemainingToPauseForUserControl > 0f)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 b = this.CalcZoomOffsetForActiveAnimatedActor(base.transform.rotation);
 						Vector3 startValue = base.transform.position - b;
 						startValue.y = (float)Board.Get().BaselineHeight + this.m_targetObjectOffset.y;
@@ -1206,19 +676,6 @@ namespace CameraManagerInternal
 			float result;
 			if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("CameraFarZoom"))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.GetMaxDistanceVertical()).MethodHandle;
-				}
 				result = this.m_maxDistFarVert;
 			}
 			else
@@ -1233,19 +690,6 @@ namespace CameraManagerInternal
 			float result = 1.5f;
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().activeOwnedActorData.GetActorModelData() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.GetHorzOffsetForActiveActor()).MethodHandle;
-				}
 				result = GameFlowData.Get().activeOwnedActorData.GetActorModelData().GetCameraHorzOffset();
 			}
 			return result;
@@ -1266,19 +710,6 @@ namespace CameraManagerInternal
 			float result;
 			if (distanceDelta > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.CalcZoomParameterDelta(float)).MethodHandle;
-				}
 				result = this.CalcZoomParameter((double)(horzOffsetForActiveActor + distanceDelta));
 			}
 			else
@@ -1293,19 +724,6 @@ namespace CameraManagerInternal
 			float result;
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.GetZoomVertOffsetForActiveAnimatedActor(bool)).MethodHandle;
-				}
 				result = GameFlowData.Get().activeOwnedActorData.GetActorModelData().GetCameraVertOffset(forceStandingOffset);
 			}
 			else
@@ -1353,30 +771,8 @@ namespace CameraManagerInternal
 			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(IsometricCamera.OnDrawGizmos()).MethodHandle;
-				}
 				if (GameFlowData.Get().gameState >= GameState.BothTeams_Decision)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Gizmos.color = Color.blue;
 					Gizmos.DrawWireSphere(this.m_targetPosition, 0.5f);
 				}

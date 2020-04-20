@@ -21,19 +21,6 @@ public class ThiefStealthGenerator : Ability
 		AbilityUtil_Targeter.AffectsActor affectsCaster;
 		if (this.m_stealthGeneratorInfo.canIncludeCaster)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ThiefStealthGenerator.Start()).MethodHandle;
-			}
 			affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		}
 		else

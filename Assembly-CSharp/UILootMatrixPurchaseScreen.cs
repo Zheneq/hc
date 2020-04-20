@@ -32,19 +32,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 	{
 		if (btn != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseScreen.PackClicked(UILootMatrixPurchaseButton)).MethodHandle;
-			}
 			UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
 			uipurchaseableItem.m_itemType = PurchaseItemType.LootMatrixPack;
 			uipurchaseableItem.m_lootMatrixPack = btn.PackRef;
@@ -63,19 +50,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_purchaseContainer, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseScreen.SetVisible(bool)).MethodHandle;
-			}
 			this.Setup();
 		}
 	}
@@ -92,19 +66,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 			if (!flag)
 			{
 				goto IL_70;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILootMatrixPurchaseScreen.Setup()).MethodHandle;
 			}
 			if (!lootMatrixPack.EventHidden)
 			{
@@ -127,15 +88,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 			{
 				goto IL_8D;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IL_86:
 			list.Add(lootMatrixPack);
 			goto IL_8D;
@@ -145,15 +97,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 		{
 			if (j < list.Count)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.DisplayPacks[j], true, null);
 				this.DisplayPacks[j].Setup(list[j]);
 			}
@@ -161,15 +104,6 @@ public class UILootMatrixPurchaseScreen : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(this.DisplayPacks[j], false, null);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

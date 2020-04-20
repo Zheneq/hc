@@ -46,31 +46,9 @@ public class UITextSizer : MonoBehaviour
 	{
 		if (this.m_textControl != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITextSizer.Update()).MethodHandle;
-			}
 			if (this.m_lastStringValue != this.m_textControl.text)
 			{
 				goto IL_54;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!this.doItAgain)
@@ -87,15 +65,6 @@ public class UITextSizer : MonoBehaviour
 		float num;
 		if (this.m_textControl.preferredWidth / 2f < this.m_maxWidth - this.m_extraWidth)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			x = this.m_textControl.preferredWidth * rectTransform.localScale.x + this.m_extraWidth + 10f;
 			num = this.m_minHeight;
 		}
@@ -106,15 +75,6 @@ public class UITextSizer : MonoBehaviour
 		}
 		if (this.m_doNotContractWidth)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			x = this.m_maxWidth;
 		}
 		if (this.m_calcTextHeight)
@@ -126,27 +86,9 @@ public class UITextSizer : MonoBehaviour
 		rectTransform2.sizeDelta = sizeDelta;
 		if (this.m_childrenToSize != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_childrenToSize.Length; i++)
 			{
 				this.m_childrenToSize[i].sizeDelta = sizeDelta;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

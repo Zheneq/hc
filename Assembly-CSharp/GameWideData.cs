@@ -138,19 +138,6 @@ public class GameWideData : MonoBehaviour
 		GameWideData.s_instance = this;
 		if (this.m_characterResourceLinks.Length == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameWideData.Awake()).MethodHandle;
-			}
 			throw new Exception("GameWideData failed to load (no character resource links)");
 		}
 		List<GameBalanceVars.CharacterUnlockData> list = new List<GameBalanceVars.CharacterUnlockData>();
@@ -159,15 +146,6 @@ public class GameWideData : MonoBehaviour
 			CharacterResourceLink characterResourceLink = this.m_characterResourceLinks[i];
 			if (characterResourceLink.m_characterType == CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new Exception(string.Format("GameWideData failed to load (invalid data for character index {0})", i));
 			}
 			list.Add(this.m_characterResourceLinks[i].CreateUnlockData());
@@ -206,30 +184,8 @@ public class GameWideData : MonoBehaviour
 		{
 			if (characterResourceLink.m_characterType == characterType)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameWideData.GetCharacterResourceLink(CharacterType)).MethodHandle;
-				}
 				return characterResourceLink;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		throw new Exception("Character resource link not found for: " + characterType.ToString() + " in GameWideData.");
 	}
@@ -248,19 +204,6 @@ public class GameWideData : MonoBehaviour
 	{
 		if (mapDisplayName == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameWideData.GetMapDataByDisplayName(string)).MethodHandle;
-			}
 			return null;
 		}
 		Debug.Log("attempting to find: " + mapDisplayName);
@@ -269,15 +212,6 @@ public class GameWideData : MonoBehaviour
 			Debug.Log(mapData2.DisplayName);
 			if (mapData2.DisplayName.ToLower() == mapDisplayName.ToLower())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return mapData2;
 			}
 		}
@@ -292,46 +226,15 @@ public class GameWideData : MonoBehaviour
 		}
 		if (this.m_mapDataDictionary == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameWideData.GetMapData(string)).MethodHandle;
-			}
 			this.m_mapDataDictionary = new Dictionary<string, MapData>(StringComparer.OrdinalIgnoreCase);
 			foreach (MapData mapData2 in this.m_mapData)
 			{
 				this.m_mapDataDictionary.Add(mapData2.Name, mapData2);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		MapData result;
 		if (this.m_mapDataDictionary.TryGetValue(mapName, out result))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return result;
 		}
 		return null;
@@ -356,59 +259,19 @@ public class GameWideData : MonoBehaviour
 	{
 		if (keyBindName == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameWideData.GetKeyBindingCommand(string)).MethodHandle;
-			}
 			return null;
 		}
 		if (this.m_keyBindingDataDictionary == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_keyBindingDataDictionary = new Dictionary<string, KeyBindingCommand>();
 			foreach (KeyBindingCommand keyBindingCommand in this.m_keyBindingData)
 			{
 				this.m_keyBindingDataDictionary.Add(keyBindingCommand.Name, keyBindingCommand);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		KeyBindingCommand result;
 		if (this.m_keyBindingDataDictionary.TryGetValue(keyBindName, out result))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return result;
 		}
 		return null;
@@ -428,19 +291,6 @@ public class GameWideData : MonoBehaviour
 	{
 		if (unlock == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameWideData.GetUnlockString(GameBalanceVars.UnlockData)).MethodHandle;
-			}
 			return string.Empty;
 		}
 		string text = string.Empty;
@@ -456,15 +306,6 @@ public class GameWideData : MonoBehaviour
 				int typeSpecificData2 = unlockCondition.typeSpecificData2;
 				if (typeSpecificData != CharacterType.None)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += string.Format("{0} Level {1}", this.GetCharacterResourceLink(typeSpecificData).m_displayName, typeSpecificData2);
 				}
 			}
@@ -475,27 +316,9 @@ public class GameWideData : MonoBehaviour
 			}
 			else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.ELO)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int typeSpecificData4 = unlockCondition.typeSpecificData;
 				text += string.Format("ELO of {0}", typeSpecificData4);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return text;
 	}

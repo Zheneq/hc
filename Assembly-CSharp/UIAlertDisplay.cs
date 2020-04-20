@@ -56,32 +56,10 @@ public class UIAlertDisplay : MonoBehaviour
 	{
 		if (this.m_lowTimePulse != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAlertDisplay.Start()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_lowTimePulse, false, null);
 		}
 		if (this.m_timebankTimePulse != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_timebankTimePulse, false, null);
 		}
 		for (int i = 0; i < this.m_label.Length; i++)
@@ -93,15 +71,6 @@ public class UIAlertDisplay : MonoBehaviour
 		this.m_deathLabel.raycastTarget = false;
 		if (this.m_optionalLabelBackground != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_originalLabelBgAlpha = this.m_optionalLabelBackground[0].color.a;
 		}
 	}
@@ -113,31 +82,9 @@ public class UIAlertDisplay : MonoBehaviour
 		{
 			if (!object.ReferenceEquals(message, alertMessage2.label.text))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAlertDisplay.DisplayAlert(string, Color, float, bool, int)).MethodHandle;
-				}
 				if (!(message == alertMessage2.label.text))
 				{
 					continue;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			alertMessage = alertMessage2;
@@ -157,15 +104,6 @@ public class UIAlertDisplay : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(this.m_optionalLabelBackground[i], i == alertMessage.alertLabelIndex, null);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Color color2 = this.m_optionalLabelBackground[alertMessage.alertLabelIndex].color;
 			color2.a = this.m_originalLabelBgAlpha;
 			this.m_optionalLabelBackground[alertMessage.alertLabelIndex].color = color2;
@@ -180,15 +118,6 @@ public class UIAlertDisplay : MonoBehaviour
 		float duration;
 		if (messageTimeSeconds > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			duration = messageTimeSeconds;
 		}
 		else
@@ -210,19 +139,6 @@ public class UIAlertDisplay : MonoBehaviour
 					alertMessage.startTime = 0f;
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAlertDisplay.CancelAlert(string)).MethodHandle;
-			}
 		}
 	}
 
@@ -233,19 +149,6 @@ public class UIAlertDisplay : MonoBehaviour
 		{
 			if (GameFlowData.Get().activeOwnedActorData.IsDead())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAlertDisplay.TriggerLowTimePulse(UIAlertDisplay.LowTimePulseType)).MethodHandle;
-				}
 				if (currentState != TurnStateEnum.PICKING_RESPAWN)
 				{
 					for (;;)
@@ -266,52 +169,16 @@ public class UIAlertDisplay : MonoBehaviour
 			}
 			if (this.m_timebankTimePulse != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type != UIAlertDisplay.LowTimePulseType.Standard)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_timebankTimePulse, false, null);
 					UIManager.SetGameObjectActive(this.m_timebankTimePulse, true, null);
 				}
 			}
 			if (type != UIAlertDisplay.LowTimePulseType.TurnEndWarning)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type != UIAlertDisplay.LowTimePulseType.UsingTimeBank)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UISounds.GetUISounds().Play("ui/countdown/tick");
 				}
 				else
@@ -334,68 +201,19 @@ public class UIAlertDisplay : MonoBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAlertDisplay.Update()).MethodHandle;
-				}
 				if (activeOwnedActorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData.IsModelAnimatorDisabled())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameFlowData.Get().gameState > GameState.StartingGame)
 						{
 							UIManager.SetGameObjectActive(this.m_DeathAnimController, true, null);
 							string text;
 							if (activeOwnedActorData.NextRespawnTurn != -1)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num = activeOwnedActorData.NextRespawnTurn - GameFlowData.Get().CurrentTurn - 1;
 								if (num > 0)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									text = string.Format(StringUtil.TR("RespawnInTurns", "Global"), num + 1);
 								}
 								else
@@ -409,27 +227,9 @@ public class UIAlertDisplay : MonoBehaviour
 							}
 							if (object.ReferenceEquals(this.m_deathLabel.text, text))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(this.m_deathLabel.text != text))
 								{
 									goto IL_160;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							this.m_deathLabel.text = text;
@@ -454,39 +254,12 @@ public class UIAlertDisplay : MonoBehaviour
 					{
 						if (this.m_label[alertMessage.alertLabelIndex] != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(this.m_label[alertMessage.alertLabelIndex], false, null);
 						}
 						if (this.m_optionalLabelBackground != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (alertMessage.showBackground)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_optionalLabelBackground[alertMessage.alertLabelIndex] != null)
 								{
 									UIManager.SetGameObjectActive(this.m_optionalLabelBackground[alertMessage.alertLabelIndex], false, null);
@@ -504,15 +277,6 @@ public class UIAlertDisplay : MonoBehaviour
 						Color color2;
 						if (this.m_optionalLabelBackground[alertMessage.alertLabelIndex] != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							color2 = this.m_optionalLabelBackground[alertMessage.alertLabelIndex].color;
 						}
 						else
@@ -522,15 +286,6 @@ public class UIAlertDisplay : MonoBehaviour
 						Color color3 = color2;
 						if (num2 > 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							color.a = 0f;
 						}
 						else
@@ -545,53 +300,17 @@ public class UIAlertDisplay : MonoBehaviour
 						}
 						if (!alertMessage.label.gameObject.activeSelf)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(alertMessage.label, true, null);
 							if (this.m_optionalLabelBackground != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (alertMessage.showBackground)
 								{
 									for (int i = 0; i < this.m_optionalLabelBackground.Length; i++)
 									{
 										if (this.m_optionalLabelBackground[i] != null)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											UIManager.SetGameObjectActive(this.m_optionalLabelBackground[i], i == alertMessage.alertLabelIndex, null);
 										}
-									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									color3.a = this.m_originalLabelBgAlpha;
 									this.m_optionalLabelBackground[alertMessage.alertLabelIndex].color = color3;
@@ -601,15 +320,6 @@ public class UIAlertDisplay : MonoBehaviour
 						num2++;
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (List<UIAlertDisplay.AlertMessage>.Enumerator enumerator2 = this.m_messagesToRemove.GetEnumerator())
 			{
@@ -617,15 +327,6 @@ public class UIAlertDisplay : MonoBehaviour
 				{
 					UIAlertDisplay.AlertMessage item = enumerator2.Current;
 					this.m_currentMessages.Remove(item);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_messagesToRemove.Clear();

@@ -64,19 +64,6 @@ public class NPCBrain_Adaptive : NPCBrain
 		this.MakeFSM(npcbrain_Adaptive);
 		if (GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.EnableTeamAIOutput))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCBrain_Adaptive.Create(BotController, Transform)).MethodHandle;
-			}
 			npcbrain_Adaptive.m_sendReasoningToTeamChat = true;
 		}
 		return npcbrain_Adaptive;

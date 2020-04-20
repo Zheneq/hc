@@ -40,19 +40,6 @@ public class AbilityUtil_Targeter_VariableLaser : AbilityUtil_Targeter_Laser
 		{
 			if (num >= this.m_infoValues[i].m_threshold)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_VariableLaser.UpdateValues(ActorData)).MethodHandle;
-				}
 				index = i;
 			}
 		}

@@ -15,7 +15,7 @@ public class UISystemMenuPanel : UIScene
 
 	public override SceneType GetSceneType()
 	{
-		return SceneType.\u001D;
+		return SceneType.symbol_001D;
 	}
 
 	public override void Awake()
@@ -23,19 +23,6 @@ public class UISystemMenuPanel : UIScene
 		UISystemMenuPanel.s_instance = this;
 		if (this.m_debugButton != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemMenuPanel.Awake()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.m_debugButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnDebugClick));
 		}
 		base.Awake();
@@ -50,19 +37,6 @@ public class UISystemMenuPanel : UIScene
 	{
 		if (UIDebugMenu.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemMenuPanel.OnDebugClick(BaseEventData)).MethodHandle;
-			}
 			bool flag = !UIDebugMenu.Get().m_container.gameObject.activeSelf;
 			if (flag)
 			{
@@ -76,30 +50,8 @@ public class UISystemMenuPanel : UIScene
 	{
 		if (this.m_debugButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemMenuPanel.Update()).MethodHandle;
-			}
 			if (HydrogenConfig.Get().DevMode)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_debugButton.gameObject.SetActive(true);
 			}
 			else

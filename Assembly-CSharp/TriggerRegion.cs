@@ -28,83 +28,25 @@ public class TriggerRegion : BoardRegion
 				ActorData actorData = enumerator.Current;
 				if (this.m_triggerLimit == TriggerAmount.OnceEverPerActor)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerRegion.OnTurnTick()).MethodHandle;
-					}
 					if (this.m_actorsTriggeredOnThisGame.Contains(actorData))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
 				if (this.m_triggerLimit == TriggerAmount.OnceEverTotal)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_actorsTriggeredOnThisGame.Count > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						continue;
 					}
 				}
 				if (!TriggerRegion.ActorCanTrigger(actorData, this.m_triggerActor))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (this.m_triggerLimit == TriggerAmount.OncePerTurnTotal)
 				{
 					return;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -122,19 +64,6 @@ public class TriggerRegion : BoardRegion
 			bool flag;
 			if (GameplayUtils.IsPlayerControlled(actor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TriggerRegion.ActorCanTrigger(ActorData, TriggerActor)).MethodHandle;
-				}
 				flag = GameplayUtils.IsHumanControlled(actor);
 			}
 			else

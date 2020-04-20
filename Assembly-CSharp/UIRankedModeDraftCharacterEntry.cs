@@ -72,19 +72,6 @@ public class UIRankedModeDraftCharacterEntry : MonoBehaviour
 	{
 		if (this.m_selectingStatus != selecting)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankedModeDraftCharacterEntry.SetAsSelecting(bool)).MethodHandle;
-			}
 			this.DoSelecting(selecting);
 		}
 	}

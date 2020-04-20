@@ -102,19 +102,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			SquareInsideChecker_Box item = new SquareInsideChecker_Box(this.m_widthInSquares);
 			this.m_squarePosCheckerList.Add(item);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser..ctor(Ability, float, float, float, float, float, float, int, int, bool, bool, bool, bool, bool, int, float, float)).MethodHandle;
-		}
 	}
 
 	public void SetIncludeTeams(bool includeAllies, bool includeEnemies, bool includeSelf = false)
@@ -151,19 +138,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			{
 				goto IL_D3;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 		}
 		this.m_highlights = new List<GameObject>();
 		this.m_laserEndPoints = new List<Vector3>();
@@ -172,40 +146,13 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			this.m_highlights.Add(this.m_laserPart.CreateHighlightObject(this));
 			this.m_laserEndPoints.Add(currentTarget.FreePos);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		IL_D3:
 		float num = this.m_fixedAngleInBetween;
 		if (this.m_changeAngleByCursorDist)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num2;
 			if (this.m_count > 1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = this.CalculateFanAngleDegrees(currentTarget, targetingActor, this.m_interpStep);
 			}
 			else
@@ -216,15 +163,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			float num4;
 			if (this.m_count > 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = num3 / (float)(this.m_count - 1);
 			}
 			else
@@ -237,15 +175,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		float num6 = num5 - 0.5f * (float)(this.m_count - 1) * num;
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		bool flag = false;
@@ -266,15 +195,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 					ActorData actorData = enumerator.Current;
 					if (actorData.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_lastNumAlliesHit++;
 					}
 					else
@@ -284,31 +204,13 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 					Vector3 vector2 = laserCoords.start;
 					if (this.m_customDamageOriginDelegate != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector2 = this.m_customDamageOriginDelegate(actorData, targetingActor, vector2);
 					}
 					base.AddActorInRange(actorData, vector2, targetingActor, AbilityTooltipSubject.Primary, true);
 					ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-					actorHitContext.\u001D = vector2;
+					actorHitContext.symbol_001D = vector2;
 					if (this.m_actorToHitCount.ContainsKey(actorData))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Dictionary<ActorData, int> actorToHitCount;
 						ActorData key;
 						(actorToHitCount = this.m_actorToHitCount)[key = actorData] = actorToHitCount[key] + 1;
@@ -317,15 +219,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 					{
 						this.m_actorToHitCount[actorData] = 1;
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_hitPowerupInLaser.Add(flag);
@@ -336,49 +229,22 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			this.m_laserPart.AdjustHighlight(highlightObj, travelBoardSquareWorldPositionForLos, travelBoardSquareWorldPositionForLos + magnitude * vector, true);
 			this.UpdateLaserEndPointsForHiddenSquares(laserCoords.start, laserCoords.end, j, targetingActor);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		int hash = ContextKeys.\u0019.GetHash();
-		int hash2 = ContextKeys.\u001A.GetHash();
+		int hash = ContextKeys.symbol_0019.GetHash();
+		int hash2 = ContextKeys.symbol_001A.GetHash();
 		using (Dictionary<ActorData, int>.Enumerator enumerator2 = this.m_actorToHitCount.GetEnumerator())
 		{
 			while (enumerator2.MoveNext())
 			{
 				KeyValuePair<ActorData, int> keyValuePair = enumerator2.Current;
 				ActorHitContext actorHitContext2 = this.m_actorContextVars[keyValuePair.Key];
-				actorHitContext2.\u0015.SetInt(hash, keyValuePair.Value);
-				actorHitContext2.\u0015.SetInt(hash2, 0);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
+				actorHitContext2.symbol_0015.SetInt(hash, keyValuePair.Value);
+				actorHitContext2.symbol_0015.SetInt(hash2, 0);
 			}
 		}
 		this.HandlePowerupHighlight(targetingActor, this.m_count);
 		bool flag3;
 		if (this.m_affectCasterDelegate == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = this.m_affectsTargetingActor;
 		}
 		else
@@ -391,15 +257,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		}
 		if (this.ShouldShowHiddenSquareIndicator(targetingActor))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HandleShowHiddenSquares(targetingActor);
 		}
 		base.HideUnusedSquareIndicators();
@@ -418,19 +275,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[i] as SquareInsideChecker_Box;
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, squareInsideChecker_Box.GetStartPos(), squareInsideChecker_Box.GetEndPos(), this.m_widthInSquares, targetingActor, this.m_penetrateLos, null, this.m_squarePosCheckerList, true);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.HandleShowHiddenSquares(ActorData)).MethodHandle;
-		}
 	}
 
 	public override void UpdateTargetingMultiTargets(AbilityTarget currentTarget, ActorData targetingActor, int currentTargetIndex, List<AbilityTarget> previousTargets)
@@ -445,19 +289,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 			{
 				goto IL_76;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 		}
 		this.m_highlights = new List<GameObject>();
 		this.m_highlights.Add(this.m_laserPart.CreateHighlightObject(this));
@@ -465,39 +296,12 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		Vector3 vector = currentTarget.AimDirection;
 		if (currentTargetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_maxAngle > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 aimDirection = previousTargets[currentTargetIndex - 1].AimDirection;
 				float num = Vector3.Angle(vector, aimDirection);
 				if (num > this.m_maxAngle)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = Vector3.RotateTowards(vector, aimDirection, 0.0174532924f * (num - this.m_maxAngle), 0f);
 				}
 			}
@@ -513,28 +317,10 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 				ActorData actor = enumerator.Current;
 				base.AddActorInRange(actor, laserCoords.start, targetingActor, AbilityTooltipSubject.Primary, true);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		bool flag;
 		if (this.m_affectCasterDelegate == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = this.m_affectsTargetingActor;
 		}
 		else
@@ -551,28 +337,10 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		float num3 = this.m_widthInSquares;
 		if (this.m_delegateLaserLength != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.m_delegateLaserLength(targetingActor, num2);
 		}
 		if (this.m_delegateLaserWidth != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = this.m_delegateLaserWidth(targetingActor, num3);
 		}
 		this.m_laserPart.UpdateDimensions(num3, num2);
@@ -582,15 +350,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		this.HandlePowerupHighlight(targetingActor, 1);
 		if (this.ShouldShowHiddenSquareIndicator(targetingActor))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			this.m_laserPart.ShowHiddenSquares(this.m_indicatorHandler, laserCoords.start, laserCoords.end, targetingActor, this.m_penetrateLos);
 			base.HideUnusedSquareIndicators();
@@ -614,19 +373,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		int num = startingFromIndex;
 		if (this.m_highlightPowerup)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.HandlePowerupHighlight(ActorData, int)).MethodHandle;
-			}
 			using (HashSet<PowerUp>.Enumerator enumerator = this.m_powerupsHitSoFar.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -641,15 +387,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 					this.m_highlights[num].transform.position = position;
 					this.m_highlights[num].SetActive(true);
 					num++;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			for (int i = num; i < this.m_highlights.Count; i++)
@@ -669,19 +406,6 @@ public class AbilityUtil_Targeter_ThiefFanLaser : AbilityUtil_Targeter
 		}
 		if (this.m_delegateLaserWidth != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ThiefFanLaser.GetLaserHitActors(Vector3, Vector3, ActorData, VectorUtils.LaserCoords*, List<PowerUp>*)).MethodHandle;
-			}
 			num2 = this.m_delegateLaserWidth(targetingActor, num2);
 		}
 		return ThiefBasicAttack.GetHitActorsInDirectionStatic(startPos, direction, targetingActor, num, num2, this.m_penetrateLos, this.m_maxTargets, this.m_affectsAllies, this.m_affectsEnemies, false, this.m_maxPowerupCount, this.m_highlightPowerup, this.m_stopOnPowerUp, this.m_includeSpoils, this.m_pickUpIgnoreTeamRestriction, this.m_powerupsHitSoFar, out coords, out powerupsHit, null, true, this.m_useHitActorPosForLaserEnd);

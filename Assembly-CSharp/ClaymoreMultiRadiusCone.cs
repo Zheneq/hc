@@ -84,19 +84,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedConeAngle()).MethodHandle;
-			}
 			result = this.m_coneWidthAngle;
 		}
 		else
@@ -116,19 +103,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedMiddleRadius()).MethodHandle;
-			}
 			result = this.m_coneLengthMiddle;
 		}
 		else
@@ -143,19 +117,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedOuterRadius()).MethodHandle;
-			}
 			result = this.m_coneLengthOuter;
 		}
 		else
@@ -170,19 +131,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetPenetrateLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
 		else
@@ -197,19 +145,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedInnerDamage()).MethodHandle;
-			}
 			result = this.m_damageAmountInner;
 		}
 		else
@@ -224,19 +159,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedMiddleDamage()).MethodHandle;
-			}
 			result = this.m_damageAmountMiddle;
 		}
 		else
@@ -251,19 +173,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedOuterDamage()).MethodHandle;
-			}
 			result = this.m_damageAmountOuter;
 		}
 		else
@@ -278,19 +187,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedInnerTpGain()).MethodHandle;
-			}
 			result = this.m_tpGainInner;
 		}
 		else
@@ -305,19 +201,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedMiddleTpGain()).MethodHandle;
-			}
 			result = this.m_tpGainMiddle;
 		}
 		else
@@ -332,19 +215,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ModdedOuterTpGain()).MethodHandle;
-			}
 			result = this.m_tpGainOuter;
 		}
 		else
@@ -359,19 +229,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo cachedEffectInner;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectInner = this.m_abilityMod.m_effectInnerMod.GetModifiedValue(this.m_effectInner);
 		}
 		else
@@ -382,15 +239,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo cachedEffectMiddle;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectMiddle = this.m_abilityMod.m_effectMiddleMod.GetModifiedValue(this.m_effectMiddle);
 		}
 		else
@@ -401,15 +249,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo cachedEffectOuter;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOuter = this.m_abilityMod.m_effectOuterMod.GetModifiedValue(this.m_effectOuter);
 		}
 		else
@@ -429,19 +268,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectMiddle != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetEffectMiddle()).MethodHandle;
-			}
 			result = this.m_cachedEffectMiddle;
 		}
 		else
@@ -456,19 +282,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOuter != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetEffectOuter()).MethodHandle;
-			}
 			result = this.m_cachedEffectOuter;
 		}
 		else
@@ -483,19 +296,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetBonusDamageIfEnemyHealthBelow()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_bonusDamageIfEnemyLowHealthMod.GetModifiedValue(this.m_bonusDamageIfEnemyLowHealth);
 		}
 		else
@@ -510,19 +310,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetEnemyHealthThreshForBonus()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_enemyHealthThreshForBonusMod.GetModifiedValue(this.m_enemyHealthThreshForBonus);
 		}
 		else
@@ -537,19 +324,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetBonusDamageIfCasterHealthBelow()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_bonusDamageIfCasterLowHealthMod.GetModifiedValue(this.m_bonusDamageIfCasterLowHealth);
 		}
 		else
@@ -564,19 +338,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetCasterHealthThreshForBonus()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_casterHealthThreshForBonusMod.GetModifiedValue(this.m_casterHealthThreshForBonus);
 		}
 		else
@@ -591,19 +352,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.ShouldApplyCasterBonusPerThresholdReached()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyBonusPerThresholdReached;
 		}
 		else
@@ -634,19 +382,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int val;
 		if (abilityMod_ClaymoreMultiRadiusCone)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ClaymoreMultiRadiusCone.m_innerDamageMod.GetModifiedValue(this.m_damageAmountInner);
 		}
 		else
@@ -659,15 +394,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int val2;
 		if (abilityMod_ClaymoreMultiRadiusCone)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ClaymoreMultiRadiusCone.m_middleDamageMod.GetModifiedValue(this.m_damageAmountMiddle);
 		}
 		else
@@ -680,15 +406,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int val3;
 		if (abilityMod_ClaymoreMultiRadiusCone)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ClaymoreMultiRadiusCone.m_outerDamageMod.GetModifiedValue(this.m_damageAmountOuter);
 		}
 		else
@@ -701,15 +418,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int val4;
 		if (abilityMod_ClaymoreMultiRadiusCone)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ClaymoreMultiRadiusCone.m_innerTpGain.GetModifiedValue(this.m_tpGainInner);
 		}
 		else
@@ -722,15 +430,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_ClaymoreMultiRadiusCone)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ClaymoreMultiRadiusCone.m_effectInnerMod.GetModifiedValue(this.m_effectInner);
 		}
 		else
@@ -741,15 +440,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_ClaymoreMultiRadiusCone)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ClaymoreMultiRadiusCone.m_effectMiddleMod.GetModifiedValue(this.m_effectMiddle);
 		}
 		else
@@ -760,15 +450,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_ClaymoreMultiRadiusCone)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_ClaymoreMultiRadiusCone.m_effectOuterMod.GetModifiedValue(this.m_effectOuter);
 		}
 		else
@@ -800,122 +481,37 @@ public class ClaymoreMultiRadiusCone : Ability
 			int num = 0;
 			if (this.GetBonusDamageIfCasterHealthBelow() > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				if (this.GetCasterHealthThreshForBonus() > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num2 = (float)actorData.HitPoints / (float)actorData.GetMaxHitPoints();
 					if (this.ShouldApplyCasterBonusPerThresholdReached())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num3 = Mathf.FloorToInt((1f - num2) / this.GetCasterHealthThreshForBonus());
 						num += this.GetBonusDamageIfCasterHealthBelow() * num3;
 					}
 					else if (num2 < this.GetCasterHealthThreshForBonus())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += this.GetBonusDamageIfCasterHealthBelow();
 					}
 				}
 			}
 			if (this.GetBonusDamageIfEnemyHealthBelow() > 0 && this.GetEnemyHealthThreshForBonus() > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((float)targetActor.HitPoints / (float)targetActor.GetMaxHitPoints() < this.GetEnemyHealthThreshForBonus())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += this.GetBonusDamageIfEnemyHealthBelow();
 				}
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedInnerDamage() + num;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Midranged))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedMiddleDamage() + num;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.ModdedOuterDamage() + num;
 			}
 		}
@@ -927,19 +523,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		int num = 0;
 		if (this.ModdedInnerTpGain() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Near);
 			num += visibleActorsInRangeByTooltipSubject.Count * this.ModdedInnerTpGain();
 		}
@@ -950,15 +533,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		}
 		if (this.ModdedOuterTpGain() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> visibleActorsInRangeByTooltipSubject3 = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Far);
 			num += visibleActorsInRangeByTooltipSubject3.Count * this.ModdedOuterTpGain();
 		}
@@ -969,33 +543,11 @@ public class ClaymoreMultiRadiusCone : Ability
 	{
 		if (subjectType != AbilityTooltipSubject.Near)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
-			}
 			if (subjectType != AbilityTooltipSubject.Midranged)
 			{
 				if (subjectType != AbilityTooltipSubject.Far)
 				{
 					return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1012,15 +564,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		bool flag2;
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = (num3 <= num2);
 		}
 		else
@@ -1031,15 +574,6 @@ public class ClaymoreMultiRadiusCone : Ability
 		bool flag4;
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag4 = !flag3;
 		}
 		else
@@ -1050,28 +584,10 @@ public class ClaymoreMultiRadiusCone : Ability
 		bool result;
 		if (subjectType == AbilityTooltipSubject.Near)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag;
 		}
 		else if (subjectType == AbilityTooltipSubject.Midranged)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag3;
 		}
 		else
@@ -1090,19 +606,6 @@ public class ClaymoreMultiRadiusCone : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ClaymoreMultiRadiusCone))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreMultiRadiusCone.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ClaymoreMultiRadiusCone);
 			this.SetupTargeter();
 		}

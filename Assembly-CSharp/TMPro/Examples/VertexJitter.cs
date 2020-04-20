@@ -6,112 +6,68 @@ namespace TMPro.Examples
 {
 	public class VertexJitter : MonoBehaviour
 	{
-		public float \u001D = 1f;
+		public float symbol_001D = 1f;
 
-		public float \u000E = 1f;
+		public float symbol_000E = 1f;
 
-		public float \u0012 = 1f;
+		public float symbol_0012 = 1f;
 
-		private TMP_Text \u0015;
+		private TMP_Text symbol_0015;
 
-		private bool \u0016;
+		private bool symbol_0016;
 
-		private void \u0013()
+		private void symbol_0013()
 		{
-			this.\u0015 = base.GetComponent<TMP_Text>();
+			this.symbol_0015 = base.GetComponent<TMP_Text>();
 		}
 
-		private void \u0018()
+		private void symbol_0018()
 		{
 			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.coroutine0013));
 		}
 
-		private void \u0009()
+		private void symbol_0009()
 		{
 			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.coroutine0013));
 		}
 
-		private void \u0019()
+		private void symbol_0019()
 		{
 			base.StartCoroutine(this.coroutine0013_2());
 		}
 
-		private void coroutine0013(UnityEngine.Object \u001D)
+		private void coroutine0013(UnityEngine.Object symbol_001D)
 		{
-			if (\u001D == this.\u0015)
+			if (symbol_001D == this.symbol_0015)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(VertexJitter.coroutine0013(UnityEngine.Object)).MethodHandle;
-				}
-				this.\u0016 = true;
+				this.symbol_0016 = true;
 			}
 		}
 
 		private IEnumerator coroutine0013_2()
 		{
-			this.\u0015.ForceMeshUpdate();
-			TMP_TextInfo textInfo = this.\u0015.textInfo;
+			this.symbol_0015.ForceMeshUpdate();
+			TMP_TextInfo textInfo = this.symbol_0015.textInfo;
 			int num = 0;
-			this.\u0016 = true;
+			this.symbol_0016 = true;
 			VertexJitter.VertexAnim[] array = new VertexJitter.VertexAnim[0x400];
 			for (int i = 0; i < 0x400; i++)
 			{
-				array[i].\u001D = UnityEngine.Random.Range(10f, 25f);
-				array[i].\u0012 = UnityEngine.Random.Range(1f, 3f);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VertexJitter.<AnimateVertexColors>c__Iterator0.MoveNext()).MethodHandle;
+				array[i].symbol_001D = UnityEngine.Random.Range(10f, 25f);
+				array[i].symbol_0012 = UnityEngine.Random.Range(1f, 3f);
 			}
 			TMP_MeshInfo[] array2 = textInfo.CopyMeshInfoVertexData();
 			for (;;)
 			{
-				if (this.\u0016)
+				if (this.symbol_0016)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array2 = textInfo.CopyMeshInfoVertexData();
-					this.\u0016 = false;
+					this.symbol_0016 = false;
 				}
 				int characterCount = textInfo.characterCount;
 				if (characterCount == 0)
 				{
 					yield return new WaitForSeconds(0.25f);
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -131,9 +87,9 @@ namespace TMPro.Examples
 							vertices2[vertexIndex + 1] = vertices[vertexIndex + 1] - b;
 							vertices2[vertexIndex + 2] = vertices[vertexIndex + 2] - b;
 							vertices2[vertexIndex + 3] = vertices[vertexIndex + 3] - b;
-							vertexAnim.\u000E = Mathf.SmoothStep(-vertexAnim.\u001D, vertexAnim.\u001D, Mathf.PingPong((float)num / 25f * vertexAnim.\u0012, 1f));
+							vertexAnim.symbol_000E = Mathf.SmoothStep(-vertexAnim.symbol_001D, vertexAnim.symbol_001D, Mathf.PingPong((float)num / 25f * vertexAnim.symbol_0012, 1f));
 							Vector3 a = new Vector3(UnityEngine.Random.Range(-0.25f, 0.25f), UnityEngine.Random.Range(-0.25f, 0.25f), 0f);
-							Matrix4x4 matrix4x = Matrix4x4.TRS(a * this.\u0012, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-5f, 5f) * this.\u001D), Vector3.one);
+							Matrix4x4 matrix4x = Matrix4x4.TRS(a * this.symbol_0012, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-5f, 5f) * this.symbol_001D), Vector3.one);
 							vertices2[vertexIndex] = matrix4x.MultiplyPoint3x4(vertices2[vertexIndex]);
 							vertices2[vertexIndex + 1] = matrix4x.MultiplyPoint3x4(vertices2[vertexIndex + 1]);
 							vertices2[vertexIndex + 2] = matrix4x.MultiplyPoint3x4(vertices2[vertexIndex + 2]);
@@ -148,19 +104,10 @@ namespace TMPro.Examples
 					for (int k = 0; k < textInfo.meshInfo.Length; k++)
 					{
 						textInfo.meshInfo[k].mesh.vertices = textInfo.meshInfo[k].vertices;
-						this.\u0015.UpdateGeometry(textInfo.meshInfo[k].mesh, k);
+						this.symbol_0015.UpdateGeometry(textInfo.meshInfo[k].mesh, k);
 					}
 					num++;
 					yield return new WaitForSeconds(0.1f);
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			yield break;
@@ -168,11 +115,11 @@ namespace TMPro.Examples
 
 		private struct VertexAnim
 		{
-			public float \u001D;
+			public float symbol_001D;
 
-			public float \u000E;
+			public float symbol_000E;
 
-			public float \u0012;
+			public float symbol_0012;
 		}
 	}
 }

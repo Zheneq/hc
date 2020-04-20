@@ -35,19 +35,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		SparkDash sparkDash = targetAbility as SparkDash;
 		if (sparkDash != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyMod, "ChargeEnemyEffect", sparkDash.m_effectOnTargetEnemy, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnAllyMod, "ChargeAllyEffect", sparkDash.m_effectOnTargetAlly, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyInBetweenMod, "EffectOnEnemyInBetween", sparkDash.m_effectOnEnemyInBetween, true);
@@ -68,19 +55,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sparkDash.m_effectOnTargetEnemy;
 		}
 		else
@@ -95,15 +69,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sparkDash.m_effectOnTargetAlly;
 		}
 		else
@@ -119,15 +84,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		AbilityAreaShape baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sparkDash.m_chooseDestinationShape;
 		}
 		else
@@ -142,15 +98,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sparkDash.m_hitActorsInBetween;
 		}
 		else
@@ -165,15 +112,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sparkDash.m_chargeHitWidth;
 		}
 		else

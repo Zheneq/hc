@@ -52,19 +52,6 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 					GameLeavingPenalty gameLeavingPenaltyForGameType = systemInfo.GetGameLeavingPenaltyForGameType(gameType2);
 					if (gameLeavingPenaltyForGameType != null && gameLeavingPenaltyForGameType.PointsForgivenPerCompleteGameFinished > num)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_MaxLeavingPoints.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-						}
 						bool flag = true;
 						using (IEnumerator<QueueRequirement> enumerator2 = systemInfo.GetQueueRequirements(gameType2).GetEnumerator())
 						{
@@ -73,39 +60,12 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 								QueueRequirement queueRequirement = enumerator2.Current;
 								if (flag)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!queueRequirement.DoesApplicantPass(systemInfo, applicant, gameType2, null))
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 										goto IL_D1;
 									}
 								}
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						IL_D1:
@@ -121,15 +81,6 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 			{
 				if (enumerator != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator.Dispose();
 				}
 			}
@@ -159,15 +110,6 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 		{
 			if (context == RequirementMessageContext.SoloQueueing)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("LeftTooManyActiveGamesToQueue", "Matchmaking", new LocalizationArg[]
 				{
 					applicant.LocalizedHandle
@@ -175,15 +117,6 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 			}
 			if (context == RequirementMessageContext.GroupQueueing)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return LocalizationPayload.Create("AllGroupMembersHaveLeftTooManyActiveGamesToQueue", "Matchmaking");
 			}
 			return LocalizationPayload.Create("PlayerHasTooMuchLeavingPenalty", "Requirement");
@@ -206,30 +139,8 @@ public class QueueRequirement_MaxLeavingPoints : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_MaxLeavingPoints.Create(JsonReader)).MethodHandle;
-			}
 			if (reader.Value != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (reader.Value.ToString() == "AnyGroupMember")
 				{
 					reader.Read();

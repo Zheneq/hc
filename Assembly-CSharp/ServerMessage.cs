@@ -65,19 +65,6 @@ public class ServerMessage
 				ServerMessageLanguage language = enumerator.Current;
 				if (!this.GetValue(language).IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessage.GetAllLanguageValues()).MethodHandle;
-					}
 					dictionary[language.ToString().ToLower()] = this.GetValue(language);
 				}
 			}
@@ -86,15 +73,6 @@ public class ServerMessage
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}
@@ -138,45 +116,14 @@ public class ServerMessage
 					if (!this.GetValue(language).IsNullOrEmpty())
 					{
 						yield return language.ToString();
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessage.<>c__Iterator0.MoveNext()).MethodHandle;
-						}
 						flag = true;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
 			{
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (enumerator != null)
 				{

@@ -33,19 +33,6 @@ public class ClientBarrierResults
 				KeyValuePair<Vector3, ClientPositionHitResults> keyValuePair2 = enumerator2.Current;
 				this.OnBarrierHitPosition(keyValuePair2.Key);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientBarrierResults.RunClientBarrierHits()).MethodHandle;
-			}
 		}
 	}
 
@@ -53,19 +40,6 @@ public class ClientBarrierResults
 	{
 		if (this.m_actorToHitResults.ContainsKey(target))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientBarrierResults.OnBarrierHitActor(ActorData)).MethodHandle;
-			}
 			this.m_actorToHitResults[target].ExecuteActorHit(target, this.m_barrierCaster);
 		}
 		else
@@ -78,19 +52,6 @@ public class ClientBarrierResults
 	{
 		if (this.m_posToHitResults.ContainsKey(position))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientBarrierResults.OnBarrierHitPosition(Vector3)).MethodHandle;
-			}
 			this.m_posToHitResults[position].ExecutePositionHit();
 		}
 	}

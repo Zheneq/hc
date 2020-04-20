@@ -13,19 +13,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 		bool penetrateLos;
 		if (unanchoredLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SweepSingleClickCone..ctor(Ability, float, float, float, float, float, LaserTargetingInfo, Exo_SyncComponent)).MethodHandle;
-			}
 			penetrateLos = unanchoredLaserInfo.penetrateLos;
 		}
 		else
@@ -42,19 +29,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SweepSingleClickCone.IsInitialPlacement()).MethodHandle;
-			}
 			if (!this.m_syncComponent.m_anchored)
 			{
 				return this.m_unanchoredLaserInfo != null;
@@ -76,19 +50,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 	{
 		if (this.IsInitialPlacement())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SweepSingleClickCone.GetLineRange()).MethodHandle;
-			}
 			return this.m_unanchoredLaserInfo.range;
 		}
 		return base.GetLineRange();
@@ -115,19 +76,6 @@ public class AbilityUtil_Targeter_SweepSingleClickCone : AbilityUtil_Targeter_Sw
 			{
 				ActorData actor = enumerator.Current;
 				base.AddActorInRange(actor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, true);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SweepSingleClickCone.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
 			}
 		}
 	}

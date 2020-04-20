@@ -23,42 +23,11 @@ public class SniperOverwatchSatelliteActionSequence : Sequence
 		GameObject gameObject = SequenceManager.Get().FindTempSatellite(base.Source);
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatchSatelliteActionSequence.ProcessAction()).MethodHandle;
-			}
 			SniperOverwatchSatellite component = gameObject.GetComponent<SniperOverwatchSatellite>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_action == SniperOverwatchSatelliteActionSequence.SatelliteAction.Attack && base.Target != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.TriggerAttack(base.Target.gameObject);
 				}
 			}

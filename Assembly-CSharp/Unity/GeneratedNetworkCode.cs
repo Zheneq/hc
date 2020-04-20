@@ -15,19 +15,6 @@ namespace Unity
 			{
 				instance.AddInternal(instance.DeserializeItem(reader));
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._ReadStructSyncListSparkTetherAgeInfo_None(NetworkReader, SyncListSparkTetherAgeInfo)).MethodHandle;
-			}
 		}
 
 		public static void _WriteStructSyncListSparkTetherAgeInfo_None(NetworkWriter writer, SyncListSparkTetherAgeInfo value)
@@ -37,19 +24,6 @@ namespace Unity
 			for (ushort num = 0; num < count; num += 1)
 			{
 				value.SerializeItem(writer, value.GetItem((int)num));
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._WriteStructSyncListSparkTetherAgeInfo_None(NetworkWriter, SyncListSparkTetherAgeInfo)).MethodHandle;
 			}
 		}
 
@@ -61,19 +35,6 @@ namespace Unity
 			{
 				instance.AddInternal(instance.DeserializeItem(reader));
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._ReadStructSyncListVisionProviderInfo_None(NetworkReader, SyncListVisionProviderInfo)).MethodHandle;
-			}
 		}
 
 		public static void _WriteStructSyncListVisionProviderInfo_None(NetworkWriter writer, SyncListVisionProviderInfo value)
@@ -84,19 +45,6 @@ namespace Unity
 			{
 				value.SerializeItem(writer, value.GetItem((int)num));
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._WriteStructSyncListVisionProviderInfo_None(NetworkWriter, SyncListVisionProviderInfo)).MethodHandle;
-			}
 		}
 
 		public static void _ReadStructSyncListTempCoverInfo_None(NetworkReader reader, SyncListTempCoverInfo instance)
@@ -106,19 +54,6 @@ namespace Unity
 			for (ushort num2 = 0; num2 < num; num2 += 1)
 			{
 				instance.AddInternal(instance.DeserializeItem(reader));
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GeneratedNetworkCode._ReadStructSyncListTempCoverInfo_None(NetworkReader, SyncListTempCoverInfo)).MethodHandle;
 			}
 		}
 

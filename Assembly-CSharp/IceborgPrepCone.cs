@@ -25,32 +25,10 @@ public class IceborgPrepCone : GenericAbility_Container
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgPrepCone.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
 		}
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncComp.AddTooltipTokens(tokens);
 		}
 	}

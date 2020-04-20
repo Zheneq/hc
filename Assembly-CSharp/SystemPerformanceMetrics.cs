@@ -56,31 +56,9 @@ public class SystemPerformanceMetrics
 		this.CpuUsedPercent = this.m_cpuUsage.NextValue();
 		if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SystemPerformanceMetrics.Update()).MethodHandle;
-			}
 			SystemPerformanceMetrics.PsApiPerformanceInformation psApiPerformanceInformation = default(SystemPerformanceMetrics.PsApiPerformanceInformation);
 			if (SystemPerformanceMetrics.GetPerformanceInfo(out psApiPerformanceInformation, Marshal.SizeOf(psApiPerformanceInformation)))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				long num = psApiPerformanceInformation.PageSize.ToInt64();
 				this.PhysicalMemoryTotalMb = (float)(psApiPerformanceInformation.PhysicalTotal.ToInt64() * num / 0x400L / 0x400L);
 				this.PhysicalMemoryAvailableMb = (float)(psApiPerformanceInformation.PhysicalAvailable.ToInt64() * num / 0x400L / 0x400L);
@@ -108,15 +86,6 @@ public class SystemPerformanceMetrics
 				this.CheckMemInfoValue(memInfoLine, SystemPerformanceMetrics.s_swapTotalRegex, ref virtualMemoryTotalMb);
 				this.CheckMemInfoValue(memInfoLine, SystemPerformanceMetrics.s_swapFreeRegex, ref virtualMemoryAvailableMb);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.PhysicalMemoryTotalMb = physicalMemoryTotalMb;
 			this.PhysicalMemoryAvailableMb = num2 + num3 + num4;
 			this.PhysicalMemoryUsedMb = this.PhysicalMemoryTotalMb - this.PhysicalMemoryAvailableMb;
@@ -126,28 +95,10 @@ public class SystemPerformanceMetrics
 		}
 		if (this.PhysicalMemoryTotalMb != 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.PhysicalMemoryUsedPercent = 100f * this.PhysicalMemoryUsedMb / this.PhysicalMemoryTotalMb;
 		}
 		if (this.VirtualMemoryTotalMb != 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.VirtualMemoryUsedPercent = 100f * this.VirtualMemoryUsedMb / this.VirtualMemoryTotalMb;
 		}
 	}
@@ -157,19 +108,6 @@ public class SystemPerformanceMetrics
 		Match match = regex.Match(memInfoLine);
 		if (match.Groups[1].Success)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SystemPerformanceMetrics.CheckMemInfoValue(string, Regex, float*)).MethodHandle;
-			}
 			value = (float)Convert.ToInt64(match.Groups[1].Value) / 1024f;
 		}
 	}

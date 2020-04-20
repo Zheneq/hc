@@ -31,45 +31,14 @@ public class ClientMovementResults
 		this.m_gameModeResults = gameModeResults;
 		if (this.m_effectResults != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults..ctor(ActorData, BoardSquarePathInfo, List<ServerClientUtils.SequenceStartData>, ClientEffectResults, ClientBarrierResults, ClientAbilityResults, ClientAbilityResults)).MethodHandle;
-			}
 			this.m_effectResults.MarkActorHitsAsMovementHits();
 		}
 		if (this.m_barrierResults != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_barrierResults.MarkActorHitsAsMovementHits();
 		}
 		if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_powerupResults.MarkActorHitsAsMovementHits();
 		}
 		if (this.m_gameModeResults != null)
@@ -87,19 +56,6 @@ public class ClientMovementResults
 		}
 		if (mover != this.m_triggeringMover)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.TriggerMatchesMovement(ActorData, BoardSquarePathInfo)).MethodHandle;
-			}
 			return false;
 		}
 		return MovementUtils.ArePathSegmentsEquivalent_FromBeginning(this.m_triggeringPath, curPath);
@@ -109,58 +65,18 @@ public class ClientMovementResults
 	{
 		if (this.m_seqStartDataList == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.HasSequencesToStart()).MethodHandle;
-			}
 			return false;
 		}
 		if (this.m_seqStartDataList.Count == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
 		{
 			if (sequenceStartData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (sequenceStartData.HasSequencePrefab())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -172,34 +88,12 @@ public class ClientMovementResults
 	{
 		if (this.HasSequencesToStart())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ReactToMovement()).MethodHandle;
-			}
 			using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_seqStartDataList.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
 					sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnMoveResultsHitActor), new SequenceSource.Vector3Delegate(this.OnMoveResultsHitPosition));
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -211,54 +105,18 @@ public class ClientMovementResults
 			}
 			if (this.m_effectResults != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_effectResults.RunClientEffectHits();
 			}
 			else if (this.m_barrierResults != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_barrierResults.RunClientBarrierHits();
 			}
 			else if (this.m_powerupResults != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_powerupResults.RunClientAbilityHits();
 			}
 			else if (this.m_gameModeResults != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_gameModeResults.RunClientAbilityHits();
 			}
 		}
@@ -269,19 +127,6 @@ public class ClientMovementResults
 	{
 		if (this.m_effectResults != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.OnMoveResultsHitActor(ActorData)).MethodHandle;
-			}
 			this.m_effectResults.OnEffectHitActor(target);
 		}
 		else if (this.m_barrierResults != null)
@@ -290,28 +135,10 @@ public class ClientMovementResults
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_powerupResults.OnAbilityHitActor(target);
 		}
 		else if (this.m_gameModeResults != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gameModeResults.OnAbilityHitActor(target);
 		}
 	}
@@ -324,45 +151,14 @@ public class ClientMovementResults
 		}
 		else if (this.m_barrierResults != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.OnMoveResultsHitPosition(Vector3)).MethodHandle;
-			}
 			this.m_barrierResults.OnBarrierHitPosition(position);
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_powerupResults.OnAbilityHitPosition(position);
 		}
 		else if (this.m_gameModeResults != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gameModeResults.OnAbilityHitPosition(position);
 		}
 	}
@@ -372,19 +168,6 @@ public class ClientMovementResults
 		bool result;
 		if (this.m_effectResults != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.DoneHitting()).MethodHandle;
-			}
 			result = this.m_effectResults.DoneHitting();
 		}
 		else if (this.m_barrierResults != null)
@@ -393,28 +176,10 @@ public class ClientMovementResults
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_powerupResults.DoneHitting();
 		}
 		else if (this.m_gameModeResults != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_gameModeResults.DoneHitting();
 		}
 		else
@@ -430,58 +195,18 @@ public class ClientMovementResults
 		bool result = false;
 		if (this.m_effectResults != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.HasUnexecutedHitOnActor(ActorData)).MethodHandle;
-			}
 			result = this.m_effectResults.HasUnexecutedHitOnActor(actor);
 		}
 		else if (this.m_barrierResults != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_barrierResults.HasUnexecutedHitOnActor(actor);
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_powerupResults.HasUnexecutedHitOnActor(actor);
 		}
 		else if (this.m_gameModeResults != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_gameModeResults.HasUnexecutedHitOnActor(actor);
 		}
 		return result;
@@ -517,43 +242,12 @@ public class ClientMovementResults
 		bool result = false;
 		if (this.m_seqStartDataList != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ContainsSequenceSourceID(uint)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_seqStartDataList.Count; i++)
 			{
 				if (this.m_seqStartDataList[i].ContainsSequenceSourceID(id))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -568,32 +262,10 @@ public class ClientMovementResults
 		}
 		else if (this.m_barrierResults != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.GetDebugDescription()).MethodHandle;
-			}
 			str = this.m_barrierResults.GetDebugDescription();
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = this.m_powerupResults.GetDebugDescription();
 		}
 		else if (this.m_gameModeResults != null)
@@ -607,58 +279,18 @@ public class ClientMovementResults
 	{
 		if (this.m_effectResults != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ExecuteUnexecutedClientHits()).MethodHandle;
-			}
 			this.m_effectResults.ExecuteUnexecutedClientHits();
 		}
 		else if (this.m_barrierResults != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_barrierResults.ExecuteUnexecutedClientHits();
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_powerupResults.ExecuteUnexecutedClientHits();
 		}
 		else if (this.m_gameModeResults != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gameModeResults.ExecuteUnexecutedClientHits();
 		}
 	}
@@ -671,45 +303,14 @@ public class ClientMovementResults
 		}
 		else if (this.m_barrierResults != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.ExecuteReactionHitsWithExtraFlagsOnActor(ActorData, ActorData, bool, bool)).MethodHandle;
-			}
 			this.m_barrierResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_powerupResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 		}
 		else if (this.m_gameModeResults != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gameModeResults.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 		}
 	}
@@ -719,19 +320,6 @@ public class ClientMovementResults
 		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + this.m_triggeringMover.GetDebugName() + "\n";
 		if (this.m_effectResults != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMovementResults.UnexecutedHitsDebugStr()).MethodHandle;
-			}
 			text += this.m_effectResults.UnexecutedHitsDebugStr();
 		}
 		else if (this.m_barrierResults != null)
@@ -740,28 +328,10 @@ public class ClientMovementResults
 		}
 		else if (this.m_powerupResults != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += this.m_powerupResults.UnexecutedHitsDebugStr();
 		}
 		else if (this.m_gameModeResults != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += this.m_gameModeResults.UnexecutedHitsDebugStr();
 		}
 		return text;

@@ -20,19 +20,6 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		this.m_characterIcon.sprite = actorData.GetScreenIndicatorIcon();
 		if (this.m_grayCharacterIcon != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.SetupCharacterIcons(ActorData)).MethodHandle;
-			}
 			this.m_grayCharacterIcon.sprite = actorData.GetScreenIndicatorBWIcon();
 		}
 	}
@@ -54,58 +41,18 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		{
 			if (!this.m_attachedToActor.IsDead())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILastKnownPosIndicator.CalculateVisibility()).MethodHandle;
-				}
 				if (this.m_attachedToActor.IsModelAnimatorDisabled())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (this.m_attachedToActor.IgnoreForAbilityHits)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = false;
 						goto IL_AD;
 					}
 					if (this.m_attachedToActor.ClientLastKnownPosSquare == null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = false;
 						goto IL_AD;
 					}
@@ -118,37 +65,10 @@ public class UILastKnownPosIndicator : UIBaseIndicator
 		IL_AD:
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lastActiveOwnedActor != GameFlowData.Get().activeOwnedActorData)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_lastActiveOwnedActor = GameFlowData.Get().activeOwnedActorData;
 					base.MarkGrayoutForUpdate();
 				}

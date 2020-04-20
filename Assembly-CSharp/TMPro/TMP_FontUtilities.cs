@@ -31,54 +31,14 @@ namespace TMPro
 			}
 			if (font.characterDictionary.TryGetValue(character, out glyph))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontUtilities.SearchForGlyphInternal(TMP_FontAsset, int, TMP_Glyph*)).MethodHandle;
-				}
 				return font;
 			}
 			if (font.fallbackFontAssets != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (font.fallbackFontAssets.Count > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < font.fallbackFontAssets.Count; i++)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (glyph != null)
 						{
 							break;
@@ -86,30 +46,12 @@ namespace TMPro
 						TMP_FontAsset tmp_FontAsset = font.fallbackFontAssets[i];
 						if (tmp_FontAsset == null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							int instanceID = tmp_FontAsset.GetInstanceID();
 							if (TMP_FontUtilities.k_searchedFontAssets.Contains(instanceID))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -117,15 +59,6 @@ namespace TMPro
 								tmp_FontAsset = TMP_FontUtilities.SearchForGlyphInternal(tmp_FontAsset, character, out glyph);
 								if (tmp_FontAsset != null)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									return tmp_FontAsset;
 								}
 							}
@@ -141,44 +74,13 @@ namespace TMPro
 			glyph = null;
 			if (fonts != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontUtilities.SearchForGlyphInternal(List<TMP_FontAsset>, int, TMP_Glyph*)).MethodHandle;
-				}
 				if (fonts.Count > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < fonts.Count; i++)
 					{
 						TMP_FontAsset tmp_FontAsset = TMP_FontUtilities.SearchForGlyphInternal(fonts[i], character, out glyph);
 						if (tmp_FontAsset != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return tmp_FontAsset;
 						}
 					}

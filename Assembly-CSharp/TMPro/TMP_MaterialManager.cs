@@ -27,19 +27,6 @@ namespace TMPro
 		{
 			if (TMP_MaterialManager.isFallbackListDirty)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.OnPreRender(Camera)).MethodHandle;
-				}
 				TMP_MaterialManager.CleanupFallbackMaterials();
 				TMP_MaterialManager.isFallbackListDirty = false;
 			}
@@ -49,19 +36,6 @@ namespace TMPro
 		{
 			if (TMP_MaterialManager.isFallbackListDirty)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.OnPreRenderCanvas()).MethodHandle;
-				}
 				TMP_MaterialManager.CleanupFallbackMaterials();
 				TMP_MaterialManager.isFallbackListDirty = false;
 			}
@@ -71,19 +45,6 @@ namespace TMPro
 		{
 			if (!baseMaterial.HasProperty(ShaderUtilities.ID_StencilID))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetStencilMaterial(Material, int)).MethodHandle;
-				}
 				Debug.LogWarning("Selected Shader does not support Stencil Masking. Please select the Distance Field or Mobile Distance Field Shader.");
 				return baseMaterial;
 			}
@@ -92,30 +53,12 @@ namespace TMPro
 			{
 				if (TMP_MaterialManager.m_materialList[i].baseMaterial.GetInstanceID() == instanceID)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_MaterialManager.m_materialList[i].stencilID == stencilID)
 					{
 						TMP_MaterialManager.m_materialList[i].count++;
 						return TMP_MaterialManager.m_materialList[i].stencilMaterial;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			Material material = new Material(baseMaterial);
 			material.hideFlags = HideFlags.HideAndDontSave;
@@ -139,30 +82,8 @@ namespace TMPro
 			{
 				if (TMP_MaterialManager.m_materialList[i].stencilMaterial.GetInstanceID() == instanceID)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ReleaseStencilMaterial(Material)).MethodHandle;
-					}
 					if (TMP_MaterialManager.m_materialList[i].count > 1)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TMP_MaterialManager.m_materialList[i].count--;
 					}
 					else
@@ -190,19 +111,6 @@ namespace TMPro
 			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
 			if (num == -1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetBaseMaterial(Material)).MethodHandle;
-				}
 				return null;
 			}
 			return TMP_MaterialManager.m_materialList[num].baseMaterial;
@@ -213,19 +121,6 @@ namespace TMPro
 			material.SetFloat(ShaderUtilities.ID_StencilID, (float)stencilID);
 			if (stencilID == 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.SetStencil(Material, int)).MethodHandle;
-				}
 				material.SetFloat(ShaderUtilities.ID_StencilComp, 8f);
 			}
 			else
@@ -240,19 +135,6 @@ namespace TMPro
 			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
 			if (num == -1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.AddMaskingMaterial(Material, Material, int)).MethodHandle;
-				}
 				TMP_MaterialManager.MaskingMaterial maskingMaterial = new TMP_MaterialManager.MaskingMaterial();
 				maskingMaterial.baseMaterial = baseMaterial;
 				maskingMaterial.stencilMaterial = stencilMaterial;
@@ -272,19 +154,6 @@ namespace TMPro
 			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.stencilMaterial == stencilMaterial);
 			if (num != -1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.RemoveStencilMaterial(Material)).MethodHandle;
-				}
 				TMP_MaterialManager.m_materialList.RemoveAt(num);
 			}
 		}
@@ -294,32 +163,10 @@ namespace TMPro
 			int num = TMP_MaterialManager.m_materialList.FindIndex((TMP_MaterialManager.MaskingMaterial item) => item.baseMaterial == baseMaterial);
 			if (num == -1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ReleaseBaseMaterial(Material)).MethodHandle;
-				}
 				Debug.Log("No Masking Material exists for " + baseMaterial.name);
 			}
 			else if (TMP_MaterialManager.m_materialList[num].count > 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.m_materialList[num].count--;
 				Debug.Log(string.Concat(new object[]
 				{
@@ -348,19 +195,6 @@ namespace TMPro
 		{
 			if (TMP_MaterialManager.m_materialList.Count == 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ClearMaterials()).MethodHandle;
-				}
 				Debug.Log("Material List has already been cleared.");
 				return;
 			}
@@ -369,15 +203,6 @@ namespace TMPro
 				Material stencilMaterial = TMP_MaterialManager.m_materialList[i].stencilMaterial;
 				UnityEngine.Object.DestroyImmediate(stencilMaterial);
 				TMP_MaterialManager.m_materialList.RemoveAt(i);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -388,19 +213,6 @@ namespace TMPro
 			Transform y = TMP_MaterialManager.FindRootSortOverrideCanvas(transform);
 			if (transform == y)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetStencilID(GameObject)).MethodHandle;
-				}
 				return num;
 			}
 			Transform parent = transform.parent;
@@ -415,28 +227,10 @@ namespace TMPro
 					Mask mask = list[i];
 					if (mask != null && mask.MaskEnabled() && mask.graphic.IsActive())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 						IL_B1:
 						if (parent == y)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_E7;
 						}
 						parent = parent.parent;
@@ -475,19 +269,6 @@ namespace TMPro
 		{
 			if (baseMaterial == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetMaterialForRendering(MaskableGraphic, Material)).MethodHandle;
-				}
 				return null;
 			}
 			List<IMaterialModifier> list = TMP_ListPool<IMaterialModifier>.Get();
@@ -511,33 +292,11 @@ namespace TMPro
 				canvas = list[i];
 				if (canvas.overrideSorting)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.FindRootSortOverrideCanvas(Transform)).MethodHandle;
-					}
 					IL_54:
 					TMP_ListPool<Canvas>.Release(list);
 					Transform result;
 					if (canvas != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = canvas.transform;
 					}
 					else
@@ -567,33 +326,11 @@ namespace TMPro
 			TMP_MaterialManager.FallbackMaterial fallbackMaterial;
 			if (TMP_MaterialManager.m_fallbackMaterials.TryGetValue(num, out fallbackMaterial))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.GetFallbackMaterial(Material, Material)).MethodHandle;
-				}
 				return fallbackMaterial.fallbackMaterial;
 			}
 			Material material;
 			if (sourceMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
 				{
 					material = new Material(sourceMaterial);
@@ -624,19 +361,6 @@ namespace TMPro
 		{
 			if (targetMaterial == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.AddFallbackMaterialReference(Material)).MethodHandle;
-				}
 				return;
 			}
 			int instanceID = targetMaterial.GetInstanceID();
@@ -644,15 +368,6 @@ namespace TMPro
 			TMP_MaterialManager.FallbackMaterial fallbackMaterial;
 			if (TMP_MaterialManager.m_fallbackMaterialLookup.TryGetValue(instanceID, out key) && TMP_MaterialManager.m_fallbackMaterials.TryGetValue(key, out fallbackMaterial))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fallbackMaterial.count++;
 			}
 		}
@@ -661,46 +376,15 @@ namespace TMPro
 		{
 			if (targetMaterial == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.RemoveFallbackMaterialReference(Material)).MethodHandle;
-				}
 				return;
 			}
 			int instanceID = targetMaterial.GetInstanceID();
 			long key;
 			if (TMP_MaterialManager.m_fallbackMaterialLookup.TryGetValue(instanceID, out key))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.FallbackMaterial fallbackMaterial;
 				if (TMP_MaterialManager.m_fallbackMaterials.TryGetValue(key, out fallbackMaterial))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					fallbackMaterial.count--;
 					if (fallbackMaterial.count < 1)
 					{
@@ -734,46 +418,15 @@ namespace TMPro
 		{
 			if (fallackMaterial == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.ReleaseFallbackMaterial(Material)).MethodHandle;
-				}
 				return;
 			}
 			int instanceID = fallackMaterial.GetInstanceID();
 			long key;
 			if (TMP_MaterialManager.m_fallbackMaterialLookup.TryGetValue(instanceID, out key))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.FallbackMaterial fallbackMaterial;
 				if (TMP_MaterialManager.m_fallbackMaterials.TryGetValue(key, out fallbackMaterial))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					fallbackMaterial.count--;
 					if (fallbackMaterial.count < 1)
 					{
@@ -788,19 +441,6 @@ namespace TMPro
 		{
 			if (source.HasProperty(ShaderUtilities.ID_GradientScale))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_MaterialManager.CopyMaterialPresetProperties(Material, Material)).MethodHandle;
-				}
 				if (destination.HasProperty(ShaderUtilities.ID_GradientScale))
 				{
 					Texture texture = destination.GetTexture(ShaderUtilities.ID_MainTex);
@@ -818,15 +458,6 @@ namespace TMPro
 					destination.SetFloat(ShaderUtilities.ID_WeightNormal, float4);
 					destination.SetFloat(ShaderUtilities.ID_WeightBold, float5);
 					return;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

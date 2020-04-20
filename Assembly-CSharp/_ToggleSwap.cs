@@ -29,19 +29,6 @@ public class _ToggleSwap : MonoBehaviour
 		}
 		if (this.m_offButton != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ToggleSwap.Awake()).MethodHandle;
-			}
 			this.m_offButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.ToggleButton);
 		}
 		if (this.m_onContainer != null)
@@ -50,15 +37,6 @@ public class _ToggleSwap : MonoBehaviour
 		}
 		if (this.m_offContainer != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_offContainer.gameObject, !this.m_isOn, null);
 		}
 	}
@@ -72,58 +50,18 @@ public class _ToggleSwap : MonoBehaviour
 	{
 		if (this.m_isOn == isOn)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ToggleSwap.SetOn(bool, bool)).MethodHandle;
-			}
 			return;
 		}
 		this.m_isOn = isOn;
 		UIManager.SetGameObjectActive(this.m_onContainer.gameObject, isOn, null);
 		if (this.m_offContainer != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_offContainer.gameObject, !isOn, null);
 		}
 		if (doNotify)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.changedNotify != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.changedNotify(this);
 			}
 		}
@@ -134,19 +72,6 @@ public class _ToggleSwap : MonoBehaviour
 		this.m_onButton.SetClickable(canBeClicked);
 		if (this.m_offButton != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ToggleSwap.SetClickable(bool)).MethodHandle;
-			}
 			this.m_offButton.SetClickable(canBeClicked);
 		}
 	}

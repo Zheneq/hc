@@ -10,19 +10,6 @@ public class _ScrollRect : ScrollRect
 	{
 		if (this.m_ignoreOnDrag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_ScrollRect.OnDrag(PointerEventData)).MethodHandle;
-			}
 			return;
 		}
 		base.OnDrag(eventData);

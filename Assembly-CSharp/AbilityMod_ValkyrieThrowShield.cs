@@ -46,19 +46,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		ValkyrieThrowShield valkyrieThrowShield = targetAbility as ValkyrieThrowShield;
 		if (valkyrieThrowShield != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieThrowShield.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_widthMod, "Width", string.Empty, valkyrieThrowShield.m_width, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxDistancePerBounceMod, "MaxDistancePerBounce", string.Empty, valkyrieThrowShield.m_maxDistancePerBounce, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxTotalDistanceMod, "MaxTotalDistance", string.Empty, valkyrieThrowShield.m_maxTotalDistance, true, false, false);
@@ -86,19 +73,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieThrowShield.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = valkyrieThrowShield.m_width;
 		}
 		else
@@ -113,15 +87,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieThrowShield.m_maxDistancePerBounce;
 		}
 		else
@@ -137,15 +102,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieThrowShield.m_maxBounces;
 		}
 		else
@@ -160,15 +116,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieThrowShield.m_maxTargetsHit;
 		}
 		else
@@ -183,15 +130,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = valkyrieThrowShield.m_damageAmount;
 		}
 		else
@@ -208,15 +146,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = valkyrieThrowShield.m_knockbackDistance;
 		}
 		else
@@ -232,15 +161,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		KnockbackType baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = valkyrieThrowShield.m_knockbackType;
 		}
 		else
@@ -252,15 +172,6 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		text += base.PropDesc(this.m_maxKnockbackTargetsMod, "[MaxKnockbackTargets]", flag, 0);
 		if (this.m_cooldownReductionOnLaserHitCaster.HasCooldownReduction())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += this.m_cooldownReductionOnLaserHitCaster.GetDescription(abilityData);
 		}
 		return text;

@@ -6,69 +6,56 @@ namespace TMPro.Examples
 {
 	public class VertexShakeB : MonoBehaviour
 	{
-		public float \u001D = 1f;
+		public float symbol_001D = 1f;
 
-		public float \u000E = 1f;
+		public float symbol_000E = 1f;
 
-		public float \u0012 = 1f;
+		public float symbol_0012 = 1f;
 
-		private TMP_Text \u0015;
+		private TMP_Text symbol_0015;
 
-		private bool \u0016;
+		private bool symbol_0016;
 
-		private void \u0013()
+		private void symbol_0013()
 		{
-			this.\u0015 = base.GetComponent<TMP_Text>();
+			this.symbol_0015 = base.GetComponent<TMP_Text>();
 		}
 
-		private void \u0018()
+		private void symbol_0018()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.\u0013));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Add(new Action<UnityEngine.Object>(this.symbol_0013));
 		}
 
-		private void \u0009()
+		private void symbol_0009()
 		{
-			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.\u0013));
+			TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(new Action<UnityEngine.Object>(this.symbol_0013));
 		}
 
-		private void \u0019()
+		private void symbol_0019()
 		{
 			base.StartCoroutine(this.coroutine0013());
 		}
 
-		private void \u0013(UnityEngine.Object \u001D)
+		private void symbol_0013(UnityEngine.Object symbol_001D)
 		{
-			if (this.\u0015)
+			if (this.symbol_0015)
 			{
-				this.\u0016 = true;
+				this.symbol_0016 = true;
 			}
 		}
 
 		private IEnumerator coroutine0013()
 		{
-			this.\u0015.ForceMeshUpdate();
-			TMP_TextInfo textInfo = this.\u0015.textInfo;
+			this.symbol_0015.ForceMeshUpdate();
+			TMP_TextInfo textInfo = this.symbol_0015.textInfo;
 			Vector3[][] array = new Vector3[0][];
-			this.\u0016 = true;
+			this.symbol_0016 = true;
 			for (;;)
 			{
-				if (this.\u0016)
+				if (this.symbol_0016)
 				{
 					if (array.Length < textInfo.meshInfo.Length)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(VertexShakeB.<AnimateVertexColors>c__Iterator0.MoveNext()).MethodHandle;
-						}
 						array = new Vector3[textInfo.meshInfo.Length][];
 					}
 					for (int i = 0; i < textInfo.meshInfo.Length; i++)
@@ -76,38 +63,11 @@ namespace TMPro.Examples
 						int num = textInfo.meshInfo[i].vertices.Length;
 						array[i] = new Vector3[num];
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					this.\u0016 = false;
+					this.symbol_0016 = false;
 				}
 				if (textInfo.characterCount == 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					yield return new WaitForSeconds(0.25f);
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -122,15 +82,6 @@ namespace TMPro.Examples
 						{
 							if (!textInfo.characterInfo[k].isVisible)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -167,40 +118,13 @@ namespace TMPro.Examples
 								array[materialReferenceIndex][vertexIndex + 3] += b;
 							}
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					for (int l = 0; l < textInfo.meshInfo.Length; l++)
 					{
 						textInfo.meshInfo[l].mesh.vertices = array[l];
-						this.\u0015.UpdateGeometry(textInfo.meshInfo[l].mesh, l);
+						this.symbol_0015.UpdateGeometry(textInfo.meshInfo[l].mesh, l);
 					}
 					yield return new WaitForSeconds(0.1f);
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			yield break;

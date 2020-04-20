@@ -11,29 +11,13 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 		UITooltipHoverObject component = this.m_ownedToggle.GetComponent<UITooltipHoverObject>();
 		UITooltipObject uitooltipObject = component;
 		TooltipType tooltipType = TooltipType.Simple;
-		if (UIStoreAccountEmoticonsPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountEmoticonsPanel.Awake()).MethodHandle;
-			}
-			UIStoreAccountEmoticonsPanel.<>f__am$cache0 = delegate(UITooltipBase tooltip)
+		
+		uitooltipObject.Setup(tooltipType, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
 				uisimpleTooltip.Setup(StringUtil.TR("Owned", "Store"));
 				return true;
-			};
-		}
-		uitooltipObject.Setup(tooltipType, UIStoreAccountEmoticonsPanel.<>f__am$cache0, null);
+			}, null);
 	}
 
 	protected override GameBalanceVars.PlayerUnlockable[] GetRawItemsList()
@@ -58,46 +42,15 @@ public class UIStoreAccountEmoticonsPanel : UIStoreBaseInventoryPanel
 	{
 		if (this.m_ownedToggle.isOn)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountEmoticonsPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
 				if (!ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (!ClientGameManager.Get().GetPlayerAccountData().AccountComponent.IsChatEmojiUnlocked(item.ID))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 					return false;

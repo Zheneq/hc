@@ -15,32 +15,10 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 		this.m_light = base.GetComponent<Light>();
 		if (this.m_light != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightIntensitySetterForLowQuality.Awake()).MethodHandle;
-			}
 			this.m_initialIntensity = this.m_light.intensity;
 		}
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.GraphicsQualityChanged);
 		}
 	}
@@ -54,19 +32,6 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 	{
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightIntensitySetterForLowQuality.OnDestroy()).MethodHandle;
-			}
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GraphicsQualityChanged);
 		}
 	}
@@ -83,45 +48,14 @@ public class LightIntensitySetterForLowQuality : MonoBehaviour, IGameEventListen
 	{
 		if (Options_UI.Get() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightIntensitySetterForLowQuality.SetLightIntensityForCurrentQuality()).MethodHandle;
-			}
 			if (this.m_light == null && this.m_lightIntensityAtLowQuality >= 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}
 		GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
 		if (currentGraphicsQuality <= GraphicsQuality.Low)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_light.intensity = this.m_lightIntensityAtLowQuality;
 		}
 		else

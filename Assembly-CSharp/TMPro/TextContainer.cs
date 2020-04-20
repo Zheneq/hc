@@ -61,19 +61,6 @@ namespace TMPro
 			{
 				if (this.m_pivot != value)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.set_pivot(Vector2)).MethodHandle;
-					}
 					this.m_pivot = value;
 					this.m_anchorPosition = this.GetAnchorPosition(this.m_pivot);
 					this.m_hasChanged = true;
@@ -92,19 +79,6 @@ namespace TMPro
 			{
 				if (this.m_anchorPosition != value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.set_anchorPosition(TextContainerAnchors)).MethodHandle;
-					}
 					this.m_anchorPosition = value;
 					this.m_pivot = this.GetPivot(this.m_anchorPosition);
 					this.m_hasChanged = true;
@@ -123,19 +97,6 @@ namespace TMPro
 			{
 				if (this.m_rect != value)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.set_rect(Rect)).MethodHandle;
-					}
 					this.m_rect = value;
 					this.m_hasChanged = true;
 					this.OnContainerChanged();
@@ -153,19 +114,6 @@ namespace TMPro
 			{
 				if (new Vector2(this.m_rect.width, this.m_rect.height) != value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.set_size(Vector2)).MethodHandle;
-					}
 					this.SetRect(value);
 					this.m_hasChanged = true;
 					this.m_isDefaultWidth = false;
@@ -259,19 +207,6 @@ namespace TMPro
 			{
 				if (this.m_margins != value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.set_margins(Vector4)).MethodHandle;
-					}
 					this.m_margins = value;
 					this.m_hasChanged = true;
 					this.OnContainerChanged();
@@ -285,19 +220,6 @@ namespace TMPro
 			{
 				if (this.m_rectTransform == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.get_rectTransform()).MethodHandle;
-					}
 					this.m_rectTransform = base.GetComponent<RectTransform>();
 				}
 				return this.m_rectTransform;
@@ -310,19 +232,6 @@ namespace TMPro
 			{
 				if (this.m_textMeshPro == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.get_textMeshPro()).MethodHandle;
-					}
 					this.m_textMeshPro = base.GetComponent<TextMeshPro>();
 				}
 				return this.m_textMeshPro;
@@ -348,33 +257,11 @@ namespace TMPro
 			this.UpdateCorners();
 			if (this.m_rectTransform != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.OnContainerChanged()).MethodHandle;
-				}
 				this.m_rectTransform.sizeDelta = this.size;
 				this.m_rectTransform.hasChanged = true;
 			}
 			if (this.textMeshPro != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textMeshPro.SetVerticesDirty();
 				this.m_textMeshPro.margin = this.m_margins;
 			}
@@ -384,19 +271,6 @@ namespace TMPro
 		{
 			if (this.rectTransform == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.OnRectTransformDimensionsChange()).MethodHandle;
-				}
 				this.m_rectTransform = base.gameObject.AddComponent<RectTransform>();
 			}
 			if (this.m_rectTransform.sizeDelta != TextContainer.k_defaultSize)
@@ -421,19 +295,6 @@ namespace TMPro
 			this.m_corners[3] = new Vector3((1f - this.m_pivot.x) * this.m_rect.width, -this.m_pivot.y * this.m_rect.height);
 			if (this.m_rectTransform != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.UpdateCorners()).MethodHandle;
-				}
 				this.m_rectTransform.pivot = this.m_pivot;
 			}
 		}
@@ -478,84 +339,26 @@ namespace TMPro
 		{
 			if (pivot == new Vector2(0f, 1f))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextContainer.GetAnchorPosition(Vector2)).MethodHandle;
-				}
 				return TextContainerAnchors.TopLeft;
 			}
 			if (pivot == new Vector2(0.5f, 1f))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return TextContainerAnchors.Top;
 			}
 			if (pivot == new Vector2(1f, 1f))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return TextContainerAnchors.TopRight;
 			}
 			if (pivot == new Vector2(0f, 0.5f))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return TextContainerAnchors.Left;
 			}
 			if (pivot == new Vector2(0.5f, 0.5f))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return TextContainerAnchors.Middle;
 			}
 			if (pivot == new Vector2(1f, 0.5f))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return TextContainerAnchors.Right;
 			}
 			if (pivot == new Vector2(0f, 0f))
@@ -564,28 +367,10 @@ namespace TMPro
 			}
 			if (pivot == new Vector2(0.5f, 0f))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return TextContainerAnchors.Bottom;
 			}
 			if (pivot == new Vector2(1f, 0f))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return TextContainerAnchors.BottomRight;
 			}
 			return TextContainerAnchors.Custom;

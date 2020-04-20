@@ -115,19 +115,6 @@ public class ClericConeKnockback : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedTargetHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericConeKnockback.GetTargetHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedTargetHitEffect;
 		}
 		else

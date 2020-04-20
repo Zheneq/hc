@@ -51,19 +51,6 @@ public class InventoryItemTemplate
 	{
 		if (this.Index == -1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.GetDisplayName()).MethodHandle;
-			}
 			return this.DisplayName;
 		}
 		return StringUtil.TR_InventoryItemName(this.Index);
@@ -117,19 +104,6 @@ public class InventoryItemTemplate
 	{
 		if (this.TypeSpecificData.IsNullOrEmpty<int>())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryItemTemplate.ToString()).MethodHandle;
-			}
 			return string.Format("[{0}] {1}, {2}", this.Index, this.DisplayName, this.Type);
 		}
 		string format = "[{0}] {1}, {2}, ({3})";

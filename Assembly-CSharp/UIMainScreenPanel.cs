@@ -78,32 +78,10 @@ public class UIMainScreenPanel : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_outsideHierachyContainers[i], visible, null);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIMainScreenPanel.SetVisible(bool)).MethodHandle;
-		}
 		Log.Info("HEALTHBARCHECK: ENDPOINT " + visible, new object[0]);
 		UIManager.SetGameObjectActive(this.m_nameplatePanel, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_nameplatePanel.RefreshNameplates();
 		}
 	}

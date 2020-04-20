@@ -51,19 +51,6 @@ public class SenseiAmmoLaser : Ability
 		bool result;
 		if (this.m_healOnSelfPerHit > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAmmoLaser.TargeterIncludeCaster(ActorData, List<ActorData>)).MethodHandle;
-			}
 			result = (actorsSoFar.Count > 0);
 		}
 		else
@@ -83,31 +70,9 @@ public class SenseiAmmoLaser : Ability
 		int num = this.m_laserTargetingInfo.maxTargets;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAmmoLaser.GetCurrentMaxTargets()).MethodHandle;
-			}
 			num = (int)this.m_syncComp.m_syncCurrentNumOrbs;
 			if (this.m_maxOrbsPerCast > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num > this.m_maxOrbsPerCast)
 				{
 					num = this.m_maxOrbsPerCast;
@@ -135,19 +100,6 @@ public class SenseiAmmoLaser : Ability
 	{
 		if (this.m_healOnSelfPerHit > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiAmmoLaser.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 			{
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);

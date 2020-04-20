@@ -71,19 +71,6 @@ public class BazookaGirlExplodingLaser : Ability
 	{
 		if (this.m_explosionType == BazookaGirlExplodingLaser.ExplosionType.Cone)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.SetupTargeter()).MethodHandle;
-			}
 			AbilityUtil_Targeter_LaserWithCone abilityUtil_Targeter_LaserWithCone = new AbilityUtil_Targeter_LaserWithCone(this, this.GetLaserWidth(), this.GetLaserRange(), this.LaserPenetrateLos(), false, this.GetConeWidthAngle(), this.GetConeLength(), this.GetConeBackwardOffset());
 			abilityUtil_Targeter_LaserWithCone.SetExplodeOnPathEnd(this.m_alwaysExplodeOnPathEnd);
 			abilityUtil_Targeter_LaserWithCone.SetExplodeOnEnvironmentHit(this.m_explodeOnEnvironmentHit);
@@ -127,19 +114,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetConeWidthAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
 		}
 		else
@@ -154,19 +128,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetConeLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneLengthMod.GetModifiedValue(this.m_coneLength);
 		}
 		else
@@ -181,19 +142,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -208,19 +156,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -235,19 +170,6 @@ public class BazookaGirlExplodingLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -262,19 +184,6 @@ public class BazookaGirlExplodingLaser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.LaserPenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserPenetrateLosMod.GetModifiedValue(this.m_laserPenetrateLos);
 		}
 		else
@@ -289,19 +198,6 @@ public class BazookaGirlExplodingLaser : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetLaserDamage()).MethodHandle;
-			}
 			result = this.m_laserDamageAmount;
 		}
 		else
@@ -316,19 +212,6 @@ public class BazookaGirlExplodingLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetLaserHitEffect()).MethodHandle;
-			}
 			result = this.m_effectOnLaserHitTargets;
 		}
 		else
@@ -343,19 +226,6 @@ public class BazookaGirlExplodingLaser : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.LaserIgnoreCover()).MethodHandle;
-			}
 			result = this.m_laserIgnoreCover;
 		}
 		else
@@ -375,19 +245,6 @@ public class BazookaGirlExplodingLaser : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetExplosionDamage()).MethodHandle;
-			}
 			result = this.m_explosionDamageAmount;
 		}
 		else
@@ -407,19 +264,6 @@ public class BazookaGirlExplodingLaser : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.ExplosionIgnoresCover()).MethodHandle;
-			}
 			result = this.m_explosionIgnoreCover;
 		}
 		else
@@ -449,44 +293,13 @@ public class BazookaGirlExplodingLaser : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int num = 0;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetLaserDamage();
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetExplosionDamage();
 			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
@@ -504,19 +317,6 @@ public class BazookaGirlExplodingLaser : Ability
 		int val;
 		if (abilityMod_BazookaGirlExplodingLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlExplodingLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_BazookaGirlExplodingLaser.m_laserDamageMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -527,15 +327,6 @@ public class BazookaGirlExplodingLaser : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_BazookaGirlExplodingLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_BazookaGirlExplodingLaser.m_laserHitEffectOverride.GetModifiedValue(this.m_effectOnLaserHitTargets);
 		}
 		else
@@ -547,15 +338,6 @@ public class BazookaGirlExplodingLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_BazookaGirlExplodingLaser)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_BazookaGirlExplodingLaser.m_explosionEffectOverride.GetModifiedValue(this.m_effectOnExplosionHitTargets);
 		}
 		else

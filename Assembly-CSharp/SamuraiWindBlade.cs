@@ -44,19 +44,6 @@ public class SamuraiWindBlade : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Wind Blade";
 		}
 		this.SetupTargeter();
@@ -79,31 +66,9 @@ public class SamuraiWindBlade : Ability
 	{
 		if (!base.Targeters.IsNullOrEmpty<AbilityUtil_Targeter>())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
 			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 		}
@@ -130,19 +95,6 @@ public class SamuraiWindBlade : Ability
 		StandardEffectInfo cachedLaserHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
 		}
 		else
@@ -157,19 +109,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -184,19 +123,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetMinRangeBeforeBend()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minRangeBeforeBendMod.GetModifiedValue(this.m_minRangeBeforeBend);
 		}
 		else
@@ -211,19 +137,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetMaxRangeBeforeBend()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxRangeBeforeBendMod.GetModifiedValue(this.m_maxRangeBeforeBend);
 		}
 		else
@@ -243,19 +156,6 @@ public class SamuraiWindBlade : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetMaxBendAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxBendAngleMod.GetModifiedValue(this.m_maxBendAngle);
 		}
 		else
@@ -280,19 +180,6 @@ public class SamuraiWindBlade : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetLaserDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -307,19 +194,6 @@ public class SamuraiWindBlade : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetDamageChangePerTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageChangePerTargetMod.GetModifiedValue(this.m_damageChangePerTarget);
 		}
 		else
@@ -334,19 +208,6 @@ public class SamuraiWindBlade : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedLaserHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetLaserHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserHitEffect;
 		}
 		else
@@ -371,30 +232,8 @@ public class SamuraiWindBlade : Ability
 		int num = this.GetLaserDamageAmount();
 		if (this.GetDamageChangePerTarget() > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.CalcDamage(int)).MethodHandle;
-			}
 			if (hitOrder > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetDamageChangePerTarget() * hitOrder;
 			}
 		}
@@ -406,34 +245,12 @@ public class SamuraiWindBlade : Ability
 		int num = 0;
 		if (base.Targeters != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetHitOrderIndexFromTargeters(ActorData, int)).MethodHandle;
-			}
 			int num2 = 0;
 			while (num2 < base.Targeters.Count && num2 <= currentTargetIndex)
 			{
 				AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[num2] as AbilityUtil_Targeter_BendingLaser;
 				if (abilityUtil_Targeter_BendingLaser != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<ActorData>.Enumerator enumerator = abilityUtil_Targeter_BendingLaser.m_ordererdHitActors.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -441,27 +258,9 @@ public class SamuraiWindBlade : Ability
 							ActorData x = enumerator.Current;
 							if (x == actor)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return num;
 							}
 							num++;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -489,19 +288,6 @@ public class SamuraiWindBlade : Ability
 		Vector3 aimDirection = targets[0].AimDirection;
 		if (maxBendAngle > 0f && maxBendAngle < 360f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetTargeterClampedAimDirection(Vector3, List<AbilityTarget>)).MethodHandle;
-			}
 			aimDir = Vector3.RotateTowards(aimDirection, aimDir, 0.0174532924f * maxBendAngle, 0f);
 		}
 		return aimDir;
@@ -513,32 +299,10 @@ public class SamuraiWindBlade : Ability
 		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
 		if (magnitude < this.GetMinRangeBeforeBend() * Board.Get().squareSize)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetClampedRangeInSquares(ActorData, AbilityTarget)).MethodHandle;
-			}
 			return this.GetMinRangeBeforeBend();
 		}
 		if (magnitude > this.GetMaxRangeBeforeBend() * Board.Get().squareSize)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.GetMaxRangeBeforeBend();
 		}
 		return magnitude / Board.Get().squareSize;
@@ -557,19 +321,6 @@ public class SamuraiWindBlade : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_laserDamageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.m_laserDamageAmount);
 		}
 		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
@@ -581,19 +332,6 @@ public class SamuraiWindBlade : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (this.m_laserDamageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int num = this.GetLaserDamageAmount();
 			if (this.GetDamageChangePerTarget() > 0)
 			{
@@ -613,19 +351,6 @@ public class SamuraiWindBlade : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiWindBlade))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiWindBlade.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SamuraiWindBlade);
 			this.SetupTargeter();
 		}

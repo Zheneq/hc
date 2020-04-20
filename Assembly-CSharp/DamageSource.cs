@@ -54,19 +54,6 @@ public class DamageSource
 	{
 		if (this.IsAbility())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DamageSource.IgnoreDamageBuffsAndDebuffs()).MethodHandle;
-			}
 			return this.Ability.m_tags.Contains(AbilityTags.IgnoreOutgoingDamageHealAbsorbBuffsAndDebuffs);
 		}
 		return false;
@@ -76,32 +63,10 @@ public class DamageSource
 	{
 		if (this.Ability == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DamageSource.IsCharacterSpecificAbility(ActorData)).MethodHandle;
-			}
 			return false;
 		}
 		if (!(caster == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(caster.GetAbilityData() == null))
 			{
 				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(this.Ability);

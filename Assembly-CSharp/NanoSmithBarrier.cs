@@ -23,19 +23,6 @@ public class NanoSmithBarrier : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Kinetic Barrier";
 		}
 		this.SetupTargeter();
@@ -47,19 +34,6 @@ public class NanoSmithBarrier : Ability
 		float width = barrierData.m_width;
 		if (this.GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.SetupTargeter()).MethodHandle;
-			}
 			base.Targeter = new AbilityUtil_Targeter_Barrier(this, barrierData.m_width, this.m_snapToGrid, false, true);
 		}
 		else
@@ -88,19 +62,6 @@ public class NanoSmithBarrier : Ability
 	{
 		if (this.GetExpectedNumberOfTargeters() > 1 && targetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(currentTargets[0].GridPos);
 			return boardSquareSafe2 == boardSquareSafe;
@@ -114,19 +75,6 @@ public class NanoSmithBarrier : Ability
 		StandardBarrierData standardBarrierData;
 		if (abilityMod_NanoSmithBarrier)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			standardBarrierData = abilityMod_NanoSmithBarrier.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
 		}
 		else
@@ -141,19 +89,6 @@ public class NanoSmithBarrier : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithBarrier))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NanoSmithBarrier);
 			this.m_cachedBarrierData = this.m_abilityMod.m_barrierDataMod.GetModifiedValue(this.m_barrierData);
 			this.SetupTargeter();
@@ -172,19 +107,6 @@ public class NanoSmithBarrier : Ability
 		StandardBarrierData result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBarrier.GetBarrierData()).MethodHandle;
-			}
 			result = this.m_barrierData;
 		}
 		else

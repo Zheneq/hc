@@ -45,19 +45,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		ValkyrieStab valkyrieStab = targetAbility as ValkyrieStab;
 		if (valkyrieStab != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieStab.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneWidthMinAngleMod, "ConeWidthMinAngle", string.Empty, valkyrieStab.m_coneWidthMinAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneWidthMaxAngleMod, "ConeWidthMaxAngle", string.Empty, valkyrieStab.m_coneWidthMaxAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneBackwardOffsetMod, "ConeBackwardOffset", string.Empty, valkyrieStab.m_coneBackwardOffset, true, false, false);
@@ -86,19 +73,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieStab.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = valkyrieStab.m_coneWidthMinAngle;
 		}
 		else
@@ -113,15 +87,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieStab.m_coneWidthMaxAngle;
 		}
 		else
@@ -137,15 +102,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieStab.m_coneMinLength;
 		}
 		else
@@ -160,15 +116,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieStab.m_coneMaxLength;
 		}
 		else
@@ -184,15 +131,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = valkyrieStab.m_maxTargets;
 		}
 		else
@@ -207,15 +145,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = valkyrieStab.m_damageAmount;
 		}
 		else
@@ -233,15 +162,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = valkyrieStab.m_targetHitEffect;
 		}
 		else

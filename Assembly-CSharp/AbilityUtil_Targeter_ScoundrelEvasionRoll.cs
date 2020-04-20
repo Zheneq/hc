@@ -35,53 +35,13 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ScoundrelEvasionRoll.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (currentTargetIndex != 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targets != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsUsingMultiTargetUpdate())
 					{
 						goto IL_7B;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -97,15 +57,6 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 		IL_B0:
 		if (boardSquarePathInfo != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
 			{
 				if (boardSquarePathInfo2.next == null || boardSquarePathInfo2.next.square != boardSquarePathInfo2.square)
@@ -113,42 +64,15 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 					this.m_numNodesInPath++;
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		base.EnableAllMovementArrows();
 		int fromIndex = base.AddMovementArrowWithPrevious(targetingActor, boardSquarePathInfo, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
 		base.SetMovementArrowEnabledFromIndex(fromIndex, false);
 		if (this.m_spawnTrapwireInStart && this.m_trapwirePattern != AbilityGridPattern.NoPattern)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 trapwireHighlightPos = this.GetTrapwireHighlightPos(currentTarget, targetingActor);
 			if (base.Highlight == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Highlight = HighlightUtils.Get().CreateGridPatternHighlight(this.m_trapwirePattern, 1f);
 				base.Highlight.transform.position = trapwireHighlightPos;
 			}
@@ -160,27 +84,9 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 		}
 		if (this.m_affectsCaster != AbilityUtil_Targeter.AffectsActor.Always)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_affectsCaster != AbilityUtil_Targeter.AffectsActor.Possible)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!boardSquareSafe.IsInBrushRegion())
 			{
@@ -196,19 +102,6 @@ public class AbilityUtil_Targeter_ScoundrelEvasionRoll : AbilityUtil_Targeter
 		Vector3 vector;
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ScoundrelEvasionRoll.GetTrapwireHighlightPos(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = boardSquareSafe.ToVector3();
 		}
 		else

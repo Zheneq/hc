@@ -94,19 +94,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		ClientGameManager.Get().OnAccountDataUpdated += this.OnAccountDataUpdate;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.Start()).MethodHandle;
-			}
 			this.OnAccountDataUpdate(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		UITooltipHoverObject component = this.m_ownedToggle.GetComponent<UITooltipHoverObject>();
@@ -148,45 +135,14 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (one == null && two == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressBanners.<SortList`1>m__1(UIPlayerProgressBanners.SortedItem<T>, UIPlayerProgressBanners.SortedItem<T>)).MethodHandle;
-				}
 				return 0;
 			}
 			if (one == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return -1;
 			}
 			if (two == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 			return one.SortOrder.CompareTo(two.SortOrder);
@@ -194,19 +150,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		for (int j = 0; j < list2.Count; j++)
 		{
 			list.Add(list2[j].Payload);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.SortList(List<T>, List<int>)).MethodHandle;
 		}
 		return list;
 	}
@@ -224,19 +167,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		bool flag;
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.UpdateVisibleItems(AccountComponent)).MethodHandle;
-			}
 			flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
 		}
 		else
@@ -246,15 +176,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		bool flag2 = flag;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_visibleTitles = new List<GameBalanceVars.PlayerTitle>(GameBalanceVars.Get().PlayerTitles);
 		}
 		else
@@ -269,29 +190,11 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				{
 					goto IL_E7;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CharacterType unlockCharacterType = playerTitle.GetUnlockCharacterType();
 				if (!playerTitle.m_isHidden)
 				{
 					if (unlockCharacterType != CharacterType.None)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameWideData.Get().GetCharacterResourceLink(unlockCharacterType).m_isHidden)
 						{
 							for (;;)
@@ -330,38 +233,11 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			{
 				goto IL_1B6;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterType unlockCharacterType2 = playerBanner.GetUnlockCharacterType();
 			if (!playerBanner.m_isHidden)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockCharacterType2 != CharacterType.None)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameWideData.Get().GetCharacterResourceLink(unlockCharacterType2).m_isHidden)
 					{
 						for (;;)
@@ -379,15 +255,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				{
 					goto IL_1B6;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_19D:
 			IL_1E6:
@@ -396,29 +263,11 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			IL_1B6:
 			if (playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_visibleBackgroundBanners.Add(playerBanner);
 				goto IL_1E6;
 			}
 			this.m_visibleForegroundBanners.Add(playerBanner);
 			goto IL_1E6;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_visibleRibbons = new List<GameBalanceVars.PlayerRibbon>();
 		GameBalanceVars.PlayerRibbon[] playerRibbons = GameBalanceVars.Get().PlayerRibbons;
@@ -430,15 +279,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			{
 				goto IL_29A;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				goto IL_29A;
@@ -446,41 +286,14 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			CharacterType unlockCharacterType3 = playerRibbon.GetUnlockCharacterType();
 			if (!playerRibbon.m_isHidden)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockCharacterType3 != CharacterType.None && GameWideData.Get().GetCharacterResourceLink(unlockCharacterType3).m_isHidden)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (GameBalanceVarsExtensions.MeetsVisibilityConditions(playerRibbon))
 					{
 						goto IL_29A;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -495,15 +308,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			this.m_visibleRibbons.Add(playerRibbon);
 			goto IL_2CE;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		List<int> list = new List<int>();
 		for (int l = 0; l < this.m_visibleTitles.Count; l++)
 		{
@@ -515,44 +319,17 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			list.Add(this.m_visibleBackgroundBanners[m].m_sortOrder);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_visibleBackgroundBanners = this.SortList<GameBalanceVars.PlayerBanner>(this.m_visibleBackgroundBanners, list);
 		list.Clear();
 		for (int n = 0; n < this.m_visibleForegroundBanners.Count; n++)
 		{
 			list.Add(this.m_visibleForegroundBanners[n].m_sortOrder);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_visibleForegroundBanners = this.SortList<GameBalanceVars.PlayerBanner>(this.m_visibleForegroundBanners, list);
 		list.Clear();
 		for (int num = 0; num < this.m_visibleRibbons.Count; num++)
 		{
 			list.Add(this.m_visibleRibbons[num].m_sortOrder);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_visibleRibbons = this.SortList<GameBalanceVars.PlayerRibbon>(this.m_visibleRibbons, list);
 		this.m_visibleTitles.Insert(0, null);
@@ -562,15 +339,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (playerTitle2 != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ClientGameManager.Get().IsTitleUnlocked(playerTitle2))
 				{
 					continue;
@@ -583,28 +351,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (playerBanner2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<GameBalanceVars.UnlockConditionValue> list2;
 				if (!ClientGameManager.Get().IsBannerUnlocked(playerBanner2, out list2))
 				{
 					continue;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_unlockedBackgroundBanners.Add(playerBanner2);
@@ -622,26 +372,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				this.m_unlockedForegroundBanners.Add(playerBanner3);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_unlockedRibbons = new List<GameBalanceVars.PlayerRibbon>();
@@ -652,40 +384,13 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				GameBalanceVars.PlayerRibbon playerRibbon2 = enumerator4.Current;
 				if (playerRibbon2 != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<GameBalanceVars.UnlockConditionValue> list2;
 					if (!ClientGameManager.Get().IsRibbonUnlocked(playerRibbon2, out list2))
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				this.m_unlockedRibbons.Add(playerRibbon2);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -706,19 +411,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				list[i].m_selectableButton.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 				UIManager.SetGameObjectActive(list[i], false, null);
 				StaggerComponent.SetStaggerComponent(list[i].gameObject, true, true);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.Init()).MethodHandle;
 			}
 			this.UpdateVisibleItems(ClientGameManager.Get().GetPlayerAccountData().AccountComponent);
 		}
@@ -750,19 +442,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		}
 		else if (pointerEventData.scrollDelta.y < 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.OnScroll(BaseEventData)).MethodHandle;
-			}
 			this.ClickedOnNextPage(data);
 		}
 	}
@@ -776,34 +455,12 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			{
 				if (btnClicked == currentButtonsList[i])
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.BannerClicked(UIPlayerProgressBannersButton)).MethodHandle;
-					}
 					currentButtonsList[i].SetSelected(true);
 				}
 				else
 				{
 					currentButtonsList[i].SetSelected(false);
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -830,44 +487,13 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			UnityEngine.Object.Destroy(this.m_pageIndicators[0].gameObject);
 			this.m_pageIndicators.RemoveAt(0);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ShowList(UIPlayerProgressBanners.CurrentList)).MethodHandle;
-		}
 		if (this.m_pageIndicators.Count > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.ClickedOnPageIndicator(this.m_pageIndicators[0]);
 			for (int i = 0; i < this.m_pageIndicators.Count; i++)
 			{
 				this.m_pageIndicators[i].SetPageNumber(i + 1);
 				this.m_pageIndicators[i].SetClickCallback(new Action<UIPageIndicator>(UIPlayerProgressPanel.Get().ClickedOnPage));
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -944,32 +570,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 	{
 		if (this.m_currentPage > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ClickedOnPrevPage(BaseEventData)).MethodHandle;
-			}
 			this.m_currentPage--;
 			UIPageIndicator pageIndicator;
 			if (this.m_pageIndicators.Count > this.m_currentPage)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				pageIndicator = this.m_pageIndicators[this.m_currentPage];
 			}
 			else
@@ -985,32 +589,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 	{
 		if (this.m_currentPage + 1 < this.m_pageIndicators.Count)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ClickedOnNextPage(BaseEventData)).MethodHandle;
-			}
 			this.m_currentPage++;
 			UIPageIndicator pageIndicator;
 			if (this.m_pageIndicators.Count > this.m_currentPage)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				pageIndicator = this.m_pageIndicators[this.m_currentPage];
 			}
 			else
@@ -1026,56 +608,16 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 	{
 		if (listType == UIPlayerProgressBanners.CurrentList.Title)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.GetNumberOfItems(UIPlayerProgressBanners.CurrentList)).MethodHandle;
-			}
 			if (this.m_showLocked)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_visibleTitles.Count;
 			}
 			return this.m_unlockedTitles.Count;
 		}
 		else if (listType == UIPlayerProgressBanners.CurrentList.Background)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_showLocked)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_visibleBackgroundBanners.Count;
 			}
 			return this.m_unlockedBackgroundBanners.Count;
@@ -1084,15 +626,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (this.m_showLocked)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_visibleForegroundBanners.Count;
 			}
 			return this.m_unlockedForegroundBanners.Count;
@@ -1121,19 +654,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		UIPageIndicator pageIndicator;
 		if (this.m_pageIndicators.Count > this.m_currentPage)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ResetPage()).MethodHandle;
-			}
 			pageIndicator = this.m_pageIndicators[this.m_currentPage];
 		}
 		else
@@ -1149,19 +669,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		{
 			if (this.m_pageIndicators[i] == pageIndicator)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.ClickedOnPageIndicator(UIPageIndicator)).MethodHandle;
-				}
 				this.m_pageIndicators[i].SetSelected(true);
 				this.m_currentPage = i;
 			}
@@ -1176,28 +683,10 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 			int num = this.m_currentPage * this.numBannersPerPage + j;
 			if (num < this.m_numItems)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentList == UIPlayerProgressBanners.CurrentList.Title)
 				{
 					if (this.m_showLocked)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentButtonsList[j].SetupTitle(this.m_visibleTitles[num]);
 					}
 					else
@@ -1207,26 +696,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				else if (this.m_currentList == UIPlayerProgressBanners.CurrentList.Background)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_showLocked)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentButtonsList[j].SetupBanner(this.m_visibleBackgroundBanners[num]);
 					}
 					else
@@ -1236,26 +707,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				}
 				else if (this.m_currentList == UIPlayerProgressBanners.CurrentList.Foreground)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_showLocked)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentButtonsList[j].SetupBanner(this.m_visibleForegroundBanners[num]);
 					}
 					else
@@ -1269,26 +722,8 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 					{
 						throw new Exception(this.m_currentList + " not supported");
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_showLocked)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentButtonsList[j].SetupRibbon(this.m_visibleRibbons[num]);
 					}
 					else
@@ -1302,15 +737,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 				currentButtonsList[j].SetupBanner(null);
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public override void SetActive(bool visible)
@@ -1319,19 +745,6 @@ public class UIPlayerProgressBanners : UIPlayerProgressSubPanel
 		this.Init();
 		if (!visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBanners.SetActive(bool)).MethodHandle;
-			}
 			return;
 		}
 		this.ShowList(UIPlayerProgressBanners.CurrentList.Foreground);

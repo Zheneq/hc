@@ -15,19 +15,6 @@ public static class AbilityTooltipHelper
 	{
 		if (amount > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTooltipHelper.ReportAbsorb(List<AbilityTooltipNumber>*, AbilityTooltipSubject, int)).MethodHandle;
-			}
 			numbers.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Absorb, subject, amount));
 		}
 	}
@@ -44,19 +31,6 @@ public static class AbilityTooltipHelper
 	{
 		if (amount != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityTooltipHelper.ReportEnergy(List<AbilityTooltipNumber>*, AbilityTooltipSubject, int)).MethodHandle;
-			}
 			number.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Energy, subject, amount));
 		}
 	}

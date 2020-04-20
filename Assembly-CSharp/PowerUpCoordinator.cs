@@ -50,38 +50,12 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 				this.m_powerUpLocations[i].Initialize();
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.Start()).MethodHandle;
-		}
 	}
 
 	private void Update()
 	{
 		if (this.m_nextPowerUpIndex == -1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.Update()).MethodHandle;
-			}
 			this.SetupNextPowerupData();
 		}
 	}
@@ -90,52 +64,12 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.PowerUp.IPowerUpListener.OnTurnTick()).MethodHandle;
-			}
 			if (this.m_currentPowerUp == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_nextSpawnTurn <= GameFlowData.Get().CurrentTurn)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsSpawningEnabled())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SpawnPowerUp();
 					}
 				}
@@ -152,19 +86,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		this.Networkm_nextSpawnTurn = GameFlowData.Get().CurrentTurn + GameplayRandom.Range(this.m_spawnIntervalMin, this.m_spawnIntervalMax);
 		if (GameplayMutators.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.PowerUp.IPowerUpListener.OnPowerUpDestroyed(PowerUp)).MethodHandle;
-			}
 			this.Networkm_nextSpawnTurn = Mathf.Max(this.m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), GameFlowData.Get().CurrentTurn + 1);
 		}
 		this.SetupNextPowerupData();
@@ -186,19 +107,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		{
 			if (powerUpLocation != null && powerUpLocation.boardSquare == square)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.PowerUp.IPowerUpListener.IsPowerUpSpawnPoint(BoardSquare)).MethodHandle;
-				}
 				result = true;
 				return result;
 			}
@@ -224,30 +132,8 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		bool result;
 		if (this.m_spawningEnabled)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.IsSpawningEnabled()).MethodHandle;
-			}
 			if (DebugParameters.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = !DebugParameters.Get().GetParameterAsBool("DisablePowerUps");
 			}
 			else
@@ -266,48 +152,17 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (NetworkServer.active && this.m_powerUpPrefabs != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.SetupNextPowerupData()).MethodHandle;
-			}
 			if (this.m_powerUpLocations != null)
 			{
 				this.Networkm_nextPowerUpIndex = GameplayRandom.Range(0, this.m_powerUpPrefabs.Length);
 				PowerUpLocation powerUpLocation = this.m_powerUpLocations[GameplayRandom.Range(0, this.m_powerUpLocations.Length)];
 				if (powerUpLocation != null && powerUpLocation.boardSquare != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_nextPowerUpLocation = powerUpLocation;
 				}
 				GameObject nextPowerUpPrefab;
 				if (this.m_powerUpPrefabs[this.m_nextPowerUpIndex] == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					nextPowerUpPrefab = null;
 				}
 				else
@@ -324,44 +179,13 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.SpawnPowerUp()).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void PowerUpCoordinator::SpawnPowerUp()' called on client");
 			return;
 		}
 		if (this.m_nextPowerUpPrefab)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_nextPowerUpLocation)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_nextPowerUpLocation.boardSquare)
 				{
 					Vector3 position = this.m_nextPowerUpLocation.boardSquare.ToVector3();
@@ -417,19 +241,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_nextSpawnTurn);
 			writer.WritePackedUInt32((uint)this.m_nextPowerUpIndex);
 			return true;
@@ -446,26 +257,8 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -473,15 +266,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -491,19 +275,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpCoordinator.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
 			this.m_nextPowerUpIndex = (int)reader.ReadPackedUInt32();
 			return;
@@ -515,15 +286,6 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_nextPowerUpIndex = (int)reader.ReadPackedUInt32();
 		}
 	}

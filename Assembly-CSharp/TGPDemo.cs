@@ -75,66 +75,17 @@ public class TGPDemo : MonoBehaviour
 			{
 				if (material.shader.name.Contains("Outline"))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.Start()).MethodHandle;
-					}
 					list2.Add(material);
 				}
 				else if (material.shader.name.Contains("Toony"))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(material);
 				}
 				if (material.shader.name.Contains("Toony"))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list3.Add(material);
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.matsSimple = list.ToArray();
 		this.matsOutline = list2.ToArray();
@@ -156,71 +107,22 @@ public class TGPDemo : MonoBehaviour
 	{
 		if (this.rotate)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.Update()).MethodHandle;
-			}
 			this.rotateGroup.transform.Rotate(Vector3.up * this.rotationSpeed * Time.deltaTime);
 			this.rotY = this.rotateGroup.transform.eulerAngles.y;
 		}
 		float axis = Input.GetAxis("Mouse ScrollWheel");
 		if (axis != 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.zoom -= axis;
 			this.zoom = Mathf.Clamp(this.zoom, 1f, 3f);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, this.zoom);
 		}
 		if (Input.mousePosition.x < (float)Screen.width * 0.8f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Input.mousePosition.x > (float)Screen.width * 0.2f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.GetMouseButton(0))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 a = this.lastMousePos - Input.mousePosition;
 					Camera.main.transform.Translate(a * Time.deltaTime * 0.2f);
 				}
@@ -242,19 +144,6 @@ public class TGPDemo : MonoBehaviour
 		GUI.enabled = true;
 		if (GUI.changed && !this.rotate)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.OnGUI()).MethodHandle;
-			}
 			this.rotateGroup.transform.eulerAngles = new Vector3(0f, this.rotY, 0f);
 			GUI.changed = false;
 		}
@@ -262,15 +151,6 @@ public class TGPDemo : MonoBehaviour
 		GUI.enabled = true;
 		if (GUI.changed)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.sceneLight.transform.eulerAngles = new Vector3(this.sceneLight.transform.eulerAngles.x, this.lightRotY, 0f);
 			GUI.changed = false;
 		}
@@ -278,42 +158,15 @@ public class TGPDemo : MonoBehaviour
 		GUI.enabled = true;
 		if (GUI.changed)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.sceneLight.transform.eulerAngles = new Vector3(this.lightRotX, this.sceneLight.transform.eulerAngles.y, 0f);
 			GUI.changed = false;
 		}
 		if (this.rim)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.rim_pow = GUI.HorizontalSlider(new Rect((float)(Screen.width - 0x96), 320f, 128f, 10f), this.rim_pow, -1f, 1f);
 			GUI.enabled = true;
 			if (GUI.changed)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.matsAll.Length; i++)
 				{
 					this.matsAll[i].SetFloat("_RimPower", this.rim_pow);
@@ -323,40 +176,13 @@ public class TGPDemo : MonoBehaviour
 		}
 		if (this.rimOutline)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.rimo_min = GUI.HorizontalSlider(new Rect((float)(Screen.width - 0x96), 320f, 128f, 10f), this.rimo_min, 0f, 1f);
 			GUI.enabled = true;
 			if (GUI.changed)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < this.matsOutline.Length; j++)
 				{
 					this.matsOutline[j].SetFloat("_RimMin", this.rimo_min);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				GUI.changed = false;
 			}
@@ -368,15 +194,6 @@ public class TGPDemo : MonoBehaviour
 				{
 					this.matsOutline[k].SetFloat("_RimMax", this.rimo_max);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GUI.changed = false;
 			}
 		}
@@ -387,59 +204,19 @@ public class TGPDemo : MonoBehaviour
 		string str = "Normal";
 		if (this.outline)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.ReloadShader()).MethodHandle;
-			}
 			str = ((!this.outline_cst) ? "Outline" : "OutlineConst");
 		}
 		string text = "Basic";
 		if (this.bump)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.spec)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = "Bumped Specular";
 				goto IL_90;
 			}
 		}
 		if (this.spec)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "Specular";
 		}
 		else if (this.bump)
@@ -449,43 +226,16 @@ public class TGPDemo : MonoBehaviour
 		IL_90:
 		if (this.rim)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += " Rim";
 		}
 		else if (this.rimOutline)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			str = "Rim Outline";
 		}
 		string text2 = "Toony Colors Pro/" + str + "/OneDirLight/" + text;
 		Shader shader = this.FindShader(text2);
 		if (shader == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("SHADER NOT FOUND: " + text2, new object[0]);
 			return;
 		}
@@ -497,15 +247,6 @@ public class TGPDemo : MonoBehaviour
 		shader = this.FindShader(text2);
 		if (shader == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("SHADER NOT FOUND: " + text2, new object[0]);
 			return;
 		}
@@ -514,28 +255,10 @@ public class TGPDemo : MonoBehaviour
 			string text3 = "Basic";
 			if (this.spec)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 = "Specular";
 			}
 			if (this.rim)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text3 += " Rim";
 			}
 			Shader shader2 = this.FindShader("Toony Colors Pro/Normal/OneDirLight/" + text3);
@@ -543,15 +266,6 @@ public class TGPDemo : MonoBehaviour
 			{
 				this.matsSimple[j].shader = shader2;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -561,31 +275,9 @@ public class TGPDemo : MonoBehaviour
 		{
 			gameObject.SetActive(this.rim);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.UpdateGUI()).MethodHandle;
-		}
 		foreach (GameObject gameObject2 in this.actRimOutline)
 		{
 			gameObject2.SetActive(this.rimOutline);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.UpdateGUITButtons();
 	}
@@ -601,43 +293,12 @@ public class TGPDemo : MonoBehaviour
 			string callback = guit_Button.callback;
 			if (callback != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.UpdateGUITButtons()).MethodHandle;
-				}
 				if (!(callback == "SwitchOutline"))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(callback == "SwitchRim"))
 					{
 						if (!(callback == "SwitchRimOutline"))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -667,19 +328,6 @@ public class TGPDemo : MonoBehaviour
 		{
 			if (shader.name == name)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.FindShader(string)).MethodHandle;
-				}
 				return shader;
 			}
 		}
@@ -692,30 +340,8 @@ public class TGPDemo : MonoBehaviour
 		this.outline = !this.outline;
 		if (this.outline)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.SwitchOutline()).MethodHandle;
-			}
 			if (this.rimOutline)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.rimOutline = false;
 			}
 		}
@@ -746,19 +372,6 @@ public class TGPDemo : MonoBehaviour
 		this.rim = !this.rim;
 		if (this.rim)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.SwitchRim()).MethodHandle;
-			}
 			if (this.rimOutline)
 			{
 				this.rimOutline = false;
@@ -773,43 +386,12 @@ public class TGPDemo : MonoBehaviour
 		this.rimOutline = !this.rimOutline;
 		if (this.rimOutline && this.rim)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.SwitchRimOutline()).MethodHandle;
-			}
 			this.rim = false;
 		}
 		if (this.rimOutline)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.outline)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.outline = false;
 			}
 		}
@@ -822,19 +404,6 @@ public class TGPDemo : MonoBehaviour
 		this.rampIndex++;
 		if (this.rampIndex >= this.rampTextures.Length)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.NextRamp()).MethodHandle;
-			}
 			this.rampIndex = 0;
 		}
 		this.UpdateRamp();
@@ -845,19 +414,6 @@ public class TGPDemo : MonoBehaviour
 		this.rampIndex--;
 		if (this.rampIndex < 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TGPDemo.PrevRamp()).MethodHandle;
-			}
 			this.rampIndex = this.rampTextures.Length - 1;
 		}
 		this.UpdateRamp();

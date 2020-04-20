@@ -17,19 +17,6 @@ public class CharacterAbilityConfigOverride
 	{
 		if (abilityIndex < this.AbilityConfigs.Length)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterAbilityConfigOverride.GetAbilityConfig(int)).MethodHandle;
-			}
 			return this.AbilityConfigs[abilityIndex];
 		}
 		return null;

@@ -23,19 +23,6 @@ public class AbilityMod_NanoSmithVacuumBomb : AbilityMod
 		NanoSmithVacuumBomb nanoSmithVacuumBomb = targetAbility as NanoSmithVacuumBomb;
 		if (nanoSmithVacuumBomb != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithVacuumBomb.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageMod, "BombDamageAmount", string.Empty, nanoSmithVacuumBomb.m_bombDamageAmount, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectOverride, "EnemyHitEffect", nanoSmithVacuumBomb.m_enemyHitEffect, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_onCenterActorEffectOverride, "OnCenterActorEffect", nanoSmithVacuumBomb.m_onCenterActorEffect, true);
@@ -56,19 +43,6 @@ public class AbilityMod_NanoSmithVacuumBomb : AbilityMod
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NanoSmithVacuumBomb.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = nanoSmithVacuumBomb.m_onCenterActorEffect;
 		}
 		else

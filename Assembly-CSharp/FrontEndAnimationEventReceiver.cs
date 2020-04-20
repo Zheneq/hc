@@ -34,30 +34,8 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (eventObject == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndAnimationEventReceiver.ProcessAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Animation event on {0} is missing an Object in  the Unity Editor window for an animation event.  Please set the Object field to one of the scripts in the EventObjects folder, or change  the function name to AudioEvent, if the string field has an audio event name.", new object[]
 				{
 					base.gameObject.name
@@ -67,15 +45,6 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		if (this.m_surfaceFoleyEventNames.ContainsKey(eventObject.name))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent("sw_surfacetype", AudioManager.EventAction.SetSwitch, "metal", null);
 			AudioManager.PostEvent(this.m_surfaceFoleyEventNames[eventObject.name], base.gameObject);
 		}
@@ -85,30 +54,8 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (eventName != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndAnimationEventReceiver.AudioEvent(string)).MethodHandle;
-			}
 			if (!eventName.StartsWith("fol/"))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(eventName, base.gameObject);
 			}
 		}
@@ -118,34 +65,12 @@ public class FrontEndAnimationEventReceiver : MonoBehaviour, IAnimationEvents
 	{
 		if (UITutorialPanel.Get())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndAnimationEventReceiver.SubtitleEvent(string)).MethodHandle;
-			}
 			string[] array = eventName.Split(new char[]
 			{
 				','
 			});
 			if (array.Length == 3)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string subtitleText = array[0];
 				float timeToDisplay = 0f;
 				float.TryParse(array[1], out timeToDisplay);

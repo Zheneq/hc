@@ -64,31 +64,9 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				ActorData actorData = base.Targets[i];
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.FinishSetup()).MethodHandle;
-					}
 					Vector3 travelBoardSquareWorldPosition2 = actorData.GetTravelBoardSquareWorldPosition();
 					if (actorData != base.Caster)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 						Vector3 vec = travelBoardSquareWorldPosition2 - travelBoardSquareWorldPosition;
 						vec.y = 0f;
@@ -111,15 +89,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		{
 			if (num > 0 && this.m_expectedRotateSignalCount > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_signalEventPerRotation = Mathf.Max(1, Mathf.RoundToInt((float)this.m_expectedRotateSignalCount / (float)num));
 			}
 			else
@@ -132,15 +101,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				if (j != this.m_angleToTargetActor.Count - 1)
 				{
 					goto IL_187;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.m_expectedRotateSignalCount <= 0)
 				{
@@ -157,50 +117,14 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		if (this.m_setParamForChargeEndAnim)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!string.IsNullOrEmpty(this.m_chargeEndParamName))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Animator modelAnimator = base.Caster.GetModelAnimator();
 				if (modelAnimator != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2;
 					if (num > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = 1;
 					}
 					else
@@ -211,26 +135,8 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					modelAnimator.SetInteger(this.m_chargeEndParamName, value);
 					if (num == 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_casterInTargetsList)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.DoGameplayHitsOnCaster();
 						}
 					}
@@ -243,32 +149,10 @@ public class NinjaSetRotationToTargetSequence : Sequence
 	{
 		if (this.m_fxImpacts != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.OnDisable()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_fxImpacts.Count; i++)
 			{
 				if (this.m_fxImpacts[i] != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(this.m_fxImpacts[i].gameObject);
 				}
 			}
@@ -280,30 +164,8 @@ public class NinjaSetRotationToTargetSequence : Sequence
 	{
 		if (parameter == this.m_rotateSignalAnimEvent && base.Caster != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (this.m_rotateHitMode == NinjaSetRotationToTargetSequence.RotateHitMode.RotateAndHitEachEvent)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_angleToTargetActor.Count > 0)
 				{
 					this.m_currRotateTargetIndex++;
@@ -346,15 +208,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					this.m_currRotateTargetIndex = num;
 					if (this.m_currRotateTargetIndex < this.m_angleToTargetActor.Count)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData actor2 = this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_actor;
 						base.Caster.TurnToPositionInstant(actor2.GetTravelBoardSquareWorldPosition());
 					}
@@ -364,26 +217,8 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		if (parameter == this.m_hitAnimEvent)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_currRotateTargetIndex >= 0 && this.m_currRotateTargetIndex < this.m_angleToTargetActor.Count)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_numHitEventsReceived++;
 				if (this.m_rotateHitMode == NinjaSetRotationToTargetSequence.RotateHitMode.RotateAndHitEachEvent)
 				{
@@ -392,15 +227,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					this.SpawnImpactFXOnTarget(actor3, flag);
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_didLastHit = true;
 					}
 				}
@@ -411,15 +237,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					this.SpawnImpactFXOnTarget(actor4, flag2);
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_lastGameplayHitTargetIndex = this.m_currRotateTargetIndex;
 						this.m_angleToTargetActor[this.m_currRotateTargetIndex].m_didLastHit = true;
 					}
@@ -428,15 +245,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		}
 		if (parameter == this.m_lastHitAnimEvent)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.DoGameplayHitsOnCaster();
 			if (this.m_rotateHitMode == NinjaSetRotationToTargetSequence.RotateHitMode.RotateAndHitEachEvent)
 			{
@@ -444,15 +252,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 				{
 					if (!this.m_angleToTargetActor[j].m_didLastHit)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SpawnImpactFXOnTarget(this.m_angleToTargetActor[j].m_actor, true);
 					}
 				}
@@ -464,15 +263,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 					ActorData actor5 = this.m_angleToTargetActor[k].m_actor;
 					this.SpawnImpactFXOnTarget(actor5, true);
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -481,19 +271,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 	{
 		if (this.m_doGameplayHits)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.DoGameplayHitsOnCaster()).MethodHandle;
-			}
 			base.Source.OnSequenceHit(this, base.TargetPos, null);
 			if (this.m_casterInTargetsList)
 			{
@@ -549,19 +326,6 @@ public class NinjaSetRotationToTargetSequence : Sequence
 		{
 			if (other == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaSetRotationToTargetSequence.AngleToActor.CompareTo(NinjaSetRotationToTargetSequence.AngleToActor)).MethodHandle;
-				}
 				return 1;
 			}
 			return this.m_angleWithHorizontal.CompareTo(other.m_angleWithHorizontal);

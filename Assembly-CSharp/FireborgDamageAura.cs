@@ -74,19 +74,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		StandardEffectInfo cachedOnCastTargetAllyEffect;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.SetCachedFields()).MethodHandle;
-			}
 			cachedOnCastTargetAllyEffect = this.m_abilityMod.m_onCastTargetAllyEffectMod.GetModifiedValue(this.m_onCastTargetAllyEffect);
 		}
 		else
@@ -101,19 +88,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.ExcludeTargetedActor()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_excludeTargetedActorMod.GetModifiedValue(this.m_excludeTargetedActor);
 		}
 		else
@@ -128,19 +102,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.GetAuraDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_auraDurationMod.GetModifiedValue(this.m_auraDuration);
 		}
 		else
@@ -160,19 +121,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.IgniteIfNormal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_igniteIfNormalMod.GetModifiedValue(this.m_igniteIfNormal);
 		}
 		else
@@ -187,19 +135,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.IgniteIfSuperheated()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_igniteIfSuperheatedMod.GetModifiedValue(this.m_igniteIfSuperheated);
 		}
 		else
@@ -219,19 +154,6 @@ public class FireborgDamageAura : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.GetCdrOnUltCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnUltCastMod.GetModifiedValue(this.m_cdrOnUltCast);
 		}
 		else
@@ -253,42 +175,11 @@ public class FireborgDamageAura : GenericAbility_Container
 			StandardEffectInfo onCastTargetAllyEffect = this.GetOnCastTargetAllyEffect();
 			if (onCastTargetAllyEffect.m_applyEffect && onCastTargetAllyEffect.m_effectData.m_absorbAmount > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 				if (boardSquareSafe != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe == targetActor.GetCurrentBoardSquare())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (results.m_absorb >= 0)
 						{
 							results.m_absorb += onCastTargetAllyEffect.m_effectData.m_absorbAmount;
@@ -303,38 +194,11 @@ public class FireborgDamageAura : GenericAbility_Container
 		}
 		else if (this.m_excludeTargetedActor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 			if (boardSquareSafe2 != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe2 == targetActor.GetCurrentBoardSquare())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					results.m_damage = 0;
 				}
 			}
@@ -345,53 +209,13 @@ public class FireborgDamageAura : GenericAbility_Container
 	{
 		if (this.m_excludeTargetedActor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDamageAura.ActorCountTowardsEnergyGain(ActorData, ActorData)).MethodHandle;
-			}
 			if (target.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
 				if (boardSquareSafe != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe == target.GetCurrentBoardSquare())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 				}

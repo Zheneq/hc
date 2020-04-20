@@ -19,19 +19,6 @@ public class PlayerSkinData
 		{
 			this.Patterns.Add(new PlayerPatternData());
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSkinData.GetPattern(int)).MethodHandle;
-		}
 		return this.Patterns[i];
 	}
 
@@ -45,19 +32,6 @@ public class PlayerSkinData
 			{
 				PlayerPatternData playerPatternData = enumerator.Current;
 				playerSkinData.Patterns.Add(playerPatternData.GetDeepCopy());
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerSkinData.GetDeepCopy()).MethodHandle;
 			}
 		}
 		return playerSkinData;

@@ -80,15 +80,6 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 		case StatDisplaySettings.StatType.NetBoostedOutgoingDamage:
 			if (this.TotalTurns > 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new float?(this.NetBoostedOutgoingDamage / this.TotalTurns);
 			}
 			return null;
@@ -101,15 +92,6 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 		case StatDisplaySettings.StatType.TeamDamageAdjustedByMe:
 			if (this.TotalTurns > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new float?(this.TeamDamageAdjustedByMe / this.TotalTurns);
 			}
 			return null;
@@ -122,15 +104,6 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 		case StatDisplaySettings.StatType.MovementDenied:
 			if (this.TotalTurns > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new float?(this.MovementDenied / this.TotalTurns);
 			}
 			return null;
@@ -163,31 +136,9 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 			}
 			if (this.MMR.Value > 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchFreelancerStats.GetStat(StatDisplaySettings.StatType)).MethodHandle;
-				}
 				if (this.MMR.Value != 1500f)
 				{
 					return this.MMR;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return null;
@@ -206,19 +157,6 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 			float? result;
 			if (freelancer != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchFreelancerStats.GetFreelancerStat(int)).MethodHandle;
-				}
 				result = new float?((float)freelancer.Value);
 			}
 			else
@@ -234,28 +172,10 @@ public class MatchFreelancerStats : ICloneable, StatDisplaySettings.IPersistated
 		}
 		if (FreelancerStatIndex == 2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int? freelancer3 = this.Freelancer2;
 			float? result2;
 			if (freelancer3 != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result2 = new float?((float)freelancer3.Value);
 			}
 			else

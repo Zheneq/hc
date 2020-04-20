@@ -63,19 +63,6 @@ public class SlashCommands
 				SlashCommand slashCommand = enumerator.Current;
 				slashCommand.Localize();
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommands.RebuildLocalizedText()).MethodHandle;
-			}
 		}
 	}
 
@@ -87,19 +74,6 @@ public class SlashCommands
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommands.RunSlashCommand(string, string)).MethodHandle;
-				}
 				if (!slashCommand.AvailableInFrontEnd)
 				{
 					continue;
@@ -107,40 +81,13 @@ public class SlashCommands
 			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!slashCommand.AvailableInGame)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					continue;
 				}
 			}
 			if (slashCommand.IsSlashCommand(command))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				slashCommand.OnSlashCommand(arguments);
 				result = true;
 				break;

@@ -10,19 +10,6 @@ public abstract class UIDialogBox : MonoBehaviour
 		_ButtonSwapSprite[] componentsInChildren = base.gameObject.GetComponentsInChildren<_ButtonSwapSprite>(true);
 		if (componentsInChildren != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDialogBox.Awake()).MethodHandle;
-			}
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
 				componentsInChildren[i].m_ignoreDialogboxes = true;

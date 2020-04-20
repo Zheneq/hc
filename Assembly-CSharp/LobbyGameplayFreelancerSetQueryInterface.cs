@@ -21,42 +21,11 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 				KeyValuePair<CharacterType, LobbyCharacterGameplayData> keyValuePair = enumerator.Current;
 				if (!roles.IsNullOrEmpty<CharacterRole>())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayFreelancerSetQueryInterface.GetCharacterTypesFromRoles(List<CharacterRole>)).MethodHandle;
-					}
 					if (roles.Contains(keyValuePair.Value.CharacterRole))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						hashSet.Add(keyValuePair.Key);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return hashSet;
@@ -66,19 +35,6 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 	{
 		if (roles.IsNullOrEmpty<CharacterRole>())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayFreelancerSetQueryInterface.DoesCharacterMatchRoles(CharacterType, List<CharacterRole>)).MethodHandle;
-			}
 			return false;
 		}
 		LobbyCharacterGameplayData lobbyCharacterGameplayData;
@@ -104,19 +60,6 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 			bool result;
 			if (groupIds.Contains(p.FactionGroupID))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayFreelancerSetQueryInterface.<DoesCharacterMatchFractionGroupIds>c__AnonStorey1.<>m__0(FactionGroup)).MethodHandle;
-				}
 				result = p.Characters.Contains(freelancer);
 			}
 			else

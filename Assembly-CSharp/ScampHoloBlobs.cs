@@ -31,19 +31,6 @@ public class ScampHoloBlobs : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHoloBlobs.Start()).MethodHandle;
-			}
 			this.m_abilityName = "ScampHoloBlobs";
 		}
 		this.Setup();
@@ -87,19 +74,6 @@ public class ScampHoloBlobs : Ability
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampHoloBlobs.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
 		}
 		else

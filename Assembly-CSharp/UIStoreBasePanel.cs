@@ -11,19 +11,6 @@ public class UIStoreBasePanel : MonoBehaviour
 	{
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreBasePanel.SetVisible(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 		}
 		else if (this.m_animatorController.gameObject.activeInHierarchy)

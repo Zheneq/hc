@@ -50,19 +50,6 @@ public class LootTable
 		bool result;
 		if (this.SelectionRule == LootTableEntrySelectionRule.PickFromOneEntry)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootTable.IsRandomSelection()).MethodHandle;
-			}
 			result = (this.Entries.Count > 1);
 		}
 		else

@@ -30,19 +30,6 @@ public class SamuraiAfterimageStrike : Ability
 		int result;
 		if (this.m_parentAbility)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_parentAbility.GetKnockbackDamage();
 		}
 		else
@@ -57,19 +44,6 @@ public class SamuraiAfterimageStrike : Ability
 		int result;
 		if (this.m_parentAbility)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetLessDamagePerTarget()).MethodHandle;
-			}
 			result = this.m_parentAbility.GetKnockbackLessDamagePerTarget();
 		}
 		else
@@ -89,19 +63,6 @@ public class SamuraiAfterimageStrike : Ability
 		KnockbackType result;
 		if (this.m_parentAbility)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetKnockbackType()).MethodHandle;
-			}
 			result = this.m_parentAbility.GetKnockbackType();
 		}
 		else
@@ -116,19 +77,6 @@ public class SamuraiAfterimageStrike : Ability
 		float result;
 		if (this.m_parentAbility)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiAfterimageStrike.GetExtraDamageFromDamageTakenMult()).MethodHandle;
-			}
 			result = this.m_parentAbility.GetKnockbackExtraDamageFromDamageTakenMult();
 		}
 		else

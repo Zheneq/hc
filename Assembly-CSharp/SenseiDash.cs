@@ -53,75 +53,21 @@ public class SenseiDash : Ability
 			abilityUtil_Targeter = new AbilityUtil_Targeter_ChargeAoE(this, this.GetRadiusAroundStartToHit(), this.GetRadiusAroundEndToHit(), 0.5f * this.GetChargeHitWidth(), -1, false, this.ChargeHitPenetrateLos());
 			abilityUtil_Targeter.SetAffectedGroups(this.CanHitEnemy(), this.CanHitAlly(), false);
 			AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = abilityUtil_Targeter as AbilityUtil_Targeter_ChargeAoE;
-			if (SenseiDash.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.SetupTargeter()).MethodHandle;
-				}
-				SenseiDash.<>f__am$cache0 = delegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability)
+			
+			abilityUtil_Targeter_ChargeAoE.m_shouldAddTargetDelegate = delegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability)
 				{
 					bool result = false;
 					SenseiDash senseiDash = ability as SenseiDash;
 					if (senseiDash != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(SenseiDash.<SetupTargeter>m__0(ActorData, AbilityTarget, List<ActorData>, ActorData, Ability)).MethodHandle;
-						}
 						if (senseiDash.CanHitEnemy() && actorToConsider.GetTeam() != caster.GetTeam())
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 						}
 						if (senseiDash.CanHitAlly())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorToConsider.GetTeam() == caster.GetTeam())
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								result = true;
 							}
 						}
@@ -132,8 +78,6 @@ public class SenseiDash : Ability
 					}
 					return result;
 				};
-			}
-			abilityUtil_Targeter_ChargeAoE.m_shouldAddTargetDelegate = SenseiDash.<>f__am$cache0;
 		}
 		else
 		{
@@ -163,19 +107,6 @@ public class SenseiDash : Ability
 		bool result;
 		if (this.GetHealAmount() <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.CanHitAlly()).MethodHandle;
-			}
 			result = this.GetEffectOnTargetAlly().m_applyEffect;
 		}
 		else
@@ -210,19 +141,6 @@ public class SenseiDash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnTargetEnemy != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.GetEffectOnTargetEnemy()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnTargetEnemy;
 		}
 		else
@@ -237,19 +155,6 @@ public class SenseiDash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnTargetAlly != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.GetEffectOnTargetAlly()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnTargetAlly;
 		}
 		else
@@ -305,19 +210,6 @@ public class SenseiDash : Ability
 		AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetHealAmount());
 		if (this.GetEffectOnTargetAlly() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
 			this.GetEffectOnTargetAlly().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Ally);
 		}
 		return result;
@@ -329,32 +221,10 @@ public class SenseiDash : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			bool flag = true;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = ((!flag) ? 0 : this.GetDamageAmount());
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
@@ -364,15 +234,6 @@ public class SenseiDash : Ability
 				int value;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = this.GetHealAmount();
 				}
 				else
@@ -395,30 +256,8 @@ public class SenseiDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					bool flag = false;
@@ -431,64 +270,19 @@ public class SenseiDash : Ability
 							ActorData targetActor = enumerator.Current;
 							if (base.CanTargetActorInDecision(caster, targetActor, this.CanTargetEnemy(), this.CanTargetAlly(), false, Ability.ValidateCheckPath.Ignore, true, false, false))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 								goto IL_F1;
 							}
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					IL_F1:
 					BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
 					if (boardSquareSafe2 != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquareSafe2.IsBaselineHeight())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquareSafe2 != caster.GetCurrentBoardSquare())
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int num;
 								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe2, caster.GetCurrentBoardSquare(), false, out num);
 							}

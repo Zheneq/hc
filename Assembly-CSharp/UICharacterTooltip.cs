@@ -32,19 +32,6 @@ public class UICharacterTooltip : UITooltipBase
 		string text = string.Empty;
 		if (clientGameManager.IsCharacterInFreeRotation(charLink.m_characterType, gameType))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterTooltip.Setup(CharacterResourceLink, GameType)).MethodHandle;
-			}
 			text = StringUtil.TR("FreeRotation", "Global");
 		}
 		this.m_freeRotationLabel.text = text;
@@ -61,45 +48,18 @@ public class UICharacterTooltip : UITooltipBase
 			UIManager.SetGameObjectActive(questItem, false, null);
 			queue.Enqueue(questItem);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		QuestComponent questComponent = clientGameManager.GetPlayerAccountData().QuestComponent;
 		List<int> list = new List<int>(questComponent.Progress.Keys);
 		QuestComponent questComponent2 = clientGameManager.GetPlayerAccountData().QuestComponent;
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(questComponent2.ActiveSeason);
 		if (questComponent2.UnlockedSeasonChapters.ContainsKey(questComponent2.ActiveSeason))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int j = 0;
 			while (j < questComponent2.HighestSeasonChapter)
 			{
 				if (seasonTemplate.Chapters[j].NormalQuests.Count > 0)
 				{
 					goto IL_1F8;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (j == questComponent2.HighestSeasonChapter - 1)
 				{
@@ -112,15 +72,6 @@ public class UICharacterTooltip : UITooltipBase
 				list.AddRange(UISeasonsPanel.GetChapterQuests(seasonTemplate.Chapters[j], seasonTemplate.Index, j));
 				goto IL_21F;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		IEnumerator<int> enumerator = list.Distinct<int>().GetEnumerator();
 		try
@@ -130,15 +81,6 @@ public class UICharacterTooltip : UITooltipBase
 				int num = enumerator.Current;
 				if (questComponent.GetCompletedCount(num) > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -155,15 +97,6 @@ public class UICharacterTooltip : UITooltipBase
 								{
 									if (questObjective.SuperHidden)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									else
 									{
@@ -176,26 +109,8 @@ public class UICharacterTooltip : UITooltipBase
 													QuestCondition questCondition = enumerator4.Current;
 													if (questCondition.ConditionType == QuestConditionType.UsingCharacter)
 													{
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (questCondition.typeSpecificData == (int)charLink.m_characterType)
 														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															flag = true;
 															goto IL_434;
 														}
@@ -206,15 +121,6 @@ public class UICharacterTooltip : UITooltipBase
 													}
 													else if (questCondition.ConditionType == QuestConditionType.UsingCharacterRole && questCondition.typeSpecificData == (int)charLink.m_characterRole)
 													{
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														flag = true;
 													}
 													else
@@ -223,15 +129,6 @@ public class UICharacterTooltip : UITooltipBase
 														{
 															continue;
 														}
-														for (;;)
-														{
-															switch (3)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(questCondition.typeSpecificData);
 														FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[questCondition.typeSpecificData2].FactionGroupIDToUse);
 														flag = factionGroup.Characters.Exists((CharacterType x) => x == charLink.m_characterType);
@@ -239,94 +136,31 @@ public class UICharacterTooltip : UITooltipBase
 														{
 															continue;
 														}
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 													}
 													IL_434:
 													goto IL_444;
-												}
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											IL_444:
 											if (flag)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												break;
 											}
 										}
 										if (flag)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											goto IL_4A8;
 										}
 									}
 								}
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						IL_4A8:
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							QuestItem questItem2;
 							if (queue.Count > 0)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								questItem2 = queue.Dequeue();
 							}
 							else
@@ -342,29 +176,11 @@ public class UICharacterTooltip : UITooltipBase
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		finally
 		{
 			if (enumerator != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enumerator.Dispose();
 			}
 		}

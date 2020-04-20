@@ -16,30 +16,8 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 			ValkyrieDirectionalShieldSequence.ExtraParams extraParams2 = extraSequenceParams as ValkyrieDirectionalShieldSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDirectionalShieldSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				this.m_aimDirection = base.Caster.GetActorCover().GetCoverOffset((ActorCover.CoverDirections)extraParams2.m_aimDirection);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -48,19 +26,6 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 		base.FinishSetup();
 		if (this.m_useTempShieldIndicator)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDirectionalShieldSequence.FinishSetup()).MethodHandle;
-			}
 			base.InitializeFXStorage();
 			this.m_placeholderShieldIndicator = new GameObject("Valkyrie_ShieldPlaceholder");
 			GameObject fxParentObject = base.GetFxParentObject();
@@ -89,32 +54,10 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieDirectionalShieldSequence.SetFxRotation()).MethodHandle;
-			}
 			this.m_fx.transform.rotation = Quaternion.LookRotation(this.m_aimDirection);
 		}
 		if (this.m_placeholderShieldIndicator != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_placeholderShieldIndicator.transform.position = base.Caster.transform.position + 2f * Vector3.up;
 			this.m_placeholderShieldIndicator.transform.rotation = Quaternion.LookRotation(this.m_aimDirection);
 		}

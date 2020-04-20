@@ -49,19 +49,6 @@ public class ArcherShieldingArrow : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Resonance Arrow";
 		}
 		this.SetupTargeter();
@@ -90,19 +77,6 @@ public class ArcherShieldingArrow : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserTargetingInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetLaserTargetingInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserTargetingInfo;
 		}
 		else
@@ -117,19 +91,6 @@ public class ArcherShieldingArrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllySingleEffect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetAllySingleHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllySingleEffect;
 		}
 		else
@@ -144,19 +105,6 @@ public class ArcherShieldingArrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyMultiEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetAllyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyMultiEffect;
 		}
 		else
@@ -176,19 +124,6 @@ public class ArcherShieldingArrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyMultiEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldingArrow.GetEnemyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyMultiEffect;
 		}
 		else

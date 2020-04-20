@@ -27,19 +27,6 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 		{
 			if (actorData.GetTeam() != targetingActor.GetTeam())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_HealingKnockback.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-				}
 				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, centerOfShape, this.m_knockbackDistance);
 				num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 			}
@@ -52,42 +39,11 @@ public class AbilityUtil_Targeter_HealingKnockback : AbilityUtil_Targeter_Shape
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_HealingKnockback.HandleAddActorInShape(ActorData, ActorData, AbilityTarget, Vector3, ActorData)).MethodHandle;
-			}
 			if (boardSquareSafe.occupant != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = potentialTarget.GetTeam() == targetingActor.GetTeam();
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquareSafe.occupant == potentialTarget.gameObject)
 					{
 						base.AddActorInRange(potentialTarget, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, false);

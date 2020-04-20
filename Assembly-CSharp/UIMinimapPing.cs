@@ -13,19 +13,6 @@ public class UIMinimapPing : MonoBehaviour
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMinimapPing.Init()).MethodHandle;
-			}
 			return;
 		}
 		this.m_startTime = Time.time;

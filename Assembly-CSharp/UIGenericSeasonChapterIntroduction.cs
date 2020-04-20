@@ -23,19 +23,6 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 		bool result;
 		if (ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason == this.AppliedSeason)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGenericSeasonChapterIntroduction.AreConditionsMetToAutoDisplay()).MethodHandle;
-			}
 			result = (ClientGameManager.Get().GetHighestOpenSeasonChapterIndexForActiveSeason() == this.AppliedChapter);
 		}
 		else
@@ -51,19 +38,6 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 		GameSubTypeData.GameSubTypeInstructions instructionSet = GameSubTypeData.Get().GetInstructionSet(this.m_instructionType);
 		if (instructionSet != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGenericSeasonChapterIntroduction.DisplayIntroduction(int)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_tooltips.Length; i++)
 			{
 				if (i < instructionSet.DisplayInfos.Length)
@@ -76,27 +50,9 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 					UIManager.SetGameObjectActive(this.m_tooltips[i], false, null);
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_thermoStat != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InventoryItem itemByTemplateId = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.GetItemByTemplateId(this.m_LootMatrixThermostatTemplateID);
 			List<InventoryItem> items = ClientGameManager.Get().GetPlayerAccountData().InventoryComponent.Items;
 			List<int> list = new List<int>();
@@ -104,26 +60,8 @@ public class UIGenericSeasonChapterIntroduction : UIIntroductions
 			{
 				if (items[j].TemplateId == this.m_LootMatrixThermostatTemplateID)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(items[j].Id);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_thermoStat.UpdateThermostat(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent, itemByTemplateId, InventoryWideData.Get().GetItemTemplate(this.m_LootMatrixThermostatTemplateID), list, false);
 		}

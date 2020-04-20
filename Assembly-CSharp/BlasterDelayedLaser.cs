@@ -80,19 +80,6 @@ public class BlasterDelayedLaser : Ability
 		bool result;
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.CanShowTargetableRadiusPreview()).MethodHandle;
-			}
 			result = !this.m_syncComponent.m_canActivateDelayedLaser;
 		}
 		else
@@ -112,19 +99,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo cachedEffectOnHit;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectOnHit = this.m_abilityMod.m_effectOnHitMod.GetModifiedValue(this.m_effectOnHit);
 		}
 		else
@@ -150,19 +124,6 @@ public class BlasterDelayedLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_widthMod.GetModifiedValue(this.m_width);
 		}
 		else
@@ -182,19 +143,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnHit != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetEffectOnHit()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnHit;
 		}
 		else
@@ -209,19 +157,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedOnCastEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetOnCastEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedOnCastEnemyHitEffect;
 		}
 		else
@@ -236,19 +171,6 @@ public class BlasterDelayedLaser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.TriggerAimAtBlaster()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_triggerAimAtBlasterMod.GetModifiedValue(this.m_triggerAimAtBlaster);
 		}
 		else
@@ -263,19 +185,6 @@ public class BlasterDelayedLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetExtraDamageToNearEnemy()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageToNearEnemyMod.GetModifiedValue(this.m_extraDamageToNearEnemy);
 		}
 		else
@@ -290,19 +199,6 @@ public class BlasterDelayedLaser : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetNearDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_nearDistanceMod.GetModifiedValue(this.m_nearDistance);
 		}
 		else
@@ -327,80 +223,22 @@ public class BlasterDelayedLaser : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					int num = this.GetDamageAmount();
 					if (this.m_syncComponent != null && this.m_syncComponent.m_overchargeBuffs > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_overchargeAbility != null && this.m_overchargeAbility.GetExtraDamageForDelayedLaser() > 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += this.m_overchargeAbility.GetExtraDamageForDelayedLaser();
 						}
 					}
 					Vector3 vector;
 					if (this.m_syncComponent.m_canActivateDelayedLaser)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = this.m_syncComponent.m_delayedLaserStartPos;
 					}
 					else
@@ -410,29 +248,11 @@ public class BlasterDelayedLaser : Ability
 					Vector3 b = vector;
 					if (this.GetExtraDamageToNearEnemy() > 0 && this.GetNearDistance() > 0f)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num2 = this.GetNearDistance() * Board.Get().squareSize;
 						Vector3 vector2 = targetActor.GetTravelBoardSquareWorldPosition() - b;
 						vector2.y = 0f;
 						if (vector2.magnitude <= num2)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += this.GetExtraDamageToNearEnemy();
 						}
 					}
@@ -450,19 +270,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_BlasterDelayedLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_BlasterDelayedLaser.m_effectOnHitMod.GetModifiedValue(this.m_effectOnHit);
 		}
 		else
@@ -473,15 +280,6 @@ public class BlasterDelayedLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_BlasterDelayedLaser)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_BlasterDelayedLaser.m_onCastEnemyHitEffectMod.GetModifiedValue(this.m_onCastEnemyHitEffect);
 		}
 		else
@@ -494,15 +292,6 @@ public class BlasterDelayedLaser : Ability
 		int val;
 		if (abilityMod_BlasterDelayedLaser)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_BlasterDelayedLaser.m_extraDamageToNearEnemyMod.GetModifiedValue(this.m_extraDamageToNearEnemy);
 		}
 		else
@@ -532,41 +321,10 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (this.m_remoteTriggerMode)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.IsFreeAction()).MethodHandle;
-			}
 			if (this.m_syncComponent != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComponent.m_canActivateDelayedLaser)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_remoteTriggerIsFreeAction;
 				}
 				return base.IsFreeAction();
@@ -579,41 +337,10 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (this.m_remoteTriggerMode && this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetRunPriority()).MethodHandle;
-			}
 			if (this.m_syncComponent.m_canActivateDelayedLaser)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().CurrentTurn > this.m_syncComponent.m_lastPlacementTurn)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return base.GetRunPriority();
 				}
 			}
@@ -625,41 +352,10 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (this.m_remoteTriggerMode)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetTargetData()).MethodHandle;
-			}
 			if (this.m_syncComponent != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComponent.m_canActivateDelayedLaser)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return new TargetData[0];
 				}
 				return base.GetTargetData();
@@ -672,30 +368,8 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.GetActionAnimType()).MethodHandle;
-			}
 			if (this.m_syncComponent.m_canActivateDelayedLaser)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return ActorModelData.ActionAnimationType.None;
 			}
 		}
@@ -706,41 +380,10 @@ public class BlasterDelayedLaser : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BlasterDelayedLaser.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			if (this.m_syncComponent.m_canActivateDelayedLaser)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animIndex == (int)base.GetActionAnimType())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}

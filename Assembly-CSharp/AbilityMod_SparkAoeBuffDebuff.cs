@@ -43,19 +43,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		SparkAoeBuffDebuff sparkAoeBuffDebuff = targetAbility as SparkAoeBuffDebuff;
 		if (sparkAoeBuffDebuff != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkAoeBuffDebuff.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_radiusMod, "TargetingRadius", "targeting radius", sparkAoeBuffDebuff.m_radius, true, false, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_allyHitEffectMod, "EffectOnAlly", sparkAoeBuffDebuff.m_allyHitEffect, true);
 			AbilityMod.AddToken(tokens, this.m_allyHealMod, "Heal_OnAlly", "heal on ally", sparkAoeBuffDebuff.m_allyHealAmount, true, false);
@@ -80,19 +67,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkAoeBuffDebuff.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sparkAoeBuffDebuff.m_radius;
 		}
 		else
@@ -107,15 +81,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sparkAoeBuffDebuff.m_penetrateLos;
 		}
 		else
@@ -130,15 +95,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sparkAoeBuffDebuff.m_allyHealAmount;
 		}
 		else
@@ -153,15 +109,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sparkAoeBuffDebuff.m_allyHitEffect;
 		}
 		else
@@ -176,15 +123,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sparkAoeBuffDebuff.m_baseSelfHeal;
 		}
 		else
@@ -199,15 +137,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = sparkAoeBuffDebuff.m_selfHealAmountPerHit;
 		}
 		else
@@ -222,15 +151,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		bool baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = sparkAoeBuffDebuff.m_selfHealCountEnemyHit;
 		}
 		else
@@ -245,15 +165,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		bool baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = sparkAoeBuffDebuff.m_selfHealCountAllyHit;
 		}
 		else
@@ -265,15 +176,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		text += base.PropDesc(this.m_shieldOnSelfPerAllyHitMod, "[Shield on Self per Hit]", false, 0);
 		if (this.m_shieldOnSelfPerAllyHitMod != null && this.m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0) > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -290,15 +192,6 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		StandardEffectInfo baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = sparkAoeBuffDebuff.m_enemyHitEffect;
 		}
 		else

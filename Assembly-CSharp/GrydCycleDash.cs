@@ -23,32 +23,10 @@ public class GrydCycleDash : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Cycle Dash";
 		}
 		if (this.m_targetData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_targetData.Length >= this.GetExpectedNumberOfTargeters())
 			{
 				goto IL_74;
@@ -68,19 +46,6 @@ public class GrydCycleDash : Ability
 			abilityUtil_Targeter_BombingRun.SetShowArcToShape(false);
 			abilityUtil_Targeter_BombingRun.SetUseMultiTargetUpdate(true);
 			base.Targeters.Add(abilityUtil_Targeter_BombingRun);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.SetupTargeter()).MethodHandle;
 		}
 	}
 
@@ -114,71 +79,22 @@ public class GrydCycleDash : Ability
 		}
 		if (this.m_lockToCardinalDirs)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (!this.CardinallyAligned(gridPos, target.GridPos))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 		}
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, Board.Get().GetBoardSquareSafe(gridPos), false);
 				if (boardSquarePathInfo == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				boardSquarePathInfo.CalcAndSetMoveCostToEnd();
@@ -201,19 +117,6 @@ public class GrydCycleDash : Ability
 		{
 			if (start.x != end.x)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GrydCycleDash.CardinallyAligned(GridPos, GridPos)).MethodHandle;
-				}
 				result = (start.y == end.y);
 			}
 			else

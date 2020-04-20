@@ -17,63 +17,14 @@ public class BazookaGirlLockOnEffectSequence : Sequence
 	{
 		if (this.m_trackingEffectPrefab)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlLockOnEffectSequence.Update()).MethodHandle;
-			}
 			if (this.m_initialized)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_trackingEffectVFX == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Target)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_fxJoint.IsInitialized())
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_fxJoint.Initialize(base.Target.gameObject);
 						}
 						this.m_trackingEffectVFX = base.InstantiateFX(this.m_trackingEffectPrefab);
@@ -92,19 +43,6 @@ public class BazookaGirlLockOnEffectSequence : Sequence
 	{
 		if (this.m_trackingEffectVFX)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlLockOnEffectSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_trackingEffectVFX);
 		}
 	}

@@ -27,18 +27,5 @@ public class LoadingScreenSubtypeTooltip : MonoBehaviour
 				UIManager.SetGameObjectActive(this.TooltipImages[i], false, null);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(LoadingScreenSubtypeTooltip.Setup(GameSubTypeData.GameSubTypeInstructionDisplayInfo)).MethodHandle;
-		}
 	}
 }

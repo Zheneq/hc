@@ -54,46 +54,15 @@ namespace TMPro
 					this.strikethrough += 1;
 					return this.strikethrough;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_BasicXmlTagStack.Add(FontStyles)).MethodHandle;
-				}
 				if (style == FontStyles.Superscript)
 				{
 					this.superscript += 1;
 					return this.superscript;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (style == FontStyles.Subscript)
 				{
 					this.subscript += 1;
 					return this.subscript;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (style != FontStyles.Highlight)
 				{
@@ -114,15 +83,6 @@ namespace TMPro
 			case FontStyles.Bold:
 				if (this.bold > 1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.bold -= 1;
 				}
 				else
@@ -145,15 +105,6 @@ namespace TMPro
 				{
 					if (this.strikethrough > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.strikethrough -= 1;
 					}
 					else
@@ -161,19 +112,6 @@ namespace TMPro
 						this.strikethrough = 0;
 					}
 					return this.strikethrough;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_BasicXmlTagStack.Remove(FontStyles)).MethodHandle;
 				}
 				if (style == FontStyles.Superscript)
 				{
@@ -187,28 +125,10 @@ namespace TMPro
 					}
 					return this.superscript;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (style == FontStyles.Subscript)
 				{
 					if (this.subscript > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.subscript -= 1;
 					}
 					else
@@ -219,28 +139,10 @@ namespace TMPro
 				}
 				if (style != FontStyles.Highlight)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return 0;
 				}
 				if (this.highlight > 1)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.highlight -= 1;
 				}
 				else

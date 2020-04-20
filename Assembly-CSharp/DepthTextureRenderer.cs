@@ -32,19 +32,6 @@ public class DepthTextureRenderer : MonoBehaviour
 		{
 			this.m_layersMask |= 1 << LayerMask.NameToLayer(this.m_layerNames[i]);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.Start()).MethodHandle;
-		}
 		this.m_depthTextureNameGlobalID = Shader.PropertyToID(this.m_depthTextureNameGlobal);
 	}
 
@@ -63,19 +50,6 @@ public class DepthTextureRenderer : MonoBehaviour
 		bool result;
 		if (this.IsSupported() && Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.IsFunctioning()).MethodHandle;
-			}
 			result = (Options_UI.Get().GetCurrentGraphicsQuality() >= this.m_minGraphicsQuality);
 		}
 		else
@@ -89,19 +63,6 @@ public class DepthTextureRenderer : MonoBehaviour
 	{
 		if (this.m_depthTex == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.GetRenderTexture()).MethodHandle;
-			}
 			if (this.m_depthCam != null)
 			{
 				try
@@ -112,15 +73,6 @@ public class DepthTextureRenderer : MonoBehaviour
 					bool isPowerOfTwo;
 					if (Mathf.IsPowerOfTwo(this.m_depthCam.pixelWidth))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						isPowerOfTwo = Mathf.IsPowerOfTwo(this.m_depthCam.pixelHeight);
 					}
 					else
@@ -148,19 +100,6 @@ public class DepthTextureRenderer : MonoBehaviour
 	{
 		if (this.m_depthTex != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.CleanUpTextures()).MethodHandle;
-			}
 			RenderTexture.ReleaseTemporary(this.m_depthTex);
 			this.m_depthTex = null;
 		}
@@ -170,59 +109,19 @@ public class DepthTextureRenderer : MonoBehaviour
 	{
 		if (base.enabled)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.OnPreRender()).MethodHandle;
-			}
 			if (base.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.IsFunctioning())
 				{
 					this.CleanUpTextures();
 					if (this.m_depthCamObj == null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_depthCamObj = new GameObject(string.Format("DepthTextureCamera_{0}", this.m_layerNames[0]));
 						this.m_depthCam = this.m_depthCamObj.AddComponent<Camera>();
 						this.m_depthCam.enabled = false;
 					}
 					if (this.GetRenderTexture() != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_depthCam.CopyFrom(base.GetComponent<Camera>());
 						this.m_depthCam.backgroundColor = new Color(0f, 0f, 0f, 0f);
 						this.m_depthCam.clearFlags = CameraClearFlags.Color;
@@ -232,15 +131,6 @@ public class DepthTextureRenderer : MonoBehaviour
 						this.m_depthCam.RenderWithShader(this.m_depthTextureShader, null);
 					}
 					return;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -256,19 +146,6 @@ public class DepthTextureRenderer : MonoBehaviour
 	{
 		if (this.m_depthCamObj)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DepthTextureRenderer.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.DestroyImmediate(this.m_depthCamObj);
 		}
 	}

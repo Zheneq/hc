@@ -44,19 +44,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		List<GenericAbility_TargetSelectBase> relevantTargetSelectCompForEditor = base.GetRelevantTargetSelectCompForEditor();
 		if (this.m_shieldDownTargetSelect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetRelevantTargetSelectCompForEditor()).MethodHandle;
-			}
 			relevantTargetSelectCompForEditor.Add(this.m_shieldDownTargetSelect);
 		}
 		return relevantTargetSelectCompForEditor;
@@ -68,7 +55,7 @@ public class ScampDashAndAoe : GenericAbility_Container
 		base.SetupTargetersAndCachedVars();
 		if (this.m_abilityMod != null)
 		{
-			this.m_cachedShieldDownOnHitData = this.m_abilityMod.m_shieldDownOnHitDataMod.\u001D(this.m_shieldDownOnHitData);
+			this.m_cachedShieldDownOnHitData = this.m_abilityMod.m_shieldDownOnHitDataMod.symbol_001D(this.m_shieldDownOnHitData);
 		}
 		else
 		{
@@ -87,19 +74,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 				collection = this.m_shieldDownTargetSelect.CreateTargeters(this);
 				goto IL_4A;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.ResetTargetersForShielding(bool)).MethodHandle;
-			}
 		}
 		collection = this.m_targetSelectComp.CreateTargeters(this);
 		IL_4A:
@@ -116,19 +90,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetShieldDownCooldown()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldDownCooldownMod.GetModifiedValue(this.m_shieldDownCooldown);
 		}
 		else
@@ -143,19 +104,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetCdrOnSuitApply()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnSuitApplyMod.GetModifiedValue(this.m_cdrOnSuitApply);
 		}
 		else
@@ -170,19 +118,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetShieldDownNoCooldownHealthThresh()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldDownNoCooldownHealthThreshMod.GetModifiedValue(this.m_shieldDownNoCooldownHealthThresh);
 		}
 		else
@@ -197,19 +132,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetExtraEnergyForDashOnOrb()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraEnergyForDashOnOrbMod.GetModifiedValue(this.m_extraEnergyForDashOnOrb);
 		}
 		else
@@ -235,19 +157,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.IsInSuit()).MethodHandle;
-			}
 			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
 		}
 		else
@@ -261,19 +170,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 	{
 		if (this.IsInSuit())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetTargetSelectComp()).MethodHandle;
-			}
 			return base.GetTargetSelectComp();
 		}
 		return this.m_shieldDownTargetSelect;
@@ -288,19 +184,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		OnHitAuthoredData result;
 		if (this.m_cachedShieldDownOnHitData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetOnHitAuthoredData()).MethodHandle;
-			}
 			result = this.m_cachedShieldDownOnHitData;
 		}
 		else
@@ -314,31 +197,9 @@ public class ScampDashAndAoe : GenericAbility_Container
 	{
 		if (!this.IsInSuit())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetBaseCooldown()).MethodHandle;
-			}
 			if (this.GetShieldDownCooldown() >= 0)
 			{
 				return this.GetShieldDownCooldown();
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return base.GetBaseCooldown();
@@ -349,19 +210,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		int num;
 		if (inSuit)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.CalcCurrentMaxCooldown(bool)).MethodHandle;
-			}
 			num = this.m_cooldown;
 		}
 		else
@@ -380,19 +228,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 	{
 		if (this.CanOverrideMoveStartSquare())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.GetMovementAdjustment()).MethodHandle;
-			}
 			return Ability.MovementAdjustment.ReducedMovement;
 		}
 		return base.GetMovementAdjustment();
@@ -403,19 +238,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 		bool result;
 		if (!this.IsInSuit())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.CanOverrideMoveStartSquare()).MethodHandle;
-			}
 			result = this.m_shieldDownAllowMoveAfterEvade;
 		}
 		else
@@ -439,19 +261,6 @@ public class ScampDashAndAoe : GenericAbility_Container
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampDashAndAoe.SetTargetSelectModReference()).MethodHandle;
-			}
 			this.m_targetSelectComp.SetTargetSelectMod(this.m_abilityMod.m_inSuitTargetSelectMod);
 			this.m_shieldDownTargetSelect.SetTargetSelectMod(this.m_abilityMod.m_shieldDownTargetSelectMod);
 		}

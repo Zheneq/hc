@@ -121,19 +121,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		{
 			list.Add(this.GetSquareForDisc(i));
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.GetActiveDiscSquares()).MethodHandle;
-		}
 		return list;
 	}
 
@@ -146,79 +133,21 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	{
 		if (NetworkClient.active && GameFlowData.Get().activeOwnedActorData == this.m_actorData)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.ShouldForceShowOutline(ActorData)).MethodHandle;
-			}
 			ActorTurnSM actorTurnSM = this.m_actorData.GetActorTurnSM();
 			bool flag = true;
 			if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 				Ability selectedAbility = this.m_abilityData.GetSelectedAbility();
 				if (selectedAbility != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (selectedAbility.GetRunPriority() == AbilityPriority.Evasion)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (selectedAbility is NekoFlipDash)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							NekoFlipDash nekoFlipDash = selectedAbility as NekoFlipDash;
 							if (actorTurnSM.GetAbilityTargets().Count >= ((!nekoFlipDash.ThrowDiscFromStart()) ? 0 : 1))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 							}
 						}
@@ -232,15 +161,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			bool result;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = this.IsActorTargetedByReturningDiscs(forActor);
 			}
 			else
@@ -258,19 +178,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		this.m_abilityData = this.m_actorData.GetAbilityData();
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.Start()).MethodHandle;
-			}
 			this.m_primaryAbility = this.m_abilityData.GetAbilityOfType<NekoBoomerangDisc>();
 			this.m_homingDiscAbility = this.m_abilityData.GetAbilityOfType<NekoHomingDisc>();
 			this.m_enlargeDiscAbility = this.m_abilityData.GetAbilityOfType<NekoEnlargeDisc>();
@@ -299,26 +206,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			{
 				AbilityUtil_Targeter.SetMaterialColor(meshRenderer.materials, this.m_enlargedDiscEndpointColor, false);
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actorData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_actorData.OnClientQueuedActionChangedDelegates += this.MarkForForceUpdate;
 				this.m_actorData.OnSelectedAbilityChangedDelegates += this.OnSelectedAbilityChanged;
 				this.m_actorData.AddForceShowOutlineChecker(this);
@@ -331,19 +220,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	{
 		if (this.m_actorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.OnDestroy()).MethodHandle;
-			}
 			this.m_actorData.OnClientQueuedActionChangedDelegates -= this.MarkForForceUpdate;
 			this.m_actorData.OnSelectedAbilityChangedDelegates -= this.OnSelectedAbilityChanged;
 			this.m_actorData.RemoveForceShowOutlineChecker(this);
@@ -358,19 +234,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			BoardSquare squareForDisc = this.GetSquareForDisc(index);
 			if (squareForDisc != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.GetDiscPos(int)).MethodHandle;
-				}
 				return squareForDisc.ToVector3();
 			}
 		}
@@ -385,19 +248,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			BoardSquare boardSquare = null;
 			if (this.m_actorData.GetCurrentBoardSquare() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.GetCasterPos(bool*)).MethodHandle;
-				}
 				boardSquare = this.m_actorData.GetCurrentBoardSquare();
 				List<AbilityData.AbilityEntry> queuedOrAimingAbilitiesForPhase = this.m_abilityData.GetQueuedOrAimingAbilitiesForPhase(UIQueueListPanel.UIPhase.Evasion);
 				using (List<AbilityData.AbilityEntry>.Enumerator enumerator = queuedOrAimingAbilitiesForPhase.GetEnumerator())
@@ -409,68 +259,23 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						List<AbilityTarget> abilityTargetsInRequest = this.m_actorTargeting.GetAbilityTargetsInRequest(actionTypeOfAbility);
 						if (!abilityTargetsInRequest.IsNullOrEmpty<AbilityTarget>())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquare = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[abilityTargetsInRequest.Count - 1].GridPos);
 						}
 						else if (this.m_actorData.GetActorTurnSM().GetAbilityTargets().Count == abilityEntry.ability.GetNumTargets() - 1)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
 							boardSquare = Board.Get().GetBoardSquareSafe(abilityTargetForTargeterUpdate.GridPos);
 						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				hasQueuedEvades = (queuedOrAimingAbilitiesForPhase.Count > 0);
 			}
 			else if (this.m_actorData.GetMostResetDeathSquare())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = this.m_actorData.GetMostResetDeathSquare();
 			}
 			if (boardSquare != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return boardSquare.ToVector3();
 			}
 		}
@@ -482,44 +287,13 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		ActorData actorData = this.m_actorData;
 		if (this.m_homingActorIndex > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.GetHomingActorPos()).MethodHandle;
-			}
 			actorData = GameFlowData.Get().FindActorByActorIndex(this.m_homingActorIndex);
 		}
 		if (actorData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquare = actorData.GetCurrentBoardSquare();
 			if (actorData.IsDead())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = actorData.GetMostResetDeathSquare();
 			}
 			if (boardSquare != null)
@@ -540,42 +314,11 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			bool flag = this.m_abilityData.HasQueuedAction(this.m_enlargeDiscActionType);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.IsDiscAtPosEnlarged(int, int, bool*)).MethodHandle;
-				}
 				List<AbilityTarget> abilityTargetsInRequest = this.m_actorTargeting.GetAbilityTargetsInRequest(this.m_enlargeDiscActionType);
 				if (abilityTargetsInRequest != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						abilityTarget = abilityTargetsInRequest[0];
 					}
 				}
@@ -585,52 +328,16 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				Ability selectedAbility = this.m_abilityData.GetSelectedAbility();
 				if (selectedAbility != null && selectedAbility is NekoEnlargeDisc)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					abilityTarget = AbilityTarget.GetAbilityTargetForTargeterUpdate();
 				}
 			}
 			if (abilityTarget != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				enlargeDiscUsed = true;
 				if (this.m_homingActorIndex > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Neko_SyncComponent.HomingDiscStartFromCaster())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
@@ -644,71 +351,22 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.Update()).MethodHandle;
-			}
 			bool setCasterPosLastFrame = this.m_setCasterPosLastFrame;
 			this.m_setCasterPosLastFrame = false;
 			bool flag = false;
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_actorData.GetCurrentBoardSquare() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_boardX.Count > 0 && GameFlowData.Get() != null && GameFlowData.Get().gameState == GameState.BothTeams_Decision)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 				}
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int count = this.m_boardX.Count;
 				float y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 				bool flag2 = activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam();
@@ -717,15 +375,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				bool flag4 = this.m_actorData.GetActorTurnSM().CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST;
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (setCasterPosLastFrame)
 					{
 						vector = this.m_lastCasterPos;
@@ -735,50 +384,14 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				}
 				if (this.m_timeToWaitForValidationRequest > 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeToWaitForValidationRequest -= Time.unscaledDeltaTime;
 				}
 				if (!flag3)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_timeToWaitForValidationRequest > 0f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (setCasterPosLastFrame)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector = this.m_lastCasterPos;
 						}
 					}
@@ -790,15 +403,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				bool flag5;
 				if (selectedAbility != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag5 = (selectedAbility.GetRunPriority() == AbilityPriority.Evasion);
 				}
 				else
@@ -809,15 +413,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				bool flag7;
 				if (selectedAbility != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag7 = (selectedAbility is NekoEnlargeDisc);
 				}
 				else
@@ -828,15 +423,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				ActorData actorData;
 				if (this.m_homingActorIndex < 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = this.m_actorData;
 				}
 				else
@@ -847,38 +433,11 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				bool flag9 = actorData2 != null;
 				if (actorData2 != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData2.GetTeam() != this.m_actorData.GetTeam())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag10;
 						if (actorData2.GetCurrentBoardSquare() != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag10 = actorData2.IsVisibleToClient();
 						}
 						else
@@ -890,60 +449,15 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 				}
 				if (this.m_showingTargeterTemplate)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_showingTargeterTemplate == flag9)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_markedForForceUpdate)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag4 && !flag6)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag8)
 								{
 									goto IL_754;
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -961,15 +475,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					bool visible;
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						visible = (i < this.m_boardX.Count);
 					}
 					else
@@ -1007,26 +512,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						Vector3 vector3;
 						if (this.m_homingActorIndex > 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Neko_SyncComponent.HomingDiscStartFromCaster())
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector2 = vector;
 							}
 							else
@@ -1048,15 +535,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						position.y = HighlightUtils.GetHighlightHeight();
 						if (!flag2)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							position.y += 0.01f;
 						}
 						gameObject.transform.position = position;
@@ -1064,65 +542,20 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						{
 							AbilityUtil_Targeter.SetMaterialColor(meshRenderer.materials, (!flag2) ? this.m_enemyDiscIndicatorColor : this.m_allyDiscIndicatorColor, false);
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag11 = false;
 						if (flag9)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num = this.m_discReturnTripLaserWidthInSquares;
 							float aoeStartRadius = this.m_discReturnTripAoeRadiusAtlaserStart;
 							float num2 = 0f;
 							if (this.m_homingActorIndex > 0 && this.m_homingDiscAbility != null)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num2 = this.m_homingDiscAbility.GetDiscReturnEndRadius();
 							}
 							else if (this.m_homingActorIndex < 0)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_primaryAbility != null)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num2 = this.m_primaryAbility.GetDiscReturnEndRadius();
 								}
 							}
@@ -1136,15 +569,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 							}
 							if (num2 > 0f)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 position2 = vector3;
 								position2.y = HighlightUtils.GetHighlightHeight();
 								this.m_endAoeMarker.transform.position = position2;
@@ -1161,15 +585,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 							{
 								goto IL_680;
 							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag13)
 							{
 								goto IL_680;
@@ -1179,15 +594,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 							bool flag15 = flag14;
 							if (flag15)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								hitAreaIndicatorHighlight.m_color = this.m_fadeoutNonEnlargedDiscLineColor;
 							}
 							else
@@ -1196,15 +602,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 							}
 							if (num3 > 0f)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								hitAreaIndicatorHighlight.SetPose(adjustedStartPosWithOffset, vector4.normalized);
 								hitAreaIndicatorHighlight.AdjustSize(num, num3);
 							}
@@ -1223,15 +620,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 						flag11 = (flag11 && flag2);
 						if (flag11 != this.m_endAoeMarker.activeSelf)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_endAoeMarker.SetActive(flag11);
 						}
 					}
@@ -1240,15 +628,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					IL_38A:
 					active = (i < this.m_boardX.Count);
 					goto IL_39C;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_754:;
 			}
@@ -1260,15 +639,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					{
 						Blaster_SyncComponent.HitAreaIndicatorHighlight hitAreaIndicatorHighlight3 = enumerator.Current;
 						hitAreaIndicatorHighlight3.SetVisible(false);
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				foreach (GameObject gameObject3 in this.m_aoeRadiusMarkers)
@@ -1290,41 +660,10 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 			List<Team> opposingTeams = this.m_actorData.GetOpposingTeams();
 			if (usingEnlargeDiscAbility)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.UpdateActorsInDiscPath(Vector3, Vector3, float, float, float, bool)).MethodHandle;
-				}
 				if (this.m_enlargeDiscAbility != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_enlargeDiscAbility.CanIncludeAlliesOnReturn())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						opposingTeams.Add(this.m_actorData.GetTeam());
 					}
 				}
@@ -1340,82 +679,28 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 					ActorData item = enumerator.Current;
 					if (!this.m_actorsTargetedByReturningDiscs.Contains(item))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_actorsTargetedByReturningDiscs.Add(item);
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (num > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector;
 				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startLosPos, dir, num, laserWidth, this.m_actorData, opposingTeams, true, 0, true, false, out vector, null, null, false, true);
 				foreach (ActorData item2 in actorsInLaser)
 				{
 					if (!this.m_actorsTargetedByReturningDiscs.Contains(item2))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_actorsTargetedByReturningDiscs.Add(item2);
 					}
 				}
 				if (aoeEndRadius > 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorData> actorsInRadius2 = AreaEffectUtils.GetActorsInRadius(endLosPos, aoeEndRadius, true, this.m_actorData, opposingTeams, null, false, default(Vector3));
 					foreach (ActorData item3 in actorsInRadius2)
 					{
 						if (!this.m_actorsTargetedByReturningDiscs.Contains(item3))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_actorsTargetedByReturningDiscs.Add(item3);
 						}
 					}
@@ -1518,19 +803,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.InvokeSyncListm_boardX(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_boardX called on server.");
 			return;
 		}
@@ -1557,19 +829,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListInt.WriteInstance(writer, this.m_boardX);
 			SyncListInt.WriteInstance(writer, this.m_boardY);
 			writer.WritePackedUInt32((uint)this.m_homingActorIndex);
@@ -1582,26 +841,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1609,26 +850,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1636,26 +859,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1663,26 +868,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1690,26 +877,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		}
 		if ((base.syncVarDirtyBits & 0x10U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1719,15 +888,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1735,26 +895,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		}
 		if ((base.syncVarDirtyBits & 0x40U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1771,19 +913,6 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 	{
 		if (initialState)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Neko_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			SyncListInt.ReadReference(reader, this.m_boardX);
 			SyncListInt.ReadReference(reader, this.m_boardY);
 			this.m_homingActorIndex = (int)reader.ReadPackedUInt32();
@@ -1796,41 +925,14 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, this.m_boardX);
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListInt.ReadReference(reader, this.m_boardY);
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_homingActorIndex = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
@@ -1839,41 +941,14 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_superDiscBoardX = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x20) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_superDiscBoardY = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 0x40) != 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_numUltConsecUsedTurns = (int)reader.ReadPackedUInt32();
 		}
 	}

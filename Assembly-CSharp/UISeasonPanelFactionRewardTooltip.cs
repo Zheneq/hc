@@ -53,19 +53,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 						FactionReward reward = enumerator.Current;
 						if (num >= this.m_personalTooltipItems.Count)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetupPersonalReward(int, Faction)).MethodHandle;
-							}
 							UIFactionPersonalReward uifactionPersonalReward = UnityEngine.Object.Instantiate<UIFactionPersonalReward>(this.m_personalRewardPrefab);
 							uifactionPersonalReward.transform.SetParent(this.m_personalRewardLayoutGroup.gameObject.transform);
 							uifactionPersonalReward.transform.localPosition = Vector3.zero;
@@ -77,15 +64,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 						this.m_personalTooltipItems[num].Setup(reward, i, currentPersonalLevel - 1 > i);
 						num++;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 		}
@@ -95,47 +73,16 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 		{
 			UIManager.SetGameObjectActive(this.m_personalTooltipItems[j], false, null);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public bool SetupFactionReward(Faction factionInfo, int currentLevel, bool isFactionComplete)
 	{
 		if (factionInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetupFactionReward(Faction, int, bool)).MethodHandle;
-			}
 			if (factionInfo.RewardLootTableID != 0)
 			{
 				if (currentLevel < 1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					currentLevel = 1;
 				}
 				else if (isFactionComplete)
@@ -157,44 +104,17 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 							{
 								if (conditions[k].ConditionType == QuestConditionType.FactionTierReached)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (conditions[k].typeSpecificData3 == i + 1)
 									{
 										list.Add(lootTableEntry.Index);
 									}
 								}
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else if (i == 0)
 						{
 							list.Add(lootTableEntry.Index);
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					while (this.m_tooltipItems.Count <= num)
 					{
@@ -209,39 +129,12 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 					this.m_tooltipItems[num].Setup(list, i, i < currentLevel);
 					num++;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rewardTooltipHeightObject.sizeDelta = new Vector2(this.m_rewardTooltipHeightObject.sizeDelta.x, this.m_tooltipHeightPadding + (float)num * this.m_factionRewardPrefab.GetComponent<LayoutElement>().preferredHeight);
 				for (int l = num; l < this.m_tooltipItems.Count; l++)
 				{
 					UIManager.SetGameObjectActive(this.m_tooltipItems[l], false, null);
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -252,19 +145,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 		UIManager.SetGameObjectActive(this.m_CommunityFactionTooltipContainer, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetCommunityFactionVisible(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_PersonalTooltipContainer, false, null);
 		}
 	}
@@ -274,19 +154,6 @@ public class UISeasonPanelFactionRewardTooltip : UITooltipBase
 		UIManager.SetGameObjectActive(this.m_PersonalTooltipContainer, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonPanelFactionRewardTooltip.SetPersonalRewardVisible(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_CommunityFactionTooltipContainer, false, null);
 		}
 	}

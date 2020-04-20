@@ -59,19 +59,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetCurrentMoveStateStr()).MethodHandle;
-			}
 			return this.m_curMoveState.stateName;
 		}
 		return "None";
@@ -112,83 +99,25 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		this.UpdatePosition();
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.Update()).MethodHandle;
-			}
 			if (this.m_actor != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_actor.GetModelAnimator() != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = this.m_brushTransitionAnimationSpeedEased;
 					Animator modelAnimator = this.m_actor.GetModelAnimator();
 					if (modelAnimator.speed != num)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						modelAnimator.speed = num;
 					}
 				}
 			}
 			if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.MovementWaypointModifier))
 				{
 					if (!InputManager.Get().IsKeyBindingNewlyReleased(KeyPreference.MovementWaypointModifier))
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.UpdateSquaresCanMoveTo();
@@ -216,19 +145,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateSquaresCanMoveTo()).MethodHandle;
-			}
 		}
 		float maxMoveDist = this.m_actor.RemainingHorizontalMovement;
 		float innerMoveDist = this.m_actor.RemainingMovementWithQueuedAbility;
@@ -236,28 +152,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Options_UI.Get().GetShiftClickForMovementWaypoints() != InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier))
 			{
 				flag = true;
 				goto IL_97;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag = !FirstTurnMovement.CanWaypoint();
@@ -265,26 +163,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag2 = flag;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				maxMoveDist = this.CalculateMaxHorizontalMovement(false, false);
 				innerMoveDist = this.CalculateMaxHorizontalMovement(true, false);
 				squareToStartFrom = this.m_actor.InitialMoveStartSquare;
@@ -293,40 +173,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		this.GetSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out this.m_squaresCanMoveTo, out this.m_squareCanMoveToWithQueuedAbility);
 		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Board.Get().MarkForUpdateValidSquares(true);
 		}
 		if (this.m_actor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			LineData component = this.m_actor.GetComponent<LineData>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.OnCanMoveToSquaresUpdated();
 			}
 		}
@@ -338,19 +191,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(x, y);
 		if (boardSquare)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CanMoveToBoardSquare(int, int)).MethodHandle;
-			}
 			result = this.CanMoveToBoardSquare(boardSquare);
 		}
 		return result;
@@ -366,19 +206,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquare boardSquare;
 		if (alwaysIncludeMoverSquare)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetClosestMoveableSquareTo(BoardSquare, bool)).MethodHandle;
-			}
 			boardSquare = this.m_actor.GetCurrentBoardSquare();
 		}
 		else
@@ -389,15 +216,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num;
 		if (alwaysIncludeMoverSquare)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = boardSquare2.HorizontalDistanceOnBoardTo(selectedSquare);
 		}
 		else
@@ -407,15 +225,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num2 = num;
 		if (selectedSquare != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (HashSet<BoardSquare>.Enumerator enumerator = this.m_squaresCanMoveTo.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -424,27 +233,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					float num3 = boardSquare3.HorizontalDistanceOnBoardTo(selectedSquare);
 					if (num3 <= num2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = num3;
 						boardSquare2 = boardSquare3;
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -460,43 +251,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num = 0f;
 		if (!this.m_actor.IsDead())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalculateMaxHorizontalMovement(bool, bool)).MethodHandle;
-			}
 			num = (float)this.m_actor.GetActorStats().GetModifiedStatInt(StatType.Movement_Horizontal);
 			AbilityData abilityData = this.m_actor.GetAbilityData();
 			if (abilityData)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityData.GetQueuedAbilitiesAllowMovement())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num2;
 					if (forcePostAbility)
 					{
@@ -533,19 +293,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (actorStatus.HasStatus(StatusType.RecentlyRespawned, true))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetAdjustedMovementFromBuffAndDebuff(float, bool, bool)).MethodHandle;
-			}
 			num += (float)GameplayData.Get().m_recentlyRespawnedBonusMovement;
 		}
 		List<StatusType> queuedAbilitiesOnRequestStatuses = this.m_actor.GetAbilityData().GetQueuedAbilitiesOnRequestStatuses();
@@ -553,15 +300,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag2;
 		if (!actorStatus.IsMovementDebuffImmune(true) && !queuedAbilitiesOnRequestStatuses.Contains(StatusType.MovementDebuffImmunity))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Unstoppable);
 		}
 		else
@@ -573,15 +311,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag5;
 		if (!actorStatus.HasStatus(StatusType.CantSprint_UnlessUnstoppable, true))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag5 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_UnlessUnstoppable);
 		}
 		else
@@ -592,15 +321,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag7;
 		if (!actorStatus.HasStatus(StatusType.CantSprint_Absolute, true))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag7 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.CantSprint_Absolute);
 		}
 		else
@@ -611,28 +331,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag9;
 		if (flag6)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag4)
 			{
 				flag9 = true;
 				goto IL_129;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag9 = flag8;
@@ -640,93 +342,30 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag10 = flag9;
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorStatus.HasStatus(StatusType.Rooted, true))
 			{
 				goto IL_165;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!actorStatus.HasStatus(StatusType.AnchoredNoMovement, true))
 		{
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorStatus.HasStatus(StatusType.CrippledMovement, true))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return Mathf.Clamp(num, 0f, 1f);
 				}
 			}
 			if (flag10 && !forcePostAbility && this.m_actor.GetAbilityData() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType() == Ability.MovementAdjustment.FullMovement)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num -= this.m_actor.GetPostAbilityHorizontalMovementChange();
 				}
 			}
 			bool flag11;
 			if (!actorStatus.HasStatus(StatusType.Snared, true))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag11 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Snared);
 			}
 			else
@@ -737,15 +376,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			bool flag13;
 			if (!actorStatus.HasStatus(StatusType.Hasted, true))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag13 = queuedAbilitiesOnRequestStatuses.Contains(StatusType.Hasted);
 			}
 			else
@@ -755,80 +385,26 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			bool flag14 = flag13;
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag12)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag14)
 					{
 						goto IL_28A;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			if (calculateAsIfSnared)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (flag14)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag4)
 					{
 						if (flag12)
 						{
 							return num;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					float num2;
@@ -844,27 +420,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						int num5 = num4;
 						if (this.m_actor.GetAbilityData() != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Ability.MovementAdjustment queuedAbilitiesMovementAdjustType = this.m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
 							if (queuedAbilitiesMovementAdjustType == Ability.MovementAdjustment.ReducedMovement)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num5 = num3;
 							}
 						}
@@ -882,15 +440,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			ActorMovement.CalcSnaredMovementAdjustments(out num6, out num7, out num8);
 			if (forcePostAbility)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Clamp(num + (float)num7, 0f, 99f);
 			}
 			else
@@ -901,15 +450,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					Ability.MovementAdjustment queuedAbilitiesMovementAdjustType2 = this.m_actor.GetAbilityData().GetQueuedAbilitiesMovementAdjustType();
 					if (queuedAbilitiesMovementAdjustType2 == Ability.MovementAdjustment.ReducedMovement)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num9 = num7;
 					}
 				}
@@ -917,15 +457,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			num *= num6;
 			return MovementUtils.RoundToNearestHalf(num);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_165:
 		num = 0f;
@@ -936,19 +467,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!(GameplayMutators.Get() == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalcHastedMovementAdjustments(float*, int*, int*)).MethodHandle;
-			}
 			if (GameplayMutators.Get().m_useHasteOverride)
 			{
 				halfMoveAdjustment = GameplayMutators.Get().m_hasteHalfMovementAdjustAmount;
@@ -966,34 +484,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!(GameplayMutators.Get() == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalcSnaredMovementAdjustments(float*, int*, int*)).MethodHandle;
-			}
 			if (GameplayMutators.Get().m_useSlowOverride)
 			{
 				halfMoveAdjust = GameplayMutators.Get().m_slowHalfMovementAdjustAmount;
 				fullMoveAdjust = GameplayMutators.Get().m_slowFullMovementAdjustAmount;
 				mult = GameplayMutators.Get().m_slowMovementMultiplier;
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		halfMoveAdjust = GameWideData.Get().m_slowHalfMovementAdjustAmount;
@@ -1007,19 +503,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		innerSquares = new HashSet<BoardSquare>();
 		if (!(squareToStartFrom == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildSquaresCanMoveTo_InnerOuter(BoardSquare, float, float, HashSet<BoardSquare>*, HashSet<BoardSquare>*)).MethodHandle;
-			}
 			if (maxHorizontalMovement != 0f)
 			{
 				eligibleSquares.Add(squareToStartFrom);
@@ -1037,15 +520,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag;
 				if (GameplayData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax);
 				}
 				else
@@ -1069,15 +543,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							{
 								goto IL_126;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (j != 0)
 							{
 								goto IL_126;
@@ -1089,42 +554,15 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							BoardSquare boardSquare = board.GetBoardSquare(x + i, y + j);
 							if (!(boardSquare == null))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (hashSet.Contains(boardSquare))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
-									bool flag3 = board.\u0015(square, boardSquare);
+									bool flag3 = board.symbol_0015(square, boardSquare);
 									float num;
 									if (flag3)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num = value2.cost + 1.5f;
 									}
 									else
@@ -1142,30 +580,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 									}
 									if (flag4)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										BoardSquare src = square;
 										BoardSquare dest = boardSquare;
 										bool ignoreBarriers = false;
 										ActorMovement.DiagonalCalcFlag diagonalFlag;
 										if (flag3)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
 										}
 										else
@@ -1174,15 +594,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 										}
 										if (this.CanCrossToAdjacentSquare(src, dest, ignoreBarriers, diagonalFlag))
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											ActorMovement.BoardSquareMovementInfo value3;
 											value3.square = boardSquare;
 											value3.cost = num;
@@ -1197,28 +608,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 													flag5 = true;
 													if (value4.cost > num)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														linkedListNode.Value = value3;
 													}
 													else if (value4.cost == num && value3.prevCost < value4.prevCost)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														linkedListNode.Value = value3;
 													}
 													IL_2C5:
@@ -1250,64 +643,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							goto IL_2E5;
 						}
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (MovementUtils.CanStopOnSquare(square) && SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
 						{
 							if (!eligibleSquares.Contains(square))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								eligibleSquares.Add(square);
 							}
 							if (innerMaxMove > 0f && !innerSquares.Contains(square))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								bool flag6;
 								if (flag2)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag6 = (value2.cost <= innerMaxMove);
 								}
 								else
@@ -1316,15 +664,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								}
 								if (flag6)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									innerSquares.Add(square);
 								}
 							}
@@ -1333,25 +672,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					hashSet.Add(square);
 					linkedList.RemoveFirst();
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1381,31 +702,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			{
 				goto IL_DB;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildSquaresCanMoveTo(BoardSquare, float)).MethodHandle;
-			}
 			if (GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled)
 			{
 				goto IL_DB;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref list);
 			IL_FB:
@@ -1414,19 +713,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				BoardSquare boardSquare = list[i];
 				if (!hashSet2.Contains(boardSquare))
 				{
-					bool flag = Board.Get().\u0015(square, boardSquare);
+					bool flag = Board.Get().symbol_0015(square, boardSquare);
 					float num;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = value2.cost + 1.5f;
 					}
 					else
@@ -1437,42 +727,15 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						goto IL_19A;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax)
 					{
 						goto IL_19A;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					bool flag2 = num <= maxHorizontalMovement;
 					IL_1A6:
 					if (!flag2)
 					{
 						goto IL_290;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					ActorMovement.BoardSquareMovementInfo value3;
 					value3.square = boardSquare;
@@ -1485,15 +748,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						ActorMovement.BoardSquareMovementInfo value4 = linkedListNode.Value;
 						if (value4.square == boardSquare)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = true;
 							if (value4.cost > num)
 							{
@@ -1504,26 +758,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							{
 								goto IL_290;
 							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.CanCrossToAdjacentSquare(square, boardSquare, false, (!flag) ? ActorMovement.DiagonalCalcFlag.NotDiagonal : ActorMovement.DiagonalCalcFlag.IsDiagonal) && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								linkedList.AddLast(value3);
 								goto IL_290;
 							}
@@ -1549,59 +785,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				}
 				IL_290:;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!hashSet.Contains(square))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (MovementUtils.CanStopOnSquare(square))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							hashSet.Add(square);
 						}
 					}
@@ -1623,59 +814,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		int squaresCanMoveToSinglePlayerState = -1;
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CheckSquareCanMoveToCache(BoardSquare, float)).MethodHandle;
-			}
 			if (this.m_actor.SpawnerId == -1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 			}
 		}
 		int squaresCanMoveToBarrierState = -1;
 		if (BarrierManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(this.m_actor);
 		}
 		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
 		if (FirstTurnMovement.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
 		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry();
@@ -1691,48 +842,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = this.m_squaresCanMoveToCache[i];
 			if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState && squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
 							item = squaresCanMoveToCacheEntry2;
 							num = i;
@@ -1766,45 +881,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
 		if (SinglePlayerManager.Get() != null && this.m_actor.SpawnerId == -1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AddToSquareCanMoveToCache(BoardSquare, float, HashSet<BoardSquare>)).MethodHandle;
-			}
 			squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 		}
 		if (BarrierManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(this.m_actor);
 		}
 		if (FirstTurnMovement.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
 		}
 		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry();
@@ -1826,19 +910,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		HashSet<BoardSquare> hashSet = this.CheckSquareCanMoveToCache(squareToStartFrom, maxHorizontalMovement);
 		if (hashSet != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetSquaresCanMoveTo(BoardSquare, float)).MethodHandle;
-			}
 			return hashSet;
 		}
 		hashSet = this.BuildSquaresCanMoveTo(squareToStartFrom, maxHorizontalMovement);
@@ -1852,34 +923,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		HashSet<BoardSquare> hashSet2 = this.CheckSquareCanMoveToCache(squareToStartFrom, innerMoveDist);
 		if (hashSet == null && hashSet2 == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetSquaresCanMoveTo_InnerOuter(BoardSquare, float, float, HashSet<BoardSquare>*, HashSet<BoardSquare>*)).MethodHandle;
-			}
 			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, innerMoveDist, out hashSet, out hashSet2);
 			this.AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, hashSet);
 			this.AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, hashSet2);
 		}
 		else if (hashSet == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HashSet<BoardSquare> hashSet3;
 			this.BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, 0f, out hashSet, out hashSet3);
 			this.AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, hashSet);
@@ -1903,68 +952,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!(dest == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CanCrossToAdjacentSingleSquare(BoardSquare, BoardSquare, bool, bool, ActorMovement.DiagonalCalcFlag)).MethodHandle;
-			}
 			if (!dest.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				if (!ignoreBarriers)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (BarrierManager.Get() != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (BarrierManager.Get().IsMovementBlocked(this.m_actor, src, dest))
 						{
 							return false;
@@ -1974,16 +974,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag;
 				if (!knownAdjacent)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					flag = Board.Get().\u000E(src, dest);
+					flag = Board.Get().symbol_000E(src, dest);
 				}
 				else
 				{
@@ -1996,68 +987,23 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag2 = true;
 				if (diagonalFlag != ActorMovement.DiagonalCalcFlag.IsDiagonal)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (diagonalFlag != ActorMovement.DiagonalCalcFlag.Unknown)
 					{
 						goto IL_18A;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!Board.Get().\u0015(src, dest))
+					if (!Board.Get().symbol_0015(src, dest))
 					{
 						goto IL_18A;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
 				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
 				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
 				}
 				if (flag2)
@@ -2071,15 +1017,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				IL_18A:
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 				return true;
@@ -2092,19 +1029,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ClearPath()).MethodHandle;
-			}
 			this.m_gameplayPath = null;
 		}
 		this.Client_ClearAestheticPath();
@@ -2128,19 +1052,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		RaycastHit raycastHit;
 		if (Physics.SphereCast(origin, radius, Vector3.down, out raycastHit, 100f, layerMask))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetGroundPosition(Vector3)).MethodHandle;
-			}
 			result.y = raycastHit.point.y;
 		}
 		return result;
@@ -2151,81 +1062,23 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.m_actor.GetModelAnimator();
 		if (!(modelAnimator == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ShouldSetForceIdle()).MethodHandle;
-			}
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
 				if (!currentAnimatorStateInfo.IsName("Run_Vault"))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!currentAnimatorStateInfo.IsName("Run_End"))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!currentAnimatorStateInfo.IsTag("Run_End"))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!currentAnimatorStateInfo.IsName("KnockbackEnd") && !currentAnimatorStateInfo.IsTag("Knockdown") && !currentAnimatorStateInfo.IsTag("Damage"))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return !this.m_actor.GetActorModelData().IsPlayingIdleAnim(false);
 							}
 						}
 					}
 				}
 				return false;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -2236,44 +1089,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.m_actor.GetModelAnimator();
 		if (!decisionState)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnGameStateChange(bool)).MethodHandle;
-			}
 			if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != 1f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_brushTransitionAnimationSpeedEased.EaseTo(1f, 0f);
 			}
 		}
 		while (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_gameplayPath.next == null || this.m_actor.IsDead())
 			{
 				break;
@@ -2282,67 +1104,22 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (this.m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_curMoveState = null;
 			this.StopMovementAnimator();
 		}
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (modelAnimator.GetInteger(ActorMovement.animIdleType) < 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator.SetInteger(ActorMovement.animIdleType, 0);
 			}
 		}
 		if (this.ShouldSetForceIdle())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modelAnimator.SetTrigger(ActorMovement.animForceIdle);
 		}
 		if (this.m_actor.GetCurrentBoardSquare() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_actor.SetTransformPositionToSquare(this.m_actor.GetCurrentBoardSquare());
 		}
 		this.Client_ClearAestheticPath();
@@ -2354,19 +1131,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.m_actor.GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.ResetChargeCycleFlag()).MethodHandle;
-			}
 			modelAnimator.SetInteger(ActorMovement.animNextChargeCycleType, 0);
 			modelAnimator.SetInteger(ActorMovement.animChargeCycleType, 0);
 			modelAnimator.SetInteger(ActorMovement.animChargeEndType, 4);
@@ -2379,48 +1143,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag = false;
 		if (this.m_aestheticPath == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdatePath()).MethodHandle;
-			}
 			Log.Error(string.Format("{0} trying to UpdatePath with a null aesthetic path; exiting.", this.m_actor.DisplayName), new object[0]);
 			return;
 		}
 		if (this.m_aestheticPath.next == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			while (this.m_gameplayPath.next != null)
 			{
 				this.AdvanceGameplayPath();
 				bool flag2;
 				if (Application.isEditor && DebugParameters.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
 				}
 				else
@@ -2430,40 +1163,13 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag3 = flag2;
 				flag = !flag3;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorCover actorCover = this.m_actor.GetActorCover();
 			actorCover.RecalculateCover();
 		}
 		if (this.m_aestheticPath != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_aestheticPath.next != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_aestheticPath = this.m_aestheticPath.next;
 				goto IL_108;
 			}
@@ -2472,15 +1178,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		IL_108:
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 			this.UpdateClientFogOfWarIfNeeded();
 		}
@@ -2491,42 +1188,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool flag;
 		if (this.m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AmMoving()).MethodHandle;
-			}
 			if (this.m_curMoveState is ChargeState)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ChargeState chargeState = this.m_curMoveState as ChargeState;
 				if (chargeState.DoneMoving())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 				else
@@ -2536,15 +1202,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			else if (this.m_curMoveState.m_done)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else
@@ -2559,15 +1216,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = !this.ShouldPauseAnimator();
 		}
 		else
@@ -2586,30 +1234,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.AmMoving())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.FindDistanceToEnd()).MethodHandle;
-			}
 			if (this.m_gameplayPath != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_gameplayPath.FindDistanceToEnd();
 			}
 		}
@@ -2627,19 +1253,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			if (clientFog.IsVisible(boardSquarePathInfo.square))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.FindIsVisibleToClient()).MethodHandle;
-				}
 				return true;
 			}
 		}
@@ -2651,19 +1264,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool result;
 		if (this.m_aestheticPath != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnPathType(BoardSquarePathInfo.ConnectionType)).MethodHandle;
-			}
 			result = (this.m_aestheticPath.connectionType == type);
 		}
 		else
@@ -2678,19 +1278,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		this.UpdatePosition();
 		if (this.m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnMidMovementDeath()).MethodHandle;
-			}
 			this.m_curMoveState.Update();
 		}
 		this.StopMovementAnimator();
@@ -2708,19 +1295,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdatePosition()).MethodHandle;
-			}
 			BoardSquarePathInfo gameplayPathClosestTo = this.GetGameplayPathClosestTo(this.m_actor.transform.position);
 			bool flag = false;
 			while (this.m_gameplayPath != gameplayPathClosestTo)
@@ -2729,15 +1303,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag2;
 				if (Application.isEditor && DebugParameters.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = DebugParameters.Get().GetParameterAsBool("SkipFogOfWarUpdateOnMovement");
 				}
 				else
@@ -2747,41 +1312,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag3 = flag2;
 				flag = !flag3;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_actor.GetFogOfWar().MarkForRecalculateVisibility();
 				this.UpdateClientFogOfWarIfNeeded();
 			}
 			bool flag4;
 			if (!this.m_actor.IsDead())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = !this.m_actor.IsModelAnimatorDisabled();
 			}
 			else
@@ -2791,81 +1329,27 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			bool flag5 = flag4;
 			if (flag5)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool updatePath = this.m_curMoveState.m_updatePath;
 				this.m_curMoveState.Update();
 				this.UpdateValuesAnimator();
 				if (!updatePath)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_curMoveState.m_updatePath)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.UpdatePath();
 					}
 				}
 				if (this.m_curMoveState != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_curMoveState.m_done)
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.UpdateMovementState();
 				this.UpdateValuesAnimator();
 				if (this.m_curMoveState == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.StopMovementAnimator();
 				}
 			}
@@ -2876,56 +1360,16 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateClientFogOfWarIfNeeded()).MethodHandle;
-			}
 			if (FogOfWar.GetClientFog() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().LocalPlayerData != null)
 					{
 						Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 						bool flag;
 						if (this.m_actor.GetActorStatus() != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = this.m_actor.GetActorStatus().HasStatus(StatusType.Revealed, true);
 						}
 						else
@@ -2938,27 +1382,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						{
 							if (!flag2)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!flag3)
 								{
 									return;
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							FogOfWar.GetClientFog().MarkForRecalculateVisibility();
@@ -2983,30 +1409,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (this.ShouldPauseAnimator())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.StopMovementAnimator()).MethodHandle;
-			}
 			if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != this.m_brushTransitionAnimationSpeed)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_brushTransitionAnimationSpeedEased.EaseTo(this.m_brushTransitionAnimationSpeed, this.m_brushTransitionAnimationSpeedEaseTime);
 			}
 		}
@@ -3019,26 +1423,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (this.m_actor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actor.GetActorModelData() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_actor.GetActorModelData().OnMovementAnimatorStop();
 			}
 		}
@@ -3058,41 +1444,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Vector3 result;
 		if (this.m_actor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetCurrentMovementDir()).MethodHandle;
-			}
 			if (this.m_actor.transform != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_aestheticPath != null && this.m_aestheticPath.square != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position = this.m_actor.transform.position;
 					Vector3 worldPosition = this.m_aestheticPath.square.GetWorldPosition();
 					result = worldPosition - position;
@@ -3111,33 +1466,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.m_actor.GetModelAnimator();
 		if (modelAnimator == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateValuesAnimator()).MethodHandle;
-			}
 			return;
 		}
 		float num;
 		if (this.ShouldPauseAnimator())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = this.m_brushTransitionAnimationSpeed;
 		}
 		else
@@ -3147,29 +1480,11 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		float num2 = num;
 		if (this.m_brushTransitionAnimationSpeedEased.GetEndValue() != num2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Eased<float> brushTransitionAnimationSpeedEased = this.m_brushTransitionAnimationSpeedEased;
 			float endValue = num2;
 			float duration;
 			if (num2 == 1f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				duration = 0f;
 			}
 			else
@@ -3180,39 +1495,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (this.m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modelAnimator.SetFloat(ActorMovement.animDistToGoal, this.GetDistToGoal());
 			modelAnimator.SetFloat(ActorMovement.animTimeInAnim, this.m_curMoveState.m_timeInAnim);
 			if (this.m_curMoveState.m_forceAnimReset)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.ShouldSetForceIdle())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					modelAnimator.SetTrigger(ActorMovement.animForceIdle);
 				}
 			}
@@ -3220,30 +1508,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		modelAnimator.SetInteger(ActorMovement.animCurLinkType, MovementUtils.GetLinkType(this.m_aestheticPath));
 		if (this.m_aestheticPath != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			modelAnimator.SetInteger(ActorMovement.animNextLinkType, MovementUtils.GetLinkType(this.m_aestheticPath.next));
 			modelAnimator.SetInteger(ActorMovement.animChargeCycleType, (int)this.m_aestheticPath.chargeCycleType);
 			modelAnimator.SetInteger(ActorMovement.animChargeEndType, (int)this.m_aestheticPath.chargeEndType);
 			modelAnimator.SetFloat(ActorMovement.animDistToWaypoint, this.GetDistToPathSquare(this.m_aestheticPath.square));
 			if (this.m_aestheticPath.next != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator.SetInteger(ActorMovement.animNextChargeCycleType, (int)this.m_aestheticPath.next.chargeCycleType);
 			}
 		}
@@ -3253,66 +1523,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!this.m_actor.VisibleTillEndOfPhase && !this.m_actor.CurrentlyVisibleForAbilityCast && !this.m_actor.GetActorStatus().HasStatus(StatusType.Revealed, false))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.EnemyRunningIntoBrush(BoardSquarePathInfo)).MethodHandle;
-			}
 			if (!CaptureTheFlag.IsActorRevealedByFlag_Client(this.m_actor))
 			{
 				if (pathEndInfo == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_actor.IsVisibleToClient())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_actor.IsHiddenInBrush())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_actor.GetActorMovement().IsPast2ndToLastSquare())
 							{
 								goto IL_13B;
-							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					}
@@ -3320,54 +1541,18 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				if (pathEndInfo == null)
 				{
 					goto IL_159;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (pathEndInfo.m_visibleToEnemies)
 				{
 					goto IL_159;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (pathEndInfo.m_moverHasGameplayHitHere || !(pathEndInfo.square != null))
 				{
 					goto IL_159;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(BrushCoordinator.Get() != null) || !BrushCoordinator.Get().IsRegionFunctioning(pathEndInfo.square.BrushRegion))
 				{
 					goto IL_159;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_13B:
 				return ServerClientUtils.GetCurrentActionPhase() >= ActionBufferPhase.Movement || GameFlowData.Get().gameState == GameState.BothTeams_Decision;
@@ -3391,19 +1576,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			boardSquarePathInfo = boardSquarePathInfo.next;
 			if (boardSquarePathInfo != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetDistToGoal()).MethodHandle;
-				}
 				pathEndInfo = boardSquarePathInfo;
 			}
 		}
@@ -3429,94 +1601,27 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_actor.IsDead())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.UpdateMovementState()).MethodHandle;
-			}
 			this.Client_ClearAestheticPath();
 		}
 		if (this.m_actor.IsModelAnimatorDisabled())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.Client_ClearAestheticPath();
 		}
 		if (this.m_aestheticPath != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_curMoveState != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_curMoveState.m_connectionType == BoardSquarePathInfo.ConnectionType.Run)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_aestheticPath.connectionType == BoardSquarePathInfo.ConnectionType.Run)
 					{
 						goto IL_CA;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			Animator modelAnimator = this.m_actor.GetModelAnimator();
 			if (modelAnimator != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator.SetTrigger(ActorMovement.animMoveSegmentStart);
 			}
 			IL_CA:
@@ -3536,53 +1641,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			if (this.m_actor != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_actor.GetActorModelData() != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_actor.GetActorModelData().OnMovementAnimatorUpdate(this.m_aestheticPath.connectionType);
 				}
 			}
 		}
 		else if (this.m_curMoveState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Animator modelAnimator2 = this.m_actor.GetModelAnimator();
 			if (modelAnimator2 != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				modelAnimator2.SetTrigger(ActorMovement.animMoveSegmentStart);
 			}
 			this.m_curMoveState = null;
@@ -3596,19 +1665,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo boardSquarePathInfo;
 		if (this.m_gameplayPath == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetGameplayPathClosestTo(Vector3)).MethodHandle;
-			}
 			boardSquarePathInfo = null;
 		}
 		else
@@ -3619,15 +1675,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo result = this.m_gameplayPath;
 		if (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 a = new Vector3(this.m_gameplayPath.square.transform.position.x, 0f, this.m_gameplayPath.square.transform.position.z);
 			float num = (a - b).sqrMagnitude;
 			while (boardSquarePathInfo2 != null)
@@ -3640,15 +1687,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					num = sqrMagnitude;
 				}
 				boardSquarePathInfo2 = boardSquarePathInfo2.next;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -3663,19 +1701,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		ActorVFX actorVFX = this.m_actor.GetActorVFX();
 		if (actorVFX != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.AdvanceGameplayPath()).MethodHandle;
-			}
 			actorVFX.OnMove(this.m_gameplayPath, this.m_gameplayPath.prev);
 		}
 		CameraManager.Get().OnActorMoved(this.m_actor);
@@ -3683,26 +1708,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		ClientResolutionManager.Get().OnActorMoved_ClientResolutionManager(this.m_actor, this.m_gameplayPath);
 		if (this.m_actor != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actor.GetActorModelData() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_actor.GetActorModelData().OnMovementAnimatorUpdate(this.m_aestheticPath.connectionType);
 			}
 		}
@@ -3711,71 +1718,17 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			this.m_actor.UpdateFacingAfterMovement();
 			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve && HighlightUtils.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HighlightUtils.Get().m_coverDirIndicatorTiming == HighlightUtils.MoveIntoCoverIndicatorTiming.ShowOnMoveEnd && HighlightUtils.Get().m_showMoveIntoCoverIndicators)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 					if (activeOwnedActorData != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData == this.m_actor)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_actor.GetActorCover() != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_actor.IsVisibleToClient())
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_actor.GetActorCover().RecalculateCover();
 									this.m_actor.GetActorCover().StartShowMoveIntoCoverIndicator();
 								}
@@ -3798,19 +1751,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			Vector3 a;
 			if (prev == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.CalculateMoveTimeout()).MethodHandle;
-				}
 				a = this.m_actor.transform.position;
 			}
 			else
@@ -3833,15 +1773,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					float num;
 					if (boardSquarePathInfo.segmentMovementSpeed > 0f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = boardSquarePathInfo.segmentMovementSpeed;
 					}
 					else
@@ -3855,15 +1786,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			boardSquarePathInfo = boardSquarePathInfo.next;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void BeginTravellingAlongPath(BoardSquarePathInfo gameplayPath, ActorData.MovementType movementType)
@@ -3874,34 +1796,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		this.m_gameplayPath = gameplayPath;
 		if (travelBoardSquare != this.GetTravelBoardSquare())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BeginTravellingAlongPath(BoardSquarePathInfo, ActorData.MovementType)).MethodHandle;
-			}
 			this.m_actor.ForceUpdateIsVisibleToClientCache();
 			this.m_actor.ForceUpdateActorModelVisibility();
 		}
 		this.m_aestheticPath = this.m_gameplayPath.Clone(null);
 		if (movementType == ActorData.MovementType.Normal)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MovementUtils.CreateRunAndVaultAestheticPath(ref this.m_aestheticPath, this.m_actor);
 		}
 		else
@@ -3917,19 +1817,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (movementType == ActorData.MovementType.Knockback)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BeginChargeOrKnockback(BoardSquare, BoardSquare, BoardSquarePathInfo, ActorData.MovementType)).MethodHandle;
-			}
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.ActorKnockback, new GameEventManager.ActorKnockback
 			{
 				m_target = this.m_actor
@@ -3937,64 +1824,19 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (src == null && dest != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			src = dest;
 		}
 		else if (src != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (dest == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dest = src;
 			}
 		}
 		if (src != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (dest != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_actor.SetTransformPositionToSquare(src);
 				this.m_gameplayPath = gameplayPath;
 				this.m_aestheticPath = this.m_gameplayPath.Clone(null);
@@ -4044,15 +1886,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag3;
 				if (claimedSquares != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = claimedSquares.Contains(dest);
 				}
 				else
@@ -4072,15 +1905,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					list.Clear();
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						board.GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list);
 					}
 					else
@@ -4090,19 +1914,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					for (int i = 0; i < list.Count; i++)
 					{
 						BoardSquare boardSquare = list[i];
-						bool flag5 = board.\u0015(boardSquarePathInfo2.square, boardSquare);
+						bool flag5 = board.symbol_0015(boardSquarePathInfo2.square, boardSquare);
 						float num;
 						if (flag5)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = boardSquarePathInfo2.moveCost + 1.5f;
 						}
 						else
@@ -4120,15 +1935,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						}
 						if (!flag6)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -4137,15 +1943,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							ActorMovement.DiagonalCalcFlag diagonalFlag;
 							if (flag5)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
 							}
 							else
@@ -4154,27 +1951,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							}
 							if (!this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag))
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else if (!FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -4187,15 +1966,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 									BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
 									while (boardSquarePathInfo3 != null)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!claimedSquares.Contains(boardSquarePathInfo3.square))
 										{
 											for (;;)
@@ -4220,15 +1990,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								float squareSize = board.squareSize;
 								if (!flag2)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
 								}
 								else
@@ -4243,28 +2004,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								bool flag7 = false;
 								if (tempClosedSquares.ContainsKey(allocatedNode2.square))
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag7 = (allocatedNode2.F_cost > tempClosedSquares[allocatedNode2.square].F_cost);
 								}
 								if (flag7)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								else
 								{
@@ -4272,99 +2015,32 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 									BoardSquarePathInfo boardSquarePathInfo4 = normalPathNodeHeap.TryGetNodeInHeapBySquare(allocatedNode2.square);
 									if (boardSquarePathInfo4 != null)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag8 = true;
 										if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											normalPathNodeHeap.UpdatePriority(allocatedNode2);
 										}
 									}
 									if (!flag8)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										normalPathNodeHeap.Insert(allocatedNode2);
 									}
 								}
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (boardSquarePathInfo != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					while (boardSquarePathInfo.prev != null)
 					{
 						boardSquarePathInfo.prev.next = boardSquarePathInfo;
 						boardSquarePathInfo = boardSquarePathInfo.prev;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					boardSquarePathInfo = boardSquarePathInfo.Clone(null);
 					normalPathBuildScratchPool.ResetAvailableNodeIndex();
 				}
 				return boardSquarePathInfo;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildPathTo(BoardSquare, BoardSquare, float, bool, List<BoardSquare>)).MethodHandle;
 			}
 		}
 		return boardSquarePathInfo;
@@ -4375,30 +2051,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo boardSquarePathInfo = null;
 		if (!(src == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.BuildPathTo_Orig(BoardSquare, BoardSquare, float, bool, List<BoardSquare>)).MethodHandle;
-			}
 			if (dest == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -4417,15 +2071,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				bool flag3;
 				if (claimedSquares != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = claimedSquares.Contains(dest);
 				}
 				else
@@ -4439,19 +2084,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					{
 						if (Mathf.Approximately(p1.F_cost, p2.F_cost))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(ActorMovement.<BuildPathTo_Orig>c__AnonStorey0.<>m__0(BoardSquarePathInfo, BoardSquarePathInfo)).MethodHandle;
-							}
 							Vector3 from = p1.square.ToVector3() - tieBreakTestPos;
 							Vector3 from2 = p2.square.ToVector3() - tieBreakTestPos;
 							return Vector3.Angle(from, tieBreakDir).CompareTo(Vector3.Angle(from2, tieBreakDir));
@@ -4462,28 +2094,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					tieBreakTestPos = boardSquarePathInfo2.square.ToVector3();
 					if (boardSquarePathInfo2.prev != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						tieBreakDir = boardSquarePathInfo2.square.ToVector3() - boardSquarePathInfo2.prev.square.ToVector3();
 					}
 					if (boardSquarePathInfo2.square == dest)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						boardSquarePathInfo = boardSquarePathInfo2;
 						IL_56F:
 						if (boardSquarePathInfo != null)
@@ -4492,15 +2106,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							{
 								boardSquarePathInfo.prev.next = boardSquarePathInfo;
 								boardSquarePathInfo = boardSquarePathInfo.prev;
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							boardSquarePathInfo = boardSquarePathInfo.Clone(null);
 							normalPathBuildScratchPool.ResetAvailableNodeIndex();
@@ -4512,15 +2117,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					list2.Clear();
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Board.Get().GetStraightAdjacentSquares(boardSquarePathInfo2.square.x, boardSquarePathInfo2.square.y, ref list2);
 					}
 					else
@@ -4530,19 +2126,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					for (int i = 0; i < list2.Count; i++)
 					{
 						BoardSquare boardSquare = list2[i];
-						bool flag5 = Board.Get().\u0015(boardSquarePathInfo2.square, boardSquare);
+						bool flag5 = Board.Get().symbol_0015(boardSquarePathInfo2.square, boardSquare);
 						float num;
 						if (flag5)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = boardSquarePathInfo2.moveCost + 1.5f;
 						}
 						else
@@ -4552,15 +2139,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						bool flag6;
 						if (!flag2)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag6 = (num <= maxHorizontalMovement);
 						}
 						else
@@ -4574,15 +2152,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							ActorMovement.DiagonalCalcFlag diagonalFlag;
 							if (flag5)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
 							}
 							else
@@ -4591,27 +2160,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							}
 							if (!this.CanCrossToAdjacentSquare(square, dest2, ignoreBarriers, diagonalFlag))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else if (!FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -4620,39 +2171,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								allocatedNode2.moveCost = num;
 								if (claimedSquares != null && flag4)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (allocatedNode2.square == dest)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										int num2 = 1;
 										BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2;
 										while (boardSquarePathInfo3 != null)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!claimedSquares.Contains(boardSquarePathInfo3.square))
 											{
 												for (;;)
@@ -4678,15 +2202,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 								float squareSize = Board.Get().squareSize;
 								if (!flag2)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									allocatedNode2.heuristicCost = (boardSquare.transform.position - dest.transform.position).magnitude / squareSize;
 								}
 								else
@@ -4711,27 +2226,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 										BoardSquarePathInfo boardSquarePathInfo4 = list[j];
 										if (boardSquarePathInfo4.square == allocatedNode2.square)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag8 = true;
 											if (allocatedNode2.F_cost < boardSquarePathInfo4.F_cost)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												boardSquarePathInfo4.heuristicCost = allocatedNode2.heuristicCost;
 												boardSquarePathInfo4.moveCost = allocatedNode2.moveCost;
 												boardSquarePathInfo4.prev = allocatedNode2.prev;
@@ -4742,15 +2239,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 									}
 									if (!flag8)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										list.Add(allocatedNode2);
 									}
 								}
@@ -4777,19 +2265,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquarePathInfo result;
 		if (this.m_curMoveState == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetAestheticPath()).MethodHandle;
-			}
 			result = null;
 		}
 		else
@@ -4804,19 +2279,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquare boardSquare = null;
 		if (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetTravelBoardSquare()).MethodHandle;
-			}
 			boardSquare = this.m_gameplayPath.square;
 		}
 		if (boardSquare == null)
@@ -4830,31 +2292,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetPreviousTravelBoardSquarePathInfo()).MethodHandle;
-			}
 			if (this.m_gameplayPath.prev != null)
 			{
 				return this.m_gameplayPath.prev;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return this.m_gameplayPath;
@@ -4864,19 +2304,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.GetNextTravelBoardSquarePathInfo()).MethodHandle;
-			}
 			if (this.m_gameplayPath.next != null)
 			{
 				return this.m_gameplayPath.next;
@@ -4889,30 +2316,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.EncapsulatePathInBound(Bounds*)).MethodHandle;
-			}
 			if (this.m_actor != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TheatricsManager.EncapsulatePathInBound(ref bound, this.m_gameplayPath, this.m_actor);
 			}
 		}
@@ -4923,19 +2328,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool result;
 		if (this.m_aestheticPath != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.IsOnLastSegment()).MethodHandle;
-			}
 			result = (this.m_aestheticPath.next == null);
 		}
 		else
@@ -4955,19 +2347,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool result;
 		if (this.m_gameplayPath != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.IsPast2ndToLastSquare()).MethodHandle;
-			}
 			result = (this.m_gameplayPath.next == null);
 		}
 		else
@@ -4984,19 +2363,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Animator modelAnimator = this.m_actor.GetModelAnimator();
 		if (modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnAssignedToInitialBoardSquare()).MethodHandle;
-			}
 			modelAnimator.SetBool(ActorMovement.animDecisionPhase, true);
 		}
 	}
@@ -5005,19 +2371,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorMovement.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		Gizmos.color = Color.black;
@@ -5041,68 +2394,23 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			}
 			if (boardSquarePathInfo.prev != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo.prev.square != null)
 				{
 					Gizmos.DrawLine(boardSquarePathInfo.square.GetWorldPosition() + Vector3.up * num, boardSquarePathInfo.prev.square.GetWorldPosition() + Vector3.up * num);
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		Gizmos.color = Color.black;
 		for (BoardSquarePathInfo boardSquarePathInfo2 = this.m_gameplayPath; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
 		{
 			if (boardSquarePathInfo2.square != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Gizmos.DrawSphere(boardSquarePathInfo2.square.GetWorldPosition(), 0.15f);
 			}
 			if (boardSquarePathInfo2.prev != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquarePathInfo2.prev.square != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Gizmos.DrawLine(boardSquarePathInfo2.square.GetWorldPosition(), boardSquarePathInfo2.prev.square.GetWorldPosition());
 				}
 			}
@@ -5110,15 +2418,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		BoardSquare travelBoardSquare = this.GetTravelBoardSquare();
 		if (travelBoardSquare != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Gizmos.color = Color.cyan;
 			Gizmos.DrawWireCube(travelBoardSquare.CameraBounds.center, travelBoardSquare.CameraBounds.size);
 		}

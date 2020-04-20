@@ -18,34 +18,12 @@ public class TargetSelectMod_LayerCones : TargetSelectModBase
 		TargetSelect_LayerCones targetSelect_LayerCones = targetSelectBase as TargetSelect_LayerCones;
 		if (targetSelect_LayerCones != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_LayerCones.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(this.m_coneWidthAngleMod, "[ConeWidthAngle]", true, targetSelect_LayerCones.m_coneWidthAngle);
 			if (this.m_useConeRadiusOverrides)
 			{
 				text += "-- Using Cone Radius Overrides --\n";
 				if (this.m_coneRadiusOverrides != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<float>.Enumerator enumerator = this.m_coneRadiusOverrides.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -60,15 +38,6 @@ public class TargetSelectMod_LayerCones : TargetSelectModBase
 								num2,
 								"\n"
 							});
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

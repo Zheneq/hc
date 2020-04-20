@@ -17,7 +17,7 @@ public class SpoilsSpawnData
 	public int m_duration;
 
 	[CompilerGenerated]
-	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> <>f__mg$cache0;
+	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> f__mg_cache0;
 
 	public SpoilsSpawnData GetShallowCopy()
 	{
@@ -34,30 +34,8 @@ public class SpoilsSpawnData
 	{
 		if (this.m_numToSpawn > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsSpawnData.HasResponse()).MethodHandle;
-			}
 			if (this.m_powerupPrefabs != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_powerupPrefabs.Count > 0;
 			}
 		}
@@ -69,19 +47,6 @@ public class SpoilsSpawnData
 		bool flag;
 		if (diff)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsSpawnData.GetInEditorDescription(string, string, bool, SpoilsSpawnData)).MethodHandle;
-			}
 			flag = (other != null);
 		}
 		else
@@ -94,15 +59,6 @@ public class SpoilsSpawnData
 		string text2 = InEditorDescHelper.BoldedStirng(header) + str;
 		if (this.HasResponse())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str2 = text2;
 			string header2 = "[ Num Spoils To Spawn ] = ";
 			string otherSep = text;
@@ -111,15 +67,6 @@ public class SpoilsSpawnData
 			float num;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = (float)other.m_numToSpawn;
 			}
 			else
@@ -135,15 +82,6 @@ public class SpoilsSpawnData
 			bool otherVal;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				otherVal = other.m_canSpawnOnEnemyOccupiedSquare;
 			}
 			else
@@ -159,15 +97,6 @@ public class SpoilsSpawnData
 			bool otherVal2;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				otherVal2 = other.m_canSpawnOnAllyOccupiedSquare;
 			}
 			else
@@ -183,15 +112,6 @@ public class SpoilsSpawnData
 			float num2;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = (float)other.m_duration;
 			}
 			else
@@ -206,35 +126,14 @@ public class SpoilsSpawnData
 			GameObject[] otherObjList;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				otherObjList = other.m_powerupPrefabs.ToArray();
 			}
 			else
 			{
 				otherObjList = null;
 			}
-			if (SpoilsSpawnData.<>f__mg$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				SpoilsSpawnData.<>f__mg$cache0 = new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr);
-			}
-			text2 = str6 + InEditorDescHelper.GetListDiffString<GameObject>(header6, indent, myObjList, showDiff, otherObjList, SpoilsSpawnData.<>f__mg$cache0);
+			
+			text2 = str6 + InEditorDescHelper.GetListDiffString<GameObject>(header6, indent, myObjList, showDiff, otherObjList, new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr));
 		}
 		else
 		{

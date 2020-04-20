@@ -20,19 +20,6 @@ public class CoverRegion
 	{
 		if (angle_deg > this.m_startAngle)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CoverRegion.IsDirInCover(float)).MethodHandle;
-			}
 			if (angle_deg > this.m_endAngle)
 			{
 				angle_deg -= 360f;
@@ -41,40 +28,13 @@ public class CoverRegion
 		}
 		if (angle_deg < this.m_startAngle && angle_deg < this.m_endAngle)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			angle_deg += 360f;
 		}
 		IL_59:
 		if (this.m_startAngle <= angle_deg)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (angle_deg <= this.m_endAngle)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}

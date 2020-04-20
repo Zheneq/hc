@@ -33,30 +33,8 @@ public class UISeasonFactionEntry : MonoBehaviour
 		string loreDescription = Faction.GetLoreDescription(activeFactionCompetition, this.m_factionId);
 		if (!longName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionEntry.SetupTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (!loreDescription.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
 				uititledTooltip.Setup(longName, loreDescription, string.Empty);
 				return true;
@@ -71,19 +49,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 		float fillAmount;
 		if (faction.Tiers[tierIndex].ContributionToComplete > remainingScore)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionEntry.SetupProgressBar(Faction, int, long, bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_CompletedBar, false, null);
 			UIManager.SetGameObjectActive(this.m_factionBars[tierIndex].m_ProgressFillBar, true, null);
 			fillAmount = (float)remainingScore / (float)faction.Tiers[tierIndex].ContributionToComplete;
@@ -103,31 +68,9 @@ public class UISeasonFactionEntry : MonoBehaviour
 	{
 		if (this.m_factionBars != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISeasonFactionEntry.Setup(Faction, long, int)).MethodHandle;
-			}
 			if (this.m_factionBars.Length == faction.Tiers.Count)
 			{
 				goto IL_210;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (this.m_factionBars != null)
@@ -135,15 +78,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			for (int i = 0; i < this.m_factionBars.Length; i++)
 			{
 				UnityEngine.Object.Destroy(this.m_factionBars[i].gameObject);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_factionBars = new UIFactionProgressBar[faction.Tiers.Count];
@@ -153,15 +87,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			this.m_factionBars[j] = UnityEngine.Object.Instantiate<UIFactionProgressBar>(this.m_ProgressBarPrefab);
 			UIManager.ReparentTransform(this.m_factionBars[j].transform, this.m_FactionLevelContainer.gameObject.transform);
 			this.m_factionBars[j].m_LayoutElement.preferredWidth = preferredWidth;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (this.m_factionBars.Length == 1)
 		{
@@ -187,27 +112,9 @@ public class UISeasonFactionEntry : MonoBehaviour
 			{
 				goto IL_2BD;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (score < faction.Tiers[k].ContributionToComplete)
 			{
 				goto IL_2BD;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool flag2 = score < faction.Tiers[k].ContributionToComplete + faction.Tiers[k + 1].ContributionToComplete;
 			IL_2BE:
@@ -216,15 +123,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			long remainingScore;
 			if (score < 0L)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				remainingScore = 0L;
 			}
 			else
@@ -234,15 +132,6 @@ public class UISeasonFactionEntry : MonoBehaviour
 			this.SetupProgressBar(faction, tierIndex, remainingScore, showText);
 			if (score >= 0L)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = k + 1;
 				if (score < faction.Tiers[k].ContributionToComplete)
 				{
@@ -261,38 +150,11 @@ public class UISeasonFactionEntry : MonoBehaviour
 			flag2 = true;
 			goto IL_2BE;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_expLevel.text = num2.ToString();
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_expLabel != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_expLabel.text = num.ToString();
 			}
 		}

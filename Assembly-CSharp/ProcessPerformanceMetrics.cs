@@ -37,19 +37,6 @@ public class ProcessPerformanceMetrics
 		string instanceName;
 		if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessPerformanceMetrics..ctor()).MethodHandle;
-			}
 			instanceName = Process.GetCurrentProcess().ProcessName;
 			this.WorkItemsCountersExist = false;
 			try
@@ -68,15 +55,6 @@ public class ProcessPerformanceMetrics
 			{
 				throw new Exception("Unrecognized OS");
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			instanceName = Process.GetCurrentProcess().Id.ToString();
 			this.m_workItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "Work Items Added/Sec", instanceName, true);
 			this.m_ioWorkItemsAddedPerSec = new PerformanceCounter("Mono Threadpool", "IO Work Items Added/Sec", instanceName, true);
@@ -85,15 +63,6 @@ public class ProcessPerformanceMetrics
 		}
 		if (this.CLRMemoryCountersExist)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gen0Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 0 Collections", instanceName, true);
 			this.m_gen1Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 1 Collections", instanceName, true);
 			this.m_gen2Collections = new PerformanceCounter(".NET CLR Memory", "# Gen 2 Collections", instanceName, true);
@@ -136,19 +105,6 @@ public class ProcessPerformanceMetrics
 		TimeSpan timeSpan = utcNow - this.m_lastUpdate;
 		if (timeSpan.TotalSeconds < 1.0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessPerformanceMetrics.Update()).MethodHandle;
-			}
 			return;
 		}
 		this.m_lastUpdate = utcNow;
@@ -156,15 +112,6 @@ public class ProcessPerformanceMetrics
 		double num = (double)this.GetCpuUsageSeconds(false);
 		if (this.m_lastTotalCpuUsageSeconds != 0.0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			double num2 = num - this.m_lastTotalCpuUsageSeconds;
 			this.CpuUsedPercent = (float)(num2 * 100.0 / timeSpan.TotalSeconds);
 		}
@@ -172,15 +119,6 @@ public class ProcessPerformanceMetrics
 		double num3 = (double)this.GetCpuUsageSeconds(true);
 		if (this.m_lastMainThreadTotalCpuUsageSeconds != 0.0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			double num4 = num3 - this.m_lastMainThreadTotalCpuUsageSeconds;
 			this.MainThreadCpuUsedPercent = (float)(num4 * 100.0 / timeSpan.TotalSeconds);
 		}
@@ -198,41 +136,14 @@ public class ProcessPerformanceMetrics
 		this.IOWorkerThreadsActive = num6 - num8;
 		if (this.WorkItemsCountersExist)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.WorkItemsAddedPerSec = this.m_workItemsAddedPerSec.NextValue();
 			this.IOWorkItemsAddedPerSec = this.m_ioWorkItemsAddedPerSec.NextValue();
 		}
 		if (this.CLRMemoryCountersExist)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float gen0Collections;
 			if (this.m_gen0Collections != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gen0Collections = this.m_gen0Collections.NextValue();
 			}
 			else
@@ -244,15 +155,6 @@ public class ProcessPerformanceMetrics
 			float gen2Collections;
 			if (this.m_gen2Collections != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gen2Collections = this.m_gen2Collections.NextValue();
 			}
 			else
@@ -263,15 +165,6 @@ public class ProcessPerformanceMetrics
 			float allocatedBytesPerSec;
 			if (this.m_allocatedBytesPerSec != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				allocatedBytesPerSec = this.m_allocatedBytesPerSec.NextValue();
 			}
 			else
@@ -287,31 +180,9 @@ public class ProcessPerformanceMetrics
 	{
 		if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProcessPerformanceMetrics.GetCpuUsageSeconds(bool)).MethodHandle;
-			}
 			Process currentProcess = Process.GetCurrentProcess();
 			if (mainThread)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ProcessThread processThread = currentProcess.Threads[Thread.CurrentThread.ManagedThreadId - 1];
 				return (float)processThread.TotalProcessorTime.TotalSeconds;
 			}
@@ -325,15 +196,6 @@ public class ProcessPerformanceMetrics
 				string path;
 				if (mainThread)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					path = string.Format("/proc/{0}/task/{0}/stat", id);
 				}
 				else
@@ -344,26 +206,8 @@ public class ProcessPerformanceMetrics
 				Match match = ProcessPerformanceMetrics.s_cpuRegex.Match(array[0]);
 				if (match.Groups[1].Success)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (match.Groups[2].Success)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						float num = (float)Convert.ToInt64(match.Groups[1].Value);
 						float num2 = (float)Convert.ToInt64(match.Groups[2].Value);
 						return (num + num2) / 100f;

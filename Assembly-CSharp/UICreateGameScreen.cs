@@ -83,34 +83,12 @@ public class UICreateGameScreen : UIScene
 			this.m_teamAPlayersButtons[i].SetIndex(i);
 			this.m_teamAPlayersButtons[i].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.Awake()).MethodHandle;
-		}
 		for (int j = 0; j < this.m_teamBPlayersButtons.Length; j++)
 		{
 			this.m_teamBPlayersButtons[j].SetChecked(false);
 			this.m_teamBPlayersButtons[j].SetTeam(1);
 			this.m_teamBPlayersButtons[j].SetIndex(j);
 			this.m_teamBPlayersButtons[j].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int k = 0; k < this.m_spectatorButtons.Length; k++)
 		{
@@ -119,27 +97,9 @@ public class UICreateGameScreen : UIScene
 			this.m_spectatorButtons[k].SetIndex(k);
 			this.m_spectatorButtons[k].m_callback = new UITeamSizeButton.NotifyClickDelegate(this.TeamSizeButtonClicked);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		ScrollRect scrollRect = this.m_mapListContainer.GetComponentInParent<ScrollRect>();
 		if (scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			_MouseEventPasser mouseEventPasser = scrollRect.verticalScrollbar.gameObject.AddComponent<_MouseEventPasser>();
 			mouseEventPasser.AddNewHandler(scrollRect);
 			scrollRect.scrollSensitivity = 100f;
@@ -173,15 +133,6 @@ public class UICreateGameScreen : UIScene
 		this.m_roundTime.onValueChanged.AddListener(new UnityAction<string>(this.EditRoundTime));
 		if (this.m_maxRoundTime != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_maxRoundTime.transform.parent != null)
 			{
 				UIManager.SetGameObjectActive(this.m_maxRoundTime.transform.parent, false, null);
@@ -213,19 +164,6 @@ public class UICreateGameScreen : UIScene
 	{
 		if (this.m_roundTime.text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.EditRoundTime(string)).MethodHandle;
-			}
 			return;
 		}
 		try
@@ -243,19 +181,6 @@ public class UICreateGameScreen : UIScene
 	{
 		if (this.m_maxRoundTime.text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.EditMaxRoundTime(string)).MethodHandle;
-			}
 			return;
 		}
 		try
@@ -277,32 +202,10 @@ public class UICreateGameScreen : UIScene
 				this.m_teamAPlayersButtons[i].SetChecked(i == 4);
 				this.m_teamAPlayersButtons[i].Clickable = false;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.SetupOptionRestrictions(UICreateGameScreen.SubTypeButtonSelection)).MethodHandle;
-			}
 			for (int j = 0; j < this.m_teamBPlayersButtons.Length; j++)
 			{
 				this.m_teamBPlayersButtons[j].SetChecked(j == 4);
 				this.m_teamBPlayersButtons[j].Clickable = false;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -311,27 +214,9 @@ public class UICreateGameScreen : UIScene
 			{
 				this.m_teamAPlayersButtons[k].Clickable = true;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int l = 0; l < this.m_teamBPlayersButtons.Length; l++)
 			{
 				this.m_teamBPlayersButtons[l].Clickable = true;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -380,31 +265,9 @@ public class UICreateGameScreen : UIScene
 				{
 					goto IL_21A;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.SetupMapButtons(UICreateGameScreen.SubTypeButtonSelection)).MethodHandle;
-				}
 				if (flag)
 				{
 					goto IL_21A;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
 				IL_220:
@@ -420,27 +283,9 @@ public class UICreateGameScreen : UIScene
 			}
 			IL_224:;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		int count = selection.SubType.GameMapConfigs.Count;
 		if (num != -1)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.m_mapList.Count; j++)
 			{
 				this.m_mapList[j].ToggleBtn.SetOn(j == num, false);
@@ -455,15 +300,6 @@ public class UICreateGameScreen : UIScene
 			UIManager.SetGameObjectActive(this.m_mapList[k].ToggleBtn, false, null);
 			this.m_mapList[k].MapConfig = null;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	private void SubTypeClickedHelper(UICreateGameScreen.SubTypeButtonSelection selected)
@@ -474,32 +310,10 @@ public class UICreateGameScreen : UIScene
 		{
 			if (this.GameSubTypeButtons[i] == selected)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.SubTypeClickedHelper(UICreateGameScreen.SubTypeButtonSelection)).MethodHandle;
-				}
 				TextMeshProUGUI[] componentsInChildren = this.m_gameSubTypeDropdownBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
 				for (int j = 0; j < componentsInChildren.Length; j++)
 				{
 					componentsInChildren[j].text = selected.SubType.GetNameAsPayload().ToString();
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(GameType.Custom);
 				foreach (KeyValuePair<ushort, GameSubType> keyValuePair in gameTypeSubTypes)
@@ -520,15 +334,6 @@ public class UICreateGameScreen : UIScene
 				this.GameSubTypeButtons[i].DropdownButton.SetSelected(false, true, string.Empty, string.Empty);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.SelectedSubTypeMask != 0)
 		{
 			Debug.Log(string.Format("Selected SubType {0} with Mask {1}", selected.SubType.GetNameAsPayload().Term, this.SelectedSubTypeMask));
@@ -542,19 +347,6 @@ public class UICreateGameScreen : UIScene
 		{
 			if (this.GameSubTypeButtons[i].DropdownButton.spriteController.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.SubTypeClicked(BaseEventData)).MethodHandle;
-				}
 				this.SubTypeClickedHelper(this.GameSubTypeButtons[i]);
 				break;
 			}
@@ -578,19 +370,6 @@ public class UICreateGameScreen : UIScene
 					GameSubType SubType = enumerator.Current;
 					if (!SubType.Requirements.IsNullOrEmpty<QueueRequirement>())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.PopulateSubtypes()).MethodHandle;
-						}
 						if (SubType.Requirements.Exists((QueueRequirement p) => !p.DoesApplicantPass(systemInfo, applicant, GameType.Custom, SubType)))
 						{
 							continue;
@@ -599,15 +378,6 @@ public class UICreateGameScreen : UIScene
 					_SelectableBtn selectableBtn;
 					if (num < componentsInChildren.Length)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						selectableBtn = componentsInChildren[num];
 						num++;
 					}
@@ -628,24 +398,6 @@ public class UICreateGameScreen : UIScene
 					{
 						componentsInChildren2[i].text = SubType.GetNameAsPayload().ToString();
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_gameSubtypeContainer.sizeDelta = new Vector2(this.m_gameSubtypeContainer.sizeDelta.x, 16f + 30f * (float)gameTypeAvailability.SubTypes.Count);
@@ -658,26 +410,8 @@ public class UICreateGameScreen : UIScene
 		{
 			UIManager.SetGameObjectActive(componentsInChildren[j], false, null);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.GameSubTypeButtons.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SubTypeClickedHelper(this.GameSubTypeButtons[0]);
 		}
 	}
@@ -686,31 +420,9 @@ public class UICreateGameScreen : UIScene
 	{
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.SetVisible(bool)).MethodHandle;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (!this.m_mapList.IsNullOrEmpty<UICreateGameScreen.MapSelectButton>())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_mapList.Count; i++)
 				{
 					if (this.m_mapList[i].MapConfig != null)
@@ -718,26 +430,8 @@ public class UICreateGameScreen : UIScene
 						bool flag;
 						if (clientGameManager.IsMapInGameType(GameType.Custom, this.m_mapList[i].MapConfig.Map, out flag))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_mapList[i].ToggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
 								goto IL_F4;
 							}
@@ -746,15 +440,6 @@ public class UICreateGameScreen : UIScene
 					}
 					IL_F4:;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.SetGameSubTypeDropdownListVisible(false);
 		}
@@ -762,15 +447,6 @@ public class UICreateGameScreen : UIScene
 		for (int j = 0; j < this.m_containers.Length; j++)
 		{
 			UIManager.SetGameObjectActive(this.m_containers[j], visible, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_cancelButton.ResetMouseState();
 		this.m_createButton.ResetMouseState();
@@ -804,59 +480,19 @@ public class UICreateGameScreen : UIScene
 			bool flag;
 			if (this.m_mapList[i].ToggleBtn == btn && ClientGameManager.Get().IsMapInGameType(GameType.Custom, this.m_mapList[i].MapConfig.Map, out flag))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.MapClicked(_ToggleSwap)).MethodHandle;
-				}
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_mapList[i].ToggleBtn.SetOn(false, false);
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.NotifyWarning);
 					return;
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 		for (int j = 0; j < this.m_mapList.Count; j++)
 		{
 			if (this.m_mapList[j].ToggleBtn == btn)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SelectedMapConfig = this.m_mapList[j].MapConfig;
 				this.m_mapList[j].ToggleBtn.SetOn(true, false);
 			}
@@ -864,15 +500,6 @@ public class UICreateGameScreen : UIScene
 			{
 				this.m_mapList[j].ToggleBtn.SetOn(false, false);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -888,19 +515,6 @@ public class UICreateGameScreen : UIScene
 		string text = this.m_gameNameInputField.text;
 		if (text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.CreateClicked(BaseEventData)).MethodHandle;
-			}
 			int length = Mathf.Min(UIFrontEnd.Get().m_playerPanel.m_playerHandle.Length, UICreateGameScreen.MAX_GAMENAME_SIZE - 7);
 			text = string.Format(StringUtil.TR("CreateGameTitle", "Global"), UIFrontEnd.Get().m_playerPanel.m_playerHandle.Substring(0, length));
 		}
@@ -930,15 +544,6 @@ public class UICreateGameScreen : UIScene
 		{
 			if (this.m_timeBankToggle.isOn)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, null);
 			}
 			else
@@ -963,19 +568,6 @@ public class UICreateGameScreen : UIScene
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.OptionsChoice);
 		if (btnClicked.GetTeam() == 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.TeamSizeButtonClicked(UITeamSizeButton)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_teamAPlayersButtons.Length; i++)
 			{
 				this.m_teamAPlayersButtons[i].SetChecked(this.m_teamAPlayersButtons[i] == btnClicked);
@@ -987,39 +579,12 @@ public class UICreateGameScreen : UIScene
 			{
 				this.m_teamBPlayersButtons[j].SetChecked(this.m_teamBPlayersButtons[j] == btnClicked);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else if (btnClicked.GetTeam() == 2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int k = 0; k < this.m_spectatorButtons.Length; k++)
 			{
 				this.m_spectatorButtons[k].SetChecked(this.m_spectatorButtons[k] == btnClicked);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1038,30 +603,8 @@ public class UICreateGameScreen : UIScene
 		{
 			if (buttons[i].IsChecked())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.GetChecked(UITeamSizeButton[])).MethodHandle;
-				}
 				return i;
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return 0;
 	}
@@ -1070,41 +613,10 @@ public class UICreateGameScreen : UIScene
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreateGameScreen.Update()).MethodHandle;
-			}
 			if (UIFrontEnd.Get().CanMenuEscape())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.CancelClicked(null);
 				}
 			}
@@ -1115,103 +627,31 @@ public class UICreateGameScreen : UIScene
 			bool flag2 = EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.GetComponentInParent<FriendListBannerMenu>() != null;
 			if (EventSystem.current != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (EventSystem.current.IsPointerOverGameObject(-1))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null && component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						_SelectableBtn componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 						bool flag3 = false;
 						if (componentInParent == null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							while (componentInParent != null)
 							{
 								if (componentInParent == this.m_gameSubTypeDropdownBtn)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag3 = true;
 									goto IL_19E;
 								}
 								componentInParent = componentInParent.transform.parent.GetComponentInParent<_SelectableBtn>();
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						IL_19E:
 						if (!(componentInParent != null) && !flag3)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag2)
 							{
 								goto IL_1C6;
-							}
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						flag = false;
@@ -1221,15 +661,6 @@ public class UICreateGameScreen : UIScene
 			IL_1C6:
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetGameSubTypeDropdownListVisible(false);
 			}
 		}

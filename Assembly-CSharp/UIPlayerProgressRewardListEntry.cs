@@ -22,58 +22,18 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_onContainer, currentLevel >= reward.Level, null);
 		if (reward.isRepeating)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressRewardListEntry.Setup(RewardUtils.RewardData, int)).MethodHandle;
-			}
 			foreach (TextMeshProUGUI textMeshProUGUI in this.m_levelTexts)
 			{
 				textMeshProUGUI.text = string.Format("+{0}", reward.repeatLevels.ToString());
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text = RewardUtils.GetDisplayString(reward, false);
 			if (reward.InventoryTemplate != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = reward.InventoryTemplate.GetDisplayName();
 			}
 			foreach (TextMeshProUGUI textMeshProUGUI2 in this.m_descriptionTexts)
 			{
 				textMeshProUGUI2.text = text;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -82,41 +42,14 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 			{
 				textMeshProUGUI3.text = reward.Level.ToString();
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = RewardUtils.GetDisplayString(reward, false);
 			if (reward.InventoryTemplate != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text2 = reward.InventoryTemplate.GetDisplayName();
 			}
 			foreach (TextMeshProUGUI textMeshProUGUI4 in this.m_descriptionTexts)
 			{
 				textMeshProUGUI4.text = text2;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

@@ -56,19 +56,6 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (base.GetComponent<Camera>() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.Start()).MethodHandle;
-			}
 			this.createResources();
 			this.UpdateTextures();
 			this.SetKeywords();
@@ -83,19 +70,6 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (base.GetComponent<Camera>() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.OnEnable()).MethodHandle;
-			}
 			this.createResources();
 			this.UpdateTextures();
 			this.SetKeywords();
@@ -110,19 +84,6 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (base.GetComponent<Camera>() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.OnDisable()).MethodHandle;
-			}
 			this.clearResources();
 		}
 	}
@@ -138,31 +99,9 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (!(this.fogMat == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.updateValues()).MethodHandle;
-			}
 			if (!(this.fogShader == null))
 			{
 				goto IL_43;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.createResources();
@@ -174,26 +113,8 @@ public class StylizedFog : MonoBehaviour
 		}
 		if (this.useBlend)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.blendRamp != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.fogMat.SetTexture("_BlendRamp", this.blendRamp);
 				this.fogMat.SetFloat("_Blend", this.blend);
 				Shader.SetGlobalTexture("_SF_BlendRamp", this.blendRamp);
@@ -202,15 +123,6 @@ public class StylizedFog : MonoBehaviour
 		}
 		if (this.useNoise && this.noiseTexture != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.fogMat.SetTexture("_NoiseTex", this.noiseTexture);
 			this.fogMat.SetVector("_NoiseSpeed", this.noiseSpeed);
 			this.fogMat.SetVector("_NoiseTiling", this.noiseTiling);
@@ -227,19 +139,6 @@ public class StylizedFog : MonoBehaviour
 			this.mainRamp = this.rampTexture;
 			if (this.useBlend)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.setGradient()).MethodHandle;
-				}
 				this.blendRamp = this.rampBlendTexture;
 			}
 		}
@@ -247,15 +146,6 @@ public class StylizedFog : MonoBehaviour
 		{
 			if (this.mainRamp != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.DestroyImmediate(this.mainRamp);
 			}
 			this.mainRamp = this.GenerateGradient(this.rampGradient, 0x100, 8);
@@ -286,19 +176,6 @@ public class StylizedFog : MonoBehaviour
 					texture2D.SetPixel(i, j, color);
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.GenerateGradient(Gradient, int, int)).MethodHandle;
-			}
 		}
 		texture2D.Apply();
 		return texture2D;
@@ -308,19 +185,6 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (this.fogShader == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.createResources()).MethodHandle;
-			}
 			this.fogShader = Shader.Find("Hidden/StylizedFog");
 		}
 		if (this.fogMat == null && this.fogShader != null)
@@ -330,27 +194,9 @@ public class StylizedFog : MonoBehaviour
 		}
 		if (!(this.mainRamp == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(this.blendRamp == null))
 			{
 				goto IL_A9;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.setGradient();
@@ -413,19 +259,6 @@ public class StylizedFog : MonoBehaviour
 		}
 		if (this.useNoise)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.SetKeywords()).MethodHandle;
-			}
 			Shader.EnableKeyword("_FOG_NOISE_ON");
 			Shader.DisableKeyword("_FOG_NOISE_OFF");
 		}
@@ -452,44 +285,13 @@ public class StylizedFog : MonoBehaviour
 	{
 		if (!SystemInfo.supportsImageEffects)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StylizedFog.isSupported()).MethodHandle;
-			}
 			return false;
 		}
 		if (this.fogShader.isSupported)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(this.fogShader == null))
 			{
 				return true;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

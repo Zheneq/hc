@@ -31,67 +31,18 @@ public class UIAnimationEventManager : MonoBehaviour
 			}
 			if (animationEventTracker.callback == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIAnimationEventManager.Update()).MethodHandle;
-				}
 				if (animationEventTracker.callbackWithGameObjectParam == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!animationEventTracker.AnimatorWasInactive)
 					{
 						goto IL_13E;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			if (animationController.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animationEventTracker.AnimationCheckTime <= Time.time)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (animationEventTracker.AnimatorWasInactive)
 					{
 						animationController.Play(animationEventTracker.AnimationToPlay, animationEventTracker.AnimationLayerToPlayOn, animationEventTracker.NormalizedTimeToStartPlay);
@@ -99,39 +50,12 @@ public class UIAnimationEventManager : MonoBehaviour
 					}
 					if (UIAnimationEventManager.IsAnimationDone(animationController, animationEventTracker.AnimNameToTrackForDoneCallback, animationEventTracker.AnimationLayerToPlayOn))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (animationEventTracker.callback != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							animationEventTracker.callback();
 						}
 						if (animationEventTracker.callbackWithGameObjectParam != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							animationEventTracker.callbackWithGameObjectParam(animationEventTracker.gameObjectParam);
 						}
 						this.ActiveAnimations.RemoveAt(i);
@@ -147,48 +71,17 @@ public class UIAnimationEventManager : MonoBehaviour
 			i--;
 			goto IL_14E;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void PlayAnimation(Animator animator, string AnimToPlay, UIAnimationEventManager.AnimationDoneCallback callbackOnDone, string AnimNameForDoneCallback = "", int Layer = 0, float NormalizedTime = 0f, bool setAnimatorGameObjectActive = true, bool checkCurrentState = false, UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam callbackOnDoneWithGameObjectParam = null, GameObject gameObjectParamForCallback = null)
 	{
 		if (animator == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAnimationEventManager.PlayAnimation(Animator, string, UIAnimationEventManager.AnimationDoneCallback, string, int, float, bool, bool, UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam, GameObject)).MethodHandle;
-			}
 			Log.Error("Animator is null", new object[0]);
 			return;
 		}
 		if (AnimToPlay.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Attempted to play null animation", new object[0]);
 			return;
 		}
@@ -197,95 +90,23 @@ public class UIAnimationEventManager : MonoBehaviour
 		{
 			if (this.ActiveAnimations[i].AnimationController == animator)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Layer == this.ActiveAnimations[i].AnimationLayerToPlayOn)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.ActiveAnimations.RemoveAt(i);
 					flag = true;
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (checkCurrentState)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (animator.isActiveAndEnabled)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (animator.isInitialized)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (animator.GetCurrentAnimatorStateInfo(Layer).IsName(AnimToPlay))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return;
 						}
 					}
@@ -294,56 +115,20 @@ public class UIAnimationEventManager : MonoBehaviour
 		}
 		if (setAnimatorGameObjectActive)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(animator, true, null);
 		}
 		bool flag2 = true;
 		if (animator.gameObject.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (animator.isInitialized)
 			{
 				goto IL_178;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag2 = false;
 		IL_178:
 		if (AnimNameForDoneCallback.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AnimNameForDoneCallback = AnimToPlay;
 		}
 		float num = 0f;
@@ -351,15 +136,6 @@ public class UIAnimationEventManager : MonoBehaviour
 		{
 			if (animator.runtimeAnimatorController.animationClips[j].name == AnimToPlay)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = animator.runtimeAnimatorController.animationClips[j].length;
 			}
 		}
@@ -378,15 +154,6 @@ public class UIAnimationEventManager : MonoBehaviour
 		};
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			animator.Play(AnimToPlay, Layer, NormalizedTime);
 		}
 		this.ActiveAnimations.Add(item);
@@ -396,74 +163,25 @@ public class UIAnimationEventManager : MonoBehaviour
 	{
 		if (!animator.isInitialized)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAnimationEventManager.IsAnimationDone(Animator, string, int)).MethodHandle;
-			}
 			return false;
 		}
 		AnimatorClipInfo[] currentAnimatorClipInfo = animator.GetCurrentAnimatorClipInfo(layer);
 		if (currentAnimatorClipInfo.Length == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		AnimatorClipInfo animatorClipInfo = currentAnimatorClipInfo[0];
 		AnimationClip clip = animatorClipInfo.clip;
 		if (clip == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (animator.GetCurrentAnimatorStateInfo(layer).normalizedTime < 1f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (clip.name != animName)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		return true;

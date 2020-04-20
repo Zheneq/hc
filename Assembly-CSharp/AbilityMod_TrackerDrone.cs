@@ -40,19 +40,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		TrackerDroneInfoComponent trackerDroneInfoComponent;
 		if (trackerDrone != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerDrone.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			trackerDroneInfoComponent = trackerDrone.GetComponent<TrackerDroneInfoComponent>();
 		}
 		else
@@ -62,43 +49,16 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		TrackerDroneInfoComponent trackerDroneInfoComponent2 = trackerDroneInfoComponent;
 		if (trackerDroneInfoComponent2 != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityMod.AddToken(tokens, this.m_trackedHitDamageMod, "Damage_Tracked", "Tracked damage", trackerDroneInfoComponent2.m_droneHitDamageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_untrackedHitDamageMod, "Damage_Untracked", "Untracked damage", trackerDroneInfoComponent2.m_untrackedDroneHitDamageAmount, true, false);
 			if (this.m_extraDamageWhenMovingOnTracked > 0 && this.m_trackedHitDamageMod != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int modifiedValue = this.m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent2.m_droneHitDamageAmount);
 				int val = modifiedValue + this.m_extraDamageWhenMovingOnTracked;
 				AbilityMod.AddToken_IntDiff(tokens, "Damage_TrackedWhenMoving", "Total damage for Tracked, when moving", val, true, modifiedValue);
 			}
 			if (this.m_extraDamageWhenMovingOnUntracked > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int modifiedValue2 = this.m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent2.m_untrackedDroneHitDamageAmount);
 				int val2 = modifiedValue2 + this.m_extraDamageWhenMovingOnUntracked;
 				AbilityMod.AddToken_IntDiff(tokens, "Damage_UntrackedWhenMoving", "Total damage for Untracked, when moving", val2, true, modifiedValue2);
@@ -116,19 +76,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		TrackerDroneInfoComponent trackerDroneInfoComponent;
 		if (trackerDrone != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerDrone.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			trackerDroneInfoComponent = trackerDrone.GetComponent<TrackerDroneInfoComponent>();
 		}
 		else
@@ -139,15 +86,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		bool flag;
 		if (trackerDroneInfoComponent2 != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (trackerDrone != null);
 		}
 		else
@@ -163,15 +101,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		bool baseVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = trackerDroneInfoComponent2.m_hitInvisibleTargets;
 		}
 		else
@@ -181,15 +110,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		text = str + AbilityModHelper.GetModPropertyDesc(hitInvisibleTargetsMod, prefix, showBaseVal, baseVal);
 		if (this.m_applyHuntedEffect)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "Applies Tracked effect to targets hit\n";
 		}
 		string str2 = text;
@@ -199,15 +119,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		int baseVal2;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerDroneInfoComponent2.m_droneHitDamageAmount;
 		}
 		else
@@ -222,15 +133,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		int baseVal3;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = trackerDroneInfoComponent2.m_untrackedDroneHitDamageAmount;
 		}
 		else
@@ -240,38 +142,11 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		text = str3 + AbilityModHelper.GetModPropertyDesc(untrackedHitDamageMod, prefix3, showBaseVal3, baseVal3);
 		if (this.m_extraDamageWhenMovingOnTracked > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text + "[Extra Damage on Tracked] = " + InEditorDescHelper.ColoredString(this.m_extraDamageWhenMovingOnTracked.ToString(), "cyan", false) + "\n";
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_trackedHitDamageMod != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int modifiedValue = this.m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent2.m_droneHitDamageAmount);
 					text = text + "\tTotal Damage on Tracked = " + InEditorDescHelper.ColoredString((modifiedValue + this.m_extraDamageWhenMovingOnTracked).ToString(), "cyan", false) + "\n";
 				}
@@ -279,38 +154,11 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		}
 		if (this.m_extraDamageWhenMovingOnUntracked > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text + "[Extra Damage on Untracked] = " + InEditorDescHelper.ColoredString(this.m_extraDamageWhenMovingOnUntracked.ToString(), "cyan", false) + "\n";
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_untrackedHitDamageMod != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int modifiedValue2 = this.m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent2.m_untrackedDroneHitDamageAmount);
 					text = text + "\tTotal Damage on Untracked = " + InEditorDescHelper.ColoredString((modifiedValue2 + this.m_extraDamageWhenMovingOnUntracked).ToString(), "cyan", false) + "\n";
 				}
@@ -323,15 +171,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = trackerDroneInfoComponent2.m_droneHitEffect;
 		}
 		else
@@ -346,15 +185,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = trackerDroneInfoComponent2.m_untrackedDroneHitEffect;
 		}
 		else
@@ -369,15 +199,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		float baseVal6;
 		if (trackerDroneInfoComponent2 != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = trackerDroneInfoComponent2.m_targeterMaxRangeFromCaster;
 		}
 		else
@@ -392,15 +213,6 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		float baseVal7;
 		if (trackerDroneInfoComponent2 != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = trackerDroneInfoComponent2.m_droneVisionRadius;
 		}
 		else

@@ -59,19 +59,6 @@ public class RobotAnimalCharge : Ability
 			{
 				goto IL_73;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.Setup()).MethodHandle;
-			}
 		}
 		abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		abilityUtil_Targeter_Charge.m_affectCasterDelegate = new AbilityUtil_Targeter_Shape.IsAffectingCasterDelegate(this.TargeterIncludeCaster);
@@ -95,19 +82,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.ModdedDamage()).MethodHandle;
-			}
 			result = this.m_damageAmount;
 		}
 		else
@@ -122,19 +96,6 @@ public class RobotAnimalCharge : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.ModdedLifeOnFirstHit()).MethodHandle;
-			}
 			result = this.m_lifeOnFirstHit;
 		}
 		else
@@ -149,19 +110,6 @@ public class RobotAnimalCharge : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.ModdedLifePerHit()).MethodHandle;
-			}
 			result = this.m_lifePerHit;
 		}
 		else
@@ -176,19 +124,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.ModdedHealOnNextTurnStartIfKilledTarget()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -203,19 +138,6 @@ public class RobotAnimalCharge : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.ModdedEffectForSelfPerAdjacentAlly()).MethodHandle;
-			}
 			result = new StandardEffectInfo();
 		}
 		else
@@ -230,19 +152,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.ModdedTechPointGainPerAdjacentAlly()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -257,19 +166,6 @@ public class RobotAnimalCharge : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.RequireTargetActor()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_requireTargetActorMod.GetModifiedValue(this.m_requireTargetActor);
 		}
 		else
@@ -289,19 +185,6 @@ public class RobotAnimalCharge : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.CanIncludeAlly()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canIncludeAllyMod.GetModifiedValue(this.m_canIncludeAlly);
 		}
 		else
@@ -316,19 +199,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.GetCdrOnHittingAlly()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnHittingAllyMod.GetModifiedValue(this.m_cdrOnHittingAlly);
 		}
 		else
@@ -343,19 +213,6 @@ public class RobotAnimalCharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.GetCdrOnHittingEnemy()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnHittingEnemyMod.GetModifiedValue(this.m_cdrOnHittingEnemy);
 		}
 		else
@@ -369,19 +226,6 @@ public class RobotAnimalCharge : Ability
 	{
 		if (this.RequireTargetActor())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			return base.HasTargetableActorsInDecision(caster, this.CanIncludeEnemy(), this.CanIncludeAlly(), false, Ability.ValidateCheckPath.CanBuildPath, true, false, false);
 		}
 		return true;
@@ -392,19 +236,6 @@ public class RobotAnimalCharge : Ability
 		bool result = true;
 		if (this.RequireTargetActor())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			result = false;
 			List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, this.CanIncludeAlly(), this.CanIncludeEnemy());
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(this.m_targetShape, target, this.m_targetShapePenetratesLoS, caster, relevantTeams, null);
@@ -416,26 +247,8 @@ public class RobotAnimalCharge : Ability
 					bool flag = base.CanTargetActorInDecision(caster, targetActor, this.CanIncludeEnemy(), this.CanIncludeAlly(), false, Ability.ValidateCheckPath.CanBuildPath, true, false, false);
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -466,31 +279,9 @@ public class RobotAnimalCharge : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				int lifeGainAmount = this.GetLifeGainAmount(visibleActorsInRangeByTooltipSubject.Count);
 				dictionary[AbilityTooltipSymbol.Healing] = lifeGainAmount;
@@ -512,19 +303,6 @@ public class RobotAnimalCharge : Ability
 		int val;
 		if (abilityMod_RobotAnimalCharge)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_RobotAnimalCharge.m_damageMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -547,19 +325,6 @@ public class RobotAnimalCharge : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RobotAnimalCharge))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RobotAnimalCharge);
 			this.Setup();
 		}
@@ -580,19 +345,6 @@ public class RobotAnimalCharge : Ability
 		float num = 0f;
 		if (hitCount > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalCharge.GetLifeGainAmount(int)).MethodHandle;
-			}
 			if (this.ModdedLifeOnFirstHit() != 0f)
 			{
 				num += this.ModdedLifeOnFirstHit();
@@ -600,15 +352,6 @@ public class RobotAnimalCharge : Ability
 		}
 		if (this.ModdedLifePerHit() != 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += this.ModdedLifePerHit() * (float)hitCount;
 		}
 		return Mathf.RoundToInt(num);

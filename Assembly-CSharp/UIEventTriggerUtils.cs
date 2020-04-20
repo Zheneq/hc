@@ -11,19 +11,6 @@ public static class UIEventTriggerUtils
 		EventTrigger eventTrigger = go.GetComponent<EventTrigger>();
 		if (eventTrigger == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIEventTriggerUtils.AddListener(GameObject, EventTriggerType, UIEventTriggerUtils.EventDelegate)).MethodHandle;
-			}
 			eventTrigger = go.AddComponent<EventTrigger>();
 			eventTrigger.triggers = new List<EventTrigger.Entry>();
 		}
@@ -46,30 +33,8 @@ public static class UIEventTriggerUtils
 				EventTrigger.Entry entry = component.triggers[i];
 				if (entry.eventID == triggerType)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIEventTriggerUtils.HasTriggerOfType(GameObject, EventTriggerType)).MethodHandle;
-					}
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;

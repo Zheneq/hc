@@ -36,33 +36,11 @@ public class AppState_FullScreenMovie : AppState
 		this.m_lastAppState = AppState.GetCurrent();
 		if (FullScreenMovie.Get())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.Enter(Queue<string>, AppState_FullScreenMovie.AppStates)).MethodHandle;
-			}
 			this.m_moviePlayer = FullScreenMovie.Get().GetMovieTexture();
 			FullScreenMovie.Get().SetVisible(true);
 		}
 		if (this.m_moviePlayer)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_movieNames.Count > 0)
 			{
 				string movieAssetName = this.m_movieNames.Dequeue();
@@ -76,32 +54,10 @@ public class AppState_FullScreenMovie : AppState
 	{
 		if (this.m_moviePlayer)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.OnLeave()).MethodHandle;
-			}
 			this.m_moviePlayer = null;
 		}
 		if (UIScreenManager.Get() != null && FullScreenMovie.Get())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FullScreenMovie.Get().SetVisible(false);
 		}
 	}
@@ -110,33 +66,11 @@ public class AppState_FullScreenMovie : AppState
 	{
 		if (this.m_moviePlayer)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.Update()).MethodHandle;
-			}
 			if (this.m_moviePlayer.MovieState != PlayRawImageMovieTexture.MovieStates.Invalid && this.m_moviePlayer.MovieState != PlayRawImageMovieTexture.MovieStates.Done)
 			{
 				if (!Input.GetKeyUp(KeyCode.Escape))
 				{
 					goto IL_8F;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (this.m_movieNames.Count > 0)
@@ -160,32 +94,10 @@ public class AppState_FullScreenMovie : AppState
 	{
 		if (this.m_nextAppState == AppState_FullScreenMovie.AppStates.LandingPage)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_FullScreenMovie.Finish()).MethodHandle;
-			}
 			AppState_LandingPage.Get().Enter();
 		}
 		else if (this.m_nextAppState == AppState_FullScreenMovie.AppStates.PostGameLoadingScreen)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AppState_FrontendLoadingScreen.Get().Enter(null, AppState_FrontendLoadingScreen.NextState.GoToLandingPage);
 		}
 		else

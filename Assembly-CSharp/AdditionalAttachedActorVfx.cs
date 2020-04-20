@@ -16,19 +16,6 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 		this.m_spawnedVfxList = new List<AttachedActorVFXInfo>();
 		if (this.m_actorData != null && this.m_vfxToAttach != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalAttachedActorVfx.Start()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_vfxToAttach.Length; i++)
 			{
 				AdditionalAttachedActorVfx.JointToVfx jointToVfx = this.m_vfxToAttach[i];
@@ -37,82 +24,28 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 					AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, this.m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 					if (attachedActorVFXInfo.HasVfxInstance())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 						this.m_spawnedVfxList.Add(attachedActorVFXInfo);
 					}
 				}
 				if (jointToVfx.m_vfxFriendlyOnlyPrefab != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(jointToVfx.m_vfxFriendlyOnlyPrefab, this.m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVfxFriendly_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly);
 					if (attachedActorVFXInfo2.HasVfxInstance())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						attachedActorVFXInfo2.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 						this.m_spawnedVfxList.Add(attachedActorVFXInfo2);
 					}
 				}
 				if (jointToVfx.m_vfxEnemyOnlyPrefab != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AttachedActorVFXInfo attachedActorVFXInfo3 = new AttachedActorVFXInfo(jointToVfx.m_vfxEnemyOnlyPrefab, this.m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVFXEnemy_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly);
 					if (attachedActorVFXInfo3.HasVfxInstance())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						attachedActorVFXInfo3.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 						this.m_spawnedVfxList.Add(attachedActorVFXInfo3);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -125,19 +58,6 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 			{
 				this.m_spawnedVfxList[i].DestroyVfx();
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalAttachedActorVfx.OnDestroy()).MethodHandle;
-			}
 			this.m_spawnedVfxList.Clear();
 		}
 	}
@@ -146,31 +66,9 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 	{
 		if (this.m_actorData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AdditionalAttachedActorVfx.Update()).MethodHandle;
-			}
 			bool flag;
 			if (this.m_actorData.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (this.m_actorData.GetActorModelDataRenderer() == null || this.m_actorData.GetActorModelDataRenderer().enabled);
 			}
 			else
@@ -182,26 +80,8 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 			bool flag4;
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag4 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == this.m_actorData.GetTeam());
 					goto IL_E1;
 				}
@@ -215,15 +95,6 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				bool actorVisible;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorVisible = !flag3;
 				}
 				else
@@ -231,15 +102,6 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 					actorVisible = false;
 				}
 				attachedActorVFXInfo.UpdateVisibility(actorVisible, sameTeamAsClientActor);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

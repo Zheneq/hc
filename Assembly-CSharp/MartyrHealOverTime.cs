@@ -52,19 +52,6 @@ public class MartyrHealOverTime : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.Start()).MethodHandle;
-			}
 			this.m_abilityName = "MartyrHealOverTime";
 		}
 		this.Setup();
@@ -74,34 +61,12 @@ public class MartyrHealOverTime : Ability
 	{
 		if (this.m_syncComponent == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.Setup()).MethodHandle;
-			}
 			this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
 		}
 		this.SetCachedFields();
 		AbilityUtil_Targeter.AffectsActor affectsActor;
 		if (this.HasSelfHitIfTargetingAlly())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsActor = AbilityUtil_Targeter.AffectsActor.Always;
 		}
 		else
@@ -122,19 +87,6 @@ public class MartyrHealOverTime : Ability
 		StandardActorEffectData cachedHealEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.SetCachedFields()).MethodHandle;
-			}
 			cachedHealEffectData = this.m_abilityMod.m_healEffectDataMod.GetModifiedValue(this.m_healEffectData);
 		}
 		else
@@ -145,15 +97,6 @@ public class MartyrHealOverTime : Ability
 		StandardEffectInfo cachedExtraEffectForLowHealth;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExtraEffectForLowHealth = this.m_abilityMod.m_extraEffectForLowHealthMod.GetModifiedValue(this.m_extraEffectForLowHealth);
 		}
 		else
@@ -169,19 +112,6 @@ public class MartyrHealOverTime : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.CanTargetAlly()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canTargetAllyMod.GetModifiedValue(this.m_canTargetAlly);
 		}
 		else
@@ -201,19 +131,6 @@ public class MartyrHealOverTime : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedHealEffectData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.GetHealEffectData()).MethodHandle;
-			}
 			result = this.m_cachedHealEffectData;
 		}
 		else
@@ -238,19 +155,6 @@ public class MartyrHealOverTime : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.GetExtraHealingIfHasAoeOnReact()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraHealingIfHasAoeOnReactMod.GetModifiedValue(this.m_extraHealingIfHasAoeOnReact);
 		}
 		else
@@ -270,19 +174,6 @@ public class MartyrHealOverTime : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.GetLowHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_lowHealthThresholdMod.GetModifiedValue(this.m_lowHealthThreshold);
 		}
 		else
@@ -297,19 +188,6 @@ public class MartyrHealOverTime : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedExtraEffectForLowHealth != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.GetExtraEffectForLowHealth()).MethodHandle;
-			}
 			result = this.m_cachedExtraEffectForLowHealth;
 		}
 		else
@@ -329,19 +207,6 @@ public class MartyrHealOverTime : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.GetSelfHealPerCrystalIfTargetAlly()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealPerCrystalIfTargetAllyMod.GetModifiedValue(this.m_selfHealPerCrystalIfTargetAlly);
 		}
 		else
@@ -356,19 +221,6 @@ public class MartyrHealOverTime : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.AddHealEffectOnSelfIfTargetAlly()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_addHealEffectOnSelfIfTargetAllyMod.GetModifiedValue(this.m_addHealEffectOnSelfIfTargetAlly);
 		}
 		else
@@ -383,19 +235,6 @@ public class MartyrHealOverTime : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedHealEffectOnSelfIfTargetAlly != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.GetHealEffectOnSelfIfTargetAlly()).MethodHandle;
-			}
 			result = this.m_cachedHealEffectOnSelfIfTargetAlly;
 		}
 		else
@@ -424,30 +263,8 @@ public class MartyrHealOverTime : Ability
 	{
 		if (this.GetBaseSelfHealIfTargetAlly() <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.HasSelfHitIfTargetingAlly()).MethodHandle;
-			}
 			if (this.GetSelfHealPerCrystalIfTargetAlly() <= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.AddHealEffectOnSelfIfTargetAlly();
 			}
 		}
@@ -474,78 +291,20 @@ public class MartyrHealOverTime : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			ActorData actorData = base.ActorData;
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData == targetActor)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (visibleActorsCountByTooltipSubject > 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = this.GetSelfHealingIfTargetingAlly(actorData);
 						if (this.m_syncComponent != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_syncComponent.ActorHasAoeOnReactEffect(targetActor))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.GetExtraHealingIfHasAoeOnReact() > 0)
 								{
 									num += this.GetExtraHealingIfHasAoeOnReact();
@@ -561,37 +320,10 @@ public class MartyrHealOverTime : Ability
 			int num2 = this.GetCurrentHealing(actorData);
 			if (this.m_syncComponent != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComponent.ActorHasAoeOnReactEffect(targetActor))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.GetExtraHealingIfHasAoeOnReact() > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += this.GetExtraHealingIfHasAoeOnReact();
 					}
 				}
@@ -600,29 +332,11 @@ public class MartyrHealOverTime : Ability
 			dictionary[AbilityTooltipSymbol.Absorb] = 0;
 			if (this.GetLowHealthThreshold() > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetActor.GetHitPointShareOfMax() <= this.GetLowHealthThreshold())
 				{
 					StandardEffectInfo extraEffectForLowHealth = this.GetExtraEffectForLowHealth();
 					if (extraEffectForLowHealth.m_applyEffect)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						dictionary[AbilityTooltipSymbol.Absorb] = extraEffectForLowHealth.m_effectData.m_absorbAmount;
 					}
 				}
@@ -639,19 +353,6 @@ public class MartyrHealOverTime : Ability
 		int val;
 		if (abilityMod_MartyrHealOverTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_MartyrHealOverTime.m_healBaseMod.GetModifiedValue(this.m_healBase);
 		}
 		else
@@ -664,15 +365,6 @@ public class MartyrHealOverTime : Ability
 		int val2;
 		if (abilityMod_MartyrHealOverTime)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_MartyrHealOverTime.m_healPerCrystalMod.GetModifiedValue(this.m_healPerCrystal);
 		}
 		else
@@ -683,15 +375,6 @@ public class MartyrHealOverTime : Ability
 		StandardActorEffectData standardActorEffectData;
 		if (abilityMod_MartyrHealOverTime)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardActorEffectData = abilityMod_MartyrHealOverTime.m_healEffectDataMod.GetModifiedValue(this.m_healEffectData);
 		}
 		else
@@ -705,15 +388,6 @@ public class MartyrHealOverTime : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_MartyrHealOverTime)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_MartyrHealOverTime.m_extraEffectForLowHealthMod.GetModifiedValue(this.m_extraEffectForLowHealth);
 		}
 		else
@@ -727,15 +401,6 @@ public class MartyrHealOverTime : Ability
 		int val3;
 		if (abilityMod_MartyrHealOverTime)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_MartyrHealOverTime.m_selfHealPerCrystalIfTargetAllyMod.GetModifiedValue(this.m_selfHealPerCrystalIfTargetAlly);
 		}
 		else
@@ -746,15 +411,6 @@ public class MartyrHealOverTime : Ability
 		StandardActorEffectData standardActorEffectData3;
 		if (abilityMod_MartyrHealOverTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardActorEffectData3 = abilityMod_MartyrHealOverTime.m_healEffectOnSelfIfTargetAllyMod.GetModifiedValue(this.m_healEffectOnSelfIfTargetAlly);
 		}
 		else
@@ -769,19 +425,6 @@ public class MartyrHealOverTime : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MartyrHealOverTime))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrHealOverTime.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_MartyrHealOverTime);
 			this.Setup();
 		}

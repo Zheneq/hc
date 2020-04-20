@@ -55,65 +55,16 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.SyncListCallbackStatusDuration(SyncList<uint>.Operation, int)).MethodHandle;
-			}
 			if (i >= 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (i < 0x3A)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData actorData = this.m_actorData;
 					if (HUD_UI.Get() != null && actorData != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyStatusDurationChange(actorData, (StatusType)i, (int)this.m_statusDurations[i]);
 						if (actorData == GameFlowData.Get().activeOwnedActorData)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							HUD_UI.Get().m_mainScreenPanel.m_characterProfile.UpdateStatusDisplay(true);
 						}
 					}
@@ -129,43 +80,12 @@ public class ActorStatus : NetworkBehaviour
 			this.m_statusCounts.Add(0U);
 			this.m_statusDurations.Add(0U);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.OnStartServer()).MethodHandle;
-		}
 		if (GameplayUtils.IsPlayerControlled(this.m_actorData))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = GameplayData.Get().m_recentlySpawnedDuration + 1;
 			for (int j = 0; j < num; j++)
 			{
 				this.AddStatus(StatusType.RecentlySpawned, 1);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -174,47 +94,16 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkServer.active && i >= 0 && i < 0x3A)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.SyncListCallbackStatusCounts(SyncList<uint>.Operation, int)).MethodHandle;
-			}
 			int num = this.m_statusCountsPrevious[i];
 			num += this.m_clientStatusCountAdjustments[i];
 			this.m_clientStatusCountAdjustments[i] = 0;
 			this.m_statusCountsPrevious[i] = (int)this.m_statusCounts[i];
 			if ((ulong)this.m_statusCounts[i] != (ulong)((long)num))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = num > 0;
 				bool flag2 = this.HasStatus((StatusType)i, true);
 				if (flag != flag2)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.OnStatusChanged((StatusType)i, flag2);
 				}
 			}
@@ -225,19 +114,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if ((long)newDuration > (long)((ulong)this.m_statusDurations[(int)status]))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.UpdateStatusDuration(StatusType, int)).MethodHandle;
-			}
 			this.m_statusDurations[(int)status] = (uint)Mathf.Max(0, newDuration);
 		}
 	}
@@ -247,19 +123,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.AddStatus(StatusType, int)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ActorStatus::AddStatus(StatusType,System.Int32)' called on client");
 			return;
 		}
@@ -267,15 +130,6 @@ public class ActorStatus : NetworkBehaviour
 		this.m_statusCounts[(int)status] = (uint)(num + 1);
 		if ((long)duration > (long)((ulong)this.m_statusDurations[(int)status]))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_statusDurations[(int)status] = (uint)Mathf.Max(0, duration);
 		}
 		num += this.m_clientStatusCountAdjustments[(int)status];
@@ -305,19 +159,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.RemoveStatus(StatusType)).MethodHandle;
-			}
 			Debug.LogWarning("[Server] function 'System.Void ActorStatus::RemoveStatus(StatusType)' called on client");
 			return;
 		}
@@ -329,15 +170,6 @@ public class ActorStatus : NetworkBehaviour
 			this.m_clientStatusCountAdjustments[(int)status] = 0;
 			if (ActorStatus.DebugLog)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(string.Concat(new object[]
 				{
 					"<color=cyan>ActorStatus</color>: REMOVE ",
@@ -352,15 +184,6 @@ public class ActorStatus : NetworkBehaviour
 			}
 			if (num == 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnStatusChanged(status, false);
 			}
 		}
@@ -382,19 +205,6 @@ public class ActorStatus : NetworkBehaviour
 		this.m_clientStatusCountAdjustments[(int)status] = num + 1;
 		if (ActorStatus.DebugLog)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.ClientAddStatus(StatusType)).MethodHandle;
-			}
 			Log.Warning(string.Concat(new object[]
 			{
 				"<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> ",
@@ -418,19 +228,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.ClientRemoveStatus(StatusType)).MethodHandle;
-			}
 			Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientRemoveStatus(StatusType)' called on server");
 			return;
 		}
@@ -438,15 +235,6 @@ public class ActorStatus : NetworkBehaviour
 		this.m_clientStatusCountAdjustments[(int)status] = num - 1;
 		if (this.m_clientStatusCountAdjustments[(int)status] < 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_clientStatusCountAdjustments[(int)status] = 0;
 		}
 		if (ActorStatus.DebugLog)
@@ -465,15 +253,6 @@ public class ActorStatus : NetworkBehaviour
 		}
 		if ((ulong)this.m_statusCounts[(int)status] + (ulong)((long)this.m_clientStatusCountAdjustments[(int)status]) == 0UL)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnStatusChanged(status, false);
 		}
 	}
@@ -483,19 +262,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.ClientClearAdjustments()).MethodHandle;
-			}
 			Debug.LogWarning("[Client] function 'System.Void ActorStatus::ClientClearAdjustments()' called on server");
 			return;
 		}
@@ -506,15 +272,6 @@ public class ActorStatus : NetworkBehaviour
 				this.m_clientStatusCountAdjustments[i] = 0;
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public bool HasStatus(StatusType status, bool includePending = true)
@@ -524,30 +281,8 @@ public class ActorStatus : NetworkBehaviour
 		bool flag = num > 0;
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.HasStatus(StatusType, bool)).MethodHandle;
-			}
 			if (includePending)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_passivePendingStatusSources.Count > 0)
 				{
 					int i = 0;
@@ -572,15 +307,6 @@ public class ActorStatus : NetworkBehaviour
 							bool flag3;
 							if (ability != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag3 = ability.HasPassivePendingStatus(status, this.m_actorData);
 							}
 							else
@@ -597,15 +323,6 @@ public class ActorStatus : NetworkBehaviour
 		IL_C8:
 		if (GameplayMutators.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int currentTurn = GameFlowData.Get().CurrentTurn;
 			if (!flag)
 			{
@@ -613,15 +330,6 @@ public class ActorStatus : NetworkBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !GameplayMutators.IsStatusSuppressed(status, currentTurn, GameplayMutators.ActionPhaseCheckMode.Default);
 			}
 		}
@@ -632,30 +340,8 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (ability != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.AddAbilityForPassivePendingStatus(Ability)).MethodHandle;
-			}
 			if (!this.m_passivePendingStatusSources.Contains(ability))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_passivePendingStatusSources.Add(ability);
 			}
 		}
@@ -671,19 +357,6 @@ public class ActorStatus : NetworkBehaviour
 		bool flag;
 		if (!this.HasStatus(StatusType.KnockbackImmune, true))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsKnockbackImmune(bool)).MethodHandle;
-			}
 			flag = this.HasStatus(StatusType.Unstoppable, true);
 		}
 		else
@@ -693,37 +366,10 @@ public class ActorStatus : NetworkBehaviour
 		bool flag2 = flag;
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actorData.GetAbilityData() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (checkPending)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag2 = (this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable) || this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.KnockbackImmune));
 				}
 			}
@@ -736,19 +382,6 @@ public class ActorStatus : NetworkBehaviour
 		bool flag;
 		if (!this.HasStatus(StatusType.MovementDebuffImmunity, true))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsMovementDebuffImmune(bool)).MethodHandle;
-			}
 			flag = this.HasStatus(StatusType.Unstoppable, true);
 		}
 		else
@@ -758,49 +391,13 @@ public class ActorStatus : NetworkBehaviour
 		bool flag2 = flag;
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actorData.GetAbilityData() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (checkPending)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag3;
 					if (!this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Unstoppable))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.MovementDebuffImmunity);
 					}
 					else
@@ -819,30 +416,8 @@ public class ActorStatus : NetworkBehaviour
 		bool flag = this.HasStatus(StatusType.Energized, true);
 		if (checkPending)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsEnergized(bool)).MethodHandle;
-			}
 			if (!flag && this.m_actorData.GetAbilityData() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = this.m_actorData.GetAbilityData().HasPendingStatusFromQueuedAbilities(StatusType.Energized);
 			}
 		}
@@ -861,19 +436,6 @@ public class ActorStatus : NetworkBehaviour
 			string text;
 			if (statusGained)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.OnStatusChanged(StatusType, bool)).MethodHandle;
-				}
 				text = "<color=cyan>Gained";
 			}
 			else
@@ -886,29 +448,11 @@ public class ActorStatus : NetworkBehaviour
 		}
 		if (!statusGained)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_statusDurations[(int)status] = 0U;
 		}
 		ActorData actorData = this.m_actorData;
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData != null)
 			{
 				HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.NotifyStatusChange(actorData, status, statusGained);
@@ -921,49 +465,13 @@ public class ActorStatus : NetworkBehaviour
 		actorData.ForceUpdateIsVisibleToClientCache();
 		if (statusGained)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (status != StatusType.Snared)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (status != StatusType.Rooted)
 					{
 						goto IL_151;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				AudioManager.PostEvent("ablty/generic/snare", actorData.gameObject);
@@ -1029,15 +537,6 @@ public class ActorStatus : NetworkBehaviour
 		case StatusType.Farsight:
 			if (statusGained)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.GetComponent<ActorStats>().AddStatMod(StatType.SightRange, ModType.BaseAdd, 4f);
 			}
 			else
@@ -1049,15 +548,6 @@ public class ActorStatus : NetworkBehaviour
 		case StatusType.Myopic:
 			if (statusGained)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.GetComponent<ActorStats>().AddStatMod(StatType.SightRange, ModType.BaseAdd, -4f);
 			}
 			else
@@ -1069,15 +559,6 @@ public class ActorStatus : NetworkBehaviour
 		case StatusType.DecreasedIncomingHealing:
 			if (statusGained)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.GetComponent<ActorStats>().AddStatMod(StatType.IncomingHealing, ModType.Multiplier, 0.5f);
 			}
 			else
@@ -1088,15 +569,6 @@ public class ActorStatus : NetworkBehaviour
 		case StatusType.IncreasedIncomingHealing:
 			if (statusGained)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.GetComponent<ActorStats>().AddStatMod(StatType.IncomingHealing, ModType.Multiplier, 1.25f);
 			}
 			else
@@ -1123,15 +595,6 @@ public class ActorStatus : NetworkBehaviour
 		IL_395:
 		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Board.Get().MarkForUpdateValidSquares(true);
 		}
 	}
@@ -1140,19 +603,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (this.m_actorData.GetActorMovement() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.UpdateSquaresCanMoveTo()).MethodHandle;
-			}
 			this.m_actorData.GetActorMovement().UpdateSquaresCanMoveTo();
 		}
 	}
@@ -1162,19 +612,6 @@ public class ActorStatus : NetworkBehaviour
 		this.UpdateSquaresCanMoveTo();
 		if (NetworkClient.active && this.m_actorData != null && gained)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.UpdateMovementForMovementStatus(bool)).MethodHandle;
-			}
 			LineData component = this.m_actorData.GetComponent<LineData>();
 			if (component != null)
 			{
@@ -1198,19 +635,6 @@ public class ActorStatus : NetworkBehaviour
 		ActorData actorData = this.m_actorData;
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsInvisibleToEnemies(bool)).MethodHandle;
-			}
 			if (this.HasStatus(StatusType.ProximityBasedInvisibility, includePendingStatus))
 			{
 				bool flag2 = false;
@@ -1226,53 +650,17 @@ public class ActorStatus : NetworkBehaviour
 						{
 							if (boardSquare2 == null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								float num = boardSquare.HorizontalDistanceOnBoardTo(boardSquare2);
 								if (num <= GameplayData.Get().m_proximityBasedInvisibilityMinDistance)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!GameplayData.Get().m_blindEnemyBreaksProximityBasedInvisibility)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!(actorData2.GetActorStatus() != null) || actorData2.GetActorStatus().HasStatus(StatusType.Blind, includePendingStatus))
 										{
 											continue;
-										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									flag2 = true;
@@ -1280,15 +668,6 @@ public class ActorStatus : NetworkBehaviour
 								}
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				IL_15A:
@@ -1300,26 +679,8 @@ public class ActorStatus : NetworkBehaviour
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!actorData.ServerSuppressInvisibility)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return !this.HasStatus(StatusType.SuppressInvisibility, includePendingStatus);
 			}
 		}
@@ -1338,19 +699,6 @@ public class ActorStatus : NetworkBehaviour
 			bool flag2;
 			if (action >= AbilityData.ActionType.ABILITY_0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsActionSilenced(AbilityData.ActionType, bool)).MethodHandle;
-				}
 				flag2 = (action <= AbilityData.ActionType.ABILITY_6);
 			}
 			else
@@ -1361,15 +709,6 @@ public class ActorStatus : NetworkBehaviour
 			bool flag4;
 			if (action >= AbilityData.ActionType.CARD_0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = (action <= AbilityData.ActionType.CARD_2);
 			}
 			else
@@ -1381,55 +720,19 @@ public class ActorStatus : NetworkBehaviour
 			flag = false;
 			if (flag3)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.HasStatus(StatusType.SilencedPlayerAbilities, checkPending))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (flag || flag3);
 				}
 			}
 			if (flag3 && !flag6)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.HasStatus(StatusType.SilencedNonbasicPlayerAbilities, checkPending))
 				{
 					bool flag7 = flag;
 					bool flag8;
 					if (flag3)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag8 = !flag6;
 					}
 					else
@@ -1441,67 +744,22 @@ public class ActorStatus : NetworkBehaviour
 			}
 			if (flag6 && this.HasStatus(StatusType.SilencedBasicPlayerAbility, checkPending))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (flag || flag6);
 			}
 			if (flag5 && this.HasStatus(StatusType.SilencedCardAbilities, checkPending))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (flag || flag5);
 			}
 			if (this.HasStatus(StatusType.SilencedEvasionAbilities, checkPending))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Ability abilityOfActionType = base.GetComponent<AbilityData>().GetAbilityOfActionType(action);
 				bool flag9;
 				if (abilityOfActionType != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag9 = (abilityOfActionType.RunPriority == AbilityPriority.Evasion);
 					foreach (Ability ability in abilityOfActionType.GetChainAbilities())
 					{
 						flag9 |= (ability.RunPriority == AbilityPriority.Evasion);
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				else
@@ -1518,41 +776,10 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (status != StatusType.Rooted)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.IsDispellableMovementDebuff(StatusType)).MethodHandle;
-			}
 			if (status != StatusType.Snared)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (status != StatusType.CrippledMovement)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return status == StatusType.CantSprint_UnlessUnstoppable;
 				}
 			}
@@ -1580,35 +807,13 @@ public class ActorStatus : NetworkBehaviour
 		}
 	}
 
-	public int \u001D(StatusType \u001D)
+	public int symbol_001D(StatusType symbol_001D)
 	{
-		if (\u001D >= StatusType.Revealed)
+		if (symbol_001D >= StatusType.Revealed)
 		{
-			for (;;)
+			if (symbol_001D < (StatusType)this.m_statusCounts.Count)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.\u001D(StatusType)).MethodHandle;
-			}
-			if (\u001D < (StatusType)this.m_statusCounts.Count)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				return (int)(this.m_statusCounts[(int)\u001D] + (uint)this.m_clientStatusCountAdjustments[(int)\u001D]);
+				return (int)(this.m_statusCounts[(int)symbol_001D] + (uint)this.m_clientStatusCountAdjustments[(int)symbol_001D]);
 			}
 		}
 		return 0;
@@ -1632,19 +837,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.InvokeSyncListm_statusDurations(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_statusDurations called on server.");
 			return;
 		}
@@ -1655,19 +847,6 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ActorStatus.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			SyncListUInt.WriteInstance(writer, this.m_statusCounts);
 			SyncListUInt.WriteInstance(writer, this.m_statusDurations);
 			return true;
@@ -1677,15 +856,6 @@ public class ActorStatus : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1693,26 +863,8 @@ public class ActorStatus : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -1720,15 +872,6 @@ public class ActorStatus : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;

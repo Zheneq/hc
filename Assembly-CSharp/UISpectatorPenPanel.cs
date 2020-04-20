@@ -81,19 +81,6 @@ public class UISpectatorPenPanel : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_drawhitBox, false, null);
 		if (PlayerPrefs.HasKey("SpectatorLineSize"))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.Awake()).MethodHandle;
-			}
 			this.LineSize = PlayerPrefs.GetInt("SpectatorLineSize");
 		}
 		this.m_lineThicknessLabel.text = string.Format(StringUtil.TR("LineWidth", "SpectatorMode"), this.LineSize);
@@ -107,19 +94,6 @@ public class UISpectatorPenPanel : MonoBehaviour
 		for (int i = 0; i < this.m_clearColorArray.Length; i++)
 		{
 			this.m_clearColorArray[i] = this.m_clearColor32;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.ResizeTexture()).MethodHandle;
 		}
 		this.theTexture = new Texture2D((int)((float)Screen.width * 1f), (int)((float)Screen.height * 1f));
 		this.screenWidth = Screen.width;
@@ -195,19 +169,6 @@ public class UISpectatorPenPanel : MonoBehaviour
 	{
 		if (Vector2.Distance(previousPoint, newPoint) < (float)this.LineSize)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.PadInMidpointsPoints(Vector2, Vector2)).MethodHandle;
-			}
 			return;
 		}
 		Vector2 vector = (previousPoint + newPoint) * 0.5f;
@@ -220,37 +181,10 @@ public class UISpectatorPenPanel : MonoBehaviour
 				Vector2 vector2 = new Vector2((float)num, (float)num2);
 				if (0f <= (float)num)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num < this.theTexture.width)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (0f <= (float)num2)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num2 < this.theTexture.height && Vector2.Distance(vector2, vector) < (float)this.LineSize)
 							{
 								this.theTexture.SetPixel(num, num2, this.m_drawColor);
@@ -261,25 +195,7 @@ public class UISpectatorPenPanel : MonoBehaviour
 				}
 				num2++;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num++;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.PadInMidpointsPoints(previousPoint, vector);
 		this.PadInMidpointsPoints(vector, newPoint);
@@ -294,31 +210,9 @@ public class UISpectatorPenPanel : MonoBehaviour
 	{
 		if (this.screenWidth == Screen.width)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPenPanel.Update()).MethodHandle;
-			}
 			if (this.screenHeight == Screen.height)
 			{
 				goto IL_41;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.ResizeTexture();
@@ -326,53 +220,17 @@ public class UISpectatorPenPanel : MonoBehaviour
 		bool flag;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().PlayerInfo != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator)
 				{
 					flag = true;
 					goto IL_D7;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (GameManager.Get() != null && GameManager.Get().PlayerInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (GameManager.Get().PlayerInfo.TeamId == Team.Spectator);
 		}
 		else
@@ -383,135 +241,36 @@ public class UISpectatorPenPanel : MonoBehaviour
 		bool flag2 = flag;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_container, true, null);
 			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleSpectatorDrawMode))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.DrawModeClicked(null);
 			}
 			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ClearSpectatorDraw))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ClearDrawing(false);
 			}
 			if (this.m_isDrawing)
 			{
 				if (Input.GetMouseButton(0))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!UIUtils.IsMouseOnGUI())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector2 vector = Input.mousePosition * 1f;
 						if (0f <= vector.x)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (vector.x < (float)this.theTexture.width)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (0f <= vector.y * 1f)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (vector.y < (float)this.theTexture.height)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										int num = (int)vector.x;
 										int num2 = (int)vector.y;
 										if (this.LastXPos != -1)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.LastYPos != -1)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.CheckRedrawTimeInterval();
 												this.PadInMidpointsPoints(new Vector2((float)this.LastXPos, (float)this.LastYPos), new Vector2((float)num, (float)num2));
 											}
@@ -522,49 +281,13 @@ public class UISpectatorPenPanel : MonoBehaviour
 											{
 												if (0f <= (float)i)
 												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (i < this.theTexture.width && 0f <= (float)j)
 													{
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (j < this.theTexture.height)
 														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															Vector2 vector2 = new Vector2((float)i, (float)j);
 															if (Vector2.Distance(vector2, new Vector2((float)num, (float)num2)) < (float)this.LineSize)
 															{
-																for (;;)
-																{
-																	switch (5)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																this.theTexture.SetPixel(i, j, this.m_drawColor);
 																this.modifiedPixels[vector2] = true;
 															}
@@ -572,27 +295,9 @@ public class UISpectatorPenPanel : MonoBehaviour
 													}
 												}
 											}
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										if (this.modifiedPixels.Count - this.LastNumModifiedPixelsDrawn > this.PixelCountRedrawAmount && Time.time > this.LastRedrawTime + this.RedrawTimeInterval)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.LastRedrawTime = Time.time;
 											this.LastNumModifiedPixelsDrawn = this.modifiedPixels.Count;
 											this.theTexture.Apply();

@@ -35,19 +35,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 			string[] array2 = arguments.Split(null);
 			if (!array2[0].IsNullOrEmpty() && !array2[0].EqualsIgnoreCase("help"))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameWithParams.OnSlashCommand(string)).MethodHandle;
-				}
 				if (Array.IndexOf<string>(array, array2[0].ToLower()) != -1)
 				{
 					PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
@@ -56,15 +43,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 					int num;
 					if (array2.Length > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = int.Parse(array2[1]);
 					}
 					else
@@ -75,15 +53,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 					int num2;
 					if (array2.Length > 2)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = int.Parse(array2[2]);
 					}
 					else
@@ -95,15 +64,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 					bool flag;
 					if (array2.Length > 4)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = bool.Parse(array2[4]);
 					}
 					else
@@ -114,15 +74,6 @@ public class DebugCommand_EndGameWithParams : DebugCommand
 					bool flag2;
 					if (array2.Length > 5)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = bool.Parse(array2[5]);
 					}
 					else

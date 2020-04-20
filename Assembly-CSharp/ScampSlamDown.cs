@@ -44,19 +44,6 @@ public class ScampSlamDown : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSlamDown.Start()).MethodHandle;
-			}
 			this.m_abilityName = "ScampSlamDown";
 		}
 		this.Setup();
@@ -70,19 +57,6 @@ public class ScampSlamDown : Ability
 		AbilityUtil_Targeter abilityUtil_Targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, this.m_laserCount, this.m_suitedLaserInfo, 10f, true, this.m_targeterMinAngle, maxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance);
 		if (abilityUtil_Targeter is AbilityUtil_Targeter_ThiefFanLaser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSlamDown.Setup()).MethodHandle;
-			}
 			AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = abilityUtil_Targeter as AbilityUtil_Targeter_ThiefFanLaser;
 			abilityUtil_Targeter_ThiefFanLaser.m_delegateLaserLength = new AbilityUtil_Targeter_ThiefFanLaser.LaserLengthDelegate(this.GetLaserLengthForTargeter);
 			abilityUtil_Targeter_ThiefFanLaser.m_delegateLaserWidth = new AbilityUtil_Targeter_ThiefFanLaser.LaserWidthDelegate(this.GetLaserWidthForTargeter);
@@ -94,19 +68,6 @@ public class ScampSlamDown : Ability
 	{
 		if (this.m_targeterMaxAngle < 360f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSlamDown.CalculateMaxTargeterAngle()).MethodHandle;
-			}
 			if (this.m_targeterMaxAngle > 0f)
 			{
 				return this.m_targeterMaxAngle;
@@ -121,19 +82,6 @@ public class ScampSlamDown : Ability
 		float range;
 		if (this.IsInSuit())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSlamDown.GetLaserLengthForTargeter(ActorData, float)).MethodHandle;
-			}
 			range = this.m_suitedLaserInfo.range;
 		}
 		else
@@ -157,19 +105,6 @@ public class ScampSlamDown : Ability
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSlamDown.IsInSuit()).MethodHandle;
-			}
 			result = this.m_syncComp.m_suitWasActiveOnTurnStart;
 		}
 		else
@@ -185,19 +120,6 @@ public class ScampSlamDown : Ability
 		int num2;
 		if (this.IsInSuit())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSlamDown.CalcTotalDamage(int)).MethodHandle;
-			}
 			num2 = this.m_suitedBaseDamage;
 		}
 		else
@@ -208,54 +130,18 @@ public class ScampSlamDown : Ability
 		int num4 = (!this.IsInSuit()) ? this.m_scampSubseqDamage : this.m_suitedSubseqDamage;
 		if (numHits > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += num3;
 			int num5 = numHits - 1;
 			if (num5 > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num4 > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += num5 * num4;
 				}
 			}
 		}
 		if (this.m_maxDamage > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Mathf.Min(this.m_maxDamage, num);
 		}
 		return num;
@@ -272,19 +158,6 @@ public class ScampSlamDown : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampSlamDown.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			int tooltipSubjectCountOnActor = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary);
 			int damage = this.CalcTotalDamage(tooltipSubjectCountOnActor);
 			results.m_damage = damage;

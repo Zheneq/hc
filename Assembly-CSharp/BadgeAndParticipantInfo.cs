@@ -24,32 +24,10 @@ public class BadgeAndParticipantInfo
 	{
 		if (slot == TopParticipantSlot.MostDecorated)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(TopParticipantSlot)).MethodHandle;
-			}
 			return 4;
 		}
 		if (slot == TopParticipantSlot.Deadliest)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 3;
 		}
 		if (slot == TopParticipantSlot.Supportiest)
@@ -58,15 +36,6 @@ public class BadgeAndParticipantInfo
 		}
 		if (slot == TopParticipantSlot.Tankiest)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return 1;
 		}
 		return 0;

@@ -31,19 +31,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		base.OnDestroy();
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountBannerPanel.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnPlayerBannerChange -= this.OnPlayerBannerChange;
 			ClientGameManager.Get().OnPlayerTitleChange -= this.OnPlayerTitleChange;
 		}
@@ -75,19 +62,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 			{
 				goto IL_6D;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountBannerPanel.GetRawItemsList()).MethodHandle;
-			}
 			if (playerBanner.m_relatedCharacter == this.m_charType)
 			{
 				for (;;)
@@ -106,15 +80,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 			IL_6D:
 			if (playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list2.Add(playerBanner);
 				goto IL_93;
 			}
@@ -129,15 +94,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 			if (this.m_charType == CharacterType.None)
 			{
 				goto IL_E6;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (playerTitle.m_relatedCharacter == this.m_charType)
 			{
@@ -162,15 +118,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		{
 			if (this.m_charType == CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list5.Add(item);
 			}
 		}
@@ -200,41 +147,10 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 			int result;
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountBannerPanel.ShouldCheckmark(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedBackgroundBannerID != item.ID)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedForegroundBannerID == item.ID) ? 1 : 0);
 					}
 					else
@@ -249,27 +165,9 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (item is GameBalanceVars.PlayerTitle)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool result2;
 			if (ClientGameManager.Get() != null && ClientGameManager.Get().IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result2 = (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.SelectedTitleID == item.ID);
 			}
 			else
@@ -285,30 +183,8 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 	{
 		if (this.m_ownedToggle.isOn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountBannerPanel.ShouldFilter(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			if (!(ClientGameManager.Get() == null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
 					AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
@@ -316,26 +192,8 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 					bool flag2;
 					if (!this.m_titleToggle.isOn && !this.m_emblemToggle.isOn)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_backgroundToggle.isOn)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag2 = !this.m_ribbonToggle.isOn;
 							goto IL_C0;
 						}
@@ -345,28 +203,10 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 					bool flag3 = flag2;
 					if (item is GameBalanceVars.PlayerBanner)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameBalanceVars.PlayerBanner playerBanner = item as GameBalanceVars.PlayerBanner;
 						bool flag4;
 						if (accountComponent.UnlockedBannerIDs.Contains(playerBanner.ID))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.m_emblemToggle.isOn || playerBanner.m_type != GameBalanceVars.PlayerBanner.BannerType.Foreground)
 							{
 								if (this.m_backgroundToggle.isOn)
@@ -374,15 +214,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 									if (playerBanner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 									{
 										goto IL_138;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								flag4 = flag3;
@@ -400,40 +231,13 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 					}
 					else if (item is GameBalanceVars.PlayerTitle)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (accountComponent.UnlockedTitleIDs.Contains(item.ID) && (this.m_titleToggle.isOn || flag3));
 					}
 					else if (item is GameBalanceVars.PlayerRibbon)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag5;
 						if (accountComponent.UnlockedRibbonIDs.Contains(item.ID))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag5 = (this.m_ribbonToggle.isOn || flag3);
 						}
 						else
@@ -444,62 +248,17 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 					}
 					return !flag;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			return true;
 		}
 		if (!this.m_titleToggle.isOn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_emblemToggle.isOn)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_backgroundToggle.isOn)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_ribbonToggle.isOn)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 				}
@@ -508,15 +267,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		bool result = true;
 		if (this.m_titleToggle.isOn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (item is GameBalanceVars.PlayerTitle)
 			{
 				result = false;
@@ -524,53 +274,17 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (this.m_ribbonToggle.isOn && item is GameBalanceVars.PlayerRibbon)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = false;
 		}
 		if (!this.m_backgroundToggle.isOn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_emblemToggle.isOn)
 			{
 				return result;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (item is GameBalanceVars.PlayerBanner)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameBalanceVars.PlayerBanner playerBanner2 = item as GameBalanceVars.PlayerBanner;
 			if (this.m_backgroundToggle.isOn)
 			{
@@ -578,41 +292,14 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 				{
 					goto IL_316;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (!this.m_emblemToggle.isOn)
 			{
 				return result;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (playerBanner2.m_type != GameBalanceVars.PlayerBanner.BannerType.Foreground)
 			{
 				return result;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_316:
 			result = false;
@@ -624,45 +311,14 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 	{
 		if (!item.IsOwned())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountBannerPanel.ItemClicked(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			return;
 		}
 		if (item is GameBalanceVars.PlayerTitle)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().RequestTitleSelect(item.ID, null);
 		}
 		else if (item is GameBalanceVars.PlayerBanner)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().RequestBannerSelect(item.ID, null);
 		}
 		else if (item is GameBalanceVars.PlayerRibbon)
@@ -685,19 +341,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		string previewTitle;
 		if (item is GameBalanceVars.PlayerTitle)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountBannerPanel.ItemTooltipPopulate(UITooltipBase, UIStoreItemBtn, GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			text = GameBalanceVars.Get().GetTitle(item.ID, string.Empty, -1);
 			previewTitle = StringUtil.TR("TitlePreview", "OverlayScreens");
 		}
@@ -710,15 +353,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		{
 			if (!(item is GameBalanceVars.PlayerBanner))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 			GameBalanceVars.PlayerBanner playerBanner3 = item as GameBalanceVars.PlayerBanner;
@@ -736,15 +370,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		AccountComponent accountComponent = ClientGameManager.Get().GetPlayerAccountData().AccountComponent;
 		if (playerBanner2 == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			playerBanner2 = GameBalanceVars.Get().GetBanner(accountComponent.SelectedForegroundBannerID);
 		}
 		if (playerBanner == null)
@@ -753,28 +378,10 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (text == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = GameBalanceVars.Get().GetTitle(accountComponent.SelectedTitleID, string.Empty, -1);
 		}
 		if (playerRibbon == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			playerRibbon = GameBalanceVars.Get().GetRibbon(accountComponent.SelectedRibbonID);
 		}
 		UIBannerPreviewTooltip uibannerPreviewTooltip = tooltip as UIBannerPreviewTooltip;
@@ -789,19 +396,6 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		PurchaseItemType itemType;
 		if (item is GameBalanceVars.PlayerTitle)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreAccountBannerPanel.PurchaseItem(GameBalanceVars.PlayerUnlockable, CurrencyType)).MethodHandle;
-			}
 			itemType = PurchaseItemType.Title;
 		}
 		else

@@ -59,19 +59,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 				ActorData actor = enumerator.Current;
 				base.AddActorInRange(actor, laserCoords2.start, targetingActor, AbilityTooltipSubject.Primary, false);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreKnockbackLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 		}
 		int num3 = 0;
 		base.EnableAllMovementArrows();
@@ -90,41 +77,14 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 		}
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		base.SetMovementArrowEnabledFromIndex(num3, false);
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count >= 2)
 			{
 				goto IL_284;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -138,15 +98,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 			float num4;
 			if (i == 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = num;
 			}
 			else
@@ -158,15 +109,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 			this.m_highlights[i].transform.position = laserCoords2.start + new Vector3(0f, y, 0f);
 			this.m_highlights[i].transform.rotation = Quaternion.LookRotation(normalized);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.DrawInvalidSquareIndicators(currentTarget, targetingActor, laserCoords2.start, laserCoords2.end);
 	}
 
@@ -174,19 +116,6 @@ public class AbilityUtil_Targeter_ClaymoreKnockbackLaser : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreKnockbackLaser.DrawInvalidSquareIndicators(AbilityTarget, ActorData, Vector3, Vector3)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			float widthInSquares = Mathf.Max(this.m_laserWidth, this.m_laserMiddleWidth);
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, startPos, endPos, widthInSquares, targetingActor, this.m_penetrateLos, null, null, true);

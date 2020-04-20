@@ -25,19 +25,6 @@ namespace I2.Loc
 				GUILayout.Height(100f)
 			}))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RealTimeTranslation.OnGUI()).MethodHandle;
-				}
 				this.StartTranslating("en", "es");
 			}
 			if (GUILayout.Button("Español -> English", new GUILayoutOption[]
@@ -45,15 +32,6 @@ namespace I2.Loc
 				GUILayout.Height(100f)
 			}))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StartTranslating("es", "en");
 			}
 			GUILayout.EndHorizontal();

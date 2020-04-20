@@ -23,19 +23,6 @@ public class PersistedStatEntry : ICloneable, IPersistedGameplayStat
 	{
 		if (this.NumGamesInSum == 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStatEntry.Average()).MethodHandle;
-			}
 			return 0f;
 		}
 		return (float)this.Sum / (float)this.NumGamesInSum;
@@ -60,19 +47,6 @@ public class PersistedStatEntry : ICloneable, IPersistedGameplayStat
 			{
 				goto IL_54;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStatEntry.Adjust(int)).MethodHandle;
-			}
 		}
 		this.Max = val;
 		IL_54:
@@ -81,15 +55,6 @@ public class PersistedStatEntry : ICloneable, IPersistedGameplayStat
 			if (!flag)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.Min = val;

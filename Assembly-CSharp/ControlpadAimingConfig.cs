@@ -49,19 +49,6 @@ public class ControlpadAimingConfig
 		this.m_rotateAntiClockwiseSign = antiClockwiseSign;
 		if (clockwiseInputType == antiClockwiseInputType)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadAimingConfig.SetupRotation(ControlpadInputValue, ControlpadInputSign, ControlpadInputValue, ControlpadInputSign)).MethodHandle;
-			}
 			if (clockwiseSign == antiClockwiseSign)
 			{
 				Debug.LogError("SetupRotation- Setting up control pad to rotate both directions on same input.  Likely user error in SetupRotation call.");
@@ -77,30 +64,8 @@ public class ControlpadAimingConfig
 		this.m_depthBackwardSign = backwardSign;
 		if (forwardInputType == backwardInputType)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ControlpadAimingConfig.SetupDepthMovement(ControlpadInputValue, ControlpadInputSign, ControlpadInputValue, ControlpadInputSign)).MethodHandle;
-			}
 			if (forwardSign == backwardSign)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("SetupDepthMovement- Setting up control pad to move depth both directions on same input.  Likely user error in SetupDepthMovement call.");
 			}
 		}

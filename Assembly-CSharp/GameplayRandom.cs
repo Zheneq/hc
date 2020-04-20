@@ -25,19 +25,6 @@ internal static class GameplayRandom
 		}
 		if (v != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.SetSeed(uint, uint)).MethodHandle;
-			}
 			GameplayRandom.m_z = v;
 		}
 	}
@@ -57,19 +44,6 @@ internal static class GameplayRandom
 	{
 		if (!NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetUint()).MethodHandle;
-			}
 			Log.Error("GameplayRandom functions should only be called on the server. Results should be sent to clients", new object[0]);
 		}
 		GameplayRandom.m_z = 0x9069U * (GameplayRandom.m_z & 0xFFFFU) + (GameplayRandom.m_z >> 0x10);
@@ -83,19 +57,6 @@ internal static class GameplayRandom
 		int result;
 		if (max <= min)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.Range(int, int)).MethodHandle;
-			}
 			result = min;
 		}
 		else
@@ -139,19 +100,6 @@ internal static class GameplayRandom
 	{
 		if (mean <= 0.0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetExponential(double)).MethodHandle;
-			}
 			string paramName = string.Format("Mean must be positive. Received {0}.", mean);
 			throw new ArgumentOutOfRangeException(paramName);
 		}
@@ -162,19 +110,6 @@ internal static class GameplayRandom
 	{
 		if (shape >= 1.0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetGamma(double, double)).MethodHandle;
-			}
 			double num = shape - 0.33333333333333331;
 			double num2 = 1.0 / Math.Sqrt(9.0 * num);
 			double num3;
@@ -189,15 +124,6 @@ internal static class GameplayRandom
 					num3 = 1.0 + num2 * normal;
 				}
 				while (num3 <= 0.0);
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = num3 * num3 * num3;
 				uniform = GameplayRandom.GetUniform();
 				num4 = normal * normal;
@@ -207,29 +133,11 @@ internal static class GameplayRandom
 				}
 			}
 			while (Math.Log(uniform) >= 0.5 * num4 + num * (1.0 - num3 + Math.Log(num3)));
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IL_E5:
 			return scale * num * num3;
 		}
 		if (shape <= 0.0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string paramName = string.Format("Shape must be positive. Received {0}.", shape);
 			throw new ArgumentOutOfRangeException(paramName);
 		}
@@ -252,31 +160,9 @@ internal static class GameplayRandom
 	{
 		if (shape > 0.0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetWeibull(double, double)).MethodHandle;
-			}
 			if (scale > 0.0)
 			{
 				return scale * Math.Pow(-Math.Log(GameplayRandom.GetUniform()), 1.0 / shape);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		string paramName = string.Format("Shape and scale parameters must be positive. Recieved shape {0} and scale{1}.", shape, scale);
@@ -287,19 +173,6 @@ internal static class GameplayRandom
 	{
 		if (scale <= 0.0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetCauchy(double, double)).MethodHandle;
-			}
 			string message = string.Format("Scale must be positive. Received {0}.", scale);
 			throw new ArgumentException(message);
 		}
@@ -311,19 +184,6 @@ internal static class GameplayRandom
 	{
 		if (degreesOfFreedom <= 0.0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetStudentT(double)).MethodHandle;
-			}
 			string message = string.Format("Degrees of freedom must be positive. Received {0}.", degreesOfFreedom);
 			throw new ArgumentException(message);
 		}
@@ -338,19 +198,6 @@ internal static class GameplayRandom
 		double result;
 		if (uniform < 0.5)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetLaplace(double, double)).MethodHandle;
-			}
 			result = mean + scale * Math.Log(2.0 * uniform);
 		}
 		else
@@ -369,19 +216,6 @@ internal static class GameplayRandom
 	{
 		if (a > 0.0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameplayRandom.GetBeta(double, double)).MethodHandle;
-			}
 			if (b > 0.0)
 			{
 				double gamma = GameplayRandom.GetGamma(a, 1.0);

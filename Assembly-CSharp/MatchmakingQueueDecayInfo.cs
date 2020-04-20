@@ -18,19 +18,6 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 	{
 		if (!this.m_leaderboardTiers.IsNullOrEmpty<TierInfo>())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueDecayInfo.GetDecayAmount(int, int*, TimeSpan*)).MethodHandle;
-			}
 			TierInfo tierInfo = this.m_leaderboardTiers.ElementAtOrDefault(tierIndex);
 			if (tierInfo != null && tierInfo.DecayAmount != 0)
 			{
@@ -48,80 +35,22 @@ internal class MatchmakingQueueDecayInfo : IDecayInfo
 	{
 		if (!this.m_leaderboardTiers.IsNullOrEmpty<TierInfo>())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchmakingQueueDecayInfo.DoesTierHaveLimitlessLesserNeighborTier(int)).MethodHandle;
-			}
 			TierInfo tierInfo = this.m_leaderboardTiers.ElementAtOrDefault(tierIndex);
 			if (tierInfo != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tierInfo.PointType != TierPointsTypes.Limitless)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tierInfo.PointType != TierPointsTypes.DerivedFromMMR)
 					{
 						return false;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				TierInfo tierInfo2 = this.m_leaderboardTiers.ElementAtOrDefault(tierIndex + 1);
 				if (tierInfo2 != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool result;
 					if (tierInfo2.PointType != TierPointsTypes.Limitless)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (tierInfo2.PointType == TierPointsTypes.DerivedFromMMR);
 					}
 					else

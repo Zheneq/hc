@@ -79,19 +79,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ThiefBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = thiefBasicAttack.m_targeterMaxAngle;
 		}
 		else
@@ -107,15 +94,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = thiefBasicAttack.m_laserSubsequentDamageAmount;
 		}
 		else
@@ -131,15 +109,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = thiefBasicAttack.m_extraDamageForHittingPowerup;
 		}
 		else
@@ -155,15 +124,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = thiefBasicAttack.m_energyGainPerLaserHit;
 		}
 		else
@@ -179,15 +139,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = thiefBasicAttack.m_laserRange;
 		}
 		else
@@ -203,15 +154,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = thiefBasicAttack.m_laserMaxTargets;
 		}
 		else
@@ -226,15 +168,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = thiefBasicAttack.m_laserCount;
 		}
 		else
@@ -249,15 +182,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		bool baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = thiefBasicAttack.m_laserPenetrateLos;
 		}
 		else
@@ -272,15 +196,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = thiefBasicAttack.m_stopOnPowerupHit;
 		}
 		else
@@ -295,15 +210,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		bool baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = thiefBasicAttack.m_includeSpoilsPowerups;
 		}
 		else

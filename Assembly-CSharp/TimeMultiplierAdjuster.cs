@@ -20,30 +20,8 @@ public class TimeMultiplierAdjuster : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.GametimeScaleChange)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TimeMultiplierAdjuster.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			if (this.m_plugin != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_plugin.m_TimeMultiplier = GameTime.scale;
 			}
 		}

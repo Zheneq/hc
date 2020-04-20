@@ -44,19 +44,6 @@ public class NinjaBasicAttackSequence : Sequence
 		this.m_targetToHitInfo = new Dictionary<ActorData, NinjaBasicAttackSequence.HitInfo>();
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.FinishSetup()).MethodHandle;
-			}
 			this.SpawnTempSatellite();
 		}
 	}
@@ -67,41 +54,10 @@ public class NinjaBasicAttackSequence : Sequence
 		{
 			if (this.m_lastTempSatelliteSpawnTime > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.Update()).MethodHandle;
-				}
 				if (GameTime.time > this.m_lastTempSatelliteSpawnTime + this.m_spawnDelay)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_numTempSatellitesSpawned < base.Targets.Length)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SpawnTempSatellite();
 					}
 				}
@@ -114,74 +70,20 @@ public class NinjaBasicAttackSequence : Sequence
 					NinjaBasicAttackSequence.HitInfo value = keyValuePair.Value;
 					if (value.m_didSpawnSatellite)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (value.m_spawnedTempSatellite == null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!value.m_hitReceived)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.SpawnHitFX(keyValuePair.Key);
 							}
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.AllTempSatellitesDespawned())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_setFinishTrigger)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_setFinishTrigger = true;
 					base.Caster.GetActorModelData().GetModelAnimator().SetTrigger("FinishAttack");
 				}
@@ -194,19 +96,6 @@ public class NinjaBasicAttackSequence : Sequence
 		bool result = true;
 		if (this.m_numTempSatellitesSpawned != base.Targets.Length)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.AllTempSatellitesDespawned()).MethodHandle;
-			}
 			result = false;
 		}
 		else
@@ -215,40 +104,13 @@ public class NinjaBasicAttackSequence : Sequence
 			{
 				if (keyValuePair.Value.m_didSpawnSatellite)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(keyValuePair.Value.m_spawnedTempSatellite != null))
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (keyValuePair.Value.m_spawnedTempSatellite.GetComponent<NinjaCloneSatellite>().IsDespawning())
 					{
 						continue;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = false;
@@ -268,30 +130,8 @@ public class NinjaBasicAttackSequence : Sequence
 				NinjaBasicAttackSequence.HitInfo value = keyValuePair.Value;
 				if (value.m_spawnSquare == square && value.m_spawnedTempSatellite != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.SquareInUseByTempSatellite(BoardSquare)).MethodHandle;
-					}
 					result = true;
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -310,19 +150,6 @@ public class NinjaBasicAttackSequence : Sequence
 				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(center.x + j, center.y);
 				if (boardSquare2.occupant == null && !this.SquareInUseByTempSatellite(boardSquare2))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.GetClosestUnoccupiedSquare(BoardSquare)).MethodHandle;
-					}
 					boardSquare = boardSquare2;
 					IL_73:
 					for (int k = -i; k <= i; k += i * 2)
@@ -330,15 +157,6 @@ public class NinjaBasicAttackSequence : Sequence
 						BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + k);
 						if (boardSquare3.occupant == null && !this.SquareInUseByTempSatellite(boardSquare3))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquare = boardSquare3;
 							break;
 						}
@@ -389,47 +207,16 @@ public class NinjaBasicAttackSequence : Sequence
 		ActorData nextTarget = this.GetNextTarget();
 		if (nextTarget != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.SpawnTempSatellite()).MethodHandle;
-			}
 			BoardSquare closestUnoccupiedSquare = this.GetClosestUnoccupiedSquare(nextTarget.GetCurrentBoardSquare());
 			Vector3 forward = Vector3.forward;
 			if (closestUnoccupiedSquare != nextTarget.GetCurrentBoardSquare())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				forward = nextTarget.GetCurrentBoardSquare().ToVector3() - closestUnoccupiedSquare.ToVector3();
 			}
 			GameObject gameObject = base.InstantiateFX(this.m_tempSatellitePrefab, closestUnoccupiedSquare.ToVector3(), Quaternion.LookRotation(forward), true, true);
 			gameObject.GetComponent<NinjaCloneSatellite>().Setup(this);
 			if (base.Targets.Length == 1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject.GetComponent<NinjaCloneSatellite>().TriggerMultiAttack(nextTarget.gameObject, this.m_numAttacksForSingleTarget, this.m_attackDelay);
 			}
 			else
@@ -453,19 +240,6 @@ public class NinjaBasicAttackSequence : Sequence
 		{
 			if (keyValuePair.Value.m_spawnedTempSatellite == tempSatellite)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.GetTargetFromTempSatellite(GameObject)).MethodHandle;
-				}
 				result = keyValuePair.Key;
 				break;
 			}
@@ -478,19 +252,6 @@ public class NinjaBasicAttackSequence : Sequence
 		NinjaBasicAttackSequence.HitInfo hitInfo = null;
 		if (this.m_targetToHitInfo.TryGetValue(target, out hitInfo))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.SpawnHitFX(ActorData)).MethodHandle;
-			}
 			hitInfo.m_hitReceived = true;
 			this.m_hitFxJoint.Initialize(target.gameObject);
 			GameObject item = base.InstantiateFX(this.m_fxHitPrefab, this.m_hitFxJoint.m_jointObject.transform.position, Quaternion.identity, true, true);
@@ -508,19 +269,6 @@ public class NinjaBasicAttackSequence : Sequence
 		ActorData targetFromTempSatellite = this.GetTargetFromTempSatellite(sourceObject);
 		if (targetFromTempSatellite != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.SpawnHitFX(GameObject)).MethodHandle;
-			}
 			this.SpawnHitFX(targetFromTempSatellite);
 		}
 	}
@@ -533,19 +281,6 @@ public class NinjaBasicAttackSequence : Sequence
 		}
 		else if (this.m_hitEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnHitFX(sourceObject);
 		}
 	}
@@ -554,31 +289,9 @@ public class NinjaBasicAttackSequence : Sequence
 	{
 		if (this.m_hitFXInstances != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaBasicAttackSequence.OnDisable()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_hitFXInstances.Count; i++)
 			{
 				UnityEngine.Object.Destroy(this.m_hitFXInstances[i]);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_hitFXInstances = null;
 		}

@@ -59,19 +59,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 		IceborgDamageArea iceborgDamageArea = targetAbility as IceborgDamageArea;
 		if (iceborgDamageArea != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDamageArea.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, this.m_initialCastMaxRangeMod, "InitialCastMaxRange", string.Empty, iceborgDamageArea.m_initialCastMaxRange, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_moveAreaCastMaxRangeMod, "MoveAreaCastMaxRange", string.Empty, iceborgDamageArea.m_moveAreaCastMaxRange, true, false, false);
@@ -92,19 +79,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgDamageArea != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDamageArea.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgDamageArea.m_targetSelectComp, "-- Target Select --");
 			string str = text;
 			AbilityModPropertyFloat initialCastMaxRangeMod = this.m_initialCastMaxRangeMod;
@@ -113,15 +87,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			float baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = iceborgDamageArea.m_initialCastMaxRange;
 			}
 			else
@@ -136,15 +101,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			float baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgDamageArea.m_moveAreaCastMaxRange;
 			}
 			else
@@ -159,15 +115,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			bool baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgDamageArea.m_targetingAreaCheckLos;
 			}
 			else
@@ -183,15 +130,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			bool baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = iceborgDamageArea.m_stopMoversWithSlowStatus;
 			}
 			else
@@ -206,15 +144,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			bool baseVal5;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal5 = iceborgDamageArea.m_stopMoverIfHitPreviousTurn;
 			}
 			else
@@ -231,15 +160,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			int baseVal6;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal6 = iceborgDamageArea.m_groundFieldDamageChangePerTurn;
 			}
 			else
@@ -254,15 +174,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			int baseVal7;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal7 = iceborgDamageArea.m_minDamage;
 			}
 			else
@@ -278,15 +189,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			int baseVal8;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal8 = iceborgDamageArea.m_shieldDuration;
 			}
 			else
@@ -302,15 +204,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			bool baseVal9;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal9 = iceborgDamageArea.m_applyDelayedAoeEffect;
 			}
 			else
@@ -325,15 +218,6 @@ public class AbilityMod_IceborgDamageArea : GenericAbility_AbilityMod
 			bool baseVal10;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal10 = iceborgDamageArea.m_applyNovaCoreIfHitPreviousTurn;
 			}
 			else

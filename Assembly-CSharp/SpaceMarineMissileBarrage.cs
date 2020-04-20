@@ -43,19 +43,6 @@ public class SpaceMarineMissileBarrage : Ability
 		bool affectsCaster;
 		if (base.GetModdedEffectForSelf() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.Setup()).MethodHandle;
-			}
 			affectsCaster = base.GetModdedEffectForSelf().m_applyEffect;
 		}
 		else
@@ -92,19 +79,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int val;
 		if (abilityMod_SpaceMarineMissileBarrage)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SpaceMarineMissileBarrage.m_damageMod.GetModifiedValue(this.m_damage);
 		}
 		else
@@ -120,19 +94,6 @@ public class SpaceMarineMissileBarrage : Ability
 		bool result;
 		if (animIndex != this.m_missileLaunchAnimIndex)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			result = base.CanTriggerAnimAtIndexForTaunt(animIndex);
 		}
 		else
@@ -146,19 +107,6 @@ public class SpaceMarineMissileBarrage : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarineMissileBarrage))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SpaceMarineMissileBarrage);
 			this.Setup();
 		}
@@ -180,19 +128,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.ModdedMissileActiveDuration()).MethodHandle;
-			}
 			result = 1;
 		}
 		else
@@ -206,30 +141,8 @@ public class SpaceMarineMissileBarrage : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.ModdedEffectOnTargets()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_missileHitEffectOverride.m_applyEffect)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityMod.m_missileHitEffectOverride;
 			}
 		}
@@ -241,19 +154,6 @@ public class SpaceMarineMissileBarrage : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpaceMarineMissileBarrage.ModdedExtraDamagePerTarget()).MethodHandle;
-			}
 			result = 0;
 		}
 		else

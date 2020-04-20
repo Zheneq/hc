@@ -30,41 +30,10 @@ public class PosInsideChecker_Cone : IPosInsideChecker
 		bool result = false;
 		if (this.m_coneWidthAngle < 180f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PosInsideChecker_Cone.AddTestPosForBarrier(List<Vector3>, Barrier)).MethodHandle;
-			}
 			if (testPoints != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (barrier != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 endPos = barrier.GetEndPos1();
 					Vector3 endPos2 = barrier.GetEndPos2();
 					float num = 0.49f * this.m_coneWidthAngle;
@@ -74,15 +43,6 @@ public class PosInsideChecker_Cone : IPosInsideChecker
 						Vector3 vector = VectorUtils.AngleDegreesToVector(this.m_coneCenterAngle + (float)i * num);
 						if (barrier.CrossingBarrier(this.m_coneStart, this.m_coneStart + vector * d))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag;
 							Vector3 lineLineIntersection = VectorUtils.GetLineLineIntersection(this.m_coneStart, vector, endPos, endPos2 - endPos, out flag);
 							if (flag)
@@ -92,15 +52,6 @@ public class PosInsideChecker_Cone : IPosInsideChecker
 								result = true;
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}

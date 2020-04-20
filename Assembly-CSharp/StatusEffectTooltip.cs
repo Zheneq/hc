@@ -16,33 +16,11 @@ public class StatusEffectTooltip : MonoBehaviour
 		List<HUD_UIResources.StatusTypeIcon> list2 = new List<HUD_UIResources.StatusTypeIcon>();
 		if (HUD_UIResources.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StatusEffectTooltip.Awake()).MethodHandle;
-			}
 			for (int i = 0; i < 0x3A; i++)
 			{
 				HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType((StatusType)i);
 				if (iconForStatusType.displayInStatusList)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (iconForStatusType.isDebuff)
 					{
 						list2.Add(iconForStatusType);
@@ -52,15 +30,6 @@ public class StatusEffectTooltip : MonoBehaviour
 						list.Add(iconForStatusType);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int j = 0; j < list.Count; j++)
@@ -77,27 +46,9 @@ public class StatusEffectTooltip : MonoBehaviour
 			num += statusEffectTooltipEntry.m_layoutElement.preferredHeight + 4f;
 			if (j + 1 == list.Count)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				statusEffectTooltipEntry.m_layoutElement.preferredHeight += 20f;
 				num += 20f;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int k = 0; k < list2.Count; k++)
 		{
@@ -111,15 +62,6 @@ public class StatusEffectTooltip : MonoBehaviour
 			statusEffectTooltipEntry2.m_statusEffectText.text = string.Format("<color=orange>{0}</color> - {1}", statusTypeIcon2.buffName, statusTypeIcon2.buffDescription);
 			statusEffectTooltipEntry2.m_layoutElement.preferredHeight = statusEffectTooltipEntry2.m_statusEffectText.GetPreferredValues().y;
 			num += statusEffectTooltipEntry2.m_layoutElement.preferredHeight + 4f;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		num += 4f;
 		(base.gameObject.transform as RectTransform).sizeDelta = new Vector2((base.gameObject.transform as RectTransform).sizeDelta.x, num);

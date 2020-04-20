@@ -83,19 +83,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FishManStaticCone.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = fishManStaticCone.m_coneWidthAngle;
 		}
 		else
@@ -110,15 +97,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = fishManStaticCone.m_coneWidthAngleMin;
 		}
 		else
@@ -134,15 +112,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = fishManStaticCone.m_coneBackwardOffset;
 		}
 		else
@@ -157,15 +126,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = fishManStaticCone.m_penetrateLineOfSight;
 		}
 		else
@@ -180,15 +140,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = fishManStaticCone.m_maxTargets;
 		}
 		else
@@ -204,15 +155,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = fishManStaticCone.m_damageToEnemiesMax;
 		}
 		else
@@ -227,15 +169,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = fishManStaticCone.m_effectToEnemies;
 		}
 		else
@@ -251,15 +184,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = fishManStaticCone.m_healingToAlliesMax;
 		}
 		else
@@ -274,15 +198,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		StandardEffectInfo baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = fishManStaticCone.m_effectToAllies;
 		}
 		else
@@ -297,15 +212,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = fishManStaticCone.m_extraAllyHealForSingleHit;
 		}
 		else
@@ -320,15 +226,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = fishManStaticCone.m_extraEffectOnClosestAlly;
 		}
 		else
@@ -344,15 +241,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		int baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = fishManStaticCone.m_healToCasterPerEnemyHit;
 		}
 		else
@@ -367,15 +255,6 @@ public class AbilityMod_FishManStaticCone : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = fishManStaticCone.m_healToCasterPerAllyHit;
 		}
 		else

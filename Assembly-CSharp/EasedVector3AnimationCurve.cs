@@ -13,19 +13,6 @@ internal class EasedVector3AnimationCurve : Eased<Vector3>
 	{
 		if (this.m_curve == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EasedVector3AnimationCurve.CalcValue()).MethodHandle;
-			}
 			throw new ApplicationException("CalcValue called without curve being set.  Please use the version of EaseTo that takes a curve and not the base.");
 		}
 		float num = Time.time - this.m_startTime;

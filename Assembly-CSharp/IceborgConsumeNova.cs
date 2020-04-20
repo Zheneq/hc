@@ -30,31 +30,9 @@ public class IceborgConsumeNova : GenericAbility_Container
 	{
 		if (targetActor == caster)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConsumeNova.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			int numNovaEffects = 0;
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numNovaEffects = (int)this.m_syncComp.m_numNovaEffectsOnTurnStart;
 			}
 			int absorb = this.CalcTotalShields(numNovaEffects);
@@ -71,19 +49,6 @@ public class IceborgConsumeNova : GenericAbility_Container
 		}
 		if (this.m_shieldGainPerNova > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgConsumeNova.CalcTotalShields(int)).MethodHandle;
-			}
 			num += numNovaEffects * this.m_shieldGainPerNova;
 		}
 		return num;

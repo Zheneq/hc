@@ -37,19 +37,6 @@ public class ValidatingMoveRequestState : TurnState
 		case TurnMessage.MOVEMENT_ACCEPTED:
 			if (this.m_SM.PreviousState == TurnStateEnum.DECIDING_MOVEMENT)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ValidatingMoveRequestState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
 				this.m_SM.NextState = TurnStateEnum.DECIDING_MOVEMENT;
 			}
 			else

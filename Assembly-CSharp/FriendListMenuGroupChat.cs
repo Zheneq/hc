@@ -29,19 +29,6 @@ public class FriendListMenuGroupChat : MonoBehaviour
 				componentsInChildren[i].m_nameLabel.color = Color.gray;
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListMenuGroupChat.NotifyOnEntryEnter(FriendListMenuGroupChatEntry)).MethodHandle;
-		}
 		this.ResizeWindowSize();
 	}
 
@@ -57,19 +44,6 @@ public class FriendListMenuGroupChat : MonoBehaviour
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[i].gameObject);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListMenuGroupChat.Setup()).MethodHandle;
-		}
 		this.numEntries = Mathf.FloorToInt(UnityEngine.Random.value * 10f);
 		for (int j = 0; j < this.numEntries; j++)
 		{
@@ -80,15 +54,6 @@ public class FriendListMenuGroupChat : MonoBehaviour
 			friendListMenuGroupChatEntry.transform.localPosition = Vector3.zero;
 			friendListMenuGroupChatEntry.transform.localEulerAngles = Vector3.zero;
 			friendListMenuGroupChatEntry.m_nameLabel.color = Color.gray;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.ResizeWindowSize();
 	}

@@ -77,19 +77,6 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		float num;
 		if (this.m_count > 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_FanOfBouncingLasers.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			num = this.m_angle;
 		}
 		else
@@ -100,15 +87,6 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 		float num3;
 		if (this.m_count > 1)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = num2 / (float)(this.m_count - 1);
 		}
 		else
@@ -134,15 +112,6 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 				base.AddActorInRange(actorData, dictionary[actorData].m_segmentOrigin, targetingActor, AbilityTooltipSubject.Primary, true);
 				if (dictionary[actorData].m_endpointIndex > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.SetIgnoreCoverMinDist(actorData, true);
 				}
 				AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext item;
@@ -155,28 +124,10 @@ public class AbilityUtil_Targeter_FanOfBouncingLasers : AbilityUtil_Targeter
 			this.CreateLaserHighlights(travelBoardSquareWorldPositionForLos, laserAnglePoints, i);
 			if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.ResetSquareIndicatorIndexToUse();
 				AreaEffectUtils.OperateOnSquaresInBounceLaser(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, laserAnglePoints, this.m_widthInSquares, targetingActor, false);
 				base.HideUnusedSquareIndicators();
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 

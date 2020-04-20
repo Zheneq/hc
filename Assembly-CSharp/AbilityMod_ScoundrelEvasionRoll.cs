@@ -42,41 +42,10 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_extraEnergyPerStepMod, "ExtraEnergyPerStep", string.Empty, scoundrelEvasionRoll.m_extraEnergyPerStep, true, false);
 			if (this.m_dropTrapWireOnStart)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelEvasionRoll.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
 				if (this.m_trapWireBarrierData != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_trapwirePattern != AbilityGridPattern.NoPattern)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_trapWireBarrierData.AddTooltipTokens(tokens, "TrapBarrier", false, null);
 					}
 				}
@@ -98,19 +67,6 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelEvasionRoll.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scoundrelEvasionRoll.m_extraEnergyPerStep;
 		}
 		else
@@ -120,26 +76,8 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		text = str + base.PropDesc(extraEnergyPerStepMod, prefix, showBaseVal, baseVal);
 		if (this.m_dropTrapWireOnStart && this.m_trapWireBarrierData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_trapwirePattern != AbilityGridPattern.NoPattern)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text + "Drops TrapWire with Pattern[ " + this.m_trapwirePattern.ToString() + " ]\n";
 				text += this.m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", string.Empty, flag, null);
 			}
@@ -147,15 +85,6 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		text += AbilityModHelper.GetModEffectInfoDesc(this.m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", string.Empty, flag, null);
 		if (this.m_techPointGainPerAdjacentAlly > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -167,15 +96,6 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		}
 		if (this.m_techPointGrantedToAdjacentAllies > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{

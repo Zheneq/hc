@@ -91,30 +91,8 @@ public abstract class Sequence : MonoBehaviour
 		GameObject result = null;
 		if (referenceModelType == Sequence.ReferenceModelType.Actor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetReferenceModel(ActorData, Sequence.ReferenceModelType)).MethodHandle;
-			}
 			if (referenceActorData != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = referenceActorData.gameObject;
 			}
 		}
@@ -124,49 +102,13 @@ public abstract class Sequence : MonoBehaviour
 		}
 		else if (referenceModelType == Sequence.ReferenceModelType.PersistentSatellite1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (referenceActorData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SatelliteController component = referenceActorData.GetComponent<SatelliteController>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetSatellite(0) != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = component.GetSatellite(0).gameObject;
 					}
 				}
@@ -236,30 +178,8 @@ public abstract class Sequence : MonoBehaviour
 		{
 			if (this.m_initialized)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.get_Ready()).MethodHandle;
-				}
 				if (base.enabled)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return !this.MarkedForRemoval;
 				}
 			}
@@ -281,32 +201,10 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (sequencesArray != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.MarkSequenceArrayForRemoval(Sequence[])).MethodHandle;
-			}
 			for (int i = 0; i < sequencesArray.Length; i++)
 			{
 				if (sequencesArray[i] != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					sequencesArray[i].MarkForRemoval();
 				}
 			}
@@ -318,52 +216,12 @@ public abstract class Sequence : MonoBehaviour
 		int result;
 		if (this.m_targetHitAnimation)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.RequestsHitAnimation(ActorData)).MethodHandle;
-			}
 			if (target != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.Caster != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_canTriggerHitReactOnAllyHit)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = ((this.Caster.GetOpposingTeam() == target.GetTeam()) ? 1 : 0);
 					}
 					else
@@ -397,33 +255,11 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (this.m_waitForClientEnable)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.OnDoClientEnable()).MethodHandle;
-			}
 			this.FinishSetup();
 			this.DoneInitialization();
 			this.ProcessSequenceVisibility();
 			if (SequenceManager.SequenceDebugTraceOn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning(string.Concat(new object[]
 				{
 					"<color=yellow>Client Enable: </color><<color=lightblue>",
@@ -442,19 +278,6 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (this.m_parentedFXs != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.OnDestroy()).MethodHandle;
-			}
 			using (List<GameObject>.Enumerator enumerator = this.m_parentedFXs.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -462,28 +285,10 @@ public abstract class Sequence : MonoBehaviour
 					GameObject obj = enumerator.Current;
 					UnityEngine.Object.Destroy(obj);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (SequenceManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SequenceManager.Get().OnDestroySequence(this);
 		}
 	}
@@ -492,19 +297,6 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (!this.InitializedEver)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.DoneInitialization()).MethodHandle;
-			}
 			this.m_initialized = true;
 			this.InitializedEver = true;
 		}
@@ -533,19 +325,6 @@ public abstract class Sequence : MonoBehaviour
 		Sequence.IExtraSequenceParams[] extraParams2;
 		if (extraParams != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.BaseInitialize_Client(BoardSquare, Vector3, Quaternion, ActorData[], ActorData, int, GameObject, short, SequenceSource, Sequence.IExtraSequenceParams[])).MethodHandle;
-			}
 			extraParams2 = extraParams;
 		}
 		else
@@ -557,15 +336,6 @@ public abstract class Sequence : MonoBehaviour
 		base.enabled = !this.m_waitForClientEnable;
 		if (!this.m_waitForClientEnable)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.FinishSetup();
 			this.DoneInitialization();
 		}
@@ -579,75 +349,17 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (!this.InitializedEver)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.OnActorAdded(ActorData)).MethodHandle;
-			}
 			if (base.enabled)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.MarkedForRemoval)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_caster == null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_casterId != ActorData.s_invalidActorIndex)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_caster = GameFlowData.Get().FindActorByActorIndex(this.m_casterId);
 							if (this.m_caster != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.FinishSetup();
 								this.DoneInitialization();
 								GameFlowData.s_onAddActor -= this.OnActorAdded;
@@ -664,47 +376,16 @@ public abstract class Sequence : MonoBehaviour
 		bool result = false;
 		if (this.IsActorConsideredVisible(this.Caster))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsCasterOrTargetsVisible()).MethodHandle;
-			}
 			result = true;
 		}
 		else if (this.Targets != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			foreach (ActorData actor in this.Targets)
 			{
 				if (this.IsActorConsideredVisible(actor))
 				{
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -721,44 +402,13 @@ public abstract class Sequence : MonoBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsSequencePosVisible()).MethodHandle;
-			}
 			if (this.GetSequencePos().magnitude > 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Board.Get().m_showLOS)
 				{
 					if (!clientFog.IsVisible(Board.Get().GetBoardSquare(this.GetSequencePos())))
 					{
 						goto IL_81;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				result = true;
@@ -778,19 +428,6 @@ public abstract class Sequence : MonoBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsTargetPosVisible()).MethodHandle;
-			}
 			if (clientFog.IsVisible(Board.Get().GetBoardSquare(this.TargetPos)))
 			{
 				result = true;
@@ -809,43 +446,12 @@ public abstract class Sequence : MonoBehaviour
 		FogOfWar clientFog = FogOfWar.GetClientFog();
 		if (clientFog != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsCasterOrTargetPosVisible()).MethodHandle;
-			}
 			if (this.IsActorConsideredVisible(this.Caster))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else if (clientFog.IsVisible(Board.Get().GetBoardSquare(this.TargetPos)))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -868,19 +474,6 @@ public abstract class Sequence : MonoBehaviour
 			}
 			else if (clientFog.IsVisible(Board.Get().GetBoardSquare(this.TargetPos)))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsCasterOrTargetOrTargetPosVisible()).MethodHandle;
-				}
 				result = true;
 			}
 			else if (this.Targets != null)
@@ -889,15 +482,6 @@ public abstract class Sequence : MonoBehaviour
 				{
 					if (this.IsActorConsideredVisible(actor))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = true;
 						break;
 					}
@@ -916,43 +500,12 @@ public abstract class Sequence : MonoBehaviour
 		this.m_lastSetVisibleValue = visible;
 		if (this.m_fxParent != null && this.m_parentedFXs != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.SetSequenceVisibility(bool)).MethodHandle;
-			}
 			if (this.m_sequenceHideType == Sequence.SequenceHideType.MoveOffCamera_KeepEnabled)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Transform transform = this.m_fxParent.transform;
 				Vector3 localPosition;
 				if (visible)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					localPosition = Vector3.zero;
 				}
 				else
@@ -970,39 +523,12 @@ public abstract class Sequence : MonoBehaviour
 				GameObject gameObject = this.m_parentedFXs[i];
 				if (gameObject)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_sequenceHideType == Sequence.SequenceHideType.MoveOffCamera_KeepEnabled)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Transform transform2 = gameObject.transform;
 						Vector3 localPosition2;
 						if (visible)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							localPosition2 = Vector3.zero;
 						}
 						else
@@ -1015,26 +541,8 @@ public abstract class Sequence : MonoBehaviour
 					{
 						if (this.m_sequenceHideType == Sequence.SequenceHideType.KillThenDisable)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!visible)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								PKFxFX[] componentsInChildren = gameObject.GetComponentsInChildren<PKFxFX>(true);
 								foreach (PKFxFX pkfxFX in componentsInChildren)
 								{
@@ -1045,15 +553,6 @@ public abstract class Sequence : MonoBehaviour
 						gameObject.SetActive(visible);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1068,41 +567,10 @@ public abstract class Sequence : MonoBehaviour
 		int result;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsActorConsideredVisible(ActorData)).MethodHandle;
-			}
 			if (actor.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(actor.GetActorModelData() == null))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (actor.GetActorModelData().IsVisibleToClient() ? 1 : 0);
 				}
 				else
@@ -1120,81 +588,23 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.ProcessSequenceVisibility()).MethodHandle;
-			}
 			if (!this.MarkedForRemoval)
 			{
 				if (this.m_phaseVisibilityType != Sequence.PhaseBasedVisibilityType.Any)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get() != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameState gameState = GameFlowData.Get().gameState;
 						if (this.m_phaseVisibilityType == Sequence.PhaseBasedVisibilityType.InDecisionOnly)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (gameState != GameState.BothTeams_Decision)
 							{
 								goto IL_A0;
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						if (this.m_phaseVisibilityType != Sequence.PhaseBasedVisibilityType.InResolutionOnly)
 						{
 							goto IL_A8;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (gameState == GameState.BothTeams_Resolve)
 						{
@@ -1209,15 +619,6 @@ public abstract class Sequence : MonoBehaviour
 				bool flag;
 				if (this.m_turnOffVFXDuringCinematicCam)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (CameraManager.Get())
 					{
 						flag = CameraManager.Get().InCinematic();
@@ -1229,51 +630,15 @@ public abstract class Sequence : MonoBehaviour
 				bool flag2 = flag;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_keepVFXInCinematicCamForCaster)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.Caster != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorData cinematicTargetActor = CameraManager.Get().GetCinematicTargetActor();
 							int cinematicActionAnimIndex = CameraManager.Get().GetCinematicActionAnimIndex();
 							bool flag3;
 							if (this.m_keepCasterVFXForAnimIndex > 0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag3 = (this.m_keepCasterVFXForAnimIndex == cinematicActionAnimIndex);
 							}
 							else
@@ -1284,15 +649,6 @@ public abstract class Sequence : MonoBehaviour
 							bool flag5;
 							if (this.m_keepCasterVFXForTurnOfSpawnOnly)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag5 = (this.AgeInTurns == 0);
 							}
 							else
@@ -1302,26 +658,8 @@ public abstract class Sequence : MonoBehaviour
 							bool flag6 = flag5;
 							if (cinematicTargetActor.ActorIndex == this.Caster.ActorIndex && flag4)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (flag6)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag2 = false;
 								}
 							}
@@ -1332,30 +670,12 @@ public abstract class Sequence : MonoBehaviour
 				PlayerData localPlayerData = GameFlowData.Get().LocalPlayerData;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetSequenceVisibility(false);
 				}
 				else
 				{
 					if (activeOwnedActorData == null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (localPlayerData == null)
 						{
 							this.SetSequenceVisibility(true);
@@ -1368,15 +688,6 @@ public abstract class Sequence : MonoBehaviour
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.Caster)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.Caster != null)
 						{
 							this.SetSequenceVisibility(this.IsActorConsideredVisible(this.Caster));
@@ -1400,38 +711,11 @@ public abstract class Sequence : MonoBehaviour
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.Target)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag7;
 						if (this.Targets != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.Targets.Length > 0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag7 = this.IsActorConsideredVisible(this.Targets[0]);
 								goto IL_30D;
 							}
@@ -1443,56 +727,20 @@ public abstract class Sequence : MonoBehaviour
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.TargetPos)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetSequenceVisibility(this.IsTargetPosVisible());
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.AlwaysOnlyIfCaster)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetSequenceVisibility(this.Caster == activeOwnedActorData);
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.AlwaysOnlyIfTarget)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetSequenceVisibility(this.Target == activeOwnedActorData);
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.AlwaysIfCastersTeam)
 					{
 						if (this.Caster != null && activeOwnedActorData != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.SetSequenceVisibility(this.Caster.GetTeam() == activeOwnedActorData.GetTeam());
 						}
 						else
@@ -1502,63 +750,18 @@ public abstract class Sequence : MonoBehaviour
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.SequencePosition)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetSequenceVisibility(this.IsSequencePosVisible());
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.Always)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetSequenceVisibility(true);
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.CastersTeamOrSequencePosition)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.Caster != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (activeOwnedActorData != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.SetSequenceVisibility(this.Caster.GetTeam() == activeOwnedActorData.GetTeam() || this.IsSequencePosVisible());
 								goto IL_4C3;
 							}
@@ -1568,29 +771,11 @@ public abstract class Sequence : MonoBehaviour
 					}
 					else if (this.m_visibilityType == Sequence.VisibilityType.TargetPosAndCaster)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag8;
 						if (this.IsTargetPosVisible())
 						{
 							if (!(this.Caster == null))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag8 = this.IsActorConsideredVisible(this.Caster);
 							}
 							else
@@ -1609,65 +794,20 @@ public abstract class Sequence : MonoBehaviour
 					{
 						if (this.m_visibilityType != Sequence.VisibilityType.TargetIfNotEvading)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_visibilityType != Sequence.VisibilityType.CasterIfNotEvading)
 							{
 								return;
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						bool sequenceVisibility3 = false;
 						ActorData actorData2;
 						if (this.m_visibilityType == Sequence.VisibilityType.TargetIfNotEvading)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							ActorData actorData;
 							if (this.Targets != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.Targets.Length > 0)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									actorData = this.Targets[0];
 									goto IL_59E;
 								}
@@ -1682,37 +822,10 @@ public abstract class Sequence : MonoBehaviour
 						}
 						if (actorData2 != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.IsActorConsideredVisible(actorData2))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (actorData2.GetActorMovement() != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									sequenceVisibility3 = !actorData2.GetActorMovement().InChargeState();
 								}
 								else
@@ -1771,44 +884,13 @@ public abstract class Sequence : MonoBehaviour
 		float num = 0f;
 		if (this.Targets != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.CallHitSequenceOnTargets(Vector3, float, List<ActorData>, bool)).MethodHandle;
-			}
 			for (int i = 0; i < this.Targets.Length; i++)
 			{
 				if (this.Targets[i] != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float magnitude = (this.Targets[i].transform.position - impactPos).magnitude;
 					if (magnitude > num)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = magnitude;
 					}
 				}
@@ -1817,15 +899,6 @@ public abstract class Sequence : MonoBehaviour
 		float num2;
 		if (num < Board.Get().squareSize / 2f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = defaultImpulseRadius;
 		}
 		else
@@ -1836,30 +909,12 @@ public abstract class Sequence : MonoBehaviour
 		ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(num, impactPos);
 		if (this.Targets != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.Targets.Length; j++)
 			{
 				if (this.Targets[j] != null)
 				{
 					if (actorsToIgnore != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorsToIgnore.Contains(this.Targets[j]))
 						{
 							goto IL_130;
@@ -1868,15 +923,6 @@ public abstract class Sequence : MonoBehaviour
 					this.Source.OnSequenceHit(this, this.Targets[j], impulseInfo, ActorModelData.RagdollActivation.HealthBased, tryHitReactIfAlreadyHit);
 				}
 				IL_130:;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.Source.OnSequenceHit(this, this.TargetPos, impulseInfo);
@@ -1888,26 +934,8 @@ public abstract class Sequence : MonoBehaviour
 		{
 			if (actorsInRadius[k] != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorsInRadius[k].GetActorModelData() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 direction = actorsInRadius[k].transform.position - impactPos;
 					direction.y = 0f;
 					direction.Normalize();
@@ -1928,20 +956,6 @@ public abstract class Sequence : MonoBehaviour
 				return result;
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetTargetHitPosition(ActorData, JointPopupProperty)).MethodHandle;
-			return result;
-		}
 		return result;
 	}
 
@@ -1951,53 +965,13 @@ public abstract class Sequence : MonoBehaviour
 		Vector3 result = Vector3.zero;
 		if (this.Targets != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetTargetHitPosition(int, JointPopupProperty)).MethodHandle;
-			}
 			if (this.Targets.Length > targetIndex && this.Targets[targetIndex] != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.Targets[targetIndex].gameObject != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					fxJoint.Initialize(this.Targets[targetIndex].gameObject);
 					if (fxJoint.m_jointObject != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = fxJoint.m_jointObject.transform.position;
 						flag = true;
 					}
@@ -2006,15 +980,6 @@ public abstract class Sequence : MonoBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.GetTargetHitPosition(targetIndex);
 		}
 		return result;
@@ -2029,52 +994,12 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (secondaryActorHits)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetTargetPosition(int, bool)).MethodHandle;
-			}
 			if (this.Targets != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.Targets.Length > targetIndex && this.Targets[targetIndex] != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.Targets[targetIndex].gameObject != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameObject gameObject = this.Targets[targetIndex].gameObject.FindInChildren(Sequence.s_defaultHitAttachJoint, 0);
 						if (gameObject != null)
 						{
@@ -2083,15 +1008,6 @@ public abstract class Sequence : MonoBehaviour
 						gameObject = this.Targets[targetIndex].gameObject.FindInChildren(Sequence.s_defaultFallbackHitAttachJoint, 0);
 						if (gameObject != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return gameObject.transform.position + Vector3.up;
 						}
 						return this.Targets[targetIndex].gameObject.transform.position;
@@ -2101,15 +1017,6 @@ public abstract class Sequence : MonoBehaviour
 		}
 		if (this.TargetSquare != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 a = this.TargetSquare.ToVector3();
 			return a + Vector3.up;
 		}
@@ -2122,30 +1029,8 @@ public abstract class Sequence : MonoBehaviour
 		bool result;
 		if (hitVisibilityType != Sequence.HitVisibilityType.Always)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsHitFXVisible(ActorData)).MethodHandle;
-			}
 			if (hitVisibilityType != Sequence.HitVisibilityType.Target)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else
@@ -2153,15 +1038,6 @@ public abstract class Sequence : MonoBehaviour
 				bool flag;
 				if (hitTarget)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = this.IsActorConsideredVisible(hitTarget);
 				}
 				else
@@ -2175,49 +1051,13 @@ public abstract class Sequence : MonoBehaviour
 		{
 			if (hitTarget != null && this.Caster != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (hitTarget.GetTeam() == this.Caster.GetTeam())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.GetTeam() != hitTarget.GetTeam())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return this.IsActorConsideredVisible(hitTarget);
 						}
 					}
@@ -2234,90 +1074,23 @@ public abstract class Sequence : MonoBehaviour
 		bool flag = this.IsHitFXVisible(hitTarget);
 		if (flag && this.Caster != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.IsHitFXVisibleWrtTeamFilter(ActorData, Sequence.HitVFXSpawnTeam)).MethodHandle;
-			}
 			if (hitTarget != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (teamFilter != Sequence.HitVFXSpawnTeam.AllTargets)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag2 = this.Caster.GetTeam() == hitTarget.GetTeam();
 					bool flag3;
 					if (teamFilter != Sequence.HitVFXSpawnTeam.AllTargets)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (teamFilter == Sequence.HitVFXSpawnTeam.AllExcludeCaster)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.Caster != hitTarget)
 							{
 								goto IL_D5;
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (teamFilter == Sequence.HitVFXSpawnTeam.AllyAndCaster)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (flag2)
 							{
 								goto IL_D5;
@@ -2325,15 +1098,6 @@ public abstract class Sequence : MonoBehaviour
 						}
 						if (teamFilter == Sequence.HitVFXSpawnTeam.EnemyOnly)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = !flag2;
 						}
 						else
@@ -2384,54 +1148,14 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (this.m_fxParent == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.InstantiateFX(GameObject, Vector3, Quaternion, bool, bool)).MethodHandle;
-			}
 			this.InitializeFXStorage();
 		}
 		if (tryApplyCameraOffset)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (prefab != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (prefab.GetComponent<OffsetVFXTowardsCamera>())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					position = OffsetVFXTowardsCamera.ProcessOffset(position);
 				}
 			}
@@ -2439,15 +1163,6 @@ public abstract class Sequence : MonoBehaviour
 		GameObject gameObject;
 		if (prefab != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject = UnityEngine.Object.Instantiate<GameObject>(prefab, position, rotation);
 		}
 		else
@@ -2455,26 +1170,8 @@ public abstract class Sequence : MonoBehaviour
 			gameObject = new GameObject("FallbackForNullFx");
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (logErrorOnNullPrefab)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError(base.gameObject.name + " Trying to instantiate null FX prefab");
 				}
 			}
@@ -2490,30 +1187,8 @@ public abstract class Sequence : MonoBehaviour
 		GameEventManager gameEventManager = GameEventManager.Get();
 		if (gameEventManager != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.ReplaceVFXPrefabs(GameObject)).MethodHandle;
-			}
 			if (this.Caster != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameEventManager.FireEvent(GameEventManager.EventType.ReplaceVFXPrefab, new GameEventManager.ReplaceVFXPrefab
 				{
 					characterResourceLink = this.Caster.GetCharacterResourceLink(),
@@ -2529,19 +1204,6 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (fx != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.SetAttribute(GameObject, string, int)).MethodHandle;
-			}
 			PKFxFX[] componentsInChildren = fx.GetComponentsInChildren<PKFxFX>(true);
 			foreach (PKFxFX pkfxFX in componentsInChildren)
 			{
@@ -2550,30 +1212,12 @@ public abstract class Sequence : MonoBehaviour
 					PKFxManager.AttributeDesc desc = new PKFxManager.AttributeDesc(PKFxManager.BaseType.Int, name);
 					if (pkfxFX.AttributeExists(desc))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pkfxFX.SetAttribute(new PKFxManager.Attribute(desc)
 						{
 							m_Value0 = (float)value
 						});
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2582,60 +1226,20 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (fx != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.SetAttribute(GameObject, string, float)).MethodHandle;
-			}
 			PKFxFX[] componentsInChildren = fx.GetComponentsInChildren<PKFxFX>(true);
 			foreach (PKFxFX pkfxFX in componentsInChildren)
 			{
 				if (pkfxFX != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PKFxManager.AttributeDesc desc = new PKFxManager.AttributeDesc(PKFxManager.BaseType.Float, name);
 					if (pkfxFX.AttributeExists(desc))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pkfxFX.SetAttribute(new PKFxManager.Attribute(desc)
 						{
 							m_Value0 = value
 						});
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2644,45 +1248,14 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (fx != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.SetAttribute(GameObject, string, Vector3)).MethodHandle;
-			}
 			PKFxFX[] componentsInChildren = fx.GetComponentsInChildren<PKFxFX>(true);
 			foreach (PKFxFX pkfxFX in componentsInChildren)
 			{
 				if (pkfxFX != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PKFxManager.AttributeDesc desc = new PKFxManager.AttributeDesc(PKFxManager.BaseType.Float3, name);
 					if (pkfxFX.AttributeExists(desc))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pkfxFX.SetAttribute(new PKFxManager.Attribute(desc)
 						{
 							m_Value0 = value.x,
@@ -2692,15 +1265,6 @@ public abstract class Sequence : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -2708,33 +1272,11 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (!this.Source.RemoveAtEndOfTurn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.AreFXFinished(GameObject)).MethodHandle;
-			}
 			return false;
 		}
 		bool result = false;
 		if (fx != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!fx.activeSelf)
 			{
 				result = true;
@@ -2743,26 +1285,8 @@ public abstract class Sequence : MonoBehaviour
 			{
 				if (fx.GetComponent<ParticleSystem>() != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!fx.GetComponent<ParticleSystem>().IsAlive())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
@@ -2774,26 +1298,8 @@ public abstract class Sequence : MonoBehaviour
 					{
 						if (pkfxFX.Alive())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -2806,31 +1312,9 @@ public abstract class Sequence : MonoBehaviour
 		float result = 1f;
 		if (fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetFXDuration(GameObject)).MethodHandle;
-			}
 			ParticleSystem component = fxPrefab.GetComponent<ParticleSystem>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = component.main.duration;
 			}
 			else
@@ -2840,42 +1324,15 @@ public abstract class Sequence : MonoBehaviour
 				PKFxFX[] componentsInChildren = fxPrefab.GetComponentsInChildren<PKFxFX>(true);
 				if (componentsInChildren.Length > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < componentsInChildren.Length; i++)
 					{
 						if (componentsInChildren[i] != null && componentsInChildren[i].AttributeExists(attributeDesc))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = Mathf.Max(new float[]
 							{
 								componentsInChildren[i].GetAttributeFromDesc(attributeDesc).ValueFloat
 							});
 						}
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -2888,56 +1345,16 @@ public abstract class Sequence : MonoBehaviour
 		GameObject gameObject = null;
 		if (targetActor != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.SpawnAndAttachFx(Sequence, GameObject, ActorData, JointPopupProperty, bool, bool, bool)).MethodHandle;
-			}
 			if (!fxJoint.IsInitialized())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fxJoint.Initialize(targetActor.gameObject);
 			}
 			if (fxPrefab != null)
 			{
 				if (fxJoint.m_jointObject != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (fxJoint.m_jointObject.transform.localScale != Vector3.zero)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (attachToJoint)
 						{
 							gameObject = sequence.InstantiateFX(fxPrefab);
@@ -2947,30 +1364,12 @@ public abstract class Sequence : MonoBehaviour
 							Quaternion rotation = default(Quaternion);
 							if (aimAtCaster)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 position = sequence.Caster.transform.position;
 								Vector3 vector = position - fxJoint.m_jointObject.transform.position;
 								vector.y = 0f;
 								vector.Normalize();
 								if (reverseDir)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									vector *= -1f;
 								}
 								rotation.SetLookRotation(vector);
@@ -2984,30 +1383,12 @@ public abstract class Sequence : MonoBehaviour
 				Quaternion rotation2 = default(Quaternion);
 				if (aimAtCaster)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position3 = sequence.Caster.transform.position;
 					Vector3 vector2 = position3 - position2;
 					vector2.y = 0f;
 					vector2.Normalize();
 					if (reverseDir)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector2 *= -1f;
 					}
 					rotation2.SetLookRotation(vector2);
@@ -3027,19 +1408,6 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (this.m_parentedFXs == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.AttachToBone(GameObject, GameObject)).MethodHandle;
-			}
 			this.InitializeFXStorage();
 		}
 		GameObject gameObject = new GameObject();
@@ -3064,19 +1432,6 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.CreateImpulseInfoWithActorForward(ActorData)).MethodHandle;
-			}
 			return new ActorModelData.ImpulseInfo(actor.transform.position, Vector3.up + actor.transform.forward);
 		}
 		return null;
@@ -3086,32 +1441,10 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (fromActor != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.CreateImpulseInfoBetweenActors(ActorData, ActorData)).MethodHandle;
-			}
 			if (targetActor != null)
 			{
 				if (fromActor == targetActor)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return Sequence.CreateImpulseInfoWithActorForward(fromActor);
 				}
 				return new ActorModelData.ImpulseInfo(targetActor.transform.position, targetActor.transform.position - fromActor.transform.position);
@@ -3134,19 +1467,6 @@ public abstract class Sequence : MonoBehaviour
 		object obj;
 		if (this.Caster == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.ToString()).MethodHandle;
-			}
 			obj = "NULL";
 		}
 		else
@@ -3162,19 +1482,6 @@ public abstract class Sequence : MonoBehaviour
 		string text = string.Empty;
 		if (this.Targets != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetTargetsString()).MethodHandle;
-			}
 			if (this.Targets.Length > 0)
 			{
 				for (int i = 0; i < this.Targets.Length; i++)
@@ -3182,39 +1489,12 @@ public abstract class Sequence : MonoBehaviour
 					ActorData actorData = this.Targets[i];
 					if (actorData != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (text.Length > 0)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text += " | ";
 						}
 						text += actorData.ActorIndex.ToString();
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -3225,31 +1505,9 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (iParams != null && iParams is Sequence.PhaseTimingExtraParams)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.OverridePhaseTimingParams(Sequence.PhaseTimingParameters, Sequence.IExtraSequenceParams)).MethodHandle;
-			}
 			Sequence.PhaseTimingExtraParams phaseTimingExtraParams = iParams as Sequence.PhaseTimingExtraParams;
 			if (phaseTimingExtraParams != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (timingParams != null && timingParams.m_acceptOverrideFromParams)
 				{
 					if ((int)phaseTimingExtraParams.m_turnDelayStartOverride >= 0)
@@ -3258,42 +1516,15 @@ public abstract class Sequence : MonoBehaviour
 					}
 					if ((int)phaseTimingExtraParams.m_turnDelayEndOverride >= 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						timingParams.m_turnDelayEnd = (int)phaseTimingExtraParams.m_turnDelayEndOverride;
 					}
 					if ((int)phaseTimingExtraParams.m_abilityPhaseStartOverride >= 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						timingParams.m_usePhaseStartTiming = true;
 						timingParams.m_abilityPhaseStart = (AbilityPriority)phaseTimingExtraParams.m_abilityPhaseStartOverride;
 					}
 					if ((int)phaseTimingExtraParams.m_abilityPhaseEndOverride >= 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						timingParams.m_usePhaseEndTiming = true;
 						timingParams.m_abilityPhaseEnd = (AbilityPriority)phaseTimingExtraParams.m_abilityPhaseEndOverride;
 					}
@@ -3307,19 +1538,6 @@ public abstract class Sequence : MonoBehaviour
 		string text = this.m_setupNotes.m_notes;
 		if (string.IsNullOrEmpty(text))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetInEditorDescription()).MethodHandle;
-			}
 			text = "<empty>";
 		}
 		string str = "Setup Note: " + text + "\n----------\n";
@@ -3328,15 +1546,6 @@ public abstract class Sequence : MonoBehaviour
 			str += "<[x] Target Hit Animation> Can trigger hit react anim\n\n";
 			if (this.m_canTriggerHitReactOnAllyHit)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str += "Can trigger hit react on ally hit\n\n";
 			}
 		}
@@ -3349,19 +1558,6 @@ public abstract class Sequence : MonoBehaviour
 		string text = string.Empty;
 		if (this.m_visibilityType == Sequence.VisibilityType.Always)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetVisibilityDescription()).MethodHandle;
-			}
 			text += "<color=yellow>WARNING: </color>VisibilityType is set to be always visible. Ignore if that is intended.\n";
 		}
 		return text;
@@ -3379,45 +1575,14 @@ public abstract class Sequence : MonoBehaviour
 		usesSeqPos = false;
 		if (visType == Sequence.VisibilityType.Always)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GetVisibilityTypeDescription(Sequence.VisibilityType, bool*, bool*)).MethodHandle;
-			}
 			result = "always visible";
 		}
 		else if (visType == Sequence.VisibilityType.Caster)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = "visible if " + Sequence.c_casterToken + " is visible";
 		}
 		else if (visType == Sequence.VisibilityType.CasterOrTarget)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Concat(new string[]
 			{
 				"visible if either ",
@@ -3429,15 +1594,6 @@ public abstract class Sequence : MonoBehaviour
 		}
 		else if (visType == Sequence.VisibilityType.CasterOrTargetPos)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Concat(new string[]
 			{
 				"visible if either ",
@@ -3450,15 +1606,6 @@ public abstract class Sequence : MonoBehaviour
 		}
 		else if (visType == Sequence.VisibilityType.CasterOrTargetOrTargetPos)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Concat(new string[]
 			{
 				"visible if either ",
@@ -3477,29 +1624,11 @@ public abstract class Sequence : MonoBehaviour
 		}
 		else if (visType == Sequence.VisibilityType.TargetPos)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = "visible if " + Sequence.c_targetPosToken + " square is visible";
 			usesTargetPos = true;
 		}
 		else if (visType == Sequence.VisibilityType.AlwaysOnlyIfCaster)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Concat(new string[]
 			{
 				"visible only if ",
@@ -3522,15 +1651,6 @@ public abstract class Sequence : MonoBehaviour
 		}
 		else if (visType == Sequence.VisibilityType.AlwaysIfCastersTeam)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Concat(new string[]
 			{
 				"visible if ",
@@ -3547,15 +1667,6 @@ public abstract class Sequence : MonoBehaviour
 		}
 		else if (visType == Sequence.VisibilityType.CastersTeamOrSequencePosition)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Concat(new string[]
 			{
 				"visible if ",
@@ -3570,15 +1681,6 @@ public abstract class Sequence : MonoBehaviour
 		}
 		else if (visType == Sequence.VisibilityType.TargetPosAndCaster)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = string.Concat(new string[]
 			{
 				"visible if ",
@@ -3622,19 +1724,6 @@ public abstract class Sequence : MonoBehaviour
 			this.m_turnDelayEnd--;
 			if (this.m_usePhaseEndTiming && !this.m_finished && this.m_turnDelayEnd < 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.PhaseTimingParameters.OnTurnStart(int)).MethodHandle;
-				}
 				if (this.m_abilityPhaseEnd != AbilityPriority.INVALID)
 				{
 					this.m_finished = true;
@@ -3646,19 +1735,6 @@ public abstract class Sequence : MonoBehaviour
 		{
 			if (this.m_turnDelayStart <= 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.PhaseTimingParameters.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-				}
 				if (abilityPhase == this.m_abilityPhaseStart)
 				{
 					this.m_started = true;
@@ -3666,26 +1742,8 @@ public abstract class Sequence : MonoBehaviour
 			}
 			if (this.m_turnDelayEnd <= 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityPhase == this.m_abilityPhaseEnd)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_finished = true;
 				}
 			}
@@ -3699,32 +1757,10 @@ public abstract class Sequence : MonoBehaviour
 				{
 					return false;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.PhaseTimingParameters.ShouldSequenceBeActive()).MethodHandle;
-				}
 			}
 			bool result;
 			if (this.m_finished)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = !this.m_usePhaseEndTiming;
 			}
 			else
@@ -3739,30 +1775,8 @@ public abstract class Sequence : MonoBehaviour
 			bool result = false;
 			if (this.m_turnDelayStart == 0 && abilityPhase == this.m_abilityPhaseStart)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.PhaseTimingParameters.ShouldSpawnSequence(AbilityPriority)).MethodHandle;
-				}
 				if (this.m_usePhaseStartTiming)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
@@ -3774,30 +1788,8 @@ public abstract class Sequence : MonoBehaviour
 			bool result = false;
 			if (this.m_turnDelayEnd == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.PhaseTimingParameters.ShouldStopSequence(AbilityPriority)).MethodHandle;
-				}
 				if (abilityPhase == this.m_abilityPhaseEnd)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_usePhaseEndTiming)
 					{
 						result = true;
@@ -3943,58 +1935,18 @@ public abstract class Sequence : MonoBehaviour
 		{
 			if (this.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.ScaleControl)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.FxAttributeParam.GetAttributeName()).MethodHandle;
-				}
 				return "scaleControl";
 			}
 			if (this.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.LengthInSquares)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "lengthInSquares";
 			}
 			if (this.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.WidthInSquares)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "widthInSquares";
 			}
 			if (this.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.AbilityAreaLength)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return "abilityAreaLength";
 			}
 			return string.Empty;
@@ -4077,19 +2029,6 @@ public abstract class Sequence : MonoBehaviour
 			sbyte b;
 			if (actors != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Sequence.GenericActorListParam.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
 				b = (sbyte)actors.Count;
 			}
 			else
@@ -4104,15 +2043,6 @@ public abstract class Sequence : MonoBehaviour
 				sbyte b3;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					b3 = (sbyte)actorData.ActorIndex;
 				}
 				else
@@ -4121,15 +2051,6 @@ public abstract class Sequence : MonoBehaviour
 				}
 				sbyte b4 = b3;
 				stream.Serialize(ref b4);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 

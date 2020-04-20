@@ -141,19 +141,6 @@ public class PersistedStats : ICloneable
 	{
 		if (TypeOfStat == StatDisplaySettings.StatType.IncomingDamageDodgeByEvade)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.GetGameplayStat(StatDisplaySettings.StatType)).MethodHandle;
-			}
 			return this.NetDamageAvoidedByEvadesPerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalBadgePoints)
@@ -170,41 +157,14 @@ public class PersistedStats : ICloneable
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalDeaths)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.TotalDeaths;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.MovementDenied)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.MovementDeniedByMePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnergyGainPerTurn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.EnergyGainPerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamagePerTurn)
@@ -213,41 +173,14 @@ public class PersistedStats : ICloneable
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.NetBoostedOutgoingDamage)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.BoostedOutgoingDamagePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageEfficiency)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.DamageEfficiency;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.KillParticipation)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.KillParticipation;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EffectiveHealAndAbsorb)
@@ -260,93 +193,30 @@ public class PersistedStats : ICloneable
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamExtraEnergyByEnergizedFromMe)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.TeamBoostedEnergyByMePerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageTakenPerLife)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.DamageTakenPerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.EnemiesSightedPerLife)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.EnemiesSightedPerTurn;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TankingPerLife)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.TankingPerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.DamageDonePerLife)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.DamageDonePerLife;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TeamMitigation)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.TeamMitigation;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalTurns)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.TotalTurns;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.TotalTeamDamageReceived)
@@ -363,15 +233,6 @@ public class PersistedStats : ICloneable
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.SecondsPlayed)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.SecondsPlayed;
 		}
 		if (TypeOfStat == StatDisplaySettings.StatType.MatchesWon)
@@ -429,30 +290,8 @@ public class PersistedStats : ICloneable
 		{
 			if (i < StatsToBeMerged.FreelancerSpecificStats.Count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.CombineStats(PersistedStats)).MethodHandle;
-				}
 				this.FreelancerSpecificStats[i].CombineStats(StatsToBeMerged.FreelancerSpecificStats[i]);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -460,41 +299,10 @@ public class PersistedStats : ICloneable
 	{
 		if (this.FreelancerSpecificStats != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.GetFreelancerStat(int)).MethodHandle;
-			}
 			if (-1 < index)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (index < this.FreelancerSpecificStats.Count)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.FreelancerSpecificStats[index];
 				}
 			}
@@ -548,19 +356,6 @@ public class PersistedStats : ICloneable
 		persistedStats.MatchesWon = this.MatchesWon.GetCopy();
 		if (this.FreelancerSpecificStats == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PersistedStats.Clone()).MethodHandle;
-			}
 			persistedStats.FreelancerSpecificStats = null;
 		}
 		else
@@ -571,15 +366,6 @@ public class PersistedStats : ICloneable
 				PersistedStatEntry item = new PersistedStatEntry();
 				item = (PersistedStatEntry)this.FreelancerSpecificStats[i].Clone();
 				persistedStats.FreelancerSpecificStats.Add(item);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return persistedStats;

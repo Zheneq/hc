@@ -17,19 +17,6 @@ public class GameEventManager
 	{
 		if (GameEventManager.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameEventManager.Get()).MethodHandle;
-			}
 			GameEventManager.s_instance = new GameEventManager();
 		}
 		return GameEventManager.s_instance;
@@ -70,34 +57,12 @@ public class GameEventManager
 					action(whoTo, eventType);
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameEventManager.PerformActionOnEvents(IGameEventListener, Action<IGameEventListener, GameEventManager.EventType>)).MethodHandle;
-			}
 		}
 		finally
 		{
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disposable.Dispose();
 			}
 		}
@@ -109,19 +74,6 @@ public class GameEventManager
 		List<WeakReference> list;
 		if (!this.m_listenersByEvent.TryGetValue(eventType, out list))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameEventManager.AddListener(IGameEventListener, GameEventManager.EventType)).MethodHandle;
-			}
 			list = new List<WeakReference>
 			{
 				item
@@ -130,15 +82,6 @@ public class GameEventManager
 		}
 		else if (!list.Contains(item))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list.Add(item);
 		}
 	}
@@ -155,32 +98,10 @@ public class GameEventManager
 				WeakReference weakReference = list[i];
 				if (weakReference.IsAlive)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameEventManager.RemoveListener(IGameEventListener, GameEventManager.EventType)).MethodHandle;
-					}
 					if (weakReference.Target == listener)
 					{
 						if (this.m_firingEventsCount == 0)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Remove(weakReference);
 						}
 						else
@@ -195,15 +116,6 @@ public class GameEventManager
 					}
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -229,31 +141,9 @@ public class GameEventManager
 					WeakReference weakReference = list[i];
 					if (weakReference.IsAlive)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(GameEventManager.FireEvent(GameEventManager.EventType, GameEventManager.GameEventArgs, IGameEventListener)).MethodHandle;
-						}
 						if (whoTo == null)
 						{
 							goto IL_75;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						if (whoTo == weakReference.Target)
 						{
@@ -276,15 +166,6 @@ public class GameEventManager
 					IL_B6:
 					i++;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_firingEventsCount--;
 				this.RemoveDeadReferences();
 			}
@@ -300,19 +181,6 @@ public class GameEventManager
 	{
 		if (this.m_firingEventsCount == 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameEventManager.RemoveDeadReferences()).MethodHandle;
-			}
 			int i = 0;
 			int count = this.m_referencesToRemove.Count;
 			while (i < count)
@@ -320,15 +188,6 @@ public class GameEventManager
 				GameEventManager.ReferenceToRemove referenceToRemove = this.m_referencesToRemove[i];
 				referenceToRemove.referenceList.Remove(referenceToRemove.item);
 				i++;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_referencesToRemove.Clear();
 		}

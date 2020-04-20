@@ -37,19 +37,6 @@ public class GrydKnockbackTrap : Ability
 		AbilityUtil_Targeter.AffectsActor affectsActor;
 		if (trapFieldInfo.IncludeAllies())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydKnockbackTrap.Setup()).MethodHandle;
-			}
 			affectsActor = AbilityUtil_Targeter.AffectsActor.Possible;
 		}
 		else
@@ -65,15 +52,6 @@ public class GrydKnockbackTrap : Ability
 			abilityUtil_Targeter_KnockbackAoE.m_lockToCardinalDirs = this.m_lockToCardinalDirs;
 			abilityUtil_Targeter_KnockbackAoE.m_showArrowHighlight = true;
 			base.Targeters.Add(abilityUtil_Targeter_KnockbackAoE);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -92,19 +70,6 @@ public class GrydKnockbackTrap : Ability
 		GroundEffectField result;
 		if (this.m_cachedTrapFieldInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydKnockbackTrap.GetTrapFieldInfo()).MethodHandle;
-			}
 			result = this.m_cachedTrapFieldInfo;
 		}
 		else
@@ -142,19 +107,6 @@ public class GrydKnockbackTrap : Ability
 		int val;
 		if (abilityMod_ThiefHiddenTrap)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GrydKnockbackTrap.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ThiefHiddenTrap.m_maxExtraDamageMod.GetModifiedValue(this.m_maxExtraDamage);
 		}
 		else

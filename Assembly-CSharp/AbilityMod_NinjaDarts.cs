@@ -67,19 +67,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		NinjaDarts ninjaDarts = targetAbility as NinjaDarts;
 		if (ninjaDarts != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaDarts.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", ninjaDarts.m_laserInfo, true);
 			AbilityMod.AddToken(tokens, this.m_laserCountMod, "LaserCount", string.Empty, ninjaDarts.m_laserCount, true, false);
 			AbilityMod.AddToken(tokens, this.m_angleInBetweenMod, "AngleInBetween", string.Empty, ninjaDarts.m_angleInBetween, true, false, false);
@@ -112,19 +99,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaDarts.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseLaserInfo = ninjaDarts.m_laserInfo;
 		}
 		else
@@ -140,15 +114,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = ninjaDarts.m_angleInBetween;
 		}
 		else
@@ -163,15 +128,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = ninjaDarts.m_changeAngleByCursorDistance;
 		}
 		else
@@ -186,15 +142,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = ninjaDarts.m_targeterMinAngle;
 		}
 		else
@@ -210,15 +157,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = ninjaDarts.m_targeterMinInterpDistance;
 		}
 		else
@@ -233,15 +171,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = ninjaDarts.m_targeterMaxInterpDistance;
 		}
 		else
@@ -256,15 +185,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = ninjaDarts.m_damage;
 		}
 		else
@@ -279,15 +199,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = ninjaDarts.m_extraDamagePerSubseqHit;
 		}
 		else
@@ -302,15 +213,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = ninjaDarts.m_enemySingleHitEffect;
 		}
 		else
@@ -325,15 +227,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		StandardEffectInfo baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = ninjaDarts.m_enemyMultiHitEffect;
 		}
 		else
@@ -349,15 +242,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		StandardEffectInfo baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = ninjaDarts.m_enemyExtraHitEffectForHitCount;
 		}
 		else
@@ -372,15 +256,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = ninjaDarts.m_allySingleHitEffect;
 		}
 		else
@@ -395,15 +270,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		StandardEffectInfo baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = ninjaDarts.m_allyMultiHitEffect;
 		}
 		else
@@ -418,15 +284,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = ninjaDarts.m_energyPerDartHit;
 		}
 		else
@@ -442,15 +299,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		bool baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = ninjaDarts.m_applyDeathmarkEffect;
 		}
 		else
@@ -465,15 +313,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		bool baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = ninjaDarts.m_ignoreCoverOnTargets;
 		}
 		else

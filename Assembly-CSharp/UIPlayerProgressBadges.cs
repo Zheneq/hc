@@ -53,19 +53,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadges.Init()).MethodHandle;
-			}
 			return;
 		}
 		this.m_initialized = true;
@@ -109,33 +96,11 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 				bool flag = season == ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadges.<Start>m__7(int)).MethodHandle;
-					}
 					return true;
 				}
 				List<PersistedCharacterData> list = new List<PersistedCharacterData>();
 				if (this.m_characterType != CharacterType.None)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(ClientGameManager.Get().GetPlayerCharacterData(this.m_characterType));
 				}
 				else
@@ -148,15 +113,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 					{
 						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				return false;
 			}, this.m_seasonsDropdownSlot);
@@ -192,19 +148,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		List<PersistedCharacterData> list = new List<PersistedCharacterData>();
 		if (this.m_characterType != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadges.HideOrShowSeasonDropdown()).MethodHandle;
-			}
 			list.Add(ClientGameManager.Get().GetPlayerCharacterData(this.m_characterType));
 		}
 		else
@@ -212,20 +155,8 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			list.AddRange(ClientGameManager.Get().GetAllPlayerCharacterData().Values);
 		}
 		IEnumerable<PersistedCharacterData> source = list;
-		if (UIPlayerProgressBadges.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIPlayerProgressBadges.<>f__am$cache0 = ((PersistedCharacterData x) => x.ExperienceComponent.BadgesEarnedBySeason.Keys);
-		}
-		using (IEnumerator<int> enumerator = source.SelectMany(UIPlayerProgressBadges.<>f__am$cache0).Distinct<int>().GetEnumerator())
+		
+		using (IEnumerator<int> enumerator = source.SelectMany(((PersistedCharacterData x) => x.ExperienceComponent.BadgesEarnedBySeason.Keys)).Distinct<int>().GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
@@ -233,27 +164,9 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(seasonNumber);
 				if (!seasonTemplate.IsTutorial)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_seasonsDropdownBtn, true, null);
 					return;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UIManager.SetGameObjectActive(this.m_seasonsDropdownBtn, false, null);
@@ -266,31 +179,9 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(this.m_season);
 		if (seasonTemplate != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadges.Setup()).MethodHandle;
-			}
 			if (!seasonTemplate.IsTutorial)
 			{
 				goto IL_6F;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_season = -1;
@@ -302,15 +193,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			{
 				UIPlayerProgressBadges.BadgeSlots badgeSlots = enumerator.Current;
 				badgeSlots.Reset();
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Dictionary<int, int> dictionary = new Dictionary<int, int>();
@@ -326,15 +208,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			{
 				if (persistedCharacterData.CharacterType.IsValidForHumanGameplay())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.GetBadges(persistedCharacterData, flag, dictionary);
 				}
 			}
@@ -350,15 +223,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			UIManager.SetGameObjectActive(nextSlot, true, null);
 			list.AddRange(consolidatedBadgeGroup.BadgeIDs);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		GameBalanceVars.GameResultBadge[] gameResultBadges = GameResultBadgeData.Get().GameResultBadges;
 		int j = 0;
 		while (j < gameResultBadges.Length)
@@ -367,15 +231,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			if (gameResultBadge.DisplayEvenIfConsolidated)
 			{
 				goto IL_26A;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!list.Contains(gameResultBadge.UniqueBadgeID))
 			{
@@ -393,15 +248,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			UIManager.SetGameObjectActive(nextSlot2, true, null);
 			goto IL_2BE;
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		using (Dictionary<GameBalanceVars.GameResultBadge.BadgeRole, UIPlayerProgressBadges.BadgeSlots>.ValueCollection.Enumerator enumerator3 = this.m_badgeRoleSlots.Values.GetEnumerator())
 		{
 			while (enumerator3.MoveNext())
@@ -409,29 +255,11 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 				UIPlayerProgressBadges.BadgeSlots badgeSlots4 = enumerator3.Current;
 				if (!badgeSlots4.IsVisible())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else if (badgeSlots4.HasSlotsLeft())
 				{
 					UIManager.SetGameObjectActive(badgeSlots4.GetNextSlot(new UIEventTriggerUtils.EventDelegate(this.OnScroll)), false, null);
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_gameModeDropdownBtn.Setup(StringUtil.TR_PersistedStatBucketName(this.m_gameType), CharacterType.None);
@@ -460,32 +288,10 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 		}
 		else if (charData.ExperienceComponent.BadgesEarnedBySeason.ContainsKey(this.m_season))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadges.GetBadges(PersistedCharacterData, bool, Dictionary<int, int>)).MethodHandle;
-			}
 			charData.ExperienceComponent.BadgesEarnedBySeason[this.m_season].TryGetValue(this.m_gameType, out dictionary);
 		}
 		if (dictionary != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (Dictionary<int, int>.Enumerator enumerator = dictionary.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -494,27 +300,9 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 					int num;
 					if (!existingBadges.TryGetValue(keyValuePair.Key, out num))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = 0;
 					}
 					existingBadges[keyValuePair.Key] = num + keyValuePair.Value;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -560,19 +348,6 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 			this.m_currentSlot++;
 			if (this.m_currentSlot <= this.Slots.Count)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBadges.BadgeSlots.GetNextSlot(UIEventTriggerUtils.EventDelegate)).MethodHandle;
-				}
 				return this.Slots[this.m_currentSlot - 1];
 			}
 			UIPlayerProgressBadgeEntry uiplayerProgressBadgeEntry = UnityEngine.Object.Instantiate<UIPlayerProgressBadgeEntry>(UIPlayerProgressBadges.BadgeSlots.BadgeEntryPrefab);

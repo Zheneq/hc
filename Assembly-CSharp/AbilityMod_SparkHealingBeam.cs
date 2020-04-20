@@ -55,19 +55,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_additionalHealOnRadiatedMod, "Heal_AdditionalOnRadiated", "additional damage on Radiated", sparkHealingBeam.m_additionalEnergizedHealing, true, false);
 			if (this.m_useBonusHealOverTime)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkHealingBeam.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
 				AbilityMod.AddToken(tokens, this.m_bonusAllyHealIncreaseRate, "BonusAllyHeal_GrowthRate", "increase in bonus heal per turn", 0, true, false);
 				AbilityMod.AddToken(tokens, this.m_maxAllyBonusHealAmount, "BonusAllyHeal_MaxHealAmount", "max bonus heal amount", 0, true, false);
 			}
@@ -97,19 +84,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SparkHealingBeam.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sparkHealingBeam.m_laserHealingAmount;
 		}
 		else
@@ -125,15 +99,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sparkHealingBeam.m_additionalEnergizedHealing;
 		}
 		else
@@ -143,15 +108,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		text = str2 + AbilityModHelper.GetModPropertyDesc(additionalHealOnRadiatedMod, prefix2, showBaseVal2, baseVal2);
 		if (this.m_useBonusHealOverTime)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += "Using Bonus Heal Over Time (please remember to put in a max cap)\n";
 			text += AbilityModHelper.GetModPropertyDesc(this.m_bonusAllyHealIncreaseRate, "[Bonus Ally Heal Increase Rate]", flag, 0);
 			text += AbilityModHelper.GetModPropertyDesc(this.m_maxAllyBonusHealAmount, "[Max Bonus Ally Heal Amount]", flag, 0);
@@ -164,15 +120,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sparkHealingBeam.m_energyOnCasterPerTurn;
 		}
 		else
@@ -188,15 +135,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sparkHealingBeam.m_laserHitEffect;
 		}
 		else
@@ -211,15 +149,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sparkHealingBeam.m_tetherDuration;
 		}
 		else
@@ -234,15 +163,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = sparkHealingBeam.m_laserInfo;
 		}
 		else
@@ -252,15 +172,6 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		text = str6 + AbilityModHelper.GetModPropertyDesc(laserInfoMod, prefix6, showBaseVal6, baseLaserInfo);
 		if (this.m_xDamageThreshold > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{

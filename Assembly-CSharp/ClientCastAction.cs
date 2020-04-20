@@ -23,19 +23,6 @@ public class ClientCastAction
 		clientCastAction.m_caster = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 		if (clientCastAction.m_caster != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCastAction.ClientCastAction_DeSerializeFromReader(NetworkReader*)).MethodHandle;
-			}
 			AbilityData.ActionType type = (AbilityData.ActionType)b;
 			clientCastAction.m_ability = clientCastAction.m_caster.GetAbilityData().GetAbilityOfActionType(type);
 		}
@@ -52,19 +39,6 @@ public class ClientCastAction
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientCastAction.OnCast()).MethodHandle;
-				}
 				this.m_caster.ClientUnresolvedTechPointGain += this.m_techPointGain;
 			}
 			this.m_caster.AddCombatText(this.m_techPointGain.ToString(), string.Empty, CombatTextCategory.TP_Recovery, BuffIconToDisplay.None);
@@ -73,15 +47,6 @@ public class ClientCastAction
 		{
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_caster.ClientUnresolvedTechPointLoss += this.m_techPointLoss;
 			}
 			this.m_caster.AddCombatText(this.m_techPointLoss.ToString(), string.Empty, CombatTextCategory.TP_Damage, BuffIconToDisplay.None);

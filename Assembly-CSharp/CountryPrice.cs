@@ -30,30 +30,8 @@ public class CountryPrice
 		CurrencyCode result = CurrencyCode.USD;
 		if (!currencyCodeString.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CountryPrice.StringToCurrencyCode(string)).MethodHandle;
-			}
 			if (Enum.IsDefined(typeof(CurrencyCode), currencyCodeString))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (CurrencyCode)Enum.Parse(typeof(CurrencyCode), currencyCodeString);
 			}
 		}

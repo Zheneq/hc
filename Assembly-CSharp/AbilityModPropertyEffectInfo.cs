@@ -16,19 +16,6 @@ public class AbilityModPropertyEffectInfo
 			StandardEffectInfo result = this.effectInfo;
 			if (this.useSequencesFromSource && input != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyEffectInfo.GetModifiedValue(StandardEffectInfo)).MethodHandle;
-				}
 				StandardEffectInfo shallowCopy = this.effectInfo.GetShallowCopy();
 				shallowCopy.m_effectData.m_sequencePrefabs = input.m_effectData.m_sequencePrefabs;
 				shallowCopy.m_effectData.m_tickSequencePrefab = input.m_effectData.m_tickSequencePrefab;

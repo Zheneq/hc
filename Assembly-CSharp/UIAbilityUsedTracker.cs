@@ -17,19 +17,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 	{
 		if (!(newAbility == null) && !(theOwner == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsedTracker.AddNewAbility(Ability, ActorData)).MethodHandle;
-			}
 			if (theOwner.IsVisibleToClient())
 			{
 				UIAbilityUsed uiabilityUsed = UnityEngine.Object.Instantiate<UIAbilityUsed>(this.m_abilityPrefab);
@@ -39,15 +26,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 				uiabilityUsed.Setup(newAbility, theOwner);
 				if (this.m_abilities == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_abilities = new List<UIAbilityUsed>();
 				}
 				this.m_abilities.Add(uiabilityUsed);
@@ -55,15 +33,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 				{
 					UnityEngine.Object.Destroy(this.m_abilities[0].gameObject);
 					this.m_abilities.RemoveAt(0);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				return;
 			}
@@ -74,19 +43,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 	{
 		if (this.m_abilities.Count == 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilityUsedTracker.ClearAllAbilties(UIQueueListPanel.UIPhase)).MethodHandle;
-			}
 			return;
 		}
 		if (phaseToClear != UIQueueListPanel.UIPhase.None)
@@ -95,26 +51,8 @@ public class UIAbilityUsedTracker : MonoBehaviour
 			{
 				if (phaseToClear != UIQueueListPanel.UIPhase.None)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (phaseToClear == UIQueueListPanel.GetUIPhaseFromAbilityPriority(this.m_abilities[i].GetAbilityRef().RunPriority))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						GameObject gameObject = this.m_abilities[i].gameObject;
 						this.m_abilities.RemoveAt(i);
 						UnityEngine.Object.Destroy(gameObject);
@@ -131,15 +69,6 @@ public class UIAbilityUsedTracker : MonoBehaviour
 				{
 					UIAbilityUsed uiabilityUsed = enumerator.Current;
 					UnityEngine.Object.Destroy(uiabilityUsed.gameObject);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_abilities.Clear();

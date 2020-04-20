@@ -36,19 +36,6 @@ public class MatchComponent : ICloneable
 				return this.Actors[i].Character;
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(MatchComponent.GetFirstPlayerCharacter()).MethodHandle;
-		}
 		return this.CharacterUsed;
 	}
 
@@ -63,19 +50,6 @@ public class MatchComponent : ICloneable
 		string text;
 		if (this.SubTypeLocTag != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchComponent.GetSubTypeNameTerm()).MethodHandle;
-			}
 			text = this.SubTypeLocTag.Split("@".ToCharArray()).First<string>();
 		}
 		else
@@ -85,15 +59,6 @@ public class MatchComponent : ICloneable
 		string text2 = text;
 		if (text2 == "unknown")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameType gameType = this.GameType;
 			switch (gameType)
 			{
@@ -121,15 +86,6 @@ public class MatchComponent : ICloneable
 		}
 		if (text2 == "unknown")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.MapName.EndsWith("CTF"))
 			{
 				text2 = "GenericBriefcase";

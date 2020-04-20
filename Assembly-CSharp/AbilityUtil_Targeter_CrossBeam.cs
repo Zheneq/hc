@@ -63,19 +63,6 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 		this.m_hitActorContext.Clear();
 		if (this.m_highlights.Count != this.GetNumLasers())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			this.ClearHighlightCursors(true);
 			float squareSize = Board.Get().squareSize;
 			float lengthInWorld = this.m_distanceInSquares * squareSize;
@@ -83,15 +70,6 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 			for (int i = 0; i < this.GetNumLasers(); i++)
 			{
 				this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, lengthInWorld, null));
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		List<Vector3> laserEndPoints = this.GetLaserEndPoints(currentTarget, targetingActor);
@@ -102,15 +80,6 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 		{
 			this.m_highlights[j].transform.position = position;
 			this.m_highlights[j].transform.rotation = Quaternion.LookRotation(laserEndPoints[j] - travelBoardSquareWorldPositionForLos);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		HashSet<ActorData> hashSet = new HashSet<ActorData>();
 		for (int k = 0; k < laserEndPoints.Count; k++)
@@ -130,39 +99,12 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 					ActorData actorData = enumerator.Current;
 					if (actorData != targetingActor)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool affectsTarget = base.GetAffectsTarget(actorData, targetingActor);
 						if (affectsTarget)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(actorData);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (List<ActorData>.Enumerator enumerator2 = list.GetEnumerator())
@@ -172,15 +114,6 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 					ActorData actorData2 = enumerator2.Current;
 					if (!hashSet.Contains(actorData2))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 						AbilityUtil_Targeter_CrossBeam.HitActorContext item;
 						item.actor = actorData2;
@@ -189,42 +122,15 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 						hashSet.Add(actorData2);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.UpdateLaserEndPointsForHiddenSquares(startPos, vector, k, targetingActor);
 		}
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Primary, false);
 		}
 		if (this.m_knockbackDistance > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num = 0;
 			base.EnableAllMovementArrows();
 			List<ActorData> visibleActorsInRange = this.GetVisibleActorsInRange();
@@ -235,54 +141,18 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 					ActorData actorData3 = enumerator3.Current;
 					if (actorData3.GetTeam() != targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.ActorMeetKnockbackConditions(actorData3, targetingActor))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData3, this.m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), this.m_knockbackDistance);
 							num = base.AddMovementArrowWithPrevious(actorData3, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			base.SetMovementArrowEnabledFromIndex(num, false);
 		}
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HandleShowSquareIndicators(targetingActor);
 		}
 	}
@@ -291,31 +161,9 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 	{
 		if (this.m_knockbackDistance > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.ActorMeetKnockbackConditions(ActorData, ActorData)).MethodHandle;
-			}
 			bool result;
 			if (this.m_knockbackThresholdDistance > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < this.m_knockbackThresholdDistance);
 			}
 			else
@@ -338,19 +186,6 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 			Vector3 item = VectorUtils.AngleDegreesToVector(num + (float)i * num2);
 			list.Add(item);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.GetLaserDirections(AbilityTarget, ActorData)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -367,19 +202,6 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 				Vector3 dir = enumerator.Current;
 				Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, dir, maxDistanceInWorld, this.m_penetrateLoS, caster, null, true);
 				list.Add(laserEndPoint);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.GetLaserEndPoints(AbilityTarget, ActorData)).MethodHandle;
 			}
 		}
 		return list;
@@ -398,19 +220,6 @@ public class AbilityUtil_Targeter_CrossBeam : AbilityUtil_Targeter
 		{
 			SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[i] as SquareInsideChecker_Box;
 			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, squareInsideChecker_Box.GetStartPos(), squareInsideChecker_Box.GetEndPos(), this.m_widthInSquares, targetingActor, this.m_penetrateLoS, null, this.m_squarePosCheckerList, false);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CrossBeam.HandleShowSquareIndicators(ActorData)).MethodHandle;
 		}
 		base.HideUnusedSquareIndicators();
 	}

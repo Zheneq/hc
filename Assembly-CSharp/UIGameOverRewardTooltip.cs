@@ -70,33 +70,11 @@ public class UIGameOverRewardTooltip : UITooltipBase
 	{
 		if (tooltipType == UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverRewardTooltip.Setup(int, int, int, int, int, int, UIGameOverRewardTooltip.RewardTooltipType)).MethodHandle;
-			}
 			this.m_baseTypeLabel.text = StringUtil.TR("BaseRankedPoints", "GameOver");
 			this.m_totalTypeLabel.text = StringUtil.TR("TotalRankedPoints", "GameOver");
 		}
 		else if (tooltipType == UIGameOverRewardTooltip.RewardTooltipType.ISOAmount)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_baseTypeLabel.text = StringUtil.TR("BaseISO", "GameOver");
 			this.m_totalTypeLabel.text = StringUtil.TR("TotalISO", "GameOver");
 		}
@@ -245,19 +223,6 @@ public class UIGameOverRewardTooltip : UITooltipBase
 		bool doActive12 = true;
 		if (tooltipType == UIGameOverRewardTooltip.RewardTooltipType.AccountInfo)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverRewardTooltip.UpdateDisplayLabels(UIGameOverRewardTooltip.RewardTooltipType)).MethodHandle;
-			}
 			flag = false;
 			doActive3 = false;
 			doActive8 = false;
@@ -289,15 +254,6 @@ public class UIGameOverRewardTooltip : UITooltipBase
 		{
 			if (tooltipType != UIGameOverRewardTooltip.RewardTooltipType.ISOAmount)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipType != UIGameOverRewardTooltip.RewardTooltipType.FreelancerCurrencyAmount)
 				{
 					if (tooltipType == UIGameOverRewardTooltip.RewardTooltipType.FactionInfo)
@@ -330,15 +286,6 @@ public class UIGameOverRewardTooltip : UITooltipBase
 		bool doActive13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive13 = this.m_freelancerExpBonus;
 		}
 		else
@@ -372,42 +319,15 @@ public class UIGameOverRewardTooltip : UITooltipBase
 				{
 					if (!characterResourceLink.m_allowForPlayers)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						num2++;
 						if (!hasPurchasedGame)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!ClientGameManager.Get().GetPlayerCharacterData(characterResourceLink.m_characterType).CharacterComponent.Unlocked)
 							{
 								goto IL_261;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						num++;
@@ -417,15 +337,6 @@ public class UIGameOverRewardTooltip : UITooltipBase
 				i++;
 				continue;
 				goto IL_261;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_freelancerOwnedLabel.text = string.Format(StringUtil.TR("FreelancersOwned", "HUDScene"), num, num2);
 		}

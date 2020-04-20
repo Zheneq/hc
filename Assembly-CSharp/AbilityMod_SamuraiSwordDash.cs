@@ -63,19 +63,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		SamuraiSwordDash samuraiSwordDash = targetAbility as SamuraiSwordDash;
 		if (samuraiSwordDash != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SamuraiSwordDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageRadiusMod, "DamageRadius", string.Empty, samuraiSwordDash.m_damageRadius, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_damageRadiusAtStartMod, "DamageRadiusAtStart", string.Empty, samuraiSwordDash.m_damageRadiusAtStart, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_damageRadiusAtEndMod, "DamageRadiusAtEnd", string.Empty, samuraiSwordDash.m_damageRadiusAtEnd, true, false, false);
@@ -108,19 +95,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SamuraiSwordDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = samuraiSwordDash.m_damageRadius;
 		}
 		else
@@ -135,15 +109,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = samuraiSwordDash.m_damageRadiusAtStart;
 		}
 		else
@@ -158,15 +123,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = samuraiSwordDash.m_damageRadiusAtEnd;
 		}
 		else
@@ -181,15 +137,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = samuraiSwordDash.m_penetrateLineOfSight;
 		}
 		else
@@ -204,15 +151,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = samuraiSwordDash.m_canMoveAfterEvade;
 		}
 		else
@@ -227,15 +165,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = samuraiSwordDash.m_maxTargets;
 		}
 		else
@@ -250,15 +179,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = samuraiSwordDash.m_maxDamageTargets;
 		}
 		else
@@ -273,15 +193,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = samuraiSwordDash.m_dashDamage;
 		}
 		else
@@ -296,15 +207,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = samuraiSwordDash.m_dashLessDamagePerTarget;
 		}
 		else
@@ -319,15 +221,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		StandardEffectInfo baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = samuraiSwordDash.m_dashEnemyHitEffect;
 		}
 		else
@@ -342,15 +235,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = samuraiSwordDash.m_dashSelfHitEffect;
 		}
 		else
@@ -365,15 +249,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		StandardEffectInfo baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = samuraiSwordDash.m_markEffectInfo;
 		}
 		else
@@ -390,15 +265,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = samuraiSwordDash.m_knockbackLessDamagePerTarget;
 		}
 		else
@@ -413,15 +279,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = samuraiSwordDash.m_knockbackExtraDamageFromDamageTakenMult;
 		}
 		else
@@ -436,15 +293,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = samuraiSwordDash.m_knockbackExtraDamageByDist;
 		}
 		else
@@ -460,15 +308,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		float baseVal16;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = samuraiSwordDash.m_knockbackDist;
 		}
 		else

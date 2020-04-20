@@ -61,19 +61,6 @@ namespace TMPro
 			this.m_rectTransform = base.gameObject.GetComponent<RectTransform>();
 			if (this.m_rectTransform == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.Awake()).MethodHandle;
-				}
 				this.m_rectTransform = base.gameObject.AddComponent<RectTransform>();
 			}
 			this.m_canvasRenderer = base.GetComponent<CanvasRenderer>();
@@ -83,15 +70,6 @@ namespace TMPro
 			}
 			if (this.m_mesh == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_mesh = new Mesh();
 				this.m_mesh.hideFlags = HideFlags.HideAndDontSave;
 			}
@@ -100,70 +78,25 @@ namespace TMPro
 			TMP_StyleSheet.LoadDefaultStyleSheet();
 			if (this.m_char_buffer == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_char_buffer = new int[this.m_max_characters];
 			}
 			this.m_cached_TextElement = new TMP_Glyph();
 			this.m_isFirstAllocation = true;
 			if (this.m_textInfo == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textInfo = new TMP_TextInfo(this);
 			}
 			if (this.m_fontAsset == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("Please assign a Font Asset to this " + base.transform.name + " gameobject.", this);
 				return;
 			}
 			TMP_SubMeshUI[] componentsInChildren = base.GetComponentsInChildren<TMP_SubMeshUI>();
 			if (componentsInChildren.Length > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < componentsInChildren.Length; i++)
 				{
 					this.m_subTextObjects[i + 1] = componentsInChildren[i];
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_isInputParsingRequired = true;
@@ -194,19 +127,6 @@ namespace TMPro
 		{
 			if (this.m_MaskMaterial != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.OnDisable()).MethodHandle;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
 				this.m_MaskMaterial = null;
 			}
@@ -214,15 +134,6 @@ namespace TMPro
 			CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
 			if (this.m_canvasRenderer != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_canvasRenderer.Clear();
 			}
 			this.SetActiveSubMeshes(false);
@@ -235,32 +146,10 @@ namespace TMPro
 			GraphicRegistry.UnregisterGraphicForCanvas(this.m_canvas, this);
 			if (this.m_mesh != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.OnDestroy()).MethodHandle;
-				}
 				UnityEngine.Object.DestroyImmediate(this.m_mesh);
 			}
 			if (this.m_MaskMaterial != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
 				this.m_MaskMaterial = null;
 			}
@@ -272,19 +161,6 @@ namespace TMPro
 			ShaderUtilities.GetShaderPropertyIDs();
 			if (this.m_fontAsset == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.LoadFontAsset()).MethodHandle;
-				}
 				if (TMP_Settings.defaultFontAsset != null)
 				{
 					this.m_fontAsset = TMP_Settings.defaultFontAsset;
@@ -295,29 +171,11 @@ namespace TMPro
 				}
 				if (this.m_fontAsset == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogWarning("The LiberationSans SDF Font Asset was not found. There is no Font Asset assigned to " + base.gameObject.name + ".", this);
 					return;
 				}
 				if (this.m_fontAsset.characterDictionary == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.Log("Dictionary is Null!");
 				}
 				this.m_sharedMaterial = this.m_fontAsset.material;
@@ -330,52 +188,16 @@ namespace TMPro
 				}
 				if (this.m_sharedMaterial == null && this.m_baseMaterial != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_sharedMaterial = this.m_baseMaterial;
 					this.m_baseMaterial = null;
 				}
 				if (!(this.m_sharedMaterial == null))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(this.m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex) == null))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_fontAsset.atlas.GetInstanceID() == this.m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 						{
 							goto IL_228;
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -412,31 +234,9 @@ namespace TMPro
 				{
 					if (list[i].isActiveAndEnabled)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetCanvas()).MethodHandle;
-						}
 						result = list[i];
 						goto IL_6E;
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			IL_6E:
@@ -477,30 +277,8 @@ namespace TMPro
 		{
 			if (this.m_fontMaterial != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.DisableMasking()).MethodHandle;
-				}
 				if (this.m_stencilID > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_sharedMaterial = this.m_MaskMaterial;
 				}
 				this.m_canvasRenderer.SetMaterial(this.m_sharedMaterial, this.m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex));
@@ -513,30 +291,8 @@ namespace TMPro
 		{
 			if (this.m_rectTransform != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateMask()).MethodHandle;
-				}
 				if (!ShaderUtilities.isInitialized)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ShaderUtilities.GetShaderPropertyIDs();
 				}
 				this.m_isScrollRegionSet = true;
@@ -545,15 +301,6 @@ namespace TMPro
 				float num3;
 				if (num > 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = num;
 				}
 				else
@@ -575,31 +322,9 @@ namespace TMPro
 			ShaderUtilities.GetShaderPropertyIDs();
 			if (!(this.m_fontMaterial == null))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetMaterial(Material)).MethodHandle;
-				}
 				if (this.m_fontMaterial.GetInstanceID() == mat.GetInstanceID())
 				{
 					goto IL_54;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_fontMaterial = this.CreateMaterialInstance(mat);
@@ -617,32 +342,10 @@ namespace TMPro
 			int materialCount = this.m_textInfo.materialCount;
 			if (this.m_fontMaterials == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetMaterials(Material[])).MethodHandle;
-				}
 				this.m_fontMaterials = new Material[materialCount];
 			}
 			else if (this.m_fontMaterials.Length != materialCount)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize<Material>(ref this.m_fontMaterials, materialCount, false);
 			}
 			for (int i = 0; i < materialCount; i++)
@@ -672,62 +375,22 @@ namespace TMPro
 			int materialCount = this.m_textInfo.materialCount;
 			if (this.m_fontSharedMaterials == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetSharedMaterials()).MethodHandle;
-				}
 				this.m_fontSharedMaterials = new Material[materialCount];
 			}
 			else if (this.m_fontSharedMaterials.Length != materialCount)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize<Material>(ref this.m_fontSharedMaterials, materialCount, false);
 			}
 			for (int i = 0; i < materialCount; i++)
 			{
 				if (i == 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fontSharedMaterials[i] = this.m_sharedMaterial;
 				}
 				else
 				{
 					this.m_fontSharedMaterials[i] = this.m_subTextObjects[i].sharedMaterial;
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return this.m_fontSharedMaterials;
 		}
@@ -737,69 +400,20 @@ namespace TMPro
 			int materialCount = this.m_textInfo.materialCount;
 			if (this.m_fontSharedMaterials == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetSharedMaterials(Material[])).MethodHandle;
-				}
 				this.m_fontSharedMaterials = new Material[materialCount];
 			}
 			else if (this.m_fontSharedMaterials.Length != materialCount)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize<Material>(ref this.m_fontSharedMaterials, materialCount, false);
 			}
 			for (int i = 0; i < materialCount; i++)
 			{
 				if (i == 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(materials[i].GetTexture(ShaderUtilities.ID_MainTex) == null))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (materials[i].GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID() != this.m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
@@ -810,38 +424,11 @@ namespace TMPro
 				}
 				else if (!(materials[i].GetTexture(ShaderUtilities.ID_MainTex) == null))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (materials[i].GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID() != this.m_subTextObjects[i].sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else if (this.m_subTextObjects[i].isDefaultMaterial)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_subTextObjects[i].sharedMaterial = (this.m_fontSharedMaterials[i] = materials[i]);
 					}
 				}
@@ -852,30 +439,8 @@ namespace TMPro
 		{
 			if (this.m_fontMaterial != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetOutlineThickness(float)).MethodHandle;
-				}
 				if (this.m_sharedMaterial.GetInstanceID() != this.m_fontMaterial.GetInstanceID())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_sharedMaterial = this.m_fontMaterial;
 					this.m_canvasRenderer.SetMaterial(this.m_sharedMaterial, this.m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex));
 					goto IL_D3;
@@ -883,15 +448,6 @@ namespace TMPro
 			}
 			if (this.m_fontMaterial == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fontMaterial = this.CreateMaterialInstance(this.m_sharedMaterial);
 				this.m_sharedMaterial = this.m_fontMaterial;
 				this.m_canvasRenderer.SetMaterial(this.m_sharedMaterial, this.m_sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex));
@@ -906,19 +462,6 @@ namespace TMPro
 		{
 			if (this.m_fontMaterial == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetFaceColor(Color32)).MethodHandle;
-				}
 				this.m_fontMaterial = this.CreateMaterialInstance(this.m_sharedMaterial);
 			}
 			this.m_sharedMaterial = this.m_fontMaterial;
@@ -941,58 +484,18 @@ namespace TMPro
 		{
 			if (!(this.m_canvas == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetShaderDepth()).MethodHandle;
-				}
 				if (!(this.m_sharedMaterial == null))
 				{
 					if (this.m_canvas.renderMode != RenderMode.ScreenSpaceOverlay)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_isOverlay)
 						{
 							this.m_sharedMaterial.SetFloat(ShaderUtilities.ShaderTag_ZTestMode, 4f);
 							return;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					this.m_sharedMaterial.SetFloat(ShaderUtilities.ShaderTag_ZTestMode, 0f);
 					return;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -1001,31 +504,9 @@ namespace TMPro
 		{
 			if (this.m_isCullingEnabled)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetCulling()).MethodHandle;
-				}
 				Material materialForRendering = this.materialForRendering;
 				if (materialForRendering != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					materialForRendering.SetFloat("_CullMode", 2f);
 				}
 				int i = 1;
@@ -1065,15 +546,6 @@ namespace TMPro
 				int j = 1;
 				while (j < this.m_subTextObjects.Length)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(this.m_subTextObjects[j] != null))
 					{
 						for (;;)
@@ -1091,15 +563,6 @@ namespace TMPro
 						materialForRendering2 = this.m_subTextObjects[j].materialForRendering;
 						if (materialForRendering2 != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							materialForRendering2.SetFloat(ShaderUtilities.ShaderTag_CullMode, 0f);
 						}
 						j++;
@@ -1112,19 +575,6 @@ namespace TMPro
 		{
 			if (this.m_isOrthographic)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetPerspectiveCorrection()).MethodHandle;
-				}
 				this.m_sharedMaterial.SetFloat(ShaderUtilities.ID_PerspectiveFilter, 0f);
 			}
 			else
@@ -1168,19 +618,6 @@ namespace TMPro
 			int fontWeightInternal;
 			if ((this.m_style & FontStyles.Bold) == FontStyles.Bold)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetArraySizes(int[])).MethodHandle;
-				}
 				fontWeightInternal = 0x2BC;
 			}
 			else
@@ -1197,15 +634,6 @@ namespace TMPro
 			MaterialReference.AddMaterialReference(this.m_currentMaterial, this.m_currentFontAsset, this.m_materialReferences, this.m_materialReferenceIndexLookup);
 			if (this.m_textInfo == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_textInfo = new TMP_TextInfo();
 			}
 			this.m_textElementType = TMP_TextElementType.Character;
@@ -1221,15 +649,6 @@ namespace TMPro
 				{
 					goto IL_161;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_totalCharacterCount >= this.m_textInfo.characterInfo.Length)
 				{
 					goto IL_161;
@@ -1240,15 +659,6 @@ namespace TMPro
 				{
 					goto IL_305;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num4 != 0x3C)
 				{
 					goto IL_305;
@@ -1258,40 +668,13 @@ namespace TMPro
 				{
 					goto IL_305;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num3 = num;
 				if ((this.m_style & FontStyles.Bold) == FontStyles.Bold)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_isUsingBold = true;
 				}
 				if (this.m_textElementType == TMP_TextElementType.Sprite)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					MaterialReference[] materialReferences = this.m_materialReferences;
 					int currentMaterialIndex2 = this.m_currentMaterialIndex;
 					materialReferences[currentMaterialIndex2].referenceCount = materialReferences[currentMaterialIndex2].referenceCount + 1;
@@ -1317,62 +700,17 @@ namespace TMPro
 				int currentMaterialIndex3 = this.m_currentMaterialIndex;
 				if (this.m_textElementType == TMP_TextElementType.Character)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((this.m_style & FontStyles.UpperCase) == FontStyles.UpperCase)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (char.IsLower((char)num4))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = (int)char.ToUpper((char)num4);
 						}
 					}
 					else if ((this.m_style & FontStyles.LowerCase) == FontStyles.LowerCase)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (char.IsUpper((char)num4))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = (int)char.ToLower((char)num4);
 						}
 					}
@@ -1380,15 +718,6 @@ namespace TMPro
 					{
 						if ((this.m_fontStyle & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((this.m_style & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 							{
 								goto IL_3E8;
@@ -1396,15 +725,6 @@ namespace TMPro
 						}
 						if (char.IsLower((char)num4))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = (int)char.ToUpper((char)num4);
 						}
 					}
@@ -1413,15 +733,6 @@ namespace TMPro
 				TMP_FontAsset tmp_FontAsset = base.GetFontAssetForWeight(this.m_fontWeightInternal);
 				if (tmp_FontAsset != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					isUsingAlternateTypeface = true;
 					this.m_currentFontAsset = tmp_FontAsset;
@@ -1433,28 +744,10 @@ namespace TMPro
 					TMP_SpriteAsset tmp_SpriteAsset = base.spriteAsset;
 					if (tmp_SpriteAsset != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num5 = -1;
 						tmp_SpriteAsset = TMP_SpriteAsset.SearchFallbackForSprite(tmp_SpriteAsset, num4, out num5);
 						if (num5 != -1)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_textElementType = TMP_TextElementType.Sprite;
 							this.m_textInfo.characterInfo[this.m_totalCharacterCount].elementType = this.m_textElementType;
 							this.m_currentMaterialIndex = MaterialReference.AddMaterialReference(tmp_SpriteAsset.material, tmp_SpriteAsset, this.m_materialReferences, this.m_materialReferenceIndexLookup);
@@ -1476,63 +769,18 @@ namespace TMPro
 				}
 				if (tmp_Glyph == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.fallbackFontAssets != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (TMP_Settings.fallbackFontAssets.Count > 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tmp_FontAsset = TMP_FontUtilities.SearchForGlyph(TMP_Settings.fallbackFontAssets, num4, out tmp_Glyph);
 						}
 					}
 				}
 				if (tmp_Glyph == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.defaultFontAsset != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						tmp_FontAsset = TMP_FontUtilities.SearchForGlyph(TMP_Settings.defaultFontAsset, num4, out tmp_Glyph);
 					}
 				}
@@ -1541,28 +789,10 @@ namespace TMPro
 					TMP_SpriteAsset tmp_SpriteAsset2 = TMP_Settings.defaultSpriteAsset;
 					if (tmp_SpriteAsset2 != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num6 = -1;
 						tmp_SpriteAsset2 = TMP_SpriteAsset.SearchFallbackForSprite(tmp_SpriteAsset2, num4, out num6);
 						if (num6 != -1)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_textElementType = TMP_TextElementType.Sprite;
 							this.m_textInfo.characterInfo[this.m_totalCharacterCount].elementType = this.m_textElementType;
 							this.m_currentMaterialIndex = MaterialReference.AddMaterialReference(tmp_SpriteAsset2.material, tmp_SpriteAsset2, this.m_materialReferences, this.m_materialReferenceIndexLookup);
@@ -1584,28 +814,10 @@ namespace TMPro
 				}
 				if (tmp_Glyph == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = (chars[num3] = ((TMP_Settings.missingGlyphCharacter != 0) ? TMP_Settings.missingGlyphCharacter : 0x25A1));
 					tmp_FontAsset = TMP_FontUtilities.SearchForGlyph(this.m_currentFontAsset, num4, out tmp_Glyph);
 					if (tmp_Glyph == null && TMP_Settings.fallbackFontAssets != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (TMP_Settings.fallbackFontAssets.Count > 0)
 						{
 							tmp_FontAsset = TMP_FontUtilities.SearchForGlyph(TMP_Settings.fallbackFontAssets, num4, out tmp_Glyph);
@@ -1613,26 +825,8 @@ namespace TMPro
 					}
 					if (tmp_Glyph == null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (TMP_Settings.defaultFontAsset != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							tmp_FontAsset = TMP_FontUtilities.SearchForGlyph(TMP_Settings.defaultFontAsset, num4, out tmp_Glyph);
 						}
 					}
@@ -1642,30 +836,12 @@ namespace TMPro
 						tmp_FontAsset = TMP_FontUtilities.SearchForGlyph(this.m_currentFontAsset, num4, out tmp_Glyph);
 						if (!TMP_Settings.warningsDisabled)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Debug.LogWarning("Character with ASCII value of " + num4 + " was not found in the Font Asset Glyph Table. It was replaced by a space.", this);
 						}
 					}
 				}
 				if (tmp_FontAsset != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tmp_FontAsset.GetInstanceID() != this.m_currentFontAsset.GetInstanceID())
 					{
 						flag = true;
@@ -1680,26 +856,8 @@ namespace TMPro
 				this.m_textInfo.characterInfo[this.m_totalCharacterCount].fontAsset = this.m_currentFontAsset;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.matchMaterialPreset)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_currentMaterial = TMP_MaterialManager.GetFallbackMaterial(this.m_currentMaterial, this.m_currentFontAsset.material);
 					}
 					else
@@ -1710,37 +868,10 @@ namespace TMPro
 				}
 				if (!char.IsWhiteSpace((char)num4))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num4 != 0x200B)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_materialReferences[this.m_currentMaterialIndex].referenceCount < 0x3FFF)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							MaterialReference[] materialReferences4 = this.m_materialReferences;
 							int currentMaterialIndex6 = this.m_currentMaterialIndex;
 							materialReferences4[currentMaterialIndex6].referenceCount = materialReferences4[currentMaterialIndex6].referenceCount + 1;
@@ -1759,15 +890,6 @@ namespace TMPro
 				this.m_materialReferences[this.m_currentMaterialIndex].isFallbackMaterial = flag;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_materialReferences[this.m_currentMaterialIndex].fallbackMaterial = currentMaterial;
 					this.m_currentFontAsset = currentFontAsset;
 					this.m_currentMaterial = currentMaterial;
@@ -1781,15 +903,6 @@ namespace TMPro
 			}
 			if (this.m_isCalculatingPreferredValues)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_isCalculatingPreferredValues = false;
 				this.m_isInputParsingRequired = true;
 				return this.m_totalCharacterCount;
@@ -1802,28 +915,10 @@ namespace TMPro
 			}
 			if (num7 > this.m_subTextObjects.Length)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize<TMP_SubMeshUI>(ref this.m_subTextObjects, Mathf.NextPowerOfTwo(num7 + 1));
 			}
 			if (this.m_textInfo.characterInfo.Length - this.m_totalCharacterCount > 0x100)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_TextInfo.Resize<TMP_CharacterInfo>(ref this.m_textInfo.characterInfo, Mathf.Max(this.m_totalCharacterCount + 1, 0x100), true);
 			}
 			int i = 0;
@@ -1831,26 +926,8 @@ namespace TMPro
 			{
 				if (i > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_subTextObjects[i] == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_subTextObjects[i] = TMP_SubMeshUI.AddSubTextObject(this, this.m_materialReferences[i]);
 						this.m_textInfo.meshInfo[i].vertices = null;
 					}
@@ -1861,15 +938,6 @@ namespace TMPro
 					if (this.m_subTextObjects[i].sharedMaterial == null)
 					{
 						goto IL_D58;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (this.m_subTextObjects[i].sharedMaterial.GetInstanceID() != this.m_materialReferences[i].material.GetInstanceID())
 					{
@@ -1886,15 +954,6 @@ namespace TMPro
 					IL_E4A:
 					if (this.m_materialReferences[i].isFallbackMaterial)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_subTextObjects[i].fallbackMaterial = this.m_materialReferences[i].material;
 						this.m_subTextObjects[i].fallbackSourceMaterial = this.m_materialReferences[i].fallbackMaterial;
 						goto IL_EA8;
@@ -1905,15 +964,6 @@ namespace TMPro
 					this.m_subTextObjects[i].isDefaultMaterial = isDefaultMaterial;
 					if (isDefaultMaterial && !(this.m_subTextObjects[i].sharedMaterial == null))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_subTextObjects[i].sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID() == this.m_materialReferences[i].material.GetTexture(ShaderUtilities.ID_MainTex).GetInstanceID())
 						{
 							goto IL_E4A;
@@ -1929,15 +979,6 @@ namespace TMPro
 				if (this.m_textInfo.meshInfo[i].vertices == null)
 				{
 					goto IL_F0B;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (this.m_textInfo.meshInfo[i].vertices.Length < referenceCount * 4)
 				{
@@ -1958,15 +999,6 @@ namespace TMPro
 					int size;
 					if (referenceCount > 0x400)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						size = referenceCount + 0x100;
 					}
 					else
@@ -1981,15 +1013,6 @@ namespace TMPro
 				IL_F0B:
 				if (this.m_textInfo.meshInfo[i].vertices == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (i == 0)
 					{
 						this.m_textInfo.meshInfo[i] = new TMP_MeshInfo(this.m_mesh, referenceCount + 1);
@@ -2006,15 +1029,6 @@ namespace TMPro
 					int size2;
 					if (referenceCount > 0x400)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						size2 = referenceCount + 0x100;
 					}
 					else
@@ -2025,27 +1039,9 @@ namespace TMPro
 				}
 				goto IL_1039;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int j = num7;
 			while (j < this.m_subTextObjects.Length)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(this.m_subTextObjects[j] != null))
 				{
 					for (;;)
@@ -2062,15 +1058,6 @@ namespace TMPro
 				{
 					if (j < this.m_textInfo.meshInfo.Length)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_subTextObjects[j].canvasRenderer.SetMesh(null);
 					}
 					j++;
@@ -2084,19 +1071,6 @@ namespace TMPro
 		{
 			if (base.rectTransform != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.ComputeMarginSize()).MethodHandle;
-				}
 				this.m_marginWidth = this.m_rectTransform.rect.width - this.m_margin.x - this.m_margin.z;
 				this.m_marginHeight = this.m_rectTransform.rect.height - this.m_margin.y - this.m_margin.w;
 				this.m_RectTransformCorners = this.GetTextContainerLocalCorners();
@@ -2140,53 +1114,13 @@ namespace TMPro
 		{
 			if (this.m_rectTransform.hasChanged)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.LateUpdate()).MethodHandle;
-				}
 				float y = this.m_rectTransform.lossyScale.y;
 				if (!this.m_havePropertiesChanged && y != this.m_previousLossyScaleY)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_text != string.Empty)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_text != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.UpdateSDFScale(y);
 							this.m_previousLossyScaleY = y;
 						}
@@ -2196,15 +1130,6 @@ namespace TMPro
 			}
 			if (this.m_isUsingLegacyAnimationComponent)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_havePropertiesChanged = true;
 				this.OnPreRenderCanvas();
 			}
@@ -2214,32 +1139,10 @@ namespace TMPro
 		{
 			if (this.m_isAwake)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.OnPreRenderCanvas()).MethodHandle;
-				}
 				if (this.m_ignoreActiveState || this.IsActive())
 				{
 					if (this.m_canvas == null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_canvas = base.canvas;
 						if (this.m_canvas == null)
 						{
@@ -2249,53 +1152,17 @@ namespace TMPro
 					this.loopCountA = 0;
 					if (!this.m_havePropertiesChanged)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_isLayoutDirty)
 						{
 							return;
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					if (this.checkPaddingRequired)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.UpdateMeshPadding();
 					}
 					if (!this.m_isInputParsingRequired)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_isTextTruncated)
 						{
 							goto IL_CB;
@@ -2330,50 +1197,14 @@ namespace TMPro
 				{
 					if (this.m_textInfo != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_textInfo.Clear();
 					}
 					if (this.m_char_buffer != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_char_buffer.Length != 0)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_char_buffer[0] == 0)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -2397,15 +1228,6 @@ namespace TMPro
 								int fontWeightInternal;
 								if ((this.m_style & FontStyles.Bold) == FontStyles.Bold)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									fontWeightInternal = 0x2BC;
 								}
 								else
@@ -2494,15 +1316,6 @@ namespace TMPro
 								int i = 0;
 								while (i < this.m_char_buffer.Length)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_char_buffer[i] == 0)
 									{
 										break;
@@ -2515,15 +1328,6 @@ namespace TMPro
 									if (!this.m_isRichText)
 									{
 										goto IL_60E;
-									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (num14 != 0x3C)
 									{
@@ -2540,15 +1344,6 @@ namespace TMPro
 									{
 										goto IL_60E;
 									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									IL_36E5:
 									i++;
 									continue;
@@ -2557,15 +1352,6 @@ namespace TMPro
 									bool isUsingAlternateTypeface = this.m_textInfo.characterInfo[this.m_characterCount].isUsingAlternateTypeface;
 									if (this.m_characterCount < this.m_firstVisibleCharacter)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_textInfo.characterInfo[this.m_characterCount].isVisible = false;
 										this.m_textInfo.characterInfo[this.m_characterCount].character = '​';
 										this.m_characterCount++;
@@ -2574,26 +1360,8 @@ namespace TMPro
 									float num15 = 1f;
 									if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if ((this.m_style & FontStyles.UpperCase) == FontStyles.UpperCase)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (char.IsLower((char)num14))
 											{
 												num14 = (int)char.ToUpper((char)num14);
@@ -2601,26 +1369,8 @@ namespace TMPro
 										}
 										else if ((this.m_style & FontStyles.LowerCase) == FontStyles.LowerCase)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (char.IsUpper((char)num14))
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num14 = (int)char.ToLower((char)num14);
 											}
 										}
@@ -2628,27 +1378,9 @@ namespace TMPro
 										{
 											if ((this.m_fontStyle & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((this.m_style & FontStyles.SmallCaps) != FontStyles.SmallCaps)
 												{
 													goto IL_76D;
-												}
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											if (char.IsLower((char)num14))
@@ -2661,42 +1393,15 @@ namespace TMPro
 									IL_76D:
 									if (this.m_textElementType == TMP_TextElementType.Sprite)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_currentSpriteAsset = this.m_textInfo.characterInfo[this.m_characterCount].spriteAsset;
 										this.m_spriteIndex = this.m_textInfo.characterInfo[this.m_characterCount].spriteIndex;
 										TMP_Sprite tmp_Sprite = this.m_currentSpriteAsset.spriteInfoList[this.m_spriteIndex];
 										if (tmp_Sprite == null)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											goto IL_36E5;
 										}
 										if (num14 == 0x3C)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num14 = 0xE000 + this.m_spriteIndex;
 										}
 										else
@@ -2717,27 +1422,9 @@ namespace TMPro
 									}
 									else if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_cached_TextElement = this.m_textInfo.characterInfo[this.m_characterCount].textElement;
 										if (this.m_cached_TextElement == null)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											goto IL_36E5;
 										}
 										this.m_currentFontAsset = this.m_textInfo.characterInfo[this.m_characterCount].fontAsset;
@@ -2750,15 +1437,6 @@ namespace TMPro
 										float padding;
 										if (this.m_currentMaterialIndex == 0)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											padding = this.m_padding;
 										}
 										else
@@ -2770,52 +1448,16 @@ namespace TMPro
 									float num17 = num2;
 									if (num14 == 0xAD)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num2 = 0f;
 									}
 									if (this.m_isRightToLeft)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_xAdvance -= ((this.m_cached_TextElement.xAdvance * num4 + this.m_characterSpacing + this.m_wordSpacing + this.m_currentFontAsset.normalSpacingOffset) * num2 + this.m_cSpacing) * (1f - this.m_charWidthAdjDelta);
 										if (!char.IsWhiteSpace((char)num14))
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 != 0x200B)
 											{
 												goto IL_B52;
-											}
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										this.m_xAdvance -= this.m_wordSpacing * num2;
@@ -2831,41 +1473,14 @@ namespace TMPro
 									this.m_textInfo.characterInfo[this.m_characterCount].index = (short)i;
 									if (this.m_enableKerning)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_characterCount >= 1)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int character = (int)this.m_textInfo.characterInfo[this.m_characterCount - 1].character;
 											KerningPairKey kerningPairKey = new KerningPairKey(character, num14);
 											KerningPair kerningPair;
 											this.m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out kerningPair);
 											if (kerningPair != null)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.m_xAdvance += kerningPair.XadvanceOffset * num2;
 											}
 										}
@@ -2873,15 +1488,6 @@ namespace TMPro
 									float num18 = 0f;
 									if (this.m_monoSpacing != 0f)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num18 = (this.m_monoSpacing / 2f - (this.m_cached_TextElement.width / 2f + this.m_cached_TextElement.xOffset) * num2) * (1f - this.m_charWidthAdjDelta);
 										this.m_xAdvance += num18;
 									}
@@ -2889,51 +1495,15 @@ namespace TMPro
 									{
 										goto IL_E33;
 									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (isUsingAlternateTypeface)
 									{
 										goto IL_E33;
 									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if ((this.m_style & FontStyles.Bold) != FontStyles.Bold)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if ((this.m_fontStyle & FontStyles.Bold) != FontStyles.Bold)
 										{
 											goto IL_E33;
-										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									float num19;
@@ -2943,15 +1513,6 @@ namespace TMPro
 										num19 = this.m_currentFontAsset.boldStyle / 4f * @float * this.m_currentMaterial.GetFloat(ShaderUtilities.ID_ScaleRatio_A);
 										if (num19 + num3 > @float)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											num3 = @float - num19;
 										}
 									}
@@ -2980,49 +1541,13 @@ namespace TMPro
 									vector5.z = 0f;
 									if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!isUsingAlternateTypeface)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if ((this.m_style & FontStyles.Italic) != FontStyles.Italic)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((this.m_fontStyle & FontStyles.Italic) != FontStyles.Italic)
 												{
 													goto IL_10D3;
-												}
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											float num20 = (float)this.m_currentFontAsset.italicStyle * 0.01f;
@@ -3037,15 +1562,6 @@ namespace TMPro
 									IL_10D3:
 									if (this.m_isFXMatrixSet)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										Vector3 b3 = (vector4 + vector3) / 2f;
 										vector2 = this.m_FXMatrix.MultiplyPoint3x4(vector2 - b3) + b3;
 										vector3 = this.m_FXMatrix.MultiplyPoint3x4(vector3 - b3) + b3;
@@ -3063,15 +1579,6 @@ namespace TMPro
 									float num21;
 									if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num21 = num2;
 									}
 									else
@@ -3083,15 +1590,6 @@ namespace TMPro
 									float maxLineAscender;
 									if (num22 > this.m_maxLineAscender)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineAscender = num22;
 									}
 									else
@@ -3103,15 +1601,6 @@ namespace TMPro
 									float num23;
 									if (this.m_textElementType == TMP_TextElementType.Character)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num23 = num2;
 									}
 									else
@@ -3123,15 +1612,6 @@ namespace TMPro
 									float maxLineDescender;
 									if (num24 < this.m_maxLineDescender)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineDescender = num24;
 									}
 									else
@@ -3143,15 +1623,6 @@ namespace TMPro
 									{
 										goto IL_13E2;
 									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if ((this.m_style & FontStyles.Superscript) == FontStyles.Superscript)
 									{
 										goto IL_13E2;
@@ -3161,15 +1632,6 @@ namespace TMPro
 									{
 										goto IL_148E;
 									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_isNewPage)
 									{
 										goto IL_148E;
@@ -3177,40 +1639,13 @@ namespace TMPro
 									IL_14D5:
 									if (this.m_lineOffset == 0f)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num10 = ((num10 <= num22) ? num22 : num10);
 									}
 									this.m_textInfo.characterInfo[this.m_characterCount].isVisible = false;
 									if (num14 != 9)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!char.IsWhiteSpace((char)num14))
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 != 0x200B)
 											{
 												goto IL_155B;
@@ -3218,29 +1653,11 @@ namespace TMPro
 										}
 										if (this.m_textElementType == TMP_TextElementType.Sprite)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
 											if (num14 != 0xA)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!char.IsSeparator((char)num14))
 												{
 													goto IL_226A;
@@ -3250,39 +1667,12 @@ namespace TMPro
 											{
 												goto IL_226A;
 											}
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 == 0x200B)
 											{
 												goto IL_226A;
 											}
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 != 0x2060)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												TMP_LineInfo[] lineInfo = this.m_textInfo.lineInfo;
 												int lineNumber = this.m_lineNumber;
 												lineInfo[lineNumber].spaceCount = lineInfo[lineNumber].spaceCount + 1;
@@ -3299,15 +1689,6 @@ namespace TMPro
 									bool flag9;
 									if ((this.m_lineJustification & (TextAlignmentOptions)0x10) != (TextAlignmentOptions)0x10)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag9 = ((this.m_lineJustification & (TextAlignmentOptions)8) == (TextAlignmentOptions)8);
 									}
 									else
@@ -3320,15 +1701,6 @@ namespace TMPro
 									float num28;
 									if (num14 != 0xAD)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num28 = num2;
 									}
 									else
@@ -3337,50 +1709,14 @@ namespace TMPro
 									}
 									if (num26 + num27 * num28 > num9 * ((!flag10) ? 1f : 1.05f))
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num8 = this.m_characterCount - 1;
 										if (base.enableWordWrapping)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_characterCount != this.m_firstCharacterOfLine)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num12 == this.m_SavedWordWrapState.previous_WordBreak)
 												{
 													goto IL_16DB;
-												}
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 												if (flag6)
 												{
@@ -3406,37 +1742,10 @@ namespace TMPro
 												}
 												if (this.m_lineNumber > 0 && !TMP_Math.Approximately(this.m_maxLineAscender, this.m_startOfLineAscender))
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (this.m_lineHeight == -32767f)
 													{
-														for (;;)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (!this.m_isNewPage)
 														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															float num29 = this.m_maxLineAscender - this.m_startOfLineAscender;
 															this.AdjustLineOffset(this.m_firstCharacterOfLine, this.m_characterCount, num29);
 															this.m_lineOffset += num29;
@@ -3451,15 +1760,6 @@ namespace TMPro
 												float maxDescender;
 												if (this.m_maxDescender < num31)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													maxDescender = this.m_maxDescender;
 												}
 												else
@@ -3469,30 +1769,12 @@ namespace TMPro
 												this.m_maxDescender = maxDescender;
 												if (!flag5)
 												{
-													for (;;)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													num11 = this.m_maxDescender;
 												}
 												if (this.m_useMaxVisibleDescender)
 												{
 													if (this.m_characterCount < this.m_maxVisibleCharacters)
 													{
-														for (;;)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (this.m_lineNumber < this.m_maxVisibleLines)
 														{
 															goto IL_1967;
@@ -3507,15 +1789,6 @@ namespace TMPro
 												int firstVisibleCharacterOfLine;
 												if (this.m_firstCharacterOfLine > this.m_firstVisibleCharacterOfLine)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													firstVisibleCharacterOfLine = this.m_firstCharacterOfLine;
 												}
 												else
@@ -3543,28 +1816,10 @@ namespace TMPro
 												flag4 = true;
 												if (this.m_lineNumber >= this.m_textInfo.lineInfo.Length)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													base.ResizeLineExtents(this.m_lineNumber);
 												}
 												if (this.m_lineHeight == -32767f)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													float num32 = this.m_textInfo.characterInfo[this.m_characterCount].ascender - this.m_textInfo.characterInfo[this.m_characterCount].baseLine;
 													float num33 = 0f - this.m_maxLineDescender + num32 + (num5 + this.m_lineSpacing + this.m_lineSpacingDelta) * num;
 													this.m_lineOffset += num33;
@@ -3581,37 +1836,10 @@ namespace TMPro
 												IL_16DB:
 												if (this.m_enableAutoSizing)
 												{
-													for (;;)
-													{
-														switch (4)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (this.m_fontSize > this.m_fontSizeMin)
 													{
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (this.m_charWidthAdjDelta < this.m_charWidthMaxAdj / 100f)
 														{
-															for (;;)
-															{
-																switch (3)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															this.loopCountA = 0;
 															this.m_charWidthAdjDelta += 0.01f;
 															this.GenerateTextMesh();
@@ -3622,15 +1850,6 @@ namespace TMPro
 														this.m_fontSize = (float)((int)(Mathf.Max(this.m_fontSize, this.m_fontSizeMin) * 20f + 0.5f)) / 20f;
 														if (this.loopCountA > 0x14)
 														{
-															for (;;)
-															{
-																switch (5)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															return;
 														}
 														this.GenerateTextMesh();
@@ -3639,15 +1858,6 @@ namespace TMPro
 												}
 												if (!this.m_isCharacterWrappingEnabled)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (!flag7)
 													{
 														flag7 = true;
@@ -3664,37 +1874,10 @@ namespace TMPro
 										}
 										if (this.m_enableAutoSizing)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_fontSize > this.m_fontSizeMin)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (this.m_charWidthAdjDelta < this.m_charWidthMaxAdj / 100f)
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													this.loopCountA = 0;
 													this.m_charWidthAdjDelta += 0.01f;
 													this.GenerateTextMesh();
@@ -3705,15 +1888,6 @@ namespace TMPro
 												this.m_fontSize = (float)((int)(Mathf.Max(this.m_fontSize, this.m_fontSizeMin) * 20f + 0.5f)) / 20f;
 												if (this.loopCountA > 0x14)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													return;
 												}
 												this.GenerateTextMesh();
@@ -3725,30 +1899,12 @@ namespace TMPro
 										case TextOverflowModes.Overflow:
 											if (this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.DisableMasking();
 											}
 											break;
 										case TextOverflowModes.Ellipsis:
 											if (this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.DisableMasking();
 											}
 											this.m_isTextTruncated = true;
@@ -3758,15 +1914,6 @@ namespace TMPro
 												this.m_char_buffer[i] = 0;
 												if (this.m_cached_Ellipsis_GlyphInfo != null)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													this.m_textInfo.characterInfo[num8].character = '…';
 													this.m_textInfo.characterInfo[num8].textElement = this.m_cached_Ellipsis_GlyphInfo;
 													this.m_textInfo.characterInfo[num8].fontAsset = this.m_materialReferences[0].fontAsset;
@@ -3781,44 +1928,17 @@ namespace TMPro
 												this.GenerateTextMesh();
 												return;
 											}
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.m_textInfo.characterInfo[this.m_characterCount].isVisible = false;
 											break;
 										case TextOverflowModes.Masking:
 											if (!this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.EnableMasking();
 											}
 											break;
 										case TextOverflowModes.Truncate:
 											if (this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.DisableMasking();
 											}
 											this.m_textInfo.characterInfo[this.m_characterCount].isVisible = false;
@@ -3836,15 +1956,6 @@ namespace TMPro
 										Color32 vertexColor;
 										if (this.m_overrideHtmlColors)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											vertexColor = this.m_fontColor32;
 										}
 										else
@@ -3871,37 +1982,10 @@ namespace TMPro
 									}
 									if (this.m_textInfo.characterInfo[this.m_characterCount].isVisible)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 != 0xAD)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (flag4)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag4 = false;
 												this.m_firstVisibleCharacterOfLine = this.m_characterCount;
 											}
@@ -3912,37 +1996,10 @@ namespace TMPro
 									IL_226A:
 									if (this.m_lineNumber > 0)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!TMP_Math.Approximately(this.m_maxLineAscender, this.m_startOfLineAscender) && this.m_lineHeight == -32767f)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!this.m_isNewPage)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												float num34 = this.m_maxLineAscender - this.m_startOfLineAscender;
 												this.AdjustLineOffset(this.m_firstCharacterOfLine, this.m_characterCount, num34);
 												num25 -= num34;
@@ -3959,27 +2016,9 @@ namespace TMPro
 									{
 										goto IL_23A5;
 									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0xD)
 									{
 										goto IL_23A5;
-									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (num14 != 0x2026)
 									{
@@ -3997,26 +2036,8 @@ namespace TMPro
 									IL_23EE:
 									if (this.m_maxAscender - num25 > marginHeight + 0.0001f)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_enableAutoSizing && this.m_lineSpacingDelta > this.m_lineSpacingMax)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_lineNumber > 0)
 											{
 												this.loopCountA = 0;
@@ -4027,26 +2048,8 @@ namespace TMPro
 										}
 										if (this.m_enableAutoSizing)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_fontSize > this.m_fontSizeMin)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.m_maxFontSize = this.m_fontSize;
 												this.m_fontSize -= Mathf.Max((this.m_fontSize - this.m_minFontSize) / 2f, 0.05f);
 												this.m_fontSize = (float)((int)(Mathf.Max(this.m_fontSize, this.m_fontSizeMin) * 20f + 0.5f)) / 20f;
@@ -4060,15 +2063,6 @@ namespace TMPro
 										}
 										if (this.m_firstOverflowCharacterIndex == -1)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.m_firstOverflowCharacterIndex = this.m_characterCount;
 										}
 										switch (this.m_overflowMode)
@@ -4076,43 +2070,16 @@ namespace TMPro
 										case TextOverflowModes.Overflow:
 											if (this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.DisableMasking();
 											}
 											break;
 										case TextOverflowModes.Ellipsis:
 											if (this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.DisableMasking();
 											}
 											if (this.m_lineNumber > 0)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.m_char_buffer[(int)this.m_textInfo.characterInfo[num8].index] = 0x2026;
 												this.m_char_buffer[(int)(this.m_textInfo.characterInfo[num8].index + 1)] = 0;
 												if (this.m_cached_Ellipsis_GlyphInfo != null)
@@ -4143,28 +2110,10 @@ namespace TMPro
 										case TextOverflowModes.Truncate:
 											if (this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.DisableMasking();
 											}
 											if (this.m_lineNumber > 0)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.m_char_buffer[(int)(this.m_textInfo.characterInfo[num8].index + 1)] = 0;
 												this.m_totalCharacterCount = num8 + 1;
 												this.GenerateTextMesh();
@@ -4176,82 +2125,28 @@ namespace TMPro
 										case TextOverflowModes.ScrollRect:
 											if (!this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.EnableMasking();
 											}
 											break;
 										case TextOverflowModes.Page:
 											if (this.m_isMaskingEnabled)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.DisableMasking();
 											}
 											if (num14 != 0xD)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (num14 == 0xA)
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
 												else
 												{
 													if (i == 0)
 													{
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														this.ClearMesh();
 														return;
 													}
 													if (num7 == i)
 													{
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														this.m_char_buffer[i] = 0;
 														this.m_isTextTruncated = true;
 													}
@@ -4271,30 +2166,12 @@ namespace TMPro
 										case TextOverflowModes.Linked:
 											if (this.m_linkedTextComponent != null)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.m_linkedTextComponent.text = base.text;
 												this.m_linkedTextComponent.firstVisibleCharacter = this.m_characterCount;
 												this.m_linkedTextComponent.ForceMeshUpdate();
 											}
 											if (this.m_lineNumber > 0)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												this.m_char_buffer[i] = 0;
 												this.m_totalCharacterCount = this.m_characterCount;
 												this.GenerateTextMesh();
@@ -4307,29 +2184,11 @@ namespace TMPro
 									}
 									if (num14 == 9)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										float num35 = this.m_currentFontAsset.fontInfo.TabWidth * num2;
 										float num36 = Mathf.Ceil(this.m_xAdvance / num35) * num35;
 										float xAdvance;
 										if (num36 > this.m_xAdvance)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											xAdvance = num36;
 										}
 										else
@@ -4345,15 +2204,6 @@ namespace TMPro
 										{
 											goto IL_2997;
 										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 == 0x200B)
 										{
 											goto IL_2997;
@@ -4367,27 +2217,9 @@ namespace TMPro
 										this.m_xAdvance += ((this.m_cached_TextElement.xAdvance * num4 + this.m_characterSpacing + this.m_currentFontAsset.normalSpacingOffset) * num2 + this.m_cSpacing) * (1f - this.m_charWidthAdjDelta);
 										if (!char.IsWhiteSpace((char)num14))
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 != 0x200B)
 											{
 												goto IL_2A3E;
-											}
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 										this.m_xAdvance += this.m_wordSpacing * num2;
@@ -4400,15 +2232,6 @@ namespace TMPro
 									}
 									if (num14 != 0xA)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_characterCount != totalCharacterCount - 1)
 										{
 											goto IL_30E2;
@@ -4416,37 +2239,10 @@ namespace TMPro
 									}
 									if (this.m_lineNumber > 0)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!TMP_Math.Approximately(this.m_maxLineAscender, this.m_startOfLineAscender) && this.m_lineHeight == -32767f)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!this.m_isNewPage)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												float num37 = this.m_maxLineAscender - this.m_startOfLineAscender;
 												this.AdjustLineOffset(this.m_firstCharacterOfLine, this.m_characterCount, num37);
 												num25 -= num37;
@@ -4460,15 +2256,6 @@ namespace TMPro
 									float maxDescender2;
 									if (this.m_maxDescender < num39)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxDescender2 = this.m_maxDescender;
 									}
 									else
@@ -4478,28 +2265,10 @@ namespace TMPro
 									this.m_maxDescender = maxDescender2;
 									if (!flag5)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										num11 = this.m_maxDescender;
 									}
 									if (this.m_useMaxVisibleDescender)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_characterCount >= this.m_maxVisibleCharacters || this.m_lineNumber >= this.m_maxVisibleLines)
 										{
 											flag5 = true;
@@ -4511,15 +2280,6 @@ namespace TMPro
 									int firstVisibleCharacterOfLine2;
 									if (this.m_firstCharacterOfLine > this.m_firstVisibleCharacterOfLine)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										firstVisibleCharacterOfLine2 = this.m_firstCharacterOfLine;
 									}
 									else
@@ -4533,15 +2293,6 @@ namespace TMPro
 									int lastVisibleCharacterOfLine;
 									if (this.m_lastVisibleCharacterOfLine < this.m_firstVisibleCharacterOfLine)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										lastVisibleCharacterOfLine = this.m_firstVisibleCharacterOfLine;
 									}
 									else
@@ -4557,28 +2308,10 @@ namespace TMPro
 									this.m_textInfo.lineInfo[this.m_lineNumber].width = num9;
 									if (this.m_textInfo.lineInfo[this.m_lineNumber].characterCount == 1)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_textInfo.lineInfo[this.m_lineNumber].alignment = this.m_lineJustification;
 									}
 									if (this.m_textInfo.characterInfo[this.m_lastVisibleCharacterOfLine].isVisible)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_textInfo.lineInfo[this.m_lineNumber].maxAdvance = this.m_textInfo.characterInfo[this.m_lastVisibleCharacterOfLine].xAdvance - (this.m_characterSpacing + this.m_currentFontAsset.normalSpacingOffset) * num2 - this.m_cSpacing;
 									}
 									else
@@ -4593,43 +2326,16 @@ namespace TMPro
 									this.m_lineVisibleCharacterCount = 0;
 									if (num14 == 0xA)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										base.SaveWordWrappingState(ref this.m_SavedLineState, i, this.m_characterCount);
 										base.SaveWordWrappingState(ref this.m_SavedWordWrapState, i, this.m_characterCount);
 										this.m_lineNumber++;
 										flag4 = true;
 										if (this.m_lineNumber >= this.m_textInfo.lineInfo.Length)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											base.ResizeLineExtents(this.m_lineNumber);
 										}
 										if (this.m_lineHeight == -32767f)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											float num33 = 0f - this.m_maxLineDescender + num22 + (num5 + this.m_lineSpacing + this.m_paragraphSpacing + this.m_lineSpacingDelta) * num;
 											this.m_lineOffset += num33;
 										}
@@ -4655,37 +2361,10 @@ namespace TMPro
 									}
 									if (this.m_overflowMode == TextOverflowModes.Page)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 != 0xD)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num14 != 0xA)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (this.m_pageNumber + 1 > this.m_textInfo.pageInfo.Length)
 												{
 													TMP_TextInfo.Resize<TMP_PageInfo>(ref this.m_textInfo.pageInfo, this.m_pageNumber + 1, true);
@@ -4696,15 +2375,6 @@ namespace TMPro
 												float descender2;
 												if (num24 < this.m_textInfo.pageInfo[this.m_pageNumber].descender)
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													descender2 = num24;
 												}
 												else
@@ -4714,41 +2384,14 @@ namespace TMPro
 												pageInfo[pageNumber].descender = descender2;
 												if (this.m_pageNumber == 0 && this.m_characterCount == 0)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													this.m_textInfo.pageInfo[this.m_pageNumber].firstCharacterIndex = this.m_characterCount;
 												}
 												else
 												{
 													if (this.m_characterCount > 0)
 													{
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (this.m_pageNumber != (int)this.m_textInfo.characterInfo[this.m_characterCount - 1].pageNumber)
 														{
-															for (;;)
-															{
-																switch (4)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															this.m_textInfo.pageInfo[this.m_pageNumber - 1].lastCharacterIndex = this.m_characterCount - 1;
 															this.m_textInfo.pageInfo[this.m_pageNumber].firstCharacterIndex = this.m_characterCount;
 															goto IL_340D;
@@ -4756,15 +2399,6 @@ namespace TMPro
 													}
 													if (this.m_characterCount == totalCharacterCount - 1)
 													{
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														this.m_textInfo.pageInfo[this.m_pageNumber].lastCharacterIndex = this.m_characterCount;
 													}
 												}
@@ -4776,27 +2410,9 @@ namespace TMPro
 									{
 										goto IL_343E;
 									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_overflowMode == TextOverflowModes.Truncate)
 									{
 										goto IL_343E;
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (this.m_overflowMode == TextOverflowModes.Ellipsis)
 									{
@@ -4810,40 +2426,13 @@ namespace TMPro
 									{
 										goto IL_348B;
 									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0x200B)
 									{
 										goto IL_348B;
 									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0x2D)
 									{
 										goto IL_348B;
-									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (num14 == 0xAD)
 									{
@@ -4862,15 +2451,6 @@ namespace TMPro
 									{
 										goto IL_352F;
 									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 < 0x11FF)
 									{
 										goto IL_35F7;
@@ -4887,29 +2467,11 @@ namespace TMPro
 									IL_369F:
 									if (!flag6)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!this.m_isCharacterWrappingEnabled)
 										{
 											if (!flag8)
 											{
 												goto IL_36D7;
-											}
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
 											}
 										}
 									}
@@ -4922,30 +2484,12 @@ namespace TMPro
 										{
 											goto IL_367F;
 										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (flag8)
 										{
 											goto IL_367F;
 										}
 										if (!TMP_Settings.linebreakingRules.leadingCharacters.ContainsKey(num14))
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_characterCount < totalCharacterCount - 1 && !TMP_Settings.linebreakingRules.followingCharacters.ContainsKey((int)this.m_textInfo.characterInfo[this.m_characterCount + 1].character))
 											{
 												for (;;)
@@ -4971,27 +2515,9 @@ namespace TMPro
 									IL_352F:
 									if (num14 > 0x2E80)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 < 0x9FFF)
 										{
 											goto IL_35F7;
-										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									if (num14 > 0xA960)
@@ -5000,15 +2526,6 @@ namespace TMPro
 										{
 											goto IL_35F7;
 										}
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num14 > 0xAC00)
 									{
@@ -5016,52 +2533,16 @@ namespace TMPro
 										{
 											goto IL_35F7;
 										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num14 > 0xF900)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 < 0xFAFF)
 										{
 											goto IL_35F7;
 										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num14 > 0xFE30)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num14 < 0xFE4F)
 										{
 											goto IL_35F7;
@@ -5087,53 +2568,17 @@ namespace TMPro
 										{
 											goto IL_3506;
 										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (num14 == 0xA0)
 									{
 										goto IL_3506;
 									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 == 0x2011)
 									{
 										goto IL_3506;
 									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (num14 != 0x202F && num14 != 0x2060)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										base.SaveWordWrappingState(ref this.m_SavedWordWrapState, i, this.m_characterCount);
 										this.m_isCharacterWrappingEnabled = false;
 										flag6 = false;
@@ -5161,15 +2606,6 @@ namespace TMPro
 									float maxAscender;
 									if (this.m_maxAscender > num22)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxAscender = this.m_maxAscender;
 									}
 									else
@@ -5185,15 +2621,6 @@ namespace TMPro
 									float maxLineAscender2;
 									if (num40 > this.m_maxLineAscender)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineAscender2 = num40;
 									}
 									else
@@ -5206,15 +2633,6 @@ namespace TMPro
 									float maxLineDescender2;
 									if (num41 < this.m_maxLineDescender)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										maxLineDescender2 = num41;
 									}
 									else
@@ -5226,15 +2644,6 @@ namespace TMPro
 									IL_E33:
 									if (this.m_currentMaterial.HasProperty(ShaderUtilities.ID_GradientScale))
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										float float2 = this.m_currentMaterial.GetFloat(ShaderUtilities.ID_GradientScale);
 										num19 = this.m_currentFontAsset.normalStyle / 4f * float2 * this.m_currentMaterial.GetFloat(ShaderUtilities.ID_ScaleRatio_A);
 										if (num19 + num3 > float2)
@@ -5252,51 +2661,15 @@ namespace TMPro
 								float num42 = this.m_maxFontSize - this.m_minFontSize;
 								if (!this.m_isCharacterWrappingEnabled)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_enableAutoSizing)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num42 > 0.051f && this.m_fontSize < this.m_fontSizeMax)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.m_minFontSize = this.m_fontSize;
 											this.m_fontSize += Mathf.Max((this.m_maxFontSize - this.m_fontSize) / 2f, 0.05f);
 											this.m_fontSize = (float)((int)(Mathf.Min(this.m_fontSize, this.m_fontSizeMax) * 20f + 0.5f)) / 20f;
 											if (this.loopCountA > 0x14)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												return;
 											}
 											this.GenerateTextMesh();
@@ -5307,15 +2680,6 @@ namespace TMPro
 								this.m_isCharacterWrappingEnabled = false;
 								if (this.m_characterCount == 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.ClearMesh();
 									TMPro_EventManager.ON_TEXT_CHANGED(this);
 									return;
@@ -5377,15 +2741,6 @@ namespace TMPro
 														{
 															goto IL_3A52;
 														}
-														for (;;)
-														{
-															switch (2)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (textAlignment == TextAlignmentOptions.TopGeoAligned)
 														{
 															goto IL_3A52;
@@ -5394,104 +2749,32 @@ namespace TMPro
 														{
 															goto IL_3AF3;
 														}
-														for (;;)
-														{
-															switch (2)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (textAlignment == TextAlignmentOptions.BottomFlush)
 														{
 															goto IL_3C0C;
-														}
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
 														}
 														if (textAlignment == TextAlignmentOptions.BottomGeoAligned)
 														{
 															goto IL_3C0C;
 														}
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (textAlignment == TextAlignmentOptions.BaselineFlush)
 														{
 															goto IL_3CA9;
-														}
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
 														}
 														if (textAlignment == TextAlignmentOptions.BaselineGeoAligned)
 														{
 															goto IL_3CA9;
 														}
-														for (;;)
-														{
-															switch (2)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (textAlignment == TextAlignmentOptions.MidlineFlush)
 														{
 															goto IL_3CF8;
-														}
-														for (;;)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
 														}
 														if (textAlignment == TextAlignmentOptions.MidlineGeoAligned)
 														{
 															goto IL_3CF8;
 														}
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (textAlignment != TextAlignmentOptions.CaplineFlush && textAlignment != TextAlignmentOptions.CaplineGeoAligned)
 														{
-															for (;;)
-															{
-																switch (5)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															goto IL_3DE5;
 														}
 														break;
@@ -5510,15 +2793,6 @@ namespace TMPro
 										IL_3C0C:
 										if (this.m_overflowMode != TextOverflowModes.Page)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											a = rectTransformCorners[0] + new Vector3(margin.x, 0f - num11 + margin.w, 0f);
 										}
 										else
@@ -5530,15 +2804,6 @@ namespace TMPro
 									IL_3AF3:
 									if (this.m_overflowMode != TextOverflowModes.Page)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										a = (rectTransformCorners[0] + rectTransformCorners[1]) / 2f + new Vector3(margin.x, 0f - (this.m_maxAscender + margin.y + num11 - margin.w) / 2f, 0f);
 									}
 									else
@@ -5550,15 +2815,6 @@ namespace TMPro
 								IL_3A52:
 								if (this.m_overflowMode != TextOverflowModes.Page)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									a = rectTransformCorners[1] + new Vector3(margin.x, 0f - this.m_maxAscender - margin.y, 0f);
 								}
 								else
@@ -5579,15 +2835,6 @@ namespace TMPro
 								bool flag13;
 								if (this.m_canvas.worldCamera == null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag13 = false;
 								}
 								else
@@ -5665,125 +2912,35 @@ namespace TMPro
 															{
 																goto IL_429B;
 															}
-															for (;;)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (alignment != TextAlignmentOptions.TopGeoAligned)
 															{
-																for (;;)
-																{
-																	switch (7)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (alignment == TextAlignmentOptions.Flush)
 																{
 																	goto IL_429B;
 																}
-																for (;;)
-																{
-																	switch (1)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																if (alignment != TextAlignmentOptions.CenterGeoAligned)
 																{
-																	for (;;)
-																	{
-																		switch (7)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (alignment == TextAlignmentOptions.BottomFlush)
 																	{
 																		goto IL_429B;
 																	}
-																	for (;;)
-																	{
-																		switch (7)
-																		{
-																		case 0:
-																			continue;
-																		}
-																		break;
-																	}
 																	if (alignment != TextAlignmentOptions.BottomGeoAligned)
 																	{
-																		for (;;)
-																		{
-																			switch (2)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (alignment == TextAlignmentOptions.BaselineFlush)
 																		{
 																			goto IL_429B;
 																		}
-																		for (;;)
-																		{
-																			switch (4)
-																			{
-																			case 0:
-																				continue;
-																			}
-																			break;
-																		}
 																		if (alignment != TextAlignmentOptions.BaselineGeoAligned)
 																		{
-																			for (;;)
-																			{
-																				switch (1)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
-																			}
 																			if (alignment == TextAlignmentOptions.MidlineFlush)
 																			{
 																				goto IL_429B;
-																			}
-																			for (;;)
-																			{
-																				switch (7)
-																				{
-																				case 0:
-																					continue;
-																				}
-																				break;
 																			}
 																			if (alignment != TextAlignmentOptions.MidlineGeoAligned)
 																			{
 																				if (alignment == TextAlignmentOptions.CaplineFlush)
 																				{
 																					goto IL_429B;
-																				}
-																				for (;;)
-																				{
-																					switch (1)
-																					{
-																					case 0:
-																						continue;
-																					}
-																					break;
 																				}
 																				if (alignment != TextAlignmentOptions.CaplineGeoAligned)
 																				{
@@ -5836,15 +2993,6 @@ namespace TMPro
 									bool isVisible = characterInfo[j].isVisible;
 									if (isVisible)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										TMP_TextElementType elementType = characterInfo[j].elementType;
 										if (elementType != TMP_TextElementType.Character)
 										{
@@ -5867,15 +3015,6 @@ namespace TMPro
 											case TextureMappingOptions.Line:
 												if (this.m_textAlignment != TextAlignmentOptions.Justified)
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													characterInfo[j].vertex_BL.uv2.x = (characterInfo[j].vertex_BL.position.x - lineExtents.min.x) / (lineExtents.max.x - lineExtents.min.x) + num56;
 													characterInfo[j].vertex_TL.uv2.x = (characterInfo[j].vertex_TL.position.x - lineExtents.min.x) / (lineExtents.max.x - lineExtents.min.x) + num56;
 													characterInfo[j].vertex_TR.uv2.x = (characterInfo[j].vertex_TR.position.x - lineExtents.min.x) / (lineExtents.max.x - lineExtents.min.x) + num56;
@@ -5962,51 +3101,15 @@ namespace TMPro
 											num49 = characterInfo[j].scale * (1f - this.m_charWidthAdjDelta);
 											if (!characterInfo[j].isUsingAlternateTypeface)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if ((characterInfo[j].style & FontStyles.Bold) == FontStyles.Bold)
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													num49 *= -1f;
 												}
 											}
 											if (renderMode != RenderMode.ScreenSpaceOverlay)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (renderMode != RenderMode.ScreenSpaceCamera)
 												{
-													for (;;)
-													{
-														switch (2)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (renderMode == RenderMode.WorldSpace)
 													{
 														num49 *= num48;
@@ -6018,15 +3121,6 @@ namespace TMPro
 													float num60;
 													if (flag14)
 													{
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num60 = num48;
 													}
 													else
@@ -6063,53 +3157,17 @@ namespace TMPro
 										{
 											goto IL_56F9;
 										}
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num44 >= this.m_maxVisibleWords)
 										{
 											goto IL_56F9;
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										if (lineNumber6 >= this.m_maxVisibleLines)
 										{
 											goto IL_56F9;
 										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_overflowMode == TextOverflowModes.Page)
 										{
 											goto IL_56F9;
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										TMP_CharacterInfo[] array = characterInfo;
 										int num67 = j;
@@ -6131,15 +3189,6 @@ namespace TMPro
 										}
 										if (elementType == TMP_TextElementType.Sprite)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.FillSpriteVertexBuffers(j, index_X2);
 											goto IL_5895;
 										}
@@ -6147,59 +3196,14 @@ namespace TMPro
 										IL_56F9:
 										if (j < this.m_maxVisibleCharacters)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (num44 < this.m_maxVisibleWords)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (lineNumber6 < this.m_maxVisibleLines)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (this.m_overflowMode == TextOverflowModes.Page)
 													{
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if ((int)characterInfo[j].pageNumber == num6)
 														{
-															for (;;)
-															{
-																switch (6)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															TMP_CharacterInfo[] array5 = characterInfo;
 															int num71 = j;
 															array5[num71].vertex_BL.position = array5[num71].vertex_BL.position + b4;
@@ -6255,28 +3259,10 @@ namespace TMPro
 									characterInfo10[num83].baseLine = characterInfo10[num83].baseLine + b4.y;
 									if (isVisible)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 									}
 									if (lineNumber6 != num46)
 									{
 										goto IL_5A19;
-									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (j == this.m_characterCount - 1)
 									{
@@ -6295,104 +3281,32 @@ namespace TMPro
 									{
 										goto IL_5D28;
 									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (character2 == '-')
 									{
 										goto IL_5D28;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (character2 == '­')
 									{
 										goto IL_5D28;
 									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (character2 == '‐')
 									{
 										goto IL_5D28;
-									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (character2 != '‑')
 									{
 										if (!flag12)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j != 0)
 											{
 												goto IL_6077;
 											}
 											if (char.IsPunctuation(character2))
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (!char.IsWhiteSpace(character2))
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (character2 != '​')
 													{
-														for (;;)
-														{
-															switch (1)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (j != this.m_characterCount - 1)
 														{
 															goto IL_6077;
@@ -6403,73 +3317,19 @@ namespace TMPro
 										}
 										if (j > 0 && j < characterInfo.Length - 1)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j < this.m_characterCount)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (character2 != '\'')
 												{
-													for (;;)
-													{
-														switch (1)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (character2 != '’')
 													{
 														goto IL_5F5E;
 													}
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 												}
 												if (char.IsLetterOrDigit(characterInfo[j - 1].character))
 												{
-													for (;;)
-													{
-														switch (7)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (char.IsLetterOrDigit(characterInfo[j + 1].character))
 													{
-														for (;;)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														goto IL_6077;
 													}
 												}
@@ -6479,15 +3339,6 @@ namespace TMPro
 										if (j != this.m_characterCount - 1)
 										{
 											goto IL_5F83;
-										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										if (!char.IsLetterOrDigit(character2))
 										{
@@ -6501,15 +3352,6 @@ namespace TMPro
 										int wordCount = this.m_textInfo.wordCount;
 										if (this.m_textInfo.wordCount + 1 > num86)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											TMP_TextInfo.Resize<TMP_WordInfo>(ref this.m_textInfo.wordInfo, num86 + 1);
 										}
 										this.m_textInfo.wordInfo[wordCount].firstCharacterIndex = num47;
@@ -6539,54 +3381,18 @@ namespace TMPro
 									bool flag15 = (this.m_textInfo.characterInfo[j].style & FontStyles.Underline) == FontStyles.Underline;
 									if (flag15)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										bool flag16 = true;
 										int pageNumber2 = (int)this.m_textInfo.characterInfo[j].pageNumber;
 										if (j > this.m_maxVisibleCharacters)
 										{
 											goto IL_6109;
 										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (lineNumber6 > this.m_maxVisibleLines)
 										{
 											goto IL_6109;
 										}
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_overflowMode == TextOverflowModes.Page)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (pageNumber2 + 1 != this.m_pageToDisplay)
 											{
 												goto IL_6109;
@@ -6595,26 +3401,8 @@ namespace TMPro
 										IL_610C:
 										if (!char.IsWhiteSpace(character2))
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (character2 != '​')
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												num51 = Mathf.Max(num51, this.m_textInfo.characterInfo[j].scale);
 												num52 = Mathf.Min((pageNumber2 != num53) ? TMP_Text.k_LargePositiveFloat : num52, this.m_textInfo.characterInfo[j].baseLine + base.font.fontInfo.Underline * num51);
 												num53 = pageNumber2;
@@ -6622,70 +3410,16 @@ namespace TMPro
 										}
 										if (!flag)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (flag16)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (j <= tmp_LineInfo.lastVisibleCharacterIndex)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (character2 != '\n' && character2 != '\r')
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														if (j == tmp_LineInfo.lastVisibleCharacterIndex)
 														{
-															for (;;)
-															{
-																switch (7)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															if (char.IsSeparator(character2))
 															{
-																for (;;)
-																{
-																	switch (3)
-																	{
-																	case 0:
-																		continue;
-																	}
-																	break;
-																}
 																goto IL_6298;
 															}
 														}
@@ -6693,15 +3427,6 @@ namespace TMPro
 														num50 = this.m_textInfo.characterInfo[j].scale;
 														if (num51 == 0f)
 														{
-															for (;;)
-															{
-																switch (1)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															num51 = num50;
 														}
 														zero = new Vector3(this.m_textInfo.characterInfo[j].bottomLeft.x, num52, 0f);
@@ -6714,15 +3439,6 @@ namespace TMPro
 										if (!flag)
 										{
 											goto IL_6321;
-										}
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										if (this.m_characterCount != 1)
 										{
@@ -6739,38 +3455,11 @@ namespace TMPro
 										IL_6321:
 										if (flag)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j != tmp_LineInfo.lastCharacterIndex)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (j < tmp_LineInfo.lastVisibleCharacterIndex)
 												{
 													goto IL_643A;
-												}
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 											}
 											if (char.IsWhiteSpace(character2))
@@ -6809,26 +3498,8 @@ namespace TMPro
 										IL_643A:
 										if (flag)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!flag16)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												flag = false;
 												zero2 = new Vector3(this.m_textInfo.characterInfo[j - 1].topRight.x, num52, 0f);
 												scale = this.m_textInfo.characterInfo[j - 1].scale;
@@ -6840,15 +3511,6 @@ namespace TMPro
 										}
 										if (flag && j < this.m_characterCount - 1 && !color.Compare(this.m_textInfo.characterInfo[j + 1].underlineColor))
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = false;
 											zero2 = new Vector3(this.m_textInfo.characterInfo[j].topRight.x, num52, 0f);
 											scale = this.m_textInfo.characterInfo[j].scale;
@@ -6864,15 +3526,6 @@ namespace TMPro
 									}
 									if (flag)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 										zero2 = new Vector3(this.m_textInfo.characterInfo[j - 1].topRight.x, num52, 0f);
 										float scale = this.m_textInfo.characterInfo[j - 1].scale;
@@ -6885,40 +3538,13 @@ namespace TMPro
 									float strikethrough = fontAsset.fontInfo.strikethrough;
 									if (flag17)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										bool flag18 = true;
 										if (j > this.m_maxVisibleCharacters || lineNumber6 > this.m_maxVisibleLines)
 										{
 											goto IL_6696;
 										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_overflowMode == TextOverflowModes.Page)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if ((int)(this.m_textInfo.characterInfo[j].pageNumber + 1) != this.m_pageToDisplay)
 											{
 												for (;;)
@@ -6935,37 +3561,10 @@ namespace TMPro
 										IL_6699:
 										if (!flag2)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (flag18 && j <= tmp_LineInfo.lastVisibleCharacterIndex && character2 != '\n')
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (character2 != '\r')
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (j != tmp_LineInfo.lastVisibleCharacterIndex || !char.IsSeparator(character2))
 													{
 														flag2 = true;
@@ -6982,27 +3581,9 @@ namespace TMPro
 										{
 											goto IL_6833;
 										}
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_characterCount != 1)
 										{
 											goto IL_6833;
-										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										flag2 = false;
 										zero4 = new Vector3(this.m_textInfo.characterInfo[j].topRight.x, this.m_textInfo.characterInfo[j].baseLine + strikethrough * num55, 0f);
@@ -7012,38 +3593,11 @@ namespace TMPro
 										IL_6833:
 										if (flag2)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j == tmp_LineInfo.lastCharacterIndex)
 											{
-												for (;;)
-												{
-													switch (5)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (char.IsWhiteSpace(character2))
 												{
 													goto IL_687A;
-												}
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 												if (character2 == '​')
 												{
@@ -7062,41 +3616,14 @@ namespace TMPro
 										}
 										if (flag2)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j < this.m_characterCount)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (this.m_textInfo.characterInfo[j + 1].pointSize != num54 || !TMP_Math.Approximately(this.m_textInfo.characterInfo[j + 1].baseLine + b4.y, b5))
 												{
 													flag2 = false;
 													int lastVisibleCharacterIndex3 = tmp_LineInfo.lastVisibleCharacterIndex;
 													if (j > lastVisibleCharacterIndex3)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														zero4 = new Vector3(this.m_textInfo.characterInfo[lastVisibleCharacterIndex3].topRight.x, this.m_textInfo.characterInfo[lastVisibleCharacterIndex3].baseLine + strikethrough * num55, 0f);
 													}
 													else
@@ -7110,37 +3637,10 @@ namespace TMPro
 										}
 										if (flag2)
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j < this.m_characterCount)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (fontAsset.GetInstanceID() != characterInfo[j + 1].fontAsset.GetInstanceID())
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													flag2 = false;
 													zero4 = new Vector3(this.m_textInfo.characterInfo[j].topRight.x, this.m_textInfo.characterInfo[j].baseLine + strikethrough * num55, 0f);
 													this.DrawUnderlineMesh(zero3, zero4, ref num43, num55, num55, num55, num49, underlineColor);
@@ -7150,15 +3650,6 @@ namespace TMPro
 										}
 										if (flag2 && !flag18)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag2 = false;
 											zero4 = new Vector3(this.m_textInfo.characterInfo[j - 1].topRight.x, this.m_textInfo.characterInfo[j - 1].baseLine + strikethrough * num55, 0f);
 											this.DrawUnderlineMesh(zero3, zero4, ref num43, num55, num55, num55, num49, underlineColor);
@@ -7171,15 +3662,6 @@ namespace TMPro
 									}
 									if (flag2)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag2 = false;
 										zero4 = new Vector3(this.m_textInfo.characterInfo[j - 1].topRight.x, this.m_textInfo.characterInfo[j - 1].baseLine + strikethrough * num55, 0f);
 										this.DrawUnderlineMesh(zero3, zero4, ref num43, num55, num55, num55, num49, underlineColor);
@@ -7209,37 +3691,10 @@ namespace TMPro
 										IL_6C7D:
 										if (!flag3)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (flag20)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (j <= tmp_LineInfo.lastVisibleCharacterIndex)
 												{
-													for (;;)
-													{
-														switch (6)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (character2 != '\n' && character2 != '\r')
 													{
 														if (j != tmp_LineInfo.lastVisibleCharacterIndex || !char.IsSeparator(character2))
@@ -7271,15 +3726,6 @@ namespace TMPro
 											}
 											if (!flag21)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												start.x = Mathf.Min(start.x, this.m_textInfo.characterInfo[j].bottomLeft.x);
 												start.y = Mathf.Min(start.y, this.m_textInfo.characterInfo[j].descender);
 												vector.x = Mathf.Max(vector.x, this.m_textInfo.characterInfo[j].topRight.x);
@@ -7290,27 +3736,9 @@ namespace TMPro
 										{
 											goto IL_6F31;
 										}
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_characterCount != 1)
 										{
 											goto IL_6F31;
-										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 										flag3 = false;
 										this.DrawTextHighlight(start, vector, ref num43, highlightColor);
@@ -7319,15 +3747,6 @@ namespace TMPro
 										IL_6F31:
 										if (flag3)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (j == tmp_LineInfo.lastCharacterIndex || j >= tmp_LineInfo.lastVisibleCharacterIndex)
 											{
 												flag3 = false;
@@ -7339,26 +3758,8 @@ namespace TMPro
 										{
 											goto IL_6F95;
 										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag20)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag3 = false;
 											this.DrawTextHighlight(start, vector, ref num43, highlightColor);
 											goto IL_6F95;
@@ -7370,15 +3771,6 @@ namespace TMPro
 									}
 									if (flag3)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag3 = false;
 										this.DrawTextHighlight(start, vector, ref num43, highlightColor);
 									}
@@ -7389,53 +3781,17 @@ namespace TMPro
 									IL_5D28:
 									if (!flag12)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag12 = true;
 										num47 = j;
 									}
 									if (flag12)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (j == this.m_characterCount - 1)
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											int num88 = this.m_textInfo.wordInfo.Length;
 											int wordCount2 = this.m_textInfo.wordCount;
 											if (this.m_textInfo.wordCount + 1 > num88)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												TMP_TextInfo.Resize<TMP_WordInfo>(ref this.m_textInfo.wordInfo, num88 + 1);
 											}
 											int num85 = j;
@@ -7454,15 +3810,6 @@ namespace TMPro
 									IL_5A19:
 									if (lineNumber6 != num46)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										TMP_LineInfo[] lineInfo8 = this.m_textInfo.lineInfo;
 										int num90 = num46;
 										lineInfo8[num90].baseline = lineInfo8[num90].baseline + b4.y;
@@ -7477,15 +3824,6 @@ namespace TMPro
 									}
 									if (j == this.m_characterCount - 1)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										TMP_LineInfo[] lineInfo11 = this.m_textInfo.lineInfo;
 										int num93 = lineNumber6;
 										lineInfo11[num93].baseline = lineInfo11[num93].baseline + b4.y;
@@ -7503,15 +3841,6 @@ namespace TMPro
 									IL_415D:
 									if (!this.m_isRightToLeft)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										vector6 = new Vector3(tmp_LineInfo.marginLeft, 0f, 0f);
 									}
 									else
@@ -7525,15 +3854,6 @@ namespace TMPro
 									IL_423A:
 									if (!this.m_isRightToLeft)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										vector6 = new Vector3(tmp_LineInfo.marginLeft + tmp_LineInfo.width - tmp_LineInfo.maxAdvance, 0f, 0f);
 									}
 									else
@@ -7544,26 +3864,8 @@ namespace TMPro
 									IL_429B:
 									if (character2 != '­')
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (character2 != '​')
 										{
-											for (;;)
-											{
-												switch (7)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (character2 != '⁠')
 											{
 												char character3 = characterInfo[tmp_LineInfo.lastCharacterIndex].character;
@@ -7590,40 +3892,13 @@ namespace TMPro
 												IL_430C:
 												if (!flag22)
 												{
-													for (;;)
-													{
-														switch (3)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													if (tmp_LineInfo.maxAdvance > tmp_LineInfo.width)
 													{
-														for (;;)
-														{
-															switch (4)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 													}
 													else
 													{
 														if (!this.m_isRightToLeft)
 														{
-															for (;;)
-															{
-																switch (3)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 															vector6 = new Vector3(tmp_LineInfo.marginLeft, 0f, 0f);
 															goto IL_45AD;
 														}
@@ -7636,27 +3911,9 @@ namespace TMPro
 												{
 													goto IL_436C;
 												}
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												if (j == 0)
 												{
 													goto IL_436C;
-												}
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
 												}
 												if (j == this.m_firstVisibleCharacter)
 												{
@@ -7675,15 +3932,6 @@ namespace TMPro
 													float num96;
 													if (!this.m_isRightToLeft)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num96 = tmp_LineInfo.width - tmp_LineInfo.maxAdvance;
 													}
 													else
@@ -7695,15 +3943,6 @@ namespace TMPro
 													int num99;
 													if (characterInfo[tmp_LineInfo.lastCharacterIndex].isVisible)
 													{
-														for (;;)
-														{
-															switch (5)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num99 = tmp_LineInfo.spaceCount;
 													}
 													else
@@ -7713,45 +3952,18 @@ namespace TMPro
 													int num100 = num99;
 													if (flag11)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num100--;
 														num98++;
 													}
 													float num101 = (num100 <= 0) ? 1f : this.m_wordWrappingRatios;
 													if (num100 < 1)
 													{
-														for (;;)
-														{
-															switch (6)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														num100 = 1;
 													}
 													if (character2 != '\t')
 													{
 														if (char.IsSeparator(character2))
 														{
-															for (;;)
-															{
-																switch (3)
-																{
-																case 0:
-																	continue;
-																}
-																break;
-															}
 														}
 														else
 														{
@@ -7766,15 +3978,6 @@ namespace TMPro
 													}
 													if (!this.m_isRightToLeft)
 													{
-														for (;;)
-														{
-															switch (7)
-															{
-															case 0:
-																continue;
-															}
-															break;
-														}
 														vector6 += new Vector3(num97 * (1f - num101) / (float)num100, 0f, 0f);
 													}
 													else
@@ -7787,15 +3990,6 @@ namespace TMPro
 												IL_436C:
 												if (!this.m_isRightToLeft)
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													vector6 = new Vector3(tmp_LineInfo.marginLeft, 0f, 0f);
 												}
 												else
@@ -7804,15 +3998,6 @@ namespace TMPro
 												}
 												if (char.IsSeparator(character2))
 												{
-													for (;;)
-													{
-														switch (5)
-														{
-														case 0:
-															continue;
-														}
-														break;
-													}
 													flag11 = true;
 												}
 												else
@@ -7824,15 +4009,6 @@ namespace TMPro
 									}
 									goto IL_45AF;
 								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_textInfo.characterCount = (int)((short)this.m_characterCount);
 								this.m_textInfo.spriteCount = this.m_spriteCount;
 								this.m_textInfo.lineCount = (int)((short)num45);
@@ -7840,15 +4016,6 @@ namespace TMPro
 								int wordCount3;
 								if (num44 != 0 && this.m_characterCount > 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									wordCount3 = (int)((short)num44);
 								}
 								else
@@ -7859,39 +4026,12 @@ namespace TMPro
 								this.m_textInfo.pageCount = this.m_pageNumber + 1;
 								if (this.m_renderMode == TextRenderFlags.Render)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_canvas.additionalShaderChannels != (AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent))
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_canvas.additionalShaderChannels |= (AdditionalCanvasShaderChannels.TexCoord1 | AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent);
 									}
 									if (this.m_geometrySortingOrder != VertexSortingOrder.Normal)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.m_textInfo.meshInfo[0].SortGeometry(VertexSortingOrder.Reverse);
 									}
 									this.m_mesh.MarkDynamic();
@@ -7907,15 +4047,6 @@ namespace TMPro
 										this.m_textInfo.meshInfo[k].ClearUnusedVertices();
 										if (this.m_subTextObjects[k] == null)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 										}
 										else
 										{
@@ -7944,19 +4075,6 @@ namespace TMPro
 					TMPro_EventManager.ON_TEXT_CHANGED(this);
 					return;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GenerateTextMesh()).MethodHandle;
-				}
 			}
 			Debug.LogWarning("Can't Generate Mesh! No Font Asset has been assigned to Object ID: " + base.GetInstanceID());
 		}
@@ -7965,19 +4083,6 @@ namespace TMPro
 		{
 			if (this.m_rectTransform == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetTextContainerLocalCorners()).MethodHandle;
-				}
 				this.m_rectTransform = base.rectTransform;
 			}
 			this.m_rectTransform.GetLocalCorners(this.m_RectTransformCorners);
@@ -7991,19 +4096,6 @@ namespace TMPro
 			{
 				if (this.m_subTextObjects[num].enabled != state)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetActiveSubMeshes(bool)).MethodHandle;
-					}
 					this.m_subTextObjects[num].enabled = state;
 				}
 				num++;
@@ -8018,15 +4110,6 @@ namespace TMPro
 			int i = 1;
 			while (i < this.m_subTextObjects.Length)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(this.m_subTextObjects[i] != null))
 				{
 					for (;;)
@@ -8045,19 +4128,6 @@ namespace TMPro
 					float x;
 					if (min.x < bounds2.min.x)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetCompoundBounds()).MethodHandle;
-						}
 						x = min.x;
 					}
 					else
@@ -8068,15 +4138,6 @@ namespace TMPro
 					float y;
 					if (min.y < bounds2.min.y)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						y = min.y;
 					}
 					else
@@ -8087,15 +4148,6 @@ namespace TMPro
 					float x2;
 					if (max.x > bounds2.max.x)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						x2 = max.x;
 					}
 					else
@@ -8106,15 +4158,6 @@ namespace TMPro
 					float y2;
 					if (max.y > bounds2.max.y)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						y2 = max.y;
 					}
 					else
@@ -8135,19 +4178,6 @@ namespace TMPro
 		{
 			if (this.m_canvas == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateSDFScale(float)).MethodHandle;
-				}
 				this.m_canvas = this.GetCanvas();
 				if (this.m_canvas == null)
 				{
@@ -8159,40 +4189,13 @@ namespace TMPro
 			float num;
 			if (this.m_canvas.renderMode == RenderMode.ScreenSpaceOverlay)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = lossyScale / scaleFactor;
 			}
 			else if (this.m_canvas.renderMode == RenderMode.ScreenSpaceCamera)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num2;
 				if (this.m_canvas.worldCamera != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 = lossyScale;
 				}
 				else
@@ -8209,40 +4212,13 @@ namespace TMPro
 			{
 				if (this.m_textInfo.characterInfo[i].isVisible)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_textInfo.characterInfo[i].elementType == TMP_TextElementType.Character)
 					{
 						float num3 = num * this.m_textInfo.characterInfo[i].scale * (1f - this.m_charWidthAdjDelta);
 						if (!this.m_textInfo.characterInfo[i].isUsingAlternateTypeface)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((this.m_textInfo.characterInfo[i].style & FontStyles.Bold) == FontStyles.Bold)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3 *= -1f;
 							}
 						}
@@ -8255,28 +4231,10 @@ namespace TMPro
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.m_textInfo.materialCount; j++)
 			{
 				if (j == 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_mesh.uv2 = this.m_textInfo.meshInfo[0].uvs2;
 					this.m_canvasRenderer.SetMesh(this.m_mesh);
 				}
@@ -8285,15 +4243,6 @@ namespace TMPro
 					this.m_subTextObjects[j].mesh.uv2 = this.m_textInfo.meshInfo[j].uvs2;
 					this.m_subTextObjects[j].canvasRenderer.SetMesh(this.m_subTextObjects[j].mesh);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -8359,33 +4308,11 @@ namespace TMPro
 			{
 				if (this.m_autoSizeTextContainer == value)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.set_autoSizeTextContainer(bool)).MethodHandle;
-					}
 					return;
 				}
 				this.m_autoSizeTextContainer = value;
 				if (this.m_autoSizeTextContainer)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(this);
 					this.SetLayoutDirty();
 				}
@@ -8406,19 +4333,6 @@ namespace TMPro
 			{
 				if (this.m_canvasRenderer == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.get_canvasRenderer()).MethodHandle;
-					}
 					this.m_canvasRenderer = base.GetComponent<CanvasRenderer>();
 				}
 				return this.m_canvasRenderer;
@@ -8437,44 +4351,13 @@ namespace TMPro
 		{
 			if (!base.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.CalculateLayoutInputHorizontal()).MethodHandle;
-				}
 				return;
 			}
 			if (!this.m_isCalculateSizeRequired)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_rectTransform.hasChanged)
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_preferredWidth = base.GetPreferredWidth();
@@ -8486,19 +4369,6 @@ namespace TMPro
 		{
 			if (!base.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.CalculateLayoutInputVertical()).MethodHandle;
-				}
 				return;
 			}
 			if (!this.m_isCalculateSizeRequired)
@@ -8506,15 +4376,6 @@ namespace TMPro
 				if (!this.m_rectTransform.hasChanged)
 				{
 					goto IL_5D;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_preferredHeight = base.GetPreferredHeight();
@@ -8528,44 +4389,13 @@ namespace TMPro
 		{
 			if (!this.m_verticesAlreadyDirty && !(this == null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetVerticesDirty()).MethodHandle;
-				}
 				if (this.IsActive())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!CanvasUpdateRegistry.IsRebuildingGraphics())
 					{
 						this.m_verticesAlreadyDirty = true;
 						CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
 						return;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -8577,45 +4407,14 @@ namespace TMPro
 			this.m_isPreferredHeightDirty = true;
 			if (!this.m_layoutAlreadyDirty)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetLayoutDirty()).MethodHandle;
-				}
 				if (!(this == null))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsActive())
 					{
 						this.m_layoutAlreadyDirty = true;
 						LayoutRebuilder.MarkLayoutForRebuild(base.rectTransform);
 						this.m_isLayoutDirty = true;
 						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -8625,34 +4424,12 @@ namespace TMPro
 		{
 			if (!(this == null))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.SetMaterialDirty()).MethodHandle;
-				}
 				if (this.IsActive() && !CanvasUpdateRegistry.IsRebuildingGraphics())
 				{
 					this.m_isMaterialDirty = true;
 					CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
 					if (this.m_OnDirtyMaterialCallback != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_OnDirtyMaterialCallback();
 					}
 					return;
@@ -8671,43 +4448,12 @@ namespace TMPro
 		{
 			if (this == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.Rebuild(CanvasUpdate)).MethodHandle;
-				}
 				return;
 			}
 			if (update == CanvasUpdate.Prelayout)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_autoSizeTextContainer)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_rectTransform.sizeDelta = base.GetPreferredValues(float.PositiveInfinity, float.PositiveInfinity);
 				}
 			}
@@ -8718,15 +4464,6 @@ namespace TMPro
 				this.m_layoutAlreadyDirty = false;
 				if (!this.m_isMaterialDirty)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 				this.UpdateMaterial();
@@ -8738,33 +4475,11 @@ namespace TMPro
 		{
 			if (this.m_textInfo == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateSubObjectPivot()).MethodHandle;
-				}
 				return;
 			}
 			int i = 1;
 			while (i < this.m_subTextObjects.Length)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(this.m_subTextObjects[i] != null))
 				{
 					for (;;)
@@ -8790,45 +4505,14 @@ namespace TMPro
 			Material material = baseMaterial;
 			if (this.m_ShouldRecalculateStencil)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetModifiedMaterial(Material)).MethodHandle;
-				}
 				this.m_stencilID = TMP_MaterialManager.GetStencilID(base.gameObject);
 				this.m_ShouldRecalculateStencil = false;
 			}
 			if (this.m_stencilID > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				material = TMP_MaterialManager.GetStencilMaterial(baseMaterial, this.m_stencilID);
 				if (this.m_MaskMaterial != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
 				}
 				this.m_MaskMaterial = material;
@@ -8840,32 +4524,10 @@ namespace TMPro
 		{
 			if (this.m_sharedMaterial == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateMaterial()).MethodHandle;
-				}
 				return;
 			}
 			if (this.m_canvasRenderer == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_canvasRenderer = this.canvasRenderer;
 			}
 			this.m_canvasRenderer.materialCount = 1;
@@ -8901,19 +4563,6 @@ namespace TMPro
 		{
 			if (this.m_ignoreRectMaskCulling)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.Cull(Rect, bool)).MethodHandle;
-				}
 				return;
 			}
 			base.Cull(clipRect, validRect);
@@ -8927,33 +4576,11 @@ namespace TMPro
 			this.checkPaddingRequired = false;
 			if (this.m_textInfo == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateMeshPadding()).MethodHandle;
-				}
 				return;
 			}
 			for (int i = 1; i < this.m_textInfo.materialCount; i++)
 			{
 				this.m_subTextObjects[i].UpdateMeshPadding(this.m_enableExtraPadding, this.m_isUsingBold);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -8996,19 +4623,6 @@ namespace TMPro
 			this.ComputeMarginSize();
 			if (this.m_canvas == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.GetTextInfo(string)).MethodHandle;
-				}
 				this.m_canvas = base.canvas;
 			}
 			this.GenerateTextMesh();
@@ -9022,19 +4636,6 @@ namespace TMPro
 			int i = 1;
 			while (i < this.m_subTextObjects.Length)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.ClearMesh()).MethodHandle;
-				}
 				if (!(this.m_subTextObjects[i] != null))
 				{
 					for (;;)
@@ -9060,19 +4661,6 @@ namespace TMPro
 			mesh.RecalculateBounds();
 			if (index == 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateGeometry(Mesh, int)).MethodHandle;
-				}
 				this.m_canvasRenderer.SetMesh(mesh);
 			}
 			else
@@ -9089,19 +4677,6 @@ namespace TMPro
 				Mesh mesh;
 				if (i == 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateVertexData(TMP_VertexDataUpdateFlags)).MethodHandle;
-					}
 					mesh = this.m_mesh;
 				}
 				else
@@ -9110,28 +4685,10 @@ namespace TMPro
 				}
 				if ((flags & TMP_VertexDataUpdateFlags.Vertices) == TMP_VertexDataUpdateFlags.Vertices)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mesh.vertices = this.m_textInfo.meshInfo[i].vertices;
 				}
 				if ((flags & TMP_VertexDataUpdateFlags.Uv0) == TMP_VertexDataUpdateFlags.Uv0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mesh.uv = this.m_textInfo.meshInfo[i].uvs0;
 				}
 				if ((flags & TMP_VertexDataUpdateFlags.Uv2) == TMP_VertexDataUpdateFlags.Uv2)
@@ -9162,19 +4719,6 @@ namespace TMPro
 				Mesh mesh;
 				if (i == 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TextMeshProUGUI.UpdateVertexData()).MethodHandle;
-					}
 					mesh = this.m_mesh;
 				}
 				else
@@ -9189,30 +4733,12 @@ namespace TMPro
 				mesh.RecalculateBounds();
 				if (i == 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_canvasRenderer.SetMesh(mesh);
 				}
 				else
 				{
 					this.m_subTextObjects[i].canvasRenderer.SetMesh(mesh);
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 

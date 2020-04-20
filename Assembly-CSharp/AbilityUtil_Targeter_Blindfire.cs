@@ -46,30 +46,8 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 				GameObject gameObject = enumerator.Current;
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Blindfire.ClearBoundsHighlights()).MethodHandle;
-					}
 					UnityEngine.Object.Destroy(gameObject);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_boundsHighlights.Clear();
@@ -88,33 +66,11 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		ActorCover component = targetingActor.GetComponent<ActorCover>();
 		if (this.m_restrictWithinCover)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Blindfire.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			this.CreateBoundsHighlights(casterPos, component);
 		}
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -128,15 +84,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			float num2;
 			if (this.m_restrictWithinCover)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 vector3;
 				component.ClampConeToValidCover(num, this.m_coneAngleDegrees, out num2, out vector3);
 			}
@@ -151,33 +98,11 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 			if (!this.m_includeTargetsInCover)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorsInCone.RemoveAll(delegate(ActorData actor)
 				{
 					bool result;
 					if (actor.GetActorCover() != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(AbilityUtil_Targeter_Blindfire.<UpdateTargeting>c__AnonStorey0.<>m__0(ActorData)).MethodHandle;
-						}
 						result = actor.GetActorCover().IsInCoverWrt(casterPos);
 					}
 					else
@@ -189,15 +114,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			}
 			if (this.m_maxTargets > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TargeterUtils.SortActorsByDistanceToPos(ref actorsInCone, casterPos);
 				TargeterUtils.LimitActorsToMaxNumber(ref actorsInCone, this.m_maxTargets);
 			}
@@ -221,19 +137,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		Vector3 position = casterPos + new Vector3(0f, y, 0f) - vector * d;
 		if (base.Highlight == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Blindfire.CreateConeHighlights(Vector3, float)).MethodHandle;
-			}
 			float radiusInWorld = (this.m_coneLengthRadiusInSquares + this.m_coneBackwardOffsetInSquares) * Board.Get().squareSize;
 			base.Highlight = HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.m_coneAngleDegrees);
 		}
@@ -256,19 +159,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 				GameObject item2 = HighlightUtils.Get().CreateBoundaryLine(this.m_coneLengthRadiusInSquares, false, false);
 				this.m_boundsHighlights.Add(item);
 				this.m_boundsHighlights.Add(item2);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Blindfire.CreateBoundsHighlights(Vector3, ActorCover)).MethodHandle;
 			}
 		}
 		for (int j = 0; j < coveredRegions.Count; j++)
@@ -293,19 +183,6 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 			Vector3 vector;
 			if (currentTarget == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Blindfire.DrawInvalidSquareIndicators(AbilityTarget, ActorData)).MethodHandle;
-				}
 				vector = targetingActor.transform.forward;
 			}
 			else

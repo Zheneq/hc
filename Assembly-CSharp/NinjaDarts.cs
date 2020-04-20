@@ -76,19 +76,6 @@ public class NinjaDarts : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.Start()).MethodHandle;
-			}
 			this.m_abilityName = "NinjaDarts";
 		}
 		this.SetupTargeter();
@@ -99,44 +86,13 @@ public class NinjaDarts : Ability
 		this.SetCachedFields();
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.SetupTargeter()).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Ninja_SyncComponent>();
 		}
 		AbilityUtil_Targeter abilityUtil_Targeter = AbilityCommon_FanLaser.CreateTargeter_SingleClick(this, this.GetLaserCount(), this.GetLaserInfo(), this.GetAngleInBetween(), this.ChangeAngleByCursorDistance(), this.GetTargeterMinAngle(), this.GetTargeterMaxAngle(), this.GetTargeterMinInterpDistance(), this.GetTargeterMaxInterpDistance());
 		if (this.ChangeAngleByCursorDistance())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (abilityUtil_Targeter is AbilityUtil_Targeter_ThiefFanLaser)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = abilityUtil_Targeter as AbilityUtil_Targeter_ThiefFanLaser;
 				abilityUtil_Targeter_ThiefFanLaser.m_customDamageOriginDelegate = new AbilityUtil_Targeter_ThiefFanLaser.CustomDamageOriginDelegate(this.GetCustomDamageOriginForTargeter);
 			}
@@ -148,30 +104,8 @@ public class NinjaDarts : Ability
 	{
 		if (this.IgnoreCoverOnTargets())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetCustomDamageOriginForTargeter(ActorData, ActorData, Vector3)).MethodHandle;
-			}
 			if (this.ActorIsMarked(potentialActor))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return potentialActor.GetTravelBoardSquareWorldPosition();
 			}
 		}
@@ -213,19 +147,6 @@ public class NinjaDarts : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -236,15 +157,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedEnemySingleHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemySingleHitEffect = this.m_abilityMod.m_enemySingleHitEffectMod.GetModifiedValue(this.m_enemySingleHitEffect);
 		}
 		else
@@ -255,15 +167,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedEnemyMultiHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyMultiHitEffect = this.m_abilityMod.m_enemyMultiHitEffectMod.GetModifiedValue(this.m_enemyMultiHitEffect);
 		}
 		else
@@ -274,15 +177,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedEnemyExtraHitEffectForHitCount;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyExtraHitEffectForHitCount = this.m_abilityMod.m_enemyExtraHitEffectForHitCountMod.GetModifiedValue(this.m_enemyExtraHitEffectForHitCount);
 		}
 		else
@@ -293,15 +187,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo cachedAllySingleHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllySingleHitEffect = this.m_abilityMod.m_allySingleHitEffectMod.GetModifiedValue(this.m_allySingleHitEffect);
 		}
 		else
@@ -317,19 +202,6 @@ public class NinjaDarts : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -344,19 +216,6 @@ public class NinjaDarts : Ability
 		int num;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetLaserCount()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_laserCountMod.GetModifiedValue(this.m_laserCount);
 		}
 		else
@@ -377,19 +236,6 @@ public class NinjaDarts : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.ChangeAngleByCursorDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_changeAngleByCursorDistanceMod.GetModifiedValue(this.m_changeAngleByCursorDistance);
 		}
 		else
@@ -404,19 +250,6 @@ public class NinjaDarts : Ability
 		float num;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetTargeterMinAngle()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_targeterMinAngleMod.GetModifiedValue(this.m_targeterMinAngle);
 		}
 		else
@@ -438,19 +271,6 @@ public class NinjaDarts : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetTargeterMinInterpDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_targeterMinInterpDistanceMod.GetModifiedValue(this.m_targeterMinInterpDistance);
 		}
 		else
@@ -465,19 +285,6 @@ public class NinjaDarts : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetTargeterMaxInterpDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_targeterMaxInterpDistanceMod.GetModifiedValue(this.m_targeterMaxInterpDistance);
 		}
 		else
@@ -492,19 +299,6 @@ public class NinjaDarts : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
 		}
 		else
@@ -519,19 +313,6 @@ public class NinjaDarts : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetExtraDamagePerSubseqHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamagePerSubseqHitMod.GetModifiedValue(this.m_extraDamagePerSubseqHit);
 		}
 		else
@@ -546,19 +327,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemySingleHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnemySingleHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemySingleHitEffect;
 		}
 		else
@@ -573,19 +341,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyMultiHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnemyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyMultiHitEffect;
 		}
 		else
@@ -600,19 +355,6 @@ public class NinjaDarts : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnemyExtraEffectHitCount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_enemyExtraEffectHitCountMod.GetModifiedValue(this.m_enemyExtraEffectHitCount);
 		}
 		else
@@ -632,19 +374,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllySingleHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAllySingleHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllySingleHitEffect;
 		}
 		else
@@ -659,19 +388,6 @@ public class NinjaDarts : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyMultiHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAllyMultiHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyMultiHitEffect;
 		}
 		else
@@ -686,19 +402,6 @@ public class NinjaDarts : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetEnergyPerDartHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyPerDartHitMod.GetModifiedValue(this.m_energyPerDartHit);
 		}
 		else
@@ -713,19 +416,6 @@ public class NinjaDarts : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetCdrOnMiss()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrOnMissMod.GetModifiedValue(this.m_cdrOnMiss);
 		}
 		else
@@ -740,19 +430,6 @@ public class NinjaDarts : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.ApplyDeathmarkEffect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(this.m_applyDeathmarkEffect);
 		}
 		else
@@ -767,19 +444,6 @@ public class NinjaDarts : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.IgnoreCoverOnTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_ignoreCoverOnTargetsMod.GetModifiedValue(this.m_ignoreCoverOnTargets);
 		}
 		else
@@ -793,31 +457,9 @@ public class NinjaDarts : Ability
 	{
 		if (numHits > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.CalcDamageFromNumHits(int)).MethodHandle;
-			}
 			int num = this.GetDamage();
 			if (this.GetExtraDamagePerSubseqHit() > 0 && numHits > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += this.GetExtraDamagePerSubseqHit() * (numHits - 1);
 			}
 			return num;
@@ -830,19 +472,6 @@ public class NinjaDarts : Ability
 		bool result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.ActorIsMarked(ActorData)).MethodHandle;
-			}
 			result = this.m_syncComp.ActorHasDeathmark(actor);
 		}
 		else
@@ -873,19 +502,6 @@ public class NinjaDarts : Ability
 	{
 		if (this.GetEnergyPerDartHit() > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
 			return tooltipSubjectCountTotalWithDuplicates * this.GetEnergyPerDartHit();
 		}
@@ -896,41 +512,10 @@ public class NinjaDarts : Ability
 	{
 		if (symbolType == AbilityTooltipSymbol.Damage)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp.m_deathmarkOnTriggerDamage > 0 && this.m_syncComp.ActorHasDeathmark(targetActor))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, this.m_syncComp.m_deathmarkOnTriggerDamage, false).ToString();
 				}
 			}
@@ -954,19 +539,6 @@ public class NinjaDarts : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NinjaDarts))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDarts.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NinjaDarts);
 			this.SetupTargeter();
 		}

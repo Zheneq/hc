@@ -13,19 +13,6 @@ public class UIStoreCashShopCharacterPanel : UICashShopPanelBase
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreCashShopCharacterPanel.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= this.RefreshOwnedCharacters;
 		}
 	}
@@ -45,19 +32,6 @@ public class UIStoreCashShopCharacterPanel : UICashShopPanelBase
 					m_charLink = characterResourceLinks[i]
 				});
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreCashShopCharacterPanel.GetPurchasableItems()).MethodHandle;
 		}
 		return list.ToArray();
 	}

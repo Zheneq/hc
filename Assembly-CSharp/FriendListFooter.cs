@@ -48,19 +48,6 @@ public class FriendListFooter : MonoBehaviour
 		this.m_InputFieldBtnHitBox.SetSelected(flag, false, string.Empty, string.Empty);
 		if (this.m_inputField.text == string.Empty)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListFooter.Update()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_invitePanel, false, null);
 			for (int i = 0; i < this.m_placeHolders.Length; i++)
 			{
@@ -68,15 +55,6 @@ public class FriendListFooter : MonoBehaviour
 				bool doActive;
 				if (true)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = !flag;
 				}
 				else
@@ -93,50 +71,14 @@ public class FriendListFooter : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(this.m_placeHolders[j], false, null);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_InviteText != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_InviteText.text = string.Format(StringUtil.TR("InviteFriendPrompt", "FriendList"), HUD_UIResources.ColorToHex(this.m_textColor), this.m_inputField.text);
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Input.GetKeyDown(KeyCode.Return))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.InviteClicked(null);
 				}
 			}

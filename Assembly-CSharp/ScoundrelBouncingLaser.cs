@@ -41,19 +41,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetMaxBounces()).MethodHandle;
-			}
 			result = this.m_maxBounces;
 		}
 		else
@@ -68,19 +55,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetMaxTargetHits()).MethodHandle;
-			}
 			result = this.m_maxTargetsHit;
 		}
 		else
@@ -95,19 +69,6 @@ public class ScoundrelBouncingLaser : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_width;
 		}
 		else
@@ -122,19 +83,6 @@ public class ScoundrelBouncingLaser : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetDistancePerBounce()).MethodHandle;
-			}
 			result = this.m_maxDistancePerBounce;
 		}
 		else
@@ -160,19 +108,6 @@ public class ScoundrelBouncingLaser : Ability
 		int b;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetMinDamage()).MethodHandle;
-			}
 			b = this.m_minDamageAmount;
 		}
 		else
@@ -192,19 +127,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetDamageChangePerHit()).MethodHandle;
-			}
 			result = this.m_damageChangePerHit;
 		}
 		else
@@ -219,19 +141,6 @@ public class ScoundrelBouncingLaser : Ability
 		base.ClearTargeters();
 		if (this.GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.SetupTargeter()).MethodHandle;
-			}
 			base.Targeter = new AbilityUtil_Targeter_BounceLaser(this, this.GetLaserWidth(), this.GetDistancePerBounce(), this.GetMaxTotalDistance(), this.GetMaxBounces(), this.GetMaxTargetHits(), false);
 		}
 		else
@@ -240,15 +149,6 @@ public class ScoundrelBouncingLaser : Ability
 			{
 				base.Targeters.Add(new AbilityUtil_Targeter_BounceLaser(this, this.GetLaserWidth(), this.GetDistancePerBounce(), this.GetMaxTotalDistance(), this.GetMaxBounces(), this.GetMaxTargetHits(), false));
 				base.Targeters[i].SetUseMultiTargetUpdate(true);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -274,19 +174,6 @@ public class ScoundrelBouncingLaser : Ability
 		int result = 1;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useTargetDataOverrides && this.m_abilityMod.m_targetDataOverrides.Length > 1)
 			{
 				result = this.m_abilityMod.m_targetDataOverrides.Length;
@@ -315,31 +202,9 @@ public class ScoundrelBouncingLaser : Ability
 		{
 			if (hitActorContext[i].actor == targetActor)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				int num = this.GetBaseDamage();
 				if (CollectTheCoins.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2 = Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserDamage.GetBonus_Client(base.ActorData));
 					num += num2;
 				}
@@ -352,15 +217,6 @@ public class ScoundrelBouncingLaser : Ability
 				return dictionary;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		return null;
 	}
 
@@ -372,19 +228,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val;
 		if (abilityMod_ScoundrelBouncingLaser)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ScoundrelBouncingLaser.m_baseDamageMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -397,15 +240,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val2;
 		if (abilityMod_ScoundrelBouncingLaser)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ScoundrelBouncingLaser.m_minDamageMod.GetModifiedValue(this.m_minDamageAmount);
 		}
 		else
@@ -419,15 +253,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val3;
 		if (abilityMod_ScoundrelBouncingLaser)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ScoundrelBouncingLaser.m_bonusDamagePerBounceMod.GetModifiedValue(this.m_bonusDamagePerBounce);
 		}
 		else
@@ -440,15 +265,6 @@ public class ScoundrelBouncingLaser : Ability
 		int val4;
 		if (abilityMod_ScoundrelBouncingLaser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ScoundrelBouncingLaser.m_maxBounceMod.GetModifiedValue(this.m_maxBounces);
 		}
 		else
@@ -463,19 +279,6 @@ public class ScoundrelBouncingLaser : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScoundrelBouncingLaser))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBouncingLaser.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ScoundrelBouncingLaser);
 			this.SetupTargeter();
 		}

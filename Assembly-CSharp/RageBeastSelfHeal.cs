@@ -55,9 +55,9 @@ public class RageBeastSelfHeal : Ability
 		return dictionary;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
-		List<int> list = base.\u001D();
+		List<int> list = base.symbol_001D();
 		list.Add(this.m_healthThreshold);
 		return list;
 	}
@@ -68,19 +68,6 @@ public class RageBeastSelfHeal : Ability
 		StandardActorEffectData standardActorEffectData;
 		if (abilityMod_RageBeastSelfHeal)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			standardActorEffectData = abilityMod_RageBeastSelfHeal.m_standardActorEffectDataMod.GetModifiedValue(this.m_standardActorEffectData);
 		}
 		else
@@ -94,15 +81,6 @@ public class RageBeastSelfHeal : Ability
 		int val;
 		if (abilityMod_RageBeastSelfHeal)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_RageBeastSelfHeal.m_lowHealthHealOnCastMod.GetModifiedValue(this.m_healingOnCastIfUnder);
 		}
 		else
@@ -116,15 +94,6 @@ public class RageBeastSelfHeal : Ability
 		int val2;
 		if (abilityMod_RageBeastSelfHeal)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastSelfHeal.m_highHealthOnCastMod.GetModifiedValue(this.m_healingOnCastIfOver);
 		}
 		else
@@ -138,15 +107,6 @@ public class RageBeastSelfHeal : Ability
 		int val3;
 		if (abilityMod_RageBeastSelfHeal)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_RageBeastSelfHeal.m_healthThresholdMod.GetModifiedValue(this.m_healthThreshold);
 		}
 		else
@@ -160,19 +120,6 @@ public class RageBeastSelfHeal : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastSelfHeal))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RageBeastSelfHeal);
 			this.Setup();
 		}
@@ -189,19 +136,6 @@ public class RageBeastSelfHeal : Ability
 		StandardActorEffectData cachedStandardActorEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.SetCachedFields()).MethodHandle;
-			}
 			cachedStandardActorEffectData = this.m_abilityMod.m_standardActorEffectDataMod.GetModifiedValue(this.m_standardActorEffectData);
 		}
 		else
@@ -216,19 +150,6 @@ public class RageBeastSelfHeal : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedStandardActorEffectData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.GetStandardActorEffectData()).MethodHandle;
-			}
 			result = this.m_cachedStandardActorEffectData;
 		}
 		else
@@ -243,19 +164,6 @@ public class RageBeastSelfHeal : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.ShouldHealOverTime()).MethodHandle;
-			}
 			result = this.m_healOverTime;
 		}
 		else
@@ -270,19 +178,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.ModdedHealthThreshold()).MethodHandle;
-			}
 			result = this.m_healthThreshold;
 		}
 		else
@@ -297,19 +192,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.ModdedHealOnCastIfUnder()).MethodHandle;
-			}
 			result = this.m_healingOnCastIfUnder;
 		}
 		else
@@ -324,19 +206,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.ModdedHealOnTickIfUnder()).MethodHandle;
-			}
 			result = this.m_healingOnTickIfUnder;
 		}
 		else
@@ -351,19 +220,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.ModdedHealOnCastIfOver()).MethodHandle;
-			}
 			result = this.m_healingOnCastIfOver;
 		}
 		else
@@ -378,19 +234,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.ModdedHealOnTickIfOver()).MethodHandle;
-			}
 			result = this.m_healingOnTickIfOver;
 		}
 		else
@@ -404,46 +247,15 @@ public class RageBeastSelfHeal : Ability
 	{
 		if (subjectType != AbilityTooltipSubject.HighHP)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject, ActorData, Vector3, ActorData)).MethodHandle;
-			}
 			if (subjectType != AbilityTooltipSubject.LowHP)
 			{
 				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		bool flag = targetActor.HitPoints <= this.ModdedHealthThreshold();
 		bool result;
 		if (subjectType == AbilityTooltipSubject.LowHP)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = flag;
 		}
 		else
@@ -459,19 +271,6 @@ public class RageBeastSelfHeal : Ability
 		int result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastSelfHeal.GetHealingForCurrentHealth(ActorData)).MethodHandle;
-			}
 			this.GetStandardActorEffectData().m_healingPerTurn = this.ModdedHealOnTickIfUnder();
 			result = this.ModdedHealOnCastIfUnder();
 		}

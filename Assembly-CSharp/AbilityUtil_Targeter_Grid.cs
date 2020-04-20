@@ -36,19 +36,6 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Grid.GetHighlightGoalPos(AbilityTarget, ActorData)).MethodHandle;
-			}
 			Vector3 centerOfGridPattern = AreaEffectUtils.GetCenterOfGridPattern(this.m_pattern, currentTarget.FreePos, gameplayRefSquare);
 			centerOfGridPattern.y = targetingActor.GetTravelBoardSquareWorldPosition().y + this.m_heightOffset;
 			return centerOfGridPattern;
@@ -61,31 +48,9 @@ public class AbilityUtil_Targeter_Grid : AbilityUtil_Targeter
 		BoardSquare gameplayRefSquare = this.GetGameplayRefSquare(currentTarget, targetingActor);
 		if (gameplayRefSquare != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Grid.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			Vector3 highlightGoalPos = this.GetHighlightGoalPos(currentTarget, targetingActor);
 			if (base.Highlight == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Highlight = HighlightUtils.Get().CreateGridPatternHighlight(this.m_pattern, this.m_scale);
 				base.Highlight.transform.position = highlightGoalPos;
 			}

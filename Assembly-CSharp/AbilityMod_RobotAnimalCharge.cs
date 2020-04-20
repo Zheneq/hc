@@ -67,19 +67,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalCharge.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = robotAnimalCharge.m_lifeOnFirstHit;
 		}
 		else
@@ -90,15 +77,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		text += AbilityModHelper.GetModPropertyDesc(this.m_lifePerHitMod, "[Life Per Hit Mod]", flag, (!flag) ? 0f : robotAnimalCharge.m_lifePerHit);
 		if (this.m_healOnNextTurnStartIfKilledTarget > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -112,15 +90,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		text += AbilityModHelper.GetModEffectInfoDesc(this.m_effectToSelfPerAdjacentAlly, "{ Effect on Self Per Adjacent Ally }", string.Empty, flag, null);
 		if (this.m_techPointsPerAdjacentAlly > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -137,15 +106,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = robotAnimalCharge.m_requireTargetActor;
 		}
 		else
@@ -160,15 +120,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = robotAnimalCharge.m_canIncludeEnemy;
 		}
 		else
@@ -184,15 +135,6 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = robotAnimalCharge.m_cdrOnHittingAlly;
 		}
 		else

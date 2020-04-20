@@ -14,19 +14,6 @@ public static class NetUtil
 	{
 		if (!NetUtil.s_hostName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetUtil.GetHostName()).MethodHandle;
-			}
 			return NetUtil.s_hostName;
 		}
 		try
@@ -34,15 +21,6 @@ public static class NetUtil
 			NetUtil.s_hostName = Dns.GetHostName();
 			if (NetUtil.s_hostName == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new Exception("GetHostName() returned null");
 			}
 		}
@@ -66,19 +44,6 @@ public static class NetUtil
 		IPAddress cachedAddress = NetUtil.GetCachedAddress(host);
 		if (cachedAddress != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetUtil.GetIPv4Address(string)).MethodHandle;
-			}
 			return cachedAddress;
 		}
 		int i = 0;
@@ -94,27 +59,9 @@ public static class NetUtil
 					{
 						if (ipaddress.AddressFamily == AddressFamily.InterNetwork)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							NetUtil.SetCachedAddress(host, ipaddress);
 							return ipaddress;
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -123,27 +70,9 @@ public static class NetUtil
 			}
 			if (i < 3)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Thread.Sleep(0x64);
 				continue;
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		throw new Exception(string.Format("Could not resolve {0}", host));
 	}
@@ -185,19 +114,6 @@ public static class NetUtil
 	{
 		if (address.AddressFamily != AddressFamily.InterNetwork)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IPAddress.IsInternalAddress()).MethodHandle;
-			}
 			throw new Exception("This method works for IPv4 addresses only");
 		}
 		byte[] addressBytes = address.GetAddressBytes();
@@ -207,40 +123,13 @@ public static class NetUtil
 		}
 		if (addressBytes[0] == 0xC0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (addressBytes[1] == 0xA8)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
 		if (addressBytes[0] == 0xA)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		return false;
@@ -250,19 +139,6 @@ public static class NetUtil
 	{
 		if (!address.Contains("://"))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetUtil.GetHostName(string)).MethodHandle;
-			}
 			address = "tcp://" + address;
 		}
 		Uri uri = new Uri(address);
@@ -278,19 +154,6 @@ public static class NetUtil
 	{
 		if (hex.Length % 2 != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetUtil.HexToIPv4Address(string)).MethodHandle;
-			}
 			hex = "0" + hex;
 		}
 		int length = hex.Length;

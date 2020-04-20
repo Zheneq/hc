@@ -25,32 +25,10 @@ public class GenericTempSatelliteSequence : TempSatelliteSequence
 	{
 		if (!this.m_fxJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericTempSatelliteSequence.TriggerSpawn()).MethodHandle;
-			}
 			this.m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		if (this.m_tempSatellitePrefab != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Quaternion rotation = (!this.m_useCasterRotation) ? base.TargetRotation : this.m_fxJoint.m_jointObject.transform.rotation;
 			this.m_tempSatelliteInstance = base.InstantiateFX(this.m_tempSatellitePrefab, this.m_fxJoint.m_jointObject.transform.position, rotation, true, true);
 			TempSatellite component = this.m_tempSatelliteInstance.GetComponent<TempSatellite>();
@@ -74,19 +52,6 @@ public class GenericTempSatelliteSequence : TempSatelliteSequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericTempSatelliteSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.TriggerSpawn();
 		}
 	}
@@ -95,31 +60,9 @@ public class GenericTempSatelliteSequence : TempSatelliteSequence
 	{
 		if (this.m_tempSatelliteInstance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GenericTempSatelliteSequence.OnDisable()).MethodHandle;
-			}
 			TempSatellite component = this.m_tempSatelliteInstance.GetComponent<TempSatellite>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.TriggerDespawn();
 			}
 		}

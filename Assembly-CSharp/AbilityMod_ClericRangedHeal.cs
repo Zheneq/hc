@@ -52,19 +52,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		ClericRangedHeal clericRangedHeal = targetAbility as ClericRangedHeal;
 		if (clericRangedHeal != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericRangedHeal.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_healAmountMod, "HealAmount", string.Empty, clericRangedHeal.m_healAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_selfHealIfTargetingAllyMod, "SelfHealIfTargetingAlly", string.Empty, clericRangedHeal.m_selfHealIfTargetingAlly, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_targetHitEffectMod, "TargetHitEffect", clericRangedHeal.m_targetHitEffect, true);
@@ -98,19 +85,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericRangedHeal.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = clericRangedHeal.m_extraHealOnEnemyHit;
 		}
 		else
@@ -125,15 +99,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = clericRangedHeal.m_extraHealOnSubseqEnemyHit;
 		}
 		else
@@ -150,15 +115,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = clericRangedHeal.m_healPerPercentHealthLost;
 		}
 		else
@@ -173,15 +129,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = clericRangedHeal.m_effectOnSelf;
 		}
 		else
@@ -196,15 +143,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = clericRangedHeal.m_reactionEffectForHealTarget;
 		}
 		else
@@ -219,15 +157,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = clericRangedHeal.m_reactionEffectForCaster;
 		}
 		else
@@ -245,15 +174,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = clericRangedHeal.m_enemyDebuffInRadiusEffect;
 		}
 		else

@@ -28,19 +28,6 @@ public class TwoPointCycleSequence : Sequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.FinishSetup()).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -50,45 +37,14 @@ public class TwoPointCycleSequence : Sequence
 		float num = 0f;
 		if (this.m_cycleType == TwoPointCycleSequence.CycleType.PingPong)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.GetCyclePosition()).MethodHandle;
-			}
 			this.m_parameterizedPosition += this.m_projectileSpeed * GameTime.deltaTime;
 			if (this.m_parameterizedPosition > 1f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_parameterizedPosition = 0f;
 			}
 			num = this.m_parameterizedPosition * 2f;
 			if (num > 1f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 2f - num;
 			}
 		}
@@ -117,19 +73,6 @@ public class TwoPointCycleSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.UpdatePosition()).MethodHandle;
-			}
 			float cyclePosition = this.GetCyclePosition();
 			Vector3 position = this.m_fxJoint.m_jointObject.transform.position;
 			Vector3 targetHitPosition = base.GetTargetHitPosition(0);
@@ -145,19 +88,6 @@ public class TwoPointCycleSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.Update()).MethodHandle;
-			}
 			this.UpdatePosition();
 			base.ProcessSequenceVisibility();
 		}
@@ -167,19 +97,6 @@ public class TwoPointCycleSequence : Sequence
 	{
 		if (!this.m_fxJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.SpawnFX()).MethodHandle;
-			}
 			this.m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		if (this.m_fxPrefab != null)
@@ -197,15 +114,6 @@ public class TwoPointCycleSequence : Sequence
 		{
 			if (base.Targets[i] != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 targetHitPosition = base.GetTargetHitPosition(i);
 				Vector3 hitDirection = targetHitPosition - base.Caster.transform.position;
 				hitDirection.y = 0f;
@@ -214,26 +122,8 @@ public class TwoPointCycleSequence : Sequence
 				base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 		}
 	}
@@ -242,19 +132,6 @@ public class TwoPointCycleSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -263,19 +140,6 @@ public class TwoPointCycleSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TwoPointCycleSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx.gameObject);
 			this.m_fx = null;
 		}

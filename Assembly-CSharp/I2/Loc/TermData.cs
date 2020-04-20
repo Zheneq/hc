@@ -24,31 +24,9 @@ namespace I2.Loc
 		{
 			if (TermData.IsTouchType())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TermData.GetTranslation(int)).MethodHandle;
-				}
 				string result;
 				if (!string.IsNullOrEmpty(this.Languages_Touch[idx]))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = this.Languages_Touch[idx];
 				}
 				else
@@ -64,19 +42,6 @@ namespace I2.Loc
 		{
 			if (IsTouch)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TermData.IsAutoTranslated(int, bool)).MethodHandle;
-				}
 				return (this.Flags[idx] & 2) > 0;
 			}
 			return (this.Flags[idx] & 1) > 0;
@@ -90,55 +55,15 @@ namespace I2.Loc
 			{
 				if (!string.IsNullOrEmpty(this.Languages_Touch[i]))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TermData.HasTouchTranslations()).MethodHandle;
-					}
 					if (!string.IsNullOrEmpty(this.Languages[i]))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.Languages_Touch[i] != this.Languages[i])
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
 					}
 				}
 				i++;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return false;
 		}
@@ -148,45 +73,14 @@ namespace I2.Loc
 			int num = Mathf.Max(this.Languages.Length, Mathf.Max(this.Languages_Touch.Length, this.Flags.Length));
 			if (this.Languages.Length != num)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TermData.Validate()).MethodHandle;
-				}
 				Array.Resize<string>(ref this.Languages, num);
 			}
 			if (this.Languages_Touch.Length != num)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Array.Resize<string>(ref this.Languages_Touch, num);
 			}
 			if (this.Flags.Length != num)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Array.Resize<byte>(ref this.Flags, num);
 			}
 		}
@@ -200,19 +94,6 @@ namespace I2.Loc
 		{
 			if (!allowCategoryMistmatch)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TermData.IsTerm(string, bool)).MethodHandle;
-				}
 				return name == this.Term;
 			}
 			return name == LanguageSource.GetKeyFromFullTerm(this.Term, false);

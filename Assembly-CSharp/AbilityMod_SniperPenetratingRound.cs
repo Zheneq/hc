@@ -45,19 +45,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, sniperPenetratingRound.m_laserInfo.range, true, false, false);
 			if (this.m_useEnemyHitEffectOverride)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperPenetratingRound.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-				}
 				AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectOverride, "EnemyHitEffect", sniperPenetratingRound.m_laserHitEffect, true);
 			}
 			AbilityMod.AddToken(tokens, this.m_laserDamage, "Damage", "base damage", sniperPenetratingRound.m_laserDamageAmount, true, false);
@@ -78,19 +65,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperPenetratingRound.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sniperPenetratingRound.m_laserInfo.width;
 		}
 		else
@@ -101,15 +75,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		text += AbilityModHelper.GetModPropertyDesc(this.m_laserRangeMod, "[Laser Range]", flag, (!flag) ? 0f : sniperPenetratingRound.m_laserInfo.range);
 		if (this.m_useEnemyHitEffectOverride)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str2 = text;
 			StandardEffectInfo enemyHitEffectOverride = this.m_enemyHitEffectOverride;
 			string prefix2 = "{ Enemy Hit Effect Override }";
@@ -118,15 +83,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 			StandardEffectInfo baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = sniperPenetratingRound.m_laserHitEffect;
 			}
 			else
@@ -137,15 +93,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		}
 		if (this.m_knockbackHitEnemy)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -164,15 +111,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sniperPenetratingRound.m_lowHealthThreshold;
 		}
 		else
@@ -186,19 +124,6 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 	{
 		if (this.m_useEnemyHitEffectOverride && this.m_enemyHitEffectOverride.m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperPenetratingRound.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
-			}
 			numbers.Add(this.m_enemyHitEffectOverride.m_effectData.m_duration - 1);
 		}
 	}

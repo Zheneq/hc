@@ -46,30 +46,8 @@ public class UIPlayCategoryMenu : MonoBehaviour
 	{
 		if (UIFrontEnd.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.Get()).MethodHandle;
-			}
 			if (UIFrontEnd.Get().m_frontEndNavPanel != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return UIFrontEnd.Get().m_frontEndNavPanel.m_playMenuCatgeory;
 			}
 		}
@@ -107,19 +85,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		this.m_installDiscordBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.InstallDiscordBtnClicked);
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.Awake()).MethodHandle;
-			}
 			this.m_autoJoinDiscord = Options_UI.Get().GetEnableAutoJoinDiscord();
 		}
 		else
@@ -140,19 +105,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		bool flag = false;
 		if (Options_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.Update()).MethodHandle;
-			}
 			flag = Options_UI.Get().GetEnableAutoJoinDiscord();
 		}
 		if (flag != this.m_autoJoinDiscord)
@@ -162,64 +114,19 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		}
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!GameManager.Get().GameplayOverrides.DisableControlPadInput)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_visible)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Input.GetButtonDown("GamepadButtonLeftShoulder"))
 					{
 						this.m_gamePadHoverBtn.SetSelected(false, false, string.Empty, string.Empty);
 						if (this.m_gamePadHoverBtn == this.m_PracticeBtn)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_gamePadHoverBtn = this.m_CustomBtn;
 						}
 						else if (this.m_gamePadHoverBtn == this.m_CooperativeBtn)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_gamePadHoverBtn = this.m_PracticeBtn;
 						}
 						else if (this.m_gamePadHoverBtn == this.m_VersusBtn)
@@ -232,55 +139,19 @@ public class UIPlayCategoryMenu : MonoBehaviour
 						}
 						else if (this.m_gamePadHoverBtn == this.m_CustomBtn)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_gamePadHoverBtn = this.m_RankedBtn;
 						}
 						this.m_gamePadHoverBtn.SetSelected(true, false, string.Empty, string.Empty);
 					}
 					else if (Input.GetButtonDown("GamepadButtonRightShoulder"))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_gamePadHoverBtn.SetSelected(false, false, string.Empty, string.Empty);
 						if (this.m_gamePadHoverBtn == this.m_PracticeBtn)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_gamePadHoverBtn = this.m_CooperativeBtn;
 						}
 						else if (this.m_gamePadHoverBtn == this.m_CooperativeBtn)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_gamePadHoverBtn = this.m_VersusBtn;
 						}
 						else if (this.m_gamePadHoverBtn == this.m_VersusBtn)
@@ -289,28 +160,10 @@ public class UIPlayCategoryMenu : MonoBehaviour
 						}
 						else if (this.m_gamePadHoverBtn == this.m_RankedBtn)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_gamePadHoverBtn = this.m_CustomBtn;
 						}
 						else if (this.m_gamePadHoverBtn == this.m_CustomBtn)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_gamePadHoverBtn = this.m_PracticeBtn;
 						}
 						this.m_gamePadHoverBtn.SetSelected(true, false, string.Empty, string.Empty);
@@ -319,15 +172,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 					{
 						if (this.m_gamePadHoverBtn == this.m_CustomBtn)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.CustomGameTypeClicked();
 						}
 						else
@@ -367,30 +211,8 @@ public class UIPlayCategoryMenu : MonoBehaviour
 				GameTypeAvailability value = keyValuePair.Value;
 				if (value.IsActive)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.UpdateGameTypeAvailability(Dictionary<GameType, GameTypeAvailability>)).MethodHandle;
-					}
 					if (key == GameType.Ranked)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						clickable = true;
 						if (value.Requirements != null)
 						{
@@ -400,27 +222,9 @@ public class UIPlayCategoryMenu : MonoBehaviour
 								QueueRequirement queueRequirement = list[i];
 								if (queueRequirement.Requirement == QueueRequirement.RequirementType.AccessLevel && queueRequirement.DoesApplicantPass(clientGameManager.QueueRequirementSystemInfo, clientGameManager.QueueRequirementApplicant, GameType.Ranked, null))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									clickable = true;
 									goto IL_F0;
 								}
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						IL_F0:;
@@ -431,15 +235,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 						bool flag = penaltyTimeout == null || DateTime.Now >= value.PenaltyTimeout.Value.ToLocalTime();
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (clientGameManager.MeetsAllQueueRequirements(key))
 							{
 								clickable = true;
@@ -449,56 +244,20 @@ public class UIPlayCategoryMenu : MonoBehaviour
 				}
 				if (key == GameType.Practice)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetButtonClickable(this.m_PracticeBtn, clickable);
 				}
 				else if (key == GameType.Coop)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetButtonClickable(this.m_CooperativeBtn, clickable);
 				}
 				else if (key == GameType.PvP)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetButtonClickable(this.m_VersusBtn, clickable);
 				}
 				else if (key == GameType.Ranked)
 				{
 					this.SetButtonClickable(this.m_RankedBtn, clickable);
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -512,32 +271,10 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		bool flag;
 		if (ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.SetMenuButtonsClickable(bool)).MethodHandle;
-			}
 			if (ClientGameManager.Get().GroupInfo.IsLeader)
 			{
 				flag = true;
 				goto IL_6F;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		flag = !ClientGameManager.Get().GroupInfo.InAGroup;
@@ -546,15 +283,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		bool flag3 = clickable && UIFrontEnd.Get().m_frontEndNavPanel.m_PlayBtn.IsSelected();
 		if (flag3 && flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateGameTypeAvailability(ClientGameManager.Get().GameTypeAvailabilies);
 		}
 		else
@@ -565,15 +293,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 				bool clickable2;
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					clickable2 = flag2;
 				}
 				else
@@ -582,27 +301,9 @@ public class UIPlayCategoryMenu : MonoBehaviour
 				}
 				this.SetButtonClickable(btn, clickable2);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (ClientGameManager.Get().GroupInfo.InAGroup)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetButtonClickable(this.m_SoloBtn, false);
 			this.SetButtonClickable(this.m_PracticeBtn, false);
 			this.SetButtonClickable(this.m_CustomBtn, flag3);
@@ -615,64 +316,19 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		{
 			if (!this.m_menuList[j].spriteController.IsClickable())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_menuList[j].IsSelected())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = -1;
 					for (int k = 0; k < this.m_menuList.Count; k++)
 					{
 						if (this.m_menuList[k].spriteController.IsClickable())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_menuList[k] != this.m_CustomBtn)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num = k;
 								IL_20F:
 								if (num != -1)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.DoSelectGameType(this.m_menuList[num].spriteController.gameObject);
 									return;
 								}
@@ -717,41 +373,10 @@ public class UIPlayCategoryMenu : MonoBehaviour
 	{
 		if (!(ClientGameManager.Get() == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.SelectGroupGameType()).MethodHandle;
-			}
 			if (ClientGameManager.Get().GroupInfo != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_menuList == null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -763,28 +388,10 @@ public class UIPlayCategoryMenu : MonoBehaviour
 					GameType selectedQueueType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
 					if (UICharacterSelectScreenController.Get() != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int maxWillFillPerTeam = ClientGameManager.Get().GameTypeAvailabilies[selectedQueueType].MaxWillFillPerTeam;
 						UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons, maxWillFillPerTeam > 0, null);
 						if (maxWillFillPerTeam == 0 && UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay.IsWillFill())
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 							{
 								ClientRequestToServerSelectCharacter = new CharacterType?(CharacterType.Scoundrel)
@@ -807,15 +414,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 						{
 							if (i == (int)gameTypeButton)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_menuList[i].SetSelected(true, false, string.Empty, string.Empty);
 								this.m_gamePadHoverBtn = this.m_menuList[i];
 							}
@@ -848,45 +446,14 @@ public class UIPlayCategoryMenu : MonoBehaviour
 	{
 		if (DiscordClientInterface.IsEnabled)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.CheckDiscordStatus()).MethodHandle;
-			}
 			if (!DiscordClientInterface.IsSdkEnabled)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!DiscordClientInterface.IsInstalled)
 				{
 					UIManager.SetGameObjectActive(this.m_installDiscordContainer, true, null);
 					UIManager.SetGameObjectActive(this.m_installJoinContainer, false, null);
 					this.m_taskScheduler.AddTask(this.m_checkDiscordStatusAction, TimeSpan.FromSeconds(5.0), true);
 					goto IL_AA;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UIManager.SetGameObjectActive(this.m_installDiscordContainer, false, null);
@@ -910,34 +477,12 @@ public class UIPlayCategoryMenu : MonoBehaviour
 	{
 		if (this.m_visible == visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.SetVisible(bool)).MethodHandle;
-			}
 			return;
 		}
 		this.m_visible = visible;
 		UIManager.SetGameObjectActive(base.gameObject, true, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_playCategoryAnimator.Play("UITopCategoryIN", 0, 0f);
 			this.SelectGroupGameType();
 			this.CheckDiscordStatus();
@@ -949,15 +494,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		for (int i = 0; i < this.m_menuList.Count; i++)
 		{
 			this.m_menuList[i].spriteController.SetClickable(visible);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1013,55 +549,15 @@ public class UIPlayCategoryMenu : MonoBehaviour
 	{
 		if (!this.m_visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.GameTypeTooltipSetup(UITooltipBase, _SelectableBtn)).MethodHandle;
-			}
 			return false;
 		}
 		if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (!btn.spriteController.IsClickable())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().QueueInfo == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameType gameType = GameType.None;
 					if (btn == this.m_PracticeBtn)
 					{
@@ -1069,28 +565,10 @@ public class UIPlayCategoryMenu : MonoBehaviour
 					}
 					else if (btn == this.m_SoloBtn)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameType = GameType.Solo;
 					}
 					else if (btn == this.m_CooperativeBtn)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameType = GameType.Coop;
 					}
 					else if (btn == this.m_VersusBtn)
@@ -1099,41 +577,14 @@ public class UIPlayCategoryMenu : MonoBehaviour
 					}
 					else if (btn == this.m_RankedBtn)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameType = GameType.Ranked;
 					}
 					else if (btn == this.m_CustomBtn)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameType = GameType.Custom;
 					}
 					if (this.m_validGameTypes == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.UpdateGameTypeAvailability(clientGameManager.GameTypeAvailabilies);
 					}
 					LocalizationPayload blockingQueueRestriction = clientGameManager.GetBlockingQueueRestriction(gameType);
@@ -1141,28 +592,10 @@ public class UIPlayCategoryMenu : MonoBehaviour
 					string tooltipText;
 					if (blockingQueueRestriction != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						tooltipText = blockingQueueRestriction.ToString();
 					}
 					else if (groupInfo != null && groupInfo.InAGroup && !groupInfo.IsLeader)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						tooltipText = StringUtil.TR("OnlyLeaderCanChange", "Global");
 					}
 					else
@@ -1170,27 +603,9 @@ public class UIPlayCategoryMenu : MonoBehaviour
 						GameTypeAvailability gameTypeAvailability;
 						if (clientGameManager.GameTypeAvailabilies.TryGetValue(gameType, out gameTypeAvailability))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							DateTime? penaltyTimeout = gameTypeAvailability.PenaltyTimeout;
 							if (penaltyTimeout != null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameTypeAvailability.PenaltyTimeout != null)
 								{
 									tooltipText = LocalizationPayload.Create("QueueDodgePenaltyBlocksQueueEntry", "Matchmaking", new LocalizationArg[]
@@ -1228,19 +643,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		{
 			if (this.m_menuList[i].spriteController.gameObject == btnHit)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.DoSelectGameType(GameObject)).MethodHandle;
-				}
 				num = i;
 				this.m_menuList[i].SetSelected(true, false, string.Empty, string.Empty);
 				this.m_gamePadHoverBtn = this.m_menuList[i];
@@ -1250,40 +652,13 @@ public class UIPlayCategoryMenu : MonoBehaviour
 				this.m_menuList[i].SetSelected(false, false, string.Empty, string.Empty);
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (num != -1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameType gameType = this.GameTypeButtonToGameType((UIPlayCategoryMenu.GameTypeButton)num);
 			AppState_GroupCharacterSelect.Get().SelectedGameMode(gameType);
 			UICharacterSelectScreenController.Get().SetupForRanked(gameType == GameType.Ranked);
 			if (btnHit == this.m_PracticeBtn.spriteController.gameObject)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Practice);
 			}
 			else if (btnHit == this.m_CooperativeBtn.spriteController.gameObject)
@@ -1292,15 +667,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 			}
 			else if (btnHit == this.m_VersusBtn.spriteController.gameObject)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Pvp);
 			}
 			else if (btnHit == this.m_SoloBtn.spriteController.gameObject)
@@ -1309,15 +675,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 			}
 			else if (btnHit == this.m_CustomBtn.spriteController.gameObject)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnnouncerSounds.GetAnnouncerSounds().PlayAnnouncementByEnum(AnnouncerSounds.AnnouncerEvent.Custom);
 			}
 			else if (btnHit == this.m_RankedBtn.spriteController.gameObject)
@@ -1336,19 +693,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		GameObject gameObject = (data as PointerEventData).pointerCurrentRaycast.gameObject;
 		if (gameObject == this.m_CustomBtn.spriteController.gameObject)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.GameTypeClicked(BaseEventData)).MethodHandle;
-			}
 			this.CustomGameTypeClicked();
 			return;
 		}
@@ -1360,46 +704,17 @@ public class UIPlayCategoryMenu : MonoBehaviour
 		ClientGameManager.Get().LeaveGame(true, GameResult.ClientLeft);
 		Log.Info("Custom button Clicked, leaving queue", new object[0]);
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (UIPlayCategoryMenu.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.CustomGameTypeClicked()).MethodHandle;
-			}
-			UIPlayCategoryMenu.<>f__am$cache0 = delegate(LeaveMatchmakingQueueResponse r)
+		
+		clientGameManager.LeaveQueue(delegate(LeaveMatchmakingQueueResponse r)
 			{
 				if (!r.Success)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayCategoryMenu.<CustomGameTypeClicked>m__1(LeaveMatchmakingQueueResponse)).MethodHandle;
-					}
 					Log.Warning("Failure to unqueue when entering custom: {0}", new object[]
 					{
 						r.ErrorMessage
 					});
 				}
-			};
-		}
-		clientGameManager.LeaveQueue(UIPlayCategoryMenu.<>f__am$cache0);
+			});
 		AppState_GameTypeSelect.Get().OnCustomClicked();
 		AppState_GroupCharacterSelect.Get().NotifyQueueDrop();
 		this.SetVisible(false);
@@ -1415,19 +730,6 @@ public class UIPlayCategoryMenu : MonoBehaviour
 			{
 				return this.GameTypeButtonToGameType((UIPlayCategoryMenu.GameTypeButton)i);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayCategoryMenu.GetGameTypeForSelectedButton()).MethodHandle;
 		}
 		return GameType.None;
 	}

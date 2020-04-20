@@ -42,19 +42,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 		FireborgDash fireborgDash = targetAbility as FireborgDash;
 		if (fireborgDash != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgDash.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, this.m_groundFireDurationMod, "GroundFireDuration", string.Empty, fireborgDash.m_groundFireDuration, true, false);
 			AbilityMod.AddToken(tokens, this.m_groundFireDurationIfSuperheatedMod, "GroundFireDurationIfSuperheated", string.Empty, fireborgDash.m_groundFireDurationIfSuperheated, true, false);
@@ -72,19 +59,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (fireborgDash != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgDash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, fireborgDash.m_targetSelectComp, "-- Target Select --");
 			string str = text;
 			AbilityModPropertyBool addGroundFireMod = this.m_addGroundFireMod;
@@ -93,15 +67,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			bool baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = fireborgDash.m_addGroundFire;
 			}
 			else
@@ -117,15 +82,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = fireborgDash.m_groundFireDurationIfSuperheated;
 			}
 			else
@@ -140,15 +96,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			bool baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = fireborgDash.m_igniteIfNormal;
 			}
 			else
@@ -164,15 +111,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = fireborgDash.m_shieldPerEnemyHit;
 			}
 			else
@@ -187,15 +125,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			int baseVal5;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal5 = fireborgDash.m_shieldDuration;
 			}
 			else
@@ -211,15 +140,6 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			int baseVal6;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal6 = fireborgDash.m_lowHealthThresh;
 			}
 			else

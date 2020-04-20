@@ -46,19 +46,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		bool result;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Archer_SyncComponent.ActorHasUsedHealReaction(ActorData)).MethodHandle;
-			}
 			result = this.m_usedHealReactionActorIndices.Contains((uint)actor.ActorIndex);
 		}
 		else
@@ -73,19 +60,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		bool result;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Archer_SyncComponent.ActorHasExpendedHealReaction(ActorData)).MethodHandle;
-			}
 			result = this.m_expendedHealReactionActorIndices.Contains((uint)actor.ActorIndex);
 		}
 		else
@@ -100,19 +74,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		bool result;
 		if (actor != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Archer_SyncComponent.ActorShouldSwapVfxForHealReaction(ActorData)).MethodHandle;
-			}
 			result = this.m_vfxChangedHealReactionActorIndices.Contains((uint)actor.ActorIndex);
 		}
 		else
@@ -203,19 +164,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Archer_SyncComponent.InvokeSyncListm_expendedHealReactionActorIndices(NetworkBehaviour, NetworkReader)).MethodHandle;
-			}
 			Debug.LogError("SyncList m_expendedHealReactionActorIndices called on server.");
 			return;
 		}
@@ -267,19 +215,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Archer_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -287,15 +222,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -305,26 +231,8 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -332,26 +240,8 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -361,15 +251,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -377,26 +258,8 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 0x20U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -424,19 +287,6 @@ public class Archer_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Archer_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_healReactionTargetActor = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
@@ -449,28 +299,10 @@ public class Archer_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, this.m_vfxChangedHealReactionActorIndices);
 		}
 		if ((num & 0x10) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SyncListUInt.ReadReference(reader, this.m_shieldGeneratorTargetActorIndices);
 		}
 		if ((num & 0x20) != 0)

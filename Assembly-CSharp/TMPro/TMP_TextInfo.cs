@@ -78,19 +78,6 @@ namespace TMPro
 			{
 				this.meshInfo[i].vertexCount = 0;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.Clear()).MethodHandle;
-			}
 		}
 
 		public void ClearMeshInfo(bool updateMesh)
@@ -98,19 +85,6 @@ namespace TMPro
 			for (int i = 0; i < this.meshInfo.Length; i++)
 			{
 				this.meshInfo[i].Clear(updateMesh);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ClearMeshInfo(bool)).MethodHandle;
 			}
 		}
 
@@ -120,19 +94,6 @@ namespace TMPro
 			{
 				this.meshInfo[i].Clear(true);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ClearAllMeshInfo()).MethodHandle;
-			}
 		}
 
 		public void ResetVertexLayout(bool isVolumetric)
@@ -140,19 +101,6 @@ namespace TMPro
 			for (int i = 0; i < this.meshInfo.Length; i++)
 			{
 				this.meshInfo[i].ResizeMeshInfo(0, isVolumetric);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ResetVertexLayout(bool)).MethodHandle;
 			}
 		}
 
@@ -169,19 +117,6 @@ namespace TMPro
 		{
 			if (this.lineInfo == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.ClearLineInfo()).MethodHandle;
-				}
 				this.lineInfo = new TMP_LineInfo[2];
 			}
 			for (int i = 0; i < this.lineInfo.Length; i++)
@@ -195,15 +130,6 @@ namespace TMPro
 				this.lineInfo[i].lineExtents.max = TMP_TextInfo.k_InfinityVectorNegative;
 				this.lineInfo[i].maxAdvance = 0f;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 
 		public TMP_MeshInfo[] CopyMeshInfoVertexData()
@@ -213,19 +139,6 @@ namespace TMPro
 				if (this.m_CachedMeshInfo.Length == this.meshInfo.Length)
 				{
 					goto IL_D3;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.CopyMeshInfoVertexData()).MethodHandle;
 				}
 			}
 			this.m_CachedMeshInfo = new TMP_MeshInfo[this.meshInfo.Length];
@@ -237,30 +150,12 @@ namespace TMPro
 				this.m_CachedMeshInfo[i].uvs2 = new Vector2[num];
 				this.m_CachedMeshInfo[i].colors32 = new Color32[num];
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			IL_D3:
 			for (int j = 0; j < this.m_CachedMeshInfo.Length; j++)
 			{
 				int num2 = this.meshInfo[j].vertices.Length;
 				if (this.m_CachedMeshInfo[j].vertices.Length != num2)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_CachedMeshInfo[j].vertices = new Vector3[num2];
 					this.m_CachedMeshInfo[j].uvs0 = new Vector2[num2];
 					this.m_CachedMeshInfo[j].uvs2 = new Vector2[num2];
@@ -271,15 +166,6 @@ namespace TMPro
 				Array.Copy(this.meshInfo[j].uvs2, this.m_CachedMeshInfo[j].uvs2, num2);
 				Array.Copy(this.meshInfo[j].colors32, this.m_CachedMeshInfo[j].colors32, num2);
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_CachedMeshInfo;
 		}
 
@@ -288,19 +174,6 @@ namespace TMPro
 			int num;
 			if (size > 0x400)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.Resize(T[]*, int)).MethodHandle;
-				}
 				num = size + 0x100;
 			}
 			else
@@ -315,31 +188,9 @@ namespace TMPro
 		{
 			if (isBlockAllocated)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_TextInfo.Resize(T[]*, int, bool)).MethodHandle;
-				}
 				int num;
 				if (size > 0x400)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = size + 0x100;
 				}
 				else
@@ -350,15 +201,6 @@ namespace TMPro
 			}
 			if (size == array.Length)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 			Array.Resize<T>(ref array, size);

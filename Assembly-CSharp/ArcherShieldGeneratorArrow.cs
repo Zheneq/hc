@@ -60,19 +60,6 @@ public class ArcherShieldGeneratorArrow : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ArcherShieldGeneratorArrow))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ArcherShieldGeneratorArrow);
 			this.Setup();
 		}
@@ -90,19 +77,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		StandardEffectInfo cachedDirectHitEnemyEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.SetCachedFields()).MethodHandle;
-			}
 			cachedDirectHitEnemyEffect = this.m_abilityMod.m_directHitEnemyEffectMod.GetModifiedValue(this.m_directHitEnemyEffect);
 		}
 		else
@@ -113,15 +87,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		StandardEffectInfo cachedDirectHitAllyEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedDirectHitAllyEffect = this.m_abilityMod.m_directHitAllyEffectMod.GetModifiedValue(this.m_directHitAllyEffect);
 		}
 		else
@@ -132,15 +97,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		StandardEffectInfo cachedExtraAllyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExtraAllyHitEffect = this.m_abilityMod.m_extraAllyHitEffectMod.GetModifiedValue(this.m_extraAllyHitEffect);
 		}
 		else
@@ -155,19 +111,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.PenetrateLoS()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLoSMod.GetModifiedValue(this.m_penetrateLoS);
 		}
 		else
@@ -182,19 +125,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.AffectsEnemies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_affectsEnemiesMod.GetModifiedValue(this.m_affectsEnemies);
 		}
 		else
@@ -209,19 +139,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.AffectsAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_affectsAlliesMod.GetModifiedValue(this.m_affectsAllies);
 		}
 		else
@@ -236,19 +153,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.AffectsCaster()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_affectsCasterMod.GetModifiedValue(this.m_affectsCaster);
 		}
 		else
@@ -263,19 +167,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		StandardGroundEffectInfo result;
 		if (this.m_cachedGroundEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetGroundEffectInfo()).MethodHandle;
-			}
 			result = this.m_cachedGroundEffect;
 		}
 		else
@@ -295,19 +186,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedDirectHitEnemyEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetDirectHitEnemyEffect()).MethodHandle;
-			}
 			result = this.m_cachedDirectHitEnemyEffect;
 		}
 		else
@@ -337,19 +215,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetExtraAbsorbPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraAbsorbPerEnemyHit.GetModifiedValue(0);
 		}
 		else
@@ -369,19 +234,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetExtraAbsorbIfOnlyOneAllyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraAbsorbIfOnlyOneAllyHit.GetModifiedValue(0);
 		}
 		else
@@ -404,19 +256,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_groundEffectInfo.m_applyGroundEffect)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
 			this.m_groundEffectInfo.m_groundEffectData.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy, AbilityTooltipSubject.Ally);
 		}
 		if (this.AffectsAllies())
@@ -429,15 +268,6 @@ public class ArcherShieldGeneratorArrow : Ability
 		}
 		if (this.AffectsEnemies())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.GetDirectHitEnemyEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
 		}
 		return result;
@@ -448,60 +278,20 @@ public class ArcherShieldGeneratorArrow : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherShieldGeneratorArrow.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (targetActor.GetTeam() == base.ActorData.GetTeam())
 			{
 				int num = this.m_syncComp.m_extraAbsorbForShieldGenerator;
 				List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
 				if (!actorsInRange.IsNullOrEmpty<AbilityUtil_Targeter.ActorTarget>())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2 = actorsInRange.Count((AbilityUtil_Targeter.ActorTarget t) => t.m_actor.GetTeam() != base.ActorData.GetTeam());
 					if (actorsInRange.Count - num2 == 1)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += this.GetExtraAbsorbIfOnlyOneAllyHit();
 					}
 					num += this.GetExtraAbsorbPerEnemyHit() * num2;
 					if (num2 > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += this.GetExtraAbsorbIfEnemyHit();
 					}
 				}
@@ -509,26 +299,8 @@ public class ArcherShieldGeneratorArrow : Ability
 				StandardEffectInfo extraAllyHitEffect = this.GetExtraAllyHitEffect();
 				if (extraAllyHitEffect.m_applyEffect)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (extraAllyHitEffect.m_effectData.m_absorbAmount > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num3 += extraAllyHitEffect.m_effectData.m_absorbAmount;
 					}
 				}

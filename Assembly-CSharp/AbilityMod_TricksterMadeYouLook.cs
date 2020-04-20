@@ -48,19 +48,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		string text = string.Empty;
 		if (this.m_spoilsSpawnDataOnDisappear != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterMadeYouLook.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.PropDesc(this.m_spoilsSpawnDataOnDisappear, "[SpoilSpawnDataOnDisappear]", false, null);
 		}
 		string str = text;
@@ -70,15 +57,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = tricksterMadeYouLook.m_hitActorsInBetween;
 		}
 		else
@@ -95,15 +73,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = tricksterMadeYouLook.m_penetrateLos;
 		}
 		else
@@ -113,26 +82,8 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		text = str2 + base.PropDesc(penetrateLosMod, prefix2, showBaseVal2, baseVal2);
 		if (this.m_cooldownReductionForTravelHit != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_cooldownReductionForTravelHit.HasCooldownReduction())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Cooldown Reductions For Enemy Hit In Travel:\n";
 				text += this.m_cooldownReductionForTravelHit.GetDescription(abilityData);
 			}
@@ -144,15 +95,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = tricksterMadeYouLook.m_damageAmount;
 		}
 		else
@@ -167,15 +109,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = tricksterMadeYouLook.m_enemyOnHitEffect;
 		}
 		else

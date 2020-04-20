@@ -25,41 +25,10 @@ public class UIStoreGamePanel : UIStoreBasePanel
 		GridLayoutGroup[] componentsInChildren = base.gameObject.GetComponentsInChildren<GridLayoutGroup>(true);
 		if (componentsInChildren != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGamePanel.Awake()).MethodHandle;
-			}
 			if (componentsInChildren.Length > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (HitchDetector.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HitchDetector.Get().AddNewLayoutGroup(componentsInChildren[0]);
 				}
 			}
@@ -69,19 +38,6 @@ public class UIStoreGamePanel : UIStoreBasePanel
 		{
 			if (!GameWideData.Get().m_gamePackData.m_gamePacks.IsNullOrEmpty<GamePack>())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIStoreGamePanel.<Awake>m__0(BaseEventData)).MethodHandle;
-				}
 				UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
 				uipurchaseableItem.m_itemType = PurchaseItemType.Game;
 				uipurchaseableItem.m_gamePack = GameWideData.Get().m_gamePackData.m_gamePacks[0];
@@ -121,19 +77,6 @@ public class UIStoreGamePanel : UIStoreBasePanel
 		{
 			if (i + 1 < gamePackData.m_gamePacks.Length)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGamePanel.Setup()).MethodHandle;
-				}
 				this.m_gameItemList[i].Setup(gamePackData.m_gamePacks[i + 1]);
 			}
 			else
@@ -141,28 +84,10 @@ public class UIStoreGamePanel : UIStoreBasePanel
 				this.m_gameItemList[i].Setup(null);
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		HydrogenConfig hydrogenConfig = HydrogenConfig.Get();
 		string accountCurrency = hydrogenConfig.Ticket.AccountCurrency;
 		if (!GameWideData.Get().m_gamePackData.m_gamePacks.IsNullOrEmpty<GamePack>())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num;
 			float gamePackPrice = CommerceClient.Get().GetGamePackPrice(gamePackData.m_gamePacks[0].ProductCode, accountCurrency, out num);
 			this.m_mainPackPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice, accountCurrency);

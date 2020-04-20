@@ -17,15 +17,6 @@ public static class NPCUtils
 		IL_12E:
 		while (list.Count > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(boardSquare == null))
 			{
 				for (;;)
@@ -58,46 +49,15 @@ public static class NPCUtils
 							BoardSquare item = enumerator.Current;
 							if (list.Count + list2.Count >= 0x31)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!true)
-								{
-									RuntimeMethodHandle runtimeMethodHandle = methodof(NPCUtils.FindOpenSquareToSpawnOn(BoardSquare, Transform)).MethodHandle;
-								}
 								goto IL_12E;
 							}
 							if (!list.Contains(item))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!list2.Contains(item))
 								{
 									list.Add(item);
 								}
 							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

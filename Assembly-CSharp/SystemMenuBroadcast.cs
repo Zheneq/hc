@@ -50,19 +50,6 @@ public class SystemMenuBroadcast : UIScene
 		string text;
 		if (notification.LocalizedText != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SystemMenuBroadcast.DisplaySystemMessage(ChatNotification)).MethodHandle;
-			}
 			text = notification.LocalizedText.ToString();
 		}
 		else
@@ -78,32 +65,10 @@ public class SystemMenuBroadcast : UIScene
 	{
 		if (this.m_startDisplaySystemMessage > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SystemMenuBroadcast.Update()).MethodHandle;
-			}
 			if (Time.time - this.m_startDisplaySystemMessage >= 5f)
 			{
 				if (this.m_SystemMessageContainer.GetComponent<Animator>() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_SystemMessageContainer.GetComponent<Animator>().Play("PanelDefaultOUT");
 				}
 				this.m_startDisplaySystemMessage = -1f;

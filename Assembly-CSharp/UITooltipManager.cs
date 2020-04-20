@@ -49,19 +49,6 @@ public class UITooltipManager : UIScene
 	{
 		if (UITooltipManager.s_instance == this)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.OnDestroy()).MethodHandle;
-			}
 			UITooltipManager.s_instance = null;
 		}
 	}
@@ -76,45 +63,14 @@ public class UITooltipManager : UIScene
 	{
 		if (this.m_currentDisplayTooltip != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.LateUpdate()).MethodHandle;
-			}
 			if (this.m_currentDisplayTooltip.isActiveAndEnabled)
 			{
 				GameObject pointerEnter = this.m_inputModule.GetLastPointerEventDataPublic(-1).pointerEnter;
 				if (!(this.m_currentHoveredObject == null) && !(pointerEnter == null))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsEqualOrParent(this.m_currentHoveredObject.transform, pointerEnter.transform))
 					{
 						goto IL_A4;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.HideDisplayTooltip();
@@ -129,26 +85,8 @@ public class UITooltipManager : UIScene
 		}
 		if (this.m_currentMenuTooltip != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_currentMenuTooltip.isActiveAndEnabled)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_currentMenuTooltip = null;
 				this.m_currentClickedObject = null;
 			}
@@ -160,52 +98,16 @@ public class UITooltipManager : UIScene
 			{
 				if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetMouseButtonDown(2))
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				GameObject gameObject = this.m_inputModule.GetLastPointerEventDataPublic(-1).pointerCurrentRaycast.gameObject;
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.IsEqualOrParent(this.m_currentMenuTooltip.transform, gameObject.transform))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.HideMenu();
 					}
 				}
@@ -220,30 +122,8 @@ public class UITooltipManager : UIScene
 			child = child.parent;
 			if (!(child != null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.IsEqualOrParent(Transform, Transform)).MethodHandle;
 		}
 		return true;
 	}
@@ -253,19 +133,6 @@ public class UITooltipManager : UIScene
 		UITooltipBase uitooltipBase = this.m_tooltips[(int)type];
 		if (uitooltipBase == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.IsVisible(TooltipType)).MethodHandle;
-			}
 			return false;
 		}
 		if (!(this.m_currentDisplayTooltip == uitooltipBase))
@@ -273,15 +140,6 @@ public class UITooltipManager : UIScene
 			if (!(this.m_currentMenuTooltip == uitooltipBase))
 			{
 				return false;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return true;
@@ -291,19 +149,6 @@ public class UITooltipManager : UIScene
 	{
 		if (this.m_currentDisplayTooltip != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.HideDisplayTooltip()).MethodHandle;
-			}
 			this.m_currentHoveredObject.CallDisableTooltip();
 			this.m_currentDisplayTooltip.SetVisible(false);
 		}
@@ -314,30 +159,8 @@ public class UITooltipManager : UIScene
 	{
 		if (this.m_tooltips[(int)type] != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.HideDisplayTooltip(TooltipType)).MethodHandle;
-			}
 			if (this.m_tooltips[(int)type] == this.m_currentDisplayTooltip)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HideDisplayTooltip();
 			}
 		}
@@ -350,19 +173,6 @@ public class UITooltipManager : UIScene
 		this.m_currentHoveredObject = obj;
 		if (!this.m_currentHoveredObject.PopulateTooltip(this.m_currentDisplayTooltip))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.ShowDisplayTooltip(UITooltipHoverObject)).MethodHandle;
-			}
 			this.HideDisplayTooltip();
 			return;
 		}
@@ -381,34 +191,12 @@ public class UITooltipManager : UIScene
 	{
 		if (this.m_currentMenuTooltip != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.ShowMenu(UITooltipClickObject)).MethodHandle;
-			}
 			this.m_currentMenuTooltip.SetVisible(false);
 		}
 		this.m_currentMenuTooltip = this.GetTooltip(obj.GetTooltipType());
 		this.m_currentClickedObject = obj;
 		if (!this.m_currentClickedObject.PopulateTooltip(this.m_currentMenuTooltip))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HideMenu();
 			return;
 		}
@@ -420,19 +208,6 @@ public class UITooltipManager : UIScene
 	{
 		if (this.m_tooltips[(int)type] == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.GetTooltip(TooltipType)).MethodHandle;
-			}
 			UITooltipBase uitooltipBase = UnityEngine.Object.Instantiate<UITooltipBase>(this.m_tooltipPrefabs[(int)type]);
 			uitooltipBase.transform.SetParent(base.transform);
 			uitooltipBase.transform.localPosition = Vector3.zero;
@@ -446,71 +221,22 @@ public class UITooltipManager : UIScene
 	{
 		if (obj is UITooltipHoverObject)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.UpdateTooltip(UITooltipObject)).MethodHandle;
-			}
 			if (this.m_currentHoveredObject != obj)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 			if (this.m_currentDisplayTooltip == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ShowDisplayTooltip(obj as UITooltipHoverObject);
 				return;
 			}
 			if (!this.m_currentHoveredObject.PopulateTooltip(this.m_currentDisplayTooltip))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.HideDisplayTooltip();
 			}
 		}
 		else if (obj is UITooltipClickObject)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_currentMenuTooltip == null || this.m_currentClickedObject != obj)
 			{
 				return;
@@ -529,19 +255,6 @@ public class UITooltipManager : UIScene
 		UITooltipManager.PositioningData positioningData2 = new UITooltipManager.PositioningData(tooltip.transform);
 		if (positioningData.Canvas.renderMode != RenderMode.WorldSpace)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.PositionTooltip(UITooltipObject, UITooltipBase)).MethodHandle;
-			}
 			float x;
 			float num;
 			float x2;
@@ -549,40 +262,13 @@ public class UITooltipManager : UIScene
 			Vector2 closestVector;
 			if (obj is UITooltipHoverObject)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UITooltipHoverObject uitooltipHoverObject = obj as UITooltipHoverObject;
 				positioningData.GetCornerBoundsInViewport(out x, out num, out x2, out num2);
 				Vector2[] array;
 				if (uitooltipHoverObject.m_anchorPoints != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (uitooltipHoverObject.m_anchorPoints.Length > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						array = uitooltipHoverObject.m_anchorPoints;
 						goto IL_B5;
 					}
@@ -606,15 +292,6 @@ public class UITooltipManager : UIScene
 			Vector2[] array3;
 			if (tooltip.m_anchorPoints.Length > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				array3 = tooltip.m_anchorPoints;
 			}
 			else
@@ -625,37 +302,10 @@ public class UITooltipManager : UIScene
 			bool flag;
 			if (obj.m_gravityWell.x >= x)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (obj.m_gravityWell.x <= x + num)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (obj.m_gravityWell.y >= x2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (obj.m_gravityWell.y <= x2 + num2);
 						goto IL_1C5;
 					}
@@ -666,15 +316,6 @@ public class UITooltipManager : UIScene
 			bool flag2 = flag;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector *= -1f;
 			}
 			vector.x = vector.x / -2f + 0.5f;
@@ -688,57 +329,21 @@ public class UITooltipManager : UIScene
 			bool flag3 = false;
 			if (x < 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				closestVector.x -= x;
 				flag3 = true;
 			}
 			else if (x + num > 1f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				closestVector.x -= x + num - 1f;
 				flag3 = true;
 			}
 			if (x2 < 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				closestVector.y -= x2;
 				flag3 = true;
 			}
 			else if (x2 + num2 > 1f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				closestVector.y -= x2 + num2 - 1f;
 				flag3 = true;
 			}
@@ -760,31 +365,9 @@ public class UITooltipManager : UIScene
 			float num2 = Vector2.Distance(comparee, candidates[i]);
 			if (num2 < num)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.GetClosestVector(Vector2, Vector2[])).MethodHandle;
-				}
 				num = num2;
 				vector = candidates[i];
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return vector;
 	}
@@ -820,19 +403,6 @@ public class UITooltipManager : UIScene
 			{
 				array[i].x = left + anchors[i].x * width;
 				array[i].y = bottom + anchors[i].y * height;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipManager.PositioningData.GetViewportAnchors(Vector2[], float, float, float, float)).MethodHandle;
 			}
 			return array;
 		}

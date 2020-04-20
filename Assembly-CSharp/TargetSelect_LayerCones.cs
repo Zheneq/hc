@@ -21,13 +21,13 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0003.GetName(), "on every hit actor, 0-based index of smallest cone with a hit, with smallest cone first", true) + base.GetContextUsageStr(ContextKeys.\u000F.GetName(), "Non-actor specific context, number of layers active", false);
+		return base.GetContextUsageStr(ContextKeys.symbol_0003.GetName(), "on every hit actor, 0-based index of smallest cone with a hit, with smallest cone first", true) + base.GetContextUsageStr(ContextKeys.symbol_000F.GetName(), "Non-actor specific context, number of layers active", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0003.GetName());
-		names.Add(ContextKeys.\u000F.GetName());
+		names.Add(ContextKeys.symbol_0003.GetName());
+		names.Add(ContextKeys.symbol_000F.GetName());
 	}
 
 	public override void Initialize()
@@ -35,30 +35,8 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 		base.Initialize();
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LayerCones.Initialize()).MethodHandle;
-			}
 			if (this.m_targetSelMod.m_useConeRadiusOverrides)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cachedRadiusList = new List<float>(this.m_targetSelMod.m_coneRadiusOverrides);
 				goto IL_61;
 			}
@@ -83,19 +61,6 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LayerCones.GetConeWidthAngle()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
 		}
 		else
@@ -111,19 +76,6 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 		int numActiveLayers = this.GetNumActiveLayers();
 		if (numActiveLayers > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LayerCones.GetMaxConeRadius()).MethodHandle;
-			}
 			result = this.m_cachedRadiusList[numActiveLayers - 1];
 		}
 		return result;

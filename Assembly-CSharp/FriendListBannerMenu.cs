@@ -23,32 +23,10 @@ public class FriendListBannerMenu : UITooltipBase
 			FriendListBannerMenu.FriendMenuButtonAction action = (FriendListBannerMenu.FriendMenuButtonAction)i;
 			if (this.IsValidButtonAction(action, true))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListBannerMenu.Start()).MethodHandle;
-				}
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseOver));
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseExit));
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseClicked));
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -56,53 +34,13 @@ public class FriendListBannerMenu : UITooltipBase
 	{
 		if (action == FriendListBannerMenu.FriendMenuButtonAction.InviteToGame)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListBannerMenu.IsValidButtonAction(FriendListBannerMenu.FriendMenuButtonAction, bool)).MethodHandle;
-			}
 			if (GameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameConfig != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool result;
 					if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Custom)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
 					}
 					else
@@ -118,37 +56,10 @@ public class FriendListBannerMenu : UITooltipBase
 		{
 			if (GameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo.GameConfig != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return GameManager.Get().GameInfo.GameConfig.GameType != GameType.Custom || GameManager.Get().GameInfo.GameStatus == GameStatus.Stopped;
 					}
 				}
@@ -157,37 +68,10 @@ public class FriendListBannerMenu : UITooltipBase
 		}
 		if (action == FriendListBannerMenu.FriendMenuButtonAction.ObserveGame)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameplayOverrides != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_friendInfo.IsJoinable(GameManager.Get().GameplayOverrides);
 				}
 			}
@@ -195,48 +79,12 @@ public class FriendListBannerMenu : UITooltipBase
 		}
 		if (action != FriendListBannerMenu.FriendMenuButtonAction.SendMessage)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (action != FriendListBannerMenu.FriendMenuButtonAction.BlockPlayer)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (action != FriendListBannerMenu.FriendMenuButtonAction.RemoveFriend)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (action != FriendListBannerMenu.FriendMenuButtonAction.ReportPlayer)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return action == FriendListBannerMenu.FriendMenuButtonAction.AddNote;
 					}
 				}
@@ -263,19 +111,6 @@ public class FriendListBannerMenu : UITooltipBase
 		{
 			if (this.IsValidButtonAction((FriendListBannerMenu.FriendMenuButtonAction)i, false))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListBannerMenu.OnGroupChatMouseClicked(BaseEventData)).MethodHandle;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
 					switch (i)
@@ -326,30 +161,8 @@ public class FriendListBannerMenu : UITooltipBase
 			FriendListBannerMenu.FriendMenuButtonAction action = (FriendListBannerMenu.FriendMenuButtonAction)i;
 			if (this.IsValidButtonAction(action, false))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FriendListBannerMenu.OnGroupChatMouseOver(BaseEventData)).MethodHandle;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_menuButtons[i].m_icon.color = Color.white;
 					this.m_menuButtons[i].m_label.color = Color.white;
 				}
@@ -367,15 +180,6 @@ public class FriendListBannerMenu : UITooltipBase
 		}
 		if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[3].m_button.gameObject)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_groupSubMenu, true, null);
 			this.m_groupSubMenu.Setup();
 		}

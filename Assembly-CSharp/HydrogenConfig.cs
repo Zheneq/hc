@@ -210,30 +210,8 @@ public class HydrogenConfig : JsonConfig
 		bool result;
 		if (fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.MatchesPath(string)).MethodHandle;
-			}
 			if (!fileName.StartsWith("AtlasReactorConfig", StringComparison.OrdinalIgnoreCase))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!fileName.StartsWith("AtlasReactorDevConfig", StringComparison.OrdinalIgnoreCase))
 				{
 					result = fileName.StartsWith("AtlasReactorServerConfig", StringComparison.OrdinalIgnoreCase);
@@ -259,77 +237,19 @@ public class HydrogenConfig : JsonConfig
 	{
 		if (this.AutoLaunchGameType != GameType.Practice)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.CanAutoLaunchGame()).MethodHandle;
-			}
 			if (this.AutoLaunchGameType == GameType.Tutorial)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (this.AutoLaunchGameType == GameType.Custom)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.AutoLaunchCustomGameConfig != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.AutoLaunchCustomGameConfig.GameConfig != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.AutoLaunchCustomGameConfig.GameConfig.GameType.IsAutoLaunchable())
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return !this.AutoLaunchCustomGameConfig.GameConfig.Map.IsNullOrEmpty();
 							}
 						}
@@ -348,19 +268,6 @@ public class HydrogenConfig : JsonConfig
 		string fullPath = Path.GetFullPath(Application.dataPath + "/../LocalSettings/SelectedGameSubTypes.json");
 		if (File.Exists(fullPath))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.GetSavedSubTypes(GameType, Dictionary<ushort, GameSubType>)).MethodHandle;
-			}
 			try
 			{
 				string value = File.ReadAllText(fullPath);
@@ -380,26 +287,8 @@ public class HydrogenConfig : JsonConfig
 							KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
 							if (list.Contains(keyValuePair.Value.LocalizedName))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num |= keyValuePair.Key;
 							}
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -420,44 +309,13 @@ public class HydrogenConfig : JsonConfig
 		GameTypeAvailability gameTypeAvailability;
 		if (GameTypeAvailabilies.TryGetValue(gameType, out gameTypeAvailability))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HydrogenConfig.SaveGameTypeSubMaskPreference(GameType, ushort, Dictionary<GameType, GameTypeAvailability>)).MethodHandle;
-			}
 			if (!gameTypeAvailability.SubTypes.IsNullOrEmpty<GameSubType>())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ushort num = 1;
 				foreach (GameSubType gameSubType in gameTypeAvailability.SubTypes)
 				{
 					if ((num & mask) != 0)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(gameSubType.LocalizedName);
 					}
 					num = (ushort)(num << 1);

@@ -22,19 +22,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 			ELOKeyComponent.BinaryModePhaseEnum result;
 			if (this.m_isInGeneralMode)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.get_BinaryModePhase()).MethodHandle;
-				}
 				result = ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
 			}
 			else
@@ -69,70 +56,21 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		}
 		if (this.m_gameType != GameType.PvP)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.GetComponentChar()).MethodHandle;
-			}
 			if (this.m_gameType == GameType.NewPlayerPvP)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (this.m_gameType == GameType.Ranked)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return 'r';
 				}
 				if (this.m_gameType == GameType.Custom)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return 'm';
 				}
 				if (this.m_gameType == GameType.Coop)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return 'c';
 				}
 				if (this.m_gameType == GameType.Solo)
@@ -154,19 +92,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		char result;
 		if (this.m_isInGeneralMode)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.GetPhaseChar()).MethodHandle;
-			}
 			result = '0';
 		}
 		else
@@ -181,19 +106,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		string result;
 		if (this.m_isInGeneralMode)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.GetPhaseDescription()).MethodHandle;
-			}
 			result = "all";
 		}
 		else
@@ -215,19 +127,6 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
 		GameType gameType2;
 		if (isCasual)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ELOKeyComponent_Queue.Initialize(List<MatchmakingQueueConfig.EloKeyFlags>, GameType, bool)).MethodHandle;
-			}
 			gameType2 = GameType.Casual;
 		}
 		else

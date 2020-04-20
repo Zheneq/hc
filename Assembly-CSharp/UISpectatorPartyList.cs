@@ -27,19 +27,6 @@ public class UISpectatorPartyList : MonoBehaviour
 				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
 				this.AddPlayer(lobbyPlayerInfo.GetHandle());
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPartyList.UpdateCharacterList(List<LobbyPlayerInfo>)).MethodHandle;
-			}
 		}
 	}
 
@@ -50,19 +37,6 @@ public class UISpectatorPartyList : MonoBehaviour
 		{
 			textMeshProUGUI.gameObject.transform.SetParent(null);
 			UnityEngine.Object.Destroy(textMeshProUGUI.gameObject);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISpectatorPartyList.Clear()).MethodHandle;
 		}
 	}
 

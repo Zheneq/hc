@@ -25,19 +25,6 @@ public class SquareInsideChecker_Path : ISquareInsideChecker
 		inLos = false;
 		if (this.m_squaresInPath.Contains(square))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SquareInsideChecker_Path.IsSquareInside(BoardSquare, bool*)).MethodHandle;
-			}
 			inLos = true;
 			result = true;
 		}

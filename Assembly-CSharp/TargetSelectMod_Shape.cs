@@ -31,42 +31,11 @@ public class TargetSelectMod_Shape : TargetSelectModBase
 		TargetSelect_Shape targetSelect_Shape = targetSelectBase as TargetSelect_Shape;
 		if (targetSelect_Shape != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectMod_Shape.GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
 			text += AbilityModHelper.GetModPropertyDesc(this.m_shapeMod, "[Shape]", true, targetSelect_Shape.m_shape);
 			if (this.m_useAdditionalShapeOverrides)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_additionalShapesOverrides != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "-- Using additional shape overrides --\n";
 					using (List<AbilityAreaShape>.Enumerator enumerator = this.m_additionalShapesOverrides.GetEnumerator())
 					{
@@ -74,15 +43,6 @@ public class TargetSelectMod_Shape : TargetSelectModBase
 						{
 							AbilityAreaShape abilityAreaShape = enumerator.Current;
 							text = text + "\t" + abilityAreaShape.ToString() + "\n";
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

@@ -33,19 +33,6 @@ public class UIStoreNavBtn : MonoBehaviour
 	{
 		if (this.m_isEnabled)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreNavBtn.ButtonClicked(BaseEventData)).MethodHandle;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
 			UIStorePanel.Get().NotifyNavBtnClicked(this);
 		}

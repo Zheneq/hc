@@ -12,19 +12,6 @@ public class AbilityModPropertySequenceOverride
 	{
 		if (this.operation == AbilityModPropertySequenceOverride.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertySequenceOverride.GetModifiedValue(GameObject)).MethodHandle;
-			}
 			return this.value;
 		}
 		return input;

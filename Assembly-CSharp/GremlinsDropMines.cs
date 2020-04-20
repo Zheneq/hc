@@ -37,19 +37,6 @@ public class GremlinsDropMines : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsDropMines.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Drop Mines";
 		}
 		this.m_bombInfoComp = base.GetComponent<GremlinsLandMineInfoComponent>();
@@ -74,19 +61,6 @@ public class GremlinsDropMines : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.m_bombInfoComp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsDropMines.CalculateNameplateTargetingNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.m_bombInfoComp.GetDamageOnMovedOver());
 			this.GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);
 		}
@@ -98,44 +72,18 @@ public class GremlinsDropMines : Ability
 		int result = 0;
 		if (this.m_bombInfoComp != null && this.m_bombInfoComp.GetEnergyOnExplosion() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsDropMines.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 			result = this.m_bombInfoComp.GetEnergyOnExplosion() * visibleActorsInRangeByTooltipSubject.Count;
 		}
 		return result;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
 		List<int> list = new List<int>();
 		GremlinsLandMineInfoComponent component = base.GetComponent<GremlinsLandMineInfoComponent>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsDropMines.\u001D()).MethodHandle;
-			}
 			list.Add(component.m_damageAmount);
 		}
 		return list;
@@ -159,32 +107,10 @@ public class GremlinsDropMines : Ability
 			this.m_abilityMod = (abilityMod as AbilityMod_GremlinsDropMines);
 			if (this.m_bombInfoComp == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsDropMines.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-				}
 				this.m_bombInfoComp = base.GetComponent<GremlinsLandMineInfoComponent>();
 			}
 			if (this.m_bombInfoComp != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cachedEnemyHitEffectInfo = this.m_bombInfoComp.GetEnemyHitEffectOnMovedOver();
 			}
 		}
@@ -200,19 +126,6 @@ public class GremlinsDropMines : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GremlinsDropMines.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_bombInfoComp.m_enemyHitEffect;
 		}
 		else

@@ -65,19 +65,6 @@ public class LobbyGameplayData
 		CharacterModInfo result;
 		if (characterData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetDefaultAbilityMods(CharacterType)).MethodHandle;
-			}
 			result = characterData.GetDefaultModInfo();
 		}
 		else
@@ -100,19 +87,6 @@ public class LobbyGameplayData
 		string result;
 		if (characterData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetCharacterDisplayName(CharacterType)).MethodHandle;
-			}
 			result = characterData.DisplayName;
 		}
 		else
@@ -128,19 +102,6 @@ public class LobbyGameplayData
 		CharacterConfig characterConfig;
 		if (characterData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetDefaultCharacterConfig(CharacterType)).MethodHandle;
-			}
 			characterConfig = characterData.CharacterConfig;
 		}
 		else
@@ -164,39 +125,12 @@ public class LobbyGameplayData
 	{
 		CharacterCardInfo result = default(CharacterCardInfo);
 		IEnumerable<LobbyCardGameplayData> values = this.CardData.Values;
-		if (LobbyGameplayData.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetDefaultCardInfo()).MethodHandle;
-			}
-			LobbyGameplayData.<>f__am$cache0 = delegate(LobbyCardGameplayData c)
+		
+		result.PrepCard = values.SingleOrDefault(delegate(LobbyCardGameplayData c)
 			{
 				bool result2;
 				if (c.RunPhase == AbilityRunPhase.Prep)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameplayData.<GetDefaultCardInfo>m__0(LobbyCardGameplayData)).MethodHandle;
-					}
 					result2 = c.IsDefault;
 				}
 				else
@@ -204,39 +138,14 @@ public class LobbyGameplayData
 					result2 = false;
 				}
 				return result2;
-			};
-		}
-		result.PrepCard = values.SingleOrDefault(LobbyGameplayData.<>f__am$cache0).CardType;
+			}).CardType;
 		IEnumerable<LobbyCardGameplayData> values2 = this.CardData.Values;
-		if (LobbyGameplayData.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			LobbyGameplayData.<>f__am$cache1 = delegate(LobbyCardGameplayData c)
+		
+		result.CombatCard = values2.SingleOrDefault(delegate(LobbyCardGameplayData c)
 			{
 				bool result2;
 				if (c.RunPhase == AbilityRunPhase.Combat)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameplayData.<GetDefaultCardInfo>m__1(LobbyCardGameplayData)).MethodHandle;
-					}
 					result2 = c.IsDefault;
 				}
 				else
@@ -244,27 +153,12 @@ public class LobbyGameplayData
 					result2 = false;
 				}
 				return result2;
-			};
-		}
-		result.CombatCard = values2.SingleOrDefault(LobbyGameplayData.<>f__am$cache1).CardType;
+			}).CardType;
 		result.DashCard = this.CardData.Values.SingleOrDefault(delegate(LobbyCardGameplayData c)
 		{
 			bool result2;
 			if (c.RunPhase == AbilityRunPhase.Dash)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(LobbyGameplayData.<GetDefaultCardInfo>m__2(LobbyCardGameplayData)).MethodHandle;
-				}
 				result2 = c.IsDefault;
 			}
 			else
@@ -283,19 +177,6 @@ public class LobbyGameplayData
 			bool result;
 			if (c.RunPhase == runPhase)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.<GetDefaultCardType>c__AnonStorey0.<>m__0(LobbyCardGameplayData)).MethodHandle;
-				}
 				result = c.IsDefault;
 			}
 			else
@@ -312,19 +193,6 @@ public class LobbyGameplayData
 		this.InventoryData.ItemTemplates.TryGetValue(itemTemplateId, out lobbyInventoryItemTemplate);
 		if (lobbyInventoryItemTemplate == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetItemTemplate(int)).MethodHandle;
-			}
 			throw new ArgumentException(string.Format("Invalid itemTemplateId {0}", itemTemplateId));
 		}
 		return lobbyInventoryItemTemplate;
@@ -337,19 +205,6 @@ public class LobbyGameplayData
 		select x).Single<KarmaTemplate>();
 		if (karmaTemplate != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetKarmaTemplate(int)).MethodHandle;
-			}
 			if (karmaTemplate.IsValid())
 			{
 				return karmaTemplate;
@@ -365,31 +220,9 @@ public class LobbyGameplayData
 		select x).Single<LootTable>();
 		if (lootTable != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetLootTable(int)).MethodHandle;
-			}
 			if (lootTable.IsValid())
 			{
 				return lootTable;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new InvalidOperationException(string.Format("Invalid lootTableId={0}", lootTableId));
@@ -413,19 +246,6 @@ public class LobbyGameplayData
 			{
 				return this.FactionData.m_factionCompetitions[competitionId - 1];
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetFactionCompetition(int)).MethodHandle;
-			}
 		}
 		throw new ArgumentException(string.Format("Invalid Faction competitionId={0}", competitionId));
 	}
@@ -436,30 +256,8 @@ public class LobbyGameplayData
 		{
 			if (this.FactionData.m_factionGroups[i].FactionGroupID == factionID)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetFactionGroup(int)).MethodHandle;
-				}
 				return this.FactionData.m_factionGroups[i];
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return new FactionGroup();
 	}
@@ -468,33 +266,11 @@ public class LobbyGameplayData
 	{
 		if (0 < competitionId)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.GetFaction(int, int)).MethodHandle;
-			}
 			if (competitionId <= this.FactionData.m_factionCompetitions.Count && 0 <= factionId)
 			{
 				if (factionId < this.FactionData.m_factionCompetitions[competitionId - 1].Factions.Count)
 				{
 					return this.FactionData.m_factionCompetitions[competitionId - 1].Factions[factionId];
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -562,19 +338,6 @@ public class LobbyGameplayData
 		FileInfo fileInfo = new FileInfo(fileName);
 		if (!fileInfo.Exists)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameplayData.LoadFromFile(string, object)).MethodHandle;
-			}
 			return;
 		}
 		string value = File.ReadAllText(fileName);

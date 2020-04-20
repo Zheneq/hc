@@ -40,32 +40,10 @@ public class RampartGrab : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Grab";
 		}
 		if (base.GetNumTargets() != 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Need 2 entries in Target Data");
 		}
 		this.SetupTargeter();
@@ -77,19 +55,6 @@ public class RampartGrab : Ability
 		base.ClearTargeters();
 		if (this.ChooseEndPosition())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.SetupTargeter()).MethodHandle;
-			}
 			base.ClearTargeters();
 			AbilityUtil_Targeter_Laser item = new AbilityUtil_Targeter_Laser(this, this.GetLaserWidth(), this.GetLaserRange(), this.PenetrateLos(), this.GetMaxTargets(), false, false);
 			base.Targeters.Add(item);
@@ -108,19 +73,6 @@ public class RampartGrab : Ability
 		int result;
 		if (this.ChooseEndPosition())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			result = 2;
 		}
 		else
@@ -155,19 +107,6 @@ public class RampartGrab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetDamageAfterFirstHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAfterFirstHitMod.GetModifiedValue(this.m_damageAfterFirstHit);
 		}
 		else
@@ -192,19 +131,6 @@ public class RampartGrab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -219,19 +145,6 @@ public class RampartGrab : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -246,19 +159,6 @@ public class RampartGrab : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -278,19 +178,6 @@ public class RampartGrab : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetDestinationSelectRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_destinationSelectRangeMod.GetModifiedValue(this.m_destinationSelectRange);
 		}
 		else
@@ -305,19 +192,6 @@ public class RampartGrab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetDestinationAngleDegWithBack()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_destinationAngleDegWithBackMod.GetModifiedValue(this.m_destinationAngleDegWithBack);
 		}
 		else
@@ -332,30 +206,8 @@ public class RampartGrab : Ability
 		int damageAfterFirstHit = this.GetDamageAfterFirstHit();
 		if (damageAfterFirstHit > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.CalcDamageForOrderIndex(int)).MethodHandle;
-			}
 			if (hitOrder > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return damageAfterFirstHit;
 			}
 		}
@@ -371,19 +223,6 @@ public class RampartGrab : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_RampartGrab)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_RampartGrab.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -397,15 +236,6 @@ public class RampartGrab : Ability
 		int val;
 		if (abilityMod_RampartGrab)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_RampartGrab.m_destinationAngleDegWithBackMod.GetModifiedValue(this.m_destinationAngleDegWithBack);
 		}
 		else
@@ -427,30 +257,8 @@ public class RampartGrab : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter is AbilityUtil_Targeter_Laser)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
 				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
 				for (int i = 0; i < hitActorContext.Count; i++)
@@ -460,15 +268,6 @@ public class RampartGrab : Ability
 						results.m_damage = this.CalcDamageForOrderIndex(i);
 						return true;
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -484,19 +283,6 @@ public class RampartGrab : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartGrab.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
 				bool result = false;
@@ -512,29 +298,11 @@ public class RampartGrab : Ability
 						int num2 = Mathf.RoundToInt(Vector3.Angle(from, to));
 						if (num2 <= this.GetDestinationAngleDegWithBack())
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = true;
 						}
 					}
 				}
 				return result;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

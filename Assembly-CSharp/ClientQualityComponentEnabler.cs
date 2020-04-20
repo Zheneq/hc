@@ -76,44 +76,13 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		PKFxRenderingPlugin component = Camera.main.GetComponent<PKFxRenderingPlugin>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientQualityComponentEnabler.Awake()).MethodHandle;
-			}
 			if (ClientQualityComponentEnabler.OptimizeForMemory())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.m_EnableDistortion = false;
 			}
 		}
 		if (this.m_componentsAndMinGraphicsQuality != null && this.m_componentsAndMinGraphicsQuality.Length > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_behaviourEnabledInPrefab = new bool[this.m_componentsAndMinGraphicsQuality.Length];
 			for (int i = 0; i < this.m_componentsAndMinGraphicsQuality.Length; i++)
 			{
@@ -125,15 +94,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 					int num2;
 					if (!behaviour.enabled)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = (this.m_componentsAndMinGraphicsQuality[i].m_enableEvenIfDisabled ? 1 : 0);
 					}
 					else
@@ -142,15 +102,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 					}
 					behaviourEnabledInPrefab[num] = num2;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_lights = (UnityEngine.Object.FindObjectsOfType(typeof(Light)) as Light[]);
@@ -165,15 +116,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 			float num4;
 			if (light.isActiveAndEnabled)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = light.intensity;
 			}
 			else
@@ -183,15 +125,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 			lightsIntensityInScene[num3] = num4;
 			this.m_lightsRenderModeInScene[j] = light.renderMode;
 			this.m_lightsBounceIntensityInScene[j] = light.bounceIntensity;
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_ambientIntensityInScene = RenderSettings.ambientIntensity;
 		this.m_ambientLightInScene = RenderSettings.ambientLight;
@@ -203,15 +136,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		this.m_particleSystemsEnabledInScene = (UnityEngine.Object.FindObjectsOfType(typeof(ParticleSystem)) as ParticleSystem[]);
 		if (this.m_particleSystemsEnabledInScene != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int k = 0;
 			while (k < this.m_particleSystemsEnabledInScene.Length)
 			{
@@ -219,15 +143,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 				if (!particleSystem.gameObject.activeInHierarchy)
 				{
 					goto IL_297;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (!particleSystem.emission.enabled)
 				{
@@ -240,28 +155,10 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 				this.m_particleSystemsEnabledInScene[k] = null;
 				goto IL_2A1;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.m_cosmeticPkfxEnabledInScene = (UnityEngine.Object.FindObjectsOfType(typeof(PKFxFX)) as PKFxFX[]);
 		if (this.m_cosmeticPkfxEnabledInScene != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int l = 0;
 			while (l < this.m_cosmeticPkfxEnabledInScene.Length)
 			{
@@ -270,26 +167,8 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 				{
 					goto IL_371;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!pkfxFX.CompareTag("cosmetic"))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (pkfxFX.gameObject.layer != LayerMask.NameToLayer("Backdrop") && pkfxFX.gameObject.layer != LayerMask.NameToLayer("Background"))
 					{
 						goto IL_371;
@@ -301,15 +180,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 				IL_371:
 				this.m_cosmeticPkfxEnabledInScene[l] = null;
 				goto IL_37B;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.ConfigureComponentsForGraphicsQuality();
@@ -323,19 +193,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 	{
 		if (ClientQualityComponentEnabler.OptimizeForMemory())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientQualityComponentEnabler.Start()).MethodHandle;
-			}
 			QualitySettings.masterTextureLimit = 1;
 		}
 	}
@@ -344,19 +201,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.GameCameraCreatedPre)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientQualityComponentEnabler.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			if (this.m_cosmeticPkfxEnabledInScene != null)
 			{
 				for (int i = 0; i < this.m_cosmeticPkfxEnabledInScene.Length; i++)
@@ -364,26 +208,8 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 					PKFxFX pkfxFX = this.m_cosmeticPkfxEnabledInScene[i];
 					if (pkfxFX != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pkfxFX.m_PlayOnStart = false;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -407,19 +233,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		Shader.SetGlobalColor("_LowQualityAmbientColor", this.m_lowQualityAmbientColor);
 		if (Application.isPlaying)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientQualityComponentEnabler.OnValidate()).MethodHandle;
-			}
 			if (this.m_lights != null)
 			{
 				this.ConfigureComponentsForGraphicsQuality();
@@ -435,19 +248,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		}
 		if (SystemInfo.graphicsShaderLevel < 0x32)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientQualityComponentEnabler.ConfigureComponentsForGraphicsQuality()).MethodHandle;
-			}
 			Shader.EnableKeyword("_GLOSSYREFLECTIONS_OFF");
 		}
 		GraphicsQuality currentGraphicsQuality = Options_UI.Get().GetCurrentGraphicsQuality();
@@ -456,26 +256,8 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 			Behaviour behaviour = this.m_componentsAndMinGraphicsQuality[i].m_behaviour;
 			if (behaviour != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_behaviourEnabledInPrefab[i])
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					behaviour.enabled = (currentGraphicsQuality >= this.m_componentsAndMinGraphicsQuality[i].m_minQuality);
 				}
 			}
@@ -484,26 +266,8 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		PKFxRenderingPlugin component = Camera.main.GetComponent<PKFxRenderingPlugin>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentGraphicsQuality > GraphicsQuality.Low)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!ClientQualityComponentEnabler.OptimizeForMemory())
 				{
 					component.m_EnableDistortion = true;
@@ -512,15 +276,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 			}
 			if (component.m_EnableDistortion)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.m_EnableDistortion = false;
 			}
 		}
@@ -528,15 +283,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		int globalMaximumLOD;
 		if (currentGraphicsQuality <= GraphicsQuality.Low)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			globalMaximumLOD = this.m_lowQualityShaderLod;
 		}
 		else
@@ -546,15 +292,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		Shader.globalMaximumLOD = globalMaximumLOD;
 		if (currentGraphicsQuality >= this.m_minQualityBackdropLayer)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Camera.main.cullingMask |= this.m_backdropCullingMask;
 		}
 		else
@@ -565,68 +302,23 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		{
 			if (this.m_cosmeticPkfxEnabledInScene != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < this.m_cosmeticPkfxEnabledInScene.Length; j++)
 				{
 					PKFxFX pkfxFX = this.m_cosmeticPkfxEnabledInScene[j];
 					if (pkfxFX != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						pkfxFX.StartEffect();
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		else if (this.m_cosmeticPkfxEnabledInScene != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int k = 0; k < this.m_cosmeticPkfxEnabledInScene.Length; k++)
 			{
 				PKFxFX pkfxFX2 = this.m_cosmeticPkfxEnabledInScene[k];
 				if (pkfxFX2 != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					pkfxFX2.TerminateEffect();
 					pkfxFX2.KillEffect();
 				}
@@ -634,15 +326,6 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 		}
 		if (currentGraphicsQuality <= GraphicsQuality.Medium)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_lowQualityChangeAmbient)
 			{
 				RenderSettings.ambientMode = AmbientMode.Flat;
@@ -664,59 +347,23 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 			{
 				if (this.m_lightsIntensityInScene[l] > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_lights[l].intensity = this.m_lightsIntensityInScene[l];
 					this.m_lights[l].renderMode = this.m_lightsRenderModeInScene[l];
 					this.m_lights[l].bounceIntensity = this.m_lightsBounceIntensityInScene[l];
 					this.m_lights[l].enabled = true;
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
 			if (this.m_lights != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int m = 0;
 				while (m < this.m_lights.Length)
 				{
 					if (this.m_lights[m].type != LightType.Directional)
 					{
 						goto IL_3ED;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (this.m_lightsIntensityInScene[m] <= 0f || (this.m_lights[m].cullingMask & 1) != 0)
 					{
@@ -735,40 +382,13 @@ public class ClientQualityComponentEnabler : MonoBehaviour, IGameEventListener
 			}
 			if (this.m_particleSystemsEnabledInScene != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentGraphicsQuality >= this.m_minQualityParticleSystems)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int n = 0; n < this.m_particleSystemsEnabledInScene.Length; n++)
 					{
 						ParticleSystem particleSystem = this.m_particleSystemsEnabledInScene[n];
 						if (particleSystem != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							particleSystem.gameObject.SetActive(true);
 							particleSystem.Play();
 						}

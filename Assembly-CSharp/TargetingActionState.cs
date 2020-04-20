@@ -29,30 +29,8 @@ public class TargetingActionState : TurnState
 		this.m_SM.ClearAbilityTargets();
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetingActionState.SetupTargeting()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == this.m_SM)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData component = this.m_SM.GetComponent<ActorData>();
 				AbilityData component2 = this.m_SM.GetComponent<AbilityData>();
 				BoardSquare autoSelectTarget = component2.GetAutoSelectTarget();
@@ -64,15 +42,6 @@ public class TargetingActionState : TurnState
 					this.m_SM.OnQueueAbilityRequest(selectedActionType);
 					if (NetworkServer.active)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -120,19 +89,6 @@ public class TargetingActionState : TurnState
 			component.ClearActionsToCancelOnTargetingComplete();
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetingActionState.OnMsg(TurnMessage, int)).MethodHandle;
-				}
 				UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 			}
 			this.m_SM.NextState = TurnStateEnum.DECIDING;
@@ -151,15 +107,6 @@ public class TargetingActionState : TurnState
 			this.m_SM.NextState = TurnStateEnum.CONFIRMED;
 			if (SinglePlayerManager.Get())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				SinglePlayerManager.Get().OnActorLockInEntered(this.m_SM.GetComponent<ActorData>());
 			}
 			break;
@@ -173,79 +120,21 @@ public class TargetingActionState : TurnState
 	{
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetingActionState.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData.GetComponent<ActorTurnSM>() == this.m_SM)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityData component = this.m_SM.GetComponent<AbilityData>();
 				ActorData component2 = this.m_SM.GetComponent<ActorData>();
 				if (component)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component2)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Ability selectedAbility = component.GetSelectedAbility();
 						if (selectedAbility != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Ability.TargetingParadigm targetingParadigm = selectedAbility.GetTargetingParadigm(this.TargetIndex);
 							bool flag;
 							if (targetingParadigm != Ability.TargetingParadigm.Direction)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = (targetingParadigm == Ability.TargetingParadigm.Position);
 							}
 							else
@@ -260,87 +149,24 @@ public class TargetingActionState : TurnState
 						}
 						if (!Input.GetMouseButtonUp(0))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!Input.GetMouseButtonUp(1))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!InputManager.Get().GetAcceptButtonDown())
 								{
 									goto IL_26D;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
 						if (InterfaceManager.Get().ShouldHandleMouseClick() && !this.m_SM.HandledMouseInput)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_SM.HandledMouseInput = true;
 							AbilityTarget abilityTargetForTargeterUpdate = AbilityTarget.GetAbilityTargetForTargeterUpdate();
 							if (selectedAbility != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (component.ValidateAbilityOnTarget(selectedAbility, abilityTargetForTargeterUpdate, this.TargetIndex, -1f, -1f))
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (Input.GetMouseButtonUp(1))
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!Options_UI.Get().GetRightClickingConfirmsAbilityTargets())
 										{
 											this.m_SM.RequestCancel(false);
@@ -351,15 +177,6 @@ public class TargetingActionState : TurnState
 									bool flag4;
 									if (selectedAbility.GetRunPriority() == AbilityPriority.Evasion)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag4 = selectedAbility.CanOverrideMoveStartSquare();
 									}
 									else
@@ -369,26 +186,8 @@ public class TargetingActionState : TurnState
 									bool flag5 = flag4;
 									if (flag3)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (!flag5)
 										{
-											for (;;)
-											{
-												switch (1)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											UISounds.GetUISounds().Play("ui/ingame/v1/action");
 											goto IL_26D;
 										}

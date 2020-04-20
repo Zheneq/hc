@@ -20,42 +20,11 @@ public class UI_Persistent : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_newFrontEndPersistantScreens[i], visible, null);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UI_Persistent.NotifyFrontEndVisible(bool)).MethodHandle;
-		}
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.m_enableOnVisible.Length; j++)
 			{
 				UIManager.SetGameObjectActive(this.m_enableOnVisible[j], true, null);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -65,19 +34,6 @@ public class UI_Persistent : MonoBehaviour
 		UI_Persistent.s_instance = this;
 		if (base.gameObject.transform.parent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UI_Persistent.Awake()).MethodHandle;
-			}
 			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		}
 	}

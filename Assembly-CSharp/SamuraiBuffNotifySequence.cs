@@ -21,30 +21,8 @@ public class SamuraiBuffNotifySequence : SimpleTimingSequence
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiBuffNotifySequence.DoSequenceHits()).MethodHandle;
-			}
 			if (this.m_finalTurnVfx)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_syncComp.m_swordBuffFinalTurnVfxPending = true;
 			}
 			else

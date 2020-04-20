@@ -25,19 +25,6 @@ public class NanoSmithBuffDebuffCone : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithBuffDebuffCone.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Buff Debuff Cone";
 		}
 		this.m_sequencePrefab = this.m_castSequencePrefab;

@@ -42,19 +42,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		ArcherHealingDebuffArrow archerHealingDebuffArrow = targetAbility as ArcherHealingDebuffArrow;
 		if (archerHealingDebuffArrow != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherHealingDebuffArrow.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_laserHitEffectMod, "LaserHitEffect", archerHealingDebuffArrow.m_laserHitEffect, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_extraHitEffectMod, "LaserHitEffect", null, true);
 			AbilityMod.AddToken(tokens, this.m_reactionHealingMod, "ReactionHealing", string.Empty, archerHealingDebuffArrow.m_reactionHealing, true, false);
@@ -82,19 +69,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ArcherHealingDebuffArrow.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = archerHealingDebuffArrow.m_laserHitEffect;
 		}
 		else
@@ -111,15 +85,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = archerHealingDebuffArrow.m_reactionHealingOnSelf;
 		}
 		else
@@ -135,15 +100,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = archerHealingDebuffArrow.m_healsPerAlly;
 		}
 		else
@@ -159,15 +115,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = archerHealingDebuffArrow.m_reactionEffect;
 		}
 		else
@@ -178,15 +125,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		text += base.PropDesc(this.m_extraHealForShieldGeneratorTargets, "[ExtraHealForShieldGeneratorTargets]", flag, 0);
 		if (this.m_cooldownReductionIfNoHeals != null && this.m_cooldownReductionIfNoHeals.HasCooldownReduction())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += this.m_cooldownReductionIfNoHeals.GetDescription(abilityData);
 		}
 		text += base.PropDesc(this.m_extraHealBelowHealthThresholdMod, "[ExtraHealForAlliesBelowHealthThreshold]", flag, 0);

@@ -38,19 +38,6 @@ public class UIRankingDisplayEntry : IDataEntry
 		bool inMasterOrContender;
 		if (entry.Tier != 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankingDisplayEntry..ctor(RankedScoreboardEntry, int)).MethodHandle;
-			}
 			inMasterOrContender = (entry.Tier == 2);
 		}
 		else
@@ -72,59 +59,14 @@ public class UIRankingDisplayEntry : IDataEntry
 		TimeSpan rankedLeaderboardExpirationTime = GameManager.Get().GameplayOverrides.RankedLeaderboardExpirationTime;
 		if (entry.Tier != -1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (entry.YesterdaysTier != -1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (entry.TierPoints >= 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (entry.YesterdaysPoints >= 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (t < rankedLeaderboardExpirationTime)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num = (int)(entry.TierPoints + 0.5f) - entry.YesterdaysPoints;
 							int num2 = Math.Max(entry.YesterdaysTier, 2) - Math.Max(entry.Tier, 2);
 							this.Change = num + 0x64 * num2;
@@ -147,34 +89,12 @@ public class UIRankingDisplayEntry : IDataEntry
 		UIRankListDisplayEntry component = UIEntry.GetComponent<UIRankListDisplayEntry>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIRankingDisplayEntry.Setup(int, _LargeScrollListItemEntry)).MethodHandle;
-			}
 			TimeSpan difference = ClientGameManager.Get().UtcNow() - this.LastMatch;
 			string text = StringUtil.GetTimeDifferenceText(difference, false);
 			text = string.Format(StringUtil.TR("MatchTimeDifference", "Global"), text);
 			component.LastMatchText.text = text;
 			if (this.StreakLength > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.StreakText.text = this.StreakLength.ToString();
 			}
 			else
@@ -196,15 +116,6 @@ public class UIRankingDisplayEntry : IDataEntry
 			{
 				if (this.InMasterOrContender)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.RankText.text = StringUtil.GetLocalizedFloat(this.TierPoints, "####.#");
 				}
 				else
@@ -213,26 +124,8 @@ public class UIRankingDisplayEntry : IDataEntry
 				}
 				if (this.Change > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (difference.TotalDays < 1.0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component.ChangeText.text = string.Format("<sprite={0}>{1}", 6, this.Change);
 					}
 					else
@@ -242,15 +135,6 @@ public class UIRankingDisplayEntry : IDataEntry
 				}
 				else if (this.Change < 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (difference.TotalDays < 1.0)
 					{
 						component.ChangeText.text = string.Format("<sprite={0}>{1}", 7, this.Change);
@@ -265,15 +149,6 @@ public class UIRankingDisplayEntry : IDataEntry
 			ScrollRect componentInParent = component.GetComponentInParent<ScrollRect>();
 			if (componentInParent != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.m_theBtn.spriteController.gameObject.GetComponent<_MouseEventPasser>() == null)
 				{
 					_MouseEventPasser mouseEventPasser = component.m_theBtn.spriteController.gameObject.AddComponent<_MouseEventPasser>();

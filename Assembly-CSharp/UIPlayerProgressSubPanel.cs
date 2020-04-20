@@ -26,19 +26,6 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 		this.m_active = visible;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressSubPanel.SetActive(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 		}
 		if (this.m_animator.isInitialized)
@@ -51,19 +38,6 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 	{
 		if (!this.m_active)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressSubPanel.HandleAnimationEnd()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false, null);
 		}
 	}

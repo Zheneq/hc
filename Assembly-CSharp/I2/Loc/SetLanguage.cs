@@ -19,19 +19,6 @@ namespace I2.Loc
 		{
 			if (LocalizationManager.HasLanguage(this._Language, true, true))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SetLanguage.ApplyLanguage()).MethodHandle;
-				}
 				LocalizationManager.CurrentLanguage = this._Language;
 			}
 		}

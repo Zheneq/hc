@@ -34,19 +34,6 @@ public class NetworkStats
 	{
 		if (NetworkStats.s_instance == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetworkStats.Get()).MethodHandle;
-			}
 			NetworkStats.s_instance = new NetworkStats();
 			NetworkStats.s_instance.Start();
 		}
@@ -80,41 +67,10 @@ public class NetworkStats
 		TimeSpan timeSpan = DateTime.UtcNow - this.m_lastStatsTime;
 		if (this.m_outputRate != 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NetworkStats.Update()).MethodHandle;
-			}
 			if (timeSpan.TotalSeconds > (double)this.m_outputRate)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_outputClient)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<NetworkConnection>.Enumerator enumerator = this.m_clientConnections.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -128,29 +84,11 @@ public class NetworkStats
 							int num5 = 0;
 							if (this.m_lastClientOutNumBytes.ContainsKey(networkConnection.connectionId))
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num5 = this.m_lastClientOutNumBytes[networkConnection.connectionId];
 							}
 							int num6 = 0;
 							if (this.m_lastClientOutNumMsgs.ContainsKey(networkConnection.connectionId))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num6 = this.m_lastClientOutNumMsgs[networkConnection.connectionId];
 							}
 							Log.Info("NS: Client Connection {0} - Over the last {1} ms - OutBytes: {2} (total: {3}) OutMsgs: {4} (total: {5}) OutBufferedMsgs: {6} (total: {7}) ", new object[]
@@ -166,15 +104,6 @@ public class NetworkStats
 							});
 							this.m_lastClientOutNumBytes[networkConnection.connectionId] = num3;
 							this.m_lastClientOutNumMsgs[networkConnection.connectionId] = num;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -213,15 +142,6 @@ public class NetworkStats
 							});
 							this.m_lastServerOutNumBytes[networkConnection2.connectionId] = num9;
 							this.m_lastServerOutNumMsgs[networkConnection2.connectionId] = num7;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

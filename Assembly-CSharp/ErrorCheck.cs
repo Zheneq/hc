@@ -10,32 +10,10 @@ public static class ErrorCheck
 	{
 		if (c == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ErrorCheck.CheckNetworkedObject(Component, string, bool)).MethodHandle;
-			}
 			Log.Error("Component is null.", new object[0]);
 		}
 		else if (c.gameObject == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error(c.ToString() + " '" + c.name + "' has a null gameObject", new object[0]);
 		}
 		else
@@ -43,15 +21,6 @@ public static class ErrorCheck
 			NetworkView[] components = c.gameObject.GetComponents<NetworkView>();
 			if (components != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (components.Length > 0)
 				{
 					Log.Error(string.Concat(new object[]
@@ -66,15 +35,6 @@ public static class ErrorCheck
 			NetworkIdentity[] components2 = c.GetComponents<NetworkIdentity>();
 			if (components2 != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (components2.Length == 1)
 				{
 					return;
@@ -89,15 +49,6 @@ public static class ErrorCheck
 			int num2;
 			if (components2 == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 0;
 			}
 			else
@@ -130,19 +81,6 @@ public static class ErrorCheck
 		}
 		else if (writerPositionBeforeSerialize < 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ErrorCheck.CheckOnSerialize(string, string, short, short, int, NetworkWriter)).MethodHandle;
-			}
 			Log.Error("net serialization writer position is negative and may have overflowed: {0} for {1}", new object[]
 			{
 				writerPositionBeforeSerialize,
@@ -151,15 +89,6 @@ public static class ErrorCheck
 		}
 		else if (writerPositionAfterSerialize < 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("net serialization writer position is negative and may have overflowed: {0} for {1}", new object[]
 			{
 				writerPositionBeforeSerialize,
@@ -168,53 +97,17 @@ public static class ErrorCheck
 		}
 		else if (writerPositionAfterSerialize > 0x400)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag = true;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				QosType qosType = NetworkManager.singleton.channels[channelIndex];
 				if (qosType != QosType.ReliableFragmented && qosType != QosType.UnreliableFragmented)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("Too much net serialization data on object {0} for channel {1}.\nObject sends at least {2} byte packet, max allowed is {3}.\nScript \"{4}\" wrote {5} bytes.\nSend less, or change sending script to use another channel.", new object[]
 				{
 					gameObjectToString,

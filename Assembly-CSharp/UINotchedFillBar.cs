@@ -14,19 +14,6 @@ public class UINotchedFillBar : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_notches[i], i < filled, null);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UINotchedFillBar.Setup(int)).MethodHandle;
-		}
 		this.m_textCount.text = filled.ToString();
 	}
 }

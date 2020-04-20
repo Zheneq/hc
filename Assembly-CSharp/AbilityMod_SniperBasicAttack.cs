@@ -33,19 +33,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		SniperBasicAttack sniperBasicAttack = targetAbility as SniperBasicAttack;
 		if (sniperBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperBasicAttack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageMod, "LaserDamageAmount", string.Empty, sniperBasicAttack.m_laserDamageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_minDamageMod, "MinDamageAmount", string.Empty, sniperBasicAttack.m_minDamageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_damageChangePerHitMod, "DamageChangePerHit", string.Empty, sniperBasicAttack.m_damageChangePerHit, true, false);
@@ -72,19 +59,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperBasicAttack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sniperBasicAttack.m_laserInfo.width;
 		}
 		else
@@ -102,15 +76,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sniperBasicAttack.m_minDamageAmount;
 		}
 		else
@@ -125,15 +90,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sniperBasicAttack.m_damageChangePerHit;
 		}
 		else
@@ -143,15 +99,6 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		text = str3 + AbilityModHelper.GetModPropertyDesc(damageChangePerHitMod, prefix3, showBaseVal3, baseVal3);
 		if (this.m_farDistanceThreshold > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -170,32 +117,10 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		SniperBasicAttack sniperBasicAttack = abilityAsBase as SniperBasicAttack;
 		if (sniperBasicAttack != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperBasicAttack.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
-			}
 			int modifiedValue = this.m_damageMod.GetModifiedValue(sniperBasicAttack.m_laserDamageAmount);
 			int modifiedValue2 = this.m_damageChangePerHitMod.GetModifiedValue(sniperBasicAttack.m_damageChangePerHit);
 			if (modifiedValue2 != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				numbers.Add(modifiedValue + modifiedValue2);
 			}
 		}

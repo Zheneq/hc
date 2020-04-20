@@ -22,31 +22,9 @@ namespace TMPro
 		{
 			if (this.linkID != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_LinkInfo.SetLinkID(char[], int, int)).MethodHandle;
-				}
 				if (this.linkID.Length >= length)
 				{
 					goto IL_3C;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.linkID = new char[length];
@@ -54,15 +32,6 @@ namespace TMPro
 			for (int i = 0; i < length; i++)
 			{
 				this.linkID[i] = text[startIndex + i];
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -74,19 +43,6 @@ namespace TMPro
 			{
 				text += textInfo.characterInfo[i].character;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_LinkInfo.GetLinkText()).MethodHandle;
-			}
 			return text;
 		}
 
@@ -94,19 +50,6 @@ namespace TMPro
 		{
 			if (this.textComponent == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_LinkInfo.GetLinkID()).MethodHandle;
-				}
 				return string.Empty;
 			}
 			return new string(this.linkID, 0, this.linkIdLength);

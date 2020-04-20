@@ -18,7 +18,7 @@ public static class Log
 	}
 
 	[Conditional("HYDROGEN_DEBUG")]
-	public static void \u001D(Log.Category \u001D, string \u000E, params object[] \u0012)
+	public static void symbol_001D(Log.Category symbol_001D, string symbol_000E, params object[] symbol_0012)
 	{
 	}
 
@@ -38,7 +38,7 @@ public static class Log
 	}
 
 	[Conditional("HYDROGEN_DEBUG")]
-	public static void \u001D(string \u001D, params object[] \u000E)
+	public static void symbol_001D(string symbol_001D, params object[] symbol_000E)
 	{
 	}
 
@@ -98,7 +98,7 @@ public static class Log
 		{
 		case Log.Level.Everything:
 			return "Everything";
-		case Log.Level.\u001D:
+		case Log.Level.symbol_001D:
 			return "Debug";
 		case Log.Level.Info:
 			return "Info";
@@ -121,7 +121,7 @@ public static class Log
 	{
 		switch (level)
 		{
-		case Log.Level.\u001D:
+		case Log.Level.symbol_001D:
 			return "DBG";
 		case Log.Level.Info:
 			return "INF";
@@ -142,110 +142,34 @@ public static class Log
 	{
 		if (string.Equals(level, Log.ToString(Log.Level.Everything), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Log.FromString(string)).MethodHandle;
-			}
 			return Log.Level.Everything;
 		}
-		if (string.Equals(level, Log.ToString(Log.Level.\u001D), StringComparison.OrdinalIgnoreCase))
+		if (string.Equals(level, Log.ToString(Log.Level.symbol_001D), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			return Log.Level.\u001D;
+			return Log.Level.symbol_001D;
 		}
 		if (string.Equals(level, Log.ToString(Log.Level.Info), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Log.Level.Info;
 		}
 		if (string.Equals(level, Log.ToString(Log.Level.Warning), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Log.Level.Warning;
 		}
 		if (string.Equals(level, Log.ToString(Log.Level.Error), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Log.Level.Error;
 		}
 		if (string.Equals(level, Log.ToString(Log.Level.Critical), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Log.Level.Critical;
 		}
 		if (string.Equals(level, Log.ToString(Log.Level.Notice), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Log.Level.Notice;
 		}
 		if (string.Equals(level, Log.ToString(Log.Level.Nothing), StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return Log.Level.Nothing;
 		}
 		return Log.Level.Unknown;
@@ -255,7 +179,7 @@ public static class Log
 	{
 		Unknown,
 		Everything,
-		\u001D,
+		symbol_001D,
 		Info,
 		Warning,
 		Error,
@@ -317,32 +241,10 @@ public static class Log
 		{
 			if (message == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Log.Message.Format(string, object[])).MethodHandle;
-				}
 				return null;
 			}
 			if (args != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (args.Length != 0)
 				{
 					for (int i = 0; i < args.Length; i++)
@@ -350,37 +252,10 @@ public static class Log
 						Exception ex = args[i] as Exception;
 						if (ex != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							args[i] = ex.ToReadableString();
 						}
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return string.Format(message, args);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return message;
@@ -390,19 +265,6 @@ public static class Log
 		{
 			if (this.repeatCount > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Log.Message.ToString()).MethodHandle;
-				}
 				return string.Format("{0} (repeated {1} times)", this.formattedMessage, this.repeatCount);
 			}
 			return this.formattedMessage;

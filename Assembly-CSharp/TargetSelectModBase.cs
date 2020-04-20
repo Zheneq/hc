@@ -23,30 +23,8 @@ public class TargetSelectModBase
 		string text = string.Empty;
 		if (this.m_overrideTargetDataOnTargetSelect)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelectModBase.GetInEditorDesc(GenericAbility_TargetSelectBase, string)).MethodHandle;
-			}
 			if (this.m_targetDataOverride != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text + InEditorDescHelper.ColoredString("* Using TargetData Override *", "cyan", false) + "\n";
 				foreach (TargetData targetData in this.m_targetDataOverride)
 				{
@@ -71,15 +49,6 @@ public class TargetSelectModBase
 		text += this.GetModSpecificInEditorDesc(targetSelectBase, header);
 		if (text.Length > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = header + "\n" + text + "\n";
 		}
 		return text;

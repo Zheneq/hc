@@ -43,19 +43,6 @@ public class ValkyrieStab : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Spear Poke";
 		}
 		this.SetupTargeter();
@@ -84,19 +71,6 @@ public class ValkyrieStab : Ability
 		StandardEffectInfo cachedTargetHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.SetCachedFields()).MethodHandle;
-			}
 			cachedTargetHitEffect = this.m_abilityMod.m_targetHitEffectMod.GetModifiedValue(this.m_targetHitEffect);
 		}
 		else
@@ -116,19 +90,6 @@ public class ValkyrieStab : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetConeWidthMaxAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneWidthMaxAngleMod.GetModifiedValue(this.m_coneWidthMaxAngle);
 		}
 		else
@@ -143,19 +104,6 @@ public class ValkyrieStab : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetConeBackwardOffset()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(this.m_coneBackwardOffset);
 		}
 		else
@@ -170,19 +118,6 @@ public class ValkyrieStab : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetConeMinLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneMinLengthMod.GetModifiedValue(this.m_coneMinLength);
 		}
 		else
@@ -197,19 +132,6 @@ public class ValkyrieStab : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetConeMaxLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneMaxLengthMod.GetModifiedValue(this.m_coneMaxLength);
 		}
 		else
@@ -229,19 +151,6 @@ public class ValkyrieStab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -256,19 +165,6 @@ public class ValkyrieStab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageAmountMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -283,19 +179,6 @@ public class ValkyrieStab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetLessDamagePerTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(this.m_lessDamagePerTarget);
 		}
 		else
@@ -310,19 +193,6 @@ public class ValkyrieStab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetExtraDamageOnSpearTip()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageOnSpearTip.GetModifiedValue(0);
 		}
 		else
@@ -337,19 +207,6 @@ public class ValkyrieStab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetExtraDamageFirstTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageFirstTarget.GetModifiedValue(0);
 		}
 		else
@@ -374,19 +231,6 @@ public class ValkyrieStab : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetMaxExtraAbsorbNextShieldBlock()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxExtraAbsorbNextShieldBlock.GetModifiedValue(0);
 		}
 		else
@@ -400,19 +244,6 @@ public class ValkyrieStab : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieStab))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ValkyrieStab);
 			this.SetupTargeter();
 		}
@@ -446,33 +277,11 @@ public class ValkyrieStab : Ability
 				list.Add(actorTarget.m_actor);
 				if (actorTarget.m_actor == targetActor)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyrieStab.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-					}
 					if (actorTarget.m_subjectTypes.Contains(AbilityTooltipSubject.Far))
 					{
 						num = this.GetExtraDamageOnSpearTip();
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num2 = this.GetDamageAmount();
@@ -482,30 +291,12 @@ public class ValkyrieStab : Ability
 		{
 			if (x == targetActor)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = num2 + num;
 				break;
 			}
 			if (this.m_syncComp == null)
 			{
 				goto IL_128;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!this.m_syncComp.m_skipDamageReductionForNextStab)
 			{
@@ -522,15 +313,6 @@ public class ValkyrieStab : Ability
 			IL_139:
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 				num2 -= this.GetExtraDamageFirstTarget();
 				continue;

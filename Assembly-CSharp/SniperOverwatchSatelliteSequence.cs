@@ -16,19 +16,6 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatchSatelliteSequence.FinishSetup()).MethodHandle;
-			}
 			this.TriggerSpawn();
 		}
 	}
@@ -37,33 +24,11 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 	{
 		if (!this.m_fxJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatchSatelliteSequence.TriggerSpawn()).MethodHandle;
-			}
 			this.m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		this.m_tempSatelliteInstance = base.InstantiateFX(this.m_tempSatellitePrefab, this.m_fxJoint.m_jointObject.transform.position, this.m_fxJoint.m_jointObject.transform.rotation, true, true);
 		if (!this.m_parentToSequence)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_tempSatelliteInstance.transform.parent = null;
 		}
 		this.m_tempSatelliteInstance.GetComponent<TempSatellite>().Setup(this);
@@ -74,19 +39,6 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatchSatelliteSequence.Update()).MethodHandle;
-			}
 			base.ProcessSequenceVisibility();
 		}
 	}
@@ -103,19 +55,6 @@ public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 	{
 		if (this.m_tempSatelliteInstance != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperOverwatchSatelliteSequence.OnDisable()).MethodHandle;
-			}
 			this.m_tempSatelliteInstance.GetComponent<SniperOverwatchSatellite>().TriggerDespawn();
 		}
 	}

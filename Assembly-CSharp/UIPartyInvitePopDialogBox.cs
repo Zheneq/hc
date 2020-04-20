@@ -12,19 +12,6 @@ public class UIPartyInvitePopDialogBox : UITwoButtonDialog
 		base.Start();
 		if (this.m_blockButton != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyInvitePopDialogBox.Start()).MethodHandle;
-			}
 			this.m_blockButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BlockButtonClicked);
 		}
 	}
@@ -33,19 +20,6 @@ public class UIPartyInvitePopDialogBox : UITwoButtonDialog
 	{
 		if (this.m_blockCallback != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPartyInvitePopDialogBox.BlockButtonClicked(BaseEventData)).MethodHandle;
-			}
 			this.m_blockCallback(this);
 		}
 		UIDialogPopupManager.Get().CloseDialog(this);

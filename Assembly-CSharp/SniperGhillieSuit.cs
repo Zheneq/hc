@@ -38,19 +38,6 @@ public class SniperGhillieSuit : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.GetHealingAmountOnSelf()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -64,30 +51,8 @@ public class SniperGhillieSuit : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.GetStealthEffectData()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_useStealthEffectDataOverride)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_abilityMod.m_stealthEffectDataOverride;
 			}
 		}
@@ -99,19 +64,6 @@ public class SniperGhillieSuit : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.GetCooldownResetHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownResetHealthThresholdMod.GetModifiedValue(this.m_cooldownResetHealthThreshold);
 		}
 		else
@@ -149,19 +101,6 @@ public class SniperGhillieSuit : Ability
 		float val;
 		if (abilityMod_SniperGhillieSuit)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SniperGhillieSuit.m_cooldownResetHealthThresholdMod.GetModifiedValue(this.m_cooldownResetHealthThreshold);
 		}
 		else
@@ -175,19 +114,6 @@ public class SniperGhillieSuit : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SniperGhillieSuit))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperGhillieSuit.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SniperGhillieSuit);
 		}
 		else

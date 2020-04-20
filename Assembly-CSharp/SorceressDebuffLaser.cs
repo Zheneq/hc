@@ -54,19 +54,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_SorceressDebuffLaser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_SorceressDebuffLaser.m_enemyHitEffectOverride.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -77,15 +64,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_SorceressDebuffLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_SorceressDebuffLaser.m_allyHitEffectOverride.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -96,15 +74,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_SorceressDebuffLaser)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_SorceressDebuffLaser.m_casterHitEffectOverride.GetModifiedValue(this.m_casterHitEffect);
 		}
 		else
@@ -118,19 +87,6 @@ public class SorceressDebuffLaser : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SorceressDebuffLaser))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SorceressDebuffLaser);
 			this.SetupTargeter();
 		}
@@ -151,19 +107,6 @@ public class SorceressDebuffLaser : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_width;
 		}
 		else
@@ -178,19 +121,6 @@ public class SorceressDebuffLaser : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_distance;
 		}
 		else
@@ -205,19 +135,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_enemyHitEffect;
 		}
 		else
@@ -232,19 +149,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_allyHitEffect;
 		}
 		else
@@ -259,19 +163,6 @@ public class SorceressDebuffLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetCasterHitEffect()).MethodHandle;
-			}
 			result = this.m_casterHitEffect;
 		}
 		else
@@ -291,19 +182,6 @@ public class SorceressDebuffLaser : Ability
 		int result = this.m_enemyHitEffect.m_effectData.m_duration;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetEnemyEffectDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_enemyEffectDurationMod.GetModifiedValue(this.GetEnemyHitEffect().m_effectData.m_duration);
 		}
 		return result;
@@ -324,19 +202,6 @@ public class SorceressDebuffLaser : Ability
 		int result = this.m_casterHitEffect.m_effectData.m_duration;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetCasterEffectDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_casterEffectDurationMod.GetModifiedValue(this.GetCasterHitEffect().m_effectData.m_duration);
 		}
 		return result;
@@ -347,19 +212,6 @@ public class SorceressDebuffLaser : Ability
 		int num = 0;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressDebuffLaser.GetCooldownReduction(int)).MethodHandle;
-			}
 			num = this.m_abilityMod.m_cooldownReductionOnNumHit.GetModifiedValue(numHit);
 			num += this.m_abilityMod.m_cooldownFlatReduction;
 			num = Mathf.Clamp(num, 0, this.m_abilityMod.m_maxCooldownReduction);

@@ -10,19 +10,6 @@ public class Gryd_SyncComponent : NetworkBehaviour
 		bool result = base.OnSerialize(writer, initialState);
 		if (this.m_bombLocation.x <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Gryd_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			if (this.m_bombLocation.y <= 0)
 			{
 				writer.Write(0);
@@ -42,30 +29,8 @@ public class Gryd_SyncComponent : NetworkBehaviour
 		int num2 = (int)reader.ReadByte();
 		if (num > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Gryd_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			if (num2 > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_bombLocation = new GridPos(num, num2, Board.Get().BaselineHeight);
 				return;
 			}

@@ -37,43 +37,12 @@ public class UIOverconData : MonoBehaviour
 				this.m_cachedIdToOverconMap.Add(nameToOverconEntry.m_overconId, nameToOverconEntry);
 				if (!this.m_cachedNameToId.ContainsKey(nameToOverconEntry.m_commandName))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.Start()).MethodHandle;
-					}
 					this.m_cachedNameToId.Add(nameToOverconEntry.m_commandName.ToLower(), nameToOverconEntry.m_overconId);
 					string commandName = nameToOverconEntry.GetCommandName();
 					if (!commandName.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_cachedNameToId.ContainsKey(commandName.ToLower()))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_cachedNameToId.Add(commandName.ToLower(), nameToOverconEntry.m_overconId);
 						}
 					}
@@ -84,26 +53,8 @@ public class UIOverconData : MonoBehaviour
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().OnUseOverconNotification += this.HandleUseOverconNotification;
 		}
 	}
@@ -112,19 +63,6 @@ public class UIOverconData : MonoBehaviour
 	{
 		if (UIOverconData.s_instance == this)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.OnDestroy()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				ClientGameManager.Get().OnUseOverconNotification -= this.HandleUseOverconNotification;
@@ -138,19 +76,6 @@ public class UIOverconData : MonoBehaviour
 		string key = name.ToLower();
 		if (this.m_cachedNameToId.ContainsKey(key))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.GetOverconIdByName(string)).MethodHandle;
-			}
 			return this.m_cachedNameToId[key];
 		}
 		return -1;
@@ -174,33 +99,11 @@ public class UIOverconData : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.UseOvercon(int, int, bool)).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null)
 			{
 				ActorData actorData;
 				if (GameFlowData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = GameFlowData.Get().activeOwnedActorData;
 				}
 				else
@@ -211,71 +114,17 @@ public class UIOverconData : MonoBehaviour
 				ActorData actorData2 = GameFlowData.Get().FindActorByActorIndex(actorIndex);
 				if (actorData2 != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (x != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData2.IsVisibleToClient())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (HUD_UI.Get() != null)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (UIOverconData.Get() != null)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIOverconData.NameToOverconEntry overconEntryById = UIOverconData.Get().GetOverconEntryById(overconId);
 									if (overconEntryById != null)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SpawnOverconForActor(actorData2, overconEntryById, skipValidation);
 									}
 								}
@@ -336,19 +185,6 @@ public class UIOverconData : MonoBehaviour
 		{
 			if (string.IsNullOrEmpty(this.m_displayName))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.NameToOverconEntry.GetUnlocalizedDisplayName()).MethodHandle;
-				}
 				return this.m_commandName;
 			}
 			return this.m_displayName;
@@ -359,19 +195,6 @@ public class UIOverconData : MonoBehaviour
 			string text = StringUtil.TR_GetOverconDisplayName(this.m_overconId);
 			if (text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.NameToOverconEntry.GetDisplayName()).MethodHandle;
-				}
 				text = string.Format("#overcon{0}", this.m_overconId);
 			}
 			return text;
@@ -382,19 +205,6 @@ public class UIOverconData : MonoBehaviour
 			string text = StringUtil.TR_GetOverconCommandName(this.m_overconId);
 			if (text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.NameToOverconEntry.GetCommandName()).MethodHandle;
-				}
 				text = this.m_commandName;
 			}
 			return text;
@@ -405,19 +215,6 @@ public class UIOverconData : MonoBehaviour
 			string text = StringUtil.TR_GetOverconObtainedDesc(this.m_overconId);
 			if (text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIOverconData.NameToOverconEntry.GetObtainedDescription()).MethodHandle;
-				}
 				text = this.m_obtainedDescription;
 			}
 			return text;

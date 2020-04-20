@@ -40,32 +40,10 @@ public class ScampAoeLaserSequence : Sequence
 		base.FinishSetup();
 		if (base.Caster != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.FinishSetup()).MethodHandle;
-			}
 			this.m_syncComp = base.Caster.GetComponent<Scamp_SyncComponent>();
 		}
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SpawnProjectiles();
 		}
 	}
@@ -74,69 +52,20 @@ public class ScampAoeLaserSequence : Sequence
 	{
 		if (this.m_projectileList.Count > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.OnDisable()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_projectileList.Count; i++)
 			{
 				this.m_projectileList[i].OnSequenceDisable();
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_projectileList.Clear();
 		}
 		if (this.m_lineFxInstances.Count > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < this.m_lineFxInstances.Count; j++)
 			{
 				if (this.m_lineFxInstances[j].m_lineFxInstance != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(this.m_lineFxInstances[j].m_lineFxInstance);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_lineFxInstances.Clear();
 		}
@@ -146,56 +75,16 @@ public class ScampAoeLaserSequence : Sequence
 	{
 		if (this.m_projectileList.Count > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.Update()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_projectileList.Count; i++)
 			{
 				this.m_projectileList[i].OnUpdate();
 				if (i < this.m_lineFxInstances.Count)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ScampAoeLaserSequence.LineJointObjToInstance lineJointObjToInstance = this.m_lineFxInstances[i];
 					if (this.m_lineDuration > 0f)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Time.time - lineJointObjToInstance.m_timeOfSpawn > this.m_lineDuration)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							lineJointObjToInstance.m_lineFxInstance.SetActiveIfNeeded(false);
 							goto IL_172;
 						}
@@ -204,15 +93,6 @@ public class ScampAoeLaserSequence : Sequence
 					Vector3 vector;
 					if (this.m_projectileList[i].m_fx != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector = this.m_projectileList[i].m_fx.transform.position;
 					}
 					else
@@ -222,30 +102,12 @@ public class ScampAoeLaserSequence : Sequence
 					Vector3 value = vector;
 					if (this.m_syncComp.m_suitWasActiveOnTurnStart)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value.y = (float)Board.Get().BaselineHeight;
 					}
 					Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "startPoint", position);
 					Sequence.SetAttribute(lineJointObjToInstance.m_lineFxInstance, "endPoint", value);
 				}
 				IL_172:;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -254,19 +116,6 @@ public class ScampAoeLaserSequence : Sequence
 	{
 		if (parameter == this.m_startEvent)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnProjectiles();
 		}
 	}
@@ -275,65 +124,16 @@ public class ScampAoeLaserSequence : Sequence
 	{
 		if (this.m_projectileList.Count == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeLaserSequence.SpawnProjectiles()).MethodHandle;
-			}
 			if (base.Targets.Length > 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_projectileSpawned)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_projectileSpawned = true;
 						GameObject referenceModel = base.GetReferenceModel(base.Caster, Sequence.ReferenceModelType.Actor);
 						if (this.m_syncComp.m_suitWasActiveOnTurnStart)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_fxJointLeft.Initialize(referenceModel);
 							this.m_fxJointRight.Initialize(referenceModel);
 						}
@@ -349,30 +149,12 @@ public class ScampAoeLaserSequence : Sequence
 							GameObject gameObject;
 							if (this.m_syncComp.m_suitWasActiveOnTurnStart)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								gameObject = this.m_suitBeamFxPrefab;
 								Vector3 lhs = base.Targets[i].transform.position - base.Caster.transform.position;
 								lhs.y = 0f;
 								float num = Vector3.Dot(lhs, base.Caster.transform.right);
 								if (num > 0f)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.m_fxJointRight.IsInitialized())
 									{
 										vector = this.m_fxJointRight.m_jointObject.transform.position;
@@ -381,15 +163,6 @@ public class ScampAoeLaserSequence : Sequence
 								}
 								else if (this.m_fxJointLeft.IsInitialized())
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									vector = this.m_fxJointLeft.m_jointObject.transform.position;
 									attachObj = this.m_fxJointLeft.m_jointObject;
 								}
@@ -399,15 +172,6 @@ public class ScampAoeLaserSequence : Sequence
 								gameObject = this.m_noSuitBeamFxPrefab;
 								if (this.m_fxJointNoSuit.IsInitialized())
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									vector = this.m_fxJointNoSuit.m_jointObject.transform.position;
 									attachObj = this.m_fxJointNoSuit.m_jointObject;
 								}
@@ -416,28 +180,10 @@ public class ScampAoeLaserSequence : Sequence
 							this.m_projectileList.Add(item);
 							if (gameObject != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								GameObject lineInst = base.InstantiateFX(gameObject, vector, Quaternion.identity, true, true);
 								ScampAoeLaserSequence.LineJointObjToInstance item2 = new ScampAoeLaserSequence.LineJointObjToInstance(attachObj, lineInst);
 								this.m_lineFxInstances.Add(item2);
 							}
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}

@@ -45,19 +45,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromSelf.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Martyr Redirect Damage From Self";
 		}
 		this.m_syncComponent = base.GetComponent<Martyr_SyncComponent>();
@@ -107,19 +94,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedSelfHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromSelf.GetSelfHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedSelfHitEffect;
 		}
 		else
@@ -134,19 +108,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnTarget != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromSelf.GetEffectOnTarget()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnTarget;
 		}
 		else
@@ -207,19 +168,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromSelf.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int currentAbsorb = this.GetCurrentAbsorb(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, base.ActorData, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
@@ -247,19 +195,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 				MartyrProtectAllyThreshold item = enumerator.Current;
 				list.Add(item);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromSelf.GetThresholdBasedCrystalBonusList()).MethodHandle;
-			}
 		}
 		return list;
 	}
@@ -270,19 +205,6 @@ public class MartyrRedirectDamageFromSelf : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrRedirectDamageFromSelf.GetCurrentAbsorb(ActorData)).MethodHandle;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorb;
 		}
 		else

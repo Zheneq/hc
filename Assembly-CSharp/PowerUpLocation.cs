@@ -22,19 +22,6 @@ public class PowerUpLocation : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpLocation.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		Gizmos.DrawIcon(base.transform.position, "icon_PowerUp.png");

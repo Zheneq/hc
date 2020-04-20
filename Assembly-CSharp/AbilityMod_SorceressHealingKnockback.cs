@@ -31,19 +31,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		SorceressHealingKnockback sorceressHealingKnockback = targetAbility as SorceressHealingKnockback;
 		if (sorceressHealingKnockback != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressHealingKnockback.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_normalHealingMod, "OnCastHealAmount_Normal", string.Empty, sorceressHealingKnockback.m_onCastHealAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_lowHealthHealingMod, "OnCastHealAmount_LowHealth", string.Empty, sorceressHealingKnockback.m_onCastHealAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_onCastAllyEnergyGainMod, "OnCastAllyEnergyGain", string.Empty, sorceressHealingKnockback.m_onCastAllyEnergyGain, true, false);
@@ -65,19 +52,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SorceressHealingKnockback.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sorceressHealingKnockback.m_onCastHealAmount;
 		}
 		else
@@ -92,15 +66,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sorceressHealingKnockback.m_onCastHealAmount;
 		}
 		else
@@ -121,26 +86,8 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		}
 		else if (this.m_lowHealthHealingMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_lowHealthHealingMod.operation != AbilityModPropertyInt.ModOp.Ignore)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Low Health Threshold not used, ignore [Healing when Low Health]\n";
 			}
 		}
@@ -151,15 +98,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sorceressHealingKnockback.m_onCastAllyEnergyGain;
 		}
 		else
@@ -175,15 +113,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = sorceressHealingKnockback.m_onDetonateEnemyEffect;
 		}
 		else
@@ -198,15 +127,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = sorceressHealingKnockback.m_knockbackDistance;
 		}
 		else

@@ -80,19 +80,6 @@ public class QuestComponent
 	{
 		if (this.CompletedSeasonChapters.ContainsKey(season))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetCompletedSeasonChapters(int)).MethodHandle;
-			}
 			return this.CompletedSeasonChapters[season];
 		}
 		return new List<int>();
@@ -102,19 +89,6 @@ public class QuestComponent
 	{
 		if (this.SeasonExperience.ContainsKey(season))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetSeasonExperienceComponent(int)).MethodHandle;
-			}
 			return this.SeasonExperience[season];
 		}
 		return new ExperienceComponent();
@@ -124,31 +98,9 @@ public class QuestComponent
 	{
 		if (this.QuestMetaDatas != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetCompletedCount(int)).MethodHandle;
-			}
 			QuestMetaData questMetaData;
 			if (this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return questMetaData.CompletedCount;
 			}
 		}
@@ -159,19 +111,6 @@ public class QuestComponent
 	{
 		if (this.QuestMetaDatas != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetRejectedCount(int)).MethodHandle;
-			}
 			QuestMetaData questMetaData;
 			if (this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
 			{
@@ -185,19 +124,6 @@ public class QuestComponent
 	{
 		if (this.QuestMetaDatas != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetAbandonedCount(int)).MethodHandle;
-			}
 			QuestMetaData questMetaData;
 			if (this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
 			{
@@ -212,19 +138,6 @@ public class QuestComponent
 		QuestMetaData questMetaData;
 		if (this.QuestMetaDatas != null && this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetWeight(int)).MethodHandle;
-			}
 			return questMetaData.Weight;
 		}
 		return 0;
@@ -235,19 +148,6 @@ public class QuestComponent
 		QuestMetaData questMetaData;
 		if (!this.QuestMetaDatas.TryGetValue(questId, out questMetaData))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetOrCreateQuestMetaData(int)).MethodHandle;
-			}
 			questMetaData = new QuestMetaData();
 			questMetaData.UtcCompletedTimes = new List<DateTime>();
 			this.QuestMetaDatas[questId] = questMetaData;
@@ -284,19 +184,6 @@ public class QuestComponent
 		QuestMetaData orCreateQuestMetaData = this.GetOrCreateQuestMetaData(questId);
 		if (orCreateQuestMetaData.UtcCompletedTimes == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.SetCompletedDate(int, DateTime)).MethodHandle;
-			}
 			orCreateQuestMetaData.UtcCompletedTimes = new List<DateTime>();
 		}
 		orCreateQuestMetaData.UtcCompletedTimes.Add(utcTime);
@@ -315,53 +202,13 @@ public class QuestComponent
 				{
 					if (seasons[i].Index == keyValuePair.Key)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GetReactorLevel(List<SeasonTemplate>)).MethodHandle;
-						}
 						if (!seasons[i].IsTutorial)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += keyValuePair.Value.Level;
 						}
 						goto IL_8F;
 					}
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -371,19 +218,6 @@ public class QuestComponent
 	{
 		if (!this.SeasonItemRewardsGranted.ContainsKey(seasonLevel))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.GrantedSeasonItemReward(int, int)).MethodHandle;
-			}
 			this.SeasonItemRewardsGranted.Add(seasonLevel, new List<int>());
 		}
 		this.SeasonItemRewardsGranted[seasonLevel].Add(itemTemplateId);
@@ -396,19 +230,6 @@ public class QuestComponent
 		{
 			if (this.ActiveSeason == 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.get_SeasonLevel()).MethodHandle;
-				}
 				return 0;
 			}
 			if (this.SeasonExperience.ContainsKey(this.ActiveSeason))
@@ -429,19 +250,6 @@ public class QuestComponent
 				{
 					this.SeasonItemRewardsGranted.Remove(i);
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.set_SeasonLevel(int)).MethodHandle;
-				}
 			}
 			this.SeasonExperience[this.ActiveSeason].Level = value;
 		}
@@ -454,19 +262,6 @@ public class QuestComponent
 		{
 			if (this.ActiveSeason == 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.get_SeasonXPProgressThroughLevel()).MethodHandle;
-				}
 				return 0;
 			}
 			return this.SeasonExperience[this.ActiveSeason].XPProgressThroughLevel;
@@ -475,19 +270,6 @@ public class QuestComponent
 		{
 			if (this.ActiveSeason == 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.set_SeasonXPProgressThroughLevel(int)).MethodHandle;
-				}
 				return;
 			}
 			this.SeasonExperience[this.ActiveSeason].XPProgressThroughLevel = value;
@@ -502,32 +284,10 @@ public class QuestComponent
 			int num = 0;
 			if (this.ActiveSeason == 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.get_HighestSeasonChapter()).MethodHandle;
-				}
 				return num;
 			}
 			if (this.GetUnlockedSeasonChapters(this.ActiveSeason) == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return 1;
 			}
 			using (List<int>.Enumerator enumerator = this.GetUnlockedSeasonChapters(this.ActiveSeason).GetEnumerator())
@@ -537,26 +297,8 @@ public class QuestComponent
 					int num2 = enumerator.Current;
 					if (num2 > num)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = num2;
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return num + 1;
@@ -565,60 +307,20 @@ public class QuestComponent
 		{
 			if (this.ActiveSeason == 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestComponent.set_HighestSeasonChapter(int)).MethodHandle;
-				}
 				return;
 			}
 			if (value < 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 			if (!this.UnlockedSeasonChapters.ContainsKey(this.ActiveSeason))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.UnlockedSeasonChapters[this.ActiveSeason] = new List<int>();
 			}
 			this.UnlockedSeasonChapters[this.ActiveSeason].Clear();
 			for (int i = 0; i < value; i++)
 			{
 				this.UnlockedSeasonChapters[this.ActiveSeason].Add(i);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

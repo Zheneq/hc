@@ -46,32 +46,10 @@ public class UIGGBoostPurchaseButton : MonoBehaviour
 		float num2 = CommerceClient.Get().GetGGPackPrice(pack.ProductCode, accountCurrency);
 		if (num2 <= 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGGBoostPurchaseButton.Setup(GGPack)).MethodHandle;
-			}
 			num2 = num;
 		}
 		else if (num < num2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = num2;
 		}
 		this.m_priceAmount.text = UIStorePanel.GetLocalizedPriceString(num2, accountCurrency);

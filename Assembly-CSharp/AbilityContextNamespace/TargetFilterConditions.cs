@@ -10,7 +10,7 @@ namespace AbilityContextNamespace
 
 		public List<NumericContextValueCompareCond> m_numCompareConditions = new List<NumericContextValueCompareCond>();
 
-		public TargetFilterConditions \u001D()
+		public TargetFilterConditions symbol_001D()
 		{
 			TargetFilterConditions targetFilterConditions = base.MemberwiseClone() as TargetFilterConditions;
 			targetFilterConditions.m_numCompareConditions = new List<NumericContextValueCompareCond>();
@@ -19,62 +19,27 @@ namespace AbilityContextNamespace
 				NumericContextValueCompareCond item = this.m_numCompareConditions[i].Clone();
 				targetFilterConditions.m_numCompareConditions.Add(item);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetFilterConditions.\u001D()).MethodHandle;
-			}
 			return targetFilterConditions;
 		}
 
-		public void \u001D(List<TooltipTokenEntry> \u001D, string \u000E)
+		public void symbol_001D(List<TooltipTokenEntry> symbol_001D, string symbol_000E)
 		{
 		}
 
-		public string \u001D(string \u001D)
+		public string symbol_001D(string symbol_001D)
 		{
-			string text = \u001D + "Team = " + this.m_teamFilter.ToString() + "\n";
+			string text = symbol_001D + "Team = " + this.m_teamFilter.ToString() + "\n";
 			if (this.m_numCompareConditions != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetFilterConditions.\u001D(string)).MethodHandle;
-				}
 				foreach (NumericContextValueCompareCond numericContextValueCompareCond in this.m_numCompareConditions)
 				{
-					if (numericContextValueCompareCond.m_compareOp != ContextCompareOp.\u001D)
+					if (numericContextValueCompareCond.m_compareOp != ContextCompareOp.symbol_001D)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string text2 = text;
 						text = string.Concat(new object[]
 						{
 							text2,
-							\u001D,
+							symbol_001D,
 							InEditorDescHelper.ContextVarName(numericContextValueCompareCond.m_contextName, !numericContextValueCompareCond.m_nonActorSpecificContext),
 							" is ",
 							numericContextValueCompareCond.m_compareOp,

@@ -57,19 +57,6 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 			}
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_GrydCardinalBomb.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-				}
 				if (this.m_actorToHitContext.ContainsKey(actorData))
 				{
 					this.m_actorToHitContext[actorData].m_numHits++;
@@ -91,15 +78,6 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
 		for (int j = num; j < this.m_highlights.Count; j++)
 		{
 			this.m_highlights[j].SetActive(false);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

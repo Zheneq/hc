@@ -54,19 +54,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		ValkyrieDashAoE valkyrieDashAoE = targetAbility as ValkyrieDashAoE;
 		if (valkyrieDashAoE != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieDashAoE.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectInfoMod, "ShieldEffectInfo", valkyrieDashAoE.m_shieldEffectInfo, true);
 			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, valkyrieDashAoE.m_coneWidthAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_coneRadiusMod, "ConeRadius", string.Empty, valkyrieDashAoE.m_coneRadius, true, false, false);
@@ -95,19 +82,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieDashAoE.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = valkyrieDashAoE.m_shieldEffectInfo;
 		}
 		else
@@ -122,15 +96,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		AbilityAreaShape baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieDashAoE.m_aoeShape;
 		}
 		else
@@ -146,15 +111,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieDashAoE.m_coneWidthAngle;
 		}
 		else
@@ -169,15 +125,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieDashAoE.m_coneRadius;
 		}
 		else
@@ -192,15 +139,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = valkyrieDashAoE.m_triggerCooldownOnGuardAbiity;
 		}
 		else
@@ -215,15 +153,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = valkyrieDashAoE.m_damage;
 		}
 		else
@@ -240,15 +169,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = valkyrieDashAoE.m_allyBuff;
 		}
 		else
@@ -264,15 +184,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = valkyrieDashAoE.m_techPointGainPerCoveredHit;
 		}
 		else
@@ -289,15 +200,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = valkyrieDashAoE.m_coverDuration;
 		}
 		else
@@ -312,15 +214,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		bool baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = valkyrieDashAoE.m_coverIgnoreMinDist;
 		}
 		else

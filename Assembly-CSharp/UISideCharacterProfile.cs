@@ -50,19 +50,6 @@ public class UISideCharacterProfile : MonoBehaviour
 	{
 		if (this.m_actorData != null && GameFlowData.Get().SetActiveOwnedActor_FCFS(this.m_actorData))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.DoClick(BaseEventData)).MethodHandle;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
 		}
 	}
@@ -71,88 +58,21 @@ public class UISideCharacterProfile : MonoBehaviour
 	{
 		if (this.m_actorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorTurnSM actorTurnSM = this.m_actorData.GetActorTurnSM();
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (actorTurnSM != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_actorData.GetTeam() == activeOwnedActorData.GetTeam())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							bool flag;
 							if (activeOwnedActorData == this.m_actorData)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (actorTurnSM.CurrentState != TurnStateEnum.RESOLVING)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = (actorTurnSM.CurrentState != TurnStateEnum.WAITING);
 									goto IL_EC;
 								}
@@ -167,15 +87,6 @@ public class UISideCharacterProfile : MonoBehaviour
 				}
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_actorData.GetTeam() != activeOwnedActorData.GetTeam())
 					{
 						this.SetCurrentActorArrowActive(false);
@@ -187,15 +98,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		}
 		if (this.m_currentCharacterArrow != null && this.m_currentCharacterArrow.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetAlphaForImage(this.m_currentCharacterArrow, 0.75f + 0.25f * Mathf.Cos(6f * Time.time));
 		}
 	}
@@ -204,53 +106,13 @@ public class UISideCharacterProfile : MonoBehaviour
 	{
 		if (this.m_currentCharacterArrow != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.SetCurrentActorArrowActive(bool)).MethodHandle;
-			}
 			if (this.m_currentCharacterArrow.gameObject.activeSelf != active)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_currentCharacterArrow.gameObject.SetActive(active);
 				if (this.m_childAnchor != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (active)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector2 offsetMin = new Vector2(this.m_activeActorSideOffset, 0f);
 						Vector2 offsetMax = new Vector2(this.m_activeActorSideOffset, 0f);
 						this.m_childAnchor.offsetMin = offsetMin;
@@ -266,15 +128,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		}
 		if (this.m_sideHealthBar != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_sideHealthBar.SetHealthBarColorForActiveActor(active);
 		}
 	}
@@ -294,19 +147,6 @@ public class UISideCharacterProfile : MonoBehaviour
 	{
 		if (uiImage != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.SetAlphaForImage(Image, float)).MethodHandle;
-			}
 			Color color = uiImage.color;
 			color.a = alpha;
 			uiImage.color = color;
@@ -323,19 +163,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		bool flag;
 		if (forActor != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideCharacterProfile.Setup(ActorData, string, bool)).MethodHandle;
-			}
 			flag = GameFlowData.Get().IsActorDataOwned(forActor);
 		}
 		else
@@ -345,15 +172,6 @@ public class UISideCharacterProfile : MonoBehaviour
 		bool flag2 = flag;
 		if (forActor != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_playerHandleText != null)
 			{
 				this.m_playerHandleText.text = forActor.DisplayName;
@@ -361,15 +179,6 @@ public class UISideCharacterProfile : MonoBehaviour
 				Color color;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color = Color.white;
 				}
 				else
@@ -383,54 +192,18 @@ public class UISideCharacterProfile : MonoBehaviour
 		this.m_hotkeyText.text = hotKeyText;
 		if (this.m_hitbox != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_hitbox.gameObject.SetActiveIfNeeded(flag2);
 		}
 		if (this.m_characterIcon != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actorData != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_characterIcon.sprite = this.m_actorData.GetAliveHUDIcon();
 			}
 		}
 		this.SetAlpha(1f);
 		if (this.m_sideHealthBar != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_sideHealthBar.SetActor(forActor);
 		}
 	}

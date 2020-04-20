@@ -45,19 +45,6 @@ public class PrefabResourceLink
 	{
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.SetValues(string, string, string)).MethodHandle;
-			}
 			this.m_resourcePath = resourcePath;
 			this.m_GUID = GUID;
 			this.m_debugPrefabPath = prefabPath;
@@ -69,19 +56,6 @@ public class PrefabResourceLink
 		SavedResourceLink savedResourceLink = null;
 		if (string.IsNullOrEmpty(this.m_resourcePath))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.GetPrefab(bool)).MethodHandle;
-			}
 			Log.Warning("Attempted to get prefab for NULL or empty resource path, ignoring.", new object[0]);
 		}
 		else if (!PrefabResourceLink.s_loadedResourceLinks.TryGetValue(this.m_resourcePath, out savedResourceLink))
@@ -89,28 +63,10 @@ public class PrefabResourceLink
 			GameObject gameObject = Resources.Load(this.m_resourcePath) as GameObject;
 			if (gameObject == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (returnNullOnLoadFail)
 				{
 					if (Application.isEditor)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Log.Error("Failed to load Resource Link prefab from " + this.m_resourcePath, new object[0]);
 					}
 					return null;
@@ -125,15 +81,6 @@ public class PrefabResourceLink
 		GameObject result;
 		if (savedResourceLink == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = null;
 		}
 		else
@@ -148,65 +95,16 @@ public class PrefabResourceLink
 		SavedResourceLink loadedLink;
 		if (string.IsNullOrEmpty(this.m_resourcePath))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.<PreLoadPrefabAsync>c__Iterator0.MoveNext()).MethodHandle;
-			}
 			Log.Warning("Attempted to load NULL or empty resource path, ignoring.", new object[0]);
 		}
 		else if (!PrefabResourceLink.s_loadedResourceLinks.TryGetValue(this.m_resourcePath, out loadedLink))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ResourceRequest request = Resources.LoadAsync(this.m_resourcePath);
 			yield return request;
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (request != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (request.asset != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.AddLoadedLink(request.asset as GameObject);
 					goto IL_13C;
 				}
@@ -225,30 +123,8 @@ public class PrefabResourceLink
 		SavedResourceLink savedResourceLink;
 		if (PrefabResourceLink.s_loadedResourceLinks.TryGetValue(this.m_resourcePath, out savedResourceLink) && savedResourceLink != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.UnloadPrefab()).MethodHandle;
-			}
 			if (savedResourceLink.prefabReference != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				PrefabResourceLink.s_loadedResourceLinks.Remove(this.m_resourcePath);
 			}
 		}
@@ -259,19 +135,6 @@ public class PrefabResourceLink
 		bool result;
 		if (PrefabResourceLink.s_loadedResourceLinks != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.HasLoadedResourceLinkForPath(string)).MethodHandle;
-			}
 			result = PrefabResourceLink.s_loadedResourceLinks.ContainsKey(resourcePath);
 		}
 		else
@@ -285,34 +148,12 @@ public class PrefabResourceLink
 	{
 		if (loadedLinkObject == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.AddLoadedLink(GameObject)).MethodHandle;
-			}
 			Log.Error("Could not load saved Resource Link from: " + this.m_resourcePath, new object[0]);
 			return null;
 		}
 		SavedResourceLink component = loadedLinkObject.GetComponent<SavedResourceLink>();
 		if (component == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Could not load saved Resource Link at [" + this.m_resourcePath + "] does not have a SavedResourceLink component", new object[0]);
 			return null;
 		}
@@ -345,19 +186,6 @@ public class PrefabResourceLink
 		GameObject prefab = this.GetPrefab(returnNullOnNullPrefab);
 		if (prefab == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.InstantiatePrefab(bool)).MethodHandle;
-			}
 			return null;
 		}
 		return UnityEngine.Object.Instantiate<GameObject>(prefab);
@@ -367,19 +195,6 @@ public class PrefabResourceLink
 	{
 		if (link == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.Stream(IBitStream, PrefabResourceLink*)).MethodHandle;
-			}
 			link = new PrefabResourceLink();
 		}
 		stream.Serialize(ref link.m_resourcePath);
@@ -396,43 +211,12 @@ public class PrefabResourceLink
 		bool flag = false;
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PrefabResourceLink.ToString()).MethodHandle;
-			}
 			flag = true;
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!string.IsNullOrEmpty(this.m_debugPrefabPath))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_debugPrefabPath;
 			}
 		}

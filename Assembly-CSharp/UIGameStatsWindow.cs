@@ -96,19 +96,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 	{
 		if (page == UIGameStatsWindow.StatsPage.Mods)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetStatePage(UIGameStatsWindow.StatsPage)).MethodHandle;
-			}
 			this.m_StatsBtn.SetSelected(false, false, string.Empty, string.Empty);
 			this.m_ModsBtn.SetSelected(true, false, string.Empty, string.Empty);
 			UIManager.SetGameObjectActive(this.m_statsLabelHeaders, false, null);
@@ -116,15 +103,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		}
 		else if (page == UIGameStatsWindow.StatsPage.Numbers)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_StatsBtn.SetSelected(true, false, string.Empty, string.Empty);
 			this.m_ModsBtn.SetSelected(false, false, string.Empty, string.Empty);
 			UIManager.SetGameObjectActive(this.m_statsLabelHeaders, true, null);
@@ -135,27 +113,9 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		{
 			uigameOverPlayerEntry.SetStatPage(this.m_currentPage);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		foreach (UIGameOverPlayerEntry uigameOverPlayerEntry2 in this.m_enemyTeam)
 		{
 			uigameOverPlayerEntry2.SetStatPage(this.m_currentPage);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -178,32 +138,10 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 	{
 		if (this.m_currentPage == UIGameStatsWindow.StatsPage.Mods)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.OnStatToggleClicked(BaseEventData)).MethodHandle;
-			}
 			this.SetStatePage(UIGameStatsWindow.StatsPage.Numbers);
 		}
 		else if (this.m_currentPage == UIGameStatsWindow.StatsPage.Numbers)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetStatePage(UIGameStatsWindow.StatsPage.Mods);
 		}
 	}
@@ -212,19 +150,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 	{
 		if (matchData == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetupTeamMemberList(PersistedCharacterMatchData)).MethodHandle;
-			}
 			return;
 		}
 		MatchResultsStats matchResults = matchData.MatchDetailsComponent.MatchResults;
@@ -246,19 +171,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 	{
 		if (stats != null && stats.FriendlyStatlines != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetupTeamMemberList(MatchResultsStats)).MethodHandle;
-			}
 			if (stats.EnemyStatlines != null)
 			{
 				for (int i = 0; i < Math.Min(stats.FriendlyStatlines.Length, this.m_friendlyTeam.Length); i++)
@@ -269,15 +181,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				for (int j = Math.Min(stats.FriendlyStatlines.Length, this.m_friendlyTeam.Length); j < this.m_friendlyTeam.Length; j++)
 				{
 					UIManager.SetGameObjectActive(this.m_friendlyTeam[j], false, null);
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				for (int k = 0; k < Math.Min(stats.EnemyStatlines.Length, this.m_enemyTeam.Length); k++)
 				{
@@ -293,26 +196,8 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				this.m_resizePanel.sizeDelta = sizeDelta;
 				if (stats.RedScore == 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (stats.BlueScore == 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_frontendHeaderRedTeamScore.text = string.Empty;
 						this.m_frontendHeaderBlueTeamScore.text = string.Empty;
 						goto IL_21C;
@@ -323,26 +208,8 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				IL_21C:
 				if (this.m_frontendHeaderObjective != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (stats.VictoryCondition.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_frontendHeaderObjective.text = string.Empty;
 					}
 					else
@@ -361,52 +228,16 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				}
 				if (this.m_debugLabels)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_debugLabels, secretButtonClicked, null);
 				}
 				if (secretButtonClicked)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_debugStatusString)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Team teamId = GameManager.Get().PlayerInfo.TeamId;
 						Team team;
 						if (teamId == Team.TeamB)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							team = Team.TeamB;
 						}
 						else
@@ -419,41 +250,14 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						float num = -1f;
 						if (ObjectivePoints.Get() != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = ObjectivePoints.Get().GetTotalMinutesOnMatchEnd() * 60f;
 						}
 						if (num > 0f)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int num2 = (int)(num / 60f);
 							int num3 = (int)num % 0x3C;
 							if (num3 < 0xA)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								arg = string.Format("{0}:0{1}", num2, num3);
 							}
 							else
@@ -463,15 +267,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						}
 						else if (UITimerPanel.Get() != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg = UITimerPanel.Get().m_timeLabel.text;
 						}
 						int currentTurn = GameFlowData.Get().CurrentTurn;
@@ -479,15 +274,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 						int num5 = 0;
 						if (ObjectivePoints.Get() != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = ObjectivePoints.Get().GetPointsForTeam(team2);
 							num5 = ObjectivePoints.Get().GetPointsForTeam(team3);
 						}
@@ -502,15 +288,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 								ActorData actorData = enumerator.Current;
 								ActorBehavior actorBehavior = actorData.GetActorBehavior();
 								num6 += actorBehavior.totalPlayerContribution;
-							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						foreach (ActorData actorData2 in playerAndBotTeamMembers2)
@@ -537,15 +314,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				}
 				return;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -557,19 +325,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		Dictionary<int, ForbiddenDevKnowledge> forbiddenDevKnowledge = GameManager.Get().ForbiddenDevKnowledge;
 		if (forbiddenDevKnowledge.IsNullOrEmpty<KeyValuePair<int, ForbiddenDevKnowledge>>())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.GenerateTeamELOValues(Team, UIGameOverPanel.TeamELOs*, UIGameOverPanel.TeamELOs*, UIGameOverPanel.TeamELOs*)).MethodHandle;
-			}
 			return;
 		}
 		LobbyTeamInfo teamInfo = GameManager.Get().TeamInfo;
@@ -581,28 +336,10 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 				ForbiddenDevKnowledge forbiddenDevKnowledge2;
 				if (forbiddenDevKnowledge.TryGetValue(lobbyPlayerInfo.PlayerId, out forbiddenDevKnowledge2))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					matchmaking.AddPlayer(lobbyPlayerInfo.TeamId, forbiddenDevKnowledge2.UsedMatchmakingElo);
 					account.AddPlayer(lobbyPlayerInfo.TeamId, forbiddenDevKnowledge2.AccMatchmakingElo);
 					character.AddPlayer(lobbyPlayerInfo.TeamId, forbiddenDevKnowledge2.CharMatchmakingElo);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -617,59 +354,19 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		UIManager.SetGameObjectActive(this.m_container, visible, null);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.SetToggleStatsVisible(bool, bool)).MethodHandle;
-			}
 			this.SetStatePage(this.m_currentPage);
 		}
 		if (playSound)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.MenuChoice);
 		}
 		for (int i = 0; i < this.m_friendlyTeam.Length; i++)
 		{
 			this.m_friendlyTeam[i].m_ContributionHitBoxTooltip.spriteController.ForceSetPointerEntered(false);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < this.m_enemyTeam.Length; j++)
 		{
 			this.m_enemyTeam[j].m_ContributionHitBoxTooltip.spriteController.ForceSetPointerEntered(false);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -706,19 +403,6 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.GameTeardown)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameStatsWindow.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			this.SetToggleStatsVisible(false, true);
 		}
 	}

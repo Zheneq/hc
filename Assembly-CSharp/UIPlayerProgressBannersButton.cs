@@ -51,19 +51,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		this.m_tooltipHoverObj.Setup(TooltipType.Titled, new TooltipPopulateCall(this.BannerTooltipSetup), null);
 		if (this.m_factionIcon != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.Start()).MethodHandle;
-			}
 			ClientGameManager.Get().OnFactionCompetitionNotification += this.OnFactionCompetitionNotification;
 		}
 	}
@@ -72,30 +59,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 	{
 		if (this.m_factionIcon != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.OnDestroy()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().OnFactionCompetitionNotification -= this.OnFactionCompetitionNotification;
 			}
 		}
@@ -107,58 +72,18 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(activeFactionCompetition);
 		if (factionCompetition != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.OnFactionCompetitionNotification(FactionCompetitionNotification)).MethodHandle;
-			}
 			for (int i = 0; i < factionCompetition.Factions.Count; i++)
 			{
 				for (int j = 0; j < factionCompetition.Factions[i].BannerIds.Count; j++)
 				{
 					if (factionCompetition.Factions[i].BannerIds[j] == this.m_selectedID)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_factionIcon, true, null);
 						FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[i].FactionGroupIDToUse);
 						this.m_factionIcon.sprite = Resources.Load<Sprite>(factionGroup.BannerIconPath);
 						return;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UIManager.SetGameObjectActive(this.m_factionIcon, false, null);
@@ -168,83 +93,30 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 	{
 		if (this.m_unlocked && this.m_valid)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.BannerClicked(BaseEventData)).MethodHandle;
-			}
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
 			UIPlayerProgressPanel.Get().m_bannersPanel.BannerClicked(this);
 			if (this.m_type == UIPlayerProgressBanners.CurrentList.Title)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager clientGameManager = ClientGameManager.Get();
 				int selectedID = this.m_selectedID;
-				if (UIPlayerProgressBannersButton.<>f__am$cache0 == null)
+				if (UIPlayerProgressBannersButton.f__am_cache0 == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIPlayerProgressBannersButton.<>f__am$cache0 = delegate(SelectTitleResponse response)
+					UIPlayerProgressBannersButton.f__am_cache0 = delegate(SelectTitleResponse response)
 					{
 						if (!response.Success)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressBannersButton.<BannerClicked>m__0(SelectTitleResponse)).MethodHandle;
-							}
 							Log.Error("Title change request was rejected: " + response.ErrorMessage, new object[0]);
 							UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 							ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
 						}
 					};
 				}
-				clientGameManager.RequestTitleSelect(selectedID, UIPlayerProgressBannersButton.<>f__am$cache0);
+				clientGameManager.RequestTitleSelect(selectedID, UIPlayerProgressBannersButton.f__am_cache0);
 			}
 			else
 			{
 				if (this.m_type != UIPlayerProgressBanners.CurrentList.Background)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_type != UIPlayerProgressBanners.CurrentList.Foreground)
 					{
 						if (this.m_type == UIPlayerProgressBanners.CurrentList.Ribbon)
@@ -253,19 +125,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 							{
 								if (!response.Success)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressBannersButton.<BannerClicked>m__2(SelectRibbonResponse)).MethodHandle;
-									}
 									Log.Error("Ribbon change request was rejected: " + response.ErrorMessage, new object[0]);
 									UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 									ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
@@ -278,18 +137,9 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 				}
 				ClientGameManager clientGameManager2 = ClientGameManager.Get();
 				int selectedID2 = this.m_selectedID;
-				if (UIPlayerProgressBannersButton.<>f__am$cache1 == null)
+				if (UIPlayerProgressBannersButton.f__am_cache1 == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIPlayerProgressBannersButton.<>f__am$cache1 = delegate(SelectBannerResponse response)
+					UIPlayerProgressBannersButton.f__am_cache1 = delegate(SelectBannerResponse response)
 					{
 						if (!response.Success)
 						{
@@ -299,7 +149,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 						}
 					};
 				}
-				clientGameManager2.RequestBannerSelect(selectedID2, UIPlayerProgressBannersButton.<>f__am$cache1);
+				clientGameManager2.RequestBannerSelect(selectedID2, UIPlayerProgressBannersButton.f__am_cache1);
 			}
 		}
 	}
@@ -308,19 +158,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 	{
 		if (!this.m_name.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.BannerTooltipSetup(UITooltipBase)).MethodHandle;
-			}
 			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
 			uititledTooltip.Setup(this.m_name, this.m_description, string.Empty);
 			return true;
@@ -339,32 +176,10 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		this.m_type = UIPlayerProgressBanners.CurrentList.Title;
 		if (this.m_bannerImage != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.SetupTitle(GameBalanceVars.PlayerTitle)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_bannerImage, false, null);
 		}
 		if (title == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_selectedID = -1;
 			this.m_titleLabel.text = StringUtil.TR("TitleNone", "Global");
 			this.m_unlocked = true;
@@ -389,15 +204,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			this.m_name = title.GetTitleText(-1);
 			if (!title.GetObtainedDescription().IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_description = title.GetObtainedDescription();
 			}
 		}
@@ -406,15 +212,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		this.SetSelected(ClientGameManager.Get().GetCurrentTitleID() == this.m_selectedID);
 		if (this.m_tooltipHoverObj != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_tooltipHoverObj.Refresh();
 		}
 	}
@@ -424,59 +221,19 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		List<GameBalanceVars.UnlockConditionValue> unlockConditionValues = null;
 		if (banner == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.SetupBanner(GameBalanceVars.PlayerBanner)).MethodHandle;
-			}
 			this.m_selectedID = -1;
 			if (this.m_factionIcon != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_factionIcon, false, null);
 			}
 			this.m_unlocked = true;
 			this.m_valid = false;
 			if (this.m_bannerImage != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_bannerImage, false, null);
 			}
 			if (this.m_titleLabel != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_titleLabel, false, null);
 			}
 			this.SetDisplay(null, unlockConditionValues, true);
@@ -488,15 +245,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			UIPlayerProgressBanners.CurrentList type;
 			if (banner.m_type == GameBalanceVars.PlayerBanner.BannerType.Background)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				type = UIPlayerProgressBanners.CurrentList.Background;
 			}
 			else
@@ -508,15 +256,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			Sprite sprite = (Sprite)Resources.Load(banner.m_iconResourceString, typeof(Sprite));
 			if (sprite == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(Log.Category.UI, string.Format("Could not load banner resource from [{0}] as sprite.", banner.m_iconResourceString), new object[0]);
 			}
 			this.m_bannerImage.sprite = sprite;
@@ -525,28 +264,10 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			this.SetDisplay(banner.m_unlockData, unlockConditionValues, true);
 			if (this.m_factionIcon != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnFactionCompetitionNotification(null);
 				float num;
 				if (this.m_unlocked)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
 				}
 				else
@@ -559,15 +280,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			GameBalanceVars.PlayerBanner playerBanner;
 			if (this.m_type == UIPlayerProgressBanners.CurrentList.Background)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				playerBanner = ClientGameManager.Get().GetCurrentBackgroundBanner();
 			}
 			else
@@ -577,15 +289,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			bool selected;
 			if (playerBanner != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				selected = (banner.ID == playerBanner.ID);
 			}
 			else
@@ -605,15 +308,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			});
 			if (!banner.GetObtainedDescription().IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_description = banner.GetObtainedDescription();
 			}
 		}
@@ -624,15 +318,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		incompleteRequirementLabel.text = name;
 		if (this.m_tooltipHoverObj != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_tooltipHoverObj.Refresh();
 		}
 	}
@@ -650,19 +335,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		this.m_selectableButton.spriteController.ResetMouseState();
 		if (ribbon == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.SetupRibbon(GameBalanceVars.PlayerRibbon)).MethodHandle;
-			}
 			this.m_selectedID = -1;
 			if (this.m_factionIcon != null)
 			{
@@ -683,15 +355,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			bool selected;
 			if (currentRibbon != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				selected = (currentRibbon.ID == -1);
 			}
 			else
@@ -709,15 +372,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			Sprite sprite = Resources.Load<Sprite>(ribbon.m_resourceIconString);
 			if (sprite == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(Log.Category.UI, string.Format("Could not load banner resource from [{0}] as sprite.", ribbon.m_resourceIconString), new object[0]);
 			}
 			this.m_bannerImage.sprite = sprite;
@@ -726,15 +380,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			this.SetDisplay(ribbon.m_unlockData, unlockConditionValues, false);
 			if (this.m_factionIcon != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_factionIcon, false, null);
 			}
 			GameBalanceVars.PlayerRibbon currentRibbon2 = ClientGameManager.Get().GetCurrentRibbon();
@@ -751,15 +396,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		incompleteRequirementLabel.text = name;
 		if (this.m_tooltipHoverObj != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_tooltipHoverObj.Refresh();
 		}
 	}
@@ -768,30 +404,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 	{
 		if (unlockData != null && !unlockData.UnlockConditions.IsNullOrEmpty<GameBalanceVars.UnlockCondition>())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressBannersButton.SetDisplay(GameBalanceVars.UnlockData, List<GameBalanceVars.UnlockConditionValue>, bool)).MethodHandle;
-			}
 			if (!unlockConditionValues.IsNullOrEmpty<GameBalanceVars.UnlockConditionValue>())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (unlockData.UnlockConditions.Length == unlockConditionValues.Count)
 				{
 					string text = string.Empty;
@@ -803,15 +417,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					{
 						if (!GameBalanceVarsExtensions.IsUnlockConditionMet(unlockData.UnlockConditions[i], unlockConditionValues[i]))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num3 = i;
 							break;
 						}
@@ -820,27 +425,9 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					GameBalanceVars.UnlockConditionValue unlockConditionValue = unlockConditionValues[num3];
 					if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Custom)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = ((!banner) ? StringUtil.TR_PlayerTitleUnlockCondition(this.m_selectedID, num3 + 1) : StringUtil.TR_BannerUnlockCondition(this.m_selectedID, num3 + 1));
 						if (this.m_unlocked)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2 = (num = 1);
 						}
 						else
@@ -854,15 +441,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 						CharacterType typeSpecificData = (CharacterType)unlockCondition.typeSpecificData;
 						if (typeSpecificData != CharacterType.None)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = unlockCondition.typeSpecificData2;
 							num2 = unlockConditionValue.typeSpecificData2;
 							unlockType = unlockCondition.ConditionType;
@@ -871,15 +449,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					}
 					else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.PlayerLevel)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = unlockCondition.typeSpecificData;
 						num2 = unlockConditionValue.typeSpecificData;
 						unlockType = unlockCondition.ConditionType;
@@ -887,15 +456,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					}
 					else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.ELO)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = unlockCondition.typeSpecificData;
 						num2 = unlockConditionValue.typeSpecificData;
 						unlockType = unlockCondition.ConditionType;
@@ -903,15 +463,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					}
 					else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Purchase)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = unlockCondition.typeSpecificData2;
 						num2 = unlockConditionValue.typeSpecificData2;
 						unlockType = unlockCondition.ConditionType;
@@ -926,15 +477,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					}
 					else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.TitleLevelReached)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = unlockCondition.typeSpecificData;
 						num2 = unlockConditionValue.typeSpecificData2;
 						unlockType = unlockCondition.ConditionType;
@@ -949,29 +491,11 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					}
 					else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.Quest)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = unlockConditionValue.typeSpecificData2;
 						num = unlockConditionValue.typeSpecificData3;
 						string text2;
 						if (banner)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text2 = StringUtil.TR_BannerUnlockCondition(this.m_selectedID, num3 + 1);
 						}
 						else
@@ -985,15 +509,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 					this.m_selectableButton.spriteController.ResetMouseState();
 					if (this.m_unlocked)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_lockIcon, false, null);
 						UIManager.SetGameObjectActive(this.m_progressSlider, false, null);
 						UIManager.SetGameObjectActive(this.m_incompleteRequirementLabel.transform.parent, false, null);
@@ -1007,15 +522,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 						UIManager.SetGameObjectActive(this.m_lockIcon, true, null);
 						if (num > 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(this.m_progressSlider, true, null);
 							this.m_progressSlider.fillAmount = (float)num2 / (float)num;
 						}
@@ -1030,26 +536,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 						this.m_selectableButton.m_ignorePressAnimationCall = true;
 						if (unlockType != GameBalanceVars.UnlockData.UnlockType.ELO)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (num > 0)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_requirementProgressLabel.text = string.Format("{0} / {1}", num2, num);
 								this.m_description = this.m_description + " (" + this.m_requirementProgressLabel.text + ")";
 								return;
@@ -1058,15 +546,6 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 						this.m_requirementProgressLabel.text = string.Empty;
 					}
 					return;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

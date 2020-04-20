@@ -39,43 +39,12 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 		{
 			if (extraSequenceParams is HitActorGroupOnAnimEventSequence.ActorParams)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				HitActorGroupOnAnimEventSequence.ActorParams actorParams = extraSequenceParams as HitActorGroupOnAnimEventSequence.ActorParams;
 				if (this.m_groupIdentidier == (int)actorParams.m_groupIdentifier)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_actorsToHit = new List<ActorData>(actorParams.m_hitActors);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -90,19 +59,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 					UnityEngine.Object.Destroy(this.m_fxImpacts[i].gameObject);
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.OnDisable()).MethodHandle;
-			}
 			this.m_fxImpacts.Clear();
 		}
 	}
@@ -111,30 +67,8 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 	{
 		if (this.m_actorsToHit != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (parameter == this.m_hitAnimEvent)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag = this.m_lastHitAnimEvent == null;
 				for (int i = 0; i < this.m_actorsToHit.Count; i++)
 				{
@@ -142,29 +76,11 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.Source.OnSequenceHit(this, base.TargetPos, null);
 				}
 			}
 			if (parameter == this.m_lastHitAnimEvent)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < this.m_actorsToHit.Count; j++)
 				{
 					this.SpawnImpactFXOnTarget(this.m_actorsToHit[j], true);
@@ -187,30 +103,8 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 			Quaternion quaternion;
 			if (this.m_hitAlighedWithCaster)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.SpawnImpactFXOnTarget(ActorData, bool)).MethodHandle;
-				}
 				if (vector.magnitude > 0.001f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					quaternion = Quaternion.LookRotation(vector);
 					goto IL_A4;
 				}
@@ -229,15 +123,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 		ActorModelData.RagdollActivation ragdollActivation;
 		if (lastHit)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ragdollActivation = ActorModelData.RagdollActivation.HealthBased;
 		}
 		else
@@ -265,19 +150,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 			sbyte b;
 			if (hitActors != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.ActorParams.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
 				b = (sbyte)hitActors.Count;
 			}
 			else
@@ -292,15 +164,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				sbyte b3;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					b3 = (sbyte)actorData.ActorIndex;
 				}
 				else
@@ -309,15 +172,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				}
 				sbyte b4 = b3;
 				stream.Serialize(ref b4);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -333,19 +187,6 @@ public class HitActorGroupOnAnimEventSequence : Sequence
 				stream.Serialize(ref b2);
 				ActorData item = GameFlowData.Get().FindActorByActorIndex((int)b2);
 				this.m_hitActors.Add(item);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitActorGroupOnAnimEventSequence.ActorParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
 			}
 		}
 	}

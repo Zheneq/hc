@@ -20,19 +20,6 @@ public class PKFxSoundManager : MonoBehaviour
 	{
 		if (PKFxSoundManager.m_onStartSoundDelegate == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxSoundManager.Update()).MethodHandle;
-			}
 			if (PKFxSoundManager.m_spawnedSound != null)
 			{
 				for (int i = PKFxSoundManager.m_spawnedSound.Count - 1; i >= 0; i--)
@@ -40,27 +27,9 @@ public class PKFxSoundManager : MonoBehaviour
 					AudioSource audioSource = PKFxSoundManager.m_spawnedSound[i];
 					if (!audioSource.isPlaying)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(audioSource.gameObject);
 						PKFxSoundManager.m_spawnedSound.RemoveAt(i);
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -80,44 +49,13 @@ public class PKFxSoundManager : MonoBehaviour
 		AudioClip audioClip = Resources.Load(text) as AudioClip;
 		if (audioClip != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxSoundManager.OnStartSound(IntPtr)).MethodHandle;
-			}
 			GameObject gameObject = new GameObject("FxSound");
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				gameObject.transform.position = soundDescriptor.WorldPosition;
 				AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 				if (audioSource != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					audioSource.clip = audioClip;
 					audioSource.Play();
 					audioSource.volume = soundDescriptor.Volume;
@@ -125,15 +63,6 @@ public class PKFxSoundManager : MonoBehaviour
 					audioSource.spatialBlend = 1f;
 					if (soundDescriptor.PlayTimeInSeconds != 0f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(audioSource, soundDescriptor.PlayTimeInSeconds);
 					}
 					else

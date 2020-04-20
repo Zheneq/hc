@@ -75,19 +75,6 @@ namespace TMPro
 			{
 				if (this.sharedMaterial != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.get_mainTexture()).MethodHandle;
-					}
 					return this.sharedMaterial.GetTexture(ShaderUtilities.ID_MainTex);
 				}
 				return null;
@@ -104,19 +91,6 @@ namespace TMPro
 			{
 				if (this.m_sharedMaterial != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.set_material(Material)).MethodHandle;
-					}
 					if (this.m_sharedMaterial.GetInstanceID() == value.GetInstanceID())
 					{
 						return;
@@ -152,43 +126,12 @@ namespace TMPro
 			{
 				if (this.m_fallbackMaterial == value)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.set_fallbackMaterial(Material)).MethodHandle;
-					}
 					return;
 				}
 				if (this.m_fallbackMaterial != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fallbackMaterial != value)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
 					}
 				}
@@ -248,19 +191,6 @@ namespace TMPro
 			{
 				if (this.m_canvasRenderer == null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.get_canvasRenderer()).MethodHandle;
-					}
 					this.m_canvasRenderer = base.GetComponent<CanvasRenderer>();
 				}
 				return this.m_canvasRenderer;
@@ -312,19 +242,6 @@ namespace TMPro
 		{
 			if (!this.m_isRegisteredForEvents)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnEnable()).MethodHandle;
-				}
 				this.m_isRegisteredForEvents = true;
 			}
 			this.m_ShouldRecalculateStencil = true;
@@ -337,33 +254,11 @@ namespace TMPro
 			TMP_UpdateRegistry.UnRegisterCanvasElementForRebuild(this);
 			if (this.m_MaskMaterial != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnDisable()).MethodHandle;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
 				this.m_MaskMaterial = null;
 			}
 			if (this.m_fallbackMaterial != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
 				this.m_fallbackMaterial = null;
 			}
@@ -374,45 +269,14 @@ namespace TMPro
 		{
 			if (this.m_mesh != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnDestroy()).MethodHandle;
-				}
 				UnityEngine.Object.DestroyImmediate(this.m_mesh);
 			}
 			if (this.m_MaskMaterial != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
 			}
 			if (this.m_fallbackMaterial != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TMP_MaterialManager.ReleaseFallbackMaterial(this.m_fallbackMaterial);
 				this.m_fallbackMaterial = null;
 			}
@@ -424,19 +288,6 @@ namespace TMPro
 		{
 			if (!this.IsActive())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.OnTransformParentChanged()).MethodHandle;
-				}
 				return;
 			}
 			this.m_ShouldRecalculateStencil = true;
@@ -449,45 +300,14 @@ namespace TMPro
 			Material material = baseMaterial;
 			if (this.m_ShouldRecalculateStencil)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.GetModifiedMaterial(Material)).MethodHandle;
-				}
 				this.m_StencilValue = TMP_MaterialManager.GetStencilID(base.gameObject);
 				this.m_ShouldRecalculateStencil = false;
 			}
 			if (this.m_StencilValue > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				material = TMP_MaterialManager.GetStencilMaterial(baseMaterial, this.m_StencilValue);
 				if (this.m_MaskMaterial != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					TMP_MaterialManager.ReleaseStencilMaterial(this.m_MaskMaterial);
 				}
 				this.m_MaskMaterial = material;
@@ -518,32 +338,10 @@ namespace TMPro
 		{
 			if (!this.IsActive())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.SetVerticesDirty()).MethodHandle;
-				}
 				return;
 			}
 			if (this.m_TextComponent != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_TextComponent.havePropertiesChanged = true;
 				this.m_TextComponent.SetVerticesDirty();
 			}
@@ -559,19 +357,6 @@ namespace TMPro
 			this.UpdateMaterial();
 			if (this.m_OnDirtyMaterialCallback != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.SetMaterialDirty()).MethodHandle;
-				}
 				this.m_OnDirtyMaterialCallback();
 			}
 		}
@@ -580,19 +365,6 @@ namespace TMPro
 		{
 			if (!this.IsActive())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.SetPivotDirty()).MethodHandle;
-				}
 				return;
 			}
 			base.rectTransform.pivot = this.m_TextComponent.rectTransform.pivot;
@@ -616,30 +388,8 @@ namespace TMPro
 		{
 			if (update == CanvasUpdate.PreRender)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.Rebuild(CanvasUpdate)).MethodHandle;
-				}
 				if (!this.m_materialDirty)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 				this.UpdateMaterial();
@@ -656,19 +406,6 @@ namespace TMPro
 		{
 			if (this.m_canvasRenderer == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.UpdateMaterial()).MethodHandle;
-				}
 				this.m_canvasRenderer = this.canvasRenderer;
 			}
 			this.m_canvasRenderer.materialCount = 1;
@@ -696,31 +433,9 @@ namespace TMPro
 		{
 			if (!(this.m_material == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.GetMaterial(Material)).MethodHandle;
-				}
 				if (this.m_material.GetInstanceID() == mat.GetInstanceID())
 				{
 					goto IL_53;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_material = this.CreateMaterialInstance(mat);
@@ -745,19 +460,6 @@ namespace TMPro
 		{
 			if (this.m_canvasRenderer == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SubMeshUI.GetSharedMaterial()).MethodHandle;
-				}
 				this.m_canvasRenderer = base.GetComponent<CanvasRenderer>();
 			}
 			return this.m_canvasRenderer.GetMaterial();

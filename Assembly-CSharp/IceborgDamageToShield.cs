@@ -43,19 +43,6 @@ public class IceborgDamageToShield : GenericAbility_Container
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageToShield.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
 		}
 		if (this.m_syncComp != null)
@@ -68,30 +55,8 @@ public class IceborgDamageToShield : GenericAbility_Container
 	{
 		if (actorHitContext.ContainsKey(targetActor))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDamageToShield.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (targetActor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorHitContext actorContext = actorHitContext[targetActor];
 				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, this.m_persistentAoeOnHitData.m_enemyHitIntFields, this.m_calculatedValuesForTargeter);
 				results.m_damage = this.m_calculatedValuesForTargeter.m_damage;

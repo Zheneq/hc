@@ -61,30 +61,8 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 				GameObject gameObject = enumerator.Current;
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DirectionCone.ClearConeHighlights()).MethodHandle;
-					}
 					base.DestroyObjectAndMaterials(gameObject);
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_coneHighlights.Clear();
@@ -108,31 +86,9 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (currentTargetIndex > 0 && targets != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DirectionCone.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_useCasterLocationForAllMultiTargets)
 				{
 					vector = boardSquareSafe.GetWorldPositionForLoS();
@@ -143,41 +99,14 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 			}
 			if (this.m_getClampedAimDirection != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = this.m_getClampedAimDirection(vector2, targets[currentTargetIndex - 1].AimDirection);
 			}
 		}
 		float aimDir_degrees = VectorUtils.HorizontalAngle_Deg(vector2);
 		if (this.m_useCursorHighlight)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_highlights.Count != 0)
 				{
 					goto IL_133;
@@ -195,40 +124,13 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 		List<ActorData> hitActors = this.m_conePart.GetHitActors(vector, vector2, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, this.m_affectsAllies, this.m_affectsEnemies));
 		if (this.m_maxTargets > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			TargeterUtils.SortActorsByDistanceToPos(ref hitActors, vector);
 			TargeterUtils.LimitActorsToMaxNumber(ref hitActors, this.m_maxTargets);
 		}
 		if (this.m_includeCaster)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!hitActors.Contains(targetingActor))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				hitActors.Add(targetingActor);
 			}
 		}
@@ -237,29 +139,11 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 			ActorData actorData = hitActors[i];
 			if (this.ShouldAddActor(actorData, targetingActor))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.AddActorInRange(actorData, vector, targetingActor, AbilityTooltipSubject.Primary, false);
 				ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
 				float value = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetTravelBoardSquareWorldPosition());
-				actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
+				actorHitContext.symbol_0015.SetFloat(ContextKeys.symbol_0018.GetHash(), value);
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.DrawInvalidSquareIndicators(currentTarget, targetingActor, vector, vector2);
 	}
@@ -269,70 +153,21 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 		bool result = false;
 		if (actor == caster)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DirectionCone.ShouldAddActor(ActorData, ActorData)).MethodHandle;
-			}
 			result = this.m_includeCaster;
 		}
 		else
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_includeAllies)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
 			if (actor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_includeEnemies)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
@@ -353,19 +188,6 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 		Vector3 vector2 = -VectorUtils.AngleDegreesToVector(angle2);
 		if (this.m_coneHighlights.Count != 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DirectionCone.CreateConeHighlightsWithLines(Vector3, float)).MethodHandle;
-			}
 			this.ClearConeHighlights();
 			GameObject item = HighlightUtils.Get().CreateBoundaryLine(this.m_coneLengthRadius, true, true);
 			GameObject item2 = HighlightUtils.Get().CreateBoundaryLine(this.m_coneLengthRadius, true, false);
@@ -382,19 +204,6 @@ public class AbilityUtil_Targeter_DirectionCone : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_DirectionCone.DrawInvalidSquareIndicators(AbilityTarget, ActorData, Vector3, Vector3)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			float forwardAngle = VectorUtils.HorizontalAngle_Deg(forwardDirection);
 			this.m_conePart.ShowHiddenSquares(this.m_indicatorHandler, coneStartPos, forwardAngle, targetingActor, this.m_penetrateLoS);

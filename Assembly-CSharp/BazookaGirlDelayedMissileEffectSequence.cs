@@ -19,19 +19,6 @@ public class BazookaGirlDelayedMissileEffectSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissileEffectSequence.OnStopVfxOnClient()).MethodHandle;
-			}
 			this.m_fx.SetActive(false);
 		}
 	}
@@ -40,41 +27,10 @@ public class BazookaGirlDelayedMissileEffectSequence : Sequence
 	{
 		if (this.m_fxPrefab)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissileEffectSequence.Update()).MethodHandle;
-			}
 			if (this.m_initialized && this.m_fx == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Caster != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fx = base.InstantiateFX(this.m_fxPrefab);
 					if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 					{
@@ -91,19 +47,6 @@ public class BazookaGirlDelayedMissileEffectSequence : Sequence
 	{
 		if (this.m_fx)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BazookaGirlDelayedMissileEffectSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx);
 		}
 	}

@@ -46,19 +46,6 @@ public class RampartAoeBuffDebuff : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Robotic Roar";
 		}
 		this.SetupTargeter();
@@ -70,19 +57,6 @@ public class RampartAoeBuffDebuff : Ability
 		AbilityUtil_Targeter.AffectsActor affectsCaster = AbilityUtil_Targeter.AffectsActor.Possible;
 		if (!this.IncludeCaster())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.SetupTargeter()).MethodHandle;
-			}
 			affectsCaster = AbilityUtil_Targeter.AffectsActor.Never;
 		}
 		base.Targeter = new AbilityUtil_Targeter_Shape(this, this.GetShape(), this.PenetrateLos(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, this.IncludeEnemies(), this.IncludeAllies(), affectsCaster, AbilityUtil_Targeter.AffectsActor.Possible);
@@ -93,19 +67,6 @@ public class RampartAoeBuffDebuff : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RampartAoeBuffDebuff))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RampartAoeBuffDebuff);
 		}
 		this.SetupTargeter();
@@ -122,19 +83,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo cachedSelfHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.SetCachedFields()).MethodHandle;
-			}
 			cachedSelfHitEffect = this.m_abilityMod.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect);
 		}
 		else
@@ -146,15 +94,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -173,19 +112,6 @@ public class RampartAoeBuffDebuff : Ability
 		int val;
 		if (abilityMod_RampartAoeBuffDebuff)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_RampartAoeBuffDebuff.m_baseSelfHealMod.GetModifiedValue(this.m_baseSelfHeal);
 		}
 		else
@@ -197,15 +123,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_RampartAoeBuffDebuff)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RampartAoeBuffDebuff.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect);
 		}
 		else
@@ -216,15 +133,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_RampartAoeBuffDebuff)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_RampartAoeBuffDebuff.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -235,15 +143,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_RampartAoeBuffDebuff)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_RampartAoeBuffDebuff.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -256,15 +155,6 @@ public class RampartAoeBuffDebuff : Ability
 		int val2;
 		if (abilityMod_RampartAoeBuffDebuff)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RampartAoeBuffDebuff.m_damageToEnemiesMod.GetModifiedValue(this.m_damageToEnemies);
 		}
 		else
@@ -290,45 +180,14 @@ public class RampartAoeBuffDebuff : Ability
 	{
 		if (this.GetSelfHealAmountPerHit() <= 0 && this.GetBaseSelfHeal() <= 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			return null;
 		}
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Primary);
 				int num = 0;
 				int num2 = 0;
@@ -336,30 +195,12 @@ public class RampartAoeBuffDebuff : Ability
 				{
 					if (visibleActorsInRangeByTooltipSubject[i].GetTeam() != targetActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 					}
 					else if (visibleActorsInRangeByTooltipSubject[i] != targetActor)
 					{
 						num2++;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				int value = this.CalcSelfHealAmountFromHits(num2, num);
 				dictionary[AbilityTooltipSymbol.Healing] = value;
@@ -373,58 +214,18 @@ public class RampartAoeBuffDebuff : Ability
 		int result = 0;
 		if (this.GetSelfHealAmountPerHit() <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.CalcSelfHealAmountFromHits(int, int)).MethodHandle;
-			}
 			if (this.GetBaseSelfHeal() <= 0)
 			{
 				return result;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num = 0;
 		if (this.SelfHealCountAllyHit())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += allyHits;
 		}
 		if (this.SelfHealCountEnemyHit())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += enemyHits;
 		}
 		result = this.GetBaseSelfHeal() + num * this.GetSelfHealAmountPerHit();
@@ -435,30 +236,8 @@ public class RampartAoeBuffDebuff : Ability
 	{
 		if (!this.ModdedIncludeCaster())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.IncludeCaster()).MethodHandle;
-			}
 			if (this.GetSelfHealAmountPerHit() <= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.GetBaseSelfHeal() > 0;
 			}
 		}
@@ -470,19 +249,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if (!this.GetAllyHitEffect().m_applyEffect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.IncludeAllies()).MethodHandle;
-			}
 			result = (this.GetHealingToAllies() > 0);
 		}
 		else
@@ -502,19 +268,6 @@ public class RampartAoeBuffDebuff : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.GetShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shapeMod.GetModifiedValue(this.m_shape);
 		}
 		else
@@ -529,19 +282,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.PenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -556,19 +296,6 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.GetBaseSelfHeal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_baseSelfHealMod.GetModifiedValue(this.m_baseSelfHeal);
 		}
 		else
@@ -588,19 +315,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.SelfHealCountEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealCountEnemyHitMod.GetModifiedValue(this.m_selfHealCountEnemyHit);
 		}
 		else
@@ -615,19 +329,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.SelfHealCountAllyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealCountAllyHitMod.GetModifiedValue(this.m_selfHealCountAllyHit);
 		}
 		else
@@ -642,19 +343,6 @@ public class RampartAoeBuffDebuff : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.ModdedIncludeCaster()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_includeCasterMod.GetModifiedValue(this.m_includeCaster);
 		}
 		else
@@ -669,19 +357,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.GetSelfHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedSelfHitEffect;
 		}
 		else
@@ -696,19 +371,6 @@ public class RampartAoeBuffDebuff : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyHitEffect;
 		}
 		else
@@ -728,19 +390,6 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.GetDamageToEnemies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(this.m_damageToEnemies);
 		}
 		else
@@ -755,19 +404,6 @@ public class RampartAoeBuffDebuff : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RampartAoeBuffDebuff.GetHealingToAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healingToAlliesMod.GetModifiedValue(this.m_healingToAllies);
 		}
 		else

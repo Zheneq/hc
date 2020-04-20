@@ -56,19 +56,6 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		StandardActorEffectData baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaRegeneration.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = mantaRegeneration.m_healEffectData;
 		}
 		else
@@ -83,15 +70,6 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaRegeneration.m_otherSelfEffect;
 		}
 		else

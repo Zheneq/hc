@@ -80,43 +80,12 @@ public class UICashShopPanel : UIScene
 		{
 			if (characterType.IsValidForHumanGameplay())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.Awake()).MethodHandle;
-				}
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
 				if (!characterResourceLink.m_isHidden && characterResourceLink.m_allowForPlayers)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_numLancers++;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		UIManager.SetGameObjectActive(this.m_categoryContainer, true, null);
 	}
@@ -135,19 +104,6 @@ public class UICashShopPanel : UIScene
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
 			ClientGameManager.Get().OnAccountDataUpdated -= this.OnAccountDataUpdated;
 			ClientGameManager.Get().OnLobbyServerClientAccessLevelChange -= this.HandleLobbyServerClientAccessLevelChange;
@@ -170,19 +126,6 @@ public class UICashShopPanel : UIScene
 	{
 		if (visible == this.m_isVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.SetVisible(bool)).MethodHandle;
-			}
 			return;
 		}
 		this.m_isVisible = visible;
@@ -191,15 +134,6 @@ public class UICashShopPanel : UIScene
 		this.ButtonClicked(this.m_featuredBtn);
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UICharacterSelectWorldObjects.Get().IsVisible())
 			{
 				UICharacterSelectWorldObjects.Get().SetVisible(false);
@@ -219,44 +153,13 @@ public class UICashShopPanel : UIScene
 		PointerEventData pointerEventData = data as PointerEventData;
 		if (pointerEventData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICashShopPanel.HandleButtonClickEvent(BaseEventData)).MethodHandle;
-			}
 			if (pointerEventData.pointerPress != null)
 			{
 				_ButtonSwapSprite component = pointerEventData.pointerPress.GetComponent<_ButtonSwapSprite>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!component.selectableButton.IsSelected())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ButtonClicked(component.selectableButton);
 					}
 				}

@@ -54,19 +54,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 	{
 		if (this.m_isInitialized)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.Init()).MethodHandle;
-			}
 			return;
 		}
 		this.m_isInitialized = true;
@@ -102,59 +89,19 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 					{
 						if (questCondition.ConditionType == QuestConditionType.HasCharacterLevel)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.Setup(QuestTemplate, Dictionary<int, QuestMetaData>)).MethodHandle;
-							}
 							this.m_hasExpandData = true;
 							CharacterType typeSpecificData = (CharacterType)questCondition.typeSpecificData;
 							int typeSpecificData2 = questCondition.typeSpecificData2;
 							if (ClientGameManager.Get().GetPlayerCharacterData(typeSpecificData).ExperienceComponent.Level >= typeSpecificData2)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								string displayName = typeSpecificData.GetDisplayName();
 								if (!list.Contains(displayName))
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(displayName);
 								}
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -166,26 +113,8 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questMetaData.ContainsKey(quest.Index))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					QuestMetaData questMetaData2 = questMetaData[quest.Index];
 					flag = (questMetaData2.CompletedCount > 0);
 					CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture(currentLanguagecode);
@@ -194,28 +123,10 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += quest.AchievementPoints;
 				num2 += quest.AchievementPoints;
 				if (quest != this.m_quest)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string text = StringUtil.TR_QuestName(quest.Index);
 					if (text.IsNullOrEmpty())
 					{
@@ -239,15 +150,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			}
 			if (quest.AchievementPrevious > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				quest = QuestWideData.Get().GetQuestTemplate(quest.AchievementPrevious);
 			}
 			else
@@ -255,27 +157,9 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 				quest = null;
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_points.text = num2.ToString();
 		if (this.m_quest != null && questMetaData.ContainsKey(this.m_quest.Index))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (questMetaData[this.m_quest.Index].CompletedCount > 0);
 		}
 		else
@@ -286,15 +170,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		string text4 = StringUtil.TR_QuestDescription(this.m_quest.Index);
 		if (text3 != string.Empty)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_description.text = string.Format("<size=20>{0}</size>\n<#a9a9a9>{1}", text3, text4);
 		}
 		else
@@ -304,15 +179,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		Sprite sprite;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sprite = Resources.Load<Sprite>(this.m_quest.IconFilename);
 		}
 		else
@@ -344,41 +210,14 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		this.m_hasExpandData = (list.Count > 0);
 		if (this.m_hasExpandData)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_expandedTexts.Length; i++)
 			{
 				UIManager.SetGameObjectActive(this.m_expandedTexts[i], i < list.Count, null);
 				if (i < list.Count)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_expandedTexts[i], true, null);
 					this.m_expandedTexts[i].text = "- " + list[i];
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.UpdateExpandedVisuals();
@@ -391,30 +230,8 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 		bool flag = this.SetupReward(quest.Rewards);
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.SetupQuestReward(QuestTemplate)).MethodHandle;
-			}
 			if (quest.ConditionalRewards != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < quest.ConditionalRewards.Length; i++)
 				{
 					if (QuestWideData.AreConditionsMet(quest.ConditionalRewards[i].Prerequisites.Conditions, quest.ConditionalRewards[i].Prerequisites.LogicStatement, false))
@@ -422,27 +239,9 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 						flag = this.SetupReward(quest.ConditionalRewards[i]);
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_A6;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -454,19 +253,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 	{
 		if (questRewards.CurrencyRewards.Count > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.SetupReward(QuestRewards)).MethodHandle;
-			}
 			this.m_questReward.Setup(questRewards.CurrencyRewards[0], 0);
 		}
 		else if (questRewards.UnlockRewards.Count > 0)
@@ -479,15 +265,6 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			{
 				return false;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			InventoryItemTemplate itemTemplate = InventoryWideData.Get().GetItemTemplate(questRewards.ItemRewards[0].ItemTemplateId);
 			this.m_questReward.SetupHack(itemTemplate, itemTemplate.IconPath, 0);
 		}
@@ -498,34 +275,12 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 	{
 		if (this.m_isExpanded && !this.m_hasExpandData)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievementItem.UpdateExpandedVisuals()).MethodHandle;
-			}
 			return;
 		}
 		LayoutElement layoutElement = this.m_layoutElement;
 		float preferredHeight;
 		if (this.m_isExpanded)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			preferredHeight = this.m_expandedHeight;
 		}
 		else

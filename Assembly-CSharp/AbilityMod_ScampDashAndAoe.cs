@@ -38,19 +38,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		ScampDashAndAoe scampDashAndAoe = targetAbility as ScampDashAndAoe;
 		if (scampDashAndAoe != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDashAndAoe.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			base.AddOnHitDataTokens(tokens, this.m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData);
 			AbilityMod.AddToken(tokens, this.m_shieldCostMod, "ShieldCost", string.Empty, scampDashAndAoe.m_shieldCost, true, false);
@@ -68,19 +55,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (scampDashAndAoe != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampDashAndAoe.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetOnHitDataDesc(this.m_shieldDownOnHitDataMod, scampDashAndAoe.m_shieldDownOnHitData, "-- Shield Down On Hit Data Mod --");
 			text += base.GetTargetSelectModDesc(this.m_inSuitTargetSelectMod, scampDashAndAoe.m_targetSelectComp, "-- In-Suit Target Select Mod --");
 			text += base.GetTargetSelectModDesc(this.m_shieldDownTargetSelectMod, scampDashAndAoe.m_shieldDownTargetSelect, "-- Shield Down Target Select Mod --");
@@ -93,15 +67,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = scampDashAndAoe.m_shieldDownCooldown;
 		}
 		else
@@ -116,15 +81,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampDashAndAoe.m_cdrOnSuitApply;
 		}
 		else
@@ -139,15 +95,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scampDashAndAoe.m_shieldDownNoCooldownHealthThresh;
 		}
 		else

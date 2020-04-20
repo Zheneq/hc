@@ -32,30 +32,8 @@ public class GUIT_Button : MonoBehaviour
 	{
 		if (base.GetComponent<GUITexture>().GetScreenRect().Contains(Input.mousePosition))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GUIT_Button.Update()).MethodHandle;
-			}
 			if (!this.over)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnOver();
 			}
 			if (Input.GetMouseButtonDown(0))
@@ -65,15 +43,6 @@ public class GUIT_Button : MonoBehaviour
 		}
 		else if (this.over)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnOut();
 		}
 	}
@@ -101,32 +70,10 @@ public class GUIT_Button : MonoBehaviour
 	{
 		if (this.over)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GUIT_Button.UpdateImage()).MethodHandle;
-			}
 			GUITexture component = base.GetComponent<GUITexture>();
 			Texture texture;
 			if (this.on)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				texture = this.t_on_over;
 			}
 			else
@@ -141,15 +88,6 @@ public class GUIT_Button : MonoBehaviour
 			Texture texture2;
 			if (this.on)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				texture2 = this.t_on;
 			}
 			else

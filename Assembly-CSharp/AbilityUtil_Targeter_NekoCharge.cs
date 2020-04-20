@@ -18,19 +18,6 @@ public class AbilityUtil_Targeter_NekoCharge : AbilityUtil_Targeter_ChargeAoE
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Contains(boardSquareSafe))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_NekoCharge.UseRadiusAroundEnd(AbilityTarget)).MethodHandle;
-				}
 				return base.UseRadiusAroundEnd(currentTarget);
 			}
 		}

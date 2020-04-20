@@ -39,19 +39,6 @@ public class FriendInfo
 		bool result;
 		if (this.StatusString == "In Game")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FriendInfo.IsJoinable(LobbyGameplayOverrides)).MethodHandle;
-			}
 			result = GameplayOverrides.AllowSpectatorsOutsideCustom;
 		}
 		else

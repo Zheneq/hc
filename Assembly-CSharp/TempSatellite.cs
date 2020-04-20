@@ -27,44 +27,13 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		this.m_modelAnimator = base.GetComponentInChildren<Animator>();
 		if (this.m_modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.Awake()).MethodHandle;
-			}
 			this.m_modelAnimator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 		}
 		if (this.m_persistentVfxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_persistentVfxJoint.Initialize(base.gameObject);
 			if (this.m_persistentVfxJoint.m_jointObject != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_persistentVfxInstance = UnityEngine.Object.Instantiate<GameObject>(this.m_persistentVfxPrefab);
 				this.m_persistentVfxInstance.transform.parent = this.m_persistentVfxJoint.m_jointObject.transform;
 				this.m_persistentVfxInstance.transform.localPosition = Vector3.zero;
@@ -83,19 +52,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 	{
 		if (this.m_persistentVfxInstance != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.OnDestroy()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_persistentVfxInstance);
 		}
 		this.OnTempSatelliteDestroy();
@@ -111,19 +67,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		GameObject gameObject2 = gameObject.transform.GetChild(0).gameObject;
 		if (gameObject2.GetComponent<TempSatelliteAnimationEventReceiver>() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.Initialize()).MethodHandle;
-			}
 			TempSatelliteAnimationEventReceiver tempSatelliteAnimationEventReceiver = gameObject2.AddComponent<TempSatelliteAnimationEventReceiver>();
 			tempSatelliteAnimationEventReceiver.Setup(this);
 		}
@@ -138,19 +81,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 	{
 		if (this.m_owningSequence != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.GetOwner()).MethodHandle;
-			}
 			return this.m_owningSequence.Caster;
 		}
 		return null;
@@ -173,30 +103,8 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 	{
 		if (this.m_modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.TriggerSpawn()).MethodHandle;
-			}
 			if (this.m_hasSpawnAnim)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_modelAnimator.SetTrigger("Spawn");
 			}
 		}
@@ -206,30 +114,8 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 	{
 		if (this.m_modelAnimator != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.TriggerDespawn()).MethodHandle;
-			}
 			if (this.m_hasDespawnAnim)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_modelAnimator.SetTrigger("Despawn");
 			}
 		}
@@ -255,30 +141,8 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		bool flag;
 		if (this.m_onlyPassAnimEventsIfActorDead)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatellite.OnAnimationEvent(UnityEngine.Object)).MethodHandle;
-			}
 			if (!this.m_owningSequence.Caster.IsModelAnimatorDisabled())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = this.m_owningSequence.Caster.IsDead();
 				goto IL_52;
 			}
@@ -288,15 +152,6 @@ public class TempSatellite : MonoBehaviour, TempSatelliteAnimationEventReceiver.
 		bool flag2 = flag;
 		if (this.m_notifyOwningSequenceOnAnimEvent)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				SequenceManager.Get().OnAnimationEvent(this.m_owningSequence.Caster, eventObject, base.gameObject, this.m_owningSequence.Source);

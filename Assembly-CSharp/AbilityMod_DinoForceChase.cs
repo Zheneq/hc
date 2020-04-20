@@ -27,19 +27,6 @@ public class AbilityMod_DinoForceChase : GenericAbility_AbilityMod
 		DinoForceChase dinoForceChase = targetAbility as DinoForceChase;
 		if (dinoForceChase != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_DinoForceChase.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, this.m_cdrOnKnockbackAbilityMod, "CdrOnKnockbackAbility", string.Empty, dinoForceChase.m_cdrOnKnockbackAbility, true, false);
 			AbilityMod.AddToken(tokens, this.m_energyPerUnstoppableEnemyHitMod, "EnergyPerUnstoppableEnemyHit", string.Empty, dinoForceChase.m_energyPerUnstoppableEnemyHit, true, false);
@@ -61,19 +48,6 @@ public class AbilityMod_DinoForceChase : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_DinoForceChase.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-				}
 				baseVal = dinoForceChase.m_cdrOnKnockbackAbility;
 			}
 			else

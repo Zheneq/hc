@@ -39,71 +39,22 @@ public class HitchDetector : MonoBehaviour
 	{
 		if (obj != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitchDetector.IsObjectStaggeringOn(GameObject)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_gridlayoutInfo.Count; i++)
 			{
 				if (this.m_gridlayoutInfo[i].m_layoutGroup != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_gridlayoutInfo[i].m_layoutGroup.gameObject.activeInHierarchy && this.m_gridlayoutInfo[i].m_layoutGroup.gameObject == obj.transform.parent.gameObject)
 					{
 						if (this.m_gridlayoutInfo[i].m_layoutGroup.gameObject.activeInHierarchy)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!obj.gameObject.activeInHierarchy)
 							{
 								return true;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						return this.m_objectsJustEnabled.Contains(obj.gameObject);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -113,30 +64,8 @@ public class HitchDetector : MonoBehaviour
 	{
 		if (HydrogenConfig.Get().EnableHitchDetection)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitchDetector.RecordFrameTimeForHitch(string)).MethodHandle;
-			}
 			if (!Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HitchDetector.UILoadTimeInfo item;
 				item.startTime = Time.unscaledTime;
 				item.recordString = recordString;
@@ -149,30 +78,8 @@ public class HitchDetector : MonoBehaviour
 	{
 		if (this.m_objectsJustEnabled.Count > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitchDetector.Update()).MethodHandle;
-			}
 			if (this.clearObjectsJustEnabledList <= 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_objectsJustEnabled.Clear();
 				goto IL_51;
 			}
@@ -188,15 +95,6 @@ public class HitchDetector : MonoBehaviour
 			}
 			else if (!this.m_gridlayoutInfo[i].m_layoutGroup.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.TurnOffAllChildren(this.m_gridlayoutInfo[i]);
 			}
 			else
@@ -208,38 +106,11 @@ public class HitchDetector : MonoBehaviour
 						this.RedoLayoutGroup(this.m_gridlayoutInfo[i].m_layoutGroup);
 						break;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_gridlayoutInfo[i].m_children[j].activeSelf)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						StaggerComponent component = this.m_gridlayoutInfo[i].m_children[j].GetComponent<StaggerComponent>();
 						if (!(component == null))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!component.DoActivateOnStagger)
 							{
 								goto IL_261;
@@ -253,15 +124,6 @@ public class HitchDetector : MonoBehaviour
 					StaggerComponent component2 = this.m_gridlayoutInfo[i].m_children[j].GetComponent<StaggerComponent>();
 					if (component2 != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!component2.DoActivateOnStagger)
 						{
 							UIManager.SetGameObjectActive(this.m_gridlayoutInfo[i].m_children[j], false, null);
@@ -270,15 +132,6 @@ public class HitchDetector : MonoBehaviour
 					IL_261:;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (!Application.isEditor)
 		{
@@ -292,15 +145,6 @@ public class HitchDetector : MonoBehaviour
 				}
 				else if (k < this.loadTimeRecordings.Count)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = Time.unscaledTime - this.loadTimeRecordings[k].startTime;
 					if (num >= 0.1f)
 					{
@@ -310,61 +154,16 @@ public class HitchDetector : MonoBehaviour
 					this.loadTimeRecordings.RemoveAt(k);
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (HydrogenConfig.Get().EnableRandomFrameHitchDetection)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.TimeUntilNextLogUpdateHitch > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.TimeUntilNextLogUpdateHitch -= Time.unscaledDeltaTime;
 				}
 				if (!flag && Time.unscaledDeltaTime >= 0.1f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.TimeUntilNextLogUpdateHitch <= 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.TimeUntilNextLogUpdateHitch = 5f;
 						Log.Error(string.Format("Unknown cause hitch occurred: Took {0} seconds", Time.unscaledDeltaTime.ToString("F3")), new object[0]);
 					}
@@ -379,19 +178,6 @@ public class HitchDetector : MonoBehaviour
 		{
 			if (this.m_gridlayoutInfo[i].m_layoutGroup == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HitchDetector.RedoLayoutGroup(LayoutGroup)).MethodHandle;
-				}
 				this.m_gridlayoutInfo.RemoveAt(i);
 			}
 			else if (this.m_gridlayoutInfo[i].m_layoutGroup == group)
@@ -409,15 +195,6 @@ public class HitchDetector : MonoBehaviour
 						Transform transform = (Transform)obj;
 						if (transform.parent.gameObject == group.gameObject)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value.m_children.Add(transform.gameObject);
 						}
 					}
@@ -427,15 +204,6 @@ public class HitchDetector : MonoBehaviour
 					IDisposable disposable;
 					if ((disposable = (enumerator as IDisposable)) != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						disposable.Dispose();
 					}
 				}
@@ -458,46 +226,15 @@ public class HitchDetector : MonoBehaviour
 	{
 		if (group == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitchDetector.AddNewLayoutGroup(LayoutGroup)).MethodHandle;
-			}
 			return;
 		}
 		for (int i = 0; i < this.m_gridlayoutInfo.Count; i++)
 		{
 			if (this.m_gridlayoutInfo[i].m_layoutGroup == group)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.RedoLayoutGroup(group);
 				return;
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		HitchDetector.GridLayoutStaggerInfo item;
 		item.m_layoutGroup = group;
@@ -511,26 +248,8 @@ public class HitchDetector : MonoBehaviour
 				Transform transform = (Transform)obj;
 				if (transform.parent.gameObject == group.gameObject)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					item.m_children.Add(transform.gameObject);
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		finally
@@ -538,15 +257,6 @@ public class HitchDetector : MonoBehaviour
 			IDisposable disposable;
 			if ((disposable = (enumerator as IDisposable)) != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				disposable.Dispose();
 			}
 		}
@@ -564,19 +274,6 @@ public class HitchDetector : MonoBehaviour
 			{
 				this.RedoLayoutGroup(info.m_layoutGroup);
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HitchDetector.TurnOffAllChildren(HitchDetector.GridLayoutStaggerInfo)).MethodHandle;
 			}
 			UIManager.SetGameObjectActive(info.m_children[i], false, null);
 		}

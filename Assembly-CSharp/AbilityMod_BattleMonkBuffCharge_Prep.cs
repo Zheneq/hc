@@ -35,43 +35,12 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		BattleMonkBuffCharge_Prep battleMonkBuffCharge_Prep = targetAbility as BattleMonkBuffCharge_Prep;
 		if (battleMonkBuffCharge_Prep != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBuffCharge_Prep.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_allySelectRadiusMod, "AllySelectRadius", string.Empty, battleMonkBuffCharge_Prep.m_allySelectRadius, true, false, false);
 			BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = null;
 			if (battleMonkBuffCharge_Prep != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (battleMonkBuffCharge_Prep.m_chainAbilities.Length > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (Ability ability in battleMonkBuffCharge_Prep.m_chainAbilities)
 					{
 						if (ability != null && ability is BattleMonkBuffCharge_Dash)
@@ -83,15 +52,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 				}
 				if (battleMonkBuffCharge_Dash != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, battleMonkBuffCharge_Dash.m_damage, true, false);
 					AbilityMod.AddToken_EffectMod(tokens, this.m_allyEffectOverride, "AllyBuff", battleMonkBuffCharge_Prep.m_allyBuff, true);
 					AbilityMod.AddToken_EffectMod(tokens, this.m_selfEffectOverride, "SelfBuff", battleMonkBuffCharge_Prep.m_selfBuff, true);
@@ -106,71 +66,22 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = null;
 		if (battleMonkBuffCharge_Prep != null && battleMonkBuffCharge_Prep.m_chainAbilities.Length > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBuffCharge_Prep.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			foreach (Ability ability in battleMonkBuffCharge_Prep.m_chainAbilities)
 			{
 				if (ability != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ability is BattleMonkBuffCharge_Dash)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						battleMonkBuffCharge_Dash = (ability as BattleMonkBuffCharge_Dash);
 						goto IL_93;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		IL_93:
 		bool flag;
 		if (battleMonkBuffCharge_Prep != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (battleMonkBuffCharge_Dash != null);
 		}
 		else
@@ -186,15 +97,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		bool baseVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = battleMonkBuffCharge_Prep.m_mustHitAllies;
 		}
 		else
@@ -210,15 +112,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		AbilityAreaShape baseVal2;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = battleMonkBuffCharge_Prep.m_buffAlliesShape;
 		}
 		else
@@ -233,15 +126,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		AbilityAreaShape baseVal3;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = battleMonkBuffCharge_Dash.m_damageEnemiesShape;
 		}
 		else
@@ -256,15 +140,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		int baseVal4;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = battleMonkBuffCharge_Dash.m_damage;
 		}
 		else
@@ -279,15 +154,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = battleMonkBuffCharge_Prep.m_selfBuff;
 		}
 		else
@@ -302,15 +168,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = battleMonkBuffCharge_Prep.m_allyBuff;
 		}
 		else
@@ -329,67 +186,18 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 	{
 		if (abilityAsBase != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBuffCharge_Prep.AppendModSpecificTooltipCheckNumbers(Ability, List<int>)).MethodHandle;
-			}
 			if (abilityAsBase.GetType() == this.GetTargetAbilityType())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BattleMonkBuffCharge_Prep battleMonkBuffCharge_Prep = abilityAsBase as BattleMonkBuffCharge_Prep;
 				BattleMonkBuffCharge_Dash battleMonkBuffCharge_Dash = null;
 				if (battleMonkBuffCharge_Prep.m_chainAbilities.Length > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (Ability ability in battleMonkBuffCharge_Prep.m_chainAbilities)
 					{
 						if (ability != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (ability is BattleMonkBuffCharge_Dash)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								battleMonkBuffCharge_Dash = (ability as BattleMonkBuffCharge_Dash);
 								break;
 							}
@@ -398,15 +206,6 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 				}
 				if (battleMonkBuffCharge_Dash != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					numbers.Add(this.m_damageMod.GetModifiedValue(battleMonkBuffCharge_Dash.m_damage));
 				}
 			}

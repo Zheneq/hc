@@ -68,19 +68,6 @@ public class FireborgDash : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.AddGroundFire()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_addGroundFireMod.GetModifiedValue(this.m_addGroundFire);
 		}
 		else
@@ -95,19 +82,6 @@ public class FireborgDash : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetGroundFireDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_groundFireDurationMod.GetModifiedValue(this.m_groundFireDuration);
 		}
 		else
@@ -122,19 +96,6 @@ public class FireborgDash : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetGroundFireDurationIfSuperheated()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_groundFireDurationIfSuperheatedMod.GetModifiedValue(this.m_groundFireDurationIfSuperheated);
 		}
 		else
@@ -154,19 +115,6 @@ public class FireborgDash : GenericAbility_Container
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.IgniteIfSuperheated()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_igniteIfSuperheatedMod.GetModifiedValue(this.m_igniteIfSuperheated);
 		}
 		else
@@ -181,19 +129,6 @@ public class FireborgDash : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetShieldPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(this.m_shieldPerEnemyHit);
 		}
 		else
@@ -208,19 +143,6 @@ public class FireborgDash : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetShieldDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldDurationMod.GetModifiedValue(this.m_shieldDuration);
 		}
 		else
@@ -254,30 +176,8 @@ public class FireborgDash : GenericAbility_Container
 	{
 		if (this.AddGroundFire())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FireborgDash.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			if (!this.m_syncComp.m_actorsInGroundFireOnTurnStart.Contains((uint)targetActor.ActorIndex))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 			}
 		}

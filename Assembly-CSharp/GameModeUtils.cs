@@ -21,58 +21,18 @@ public static class GameModeUtils
 	{
 		if (gameModeEventType == GameModeEventType.Ctc_CoinPickedUp)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameModeUtils.IsCtcGameModeEventType(GameModeEventType)).MethodHandle;
-			}
 			return true;
 		}
 		if (gameModeEventType == GameModeEventType.Ctc_CoinsDropped)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (gameModeEventType == GameModeEventType.Ctc_NonCoinPowerupTouched)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		if (gameModeEventType == GameModeEventType.Ctc_CoinPowerupTouched)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		return false;

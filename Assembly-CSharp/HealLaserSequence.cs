@@ -50,44 +50,13 @@ public class HealLaserSequence : Sequence
 	{
 		if (base.Source.RemoveAtEndOfTurn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-			}
 			if (GameWideData.Get() != null && GameWideData.Get().ShouldMakeCasterVisibleOnCast())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_forceAlwaysVisible = true;
 			}
 		}
 		if (base.Caster != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_fxJoint.Initialize(base.Caster.gameObject);
 		}
 		foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
@@ -116,99 +85,32 @@ public class HealLaserSequence : Sequence
 		base.ProcessSequenceVisibility();
 		if (this.m_hitFx == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.Update()).MethodHandle;
-			}
 			this.m_hitFx = new Dictionary<ActorData, GameObject>();
 			this.CalculateHitDuration();
 		}
 		if (base.Caster != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_fxJoint.IsInitialized())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fxJoint.Initialize(base.Caster.gameObject);
 			}
 		}
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_initialized)
 			{
 				if (this.m_hitDurationLeft > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_hitDurationLeft -= GameTime.deltaTime;
 				}
 				if (this.m_reachedDestination)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fx.activeSelf)
 					{
 						this.m_fx.SetActive(false);
 						this.PlayRemainingHitFX();
 						if (this.m_hitDurationLeft <= 0f)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							base.MarkForRemoval();
 						}
 					}
@@ -228,19 +130,6 @@ public class HealLaserSequence : Sequence
 		Vector3 lhs = this.m_endPos - this.m_fx.transform.position;
 		if (Vector3.Dot(lhs, this.m_fx.transform.forward) < 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.UpdateProjectileFX()).MethodHandle;
-			}
 			this.m_fx.transform.position = this.m_endPos;
 			this.m_reachedDestination = true;
 		}
@@ -256,19 +145,6 @@ public class HealLaserSequence : Sequence
 				this.SpawnHitFX(actorData, this.m_fx.transform.forward);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.PlayRemainingHitFX()).MethodHandle;
-		}
 		base.Source.OnSequenceHit(this, base.TargetPos, null);
 	}
 
@@ -282,31 +158,9 @@ public class HealLaserSequence : Sequence
 				Vector3 rhs = actorData.transform.position - this.m_fx.transform.position;
 				if (Vector3.Dot(lhs, rhs) < 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.ProcessHitFX()).MethodHandle;
-					}
 					this.SpawnHitFX(actorData, this.m_fx.transform.forward);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -316,19 +170,6 @@ public class HealLaserSequence : Sequence
 		GameObject gameObject = actorData.gameObject.FindInChildren(Sequence.s_defaultHitAttachJoint, 0);
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.GetHitPosition(ActorData)).MethodHandle;
-			}
 			result = gameObject.transform.position;
 		}
 		else
@@ -349,19 +190,6 @@ public class HealLaserSequence : Sequence
 		this.m_hitFx[actorData] = null;
 		if (this.m_hitFxPrefab)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.SpawnHitFX(ActorData, Vector3)).MethodHandle;
-			}
 			if (!flag && base.IsHitFXVisible(actorData))
 			{
 				this.m_hitFx[actorData] = base.InstantiateFX(this.m_hitFxPrefab, hitPosition, Quaternion.identity, true, true);
@@ -372,26 +200,8 @@ public class HealLaserSequence : Sequence
 		}
 		if (this.m_healHitFxPrefab && flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.IsHitFXVisible(actorData))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_hitFx[actorData] = base.InstantiateFX(this.m_healHitFxPrefab, hitPosition, Quaternion.identity, true, true);
 				this.m_hitFx[actorData].transform.parent = base.transform;
 				this.m_hitDurationLeft = this.m_hitDuration;
@@ -400,52 +210,16 @@ public class HealLaserSequence : Sequence
 		IL_133:
 		if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(this.m_impactAudioEvent, this.m_fx.gameObject);
 				goto IL_1B3;
 			}
 		}
 		if (!string.IsNullOrEmpty(this.m_impactHealAudioEvent))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent(this.m_impactHealAudioEvent, this.m_fx.gameObject);
 			}
 		}
@@ -474,19 +248,6 @@ public class HealLaserSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -500,34 +261,12 @@ public class HealLaserSequence : Sequence
 		}
 		if (this.m_hitFx != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealLaserSequence.OnDisable()).MethodHandle;
-			}
 			using (Dictionary<ActorData, GameObject>.ValueCollection.Enumerator enumerator = this.m_hitFx.Values.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					GameObject obj = enumerator.Current;
 					UnityEngine.Object.Destroy(obj);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_hitFx.Clear();

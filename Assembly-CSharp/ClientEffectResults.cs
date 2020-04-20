@@ -40,32 +40,10 @@ public class ClientEffectResults
 	{
 		if (this.m_seqStartDataList == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.HasSequencesToStart()).MethodHandle;
-			}
 			return false;
 		}
 		if (this.m_seqStartDataList.Count == 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = this.m_seqStartDataList.GetEnumerator())
@@ -78,15 +56,6 @@ public class ClientEffectResults
 					return true;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return false;
 	}
@@ -95,19 +64,6 @@ public class ClientEffectResults
 	{
 		if (this.HasSequencesToStart())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.StartSequences()).MethodHandle;
-			}
 			foreach (ServerClientUtils.SequenceStartData sequenceStartData in this.m_seqStartDataList)
 			{
 				sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnEffectHitActor), new SequenceSource.Vector3Delegate(this.OnEffectHitPosition));
@@ -117,15 +73,6 @@ public class ClientEffectResults
 		{
 			if (ClientAbilityResults.LogMissingSequences)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + this.GetDebugDescription() + ": no Sequence to start, executing results directly", new object[0]);
 			}
 			this.RunClientEffectHits();
@@ -141,19 +88,6 @@ public class ClientEffectResults
 				KeyValuePair<ActorData, ClientActorHitResults> keyValuePair = enumerator.Current;
 				this.OnEffectHitActor(keyValuePair.Key);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.RunClientEffectHits()).MethodHandle;
-			}
 		}
 		using (Dictionary<Vector3, ClientPositionHitResults>.Enumerator enumerator2 = this.m_posToHitResults.GetEnumerator())
 		{
@@ -161,15 +95,6 @@ public class ClientEffectResults
 			{
 				KeyValuePair<Vector3, ClientPositionHitResults> keyValuePair2 = enumerator2.Current;
 				this.OnEffectHitPosition(keyValuePair2.Key);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -190,19 +115,6 @@ public class ClientEffectResults
 	{
 		if (this.m_posToHitResults.ContainsKey(position))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.OnEffectHitPosition(Vector3)).MethodHandle;
-			}
 			this.m_posToHitResults[position].ExecutePositionHit();
 		}
 	}
@@ -240,19 +152,6 @@ public class ClientEffectResults
 				{
 					if (!incomingKnockbacks.ContainsKey(key))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.AdjustKnockbackCounts_ClientEffectResults(Dictionary<ActorData, int>*, Dictionary<ActorData, int>*)).MethodHandle;
-						}
 						incomingKnockbacks.Add(key, 1);
 					}
 					else
@@ -263,26 +162,8 @@ public class ClientEffectResults
 					}
 					if (value.KnockbackSourceActor != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!outgoingKnockbacks.ContainsKey(value.KnockbackSourceActor))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							outgoingKnockbacks.Add(value.KnockbackSourceActor, 1);
 						}
 						else
@@ -294,15 +175,6 @@ public class ClientEffectResults
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -311,19 +183,6 @@ public class ClientEffectResults
 		bool result;
 		if (sequenceSource != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.ContainsSequenceSource(SequenceSource)).MethodHandle;
-			}
 			result = this.ContainsSequenceSourceID(sequenceSource.RootID);
 		}
 		else
@@ -338,34 +197,12 @@ public class ClientEffectResults
 		bool result = false;
 		if (this.m_seqStartDataList != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.ContainsSequenceSourceID(uint)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_seqStartDataList.Count; i++)
 			{
 				if (this.m_seqStartDataList[i].ContainsSequenceSourceID(id))
 				{
 					return true;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -399,19 +236,6 @@ public class ClientEffectResults
 			{
 				ClientActorHitResults clientActorHitResults = enumerator.Current;
 				clientActorHitResults.IsMovementHit = true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectResults.MarkActorHitsAsMovementHits()).MethodHandle;
 			}
 		}
 	}

@@ -59,19 +59,6 @@ public class MantaRegeneration : Ability
 		StandardActorEffectData cachedHealEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.SetCachedFields()).MethodHandle;
-			}
 			cachedHealEffectData = this.m_abilityMod.m_healEffectDataMod.GetModifiedValue(this.m_healEffectData);
 		}
 		else
@@ -82,15 +69,6 @@ public class MantaRegeneration : Ability
 		StandardEffectInfo cachedOtherSelfEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedOtherSelfEffect = this.m_abilityMod.m_otherSelfEffectMod.GetModifiedValue(this.m_otherSelfEffect);
 		}
 		else
@@ -105,19 +83,6 @@ public class MantaRegeneration : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetMaxRegeneration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxRegenerationMod.GetModifiedValue(this.m_maxRegeneration);
 		}
 		else
@@ -132,19 +97,6 @@ public class MantaRegeneration : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetTurnsOfRegeneration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_turnsOfRegenerationMod.GetModifiedValue(this.m_turnsOfRegeneration);
 		}
 		else
@@ -159,19 +111,6 @@ public class MantaRegeneration : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetDamageToHealRatio()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageToHealRatioMod.GetModifiedValue(this.m_damageToHealRatio);
 		}
 		else
@@ -191,19 +130,6 @@ public class MantaRegeneration : Ability
 		AbilityModCooldownReduction result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.GetCooldownReductionOnNoDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownReductionsWhenNoHits;
 		}
 		else
@@ -227,19 +153,6 @@ public class MantaRegeneration : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MantaRegeneration))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaRegeneration.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_MantaRegeneration);
 			this.Setup();
 		}

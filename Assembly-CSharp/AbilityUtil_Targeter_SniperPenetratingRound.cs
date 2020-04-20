@@ -29,19 +29,6 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 		base.UpdateTargeting(currentTarget, targetingActor);
 		if (this.m_knockbackNearbyEnemies)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SniperPenetratingRound.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_knockbackDistance > 0f)
 			{
 				int num = 0;
@@ -54,39 +41,12 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 						ActorData actorData = enumerator.Current;
 						if (actorData.GetTeam() != targetingActor.GetTeam())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.ActorMeetKnockbackConditions(actorData, targetingActor))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								float num2 = VectorUtils.HorizontalPlaneDistInSquares(actorData.GetTravelBoardSquareWorldPosition(), targetingActor.GetTravelBoardSquareWorldPosition());
 								bool flag;
 								if (this.m_knockbackThresholdDistance > 0f)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									flag = (num2 < this.m_knockbackThresholdDistance);
 								}
 								else
@@ -96,29 +56,11 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 								bool flag2 = flag;
 								if (flag2)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, currentTarget.AimDirection, targetingActor.GetTravelBoardSquareWorldPosition(), this.m_knockbackDistance);
 									num = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num, false);
 								}
 							}
 						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				base.SetMovementArrowEnabledFromIndex(num, false);
@@ -130,19 +72,6 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 	{
 		if (this.m_knockbackNearbyEnemies && this.m_knockbackDistance > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SniperPenetratingRound.ActorMeetKnockbackConditions(ActorData, ActorData)).MethodHandle;
-			}
 			return this.m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetTravelBoardSquareWorldPosition(), caster.GetTravelBoardSquareWorldPosition()) < this.m_knockbackThresholdDistance;
 		}
 		return false;

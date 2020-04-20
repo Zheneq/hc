@@ -29,19 +29,6 @@ public class LineRendererController : MonoBehaviour
 		float num = 0f;
 		if (this.m_scaleEntries != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineRendererController.GetTotalDuration()).MethodHandle;
-			}
 			if (this.m_scaleEntries.Length > 0)
 			{
 				num = this.m_scaleEntries[this.m_scaleEntries.Length - 1].m_time;
@@ -49,26 +36,8 @@ public class LineRendererController : MonoBehaviour
 		}
 		if (this.m_alphaEntries != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_alphaEntries.Length > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Max(num, this.m_alphaEntries[this.m_alphaEntries.Length - 1].m_time);
 			}
 		}
@@ -83,30 +52,8 @@ public class LineRendererController : MonoBehaviour
 	{
 		if (this.m_parentParticleSystem)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineRendererController.Update()).MethodHandle;
-			}
 			if (this.m_lineRenderer)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lineRenderer.positionCount = this.m_positions.Length;
 				for (int i = 0; i < this.m_positions.Length; i++)
 				{
@@ -128,15 +75,6 @@ public class LineRendererController : MonoBehaviour
 		this.m_lineRenderer = base.GetComponent<LineRenderer>();
 		if (base.transform.parent)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_parentParticleSystem = base.transform.parent.GetComponent<ParticleSystem>();
 		}
 	}
@@ -146,19 +84,6 @@ public class LineRendererController : MonoBehaviour
 		float result = 1f;
 		if (entries != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LineRendererController.GetValue(float, FloatTimeEntry[])).MethodHandle;
-			}
 			if (entries.Length > 0)
 			{
 				int num = entries.Length;
@@ -175,15 +100,6 @@ public class LineRendererController : MonoBehaviour
 						}
 						if (num == entries.Length)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return entries[entries.Length - 1].m_value;
 						}
 						float time = entries[num].m_time;

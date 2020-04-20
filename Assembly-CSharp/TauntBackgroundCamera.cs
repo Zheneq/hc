@@ -29,44 +29,13 @@ public class TauntBackgroundCamera : MonoBehaviour
 	{
 		if (camType == global::CameraType.Animated)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.OnCamShotStart(global::CameraType)).MethodHandle;
-			}
 			if (this.m_animatedCameraComp != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_animatedCameraComp.enabled = true;
 			}
 		}
 		if (camType == global::CameraType.Fixed_CasterAndTargets)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_fixedCasterAndTargetCam != null)
 			{
 				this.m_fixedCasterAndTargetCam.enabled = true;
@@ -78,33 +47,11 @@ public class TauntBackgroundCamera : MonoBehaviour
 	{
 		if (this.m_animatedCameraComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.OnCamShotStop()).MethodHandle;
-			}
 			this.m_animatedCameraComp.SetAnimator(null);
 			this.m_animatedCameraComp.enabled = false;
 		}
 		if (this.m_fixedCasterAndTargetCam != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_fixedCasterAndTargetCam.SetAnimator(null);
 			this.m_fixedCasterAndTargetCam.enabled = false;
 		}
@@ -114,19 +61,6 @@ public class TauntBackgroundCamera : MonoBehaviour
 	{
 		if (this.m_fixedCasterAndTargetCam != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.SetFixedCasterAndTargetObj(GameObject)).MethodHandle;
-			}
 			this.m_fixedCasterAndTargetCam.SetAnimator(obj);
 		}
 	}
@@ -135,41 +69,10 @@ public class TauntBackgroundCamera : MonoBehaviour
 	{
 		if (this.m_camera != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TauntBackgroundCamera.LateUpdate()).MethodHandle;
-			}
 			if (Camera.main != null && CameraManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (CameraManager.Get().ShotSequence != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_camera.fieldOfView = Camera.main.fieldOfView;
 				}
 			}

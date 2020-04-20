@@ -43,19 +43,6 @@ public class ClericHammerThrow : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.Start()).MethodHandle;
-			}
 			this.m_abilityName = "ClericHammerThrow";
 		}
 		this.m_syncComp = base.GetComponent<Cleric_SyncComponent>();
@@ -87,19 +74,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo cachedOuterEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.SetCachedFields()).MethodHandle;
-			}
 			cachedOuterEnemyHitEffect = this.m_abilityMod.m_outerEnemyHitEffectMod.GetModifiedValue(this.m_outerEnemyHitEffect);
 		}
 		else
@@ -110,15 +84,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo cachedInnerEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedInnerEnemyHitEffect = this.m_abilityMod.m_innerEnemyHitEffectMod.GetModifiedValue(this.m_innerEnemyHitEffect);
 		}
 		else
@@ -129,15 +94,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo cachedOuterEnemyHitEffectWithNoInnerHits;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedOuterEnemyHitEffectWithNoInnerHits = this.m_abilityMod.m_outerEnemyHitEffectWithNoInnerHits.GetModifiedValue(null);
 		}
 		else
@@ -152,19 +108,6 @@ public class ClericHammerThrow : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetMaxDistToRingCenter()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxDistToRingCenterMod.GetModifiedValue(this.m_maxDistToRingCenter);
 		}
 		else
@@ -179,19 +122,6 @@ public class ClericHammerThrow : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetOuterRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_outerRadiusMod.GetModifiedValue(this.m_outerRadius);
 		}
 		else
@@ -211,19 +141,6 @@ public class ClericHammerThrow : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.IgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_ignoreLosMod.GetModifiedValue(this.m_ignoreLos);
 		}
 		else
@@ -238,19 +155,6 @@ public class ClericHammerThrow : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.ClampRingToCursorPos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_clampRingToCursorPosMod.GetModifiedValue(this.m_clampRingToCursorPos);
 		}
 		else
@@ -270,19 +174,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedOuterEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetOuterEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedOuterEnemyHitEffect;
 		}
 		else
@@ -297,19 +188,6 @@ public class ClericHammerThrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetInnerHitDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_innerHitDamageMod.GetModifiedValue(this.m_innerHitDamage);
 		}
 		else
@@ -324,19 +202,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedInnerEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetInnerEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedInnerEnemyHitEffect;
 		}
 		else
@@ -351,19 +216,6 @@ public class ClericHammerThrow : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedOuterEnemyHitEffectWithNoInnerHits != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetOuterEnemyHitEffectWithNoInnerHits()).MethodHandle;
-			}
 			result = this.m_cachedOuterEnemyHitEffectWithNoInnerHits;
 		}
 		else
@@ -378,19 +230,6 @@ public class ClericHammerThrow : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetExtraInnerDamagePerOuterHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraInnerDamagePerOuterHit.GetModifiedValue(0);
 		}
 		else
@@ -416,19 +255,6 @@ public class ClericHammerThrow : Ability
 	{
 		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0 && this.m_cachedRadiusToHitData.Count > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
 			ClericHammerThrow.RadiusToHitData bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData<ClericHammerThrow.RadiusToHitData>(this.m_cachedRadiusToHitData, targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, base.ActorData, true);
 			if (bestMatchingData != null)
@@ -436,15 +262,6 @@ public class ClericHammerThrow : Ability
 				int num = 0;
 				if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Tertiary) == 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Tertiary) * this.GetExtraInnerDamagePerOuterHit();
 				}
 				results.m_damage = bestMatchingData.m_damage + num;
@@ -458,19 +275,6 @@ public class ClericHammerThrow : Ability
 	{
 		if (caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClericHammerThrow.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			return this.GetExtraTPGainInAreaBuff() * base.Targeter.GetNumActorsInRange();
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);

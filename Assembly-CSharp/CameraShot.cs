@@ -35,48 +35,17 @@ public class CameraShot
 		this.m_time = 0f;
 		if (this.m_type != global::CameraType.Isometric)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.Begin(uint, ActorData)).MethodHandle;
-			}
 			CameraManager.Get().OnSpecialCameraShotBehaviorEnable(this.m_transitionInType);
 		}
 		FadeObjectsCameraComponent component = Camera.main.GetComponent<FadeObjectsCameraComponent>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.ClearDesiredVisibleObjects();
 			component.AddDesiredVisibleObject(actor.gameObject);
 		}
 		CameraShot.SetAnimParamsForActor(actor, this.m_animParamToSetOnBegin);
 		if (this.m_animParamToSetOnEndOfTurn.Count > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraShot.CharacterToAnimParamSetActions animParamSetActions = new CameraShot.CharacterToAnimParamSetActions(actor, this.m_animParamToSetOnEndOfTurn);
 			CameraManager.Get().AddAnimParamSetActions(animParamSetActions);
 		}
@@ -86,26 +55,8 @@ public class CameraShot
 		{
 			if (type != global::CameraType.Fixed_CasterAndTargets)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type != global::CameraType.Isometric)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			else
@@ -113,15 +64,6 @@ public class CameraShot
 				Fixed_CasterAndTargetsCamera component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
 				if (component2 == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Camera.main.gameObject.AddComponent<Fixed_CasterAndTargetsCamera>();
 					component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
 					Log.Warning("Missing Fixed_CasterAndTargetsCamera component on main camera. Generating dynamically for now.", new object[0]);
@@ -130,15 +72,6 @@ public class CameraShot
 				component2.SetAnimator(this.m_cameraPoseObject);
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorData> list = SequenceManager.Get().FindSequenceTargets(actor);
 					using (List<ActorData>.Enumerator enumerator = list.GetEnumerator())
 					{
@@ -147,56 +80,20 @@ public class CameraShot
 							ActorData actorData = enumerator.Current;
 							if (actorData != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								component.AddDesiredVisibleObject(actorData.gameObject);
 							}
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 				AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_action_cam", null);
 				if (mixerSnapshotManager != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					mixerSnapshotManager.SetMix_TauntCam();
 				}
 				component2.enabled = true;
 				actor.m_hideNameplate = true;
 				if (CameraManager.Get().TauntBackgroundCamera != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
 					CameraManager.Get().TauntBackgroundCamera.SetFixedCasterAndTargetObj(this.m_cameraPoseObject);
 					CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(this.m_type);
@@ -208,15 +105,6 @@ public class CameraShot
 			AnimatedCamera component3 = Camera.main.GetComponent<AnimatedCamera>();
 			if (component3 == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Camera.main.gameObject.AddComponent<AnimatedCamera>();
 				component3 = Camera.main.GetComponent<AnimatedCamera>();
 				Log.Warning("Missing AnimatedCamera component on main camera. Generating dynamically for now.", new object[0]);
@@ -227,30 +115,12 @@ public class CameraShot
 			AudioManager.PostEvent("Set_state_action_cam", null);
 			if (mixerSnapshotManager != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				mixerSnapshotManager.SetMix_TauntCam();
 			}
 			actor.m_hideNameplate = true;
 			component3.enabled = true;
 			if (CameraManager.Get().TauntBackgroundCamera != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(true);
 				CameraManager.Get().TauntBackgroundCamera.SetAnimatedCameraTargetObj(this.m_cameraPoseObject);
 				CameraManager.Get().TauntBackgroundCamera.OnCamShotStart(this.m_type);
@@ -263,19 +133,6 @@ public class CameraShot
 		FadeObjectsCameraComponent component = Camera.main.GetComponent<FadeObjectsCameraComponent>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.End(ActorData)).MethodHandle;
-			}
 			component.ResetDesiredVisibleObjects();
 		}
 		actor.m_hideNameplate = false;
@@ -284,26 +141,8 @@ public class CameraShot
 		{
 			if (type != global::CameraType.Fixed_CasterAndTargets)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (type != global::CameraType.Isometric)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 			}
 			else
@@ -311,15 +150,6 @@ public class CameraShot
 				Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>().enabled = false;
 				if (CameraManager.Get().TauntBackgroundCamera != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CameraManager.Get().TauntBackgroundCamera.OnCamShotStop();
 					CameraManager.Get().TauntBackgroundCamera.gameObject.SetActive(false);
 				}
@@ -347,41 +177,10 @@ public class CameraShot
 		float result = this.m_fieldOfView;
 		if (this.m_type == global::CameraType.Animated)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.GetFieldOfView()).MethodHandle;
-			}
 			if (this.m_useAnimatedFov)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_cameraPoseObject != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_cameraPoseObject.transform.localScale.z > 1f)
 					{
 						return this.m_cameraPoseObject.transform.localScale.z;
@@ -400,56 +199,16 @@ public class CameraShot
 	{
 		if (actor != null && actor.GetModelAnimator() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.SetAnimParamsForActor(ActorData, List<CameraShot.AnimParamSetAction>)).MethodHandle;
-			}
 			if (paramSetActions != null)
 			{
 				foreach (CameraShot.AnimParamSetAction animParamSetAction in paramSetActions)
 				{
 					if (animParamSetAction.m_paramName.Length > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (animParamSetAction.m_isTrigger)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (animParamSetAction.m_paramValue != 0)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								actor.GetModelAnimator().SetTrigger(animParamSetAction.m_paramName);
 							}
 							else
@@ -474,19 +233,6 @@ public class CameraShot
 		bool result;
 		if (this.m_time >= this.m_duration)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CameraShot.Update()).MethodHandle;
-			}
 			result = (this.m_duration <= 0f);
 		}
 		else

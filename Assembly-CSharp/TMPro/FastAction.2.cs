@@ -13,19 +13,6 @@ namespace TMPro
 		{
 			if (this.lookup.ContainsKey(rhs))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FastAction.Add(Action<A>)).MethodHandle;
-				}
 				return;
 			}
 			this.lookup[rhs] = this.delegates.AddLast(rhs);
@@ -36,19 +23,6 @@ namespace TMPro
 			LinkedListNode<Action<A>> node;
 			if (this.lookup.TryGetValue(rhs, out node))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FastAction.Remove(Action<A>)).MethodHandle;
-				}
 				this.lookup.Remove(rhs);
 				this.delegates.Remove(node);
 			}

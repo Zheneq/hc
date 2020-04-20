@@ -86,19 +86,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_NanoSmithWeaponsOfWar.m_allyTargetEffectOverride.GetModifiedValue(this.m_targetAllyOnHitEffect);
 		}
 		else
@@ -111,15 +98,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		int val;
 		if (abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_NanoSmithWeaponsOfWar.m_sweepDamageMod.GetModifiedValue(this.m_sweepDamageAmount);
 		}
 		else
@@ -131,15 +109,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_NanoSmithWeaponsOfWar.m_enemySweepOnHitEffectOverride.GetModifiedValue(this.m_enemySweepOnHitEffect);
 		}
 		else
@@ -150,15 +119,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_NanoSmithWeaponsOfWar)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_NanoSmithWeaponsOfWar.m_allySweepOnHitEffectOverride.GetModifiedValue(this.m_allySweepOnHitEffect);
 		}
 		else
@@ -191,19 +151,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetSweepDamage()).MethodHandle;
-			}
 			result = this.m_sweepDamageAmount;
 		}
 		else
@@ -218,19 +165,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetShieldGainPerTurn()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -245,19 +179,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetAllyTargetEffect()).MethodHandle;
-			}
 			result = this.m_targetAllyOnHitEffect;
 		}
 		else
@@ -272,19 +193,6 @@ public class NanoSmithWeaponsOfWar : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithWeaponsOfWar.GetAllySweepEffect()).MethodHandle;
-			}
 			result = this.m_allySweepOnHitEffect;
 		}
 		else

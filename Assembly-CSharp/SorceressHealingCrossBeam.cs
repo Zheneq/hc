@@ -65,19 +65,6 @@ public class SorceressHealingCrossBeam : Ability
 		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, this.m_healAmount));
 		if (this.m_alsoHealSelf)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, this.m_healAmount));
 		}
 		return list;
@@ -103,45 +90,14 @@ public class SorceressHealingCrossBeam : Ability
 						goto IL_8B;
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 			}
 			IL_8B:
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Damage] = this.GetDamageAmount(numTargetsInLaser);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary[AbilityTooltipSymbol.Healing] = this.GetHealAmount(numTargetsInLaser);
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
@@ -160,19 +116,6 @@ public class SorceressHealingCrossBeam : Ability
 		int val;
 		if (abilityMod_SorceressHealingCrossBeam)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SorceressHealingCrossBeam.m_normalDamageMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -183,15 +126,6 @@ public class SorceressHealingCrossBeam : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_SorceressHealingCrossBeam)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_SorceressHealingCrossBeam.m_enemyEffectOverride.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -204,15 +138,6 @@ public class SorceressHealingCrossBeam : Ability
 		int val2;
 		if (abilityMod_SorceressHealingCrossBeam)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SorceressHealingCrossBeam.m_normalHealingMod.GetModifiedValue(this.m_healAmount);
 		}
 		else
@@ -223,15 +148,6 @@ public class SorceressHealingCrossBeam : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_SorceressHealingCrossBeam)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_SorceressHealingCrossBeam.m_allyEffectOverride.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -244,15 +160,6 @@ public class SorceressHealingCrossBeam : Ability
 		int val3;
 		if (abilityMod_SorceressHealingCrossBeam)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_SorceressHealingCrossBeam.m_laserNumberMod.GetModifiedValue(this.m_numLasers);
 		}
 		else
@@ -266,19 +173,6 @@ public class SorceressHealingCrossBeam : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SorceressHealingCrossBeam))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SorceressHealingCrossBeam);
 			this.SetupTargeter();
 		}
@@ -299,19 +193,6 @@ public class SorceressHealingCrossBeam : Ability
 		int result = this.m_numLasers;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetNumLasers()).MethodHandle;
-			}
 			result = Mathf.Max(1, this.m_abilityMod.m_laserNumberMod.GetModifiedValue(this.m_numLasers));
 		}
 		return result;
@@ -322,41 +203,10 @@ public class SorceressHealingCrossBeam : Ability
 		int result = this.m_damageAmount;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetDamageAmount(int)).MethodHandle;
-			}
 			if (numTargetsInLaser == 1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_useSingleTargetHitMods)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_abilityMod.m_singleTargetDamageMod.GetModifiedValue(this.m_damageAmount);
 				}
 			}
@@ -370,41 +220,10 @@ public class SorceressHealingCrossBeam : Ability
 		int result = this.m_healAmount;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetHealAmount(int)).MethodHandle;
-			}
 			if (numTargetsInLaser == 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_useSingleTargetHitMods)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_abilityMod.m_singleTargetHealingMod.GetModifiedValue(this.m_healAmount);
 				}
 			}
@@ -423,19 +242,6 @@ public class SorceressHealingCrossBeam : Ability
 		StandardEffectInfo result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_allyHitEffect;
 		}
 		else
@@ -450,19 +256,6 @@ public class SorceressHealingCrossBeam : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_width;
 		}
 		else
@@ -477,19 +270,6 @@ public class SorceressHealingCrossBeam : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_distance;
 		}
 		else
@@ -509,19 +289,6 @@ public class SorceressHealingCrossBeam : Ability
 		KnockbackType result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetKnockbackType()).MethodHandle;
-			}
 			result = KnockbackType.AwayFromSource;
 		}
 		else
@@ -536,19 +303,6 @@ public class SorceressHealingCrossBeam : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SorceressHealingCrossBeam.GetKnockbackThresholdDistance()).MethodHandle;
-			}
 			result = -1f;
 		}
 		else

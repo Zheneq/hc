@@ -53,32 +53,10 @@ public class MatchObjectiveKill : MatchObjective
 			{
 				if (this.m_characterTypeOverrides[i].IsOverrideRelevantForActor(actor))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.GetPointAdjusts(ActorData, int*, int*)).MethodHandle;
-					}
 					pointsForDyingTeam = this.m_characterTypeOverrides[i].m_pointAdjustOverrideForDyingTeam;
 					pointsForKillingTeam = this.m_characterTypeOverrides[i].m_pointAdjustOverrideForKillingTeam;
 					return;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -89,30 +67,8 @@ public class MatchObjectiveKill : MatchObjective
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
 		if (objectivePoints != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.Server_OnActorDeath(ActorData)).MethodHandle;
-			}
 			if (this.IsActorRelevant(actor))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int adjustAmount;
 				int adjustAmount2;
 				this.GetPointAdjusts(actor, out adjustAmount, out adjustAmount2);
@@ -128,19 +84,6 @@ public class MatchObjectiveKill : MatchObjective
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
 		if (objectivePoints != null && this.IsActorRelevant(actor))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.Client_OnActorDeath(ActorData)).MethodHandle;
-			}
 			int adjustAmount;
 			int num;
 			this.GetPointAdjusts(actor, out adjustAmount, out num);
@@ -151,15 +94,6 @@ public class MatchObjectiveKill : MatchObjective
 			Team teamToAdjust;
 			if (team == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				teamToAdjust = Team.TeamB;
 			}
 			else
@@ -186,19 +120,6 @@ public class MatchObjectiveKill : MatchObjective
 				if (!(actor.GetCharacterResourceLink() == null))
 				{
 					return this.m_killedCharacterTypes.Contains(actor.GetCharacterResourceLink().m_characterType);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MatchObjectiveKill.CharacterKillPointAdjustOverride.IsOverrideRelevantForActor(ActorData)).MethodHandle;
 				}
 			}
 			return false;

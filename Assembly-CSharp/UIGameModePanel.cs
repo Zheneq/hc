@@ -22,19 +22,6 @@ public class UIGameModePanel : MonoBehaviour
 			string text = this.m_getInfoString();
 			if (text != this.m_infoLabel.text)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameModePanel.Update()).MethodHandle;
-				}
 				this.m_infoLabel.text = text;
 			}
 		}

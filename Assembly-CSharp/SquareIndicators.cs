@@ -32,30 +32,8 @@ public class SquareIndicators
 			GameObject gameObject = this.m_createIndicatorDelegate();
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SquareIndicators.Initialize()).MethodHandle;
-				}
 				this.m_indicators.Add(gameObject);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -75,33 +53,11 @@ public class SquareIndicators
 		{
 			if (HighlightUtils.Get() == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SquareIndicators.ShowIndicatorForSquare(BoardSquare)).MethodHandle;
-				}
 			}
 			else
 			{
 				if (this.m_indicators.Count > 0xC8)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_nextIndicatorIndex;
 				}
 				if (this.m_nextIndicatorIndex >= this.m_indicators.Count)
@@ -109,15 +65,6 @@ public class SquareIndicators
 					for (int i = 0; i < this.m_allocateIncrement; i++)
 					{
 						this.m_indicators.Add(this.m_createIndicatorDelegate());
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Vector3 position = square.ToVector3();
@@ -139,19 +86,6 @@ public class SquareIndicators
 			{
 				if (!this.m_indicators[i].activeSelf)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SquareIndicators.HideAllSquareIndicators(int)).MethodHandle;
-					}
 					IL_76:
 					this.m_nextIndicatorIndex = fromIndex;
 					return;

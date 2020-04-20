@@ -22,19 +22,6 @@ public class TeamCompositionRules
 			bool result;
 			if (team == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TeamCompositionRules.MatchesSlotType(TeamCompositionRules.SlotTypes, Team, int)).MethodHandle;
-				}
 				result = (slot == 1);
 			}
 			else
@@ -48,15 +35,6 @@ public class TeamCompositionRules
 			bool result2;
 			if (team == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result2 = (slot == 2);
 			}
 			else
@@ -70,15 +48,6 @@ public class TeamCompositionRules
 			bool result3;
 			if (team == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result3 = (slot == 3);
 			}
 			else
@@ -92,15 +61,6 @@ public class TeamCompositionRules
 			bool result4;
 			if (team == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result4 = (slot == 4);
 			}
 			else
@@ -114,15 +74,6 @@ public class TeamCompositionRules
 			bool result5;
 			if (team == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result5 = (slot == 5);
 			}
 			else
@@ -140,15 +91,6 @@ public class TeamCompositionRules
 			bool result6;
 			if (team == Team.TeamB)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result6 = (slot == 3);
 			}
 			else
@@ -164,15 +106,6 @@ public class TeamCompositionRules
 			bool result7;
 			if (team == Team.TeamB)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result7 = (slot == 5);
 			}
 			else
@@ -201,19 +134,6 @@ public class TeamCompositionRules
 		bool result;
 		if (this.Rules != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamCompositionRules.IsCharacterAllowed(CharacterType, IFreelancerSetQueryInterface)).MethodHandle;
-			}
 			result = this.Rules.Values.ToList<FreelancerSet>().Exists((FreelancerSet p) => p.IsCharacterAllowed(freelancer, qi));
 		}
 		else
@@ -232,30 +152,8 @@ public class TeamCompositionRules
 				KeyValuePair<TeamCompositionRules.SlotTypes, FreelancerSet> keyValuePair = enumerator.Current;
 				if (this.MatchesSlotType(keyValuePair.Key, team, slot))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TeamCompositionRules.IsCharacterAllowedInSlot(CharacterType, Team, int, IFreelancerSetQueryInterface)).MethodHandle;
-					}
 					return keyValuePair.Value.IsCharacterAllowed(freelancer, qi);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new Exception(string.Format("There is no TeamComposition Rule to cover team {0} slot {1}", team, slot));
@@ -271,19 +169,6 @@ public class TeamCompositionRules
 				KeyValuePair<TeamCompositionRules.SlotTypes, FreelancerSet> keyValuePair = enumerator.Current;
 				hashSet.UnionWith(keyValuePair.Value.GetAllowedCharacters(qi));
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamCompositionRules.GetAllowedFreelancers(IFreelancerSetQueryInterface)).MethodHandle;
-			}
 		}
 		return hashSet.ToList<CharacterType>();
 	}
@@ -293,19 +178,6 @@ public class TeamCompositionRules
 		List<CharacterType> allowedFreelancers = this.GetAllowedFreelancers(qi);
 		if (allowedFreelancers.Count == 1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamCompositionRules.GenerateFailure(IQueueRequirementApplicant, IFreelancerSetQueryInterface)).MethodHandle;
-			}
 			return LocalizationPayload.Create("XMustHaveAccessToY", "Matchmaking", new LocalizationArg[]
 			{
 				applicant.LocalizedHandle,
@@ -338,19 +210,6 @@ public class TeamCompositionRules
 		List<CharacterType> allowedFreelancers = this.GetAllowedFreelancers(qi);
 		if (resolvedDuplicationRule == FreelancerDuplicationRuleTypes.noneInGame)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TeamCompositionRules.ValidateSelf(IFreelancerSetQueryInterface, LobbyGameConfig, FreelancerDuplicationRuleTypes, string)).MethodHandle;
-			}
 			if (allowedFreelancers.Count<CharacterType>() < gameConfig.TotalHumanPlayers)
 			{
 				throw new Exception(string.Format("The {0} sub type {1} has been poorly configured. DuplicationRule=noneInGame & only {2} freelancers in AllowedFreelancers", gameConfig.GameType, subTypeName, allowedFreelancers.Count<CharacterType>()));
@@ -358,15 +217,6 @@ public class TeamCompositionRules
 		}
 		else if (resolvedDuplicationRule == FreelancerDuplicationRuleTypes.noneInTeam && allowedFreelancers.Count<CharacterType>() < gameConfig.MaxGroupSize)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			throw new Exception(string.Format("The {0} sub type {1} has been poorly configured. DuplicationRule=noneInTeam & only {2} freelancers in AllowedFreelancers", gameConfig.GameType, subTypeName, allowedFreelancers.Count<CharacterType>()));
 		}
 	}

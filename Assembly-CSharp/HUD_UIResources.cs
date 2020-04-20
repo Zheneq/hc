@@ -164,19 +164,6 @@ public class HUD_UIResources : MonoBehaviour
 				return i;
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetPracticeModeCurrentLanguageIndex(int, string)).MethodHandle;
-		}
 		return 0;
 	}
 
@@ -205,19 +192,6 @@ public class HUD_UIResources : MonoBehaviour
 			texture2D = HUD_UIResources.BlurImage(texture2D, radius, true, alpha);
 			texture2D = HUD_UIResources.BlurImage(texture2D, radius, false, alpha);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.FastBlur(Texture2D, int, int, float)).MethodHandle;
-		}
 		return texture2D;
 	}
 
@@ -228,19 +202,6 @@ public class HUD_UIResources : MonoBehaviour
 		int height = image.height;
 		if (horizontal)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.BlurImage(Texture2D, int, bool, float)).MethodHandle;
-			}
 			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
@@ -249,15 +210,6 @@ public class HUD_UIResources : MonoBehaviour
 					int k = j;
 					while (k < j + blurSize)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (k >= width)
 						{
 							for (;;)
@@ -280,15 +232,6 @@ public class HUD_UIResources : MonoBehaviour
 					k = j;
 					while (k > j - blurSize)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (k <= 0)
 						{
 							for (;;)
@@ -312,15 +255,6 @@ public class HUD_UIResources : MonoBehaviour
 					k = j;
 					while (k < j + blurSize)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (k >= width)
 						{
 							for (;;)
@@ -341,15 +275,6 @@ public class HUD_UIResources : MonoBehaviour
 					}
 					IL_11C:;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -406,30 +331,12 @@ public class HUD_UIResources : MonoBehaviour
 					HUD_UIResources.CalcPixel();
 					for (l = i; l < i + blurSize; l++)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (l >= height)
 						{
 							break;
 						}
 						texture2D.SetPixel(j, l, new Color(HUD_UIResources.avgR, HUD_UIResources.avgG, HUD_UIResources.avgB, alpha));
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -474,19 +381,6 @@ public class HUD_UIResources : MonoBehaviour
 	{
 		if (parent == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.SetParentAndAlign(GameObject, GameObject)).MethodHandle;
-			}
 			return;
 		}
 		child.transform.SetParent(parent.transform, false);
@@ -522,67 +416,18 @@ public class HUD_UIResources : MonoBehaviour
 		{
 			if (HUD_UIResources.Get().m_statusIconList[i].displayIcon)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetIconForStatusType(StatusType)).MethodHandle;
-				}
 				if (HUD_UIResources.Get().m_statusIconList[i].icon != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (HUD_UIResources.Get().m_statusIconList[i].type == statusType)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						result.displayInStatusList = HUD_UIResources.Get().m_statusIconList[i].displayInStatusList;
 						result = HUD_UIResources.Get().m_statusIconList[i];
 						if (HUD_UIResources.Get().m_statusIconList[i].popupText != string.Empty)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result.popupText = StringUtil.GetStatusIconPopupText(i + 1);
 						}
 						if (HUD_UIResources.Get().m_statusIconList[i].buffDescription == string.Empty)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result.buffDescription = statusType.ToString() + "#NotLocalized";
 						}
 						else
@@ -591,15 +436,6 @@ public class HUD_UIResources : MonoBehaviour
 						}
 						if (HUD_UIResources.Get().m_statusIconList[i].buffName == string.Empty)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result.buffName = statusType.ToString() + "#NotLocalized";
 						}
 						else
@@ -623,19 +459,6 @@ public class HUD_UIResources : MonoBehaviour
 		}
 		else if (number <= (float)HUD_UIResources.Get().m_lowestScaleDisplayNumber)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetScaledCombatTextSize(float)).MethodHandle;
-			}
 			result = HUD_UIResources.Get().m_minScaleSizeOfCombatText;
 		}
 		else
@@ -650,32 +473,10 @@ public class HUD_UIResources : MonoBehaviour
 	{
 		if (iconType == BuffIconToDisplay.BoostedDamage)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HUD_UIResources.GetCombatTextIconSprite(BuffIconToDisplay)).MethodHandle;
-			}
 			return this.m_boostedDamageIconSprite;
 		}
 		if (iconType == BuffIconToDisplay.ReducedDamage)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return this.m_reducedDamageIconSprite;
 		}
 		return null;

@@ -127,19 +127,6 @@ public class UIPlayerProgressPanel : UIScene
 		{
 			this.m_menuButtons[i].RegisterClickCallback(new Action<UIContentNavButton>(this.NotifyMenuButtonClicked));
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.Awake()).MethodHandle;
-		}
 		this.m_subPanels = new List<UIPlayerProgressSubPanel>();
 		this.m_subPanels.Add(this.m_overviewPanel);
 		this.m_subPanels.Add(this.m_bannersPanel);
@@ -173,15 +160,6 @@ public class UIPlayerProgressPanel : UIScene
 		ClientGameManager.Get().OnServerQueueConfigurationUpdateNotification += this.OnServerQueueConfigurationUpdateNotification;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		this.OnServerQueueConfigurationUpdateNotification(null);
@@ -198,19 +176,6 @@ public class UIPlayerProgressPanel : UIScene
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OnDestroy()).MethodHandle;
-			}
 			return;
 		}
 		clientGameManager.OnPlayerTitleChange -= this.OnPlayerTitleChange;
@@ -232,55 +197,15 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (this.m_isVisible != visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.SetVisible(bool, bool)).MethodHandle;
-			}
 			if (UILootMatrixScreen.Get() != null && UILootMatrixScreen.Get().IsOpening())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				if (this.m_isInTransition)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (visible)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 				}
@@ -303,15 +228,6 @@ public class UIPlayerProgressPanel : UIScene
 				UIManager.SetGameObjectActive(this.m_playerProgressClickBlocker, visible, null);
 				if (this.m_isInTransition && !visible)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
 					UIManager.SetGameObjectActive(base.gameObject, false, null);
 					this.m_isInTransition = false;
@@ -319,26 +235,8 @@ public class UIPlayerProgressPanel : UIScene
 				}
 				if (visible)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UIGameSettingsPanel.Get().m_lastVisible)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIGameSettingsPanel.Get().CancelClicked(null);
 					}
 					this.m_isInTransition = true;
@@ -369,15 +267,6 @@ public class UIPlayerProgressPanel : UIScene
 					this.OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 					if (this.m_matchHistory == null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClientGameManager.Get().QueryPlayerMatchData(delegate(PlayerMatchDataResponse response)
 						{
 							if (response.Success)
@@ -388,19 +277,6 @@ public class UIPlayerProgressPanel : UIScene
 								this.m_overviewPanel.Setup(this.m_playerAccountData, this.m_charactersList);
 								if (this.m_isVisible)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIPlayerProgressPanel.<SetVisible>m__1(PlayerMatchDataResponse)).MethodHandle;
-									}
 									UIManager.SetGameObjectActive(base.gameObject, true, null);
 								}
 							}
@@ -435,67 +311,18 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (this.m_needToUpdateInfo && this.m_InfoUpdated >= 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.Update()).MethodHandle;
-			}
 			this.NotifyMenuButtonClicked(this.m_overview);
 			this.m_needToUpdateInfo = false;
 			this.m_InfoUpdated = 0;
 		}
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.IsVisible())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UIStorePanel.Get().IsWaitingForPurchaseRequest && !UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(EventSystem.current.currentSelectedGameObject == null))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() == null))
 						{
 							return;
@@ -503,15 +330,6 @@ public class UIPlayerProgressPanel : UIScene
 					}
 					if (UIStorePanel.Get().IsPurchaseDialogOpen())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIStorePanel.Get().ClosePurchaseDialog();
 					}
 					else
@@ -527,64 +345,15 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (this.m_playerAccountData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.LogPlayerChanges()).MethodHandle;
-			}
 			if (this.m_playerAccountData.AccountComponent.SelectedTitleID == this.m_originalSelectedTitleID)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_playerAccountData.AccountComponent.SelectedRibbonID == this.m_originalSelectedRibbonID)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_playerAccountData.AccountComponent.SelectedForegroundBannerID == this.m_originalSelectedForegroundBannerID)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_playerAccountData.AccountComponent.SelectedBackgroundBannerID == this.m_originalSelectedBackgroundBannerID)
 						{
 							return;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -610,30 +379,8 @@ public class UIPlayerProgressPanel : UIScene
 				KeyValuePair<CharacterType, PersistedCharacterData> keyValuePair = enumerator.Current;
 				if (keyValuePair.Key.IsValidForHumanGameplay())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OnAccountDataUpdated(PersistedAccountData)).MethodHandle;
-					}
 					num += keyValuePair.Value.ExperienceComponent.Level;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int num2 = 0;
@@ -644,28 +391,10 @@ public class UIPlayerProgressPanel : UIScene
 			QuestTemplate questTemplate = quests[i];
 			if (questTemplate.AchievmentType != AchievementType.None)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (questTemplate.Enabled)
 				{
 					if (newData.QuestComponent.GetOrCreateQuestMetaData(questTemplate.Index).CompletedCount > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 += questTemplate.AchievementPoints;
 					}
 				}
@@ -674,15 +403,6 @@ public class UIPlayerProgressPanel : UIScene
 			i++;
 			continue;
 			goto IL_198;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_matchesPlayedText.text = UIStorePanel.FormatIntToString(newData.ExperienceComponent.Matches, true);
 		this.m_freelancerLevelsText.text = UIStorePanel.FormatIntToString(num, true);
@@ -716,30 +436,8 @@ public class UIPlayerProgressPanel : UIScene
 		{
 			if (this.m_subPanels[i].IsActive)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.ClickedOnPage(UIPageIndicator)).MethodHandle;
-				}
 				this.m_subPanels[i].ClickedOnPageIndicator(pageIndicator);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -753,30 +451,8 @@ public class UIPlayerProgressPanel : UIScene
 			uicontentNavButton.SetSelected(flag);
 			if (i < this.m_subPanels.Count)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.NotifyMenuButtonClicked(UIContentNavButton)).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(this.m_subPanels[i], flag, null);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		UICharacterStoreAndProgressWorldObjects.Get().SetVisible(false);
 	}
@@ -795,19 +471,6 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (this.m_freelancerDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenFreelancerDropdown(CharacterType, Action<int>, Transform, bool, CharacterRole)).MethodHandle;
-			}
 			this.m_freelancerDropdown.AddOption(0, StringUtil.TR("AllFreelancers", "Global"), CharacterType.None);
 			IEnumerator enumerator = Enum.GetValues(typeof(CharacterRole)).GetEnumerator();
 			try
@@ -818,29 +481,11 @@ public class UIPlayerProgressPanel : UIScene
 					CharacterRole characterRole = (CharacterRole)obj;
 					if (characterRole == CharacterRole.None)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
 						this.m_freelancerDropdown.AddOption((int)(-(int)characterRole), StringUtil.TR("CharacterRole_" + characterRole, "Global"), characterRole);
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally
@@ -848,15 +493,6 @@ public class UIPlayerProgressPanel : UIScene
 				IDisposable disposable;
 				if ((disposable = (enumerator as IDisposable)) != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					disposable.Dispose();
 				}
 			}
@@ -913,20 +549,8 @@ public class UIPlayerProgressPanel : UIScene
 				}
 			}
 			List<CharacterResourceLink> list2 = list;
-			if (UIPlayerProgressPanel.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressPanel.<>f__am$cache0 = ((CharacterResourceLink x, CharacterResourceLink y) => x.GetDisplayName().CompareTo(y.GetDisplayName()));
-			}
-			list2.Sort(UIPlayerProgressPanel.<>f__am$cache0);
+			
+			list2.Sort(((CharacterResourceLink x, CharacterResourceLink y) => x.GetDisplayName().CompareTo(y.GetDisplayName())));
 			using (List<CharacterResourceLink>.Enumerator enumerator2 = list.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -937,15 +561,6 @@ public class UIPlayerProgressPanel : UIScene
 						this.m_freelancerDropdown.AddOption((int)characterResourceLink2.m_characterType, characterResourceLink2.GetDisplayName(), characterResourceLink2.m_characterType);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_freelancerDropdown.AddHitbox(this.m_statsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
 			this.m_freelancerDropdown.AddHitbox(this.m_achievementsPanel.m_freelancerDropdownBtn.m_button.spriteController.gameObject);
@@ -954,30 +569,9 @@ public class UIPlayerProgressPanel : UIScene
 		int selectedValue;
 		if (withRoles)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIPlayerProgressDropdownList freelancerDropdown = this.m_freelancerDropdown;
-			if (UIPlayerProgressPanel.<>f__am$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressPanel.<>f__am$cache1 = ((int x) => true);
-			}
-			freelancerDropdown.CheckOptionDisplayState(UIPlayerProgressPanel.<>f__am$cache1);
+			
+			freelancerDropdown.CheckOptionDisplayState(((int x) => true));
 			if (role != CharacterRole.None)
 			{
 				selectedValue = (int)(-(int)role);
@@ -990,20 +584,8 @@ public class UIPlayerProgressPanel : UIScene
 		else
 		{
 			UIPlayerProgressDropdownList freelancerDropdown2 = this.m_freelancerDropdown;
-			if (UIPlayerProgressPanel.<>f__am$cache2 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UIPlayerProgressPanel.<>f__am$cache2 = ((int x) => x >= 0);
-			}
-			freelancerDropdown2.CheckOptionDisplayState(UIPlayerProgressPanel.<>f__am$cache2);
+			
+			freelancerDropdown2.CheckOptionDisplayState(((int x) => x >= 0));
 			selectedValue = (int)selectedFreelancer;
 		}
 		this.SetupDropdown(this.m_freelancerDropdown, selectedValue, callback, parentSlot);
@@ -1013,19 +595,6 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (this.m_gameModeDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenGameModeDropdown(PersistedStatBucket, Action<int>, Transform)).MethodHandle;
-			}
 			IEnumerator enumerator = Enum.GetValues(typeof(PersistedStatBucket)).GetEnumerator();
 			try
 			{
@@ -1035,15 +604,6 @@ public class UIPlayerProgressPanel : UIScene
 					PersistedStatBucket persistedStatBucket = (PersistedStatBucket)obj;
 					if (persistedStatBucket.IsTracked())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_gameModeDropdown.AddOption((int)persistedStatBucket, StringUtil.TR_PersistedStatBucketName(persistedStatBucket), CharacterType.None);
 					}
 				}
@@ -1066,45 +626,14 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (this.m_seasonsDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenSeasonsDropdown(int, Action<int>, UIPlayerProgressDropdownBtn.ShouldShow, Transform)).MethodHandle;
-			}
 			int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 			List<SeasonTemplate> list = new List<SeasonTemplate>();
 			for (int i = 0; i < SeasonWideData.Get().m_seasons.Count; i++)
 			{
 				if (SeasonWideData.Get().m_seasons[i].DisplayStats)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(SeasonWideData.Get().m_seasons[i]);
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			list.Reverse();
 			using (List<SeasonTemplate>.Enumerator enumerator = list.GetEnumerator())
@@ -1115,15 +644,6 @@ public class UIPlayerProgressPanel : UIScene
 					string text;
 					if (seasonTemplate.Index == activeSeason)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text = StringUtil.TR("CurrentSeason", "Global");
 					}
 					else
@@ -1131,15 +651,6 @@ public class UIPlayerProgressPanel : UIScene
 						text = seasonTemplate.GetDisplayName();
 					}
 					this.m_seasonsDropdown.AddOption(seasonTemplate.Index, text, CharacterType.None);
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_seasonsDropdown.AddHitbox(this.m_statsPanel.m_seasonsDropdownBtn.m_button.spriteController.gameObject);
@@ -1153,19 +664,6 @@ public class UIPlayerProgressPanel : UIScene
 	{
 		if (this.m_achievementDropdown.Initialize())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressPanel.OpenAchievementDropdown(AchievementType, Action<int>, Transform)).MethodHandle;
-			}
 			List<AchievementType> list = new List<AchievementType>();
 			list.Add(AchievementType.None);
 			for (int i = 0; i < QuestWideData.Get().m_quests.Count; i++)
@@ -1173,29 +671,11 @@ public class UIPlayerProgressPanel : UIScene
 				AchievementType achievmentType = QuestWideData.Get().m_quests[i].AchievmentType;
 				if (achievmentType != AchievementType.None)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!list.Contains(achievmentType))
 					{
 						list.Add(achievmentType);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			list.Sort();
 			using (List<AchievementType>.Enumerator enumerator = list.GetEnumerator())
@@ -1204,15 +684,6 @@ public class UIPlayerProgressPanel : UIScene
 				{
 					AchievementType achievementType = enumerator.Current;
 					this.m_achievementDropdown.AddOption((int)achievementType, StringUtil.TR("AchievementCategory_" + achievementType, "Global"), CharacterType.None);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_achievementDropdown.AddHitbox(this.m_achievementsPanel.m_categoryDropdownBtn.m_button.spriteController.gameObject);

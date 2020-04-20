@@ -11,19 +11,6 @@ public class WaitingState : TurnState
 		AbilityData component = this.m_SM.GetComponent<AbilityData>();
 		if (component)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WaitingState.OnEnter()).MethodHandle;
-			}
 			component.ClearSelectedAbility();
 		}
 	}
@@ -32,33 +19,11 @@ public class WaitingState : TurnState
 	{
 		if (msg == TurnMessage.TURN_START)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WaitingState.OnMsg(TurnMessage, int)).MethodHandle;
-			}
 			this.m_SM.SetupForNewTurn();
 			this.m_SM.NextState = TurnStateEnum.DECIDING;
 		}
 		else if (msg == TurnMessage.RESPAWN)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SM.NextState = TurnStateEnum.RESPAWNING;
 		}
 	}

@@ -74,19 +74,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo cachedMiddleEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.SetCachedFields()).MethodHandle;
-			}
 			cachedMiddleEnemyHitEffect = this.m_abilityMod.m_middleEnemyHitEffectMod.GetModifiedValue(this.m_middleEnemyHitEffect);
 		}
 		else
@@ -97,15 +84,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo cachedSideEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedSideEnemyHitEffect = this.m_abilityMod.m_sideEnemyHitEffectMod.GetModifiedValue(this.m_sideEnemyHitEffect);
 		}
 		else
@@ -120,19 +98,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -147,19 +112,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetMidLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_midLaserWidthMod.GetModifiedValue(this.m_midLaserWidth);
 		}
 		else
@@ -174,19 +126,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetFullLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_fullLaserWidthMod.GetModifiedValue(this.m_fullLaserWidth);
 		}
 		else
@@ -201,19 +140,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetLaserMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
 		}
 		else
@@ -233,19 +159,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetMiddleDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_middleDamageMod.GetModifiedValue(this.m_middleDamage);
 		}
 		else
@@ -260,19 +173,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedMiddleEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetMiddleEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedMiddleEnemyHitEffect;
 		}
 		else
@@ -297,19 +197,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetExtraSideDamagePerMiddleHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraSideDamagePerMiddleHitMod.GetModifiedValue(this.m_extraSideDamagePerMiddleHit);
 		}
 		else
@@ -324,19 +211,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetExtraDamageOnLowHealthTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageOnLowHealthTargetMod.GetModifiedValue(this.m_extraDamageOnLowHealthTarget);
 		}
 		else
@@ -351,19 +225,6 @@ public class ClaymoreSlam : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetLowHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_lowHealthThresholdMod.GetModifiedValue(this.m_lowHealthThreshold);
 		}
 		else
@@ -378,19 +239,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetEnergyLossOnMidHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyLossOnMidHitMod.GetModifiedValue(this.m_energyLossOnMidHit);
 		}
 		else
@@ -405,19 +253,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetEnergyLossOnSideHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyLossOnSideHitMod.GetModifiedValue(this.m_energyLossOnSideHit);
 		}
 		else
@@ -432,19 +267,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetHealPerMidHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healPerMidHit.GetModifiedValue(0);
 		}
 		else
@@ -459,19 +281,6 @@ public class ClaymoreSlam : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetHealPerSideHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healPerSideHit.GetModifiedValue(0);
 		}
 		else
@@ -492,19 +301,6 @@ public class ClaymoreSlam : Ability
 		bool affectsCaster;
 		if (this.GetHealPerMidHit() <= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.Setup()).MethodHandle;
-			}
 			affectsCaster = (this.GetHealPerSideHit() > 0);
 		}
 		else
@@ -522,19 +318,6 @@ public class ClaymoreSlam : Ability
 		int val;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ClaymoreSlam.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
 		}
 		else
@@ -547,15 +330,6 @@ public class ClaymoreSlam : Ability
 		int val2;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ClaymoreSlam.m_middleDamageMod.GetModifiedValue(this.m_middleDamage);
 		}
 		else
@@ -566,15 +340,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ClaymoreSlam.m_middleEnemyHitEffectMod.GetModifiedValue(this.m_middleEnemyHitEffect);
 		}
 		else
@@ -587,15 +352,6 @@ public class ClaymoreSlam : Ability
 		int val3;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ClaymoreSlam.m_sideDamageMod.GetModifiedValue(this.m_sideDamage);
 		}
 		else
@@ -606,15 +362,6 @@ public class ClaymoreSlam : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_ClaymoreSlam.m_sideEnemyHitEffectMod.GetModifiedValue(this.m_sideEnemyHitEffect);
 		}
 		else
@@ -627,15 +374,6 @@ public class ClaymoreSlam : Ability
 		int val4;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_ClaymoreSlam.m_extraSideDamagePerMiddleHitMod.GetModifiedValue(this.m_extraSideDamagePerMiddleHit);
 		}
 		else
@@ -648,15 +386,6 @@ public class ClaymoreSlam : Ability
 		int val5;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_ClaymoreSlam.m_extraDamageOnLowHealthTargetMod.GetModifiedValue(this.m_extraDamageOnLowHealthTarget);
 		}
 		else
@@ -669,15 +398,6 @@ public class ClaymoreSlam : Ability
 		int val6;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_ClaymoreSlam.m_energyLossOnMidHitMod.GetModifiedValue(this.m_energyLossOnMidHit);
 		}
 		else
@@ -690,15 +410,6 @@ public class ClaymoreSlam : Ability
 		int val7;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val7 = abilityMod_ClaymoreSlam.m_energyLossOnSideHitMod.GetModifiedValue(this.m_energyLossOnSideHit);
 		}
 		else
@@ -711,15 +422,6 @@ public class ClaymoreSlam : Ability
 		int val8;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val8 = abilityMod_ClaymoreSlam.m_healPerMidHit.GetModifiedValue(0);
 		}
 		else
@@ -732,15 +434,6 @@ public class ClaymoreSlam : Ability
 		int val9;
 		if (abilityMod_ClaymoreSlam)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val9 = abilityMod_ClaymoreSlam.m_healPerSideHit.GetModifiedValue(0);
 		}
 		else
@@ -769,74 +462,25 @@ public class ClaymoreSlam : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreSlam.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Primary);
 			int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Secondary);
 			int value = 0;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (targetActor.GetHitPointShareOfMax() < this.GetLowHealthThreshold())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value = this.GetExtraDamageOnLowHealthTarget();
 				}
 			}
 			dictionary[AbilityTooltipSymbol.Damage] = value;
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Dictionary<AbilityTooltipSymbol, int> dictionary2;
 				(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + this.GetMiddleDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = this.GetSideDamage();
 				if (this.GetExtraSideDamagePerMiddleHit() > 0)
 				{
@@ -850,15 +494,6 @@ public class ClaymoreSlam : Ability
 				int num2 = this.GetHealPerMidHit() * visibleActorsCountByTooltipSubject + this.GetHealPerSideHit() * visibleActorsCountByTooltipSubject2;
 				if (num2 > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					dictionary[AbilityTooltipSymbol.Healing] = num2;
 				}
 			}

@@ -38,19 +38,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		int num;
 		if (this.m_snapToBorder)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ValkyrieGuard.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			num = 2;
 		}
 		else
@@ -61,15 +48,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		int num3;
 		if (this.m_useCone)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num3 = 1;
 		}
 		else
@@ -79,28 +57,10 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		int num4 = num3;
 		if (this.m_highlights.Count <= num2 + 1 + num4)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(this.m_coverAngleLineLength, false, true));
 			this.m_highlights.Add(HighlightUtils.Get().CreateBoundaryLine(this.m_coverAngleLineLength, false, false));
 			if (this.m_useCone)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(this.m_coneRadiusInSquares * Board.Get().squareSize, this.m_coneWidthAngle));
 			}
 		}
@@ -115,15 +75,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		this.m_highlights[num2 + 1].transform.rotation = Quaternion.LookRotation(VectorUtils.AngleDegreesToVector(num6 - num5));
 		if (this.m_useCone)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_highlights[num2].SetActive(false);
 			this.m_highlights[num2 + 1].SetActive(false);
 			Vector3 vector = targetingActor.GetTravelBoardSquareWorldPositionForLos();
@@ -132,15 +83,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 				if (boardSquareSafe != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector = boardSquareSafe.ToVector3();
 				}
 			}
@@ -151,15 +93,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 			for (int i = 0; i < actorsInCone.Count; i++)
 			{
 				base.AddActorInRange(actorsInCone[i], vector, targetingActor, AbilityTooltipSubject.Primary, false);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (this.m_affectsTargetingActor)
 			{
@@ -174,15 +107,6 @@ public class AbilityUtil_Targeter_ValkyrieGuard : AbilityUtil_Targeter_Barrier
 		}
 		if (this.m_addCasterToActorsInRange)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 	}

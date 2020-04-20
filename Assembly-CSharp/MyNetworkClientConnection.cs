@@ -24,19 +24,6 @@ public class MyNetworkClientConnection : NetworkConnection
 			TimeSpan result;
 			if (this.m_gameClientInterface != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.get_HeartbeatTimeout()).MethodHandle;
-				}
 				result = this.m_gameClientInterface.HeartbeatTimeout;
 			}
 			else
@@ -49,19 +36,6 @@ public class MyNetworkClientConnection : NetworkConnection
 		{
 			if (this.m_gameClientInterface != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.set_HeartbeatTimeout(TimeSpan)).MethodHandle;
-				}
 				this.m_gameClientInterface.HeartbeatTimeout = value;
 			}
 		}
@@ -85,19 +59,6 @@ public class MyNetworkClientConnection : NetworkConnection
 		string text;
 		if (this.m_myNetworkClient.UseSSL)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.Initialize(string, int, int, HostTopology)).MethodHandle;
-			}
 			text = "wss://";
 		}
 		else
@@ -129,19 +90,6 @@ public class MyNetworkClientConnection : NetworkConnection
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.IsReconnectingInstantly)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.HandleConnectedToGameServer()).MethodHandle;
-			}
 			clientGameManager.ReloginToGameServerInstantly(this);
 		}
 		else
@@ -165,19 +113,6 @@ public class MyNetworkClientConnection : NetworkConnection
 			if (clientGameManager.ReconnectToGameServerInstantly(this))
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.HandleDisconnectedFromGameServer(string, bool, CloseStatusCode)).MethodHandle;
 			}
 		}
 		this.m_myNetworkClient.IsConnected = false;
@@ -226,19 +161,6 @@ public class MyNetworkClientConnection : NetworkConnection
 		byte[] bytes2 = unetMessage.Serialize();
 		if (this.m_gameClientInterface != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.TransportSend(byte[], int, int, byte*)).MethodHandle;
-			}
 			this.m_gameClientInterface.SendMessage(bytes2);
 		}
 		MyNetworkClientConnection.OnSending(unetMessage);
@@ -254,19 +176,6 @@ public class MyNetworkClientConnection : NetworkConnection
 	{
 		if (!ClientGameManager.Get().IsFastForward)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.SendBytes(byte[], int, int)).MethodHandle;
-			}
 			return base.SendBytes(bytes, numBytes, channelId);
 		}
 		return true;
@@ -276,19 +185,6 @@ public class MyNetworkClientConnection : NetworkConnection
 	{
 		if (!ClientGameManager.Get().IsFastForward)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.SendWriter(NetworkWriter, int)).MethodHandle;
-			}
 			return base.SendWriter(writer, channelId);
 		}
 		return true;
@@ -306,19 +202,6 @@ public class MyNetworkClientConnection : NetworkConnection
 	{
 		if (this.m_gameClientInterface != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MyNetworkClientConnection.Close()).MethodHandle;
-			}
 			this.m_gameClientInterface.Disconnect();
 			this.m_gameClientInterface.OnConnected -= this.HandleConnectedToGameServer;
 			this.m_gameClientInterface.OnDisconnected -= this.HandleDisconnectedFromGameServer;

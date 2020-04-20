@@ -39,19 +39,6 @@ public class UISystemEscapeMenu : UIScene
 		bool flag;
 		if (GameManager.Get() != null && GameManager.Get().GameConfig != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemEscapeMenu.SetParent(bool)).MethodHandle;
-			}
 			flag = GameManager.Get().IsAllowingPlayerRequestedPause();
 		}
 		else
@@ -62,26 +49,8 @@ public class UISystemEscapeMenu : UIScene
 		bool flag3 = false;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = GameFlowData.Get().GetPausedByPlayerRequest();
 			}
 		}
@@ -89,15 +58,6 @@ public class UISystemEscapeMenu : UIScene
 		bool doActive;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = !flag3;
 		}
 		else
@@ -109,15 +69,6 @@ public class UISystemEscapeMenu : UIScene
 		bool doActive2;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = flag3;
 		}
 		else
@@ -215,44 +166,22 @@ public class UISystemEscapeMenu : UIScene
 
 	public void OnLeaveGameClick(BaseEventData data)
 	{
-		UISystemEscapeMenu.<OnLeaveGameClick>c__AnonStorey0 <OnLeaveGameClick>c__AnonStorey = new UISystemEscapeMenu.<OnLeaveGameClick>c__AnonStorey0();
+		UISystemEscapeMenu.OnLeaveGameClick_c__AnonStorey0 OnLeaveGameClick_c__AnonStorey = new UISystemEscapeMenu.OnLeaveGameClick_c__AnonStorey0();
 		this.SetParent(false);
 		LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
-		UISystemEscapeMenu.<OnLeaveGameClick>c__AnonStorey0 <OnLeaveGameClick>c__AnonStorey2 = <OnLeaveGameClick>c__AnonStorey;
+		UISystemEscapeMenu.OnLeaveGameClick_c__AnonStorey0 OnLeaveGameClick_c__AnonStorey2 = OnLeaveGameClick_c__AnonStorey;
 		bool allowsReconnect;
 		if (gameInfo.GameConfig.GameType.AllowsReconnect())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemEscapeMenu.OnLeaveGameClick(BaseEventData)).MethodHandle;
-			}
 			allowsReconnect = (gameInfo.GameStatus != GameStatus.Stopped);
 		}
 		else
 		{
 			allowsReconnect = false;
 		}
-		<OnLeaveGameClick>c__AnonStorey2.allowsReconnect = allowsReconnect;
+		OnLeaveGameClick_c__AnonStorey2.allowsReconnect = allowsReconnect;
 		if (ReplayPlayManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
 				ClientGameManager.Get().LeaveGame(true, GameResult.ClientLeft);
@@ -263,67 +192,22 @@ public class UISystemEscapeMenu : UIScene
 		string description;
 		if (gameInfo.GameConfig.GameType != GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (gameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
 			{
 				title = StringUtil.TR("LeaveGame", "Global");
 				bool flag = false;
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameConfig != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = true;
 						}
 					}
 				}
 				if (ClientGameManager.Get().HasLeavingPenalty(GameManager.Get().GameConfig.GameType))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						description = StringUtil.TR("QuitGamePromptWithPenalty", "Global");
@@ -333,48 +217,17 @@ public class UISystemEscapeMenu : UIScene
 				description = StringUtil.TR("LeaveGameConfirmation", "Global");
 				goto IL_1C2;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		title = StringUtil.TR("LeaveTutorial", "Global");
 		description = StringUtil.TR("LeaveTutorialConfirmation", "Global");
 		IL_1C2:
 		UIDialogPopupManager.OpenTwoButtonDialog(title, description, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate(UIDialogBox dialogReference)
 		{
-			ClientGameManager.Get().LeaveGame(!<OnLeaveGameClick>c__AnonStorey.allowsReconnect, GameResult.ClientLeft);
+			ClientGameManager.Get().LeaveGame(!OnLeaveGameClick_c__AnonStorey.allowsReconnect, GameResult.ClientLeft);
 			if (UITutorialFullscreenPanel.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UISystemEscapeMenu.<OnLeaveGameClick>c__AnonStorey0.<>m__0(UIDialogBox)).MethodHandle;
-				}
 				if (UITutorialFullscreenPanel.Get().IsAnyPanelVisible())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UITutorialFullscreenPanel.Get().ClearAllPanels();
 				}
 			}
@@ -385,53 +238,13 @@ public class UISystemEscapeMenu : UIScene
 	{
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemEscapeMenu.PauseGame(bool)).MethodHandle;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().IsAllowingPlayerRequestedPause())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ActorData actorData;
 					if (GameFlowData.Get() != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						actorData = GameFlowData.Get().activeOwnedActorData;
 					}
 					else
@@ -441,26 +254,8 @@ public class UISystemEscapeMenu : UIScene
 					ActorData actorData2 = actorData;
 					if (actorData2 != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData2.GetActorController() != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actorData2.GetActorController().RequestCustomGamePause(desiredPause, actorData2.ActorIndex);
 							goto IL_EF;
 						}
@@ -483,30 +278,8 @@ public class UISystemEscapeMenu : UIScene
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISystemEscapeMenu.Update()).MethodHandle;
-			}
 			if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.ToggleSystemMenu))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (activeOwnedActorData == null)
 				{
@@ -518,15 +291,6 @@ public class UISystemEscapeMenu : UIScene
 				bool flag2 = component.HasQueuedAbilities();
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag2)
 					{
 						goto IL_A7;

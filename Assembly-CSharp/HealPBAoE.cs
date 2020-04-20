@@ -27,19 +27,6 @@ public class HealPBAoE : Ability
 		float num;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(HealPBAoE.CalcHealPoints(ActorData, ActorData)).MethodHandle;
-			}
 			num = this.m_selfHitPointsPercentOfMax;
 		}
 		else
@@ -51,15 +38,6 @@ public class HealPBAoE : Ability
 		int num4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num4 = this.m_selfHitPoints;
 		}
 		else

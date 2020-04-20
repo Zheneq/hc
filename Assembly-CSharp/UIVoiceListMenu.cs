@@ -73,19 +73,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		bool flag;
 		if (DiscordClientInterface.Get().IsConnected)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.Start()).MethodHandle;
-			}
 			flag = (DiscordClientInterface.Get().ChannelInfo != null);
 		}
 		else
@@ -95,15 +82,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		bool flag2 = flag;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OnJoined();
 			this.RefreshPlayersList();
 		}
@@ -112,18 +90,8 @@ public class UIVoiceListMenu : MonoBehaviour
 			this.OnDisconnected();
 		}
 		_ButtonSwapSprite spriteController = this.m_connectBtn.spriteController;
-		if (UIVoiceListMenu.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIVoiceListMenu.<>f__am$cache0 = delegate(BaseEventData x)
+		
+		spriteController.callback = delegate(BaseEventData x)
 			{
 				if (!DiscordClientInterface.CanJoinTeamChat)
 				{
@@ -133,25 +101,10 @@ public class UIVoiceListMenu : MonoBehaviour
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.Cancel);
 						return;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIVoiceListMenu.<Start>m__0(BaseEventData)).MethodHandle;
-					}
 				}
 				ClientGameManager.Get().JoinDiscord();
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.Generic);
 			};
-		}
-		spriteController.callback = UIVoiceListMenu.<>f__am$cache0;
 		this.m_disconnectBtn.spriteController.callback = delegate(BaseEventData x)
 		{
 			ClientGameManager.Get().LeaveDiscord();
@@ -164,19 +117,6 @@ public class UIVoiceListMenu : MonoBehaviour
 	{
 		if (DiscordClientInterface.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.OnDestroy()).MethodHandle;
-			}
 			DiscordClientInterface discordClientInterface = DiscordClientInterface.Get();
 			discordClientInterface.OnJoined = (Action)Delegate.Remove(discordClientInterface.OnJoined, new Action(this.OnJoined));
 			DiscordClientInterface discordClientInterface2 = DiscordClientInterface.Get();
@@ -188,33 +128,11 @@ public class UIVoiceListMenu : MonoBehaviour
 	{
 		if (this.m_initializedOptions)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.InitializeOptions()).MethodHandle;
-			}
 			return;
 		}
 		Options_UI optionsUI = Options_UI.Get();
 		if (optionsUI == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		this.m_pushToTalkBtn.SetOn(optionsUI.GetVoicePushToTalk(), false);
@@ -226,19 +144,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			int value;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIVoiceListMenu.<InitializeOptions>c__AnonStorey0.<>m__0(_ToggleSwap)).MethodHandle;
-				}
 				value = 1;
 			}
 			else
@@ -252,15 +157,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (DiscordClientInterface.Get().ScanPushToTalkKey(true, delegate(int type, int code, string name)
 				{
 					UIManager.SetGameObjectActive(this.m_pushToTalkClickBlocker, false, null);
@@ -279,19 +175,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			int value;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIVoiceListMenu.<InitializeOptions>c__AnonStorey0.<>m__1(_ToggleSwap)).MethodHandle;
-				}
 				value = 1;
 			}
 			else
@@ -301,15 +184,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			PlayerPrefs.SetInt(key, value);
 			if (DiscordClientInterface.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DiscordClientInterface.Get().RefreshSettings();
 			}
 		};
@@ -320,19 +194,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			this.m_voiceSliderText.text = Mathf.CeilToInt(value).ToString();
 			if (this.m_voiceVolume == value)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIVoiceListMenu.<InitializeOptions>c__AnonStorey0.<>m__2(float)).MethodHandle;
-				}
 				return;
 			}
 			this.m_voiceVolume = value;
@@ -341,39 +202,14 @@ public class UIVoiceListMenu : MonoBehaviour
 		this.m_voiceSlider.value = optionsUI.GetVoiceVolume();
 		GameObject gameObject = this.m_voiceSlider.gameObject;
 		EventTriggerType triggerType = EventTriggerType.PointerUp;
-		if (UIVoiceListMenu.<>f__am$cache2 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIVoiceListMenu.<>f__am$cache2 = delegate(BaseEventData x)
+		
+		UIEventTriggerUtils.AddListener(gameObject, triggerType, delegate(BaseEventData x)
 			{
 				if (DiscordClientInterface.Get() != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIVoiceListMenu.<InitializeOptions>m__2(BaseEventData)).MethodHandle;
-					}
 					DiscordClientInterface.Get().RefreshSettings();
 				}
-			};
-		}
-		UIEventTriggerUtils.AddListener(gameObject, triggerType, UIVoiceListMenu.<>f__am$cache2);
+			});
 		this.m_micSlider.minValue = 0f;
 		this.m_micSlider.maxValue = 100f;
 		this.m_micSlider.onValueChanged.AddListener(delegate(float value)
@@ -381,19 +217,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			this.m_micSliderText.text = Mathf.CeilToInt(value).ToString();
 			if (this.m_micVolume == value)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIVoiceListMenu.<InitializeOptions>c__AnonStorey0.<>m__3(float)).MethodHandle;
-				}
 				return;
 			}
 			this.m_micVolume = value;
@@ -402,39 +225,14 @@ public class UIVoiceListMenu : MonoBehaviour
 		this.m_micSlider.value = optionsUI.GetMicVolume();
 		GameObject gameObject2 = this.m_micSlider.gameObject;
 		EventTriggerType triggerType2 = EventTriggerType.PointerUp;
-		if (UIVoiceListMenu.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIVoiceListMenu.<>f__am$cache3 = delegate(BaseEventData x)
+		
+		UIEventTriggerUtils.AddListener(gameObject2, triggerType2, delegate(BaseEventData x)
 			{
 				if (DiscordClientInterface.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIVoiceListMenu.<InitializeOptions>m__3(BaseEventData)).MethodHandle;
-					}
 					DiscordClientInterface.Get().RefreshSettings();
 				}
-			};
-		}
-		UIEventTriggerUtils.AddListener(gameObject2, triggerType2, UIVoiceListMenu.<>f__am$cache3);
+			});
 		this.m_groupBtn.spriteController.callback = delegate(BaseEventData x)
 		{
 			this.ChangeChatMode(SettingsState.VoiceChatMode.Group, true);
@@ -477,19 +275,6 @@ public class UIVoiceListMenu : MonoBehaviour
 				string str2;
 				if (mode == SettingsState.VoiceChatMode.Group)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.ChangeChatMode(SettingsState.VoiceChatMode, bool)).MethodHandle;
-					}
 					str2 = "Left";
 				}
 				else
@@ -509,15 +294,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			string str4;
 			if (mode == SettingsState.VoiceChatMode.Group)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str4 = "Left";
 			}
 			else
@@ -539,34 +315,12 @@ public class UIVoiceListMenu : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_container, this.m_visible, null);
 		if (this.m_visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.SetVisible(bool)).MethodHandle;
-			}
 			this.InitializeOptions();
 			this.ChangeChatMode(Options_UI.Get().GetGameModeVoiceChat(), false);
 		}
 		FrontEndButtonSounds sound;
 		if (this.m_visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			sound = FrontEndButtonSounds.MenuOpen;
 		}
 		else
@@ -587,19 +341,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		{
 			if (i < DiscordClientInterface.Get().ChannelUsers.Count)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.RefreshPlayersList()).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(this.m_playerEntries[i], true, null);
 				this.m_playerEntries[i].Setup(DiscordClientInterface.Get().ChannelUsers[i]);
 			}
@@ -607,15 +348,6 @@ public class UIVoiceListMenu : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(this.m_playerEntries[i], false, null);
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -637,19 +369,6 @@ public class UIVoiceListMenu : MonoBehaviour
 		for (int i = 0; i < this.m_playerEntries.Length; i++)
 		{
 			UIManager.SetGameObjectActive(this.m_playerEntries[i], false, null);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.OnDisconnected()).MethodHandle;
 		}
 		UIManager.SetGameObjectActive(this.m_playersContainer, false, null);
 		this.RefreshPlayersList();
@@ -677,113 +396,32 @@ public class UIVoiceListMenu : MonoBehaviour
 				return;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.OnUserSpeakingChanged(DiscordUserInfo)).MethodHandle;
-			return;
-		}
 	}
 
 	private void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListMenu.Update()).MethodHandle;
-			}
 			bool flag = true;
 			if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 			{
 				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIVoiceListMenu componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<UIVoiceListMenu>();
 						bool flag2 = false;
 						if (componentInParent == null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_SelectableBtn componentInParent2 = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 							if (UIFrontEnd.Get() != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(componentInParent2 == UIFrontEnd.Get().m_frontEndNavPanel.m_microphoneConnectedBtn))
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(componentInParent2 == UIFrontEnd.Get().m_frontEndNavPanel.m_microphoneOfflineBtn))
 									{
 										goto IL_14F;
-									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								flag2 = true;
@@ -792,15 +430,6 @@ public class UIVoiceListMenu : MonoBehaviour
 						IL_14F:
 						if (!(componentInParent != null))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!flag2)
 							{
 								goto IL_169;
@@ -813,52 +442,16 @@ public class UIVoiceListMenu : MonoBehaviour
 			IL_169:
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetVisible(false);
 			}
 		}
 		if (!this.m_canConnect)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!DiscordClientInterface.CanJoinGroupChat)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!DiscordClientInterface.CanJoinTeamChat)
 				{
 					goto IL_1D8;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_canConnect = true;
@@ -869,37 +462,10 @@ public class UIVoiceListMenu : MonoBehaviour
 		IL_1D8:
 		if (this.m_canConnect)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!DiscordClientInterface.CanJoinGroupChat)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!DiscordClientInterface.CanJoinTeamChat)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_canConnect = false;
 					UIManager.SetGameObjectActive(this.m_connectBtn, false, null);
 					UIManager.SetGameObjectActive(this.m_disconnectBtn, false, null);

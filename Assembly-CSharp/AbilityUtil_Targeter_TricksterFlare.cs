@@ -32,19 +32,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 		List<BoardSquare> list = new List<BoardSquare>();
 		if (this.m_shapeAroundSelf)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterFlare.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			list.Add(targetingActor.GetCurrentBoardSquare());
 		}
 		List<ActorData> validAfterImages = this.m_afterImageSyncComp.GetValidAfterImages(true);
@@ -55,78 +42,24 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.GetCurrentBoardSquare() != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(actorData.GetCurrentBoardSquare());
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count == list.Count)
 			{
 				goto IL_147;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
 		for (int i = 0; i < list.Count; i++)
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_147:
 		Dictionary<ActorData, Vector3> dictionary = new Dictionary<ActorData, Vector3>();
@@ -144,67 +77,22 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 					bool flag = actorData2.GetTeam() == targetingActor.GetTeam();
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_includeEnemies)
 						{
 							goto IL_246;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					if (!flag)
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_includeAllies || !(actorData2 != targetingActor))
 					{
 						continue;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (validAfterImages.Contains(actorData2))
 					{
 						continue;
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					IL_246:
 					Vector3 vector = list[j].ToVector3();
@@ -216,26 +104,8 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 						ActorCover actorCover = actorData2.GetActorCover();
 						if (actorCover != null && actorCover.IsInCoverWrt(dictionary[actorData2]))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!actorCover.IsInCoverWrt(vector))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								dictionary[actorData2] = vector;
 							}
 						}
@@ -245,15 +115,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 						dictionary[actorData2] = vector;
 						dictionary2[actorData2] = 1;
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_highlights[j].transform.position = centerOfShape;
@@ -270,15 +131,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 					AbilityTooltipSubject abilityTooltipSubject;
 					if (key2.GetTeam() == targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						abilityTooltipSubject = AbilityTooltipSubject.Secondary;
 					}
 					else
@@ -288,24 +140,6 @@ public class AbilityUtil_Targeter_TricksterFlare : AbilityUtil_Targeter
 					AbilityTooltipSubject subjectType = abilityTooltipSubject;
 					base.AddActorInRange(key2, value, targetingActor, subjectType, true);
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

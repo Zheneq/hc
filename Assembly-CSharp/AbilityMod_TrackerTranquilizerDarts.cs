@@ -54,19 +54,6 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TrackerTranquilizerDarts.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = trackerTranquilizerDarts.m_laserCount;
 		}
 		else
@@ -82,15 +69,6 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		LaserTargetingInfo baseLaserInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseLaserInfo = trackerTranquilizerDarts.m_laserTargetingInfo;
 		}
 		else
@@ -105,15 +83,6 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = trackerTranquilizerDarts.m_enemySingleHitEffect;
 		}
 		else
@@ -128,15 +97,6 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = trackerTranquilizerDarts.m_enemyMultiHitEffect;
 		}
 		else
@@ -151,15 +111,6 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = trackerTranquilizerDarts.m_allySingleHitEffect;
 		}
 		else
@@ -174,15 +125,6 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = trackerTranquilizerDarts.m_allyMultiHitEffect;
 		}
 		else

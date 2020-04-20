@@ -78,33 +78,11 @@ public class UIMainMenu : MonoBehaviour
 		}
 		if (this.m_menuListCanvasGroup != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMainMenu.SetMenuVisible(bool, bool)).MethodHandle;
-			}
 			this.m_menuListCanvasGroup.interactable = visible;
 			this.m_menuListCanvasGroup.blocksRaycasts = visible;
 		}
 		if (UIFrontEnd.Get() != null && UIFrontEnd.Get().m_frontEndNavPanel != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIFrontEnd.Get().m_frontEndNavPanel.m_menuBtn.SetSelected(visible, false, string.Empty, string.Empty);
 		}
 	}
@@ -181,44 +159,13 @@ public class UIMainMenu : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().GroupInfo != null && AppState_CharacterSelect.Get() != null && AppState_GroupCharacterSelect.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMainMenu.CheckCanDoTutorial()).MethodHandle;
-			}
 			bool flag = true;
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			if (AppState_GroupCharacterSelect.Get().InQueue())
@@ -229,15 +176,6 @@ public class UIMainMenu : MonoBehaviour
 			TextMeshProUGUI componentInChildren = this.m_tutorialBtn.GetComponentInChildren<TextMeshProUGUI>();
 			if (componentInChildren != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					componentInChildren.color = Color.white;
@@ -255,106 +193,30 @@ public class UIMainMenu : MonoBehaviour
 		this.CheckCanDoTutorial();
 		if (Input.GetMouseButtonDown(0))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMainMenu.Update()).MethodHandle;
-			}
 			bool flag = true;
 			if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIMainMenu componentInParent = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<UIMainMenu>();
 						bool flag2 = false;
 						if (componentInParent == null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							_SelectableBtn componentInParent2 = component.GetLastPointerEventDataPublic(-1).pointerEnter.GetComponentInParent<_SelectableBtn>();
 							if (UIFrontEnd.Get() != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								while (componentInParent2 != null)
 								{
 									_SelectableBtn menuBtn = UIFrontEnd.Get().m_frontEndNavPanel.m_menuBtn;
 									if (componentInParent2 == menuBtn)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag2 = true;
 										goto IL_16A;
 									}
 									componentInParent2 = componentInParent2.transform.parent.GetComponentInParent<_SelectableBtn>();
-								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
@@ -368,15 +230,6 @@ public class UIMainMenu : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetMenuVisible(false, false);
 			}
 		}

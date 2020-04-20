@@ -15,10 +15,10 @@ public struct Player
 	public long m_accountId;
 
 	[CompilerGenerated]
-	private static Action<GameState> <>f__mg$cache0;
+	private static Action<GameState> f__mg_cache0;
 
 	[CompilerGenerated]
-	private static Action<GameState> <>f__mg$cache1;
+	private static Action<GameState> f__mg_cache1;
 
 	internal Player(NetworkConnection connection, long accountId)
 	{
@@ -29,19 +29,6 @@ public struct Player
 		int connectionId;
 		if (connection == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Player..ctor(NetworkConnection, long)).MethodHandle;
-			}
 			connectionId = -1;
 		}
 		else
@@ -50,25 +37,10 @@ public struct Player
 		}
 		this.m_connectionId = connectionId;
 		this.m_accountId = accountId;
-		if (Player.<>f__mg$cache0 == null)
-		{
-			Player.<>f__mg$cache0 = new Action<GameState>(Player.OnGameStateChanged);
-		}
-		GameFlowData.s_onGameStateChanged -= Player.<>f__mg$cache0;
-		if (Player.<>f__mg$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			Player.<>f__mg$cache1 = new Action<GameState>(Player.OnGameStateChanged);
-		}
-		GameFlowData.s_onGameStateChanged += Player.<>f__mg$cache1;
+		
+		GameFlowData.s_onGameStateChanged -= new Action<GameState>(Player.OnGameStateChanged);
+		
+		GameFlowData.s_onGameStateChanged += new Action<GameState>(Player.OnGameStateChanged);
 	}
 
 	public bool WasEverHuman
@@ -84,19 +56,6 @@ public struct Player
 		bool result;
 		if (obj is Player)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Player.Equals(object)).MethodHandle;
-			}
 			result = (this == (Player)obj);
 		}
 		else
@@ -143,19 +102,6 @@ public struct Player
 	{
 		if (newState != GameState.EndingGame)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Player.OnGameStateChanged(GameState)).MethodHandle;
-			}
 		}
 		else
 		{

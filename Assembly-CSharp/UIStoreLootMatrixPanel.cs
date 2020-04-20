@@ -24,59 +24,18 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 			{
 				goto IL_7C;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreLootMatrixPanel.GetPurchasableItems()).MethodHandle;
-				goto IL_65;
-			}
 			goto IL_65;
 			IL_C2:
 			if (lootMatrixPack.NonEventHidden == lootMatrixPack.EventHidden)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
 				DateTime dateTime;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (lootMatrixPack.EventEndPacific.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_16C;
 					}
 					dateTime = Convert.ToDateTime(lootMatrixPack.EventEndPacific);
@@ -91,15 +50,6 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 				}
 				if (dateTime > lastPacificTimePriceRequestWithServerTimeOffset)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (dateTime < this.m_nextExpireDateTime)
 					{
 						this.m_nextExpireDateTime = dateTime;
@@ -113,15 +63,6 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 			if (flag || lootMatrixPack.NonEventHidden)
 			{
 				goto IL_C2;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_7C:
 			if (!lootMatrixPack.IsBundle)
@@ -137,30 +78,9 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 			}
 			goto IL_C2;
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		List<UIPurchaseableItem> list2 = list;
-		if (UIStoreLootMatrixPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIStoreLootMatrixPanel.<>f__am$cache0 = ((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder);
-		}
-		list2.Sort(UIStoreLootMatrixPanel.<>f__am$cache0);
+		
+		list2.Sort(((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder));
 		return list.ToArray();
 	}
 
@@ -169,19 +89,6 @@ public class UIStoreLootMatrixPanel : UICashShopPanelBase
 		DateTime lastPacificTimePriceRequestWithServerTimeOffset = CommerceClient.Get().LastPacificTimePriceRequestWithServerTimeOffset;
 		if (lastPacificTimePriceRequestWithServerTimeOffset >= this.m_nextExpireDateTime)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreLootMatrixPanel.Update()).MethodHandle;
-			}
 			base.Reinitialize();
 		}
 	}

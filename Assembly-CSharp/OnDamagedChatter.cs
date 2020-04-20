@@ -32,45 +32,14 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 	{
 		if (!ChatterData.ShouldPlayChatter(this, eventType, args, component))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnDamagedChatter.ShouldPlayChatter(GameEventManager.EventType, GameEventManager.GameEventArgs, ChatterComponent)).MethodHandle;
-			}
 			return false;
 		}
 		GameEventManager.ActorHitHealthChangeArgs actorHitHealthChangeArgs = args as GameEventManager.ActorHitHealthChangeArgs;
 		bool flag = actorHitHealthChangeArgs.m_target == component.gameObject.GetComponent<ActorData>();
 		if (this.m_onSelfDamage)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 		}
@@ -84,15 +53,6 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 			{
 				if (this.m_healthThresholdMode == OnDamagedChatter.HealthThreshMode.UseDirectValue)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (hitPointsAfterResolution < this.m_healthThresholdDirect)
 					{
 						flag2 = true;
@@ -101,41 +61,14 @@ public class OnDamagedChatter : ScriptableObject, IChatterData
 				}
 				if (this.m_healthThresholdMode == OnDamagedChatter.HealthThreshMode.UsePercentage)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (maxHitPoints > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = ((float)hitPointsAfterResolution / (float)maxHitPoints < this.m_healthThresholdPct);
 					}
 				}
 				IL_109:
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.GetCommonData().SetAudioEventOverride(this.m_closeCallAudioEvent);
 				}
 			}

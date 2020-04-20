@@ -24,19 +24,6 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 		ScoundrelBlindFire scoundrelBlindFire = targetAbility as ScoundrelBlindFire;
 		if (scoundrelBlindFire != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelBlindFire.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_coneWidthAngleMod, "ConeWidthAngle", string.Empty, scoundrelBlindFire.m_coneWidthAngle, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, scoundrelBlindFire.m_damageAmount, true, false);
 			AbilityMod.AddToken_EffectInfo(tokens, this.m_effectOnTargetsHit, "EffectOnTargetHit", null, false);
@@ -55,19 +42,6 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScoundrelBlindFire.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scoundrelBlindFire.m_damageAmount;
 		}
 		else
@@ -83,15 +57,6 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scoundrelBlindFire.m_penetrateLineOfSight;
 		}
 		else

@@ -39,19 +39,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		RageBeastKnockback rageBeastKnockback = targetAbility as RageBeastKnockback;
 		if (rageBeastKnockback != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastKnockback.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_targeterWidthMod, "LaserWidth", string.Empty, rageBeastKnockback.m_laserWidth, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_targeterLengthMod, "LaserDistance", string.Empty, rageBeastKnockback.m_laserDistance, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxTargetMod, "MaxTargets", string.Empty, rageBeastKnockback.m_maxTargets, true, false);
@@ -73,19 +60,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RageBeastKnockback.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = rageBeastKnockback.m_maxTargets;
 		}
 		else
@@ -100,15 +74,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rageBeastKnockback.m_laserWidth;
 		}
 		else
@@ -123,15 +88,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rageBeastKnockback.m_laserDistance;
 		}
 		else
@@ -148,15 +104,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = rageBeastKnockback.m_damageToOtherOnCollision;
 		}
 		else
@@ -173,15 +120,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = rageBeastKnockback.m_knockbackDistanceMin;
 		}
 		else

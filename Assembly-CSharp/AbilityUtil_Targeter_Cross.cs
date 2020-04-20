@@ -55,19 +55,6 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		float widthInWorld = this.m_widthInSquares * squareSize;
 		if (this.m_highlights.Count < 3)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Cross.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			this.ClearHighlightCursors(true);
 			this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, num, null));
 			this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(widthInWorld, num2, null));
@@ -79,15 +66,6 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (this.m_lockToCardinalDirs)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector2 = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector2)));
 		}
 		Vector3 clampedTargeterRange = this.GetClampedTargeterRange(currentTarget, vector, vector2, ref num, ref num2);
@@ -111,40 +89,13 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		List<ActorData> list2 = new List<ActorData>();
 		if (boardSquare != null && boardSquare.height <= Board.Get().BaselineHeight)
 		{
-			for (;;)
+			if (targetingActor.GetCurrentBoardSquare().symbol_0013(boardSquare.x, boardSquare.y))
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (targetingActor.GetCurrentBoardSquare().\u0013(boardSquare.x, boardSquare.y))
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag;
 				Vector3 vector4;
 				BarrierManager.Get().GetAbilityLineEndpoint(targetingActor, travelBoardSquareWorldPositionForLos, clampedTargeterRange, out flag, out vector4, null);
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list2 = AreaEffectUtils.GetActorsInLaser(clampedTargeterRange, normalized, laserRangeInSquares, this.m_widthInSquares, targetingActor, base.GetAffectedTeams(), this.m_penetrateLoS, this.m_maxTargets, this.m_penetrateLoS, false, out vector3, null, actorsInLaser, false, true);
 					actorsInLaser.AddRange(list2);
 					list = AreaEffectUtils.GetActorsInLaser(clampedTargeterRange, -1f * normalized, laserRangeInSquares, this.m_widthInSquares, targetingActor, base.GetAffectedTeams(), this.m_penetrateLoS, this.m_maxTargets, this.m_penetrateLoS, false, out vector3, null, actorsInLaser, false, true);
@@ -160,53 +111,17 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 				ActorData actorData = enumerator.Current;
 				if (!list.Contains(actorData))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!list2.Contains(actorData))
 					{
 						base.AddActorInRange(actorData, travelBoardSquareWorldPosition, targetingActor, AbilityTooltipSubject.Primary, false);
 						continue;
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				base.AddActorInRange(actorData, clampedTargeterRange, targetingActor, AbilityTooltipSubject.Primary, false);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPositionForLos(), targetingActor, AbilityTooltipSubject.Primary, false);
 		}
 		Vector3 crossStart = clampedTargeterRange + (0.5f * num2 - 0.1f) * normalized;
@@ -223,30 +138,8 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(endPos);
 			if (boardSquare != null)
 			{
-				for (;;)
+				if (boardSquare.height <= Board.Get().BaselineHeight && targetingActor.GetCurrentBoardSquare().symbol_0013(boardSquare.x, boardSquare.y))
 				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Cross.DrawInvalidSquareIndicators(AbilityTarget, ActorData, Vector3, Vector3, Vector3, Vector3)).MethodHandle;
-				}
-				if (boardSquare.height <= Board.Get().BaselineHeight && targetingActor.GetCurrentBoardSquare().\u0013(boardSquare.x, boardSquare.y))
-				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, endPos, crossStart, this.m_widthInSquares, targetingActor, this.m_penetrateLoS, null, null, true);
 					AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(this.m_indicatorHandler, endPos, crossEnd, this.m_widthInSquares, targetingActor, this.m_penetrateLoS, null, null, true);
 					goto IL_17F;
@@ -268,24 +161,6 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 						this.m_indicatorHandler.OperateOnSquare(boardSquare2, targetingActor, false);
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_17F:
 			base.HideUnusedSquareIndicators();

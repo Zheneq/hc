@@ -49,30 +49,8 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		base.FinishSetup();
 		if (this.m_lineStartEvent == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.FinishSetup()).MethodHandle;
-			}
 			if (!this.m_lineSpawnOnProjectileImpact)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnLineFX();
 			}
 		}
@@ -86,56 +64,16 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		this.m_swordTempSatelliteInstance = base.InstantiateFX(this.m_swordTempSatellitePrefab, base.TargetPos + new Vector3(0f, this.m_satelliteHeightOffset, 0f), Quaternion.identity, true, true);
 		if (this.m_swordTempSatelliteInstance != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.SpawnImpactFX(Vector3, Quaternion)).MethodHandle;
-			}
 			TempSatellite component = this.m_swordTempSatelliteInstance.GetComponent<TempSatellite>();
 			component.Setup(this);
 			component.SetNotifyOwnerOnAnimEvent(false);
 			if (this.m_lineSpawned)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_lineFxSatelliteJoint.IsInitialized())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameObject swordTempSatelliteInstance = this.m_swordTempSatelliteInstance;
 					if (swordTempSatelliteInstance != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
 					}
 				}
@@ -143,15 +81,6 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		}
 		if (this.m_lineSpawnOnProjectileImpact)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SpawnLineFX();
 		}
 	}
@@ -177,19 +106,6 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 	{
 		if (this.m_lineSpawned)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.SpawnLineFX()).MethodHandle;
-			}
 			return;
 		}
 		if (!this.m_lineFxCasterStartJoint.IsInitialized())
@@ -197,83 +113,29 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, Sequence.ReferenceModelType.Actor);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lineFxCasterStartJoint.Initialize(referenceModel);
 			}
 		}
 		if (!this.m_lineFxSatelliteJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject swordTempSatelliteInstance = this.m_swordTempSatelliteInstance;
 			if (swordTempSatelliteInstance != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lineFxSatelliteJoint.Initialize(swordTempSatelliteInstance);
 			}
 		}
 		if (this.m_linePrefab != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 position = this.m_lineFxCasterStartJoint.m_jointObject.transform.position;
 			Quaternion rotation = default(Quaternion);
 			this.m_lineFx = base.InstantiateFX(this.m_linePrefab, position, rotation, true, true);
 		}
 		if (!string.IsNullOrEmpty(this.m_lineAudioEvent))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_lineAudioEvent, base.Caster.gameObject);
 		}
 		if (this.m_lineDuration > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_lineDespawnTime = GameTime.time + this.m_lineDuration;
 		}
 		else
@@ -293,92 +155,25 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 		base.OnUpdate();
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.OnUpdate()).MethodHandle;
-			}
 			if (this.m_lineFxCasterStartJoint.m_jointObject != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sequence.SetAttribute(this.m_lineFx, "startPoint", this.m_lineFxCasterStartJoint.m_jointObject.transform.position);
 			}
 			if (this.m_lineFxSatelliteJoint.m_jointObject != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Sequence.SetAttribute(this.m_lineFx, "endPoint", this.m_lineFxSatelliteJoint.m_jointObject.transform.position);
 			}
 			else if (this.m_lineFxCasterStartJoint.m_jointObject != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Sequence.SetAttribute(this.m_lineFx, "endPoint", this.m_fx.transform.position);
 				}
 			}
 			if (this.m_lineDespawnTime < GameTime.time)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lineDespawnTime > 0f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DestroyLine();
 				}
 			}
@@ -396,19 +191,6 @@ public class BattleMonkThrowSwordSequence : SplineProjectileSequence
 	{
 		if (this.m_lineFx != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BattleMonkThrowSwordSequence.DestroyLine()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_lineFx);
 			this.m_lineFx = null;
 		}

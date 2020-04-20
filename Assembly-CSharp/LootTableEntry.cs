@@ -22,19 +22,6 @@ public class LootTableEntry
 		bool result;
 		if (this.Index > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootTableEntry.IsValid()).MethodHandle;
-			}
 			result = (this.Type != LootTableEntryType.None);
 		}
 		else
@@ -48,32 +35,10 @@ public class LootTableEntry
 	{
 		if (chance <= 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LootTableEntry.Roll(float)).MethodHandle;
-			}
 			return false;
 		}
 		if (chance >= 100f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return true;
 		}
 		return this.RollChance(chance);

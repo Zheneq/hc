@@ -34,7 +34,7 @@ public class UIDebugItem : MonoBehaviour
 	{
 		this.m_listener = listener;
 		this.m_itemName.text = listener.GetDebugItemName();
-		if (listener.\u001D() != KeyCode.None)
+		if (listener.symbol_001D() != KeyCode.None)
 		{
 			TextMeshProUGUI itemName = this.m_itemName;
 			string text = itemName.text;
@@ -43,14 +43,14 @@ public class UIDebugItem : MonoBehaviour
 				text,
 				" (",
 				this.GetModifierKeyPrefix(listener),
-				listener.\u001D().ToString(),
+				listener.symbol_001D().ToString(),
 				")"
 			});
 		}
 		this.m_itemValue.text = listener.GetDebugItemValue();
 		this.m_increaseLabel.text = listener.GetIncreaseString();
-		this.m_decreaseLabel.text = listener.\u0013();
-		this.m_increaseButton.gameObject.SetActive(this.m_listener.\u0016());
+		this.m_decreaseLabel.text = listener.symbol_0013();
+		this.m_increaseButton.gameObject.SetActive(this.m_listener.symbol_0016());
 		this.m_decreaseButton.gameObject.SetActive(this.m_listener.DisplayDecreaseButton());
 		this.m_scrollRect = scrollRect;
 	}
@@ -65,37 +65,15 @@ public class UIDebugItem : MonoBehaviour
 		string text = string.Empty;
 		if (listener != null)
 		{
-			if (listener.\u000E())
+			if (listener.symbol_000E())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugItem.GetModifierKeyPrefix(DebugCommand)).MethodHandle;
-				}
 				text += "Ctrl+";
 			}
-			if (listener.\u0012())
+			if (listener.symbol_0012())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += "Alt+";
 			}
-			if (listener.\u0015())
+			if (listener.symbol_0015())
 			{
 				text += "Shift+";
 			}
@@ -107,19 +85,6 @@ public class UIDebugItem : MonoBehaviour
 	{
 		if (this.m_listener != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugItem.Update()).MethodHandle;
-			}
 			this.m_itemValue.text = this.m_listener.GetDebugItemValue();
 		}
 	}
@@ -128,19 +93,6 @@ public class UIDebugItem : MonoBehaviour
 	{
 		if (this.m_listener != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugItem.OnIncreaseClick(BaseEventData)).MethodHandle;
-			}
 			if (DebugCommands.Get() != null)
 			{
 				DebugCommands.Get().OnIncreaseClick(this.m_listener);
@@ -152,30 +104,8 @@ public class UIDebugItem : MonoBehaviour
 	{
 		if (this.m_listener != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDebugItem.OnDecreaseClick(BaseEventData)).MethodHandle;
-			}
 			if (DebugCommands.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DebugCommands.Get().OnDecreaseClick(this.m_listener);
 			}
 		}

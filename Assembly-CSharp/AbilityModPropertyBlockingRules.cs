@@ -11,19 +11,6 @@ public class AbilityModPropertyBlockingRules
 	{
 		if (this.operation == AbilityModPropertyBlockingRules.ModOp.Override)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityModPropertyBlockingRules.GetModifiedValue(BlockingRules)).MethodHandle;
-			}
 			return this.value;
 		}
 		return input;

@@ -34,19 +34,6 @@ public class UICharacterSelectRing : MonoBehaviour
 		this.PlayAnimation("ReadyOut");
 		if (this.m_charSelectSpawnVFX != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectRing.Start()).MethodHandle;
-			}
 			this.m_charSelectSpawnVFX.SetActive(false);
 		}
 	}
@@ -66,53 +53,13 @@ public class UICharacterSelectRing : MonoBehaviour
 				AnimatorClipInfo[] currentAnimatorClipInfo = this.m_baseAnimator.GetCurrentAnimatorClipInfo(0);
 				if (currentAnimatorClipInfo != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectRing.PlayBaseObjectAnimation(string)).MethodHandle;
-					}
 					if (currentAnimatorClipInfo.Length > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(currentAnimatorClipInfo[0].clip.name == "SlotIN"))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(currentAnimatorClipInfo[0].clip.name == "SlotIDLE"))
 							{
 								goto IL_B9;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						flag = false;
@@ -122,15 +69,6 @@ public class UICharacterSelectRing : MonoBehaviour
 			IL_B9:
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_baseAnimator.isInitialized)
 				{
 					this.m_baseAnimator.Play(animName);
@@ -143,31 +81,9 @@ public class UICharacterSelectRing : MonoBehaviour
 	{
 		if (this.m_readyIsVisible != isReady)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectRing.CheckReadyBand(bool)).MethodHandle;
-			}
 			string animName;
 			if (isReady)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				animName = "ReadyIn";
 			}
 			else
@@ -187,19 +103,6 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		else if (animName == "ReadyIn")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectRing.PlayAnimation(string)).MethodHandle;
-			}
 			this.m_readyAnimation.gameObject.SetActive(true);
 			this.m_readyIsVisible = true;
 		}
@@ -209,26 +112,8 @@ public class UICharacterSelectRing : MonoBehaviour
 		}
 		if (this.m_readyIsVisible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_isInGameAnimation.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_isInGameAnimation.gameObject.SetActive(false);
 			}
 		}
@@ -246,19 +131,6 @@ public class UICharacterSelectRing : MonoBehaviour
 	{
 		if (string.IsNullOrEmpty(Localize.MainTranslation))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectRing.OnModifyReadyLocalization()).MethodHandle;
-			}
 			return;
 		}
 		MeshRenderer component = this.m_readyAnimation.GetComponent<MeshRenderer>();
@@ -268,15 +140,6 @@ public class UICharacterSelectRing : MonoBehaviour
 			Texture texture = component2.FindTranslatedObject<Texture>(Localize.MainTranslation);
 			if (texture != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.material.mainTexture = texture;
 			}
 		}
@@ -292,42 +155,11 @@ public class UICharacterSelectRing : MonoBehaviour
 		Localize component2 = this.m_isInGameAnimation.GetComponent<Localize>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectRing.OnModifyInGameLocalization()).MethodHandle;
-			}
 			if (component2 != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Texture texture = component2.FindTranslatedObject<Texture>(Localize.MainTranslation);
 				if (texture != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.material.mainTexture = texture;
 				}
 			}

@@ -34,19 +34,6 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.GameCameraCreated)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITimerPanel.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			this.m_matchStartTime = Time.realtimeSinceStartup;
 		}
 	}
@@ -97,47 +84,16 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 	{
 		if (GameFlowData.Get() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITimerPanel.Update()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_turn != GameFlowData.Get().CurrentTurn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_turn = GameFlowData.Get().CurrentTurn;
 			this.m_turnLabel.text = string.Format("-{0}-", this.GetTurn());
 		}
 		float num = 0f;
 		if (!AppState.GetCurrent() != AppState_InGameDeployment.Get())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = Time.realtimeSinceStartup - this.m_matchStartTime;
 		}
 		int num2 = (int)(num / 60f);
@@ -148,27 +104,9 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (num3 < 0xA)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_timeLabel.text = string.Format("{0}:0{1}", num2, num3);
 		}
 		else

@@ -50,19 +50,6 @@ public class LocalizationPayload
 		{
 			if (!this.ArgumentsAsBinaryData.IsNullOrEmpty<byte[]>())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationPayload.ExtractArguments()).MethodHandle;
-				}
 				list = new List<LocalizationArg>();
 				foreach (byte[] buffer in this.ArgumentsAsBinaryData)
 				{
@@ -71,29 +58,11 @@ public class LocalizationPayload
 					LocalizationPayload.Serializer.Deserialize(stream, out obj);
 					if (obj != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (obj is LocalizationArg)
 						{
 							list.Add(obj as LocalizationArg);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -110,71 +79,22 @@ public class LocalizationPayload
 		List<LocalizationArg> list = this.ExtractArguments();
 		if (list.IsNullOrEmpty<LocalizationArg>())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationPayload.ToString()).MethodHandle;
-			}
 			return text;
 		}
 		if (list.Count == 1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return string.Format(text, list[0].TR());
 		}
 		if (list.Count == 2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return string.Format(text, list[0].TR(), list[1].TR());
 		}
 		if (list.Count == 3)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return string.Format(text, list[0].TR(), list[1].TR(), list[2].TR());
 		}
 		if (list.Count > 4)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("We do not support more than four arguments to localized payloads: {0}@{1}", new object[]
 			{
 				this.Term,
@@ -200,19 +120,6 @@ public class LocalizationPayload
 		string[] array = attedLocIdentifier.Split("@".ToCharArray(), 2);
 		if (array.Length == 2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationPayload.Create(string)).MethodHandle;
-			}
 			return new LocalizationPayload
 			{
 				Term = array[0],
@@ -236,34 +143,12 @@ public class LocalizationPayload
 		List<byte[]> list = null;
 		if (!arguments.IsNullOrEmpty<LocalizationArg>())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationPayload.Create(string, string, LocalizationArg[])).MethodHandle;
-			}
 			list = new List<byte[]>();
 			foreach (LocalizationArg ob in arguments)
 			{
 				MemoryStream memoryStream = new MemoryStream();
 				LocalizationPayload.Serializer.Serialize(memoryStream, ob);
 				list.Add(memoryStream.ToArray());
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return new LocalizationPayload

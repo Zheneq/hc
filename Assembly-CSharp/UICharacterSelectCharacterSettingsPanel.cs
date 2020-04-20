@@ -53,19 +53,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 	{
 		if (this.m_generalTabBtn != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectCharacterSettingsPanel.Awake()).MethodHandle;
-			}
 			this.m_generalTabBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TabBtnClicked);
 		}
 		this.m_skinsTabBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.TabBtnClicked);
@@ -76,32 +63,10 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		{
 			if (GameManager.Get().GameplayOverrides.EnableCards)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UICharacterSelectCharacterSettingsPanel.<Awake>m__0(UITooltipBase)).MethodHandle;
-				}
 				_ButtonSwapSprite spriteController = this.m_catalystTabBtn.spriteController;
 				bool clickable;
 				if (!this.m_selectedCharType.IsWillFill())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					clickable = (this.m_selectedCharType != CharacterType.None);
 				}
 				else
@@ -120,15 +85,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 			}
 			if (!GameManager.Get().GameplayOverrides.EnableCards)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
 				uititledTooltip.Setup(StringUtil.TR("Disabled", "Global"), StringUtil.TR("CatalystsAreDisabled", "Global"), string.Empty);
 				return true;
@@ -138,15 +94,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		this.m_closeBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.CloseClicked);
 		if (this.m_buffInfoBtn != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_buffInfoBtn, true, null);
 			this.m_buffInfoBtn.spriteController.pointerEnterCallback = new _ButtonSwapSprite.ButtonClickCallback(this.BuffInfoMouseEnter);
 			this.m_buffInfoBtn.spriteController.pointerExitCallback = new _ButtonSwapSprite.ButtonClickCallback(this.BuffInfoMouseExit);
@@ -175,19 +122,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 	{
 		if (this.m_tooltipContainer != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectCharacterSettingsPanel.BuffInfoMouseExit(BaseEventData)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_tooltipContainer, false, null);
 		}
 	}
@@ -214,19 +148,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		UIFrontEnd.PlaySound(this.GetTabClickSound());
 		if (this.m_generalTabBtn != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectCharacterSettingsPanel.TabBtnClicked(BaseEventData)).MethodHandle;
-			}
 			if (data.selectedObject == this.m_generalTabBtn.spriteController.gameObject)
 			{
 				this.OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.General, false);
@@ -239,44 +160,17 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		else if (data.selectedObject == this.m_abilitiesTabBtn.spriteController.gameObject)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.Abilities, false);
 		}
 		else if (data.selectedObject == this.m_catalystTabBtn.spriteController.gameObject)
 		{
 			if (GameManager.Get().GameplayOverrides.EnableCards)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.Catalysts, false);
 			}
 		}
 		else if (data.selectedObject == this.m_tauntsTabBtn.spriteController.gameObject)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.Taunts, false);
 		}
 	}
@@ -295,19 +189,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 	{
 		if (selectedCharacter == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectCharacterSettingsPanel.Refresh(CharacterResourceLink, bool, bool)).MethodHandle;
-			}
 			Log.Error("Called to refresh settings panel with null character", new object[0]);
 			return;
 		}
@@ -327,15 +208,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 				this.m_abilitiesSubPanel.Setup(selectedCharacter, true);
 				if (GameManager.Get().PlayerInfo != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_skinsSubPanel.Setup(selectedCharacter, GameManager.Get().PlayerInfo.CharacterInfo.CharacterSkin, true);
 				}
 				else
@@ -344,15 +216,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 				}
 				this.m_tauntsSubPanel.Setup(selectedCharacter, true);
 				goto IL_29A;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		CharacterCardInfo cards;
@@ -364,39 +227,12 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		{
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(selectedCharacter.m_characterType);
 					CharacterCardInfo characterCardInfo;
 					if (playerCharacterData != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (playerCharacterData.CharacterComponent != null)
 						{
 							characterCardInfo = playerCharacterData.CharacterComponent.LastCards;
@@ -419,28 +255,10 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 			CharacterVisualInfo visualInfo;
 			if (GameManager.Get().PlayerInfo != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				visualInfo = GameManager.Get().PlayerInfo.CharacterInfo.CharacterSkin;
 			}
 			else if (groupInfo.InAGroup)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				visualInfo = groupInfo.ChararacterInfo.CharacterSkin;
 			}
 			else
@@ -457,26 +275,8 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		if (selectedCharacter.m_characterType.IsWillFill())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_generalTabBtn != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_generalTabBtn.SetDisabled(true);
 			}
 			this.m_skinsTabBtn.SetDisabled(false);
@@ -488,15 +288,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		{
 			if (this.m_generalTabBtn != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_generalTabBtn.SetDisabled(false);
 			}
 			this.m_skinsTabBtn.SetDisabled(false);
@@ -517,19 +308,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		this.m_currentTab = panel;
 		if (this.m_generalTabBtn != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectCharacterSettingsPanel.OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel, bool)).MethodHandle;
-			}
 			this.m_generalTabBtn.SetSelected(flag, false, string.Empty, string.Empty);
 		}
 		this.m_skinsTabBtn.SetSelected(flag2, false, string.Empty, string.Empty);
@@ -551,39 +329,12 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		this.m_tauntsSubPanel.GetComponent<CanvasGroup>().interactable = flag5;
 		if (this.m_GeneralAnimator != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_GeneralAnimator, true, null);
 			}
 			else if (instantCloseOthers)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_GeneralAnimator, false, null);
 			}
 			else
@@ -593,15 +344,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_SkinsAnimator, true, null);
 		}
 		else
@@ -618,28 +360,10 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_AbilitiesAnimator, true, null);
 		}
 		else if (instantCloseOthers)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_AbilitiesAnimator, false, null);
 		}
 		else
@@ -648,15 +372,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_CatalystAnimator, true, null);
 		}
 		else if (instantCloseOthers)
@@ -669,28 +384,10 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		if (flag5)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_TauntAnimator, true, null);
 		}
 		else if (instantCloseOthers)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_TauntAnimator, false, null);
 		}
 		else
@@ -704,19 +401,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		this.m_isVisible = visible;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectCharacterSettingsPanel.DoVisible(bool, UICharacterSelectCharacterSettingsPanel.TabPanel)).MethodHandle;
-			}
 			UICharacterSelectScreenController.Get().SetCharacterSelectVisible(false);
 			UICharacterSelectScreenController.Get().PlayMainLobbyControllerAnim("LobbyPanelToggleOnIN", 1);
 			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
@@ -736,15 +420,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		if (this.m_tooltipContainer != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_tooltipContainer, false, null);
 		}
 		this.m_CanvasGroup.interactable = visible;
@@ -759,19 +434,6 @@ public class UICharacterSelectCharacterSettingsPanel : MonoBehaviour
 		}
 		else if (visible && tab != this.m_currentTab)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectCharacterSettingsPanel.SetVisible(bool, UICharacterSelectCharacterSettingsPanel.TabPanel)).MethodHandle;
-			}
 			this.OpenTab(tab, false);
 		}
 	}

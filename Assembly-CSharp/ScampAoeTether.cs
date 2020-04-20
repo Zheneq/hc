@@ -72,30 +72,8 @@ public class ScampAoeTether : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (this.m_syncComp.m_suitWasActiveOnTurnStart)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
@@ -107,19 +85,6 @@ public class ScampAoeTether : Ability
 		StandardEffectInfo cachedTetherApplyEnemyEffect;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.SetCachedFields()).MethodHandle;
-			}
 			cachedTetherApplyEnemyEffect = this.m_abilityMod.m_tetherApplyEnemyEffectMod.GetModifiedValue(this.m_tetherApplyEnemyEffect);
 		}
 		else
@@ -130,15 +95,6 @@ public class ScampAoeTether : Ability
 		StandardEffectInfo cachedTetherBreakEnemyEffecf;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedTetherBreakEnemyEffecf = this.m_abilityMod.m_tetherBreakEnemyEffecfMod.GetModifiedValue(this.m_tetherBreakEnemyEffecf);
 		}
 		else
@@ -153,19 +109,6 @@ public class ScampAoeTether : Ability
 		float result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.GetAoeRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeRadiusMod.GetModifiedValue(this.m_aoeRadius);
 		}
 		else
@@ -185,19 +128,6 @@ public class ScampAoeTether : Ability
 		float result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.GetTetherBreakDistanceOverride()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherBreakDistanceOverrideMod.GetModifiedValue(this.m_tetherBreakDistanceOverride);
 		}
 		else
@@ -217,19 +147,6 @@ public class ScampAoeTether : Ability
 		float result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.GetMaxKnockbackDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(this.m_maxKnockbackDist);
 		}
 		else
@@ -254,19 +171,6 @@ public class ScampAoeTether : Ability
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.GetTetherBreakDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(this.m_tetherBreakDamage);
 		}
 		else
@@ -281,19 +185,6 @@ public class ScampAoeTether : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedTetherBreakEnemyEffecf != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.GetTetherBreakEnemyEffecf()).MethodHandle;
-			}
 			result = this.m_cachedTetherBreakEnemyEffecf;
 		}
 		else
@@ -308,19 +199,6 @@ public class ScampAoeTether : Ability
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.GetCdrIfNoTetherTrigger()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrIfNoTetherTriggerMod.GetModifiedValue(this.m_cdrIfNoTetherTrigger);
 		}
 		else
@@ -349,19 +227,6 @@ public class ScampAoeTether : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ScampAoeTether))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScampAoeTether.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ScampAoeTether);
 			this.Setup();
 		}

@@ -40,44 +40,13 @@ public class UIClickListener : MonoBehaviour
 	{
 		if (base.gameObject.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIClickListener.Update()).MethodHandle;
-			}
 			if (this.m_closeAction != null)
 			{
 				if (!Input.GetMouseButtonDown(0))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!Input.GetMouseButtonDown(1))
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
@@ -95,41 +64,14 @@ public class UIClickListener : MonoBehaviour
 						{
 							if (list[i].gameObject.GetInstanceID() == this.m_hitboxes[j].GetInstanceID())
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								return;
 							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
 				this.m_closeAction();
 				base.gameObject.SetActive(false);
 				return;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}

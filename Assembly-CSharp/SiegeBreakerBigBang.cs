@@ -14,19 +14,6 @@ public class SiegeBreakerBigBang : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SiegeBreakerBigBang.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Big Bang";
 		}
 	}

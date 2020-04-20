@@ -46,32 +46,10 @@ public class AppState_GameTypeSelect : AppState
 		Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(this.m_autoCreateGameType);
 		if (!gameTypeSubTypes.IsNullOrEmpty<KeyValuePair<ushort, GameSubType>>())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.Enter(AutoLaunchGameConfig)).MethodHandle;
-			}
 			this.m_autoCreateGameSubType = gameTypeSubTypes.Keys.First<ushort>();
 			this.m_autoCreateGameConfig.GameConfig.SubTypes = gameTypeSubTypes.Values.ToList<GameSubType>();
 			if (gameTypeSubTypes.Count<KeyValuePair<ushort, GameSubType>>() > 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error("More than one sub-type available for {0}, selecting 0x{1:X4} by default", new object[]
 				{
 					this.m_autoCreateGameType,
@@ -94,19 +72,6 @@ public class AppState_GameTypeSelect : AppState
 			this.m_autoCreateGameSubType = gameTypeSubTypes.Keys.First<ushort>();
 			if (gameTypeSubTypes.Count<KeyValuePair<ushort, GameSubType>>() > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.Enter(GameType, string)).MethodHandle;
-				}
 				Log.Error("More than one sub-type available for {0}, selecting 0x{1:X4} by default", new object[]
 				{
 					autoCreateGameType,
@@ -124,19 +89,6 @@ public class AppState_GameTypeSelect : AppState
 		clientGameManager.OnGameInfoNotification += this.HandleGameInfoNotification;
 		if (this.m_autoCreateGameType == GameType.None)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.OnEnter()).MethodHandle;
-			}
 			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.GameTypeSelect, false);
 		}
 	}
@@ -146,19 +98,6 @@ public class AppState_GameTypeSelect : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (this.m_messageBox != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.OnLeave()).MethodHandle;
-			}
 			this.m_messageBox.Close();
 			this.m_messageBox = null;
 		}
@@ -166,15 +105,6 @@ public class AppState_GameTypeSelect : AppState
 		clientGameManager.OnGameInfoNotification -= this.HandleGameInfoNotification;
 		if (UIFrontEnd.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.None, false);
 		}
 	}
@@ -183,43 +113,12 @@ public class AppState_GameTypeSelect : AppState
 	{
 		if (this.m_autoCreateGameType != GameType.None)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.Update()).MethodHandle;
-			}
 			if (this.m_autoCreateGameAtTime <= Time.unscaledTime)
 			{
 				if (this.m_autoCreateGameConfig != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_autoCreateGameConfig.GameConfig != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_autoCreateGameConfig.TeamInfo != null)
 						{
 							IEnumerable<LobbyPlayerInfo> teamAPlayerInfo = this.m_autoCreateGameConfig.TeamInfo.TeamAPlayerInfo;
@@ -233,55 +132,19 @@ public class AppState_GameTypeSelect : AppState
 										LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
 										if (lobbyPlayerInfo.IsGameOwner)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (lobbyPlayerInfo.CharacterType.IsValidForHumanGameplay())
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												ClientGameManager.Get().UpdateSelectedSkin(lobbyPlayerInfo.CharacterInfo.CharacterSkin, 0);
 												ClientGameManager.Get().UpdateSelectedCharacter(lobbyPlayerInfo.CharacterType, 0);
 												goto IL_12D;
 											}
 										}
 									}
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 								}
 								finally
 								{
 									if (enumerator != null)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										enumerator.Dispose();
 									}
 								}
@@ -289,15 +152,6 @@ public class AppState_GameTypeSelect : AppState
 							IL_12D:
 							if (ClientGameManager.Get().GameTypeAvailabilies.ContainsKey(GameType.Custom))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								GameTypeAvailability gameTypeAvailability = ClientGameManager.Get().GameTypeAvailabilies[GameType.Custom];
 								ushort num = 1;
 								using (List<GameSubType>.Enumerator enumerator2 = gameTypeAvailability.SubTypes.GetEnumerator())
@@ -310,19 +164,6 @@ public class AppState_GameTypeSelect : AppState
 											bool result;
 											if (i.IsActive)
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (!true)
-												{
-													RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GameTypeSelect.<Update>m__0(GameMapConfig)).MethodHandle;
-												}
 												result = (i.Map == this.m_autoCreateGameConfig.GameConfig.Map);
 											}
 											else
@@ -332,43 +173,16 @@ public class AppState_GameTypeSelect : AppState
 											return result;
 										}))
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											this.m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit = num;
 											goto IL_1E4;
 										}
 										num = (ushort)(num << 1);
-									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
 							IL_1E4:
 							if (this.m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit == 0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_autoCreateGameConfig.GameConfig.InstanceSubTypeBit = 1;
 							}
 							this.CreateGame(this.m_autoCreateGameConfig.GameConfig, this.m_autoCreateGameConfig.TeamInfo);
@@ -391,19 +205,6 @@ public class AppState_GameTypeSelect : AppState
 		Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(GameType.Coop);
 		if (!gameTypeSubTypes.IsNullOrEmpty<KeyValuePair<ushort, GameSubType>>())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.OnSoloClicked()).MethodHandle;
-			}
 			using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -411,27 +212,9 @@ public class AppState_GameTypeSelect : AppState
 					KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
 					if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.AntiSocial))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.CreateGame(GameType.Coop, keyValuePair.Key, null);
 						return;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -476,22 +259,9 @@ public class AppState_GameTypeSelect : AppState
 		ClientGameManager clientGameManager2 = clientGameManager;
 		BotDifficulty? allyDifficulty = botDifficulty;
 		BotDifficulty? enemyDifficulty = botDifficulty2;
-		if (AppState_GameTypeSelect.<>f__am$cache0 == null)
+		if (AppState_GameTypeSelect.f__am_cache0 == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.JoinQueue(GameType)).MethodHandle;
-			}
-			AppState_GameTypeSelect.<>f__am$cache0 = delegate(JoinMatchmakingQueueResponse response)
+			AppState_GameTypeSelect.f__am_cache0 = delegate(JoinMatchmakingQueueResponse response)
 			{
 				if (response.Success)
 				{
@@ -502,32 +272,10 @@ public class AppState_GameTypeSelect : AppState
 					string description;
 					if (response.LocalizedFailure != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GameTypeSelect.<JoinQueue>m__1(JoinMatchmakingQueueResponse)).MethodHandle;
-						}
 						description = response.LocalizedFailure.ToString();
 					}
 					else if (response.ErrorMessage.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						description = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
 					}
 					else
@@ -538,7 +286,7 @@ public class AppState_GameTypeSelect : AppState
 				}
 			};
 		}
-		clientGameManager2.JoinQueue(gameType, allyDifficulty, enemyDifficulty, AppState_GameTypeSelect.<>f__am$cache0);
+		clientGameManager2.JoinQueue(gameType, allyDifficulty, enemyDifficulty, AppState_GameTypeSelect.f__am_cache0);
 	}
 
 	public void CreateGame(LobbyGameConfig gameConfig, LobbyTeamInfo teamInfo = null)
@@ -551,19 +299,6 @@ public class AppState_GameTypeSelect : AppState
 		BotDifficulty selectedBotSkillTeamB = BotDifficulty.Easy;
 		if (gameType == GameType.NewPlayerSolo)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.CreateGame(LobbyGameConfig, LobbyTeamInfo)).MethodHandle;
-			}
 			selectedBotSkillTeamA = BotDifficulty.Hard;
 			selectedBotSkillTeamB = BotDifficulty.Tutorial;
 		}
@@ -576,27 +311,9 @@ public class AppState_GameTypeSelect : AppState
 			}
 			if (gameType != GameType.Solo)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameType != GameType.Coop)
 				{
 					goto IL_C1;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			selectedBotSkillTeamB = (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay;
@@ -608,32 +325,10 @@ public class AppState_GameTypeSelect : AppState
 			{
 				if (GameManager.Get().GameConfig.GameType != GameType.Tutorial && GameManager.Get().GameConfig.GameType != GameType.NewPlayerSolo)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_GameTypeSelect.<CreateGame>c__AnonStorey0.<>m__0(CreateGameResponse)).MethodHandle;
-					}
 					AppState_CharacterSelect.Get().Enter();
 					bool flag2 = GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.AutoLaunch);
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClientGameManager.Get().UpdateGameInfo(GameManager.Get().GameConfig, teamInfo);
 						AppState_CharacterSelect.Get().UpdateReadyState(true, null, null);
 					}
@@ -641,15 +336,6 @@ public class AppState_GameTypeSelect : AppState
 			}
 			else if (response.AllowRetry)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_autoCreateGameType = gameType;
 				this.m_autoCreateMapName = mapName;
 				this.m_autoCreateGameAtTime = Time.unscaledTime + 5f;
@@ -662,28 +348,10 @@ public class AppState_GameTypeSelect : AppState
 				string description;
 				if (response.LocalizedFailure != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					description = response.LocalizedFailure.ToString();
 				}
 				else if (gameType == GameType.Tutorial)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					description = StringUtil.TR("UnableToLoadTutorial", "Frontend");
 				}
 				else if (!response.ErrorMessage.IsNullOrEmpty())
@@ -697,15 +365,6 @@ public class AppState_GameTypeSelect : AppState
 				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"), null, -1, false);
 				if (gameType == GameType.Tutorial)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AppState_LandingPage.Get().Enter();
 				}
 			}
@@ -732,31 +391,9 @@ public class AppState_GameTypeSelect : AppState
 			{
 				return;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_GameTypeSelect.HandleGameInfoNotification(GameInfoNotification)).MethodHandle;
-			}
 		}
 		if (GameManager.Get().PlayerInfo != null && GameManager.Get().GameInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameManager.Get().TeamInfo != null)
 			{
 				AppState_GameLoading.Get().Enter(GameManager.Get().GameConfig.GameType);

@@ -41,19 +41,6 @@ public class SoldierStimPack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Stim Pack";
 		}
 		this.Setup();
@@ -63,32 +50,10 @@ public class SoldierStimPack : Ability
 	{
 		if (this.m_abilityData == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.Setup()).MethodHandle;
-			}
 			this.m_abilityData = base.GetComponent<AbilityData>();
 		}
 		if (this.m_abilityData != null && this.m_grenadeAbility == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_grenadeAbility = (this.m_abilityData.GetAbilityOfType(typeof(SoldierGrenade)) as SoldierGrenade);
 		}
 		this.SetCachedFields();
@@ -102,19 +67,6 @@ public class SoldierStimPack : Ability
 		StandardEffectInfo cachedDashShootExtraEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.SetCachedFields()).MethodHandle;
-			}
 			cachedDashShootExtraEffect = this.m_abilityMod.m_dashShootExtraEffectMod.GetModifiedValue(this.m_dashShootExtraEffect);
 		}
 		else
@@ -129,19 +81,6 @@ public class SoldierStimPack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.GetSelfHealAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealAmountMod.GetModifiedValue(this.m_selfHealAmount);
 		}
 		else
@@ -156,19 +95,6 @@ public class SoldierStimPack : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSelfHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.GetSelfHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedSelfHitEffect;
 		}
 		else
@@ -183,19 +109,6 @@ public class SoldierStimPack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.BasicAttackIgnoreCover()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_basicAttackIgnoreCoverMod.GetModifiedValue(this.m_basicAttackIgnoreCover);
 		}
 		else
@@ -225,19 +138,6 @@ public class SoldierStimPack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.GetCooldownResetHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cooldownResetHealthThresholdMod.GetModifiedValue(this.m_cooldownResetHealthThreshold);
 		}
 		else
@@ -268,19 +168,6 @@ public class SoldierStimPack : Ability
 		int val;
 		if (abilityMod_SoldierStimPack)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SoldierStimPack.m_selfHealAmountMod.GetModifiedValue(this.m_selfHealAmount);
 		}
 		else
@@ -291,15 +178,6 @@ public class SoldierStimPack : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_SoldierStimPack)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_SoldierStimPack.m_selfHitEffectMod.GetModifiedValue(this.m_selfHitEffect);
 		}
 		else
@@ -315,19 +193,6 @@ public class SoldierStimPack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SoldierStimPack))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierStimPack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SoldierStimPack);
 			this.Setup();
 		}

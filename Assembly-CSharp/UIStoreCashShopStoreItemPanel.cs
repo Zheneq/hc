@@ -25,34 +25,9 @@ public class UIStoreCashShopStoreItemPanel : UICashShopPanelBase
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreCashShopStoreItemPanel.GetPurchasableItems()).MethodHandle;
-		}
 		List<UIPurchaseableItem> list2 = list;
-		if (UIStoreCashShopStoreItemPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			UIStoreCashShopStoreItemPanel.<>f__am$cache0 = ((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder);
-		}
-		list2.Sort(UIStoreCashShopStoreItemPanel.<>f__am$cache0);
+		
+		list2.Sort(((UIPurchaseableItem a, UIPurchaseableItem b) => a.m_sortOrder - b.m_sortOrder));
 		return list.ToArray();
 	}
 }

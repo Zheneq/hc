@@ -22,19 +22,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 	{
 		if (this.m_charType != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerStylesPanel.GetRawItemsList()).MethodHandle;
-			}
 			this.m_currentVisualInfo = new CharacterVisualInfo(0, 0, 0);
 			List<GameBalanceVars.PlayerUnlockable> list = new List<GameBalanceVars.PlayerUnlockable>();
 			GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
@@ -46,34 +33,7 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 					{
 						list.Add(item);
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return base.SortItems(list).ToArray();
 		}
@@ -101,19 +61,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		bool flag;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerStylesPanel.Display3dModel(bool)).MethodHandle;
-			}
 			flag = this.IsVisible;
 		}
 		else
@@ -123,28 +70,10 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		visible = flag;
 		if (UICharacterStoreAndProgressWorldObjects.Get() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterStoreAndProgressWorldObjects.Get().LoadCharacterIntoSlot(this.m_charType, 0, string.Empty, this.m_currentVisualInfo, false);
 		}
 		UICharacterStoreAndProgressWorldObjects.Get().SetVisible(visible);
@@ -154,19 +83,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 	{
 		if (!(item is GameBalanceVars.ColorUnlockData))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerStylesPanel.ItemSelected(GameBalanceVars.PlayerUnlockable)).MethodHandle;
-			}
 			this.m_selectedItem = null;
 			return;
 		}
@@ -180,19 +96,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 	{
 		if (this.m_selectedItem == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerStylesPanel.EquipClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 	}
@@ -227,19 +130,6 @@ public class UIStoreFreelancerStylesPanel : UIStoreBaseInventoryPanel
 		uipurchaseableItem.m_tintIndex = item.ID;
 		if (type == CurrencyType.NONE)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerStylesPanel.PurchaseItem(GameBalanceVars.PlayerUnlockable, CurrencyType)).MethodHandle;
-			}
 			uipurchaseableItem.m_purchaseForCash = true;
 		}
 		else

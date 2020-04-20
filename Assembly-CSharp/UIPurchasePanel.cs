@@ -32,34 +32,12 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		if (this.m_freelancerCurrencyButton != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.Awake()).MethodHandle;
-			}
 			this.m_freelancerCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.TooltipSetup), null);
 			this.m_freelancerCurrencyButton.spriteController.SetForceHovercallback(true);
 			this.m_freelancerCurrencyButton.spriteController.SetForceExitCallback(true);
 		}
 		if (this.m_realCurrencyButton != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_realCurrencyButton.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.TooltipSetup), null);
 			this.m_realCurrencyButton.spriteController.SetForceHovercallback(true);
 			this.m_realCurrencyButton.spriteController.SetForceExitCallback(true);
@@ -74,19 +52,6 @@ public class UIPurchasePanel : MonoBehaviour
 			bool flag;
 			if (gameManager != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.OnEnable()).MethodHandle;
-				}
 				flag = (gameManager.GameStatus < GameStatus.FreelancerSelecting || gameManager.GameStatus == GameStatus.Stopped);
 			}
 			else
@@ -105,42 +70,11 @@ public class UIPurchasePanel : MonoBehaviour
 		this.m_allowDuringGame = allowDuringGame;
 		if (!this.m_allowDuringGame)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.Setup(int, int, float, bool)).MethodHandle;
-			}
 			bool flag;
 			if (isoPrice <= 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (freelancerCurrencyPrice <= 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (realCurrencyPrice > 0f);
 					goto IL_4D;
 				}
@@ -152,26 +86,8 @@ public class UIPurchasePanel : MonoBehaviour
 			bool flag3;
 			if (gameManager != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameManager.GameStatus >= GameStatus.FreelancerSelecting)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = (gameManager.GameStatus == GameStatus.Stopped);
 				}
 				else
@@ -193,29 +109,11 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		if (this.m_freelancerCurrencyButton != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_freelancerCurrencyButton, freelancerCurrencyPrice > 0, null);
 			this.SetPriceLabels(this.m_freelancerCurrencyCostTexts, freelancerCurrencyPrice, "credit");
 		}
 		if (this.m_realCurrencyButton != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_realCurrencyButton, realCurrencyPrice > 0f, null);
 			this.SetRealPriceLabels(realCurrencyPrice);
 		}
@@ -228,19 +126,6 @@ public class UIPurchasePanel : MonoBehaviour
 		{
 			costLabels[i].text = text;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.SetPriceLabels(TextMeshProUGUI[], int, string)).MethodHandle;
-		}
 	}
 
 	private void SetRealPriceLabels(float cost)
@@ -250,38 +135,12 @@ public class UIPurchasePanel : MonoBehaviour
 		{
 			this.m_realCurrencyCostText[i].text = localizedPriceString;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.SetRealPriceLabels(float)).MethodHandle;
-		}
 	}
 
 	public void SetDisabled(bool isDisabled)
 	{
 		if (this.m_isoButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.SetDisabled(bool)).MethodHandle;
-			}
 			this.m_isoButton.m_ignoreDefaultAnimationCall = isDisabled;
 			this.m_isoButton.m_ignoreHoverAnimationCall = isDisabled;
 			this.m_isoButton.m_ignorePressAnimationCall = isDisabled;
@@ -290,15 +149,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		if (this.m_freelancerCurrencyButton != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_freelancerCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
 			this.m_freelancerCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
 			this.m_freelancerCurrencyButton.m_ignorePressAnimationCall = isDisabled;
@@ -307,15 +157,6 @@ public class UIPurchasePanel : MonoBehaviour
 		}
 		if (this.m_realCurrencyButton != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_realCurrencyButton.m_ignoreDefaultAnimationCall = isDisabled;
 			this.m_realCurrencyButton.m_ignoreHoverAnimationCall = isDisabled;
 			this.m_realCurrencyButton.m_ignorePressAnimationCall = isDisabled;
@@ -333,19 +174,6 @@ public class UIPurchasePanel : MonoBehaviour
 	{
 		if (!this.m_tooltipDescription.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPurchasePanel.TooltipSetup(UITooltipBase)).MethodHandle;
-			}
 			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
 			uititledTooltip.Setup(StringUtil.TR("Purchase", "Global"), this.m_tooltipDescription, string.Empty);
 			return true;

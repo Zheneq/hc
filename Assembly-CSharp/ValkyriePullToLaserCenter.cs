@@ -38,19 +38,6 @@ public class ValkyriePullToLaserCenter : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Valkyrie Pull Beam";
 		}
 		this.Setup();
@@ -80,19 +67,6 @@ public class ValkyriePullToLaserCenter : Ability
 		StandardEffectInfo cachedEffectToEnemies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectToEnemies = this.m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(this.m_effectToEnemies);
 		}
 		else
@@ -132,43 +106,12 @@ public class ValkyriePullToLaserCenter : Ability
 					AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 					if (actorTarget.m_actor == targetActor)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-						}
 						if (actorTarget.m_subjectTypes.Contains(AbilityTooltipSubject.HighHP))
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += extraDamageIfKnockedInPlace;
 						}
 						goto IL_BE;
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -180,15 +123,6 @@ public class ValkyriePullToLaserCenter : Ability
 			bool flag = AreaEffectUtils.IsSquareInBoxByActorRadius(targetActor.GetCurrentBoardSquare(), base.ActorData.GetTravelBoardSquareWorldPositionForLos(), abilityUtil_Targeter_KnockbackLaser.GetLastLaserEndPos(), this.GetCenterHitWidth());
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += extraDamageForCenterHits;
 			}
 		}
@@ -201,19 +135,6 @@ public class ValkyriePullToLaserCenter : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -233,19 +154,6 @@ public class ValkyriePullToLaserCenter : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -260,19 +168,6 @@ public class ValkyriePullToLaserCenter : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.LengthIgnoreLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_lengthIgnoreLosMod.GetModifiedValue(this.m_lengthIgnoreLos);
 		}
 		else
@@ -287,19 +182,6 @@ public class ValkyriePullToLaserCenter : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
 		}
 		else
@@ -319,19 +201,6 @@ public class ValkyriePullToLaserCenter : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectToEnemies != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetEffectToEnemies()).MethodHandle;
-			}
 			result = this.m_cachedEffectToEnemies;
 		}
 		else
@@ -346,19 +215,6 @@ public class ValkyriePullToLaserCenter : Ability
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetExtraDamageForCenterHits()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageForCenterHitsMod.GetModifiedValue(this.m_extraDamageForCenterHits);
 		}
 		else
@@ -373,19 +229,6 @@ public class ValkyriePullToLaserCenter : Ability
 		float result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetCenterHitWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_centerHitWidthMod.GetModifiedValue(this.m_centerHitWidth);
 		}
 		else
@@ -400,19 +243,6 @@ public class ValkyriePullToLaserCenter : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.GetMaxKnockbackDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(this.m_maxKnockbackDist);
 		}
 		else
@@ -432,19 +262,6 @@ public class ValkyriePullToLaserCenter : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.ShouldSkipDamageReductionOnNextTurnStab()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_nextTurnStabSkipsDamageReduction.GetModifiedValue(false);
 		}
 		else
@@ -458,19 +275,6 @@ public class ValkyriePullToLaserCenter : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ValkyriePullToLaserCenter))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ValkyriePullToLaserCenter.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ValkyriePullToLaserCenter);
 			this.Setup();
 		}

@@ -28,31 +28,9 @@ public class DinoLayerCones : GenericAbility_Container
 		this.m_abilityData = base.GetComponent<AbilityData>();
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoLayerCones.SetupTargetersAndCachedVars()).MethodHandle;
-			}
 			this.m_dashOrShieldAbility = this.m_abilityData.GetAbilityOfType<DinoDashOrShield>();
 			if (this.m_dashOrShieldAbility != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_dashOrShieldActionType = this.m_abilityData.GetActionTypeOfAbility(this.m_dashOrShieldAbility);
 			}
 		}
@@ -65,15 +43,6 @@ public class DinoLayerCones : GenericAbility_Container
 		}
 		if (base.Targeter is AbilityUtil_Targeter_LayerCones)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityUtil_Targeter_LayerCones abilityUtil_Targeter_LayerCones = base.Targeter as AbilityUtil_Targeter_LayerCones;
 			abilityUtil_Targeter_LayerCones.m_delegateNumActiveLayers = new AbilityUtil_Targeter_LayerCones.NumActiveLayerDelegate(this.GetNumLayersActive);
 		}
@@ -89,30 +58,8 @@ public class DinoLayerCones : GenericAbility_Container
 		GenericAbility_TargetSelectBase targetSelectComp = this.GetTargetSelectComp();
 		if (targetSelectComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DinoLayerCones.GetLayerCount()).MethodHandle;
-			}
 			if (targetSelectComp is TargetSelect_LayerCones)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return (targetSelectComp as TargetSelect_LayerCones).GetLayerCount();
 			}
 		}
@@ -125,31 +72,9 @@ public class DinoLayerCones : GenericAbility_Container
 		{
 			return 0;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(DinoLayerCones.GetNumLayersActive(int)).MethodHandle;
-		}
 		bool flag = false;
 		if (this.m_dashOrShieldAbility != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_dashOrShieldAbility.FullyChargeUpLayerCone() && !this.m_dashOrShieldAbility.IsInReadyStance())
 			{
 				flag = this.m_abilityData.HasQueuedAction(this.m_dashOrShieldActionType);
@@ -157,15 +82,6 @@ public class DinoLayerCones : GenericAbility_Container
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return maxLayers;
 		}
 		return Mathf.Min(maxLayers, (int)(this.m_syncComp.m_layerConePowerLevel + 1));

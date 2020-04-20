@@ -82,19 +82,6 @@ public class LobbyPlayerInfo
 			CharacterType result;
 			if (this.CharacterInfo == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerInfo.get_CharacterType()).MethodHandle;
-				}
 				result = CharacterType.None;
 			}
 			else
@@ -113,19 +100,6 @@ public class LobbyPlayerInfo
 			bool result;
 			if (this.ReadyState != ReadyState.Ready && !this.IsAIControlled)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerInfo.get_IsReady()).MethodHandle;
-				}
 				result = this.IsRemoteControlled;
 			}
 			else
@@ -153,30 +127,8 @@ public class LobbyPlayerInfo
 		}
 		if (this.IsNPCBot)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerInfo.GetHandle()).MethodHandle;
-			}
 			if (!this.BotsMasqueradeAsHumans)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return StringUtil.TR_CharacterName(this.CharacterInfo.CharacterType.ToString());
 			}
 		}
@@ -188,31 +140,9 @@ public class LobbyPlayerInfo
 		LobbyPlayerInfo lobbyPlayerInfo = null;
 		if (serverInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyPlayerInfo.FromServer(LobbyServerPlayerInfo, int, MatchmakingQueueConfig)).MethodHandle;
-			}
 			List<LobbyCharacterInfo> list = null;
 			if (serverInfo.RemoteCharacterInfos != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list = new List<LobbyCharacterInfo>();
 				using (List<LobbyCharacterInfo>.Enumerator enumerator = serverInfo.RemoteCharacterInfos.GetEnumerator())
 				{
@@ -220,15 +150,6 @@ public class LobbyPlayerInfo
 					{
 						LobbyCharacterInfo lobbyCharacterInfo = enumerator.Current;
 						list.Add(lobbyCharacterInfo.Clone());
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -250,15 +171,6 @@ public class LobbyPlayerInfo
 			bool botsMasqueradeAsHumans;
 			if (queueConfig != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				botsMasqueradeAsHumans = queueConfig.BotsMasqueradeAsHumans;
 			}
 			else
@@ -276,15 +188,6 @@ public class LobbyPlayerInfo
 			int controllingPlayerId;
 			if (serverInfo.IsRemoteControlled)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				controllingPlayerId = serverInfo.ControllingPlayerInfo.PlayerId;
 			}
 			else
@@ -296,15 +199,6 @@ public class LobbyPlayerInfo
 			lobbyPlayerInfo = lobbyPlayerInfo2;
 			if (serverInfo.AccountLevel >= maxPlayerLevel)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				lobbyPlayerInfo.DisplayedStat = LocalizationPayload.Create("TotalSeasonLevelStatNumber", "Global", new LocalizationArg[]
 				{
 					LocalizationArg_Int32.Create(serverInfo.TotalLevel)

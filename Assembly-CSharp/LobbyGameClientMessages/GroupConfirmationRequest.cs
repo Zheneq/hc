@@ -23,8 +23,8 @@ namespace LobbyGameClientMessages
 
 		public enum JoinType
 		{
-			\u001D,
-			\u000E
+			symbol_001D,
+			symbol_000E
 		}
 	}
 }

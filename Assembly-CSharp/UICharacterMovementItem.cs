@@ -44,19 +44,6 @@ public class UICharacterMovementItem : MonoBehaviour
 	{
 		if (this.actorDataRef.Contains(data))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.AddActor(ActorData)).MethodHandle;
-			}
 			return;
 		}
 		this.actorDataRef.Add(data);
@@ -67,19 +54,6 @@ public class UICharacterMovementItem : MonoBehaviour
 	{
 		if (this.actorDataRef.Contains(data))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.RemoveActor(ActorData)).MethodHandle;
-			}
 			this.actorDataRef.Remove(data);
 			this.UpdateIndicators();
 		}
@@ -92,19 +66,6 @@ public class UICharacterMovementItem : MonoBehaviour
 		int num2 = 0;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.UpdateIndicators()).MethodHandle;
-			}
 			for (int i = 0; i < this.actorDataRef.Count; i++)
 			{
 				if (!(this.actorDataRef[i] == null))
@@ -112,15 +73,6 @@ public class UICharacterMovementItem : MonoBehaviour
 					if (!(ClientGameManager.Get() != null) || ClientGameManager.Get().PlayerInfo == null)
 					{
 						goto IL_98;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					bool flag;
 					if (ClientGameManager.Get().PlayerInfo.TeamId != Team.Spectator)
@@ -144,28 +96,10 @@ public class UICharacterMovementItem : MonoBehaviour
 					bool flag3;
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = (this.actorDataRef[i].GetTeam() == Team.TeamA);
 					}
 					else if (GameFlowData.Get().activeOwnedActorData != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = (this.actorDataRef[i].GetTeam() == GameFlowData.Get().activeOwnedActorData.GetTeam());
 					}
 					else
@@ -175,27 +109,9 @@ public class UICharacterMovementItem : MonoBehaviour
 					bool flag4 = flag3;
 					if (flag4)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UICharacterMovementMarker uicharacterMovementMarker = this.m_blueMarkers[num];
 						if (uicharacterMovementMarker != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (uicharacterMovementMarker.gameObject != null)
 							{
 								UIManager.SetGameObjectActive(uicharacterMovementMarker, true, null);
@@ -208,15 +124,6 @@ public class UICharacterMovementItem : MonoBehaviour
 					UICharacterMovementMarker uicharacterMovementMarker2 = this.m_redMarkers[num2];
 					if (uicharacterMovementMarker2 != null && uicharacterMovementMarker2.gameObject != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(uicharacterMovementMarker2, true, null);
 						uicharacterMovementMarker2.m_characterImage.sprite = this.actorDataRef[i].GetScreenIndicatorIcon();
 						num2++;
@@ -226,15 +133,6 @@ public class UICharacterMovementItem : MonoBehaviour
 					IL_98:
 					if (GameManager.Get() != null && GameManager.Get().PlayerInfo != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (GameManager.Get().PlayerInfo.TeamId == Team.Spectator);
 					}
 					else
@@ -245,15 +143,6 @@ public class UICharacterMovementItem : MonoBehaviour
 				}
 				IL_220:;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		for (int j = num; j < this.m_blueMarkers.Length; j++)
 		{
@@ -262,39 +151,12 @@ public class UICharacterMovementItem : MonoBehaviour
 				UIManager.SetGameObjectActive(this.m_blueMarkers[j], false, null);
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int k = num2; k < this.m_redMarkers.Length; k++)
 		{
 			if (this.m_redMarkers[k] != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_redMarkers[k], false, null);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -302,70 +164,21 @@ public class UICharacterMovementItem : MonoBehaviour
 	{
 		if (Camera.main == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterMovementItem.LateUpdate()).MethodHandle;
-			}
 			return;
 		}
 		if (this.myCanvas == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.myCanvas = HUD_UI.Get().GetTopLevelCanvas();
 		}
 		if (this.myCanvas != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.CanvasRect == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.CanvasRect = (this.myCanvas.transform as RectTransform);
 			}
 		}
 		if (this.CanvasRect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector = this.boardSquareRef.gameObject.transform.position + Vector3.up * this.m_heightOffset;
 			Vector3 b = Camera.main.WorldToScreenPoint(vector);
 			Vector3 a = Camera.main.WorldToScreenPoint(vector + Camera.main.transform.up);

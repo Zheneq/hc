@@ -9,19 +9,6 @@ public class UIStoreFreelancerTauntsPanel : UIStoreBaseInventoryPanel
 	{
 		if (this.m_charType != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerTauntsPanel.GetRawItemsList()).MethodHandle;
-			}
 			List<GameBalanceVars.PlayerUnlockable> list = new List<GameBalanceVars.PlayerUnlockable>();
 			GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 			foreach (GameBalanceVars.TauntUnlockData item in gameBalanceVars.GetCharacterUnlockData(this.m_charType).tauntUnlockData)
@@ -45,19 +32,6 @@ public class UIStoreFreelancerTauntsPanel : UIStoreBaseInventoryPanel
 		{
 			if (!(item is GameBalanceVars.TauntUnlockData))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreFreelancerTauntsPanel.ItemTooltipPopulate(UITooltipBase, UIStoreItemBtn, GameBalanceVars.PlayerUnlockable)).MethodHandle;
-				}
 			}
 			else
 			{

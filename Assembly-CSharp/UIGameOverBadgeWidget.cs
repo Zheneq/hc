@@ -22,64 +22,20 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 		this.m_BadgeInfo = GameBalanceVars.Get().GetGameBadge(badgeInfo.BadgeId);
 		if (this.m_BadgeInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverBadgeWidget.Setup(global::BadgeInfo, CharacterType, Dictionary<StatDisplaySettings.StatType, PercentileInfo>)).MethodHandle;
-			}
 			this.m_BadgeIcon.sprite = (Sprite)Resources.Load(this.m_BadgeInfo.BadgeIconString, typeof(Sprite));
 			if (base.gameObject.GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<UITooltipHoverObject>() == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.gameObject.GetComponent<_SelectableBtn>().spriteController.gameObject.AddComponent<UITooltipHoverObject>();
 			}
 			UITooltipHoverObject component = base.gameObject.GetComponent<_SelectableBtn>().spriteController.gameObject.GetComponent<UITooltipHoverObject>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.Setup(TooltipType.Titled, delegate(UITooltipBase tooltip)
 				{
 					UITitledTooltip uititledTooltip = (UITitledTooltip)tooltip;
 					string text = GameResultBadgeData.GetBadgeDescription(this.m_BadgeInfo, characterType);
 					if (this.m_BadgeInfo.ComparisonGroup == GameBalanceVars.GameResultBadge.ComparisonType.Global)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverBadgeWidget.<Setup>c__AnonStorey0.<>m__0(UITooltipBase)).MethodHandle;
-						}
 						int? num = null;
 						int? num2 = null;
 						int? num3 = null;
@@ -97,15 +53,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 						string newValue;
 						if (num != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							newValue = num.Value.ToString();
 						}
 						else
@@ -118,15 +65,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 						string newValue2;
 						if (num2 != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							newValue2 = num2.Value.ToString();
 						}
 						else
@@ -139,15 +77,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 						string newValue3;
 						if (num3 != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							newValue3 = num3.Value.ToString();
 						}
 						else
@@ -167,19 +96,6 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 				{
 					if (UIGameOverScreen.Get() != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverBadgeWidget.<Setup>c__AnonStorey0.<>m__1()).MethodHandle;
-						}
 						UIGameOverScreen.Get().NotifyWidgetMouseOver(this, false);
 					}
 				});

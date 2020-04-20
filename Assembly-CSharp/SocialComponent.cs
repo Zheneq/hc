@@ -33,19 +33,6 @@ public class SocialComponent : ICloneable
 		SocialComponent.FriendData friendData;
 		if (!this.FriendInfo.TryGetValue(friendAccountId, out friendData))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SocialComponent.GetOrCreateFriendInfo(long)).MethodHandle;
-			}
 			friendData = new SocialComponent.FriendData();
 			this.FriendInfo[friendAccountId] = friendData;
 		}
@@ -79,44 +66,13 @@ public class SocialComponent : ICloneable
 	{
 		if (this.ReportedTemporaryPoints > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SocialComponent.CalculatePointDecay(float)).MethodHandle;
-			}
 			if (this.TimeOfDecay != DateTime.MinValue)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (DateTime.UtcNow > this.TimeOfDecay)
 				{
 					int num = (int)((DateTime.UtcNow - this.TimeOfDecay).TotalHours * (double)ReportDecayValue);
 					if (num > this.ReportedTemporaryPoints)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ReportedTemporaryPoints = 0;
 					}
 					else
@@ -133,19 +89,6 @@ public class SocialComponent : ICloneable
 		DateTime dateTime;
 		if (muteDuration > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SocialComponent.CalculateNewTimeOfDecay(int)).MethodHandle;
-			}
 			dateTime = DateTime.UtcNow + TimeSpan.FromSeconds((double)muteDuration) + TimeSpan.FromHours(12.0);
 		}
 		else
@@ -154,15 +97,6 @@ public class SocialComponent : ICloneable
 		}
 		if (dateTime > this.TimeOfDecay)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.TimeOfDecay = dateTime;
 		}
 	}

@@ -26,19 +26,6 @@ public class ClientBarrierStartData
 				ServerClientUtils.SequenceStartData sequenceStartData = enumerator.Current;
 				sequenceStartData.CreateSequencesFromData(new SequenceSource.ActorDelegate(this.OnClientBarrierStartSequenceHitActor), new SequenceSource.Vector3Delegate(this.OnClientBarrierStartSequenceHitPosition));
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientBarrierStartData.ExecuteBarrierStart()).MethodHandle;
-			}
 		}
 	}
 

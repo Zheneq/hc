@@ -29,19 +29,6 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		SpaceMarineJetpack spaceMarineJetpack = targetAbility as SpaceMarineJetpack;
 		if (spaceMarineJetpack != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineJetpack.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfMod, "EffectOnSelf", spaceMarineJetpack.m_effectOnSelf, true);
 			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, spaceMarineJetpack.m_damage, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_additionalEffectOnEnemy, "DebuffData", spaceMarineJetpack.m_debuffData, true);
@@ -60,19 +47,6 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineJetpack.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = spaceMarineJetpack.m_effectOnSelf;
 		}
 		else
@@ -87,15 +61,6 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarineJetpack.m_damage;
 		}
 		else

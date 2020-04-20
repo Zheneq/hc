@@ -45,19 +45,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		ClericMeleeKnockback clericMeleeKnockback = targetAbility as ClericMeleeKnockback;
 		if (clericMeleeKnockback != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericMeleeKnockback.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_minSeparationBetweenAoeAndCasterMod, "MinSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_minSeparationBetweenAoeAndCaster, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxSeparationBetweenAoeAndCasterMod, "MaxSeparationBetweenAoeAndCaster", string.Empty, clericMeleeKnockback.m_maxSeparationBetweenAoeAndCaster, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_aoeRadiusMod, "AoeRadius", string.Empty, clericMeleeKnockback.m_aoeRadius, true, false, false);
@@ -85,19 +72,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClericMeleeKnockback.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = clericMeleeKnockback.m_penetrateLineOfSight;
 		}
 		else
@@ -112,15 +86,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = clericMeleeKnockback.m_minSeparationBetweenAoeAndCaster;
 		}
 		else
@@ -136,15 +101,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = clericMeleeKnockback.m_aoeRadius;
 		}
 		else
@@ -159,15 +115,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = clericMeleeKnockback.m_maxTargets;
 		}
 		else
@@ -182,15 +129,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = clericMeleeKnockback.m_damageAmount;
 		}
 		else
@@ -205,15 +143,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = clericMeleeKnockback.m_knockbackDistance;
 		}
 		else
@@ -228,15 +157,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		KnockbackType baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = clericMeleeKnockback.m_knockbackType;
 		}
 		else
@@ -251,15 +171,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = clericMeleeKnockback.m_targetHitEffect;
 		}
 		else
@@ -275,15 +186,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = clericMeleeKnockback.m_connectLaserWidth;
 		}
 		else
@@ -298,15 +200,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = clericMeleeKnockback.m_connectLaserDamage;
 		}
 		else
@@ -321,15 +214,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = clericMeleeKnockback.m_connectLaserEnemyHitEffect;
 		}
 		else

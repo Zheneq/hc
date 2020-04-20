@@ -57,19 +57,6 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (this.m_powerupSpawnerRoot == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetSpawnerRoot()).MethodHandle;
-			}
 			this.m_powerupSpawnerRoot = new GameObject("PowerupRoot_Spawners");
 		}
 		return this.m_powerupSpawnerRoot;
@@ -79,19 +66,6 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (this.m_powerupSequencesRoot == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetSpawnedPersistentSequencesRoot()).MethodHandle;
-			}
 			this.m_powerupSequencesRoot = new GameObject("PowerupRoot_PersistentSequences");
 		}
 		return this.m_powerupSequencesRoot;
@@ -101,45 +75,14 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (guid < 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetPowerUpOfGuid(int)).MethodHandle;
-			}
 			return null;
 		}
 		if (this.m_guidToPowerupDictionary == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return null;
 		}
 		if (!this.m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return null;
 		}
 		return this.m_guidToPowerupDictionary[guid];
@@ -149,19 +92,6 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (!this.m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.SetPowerUpGuid(PowerUp, int)).MethodHandle;
-			}
 			this.m_guidToPowerupDictionary.Add(guid, pup);
 		}
 		else
@@ -184,34 +114,12 @@ public class PowerUpManager : MonoBehaviour
 		this.m_powerUpListeners = new List<PowerUp.IPowerUpListener>();
 		if (PowerUpManager.s_powerUpListenersTemp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.Awake()).MethodHandle;
-			}
 			using (List<PowerUp.IPowerUpListener>.Enumerator enumerator = PowerUpManager.s_powerUpListenersTemp.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
 				{
 					PowerUp.IPowerUpListener listener = enumerator.Current;
 					this.AddListener(listener);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			PowerUpManager.s_powerUpListenersTemp.Clear();
@@ -226,19 +134,6 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (PowerUpManager.s_powerUpListenersTemp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.OnDestroy()).MethodHandle;
-			}
 			PowerUpManager.s_powerUpListenersTemp.Clear();
 		}
 		PowerUpManager.s_instance = null;
@@ -275,42 +170,11 @@ public class PowerUpManager : MonoBehaviour
 					{
 						if (activePowerUps[i] != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetPowerUpInPos(GridPos)).MethodHandle;
-							}
 							if (activePowerUps[i].boardSquare != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								GridPos gridPos2 = activePowerUps[i].boardSquare.GetGridPos();
 								if (gridPos2.x == gridPos.x)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (gridPos2.y == gridPos.y)
 									{
 										result = activePowerUps[i];
@@ -320,25 +184,7 @@ public class PowerUpManager : MonoBehaviour
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -351,68 +197,19 @@ public class PowerUpManager : MonoBehaviour
 		{
 			if (powerUpListener != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetServerPowerUpsOnSquare(BoardSquare)).MethodHandle;
-				}
 				PowerUp[] activePowerUps = powerUpListener.GetActivePowerUps();
 				for (int i = 0; i < activePowerUps.Length; i++)
 				{
 					if (activePowerUps[i] != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activePowerUps[i].boardSquare != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (activePowerUps[i].boardSquare == square)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.Add(activePowerUps[i]);
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -429,42 +226,11 @@ public class PowerUpManager : MonoBehaviour
 				PowerUp.IPowerUpListener powerUpListener = enumerator.Current;
 				if (powerUpListener != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.IsPowerUpSpawnPoint(BoardSquare)).MethodHandle;
-					}
 					if (powerUpListener.IsPowerUpSpawnPoint(square))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return true;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -487,19 +253,6 @@ public class PowerUpManager : MonoBehaviour
 		{
 			if (powerUp.boardSquare == square)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.GetClientPowerUpsOnSquare(BoardSquare)).MethodHandle;
-				}
 				list.Add(powerUp);
 			}
 		}
@@ -517,19 +270,6 @@ public class PowerUpManager : MonoBehaviour
 				{
 					powerUpListener.SetSpawningEnabled(enabled);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUpManager.SetSpawningEnabled(bool)).MethodHandle;
 			}
 		}
 	}

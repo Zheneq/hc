@@ -60,19 +60,6 @@ public struct ReplayTimestamp
 		bool result;
 		if (obj is ReplayTimestamp)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayTimestamp.Equals(object)).MethodHandle;
-			}
 			result = (this == (ReplayTimestamp)obj);
 		}
 		else
@@ -97,19 +84,6 @@ public struct ReplayTimestamp
 		bool result;
 		if (lhs.turn == rhs.turn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayTimestamp != ReplayTimestamp).MethodHandle;
-			}
 			result = (lhs.phase != rhs.phase);
 		}
 		else
@@ -133,19 +107,6 @@ public struct ReplayTimestamp
 		bool result;
 		if (!(lhs < rhs))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReplayTimestamp <= ReplayTimestamp).MethodHandle;
-			}
 			result = (lhs == rhs);
 		}
 		else

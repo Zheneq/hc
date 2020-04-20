@@ -57,30 +57,8 @@ public class SequenceManager : MonoBehaviour
 				Sequence sequence = enumerator.Current;
 				if (sequence != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.HandleOnGameStopped()).MethodHandle;
-					}
 					hashSet.Add(sequence.gameObject);
 				}
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_sequences.Clear();
@@ -96,37 +74,12 @@ public class SequenceManager : MonoBehaviour
 		{
 			if (this.m_sequences[i] == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.ClientOnTurnResolveEnd()).MethodHandle;
-				}
 				this.m_sequences.RemoveAt(i);
 			}
 		}
 		List<Sequence> sequences = this.m_sequences;
-		if (SequenceManager.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			SequenceManager.<>f__am$cache0 = ((Sequence sequence) => sequence.MarkedForRemoval || sequence.RemoveAtTurnEnd);
-		}
-		List<Sequence> list = sequences.FindAll(SequenceManager.<>f__am$cache0);
+		
+		List<Sequence> list = sequences.FindAll(((Sequence sequence) => sequence.MarkedForRemoval || sequence.RemoveAtTurnEnd));
 		HashSet<GameObject> objectsToDestroy = new HashSet<GameObject>();
 		using (List<Sequence>.Enumerator enumerator = list.GetEnumerator())
 		{
@@ -134,15 +87,6 @@ public class SequenceManager : MonoBehaviour
 			{
 				Sequence sequence2 = enumerator.Current;
 				objectsToDestroy.Add(sequence2.gameObject);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		list = this.m_sequences.FindAll((Sequence sequence) => objectsToDestroy.Contains(sequence.gameObject));
@@ -160,63 +104,14 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = this.m_sequences[i];
 			if (sequence != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.MarkSequenceToEndBySourceId(int, int, Vector3)).MethodHandle;
-				}
 				if (!sequence.MarkedForRemoval)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (sequence.Source.RootID == (uint)seqSourceId)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((int)sequence.PrefabLookupId == sequencePrefabLookupId)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (sequence.TargetPos == targetPos)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								sequence.MarkForRemoval();
 								return;
 							}
@@ -247,19 +142,6 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = this.m_sequences[i];
 			if (sequence == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.OnTurnStart(int)).MethodHandle;
-				}
 				Log.Error("Null sequence in list, index {0}", new object[]
 				{
 					i
@@ -271,30 +153,12 @@ public class SequenceManager : MonoBehaviour
 				sequence.OnTurnStart(currentTurn);
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.SendAbilityPhaseStart(AbilityPriority.INVALID);
 		this.m_lastHandledAbilityPriority = AbilityPriority.INVALID;
 		if (this.m_sequences.Count > 0xC8)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("More than " + 0xC8 + " sequences tracked concurrently");
-			this.\u001D();
+			this.symbol_001D();
 		}
 	}
 
@@ -307,24 +171,11 @@ public class SequenceManager : MonoBehaviour
 				Sequence sequence = enumerator.Current;
 				UnityEngine.Object.Destroy(sequence.gameObject);
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.ClearAllSequences()).MethodHandle;
-			}
 		}
 		this.m_sequences.Clear();
 	}
 
-	private void \u001D()
+	private void symbol_001D()
 	{
 		Dictionary<string, int> dictionary = new Dictionary<string, int>();
 		for (int i = 0; i < this.m_sequences.Count; i++)
@@ -333,19 +184,6 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = this.m_sequences[i];
 			if (sequence != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.\u001D()).MethodHandle;
-				}
 				text = sequence.name;
 			}
 			else
@@ -354,15 +192,6 @@ public class SequenceManager : MonoBehaviour
 			}
 			if (dictionary.ContainsKey(text))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Dictionary<string, int> dictionary2;
 				string key;
 				(dictionary2 = dictionary)[key = text] = dictionary2[key] + 1;
@@ -371,15 +200,6 @@ public class SequenceManager : MonoBehaviour
 			{
 				dictionary[text] = 1;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		string text2 = string.Empty;
 		using (Dictionary<string, int>.Enumerator enumerator = dictionary.GetEnumerator())
@@ -398,15 +218,6 @@ public class SequenceManager : MonoBehaviour
 					"\n"
 				});
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		Log.Error(text2, new object[0]);
 	}
@@ -418,19 +229,6 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = this.m_sequences[i];
 			if (sequence == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.SendAbilityPhaseStart(AbilityPriority)).MethodHandle;
-				}
 				Log.Error("Null sequence in list, index {0}", new object[]
 				{
 					i
@@ -441,15 +239,6 @@ public class SequenceManager : MonoBehaviour
 				sequence.OnAbilityPhaseStart(abilityPhase);
 			}
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	internal void OnAbilityPhaseStart(AbilityPriority abilityPhase)
@@ -457,19 +246,6 @@ public class SequenceManager : MonoBehaviour
 		for (int i = (int)(this.m_lastHandledAbilityPriority + 1); i <= (int)abilityPhase; i++)
 		{
 			this.SendAbilityPhaseStart((AbilityPriority)i);
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
 		}
 		this.m_lastHandledAbilityPriority = abilityPhase;
 	}
@@ -483,84 +259,26 @@ public class SequenceManager : MonoBehaviour
 		}
 		if (caster != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.CreateClientSequences(GameObject, BoardSquare, Vector3, Quaternion, ActorData[], ActorData, SequenceSource, Sequence.IExtraSequenceParams[])).MethodHandle;
-			}
 			prefab = caster.ReplaceSequence(prefab);
 		}
 		if (prefab == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SequenceLookup.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				prefab = SequenceLookup.Get().GetSimpleHitSequencePrefab();
 			}
 		}
 		Sequence[] array = null;
 		if (prefab != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(prefab, Vector3.zero, Quaternion.identity);
 			if (gameObject)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				array = gameObject.GetComponents<Sequence>();
 				foreach (Sequence sequence in array)
 				{
 					sequence.BaseInitialize_Client(targetSquare, targetPos, targetRotation, targets, caster, this.GetNewId(), prefab, baseSequenceLookupId, source, extraParams);
 					this.m_sequences.Add(sequence);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -568,41 +286,14 @@ public class SequenceManager : MonoBehaviour
 		{
 			if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Warning("Creating sequences for null prefab.  Hitting immediately (without informing theatrics)...", new object[0]);
 			}
 			Sequence seq = null;
 			if (targets != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (ActorData target in targets)
 				{
 					source.OnSequenceHit(seq, target, null, ActorModelData.RagdollActivation.HealthBased, true);
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			source.OnSequenceHit(seq, targetPos, null);
@@ -638,19 +329,6 @@ public class SequenceManager : MonoBehaviour
 		{
 			if (this.m_sequences[i] == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.FindTempSatellite(SequenceSource)).MethodHandle;
-				}
 				Log.Error("Null sequence in list, index {0}", new object[]
 				{
 					i
@@ -658,27 +336,9 @@ public class SequenceManager : MonoBehaviour
 			}
 			else if (this.m_sequences[i].Source == seqSource)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TempSatelliteSequence tempSatelliteSequence = this.m_sequences[i] as TempSatelliteSequence;
 				if (tempSatelliteSequence != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = tempSatelliteSequence.GetTempSatellite();
 					break;
 				}
@@ -699,19 +359,6 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = this.m_sequences[i];
 			if (sequence == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.OnAnimationEvent(ActorData, UnityEngine.Object, GameObject, SequenceSource)).MethodHandle;
-				}
 				Log.Error("Null sequence in list, index {0}", new object[]
 				{
 					i
@@ -723,27 +370,9 @@ public class SequenceManager : MonoBehaviour
 				bool flag = source2 == source;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					sequence.AnimationEvent(eventObject, sourceObject);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -757,30 +386,8 @@ public class SequenceManager : MonoBehaviour
 				Sequence sequence = enumerator.Current;
 				if (sequence.Caster == caster && sequence.Targets != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.FindSequenceTargets(ActorData)).MethodHandle;
-					}
 					list.AddRange(sequence.Targets);
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -790,19 +397,6 @@ public class SequenceManager : MonoBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.DoClientEnable(SequenceSource)).MethodHandle;
-			}
 			Log.Error("Attempted to call client only method without client.", new object[0]);
 			return;
 		}
@@ -811,38 +405,11 @@ public class SequenceManager : MonoBehaviour
 			Sequence sequence = this.m_sequences[i];
 			if (sequence != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (sequence.Source == source)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					sequence.OnDoClientEnable();
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -851,33 +418,11 @@ public class SequenceManager : MonoBehaviour
 		string text = string.Empty;
 		if (source != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SequenceManager.GetSequenceHitsSeenDebugString(SequenceSource, bool)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_sequences.Count; i++)
 			{
 				Sequence sequence = this.m_sequences[i];
 				if (sequence != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (sequence.Source == source)
 					{
 						string text2 = text;

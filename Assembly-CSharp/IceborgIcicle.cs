@@ -56,19 +56,6 @@ public class IceborgIcicle : GenericAbility_Container
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
-			}
 			this.m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, base.ActorData);
 		}
 	}
@@ -79,19 +66,6 @@ public class IceborgIcicle : GenericAbility_Container
 		int energyOnCasterIfTargetHasNovaCore = this.GetEnergyOnCasterIfTargetHasNovaCore();
 		if (energyOnCasterIfTargetHasNovaCore > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			Dictionary<ActorData, ActorHitContext> actorContextVars = base.Targeter.GetActorContextVars();
 			using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorContextVars.GetEnumerator())
 			{
@@ -101,50 +75,14 @@ public class IceborgIcicle : GenericAbility_Container
 					ActorData key = keyValuePair.Key;
 					if (key.GetTeam() != caster.GetTeam())
 					{
-						for (;;)
+						if (keyValuePair.Value.symbol_0012)
 						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (keyValuePair.Value.\u0012)
-						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_syncComp.HasNovaCore(key))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num += energyOnCasterIfTargetHasNovaCore;
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -156,19 +94,6 @@ public class IceborgIcicle : GenericAbility_Container
 		string result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			result = this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else
@@ -183,19 +108,6 @@ public class IceborgIcicle : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetEnergyOnCasterIfTargetHasNovaCore()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyOnCasterIfTargetHasNovaCoreMod.GetModifiedValue(this.m_energyOnCasterIfTargetHasNovaCore);
 		}
 		else
@@ -210,19 +122,6 @@ public class IceborgIcicle : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgIcicle.GetCdrIfHasHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrIfHasHitMod.GetModifiedValue(this.m_cdrIfHasHit);
 		}
 		else

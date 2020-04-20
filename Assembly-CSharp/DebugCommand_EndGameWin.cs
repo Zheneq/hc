@@ -29,19 +29,6 @@ public class DebugCommand_EndGameWin : DebugCommand
 	{
 		if (arguments.EqualsIgnoreCase("win"))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameWin.OnSlashCommand(string)).MethodHandle;
-			}
 			this.OnIncreaseClick();
 			return true;
 		}
@@ -52,31 +39,9 @@ public class DebugCommand_EndGameWin : DebugCommand
 	{
 		if (Application.platform == RuntimePlatform.XboxOne)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand_EndGameWin.CheckGameControllerTrigger()).MethodHandle;
-			}
 			bool result;
 			if (ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_leftShoulder))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = ControlpadGameplay.Get().GetButtonDown(ControlpadInputValue.Button_rightShoulder);
 			}
 			else

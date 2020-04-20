@@ -28,19 +28,6 @@ public class QuestMetaData
 			DateTime result;
 			if (this.UtcCompletedTimes.IsNullOrEmpty<DateTime>())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestMetaData.get_UtcFirstCompleted()).MethodHandle;
-				}
 				result = DateTime.MinValue;
 			}
 			else
@@ -59,19 +46,6 @@ public class QuestMetaData
 			DateTime result;
 			if (this.UtcCompletedTimes.IsNullOrEmpty<DateTime>())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(QuestMetaData.get_UtcLastCompleted()).MethodHandle;
-				}
 				result = DateTime.MinValue;
 			}
 			else

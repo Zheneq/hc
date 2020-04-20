@@ -14,7 +14,7 @@ public class DebugCommand_Snapshot : DebugCommand
 
 	public override bool OnSlashCommand(string arguments)
 	{
-		ClientGameManager.Get().\u0012();
+		ClientGameManager.Get().symbol_0012();
 		return true;
 	}
 }

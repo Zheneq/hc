@@ -75,19 +75,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Martyr Protect Ally";
 		}
 		this.Setup();
@@ -121,19 +108,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo cachedLaserHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
 		}
 		else
@@ -144,15 +118,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo cachedThornsEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedThornsEffect = this.m_abilityMod.m_thornsEffectMod.GetModifiedValue(this.m_thornsEffect);
 		}
 		else
@@ -164,15 +129,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo cachedEffectOnSelf;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnSelf = this.m_abilityMod.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
 		}
 		else
@@ -197,19 +153,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetTechPointGainPerRedirect()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_techPointGainPerRedirectMod.GetModifiedValue(this.m_techPointGainPerRedirect);
 		}
 		else
@@ -224,19 +167,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedLaserHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetLaserHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserHitEffect;
 		}
 		else
@@ -251,19 +181,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.AffectsEnemies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_affectsEnemiesMod.GetModifiedValue(this.m_affectsEnemies);
 		}
 		else
@@ -278,19 +195,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.AffectsAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_affectsAlliesMod.GetModifiedValue(this.m_affectsAllies);
 		}
 		else
@@ -310,19 +214,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedThornsEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetThornsEffect()).MethodHandle;
-			}
 			result = this.m_cachedThornsEffect;
 		}
 		else
@@ -337,19 +228,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedReturnEffectOnEnemy != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetReturnEffectOnEnemy()).MethodHandle;
-			}
 			result = this.m_cachedReturnEffectOnEnemy;
 		}
 		else
@@ -364,19 +242,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetThornsDamagePerHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_thornsDamagePerHitMod.GetModifiedValue(this.m_thornsDamagePerHit);
 		}
 		else
@@ -391,19 +256,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnSelf != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetEffectOnSelf()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnSelf;
 		}
 		else
@@ -418,19 +270,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetBaseAbsorb()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_baseAbsorbMod.GetModifiedValue(this.m_baseAbsorb);
 		}
 		else
@@ -450,19 +289,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetBaseAbsorbOnAlly()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_baseAbsorbOnAllyMod.GetModifiedValue(this.m_baseAbsorbOnAlly);
 		}
 		else
@@ -482,19 +308,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetExtraEnergyPerRedirectDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraEnergyPerRedirectDamageMod.GetModifiedValue(this.m_extraEnergyPerRedirectDamage);
 		}
 		else
@@ -515,19 +328,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetCurrentAbsorb(ActorData)).MethodHandle;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorb;
 		}
 		else
@@ -544,19 +344,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int num;
 		if (martyrProtectAllyThreshold != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetCurrentAbsorbForAlly(ActorData)).MethodHandle;
-			}
 			num = martyrProtectAllyThreshold.m_additionalAbsorbOnAlly;
 		}
 		else
@@ -576,19 +363,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		float val;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_MartyrProtectAlly.m_damageReductionOnTargetMod.GetModifiedValue(this.m_damageReductionOnTarget);
 		}
 		else
@@ -601,15 +375,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		float val2;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_MartyrProtectAlly.m_damageRedirectToCasterMod.GetModifiedValue(this.m_damageRedirectToCaster);
 		}
 		else
@@ -622,15 +387,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val3;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_MartyrProtectAlly.m_techPointGainPerRedirectMod.GetModifiedValue(this.m_techPointGainPerRedirect);
 		}
 		else
@@ -643,15 +399,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo effectInfo;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_MartyrProtectAlly.m_returnEffectOnEnemyMod.GetModifiedValue(this.m_returnEffectOnEnemy);
 		}
 		else
@@ -664,15 +411,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val4;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_MartyrProtectAlly.m_thornsDamagePerHitMod.GetModifiedValue(this.m_thornsDamagePerHit);
 		}
 		else
@@ -683,15 +421,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_MartyrProtectAlly.m_effectOnSelfMod.GetModifiedValue(this.m_effectOnSelf);
 		}
 		else
@@ -704,15 +433,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val5;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_MartyrProtectAlly.m_baseAbsorbMod.GetModifiedValue(this.m_baseAbsorb);
 		}
 		else
@@ -726,15 +446,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val6;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_MartyrProtectAlly.m_baseAbsorbOnAllyMod.GetModifiedValue(this.m_baseAbsorbOnAlly);
 		}
 		else
@@ -747,15 +458,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		int val7;
 		if (abilityMod_MartyrProtectAlly)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val7 = abilityMod_MartyrProtectAlly.m_absorbOnAllyPerCrystalSpentMod.GetModifiedValue(this.m_absorbOnAllyPerCrystalSpent);
 		}
 		else
@@ -788,19 +490,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor == base.ActorData)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int currentAbsorb = this.GetCurrentAbsorb(base.ActorData);
 			Ability.AddNameplateValueForSingleHit(ref result, base.Targeter, targetActor, currentAbsorb, AbilityTooltipSymbol.Absorb, AbilityTooltipSubject.Self);
 		}
@@ -833,19 +522,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 				MartyrProtectAllyThreshold item = enumerator.Current;
 				list.Add(item);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.GetThresholdBasedCrystalBonusList()).MethodHandle;
-			}
 		}
 		return list;
 	}
@@ -854,19 +530,6 @@ public class MartyrProtectAlly : MartyrLaserBase
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_MartyrProtectAlly))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrProtectAlly.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_MartyrProtectAlly);
 			this.Setup();
 		}

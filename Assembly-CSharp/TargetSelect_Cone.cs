@@ -17,12 +17,12 @@ public class TargetSelect_Cone : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetContextUsageStr(ContextKeys.\u0018.GetName(), "distance from start of cone position, in squares", true);
+		return base.GetContextUsageStr(ContextKeys.symbol_0018.GetName(), "distance from start of cone position, in squares", true);
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
 	{
-		names.Add(ContextKeys.\u0018.GetName());
+		names.Add(ContextKeys.symbol_0018.GetName());
 	}
 
 	public override void Initialize()

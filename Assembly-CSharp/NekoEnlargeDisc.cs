@@ -50,19 +50,6 @@ public class NekoEnlargeDisc : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Enlarge Disc";
 		}
 		this.SetupTargeter();
@@ -86,19 +73,6 @@ public class NekoEnlargeDisc : Ability
 		StandardEffectInfo cachedEffectOnEnemies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.SetCachedFields()).MethodHandle;
-			}
 			cachedEffectOnEnemies = this.m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(this.m_effectOnEnemies);
 		}
 		else
@@ -109,15 +83,6 @@ public class NekoEnlargeDisc : Ability
 		StandardEffectInfo cachedAllyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAllyHitEffect = this.m_abilityMod.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -128,15 +93,6 @@ public class NekoEnlargeDisc : Ability
 		StandardActorEffectData cachedShieldEffectData;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedShieldEffectData = this.m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(this.m_shieldEffectData);
 		}
 		else
@@ -151,19 +107,6 @@ public class NekoEnlargeDisc : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthOverrideMod.GetModifiedValue(this.m_laserWidthOverride);
 		}
 		else
@@ -208,19 +151,6 @@ public class NekoEnlargeDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetShieldPerTargetHitOnReturn()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldPerTargetHitOnReturnMod.GetModifiedValue(this.m_shieldPerTargetHitOnReturn);
 		}
 		else
@@ -235,19 +165,6 @@ public class NekoEnlargeDisc : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedShieldEffectData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetShieldEffectData()).MethodHandle;
-			}
 			result = this.m_cachedShieldEffectData;
 		}
 		else
@@ -262,19 +179,6 @@ public class NekoEnlargeDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetCdrIfHitNoOne()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrIfHitNoOneMod.GetModifiedValue(this.m_cdrIfHitNoOne);
 		}
 		else
@@ -289,19 +193,6 @@ public class NekoEnlargeDisc : Ability
 		bool result;
 		if (this.GetAllyHeal() <= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CanIncludeAlliesOnReturn()).MethodHandle;
-			}
 			result = (this.GetAllyHitEffect() != null && this.GetAllyHitEffect().m_applyEffect);
 		}
 		else
@@ -326,30 +217,8 @@ public class NekoEnlargeDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (caster.GetCurrentBoardSquare() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 				using (List<BoardSquare>.Enumerator enumerator = activeDiscSquares.GetEnumerator())
 				{
@@ -362,27 +231,9 @@ public class NekoEnlargeDisc : Ability
 						bool flag2;
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_targetData[0].m_checkLineOfSight)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								flag2 = caster.GetCurrentBoardSquare().\u0013(boardSquare.x, boardSquare.y);
+								flag2 = caster.GetCurrentBoardSquare().symbol_0013(boardSquare.x, boardSquare.y);
 							}
 							else
 							{
@@ -399,15 +250,6 @@ public class NekoEnlargeDisc : Ability
 							return true;
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				return false;
 			}
@@ -420,31 +262,9 @@ public class NekoEnlargeDisc : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Contains(boardSquareSafe))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
@@ -460,19 +280,6 @@ public class NekoEnlargeDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count > 1)
 			{
@@ -486,19 +293,6 @@ public class NekoEnlargeDisc : Ability
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetTargetData()).MethodHandle;
-			}
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count > 1)
 			{
@@ -513,31 +307,9 @@ public class NekoEnlargeDisc : Ability
 		AbilityTarget abilityTarget = base.CreateAbilityTargetForSimpleAction(caster);
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.CreateAbilityTargetForSimpleAction(ActorData)).MethodHandle;
-			}
 			List<BoardSquare> activeDiscSquares = this.m_syncComp.GetActiveDiscSquares();
 			if (activeDiscSquares.Count == 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				abilityTarget.SetValuesFromBoardSquare(activeDiscSquares[0], activeDiscSquares[0].GetWorldPositionForLoS());
 			}
 		}
@@ -549,55 +321,15 @@ public class NekoEnlargeDisc : Ability
 		Vector3 result = this.ClampToSquareCenter(caster, currentTarget);
 		if (Neko_SyncComponent.HomingDiscStartFromCaster())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.GetCenterPosForTargeter(ActorData, AbilityTarget)).MethodHandle;
-			}
 			if (this.m_syncComp != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComp.m_homingActorIndex > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (caster.GetActorTargeting() != null)
 					{
 						BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
 						if (evadeDestinationForTargeter != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = evadeDestinationForTargeter.ToVector3();
 						}
 					}
@@ -627,19 +359,6 @@ public class NekoEnlargeDisc : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NekoEnlargeDisc))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoEnlargeDisc.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NekoEnlargeDisc);
 			this.SetupTargeter();
 		}

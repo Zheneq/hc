@@ -15,19 +15,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 	{
 		if (AudioListenerController.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontendUIEnvironmentCamera.Start()).MethodHandle;
-			}
 			this.m_audioListener = AudioListenerController.Get().gameObject;
 		}
 		this.SetRenderSettings();
@@ -66,45 +53,14 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 	{
 		if (DebugParameters.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontendUIEnvironmentCamera.UpdateDebugControls()).MethodHandle;
-			}
 			if (DebugParameters.Get().GetParameterAsBool("DebugCamera"))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float d = 5f;
 				float d2 = 0.1f;
 				float num = 5f;
 				float num2 = 5f;
 				if (Input.GetMouseButton(2))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float x = base.transform.localEulerAngles.x - Input.GetAxis("Mouse Y") * num;
 					float y = base.transform.localEulerAngles.y + Input.GetAxis("Mouse X") * num2;
 					base.transform.localEulerAngles = new Vector3(x, y, 0f);
@@ -112,37 +68,10 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 				Vector3 vector = Vector3.zero;
 				if (!UIUtils.InputFieldHasFocus())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (AccountPreferences.DoesApplicationHaveFocus())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (Input.GetKey(KeyCode.W))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector += base.transform.forward * d2;
 						}
 						if (Input.GetKey(KeyCode.A))
@@ -151,15 +80,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 						}
 						if (Input.GetKey(KeyCode.S))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector -= base.transform.forward * d2;
 						}
 						if (Input.GetKey(KeyCode.D))
@@ -168,15 +88,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 						}
 						if (Input.GetKey(KeyCode.R))
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector += base.transform.up * d2;
 						}
 						if (Input.GetKey(KeyCode.F))
@@ -185,15 +96,6 @@ public class FrontendUIEnvironmentCamera : MonoBehaviour
 						}
 						if (Input.GetKey(KeyCode.LeftShift))
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							vector *= d;
 						}
 					}

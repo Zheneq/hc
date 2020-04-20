@@ -45,72 +45,23 @@ public class UIAbilitySelectPanel : MonoBehaviour
 		{
 			textMeshProUGUI2.text = abilityEntries[1].ability.GetNameString();
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilitySelectPanel.Init(AbilityData)).MethodHandle;
-		}
 		TextMeshProUGUI[] componentsInChildren3 = this.m_ability3Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 		foreach (TextMeshProUGUI textMeshProUGUI3 in componentsInChildren3)
 		{
 			textMeshProUGUI3.text = abilityEntries[2].ability.GetNameString();
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		TextMeshProUGUI[] componentsInChildren4 = this.m_ability4Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 		foreach (TextMeshProUGUI textMeshProUGUI4 in componentsInChildren4)
 		{
 			textMeshProUGUI4.text = abilityEntries[3].ability.GetNameString();
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		TextMeshProUGUI[] componentsInChildren5 = this.m_ability5Btn.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 		foreach (TextMeshProUGUI textMeshProUGUI5 in componentsInChildren5)
 		{
 			textMeshProUGUI5.text = abilityEntries[4].ability.GetNameString();
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (abilityEntries[7].ability == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_catalyst1Btn, false, null);
 		}
 		else
@@ -121,27 +72,9 @@ public class UIAbilitySelectPanel : MonoBehaviour
 			{
 				textMeshProUGUI6.text = abilityEntries[7].ability.GetNameString();
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (abilityEntries[8].ability == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_catalyst2Btn, false, null);
 		}
 		else
@@ -152,27 +85,9 @@ public class UIAbilitySelectPanel : MonoBehaviour
 			{
 				textMeshProUGUI7.text = abilityEntries[8].ability.GetNameString();
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (abilityEntries[9].ability == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_catalyst3Btn, false, null);
 		}
 		else
@@ -182,15 +97,6 @@ public class UIAbilitySelectPanel : MonoBehaviour
 			foreach (TextMeshProUGUI textMeshProUGUI8 in componentsInChildren8)
 			{
 				textMeshProUGUI8.text = abilityEntries[9].ability.GetNameString();
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_ability1Btn.SetSelected(false, false, string.Empty, string.Empty);
@@ -244,30 +150,8 @@ public class UIAbilitySelectPanel : MonoBehaviour
 		}
 		if (selectableBtn != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilitySelectPanel.SetSelectedButton(KeyPreference, bool)).MethodHandle;
-			}
 			if (!selectableBtn.IsDisabled)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				selectableBtn.SetSelected(!clear, false, string.Empty, string.Empty);
 			}
 		}
@@ -277,19 +161,6 @@ public class UIAbilitySelectPanel : MonoBehaviour
 	{
 		if (lineSize == 0f && this.m_hoverAbility != KeyPreference.NullPreference)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAbilitySelectPanel.SelectAbilityButtonFromAngle(float, float)).MethodHandle;
-			}
 			this.SetSelectedButton(this.m_hoverAbility, true);
 			this.m_hoverAbility = KeyPreference.NullPreference;
 			return;
@@ -331,26 +202,8 @@ public class UIAbilitySelectPanel : MonoBehaviour
 			}
 			if (keyPreference != this.m_hoverAbility)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_hoverAbility != KeyPreference.NullPreference)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetSelectedButton(this.m_hoverAbility, true);
 				}
 				this.m_hoverAbility = keyPreference;

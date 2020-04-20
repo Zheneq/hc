@@ -77,19 +77,6 @@ public class MartyrSpendCrystals : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Martyr Spend Crystals";
 		}
 		this.Setup();
@@ -123,19 +110,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo cachedSpentCrystalsEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.SetCachedFields()).MethodHandle;
-			}
 			cachedSpentCrystalsEffect = this.m_abilityMod.m_spentCrystalsEffectMod.GetModifiedValue(this.m_spentCrystalsEffect);
 		}
 		else
@@ -146,15 +120,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -170,19 +135,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedSpentCrystalsEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetSpentCrystalsEffect()).MethodHandle;
-			}
 			result = this.m_cachedSpentCrystalsEffect;
 		}
 		else
@@ -197,19 +149,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetSelfHealBase()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealBaseMod.GetModifiedValue(this.m_selfHealBase);
 		}
 		else
@@ -234,19 +173,6 @@ public class MartyrSpendCrystals : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.SelfHealIsOverTime()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealIsOverTimeMod.GetModifiedValue(this.m_selfHealIsOverTime);
 		}
 		else
@@ -261,19 +187,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetExtraSelfHealPerTurnAtMaxEnergy()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(this.m_extraSelfHealPerTurnAtMaxEnergy);
 		}
 		else
@@ -298,19 +211,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetSelfAbsorbPerCrystalSpent()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(this.m_selfAbsorbPerCrystalSpent);
 		}
 		else
@@ -325,19 +225,6 @@ public class MartyrSpendCrystals : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAoeRadiusBase()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeRadiusBaseMod.GetModifiedValue(this.m_aoeRadiusBase);
 		}
 		else
@@ -357,19 +244,6 @@ public class MartyrSpendCrystals : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.PenetrateLos()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLosMod.GetModifiedValue(this.m_penetrateLos);
 		}
 		else
@@ -384,19 +258,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetDamageBase()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageBaseMod.GetModifiedValue(this.m_damageBase);
 		}
 		else
@@ -411,19 +272,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetDamagePerCrystal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damagePerCrystalMod.GetModifiedValue(this.m_damagePerCrystal);
 		}
 		else
@@ -438,19 +286,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -465,19 +300,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHealBase()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allyHealBaseMod.GetModifiedValue(this.m_allyHealBase);
 		}
 		else
@@ -492,19 +314,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHealPerCrystal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allyHealPerCrystalMod.GetModifiedValue(this.m_allyHealPerCrystal);
 		}
 		else
@@ -519,19 +328,6 @@ public class MartyrSpendCrystals : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHealPerEnemyHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_allyHealPerEnemyHitMod.GetModifiedValue(this.m_allyHealPerEnemyHit);
 		}
 		else
@@ -546,19 +342,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyHitEffect;
 		}
 		else
@@ -597,19 +380,6 @@ public class MartyrSpendCrystals : Ability
 	{
 		if (this.GetDamageBase() <= 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.IncludeEnemies()).MethodHandle;
-			}
 			if (this.GetDamagePerCrystal() <= 0)
 			{
 				return this.GetEnemyHitEffect().m_applyEffect;
@@ -623,19 +393,6 @@ public class MartyrSpendCrystals : Ability
 		bool result;
 		if (this.GetAllyHealBase() <= 0 && this.GetAllyHealPerCrystal() <= 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.IncludeAllies()).MethodHandle;
-			}
 			result = this.GetAllyHitEffect().m_applyEffect;
 		}
 		else
@@ -655,66 +412,17 @@ public class MartyrSpendCrystals : Ability
 		int num = 0;
 		if (this.GetSelfHealPerEnemyHit() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetCurrentHealingOnSelf(ActorData, int)).MethodHandle;
-			}
 			num += this.GetSelfHealPerEnemyHit() * numEnemiesHit;
 		}
 		if (this.GetExtraSelfHealPerTurnAtMaxEnergy() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_syncComponent != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_syncComponent.m_syncNumTurnsAtFullEnergy > 1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2 = this.GetExtraSelfHealPerTurnAtMaxEnergy() * (this.m_syncComponent.m_syncNumTurnsAtFullEnergy - 1);
 					if (this.GetMaxExtraSelfHealForMaxEnergy() > 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = Mathf.Min(this.GetMaxExtraSelfHealForMaxEnergy(), num2);
 					}
 					num += num2;
@@ -729,19 +437,6 @@ public class MartyrSpendCrystals : Ability
 		int num = 0;
 		if (this.GetSelfHealPerEnemyHit() > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetCurrentHealingOnAlly(ActorData, int)).MethodHandle;
-			}
 			num = this.GetAllyHealPerEnemyHit() * numEnemiesHit;
 		}
 		return this.GetAllyHealBase() + this.m_syncComponent.SpentDamageCrystals(caster) * this.GetAllyHealPerCrystal() + num;
@@ -759,19 +454,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_MartyrSpendCrystals.m_spentCrystalsEffectMod.GetModifiedValue(this.m_spentCrystalsEffect);
 		}
 		else
@@ -784,15 +466,6 @@ public class MartyrSpendCrystals : Ability
 		int val;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_MartyrSpendCrystals.m_selfHealBaseMod.GetModifiedValue(this.m_selfHealBase);
 		}
 		else
@@ -805,15 +478,6 @@ public class MartyrSpendCrystals : Ability
 		int val2;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_MartyrSpendCrystals.m_selfHealPerCrystalSpentMod.GetModifiedValue(this.m_selfHealPerCrystalSpent);
 		}
 		else
@@ -827,15 +491,6 @@ public class MartyrSpendCrystals : Ability
 		int val3;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_MartyrSpendCrystals.m_extraSelfHealPerTurnAtMaxEnergyMod.GetModifiedValue(this.m_extraSelfHealPerTurnAtMaxEnergy);
 		}
 		else
@@ -848,15 +503,6 @@ public class MartyrSpendCrystals : Ability
 		int val4;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_MartyrSpendCrystals.m_maxExtraSelfHealForMaxEnergyMod.GetModifiedValue(this.m_maxExtraSelfHealForMaxEnergy);
 		}
 		else
@@ -869,15 +515,6 @@ public class MartyrSpendCrystals : Ability
 		int val5;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = abilityMod_MartyrSpendCrystals.m_selfAbsorbBaseMod.GetModifiedValue(this.m_selfAbsorbBase);
 		}
 		else
@@ -890,15 +527,6 @@ public class MartyrSpendCrystals : Ability
 		int val6;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = abilityMod_MartyrSpendCrystals.m_selfAbsorbPerCrystalSpentMod.GetModifiedValue(this.m_selfAbsorbPerCrystalSpent);
 		}
 		else
@@ -911,15 +539,6 @@ public class MartyrSpendCrystals : Ability
 		float val7;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val7 = abilityMod_MartyrSpendCrystals.m_aoeRadiusBaseMod.GetModifiedValue(this.m_aoeRadiusBase);
 		}
 		else
@@ -932,15 +551,6 @@ public class MartyrSpendCrystals : Ability
 		float val8;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val8 = abilityMod_MartyrSpendCrystals.m_aoeRadiuePerCrystalMod.GetModifiedValue(this.m_aoeRadiuePerCrystal);
 		}
 		else
@@ -953,15 +563,6 @@ public class MartyrSpendCrystals : Ability
 		int val9;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val9 = abilityMod_MartyrSpendCrystals.m_damageBaseMod.GetModifiedValue(this.m_damageBase);
 		}
 		else
@@ -974,15 +575,6 @@ public class MartyrSpendCrystals : Ability
 		int val10;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val10 = abilityMod_MartyrSpendCrystals.m_damagePerCrystalMod.GetModifiedValue(this.m_damagePerCrystal);
 		}
 		else
@@ -993,15 +585,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_MartyrSpendCrystals.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -1014,15 +597,6 @@ public class MartyrSpendCrystals : Ability
 		int val11;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val11 = abilityMod_MartyrSpendCrystals.m_allyHealBaseMod.GetModifiedValue(this.m_allyHealBase);
 		}
 		else
@@ -1035,15 +609,6 @@ public class MartyrSpendCrystals : Ability
 		int val12;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val12 = abilityMod_MartyrSpendCrystals.m_allyHealPerCrystalMod.GetModifiedValue(this.m_allyHealPerCrystal);
 		}
 		else
@@ -1056,15 +621,6 @@ public class MartyrSpendCrystals : Ability
 		int val13;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val13 = abilityMod_MartyrSpendCrystals.m_allyHealPerEnemyHitMod.GetModifiedValue(this.m_allyHealPerEnemyHit);
 		}
 		else
@@ -1075,15 +631,6 @@ public class MartyrSpendCrystals : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_MartyrSpendCrystals.m_allyHitEffectMod.GetModifiedValue(this.m_allyHitEffect);
 		}
 		else
@@ -1096,15 +643,6 @@ public class MartyrSpendCrystals : Ability
 		int val14;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val14 = abilityMod_MartyrSpendCrystals.m_selfEnergyGainOnCastMod.GetModifiedValue(this.m_selfEnergyGainOnCast);
 		}
 		else
@@ -1117,15 +655,6 @@ public class MartyrSpendCrystals : Ability
 		int val15;
 		if (abilityMod_MartyrSpendCrystals)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val15 = abilityMod_MartyrSpendCrystals.m_cdrOnProtectAllyAbilityMod.GetModifiedValue(this.m_cdrOnProtectAllyAbility);
 		}
 		else
@@ -1171,19 +700,6 @@ public class MartyrSpendCrystals : Ability
 				}
 				else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-					}
 					int currentHealingOnAlly = this.GetCurrentHealingOnAlly(actorData, visibleActorsCountByTooltipSubject);
 					dictionary[AbilityTooltipSymbol.Healing] = currentHealingOnAlly;
 				}
@@ -1196,19 +712,6 @@ public class MartyrSpendCrystals : Ability
 	{
 		if (this.GetSelfEnergyGainOnCast() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			return this.GetSelfEnergyGainOnCast();
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
@@ -1218,19 +721,6 @@ public class MartyrSpendCrystals : Ability
 	{
 		if (this.m_syncComponent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrSpendCrystals.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			return this.m_syncComponent.DamageCrystals > 0;
 		}
 		return false;

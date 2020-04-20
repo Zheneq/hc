@@ -21,33 +21,11 @@ public class UIMatchCameraViewportToRectTransform : MonoBehaviour
 	{
 		if (!(this.m_3dModelContainer == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMatchCameraViewportToRectTransform.Start()).MethodHandle;
-			}
 			if (!(this.m_3DModelDisplayBox == null))
 			{
 				this.myCamera = base.GetComponent<Camera>();
 				this.canvasCamera = this.m_3DModelDisplayBox.GetComponentInParent<Canvas>().worldCamera;
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		throw new MissingReferenceException("3d model container and display boxes MUST be set");
@@ -63,30 +41,8 @@ public class UIMatchCameraViewportToRectTransform : MonoBehaviour
 		float num2 = vector.y - vector2.y;
 		if (num == this.viewportWidth)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIMatchCameraViewportToRectTransform.Update()).MethodHandle;
-			}
 			if (num2 == this.viewportHeight)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
 			}
 		}

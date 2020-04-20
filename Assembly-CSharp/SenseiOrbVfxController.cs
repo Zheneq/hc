@@ -27,19 +27,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		this.m_spawnedCrystalVfxList = new List<AttachedActorVFXInfo>();
 		if (this.m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.Initialize()).MethodHandle;
-			}
 			if (this.m_actorModelData.m_parentActorData != null)
 			{
 				this.m_syncComp = this.m_actorModelData.m_parentActorData.GetComponent<Sensei_SyncComponent>();
@@ -52,40 +39,13 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 				this.m_spawnedCrystalVfxList.Add(attachedActorVFXInfo);
 			}
 			else if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("Failed to spawn vfx on joint in " + base.GetType().ToString());
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -94,19 +54,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		ActorData actorData;
 		if (this.m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.Update()).MethodHandle;
-			}
 			actorData = this.m_actorModelData.m_parentActorData;
 		}
 		else
@@ -119,26 +66,8 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		{
 			if (actorData2.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(actorData2.GetActorModelData() == null))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = actorData2.GetActorModelData().IsVisibleToClient();
 				}
 				else
@@ -159,15 +88,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		bool flag3;
 		if (actorData2 != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = actorData2.IsModelAnimatorDisabled();
 		}
 		else
@@ -178,26 +98,8 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		bool flag5;
 		if (!(actorData2 == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
 					flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData2.GetTeam());
@@ -215,27 +117,9 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 		int num2;
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num;
 			if (this.m_showOrbsInFrontEnd)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_spawnedCrystalVfxList.Count;
 			}
 			else
@@ -255,15 +139,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 			if (!flag2)
 			{
 				goto IL_188;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (flag4)
 			{
@@ -288,19 +163,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 			{
 				this.m_spawnedCrystalVfxList[i].DestroyVfx();
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.OnDestroy()).MethodHandle;
-			}
 			this.m_spawnedCrystalVfxList.Clear();
 		}
 	}
@@ -309,19 +171,6 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.GetNumOrbs()).MethodHandle;
-			}
 			return Mathf.Max(0, (int)this.m_syncComp.m_syncCurrentNumOrbs + this.m_syncComp.m_clientOrbNumAdjust);
 		}
 		return 0;
@@ -331,30 +180,8 @@ public class SenseiOrbVfxController : CopyableVfxControllerComponent
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiOrbVfxController.GetSpawnPosAndAdvanceCounter()).MethodHandle;
-			}
 			if (this.m_spawnedCrystalVfxList.Count > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = this.GetNumOrbs() - 1;
 				num = Mathf.Clamp(num, 0, this.m_spawnedCrystalVfxList.Count - 1);
 				Vector3 instancePosition = this.m_spawnedCrystalVfxList[num].GetInstancePosition();

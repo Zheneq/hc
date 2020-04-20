@@ -37,34 +37,12 @@ public class Samurai_SyncComponent : NetworkBehaviour
 	{
 		if (this.m_selfBuffAbility != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Samurai_SyncComponent.IsSelfBuffActive(int*)).MethodHandle;
-			}
 			int currentTurn = GameFlowData.Get().CurrentTurn;
 			StandardActorEffectData effectData = this.m_selfBuffAbility.GetSelfBuffEffect().m_effectData;
 			bool flag = effectData.m_perTurnHitDelayTurns <= 0;
 			bool flag2;
 			if (!this.m_selfBuffAbility.m_selfBuffLastsUntilYouDealDamage)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = (this.m_lastSelfBuffTurn > currentTurn - effectData.m_duration);
 			}
 			else
@@ -74,67 +52,22 @@ public class Samurai_SyncComponent : NetworkBehaviour
 			bool flag3 = flag2;
 			if (this.m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff)))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag)
 				{
 					goto IL_EA;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (this.m_lastSelfBuffTurn < 0)
 			{
 				return false;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag3)
 			{
 				return false;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (currentTurn <= this.m_lastSelfBuffTurn)
 			{
 				return false;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_EA:
 			float num = 0f;
@@ -144,15 +77,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 			}
 			if (this.m_selfBuffIncomingHitsThisTurn > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num += (float)this.m_selfBuffAbility.GetDamageIncreaseFirstHit();
 				num += (float)(this.m_selfBuffAbility.GetDamageIncreaseSubseqHits() * (this.m_selfBuffIncomingHitsThisTurn - 1));
 			}
@@ -166,41 +90,10 @@ public class Samurai_SyncComponent : NetworkBehaviour
 	{
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Samurai_SyncComponent.GetExtraDamageFromQueuedSelfBuff()).MethodHandle;
-			}
 			if (this.m_selfBuffAbility != null && this.m_selfBuffAbility.GetExtraDamageIfQueued() > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff)))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_selfBuffAbility.GetExtraDamageIfQueued();
 				}
 			}
@@ -276,19 +169,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Samurai_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			writer.WritePackedUInt32((uint)this.m_lastSelfBuffTurn);
 			writer.WritePackedUInt32((uint)this.m_selfBuffIncomingHitsThisTurn);
 			writer.WritePackedUInt32((uint)this.m_afterimageX);
@@ -298,26 +178,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -325,15 +187,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -343,26 +196,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 4U) != 0U)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -370,26 +205,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 8U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -397,15 +214,6 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -424,58 +232,18 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Samurai_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.m_lastSelfBuffTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_selfBuffIncomingHitsThisTurn = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 4) != 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_afterimageX = (int)reader.ReadPackedUInt32();
 		}
 		if ((num & 8) != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_afterimageY = (int)reader.ReadPackedUInt32();
 		}
 	}

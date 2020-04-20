@@ -93,19 +93,6 @@ public class UICharacterProfile : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_ggButtonLevelImages[i], i == 0, null);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Awake()).MethodHandle;
-		}
 		UIManager.SetGameObjectActive(this.m_tutorialEnergyGlow, false, null);
 		UIManager.SetGameObjectActive(this.m_tutorialEnergyArrows, false, null);
 		this.previousStatuses = new List<StatusType>();
@@ -116,19 +103,6 @@ public class UICharacterProfile : MonoBehaviour
 			{
 				if (this.m_hasGgPacks)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle2 = methodof(UICharacterProfile.<Awake>m__0(UITooltipBase)).MethodHandle;
-					}
 					return false;
 				}
 				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
@@ -146,19 +120,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnBankBalanceChange -= this.HandleBankBalanceChange;
 		}
 	}
@@ -175,19 +136,6 @@ public class UICharacterProfile : MonoBehaviour
 		bool flag;
 		if (GameManager.IsGameTypeValidForGGPack(gameType) && num < 3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Setup()).MethodHandle;
-			}
 			flag = !ReplayPlayManager.Get().IsPlayback();
 		}
 		else
@@ -209,15 +157,6 @@ public class UICharacterProfile : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_ggButtonLevelImages[i], i == num, null);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void NotifyReceivedGGPackResponse()
@@ -230,19 +169,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (!this.m_waitingForGGPackUseResponse)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.GGPackAnimDone()).MethodHandle;
-			}
 			this.Setup();
 		}
 	}
@@ -251,42 +177,11 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (this.m_hasGgPacks)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.GGPackMouseOver(BaseEventData)).MethodHandle;
-			}
 			if (this.m_ggPackBtnAnimator.isActiveAndEnabled)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ggPackBtnAnimator.GetCurrentAnimatorClipInfo(0);
 				if (currentAnimatorClipInfo != null && currentAnimatorClipInfo.Length > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorClipInfo[0].clip.name != "HUDggPackPRESS")
 					{
 						this.m_ggPackBtnAnimator.Play("HUDggPackHOVER");
@@ -300,44 +195,13 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (this.m_hasGgPacks)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.GGPackMouseExit(BaseEventData)).MethodHandle;
-			}
 			if (this.m_ggPackBtnAnimator.isActiveAndEnabled)
 			{
 				AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ggPackBtnAnimator.GetCurrentAnimatorClipInfo(0);
 				if (currentAnimatorClipInfo != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentAnimatorClipInfo.Length > 0)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentAnimatorClipInfo[0].clip.name != "HUDggPackPRESS")
 						{
 							this.m_ggPackBtnAnimator.Play("HUDggPackIDLE");
@@ -352,19 +216,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (Time.unscaledTime > this.m_ggPackTimeLastUsed + GameBalanceVars.Get().GGPackInGameCooldownTimer)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UseGGPackBtnClicked(BaseEventData)).MethodHandle;
-			}
 			this.m_ggPackTimeLastUsed = Time.unscaledTime;
 			this.m_useGGPackBtn.SetClickable(false);
 			this.m_ggPackBtnAnimator.Play("HUDggPackPRESS");
@@ -375,15 +226,6 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			else if (num == 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AudioManager.PostEvent("ui/endgame/ggboost_button_silver", null);
 			}
 			else if (num == 2)
@@ -392,15 +234,6 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			if (this.m_hasGgPacks)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().RequestToUseGGPack();
 				this.m_waitingForGGPackUseResponse = true;
 			}
@@ -411,19 +244,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (this.m_tauntButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.m_tauntButton.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnTauntClick));
 		}
 		if (this.m_tauntSelectionPanel.m_closeSelectionButton != null)
@@ -438,19 +258,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (this.m_lastPendingHealthPercent == this.m_pendingHPPercent)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdatePendingHealthBar()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_healthPercent > 0f)
@@ -469,32 +276,10 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (this.m_lastHealthPercent == this.m_healthPercent)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateHealthBar()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_healthPercent > 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_healthImage.fillAmount = this.m_healthPercent;
 			UIManager.SetGameObjectActive(this.m_healthImage, true, null);
 		}
@@ -509,32 +294,10 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (this.m_lastShieldPercent == this.m_shieldPercent)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateShieldBar()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_shieldPercent > 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_shieldBarImage.fillAmount = this.m_shieldPercent;
 			UIManager.SetGameObjectActive(this.m_shieldBarImage, true, null);
 		}
@@ -553,19 +316,6 @@ public class UICharacterProfile : MonoBehaviour
 		}
 		if (this.m_energyPercent > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateEnergyBar()).MethodHandle;
-			}
 			this.m_energyImage.fillAmount = this.m_energyPercent;
 			UIManager.SetGameObjectActive(this.m_energyImage, true, null);
 		}
@@ -584,54 +334,14 @@ public class UICharacterProfile : MonoBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.CanTaunt(ActorData)).MethodHandle;
-				}
 				TurnStateEnum currentState = activeOwnedActorData.GetActorTurnSM().CurrentState;
 				if (currentState != TurnStateEnum.DECIDING && currentState != TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentState != TurnStateEnum.VALIDATING_MOVE_REQUEST)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentState != TurnStateEnum.VALIDATING_ACTION_REQUEST)
 						{
 							return flag;
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -641,15 +351,6 @@ public class UICharacterProfile : MonoBehaviour
 				int num = 0;
 				while (!flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num >= autoQueuedRequestActionTypes.Count)
 					{
 						for (;;)
@@ -671,28 +372,10 @@ public class UICharacterProfile : MonoBehaviour
 				IL_EC:
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					List<ActorTurnSM.ActionRequestForUndo> requestStackForUndo = activeOwnedActorData.GetActorTurnSM().GetRequestStackForUndo();
 					int num2 = 0;
 					while (!flag)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num2 >= requestStackForUndo.Count)
 						{
 							for (;;)
@@ -724,69 +407,20 @@ public class UICharacterProfile : MonoBehaviour
 		PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(actor.m_characterType);
 		if (abilityOfActionType != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.CanTauntForAction(ActorData, AbilityData, ActorCinematicRequests, AbilityData.ActionType)).MethodHandle;
-			}
 			if (playerCharacterData != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!cinematicRequests.IsAbilityCinematicRequested(actionType))
 				{
 					TauntCameraSet tauntCamSetData = abilityData.GetComponent<ActorData>().m_tauntCamSetData;
 					if (tauntCamSetData != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < tauntCamSetData.m_tauntCameraShotSequences.Length; i++)
 						{
 							CameraShotSequence cameraShotSequence = tauntCamSetData.m_tauntCameraShotSequences[i] as CameraShotSequence;
 							if (cameraShotSequence != null)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex) && cinematicRequests.NumRequestsLeft(cameraShotSequence.m_uniqueTauntID) > 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (AbilityData.CanTauntForActionTypeForPlayer(playerCharacterData, characterResourceLink, actionType, true, cameraShotSequence.m_uniqueTauntID))
 									{
 										return true;
@@ -805,19 +439,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (!this.m_tauntIsEnabled)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.ShowTauntSelection(bool)).MethodHandle;
-			}
 			return;
 		}
 		this.m_selectionMenuOpen = visible;
@@ -846,19 +467,6 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (!(this.m_buffGrid == null))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.UpdateStatusDisplay(bool)).MethodHandle;
-			}
 			if (!(this.m_debuffGrid == null))
 			{
 				ActorStatus actorStatus = GameFlowData.Get().activeOwnedActorData.GetActorStatus();
@@ -866,43 +474,16 @@ public class UICharacterProfile : MonoBehaviour
 				bool flag = false;
 				if (actorStatus != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < 0x3A; i++)
 					{
 						StatusType statusType = (StatusType)i;
 						if (actorStatus.HasStatus(statusType, false))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (HUD_UIResources.GetIconForStatusType(statusType).displayIcon)
 							{
 								list.Add(statusType);
 								if (this.previousStatuses != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!this.previousStatuses.Contains(statusType))
 									{
 										flag = true;
@@ -911,64 +492,19 @@ public class UICharacterProfile : MonoBehaviour
 							}
 						}
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (this.previousStatuses != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.previousStatuses.Count != list.Count)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = true;
 					}
 				}
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!forceUpdate)
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UIBuffIndicator[] componentsInChildren = this.m_buffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
@@ -978,29 +514,11 @@ public class UICharacterProfile : MonoBehaviour
 				{
 					list2.Add(componentsInChildren2[j]);
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				while (list2.Count > list.Count)
 				{
 					UIManager.SetGameObjectActive(list2[0], false, null);
 					UnityEngine.Object.Destroy(list2[0].gameObject);
 					list2.RemoveAt(0);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				while (list2.Count < list.Count)
 				{
@@ -1012,15 +530,6 @@ public class UICharacterProfile : MonoBehaviour
 					UIBuffIndicator uibuffIndicator = list2[k];
 					if (HUD_UIResources.GetIconForStatusType(list[k]).isDebuff)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						uibuffIndicator.transform.SetParent(this.m_debuffGrid.transform);
 					}
 					else
@@ -1039,15 +548,6 @@ public class UICharacterProfile : MonoBehaviour
 				this.previousStatuses = list;
 				return;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -1060,19 +560,6 @@ public class UICharacterProfile : MonoBehaviour
 		this.m_tauntIsEnabled = visible;
 		if (!visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.ShowTaunt(bool)).MethodHandle;
-			}
 			this.m_selectionMenuOpen = false;
 			UIManager.SetGameObjectActive(this.m_tauntSelectionPanel, this.m_selectionMenuOpen, null);
 		}
@@ -1083,55 +570,15 @@ public class UICharacterProfile : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterProfile.Update()).MethodHandle;
-			}
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool doActive = false;
 				bool doActive2 = false;
 				if (this.m_visualObject != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_visualObject.activeSelf)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(this.m_visualObject, true, null);
 					}
 				}
@@ -1139,15 +586,6 @@ public class UICharacterProfile : MonoBehaviour
 				this.m_deadProfileImage.sprite = activeOwnedActorData.GetDeadHUDIcon();
 				if (activeOwnedActorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive2 = true;
 				}
 				else
@@ -1158,19 +596,10 @@ public class UICharacterProfile : MonoBehaviour
 				int maxHitPoints = activeOwnedActorData.GetMaxHitPoints();
 				int energyToDisplay = activeOwnedActorData.GetEnergyToDisplay();
 				int actualMaxTechPoints = activeOwnedActorData.GetActualMaxTechPoints();
-				int num = activeOwnedActorData.\u0004();
+				int num = activeOwnedActorData.symbol_0004();
 				int clientUnappliedHoTTotal_ToDisplay_zq = activeOwnedActorData.GetClientUnappliedHoTTotal_ToDisplay_zq();
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq.ToString();
 				}
 				else
@@ -1179,15 +608,6 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_shieldText.text = "+" + num.ToString();
 				}
 				else
@@ -1213,15 +633,6 @@ public class UICharacterProfile : MonoBehaviour
 			}
 			else if (this.m_visualObject != null && this.m_visualObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_visualObject, false, null);
 			}
 		}

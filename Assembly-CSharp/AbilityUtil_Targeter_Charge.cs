@@ -27,30 +27,8 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 		{
 			if (currentTargetIndex != 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_Charge.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-				}
 				if (targets != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.IsUsingMultiTargetUpdate())
 					{
 						goto IL_77;
@@ -63,15 +41,6 @@ public class AbilityUtil_Targeter_Charge : AbilityUtil_Targeter_Shape
 		IL_77:
 		if (boardSquareSafe != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 			path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, boardSquareSafe, boardSquareSafe2, this.AllowChargeThroughInvalidSquares);
 		}

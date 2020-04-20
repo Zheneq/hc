@@ -61,19 +61,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		bool result;
 		if (this.m_enableMouseReveal)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.IsMouseRevealEnabled()).MethodHandle;
-			}
 			result = !this.m_disableMouseReveal;
 		}
 		else
@@ -116,19 +103,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		Shader.SetGlobalFloat(this.m_verticalFadeHeightID, this.m_fadeHeight);
 		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.SetGlobalFloatsForShaders()).MethodHandle;
-			}
 			Shader.SetGlobalFloat(this.m_verticalFadeEndWorldYID, (float)Board.Get().BaselineHeight + this.m_fadeEndFloorOffset);
 		}
 	}
@@ -150,56 +124,16 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		this.m_desiredVisibleObjects.Clear();
 		if (this.IsMouseRevealEnabled())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.ResetDesiredVisibleObjects()).MethodHandle;
-			}
 			if (ServerClientUtils.GetCurrentActionPhase() == ActionBufferPhase.Done)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData != null)
 				{
 					ActorTurnSM actorTurnSM = GameFlowData.Get().activeOwnedActorData.GetActorTurnSM();
 					if (actorTurnSM.AmTargetingAction())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorTurnSM.GetSelectedTargetingParadigm() != Ability.TargetingParadigm.BoardSquare)
 						{
 							goto IL_1A6;
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					this.m_desiredVisibleObjects.Add(HighlightUtils.Get().ClampedMouseOverCursor);
@@ -211,15 +145,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					this.m_desiredVisibleObjects.Add(HighlightUtils.Get().SprintMouseOverCursor);
 					if (HighlightUtils.Get().ChaseSquareCursor != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_desiredVisibleObjects.Add(HighlightUtils.Get().ChaseSquareCursor);
 					}
 					if (HighlightUtils.Get().ChaseSquareCursorAlt != null)
@@ -238,37 +163,10 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 				ActorData actorData = enumerator.Current;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.IsVisibleToClient())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!actorData.IsDead())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (actorData.CurrentBoardSquare != null)
 							{
 								this.m_desiredVisibleObjects.Add(actorData.gameObject);
@@ -277,85 +175,22 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_desiredVisibleObjects.Count == 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 				if (activeOwnedActorData != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (activeOwnedActorData.IsDead())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (activeOwnedActorData.RespawnPickedPositionSquare != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_desiredVisibleObjects.Add(activeOwnedActorData.RespawnPickedPositionSquare.gameObject);
 						}
 						else if (!activeOwnedActorData.respawnSquares.IsNullOrEmpty<BoardSquare>())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_desiredVisibleObjects.Add(activeOwnedActorData.respawnSquares[0].gameObject);
 						}
 					}
@@ -364,26 +199,8 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		}
 		if (this.m_desiredVisibleObjects.Count == 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_alwaysVisibleObjectInScene != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_desiredVisibleObjects.Add(this.m_alwaysVisibleObjectInScene);
 			}
 		}
@@ -396,32 +213,10 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		float result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.GetFadeTime()).MethodHandle;
-			}
 			result = 0f;
 		}
 		else if (DepthTextureRenderer.Instance != null && DepthTextureRenderer.Instance.IsFunctioning())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = this.m_fadeTime;
 		}
 		else
@@ -438,19 +233,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		float num;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.RevealPosition(Vector3)).MethodHandle;
-			}
 			num = 0.1f;
 		}
 		else
@@ -461,15 +243,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		float num3 = this.m_collisionRadius;
 		if (forceFadeAll)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = -75f;
 			num3 = 150f;
 		}
@@ -479,15 +252,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 		float magnitude = vector2.magnitude;
 		if (magnitude == 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (forceFadeAll)
@@ -501,40 +265,13 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 			RaycastHit raycastHit = this.m_sphereCastHitsBuffer[i];
 			if (Vector3.Dot(raycastHit.point - vector, base.transform.position - vector) > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Renderer renderer = raycastHit.collider.GetComponent<Renderer>();
 				ActorModelData actorModelData = null;
 				GameObject gameObject = null;
 				if (raycastHit.collider.gameObject.layer == ActorData.Layer)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						goto IL_57A;
 					}
 					gameObject = GameFlowData.FindParentBelowRoot(raycastHit.collider.gameObject);
@@ -543,15 +280,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 				bool flag2 = false;
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<GameObject>.Enumerator enumerator = this.m_desiredVisibleObjects.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -559,15 +287,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 							GameObject gameObject2 = enumerator.Current;
 							if (gameObject2 != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameFlowData.FindParentBelowRoot(gameObject2) == gameObject)
 								{
 									flag2 = true;
@@ -575,30 +294,12 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				IL_240:
 				if (!(renderer != null))
 				{
 					goto IL_27D;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (!this.m_desiredVisibleObjects.Contains(raycastHit.collider.gameObject))
 				{
@@ -619,26 +320,8 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					FadeObjectGroup component = raycastHit.collider.GetComponent<FadeObjectGroup>();
 					if (renderer == null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorModelData == null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (component == null)
 							{
 								goto IL_57A;
@@ -648,15 +331,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					if (flag)
 					{
 						goto IL_303;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					float num5;
 					if (forceFadeAll)
@@ -686,27 +360,9 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					}
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool flag3;
 						if (!component.ShouldProcessEvenIfRendererIsDisabled())
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag3 = component.AreRenderersEnabled();
 						}
 						else
@@ -716,26 +372,8 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 						bool flag4 = flag3;
 						if (flag4)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (component.gameObject.activeInHierarchy)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								component.SetTargetTransparency(num6, fadeTime, fadeTime, this.m_nonActorFadeShader);
 							}
 						}
@@ -745,15 +383,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					if (!(fadeObject != null))
 					{
 						goto IL_3EC;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (!fadeObject.ShouldProcessEvenIfRendererIsDisabled())
 					{
@@ -766,40 +395,13 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					{
 						goto IL_57A;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!renderer.gameObject.activeInHierarchy)
 					{
 						goto IL_57A;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(renderer.material != null))
 					{
 						goto IL_57A;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (fadeObject == null)
 					{
@@ -809,15 +411,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					Renderer[] componentsInChildren = renderer.gameObject.GetComponentsInChildren<Renderer>();
 					if (componentsInChildren != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int j = 0;
 						while (j < componentsInChildren.Length)
 						{
@@ -826,15 +419,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 							if (!(fadeObject != null))
 							{
 								goto IL_4CD;
-							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							if (!fadeObject.ShouldProcessEvenIfRendererIsDisabled())
 							{
@@ -845,49 +429,13 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 							flag6 = flag7;
 							if (flag6)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (renderer.gameObject.activeInHierarchy)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (renderer.material != null)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										fadeObject = renderer.GetComponent<FadeObject>();
 										if (fadeObject == null)
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											fadeObject = renderer.gameObject.AddComponent<FadeObject>();
 										}
 										fadeObject.SetTargetTransparency(num6, fadeTime, fadeTime, this.m_nonActorFadeShader);
@@ -910,26 +458,8 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 					num5 = 0f;
 					goto IL_310;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			IL_57A:;
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -937,30 +467,8 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 	{
 		if (!(CameraManager.Get() == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.Update()).MethodHandle;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GameFlowData.Get().Started)
 				{
 					for (;;)
@@ -981,15 +489,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 			bool flag = CameraManager.Get().InCinematic();
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_timeTillNextUpdate = 0f;
 			}
 			else
@@ -997,15 +496,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 				this.m_timeTillNextUpdate -= Time.unscaledDeltaTime;
 				if (this.m_timeTillNextUpdate > 0f)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return;
 				}
 				this.m_timeTillNextUpdate = 0.25f;
@@ -1015,42 +505,15 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 				GameObject gameObject = this.m_desiredVisibleObjects[i];
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.RevealPosition(gameObject.transform.position);
 					if (this.ForceFadeAll)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						break;
 					}
 				}
 			}
 			if (this.IsMouseRevealEnabled() && !this.m_mouseCursorInDesiredVisibleObjects)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.RevealPosition(Board.Get().PlayerFreePos);
 			}
 			return;
@@ -1073,44 +536,13 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FadeObjectsCameraComponent.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag;
 			if (CameraManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = CameraManager.Get().InCinematic();
 			}
 			else
@@ -1122,15 +554,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 			float num;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = 0.1f;
 			}
 			else
@@ -1149,15 +572,6 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 			{
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position = gameObject.transform.position;
 					position.y += num3 + num2;
 					Gizmos.DrawWireSphere(position, num3);
@@ -1165,26 +579,8 @@ public class FadeObjectsCameraComponent : MonoBehaviour
 			}
 			if (this.IsMouseRevealEnabled())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_mouseCursorInDesiredVisibleObjects)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 playerFreePos = Board.Get().PlayerFreePos;
 					playerFreePos.y += num3 + num2;
 					Gizmos.DrawWireSphere(playerFreePos, num3);

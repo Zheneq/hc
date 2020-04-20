@@ -34,19 +34,6 @@ internal class NetworkWriterAdapter : IBitStream
 			uint result;
 			if (this.m_stream.Position < 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NetworkWriterAdapter.get_Position()).MethodHandle;
-				}
 				result = 0U;
 			}
 			else

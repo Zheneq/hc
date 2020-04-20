@@ -81,55 +81,15 @@ public struct CharacterAbilityVfxSwapInfo
 	{
 		if (!(obj is CharacterAbilityVfxSwapInfo))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterAbilityVfxSwapInfo.Equals(object)).MethodHandle;
-			}
 			return false;
 		}
 		CharacterAbilityVfxSwapInfo characterAbilityVfxSwapInfo = (CharacterAbilityVfxSwapInfo)obj;
 		if (this.VfxSwapForAbility0 == characterAbilityVfxSwapInfo.VfxSwapForAbility0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.VfxSwapForAbility1 == characterAbilityVfxSwapInfo.VfxSwapForAbility1 && this.VfxSwapForAbility2 == characterAbilityVfxSwapInfo.VfxSwapForAbility2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.VfxSwapForAbility3 == characterAbilityVfxSwapInfo.VfxSwapForAbility3)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.VfxSwapForAbility4 == characterAbilityVfxSwapInfo.VfxSwapForAbility4;
 				}
 			}

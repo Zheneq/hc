@@ -34,19 +34,6 @@ public class UpdateGroupMemberData
 			CharacterVisualInfo result;
 			if (this.VisualData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_VisualInfo()).MethodHandle;
-				}
 				result = this.VisualData.Value.VisualInfo;
 			}
 			else
@@ -64,19 +51,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (this.VisualData != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_ForegroundBannerID()).MethodHandle;
-				}
 				result = this.VisualData.Value.ForegroundBannerID;
 			}
 			else
@@ -94,19 +68,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (this.VisualData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_BackgroundBannerID()).MethodHandle;
-				}
 				result = this.VisualData.Value.BackgroundBannerID;
 			}
 			else
@@ -124,19 +85,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (this.VisualData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_TitleID()).MethodHandle;
-				}
 				result = this.VisualData.Value.TitleID;
 			}
 			else
@@ -154,19 +102,6 @@ public class UpdateGroupMemberData
 			int result;
 			if (this.VisualData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UpdateGroupMemberData.get_RibbonID()).MethodHandle;
-				}
 				result = this.VisualData.Value.RibbonID;
 			}
 			else

@@ -23,19 +23,6 @@ public static class CrashReportArchiver
 			DirectoryInfo directoryInfo = Directory.CreateDirectory(text);
 			if (!directoryInfo.Exists)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.CreateArchiveFromCrashDumpDirectory(string*, int*, string, string, Dictionary<string, string>, BugReportType)).MethodHandle;
-				}
 				Log.Error("Failed to create " + text, new object[0]);
 				return false;
 			}
@@ -45,39 +32,12 @@ public static class CrashReportArchiver
 				string path = fileName.ToLower();
 				if (Path.GetFileNameWithoutExtension(path) != "system_info")
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Path.GetExtension(path) != ".dmp")
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string destFileName = Path.Combine(text, fileName);
 						File.Move(text2, destFileName);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			string[] files = Directory.GetFiles(text);
 			string text3 = null;
@@ -85,37 +45,10 @@ public static class CrashReportArchiver
 			{
 				if (bugReportType != BugReportType.Crash)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (bugReportType != BugReportType.Exception)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (bugReportType != BugReportType.Error)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_389;
 						}
 					}
@@ -131,15 +64,6 @@ public static class CrashReportArchiver
 								string value = text5.Trim();
 								stringBuilder.Append(value);
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							string name = stringBuilder.ToString();
 							userKeyValues["StackTraceHash"] = string.Format("{0:X8}", StringUtil.CaseInsensitiveHash(name));
 						}
@@ -147,15 +71,6 @@ public static class CrashReportArchiver
 						{
 							if (streamReader != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								((IDisposable)streamReader).Dispose();
 							}
 						}
@@ -165,15 +80,6 @@ public static class CrashReportArchiver
 				{
 					if (text4.EndsWith("output_log.txt"))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						text3 = string.Empty;
 						StreamReader streamReader2 = new StreamReader(text4);
 						try
@@ -192,37 +98,10 @@ public static class CrashReportArchiver
 									});
 									if (array != null)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (array.Length > 0)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (!string.IsNullOrEmpty(array[0]))
 											{
-												for (;;)
-												{
-													switch (2)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												text3 = array[0];
 											}
 										}
@@ -230,15 +109,6 @@ public static class CrashReportArchiver
 								}
 								if (text6.StartsWith("========== OUTPUTING STACK TRACE"))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									break;
 								}
 							}
@@ -247,40 +117,13 @@ public static class CrashReportArchiver
 								string text7 = text6.Trim();
 								if (text7.Length > 0)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!text6.StartsWith(" "))
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										stringBuilder2.Append(text7);
 									}
 								}
 								else if (stringBuilder2.Length > 0)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									IL_2A2:
 									string name2 = stringBuilder2.ToString();
 									userKeyValues["StackTraceHash"] = string.Format("{0:X8}", StringUtil.CaseInsensitiveHash(name2));
@@ -301,15 +144,6 @@ public static class CrashReportArchiver
 						{
 							if (streamReader2 != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								((IDisposable)streamReader2).Dispose();
 							}
 						}
@@ -318,28 +152,10 @@ public static class CrashReportArchiver
 				}
 				IL_389:;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CrashReportArchiver.CreateSystemInfoFile(crashDumpDirectoryPath, userKeyValues, bugReportType, text3);
 			CompressResult compressResult = CrashReportArchiver.CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, true);
 			if (compressResult == CompressResult.FailureExceedsMaxArchiveSize)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				compressResult = CrashReportArchiver.CompressDirectoryToPersistentDataPath(out resultPath, out resultArchiveNumBytes, crashDumpDirectoryPath, persistentDataPath, false);
 			}
 			if (compressResult != CompressResult.Success)
@@ -373,19 +189,6 @@ public static class CrashReportArchiver
 					Log.Exception(exception);
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.DeleteArchives(string)).MethodHandle;
-			}
 		}
 		catch (Exception exception2)
 		{
@@ -398,19 +201,6 @@ public static class CrashReportArchiver
 		string text = Process.GetCurrentProcess().ProcessName;
 		if (text == "Unity")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.GetProcessName()).MethodHandle;
-			}
 			text = "AtlasReactor_UnityEditor";
 		}
 		return text;
@@ -430,19 +220,6 @@ public static class CrashReportArchiver
 		}
 		if (!Directory.Exists(destinationDirectoryPath))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.CompressDirectoryToPersistentDataPath(string*, int*, string, string, bool)).MethodHandle;
-			}
 			Log.Warning("Cannot find directory '{0}'", new object[]
 			{
 				destinationDirectoryPath
@@ -468,26 +245,8 @@ public static class CrashReportArchiver
 					{
 						CrashReportArchiver.WriteFileToZip(text2, Path.GetFileName(text2), zipOutputStream, buffer);
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (includeLogFiles)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						foreach (string path2 in directories)
 						{
 							string fileName = Path.GetFileName(path2);
@@ -500,27 +259,9 @@ public static class CrashReportArchiver
 								{
 									goto IL_191;
 								}
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (text3.LastIndexOf(".htm") >= 0)
 								{
 									goto IL_191;
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 								string fileZipPath = Path.Combine(fileName, Path.GetFileName(text3) + ".txt");
 								IL_1A3:
@@ -531,24 +272,6 @@ public static class CrashReportArchiver
 								fileZipPath = Path.Combine(fileName, Path.GetFileName(text3));
 								goto IL_1A3;
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					zipOutputStream.Finish();
@@ -560,42 +283,15 @@ public static class CrashReportArchiver
 			{
 				if (fileStream != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					((IDisposable)fileStream).Dispose();
 				}
 			}
 			if (num > 0x400000L)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return CompressResult.FailureExceedsMaxArchiveSize;
 			}
 			if (num <= 0L)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return CompressResult.Failure;
 			}
 			resultPath = text;
@@ -625,33 +321,11 @@ public static class CrashReportArchiver
 				zipOutputStream.Write(buffer, 0, num);
 			}
 			while (num > 0);
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.WriteFileToZip(string, string, ZipOutputStream, byte[])).MethodHandle;
-			}
 		}
 		finally
 		{
 			if (fileStream != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				((IDisposable)fileStream).Dispose();
 			}
 		}
@@ -680,19 +354,6 @@ public static class CrashReportArchiver
 			{
 				if (streamWriter != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.CreateSystemInfoFile(string, Dictionary<string, string>, BugReportType, string)).MethodHandle;
-					}
 					((IDisposable)streamWriter).Dispose();
 				}
 			}
@@ -719,19 +380,6 @@ public static class CrashReportArchiver
 		string input;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.TryGetMemoryCounter(Dictionary<string, string>, string)).MethodHandle;
-			}
 			if (!string.IsNullOrEmpty(text))
 			{
 				input = text;
@@ -770,19 +418,6 @@ public static class CrashReportArchiver
 		string input = string.Empty;
 		if (fullVersionString == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.PopulateSystemInfo(StreamWriter, Dictionary<string, string>, BugReportType, string)).MethodHandle;
-			}
 			fullVersionString = BuildVersion.FullVersionString;
 		}
 		string[] array = fullVersionString.Split(new char[]
@@ -791,37 +426,10 @@ public static class CrashReportArchiver
 		});
 		if (array != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (array.Length > 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!string.IsNullOrEmpty(array[1]))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					input = array[1];
 				}
 			}
@@ -837,15 +445,6 @@ public static class CrashReportArchiver
 		text.WriteLine("    <Application>" + CrashReportArchiver.SanitizeXml(CrashReportArchiver.GetProcessName()) + "</Application>");
 		if (bugReportType == BugReportType.Crash)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text.WriteLine("    <ProcessName>" + CrashReportArchiver.SanitizeXml(CrashReportArchiver.GetProcessName()) + "</ProcessName>");
 		}
 		else
@@ -857,15 +456,6 @@ public static class CrashReportArchiver
 		string input3;
 		if (HydrogenConfig.Get().Ticket == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			input3 = "NULL";
 		}
 		else
@@ -923,19 +513,6 @@ public static class CrashReportArchiver
 				text.WriteLine("      <Value>" + CrashReportArchiver.SanitizeXml(keyValuePair.Value) + "</Value>");
 				text.WriteLine("    </Pair>");
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.PopulateKeyValueData(StreamWriter, Dictionary<string, string>)).MethodHandle;
-			}
 		}
 		text.WriteLine("  </UserKeyValue>");
 	}
@@ -950,19 +527,6 @@ public static class CrashReportArchiver
 			text = Regex.Replace(text, pattern, string.Empty);
 			if (text.Length >= 0x800)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CrashReportArchiver.SanitizeXml(string)).MethodHandle;
-				}
 				text = string.Format("{0}...", text.Substring(0, 0x7FC));
 			}
 		}

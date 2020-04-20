@@ -60,19 +60,6 @@ public class SoldierBurstConeSequence : Sequence
 				this.m_didSetDataFromExtraParams = true;
 				if (extraParams2.forwardAngle >= 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-					}
 					this.m_aimDirection = VectorUtils.AngleDegreesToVector(extraParams2.forwardAngle);
 				}
 				if (extraParams2.angleInDegrees > 0f)
@@ -81,27 +68,9 @@ public class SoldierBurstConeSequence : Sequence
 				}
 				if (extraParams2.lengthInSquares > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -110,19 +79,6 @@ public class SoldierBurstConeSequence : Sequence
 		this.m_projectilePerBurst = Mathf.Max(1, this.m_projectilePerBurst);
 		if (!this.m_didSetDataFromExtraParams)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.FinishSetup()).MethodHandle;
-			}
 			this.m_aimDirection = base.Caster.transform.forward;
 			this.m_aimDirection.y = 0f;
 		}
@@ -133,15 +89,6 @@ public class SoldierBurstConeSequence : Sequence
 		List<ActorData> list;
 		if (base.Targets == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			list = new List<ActorData>();
 		}
 		else
@@ -163,42 +110,15 @@ public class SoldierBurstConeSequence : Sequence
 				{
 					goto IL_187;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list2[j].GetCurrentBoardSquare() == null)
 				{
 					goto IL_187;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				bool flag2 = AreaEffectUtils.IsSquareInConeByActorRadius(list2[j].GetCurrentBoardSquare(), base.Caster.GetTravelBoardSquareWorldPosition(), num4, num2 + 5f, this.m_maxProjectileDistInWorld, 0f, true, base.Caster, false, default(Vector3));
 				IL_188:
 				bool flag3 = flag2;
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list3.Add(list2[j]);
 					list2.RemoveAt(j);
 				}
@@ -212,15 +132,6 @@ public class SoldierBurstConeSequence : Sequence
 			float num6 = 0f;
 			if (this.m_projectilePerBurst > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float burstConePortion = this.m_burstConePortion;
 				num5 = num4 + 0.5f * burstConePortion * num2;
 				num6 = burstConePortion * num2 / (float)(this.m_projectilePerBurst - 1);
@@ -241,15 +152,6 @@ public class SoldierBurstConeSequence : Sequence
 				List<ActorData> hitActors;
 				if (flag4)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					hitActors = list3;
 				}
 				else
@@ -264,37 +166,10 @@ public class SoldierBurstConeSequence : Sequence
 				}
 				burstProjectilesGroup.m_projectilesList.Add(burstVfxContainer);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_burstProjGroups.Add(burstProjectilesGroup);
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		if (this.m_beginSideStartEvent == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_burstProjGroups[0].m_startUpdate = true;
 		}
 	}
@@ -310,29 +185,7 @@ public class SoldierBurstConeSequence : Sequence
 				{
 					burstProjectilesGroup.m_projectilesList[j].OnSequenceDisable();
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.OnDisable()).MethodHandle;
-				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -346,32 +199,10 @@ public class SoldierBurstConeSequence : Sequence
 		}
 		if (this.m_middleSideStartEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.m_burstProjGroups[1].m_startUpdate = true;
 		}
 		if (this.m_endSideStartEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_burstProjGroups[2].m_startUpdate = true;
 		}
 	}
@@ -386,42 +217,11 @@ public class SoldierBurstConeSequence : Sequence
 			{
 				if (i == 1)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.Update()).MethodHandle;
-					}
 					if (this.m_middleStartTime > 0f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameTime.time > this.m_middleStartTime)
 						{
 							goto IL_AA;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -429,40 +229,13 @@ public class SoldierBurstConeSequence : Sequence
 				{
 					goto IL_B1;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_endSideStartTime <= 0f)
 				{
 					goto IL_B1;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameTime.time <= this.m_endSideStartTime)
 				{
 					goto IL_B1;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_AA:
 				burstProjectilesGroup.m_startUpdate = true;
@@ -470,38 +243,11 @@ public class SoldierBurstConeSequence : Sequence
 			IL_B1:
 			if (burstProjectilesGroup.m_startUpdate)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int j = 0; j < burstProjectilesGroup.m_projectilesList.Count; j++)
 				{
 					burstProjectilesGroup.m_projectilesList[j].OnUpdate();
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -578,68 +324,19 @@ public class SoldierBurstConeSequence : Sequence
 		{
 			if (this.m_timeTillSpawn > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.BurstVfxContainer.OnUpdate()).MethodHandle;
-				}
 				this.m_timeTillSpawn -= GameTime.deltaTime;
 			}
 			else if (this.m_fxInstance == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_authoredData.m_fxImpactPrefab != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnFX();
 				}
 			}
 			if (this.m_impactSpawnTimestamp > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameTime.time >= this.m_impactSpawnTimestamp)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SpawnImpactFX();
 					this.m_impactSpawnTimestamp = -1f;
 				}
@@ -668,32 +365,10 @@ public class SoldierBurstConeSequence : Sequence
 			Sequence.SetAttribute(this.m_fxInstance, "projectileDistance", projectileDistance);
 			if (!string.IsNullOrEmpty(this.m_authoredData.m_spawnAudioEvent))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.BurstVfxContainer.SpawnFX()).MethodHandle;
-				}
 				AudioManager.PostEvent(this.m_authoredData.m_spawnAudioEvent, this.m_caster.gameObject);
 			}
 			if (this.m_authoredData.m_hitDelayTime > 0f)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_impactSpawnTimestamp = GameTime.time + this.m_authoredData.m_hitDelayTime;
 			}
 			else
@@ -711,19 +386,6 @@ public class SoldierBurstConeSequence : Sequence
 					ActorData actorData = this.m_hitActors[i];
 					if (actorData == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.BurstVfxContainer.SpawnImpactFX()).MethodHandle;
-						}
 					}
 					else
 					{
@@ -731,15 +393,6 @@ public class SoldierBurstConeSequence : Sequence
 						Vector3 position;
 						if (gameObject != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							position = gameObject.transform.position;
 						}
 						else
@@ -760,15 +413,6 @@ public class SoldierBurstConeSequence : Sequence
 						this.m_parentSequence.Source.OnSequenceHit(this.m_parentSequence, actorData, impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_parentSequence.Source.OnSequenceHit(this.m_parentSequence, this.m_posForSequenceHit, null);
 		}
@@ -777,19 +421,6 @@ public class SoldierBurstConeSequence : Sequence
 		{
 			if (this.m_fxInstance != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierBurstConeSequence.BurstVfxContainer.OnSequenceDisable()).MethodHandle;
-				}
 				UnityEngine.Object.Destroy(this.m_fxInstance.gameObject);
 				this.m_fxInstance = null;
 			}
@@ -799,26 +430,8 @@ public class SoldierBurstConeSequence : Sequence
 				{
 					if (this.m_impactFxInstances[i] != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UnityEngine.Object.Destroy(this.m_impactFxInstances[i].gameObject);
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				this.m_impactFxInstances.Clear();
 			}

@@ -59,31 +59,9 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		float num = this.m_width * Board.Get().squareSize;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceActor.CreateLaserHighlights(Vector3, List<Vector3>, bool)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 2)
 			{
 				goto IL_AE;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -97,28 +75,10 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		bool active = false;
 		if (showDestinationHighlight)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 a = laserAnglePoints[laserAnglePoints.Count - 1];
 			Vector3 vector2;
 			if (laserAnglePoints.Count >= 2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = laserAnglePoints[laserAnglePoints.Count - 2];
 			}
 			else
@@ -148,19 +108,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceActor.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -171,15 +118,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		bool flag;
 		if (this.m_bounceOnEnemyActor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (this.m_maxTargetsHit != 1);
 		}
 		else
@@ -199,15 +137,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 				KeyValuePair<ActorData, AreaEffectUtils.BouncingLaserInfo> keyValuePair = enumerator.Current;
 				base.AddActorInRange(keyValuePair.Key, keyValuePair.Value.m_segmentOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		for (int i = 0; i < list2.Count; i++)
 		{
@@ -222,30 +151,12 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		base.EnableAllMovementArrows();
 		if (chargePathFromSquareList != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			fromIndex = base.AddMovementArrowWithPrevious(targetingActor, chargePathFromSquareList, AbilityUtil_Targeter.TargeterMovementType.Movement, 0, false);
 		}
 		base.SetMovementArrowEnabledFromIndex(fromIndex, false);
 		bool flag2;
 		if (this.m_maxTargetsHit > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = (list2.Count >= this.m_maxTargetsHit);
 		}
 		else
@@ -260,15 +171,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 			Vector3 vector2;
 			if (list.Count > 1)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = list[list.Count - 2];
 			}
 			else
@@ -282,15 +184,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		}
 		if (this.m_includeAlliesInBetween)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> orderedHitActors = new List<ActorData>();
 			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary2 = AreaEffectUtils.FindBouncingLaserTargets(travelBoardSquareWorldPositionForLos, ref list, this.m_width, targetingActor.GetTeams(), -1, false, targetingActor, orderedHitActors, false);
 			foreach (KeyValuePair<ActorData, AreaEffectUtils.BouncingLaserInfo> keyValuePair2 in dictionary2)
@@ -300,29 +193,11 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		}
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Self, false);
 		}
 		this.CreateLaserHighlights(travelBoardSquareWorldPositionForLos, list, false);
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInBounceLaser(this.m_indicatorHandler, travelBoardSquareWorldPositionForLos, list, this.m_width, targetingActor, false);
 			base.HideUnusedSquareIndicators();
@@ -338,19 +213,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 			BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(start, end, true, false, float.MaxValue);
 			if (!(lastValidBoardSquareInLine == null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceActor.GetChargePathSquares(ActorData, List<Vector3>, Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>, List<ActorData>)).MethodHandle;
-				}
 				if (lastValidBoardSquareInLine.IsBaselineHeight())
 				{
 					IL_79:
@@ -358,15 +220,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					Vector3 vector2;
 					if (endPoints.Count >= 2)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector2 = endPoints[endPoints.Count - 2];
 					}
 					else
@@ -382,15 +235,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					BoardSquare boardSquare;
 					if (this.m_maxTargetsHit > 0 && laserTargets.Count >= this.m_maxTargetsHit)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						boardSquare = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
 						num = -0.5f;
 					}
@@ -400,26 +244,8 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					}
 					if (boardSquare != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (boardSquare != caster.GetCurrentBoardSquare())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num2 = VectorUtils.HorizontalPlaneDistInWorld(vector3, boardSquare.ToVector3());
 							float maxDistance = Mathf.Max(0f, num2 + num);
 							boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(vector3, vector, true, false, maxDistance);
@@ -428,30 +254,12 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					List<BoardSquare> list = new List<BoardSquare>();
 					if (boardSquare != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(caster.GetCurrentBoardSquare());
 						for (int j = 0; j < endPoints.Count; j++)
 						{
 							Vector3 vector4;
 							if (j == 0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								vector4 = list[j].ToVector3();
 							}
 							else
@@ -465,38 +273,11 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 							Vector3 b = a2 / 2f;
 							if (j > 0)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								BoardSquare boardSquare2 = Board.Get().GetBoardSquare(vector4 + b);
 								if (boardSquare2 != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (boardSquare2 != y && boardSquare2.IsBaselineHeight())
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										list.Add(boardSquare2);
 										y = boardSquare2;
 									}
@@ -504,26 +285,8 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 							}
 							if (j == endPoints.Count - 1)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquare != y)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(boardSquare);
 								}
 							}
@@ -532,40 +295,13 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 								BoardSquare boardSquare3 = Board.Get().GetBoardSquare(endPoints[j] - b);
 								if (boardSquare3 != null)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!boardSquare3.IsBaselineHeight())
 									{
 										BoardSquare lastValidBoardSquareInLine2 = KnockbackUtils.GetLastValidBoardSquareInLine(vector4, endPoints[j], true, false, float.MaxValue);
 										if (lastValidBoardSquareInLine2 != null)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (lastValidBoardSquareInLine2.IsBaselineHeight())
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												boardSquare3 = lastValidBoardSquareInLine2;
 											}
 										}
@@ -573,78 +309,24 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 								}
 								if (boardSquare3 != null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (boardSquare3 != y)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										list.Add(boardSquare3);
 									}
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ActorData occupantActor = boardSquare.OccupantActor;
 						if (occupantActor != null && occupantActor != caster)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (occupantActor.IsVisibleToClient())
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Vector3 testDir = vector3 - boardSquare.ToVector3();
 								testDir.y = 0f;
 								testDir.Normalize();
 								BoardSquare secondToLastInOrigPath = null;
 								if (list.Count > 1)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									secondToLastInOrigPath = list[list.Count - 2];
 								}
 								BoardSquare endSquareForOccupant = this.GetEndSquareForOccupant(boardSquare, testDir, caster, secondToLastInOrigPath);
@@ -703,41 +385,10 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					BoardSquare boardSquare2 = squaresInBorderLayer[j];
 					if (boardSquare2.IsBaselineHeight())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceActor.GetEndSquareForOccupant(BoardSquare, Vector3, ActorData, BoardSquare)).MethodHandle;
-						}
 						if (!(boardSquare2.OccupantActor == null))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(boardSquare2.OccupantActor == caster))
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquare2.OccupantActor.IsVisibleToClient())
 								{
 									goto IL_17F;
@@ -748,80 +399,26 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 						bool flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare2, lastSquare, false, out num2);
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 rhs = boardSquare2.ToVector3() - lastSquare.ToVector3();
 							rhs.y = 0f;
 							rhs.Normalize();
 							float num3 = Vector3.Dot(testDir, rhs);
 							if (secondToLastInOrigPath != null)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (secondToLastInOrigPath == boardSquare2)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num3 += 0.5f;
 								}
 							}
-							if (lastSquare.\u0013(boardSquare2.x, boardSquare2.y))
+							if (lastSquare.symbol_0013(boardSquare2.x, boardSquare2.y))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3 -= 2f;
 							}
 							if (!(boardSquare == null))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (num3 <= num)
 								{
 									goto IL_17F;
-								}
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							boardSquare = boardSquare2;
@@ -830,30 +427,12 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 					}
 					IL_17F:;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				i++;
 			}
 		}
 		IL_1BE:
 		if (boardSquare == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquare = lastSquare;
 		}
 		return boardSquare;
@@ -870,64 +449,15 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 			for (BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2; boardSquarePathInfo3 != null; boardSquarePathInfo3 = boardSquarePathInfo3.next)
 			{
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceActor.GetChargePathFromSquareList(ActorData, List<BoardSquare>)).MethodHandle;
-			}
 			if (boardSquarePathInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquarePathInfo pathEndpoint = boardSquarePathInfo.GetPathEndpoint();
 				if (boardSquarePathInfo2 != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (boardSquarePathInfo2.next != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (pathEndpoint.square == boardSquarePathInfo2.square)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							pathEndpoint.m_unskippable = true;
 							pathEndpoint.next = boardSquarePathInfo2.next;
 							boardSquarePathInfo2.next.prev = pathEndpoint;
@@ -939,15 +469,6 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 			{
 				boardSquarePathInfo = boardSquarePathInfo2;
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return boardSquarePathInfo;
 	}

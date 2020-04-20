@@ -27,30 +27,8 @@ public class ClientTargetFramerateSetter : MonoBehaviour
 	{
 		if (this.m_isGameInBackground)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientTargetFramerateSetter.Update()).MethodHandle;
-			}
 			if (AppState.IsInGame())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Application.targetFrameRate = this.m_backgroundInGameMaxFramerate;
 			}
 			else
@@ -68,26 +46,8 @@ public class ClientTargetFramerateSetter : MonoBehaviour
 		}
 		if (HydrogenConfig.Get().TargetFrameRate >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (Application.targetFrameRate > HydrogenConfig.Get().TargetFrameRate)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Application.targetFrameRate = HydrogenConfig.Get().TargetFrameRate;
 			}
 		}

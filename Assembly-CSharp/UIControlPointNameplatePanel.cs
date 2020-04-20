@@ -22,32 +22,10 @@ public class UIControlPointNameplatePanel : MonoBehaviour
 	{
 		if (this.m_controlPointNameplates.ContainsKey(controlPoint))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIControlPointNameplatePanel.RemoveControlPoint(ControlPoint)).MethodHandle;
-			}
 			UIControlPointNameplateItem uicontrolPointNameplateItem = this.m_controlPointNameplates[controlPoint];
 			this.m_controlPointNameplates.Remove(controlPoint);
 			if (uicontrolPointNameplateItem != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UnityEngine.Object.Destroy(uicontrolPointNameplateItem.gameObject);
 			}
 		}

@@ -80,44 +80,13 @@ public class LobbyGameInfo
 		{
 			if (!this.GameServerProcessCode.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameInfo.get_Name()).MethodHandle;
-				}
 				if (this.GameConfig == null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (!this.GameConfig.HasSelectedSubType)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return string.Format("{0} ({1}) [{2} {3}]", new object[]
 						{
 							this.GameServerProcessCode,
@@ -157,19 +126,6 @@ public class LobbyGameInfo
 			bool result;
 			if (this.GameConfig != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameInfo.get_IsQueuedGame()).MethodHandle;
-				}
 				result = this.GameConfig.GameType.IsQueueable();
 			}
 			else

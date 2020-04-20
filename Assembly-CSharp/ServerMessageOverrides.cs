@@ -39,19 +39,6 @@ public class ServerMessageOverrides
 		ServerMessage serverMessage = (ServerMessage)base.GetType().GetProperty(type.ToString()).GetValue(this, null);
 		if (serverMessage == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValue(ServerMessageType, string)).MethodHandle;
-			}
 			return null;
 		}
 		return serverMessage.GetValue(language);
@@ -62,19 +49,6 @@ public class ServerMessageOverrides
 		string value = this.GetValue(type, language);
 		if (value.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValueOrDefault(ServerMessageType, string)).MethodHandle;
-			}
 			value = this.GetValue(type, ServerMessageLanguage.EN);
 		}
 		return value;
@@ -85,19 +59,6 @@ public class ServerMessageOverrides
 		ServerMessage serverMessage = (ServerMessage)base.GetType().GetProperty(type.ToString()).GetValue(this, null);
 		if (serverMessage == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValue(ServerMessageType, ServerMessageLanguage)).MethodHandle;
-			}
 			return null;
 		}
 		return serverMessage.GetValue(language);
@@ -108,19 +69,6 @@ public class ServerMessageOverrides
 		string value = this.GetValue(type, language);
 		if (value.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ServerMessageOverrides.GetValueOrDefault(ServerMessageType, ServerMessageLanguage)).MethodHandle;
-			}
 			value = this.GetValue(type, ServerMessageLanguage.EN);
 		}
 		return value;

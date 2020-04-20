@@ -26,19 +26,6 @@ public class ScoundrelBlindFire : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Quick Draw";
 		}
 		this.SetupTargeter();
@@ -79,19 +66,6 @@ public class ScoundrelBlindFire : Ability
 		float result = this.m_coneWidthAngle;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.ModdedConeWidthAngle()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(this.m_coneWidthAngle);
 		}
 		return result;
@@ -102,19 +76,6 @@ public class ScoundrelBlindFire : Ability
 		int result = this.m_damageAmount;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.ModdedDamageAmount()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damageAmount);
 		}
 		return result;
@@ -124,19 +85,6 @@ public class ScoundrelBlindFire : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.ModdedPenetrateLineOfSight()).MethodHandle;
-			}
 			return this.m_abilityMod.m_penetrateLineOfSight.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
 		return this.m_penetrateLineOfSight;
@@ -155,19 +103,6 @@ public class ScoundrelBlindFire : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Count > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ScoundrelBlindFire.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{

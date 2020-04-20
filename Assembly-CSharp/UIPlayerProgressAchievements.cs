@@ -36,19 +36,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievements.Init()).MethodHandle;
-			}
 			return;
 		}
 		this.m_initialized = true;
@@ -59,24 +46,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 			{
 				UnityEngine.Object.Destroy(uiplayerProgressAchievementItem.gameObject);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -108,19 +77,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievements.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnQuestCompleteNotification -= this.OnQuestCompleteNotification;
 			ClientGameManager.Get().OnQuestProgressChanged -= this.OnQuestProgressChanged;
 			ClientGameManager.Get().OnFriendStatusNotification -= this.OnFriendStatusNotification;
@@ -159,30 +115,8 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 		UIManager.SetGameObjectActive(this.m_freelancerDropdownBtn, this.m_achievementType == AchievementType.Freelancer, null);
 		if (this.m_achievementType == AchievementType.Freelancer)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressAchievements.Setup()).MethodHandle;
-			}
 			if (this.m_characterType != CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_freelancerDropdownBtn.Setup(GameWideData.Get().GetCharacterDisplayName(this.m_characterType), this.m_characterType);
 			}
 			else
@@ -200,87 +134,24 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 			QuestTemplate questTemplate = list[j];
 			if (questTemplate.AchievmentType != AchievementType.None)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!questTemplate.Enabled)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (this.m_achievementType != AchievementType.None)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (questTemplate.AchievmentType != this.m_achievementType)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							goto IL_1AA;
 						}
 					}
 					if (this.m_achievementType == AchievementType.Freelancer)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_characterType != CharacterType.None)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!QuestWideData.IsCharacterQuest(questTemplate.Objectives, GameWideData.Get().GetCharacterResourceLink(this.m_characterType)))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_1AA;
 							}
 						}
@@ -299,15 +170,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 		{
 			if (list[k].AchievementPrevious > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary.Remove(list[k].AchievementPrevious);
 			}
 		}
@@ -323,15 +185,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 			UIPlayerProgressAchievementItem uiplayerProgressAchievementItem;
 			if (i >= this.m_achievementItems.Count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uiplayerProgressAchievementItem = UnityEngine.Object.Instantiate<UIPlayerProgressAchievementItem>(this.m_itemPrefab);
 				int num2 = this.m_achievementItems.Count % this.m_verticalColumns.Length;
 				uiplayerProgressAchievementItem.transform.SetParent(this.m_verticalColumns[num2].transform);
@@ -349,15 +202,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 			i++;
 			num += uiplayerProgressAchievementItem.Setup(quest, questMetaDatas);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		while (i < this.m_achievementItems.Count)
 		{
 			UIManager.SetGameObjectActive(this.m_achievementItems[i], false, null);
@@ -367,15 +211,6 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 		this.m_points.text = string.Format(StringUtil.TR("AchievementPoints", "Global"), num);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_scrollRect.verticalNormalizedPosition = 1f;
 		}
 	}

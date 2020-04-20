@@ -99,19 +99,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MartyrSpendCrystals.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = martyrSpendCrystals.m_spentCrystalsEffect;
 		}
 		else
@@ -126,15 +113,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = martyrSpendCrystals.m_selfHealBase;
 		}
 		else
@@ -149,15 +127,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = martyrSpendCrystals.m_selfHealPerCrystalSpent;
 		}
 		else
@@ -172,15 +141,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = martyrSpendCrystals.m_selfHealPerEnemyHit;
 		}
 		else
@@ -195,15 +155,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = martyrSpendCrystals.m_selfHealIsOverTime;
 		}
 		else
@@ -219,15 +170,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = martyrSpendCrystals.m_maxExtraSelfHealForMaxEnergy;
 		}
 		else
@@ -243,15 +185,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = martyrSpendCrystals.m_selfAbsorbPerCrystalSpent;
 		}
 		else
@@ -266,15 +199,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = martyrSpendCrystals.m_aoeRadiusBase;
 		}
 		else
@@ -290,15 +214,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = martyrSpendCrystals.m_penetrateLos;
 		}
 		else
@@ -313,15 +228,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = martyrSpendCrystals.m_damageBase;
 		}
 		else
@@ -336,15 +242,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = martyrSpendCrystals.m_damagePerCrystal;
 		}
 		else
@@ -359,15 +256,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		StandardEffectInfo baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = martyrSpendCrystals.m_enemyHitEffect;
 		}
 		else
@@ -382,15 +270,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = martyrSpendCrystals.m_allyHealBase;
 		}
 		else
@@ -405,15 +284,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal14;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal14 = martyrSpendCrystals.m_allyHealPerCrystal;
 		}
 		else
@@ -429,15 +299,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal15;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal15 = martyrSpendCrystals.m_allyHealPerEnemyHit;
 		}
 		else
@@ -452,15 +313,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		bool baseVal16;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal16 = martyrSpendCrystals.m_clearEnergyOnCast;
 		}
 		else
@@ -476,15 +328,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		int baseVal17;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal17 = martyrSpendCrystals.m_cdrOnProtectAllyAbility;
 		}
 		else

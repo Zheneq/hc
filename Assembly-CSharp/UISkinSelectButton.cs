@@ -21,32 +21,10 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 		base.Start();
 		if (this.m_progressionSlider != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinSelectButton.Start()).MethodHandle;
-			}
 			this.m_progressionSlider.interactable = false;
 		}
 		if (this.m_theButton != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_theButton.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnSkinClicked);
 		}
 	}
@@ -65,30 +43,8 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 		this.m_uiSkinBrowserPanel = parent;
 		if (this.m_characterIcon != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinSelectButton.Setup(CharacterResourceLink, UISkinData, int, UISkinBrowserPanel)).MethodHandle;
-			}
 			if (skinData.m_skinImage == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_characterIcon.sprite = m_theCharacter.GetLoadingProfileIcon();
 			}
 			else
@@ -98,15 +54,6 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 		}
 		if (this.m_progressionSlider != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_progressionSlider.minValue = 0f;
 			this.m_progressionSlider.maxValue = 1f;
 			this.m_progressionSlider.value = skinData.m_progressPct;
@@ -115,56 +62,20 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 		this.m_unlockTooltipText = m_theCharacter.GetSkinDescription(skinIndex);
 		if (this.m_unlockTooltipText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_unlockTooltipText = string.Empty;
 			int num = 0;
 			if (skinData.m_unlockCharacterLevel > 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), skinData.m_unlockCharacterLevel) + Environment.NewLine;
 				num++;
 			}
 			if (skinData.m_gameCurrencyCost > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = this.m_unlockTooltipText + string.Format(StringUtil.TR("BuyForNumberISO", "Global"), skinData.m_gameCurrencyCost) + Environment.NewLine;
 				num++;
 			}
 			if (num > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_unlockTooltipText = StringUtil.TR("ObtainedByMethods", "Global") + Environment.NewLine + this.m_unlockTooltipText + Environment.NewLine;
 			}
 		}
@@ -174,15 +85,6 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 		}
 		if (!skinData.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_unlockTooltipText = this.m_unlockTooltipText + "<i>" + skinData.m_flavorText + "</i>";
 		}
 	}

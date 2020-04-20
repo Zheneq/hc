@@ -41,19 +41,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		_SelectableBtn componentInChildren = base.GetComponentInChildren<_SelectableBtn>(true);
 		if (componentInChildren != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.Awake()).MethodHandle;
-			}
 			componentInChildren.spriteController.SetClickable(false);
 		}
 	}
@@ -74,34 +61,12 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		{
 			if (isActive)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.SetAsActiveQueue(bool)).MethodHandle;
-				}
 				componentsInChildren[i].color = Color.white;
 			}
 			else
 			{
 				componentsInChildren[i].color = Color.gray;
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -110,19 +75,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		string tierIconResource = UIRankedModeSelectScreen.GetTierIconResource(tier);
 		if (!tierIconResource.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.SetTierIcon(int)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_currentRankImage, true, null);
 			this.m_currentRankImage.sprite = (Sprite)Resources.Load(tierIconResource, typeof(Sprite));
 		}
@@ -137,19 +89,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		string tierIconResource = UIRankedModeSelectScreen.GetTierIconResource(tier);
 		if (!tierIconResource.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.SetBarColor(int)).MethodHandle;
-			}
 			if (tierIconResource.ToLower().Contains("bronze"))
 			{
 				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_fill", typeof(Sprite));
@@ -160,15 +99,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 			}
 			else if (tierIconResource.ToLower().Contains("gold"))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("platinum"))
@@ -177,28 +107,10 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 			}
 			else if (tierIconResource.ToLower().Contains("diamond"))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("master"))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankFillBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Master_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("contender"))
@@ -217,19 +129,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		int result = 0;
 		if (type == UIRankDisplayType.Solo)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.GetGroupSize(UIRankDisplayType)).MethodHandle;
-			}
 			result = 1;
 			this.SetRankDisplayText(StringUtil.TR("SOLORANKED", "RankMode"));
 		}
@@ -240,15 +139,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		}
 		else if (type == UIRankDisplayType.FullTeam)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = 4;
 			this.SetRankDisplayText(StringUtil.TR("TEAMRANKED", "RankMode"));
 		}
@@ -265,19 +155,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		float tierPoints = 0f;
 		if (perGroupSizeTierInfo.OurEntry != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.Setup(UIRankDisplayType, Dictionary<int, PerGroupSizeTierInfo>)).MethodHandle;
-			}
 			tier = perGroupSizeTierInfo.OurEntry.Value.Tier;
 			instanceId = perGroupSizeTierInfo.OurEntry.Value.InstanceId;
 			gamesPlayed = perGroupSizeTierInfo.OurEntry.Value.MatchCount;
@@ -298,19 +175,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_HasRankAlreadyContainer, false, null);
 		if (groupSize > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProfileRankDisplay.Setup(int, int, int, int, float)).MethodHandle;
-			}
 			bool flag = false;
 			if (tier > 0)
 			{
@@ -351,30 +215,12 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				this.SetBarColor(tier);
 				if (this.m_GamesPlayed != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_GamesPlayed.text = string.Format(StringUtil.TR("ELONumber", "RankMode"), arg) + str;
 				}
 				this.SetTierIcon(tier);
 			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_DivisionText.text = StringUtil.TR("Placement", "RankMode");
 				UIManager.SetGameObjectActive(this.m_InPlacementMatchesContainer, true, null);
 				UIManager.SetGameObjectActive(this.m_HasRankAlreadyContainer, false, null);
@@ -382,15 +228,6 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				num = Mathf.Max(num, 0);
 				if (this.m_PlacementGamesLeftText != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_PlacementGamesLeftText.text = string.Format(StringUtil.TR("PlayMoreGames", "RankMode"), num);
 				}
 				this.SetTierIcon(0);

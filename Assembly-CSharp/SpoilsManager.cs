@@ -39,42 +39,11 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		PowerUp result = null;
 		if (spoilsType != SpoilsManager.SpoilsType.Hero)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsManager.PickRandomPowerUpPrefab(SpoilsManager.SpoilsType)).MethodHandle;
-			}
 			if (spoilsType != SpoilsManager.SpoilsType.Minion)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else if (this.m_heroSpoils != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_heroSpoils.Length > 0)
 				{
 					result = this.m_minionSpoils[GameplayRandom.Range(0, this.m_heroSpoils.Length)];
@@ -83,26 +52,8 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		}
 		else if (this.m_heroSpoils != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_heroSpoils.Length > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = this.m_heroSpoils[GameplayRandom.Range(0, this.m_heroSpoils.Length)];
 			}
 		}
@@ -114,31 +65,9 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		PowerUp powerUp = null;
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsManager.SpawnSpoils(BoardSquare, SpoilsManager.SpoilsType, Team)).MethodHandle;
-			}
 			PowerUp powerUp2 = this.PickRandomPowerUpPrefab(spoilsType);
 			if (powerUp2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 position = square.ToVector3();
 				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(powerUp2.gameObject, position, Quaternion.identity);
 				powerUp = gameObject.GetComponent<PowerUp>();
@@ -160,19 +89,6 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		PowerUp powerUp = null;
 		if (NetworkServer.active && spoilsPrefab)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsManager.SpawnSpoils(BoardSquare, PowerUp, Team, bool)).MethodHandle;
-			}
 			Vector3 position = square.ToVector3();
 			GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(spoilsPrefab.gameObject, position, Quaternion.identity);
 			powerUp = gameObject.GetComponent<PowerUp>();
@@ -194,19 +110,6 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		List<PowerUp> list = new List<PowerUp>();
 		if (numToSpawn >= 1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsManager.SpawnSpoilsAroundSquare(BoardSquare, Team, int, List<GameObject>, bool, bool, StandardPowerUpAbilityModData, bool, int)).MethodHandle;
-			}
 			if (powerUpPrefabsToChooseFrom.Count != 0)
 			{
 				if (!(centerSquare == null))
@@ -220,62 +123,17 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 							int index = GameplayRandom.Range(0, powerUpPrefabsToChooseFrom.Count);
 							if (powerUpPrefabsToChooseFrom[index] != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								PowerUp component = powerUpPrefabsToChooseFrom[index].GetComponent<PowerUp>();
 								if (component != null)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									PowerUp powerUp = SpoilsManager.Get().SpawnSpoils(square, component, forTeam, ignoreSpawnSplineForSequence);
 									if (powerUp != null)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (standardSpoilModData != null)
 										{
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											PowerUp_Standard_Ability component2 = powerUp.GetComponent<PowerUp_Standard_Ability>();
 											if (component2 != null)
 											{
-												for (;;)
-												{
-													switch (1)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												component2.SetHealAmount(standardSpoilModData.m_healMod.GetModifiedValue(component2.m_healAmount));
 												component2.SetTechPointAmount(standardSpoilModData.m_techPointMod.GetModifiedValue(component2.m_techPointsAmount));
 											}
@@ -286,26 +144,8 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					return list;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -317,34 +157,12 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		List<BoardSquare> list = new List<BoardSquare>();
 		if (desiredCenterSquare == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsManager.FindSquaresToSpawnSpoil(BoardSquare, Team, int, bool, bool, int, List<BoardSquare>)).MethodHandle;
-			}
 			return list;
 		}
 		int num = 0;
 		int i = 0;
 		while (i < maxBorderSearchLayers)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num >= numToSpawn)
 			{
 				for (;;)
@@ -380,67 +198,22 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 						BoardSquare boardSquare = squaresInBorderLayer[j];
 						if (boardSquare.IsBaselineHeight())
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (SpoilsManager.Get().GetPowerUpInPos(boardSquare) == null)
 							{
 								if (squaresToExclude != null)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (squaresToExclude.Contains(boardSquare))
 									{
 										goto IL_160;
-									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								bool flag2;
 								if (boardSquare.occupant != null)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									ActorData component = boardSquare.occupant.GetComponent<ActorData>();
 									if (component == null)
 									{
 										goto IL_13E;
-									}
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									if (component.IgnoreForAbilityHits)
 									{
@@ -448,41 +221,14 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 									}
 									if (canSpawnOnEnemyOccupiedSquare)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (component.GetTeam() != forTeam)
 										{
 											goto IL_13E;
-										}
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 									bool flag;
 									if (canSpawnOnAllyOccupiedSquare)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = (component.GetTeam() == forTeam);
 									}
 									else
@@ -500,15 +246,6 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 								IL_146:
 								if (flag2)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									list.Add(boardSquare);
 									num++;
 								}
@@ -546,19 +283,6 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		{
 			if (powerUp.boardSquare == square)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SpoilsManager.GetPowerUpInPos(BoardSquare)).MethodHandle;
-				}
 				result = powerUp;
 			}
 		}

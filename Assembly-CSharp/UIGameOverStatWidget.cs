@@ -56,19 +56,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetStatName()).MethodHandle;
-			}
 			if (!this.FreelancerStatName.IsNullOrEmpty())
 			{
 				return this.FreelancerStatName;
@@ -76,15 +63,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		}
 		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return StatDisplaySettings.GetLocalizedName(this.GeneralStatType);
 		}
 		return "Needs to be authored";
@@ -94,32 +72,10 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat && !this.FreelancerStatDescription.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetStatDescription()).MethodHandle;
-			}
 			return this.FreelancerStatDescription;
 		}
 		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return StatDisplaySettings.GetLocalizedDescription(this.GeneralStatType);
 		}
 		return "Needs to be authored";
@@ -129,19 +85,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (this.HasPersonalAverage)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetPersonalAverage()).MethodHandle;
-			}
 			return new float?((float)this.StatAverage);
 		}
 		return null;
@@ -152,19 +95,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		bool value;
 		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.IsStatLowerBetter()).MethodHandle;
-			}
 			value = GameResultBadgeData.Get().IsStatLowerBetter(this.GeneralStatType);
 		}
 		else
@@ -246,31 +176,9 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (AppState.IsInGame())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetNumLives()).MethodHandle;
-			}
 			ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 			if (playersOriginalActorData != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new int?(playersOriginalActorData.GetActorBehavior().totalDeaths + 1);
 			}
 		}
@@ -281,30 +189,8 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (AppState.IsInGame())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetCurrentGameValue()).MethodHandle;
-			}
 			if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return new float?(this.CurrentStat);
 			}
 		}
@@ -315,30 +201,8 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (AppState.IsInGame())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.GetStatUnitType()).MethodHandle;
-			}
 			if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(this.GeneralStatType);
 				return new GameResultBadgeData.StatDescription.StatUnitType?(statDescription.StatUnit);
 			}
@@ -366,19 +230,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (info != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.UpdatePercentiles(PercentileInfo)).MethodHandle;
-			}
 			this.m_againstAllPercentile = info.AgainstAll;
 			this.m_againstFreelancerPercentile = info.AgainstSameFreelancer;
 			this.m_againstPeersPercentile = info.AgainstPeers;
@@ -430,30 +281,8 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (doHighlight)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetBadgeHighlight(bool, bool)).MethodHandle;
-			}
 			if (isOn)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
 				base.gameObject.GetComponent<_SelectableBtn>().spriteController.SetAlwaysHoverState(true);
 			}
@@ -476,19 +305,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		{
 			if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.get_StatLowerIsBetter()).MethodHandle;
-				}
 				GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(this.GeneralStatType);
 				if (statDescription != null)
 				{
@@ -505,42 +321,11 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		{
 			if (this.StatLowerIsBetter)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.OnEnable()).MethodHandle;
-				}
 				bool flag;
 				if (this.PreviousStats != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.PreviousStats.GetNumGames() == 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = (this.CurrentStat == this.PreviousRecord);
 						goto IL_6B;
 					}
@@ -554,30 +339,12 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 				}
 				else if ((double)this.CurrentStat < this.StatAverage)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
 				}
 				else
 				{
 					if (0f < this.CurrentStat)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((double)this.CurrentStat >= this.StatAverage)
 						{
 							UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
@@ -590,54 +357,18 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			}
 			else if (this.CurrentStat > this.PreviousRecord)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBestIDLE", null, string.Empty, 1, 0f, true, false, null, null);
 			}
 			else if ((double)this.CurrentStat > this.StatAverage)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
 			}
 			else
 			{
 				if (0f < this.CurrentStat)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if ((double)this.CurrentStat <= this.StatAverage)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIDLE", null, string.Empty, 1, 0f, true, false, null, null);
 						return;
 					}
@@ -651,56 +382,16 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (!this.HighlightDone)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetHighlight()).MethodHandle;
-			}
 			if (base.gameObject.activeInHierarchy)
 			{
 				this.HighlightDone = true;
 				if (this.StatLowerIsBetter)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag;
 					if (this.PreviousStats != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.PreviousStats.GetNumGames() == 0)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = (this.CurrentStat == this.PreviousRecord);
 							goto IL_8C;
 						}
@@ -710,65 +401,20 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 					bool flag2 = flag;
 					if (this.CurrentStat >= this.PreviousRecord)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							if ((double)this.CurrentStat < this.StatAverage)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
 								goto IL_1A1;
 							}
 							if (0f < this.CurrentStat)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if ((double)this.CurrentStat >= this.StatAverage)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
 									goto IL_1A1;
 								}
@@ -782,54 +428,18 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 				}
 				else if (this.CurrentStat > this.PreviousRecord)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBestIN", null, string.Empty, 1, 0f, true, false, null, null);
 				}
 				else if ((double)this.CurrentStat > this.StatAverage)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
 				}
 				else
 				{
 					if (0f < this.CurrentStat)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((double)this.CurrentStat <= this.StatAverage)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, "StatSmallItemBelowAvgIN", null, string.Empty, 1, 0f, true, false, null, null);
 							return;
 						}
@@ -860,19 +470,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			GameResultBadgeData.StatDescription statDescription = GameResultBadgeData.Get().GetStatDescription(TypeOfStat);
 			if (this.PreviousStats != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupForAStat(PersistedStats, ActorBehavior, StatDisplaySettings.StatType)).MethodHandle;
-				}
 				this.StatAverage = (double)this.PreviousStats.Average();
 				if (statDescription.LowerIsBetter)
 				{
@@ -894,15 +491,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			float currentStat;
 			if (stat != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				currentStat = stat.Value;
 			}
 			else
@@ -912,15 +500,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			this.CurrentStat = currentStat;
 			if (TypeOfStat == StatDisplaySettings.StatType.TotalBadgePoints)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.CurrentStat = UIGameOverScreen.Get().Results.TotalBadgePoints;
 			}
 			this.FreelancerStatName = null;
@@ -930,15 +509,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			this.m_StatName.text = StatDisplaySettings.GetLocalizedName(TypeOfStat);
 			if (statDescription2.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)(this.CurrentStat * 100f)), "0.#");
 				this.m_AverageText.text = string.Format(StringUtil.TR("AverageStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage * 100.0), "0.#"));
 				this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)(this.PreviousRecord * 100f)), "0.#"));
@@ -957,19 +527,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (this.DisplayStatType == UIGameOverStatWidget.StatDisplayType.None)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupForFreelancerStats(PersistedStats, ActorBehavior, FreelancerStats, int, AbilityData)).MethodHandle;
-			}
 			this.DisplayStatType = UIGameOverStatWidget.StatDisplayType.FreelancerStat;
 			this.FreelancerStat = FreelancerStatIndex;
 			this.FreelancerStatName = null;
@@ -978,15 +535,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			PersistedStatEntry freelancerStat = StartValueStats.GetFreelancerStat(FreelancerStatIndex);
 			if (freelancerStat != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StatAverage = Math.Round((double)freelancerStat.Average(), 1);
 				this.PreviousRecord = freelancerStat.GetMax();
 			}
@@ -1001,15 +549,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			string localizedDescriptionOfStat = CurrentGameStats.GetLocalizedDescriptionOfStat(FreelancerStatIndex);
 			if (!displayNameOfStat.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_StatName.text = UIGameOverStatWidget.SubstituteTokens(displayNameOfStat, FreelancerAbilityData);
 				this.FreelancerStatName = this.m_StatName.text;
 			}
@@ -1019,15 +558,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			}
 			if (!localizedDescriptionOfStat.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.FreelancerStatDescription = UIGameOverStatWidget.SubstituteTokens(localizedDescriptionOfStat, FreelancerAbilityData);
 			}
 			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
@@ -1048,33 +578,11 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		this.SetupCharAndRole(charType);
 		if (stats != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupTotalledStat(PersistedStats, StatDisplaySettings.StatType, global::CharacterType)).MethodHandle;
-			}
 			persistedGameplayStat = stats.GetGameplayStat(typeOfStat);
 		}
 		float num;
 		if (persistedGameplayStat == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CurrentStat = 0f;
 			this.StatAverage = 0.0;
 			this.PreviousRecord = 0f;
@@ -1095,30 +603,12 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		UIAnimationEventManager.Get().PlayAnimation(this.m_Animator, animToPlay, null, string.Empty, 1, 0f, true, false, null, null);
 		if (statDescription.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage * 100.0), "0.#");
 			this.m_AverageText.text = string.Format(StringUtil.TR("MinStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)(num * 100f)), "0.#"));
 			this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)(this.PreviousRecord * 100f)), "0.#"));
 		}
 		else if (statDescription.StatUnit != GameResultBadgeData.StatDescription.StatUnitType.None)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(this.StatAverage, 1), "0.#");
 			this.m_AverageText.text = string.Format(StringUtil.TR("MinStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)num, 1), "0.#"));
 			this.m_PreviousBestNumber.text = string.Format(StringUtil.TR("MaxStat", "Global"), StringUtil.GetLocalizedDouble(Math.Round((double)this.PreviousRecord, 1), "0.#"));
@@ -1143,32 +633,10 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		PersistedStatEntry persistedStatEntry = null;
 		if (StartValueStats != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupFreelancerTotalledStats(PersistedStats, string, string, int, AbilityData, global::CharacterType)).MethodHandle;
-			}
 			persistedStatEntry = StartValueStats.GetFreelancerStat(FreelancerStatIndex);
 		}
 		if (persistedStatEntry != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.StatAverage = Math.Round((double)persistedStatEntry.Average(), 1);
 			this.PreviousRecord = persistedStatEntry.GetMax();
 			this.CurrentStat = persistedStatEntry.GetSum();
@@ -1197,19 +665,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (this.DisplayStatType != UIGameOverStatWidget.StatDisplayType.None)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupReplayStat(MatchFreelancerStats, StatDisplaySettings.StatType, global::CharacterType)).MethodHandle;
-			}
 			return;
 		}
 		this.FreelancerStatName = null;
@@ -1220,28 +675,10 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		float? num = null;
 		if (stats != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = stats.GetStat(typeOfStat);
 		}
 		if (num != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CurrentStat = num.Value;
 		}
 		else
@@ -1273,19 +710,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 	{
 		if (this.DisplayStatType != UIGameOverStatWidget.StatDisplayType.None)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SetupReplayFreelancerStat(global::CharacterType, MatchFreelancerStats, int, AbilityData)).MethodHandle;
-			}
 			return;
 		}
 		this.FreelancerStatName = StringUtil.TR_FreelancerStatName(charType.ToString(), statIndex);
@@ -1298,28 +722,10 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		float? num = null;
 		if (stats != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = stats.GetFreelancerStat(statIndex);
 		}
 		if (num != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CurrentStat = num.Value;
 		}
 		else
@@ -1332,15 +738,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		this.m_StatName.text = this.FreelancerStatName;
 		if (this.m_StatName.text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_StatName.text = string.Format("stat name for freelancer needs to be setup", new object[0]);
 		}
 		this.m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round((double)this.CurrentStat, 1), "0.#");
@@ -1351,15 +748,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		string text;
 		if (this.CurrentStat == 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = "StatSmallItemZeroIN";
 		}
 		else
@@ -1391,19 +779,6 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			Ability abilityAtIndex = FreelancerAbilityData.GetAbilityAtIndex(i);
 			if (abilityAtIndex != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverStatWidget.SubstituteTokens(string, AbilityData)).MethodHandle;
-				}
 				string substitute = "<color=#FFC000>" + abilityAtIndex.GetNameString() + "</color>";
 				tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "[ABILITY_" + i + "]", substitute);
 			}

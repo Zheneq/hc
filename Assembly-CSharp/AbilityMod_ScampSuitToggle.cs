@@ -44,19 +44,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		ScampSuitToggle scampSuitToggle = targetAbility as ScampSuitToggle;
 		if (scampSuitToggle != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampSuitToggle.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_cooldownCreateSuitMod, "CooldownCreateSuit", string.Empty, scampSuitToggle.m_cooldownCreateSuit, true, false);
 			AbilityMod.AddToken(tokens, this.m_cooldownRefillShieldMod, "CooldownRefillShield", string.Empty, scampSuitToggle.m_cooldownRefillShield, true, false);
 			AbilityMod.AddToken(tokens, this.m_cooldownOverrideOnSuitDestroyMod, "CooldownOverrideOnSuitDestroy", string.Empty, scampSuitToggle.m_cooldownOverrideOnSuitDestroy, true, false);
@@ -80,19 +67,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampSuitToggle.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scampSuitToggle.m_shieldDownModeFreeAction;
 		}
 		else
@@ -107,15 +81,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampSuitToggle.m_cooldownCreateSuit;
 		}
 		else
@@ -131,15 +96,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scampSuitToggle.m_cooldownOverrideOnSuitDestroy;
 		}
 		else
@@ -154,15 +110,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = scampSuitToggle.m_energyToShieldMult;
 		}
 		else
@@ -177,15 +124,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = scampSuitToggle.m_clearEnergyOrbsOnCast;
 		}
 		else
@@ -201,15 +139,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = scampSuitToggle.m_passiveEnergyRegen;
 		}
 		else
@@ -225,15 +154,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = scampSuitToggle.m_effectForSuitGained;
 		}
 		else
@@ -248,15 +168,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = scampSuitToggle.m_effectForSuitLost;
 		}
 		else

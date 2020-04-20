@@ -36,19 +36,6 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.FinishSetup()).MethodHandle;
-			}
 			this.SetupHitInfoList();
 			this.SpawnTempSatellite();
 		}
@@ -59,45 +46,14 @@ public class NinjaMultiAttackSequence : Sequence
 		bool result = false;
 		if (this.m_hitInfos != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.Finished()).MethodHandle;
-			}
 			result = true;
 			for (int i = 0; i < this.m_hitInfos.Count; i++)
 			{
 				NinjaMultiAttackSequence.HitInfo hitInfo = this.m_hitInfos[i];
 				if (hitInfo.m_numHits > hitInfo.m_numHitsReceived)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -110,30 +66,8 @@ public class NinjaMultiAttackSequence : Sequence
 			NinjaMultiAttackSequence.ExtraParams extraParams2 = extraSequenceParams as NinjaMultiAttackSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				this.m_actorsToHits = extraParams2.actorToHits;
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -145,19 +79,6 @@ public class NinjaMultiAttackSequence : Sequence
 			NinjaMultiAttackSequence.HitInfo hitInfo = this.m_hitInfos[i];
 			if (hitInfo.m_numHitsReceived < hitInfo.m_numHits)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.SpawnedAllTempSatellites()).MethodHandle;
-				}
 				result = false;
 				return result;
 			}
@@ -177,69 +98,20 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.Update()).MethodHandle;
-			}
 			if (this.m_lastTempSatelliteSpawnTime > 0f && GameTime.time > this.m_lastTempSatelliteSpawnTime + this.m_spawnDelay && !this.SpawnedAllTempSatellites())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnTempSatellite();
 			}
 			for (int i = 0; i < this.m_hitInfos.Count; i++)
 			{
 				if (this.m_hitInfos[i].m_didSpawnSatellite)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_hitInfos[i].m_spawnedSatellite == null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num = this.m_hitInfos[i].m_numHits - this.m_hitInfos[i].m_numHitsReceived;
 						for (int j = 0; j < num; j++)
 						{
 							this.SpawnHitFX(this.m_hitInfos[i]);
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -254,42 +126,11 @@ public class NinjaMultiAttackSequence : Sequence
 		{
 			if (this.m_hitInfos[i].m_boardSquare == square)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.SquareInUseByTempSatellite(BoardSquare)).MethodHandle;
-				}
 				if (this.m_hitInfos[i].m_spawnedSatellite != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return result;
 	}
@@ -307,19 +148,6 @@ public class NinjaMultiAttackSequence : Sequence
 				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(center.x + j, center.y);
 				if (this.CanUseSquareForTempSatellite(boardSquare2))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.GetClosestUnoccupiedSquare(BoardSquare)).MethodHandle;
-					}
 					boardSquare = boardSquare2;
 					IL_65:
 					int k = -i;
@@ -328,28 +156,10 @@ public class NinjaMultiAttackSequence : Sequence
 						BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + k);
 						if (this.CanUseSquareForTempSatellite(boardSquare3))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							boardSquare = boardSquare3;
 							IL_BC:
 							if (boardSquare != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								goto IL_DE;
 							}
 							i++;
@@ -388,15 +198,6 @@ public class NinjaMultiAttackSequence : Sequence
 		IL_DE:
 		if (boardSquare == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			boardSquare = center;
 		}
 		return boardSquare;
@@ -406,30 +207,8 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		if (square != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.CanUseSquareForTempSatellite(BoardSquare)).MethodHandle;
-			}
 			if (square.IsBaselineHeight() && square.occupant == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return !this.SquareInUseByTempSatellite(square);
 			}
 		}
@@ -448,20 +227,6 @@ public class NinjaMultiAttackSequence : Sequence
 				return result;
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.GetNextTarget()).MethodHandle;
-			return result;
-		}
 		return result;
 	}
 
@@ -471,32 +236,10 @@ public class NinjaMultiAttackSequence : Sequence
 		NinjaMultiAttackSequence.HitInfo nextTarget = this.GetNextTarget();
 		if (nextTarget != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.SpawnTempSatellite()).MethodHandle;
-			}
 			BoardSquare closestUnoccupiedSquare = this.GetClosestUnoccupiedSquare(nextTarget.m_target.GetCurrentBoardSquare());
 			Vector3 forward = Vector3.forward;
 			if (closestUnoccupiedSquare != nextTarget.m_target.GetCurrentBoardSquare())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				forward = nextTarget.m_target.GetCurrentBoardSquare().ToVector3() - closestUnoccupiedSquare.ToVector3();
 			}
 			GameObject gameObject = base.InstantiateFX(this.m_tempSatellitePrefab, closestUnoccupiedSquare.ToVector3(), Quaternion.LookRotation(forward), true, true);
@@ -531,19 +274,6 @@ public class NinjaMultiAttackSequence : Sequence
 				hitInfo.m_hitJoint = jointPopupProperty;
 				this.m_hitInfos.Add(hitInfo);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.SetupHitInfoList()).MethodHandle;
-			}
 		}
 	}
 
@@ -559,20 +289,6 @@ public class NinjaMultiAttackSequence : Sequence
 				return result;
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.GetHitInfoFromTempSatellite(GameObject)).MethodHandle;
-			return result;
-		}
 		return result;
 	}
 
@@ -581,19 +297,6 @@ public class NinjaMultiAttackSequence : Sequence
 		hitInfo.m_numHitsReceived++;
 		if (this.m_fxHitPrefab != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.SpawnHitFX(NinjaMultiAttackSequence.HitInfo)).MethodHandle;
-			}
 			GameObject item = base.InstantiateFX(this.m_fxHitPrefab, hitInfo.m_hitJoint.m_jointObject.transform.position, Quaternion.identity, true, true);
 			this.m_hitFXInstances.Add(item);
 		}
@@ -616,19 +319,6 @@ public class NinjaMultiAttackSequence : Sequence
 		NinjaMultiAttackSequence.HitInfo hitInfoFromTempSatellite = this.GetHitInfoFromTempSatellite(sourceObject);
 		if (hitInfoFromTempSatellite != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.SpawnHitFX(GameObject)).MethodHandle;
-			}
 			this.SpawnHitFX(hitInfoFromTempSatellite);
 		}
 	}
@@ -637,33 +327,11 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SetupHitInfoList();
 			this.SpawnTempSatellite();
 		}
 		else if (this.m_hitEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SpawnHitFX(sourceObject);
 		}
 	}
@@ -672,19 +340,6 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		if (this.m_hitFXInstances != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.OnDisable()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_hitFXInstances.Count; i++)
 			{
 				UnityEngine.Object.Destroy(this.m_hitFXInstances[i]);
@@ -703,19 +358,6 @@ public class NinjaMultiAttackSequence : Sequence
 			int num;
 			if (this.actorToHits != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.ExtraParams.XSP_SerializeToStream(IBitStream)).MethodHandle;
-				}
 				num = this.actorToHits.Count;
 			}
 			else
@@ -730,15 +372,6 @@ public class NinjaMultiAttackSequence : Sequence
 				int num3;
 				if (key != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 = key.ActorIndex;
 				}
 				else
@@ -765,19 +398,6 @@ public class NinjaMultiAttackSequence : Sequence
 				stream.Serialize(ref value);
 				ActorData key = GameFlowData.Get().FindActorByActorIndex(s_invalidActorIndex);
 				this.actorToHits.Add(key, value);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaMultiAttackSequence.ExtraParams.XSP_DeserializeFromStream(IBitStream)).MethodHandle;
 			}
 		}
 	}

@@ -76,19 +76,6 @@ public class BoardSquare : MonoBehaviour
 				return true;
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.IsExposedFromAnyDirection_zq()).MethodHandle;
-		}
 		return false;
 	}
 
@@ -98,30 +85,8 @@ public class BoardSquare : MonoBehaviour
 		{
 			if (this.m_thinCoverTypes[i] == ThinCover.CoverType.Full)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.HasFullCoverFromAnyDirection_zq()).MethodHandle;
-				}
 				return true;
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return false;
 	}
@@ -201,19 +166,6 @@ public class BoardSquare : MonoBehaviour
 		{
 			if (value == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.set_OccupantActor(ActorData)).MethodHandle;
-				}
 				this.occupant = null;
 			}
 			else
@@ -230,7 +182,7 @@ public class BoardSquare : MonoBehaviour
 		return this.BrushRegion != -1;
 	}
 
-	public bool \u0015()
+	public bool symbol_0015()
 	{
 		int num = 1;
 		return this.height <= Board.Get().BaselineHeight + num;
@@ -248,54 +200,14 @@ public class BoardSquare : MonoBehaviour
 			Bounds? internalCameraBounds = this.m_internalCameraBounds;
 			if (internalCameraBounds == null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.get_CameraBounds()).MethodHandle;
-				}
 				if (this.m_vertices != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_vertices.Length > 1)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 vector = Vector3.zero;
 						foreach (Vector3 b in this.m_vertices)
 						{
 							vector += b;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						vector /= (float)this.m_vertices.Length;
 						vector += Vector3.up;
@@ -316,30 +228,8 @@ public class BoardSquare : MonoBehaviour
 			Bounds? internalWorldBounds = this.m_internalWorldBounds;
 			if (internalWorldBounds == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.get_WorldBounds()).MethodHandle;
-				}
 				if (this.m_vertices != null && this.m_vertices.Length > 1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 vector = (this.m_vertices[0] + this.m_vertices[1]) / 2f;
 					Vector3 size = this.m_vertices[0] - vector;
 					size = new Vector3(Mathf.Abs(size.x), Mathf.Abs(size.y), Mathf.Abs(size.z));
@@ -347,15 +237,6 @@ public class BoardSquare : MonoBehaviour
 					for (int i = 2; i < this.m_vertices.Length; i++)
 					{
 						value.Encapsulate(this.m_vertices[i]);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					this.m_internalWorldBounds = new Bounds?(value);
 				}
@@ -403,19 +284,6 @@ public class BoardSquare : MonoBehaviour
 			float sqrMagnitude = (point - this.m_vertices[i]).sqrMagnitude;
 			if (sqrMagnitude < num3)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.CalcNearestPositionOnSquareEdge(Vector3)).MethodHandle;
-				}
 				num4 = num3;
 				num2 = num;
 				num3 = sqrMagnitude;
@@ -423,15 +291,6 @@ public class BoardSquare : MonoBehaviour
 			}
 			else if (sqrMagnitude < num4)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num4 = sqrMagnitude;
 				num2 = i;
 			}
@@ -441,15 +300,6 @@ public class BoardSquare : MonoBehaviour
 		Vector3 vector = Vector3.Project(point - this.m_vertices[num2], a / magnitude);
 		if (vector.sqrMagnitude > magnitude * magnitude)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector = this.m_vertices[num];
 		}
 		else
@@ -486,19 +336,6 @@ public class BoardSquare : MonoBehaviour
 		Bounds result = default(Bounds);
 		if ((byte)(side & SideFlags.Up) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.CalcSideBounds(SideFlags)).MethodHandle;
-			}
 			result.SetMinMax(this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperLeft), this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight) + Vector3.up);
 		}
 		if ((byte)(side & SideFlags.Down) != 0)
@@ -511,15 +348,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		if ((byte)(side & SideFlags.Right) != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result.SetMinMax(this.GetVerticesAtCorner_zq(BoardSquare.CornerType.LowerRight), this.GetVerticesAtCorner_zq(BoardSquare.CornerType.UpperRight) + Vector3.up);
 		}
 		return result;
@@ -535,19 +363,6 @@ public class BoardSquare : MonoBehaviour
 				BoardSquare boardSquare = board.GetBoardSquare(i, j);
 				if (boardSquare == this)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.CalculateLOS(Board)).MethodHandle;
-					}
 					array[i + j * board.GetMaxX()] = 1f;
 				}
 				else
@@ -555,49 +370,18 @@ public class BoardSquare : MonoBehaviour
 					array[i + j * board.GetMaxX()] = VectorUtils.GetLineOfSightPercentDistance(this.x, this.y, i, j, board, BoardSquare.s_LoSHeightOffset, "LineOfSight");
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return array;
 	}
 
-	public bool \u0013(int \u001D, int \u000E)
+	public bool symbol_0013(int symbol_001D, int symbol_000E)
 	{
 		bool result = false;
 		if (Board.Get().m_losLookup != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u0013(int, int)).MethodHandle;
-			}
 			bool flag;
-			if (Board.Get().m_losLookup.GetLOSDistance(this.m_pos.x, this.m_pos.y, \u001D, \u000E) == 1f)
+			if (Board.Get().m_losLookup.GetLOSDistance(this.m_pos.x, this.m_pos.y, symbol_001D, symbol_000E) == 1f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 			}
 			else
@@ -614,19 +398,6 @@ public class BoardSquare : MonoBehaviour
 		float result = 0f;
 		if (Board.Get().m_losLookup != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.GetLOSDistance(int, int)).MethodHandle;
-			}
 			result = Board.Get().m_losLookup.GetLOSDistance(this.m_pos.x, this.m_pos.y, xDest, yDest);
 		}
 		return result;
@@ -638,19 +409,6 @@ public class BoardSquare : MonoBehaviour
 		this.CalculateVertices(board, out this.m_vertices);
 		if (this.height != -1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.Setup(Board, Material, GameObject)).MethodHandle;
-			}
 			float x = (float)this.m_pos.x * board.squareSize;
 			float z = (float)this.m_pos.y * board.squareSize;
 			this.m_LOSHighlightObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -673,19 +431,6 @@ public class BoardSquare : MonoBehaviour
 	{
 		if (this.m_LOSHighlightObj)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.Start()).MethodHandle;
-			}
 			this.m_LOSHighlightObj.layer = LayerMask.NameToLayer("FogOfWar");
 			this.m_LOSHighlightMesh = this.m_LOSHighlightObj.GetComponent<MeshFilter>().mesh;
 		}
@@ -705,19 +450,6 @@ public class BoardSquare : MonoBehaviour
 		{
 			this.m_thinCoverTypes[i] = ThinCover.CoverType.None;
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.Awake()).MethodHandle;
-		}
 	}
 
 	private void OnDestroy()
@@ -730,19 +462,6 @@ public class BoardSquare : MonoBehaviour
 	{
 		if (this.m_gridPosProp == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.SetupGridPosProp(float)).MethodHandle;
-			}
 			this.m_gridPosProp = new GridPosProp();
 		}
 		this.m_gridPosProp.m_x = (int)(base.transform.position.x / squareSize);
@@ -799,30 +518,8 @@ public class BoardSquare : MonoBehaviour
 	{
 		if (this.m_LOSHighlightMesh != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.GetLOSHighlightMeshBaseColor()).MethodHandle;
-			}
 			if (this.m_LOSHighlightMesh.colors.Length > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_LOSHighlightMesh.colors[0];
 			}
 		}
@@ -833,19 +530,6 @@ public class BoardSquare : MonoBehaviour
 	{
 		if (this.m_LOSHighlightMesh)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.SetVisibleShade(int, bool*)).MethodHandle;
-			}
 			bool flag = (visibilityFlags & 8) != 0;
 			bool flag2 = (visibilityFlags & 4) != 0;
 			bool flag3 = (visibilityFlags & 1) != 0;
@@ -853,68 +537,23 @@ public class BoardSquare : MonoBehaviour
 			Color lhs;
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!Board.Get().m_showLOS)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lhs = BoardSquare.s_objectiveColor;
 						goto IL_C2;
 					}
 					if (flag3)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lhs = BoardSquare.s_visibleBySelfColor;
 						goto IL_C2;
 					}
 					if (flag4)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						lhs = BoardSquare.s_visibleByTeamColor;
 						goto IL_C2;
 					}
@@ -933,39 +572,12 @@ public class BoardSquare : MonoBehaviour
 			bool flag6 = (int)this.m_lastVisibleFlag != (int)((sbyte)visibilityFlags);
 			if (flag5)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag6 = (lhs != this.GetLOSHighlightMeshBaseColor());
 			}
 			if (flag6)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag5)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_lastVisibleFlag = (sbyte)visibilityFlags;
 				}
 				Mesh loshighlightMesh = this.m_LOSHighlightMesh;
@@ -984,13 +596,13 @@ public class BoardSquare : MonoBehaviour
 		}
 	}
 
-	private Color \u001D(int \u001D)
+	private Color symbol_001D(int symbol_001D)
 	{
-		bool flag = (\u001D & 8) != 0;
-		bool flag2 = (\u001D & 4) != 0;
-		bool flag3 = (\u001D & 1) != 0;
-		bool flag4 = (\u001D & 2) != 0;
-		InfluenceType influenceType = this.\u001D(false);
+		bool flag = (symbol_001D & 8) != 0;
+		bool flag2 = (symbol_001D & 4) != 0;
+		bool flag3 = (symbol_001D & 1) != 0;
+		bool flag4 = (symbol_001D & 2) != 0;
+		InfluenceType influenceType = this.symbol_001D(false);
 		Color result;
 		if (influenceType == InfluenceType.InfluencedByA)
 		{
@@ -1002,19 +614,6 @@ public class BoardSquare : MonoBehaviour
 		}
 		else if (influenceType == InfluenceType.Contested)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u001D(int)).MethodHandle;
-			}
 			result = new Color(ActorData.s_hostilePlayerColor.r, ActorData.s_hostilePlayerColor.g, ActorData.s_hostilePlayerColor.b);
 		}
 		else
@@ -1030,39 +629,12 @@ public class BoardSquare : MonoBehaviour
 		{
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag2)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag4)
 					{
 						num = 0.25f;
 						goto IL_126;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -1094,67 +666,23 @@ public class BoardSquare : MonoBehaviour
 		Vector3 result = new Vector3(this.worldX, (float)this.height, this.worldY);
 		if (Board.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.GetBaselineHeight()).MethodHandle;
-			}
 			result.y = (float)Board.Get().BaselineHeight;
 		}
 		return result;
 	}
 
-	public InfluenceType \u001D(bool \u001D)
+	public InfluenceType symbol_001D(bool symbol_001D)
 	{
 		InfluenceType result;
 		if (this.occupant != null && this.occupant.GetComponent<ActorData>() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u001D(bool)).MethodHandle;
-			}
 			ActorData component = this.occupant.GetComponent<ActorData>();
 			if (component.GetTeam() == Team.TeamA)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = InfluenceType.InfluencedByA;
 			}
 			else if (component.GetTeam() == Team.TeamB)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = InfluenceType.InfluencedByB;
 			}
 			else
@@ -1172,30 +700,12 @@ public class BoardSquare : MonoBehaviour
 			{
 				if (actorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
 					if (GameplayUtils.IsPlayerControlled(actorData))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!\u001D)
+						if (!symbol_001D)
 						{
 							continue;
 						}
@@ -1215,26 +725,8 @@ public class BoardSquare : MonoBehaviour
 					{
 						if (GameplayUtils.IsPlayerControlled(actorData2))
 						{
-							for (;;)
+							if (!symbol_001D)
 							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!\u001D)
-							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								continue;
 							}
 						}
@@ -1243,63 +735,18 @@ public class BoardSquare : MonoBehaviour
 						num2 = Mathf.Min(num2, b2);
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (num > num3)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 > num3)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return InfluenceType.NoInfluence;
 				}
 			}
 			if (Mathf.Abs(num - num2) > 0.01f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < num2)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = InfluenceType.InfluencedByA;
 				}
 				else
@@ -1315,42 +762,20 @@ public class BoardSquare : MonoBehaviour
 		return result;
 	}
 
-	public static string \u001D(BoardSquare \u001D, bool \u000E = false)
+	public static string symbol_001D(BoardSquare symbol_001D, bool symbol_000E = false)
 	{
 		string text;
-		if (\u001D == null)
+		if (symbol_001D == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardSquare.\u001D(BoardSquare, bool)).MethodHandle;
-			}
 			text = "(null)";
 		}
 		else
 		{
-			text = \u001D.GetGridPos().ToString();
-			if (\u000E)
+			text = symbol_001D.GetGridPos().ToString();
+			if (symbol_000E)
 			{
-				if (\u001D.IsBaselineHeight())
+				if (symbol_001D.IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text += "[valid]";
 				}
 				else

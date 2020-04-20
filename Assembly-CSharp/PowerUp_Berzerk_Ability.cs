@@ -20,19 +20,6 @@ public class PowerUp_Berzerk_Ability : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PowerUp_Berzerk_Ability.Start()).MethodHandle;
-			}
 			this.m_abilityName = "ANGER JUICE";
 		}
 	}

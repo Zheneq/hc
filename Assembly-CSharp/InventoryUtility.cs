@@ -27,34 +27,12 @@ public static class InventoryUtility
 			array[i] = num + weights[i];
 			num += weights[i];
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryUtility.RollWeights(float[])).MethodHandle;
-		}
 		float num2 = (float)InventoryUtility.GetRandomNumber(0.0, (double)num);
 		int result = 0;
 		for (int j = 0; j < array.Length; j++)
 		{
 			if (num2 <= array[j])
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = j;
 				return result;
 			}
@@ -185,31 +163,9 @@ public static class InventoryUtility
 				{
 					if (!forceStack)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(List<InventoryItem>.MergeByTemplateId(List<InventoryItem>, bool)).MethodHandle;
-						}
 						if (!inventoryItem.IsStackable())
 						{
 							goto IL_7B;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					inventoryItem.Count += sourceItem.Count;
@@ -217,15 +173,6 @@ public static class InventoryUtility
 				}
 				IL_7B:
 				targetItems.Add((InventoryItem)sourceItem.Clone());
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return targetItems;
@@ -243,31 +190,9 @@ public static class InventoryUtility
 				{
 					if (!forceStack)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(List<InventoryItemWithData>.MergeByTemplateId(List<InventoryItemWithData>, bool)).MethodHandle;
-						}
 						if (!inventoryItemWithData.Item.IsStackable())
 						{
 							goto IL_A4;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					inventoryItemWithData.Item.Count += sourceItem.Item.Count;
@@ -285,108 +210,23 @@ public static class InventoryUtility
 	{
 		if (itemType != InventoryItemType.TitleID)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InventoryUtility.IsInventoryItemTypeCollectable(InventoryItemType)).MethodHandle;
-			}
 			if (itemType != InventoryItemType.BannerID)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (itemType != InventoryItemType.Skin && itemType != InventoryItemType.Texture)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (itemType != InventoryItemType.Style)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (itemType != InventoryItemType.Taunt)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (itemType != InventoryItemType.Mod)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (itemType != InventoryItemType.ChatEmoji)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (itemType != InventoryItemType.Overcon)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (itemType != InventoryItemType.AbilityVfxSwap)
 										{
 											return false;
-										}
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 								}

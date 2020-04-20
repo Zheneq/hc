@@ -11,19 +11,6 @@ public static class MathUtil
 		}
 		if (value < minValue)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MathUtil.Clamp(int, int, int)).MethodHandle;
-			}
 			value = minValue;
 		}
 		return value;
@@ -33,32 +20,10 @@ public static class MathUtil
 	{
 		if (value > maxValue)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MathUtil.Clamp(double, double, double)).MethodHandle;
-			}
 			value = maxValue;
 		}
 		if (value < minValue)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			value = minValue;
 		}
 		return value;

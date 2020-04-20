@@ -49,30 +49,8 @@ public static class StatDisplaySettings
 	{
 		if (!StatDisplaySettings.GeneralStats.Contains(TypeOfStat))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StatDisplaySettings.IsStatADisplayedStat(StatDisplaySettings.StatType)).MethodHandle;
-			}
 			if (!StatDisplaySettings.FirepowerStats.Contains(TypeOfStat))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!StatDisplaySettings.SupportStats.Contains(TypeOfStat))
 				{
 					return StatDisplaySettings.FrontlinerStats.Contains(TypeOfStat);

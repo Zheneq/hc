@@ -17,30 +17,8 @@ public class RobotAnimalStealth : Ability
 	{
 		if (this.m_useCharge)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.Start()).MethodHandle;
-			}
 			if (base.GetNumTargets() == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("Robot Animal Stealth cannot use charge if there is no targeter targets specified");
 				this.m_useCharge = false;
 			}
@@ -52,19 +30,6 @@ public class RobotAnimalStealth : Ability
 	{
 		if (this.UseCharge())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.GetExpectedNumberOfTargeters()).MethodHandle;
-			}
 			return Mathf.Clamp(base.GetNumTargets(), 1, 2);
 		}
 		return 1;
@@ -85,42 +50,11 @@ public class RobotAnimalStealth : Ability
 		}
 		if (targetIndex == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe.IsBaselineHeight())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null;
 				}
 			}
@@ -130,37 +64,10 @@ public class RobotAnimalStealth : Ability
 		BoardSquare boardSquareSafe3 = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (boardSquareSafe3 != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe2 != boardSquareSafe3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe3.IsBaselineHeight() && KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false) != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -177,30 +84,8 @@ public class RobotAnimalStealth : Ability
 	{
 		if (this.UseCharge())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.SetupTargeter()).MethodHandle;
-			}
 			if (this.GetExpectedNumberOfTargeters() < 2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Targeter = new AbilityUtil_Targeter_ChargeAoE(this, 0f, 0f, 0f, -1, false, false);
 			}
 			else
@@ -247,19 +132,6 @@ public class RobotAnimalStealth : Ability
 			{
 				return this.m_abilityMod.m_selfEffectOverride.m_effectData;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.GetModdedStealthEffect()).MethodHandle;
-			}
 		}
 		return this.m_selfEffect;
 	}
@@ -279,19 +151,6 @@ public class RobotAnimalStealth : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.GetExtraDamageNextAttack()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -306,32 +165,10 @@ public class RobotAnimalStealth : Ability
 		bool result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RobotAnimalStealth.UseCharge()).MethodHandle;
-			}
 			result = this.m_useCharge;
 		}
 		else if (base.GetNumTargets() > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (this.m_abilityMod.m_useChainAbilityOverrides && this.m_abilityMod.m_chainAbilityOverrides.Length > 0);
 		}
 		else

@@ -82,19 +82,6 @@ namespace TMPro
 			{
 				if (this.m_characterDictionary == null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.get_characterDictionary()).MethodHandle;
-					}
 					this.ReadFontDefinition();
 				}
 				return this.m_characterDictionary;
@@ -151,34 +138,9 @@ namespace TMPro
 				this.m_glyphInfoList.Add(tmp_Glyph);
 				this.m_characterSet[i] = tmp_Glyph.id;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.AddGlyphInfo(TMP_Glyph[])).MethodHandle;
-			}
 			IEnumerable<TMP_Glyph> glyphInfoList = this.m_glyphInfoList;
-			if (TMP_FontAsset.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				TMP_FontAsset.<>f__am$cache0 = ((TMP_Glyph s) => s.id);
-			}
-			this.m_glyphInfoList = glyphInfoList.OrderBy(TMP_FontAsset.<>f__am$cache0).ToList<TMP_Glyph>();
+			
+			this.m_glyphInfoList = glyphInfoList.OrderBy(((TMP_Glyph s) => s.id)).ToList<TMP_Glyph>();
 		}
 
 		public void AddKerningInfo(KerningTable kerningTable)
@@ -202,43 +164,12 @@ namespace TMPro
 				}
 				if (tmp_Glyph.scale == 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.ReadFontDefinition()).MethodHandle;
-					}
 					tmp_Glyph.scale = 1f;
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			TMP_Glyph tmp_Glyph2 = new TMP_Glyph();
 			if (this.m_characterDictionary.ContainsKey(0x20))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_characterDictionary[0x20].width = this.m_characterDictionary[0x20].xAdvance;
 				this.m_characterDictionary[0x20].height = this.m_fontInfo.Ascender - this.m_fontInfo.Descender;
 				this.m_characterDictionary[0x20].yOffset = this.m_fontInfo.Ascender;
@@ -260,29 +191,11 @@ namespace TMPro
 			}
 			if (!this.m_characterDictionary.ContainsKey(0xA0))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tmp_Glyph2 = TMP_Glyph.Clone(this.m_characterDictionary[0x20]);
 				this.m_characterDictionary.Add(0xA0, tmp_Glyph2);
 			}
 			if (!this.m_characterDictionary.ContainsKey(0x200B))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tmp_Glyph2 = TMP_Glyph.Clone(this.m_characterDictionary[0x20]);
 				tmp_Glyph2.width = 0f;
 				tmp_Glyph2.xAdvance = 0f;
@@ -290,15 +203,6 @@ namespace TMPro
 			}
 			if (!this.m_characterDictionary.ContainsKey(0x2060))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tmp_Glyph2 = TMP_Glyph.Clone(this.m_characterDictionary[0x20]);
 				tmp_Glyph2.width = 0f;
 				tmp_Glyph2.xAdvance = 0f;
@@ -306,15 +210,6 @@ namespace TMPro
 			}
 			if (!this.m_characterDictionary.ContainsKey(0xA))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tmp_Glyph2 = new TMP_Glyph();
 				tmp_Glyph2.id = 0xA;
 				tmp_Glyph2.x = 0f;
@@ -328,29 +223,11 @@ namespace TMPro
 				this.m_characterDictionary.Add(0xA, tmp_Glyph2);
 				if (!this.m_characterDictionary.ContainsKey(0xD))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_characterDictionary.Add(0xD, tmp_Glyph2);
 				}
 			}
 			if (!this.m_characterDictionary.ContainsKey(9))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				tmp_Glyph2 = new TMP_Glyph();
 				tmp_Glyph2.id = 9;
 				tmp_Glyph2.x = this.m_characterDictionary[0x20].x;
@@ -370,52 +247,16 @@ namespace TMPro
 			}
 			if (this.m_fontInfo.Scale == 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fontInfo.Scale = 1f;
 			}
 			if (this.m_fontInfo.strikethrough == 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_fontInfo.strikethrough = this.m_fontInfo.CapHeight / 2.5f;
 			}
 			if (this.m_fontInfo.Padding == 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.material.HasProperty(ShaderUtilities.ID_GradientScale))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fontInfo.Padding = this.material.GetFloat(ShaderUtilities.ID_GradientScale) - 1f;
 				}
 			}
@@ -427,28 +268,10 @@ namespace TMPro
 				KerningPairKey kerningPairKey = new KerningPairKey(kerningPair.AscII_Left, kerningPair.AscII_Right);
 				if (!this.m_kerningDictionary.ContainsKey(kerningPairKey.key))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_kerningDictionary.Add(kerningPairKey.key, kerningPair);
 				}
 				else if (!TMP_Settings.warningsDisabled)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogWarning(string.Concat(new object[]
 					{
 						"Kerning Key for [",
@@ -467,46 +290,12 @@ namespace TMPro
 		{
 			if (this.m_glyphInfoList != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.SortGlyphs()).MethodHandle;
-				}
 				if (this.m_glyphInfoList.Count != 0)
 				{
 					IEnumerable<TMP_Glyph> glyphInfoList = this.m_glyphInfoList;
-					if (TMP_FontAsset.<>f__am$cache1 == null)
-					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						TMP_FontAsset.<>f__am$cache1 = ((TMP_Glyph item) => item.id);
-					}
-					this.m_glyphInfoList = glyphInfoList.OrderBy(TMP_FontAsset.<>f__am$cache1).ToList<TMP_Glyph>();
+					
+					this.m_glyphInfoList = glyphInfoList.OrderBy(((TMP_Glyph item) => item.id)).ToList<TMP_Glyph>();
 					return;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -515,19 +304,6 @@ namespace TMPro
 		{
 			if (this.m_characterDictionary == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacter(int)).MethodHandle;
-				}
 				return false;
 			}
 			return this.m_characterDictionary.ContainsKey(character);
@@ -537,19 +313,6 @@ namespace TMPro
 		{
 			if (this.m_characterDictionary == null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacter(char)).MethodHandle;
-				}
 				return false;
 			}
 			return this.m_characterDictionary.ContainsKey((int)character);
@@ -559,19 +322,6 @@ namespace TMPro
 		{
 			if (this.m_characterDictionary == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacter(char, bool)).MethodHandle;
-				}
 				return false;
 			}
 			if (this.m_characterDictionary.ContainsKey((int)character))
@@ -580,26 +330,8 @@ namespace TMPro
 			}
 			if (searchFallbacks)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.fallbackFontAssets != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.fallbackFontAssets.Count > 0)
 					{
 						int i = 0;
@@ -621,26 +353,8 @@ namespace TMPro
 							{
 								if (this.fallbackFontAssets[i].characterDictionary != null)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (this.fallbackFontAssets[i].characterDictionary.ContainsKey((int)character))
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										return true;
 									}
 								}
@@ -652,38 +366,11 @@ namespace TMPro
 				IL_E7:
 				if (TMP_Settings.fallbackFontAssets != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (TMP_Settings.fallbackFontAssets.Count > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int j = 0;
 						while (j < TMP_Settings.fallbackFontAssets.Count)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(TMP_Settings.fallbackFontAssets[j] != null))
 							{
 								for (;;)
@@ -723,42 +410,11 @@ namespace TMPro
 			{
 				if (!this.m_characterDictionary.ContainsKey((int)text[i]))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacters(string, List<char>*)).MethodHandle;
-					}
 					missingCharacters.Add(text[i]);
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (missingCharacters.Count == 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 			return false;
@@ -768,45 +424,14 @@ namespace TMPro
 		{
 			if (this.m_characterDictionary == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.HasCharacters(string)).MethodHandle;
-				}
 				return false;
 			}
 			for (int i = 0; i < text.Length; i++)
 			{
 				if (!this.m_characterDictionary.ContainsKey((int)text[i]))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return true;
 		}
@@ -818,19 +443,6 @@ namespace TMPro
 			{
 				text += (char)fontAsset.m_glyphInfoList[i].id;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.GetCharacters(TMP_FontAsset)).MethodHandle;
-			}
 			return text;
 		}
 
@@ -840,19 +452,6 @@ namespace TMPro
 			for (int i = 0; i < fontAsset.m_glyphInfoList.Count; i++)
 			{
 				array[i] = fontAsset.m_glyphInfoList[i].id;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_FontAsset.GetCharactersArray(TMP_FontAsset)).MethodHandle;
 			}
 			return array;
 		}

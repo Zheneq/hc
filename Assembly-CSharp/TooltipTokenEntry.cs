@@ -105,19 +105,6 @@ public abstract class TooltipTokenEntry
 	{
 		if (tooltipNow == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.GetTooltipWithSubstitutes(string, List<TooltipTokenEntry>, bool)).MethodHandle;
-			}
 			return string.Empty;
 		}
 		string tooltipNow2 = tooltipNow;
@@ -125,15 +112,6 @@ public abstract class TooltipTokenEntry
 		string substitute;
 		if (boldCaretToken)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			substitute = "<b><color=#FFC000>";
 		}
 		else
@@ -146,15 +124,6 @@ public abstract class TooltipTokenEntry
 		string substitute2;
 		if (boldCaretToken)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			substitute2 = "</color></b>";
 		}
 		else
@@ -176,28 +145,10 @@ public abstract class TooltipTokenEntry
 						tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, stringToReplace, replacementString);
 					}
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		if (tooltipNow.IndexOf("%") >= 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "%</color><color=#FFC000>%</color>", "%</color>");
 			tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "%</color>%", "%</color>");
 		}
@@ -209,19 +160,6 @@ public abstract class TooltipTokenEntry
 		int length = toReplace.Length;
 		if (length != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.GetStringWithReplacements(string, string, string)).MethodHandle;
-			}
 			if (tooltipNow != null)
 			{
 				int num = 0;
@@ -232,15 +170,6 @@ public abstract class TooltipTokenEntry
 					num++;
 				}
 				return tooltipNow;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return tooltipNow;
@@ -278,19 +207,6 @@ public abstract class TooltipTokenEntry
 				int startIndex = num2 + length;
 				if (num3 > 0)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.ReplaceColorTagsWithShorthand(string)).MethodHandle;
-					}
 					startIndex = num3 + 1;
 				}
 				tooltipNow = tooltipNow.Substring(0, num2) + "[^" + tooltipNow.Substring(startIndex);
@@ -314,30 +230,8 @@ public abstract class TooltipTokenEntry
 		List<StatusType> list = new List<StatusType>();
 		if (TooltipTokenEntry.s_statusTypeToKeywords != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TooltipTokenEntry.GetStatusTypesFromTooltip(string)).MethodHandle;
-			}
 			if (!string.IsNullOrEmpty(input) && input.IndexOf("[^", StringComparison.OrdinalIgnoreCase) >= 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				foreach (KeyValuePair<StatusType, List<string>> keyValuePair in TooltipTokenEntry.s_statusTypeToKeywords)
 				{
 					List<string> value = keyValuePair.Value;
@@ -345,15 +239,6 @@ public abstract class TooltipTokenEntry
 					{
 						if (input.IndexOf(value[i], StringComparison.OrdinalIgnoreCase) >= 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(keyValuePair.Key);
 							break;
 						}

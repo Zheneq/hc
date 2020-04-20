@@ -67,19 +67,6 @@ public class WebSocketInterface
 			this.m_heartbeatTimeout = value;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_HeartbeatTimeout(TimeSpan)).MethodHandle;
-				}
 				this.m_webSocket.HeartbeatTimeout = value;
 			}
 		}
@@ -96,19 +83,6 @@ public class WebSocketInterface
 			this.m_heartbeatPeriod = value;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_HeartbeatPeriod(TimeSpan)).MethodHandle;
-				}
 				this.m_webSocket.HeartbeatPeriod = value;
 			}
 		}
@@ -125,19 +99,6 @@ public class WebSocketInterface
 			this.m_isCompressed = value;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_IsCompressed(bool)).MethodHandle;
-				}
 				this.m_webSocket.IsCompressed = value;
 			}
 		}
@@ -154,19 +115,6 @@ public class WebSocketInterface
 			this.m_isRaw = value;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_IsRaw(bool)).MethodHandle;
-				}
 				this.m_webSocket.IsRaw = value;
 			}
 		}
@@ -183,19 +131,6 @@ public class WebSocketInterface
 			this.m_isBinary = value;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_IsBinary(bool)).MethodHandle;
-				}
 				this.m_webSocket.IsBinary = value;
 			}
 		}
@@ -244,19 +179,6 @@ public class WebSocketInterface
 			this.m_maxMessagesPerSecond = value;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.set_MaxMessagesPerSecond(int)).MethodHandle;
-				}
 				this.m_webSocket.MaxMessagesPerSecond = value;
 			}
 		}
@@ -293,19 +215,6 @@ public class WebSocketInterface
 			WebSocket.SocketState result;
 			if (this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.get_State()).MethodHandle;
-				}
 				result = this.m_webSocket.State;
 			}
 			else
@@ -332,19 +241,6 @@ public class WebSocketInterface
 	{
 		if (serverAddress.IndexOf("://") == -1)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.InitializeSocket(string, int, string)).MethodHandle;
-			}
 			serverAddress = "ws://" + serverAddress;
 		}
 		Uri uri = new Uri(serverAddress);
@@ -355,26 +251,8 @@ public class WebSocketInterface
 		int port;
 		if (uri.Port > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!uri.IsDefaultPort)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				port = uri.Port;
 				goto IL_8E;
 			}
@@ -403,19 +281,6 @@ public class WebSocketInterface
 	{
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.SetMinSocketLogLevel(Log.Level)).MethodHandle;
-			}
 			this.m_webSocket.SetMinSocketLogLevel(level);
 		}
 	}
@@ -424,32 +289,10 @@ public class WebSocketInterface
 	{
 		if (!this.m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.Connect()).MethodHandle;
-			}
 			this.m_overallConnectionTimer.Start();
 		}
 		if (this.State == WebSocket.SocketState.Closed)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.Logger.Info("Connecting to {0}", new object[]
 			{
 				this.m_serverAddress
@@ -463,19 +306,6 @@ public class WebSocketInterface
 		this.m_overallConnectionTimer.Reset();
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.Disconnect()).MethodHandle;
-			}
 			this.m_webSocket.Close();
 		}
 	}
@@ -490,56 +320,16 @@ public class WebSocketInterface
 	{
 		if (this.m_reconnectDelayTimer.IsRunning)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.Update()).MethodHandle;
-			}
 			if (this.m_reconnectDelayTimer.Elapsed >= TimeSpan.FromSeconds(1.0))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_reconnectDelayTimer.Reset();
 				this.Connect();
 			}
 		}
 		if (this.m_overallConnectionTimer.IsRunning)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_overallConnectionTimer.Elapsed >= TimeSpan.FromSeconds((double)this.ConnectionTimeout) && this.m_webSocket != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.Logger.Error("Connection timed out to {0} (elapsed time: {1})", new object[]
 				{
 					this.m_webSocket.ConnectionAddress,
@@ -551,15 +341,6 @@ public class WebSocketInterface
 		}
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_webSocket.Update();
 		}
 	}
@@ -572,32 +353,10 @@ public class WebSocketInterface
 	{
 		if (this.m_webSocket != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.SendMessage(WebSocketMessage)).MethodHandle;
-			}
 			if (this.m_webSocket.State == WebSocket.SocketState.Open)
 			{
 				this.m_webSocket.Send(message);
 				return true;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -607,19 +366,6 @@ public class WebSocketInterface
 	{
 		if (callback != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.SendRequestMessage(WebSocketMessage, Action<ResponseType>, WebSocketMessageDispatcher<ResponseHandlerType>)).MethodHandle;
-			}
 			Action<ResponseHandlerType, ResponseType> messageDelegate = delegate(ResponseHandlerType r, ResponseType m)
 			{
 				callback(m);
@@ -628,15 +374,6 @@ public class WebSocketInterface
 		}
 		if (!this.SendMessage(request))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (callback != null)
 			{
 				ResponseType responseType = Activator.CreateInstance<ResponseType>();
@@ -662,32 +399,10 @@ public class WebSocketInterface
 				{
 					if (!error.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(WebSocketInterface.<SendHttpRequest>c__AnonStorey1.<>m__0(string, string)).MethodHandle;
-						}
 						throw new Exception(error);
 					}
 					if (messageJson.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						throw new Exception("Empty response from server");
 					}
 					ResponseType arg3 = JsonConvert.DeserializeObject<ResponseType>(messageJson);

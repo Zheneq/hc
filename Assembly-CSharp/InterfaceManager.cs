@@ -40,31 +40,9 @@ public class InterfaceManager : NetworkBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.OnDestroy()).MethodHandle;
-			}
 			NetworkClient client = ClientGameManager.Get().Client;
 			if (client != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				client.UnregisterHandler(0x31);
 			}
 		}
@@ -78,31 +56,9 @@ public class InterfaceManager : NetworkBehaviour
 		bool flag = false;
 		if (!InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.SwitchFreelancer))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.Update()).MethodHandle;
-			}
 			if (!Application.isEditor)
 			{
 				goto IL_69;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (!Input.GetKeyDown(KeyCode.F11))
 			{
@@ -114,54 +70,18 @@ public class InterfaceManager : NetworkBehaviour
 		IL_69:
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> ownedActorDatas = GameFlowData.Get().m_ownedActorDatas;
 			Team team = activeOwnedActorData.GetTeam();
 			for (int i = 0; i < ownedActorDatas.Count; i++)
 			{
 				if (ownedActorDatas[i].GetTeam() == team)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					KeyPreference keyPreference = KeyPreference.Freelancer1;
 					keyPreference += i;
 					if (InputManager.Get().IsKeyBindingNewlyHeld(keyPreference))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData != ownedActorDatas[i])
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							actorData = ownedActorDatas[i];
 							flag = true;
 						}
@@ -172,40 +92,13 @@ public class InterfaceManager : NetworkBehaviour
 		}
 		if (actorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CameraManager.Get().SetTargetObject(actorData.gameObject, CameraManager.CameraTargetReason.UserFocusingOnActor);
 			if (GameFlowData.Get().IsActorDataOwned(actorData) && actorData != GameFlowData.Get().activeOwnedActorData)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameFlowData.Get().activeOwnedActorData = actorData;
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.HudLockIn);
 			}
 		}
@@ -217,19 +110,6 @@ public class InterfaceManager : NetworkBehaviour
 		UILoadingScreenPanel.Get().SetVisible(false);
 		if (UIFrontendLoadingScreen.Get().gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.OnTurnTick()).MethodHandle;
-			}
 			UIFrontendLoadingScreen.Get().StartDisplayFadeOut();
 		}
 	}
@@ -262,19 +142,6 @@ public class InterfaceManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(InterfaceManager.MsgDisplayAlert(NetworkMessage)).MethodHandle;
-			}
 			Debug.LogWarning("[Client] function 'System.Void InterfaceManager::MsgDisplayAlert(UnityEngine.Networking.NetworkMessage)' called on server");
 			return;
 		}
@@ -298,8 +165,7 @@ public class InterfaceManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

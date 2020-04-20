@@ -13,8 +13,8 @@ namespace LobbyGameClientMessages
 
 		public enum CommandType
 		{
-			\u001D,
-			\u000E
+			symbol_001D,
+			symbol_000E
 		}
 	}
 }

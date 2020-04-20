@@ -55,19 +55,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		ExoAnchorLaser exoAnchorLaser = targetAbility as ExoAnchorLaser;
 		if (exoAnchorLaser != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoAnchorLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, exoAnchorLaser.m_laserDamageAmount, true, false);
 			AbilityMod.AddToken_LaserInfo(tokens, this.m_laserInfoMod, "LaserInfo", exoAnchorLaser.m_laserInfo, true);
 			AbilityMod.AddToken_BarrierMod(tokens, this.m_laserBarrierMod, "LaserBarrier", exoAnchorLaser.m_laserBarrier);
@@ -102,19 +89,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoAnchorLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = exoAnchorLaser.m_sweepConeBackwardOffset;
 		}
 		else
@@ -129,15 +103,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoAnchorLaser.m_minConeAngle;
 		}
 		else
@@ -152,15 +117,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoAnchorLaser.m_maxConeAngle;
 		}
 		else
@@ -175,15 +131,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoAnchorLaser.m_extraDamagePerTurnAnchored;
 		}
 		else
@@ -199,15 +146,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoAnchorLaser.m_extraDamageAtZeroDist;
 		}
 		else
@@ -222,15 +160,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = exoAnchorLaser.m_extraDamageChangePerDist;
 		}
 		else
@@ -248,15 +177,6 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 			for (int i = 0; i < this.m_statusWhenAnchoredAndNotSweepingOverride.Count; i++)
 			{
 				text = text + "\t" + this.m_statusWhenAnchoredAndNotSweepingOverride[i].ToString() + "\n";
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return text;

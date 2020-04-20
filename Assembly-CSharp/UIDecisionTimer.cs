@@ -95,66 +95,17 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.GetNumStartingTimeBankConsumables()).MethodHandle;
-			}
 			if (GameManager.Get().GameConfig != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!GameManager.Get().GameConfig.SubTypes.IsNullOrEmpty<GameSubType>())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameConfig.InstanceSubType != null)
 					{
 						if (GameManager.Get().GameConfig.InstanceSubType.GameOverrides != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							int? initialTimeBankConsumables = GameManager.Get().GameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 							if (initialTimeBankConsumables != null)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								int? initialTimeBankConsumables2 = GameManager.Get().GameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
 								result = initialTimeBankConsumables2.Value;
 							}
@@ -179,19 +130,6 @@ public class UIDecisionTimer : MonoBehaviour
 		{
 			if (i < this.m_numStartingTimeBankConsumables)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.Start()).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(this.m_timeBankNotches[i], true, null);
 			}
 			else
@@ -229,61 +167,21 @@ public class UIDecisionTimer : MonoBehaviour
 	{
 		if (this.m_glowOn == value)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.SetGlowingTimer(bool)).MethodHandle;
-			}
 			return;
 		}
 		this.m_glowOn = value;
 		if (value)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_isPlayingAnim = true;
 			float savedTimeToDisplay = this.GetSavedTimeToDisplay();
 			if (savedTimeToDisplay > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.UpdateTimeLabels(this.m_savedSecondsLabel, this.m_savedMillisecondsLabel, savedTimeToDisplay);
 				string stateName = "LockedSavedTimeIndicator";
 				this.m_animationController.Play(stateName, -1, 0f);
 			}
 			if (!base.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.FinishedSavedTimeAnimation();
 			}
 		}
@@ -294,37 +192,10 @@ public class UIDecisionTimer : MonoBehaviour
 			AnimatorClipInfo[] currentAnimatorClipInfo = this.m_animationController.GetCurrentAnimatorClipInfo(0);
 			if (currentAnimatorClipInfo != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAnimatorClipInfo.Length > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_animationController.GetCurrentAnimatorClipInfo(0)[0].clip.name == text)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_animationController.Play(text, -1, 0f);
 					}
 					else
@@ -335,15 +206,6 @@ public class UIDecisionTimer : MonoBehaviour
 			}
 			if (!base.gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.FinishedUnlockTimeAnimation();
 			}
 		}
@@ -366,19 +228,6 @@ public class UIDecisionTimer : MonoBehaviour
 	{
 		if (this.m_currentVal <= 0.16667f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.UpdateColor()).MethodHandle;
-			}
 		}
 	}
 
@@ -414,19 +263,6 @@ public class UIDecisionTimer : MonoBehaviour
 		int num = Mathf.FloorToInt(timeToDisplay);
 		if (num > 9)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.UpdateTimeLabels(TextMeshProUGUI, TextMeshProUGUI, float)).MethodHandle;
-			}
 			secondsLabel.text = num.ToString();
 		}
 		else
@@ -436,15 +272,6 @@ public class UIDecisionTimer : MonoBehaviour
 		int num2 = Mathf.FloorToInt((timeToDisplay - (float)num) * 100f);
 		if (num2 > 9)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			millisecondsLabel.text = ":" + num2;
 		}
 		else
@@ -461,19 +288,6 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		if (this.m_currentTimeVal > 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.UpdateCurrentTimeBar()).MethodHandle;
-			}
 			float currentTimeVal = this.m_currentTimeVal;
 			this.m_currentTimeImage.fillAmount = currentTimeVal;
 			UIManager.SetGameObjectActive(this.m_currentTimeImage, true, null);
@@ -481,15 +295,6 @@ public class UIDecisionTimer : MonoBehaviour
 			{
 				if (this.m_currentTimeVal * GameFlowData.Get().m_maxTurnTime < 5f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_currentTimeImage.sprite = this.m_lowTimeBar;
 				}
 				else
@@ -509,41 +314,10 @@ public class UIDecisionTimer : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.UpdateSavedTimeBar()).MethodHandle;
-			}
 			if (GameFlowData.Get().activeOwnedActorData != null && GameFlowData.Get().gameState != GameState.BothTeams_Resolve)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().activeOwnedActorData.GetActorTurnSM().CurrentState != TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_savedTimeVal = 0f;
 					UIManager.SetGameObjectActive(this.m_savedTimeImage, false, null);
 				}
@@ -555,15 +329,6 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		if (this.m_savedTimeVal > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_savedTimeImage, true, null);
 			this.m_savedTimeImage.fillAmount = this.m_savedTimeVal;
 		}
@@ -580,56 +345,16 @@ public class UIDecisionTimer : MonoBehaviour
 		{
 			if (this.m_timeBankNotches[i].isInitialized)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.UpdateConsumables(int, bool)).MethodHandle;
-				}
 				if (i == this.m_numStartingTimeBankConsumables - numConsumablesLeft)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (beingUsed)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_timeBankNotches[i].Play("TimeBankItemDefaultUSED");
 						goto IL_F7;
 					}
 				}
 				if (i < this.m_numStartingTimeBankConsumables - numConsumablesLeft)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeBankNotches[i].Play("TimeBankItemDefaultOUT");
 				}
 				else
@@ -642,28 +367,10 @@ public class UIDecisionTimer : MonoBehaviour
 							UIManager.SetGameObjectActive(componentsInChildren[j], true, null);
 						}
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_timeBankNotches[i].Play("TimeBankItemDefaultIN");
 				}
 			}
 			IL_F7:;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -672,67 +379,18 @@ public class UIDecisionTimer : MonoBehaviour
 		bool useTimeBankBars = false;
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.UpdateTimeBankBar()).MethodHandle;
-			}
 			TimeBank component = GameFlowData.Get().activeOwnedActorData.GetComponent<TimeBank>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.TimeToDisplay() <= 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().WillEnterTimebankMode())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						useTimeBankBars = true;
 						float num = component.TimeToDisplay() + GameWideData.Get().m_tbConsumableDuration;
 						float fillAmount = num / GameWideData.Get().m_tbConsumableDuration;
 						if (component.TimeToDisplay() < 0f)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.UpdateTimeLabels(this.m_timeBankSecondsLabel, this.m_timeBankMillisecondsLabel, num);
 						}
 						this.m_timeBankImage.fillAmount = fillAmount;
@@ -748,42 +406,11 @@ public class UIDecisionTimer : MonoBehaviour
 	{
 		if (!this.m_initializedGameFlowData)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDecisionTimer.UpdateCheckTimeMessageIndicators()).MethodHandle;
-			}
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_initializedGameFlowData = true;
 				if (GameFlowData.Get().PreventAutoLockInOnTimeout())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_soloInfiniteTimerIndicator, true, null);
 				}
 			}
@@ -791,77 +418,23 @@ public class UIDecisionTimer : MonoBehaviour
 		bool doActive = true;
 		if (this.m_currentTimeVal > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = false;
 		}
 		else if (GameFlowData.Get() != null && GameFlowData.Get().PreventAutoLockInOnTimeout())
 		{
 			if (GameFlowData.Get().IsInDecisionState())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameFlowData.Get().activeOwnedActorData != null)
 					{
 						TimeBank component = GameFlowData.Get().activeOwnedActorData.GetComponent<TimeBank>();
 						if (component != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (component.TimeToDisplay() <= 0f)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameFlowData.Get().WillEnterTimebankMode())
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									float num = component.TimeToDisplay() + GameWideData.Get().m_tbConsumableDuration;
 									if (num > 0f)
 									{
@@ -891,38 +464,11 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		if (this.m_soloInfiniteTimerIndicator.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = false;
 			if (GameFlowData.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameFlowData.Get().IsInResolveState())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_soloInfiniteTimerIndicator, false, null);
 				}
 			}

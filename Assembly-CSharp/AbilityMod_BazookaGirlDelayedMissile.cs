@@ -35,33 +35,11 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		BazookaGirlDelayedMissile bazookaGirlDelayedMissile = targetAbility as BazookaGirlDelayedMissile;
 		if (bazookaGirlDelayedMissile != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedMissile.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnEnemyOnCastOverride, "OnCastEnemyHitEffect", bazookaGirlDelayedMissile.m_onCastEnemyHitEffect, true);
 			AbilityMod.AddToken(tokens, this.m_damageMod, "Damage", string.Empty, bazookaGirlDelayedMissile.m_damage, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_onExplosionEffectMod, "EffectOnHit", bazookaGirlDelayedMissile.m_effectOnHit, true);
 			if (this.m_cooldownReductionsWhenNoHits != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_cooldownReductionsWhenNoHits.AddTooltipTokens(tokens, "OnMiss");
 			}
 		}
@@ -79,19 +57,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlDelayedMissile.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = bazookaGirlDelayedMissile.m_damage;
 		}
 		else
@@ -107,15 +72,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlDelayedMissile.m_onCastEnemyHitEffect;
 		}
 		else
@@ -133,15 +89,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				int num;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = bazookaGirlDelayedMissile.m_damage;
 				}
 				else
@@ -151,26 +98,8 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				int baseVal3 = num;
 				if (bazookaGirlDelayedMissile != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (bazookaGirlDelayedMissile.m_additionalShapeToHitInfo.Count > i)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						baseVal3 = bazookaGirlDelayedMissile.m_additionalShapeToHitInfo[i].m_damage;
 					}
 				}
@@ -181,15 +110,6 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 		}
 		if (this.m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = text + "Cooldown Reduction on Miss\n" + this.m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
 		return text + base.PropDesc(this.m_useFakeMarkerIndexStartMod, "[UseFakeMarkerIndexStart]", flag, (!flag) ? 0 : bazookaGirlDelayedMissile.m_useFakeMarkerIndexStart);

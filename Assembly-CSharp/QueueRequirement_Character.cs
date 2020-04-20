@@ -32,19 +32,6 @@ public class QueueRequirement_Character : QueueRequirement
 		QueueRequirement.RequirementType requirementType = this.m_requirementType;
 		if (requirementType != QueueRequirement.RequirementType.HasUnlockedCharacter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_Character.DoesApplicantPass(IQueueRequirementSystemInfo, IQueueRequirementApplicant, GameType, GameSubType)).MethodHandle;
-			}
 			throw new Exception(string.Format("Unknown QueueRequirement_Character requirement: {0}", this.Requirement));
 		}
 		for (int i = 0; i < 0x28; i++)
@@ -52,26 +39,8 @@ public class QueueRequirement_Character : QueueRequirement
 			CharacterType characterType = (CharacterType)i;
 			if (applicant.IsCharacterTypeAvailable(characterType))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.CharacterType == characterType)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					return result;
 				}
@@ -100,33 +69,11 @@ public class QueueRequirement_Character : QueueRequirement
 		QueueRequirement.RequirementType requirement = this.Requirement;
 		if (requirement != QueueRequirement.RequirementType.HasUnlockedCharacter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_Character.GenerateFailure(IQueueRequirementSystemInfo, IQueueRequirementApplicant, RequirementMessageContext, QueueBlockOutReasonDetails*)).MethodHandle;
-			}
 			throw new Exception(string.Format("Unknown requirement is failed: {0}", this.Requirement));
 		}
 		LocalizationArg_Freelancer localizationArg_Freelancer = LocalizationArg_Freelancer.Create(this.CharacterType);
 		if (context == RequirementMessageContext.GroupQueueing)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return LocalizationPayload.Create("NoGroupMemberHasNotUnlockedFreelancerX", "Matchmaking", new LocalizationArg[]
 			{
 				localizationArg_Freelancer
@@ -157,41 +104,10 @@ public class QueueRequirement_Character : QueueRequirement
 		reader.Read();
 		if (reader.TokenType == JsonToken.PropertyName)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(QueueRequirement_Character.Create(QueueRequirement.RequirementType, JsonReader)).MethodHandle;
-			}
 			if (reader.Value != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (reader.Value.ToString() == "AnyGroupMember")
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					reader.Read();
 					queueRequirement_Character.m_anyGroupMember = bool.Parse(reader.Value.ToString());
 					reader.Read();

@@ -47,19 +47,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		NinjaVanish ninjaVanish = targetAbility as NinjaVanish;
 		if (ninjaVanish != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaVanish.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_effectOnSelfMod, "EffectOnSelf", ninjaVanish.m_effectOnSelf, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_selfEffectOnNextTurnMod, "SelfEffectOnNextTurn", ninjaVanish.m_selfEffectOnNextTurn, true);
 			AbilityMod.AddToken(tokens, this.m_selfHealOnTurnStartIfInFieldMod, "SelfHealOnTurnStartIfInField", string.Empty, ninjaVanish.m_selfHealOnTurnStartIfInField, true, false);
@@ -84,19 +71,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_NinjaVanish.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = ninjaVanish.m_canQueueMoveAfterEvade;
 		}
 		else
@@ -111,15 +85,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = ninjaVanish.m_skipEvade;
 		}
 		else
@@ -134,15 +99,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = ninjaVanish.m_effectOnSelf;
 		}
 		else
@@ -157,15 +113,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = ninjaVanish.m_selfEffectOnNextTurn;
 		}
 		else
@@ -180,15 +127,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = ninjaVanish.m_selfHealOnTurnStartIfInField;
 		}
 		else
@@ -204,15 +142,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = ninjaVanish.m_smokeFieldDuration;
 		}
 		else
@@ -227,15 +156,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = ninjaVanish.m_barrierWidth;
 		}
 		else
@@ -252,15 +172,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = ninjaVanish.m_cdrIfOnlyAbilityUsed;
 		}
 		else
@@ -275,15 +186,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		bool baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = ninjaVanish.m_cdrConsiderCatalyst;
 		}
 		else

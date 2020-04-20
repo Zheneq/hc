@@ -25,32 +25,10 @@ public struct CharacterVisualInfo
 	{
 		if (obj is CharacterVisualInfo)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterVisualInfo.Equals(object)).MethodHandle;
-			}
 			CharacterVisualInfo characterVisualInfo = (CharacterVisualInfo)obj;
 			bool result;
 			if (this.skinIndex == characterVisualInfo.skinIndex && this.patternIndex == characterVisualInfo.patternIndex)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (this.colorIndex == characterVisualInfo.colorIndex);
 			}
 			else
@@ -78,19 +56,6 @@ public struct CharacterVisualInfo
 	{
 		if (this.skinIndex == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CharacterVisualInfo.IsDefaultSelection()).MethodHandle;
-			}
 			if (this.patternIndex == 0)
 			{
 				return this.colorIndex == 0;

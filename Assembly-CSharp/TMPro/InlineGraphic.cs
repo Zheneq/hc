@@ -20,19 +20,6 @@ namespace TMPro
 			{
 				if (this.texture == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphic.get_mainTexture()).MethodHandle;
-					}
 					return Graphic.s_WhiteTexture;
 				}
 				return this.texture;
@@ -52,19 +39,6 @@ namespace TMPro
 			}
 			if (this.m_manager != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphic.OnEnable()).MethodHandle;
-				}
 				if (this.m_manager.spriteAsset != null)
 				{
 					this.texture = this.m_manager.spriteAsset.spriteSheet;
@@ -85,19 +59,6 @@ namespace TMPro
 		{
 			if (this.m_RectTransform == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(InlineGraphic.OnRectTransformDimensionsChange()).MethodHandle;
-				}
 				this.m_RectTransform = base.gameObject.GetComponent<RectTransform>();
 			}
 			if (this.m_ParentRectTransform == null)
@@ -106,15 +67,6 @@ namespace TMPro
 			}
 			if (this.m_RectTransform.pivot != this.m_ParentRectTransform.pivot)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_RectTransform.pivot = this.m_ParentRectTransform.pivot;
 			}
 		}

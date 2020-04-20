@@ -7,19 +7,6 @@ public class ConnectingPlayer : NetworkBehaviour
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ConnectingPlayer.OnStartLocalPlayer()).MethodHandle;
-			}
 			NetworkIdentity component = base.GetComponent<NetworkIdentity>();
 			component.RebuildObservers(true);
 		}
@@ -31,8 +18,7 @@ public class ConnectingPlayer : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result;
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)

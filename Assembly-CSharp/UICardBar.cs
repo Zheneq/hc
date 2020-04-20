@@ -17,19 +17,6 @@ public class UICardBar : MonoBehaviour
 	{
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICardBar.Rebuild()).MethodHandle;
-			}
 			AbilityData.AbilityEntry[] abilityEntries = this.m_abilityData.abilityEntries;
 			for (int i = 0; i < 3; i++)
 			{
@@ -45,30 +32,8 @@ public class UICardBar : MonoBehaviour
 		{
 			if (this.m_cardButtons[i].GetKeyPreference() == abilitySelectDown)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICardBar.DoAbilityButtonClick(KeyPreference)).MethodHandle;
-				}
 				this.m_cardButtons[i].OnCardButtonClick(null);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

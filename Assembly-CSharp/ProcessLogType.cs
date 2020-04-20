@@ -3,7 +3,7 @@
 public enum ProcessLogType
 {
 	Log,
-	\u001D,
+	symbol_001D,
 	OutputLog,
 	MatchLog,
 	MetricsLog

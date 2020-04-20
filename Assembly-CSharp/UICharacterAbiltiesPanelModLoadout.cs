@@ -68,15 +68,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				UIManager.SetGameObjectActive(this.m_renameButton, false, null);
 				if (this.m_saveButton != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_saveButton.SetDisabled(true);
 					this.m_saveButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.SaveBtnClicked);
 				}
@@ -93,30 +84,8 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				{
 					this.m_buyLoadoutSlotTexts[i].text = string.Format(StringUtil.TR("BuyLoadoutSlotFor", "SceneGlobal"), "<sprite name=credit>" + GameBalanceVars.Get().FreelancerLoadoutSlotFluxCost);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_inputfield.onValueChanged.AddListener(new UnityAction<string>(this.OnTypeInput));
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.Init()).MethodHandle;
 			}
 		}
 	}
@@ -130,19 +99,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.OnDestroy()).MethodHandle;
-			}
 			ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
 		}
 	}
@@ -171,32 +127,10 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
 		if (this.UseRankedLoadouts())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.RenameButtonClicked(BaseEventData)).MethodHandle;
-			}
 			num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 		}
 		if (-1 < num && num < this.m_loadouts.Count)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			CharacterLoadout characterLoadout = this.m_loadouts[num];
 			this.m_isRenamingLoadout = true;
 			UIManager.SetGameObjectActive(this.m_inputfieldContainer, true, null);
@@ -245,34 +179,12 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		{
 			if (i == num)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.SaveBtnClicked(BaseEventData)).MethodHandle;
-				}
 				CharacterModInfo modInfo = (!this.UseRankedLoadouts()) ? playerCharacterData.CharacterComponent.LastMods : playerCharacterData.CharacterComponent.LastRankedMods;
 				CharacterAbilityVfxSwapInfo lastAbilityVfxSwaps = playerCharacterData.CharacterComponent.LastAbilityVfxSwaps;
 				string loadoutName = list2[i].LoadoutName;
 				ModStrictness strictness;
 				if (this.UseRankedLoadouts())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					strictness = ModStrictness.Ranked;
 				}
 				else
@@ -288,15 +200,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				list.Add(item2);
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		ClientGameManager.Get().UpdateLoadouts(list, 0);
 	}
 
@@ -304,86 +207,28 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (this.m_isRenamingLoadout)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.AcceptButtonClicked(BaseEventData)).MethodHandle;
-			}
 			CharacterLoadout characterLoadout = null;
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
 			int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
 			if (this.UseRankedLoadouts())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 			}
 			if (-1 < num && num < this.m_loadouts.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				characterLoadout = this.m_loadouts[num];
 			}
 			if (characterLoadout != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<CharacterLoadout> list = new List<CharacterLoadout>();
 				for (int i = 0; i < this.m_loadouts.Count; i++)
 				{
 					CharacterLoadout characterLoadout2 = new CharacterLoadout(this.m_loadouts[i].ModSet, this.m_loadouts[i].VFXSet, this.m_loadouts[i].LoadoutName, this.m_loadouts[i].Strictness);
 					if (this.m_loadouts[i] == characterLoadout)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						characterLoadout2.LoadoutName = this.m_inputfield.text;
 					}
 					list.Add(characterLoadout2);
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				ClientGameManager.Get().UpdateLoadouts(list, 0);
 			}
@@ -394,84 +239,26 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (response == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.NotifyLoadoutUpdate(PlayerInfoUpdateResponse)).MethodHandle;
-			}
 			Log.Error("Response is null somehow...", new object[0]);
 		}
 		if (response.CharacterInfo == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Character info in response is null", new object[0]);
 		}
 		if (!response.Success)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Failed to update loadouts: " + response.ErrorMessage, new object[0]);
 		}
 		if (ClientGameManager.Get() == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Client Game Manager is somehow null...", new object[0]);
 		}
 		if (ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter) == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Failed to get character data", new object[0]);
 		}
 		if (ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter).CharacterComponent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Log.Error("Character Componenent is null", new object[0]);
 		}
 		int numCharacterLoadouts = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter).CharacterComponent.NumCharacterLoadouts;
@@ -502,19 +289,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (charData.CharacterType == this.m_selectedCharacter)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.OnCharacterDataUpdated(PersistedCharacterData)).MethodHandle;
-			}
 			if (this.UseRankedLoadouts())
 			{
 				this.UpdateLoadouts(charData.CharacterComponent.CharacterLoadoutsRanked, charData.CharacterComponent.NumCharacterLoadouts);
@@ -525,15 +299,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			}
 			if (this.m_pendingLoadingNewLoadout)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_pendingLoadingNewLoadout = false;
 				this.NotifyModLoadoutClicked(this.m_modListItems[this.m_modListItems.Count - 1]);
 			}
@@ -547,19 +312,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		{
 			if (this.m_modListItems[i] == item)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.NotifyModLoadoutClicked(UICharacterAbilitiesPanelModItem)).MethodHandle;
-				}
 				loadoutIndex = i;
 				IL_51:
 				ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Load Request");
@@ -586,32 +338,10 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		{
 			if (this.m_modListItems[i] == item)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.NotifySaveModLoadoutClicked(UICharacterAbilitiesPanelModItem)).MethodHandle;
-				}
 				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
 				CharacterModInfo modInfo;
 				if (this.UseRankedLoadouts())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					modInfo = playerCharacterData.CharacterComponent.LastRankedMods;
 				}
 				else
@@ -623,15 +353,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				ModStrictness strictness;
 				if (this.UseRankedLoadouts())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					strictness = ModStrictness.Ranked;
 				}
 				else
@@ -647,15 +368,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				list.Add(item3);
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Save Request");
 		ClientGameManager.Get().UpdateLoadouts(list, 0);
 		this.SetListVisible(false);
@@ -668,19 +380,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		{
 			componentsInChildren[i].text = text;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.SetToggleButtonLabels(string)).MethodHandle;
-		}
 	}
 
 	private void SetListVisible(bool visible)
@@ -689,31 +388,9 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_dropdownMenuContainer, visible, null);
 		if (!visible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.SetListVisible(bool)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_modListItems.Count; i++)
 			{
 				this.m_modListItems[i].m_btn.spriteController.ResetMouseState();
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -724,31 +401,9 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		this.m_selectedCharacter = charLink.m_characterType;
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.Setup(CharacterResourceLink)).MethodHandle;
-			}
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(charLink.m_characterType);
 			if (this.UseRankedLoadouts())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.UpdateLoadouts(playerCharacterData.CharacterComponent.CharacterLoadoutsRanked, playerCharacterData.CharacterComponent.NumCharacterLoadouts);
 			}
 			else
@@ -763,44 +418,13 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		this.Init();
 		if (!this.m_loadoutList.Equals(loadouts))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.UpdateLoadouts(List<CharacterLoadout>, int)).MethodHandle;
-			}
 			this.m_loadouts = loadouts;
 			for (int i = 0; i < this.m_loadouts.Count; i++)
 			{
 				if (i >= this.m_modListItems.Count)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_modItemPrfab != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UICharacterAbilitiesPanelModItem uicharacterAbilitiesPanelModItem = UnityEngine.Object.Instantiate<UICharacterAbilitiesPanelModItem>(this.m_modItemPrfab);
 						uicharacterAbilitiesPanelModItem.transform.SetParent(this.m_loadoutList.transform);
 						uicharacterAbilitiesPanelModItem.transform.localEulerAngles = Vector3.zero;
@@ -816,40 +440,13 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 				}
 				if (i < this.m_modListItems.Count)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_modListItems[i].Setup(this.m_loadouts[i]);
 					UIManager.SetGameObjectActive(this.m_modListItems[i], true, null);
 				}
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = this.m_modListItems.Count - 1; j >= this.m_loadouts.Count; j--)
 			{
 				UIManager.SetGameObjectActive(this.m_modListItems[j], false, null);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.CheckCurrentModSelection();
 		}
@@ -861,48 +458,17 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (this.m_selectedCharacter != CharacterType.None)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.CheckCurrentModSelection()).MethodHandle;
-			}
 			string toggleButtonLabels = StringUtil.TR("SelectLoadout", "Global");
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(this.m_selectedCharacter);
 			int num = playerCharacterData.CharacterComponent.LastSelectedLoadout;
 			CharacterModInfo characterModInfo = playerCharacterData.CharacterComponent.LastMods;
 			if (this.UseRankedLoadouts())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = playerCharacterData.CharacterComponent.LastSelectedRankedLoadout;
 				characterModInfo = playerCharacterData.CharacterComponent.LastRankedMods;
 			}
 			if (-1 < num)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < this.m_loadouts.Count)
 				{
 					CharacterLoadout characterLoadout = this.m_loadouts[num];
@@ -911,15 +477,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					{
 						if (this.m_saveButton != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_saveButton.SetDisabled(true);
 						}
 					}
@@ -932,15 +489,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					this.SetToggleButtonLabels(toggleButtonLabels);
 					return;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			Log.Error("Last selected loadout index is out of range of loadouts", new object[0]);
 			return;
@@ -951,123 +499,38 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterAbiltiesPanelModLoadout.Update()).MethodHandle;
-			}
 			bool flag = true;
 			if (EventSystem.current != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (EventSystem.current.IsPointerOverGameObject(-1))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					StandaloneInputModuleWithEventDataAccess component = EventSystem.current.gameObject.GetComponent<StandaloneInputModuleWithEventDataAccess>();
 					if (component != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (component.GetLastPointerEventDataPublic(-1).pointerEnter != null)
 						{
 							RectTransform rectTransform = component.GetLastPointerEventDataPublic(-1).pointerEnter.transform as RectTransform;
 							if (rectTransform != null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								RectTransform[] componentsInChildren = this.m_loadoutListToggleBtn.GetComponentsInChildren<RectTransform>(true);
 								for (int i = 0; i < componentsInChildren.Length; i++)
 								{
 									if (componentsInChildren[i].gameObject.transform == rectTransform)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										flag = false;
 										break;
 									}
 								}
 								if (flag)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									componentsInChildren = this.m_dropdownMenuContainer.GetComponentsInChildren<RectTransform>(true);
 									for (int j = 0; j < componentsInChildren.Length; j++)
 									{
 										if (componentsInChildren[j].gameObject.transform == rectTransform)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											flag = false;
 											goto IL_17F;
 										}
-									}
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 							}
@@ -1078,15 +541,6 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			IL_17F:
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetListVisible(false);
 			}
 		}

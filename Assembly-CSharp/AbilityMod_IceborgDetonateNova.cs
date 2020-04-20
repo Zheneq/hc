@@ -35,19 +35,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 		IceborgDetonateNova iceborgDetonateNova = targetAbility as IceborgDetonateNova;
 		if (iceborgDetonateNova != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDetonateNova.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			base.AddOnHitDataTokens(tokens, this.m_empoweredDelayedAoeOnHitDataMod, iceborgDetonateNova.m_empoweredDelayedAoeOnHitData);
 			AbilityMod.AddToken(tokens, this.m_novaOnReactShieldPerDetonateMod, "NovaOnReactShieldPerDetonate", string.Empty, iceborgDetonateNova.m_novaOnReactShieldPerDetonate, true, false);
@@ -73,19 +60,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgDetonateNova.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-				}
 				baseVal = iceborgDetonateNova.m_novaOnReactShieldPerDetonate;
 			}
 			else
@@ -100,15 +74,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgDetonateNova.m_shieldOnDetonateDuration;
 			}
 			else
@@ -123,15 +88,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgDetonateNova.m_cdrPerKill;
 			}
 			else
@@ -146,15 +102,6 @@ public class AbilityMod_IceborgDetonateNova : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = iceborgDetonateNova.m_cdrIfAnyKill;
 			}
 			else

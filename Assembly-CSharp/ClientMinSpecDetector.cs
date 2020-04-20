@@ -38,19 +38,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			int length = stringBuilder.Length;
 			if (SystemInfo.processorCount < (int)this.m_minProcessors)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientMinSpecDetector.Awake()).MethodHandle;
-				}
 				stringBuilder.Append("CPUs: ");
 				stringBuilder.Append(SystemInfo.processorCount);
 				stringBuilder.Append("/");
@@ -59,15 +46,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (SystemInfo.systemMemorySize < (int)this.m_min_RAM_MB)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("RAM (MB): ");
 				stringBuilder.Append(SystemInfo.systemMemorySize);
 				stringBuilder.Append("/");
@@ -76,15 +54,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (SystemInfo.graphicsMemorySize < (int)this.m_min_GPU_MB)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("VRAM (MB): ");
 				stringBuilder.Append(SystemInfo.graphicsMemorySize);
 				stringBuilder.Append("/");
@@ -101,40 +70,13 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (this.m_requireImageEffects)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!SystemInfo.supportsImageEffects)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stringBuilder.Append("Image effects unsupported, ");
 				}
 			}
 			if (this.m_requireDepthTextures)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth))
 				{
 					stringBuilder.Append("Depth textures unsupported, ");
@@ -155,15 +97,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			flag = !operatingSystem.ToLower().StartsWith("windows");
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				try
 				{
 					Regex regex = new Regex("[0-9]+\\.[0-9]+(\\.[0-9]+)*(\\.[0-9]+)*");
@@ -181,15 +114,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stringBuilder.Append("Old OS ");
 				stringBuilder.Append(operatingSystem);
 				stringBuilder.Append("/");
@@ -200,15 +124,6 @@ public class ClientMinSpecDetector : MonoBehaviour
 			}
 			if (stringBuilder.Length > length)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Log.Error(stringBuilder.ToString(), new object[0]);
 				ClientMinSpecDetector.BelowMinSpecDetected = true;
 			}

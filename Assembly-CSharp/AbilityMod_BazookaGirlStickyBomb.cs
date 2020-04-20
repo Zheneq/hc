@@ -27,19 +27,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		BazookaGirlStickyBomb bazookaGirlStickyBomb = targetAbility as BazookaGirlStickyBomb;
 		if (bazookaGirlStickyBomb != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlStickyBomb.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_energyGainOnCastPerEnemyHitMod, "EnergyGainOnCastPerEnemyHit", string.Empty, bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyOnCastHitEffectOverride, "EnemyOnCastHitEffect", bazookaGirlStickyBomb.m_enemyOnCastHitEffect, true);
 		}
@@ -57,19 +44,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BazookaGirlStickyBomb.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = bazookaGirlStickyBomb.m_energyGainOnCastPerEnemyHit;
 		}
 		else
@@ -85,15 +59,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = bazookaGirlStickyBomb.m_bombInfo.onExplodeEffect;
 		}
 		else
@@ -103,26 +68,8 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		text = str2 + AbilityModHelper.GetModPropertyDesc(enemyOnExplosionEffectOverride, prefix2, showBaseVal2, baseVal2);
 		if (this.m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_cooldownAddAmount != 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string text2 = text;
 				object[] array = new object[7];
 				array[0] = text2;
@@ -130,15 +77,6 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 				object obj;
 				if (this.m_cooldownAddAmount < 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					obj = "Reduces";
 				}
 				else

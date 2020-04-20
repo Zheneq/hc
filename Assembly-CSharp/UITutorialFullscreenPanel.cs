@@ -71,41 +71,10 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 			AnimatorStateInfo currentAnimatorStateInfo = this.m_AnimatorObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
 			if (!currentAnimatorStateInfo.IsName("TutorialCombatPhasePanelDONE") && !currentAnimatorStateInfo.IsName("TutorialPrepPhasePanelDONE"))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.Update()).MethodHandle;
-				}
 				if (!currentAnimatorStateInfo.IsName("TutorialDashPhasePanelDONE"))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!currentAnimatorStateInfo.IsName("TutorialStatusEffectPanelDONE") && !currentAnimatorStateInfo.IsName("TutorialTeammateTargetingPanelDONE"))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!currentAnimatorStateInfo.IsName("TutorialEnergyAndUltimatesPanelDONE"))
 						{
 							return;
@@ -121,19 +90,6 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 	{
 		if (!(moviePlayer == null))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.SetupMoviePlayer(PlayRawImageMovieTexture, string)).MethodHandle;
-			}
 			if (!movieName.IsNullOrEmpty())
 			{
 				int num = -1;
@@ -141,44 +97,17 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 				{
 					if (HUD_UIResources.Get().m_prologueVideoList[i].Name == movieName)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = i;
 						break;
 					}
 				}
 				if (num == -1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error("Unable to find prologue video", new object[0]);
 					return;
 				}
 				if (HUD_UIResources.Get().m_prologueVideoList.Length > num)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					HUD_UIResources.TutorialVideoInfo videoInfo = HUD_UIResources.Get().m_prologueVideoList[num];
 					string localizedVideoPath = HUD_UIResources.Get().GetLocalizedVideoPath(videoInfo, LocalizationManager.CurrentLanguageCode);
 					if (localizedVideoPath.IsNullOrEmpty())
@@ -187,15 +116,6 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 					}
 					if (!localizedVideoPath.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						moviePlayer.Play(localizedVideoPath, true, true, true);
 					}
 				}
@@ -281,58 +201,18 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 	{
 		if (this.m_prepPhasePanel.activeSelf)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.OnContinueButton(BaseEventData)).MethodHandle;
-			}
 			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialPrepPhasePanelOUT", 0);
 		}
 		if (this.m_dashPhasePanel.activeSelf)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialDashPhasePanelOUT", 0);
 		}
 		if (this.m_combatPhasePanel.activeSelf)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialCombatPhasePanelOUT", 0);
 		}
 		if (this.m_statusEffectPanel.activeSelf)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialStatusEffectPanelOUT", 0);
 		}
 		if (this.m_teammateTargetingPanel.activeSelf)
@@ -341,15 +221,6 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 		}
 		if (this.m_energyAndUltimatesPanel.activeSelf)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_AnimatorObject.GetComponent<Animator>().Play("TutorialEnergyAndUltimatesPanelOUT", 0);
 		}
 	}
@@ -368,19 +239,6 @@ public class UITutorialFullscreenPanel : MonoBehaviour
 		Animator component = this.m_AnimatorObject.GetComponent<Animator>();
 		if (component.isActiveAndEnabled)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITutorialFullscreenPanel.ClearAllPanels()).MethodHandle;
-			}
 			component.Play("WaitingToRun", 0);
 		}
 	}

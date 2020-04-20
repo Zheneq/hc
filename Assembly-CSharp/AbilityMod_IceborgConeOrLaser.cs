@@ -34,19 +34,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 		IceborgConeOrLaser iceborgConeOrLaser = targetAbility as IceborgConeOrLaser;
 		if (iceborgConeOrLaser != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgConeOrLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, this.m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, iceborgConeOrLaser.m_shieldPerEnemyHit, true, false);
 			AbilityMod.AddToken(tokens, this.m_shieldDurationMod, "ShieldDuration", string.Empty, iceborgConeOrLaser.m_shieldDuration, true, false);
@@ -61,19 +48,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgConeOrLaser != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgConeOrLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgConeOrLaser.m_targetSelectComp, "-- Target Select --");
 			text += base.PropDesc(this.m_shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, (!flag) ? 0 : iceborgConeOrLaser.m_shieldPerEnemyHit);
 			string str = text;
@@ -83,15 +57,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = iceborgConeOrLaser.m_shieldDuration;
 			}
 			else
@@ -106,15 +71,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 			bool baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgConeOrLaser.m_applyDelayedAoeEffect;
 			}
 			else
@@ -129,15 +85,6 @@ public class AbilityMod_IceborgConeOrLaser : GenericAbility_AbilityMod
 			bool baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = iceborgConeOrLaser.m_skipDelayedAoeEffectIfHasExisting;
 			}
 			else

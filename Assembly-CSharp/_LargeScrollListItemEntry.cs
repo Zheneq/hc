@@ -20,19 +20,6 @@ public class _LargeScrollListItemEntry : MonoBehaviour
 			{
 				if (this.m_overrideDataEntryInterface == null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollListItemEntry.Awake()).MethodHandle;
-					}
 					this.m_overrideDataEntryInterface = (monoBehaviour as IUIDataEntry);
 				}
 				else
@@ -40,15 +27,6 @@ public class _LargeScrollListItemEntry : MonoBehaviour
 					Log.Warning("Scroll List Item Entry has multiple IUIDataEntry interfaces attached", new object[0]);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -62,19 +40,6 @@ public class _LargeScrollListItemEntry : MonoBehaviour
 		this.m_isVisible = visible;
 		if (this.m_isVisible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_LargeScrollListItemEntry.SetVisible(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, this.m_isVisible, null);
 		}
 	}

@@ -13,34 +13,21 @@ public static class UnityConsoleLog
 	private static string s_stackTraceSeparator = "\n   at ";
 
 	[CompilerGenerated]
-	private static Action<Log.Message> <>f__mg$cache0;
+	private static Action<Log.Message> f__mg_cache0;
 
 	[CompilerGenerated]
-	private static Application.LogCallback <>f__mg$cache1;
+	private static Application.LogCallback f__mg_cache1;
 
 	[CompilerGenerated]
-	private static Action<Log.Message> <>f__mg$cache2;
+	private static Action<Log.Message> f__mg_cache2;
 
 	[CompilerGenerated]
-	private static Application.LogCallback <>f__mg$cache3;
+	private static Application.LogCallback f__mg_cache3;
 
 	static UnityConsoleLog()
 	{
 		if (Debug.isDebugBuild)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UnityConsoleLog..cctor()).MethodHandle;
-			}
 			UnityConsoleLog.MinLevel = Log.Level.Info;
 		}
 		else
@@ -68,32 +55,10 @@ public static class UnityConsoleLog
 		{
 			if (UnityConsoleLog.InterceptHandler != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UnityConsoleLog.HandleLogMessage(Log.Message)).MethodHandle;
-				}
 				UnityConsoleLog.InterceptHandler(args);
 			}
 			else if (!UnityConsoleLog.s_isLogging)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (args.level >= UnityConsoleLog.MinLevel)
 				{
 					try
@@ -102,18 +67,9 @@ public static class UnityConsoleLog
 						string text = args.ToString();
 						if (!text.IsNullOrEmpty())
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							switch (args.level)
 							{
-							case Log.Level.\u001D:
+							case Log.Level.symbol_001D:
 							case Log.Level.Info:
 							case Log.Level.Notice:
 								Debug.Log(text);
@@ -141,29 +97,10 @@ public static class UnityConsoleLog
 		if (!UnityConsoleLog.Started)
 		{
 			UnityConsoleLog.Started = true;
-			if (UnityConsoleLog.<>f__mg$cache0 == null)
-			{
-				UnityConsoleLog.<>f__mg$cache0 = new Action<Log.Message>(UnityConsoleLog.HandleLogMessage);
-			}
-			Log.AddLogHandler(UnityConsoleLog.<>f__mg$cache0);
-			if (UnityConsoleLog.<>f__mg$cache1 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UnityConsoleLog.Start()).MethodHandle;
-				}
-				UnityConsoleLog.<>f__mg$cache1 = new Application.LogCallback(UnityConsoleLog.HandleUnityLogMessage);
-			}
-			Application.logMessageReceived += UnityConsoleLog.<>f__mg$cache1;
+			
+			Log.AddLogHandler(new Action<Log.Message>(UnityConsoleLog.HandleLogMessage));
+			
+			Application.logMessageReceived += new Application.LogCallback(UnityConsoleLog.HandleUnityLogMessage);
 		}
 	}
 
@@ -171,48 +108,11 @@ public static class UnityConsoleLog
 	{
 		if (UnityConsoleLog.Started)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UnityConsoleLog.Stop()).MethodHandle;
-			}
 			UnityConsoleLog.Started = false;
-			if (UnityConsoleLog.<>f__mg$cache2 == null)
-			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityConsoleLog.<>f__mg$cache2 = new Action<Log.Message>(UnityConsoleLog.HandleLogMessage);
-			}
-			Log.RemoveLogHandler(UnityConsoleLog.<>f__mg$cache2);
-			if (UnityConsoleLog.<>f__mg$cache3 == null)
-			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				UnityConsoleLog.<>f__mg$cache3 = new Application.LogCallback(UnityConsoleLog.HandleUnityLogMessage);
-			}
-			Application.logMessageReceived -= UnityConsoleLog.<>f__mg$cache3;
+			
+			Log.RemoveLogHandler(new Action<Log.Message>(UnityConsoleLog.HandleLogMessage));
+			
+			Application.logMessageReceived -= new Application.LogCallback(UnityConsoleLog.HandleUnityLogMessage);
 		}
 	}
 
@@ -236,26 +136,13 @@ public static class UnityConsoleLog
 			flag = true;
 			break;
 		case LogType.Log:
-			level = ((!UnityConsoleLog.LogInfoAsDebug) ? Log.Level.Info : Log.Level.\u001D);
+			level = ((!UnityConsoleLog.LogInfoAsDebug) ? Log.Level.Info : Log.Level.symbol_001D);
 			flag = false;
 			break;
 		}
 		flag2 = false;
 		if (!UnityConsoleLog.s_isLogging)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UnityConsoleLog.HandleUnityLogMessage(string, string, LogType)).MethodHandle;
-			}
 			try
 			{
 				UnityConsoleLog.s_isLogging = true;
@@ -263,39 +150,12 @@ public static class UnityConsoleLog
 				int lineNumber = 0;
 				if (!stackTrace.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityConsoleLog.TryGetFileLineFromStack(stackTrace, out empty, out lineNumber);
 				}
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!stackTrace.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string arg = stackTrace.Replace("\n", UnityConsoleLog.s_stackTraceSeparator);
 						logString = string.Format("{0}{1}{2}", logString, UnityConsoleLog.s_stackTraceSeparator, arg);
 					}
@@ -309,38 +169,11 @@ public static class UnityConsoleLog
 		}
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (TextConsole.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ConsoleMessageType consoleMessageType;
 				if (type == LogType.Exception)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					consoleMessageType = ConsoleMessageType.Exception;
 				}
 				else
@@ -366,34 +199,12 @@ public static class UnityConsoleLog
 			int num = stack.IndexOf(".cs:");
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UnityConsoleLog.TryGetFileLineFromStack(string, string*, int*)).MethodHandle;
-				}
 			}
 			else
 			{
 				int num2 = stack.LastIndexOf("(at ", num);
 				if (num2 < 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{

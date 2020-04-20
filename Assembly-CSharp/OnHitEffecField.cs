@@ -24,7 +24,7 @@ public class OnHitEffecField
 	public OnHitEffecField GetCopy()
 	{
 		OnHitEffecField onHitEffecField = base.MemberwiseClone() as OnHitEffecField;
-		onHitEffecField.m_conditions = this.m_conditions.\u001D();
+		onHitEffecField.m_conditions = this.m_conditions.symbol_001D();
 		onHitEffecField.m_effect = this.m_effect.GetShallowCopy();
 		return onHitEffecField;
 	}
@@ -37,30 +37,8 @@ public class OnHitEffecField
 			bool flag;
 			if (diff)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitEffecField.AddTooltipTokens(List<TooltipTokenEntry>, bool, OnHitEffecField, string)).MethodHandle;
-				}
 				if (other != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (other.m_effect != null);
 					goto IL_5A;
 				}
@@ -77,62 +55,22 @@ public class OnHitEffecField
 		string text = "(effect set to not apply)\n";
 		if (this.m_effect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitEffecField.GetInEditorDesc(bool, OnHitEffecField)).MethodHandle;
-			}
 			if (this.m_effect.m_applyEffect)
 			{
 				text = "- Effect to Apply -\n";
 				if (!string.IsNullOrEmpty(this.m_identifier))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text + "Identifier: " + InEditorDescHelper.ColoredString(this.m_identifier, "white", false) + "\n";
 				}
-				text = text + "Conditions:\n" + this.m_conditions.\u001D("    ");
+				text = text + "Conditions:\n" + this.m_conditions.symbol_001D("    ");
 				if (this.m_skipRemainingEffectEntriesIfMatch)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text + InEditorDescHelper.ColoredString("    * Skipping later entries if this one applies to target", "white", false) + "\n";
 				}
 				text += "Effect Data:\n";
 				bool flag;
 				if (diff)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (other != null)
 					{
 						flag = (other.m_effect != null);
@@ -150,15 +88,6 @@ public class OnHitEffecField
 				StandardActorEffectData other2;
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					other2 = other.m_effect.m_effectData;
 				}
 				else

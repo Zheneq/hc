@@ -35,58 +35,18 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		bool flag = true;
 		if (effectTarget != null && caster != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.ExecuteEffectStart(ClientEffectStartData)).MethodHandle;
-			}
 			bool flag2 = effectTarget.GetTeam() == caster.GetTeam();
 			ActorStatus actorStatus = effectTarget.GetActorStatus();
 			if (actorStatus.HasStatus(StatusType.EffectImmune, true))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = false;
 			}
 			else
 			{
 				if (effectTarget != caster)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorStatus.HasStatus(StatusType.CantBeHelpedByTeam, true))
 						{
 							flag = false;
@@ -96,15 +56,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 				}
 				if (actorStatus.HasStatus(StatusType.BuffImmune, true))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (effectData.m_isBuff)
 					{
 						flag = false;
@@ -113,15 +64,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 				}
 				if (actorStatus.HasStatus(StatusType.DebuffImmune, true) && effectData.m_isDebuff)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
@@ -137,15 +79,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		if (EffectDebugConfig.TracingAddAndRemove())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData != null)
 			{
 				string text = "<color=green>Effect</color>: CLIENT Effect Start for guid [" + effectData.m_effectGUID + "]\n";
@@ -162,15 +95,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 							sequenceStartData.GetSequencePrefabId(),
 							"\n"
 						});
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				Log.Warning(text, new object[0]);
@@ -191,86 +115,23 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					{
 						list.Add(item);
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (effectData.m_effectTarget != null && effectData.m_caster != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData.m_effectTarget.GetActorBehavior() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				effectData.m_effectTarget.GetActorBehavior().Client_RecordEffectFromActor(effectData.m_caster);
 			}
 		}
 		bool flag3 = ClientResolutionManager.Get().IsInResolutionState();
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData.m_effectTarget != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (effectData.m_statuses != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (effectData.m_statuses.Count > 0)
 					{
 						ActorStatus actorStatus2 = effectData.m_effectTarget.GetActorStatus();
@@ -282,15 +143,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 								actorStatus2.ClientAddStatus(statusType);
 								list2.Add(statusType);
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						using (List<StatusType>.Enumerator enumerator4 = effectData.m_statusesOnTurnStart.GetEnumerator())
 						{
@@ -299,15 +151,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 								StatusType item2 = enumerator4.Current;
 								list3.Add(item2);
 							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
 				}
@@ -315,65 +158,20 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (effectData.m_effectTarget != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (effectData.m_absorb != 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectData.m_effectTarget.ClientUnresolvedAbsorb += effectData.m_absorb;
 				}
 				if (effectData.m_expectedHoT > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					effectData.m_effectTarget.ClientExpectedHoTTotalAdjust += effectData.m_expectedHoT;
 				}
 			}
 		}
 		if (this.m_effectGuidToData.ContainsKey(effectData.m_effectGUID))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("ClientEffectBarrierManager calling ExecuteEffectStart for effect start data with guid " + effectData.m_effectGUID + ", but that guid is already in m_effectGuidToData.");
 			this.m_effectGuidToData[effectData.m_effectGUID].m_sequences.AddRange(list);
 		}
@@ -388,19 +186,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_effectGuidToData.ContainsKey(effectGuid))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.EndEffect(int)).MethodHandle;
-			}
 			ClientEffectData clientEffectData = this.m_effectGuidToData[effectGuid];
 			List<Sequence> sequences = clientEffectData.m_sequences;
 			using (List<Sequence>.Enumerator enumerator = sequences.GetEnumerator())
@@ -413,39 +198,12 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 						sequence.MarkForRemoval();
 					}
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			sequences.Clear();
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientEffectData.m_target != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (clientEffectData.m_statuses != null)
 					{
 						ActorStatus actorStatus = clientEffectData.m_target.GetActorStatus();
@@ -482,19 +240,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.ExecuteBarrierStart(ClientBarrierStartData)).MethodHandle;
-			}
 		}
 		barrierData.m_barrierGameplayInfo.m_clientSequenceStartAttempted = true;
 		if (this.m_barrierGuidToSequences.ContainsKey(barrierData.m_barrierGUID))
@@ -512,19 +257,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_barrierGuidToSequences.ContainsKey(barrierGuid))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.EndBarrier(int)).MethodHandle;
-			}
 			List<Sequence> list = this.m_barrierGuidToSequences[barrierGuid];
 			using (List<Sequence>.Enumerator enumerator = list.GetEnumerator())
 			{
@@ -533,38 +265,11 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					Sequence sequence = enumerator.Current;
 					if (sequence != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!sequence.MarkedForRemoval)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							sequence.MarkForRemoval();
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			list.Clear();
@@ -577,19 +282,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_effectGuidToData.ContainsKey(effectGuid))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.EndSequenceOfEffect(int, int, Vector3)).MethodHandle;
-			}
 			List<Sequence> list = new List<Sequence>();
 			List<Sequence> sequences = this.m_effectGuidToData[effectGuid].m_sequences;
 			using (List<Sequence>.Enumerator enumerator = sequences.GetEnumerator())
@@ -599,54 +291,18 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					Sequence sequence = enumerator.Current;
 					if (sequence != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!sequence.MarkedForRemoval && (int)sequence.PrefabLookupId == sequencePrefabLookupId)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(targetPos == Vector3.zero))
 							{
 								if (!(targetPos == sequence.TargetPos))
 								{
 									continue;
 								}
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							list.Add(sequence);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			using (List<Sequence>.Enumerator enumerator2 = list.GetEnumerator())
@@ -657,15 +313,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					sequence2.MarkForRemoval();
 					sequences.Remove(sequence2);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -674,70 +321,21 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 	{
 		if (this.m_barrierGuidToSequences.ContainsKey(barrierGuid))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.EndSequenceOfBarrier(int, int, Vector3)).MethodHandle;
-			}
 			List<Sequence> list = new List<Sequence>();
 			List<Sequence> list2 = this.m_barrierGuidToSequences[barrierGuid];
 			foreach (Sequence sequence in list2)
 			{
 				if (sequence != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!sequence.MarkedForRemoval)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if ((int)sequence.PrefabLookupId == sequencePrefabLookupId)
 						{
 							if (!(targetPos == Vector3.zero))
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!(targetPos == sequence.TargetPos))
 								{
 									continue;
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							list.Add(sequence);
@@ -753,15 +351,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 					sequence2.MarkForRemoval();
 					list2.Remove(sequence2);
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 	}
@@ -770,19 +359,6 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.ReplayRestart)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientEffectBarrierManager.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			this.m_effectGuidToData.Clear();
 			this.m_barrierGuidToSequences.Clear();
 		}

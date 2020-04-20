@@ -63,19 +63,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 	{
 		if (this.m_fxAttachToJoint)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.Finished()).MethodHandle;
-			}
 			return false;
 		}
 		return base.AreFXFinished(this.m_fx);
@@ -85,19 +72,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 	{
 		if (this.m_startEvent == null && this.m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.FinishSetup()).MethodHandle;
-			}
 			if (this.m_startDelayTime <= 0f)
 			{
 				this.SpawnFX();
@@ -119,55 +93,15 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		this.m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase) && this.m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnFX();
 			}
 		}
 		if (this.m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StopFX();
 			}
 		}
@@ -189,74 +123,16 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 			}
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.OnUpdate()).MethodHandle;
-				}
 				if (this.m_fxAttachToJoint)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fxJoint.IsInitialized())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Targets != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (base.Targets.Length > 0)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (base.ShouldHideForActorIfAttached(base.Targets[0]))
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									base.SetSequenceVisibility(false);
 									goto IL_E0;
 								}
@@ -271,62 +147,17 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 			{
 				if (this.m_fx.GetComponent<FriendlyEnemyVFXSelector>() != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Caster != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_fx.GetComponent<FriendlyEnemyVFXSelector>().Setup(base.Caster.GetTeam());
 					}
 				}
 				if (this.m_useRootOrientation)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Targets != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Targets.Length == 1)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_fx.transform.rotation = base.Targets[0].transform.rotation;
 							goto IL_285;
 						}
@@ -334,50 +165,14 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 				}
 				if (this.m_aimAtCaster)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Caster != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (base.Targets != null && base.Targets.Length == 1)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 forward = base.Targets[0].transform.position - base.Caster.transform.position;
 							forward.y = 0f;
 							if (forward.sqrMagnitude != 0f)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								forward.Normalize();
 								this.m_fx.transform.rotation = Quaternion.LookRotation(forward);
 							}
@@ -387,15 +182,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 				IL_285:
 				if (this.Finished() && GameTime.time > this.m_despawnCheckStartTime)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.MarkForRemoval();
 				}
 			}
@@ -407,19 +193,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		bool flag;
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.SwitchFxTo(GameObject)).MethodHandle;
-			}
 			flag = this.m_fx.activeInHierarchy;
 		}
 		else
@@ -433,42 +206,15 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		this.m_fx = null;
 		if (fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_fx = base.InstantiateFX(fxPrefab, position, rotation, true, true);
 			base.SetSequenceVisibility(sequenceVisibility);
 			FriendlyEnemyVFXSelector component = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.Setup(base.Caster.GetTeam());
 			}
 			if (this.m_fxJoint.m_jointObject != null && this.m_fxJoint.m_jointObject.transform.localScale != Vector3.zero)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxAttachToJoint)
 				{
 					base.AttachToBone(this.m_fx, this.m_fxJoint.m_jointObject);
@@ -483,19 +229,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.StopFX()).MethodHandle;
-			}
 			this.m_fx.SetActive(false);
 		}
 	}
@@ -504,65 +237,16 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 	{
 		if (base.Targets.Length > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.SpawnFX()).MethodHandle;
-			}
 			if (base.Targets[0] != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_fxJoint.IsInitialized())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fxJoint.Initialize(base.Targets[0].gameObject);
 				}
 				if (this.m_fxPrefab != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fxJoint.m_jointObject != null && this.m_fxJoint.m_jointObject.transform.localScale != Vector3.zero && this.m_fxAttachToJoint)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_fx = base.InstantiateFX(this.m_fxPrefab);
 						base.AttachToBone(this.m_fx, this.m_fxJoint.m_jointObject);
 						this.m_fx.transform.localPosition = Vector3.zero;
@@ -596,15 +280,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 					GameObject gameObject;
 					if (this.m_playAudioEventOnCaster)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						gameObject = base.Caster.gameObject;
 					}
 					else
@@ -617,50 +292,14 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		}
 		if (this.m_callOnHitForGameplay)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_sequenceHitCalled)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < base.Targets.Length; i++)
 				{
 					if (base.Targets[i] != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.Source.OnSequenceHit(this, base.Targets[i], Sequence.CreateImpulseInfoBetweenActors(base.Targets[0], base.Targets[i]), ActorModelData.RagdollActivation.HealthBased, true);
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				base.Source.OnSequenceHit(this, base.TargetPos, null);
 				this.m_sequenceHitCalled = true;
@@ -674,19 +313,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 		{
 			if (this.m_startEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-				}
 				this.SpawnFX();
 			}
 			else if (this.m_stopEvent == parameter)
@@ -700,19 +326,6 @@ public class SimpleAttachedVFXOnTargetSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SimpleAttachedVFXOnTargetSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx.gameObject);
 			this.m_fx = null;
 		}

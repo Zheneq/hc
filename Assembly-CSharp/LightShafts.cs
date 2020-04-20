@@ -131,19 +131,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (this.m_AttenuationCurveTex)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitLUTs()).MethodHandle;
-			}
 			return;
 		}
 		this.m_AttenuationCurveTex = new Texture2D(0x100, 1, TextureFormat.ARGB32, false, true);
@@ -151,27 +138,9 @@ public class LightShafts : MonoBehaviour
 		this.m_AttenuationCurveTex.hideFlags = HideFlags.HideAndDontSave;
 		if (this.m_AttenuationCurve != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_AttenuationCurve.length != 0)
 			{
 				goto IL_C2;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_AttenuationCurve = new AnimationCurve(new Keyframe[]
@@ -182,15 +151,6 @@ public class LightShafts : MonoBehaviour
 		IL_C2:
 		if (this.m_AttenuationCurveTex)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.UpdateLUTs();
 		}
 	}
@@ -200,34 +160,12 @@ public class LightShafts : MonoBehaviour
 		this.InitLUTs();
 		if (this.m_AttenuationCurve == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateLUTs()).MethodHandle;
-			}
 			return;
 		}
 		for (int i = 0; i < 0x100; i++)
 		{
 			float num = Mathf.Clamp(this.m_AttenuationCurve.Evaluate((float)i / 255f), 0f, 1f);
 			this.m_AttenuationCurveTex.SetPixel(i, 0, new Color(num, num, num, num));
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_AttenuationCurveTex.Apply();
 	}
@@ -236,67 +174,18 @@ public class LightShafts : MonoBehaviour
 	{
 		if (temp)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitRenderTexture(RenderTexture*, int, int, int, RenderTextureFormat, bool)).MethodHandle;
-			}
 			rt = RenderTexture.GetTemporary(width, height, depth, format);
 		}
 		else
 		{
 			if (rt != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (rt.width == width)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (rt.height == height)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (rt.depth == depth)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (rt.format == format)
 							{
 								return;
@@ -317,43 +206,12 @@ public class LightShafts : MonoBehaviour
 		bool flag = this.m_ShadowmapMode == LightShaftsShadowmapMode.Dynamic;
 		if (flag && this.m_ShadowmapMode != this.m_ShadowmapModeOld)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitShadowmap()).MethodHandle;
-			}
 			if (this.m_Shadowmap)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Shadowmap.Release();
 			}
 			if (this.m_ColorFilter)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_ColorFilter.Release();
 			}
 		}
@@ -362,15 +220,6 @@ public class LightShafts : MonoBehaviour
 		this.m_Shadowmap.wrapMode = TextureWrapMode.Clamp;
 		if (this.m_Colored)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.InitRenderTexture(ref this.m_ColorFilter, this.m_ShadowmapRes, this.m_ShadowmapRes, 0, RenderTextureFormat.ARGB32, flag);
 		}
 		this.m_ShadowmapModeOld = this.m_ShadowmapMode;
@@ -380,19 +229,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (this.m_ShadowmapMode == LightShaftsShadowmapMode.Static)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.ReleaseShadowmap()).MethodHandle;
-			}
 			return;
 		}
 		RenderTexture.ReleaseTemporary(this.m_Shadowmap);
@@ -413,19 +249,6 @@ public class LightShafts : MonoBehaviour
 		RenderTextureFormat format;
 		if (this.m_DX11Support)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitEpipolarTextures()).MethodHandle;
-			}
 			format = RenderTextureFormat.RGInt;
 		}
 		else
@@ -444,19 +267,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (!material)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitMaterial(Material*, Shader)).MethodHandle;
-			}
 			if (shader)
 			{
 				material = new Material(shader);
@@ -480,46 +290,15 @@ public class LightShafts : MonoBehaviour
 	{
 		if (!this.m_SpotMesh)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.InitSpotFrustumMesh()).MethodHandle;
-			}
 			this.m_SpotMesh = new Mesh();
 			this.m_SpotMesh.hideFlags = HideFlags.HideAndDontSave;
 		}
 		Light light = this.m_Light;
 		if (this.m_SpotMeshNear == this.m_SpotNear && this.m_SpotMeshFar == this.m_SpotFar && this.m_SpotMeshAngle == light.spotAngle)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_SpotMeshRange == light.range)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float num = light.range * this.m_SpotFar;
@@ -530,15 +309,6 @@ public class LightShafts : MonoBehaviour
 		Vector3[] array;
 		if (this.m_SpotMesh.vertices != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_SpotMesh.vertices.Length == 8)
 			{
 				array = this.m_SpotMesh.vertices;
@@ -562,15 +332,6 @@ public class LightShafts : MonoBehaviour
 			if (this.m_SpotMesh.triangles.Length == 0x24)
 			{
 				goto IL_23A;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		int[] triangles = new int[]
@@ -624,19 +385,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (this.m_Light == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateLightType()).MethodHandle;
-			}
 			this.m_Light = base.GetComponent<Light>();
 		}
 		this.m_LightType = this.m_Light.type;
@@ -660,66 +408,17 @@ public class LightShafts : MonoBehaviour
 		this.m_MinRequirements &= SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RFloat);
 		if (!this.m_MinRequirements)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.CheckMinRequirements()).MethodHandle;
-			}
 			Debug.LogError("LightShafts require Shader Model 3.0 and render textures (including the RGFloat and RFloat) formats. Disabling.");
 		}
 		bool flag;
 		if (this.ShaderCompiles(this.m_DepthShader))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.ShaderCompiles(this.m_ColorFilterShader))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.ShaderCompiles(this.m_CoordShader) && this.ShaderCompiles(this.m_DepthBreaksShader))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.ShaderCompiles(this.m_RaymarchShader) && this.ShaderCompiles(this.m_InterpolateAlongRaysShader))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = this.ShaderCompiles(this.m_FinalInterpolationShader);
 						goto IL_10B;
 					}
@@ -731,15 +430,6 @@ public class LightShafts : MonoBehaviour
 		bool flag2 = flag;
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("LightShafts require above shaders. Disabling.");
 		}
 		this.m_MinRequirements = (this.m_MinRequirements && flag2);
@@ -786,19 +476,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (this.directional)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.GetBoundsLocal()).MethodHandle;
-			}
 			return new Bounds(new Vector3(0f, 0f, this.m_Size.z * 0.5f), this.m_Size);
 		}
 		Light light = this.m_Light;
@@ -826,33 +503,11 @@ public class LightShafts : MonoBehaviour
 		Gizmos.color = Color.yellow;
 		if (this.directional)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.OnDrawGizmosSelected()).MethodHandle;
-			}
 			Gizmos.matrix = this.GetBoundsMatrix();
 			Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
 		}
 		else if (this.spot)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Transform transform = base.transform;
 			Light light = this.m_Light;
 			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
@@ -871,20 +526,6 @@ public class LightShafts : MonoBehaviour
 			}
 			if (lightPos.y <= 1f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.RenderQuadSections(Vector4)).MethodHandle;
-					goto IL_2E;
-				}
 				goto IL_2E;
 			}
 			IL_104:
@@ -895,65 +536,20 @@ public class LightShafts : MonoBehaviour
 			IL_2E:
 			if (i == 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lightPos.x > 1f)
 				{
 					goto IL_A0;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (i == 2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lightPos.y < -1f)
 				{
 					goto IL_A0;
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (i == 3)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (lightPos.x < -1f)
 				{
 					for (;;)
@@ -976,15 +572,6 @@ public class LightShafts : MonoBehaviour
 			GL.Vertex3(-1f, y, 0f);
 			GL.End();
 			goto IL_104;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1012,19 +599,6 @@ public class LightShafts : MonoBehaviour
 		Vector3 position = base.transform.position;
 		if (this.directional)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.GetLightViewportPos()).MethodHandle;
-			}
 			position = this.m_CurrentCamera.transform.position + base.transform.forward;
 		}
 		Vector3 vector = this.m_CurrentCamera.WorldToViewportPoint(position);
@@ -1047,30 +621,8 @@ public class LightShafts : MonoBehaviour
 			float z = this.m_CurrentCamera.WorldToViewportPoint(transform.TransformPoint(vertices[i])).z;
 			if (z < num)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.IntersectsNearPlane()).MethodHandle;
-				}
 				return true;
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return false;
 	}
@@ -1081,19 +633,6 @@ public class LightShafts : MonoBehaviour
 		string keyword;
 		if (firstOn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.SetKeyword(bool, string, string)).MethodHandle;
-			}
 			keyword = secondKeyword;
 		}
 		else
@@ -1127,19 +666,6 @@ public class LightShafts : MonoBehaviour
 			v = inverse.MultiplyVector(v);
 			frustumRays.SetRow(i, v);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.GetFrustumRays(Matrix4x4*, Vector3*)).MethodHandle;
-		}
 		cameraPosLocal = inverse.MultiplyPoint3x4(position);
 	}
 
@@ -1162,45 +688,14 @@ public class LightShafts : MonoBehaviour
 	{
 		if (this.m_Cameras == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.CheckCamera()).MethodHandle;
-			}
 			return false;
 		}
 		foreach (Camera x in this.m_Cameras)
 		{
 			if (x == this.m_CurrentCamera)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return false;
 	}
@@ -1209,19 +704,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (this.m_Cameras == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateCameraDepthMode()).MethodHandle;
-			}
 			return;
 		}
 		foreach (Camera camera in this.m_Cameras)
@@ -1231,15 +713,6 @@ public class LightShafts : MonoBehaviour
 				camera.depthTextureMode |= DepthTextureMode.Depth;
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void Start()
@@ -1247,31 +720,9 @@ public class LightShafts : MonoBehaviour
 		this.CheckMinRequirements();
 		if (this.m_Cameras != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.Start()).MethodHandle;
-			}
 			if (this.m_Cameras.Length != 0)
 			{
 				goto IL_4E;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_Cameras = new Camera[]
@@ -1286,19 +737,6 @@ public class LightShafts : MonoBehaviour
 	{
 		if (this.m_ShadowmapMode == LightShaftsShadowmapMode.Static)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.UpdateShadowmap()).MethodHandle;
-			}
 			if (!this.m_ShadowmapDirty)
 			{
 				return;
@@ -1340,15 +778,6 @@ public class LightShafts : MonoBehaviour
 		this.m_ShadowmapCamera.RenderWithShader(this.m_DepthShader, "RenderType");
 		if (this.m_Colored)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_ShadowmapCamera.targetTexture = this.m_ColorFilter;
 			this.m_ShadowmapCamera.cullingMask = this.m_ColorFilterMask;
 			this.m_ShadowmapCamera.backgroundColor = new Color(this.m_ColorBalance, this.m_ColorBalance, this.m_ColorBalance);
@@ -1378,42 +807,11 @@ public class LightShafts : MonoBehaviour
 		Graphics.SetRenderTarget(this.m_InterpolationEpi.colorBuffer, this.m_RaymarchedLightEpi.depthBuffer);
 		if (!this.m_DX11Support)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.RenderInterpolationTexture(Vector4)).MethodHandle;
-			}
 			if (Application.platform != RuntimePlatform.WindowsEditor)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (Application.platform != RuntimePlatform.WindowsPlayer)
 				{
 					goto IL_75;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_DepthBreaksMaterial.SetPass(1);
@@ -1475,19 +873,6 @@ public class LightShafts : MonoBehaviour
 		bool flag;
 		if (this.m_ShowSamples && this.m_DX11Support)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.ShowSamples(int, int, Vector4)).MethodHandle;
-			}
 			flag = this.m_SamplePositionsShaderCompiles;
 		}
 		else
@@ -1498,15 +883,6 @@ public class LightShafts : MonoBehaviour
 		this.SetKeyword(flag2, "SHOW_SAMPLES_ON", "SHOW_SAMPLES_OFF");
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.RenderSamplePositions(width, height, lightPos);
 		}
 		this.m_FinalInterpolationMaterial.SetFloat("_ShowSamplesBackgroundFade", this.m_ShowSamplesBackgroundFade);
@@ -1549,19 +925,6 @@ public class LightShafts : MonoBehaviour
 		this.m_CurrentCamera = Camera.current;
 		if (this.m_MinRequirements)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LightShafts.OnRenderObject()).MethodHandle;
-			}
 			if (this.CheckCamera())
 			{
 				if (this.IsVisible())
@@ -1573,26 +936,8 @@ public class LightShafts : MonoBehaviour
 					bool flag;
 					if (lightViewportPos.x >= -1f && lightViewportPos.x <= 1f)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (lightViewportPos.y >= -1f)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = (lightViewportPos.y <= 1f);
 							goto IL_B8;
 						}
@@ -1624,15 +969,6 @@ public class LightShafts : MonoBehaviour
 					bool flag2;
 					if (!this.directional)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = this.IntersectsNearPlane();
 					}
 					else
@@ -1645,15 +981,6 @@ public class LightShafts : MonoBehaviour
 					float num;
 					if (flag3)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = (float)8;
 					}
 					else
@@ -1666,15 +993,6 @@ public class LightShafts : MonoBehaviour
 					this.m_FinalInterpolationMaterial.SetPass(0);
 					if (flag3)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.RenderQuad();
 					}
 					else
@@ -1683,15 +1001,6 @@ public class LightShafts : MonoBehaviour
 					}
 					this.ReleaseResources();
 					return;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

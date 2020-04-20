@@ -16,19 +16,6 @@ public class IdleState : FSMState
 
 	public override IEnumerator OnTurn(NPCBrain thisBrain)
 	{
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(IdleState.<OnTurn>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		Debug.Log("Waiting!!");
 		yield break;
 	}

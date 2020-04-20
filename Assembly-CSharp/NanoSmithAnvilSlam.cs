@@ -32,45 +32,14 @@ public class NanoSmithAnvilSlam : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithAnvilSlam.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Anvil Slam";
 		}
 		NanoSmithBoltInfoComponent component = base.GetComponent<NanoSmithBoltInfoComponent>();
 		if (component)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_boltInfo = component.m_boltInfo.GetShallowCopy();
 			if (component.m_anvilSlamRangeOverride > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_boltInfo.range = component.m_anvilSlamRangeOverride;
 			}
 		}
@@ -90,30 +59,8 @@ public class NanoSmithAnvilSlam : Ability
 		this.m_dashEffectOnHit.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
 		if (this.m_boltCount > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NanoSmithAnvilSlam.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			if (this.m_boltInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_boltInfo.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary, AbilityTooltipSubject.Ally);
 			}
 		}

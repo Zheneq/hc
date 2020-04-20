@@ -31,33 +31,11 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 				{
 					if (events[k].functionName == "DisableGameObjectOnAnimDoneListenerEvent")
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(_DisableGameObjectOnAnimationDoneEvent.DisableGameObjectOnAnimDoneListenerEvent()).MethodHandle;
-						}
 						if (currentAnimatorStateInfo.normalizedTime >= 1f)
 						{
 							this.m_stateName = currentAnimatorClipInfo[j].clip.name;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -71,30 +49,8 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 		{
 			if (this.m_gameObjectsToDisable[i].activeSelf)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_DisableGameObjectOnAnimationDoneEvent.DoDisable()).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(this.m_gameObjectsToDisable[i], false, null);
 			}
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -102,19 +58,6 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 	{
 		if (this.m_gameObjectsToDisable.Length > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_DisableGameObjectOnAnimationDoneEvent.Update()).MethodHandle;
-			}
 			if (this.m_isListening)
 			{
 				int layerCount = this.m_animator.layerCount;
@@ -130,15 +73,6 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 						{
 							goto IL_C1;
 						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!this.m_stateName.IsNullOrEmpty() && currentAnimatorClipInfo[j].clip.name != this.m_stateName)
 						{
 							goto IL_C1;
@@ -147,38 +81,11 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 						{
 							if (events[k].functionName == "DisableGameObjectOnAnimDoneListenerEvent")
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (currentAnimatorStateInfo.normalizedTime >= 1f)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.DoDisable();
 								}
 							}
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						IL_128:
 						j++;
@@ -187,15 +94,6 @@ public class _DisableGameObjectOnAnimationDoneEvent : MonoBehaviour
 						this.DoDisable();
 						goto IL_128;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

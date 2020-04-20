@@ -50,19 +50,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Martyr Hit";
 		}
 		this.Setup();
@@ -104,19 +91,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -127,15 +101,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		StandardEffectInfo cachedLaserHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserHitEffect = this.m_abilityMod.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
 		}
 		else
@@ -150,19 +115,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -182,19 +134,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetExplosionRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionRadiusMod.GetModifiedValue(this.m_explosionRadius);
 		}
 		else
@@ -209,19 +148,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetBaseLaserDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_baseLaserDamageMod.GetModifiedValue(this.m_baseLaserDamage);
 		}
 		else
@@ -251,19 +177,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetExtraDamageIfSingleHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageIfSingleHitMod.GetModifiedValue(this.m_extraDamageIfSingleHit);
 		}
 		else
@@ -278,19 +191,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetInnerRingRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_innerRingRadiusMod.GetModifiedValue(this.m_innerRingRadius);
 		}
 		else
@@ -315,19 +215,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetInnerRingDamagePerCrystal()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_innerRingDamagePerCrystalMod.GetModifiedValue(this.m_innerRingDamagePerCrystal);
 		}
 		else
@@ -344,19 +231,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		StandardEffectInfo effectInfo;
 		if (abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_MartyrBasicAttack.m_laserHitEffectMod.GetModifiedValue(this.m_laserHitEffect);
 		}
 		else
@@ -371,15 +245,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int val;
 		if (abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_MartyrBasicAttack.m_additionalDamagePerCrystalSpentMod.GetModifiedValue(this.m_additionalDamagePerCrystalSpent);
 		}
 		else
@@ -392,15 +257,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float val2;
 		if (abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_MartyrBasicAttack.m_additionalRadiusPerCrystalSpentMod.GetModifiedValue(this.m_additionalRadiusPerCrystalSpent);
 		}
 		else
@@ -413,15 +269,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int val3;
 		if (abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_MartyrBasicAttack.m_extraDamageIfSingleHitMod.GetModifiedValue(this.m_extraDamageIfSingleHit);
 		}
 		else
@@ -435,15 +282,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int val4;
 		if (abilityMod_MartyrBasicAttack)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_MartyrBasicAttack.m_innerRingDamagePerCrystalMod.GetModifiedValue(this.m_innerRingDamagePerCrystal);
 		}
 		else
@@ -463,19 +301,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 				MartyrBasicAttackThreshold item = enumerator.Current;
 				list.Add(item);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetThresholdBasedCrystalBonusList()).MethodHandle;
-			}
 		}
 		return list;
 	}
@@ -486,19 +311,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCurrentLaserDamage(ActorData)).MethodHandle;
-			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
 		else
@@ -515,19 +327,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCurrentExplosionDamage(ActorData)).MethodHandle;
-			}
 			num = martyrBasicAttackThreshold.m_additionalDamage;
 		}
 		else
@@ -544,19 +343,6 @@ public class MartyrBasicAttack : MartyrLaserBase
 		float num;
 		if (martyrBasicAttackThreshold != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCurrentExplosionRadius()).MethodHandle;
-			}
 			num = martyrBasicAttackThreshold.m_additionalRadius;
 		}
 		else
@@ -592,31 +378,9 @@ public class MartyrBasicAttack : MartyrLaserBase
 		int num = 0;
 		if (this.GetExtraDamageIfSingleHit() > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrBasicAttack.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 			if (visibleActorsCountByTooltipSubject == 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.GetExtraDamageIfSingleHit();
 			}
 		}
@@ -625,39 +389,12 @@ public class MartyrBasicAttack : MartyrLaserBase
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			bool flag = false;
 			float currentInnerExplosionRadius = this.GetCurrentInnerExplosionRadius();
 			if (currentInnerExplosionRadius > 0f)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targeter is AbilityUtil_Targeter_MartyrLaser)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
 					flag = AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, 0f, 360f, currentInnerExplosionRadius, 0f, true, actorData, false, default(Vector3));
 				}

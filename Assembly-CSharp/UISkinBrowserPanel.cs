@@ -55,19 +55,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 		}
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.Awake()).MethodHandle;
-			}
 			HitchDetector.Get().AddNewLayoutGroup(this.m_skinGrid);
 			HitchDetector.Get().AddNewLayoutGroup(this.m_colorGrid);
 		}
@@ -80,45 +67,14 @@ public class UISkinBrowserPanel : MonoBehaviour
 		this.m_purchasePanel.m_realCurrencyButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.PurchaseWithRealCurrency);
 		if (!this.m_characterDataListenerInitialized)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.Start()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
 				this.m_characterDataListenerInitialized = true;
 			}
 		}
 		if (this.m_selectHandler != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_selectHandler.OnStart(this);
 		}
 	}
@@ -127,45 +83,14 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (this.m_characterDataListenerInitialized)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.OnDestroy()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().OnCharacterDataUpdated -= this.OnCharacterDataUpdated;
 				ClientGameManager.Get().OnLobbyGameplayOverridesChange -= this.OnLobbyGameplayOverridesUpdated;
 			}
 		}
 		if (this.m_selectHandler != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_selectHandler.OnDestroy(this);
 		}
 	}
@@ -174,19 +99,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (!this.m_characterDataListenerInitialized)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.OnEnable()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
 				ClientGameManager.Get().OnCharacterDataUpdated += this.OnCharacterDataUpdated;
@@ -196,15 +108,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 		}
 		if (UICharacterSelectWorldObjects.Get())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICharacterSelectWorldObjects.Get().PlayCameraAnimation("CamCloseupOUT");
 		}
 	}
@@ -213,19 +116,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (this.m_selectHandler != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.OnDisable()).MethodHandle;
-			}
 			this.m_selectHandler.OnDisabled(this);
 		}
 		UIManager.SetGameObjectActive(this.m_purchasePanel, false, null);
@@ -235,57 +125,17 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (this.m_currentCharacter == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.OnCharacterDataUpdated(PersistedCharacterData)).MethodHandle;
-			}
 			return;
 		}
 		if (newData.CharacterType == this.m_currentCharacter.m_characterType)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.PopulateCharacterData(this.m_currentCharacter, newData);
 			PlayerSkinData skin = newData.CharacterComponent.GetSkin(this.m_currentSelection.skinIndex);
 			if (!skin.Unlocked)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!skin.GetPattern(this.m_currentSelection.patternIndex).GetColor(this.m_currentSelection.skinIndex).Unlocked)
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UIManager.SetGameObjectActive(this.m_warningContainer, false, null);
@@ -333,30 +183,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (this.m_currentCharacter != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.Setup(CharacterResourceLink, CharacterVisualInfo, bool)).MethodHandle;
-			}
 			if (this.m_currentCharacter.m_characterType == characterLink.m_characterType)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentSelection.Equals(visualInfo))
 				{
 					return;
@@ -372,15 +200,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 		this.m_purchasePanel.SetDisabled(false);
 		if (this.m_skinButtons.Count == 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_skinButtons.AddRange(this.m_skinGrid.GetComponentsInChildren<UISkinSelectButton>(true));
 		}
 		if (this.m_colorButtons.Count == 0)
@@ -397,19 +216,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (this.m_currentCharacter != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.RePopulateCharacterData()).MethodHandle;
-			}
 			this.PopulateCharacterData(this.m_currentCharacter, ClientGameManager.Get().GetPlayerCharacterData(this.m_currentCharacter.m_characterType));
 			List<UIPatternData> list = new List<UIPatternData>();
 			int num = 0;
@@ -420,29 +226,11 @@ public class UISkinBrowserPanel : MonoBehaviour
 					UISkinSelectButton uiskinSelectButton = enumerator.Current;
 					if (uiskinSelectButton.isSelected)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (int i = 0; i < uiskinSelectButton.m_skinData.m_possiblePatterns.Length; i++)
 						{
 							UIPatternData item = uiskinSelectButton.m_skinData.m_possiblePatterns[i];
 							if (item.m_isVisible)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.Add(item);
 							}
 						}
@@ -450,15 +238,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						return;
 					}
 					num++;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -468,19 +247,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (!(selectedCharacter == null))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.PopulateCharacterData(CharacterResourceLink, PersistedCharacterData)).MethodHandle;
-			}
 			if (characterData != null)
 			{
 				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
@@ -499,26 +265,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 					GameBalanceVars.SkinUnlockData skinUnlockData = null;
 					if (characterUnlockData != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (i < characterUnlockData.skinUnlockData.Length)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							skinUnlockData = characterUnlockData.skinUnlockData[i];
 						}
 					}
@@ -527,15 +275,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 					bool flag;
 					if (!characterSkin.m_isHidden)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = !GameBalanceVarsExtensions.MeetsVisibilityConditions(skinUnlockData);
 					}
 					else
@@ -546,15 +285,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 					bool flag3;
 					if (flag2)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag3 = skin.Unlocked;
 					}
 					else
@@ -564,15 +294,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 					bool flag4 = flag3;
 					if (!flag4)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num5++;
 					}
 					UISkinData skinData = new UISkinData
@@ -584,15 +305,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 					skinData.m_isVisible = flag4;
 					if (skinUnlockData != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						skinData.m_unlockCharacterLevel = skinUnlockData.GetUnlockCharacterLevel(characterUnlockData.character, false);
 						skinData.m_gameCurrencyCost = skinUnlockData.GetUnlockISOPrice();
 						skinData.m_characterType = selectedCharacter.m_characterType;
@@ -601,15 +313,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						skinData.m_unlockData = skinUnlockData.m_unlockData;
 						if (skinData.m_unlockCharacterLevel == num)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num2++;
 						}
 					}
@@ -624,26 +327,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 						GameBalanceVars.PatternUnlockData patternUnlockData = null;
 						if (skinUnlockData != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (j < skinUnlockData.patternUnlockData.Length)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								patternUnlockData = skinUnlockData.patternUnlockData[j];
 							}
 						}
@@ -652,15 +337,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						bool flag6;
 						if (!characterPattern.m_isHidden)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag6 = !GameBalanceVarsExtensions.MeetsVisibilityConditions(patternUnlockData);
 						}
 						else
@@ -671,15 +347,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						bool flag8;
 						if (flag7)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag8 = pattern.Unlocked;
 						}
 						else
@@ -689,15 +356,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						bool flag9 = flag8;
 						if (!flag9)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num6++;
 						}
 						UIPatternData uipatternData = default(UIPatternData);
@@ -705,15 +363,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						bool isAvailable;
 						if (pattern.Unlocked)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							isAvailable = skin.Unlocked;
 						}
 						else
@@ -727,28 +376,10 @@ public class UISkinBrowserPanel : MonoBehaviour
 						uipatternData2.m_possibleColors = new UIColorData[characterPattern.m_colors.Count];
 						if (patternUnlockData != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							uipatternData2.m_unlockCharacterLevel = patternUnlockData.GetUnlockCharacterLevel(characterUnlockData.character, false);
 							uipatternData2.m_unlockData = patternUnlockData.m_unlockData;
 							if (uipatternData2.m_unlockCharacterLevel == num)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3++;
 							}
 						}
@@ -756,15 +387,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						int num10;
 						if (pattern.Unlocked)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num10 = 1;
 						}
 						else
@@ -778,26 +400,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 							GameBalanceVars.ColorUnlockData colorUnlockData = null;
 							if (patternUnlockData != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (k < patternUnlockData.colorUnlockData.Length)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									colorUnlockData = patternUnlockData.colorUnlockData[k];
 								}
 							}
@@ -806,15 +410,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 							bool flag10;
 							if (!characterColor.m_isHidden)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag10 = !GameBalanceVarsExtensions.MeetsVisibilityConditions(colorUnlockData);
 							}
 							else
@@ -826,15 +421,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 							if (!flag11)
 							{
 								goto IL_476;
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							bool flag13;
 							if (color.Unlocked)
@@ -857,15 +443,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 							bool flag14 = flag13;
 							if (!flag14)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num7++;
 							}
 							else
@@ -891,15 +468,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 								int sortOrder;
 								if (characterColor.m_sortOrder == 0)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									sortOrder = 0x270F;
 								}
 								else
@@ -921,29 +489,11 @@ public class UISkinBrowserPanel : MonoBehaviour
 								uipatternData2.m_possibleColors[k].m_colorUnlockable = colorUnlockData;
 								if (colorUnlockData.UnlockAutomaticallyWithParentSkin)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									skinData.m_defaultPatternIndexForSkin = j;
 									skinData.m_defaultColorIndexForSkin = k;
 								}
 								if (uipatternData2.m_possibleColors[k].m_unlockCharacterLevel == num)
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									num4++;
 								}
 							}
@@ -951,15 +501,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 							int num12;
 							if (color.Unlocked)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num12 = 1;
 							}
 							else
@@ -973,42 +514,15 @@ public class UISkinBrowserPanel : MonoBehaviour
 							flag13 = flag12;
 							goto IL_47B;
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num8 += (float)uipatternData2.m_colorsUnlocked;
 						num9 += (float)(characterPattern.m_colors.Count - num7);
 						skinData.m_possiblePatterns[j] = uipatternData2;
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					num9 += (float)(characterSkin.m_patterns.Count - num6);
 					num8 += (float)skinData.m_patternsUnlocked;
 					skinData.m_progressPct = ((num9 <= 0f) ? 0f : (num8 / num9));
 					if (!flag5)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						skinData.m_isVisible = false;
 						flag4 = false;
 					}
@@ -1022,15 +536,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						this.m_skinButtons.Add(uiskinSelectButton2);
 						if (HitchDetector.Get() != null)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							HitchDetector.Get().AddNewLayoutGroup(this.m_skinGrid);
 						}
 					}
@@ -1047,62 +552,17 @@ public class UISkinBrowserPanel : MonoBehaviour
 					StaggerComponent.SetStaggerComponent(uiskinSelectButton3.gameObject, flag4, true);
 					if (i == selectedCharacter.m_skins.Count - 1)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						for (i++; i < this.m_skinButtons.Count; i++)
 						{
 							StaggerComponent.SetStaggerComponent(this.m_skinButtons[i].gameObject, false, true);
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				if (uiskinSelectButton)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SelectSkin(uiskinSelectButton, true);
 				}
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -1113,45 +573,14 @@ public class UISkinBrowserPanel : MonoBehaviour
 		this.SetupSkinPurchaseButtons(clickedSkin.m_skinData);
 		if (this.m_selectHandler != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.SkinClicked(UISkinSelectButton)).MethodHandle;
-			}
 			ISkinBrowserSelectHandler selectHandler = this.m_selectHandler;
 			CharacterResourceLink currentCharacter = this.m_currentCharacter;
 			CharacterVisualInfo currentSelection = this.m_currentSelection;
 			bool isUnlocked;
 			if (!this.m_skinLocked)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_colorLocked)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					isUnlocked = UICharacterSelectScreenController.Get().IsCharacterSelectable(this.m_currentCharacter);
 					goto IL_7B;
 				}
@@ -1172,30 +601,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 		this.m_purchasePanel.SetDisabled(false);
 		if (!skinData.m_isAvailable)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.SetupSkinPurchaseButtons(UISkinData)).MethodHandle;
-			}
 			if (AppState_CharacterSelect.Get() != AppState.GetCurrent())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_purchaseType = PurchaseItemType.Skin;
 				if (ClientGameManager.Get().AreUnlockConditionsMet(skinData.m_unlockData, true))
 				{
@@ -1219,19 +626,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 		{
 			if (uiskinSelectButton.m_skinIndex == skinIndex)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.SkinClicked(int)).MethodHandle;
-				}
 				this.SkinClicked(uiskinSelectButton);
 				break;
 			}
@@ -1248,47 +642,16 @@ public class UISkinBrowserPanel : MonoBehaviour
 				UISkinSelectButton uiskinSelectButton = enumerator.Current;
 				if (uiskinSelectButton == clickedSkin)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.SelectSkin(UISkinSelectButton, bool)).MethodHandle;
-					}
 					uiskinSelectButton.SetSelected(true);
 					this.m_skinLocked = !uiskinSelectButton.m_skinData.m_isAvailable;
 					if (this.m_currentSelection.skinIndex != num)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_currentSelection.skinIndex = num;
 						this.m_currentSelection.patternIndex = uiskinSelectButton.m_skinData.m_defaultPatternIndexForSkin;
 						this.m_currentSelection.colorIndex = uiskinSelectButton.m_skinData.m_defaultColorIndexForSkin;
 					}
 					if (this.m_currentSelection.patternIndex >= clickedSkin.m_skinData.m_possiblePatterns.Length)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_currentSelection.patternIndex = clickedSkin.m_skinData.m_possiblePatterns.Length - 1;
 					}
 					List<UIPatternData> list = new List<UIPatternData>();
@@ -1297,15 +660,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						UIPatternData item = clickedSkin.m_skinData.m_possiblePatterns[i];
 						if (item.m_isVisible)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(item);
 						}
 					}
@@ -1317,28 +671,10 @@ public class UISkinBrowserPanel : MonoBehaviour
 				}
 				num++;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.SetMainSelectedButton(clickedSkin);
 		if (HitchDetector.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			HitchDetector.Get().AddNewLayoutGroup(this.m_colorGrid);
 		}
 	}
@@ -1349,19 +685,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_colorButtons[i], false, null);
 			this.m_colorButtons[i].m_transformPriority = -1;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.LoadPatternInfo(List<UIPatternData>, int, bool)).MethodHandle;
 		}
 		if (this.m_currentCharacter == null)
 		{
@@ -1390,76 +713,22 @@ public class UISkinBrowserPanel : MonoBehaviour
 					this.m_colorButtons.Add(uibuttonColorSelect3);
 					if (HitchDetector.Get() != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						HitchDetector.Get().AddNewLayoutGroup(this.m_colorGrid);
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				UIButtonColorSelect uibuttonColorSelect4 = this.m_colorButtons[j];
 				StaggerComponent.SetStaggerComponent(uibuttonColorSelect4.gameObject, colorData.m_isVisible, true);
 				if (!colorData.m_isVisible)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(uibuttonColorSelect4, false, null);
 				}
 				uibuttonColorSelect4.Setup(colorData, skinIndex, k, l, this);
 				if (selectColor)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (colorData.m_isVisible)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (l == this.m_currentSelection.colorIndex)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (k == this.m_currentSelection.patternIndex)
 							{
 								uibuttonColorSelect = uibuttonColorSelect4;
@@ -1470,26 +739,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 						}
 						if (!flag)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (uibuttonColorSelect2 == null)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								uibuttonColorSelect2 = uibuttonColorSelect4;
 							}
 						}
@@ -1502,15 +753,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 				}
 				j++;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		while (j < this.m_colorButtons.Count)
 		{
@@ -1518,39 +760,12 @@ public class UISkinBrowserPanel : MonoBehaviour
 			StaggerComponent.SetStaggerComponent(this.m_colorButtons[j].gameObject, false, true);
 			j++;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (uibuttonColorSelect != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SelectColor(uibuttonColorSelect, skinIndex);
 		}
 		else if (uibuttonColorSelect2 != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_currentSelection.colorIndex = uibuttonColorSelect2.m_tintIndex;
 			this.m_currentSelection.patternIndex = uibuttonColorSelect2.m_patternIndex;
 			this.SelectColor(uibuttonColorSelect2, skinIndex);
@@ -1568,33 +783,11 @@ public class UISkinBrowserPanel : MonoBehaviour
 		this.SetupColorPurchaseButtons(clickedBtn.m_colorData);
 		if (this.m_selectHandler != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.ColorClicked(UIButtonColorSelect, int)).MethodHandle;
-			}
 			GameType selectedQueueType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
 			bool flag = GameManager.Get().IsValidForHumanPreGameSelection(this.m_currentCharacter.m_characterType);
 			bool flag2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = GameManager.Get().IsCharacterAllowedForGameType(this.m_currentCharacter.m_characterType, selectedQueueType, null, null);
 			}
 			else
@@ -1605,15 +798,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 			bool flag3;
 			if (!this.m_skinLocked)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = !this.m_colorLocked;
 			}
 			else
@@ -1627,15 +811,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 			bool isUnlocked;
 			if (flag4)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				isUnlocked = flag;
 			}
 			else
@@ -1654,30 +829,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 	{
 		if (GameManager.Get().GameStatus != GameStatus.LoadoutSelecting)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.SetupColorPurchaseButtons(UIColorData)).MethodHandle;
-			}
 			if (!colorData.m_isOwned)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().AreUnlockConditionsMet(colorData.m_unlockData, true))
 				{
 					if (colorData.m_isoCurrencyCost <= 0 && colorData.m_freelancerCurrencyCost <= 0)
@@ -1685,15 +838,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						if (colorData.m_realCurrencyCost <= 0f)
 						{
 							goto IL_1A1;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					this.m_purchaseType = PurchaseItemType.Tint;
@@ -1706,26 +850,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 					bool disabled;
 					if (!this.m_skinLocked)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							disabled = !flag2;
 							goto IL_12F;
 						}
@@ -1736,15 +862,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 					string tooltipDescription = null;
 					if (!flag2 && !colorData.m_colorUnlockable.PurchaseDescription.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						tooltipDescription = colorData.m_colorUnlockable.GetPurchaseDescription();
 					}
 					this.m_purchasePanel.SetupTooltip(tooltipDescription);
@@ -1769,45 +886,14 @@ public class UISkinBrowserPanel : MonoBehaviour
 				UIButtonColorSelect uibuttonColorSelect = enumerator.Current;
 				if (uibuttonColorSelect == clickedBtn)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.SelectColor(UIButtonColorSelect, int)).MethodHandle;
-					}
 					if (!uibuttonColorSelect.isSelected)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						uibuttonColorSelect.SetSelected(true);
 						this.m_colorLocked = !uibuttonColorSelect.m_colorData.m_isAvailable;
 						this.m_currentSelection.colorIndex = clickedBtn.m_tintIndex;
 						this.m_currentSelection.patternIndex = clickedBtn.m_patternIndex;
 						if (this.m_selectHandler != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_selectHandler.OnColorSelect(uibuttonColorSelect.m_colorIcon.color);
 						}
 					}
@@ -1818,65 +904,20 @@ public class UISkinBrowserPanel : MonoBehaviour
 				}
 				num++;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.SetMainSelectedButton(clickedBtn);
 		if (this.m_selectHandler != null && clickedBtn != null && this.m_currentSelection.skinIndex == skinIndex)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_currentSelection.patternIndex == clickedBtn.m_patternIndex)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentSelection.colorIndex == clickedBtn.m_tintIndex)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ISkinBrowserSelectHandler selectHandler = this.m_selectHandler;
 					CharacterResourceLink currentCharacter = this.m_currentCharacter;
 					CharacterVisualInfo currentSelection = this.m_currentSelection;
 					bool isUnlocked;
 					if (!this.m_skinLocked)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						isUnlocked = !this.m_colorLocked;
 					}
 					else
@@ -1895,31 +936,9 @@ public class UISkinBrowserPanel : MonoBehaviour
 		{
 			this.m_skinButtons[i].SetMainSelected(this.m_skinButtons[i] == clickedButton);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.SetMainSelectedButton(UICharacterVisualsSelectButton)).MethodHandle;
-		}
 		for (int j = 0; j < this.m_colorButtons.Count; j++)
 		{
 			this.m_colorButtons[j].SetMainSelected(this.m_colorButtons[j] == clickedButton);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1930,19 +949,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 		{
 			if (this.m_skinButtons[i].m_skinIndex == this.m_currentSelection.skinIndex)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UISkinBrowserPanel.Select(CharacterVisualInfo)).MethodHandle;
-				}
 				this.SelectSkin(this.m_skinButtons[i], false);
 				this.SetupSkinPurchaseButtons(this.m_skinButtons[i].m_skinData);
 				IL_8A:
@@ -1950,26 +956,8 @@ public class UISkinBrowserPanel : MonoBehaviour
 				{
 					if (this.m_colorButtons[j].m_patternIndex == this.m_currentSelection.patternIndex)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_colorButtons[j].m_tintIndex == this.m_currentSelection.colorIndex)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.SelectColor(this.m_colorButtons[j], newSelection.skinIndex);
 							this.SetupColorPurchaseButtons(this.m_colorButtons[j].m_colorData);
 							break;

@@ -43,19 +43,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		RobotAnimalRoar robotAnimalRoar = targetAbility as RobotAnimalRoar;
 		if (robotAnimalRoar != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalRoar.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_targetingRadiusMod, "TargetingRadius", string.Empty, robotAnimalRoar.m_targetingRadius, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_innerRadiusMod, "InnerRadius", string.Empty, robotAnimalRoar.m_innerRadius, true, false, false);
 			AbilityMod.AddToken_EffectInfo(tokens, this.m_enemyHitEffectOverride, "EnemyHitEffect", robotAnimalRoar.m_enemyEffect, true);
@@ -63,15 +50,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 			int num;
 			if (robotAnimalRoar.m_innerShapeDamage < 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = robotAnimalRoar.m_damage;
 			}
 			else
@@ -95,19 +73,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		AbilityAreaShape baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RobotAnimalRoar.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = robotAnimalRoar.m_aoeShape;
 		}
 		else
@@ -123,15 +88,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = robotAnimalRoar.m_innerRadius;
 		}
 		else
@@ -146,15 +102,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = robotAnimalRoar.m_penetrateLineOfSight;
 		}
 		else
@@ -169,15 +116,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = robotAnimalRoar.m_damage;
 		}
 		else
@@ -194,15 +132,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		StandardEffectInfo baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = robotAnimalRoar.m_enemyEffect;
 		}
 		else
@@ -212,15 +141,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		text = str5 + AbilityModHelper.GetModEffectInfoDesc(enemyHitEffectOverride, prefix5, empty, useBaseVal, baseVal5);
 		if (this.m_healAmountToTargetAllyOnHit > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -232,15 +152,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		}
 		if (this.m_techPointGainToTargetAllyOnHit > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text2 = text;
 			text = string.Concat(new object[]
 			{
@@ -258,15 +169,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		AbilityAreaShape baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = robotAnimalRoar.m_innerShape;
 		}
 		else
@@ -281,15 +183,6 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = robotAnimalRoar.m_innerShapeDamage;
 		}
 		else

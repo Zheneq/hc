@@ -31,19 +31,6 @@ public class BoardRegionEditorDefinition : MonoBehaviour
 		Board board = Board.Get();
 		if (board != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegionEditorDefinition.CreateRegion()).MethodHandle;
-			}
 			if (this.m_boardSquareSizeX > 0 && this.m_boardSquareSizeY > 0)
 			{
 				this.m_region = new BoardRegion();
@@ -60,44 +47,13 @@ public class BoardRegionEditorDefinition : MonoBehaviour
 	{
 		if (!CameraManager.ShouldDrawGizmosForCurrentCamera())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(BoardRegionEditorDefinition.OnDrawGizmos()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_region != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((this.m_lastGizmoPos - base.transform.position).sqrMagnitude <= 0f)
 			{
 				goto IL_81;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.CreateRegion();

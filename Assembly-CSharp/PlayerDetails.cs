@@ -50,19 +50,6 @@ public class PlayerDetails
 			bool result;
 			if (!this.IsNPCBot && !this.IsLoadTestBot)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerDetails.get_IsAIControlled()).MethodHandle;
-				}
 				result = this.ReplacedWithBots;
 			}
 			else
@@ -91,19 +78,6 @@ public class PlayerDetails
 		{
 			if (value)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerDetails.set_IsNPCBot(bool)).MethodHandle;
-				}
 				this.m_gameAccountType = PlayerGameAccountType.None;
 			}
 		}
@@ -147,70 +121,21 @@ public class PlayerDetails
 	{
 		if (ClientGameManager.Get())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlayerDetails.IsLocal()).MethodHandle;
-			}
 			if (ClientGameManager.Get().Observer)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_replayGenerator;
 			}
 		}
 		if (ReplayPlayManager.Get())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get().IsPlayback())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.m_replayGenerator;
 			}
 		}
 		bool result;
 		if (this.m_accountId != 0L)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = (this.m_accountId == HydrogenConfig.Get().Ticket.AccountId);
 		}
 		else

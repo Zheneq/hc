@@ -30,19 +30,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.Initialize()).MethodHandle;
-			}
 			return false;
 		}
 		this.m_initialized = true;
@@ -50,15 +37,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		this.m_options = new List<UIPlayerProgressDropdownBtn>();
 		if (this.m_scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIEventTriggerUtils.AddListener(this.m_scrollRect.verticalScrollbar.gameObject, EventTriggerType.Scroll, new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 			this.m_hitboxes.Add(this.m_scrollRect.gameObject);
 			this.m_hitboxes.Add(this.m_scrollRect.verticalScrollbar.gameObject);
@@ -79,19 +57,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		UIManager.SetGameObjectActive(uiplayerProgressDropdownBtn, true, null);
 		if (this.m_scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.AddOption(int, string, CharacterType)).MethodHandle;
-			}
 			uiplayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 		}
 		uiplayerProgressDropdownBtn.AttachToDropdown(this);
@@ -110,19 +75,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		UIManager.SetGameObjectActive(uiplayerProgressDropdownBtn, true, null);
 		if (this.m_scrollRect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.AddOption(int, string, CharacterRole)).MethodHandle;
-			}
 			uiplayerProgressDropdownBtn.m_button.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 		}
 		uiplayerProgressDropdownBtn.AttachToDropdown(this);
@@ -139,19 +91,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 	{
 		if (this.m_callback != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.OnSelect(int)).MethodHandle;
-			}
 			this.m_callback(typeSpecificData);
 		}
 		this.SetVisible(false);
@@ -171,33 +110,11 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 	{
 		if (this.m_isVisible == visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.SetVisible(bool)).MethodHandle;
-			}
 			return;
 		}
 		this.m_isVisible = visible;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIClickListener.Get().Enable(this.m_hitboxes, delegate
 			{
 				this.SetVisible(false);
@@ -207,15 +124,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 			{
 				RectTransform layoutRoot = this.m_layoutGroup.transform.GetChild(i) as RectTransform;
 				LayoutRebuilder.ForceRebuildLayoutImmediate(layoutRoot);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			LayoutRebuilder.ForceRebuildLayoutImmediate(this.m_layoutGroup.transform as RectTransform);
 			float preferredHeight = this.m_layoutGroup.preferredHeight;
@@ -228,54 +136,18 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 			{
 				this.m_options[j].m_button.SetSelected(false, false, string.Empty, string.Empty);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIClickListener.Get().Disable();
 		}
 		if (this.m_animator != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_animator.isInitialized)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIAnimationEventManager.Get().PlayAnimation(this.m_animator, (!visible) ? "FadeDefaultOUT" : "FadeFastDefaultIN", new UIAnimationEventManager.AnimationDoneCallback(this.HandleFadeEnd), string.Empty, 0, 0f, true, false, null, null);
 				return;
 			}
 		}
 		if (!this.m_isVisible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false, null);
 		}
 	}
@@ -289,19 +161,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 	{
 		if (!this.m_isVisible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.HandleFadeEnd()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false, null);
 		}
 	}
@@ -312,19 +171,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		{
 			this.m_options[i].CheckDisplayState(shouldShowFunction);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.CheckOptionDisplayState(UIPlayerProgressDropdownBtn.ShouldShow)).MethodHandle;
-		}
 	}
 
 	public bool IsOptionVisible(int typeSpecificValue)
@@ -333,30 +179,8 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		{
 			if (this.m_options[i].IsOption(typeSpecificValue))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.IsOptionVisible(int)).MethodHandle;
-				}
 				return this.m_options[i].gameObject.activeSelf;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return false;
 	}
@@ -372,19 +196,6 @@ public class UIPlayerProgressDropdownList : MonoBehaviour
 		for (int i = 0; i < this.m_options.Count; i++)
 		{
 			this.m_options[i].SetSelectedIfEqual(currentValue);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressDropdownList.HighlightCurrentOption(int)).MethodHandle;
 		}
 	}
 }

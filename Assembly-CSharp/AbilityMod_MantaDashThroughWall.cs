@@ -59,19 +59,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		MantaDashThroughWall mantaDashThroughWall = targetAbility as MantaDashThroughWall;
 		if (mantaDashThroughWall != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaDashThroughWall.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_aoeConeWidthMod, "AoeConeWidth", string.Empty, mantaDashThroughWall.m_aoeConeWidth, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_aoeConeLengthMod, "AoeConeLength", string.Empty, mantaDashThroughWall.m_aoeConeLength, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_aoeThroughWallConeWidthMod, "AoeThroughWallConeWidth", string.Empty, mantaDashThroughWall.m_aoeThroughWallConeWidth, true, false, false);
@@ -105,19 +92,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_MantaDashThroughWall.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = mantaDashThroughWall.m_aoeConeLength;
 		}
 		else
@@ -133,15 +107,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = mantaDashThroughWall.m_aoeThroughWallConeLength;
 		}
 		else
@@ -157,15 +122,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = mantaDashThroughWall.m_maxRange;
 		}
 		else
@@ -180,15 +136,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = mantaDashThroughWall.m_maxWidthOfWall;
 		}
 		else
@@ -203,15 +150,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = mantaDashThroughWall.m_extraTotalDistanceIfThroughWalls;
 		}
 		else
@@ -226,15 +164,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		bool baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = mantaDashThroughWall.m_clampConeToWall;
 		}
 		else
@@ -249,15 +178,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		bool baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = mantaDashThroughWall.m_aoeWithMiss;
 		}
 		else
@@ -272,15 +192,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = mantaDashThroughWall.m_coneBackwardOffset;
 		}
 		else
@@ -295,15 +206,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = mantaDashThroughWall.m_directHitDamage;
 		}
 		else
@@ -319,15 +221,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		bool baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = mantaDashThroughWall.m_directHitIgnoreCover;
 		}
 		else
@@ -342,15 +235,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = mantaDashThroughWall.m_aoeDamage;
 		}
 		else
@@ -364,15 +248,6 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		text += base.PropDesc(this.m_additionalDirtyFightingExplosionEffect, "[ExtraDirtyFightingExplosionEffect]", flag, null);
 		if (this.m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += this.m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
 		return text;

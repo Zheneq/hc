@@ -33,19 +33,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		RampartBarricade_Prep rampartBarricade_Prep = targetAbility as RampartBarricade_Prep;
 		if (rampartBarricade_Prep != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartBarricade_Prep.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageAmountMod, "DamageAmount", string.Empty, rampartBarricade_Prep.m_damageAmount, true, false);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_enemyHitEffectMod, "EnemyHitEffect", rampartBarricade_Prep.m_enemyHitEffect, true);
 			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, rampartBarricade_Prep.m_laserRange, true, false, false);
@@ -53,15 +40,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 			Passive_Rampart component = rampartBarricade_Prep.GetComponent<Passive_Rampart>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityMod.AddToken_BarrierMod(tokens, this.m_shieldBarrierDataMod, "ShieldBarrier", component.m_normalShieldBarrierData);
 			}
 		}
@@ -74,19 +52,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		Passive_Rampart passive_Rampart;
 		if (abilityData)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_RampartBarricade_Prep.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			passive_Rampart = abilityData.GetComponent<Passive_Rampart>();
 		}
 		else
@@ -102,15 +67,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = rampartBarricade_Prep.m_allowAimAtDiagonals;
 		}
 		else
@@ -125,15 +81,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = rampartBarricade_Prep.m_enemyHitEffect;
 		}
 		else
@@ -148,15 +95,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = rampartBarricade_Prep.m_laserRange;
 		}
 		else

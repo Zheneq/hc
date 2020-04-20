@@ -28,19 +28,6 @@ public class UIOneButtonDialog : UIDialogBox
 	{
 		if (this.m_btnCallback != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIOneButtonDialog.CloseCallback()).MethodHandle;
-			}
 			this.m_btnCallback(this);
 		}
 	}
@@ -65,19 +52,6 @@ public class UIOneButtonDialog : UIDialogBox
 		for (int i = 0; i < this.m_ButtonLabel.Length; i++)
 		{
 			this.m_ButtonLabel[i].text = text;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIOneButtonDialog.SetButtonLabel(string)).MethodHandle;
 		}
 	}
 

@@ -48,19 +48,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		{
 			if (this.m_isOutsideGame)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.get_CharType()).MethodHandle;
-				}
 				return this.m_charType;
 			}
 			return this.m_playerInfo.CharacterType;
@@ -79,19 +66,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		bool flag = setArrowsVisible;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.SetArrowsSelected(bool)).MethodHandle;
-			}
 			if (this.m_selectedArrows.gameObject.activeSelf)
 			{
 				flag = false;
@@ -106,77 +80,19 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 	{
 		if (this.m_isOutsideGame)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.IsClickable()).MethodHandle;
-			}
 			return !this.m_isMainCharacter;
 		}
 		bool flag = true;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().PlayerInfo != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameStatus == GameStatus.LoadoutSelecting)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							flag = false;
 						}
 						else if (this.m_playerInfo == null)
@@ -191,38 +107,11 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 						{
 							if (GameManager.Get().PlayerInfo.IsGameOwner)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!this.m_playerInfo.IsNPCBot)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!this.m_playerInfo.IsRemoteControlled)
 									{
 										goto IL_14A;
-									}
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 								}
 								return true;
@@ -241,19 +130,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 	{
 		if (this.IsClickable())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.OnPortraitClick(BaseEventData)).MethodHandle;
-			}
 			if (this.m_isOutsideGame)
 			{
 				UICharacterScreen.Get().m_partyListPanel.NotifyOutOfGamePortraitClicked(this, this.m_charType);
@@ -267,15 +143,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 						if (!this.m_playerInfo.IsRemoteControlled)
 						{
 							goto IL_8A;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					UICharacterScreen.Get().m_partyListPanel.NotifyBotPortraitClicked(this, this.m_playerInfo);
@@ -291,41 +158,10 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 	{
 		if (this.IsClickable())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.OnCogBtnClick(BaseEventData)).MethodHandle;
-			}
 			if (this.m_isOutsideGame)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_isMainCharacter)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag;
 					if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent() || AppState_LandingPage.Get() == AppState.GetCurrent())
 					{
@@ -337,28 +173,10 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 					if (!UICharacterScreen.Get().m_partyListPanel.NotifySwapMainCharacter())
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.GenericSmall);
@@ -375,15 +193,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 							ClientGameManager.Get().UpdateRemoteCharacter(characterTypeToDisplay, i - 1, null);
 							goto IL_138;
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				IL_138:;
@@ -405,19 +214,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		{
 			if (info.CharacterType == CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.Setup(LobbyPlayerInfo)).MethodHandle;
-				}
 				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(CharacterType.Gremlins);
 				this.m_characterImage.sprite = characterResourceLink.GetCharacterSelectIconBW();
 			}
@@ -429,26 +225,8 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 			UIManager.SetGameObjectActive(this.m_characterImage, true, null);
 			if (!info.IsNPCBot)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (info.IsRemoteControlled)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -477,15 +255,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 				bool doActive;
 				if (!info.IsRemoteControlled)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = (j <= (int)info.Difficulty);
 				}
 				else
@@ -499,15 +268,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 			bool doActive2;
 			if (info.IsGameOwner)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = (GameManager.Get().GameConfig.GameType == GameType.Custom);
 			}
 			else
@@ -528,15 +288,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 			{
 				UIManager.SetGameObjectActive(component3, false, null);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -546,19 +297,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		bool doActive;
 		if (!isMainCharacter)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterSelectPlayerPortrait.Setup(CharacterType, bool)).MethodHandle;
-			}
 			doActive = charType.IsValidForHumanGameplay();
 		}
 		else
@@ -572,15 +310,6 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()) && !(clientGameManager == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (clientGameManager.IsPlayerAccountDataAvailable())
 			{
 				if (charType != CharacterType.None)

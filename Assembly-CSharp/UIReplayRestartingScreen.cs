@@ -38,19 +38,6 @@ public class UIReplayRestartingScreen : MonoBehaviour, IGameEventListener
 	{
 		if (Time.frameCount == this.m_disableOnFrame)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIReplayRestartingScreen.Update()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(base.gameObject, false, null);
 		}
 	}
@@ -61,19 +48,6 @@ public class UIReplayRestartingScreen : MonoBehaviour, IGameEventListener
 		{
 			if (this.m_lastTexture)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIReplayRestartingScreen.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-				}
 				UnityEngine.Object.Destroy(this.m_lastTexture);
 			}
 			UIManager.SetGameObjectActive(base.gameObject, true, null);

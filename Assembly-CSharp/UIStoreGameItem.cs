@@ -39,19 +39,6 @@ public class UIStoreGameItem : MonoBehaviour
 	{
 		if (pack != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIStoreGameItem.Setup(GamePack)).MethodHandle;
-			}
 			this.m_packReference = pack;
 			UIManager.SetGameObjectActive(base.gameObject, true, null);
 			ClientGameManager clientGameManager = ClientGameManager.Get();
@@ -62,27 +49,9 @@ public class UIStoreGameItem : MonoBehaviour
 			float gamePackPrice = CommerceClient.Get().GetGamePackPrice(pack.ProductCode, accountCurrency, out num);
 			if (hasPurchasedGame)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag;
 				if (hasPurchasedGame)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (clientGameManager.HighestPurchasedGamePack < pack.Index);
 				}
 				else
@@ -96,28 +65,10 @@ public class UIStoreGameItem : MonoBehaviour
 				UIManager.SetGameObjectActive(this.m_originalPriceContainer, false, null);
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int i = 0; i < pack.Upgrades.Length; i++)
 					{
 						if (pack.Upgrades[i].AlreadyOwnedGamePack == clientGameManager.HighestPurchasedGamePack)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float num2 = 0f;
 							float gamePackPrice2 = CommerceClient.Get().GetGamePackPrice(pack.Upgrades[i].ProductCode, accountCurrency, out num2);
 							this.m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice2, accountCurrency);
@@ -127,15 +78,6 @@ public class UIStoreGameItem : MonoBehaviour
 							UIManager.SetGameObjectActive(this.m_upgradeOriginalPriceContainer, gamePackPrice2 == num2, null);
 							goto IL_1E7;
 						}
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				else
@@ -164,15 +106,6 @@ public class UIStoreGameItem : MonoBehaviour
 				UIInventoryItem uiinventoryItem;
 				if (j < list.Count)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uiinventoryItem = list[j];
 				}
 				else
@@ -190,15 +123,6 @@ public class UIStoreGameItem : MonoBehaviour
 				bool doActive;
 				if (pack.InventoryItemTemplateIds[j] >= 0x275)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = (pack.InventoryItemTemplateIds[j] > 0x277);
 				}
 				else
@@ -208,15 +132,6 @@ public class UIStoreGameItem : MonoBehaviour
 				UIManager.SetGameObjectActive(buyButton3xLabel, doActive, null);
 				this.m_hitbox.AddSubButton(uiinventoryItem.m_hitbox);
 				uiinventoryItem.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.GameItemClicked);
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.GameItemClicked);
 		}

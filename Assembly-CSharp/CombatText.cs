@@ -73,44 +73,13 @@ public class CombatText : MonoBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (component.IsVisibleToClient())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CombatText.Add(string, string, CombatTextCategory, BuffIconToDisplay)).MethodHandle;
-			}
 			if (!ClientGameManager.Get().IsFastForward)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_combatTextPanel.QueueCombatText(component, combatText, category, icon);
 			}
 		}
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			MatchLogger.Get().Log(logText);
 		}
 	}

@@ -77,19 +77,6 @@ public class SamuraiSwordDash : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Sword Dash";
 		}
 		this.SetupTargeter();
@@ -107,19 +94,6 @@ public class SamuraiSwordDash : Ability
 					goto IL_5A;
 				}
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.SetupTargeter()).MethodHandle;
-			}
 		}
 		IL_5A:
 		this.m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
@@ -132,19 +106,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo cachedDashEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.SetCachedFields()).MethodHandle;
-			}
 			cachedDashEnemyHitEffect = this.m_abilityMod.m_dashEnemyHitEffectMod.GetModifiedValue(this.m_dashEnemyHitEffect);
 		}
 		else
@@ -155,15 +116,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo cachedDashSelfHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedDashSelfHitEffect = this.m_abilityMod.m_dashSelfHitEffectMod.GetModifiedValue(this.m_dashSelfHitEffect);
 		}
 		else
@@ -174,15 +126,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo cachedMarkEffectInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedMarkEffectInfo = this.m_abilityMod.m_markEffectInfoMod.GetModifiedValue(this.m_markEffectInfo);
 		}
 		else
@@ -202,19 +145,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetDamageRadiusAtStart()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageRadiusAtStartMod.GetModifiedValue(this.m_damageRadiusAtStart);
 		}
 		else
@@ -229,19 +159,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetDamageRadiusAtEnd()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageRadiusAtEndMod.GetModifiedValue(this.m_damageRadiusAtEnd);
 		}
 		else
@@ -256,19 +173,6 @@ public class SamuraiSwordDash : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.PenetrateLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(this.m_penetrateLineOfSight);
 		}
 		else
@@ -283,19 +187,6 @@ public class SamuraiSwordDash : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.CanMoveAfterEvade()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_canMoveAfterEvadeMod.GetModifiedValue(this.m_canMoveAfterEvade);
 		}
 		else
@@ -310,19 +201,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -337,19 +215,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetMaxDamageTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxDamageTargetsMod.GetModifiedValue(this.m_maxDamageTargets);
 		}
 		else
@@ -369,19 +234,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetDashLessDamagePerTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_dashLessDamagePerTargetMod.GetModifiedValue(this.m_dashLessDamagePerTarget);
 		}
 		else
@@ -396,19 +248,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedDashEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetDashEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedDashEnemyHitEffect;
 		}
 		else
@@ -423,19 +262,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedDashSelfHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetDashSelfHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedDashSelfHitEffect;
 		}
 		else
@@ -450,19 +276,6 @@ public class SamuraiSwordDash : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedMarkEffectInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetMarkEffectInfo()).MethodHandle;
-			}
 			result = this.m_cachedMarkEffectInfo;
 		}
 		else
@@ -477,19 +290,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetEnergyRefundIfTargetDashedAway()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_energyRefundIfTargetDashedAwayMod.GetModifiedValue(this.m_energyRefundIfTargetDashedAway);
 		}
 		else
@@ -504,19 +304,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetKnockbackDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDamageMod.GetModifiedValue(this.m_knockbackDamage);
 		}
 		else
@@ -531,19 +318,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetKnockbackLessDamagePerTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackLessDamagePerTargetMod.GetModifiedValue(this.m_knockbackLessDamagePerTarget);
 		}
 		else
@@ -558,19 +332,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetKnockbackExtraDamageFromDamageTakenMult()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackExtraDamageFromDamageTakenMultMod.GetModifiedValue(this.m_knockbackExtraDamageFromDamageTakenMult);
 		}
 		else
@@ -585,19 +346,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetKnockbackExtraDamageByDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackExtraDamageByDistMod.GetModifiedValue(this.m_knockbackExtraDamageByDist);
 		}
 		else
@@ -612,19 +360,6 @@ public class SamuraiSwordDash : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetKnockbackExtraDamageChangePerDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackExtraDamageChangePerDistMod.GetModifiedValue(this.m_knockbackExtraDamageChangePerDist);
 		}
 		else
@@ -639,19 +374,6 @@ public class SamuraiSwordDash : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetKnockbackDist()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_knockbackDistMod.GetModifiedValue(this.m_knockbackDist);
 		}
 		else
@@ -671,91 +393,24 @@ public class SamuraiSwordDash : Ability
 		int num = 0;
 		if (this.GetKnockbackExtraDamageByDist() <= 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.CalcExtraDamageForDashDist(BoardSquare, BoardSquare)).MethodHandle;
-			}
 			if (this.GetKnockbackExtraDamageChangePerDist() == 0)
 			{
 				return num;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		num = this.GetKnockbackExtraDamageByDist();
 		if (endSquare != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (startSquare != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetKnockbackExtraDamageChangePerDist() != 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num2;
 					if (KnockbackUtils.CanBuildStraightLineChargePath(base.ActorData, endSquare, startSquare, false, out num2))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int num3 = num2 - 2;
 						if (num3 > 0)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num += num3 * this.GetKnockbackExtraDamageChangePerDist();
 						}
 					}
@@ -771,19 +426,6 @@ public class SamuraiSwordDash : Ability
 		int num = this.GetDashDamage();
 		if (this.m_chainedStrike != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			num += this.GetKnockbackDamage();
 		}
 		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, num));
@@ -795,71 +437,22 @@ public class SamuraiSwordDash : Ability
 		AbilityUtil_Targeter_SamuraiShowdown abilityUtil_Targeter_SamuraiShowdown = base.Targeter as AbilityUtil_Targeter_SamuraiShowdown;
 		if (abilityUtil_Targeter_SamuraiShowdown != null && abilityUtil_Targeter_SamuraiShowdown.OrderedHitActors.Contains(targetActor))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			bool flag = true;
 			if (this.GetMaxDamageTargets() > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num = abilityUtil_Targeter_SamuraiShowdown.OrderedHitActors.IndexOf(targetActor);
 				if (num >= this.GetMaxDamageTargets())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = false;
 				}
 			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2 = this.GetDashDamage();
 				int num3 = this.GetDashLessDamagePerTarget();
 				if (this.m_chainedStrike != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num2 += this.GetKnockbackDamage();
 					num3 += this.m_knockbackLessDamagePerTarget;
 				}
@@ -869,15 +462,6 @@ public class SamuraiSwordDash : Ability
 				Dictionary<AbilityTooltipSymbol, int> dictionary2;
 				if (this.m_syncComponent != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + this.m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
 				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(base.Targeter.LastUpdatingGridPos);
@@ -901,19 +485,6 @@ public class SamuraiSwordDash : Ability
 			x = (ability as SamuraiAfterimageStrike);
 			if (x != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-				}
 				break;
 			}
 		}
@@ -921,15 +492,6 @@ public class SamuraiSwordDash : Ability
 		int num2 = this.m_dashLessDamagePerTarget;
 		if (x != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += this.m_knockbackDamage;
 			num2 += this.m_knockbackLessDamagePerTarget;
 		}
@@ -951,30 +513,8 @@ public class SamuraiSwordDash : Ability
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(target.GridPos);
 		if (!(boardSquareSafe == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (boardSquareSafe.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
 				{
 					return KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false) != null;
@@ -998,19 +538,6 @@ public class SamuraiSwordDash : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiSwordDash))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SamuraiSwordDash.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SamuraiSwordDash);
 			this.SetupTargeter();
 		}

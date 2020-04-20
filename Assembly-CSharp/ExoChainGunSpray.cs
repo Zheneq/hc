@@ -40,34 +40,12 @@ public class ExoChainGunSpray : Ability
 	{
 		if (this.GetExpectedNumberOfTargeters() > 1)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.SetupTargeter()).MethodHandle;
-			}
 			base.ClearTargeters();
 			for (int i = 0; i < this.GetExpectedNumberOfTargeters(); i++)
 			{
 				AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = new AbilityUtil_Targeter_SweepMultiClickCone(this, this.GetMinConeAngle(), this.GetMaxConeAngle(), this.GetConeLength(), this.m_coneBackwardOffset, this.m_multiClickConeEdgeWidth, this.m_penetrateLineOfSight, this.GetMaxTargets());
 				abilityUtil_Targeter_SweepMultiClickCone.SetAffectedGroups(true, false, false);
 				base.Targeters.Add(abilityUtil_Targeter_SweepMultiClickCone);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -87,19 +65,6 @@ public class ExoChainGunSpray : Ability
 		for (int i = 0; i < targets.Count; i++)
 		{
 			list.Add(targets[i].FreePos);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.CalcPointsOfInterestForCamera(List<AbilityTarget>, ActorData)).MethodHandle;
 		}
 		return list;
 	}
@@ -146,19 +111,6 @@ public class ExoChainGunSpray : Ability
 		Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
 		if (currentTargeterIndex > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
 			int damageForSweepAngle = this.GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
 			Ability.AddNameplateValueForSingleHit(ref result, abilityUtil_Targeter_SweepMultiClickCone, targetActor, damageForSweepAngle, AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary);
@@ -183,30 +135,8 @@ public class ExoChainGunSpray : Ability
 		float minConeAngle = this.GetMinConeAngle();
 		if (maxConeAngle > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoChainGunSpray.GetTargeterClampedAimDirection(Vector3, Vector3, float*, float*)).MethodHandle;
-			}
 			if (sweepAngle > maxConeAngle)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - maxConeAngle), 0f);
 				sweepAngle = maxConeAngle;
 				goto IL_A5;
@@ -214,15 +144,6 @@ public class ExoChainGunSpray : Ability
 		}
 		if (minConeAngle > 0f && sweepAngle < minConeAngle)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - minConeAngle), 0f);
 			sweepAngle = minConeAngle;
 		}
@@ -230,15 +151,6 @@ public class ExoChainGunSpray : Ability
 		coneCenterDegrees = num;
 		if (Vector3.Cross(startAimDirection, endAimDirection).y > 0f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			coneCenterDegrees -= sweepAngle * 0.5f;
 		}
 		else

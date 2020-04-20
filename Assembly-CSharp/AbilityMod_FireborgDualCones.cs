@@ -55,19 +55,6 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (fireborgDualCones != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgDualCones.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, fireborgDualCones.m_targetSelectComp, "-- Target Select --");
 			text += base.PropDesc(this.m_extraDamageIfOverlapMod, "[ExtraDamageIfOverlap]", flag, (!flag) ? 0 : fireborgDualCones.m_extraDamageIfOverlap);
 			string str = text;
@@ -77,15 +64,6 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = fireborgDualCones.m_extraDamageNonOverlap;
 			}
 			else
@@ -101,15 +79,6 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			bool baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = fireborgDualCones.m_igniteTargetIfSuperheated;
 			}
 			else
@@ -124,15 +93,6 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			bool baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = fireborgDualCones.m_groundFireOnAllIfNormal;
 			}
 			else
@@ -147,15 +107,6 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			bool baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = fireborgDualCones.m_groundFireOnOverlapIfNormal;
 			}
 			else
@@ -170,15 +121,6 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			bool baseVal5;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal5 = fireborgDualCones.m_groundFireOnAllIfSuperheated;
 			}
 			else
@@ -193,15 +135,6 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			bool baseVal6;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal6 = fireborgDualCones.m_groundFireOnOverlapIfSuperheated;
 			}
 			else

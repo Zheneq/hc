@@ -31,45 +31,14 @@ public class UICustomMatchEntry : MonoBehaviour
 				UIManager.SetGameObjectActive(componentsInChildren[i], doActive, null);
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UICustomMatchEntry.Setup(LobbyGameInfo)).MethodHandle;
-		}
 		bool doActive2 = game.ActivePlayers < game.GameConfig.TotalPlayers;
 		componentsInChildren = this.m_joinButton.transform.parent.GetComponentsInChildren<RectTransform>();
 		for (int j = 0; j < componentsInChildren.Length; j++)
 		{
 			if (componentsInChildren[j] != this.m_joinButton.transform.parent as RectTransform)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(componentsInChildren[j], doActive2, null);
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

@@ -19,19 +19,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	{
 		if (newHandler != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerEnterHandler)).MethodHandle;
-			}
 			this.m_PointerEnterHandlers.Add(newHandler);
 		}
 	}
@@ -40,19 +27,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	{
 		if (newHandler != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerExitHandler)).MethodHandle;
-			}
 			this.m_PointerExitHandlers.Add(newHandler);
 		}
 	}
@@ -61,19 +35,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	{
 		if (newHandler != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerClickHandler)).MethodHandle;
-			}
 			this.m_PointerClickHandlers.Add(newHandler);
 		}
 	}
@@ -82,19 +43,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	{
 		if (newHandler != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IPointerDownHandler)).MethodHandle;
-			}
 			this.m_PointerDownHandlers.Add(newHandler);
 		}
 	}
@@ -103,19 +51,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 	{
 		if (newHandler != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.AddNewHandler(IScrollHandler)).MethodHandle;
-			}
 			this.m_PointerScrollHandlers.Add(newHandler);
 		}
 	}
@@ -126,19 +61,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		{
 			if (this.m_PointerEnterHandlers[i] != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerEnter(PointerEventData)).MethodHandle;
-				}
 				this.m_PointerEnterHandlers[i].OnPointerEnter(eventData);
 			}
 		}
@@ -150,30 +72,8 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		{
 			if (this.m_PointerExitHandlers[i] != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerExit(PointerEventData)).MethodHandle;
-				}
 				this.m_PointerExitHandlers[i].OnPointerExit(eventData);
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -183,19 +83,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		{
 			if (this.m_PointerDownHandlers[i] != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerDown(PointerEventData)).MethodHandle;
-				}
 				this.m_PointerDownHandlers[i].OnPointerDown(eventData);
 			}
 		}
@@ -207,19 +94,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		{
 			if (this.m_PointerClickHandlers[i] != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnPointerClick(PointerEventData)).MethodHandle;
-				}
 				this.m_PointerClickHandlers[i].OnPointerClick(eventData);
 			}
 		}
@@ -231,19 +105,6 @@ public class _MouseEventPasser : MonoBehaviour, IPointerEnterHandler, IPointerEx
 		{
 			if (this.m_PointerScrollHandlers[i] != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(_MouseEventPasser.OnScroll(PointerEventData)).MethodHandle;
-				}
 				this.m_PointerScrollHandlers[i].OnScroll(eventData);
 			}
 		}

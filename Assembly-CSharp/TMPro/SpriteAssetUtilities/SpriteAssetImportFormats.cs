@@ -4,7 +4,7 @@ namespace TMPro.SpriteAssetUtilities
 {
 	public enum SpriteAssetImportFormats
 	{
-		\u001D,
-		\u000E
+		symbol_001D,
+		symbol_000E
 	}
 }

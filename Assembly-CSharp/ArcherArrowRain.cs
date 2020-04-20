@@ -55,19 +55,6 @@ public class ArcherArrowRain : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Arrow Rain";
 		}
 		this.m_abilityData = base.GetComponent<AbilityData>();
@@ -95,19 +82,6 @@ public class ArcherArrowRain : Ability
 			abilityUtil_Targeter_CapsuleAoE.ShowArcToShape = false;
 			base.Targeters.Add(abilityUtil_Targeter_CapsuleAoE);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.Setup()).MethodHandle;
-		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
@@ -119,89 +93,22 @@ public class ArcherArrowRain : Ability
 	{
 		if (targetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.CustomTargetValidation(ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTargets[targetIndex - 1].GridPos);
 			BoardSquare boardSquareSafe2 = Board.Get().GetBoardSquareSafe(target.GridPos);
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe2 != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = Vector3.Distance(boardSquareSafe.ToVector3(), boardSquareSafe2.ToVector3());
 					if (num <= this.GetMaxRangeBetween() * Board.Get().squareSize)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num >= this.GetMinRangeBetween() * Board.Get().squareSize)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.LinePenetrateLoS())
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								if (!boardSquareSafe.\u0013(boardSquareSafe2.x, boardSquareSafe2.y))
+								if (!boardSquareSafe.symbol_0013(boardSquareSafe2.x, boardSquareSafe2.y))
 								{
 									return false;
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 							return true;
@@ -225,19 +132,6 @@ public class ArcherArrowRain : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ArcherArrowRain))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_ArcherArrowRain);
 			this.Setup();
 		}
@@ -254,19 +148,6 @@ public class ArcherArrowRain : Ability
 		StandardEffectInfo cachedEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.SetCachedFields()).MethodHandle;
-			}
 			cachedEnemyHitEffect = this.m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(this.m_enemyHitEffect);
 		}
 		else
@@ -277,15 +158,6 @@ public class ArcherArrowRain : Ability
 		StandardEffectInfo cachedAdditionalEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedAdditionalEnemyHitEffect = this.m_abilityMod.m_additionalEnemyHitEffect.GetModifiedValue(null);
 		}
 		else
@@ -306,19 +178,6 @@ public class ArcherArrowRain : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetEndRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_endRadiusMod.GetModifiedValue(this.m_endRadius);
 		}
 		else
@@ -338,19 +197,6 @@ public class ArcherArrowRain : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetMinRangeBetween()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_minRangeBetweenMod.GetModifiedValue(this.m_minRangeBetween);
 		}
 		else
@@ -375,19 +221,6 @@ public class ArcherArrowRain : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.AoePenetrateLoS()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoePenetrateLoSMod.GetModifiedValue(this.m_aoePenetrateLoS);
 		}
 		else
@@ -402,19 +235,6 @@ public class ArcherArrowRain : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -429,19 +249,6 @@ public class ArcherArrowRain : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageMod.GetModifiedValue(this.m_damage);
 		}
 		else
@@ -456,19 +263,6 @@ public class ArcherArrowRain : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetDamageBelowHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_damageBelowHealthThresholdMod.GetModifiedValue(this.GetDamage());
 		}
 		else
@@ -483,19 +277,6 @@ public class ArcherArrowRain : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetHealthThresholdForBonusDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healthThresholdForDamageMod.GetModifiedValue(0f);
 		}
 		else
@@ -510,19 +291,6 @@ public class ArcherArrowRain : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -547,19 +315,6 @@ public class ArcherArrowRain : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetTechPointRefundNoHits()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_techPointRefundNoHits.GetModifiedValue(0);
 		}
 		else
@@ -582,32 +337,10 @@ public class ArcherArrowRain : Ability
 		int num = this.GetDamage();
 		if (targetActor.GetHitPointShareOfMax() <= this.GetHealthThresholdForBonusDamage())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			num = this.GetDamageBelowHealthThreshold();
 		}
 		if (this.IsReactionHealTarget(targetActor))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num += this.m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
 		}
 		dictionary[AbilityTooltipSymbol.Damage] = num;
@@ -624,30 +357,8 @@ public class ArcherArrowRain : Ability
 				AbilityUtil_Targeter.ActorTarget actorTarget = enumerator.Current;
 				if (this.IsReactionHealTarget(actorTarget.m_actor))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-					}
 					return this.m_healArrowAbility.GetTechPointsPerHeal();
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
@@ -657,91 +368,24 @@ public class ArcherArrowRain : Ability
 	{
 		if (this.m_syncComp.m_healReactionTargetActor == targetActor.ActorIndex)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ArcherArrowRain.IsReactionHealTarget(ActorData)).MethodHandle;
-			}
 			if (!this.m_syncComp.ActorHasUsedHealReaction(base.ActorData))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return true;
 			}
 		}
 		if (this.m_healArrowActionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_actorTargeting != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<AbilityTarget> abilityTargetsInRequest = this.m_actorTargeting.GetAbilityTargetsInRequest(this.m_healArrowActionType);
 				if (abilityTargetsInRequest != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (abilityTargetsInRequest.Count > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(abilityTargetsInRequest[0].GridPos);
 						ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(boardSquareSafe, true, false, base.ActorData);
 						if (targetableActorOnSquare == targetActor)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return true;
 						}
 					}

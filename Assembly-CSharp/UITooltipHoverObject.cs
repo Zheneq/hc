@@ -15,19 +15,6 @@ public class UITooltipHoverObject : UITooltipObject
 	{
 		if (base.IsSetup())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITooltipHoverObject.OnMouseHover(BaseEventData)).MethodHandle;
-			}
 			UITooltipManager.Get().ShowDisplayTooltip(this);
 		}
 	}

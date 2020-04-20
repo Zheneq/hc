@@ -72,19 +72,6 @@ public class FishManBubbleLaser : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.SetCachedFields()).MethodHandle;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -95,15 +82,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo cachedEffectOnAllies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnAllies = this.m_abilityMod.m_effectOnAlliesMod.GetModifiedValue(this.m_effectOnAllies);
 		}
 		else
@@ -114,15 +92,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo cachedEffectOnEnemies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedEffectOnEnemies = this.m_abilityMod.m_effectOnEnemiesMod.GetModifiedValue(this.m_effectOnEnemies);
 		}
 		else
@@ -134,15 +103,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo cachedExplosionEffectToEnemies;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedExplosionEffectToEnemies = this.m_abilityMod.m_explosionEffectToEnemiesMod.GetModifiedValue(this.m_explosionEffectToEnemies);
 		}
 		else
@@ -162,19 +122,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnAllies != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetEffectOnAllies()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnAllies;
 		}
 		else
@@ -189,19 +136,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectOnEnemies != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetEffectOnEnemies()).MethodHandle;
-			}
 			result = this.m_cachedEffectOnEnemies;
 		}
 		else
@@ -216,19 +150,6 @@ public class FishManBubbleLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetInitialHitHealingToAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_initialHitHealingToAlliesMod.GetModifiedValue(this.m_initialHitHealingToAllies);
 		}
 		else
@@ -258,19 +179,6 @@ public class FishManBubbleLaser : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetExplosionShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionShapeMod.GetModifiedValue(this.m_explosionShape);
 		}
 		else
@@ -285,19 +193,6 @@ public class FishManBubbleLaser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.ExplosionIgnoresLineOfSight()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionIgnoresLineOfSightMod.GetModifiedValue(this.m_explosionIgnoresLineOfSight);
 		}
 		else
@@ -312,19 +207,6 @@ public class FishManBubbleLaser : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.ExplosionCanAffectEffectHolder()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionCanAffectEffectHolderMod.GetModifiedValue(this.m_explosionCanAffectEffectHolder);
 		}
 		else
@@ -339,19 +221,6 @@ public class FishManBubbleLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetExplosionHealingToAllies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionHealingToAlliesMod.GetModifiedValue(this.m_explosionHealingToAllies);
 		}
 		else
@@ -366,19 +235,6 @@ public class FishManBubbleLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetExplosionDamageToEnemies()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_explosionDamageToEnemiesMod.GetModifiedValue(this.m_explosionDamageToEnemies);
 		}
 		else
@@ -393,19 +249,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedExplosionEffectToAllies != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetExplosionEffectToAllies()).MethodHandle;
-			}
 			result = this.m_cachedExplosionEffectToAllies;
 		}
 		else
@@ -420,19 +263,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedExplosionEffectToEnemies != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.GetExplosionEffectToEnemies()).MethodHandle;
-			}
 			result = this.m_cachedExplosionEffectToEnemies;
 		}
 		else
@@ -446,19 +276,6 @@ public class FishManBubbleLaser : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_FishManBubbleLaser))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_FishManBubbleLaser);
 			this.Setup();
 		}
@@ -480,19 +297,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_FishManBubbleLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			effectInfo = abilityMod_FishManBubbleLaser.m_effectOnAlliesMod.GetModifiedValue(this.m_effectOnAllies);
 		}
 		else
@@ -503,15 +307,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo effectInfo2;
 		if (abilityMod_FishManBubbleLaser)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo2 = abilityMod_FishManBubbleLaser.m_effectOnEnemiesMod.GetModifiedValue(this.m_effectOnEnemies);
 		}
 		else
@@ -525,15 +320,6 @@ public class FishManBubbleLaser : Ability
 		int val;
 		if (abilityMod_FishManBubbleLaser)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val = abilityMod_FishManBubbleLaser.m_initialHitDamageToEnemiesMod.GetModifiedValue(this.m_initialHitDamageToEnemies);
 		}
 		else
@@ -546,15 +332,6 @@ public class FishManBubbleLaser : Ability
 		int val2;
 		if (abilityMod_FishManBubbleLaser)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_FishManBubbleLaser.m_numTurnsBeforeFirstExplosionMod.GetModifiedValue(this.m_numTurnsBeforeFirstExplosion);
 		}
 		else
@@ -568,15 +345,6 @@ public class FishManBubbleLaser : Ability
 		int val3;
 		if (abilityMod_FishManBubbleLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_FishManBubbleLaser.m_explosionHealingToAlliesMod.GetModifiedValue(this.m_explosionHealingToAllies);
 		}
 		else
@@ -589,15 +357,6 @@ public class FishManBubbleLaser : Ability
 		int val4;
 		if (abilityMod_FishManBubbleLaser)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = abilityMod_FishManBubbleLaser.m_explosionDamageToEnemiesMod.GetModifiedValue(this.m_explosionDamageToEnemies);
 		}
 		else
@@ -608,15 +367,6 @@ public class FishManBubbleLaser : Ability
 		StandardEffectInfo effectInfo3;
 		if (abilityMod_FishManBubbleLaser)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo3 = abilityMod_FishManBubbleLaser.m_explosionEffectToAlliesMod.GetModifiedValue(this.m_explosionEffectToAllies);
 		}
 		else
@@ -632,32 +382,10 @@ public class FishManBubbleLaser : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.GetInitialHitDamageToEnemies() > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FishManBubbleLaser.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Enemy, this.GetInitialHitDamageToEnemies());
 		}
 		if (this.GetInitialHitHealingToAllies() > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Ally, this.GetInitialHitHealingToAllies());
 		}
 		this.GetEffectOnEnemies().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Enemy);

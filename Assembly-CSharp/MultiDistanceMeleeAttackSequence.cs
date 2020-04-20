@@ -31,19 +31,6 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiDistanceMeleeAttackSequence.Update()).MethodHandle;
-			}
 			base.ProcessSequenceVisibility();
 		}
 	}
@@ -52,45 +39,14 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 	{
 		if (this.m_alreadyHit == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MultiDistanceMeleeAttackSequence.SpawnHitFX(float)).MethodHandle;
-			}
 			this.m_alreadyHit = new HashSet<ActorData>();
 		}
 		if (this.m_hitFx == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_hitFx = new List<GameObject>();
 		}
 		if (base.Targets != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float num = withinDistanceInSquares * Board.Get().squareSize;
 			for (int i = 0; i < base.Targets.Length; i++)
 			{
@@ -99,26 +55,8 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 				float magnitude = vector.magnitude;
 				if (!this.m_alreadyHit.Contains(base.Targets[i]))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num >= 0f)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (magnitude > num)
 						{
 							goto IL_23F;
@@ -133,15 +71,6 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 					Quaternion quaternion;
 					if (this.m_hitAlignedWithCaster)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						quaternion = Quaternion.LookRotation(vector2);
 					}
 					else
@@ -151,54 +80,18 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 					Quaternion rotation = quaternion;
 					if (this.m_hitFxPrefab && base.IsHitFXVisible(base.Targets[i]))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_hitFx.Add(base.InstantiateFX(this.m_hitFxPrefab, targetHitPosition, rotation, true, true));
 					}
 					if (!string.IsNullOrEmpty(this.m_hitAudioEvent))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AudioManager.PostEvent(this.m_hitAudioEvent, base.Targets[i].gameObject);
 					}
 					if (base.Targets[i] != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.Source.OnSequenceHit(this, base.Targets[i], impulseInfo, ActorModelData.RagdollActivation.HealthBased, true);
 					}
 				}
 				IL_23F:;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -212,19 +105,6 @@ public class MultiDistanceMeleeAttackSequence : Sequence
 			{
 				this.SpawnHitFX(eventToCondition.m_distanceFromCasterInSquares);
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(MultiDistanceMeleeAttackSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
 		}
 		if (this.m_lastHitEvent == parameter)
 		{

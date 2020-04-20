@@ -37,19 +37,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 		TricksterCreateDamageFields tricksterCreateDamageFields = targetAbility as TricksterCreateDamageFields;
 		if (tricksterCreateDamageFields != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCreateDamageFields.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_GroundFieldMod(tokens, this.m_groundFieldInfoMod, "GroundFieldInfo", tricksterCreateDamageFields.m_groundFieldInfo);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_selfEffectForMultiHitMod, "SelfEffectForMultiHit", tricksterCreateDamageFields.m_selfEffectForMultiHit, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_extraEnemyEffectOnCastMod, "ExtraEnemyEffectOnCast", tricksterCreateDamageFields.m_extraEnemyEffectOnCast, true);
@@ -69,19 +56,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 			bool input;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_TricksterCreateDamageFields.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-				}
 				input = tricksterCreateDamageFields.m_useInitialShapeOverride;
 			}
 			else
@@ -98,15 +72,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 		text += base.PropDesc(this.m_useInitialShapeOverrideMod, "[UseInitialShapeOverride]", flag, flag && tricksterCreateDamageFields.m_useInitialShapeOverride);
 		if (flag3)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str = text;
 			AbilityModPropertyShape initialShapeOverrideMod = this.m_initialShapeOverrideMod;
 			string prefix = "[InitialShapeOverride]";
@@ -114,15 +79,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 			AbilityAreaShape baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = tricksterCreateDamageFields.m_initialShapeOverride;
 			}
 			else
@@ -139,15 +95,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = tricksterCreateDamageFields.m_selfEffectForMultiHit;
 		}
 		else
@@ -162,15 +109,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = tricksterCreateDamageFields.m_extraEnemyEffectOnCast;
 		}
 		else
@@ -185,15 +123,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = tricksterCreateDamageFields.m_spawnSpoilForEnemyHit;
 		}
 		else
@@ -208,15 +137,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = tricksterCreateDamageFields.m_spawnSpoilForAllyHit;
 		}
 		else

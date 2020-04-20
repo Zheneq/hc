@@ -35,19 +35,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		SpaceMarineDropPod spaceMarineDropPod = targetAbility as SpaceMarineDropPod;
 		if (spaceMarineDropPod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineDropPod.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_damageMod, "DamageAmount", string.Empty, spaceMarineDropPod.m_damageAmount, true, false);
 			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDistance", string.Empty, spaceMarineDropPod.m_knockbackDistance, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_energyRefundIfNoEnemyHitMod, "EnergyRefundIfNoEnemyHit", string.Empty, spaceMarineDropPod.m_energyRefundIfNoEnemyHit, true, false);
@@ -64,33 +51,11 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int num2 = 0;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SpaceMarineDropPod.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			if (spaceMarineDropPod.m_powerupPrefab != null)
 			{
 				PowerUp_Standard_Ability component = spaceMarineDropPod.m_powerupPrefab.GetComponent<PowerUp_Standard_Ability>();
 				if (component != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = component.m_healAmount;
 					num2 = component.m_techPointsAmount;
 				}
@@ -104,15 +69,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = spaceMarineDropPod.m_damageAmount;
 		}
 		else
@@ -127,15 +83,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = spaceMarineDropPod.m_knockbackDistance;
 		}
 		else
@@ -150,15 +97,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = spaceMarineDropPod.m_energyRefundIfNoEnemyHit;
 		}
 		else
@@ -174,15 +112,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = num2;
 		}
 		else
@@ -198,15 +127,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = spaceMarineDropPod.m_extraPowerupHealIfDirectHit;
 		}
 		else
@@ -221,15 +141,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = spaceMarineDropPod.m_extraPowerupEnergyIfDirectHit;
 		}
 		else

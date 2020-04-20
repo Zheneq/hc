@@ -64,19 +64,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		ConeTargetingInfo baseConeInfo;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SoldierDashAndOverwatch.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseConeInfo = soldierDashAndOverwatch.m_coneInfo;
 		}
 		else
@@ -92,15 +79,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		StandardEffectInfo baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = soldierDashAndOverwatch.m_selfHitEffect;
 		}
 		else
@@ -115,15 +93,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = soldierDashAndOverwatch.m_onCastAllyHitRadiusAroundDest;
 		}
 		else
@@ -138,15 +107,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = soldierDashAndOverwatch.m_onCastAllyHitEffect;
 		}
 		else
@@ -161,15 +121,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = soldierDashAndOverwatch.m_coneDamage;
 		}
 		else

@@ -67,19 +67,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SamuraiDoubleSlash.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = samuraiDoubleSlash.m_maxAngleBetween;
 		}
 		else
@@ -96,15 +83,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = samuraiDoubleSlash.m_coneLength;
 		}
 		else
@@ -123,15 +101,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = samuraiDoubleSlash.m_targetHitEffect;
 		}
 		else
@@ -146,15 +115,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		StandardEffectInfo baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = samuraiDoubleSlash.m_extraEnemyHitEffectIfSelfBuffed;
 		}
 		else

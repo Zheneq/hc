@@ -33,19 +33,6 @@ namespace TMPro
 			bool flag;
 			if (material.GetInstanceID() == fontAsset.material.GetInstanceID())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReference..ctor(int, TMP_FontAsset, TMP_SpriteAsset, Material, float)).MethodHandle;
-				}
 				flag = true;
 			}
 			else
@@ -64,19 +51,6 @@ namespace TMPro
 			int instanceID = fontAsset.GetInstanceID();
 			for (int i = 0; i < materialReferences.Length; i++)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReference.Contains(MaterialReference[], TMP_FontAsset)).MethodHandle;
-				}
 				if (!(materialReferences[i].fontAsset != null))
 				{
 					break;
@@ -95,19 +69,6 @@ namespace TMPro
 			int num = 0;
 			if (materialReferenceIndexLookup.TryGetValue(instanceID, out num))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReference.AddMaterialReference(Material, TMP_FontAsset, MaterialReference[], Dictionary<int, int>)).MethodHandle;
-				}
 				return num;
 			}
 			num = materialReferenceIndexLookup.Count;
@@ -127,19 +88,6 @@ namespace TMPro
 			int num = 0;
 			if (materialReferenceIndexLookup.TryGetValue(instanceID, out num))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MaterialReference.AddMaterialReference(Material, TMP_SpriteAsset, MaterialReference[], Dictionary<int, int>)).MethodHandle;
-				}
 				return num;
 			}
 			num = materialReferenceIndexLookup.Count;

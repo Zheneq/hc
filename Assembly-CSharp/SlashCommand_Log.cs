@@ -24,19 +24,6 @@ public class SlashCommand_Log : SlashCommand
 			string fileLogCurrentPath = ClientBootstrap.Instance.GetFileLogCurrentPath();
 			if (!File.Exists(fileLogCurrentPath))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Log.OpenLogFile()).MethodHandle;
-				}
 			}
 			else
 			{
@@ -69,15 +56,6 @@ public class SlashCommand_Log : SlashCommand
 					{
 						if (streamReader != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							((IDisposable)streamReader).Dispose();
 						}
 					}
@@ -86,15 +64,6 @@ public class SlashCommand_Log : SlashCommand
 				{
 					if (fileStream != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						((IDisposable)fileStream).Dispose();
 					}
 				}

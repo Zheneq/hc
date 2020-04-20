@@ -71,19 +71,6 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Soldier Cone Or Laser";
 		}
 		this.Setup();
@@ -97,32 +84,10 @@ public class SoldierConeOrLaser : Ability
 		}
 		if (this.m_abilityData == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.Setup()).MethodHandle;
-			}
 			this.m_abilityData = base.GetComponent<AbilityData>();
 		}
 		if (this.m_abilityData != null && this.m_stimAbility == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_stimAbility = (this.m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack);
 		}
 		this.SetCachedFields();
@@ -144,19 +109,6 @@ public class SoldierConeOrLaser : Ability
 		ConeTargetingInfo cachedConeInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.SetCachedFields()).MethodHandle;
-			}
 			cachedConeInfo = this.m_abilityMod.m_coneInfoMod.GetModifiedValue(this.m_coneInfo);
 		}
 		else
@@ -167,15 +119,6 @@ public class SoldierConeOrLaser : Ability
 		LaserTargetingInfo cachedLaserInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserInfo = this.m_abilityMod.m_laserInfoMod.GetModifiedValue(this.m_laserInfo);
 		}
 		else
@@ -186,15 +129,6 @@ public class SoldierConeOrLaser : Ability
 		StandardEffectInfo cachedConeEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedConeEnemyHitEffect = this.m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(this.m_coneEnemyHitEffect);
 		}
 		else
@@ -205,15 +139,6 @@ public class SoldierConeOrLaser : Ability
 		StandardEffectInfo cachedLaserEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedLaserEnemyHitEffect = this.m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(this.m_laserEnemyHitEffect);
 		}
 		else
@@ -228,19 +153,6 @@ public class SoldierConeOrLaser : Ability
 		ConeTargetingInfo result;
 		if (this.m_cachedConeInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetConeInfo()).MethodHandle;
-			}
 			result = this.m_cachedConeInfo;
 		}
 		else
@@ -255,19 +167,6 @@ public class SoldierConeOrLaser : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -282,19 +181,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetConeDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_coneDamageMod.GetModifiedValue(this.m_coneDamage);
 		}
 		else
@@ -314,19 +200,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetLaserDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserDamageMod.GetModifiedValue(this.m_laserDamage);
 		}
 		else
@@ -341,19 +214,6 @@ public class SoldierConeOrLaser : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedLaserEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetLaserEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedLaserEnemyHitEffect;
 		}
 		else
@@ -368,19 +228,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetExtraDamageForAlternating()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageForAlternatingMod.GetModifiedValue(this.m_extraDamageForAlternating);
 		}
 		else
@@ -400,19 +247,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetExtraDamageForNearTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageForNearTargetMod.GetModifiedValue(this.m_extraDamageForNearTarget);
 		}
 		else
@@ -432,19 +266,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetExtraDamageToEvaders()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraDamageToEvadersMod.GetModifiedValue(this.m_extraDamageToEvaders);
 		}
 		else
@@ -459,19 +280,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetExtraEnergyForCone()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraEnergyForConeMod.GetModifiedValue(this.m_extraEnergyForCone);
 		}
 		else
@@ -486,19 +294,6 @@ public class SoldierConeOrLaser : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetExtraEnergyForLaser()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_extraEnergyForLaserMod.GetModifiedValue(this.m_extraEnergyForLaser);
 		}
 		else
@@ -512,19 +307,6 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (this.GetExtraDamageForNearTarget() > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.ShouldUseExtraDamageForNearTarget(ActorData, ActorData)).MethodHandle;
-			}
 			Vector3 vector = target.GetTravelBoardSquareWorldPosition() - caster.GetTravelBoardSquareWorldPosition();
 			vector.y = 0f;
 			return vector.magnitude < this.GetCloseDistThreshold() * Board.Get().squareSize;
@@ -537,19 +319,6 @@ public class SoldierConeOrLaser : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.HasConeDamageMod()).MethodHandle;
-			}
 			result = (this.m_abilityMod.m_coneDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore);
 		}
 		else
@@ -564,19 +333,6 @@ public class SoldierConeOrLaser : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.HasLaserDamageMod()).MethodHandle;
-			}
 			result = (this.m_abilityMod.m_laserDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore);
 		}
 		else
@@ -591,19 +347,6 @@ public class SoldierConeOrLaser : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.HasNearDistThresholdMod()).MethodHandle;
-			}
 			result = (this.m_abilityMod.m_closeDistThresholdMod.operation != AbilityModPropertyFloat.ModOp.Ignore);
 		}
 		else
@@ -618,19 +361,6 @@ public class SoldierConeOrLaser : Ability
 		bool result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.HasExtraDamageForNearTargetMod()).MethodHandle;
-			}
 			result = (this.m_abilityMod.m_extraDamageForNearTargetMod.operation != AbilityModPropertyInt.ModOp.Ignore);
 		}
 		else
@@ -664,66 +394,17 @@ public class SoldierConeOrLaser : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 				int num = 0;
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = this.GetConeDamage();
 					if (this.GetExtraDamageForAlternating() > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_syncComp)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if ((int)this.m_syncComp.m_lastPrimaryUsedMode == 2)
 							{
 								num += this.GetExtraDamageForAlternating();
@@ -733,27 +414,9 @@ public class SoldierConeOrLaser : Ability
 				}
 				else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = this.GetLaserDamage();
 					if (this.GetExtraDamageForAlternating() > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_syncComp && (int)this.m_syncComp.m_lastPrimaryUsedMode == 1)
 						{
 							num += this.GetExtraDamageForAlternating();
@@ -763,39 +426,12 @@ public class SoldierConeOrLaser : Ability
 				ActorData actorData = base.ActorData;
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.ShouldUseExtraDamageForNearTarget(targetActor, actorData))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += this.GetExtraDamageForNearTarget();
 					}
 					if (this.GetExtraDamageForFromCover() > 0)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData.GetActorCover().HasAnyCover(false))
 						{
 							num += this.GetExtraDamageForFromCover();
@@ -813,19 +449,6 @@ public class SoldierConeOrLaser : Ability
 		if ((this.GetExtraEnergyForCone() <= 0 && this.GetExtraEnergyForLaser() <= 0) || !(base.Targeter is AbilityUtil_Targeter_ConeOrLaser))
 		{
 			return 0;
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
 		}
 		AbilityUtil_Targeter_ConeOrLaser abilityUtil_Targeter_ConeOrLaser = base.Targeter as AbilityUtil_Targeter_ConeOrLaser;
 		int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_ConeOrLaser.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
@@ -861,30 +484,8 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.ForceIgnoreCover(ActorData)).MethodHandle;
-			}
 			if (this.m_stimAbility != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_stimAbility.BasicAttackIgnoreCover())
 				{
 					return this.m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
@@ -898,41 +499,10 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (this.m_abilityData != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.ForceReduceCoverEffectiveness(ActorData)).MethodHandle;
-			}
 			if (this.m_stimAbility != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_stimAbility.BasicAttackReduceCoverEffectiveness())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return this.m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
 				}
 			}
@@ -953,19 +523,6 @@ public class SoldierConeOrLaser : Ability
 		bool result;
 		if (animIndex != this.m_onCastConeAnimIndex)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			result = (animIndex == this.m_onCastLaserAnimIndex);
 		}
 		else
@@ -979,34 +536,12 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (targets != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.GetActionAnimType(List<AbilityTarget>, ActorData)).MethodHandle;
-			}
 			if (caster != null)
 			{
 				bool flag = this.ShouldUseCone(targets[0].FreePos, caster);
 				ActorModelData.ActionAnimationType result;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = (ActorModelData.ActionAnimationType)this.m_onCastConeAnimIndex;
 				}
 				else
@@ -1023,19 +558,6 @@ public class SoldierConeOrLaser : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SoldierConeOrLaser))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SoldierConeOrLaser.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SoldierConeOrLaser);
 			this.Setup();
 		}

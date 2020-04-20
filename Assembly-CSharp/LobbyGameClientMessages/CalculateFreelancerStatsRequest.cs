@@ -17,19 +17,6 @@ namespace LobbyGameClientMessages
 		{
 			if (this.PersistedStats != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CalculateFreelancerStatsRequest.GetStat(StatDisplaySettings.StatType)).MethodHandle;
-				}
 				return new float?(this.PersistedStats.GetGameplayStat(Type).Average());
 			}
 			if (this.MatchFreelancerStats != null)
@@ -47,19 +34,6 @@ namespace LobbyGameClientMessages
 			}
 			if (this.MatchFreelancerStats != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CalculateFreelancerStatsRequest.GetFreelancerStat(int)).MethodHandle;
-				}
 				return this.MatchFreelancerStats.GetFreelancerStat(FreelancerStatIndex);
 			}
 			return null;

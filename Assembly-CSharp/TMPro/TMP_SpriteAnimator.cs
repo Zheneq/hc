@@ -36,19 +36,6 @@ namespace TMPro
 			bool flag = false;
 			if (!this.m_animations.TryGetValue(currentCharacter, out flag))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SpriteAnimator.DoSpriteAnimation(int, TMP_SpriteAsset, int, int, int)).MethodHandle;
-				}
 				base.StartCoroutine(this.DoSpriteAnimationInternal(currentCharacter, spriteAsset, start, end, framerate));
 				this.m_animations.Add(currentCharacter, true);
 			}
@@ -58,43 +45,12 @@ namespace TMPro
 		{
 			if (this.m_TextComponent == null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_SpriteAnimator.<DoSpriteAnimationInternal>c__Iterator0.MoveNext()).MethodHandle;
-				}
 				yield break;
 			}
 			yield return null;
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int currentFrame = start;
 			if (end > spriteAsset.spriteInfoList.Count)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				end = spriteAsset.spriteInfoList.Count - 1;
 			}
 			TMP_CharacterInfo charInfo = this.m_TextComponent.textInfo.characterInfo[currentCharacter];
@@ -134,15 +90,6 @@ namespace TMPro
 					this.m_TextComponent.UpdateGeometry(meshInfo.mesh, materialIndex);
 					if (framerate > 0)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentFrame < end)
 						{
 							currentFrame++;
@@ -154,15 +101,6 @@ namespace TMPro
 					}
 					else if (currentFrame > start)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						currentFrame--;
 					}
 					else
@@ -172,15 +110,6 @@ namespace TMPro
 				}
 				elapsedTime += Time.deltaTime;
 				yield return null;
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			yield break;
 		}

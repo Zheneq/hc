@@ -41,19 +41,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		ValkyrieGuard valkyrieGuard = targetAbility as ValkyrieGuard;
 		if (valkyrieGuard != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieGuard.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_shieldEffectInfoMod, "ShieldEffectInfo", valkyrieGuard.m_shieldEffectInfo, true);
 			AbilityMod.AddToken(tokens, this.m_techPointGainPerCoveredHitMod, "TechPointGainPerCoveredHit", string.Empty, valkyrieGuard.m_techPointGainPerCoveredHit, true, false);
 			AbilityMod.AddToken(tokens, this.m_techPointGainPerTooCloseForCoverHitMod, "TechPointGainPerTooCloseForCoverHit", string.Empty, valkyrieGuard.m_techPointGainPerTooCloseForCoverHit, true, false);
@@ -79,19 +66,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ValkyrieGuard.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = valkyrieGuard.m_techPointGainPerCoveredHit;
 		}
 		else
@@ -107,15 +81,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		StandardEffectInfo baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = valkyrieGuard.m_coveredHitReactionEffect;
 		}
 		else
@@ -130,15 +95,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = valkyrieGuard.m_tooCloseForCoverHitReactionEffect;
 		}
 		else
@@ -155,15 +111,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = valkyrieGuard.m_coverDuration;
 		}
 		else
@@ -178,15 +125,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = valkyrieGuard.m_coverLastsForever;
 		}
 		else
@@ -202,15 +140,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		bool baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = valkyrieGuard.m_coverIgnoreMinDist;
 		}
 		else

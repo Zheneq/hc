@@ -14,31 +14,9 @@ public class SlashCommand_Version : SlashCommand
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.EnvironmentType == EnvironmentType.External)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SlashCommand_Version.OnSlashCommand(string)).MethodHandle;
-			}
 			if (!clientGameManager.HasDeveloperAccess())
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		WinUtils.SetClipboardText(BuildVersion.FullVersionString);

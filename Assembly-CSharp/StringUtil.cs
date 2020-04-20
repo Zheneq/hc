@@ -22,31 +22,9 @@ public static class StringUtil
 		uint num = basis;
 		if (!string.IsNullOrEmpty(name))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.CaseInsensitiveHash(string, uint, uint)).MethodHandle;
-			}
 			for (int i = 0; i < name.Length; i++)
 			{
 				num = (num * prime ^ Convert.ToUInt32(char.ToLower(name[i])));
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -60,19 +38,6 @@ public static class StringUtil
 		int num3 = num2 / 0x16D;
 		if (num3 > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.GetTimeDifferenceText(TimeSpan, bool)).MethodHandle;
-			}
 			if (num3 > 1)
 			{
 				text += string.Format(StringUtil.TR("Years", "TimeSpan"), num3);
@@ -85,15 +50,6 @@ public static class StringUtil
 			difference -= TimeSpan.FromDays((double)(num3 * 0x16D));
 			if (!full)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return text;
 			}
 		}
@@ -102,28 +58,10 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += " ";
 			}
 			if (days > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format(StringUtil.TR("Days", "TimeSpan"), days);
 			}
 			else
@@ -133,27 +71,9 @@ public static class StringUtil
 			num++;
 			if (full)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num <= 1)
 				{
 					goto IL_14D;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return text;
@@ -164,28 +84,10 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += " ";
 			}
 			if (hours > 1)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format(StringUtil.TR("Hours", "TimeSpan"), hours);
 			}
 			else
@@ -203,28 +105,10 @@ public static class StringUtil
 		{
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += " ";
 			}
 			if (minutes > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format(StringUtil.TR("Minutes", "TimeSpan"), minutes);
 			}
 			else
@@ -234,15 +118,6 @@ public static class StringUtil
 			num++;
 			if (full)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num <= 1)
 				{
 					goto IL_275;
@@ -254,15 +129,6 @@ public static class StringUtil
 		int seconds = difference.Seconds;
 		if (!text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += " ";
 		}
 		if (seconds > 1)
@@ -271,15 +137,6 @@ public static class StringUtil
 		}
 		else if (seconds == 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += StringUtil.TR("Second", "TimeSpan");
 		}
 		return text;
@@ -291,75 +148,26 @@ public static class StringUtil
 		float num2 = (float)num / 365f;
 		if (num2 > 1f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.GetTimeDifferenceTextAbbreviated(TimeSpan)).MethodHandle;
-			}
 			return string.Format(StringUtil.TR("Years", "TimeSpan"), (int)num2);
 		}
 		float num3 = (float)(difference.TotalHours / 24.0);
 		if (num3 >= 1.1f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return string.Format(StringUtil.TR("Days", "TimeSpan"), (int)num3);
 		}
 		float num4 = (float)(difference.TotalMinutes / 60.0);
 		if (num4 >= 1.1f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return string.Format(StringUtil.TR("NumHrs", "Global"), (int)num4);
 		}
 		float num5 = (float)(difference.TotalSeconds / 60.0);
 		if (num5 >= 1.1f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return string.Format(StringUtil.TR("Minutes", "TimeSpan"), (int)num5);
 		}
 		float num6 = (float)(difference.TotalMilliseconds / 1000.0);
 		if (num6 >= 1.1f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return string.Format(StringUtil.TR("SecondsTimer", "Global"), (int)num6);
 		}
 		return StringUtil.TR("Second", "TimeSpan");
@@ -370,19 +178,6 @@ public static class StringUtil
 		string text = LocalizationManager.CurrentLanguageCode;
 		if (text.Equals("zh", StringComparison.OrdinalIgnoreCase))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.GetCurrentLanguagecode()).MethodHandle;
-			}
 			text = "zh-CN";
 		}
 		return text;
@@ -419,19 +214,6 @@ public static class StringUtil
 	{
 		if (path.EndsWith(extension))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.RemoveOptionalSuffix(string, string)).MethodHandle;
-			}
 			return path.Substring(0, path.Length - extension.Length);
 		}
 		return path;
@@ -449,33 +231,11 @@ public static class StringUtil
 		string text2 = term;
 		if (!context.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.TR(string, string)).MethodHandle;
-			}
 			text2 = text2 + "@" + context;
 		}
 		text = ScriptLocalization.Get(text2);
 		if (text.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text = string.Format("[{0}]#NotLocalized", text2);
 		}
 		return text;
@@ -486,19 +246,6 @@ public static class StringUtil
 		string[] array = textDescription.Split("@".ToCharArray(), 2);
 		if (array.Length == 2)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StringUtil.TR(string)).MethodHandle;
-			}
 			return StringUtil.TR(array[0], array[1]);
 		}
 		return string.Format("[{0}]#NotLocalized", textDescription);

@@ -23,19 +23,6 @@ public class AppState_InGameResolve : AppStateInGame
 	{
 		if (UILoadingScreenPanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameResolve.OnEnter()).MethodHandle;
-			}
 			UILoadingScreenPanel.Get().SetVisible(false);
 		}
 		base.RegisterGameStoppedHandler();
@@ -52,32 +39,10 @@ public class AppState_InGameResolve : AppStateInGame
 	{
 		if (newState == GameState.BothTeams_Decision)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_InGameResolve.OnGameStateChanged(GameState)).MethodHandle;
-			}
 			AppState_InGameDecision.Get().Enter();
 		}
 		else if (newState == GameState.EndingGame)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AppState_InGameEnding.Get().Enter();
 		}
 	}

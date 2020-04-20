@@ -17,47 +17,16 @@ public class SerializeHelper
 	{
 		if (stream.isWriting)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SerializeHelper.ShouldReturnImmediately(IBitStream*)).MethodHandle;
-			}
 			this.m_writeStream = stream;
 			this.m_appendWriter = new NetworkWriter();
 			stream = new NetworkWriterAdapter(this.m_appendWriter);
 		}
 		else if (stream.isReading)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (NetworkServer.active)
 			{
 				if (this.m_lastDataLength > 0U)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					stream.ReadBytes((int)this.m_lastDataLength);
 				}
 				return true;
@@ -76,34 +45,12 @@ public class SerializeHelper
 			uint num = (uint)this.m_appendWriter.Position;
 			if (this.m_lastData != null && this.m_lastDataLength == num)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SerializeHelper.End(bool, uint)).MethodHandle;
-				}
 				flag2 = true;
 				int num2 = 0;
 				while ((long)num2 < (long)((ulong)this.m_lastDataLength))
 				{
 					if (this.m_lastData[num2] != array[num2])
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = false;
 						break;
 					}
@@ -117,15 +64,6 @@ public class SerializeHelper
 			}
 			if (!initialState)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num3 == 0U)
 				{
 					goto IL_DD;
@@ -142,15 +80,6 @@ public class SerializeHelper
 		bool result;
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			result = initialState;
 		}
 		else
@@ -174,19 +103,6 @@ public class SerializeHelper
 				{
 					if (actorsToSerialize[i] != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(SerializeHelper.SerializeActorDataArray(IBitStream, ActorData[]*)).MethodHandle;
-						}
 						array[i] = actorsToSerialize[i].ActorIndex;
 					}
 					else
@@ -194,30 +110,12 @@ public class SerializeHelper
 						array[i] = ActorData.s_invalidActorIndex;
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			stream.Serialize(ref num);
 			for (int j = 0; j < num; j++)
 			{
 				int num2 = array[j];
 				stream.Serialize(ref num2);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (stream.isReading)
@@ -230,40 +128,13 @@ public class SerializeHelper
 				stream.Serialize(ref s_invalidActorIndex);
 				array[k] = s_invalidActorIndex;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorData[] array2 = new ActorData[array.Length];
 			for (int l = 0; l < array2.Length; l++)
 			{
 				if (array[l] != ActorData.s_invalidActorIndex)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					array2[l] = ((!(GameFlowData.Get() != null)) ? null : GameFlowData.Get().FindActorByActorIndex(array[l]));
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			actorsToSerialize = array2;
 		}
@@ -274,19 +145,6 @@ public class SerializeHelper
 		sbyte b;
 		if (actorToInt == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SerializeHelper.SerializeActorToIntDictionary(IBitStream, Dictionary<ActorData, int>*)).MethodHandle;
-			}
 			b = 0;
 		}
 		else
@@ -297,51 +155,15 @@ public class SerializeHelper
 		stream.Serialize(ref b2);
 		if ((int)b2 > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorToInt == null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorToInt = new Dictionary<ActorData, int>();
 			}
 		}
 		if (stream.isWriting)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((int)b2 > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				using (Dictionary<ActorData, int>.Enumerator enumerator = actorToInt.GetEnumerator())
 				{
 					while (enumerator.MoveNext())
@@ -350,15 +172,6 @@ public class SerializeHelper
 						short num;
 						if (keyValuePair.Key == null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = (short)ActorData.s_invalidActorIndex;
 						}
 						else
@@ -368,28 +181,10 @@ public class SerializeHelper
 						short num2 = num;
 						if ((int)num2 != ActorData.s_invalidActorIndex)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							short num3 = (short)keyValuePair.Value;
 							stream.Serialize(ref num2);
 							stream.Serialize(ref num3);
 						}
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
@@ -398,15 +193,6 @@ public class SerializeHelper
 		{
 			if (actorToInt != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorToInt.Clear();
 			}
 			for (int i = 0; i < (int)b2; i++)
@@ -418,39 +204,12 @@ public class SerializeHelper
 				ActorData actorData = null;
 				if (GameFlowData.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorData = GameFlowData.Get().FindActorByActorIndex((int)actorIndex);
 				}
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorToInt[actorData] = (int)value;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -466,27 +225,11 @@ public class SerializeHelper
 	public unsafe static void SerializeArray(IBitStream stream, ref Vector3[] toSerialize)
 	{
 		Vector3 zero = Vector3.zero;
-		if (SerializeHelper.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SerializeHelper.SerializeArray(IBitStream, Vector3[]*)).MethodHandle;
-			}
-			SerializeHelper.<>f__am$cache1 = delegate(IBitStream s, ref Vector3 value)
+		
+		SerializeHelper.SerializeArray_Base<Vector3>(stream, ref toSerialize, zero, delegate(IBitStream s, ref Vector3 value)
 			{
 				s.Serialize(ref value);
-			};
-		}
-		SerializeHelper.SerializeArray_Base<Vector3>(stream, ref toSerialize, zero, SerializeHelper.<>f__am$cache1);
+			});
 	}
 
 	private unsafe static void SerializeArray_Base<T>(IBitStream stream, ref T[] toSerializeArray, T defaultValue, SerializeHelper.BitstreamSerializeDelegate<T> serializeDelegate)
@@ -496,19 +239,6 @@ public class SerializeHelper
 		{
 			if (toSerializeArray != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SerializeHelper.SerializeArray_Base(IBitStream, T[]*, T, SerializeHelper.BitstreamSerializeDelegate<T>)).MethodHandle;
-				}
 				num = toSerializeArray.Length;
 			}
 			stream.Serialize(ref num);
@@ -517,27 +247,9 @@ public class SerializeHelper
 				T t = toSerializeArray[i];
 				serializeDelegate(stream, ref t);
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (stream.isReading)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			stream.Serialize(ref num);
 			T[] array = new T[num];
 			for (int j = 0; j < array.Length; j++)
@@ -545,15 +257,6 @@ public class SerializeHelper
 				T t2 = defaultValue;
 				serializeDelegate(stream, ref t2);
 				array[j] = t2;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			toSerializeArray = array;
 		}

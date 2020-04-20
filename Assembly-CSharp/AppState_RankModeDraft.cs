@@ -43,30 +43,8 @@ public class AppState_RankModeDraft : AppState
 		GameStatus gameStatus = GameManager.Get().GameStatus;
 		if (gameStatus >= GameStatus.Launched)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_RankModeDraft.Update()).MethodHandle;
-			}
 			if (gameStatus != GameStatus.Stopped)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
 			}
 		}

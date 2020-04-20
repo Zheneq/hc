@@ -69,82 +69,24 @@ public class ClientExceptionDetector : MonoBehaviour
 	{
 		if (this.m_crashServerReportThreadedJob != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.Update()).MethodHandle;
-			}
 			this.m_crashServerReportThreadedJob.Update();
 			if (this.m_crashServerReportThreadedJob.IsFinished)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_crashServerReportThreadedJob = null;
 			}
 		}
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().IsConnectedToLobbyServer)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_lobbyServerAndDialogReady && UIDialogPopupManager.Ready)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_lobbyServerAndDialogReady = true;
 					string[] array = new string[5];
 					try
 					{
 						if (File.Exists(this.m_exceptionFilePath))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							string[] array2 = File.ReadAllLines(this.m_exceptionFilePath);
 							using (StreamReader streamReader = File.OpenText(this.m_exceptionFilePath))
 							{
@@ -163,26 +105,8 @@ public class ClientExceptionDetector : MonoBehaviour
 					}
 					if (!string.IsNullOrEmpty(array[4]))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.UploadExceptionReport(array[0], array[1], string.Empty, string.Empty, array[4], false))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							try
 							{
 								File.Delete(this.m_exceptionFilePath);
@@ -201,15 +125,6 @@ public class ClientExceptionDetector : MonoBehaviour
 				{
 					if (this.m_errorReportQueue.Count <= 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_errorUnsentCount.IsNullOrEmpty<KeyValuePair<uint, uint>>())
 						{
 							return;
@@ -225,19 +140,6 @@ public class ClientExceptionDetector : MonoBehaviour
 	{
 		if (this.m_crashServerReportThreadedJob != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.OnDestroy()).MethodHandle;
-			}
 			this.m_crashServerReportThreadedJob.Cancel();
 		}
 	}
@@ -253,19 +155,6 @@ public class ClientExceptionDetector : MonoBehaviour
 		bool realExceptionOccurred;
 		if (!this.m_realExceptionOccurred)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.UploadExceptionReport(string, string, string, string, string, bool)).MethodHandle;
-			}
 			realExceptionOccurred = (!belowMinSpecDialogNotException && !flag);
 		}
 		else
@@ -276,28 +165,10 @@ public class ClientExceptionDetector : MonoBehaviour
 		bool flag2 = false;
 		if (!this.m_stopUploadingReports)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_exceptionLogString = logString.Trim().Replace("\r", string.Empty);
 			int num = this.m_exceptionLogString.IndexOf("\n");
 			if (num >= 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_exceptionLogString = this.m_exceptionLogString.Substring(0, num);
 			}
 			this.m_exceptionStackTrace = stackTrace;
@@ -307,37 +178,10 @@ public class ClientExceptionDetector : MonoBehaviour
 			string text = string.Format("{0}\n{1}", this.m_exceptionLogString, this.m_exceptionStackTrace);
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().IsConnectedToLobbyServer)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_crashServerReportThreadedJob == null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string crashDumpDirectoryPath = Path.Combine(Application.temporaryCachePath, Guid.NewGuid().ToString());
 						BugReportType bugReportType = BugReportType.Exception;
 						string userMessage = text;
@@ -345,15 +189,6 @@ public class ClientExceptionDetector : MonoBehaviour
 						object arg;
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg = "FileDateTime";
 						}
 						else
@@ -363,30 +198,12 @@ public class ClientExceptionDetector : MonoBehaviour
 						object arg2;
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							arg2 = fileDateTime;
 						}
 						else
 						{
 							if (ClientGameManager.Get() != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (ClientGameManager.Get().SessionInfo != null)
 								{
 									arg2 = ClientGameManager.Get().SessionInfo.SessionToken.ToString();
@@ -403,20 +220,11 @@ public class ClientExceptionDetector : MonoBehaviour
 					ClientStatusReport.ClientStatusReportType status;
 					if (belowMinSpecDialogNotException)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						status = ClientStatusReport.ClientStatusReportType.\u0016;
+						status = ClientStatusReport.ClientStatusReportType.symbol_0016;
 					}
 					else
 					{
-						status = ClientStatusReport.ClientStatusReportType.\u000E;
+						status = ClientStatusReport.ClientStatusReportType.symbol_000E;
 					}
 					clientStatusReport2.Status = status;
 					clientStatusReport.StatusDetails = text;
@@ -425,15 +233,6 @@ public class ClientExceptionDetector : MonoBehaviour
 					string fileDateTime2;
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						fileDateTime2 = fileDateTime;
 					}
 					else
@@ -445,26 +244,8 @@ public class ClientExceptionDetector : MonoBehaviour
 					flag2 = true;
 					if (UIDialogPopupManager.Ready && !belowMinSpecDialogNotException)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!flag && UIDialogPopupManager.OpenReportBugDialog(dlgTitle, dlgDescription, StringUtil.TR("Ok", "Global"), StringUtil.TR("Cancel", "Global"), new UIDialogBox.DialogButtonCallback(this.HandleExceptionDialogOKButton), null) == null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Error("Failed to create dialog", new object[0]);
 						}
 					}
@@ -473,26 +254,8 @@ public class ClientExceptionDetector : MonoBehaviour
 			}
 			if (!belowMinSpecDialogNotException)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					try
 					{
 						StreamWriter streamWriter = File.CreateText(this.m_exceptionFilePath);
@@ -507,15 +270,6 @@ public class ClientExceptionDetector : MonoBehaviour
 						{
 							if (streamWriter != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								((IDisposable)streamWriter).Dispose();
 							}
 						}
@@ -530,26 +284,8 @@ public class ClientExceptionDetector : MonoBehaviour
 		bool stopUploadingReports;
 		if (!this.m_stopUploadingReports)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				stopUploadingReports = !flag;
 			}
 			else
@@ -569,19 +305,6 @@ public class ClientExceptionDetector : MonoBehaviour
 	{
 		if (!this.m_realExceptionOccurred)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.HandleUnityLogMessage(string, string, LogType)).MethodHandle;
-			}
 			if (!ClientMinSpecDetector.BelowMinSpecDetected)
 			{
 				switch (type)
@@ -590,15 +313,6 @@ public class ClientExceptionDetector : MonoBehaviour
 				case LogType.Assert:
 					if (this.m_errorReportQueue.Count < 0x80)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						ClientErrorReport clientErrorReport = new ClientErrorReport();
 						clientErrorReport.Time = Time.unscaledTime;
 						clientErrorReport.LogString = logString.Trim().Replace("\r", string.Empty);
@@ -608,26 +322,8 @@ public class ClientExceptionDetector : MonoBehaviour
 						}, 2, StringSplitOptions.RemoveEmptyEntries);
 						if (array != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (array.Length == 2)
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								clientErrorReport.LogString = array[0].Trim();
 								clientErrorReport.StackTrace = array[1];
 								goto IL_11D;
@@ -662,7 +358,7 @@ public class ClientExceptionDetector : MonoBehaviour
 	private void HandleExceptionDialogOKButton(UIDialogBox boxReference)
 	{
 		ClientStatusReport clientStatusReport = new ClientStatusReport();
-		clientStatusReport.Status = ClientStatusReport.ClientStatusReportType.\u0015;
+		clientStatusReport.Status = ClientStatusReport.ClientStatusReportType.symbol_0015;
 		clientStatusReport.StatusDetails = this.m_exceptionLogString;
 		clientStatusReport.UserMessage = ((UIReportBugDialogBox)boxReference).m_descriptionBoxInputField.text;
 		clientStatusReport.DeviceIdentifier = SystemInfo.deviceUniqueIdentifier;
@@ -680,55 +376,15 @@ public class ClientExceptionDetector : MonoBehaviour
 		float num = Time.unscaledTime - this.m_lastErrorReportTime;
 		if (this.IsSendingErrorsToLobbyASAP())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientExceptionDetector.UpdateLobbyWithErrors()).MethodHandle;
-			}
 			if (num > 1.401298E-45f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((float)this.m_lastErrorReportBytes / num < 128f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientErrorReport clientErrorReport = this.m_errorReportQueue.Peek();
 					this.m_lastErrorReportTime = Time.unscaledTime;
-					this.m_lastErrorReportBytes = clientErrorReport.\u001D();
+					this.m_lastErrorReportBytes = clientErrorReport.symbol_001D();
 					if (ClientGameManager.Get().SendErrorReport(clientErrorReport))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_errorReportQueue.Dequeue();
 					}
 					else
@@ -745,29 +401,11 @@ public class ClientExceptionDetector : MonoBehaviour
 				uint stackTraceHash = clientErrorReport2.StackTraceHash;
 				if (!this.m_errorBestiary.ContainsKey(stackTraceHash))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_errorBestiary.Add(stackTraceHash, clientErrorReport2);
 				}
 				uint num2 = 0U;
 				if (this.m_errorUnsentCount.TryGetValue(stackTraceHash, out num2))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_errorUnsentCount[stackTraceHash] = num2 + 1U;
 				}
 				else
@@ -778,15 +416,6 @@ public class ClientExceptionDetector : MonoBehaviour
 			this.m_errorReportQueue.Clear();
 			if (num > this.SecondsBetweenSendingErrorPackets)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_lastErrorReportTime = Time.unscaledTime;
 				this.FlushErrorsToLobby();
 			}

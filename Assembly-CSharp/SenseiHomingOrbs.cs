@@ -46,19 +46,6 @@ public class SenseiHomingOrbs : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Sensei Homing Orbs";
 		}
 		this.SetupTargeter();
@@ -79,19 +66,6 @@ public class SenseiHomingOrbs : Ability
 		bool result;
 		if (this.GetSelfHealPerHit() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.TargeterAddCasterDelegate(ActorData, List<ActorData>)).MethodHandle;
-			}
 			result = (addedSoFar.Count > 0);
 		}
 		else
@@ -152,19 +126,6 @@ public class SenseiHomingOrbs : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAllyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.GetAllyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAllyHitEffect;
 		}
 		else
@@ -179,19 +140,6 @@ public class SenseiHomingOrbs : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.GetEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedEnemyHitEffect;
 		}
 		else
@@ -220,30 +168,8 @@ public class SenseiHomingOrbs : Ability
 	{
 		if (this.GetSelfHealPerHit() > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.GetCustomTargeterNumbers(ActorData, int, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
 				int visibleActorsCountByTooltipSubject2 = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
 				results.m_healing = (visibleActorsCountByTooltipSubject + visibleActorsCountByTooltipSubject2) * this.GetSelfHealPerHit();
@@ -268,19 +194,6 @@ public class SenseiHomingOrbs : Ability
 		bool result;
 		if (animIndex != this.m_orbLaunchAnimIndex)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SenseiHomingOrbs.CanTriggerAnimAtIndexForTaunt(int)).MethodHandle;
-			}
 			result = base.CanTriggerAnimAtIndexForTaunt(animIndex);
 		}
 		else

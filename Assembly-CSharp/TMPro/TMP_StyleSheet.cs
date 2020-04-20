@@ -27,19 +27,6 @@ namespace TMPro
 					}
 					if (TMP_StyleSheet.s_Instance == null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.get_instance()).MethodHandle;
-						}
 						return null;
 					}
 					TMP_StyleSheet.s_Instance.LoadStyleDictionaryInternal();
@@ -63,19 +50,6 @@ namespace TMPro
 			TMP_Style result;
 			if (this.m_StyleDictionary.TryGetValue(hashCode, out result))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.GetStyleInternal(int)).MethodHandle;
-				}
 				return result;
 			}
 			return null;
@@ -85,19 +59,6 @@ namespace TMPro
 		{
 			if (this.m_StyleDictionary.ContainsKey(old_key))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.UpdateStyleDictionaryKey(int, int)).MethodHandle;
-				}
 				TMP_Style value = this.m_StyleDictionary[old_key];
 				this.m_StyleDictionary.Add(new_key, value);
 				this.m_StyleDictionary.Remove(old_key);
@@ -119,19 +80,6 @@ namespace TMPro
 				{
 					this.m_StyleDictionary.Add(this.m_StyleList[i].hashCode, this.m_StyleList[i]);
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_StyleSheet.LoadStyleDictionaryInternal()).MethodHandle;
 			}
 		}
 	}

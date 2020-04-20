@@ -31,19 +31,6 @@ public class EndGameRewardItem : MonoBehaviour
 			this.m_rewardItemName.text = seasonReward.m_itemTemplate.GetDisplayName();
 			if (Data.isRepeating)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(EndGameRewardItem.Setup(RewardUtils.RewardData, CharacterType)).MethodHandle;
-				}
 				this.m_rewardSubText.text = string.Format(StringUtil.TR("AwardedEverySeasonLevels", "Global"), Data.repeatLevels);
 			}
 			else
@@ -63,15 +50,6 @@ public class EndGameRewardItem : MonoBehaviour
 			}
 			else if (seasonReward.m_itemTemplate.Type == InventoryItemType.BannerID)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_bannerReward.sprite = sprite;
 				doActive = true;
 			}
@@ -85,15 +63,6 @@ public class EndGameRewardItem : MonoBehaviour
 			UIManager.SetGameObjectActive(this.m_tauntAbilityIcon, doActive3, null);
 			if (this.m_tooltipHoverObj != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_tooltipHoverObj.Setup(TooltipType.InventoryItem, new TooltipPopulateCall(this.SetupTooltip), null);
 				this.m_tooltipHoverObj.Refresh();
 			}
@@ -104,30 +73,12 @@ public class EndGameRewardItem : MonoBehaviour
 			string text = string.Empty;
 			if (Data.isRepeating)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = string.Format(StringUtil.TR("AwardedEveryCharacterLevels", "Global"), Data.repeatLevels, GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName());
 			}
 			else
 			{
 				if (Data.Level > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), Data.Level);
 				}
 				text = text + " " + GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName();
@@ -136,15 +87,6 @@ public class EndGameRewardItem : MonoBehaviour
 			this.m_rewardSubText.text = text;
 			if (Data.SpritePath == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rewardImage.sprite = (Sprite)Resources.Load("QuestRewards/general", typeof(Sprite));
 			}
 			else
@@ -155,15 +97,6 @@ public class EndGameRewardItem : MonoBehaviour
 				Sprite sprite2 = (Sprite)Resources.Load(Data.SpritePath, typeof(Sprite));
 				if (Data.Type == RewardUtils.RewardType.Banner)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive4 = true;
 					this.m_bannerReward.sprite = sprite2;
 				}
@@ -190,30 +123,8 @@ public class EndGameRewardItem : MonoBehaviour
 	{
 		if (tooltip is UIInventoryItemTooltip)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EndGameRewardItem.SetupTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (this.m_template != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				(tooltip as UIInventoryItemTooltip).Setup(this.m_template);
 				return true;
 			}

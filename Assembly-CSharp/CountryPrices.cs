@@ -16,19 +16,6 @@ public class CountryPrices
 		int num;
 		if (this.Prices != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CountryPrices.GetPrice(CurrencyCode)).MethodHandle;
-			}
 			num = this.Prices.Length;
 		}
 		else
@@ -39,15 +26,6 @@ public class CountryPrices
 		{
 			if (this.Prices[i].Currency == currencyCode)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.Prices[i].Price;
 			}
 		}
@@ -59,19 +37,6 @@ public class CountryPrices
 		CountryPrices countryPrices = obj as CountryPrices;
 		if (countryPrices == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(CountryPrices.Equals(object)).MethodHandle;
-			}
 			return false;
 		}
 		List<CountryPrice> list = new List<CountryPrice>();
@@ -93,26 +58,8 @@ public class CountryPrices
 					IL_A5:
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (list[i].Price > 0f)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return false;
 						}
 					}
@@ -130,15 +77,6 @@ public class CountryPrices
 				goto IL_A5;
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		bool flag2 = false;
 		for (int k = 0; k < list.Count; k++)
 		{
@@ -150,15 +88,6 @@ public class CountryPrices
 				{
 					if (list2[l].Price > 0f)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag2 = true;
 						break;
 					}

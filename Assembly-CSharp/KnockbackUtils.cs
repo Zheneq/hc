@@ -41,19 +41,6 @@ public static class KnockbackUtils
 			vector2 = -vector2;
 			if (distance > 0f && vector2.magnitude > distance)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetKnockbackDeltaForType(ActorData, KnockbackType, Vector3, Vector3, float)).MethodHandle;
-				}
 				vector2.Normalize();
 				vector2 *= distance;
 			}
@@ -67,15 +54,6 @@ public static class KnockbackUtils
 			vector2 = new Vector2((sourcePos.x - travelBoardSquareWorldPosition.x) / squareSize, (sourcePos.z - travelBoardSquareWorldPosition.z) / squareSize);
 			if (distance > 0f && vector2.magnitude > distance)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2.Normalize();
 				vector2 *= distance;
 			}
@@ -97,26 +75,8 @@ public static class KnockbackUtils
 			float d2 = num2;
 			if (distance > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num2 > distance)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					d2 = distance;
 				}
 			}
@@ -157,19 +117,6 @@ public static class KnockbackUtils
 			currentSquare = boardSquare;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildKnockbackPathFromVector(ActorData, Vector2)).MethodHandle;
-				}
 				boardSquare = null;
 			}
 			else
@@ -177,27 +124,9 @@ public static class KnockbackUtils
 				boardSquare = KnockbackUtils.GetClosestAdjacentSquareTo(currentSquare, currentBoardSquare, destination, false);
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		bool flag2;
 		if (boardSquarePathInfo2.square != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = boardSquarePathInfo2.square.IsBaselineHeight();
 		}
 		else
@@ -209,15 +138,6 @@ public static class KnockbackUtils
 		{
 			if (boardSquarePathInfo2.prev == null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = true;
 			}
 			else
@@ -239,31 +159,9 @@ public static class KnockbackUtils
 		bool flag = false;
 		if (boardSquare != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetLastValidBoardSquareInLine(Vector3, Vector3, bool, bool, float)).MethodHandle;
-			}
 			if (considerHalfHeightWallValid)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				flag = boardSquare.\u0015();
+				flag = boardSquare.symbol_0015();
 			}
 			else
 			{
@@ -272,26 +170,8 @@ public static class KnockbackUtils
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (maxDistance >= 3.40282347E+38f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return boardSquare;
 			}
 		}
@@ -308,42 +188,15 @@ public static class KnockbackUtils
 				float num = boardSquare2.HorizontalDistanceInWorldTo(closestAdjacentSquareTo);
 				if (num > maxDistance)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return result;
 				}
 				boardSquare3 = closestAdjacentSquareTo;
-				bool flag2 = (!considerHalfHeightWallValid) ? boardSquare3.IsBaselineHeight() : boardSquare3.\u0015();
+				bool flag2 = (!considerHalfHeightWallValid) ? boardSquare3.IsBaselineHeight() : boardSquare3.symbol_0015();
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = boardSquare3;
 				}
 				closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare3, boardSquare2, destination, passThroughInvalidSquares);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -355,19 +208,6 @@ public static class KnockbackUtils
 		boardSquarePathInfo.square = startSquare;
 		if (destination == startSquare)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildStraightLineChargePath(ActorData, BoardSquare, BoardSquare, bool)).MethodHandle;
-			}
 			boardSquarePathInfo.next = new BoardSquarePathInfo();
 			boardSquarePathInfo.next.prev = boardSquarePathInfo;
 			boardSquarePathInfo.next.square = destination;
@@ -375,27 +215,9 @@ public static class KnockbackUtils
 		}
 		if (!(destination == null))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!passThroughInvalidSquares)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!destination.\u0015())
+				if (!destination.symbol_0015())
 				{
 					goto IL_7A;
 				}
@@ -413,37 +235,10 @@ public static class KnockbackUtils
 				boardSquare = closestAdjacentSquareTo;
 				closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquare != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquare == destination)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return boardSquarePathInfo;
 				}
 			}
@@ -464,33 +259,11 @@ public static class KnockbackUtils
 		numSquaresInPath = 0;
 		if (!(destination == null))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.CanBuildStraightLineChargePath(ActorData, BoardSquare, BoardSquare, bool, int*)).MethodHandle;
-			}
 			if (!(startSquare == null))
 			{
 				bool result;
 				if (destination == startSquare)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 					num = 2;
 				}
@@ -498,16 +271,7 @@ public static class KnockbackUtils
 				{
 					if (!(destination == null))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (passThroughInvalidSquares || destination.\u0015())
+						if (passThroughInvalidSquares || destination.symbol_0015())
 						{
 							BoardSquare boardSquare = startSquare;
 							BoardSquare closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
@@ -517,37 +281,10 @@ public static class KnockbackUtils
 								boardSquare = closestAdjacentSquareTo;
 								closestAdjacentSquareTo = KnockbackUtils.GetClosestAdjacentSquareTo(boardSquare, startSquare, destination, passThroughInvalidSquares);
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (boardSquare != null)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (boardSquare == destination)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									result = true;
 									goto IL_DE;
 								}
@@ -570,19 +307,6 @@ public static class KnockbackUtils
 	{
 		if (destinationSquare == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetClosestAdjacentSquareTo(BoardSquare, BoardSquare, BoardSquare, bool)).MethodHandle;
-			}
 			return null;
 		}
 		Vector2 destination = new Vector2((float)destinationSquare.x, (float)destinationSquare.y);
@@ -607,19 +331,6 @@ public static class KnockbackUtils
 				{
 					goto IL_97;
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.GetClosestAdjacentSquareTo(BoardSquare, BoardSquare, Vector2, bool)).MethodHandle;
-				}
 				if (j != 0)
 				{
 					goto IL_97;
@@ -637,15 +348,6 @@ public static class KnockbackUtils
 				float magnitude2 = (destination - vector2).magnitude;
 				if (magnitude2 + 0.2f >= magnitude)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					goto IL_1A3;
 				}
 				Vector2 vector3 = vector2 - vector;
@@ -664,15 +366,6 @@ public static class KnockbackUtils
 				}
 				if (magnitude3 < num)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num4 = Vector2.Angle(vector3, normalized);
 					num = magnitude3;
 					num2 = num4;
@@ -681,38 +374,11 @@ public static class KnockbackUtils
 				}
 				goto IL_1A3;
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (boardSquare != null && !passThroughInvalidSquares)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!KnockbackUtils.CanForceMoveToAdjacentSquare(currentSquare, boardSquare))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = null;
 			}
 		}
@@ -721,81 +387,32 @@ public static class KnockbackUtils
 
 	private static bool CanForceMoveToAdjacentSquare(BoardSquare src, BoardSquare dest)
 	{
-		if (!dest.\u0015())
+		if (!dest.symbol_0015())
 		{
 			return false;
 		}
-		if (!Board.Get().\u000E(src, dest))
+		if (!Board.Get().symbol_000E(src, dest))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.CanForceMoveToAdjacentSquare(BoardSquare, BoardSquare)).MethodHandle;
-			}
 			return false;
 		}
 		bool flag = true;
 		bool flag2 = true;
-		if (Board.Get().\u0015(src, dest))
+		if (Board.Get().symbol_0015(src, dest))
 		{
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
 			if (KnockbackUtils.CanForceMoveToAdjacentSquare(src, boardSquare))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (KnockbackUtils.CanForceMoveToAdjacentSquare(boardSquare, dest))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					goto IL_E3;
 				}
 			}
 			if (KnockbackUtils.CanForceMoveToAdjacentSquare(src, boardSquare2))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (KnockbackUtils.CanForceMoveToAdjacentSquare(boardSquare2, dest))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 					goto IL_E3;
 				}
@@ -809,28 +426,10 @@ public static class KnockbackUtils
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		if (!flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		return true;
@@ -841,45 +440,14 @@ public static class KnockbackUtils
 		List<Vector3> list = new List<Vector3>();
 		if (path == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildDrawablePath(BoardSquarePathInfo, bool)).MethodHandle;
-			}
 			Debug.LogError("Calling BuildDrawablePath with a null path.");
 		}
 		else if (path.square == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Calling BuildDrawablePath, but its first square is null.");
 		}
 		else if (Board.Get() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Debug.LogError("Calling BuildDrawablePath, but Board is null.");
 		}
 		else
@@ -891,15 +459,6 @@ public static class KnockbackUtils
 			list.Add(item);
 			while (path.next != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(path.next.square != null))
 				{
 					for (;;)
@@ -917,27 +476,9 @@ public static class KnockbackUtils
 					path = path.next;
 					if (directLine)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (path.next != null)
 						{
 							continue;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					GridPos gridPos2 = path.square.GetGridPos();
@@ -963,31 +504,9 @@ public static class KnockbackUtils
 				{
 					continue;
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KnockbackUtils.BuildGridPosPath(BoardSquarePathInfo, bool)).MethodHandle;
-				}
 			}
 			GridPos gridPos2 = path.square.GetGridPos();
 			list.Add(gridPos2);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}

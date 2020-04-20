@@ -60,19 +60,6 @@ public class TricksterFlare : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Flare";
 		}
 		this.m_afterImageSyncComp = base.GetComponent<TricksterAfterImageNetworkBehaviour>();
@@ -89,55 +76,15 @@ public class TricksterFlare : Ability
 		this.m_allyHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Secondary);
 		if (this.m_flareSubsequentDamageAmount > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			if (this.m_flareSubsequentDamageAmount != this.m_flareDamageAmount)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Tertiary, this.m_flareSubsequentDamageAmount);
 			}
 		}
 		if (this.m_flareSubsequentHealAmount > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_flareSubsequentHealAmount != this.m_flareHealAmount)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Quaternary, this.m_flareSubsequentHealAmount);
 			}
 		}
@@ -148,19 +95,6 @@ public class TricksterFlare : Ability
 	{
 		if (!this.m_flareAroundSelf)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			if (this.m_afterImageSyncComp != null)
 			{
 				return this.m_afterImageSyncComp.HasVaidAfterImages();
@@ -178,19 +112,6 @@ public class TricksterFlare : Ability
 		}
 		if (this.m_includeAllies)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			Ability.AddNameplateValueForOverlap(ref result, base.Targeter, targetActor, currentTargeterIndex, this.m_flareHealAmount, this.m_flareSubsequentHealAmount, AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Secondary);
 		}
 		return result;
@@ -203,30 +124,8 @@ public class TricksterFlare : Ability
 		{
 			if (actorData != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.OnAbilityAnimationRequest(ActorData, int, bool, Vector3)).MethodHandle;
-				}
 				if (!actorData.IsDead())
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_afterImageSyncComp.TurnToPosition(actorData, targetPos);
 					Animator modelAnimator = actorData.GetModelAnimator();
 					modelAnimator.SetInteger("Attack", animationIndex);
@@ -244,19 +143,6 @@ public class TricksterFlare : Ability
 		{
 			if (actorData != null && !actorData.IsDead())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TricksterFlare.OnAbilityAnimationRequestProcessed(ActorData)).MethodHandle;
-				}
 				Animator modelAnimator = actorData.GetModelAnimator();
 				modelAnimator.SetInteger("Attack", 0);
 				modelAnimator.SetBool("CinematicCam", false);

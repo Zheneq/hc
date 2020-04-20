@@ -38,19 +38,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		string text = base.GetOnHitDataDesc();
 		if (this.m_empoweredDelayedAoeOnHitData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetOnHitDataDesc()).MethodHandle;
-			}
 			text += this.m_empoweredDelayedAoeOnHitData.GetInEditorDesc();
 		}
 		return text;
@@ -78,7 +65,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	private void SetCachedFields()
 	{
-		this.m_cachedEmpoweredDelayedAoeOnHitData = ((!(this.m_abilityMod != null)) ? this.m_empoweredDelayedAoeOnHitData : this.m_abilityMod.m_empoweredDelayedAoeOnHitDataMod.\u001D(this.m_empoweredDelayedAoeOnHitData));
+		this.m_cachedEmpoweredDelayedAoeOnHitData = ((!(this.m_abilityMod != null)) ? this.m_empoweredDelayedAoeOnHitData : this.m_abilityMod.m_empoweredDelayedAoeOnHitDataMod.symbol_001D(this.m_empoweredDelayedAoeOnHitData));
 	}
 
 	public OnHitAuthoredData GetEmpoweredDelayedAoeOnHitData()
@@ -86,19 +73,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		OnHitAuthoredData result;
 		if (this.m_cachedEmpoweredDelayedAoeOnHitData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetEmpoweredDelayedAoeOnHitData()).MethodHandle;
-			}
 			result = this.m_cachedEmpoweredDelayedAoeOnHitData;
 		}
 		else
@@ -113,19 +87,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetNovaOnReactShieldPerDetonate()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_novaOnReactShieldPerDetonateMod.GetModifiedValue(this.m_novaOnReactShieldPerDetonate);
 		}
 		else
@@ -140,19 +101,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetShieldOnDetonateDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_shieldOnDetonateDurationMod.GetModifiedValue(this.m_shieldOnDetonateDuration);
 		}
 		else
@@ -167,19 +115,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetCdrPerKill()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrPerKillMod.GetModifiedValue(this.m_cdrPerKill);
 		}
 		else
@@ -194,19 +129,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.GetCdrIfAnyKill()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_cdrIfAnyKillMod.GetModifiedValue(this.m_cdrIfAnyKill);
 		}
 		else
@@ -226,32 +148,10 @@ public class IceborgDetonateNova : GenericAbility_Container
 		base.AddTokenInt(tokens, "CdrIfAnyKill", string.Empty, this.m_cdrIfAnyKill, false);
 		if (this.m_syncComp == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			this.m_syncComp = base.GetComponent<Iceborg_SyncComponent>();
 		}
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_syncComp.AddTooltipTokens(tokens);
 		}
 	}
@@ -260,19 +160,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 	{
 		if (this.m_syncComp != null && this.m_syncComp.m_numNovaEffectsOnTurnStart <= 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.CustomCanCastValidation(ActorData)).MethodHandle;
-			}
 			return false;
 		}
 		return base.CustomCanCastValidation(caster);
@@ -282,19 +169,6 @@ public class IceborgDetonateNova : GenericAbility_Container
 	{
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgDetonateNova.PreProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars)).MethodHandle;
-			}
 			abilityContext.SetInt(IceborgDetonateNova.s_cvarNumNovaCores.GetHash(), (int)this.m_syncComp.m_numNovaEffectsOnTurnStart);
 		}
 	}

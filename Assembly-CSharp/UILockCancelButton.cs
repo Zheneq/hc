@@ -81,19 +81,6 @@ public class UILockCancelButton : MonoBehaviour
 		UIManager.SetGameObjectActive(this.m_lockImage, false, null);
 		if (this.m_theButton != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnPointerEnter));
 			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerExit, new UIEventTriggerUtils.EventDelegate(this.OnPointerExit));
 			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerDown, new UIEventTriggerUtils.EventDelegate(this.OnPointerDown));
@@ -102,15 +89,6 @@ public class UILockCancelButton : MonoBehaviour
 		RectTransform rectTransform = base.GetComponent<Transform>() as RectTransform;
 		if (rectTransform != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_originalAnchoredPosition = rectTransform.anchoredPosition;
 		}
 		this.m_theButtonImage = this.m_theButton.GetComponent<Image>();
@@ -162,19 +140,6 @@ public class UILockCancelButton : MonoBehaviour
 		RectTransform rectTransform = base.GetComponent<Transform>() as RectTransform;
 		if (rectTransform != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.UpdateMouseDownLocation()).MethodHandle;
-			}
 			if (this.m_mouseIsDown)
 			{
 				rectTransform.anchoredPosition = this.m_originalAnchoredPosition + new Vector2(0f, -(this.m_lockInContainer.rect.height * 0.05f));
@@ -203,19 +168,6 @@ public class UILockCancelButton : MonoBehaviour
 	{
 		if (this.m_theButton != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.SetClickCallback(UIEventTriggerUtils.EventDelegate)).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.m_theButton.gameObject, EventTriggerType.PointerClick, callback);
 		}
 	}
@@ -230,30 +182,8 @@ public class UILockCancelButton : MonoBehaviour
 		bool flag;
 		if (isDead)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.SetDecisionContainerVisible(bool, bool)).MethodHandle;
-			}
 			if (!(SpawnPointManager.Get() == null))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = !SpawnPointManager.Get().m_playersSelectRespawn;
 			}
 			else
@@ -270,15 +200,6 @@ public class UILockCancelButton : MonoBehaviour
 		bool doActive;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = !flag2;
 		}
 		else
@@ -290,15 +211,6 @@ public class UILockCancelButton : MonoBehaviour
 		bool doActive2;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive2 = !flag2;
 		}
 		else
@@ -310,15 +222,6 @@ public class UILockCancelButton : MonoBehaviour
 		bool doActive3;
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive3 = flag2;
 		}
 		else
@@ -328,26 +231,8 @@ public class UILockCancelButton : MonoBehaviour
 		UIManager.SetGameObjectActive(playerDeadContainer, doActive3, null);
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetLockinPhaseDisplayForceOff())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_phaseMarkerContainer, false, null);
 				goto IL_F4;
 			}
@@ -356,26 +241,8 @@ public class UILockCancelButton : MonoBehaviour
 		IL_F4:
 		if (SinglePlayerManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (SinglePlayerManager.Get().GetLockinPhaseTextForceOff())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_phaseLabelContainer, false, null);
 				return;
 			}
@@ -397,41 +264,10 @@ public class UILockCancelButton : MonoBehaviour
 			UIManager.SetGameObjectActive(this.m_movementIcon, false, null);
 			if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Prep)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.UpdatePhase()).MethodHandle;
-				}
 				if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Evasion)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (uiphaseFromAbilityPriority != UIQueueListPanel.UIPhase.Combat)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -459,28 +295,10 @@ public class UILockCancelButton : MonoBehaviour
 		}
 		if (this.m_phaseText.text != text)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_phaseTextController.Play("PhaseTextIdle");
 			this.m_phaseTextController.Play("PhaseTextChange");
 			if (text != StringUtil.TR("MOVE", "Global"))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				HUD_UI.Get().m_mainScreenPanel.m_abilityBar.m_theTimer.m_abilityUsedTracker.ClearAllAbilties(uiphaseFromAbilityPriority - 1);
 			}
 			else
@@ -495,15 +313,6 @@ public class UILockCancelButton : MonoBehaviour
 		{
 			UIManager.SetGameObjectActive(this.m_phaseIndicators[i], i == num, null);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_phaseIcon.sprite = this.m_phaseIcons[num];
 	}
 
@@ -517,19 +326,6 @@ public class UILockCancelButton : MonoBehaviour
 		this.Unclicked();
 		if (!this.m_lockInShowing)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UILockCancelButton.EnableLockIn(bool, bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_lockInContainer, true, null);
 			UIManager.SetGameObjectActive(this.m_cancelContainer, false, null);
 			UIManager.SetGameObjectActive(this.m_lockImage, false, null);

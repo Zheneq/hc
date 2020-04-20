@@ -23,19 +23,6 @@ public class UIVoiceListPlayerEntry : MonoBehaviour
 		{
 			this.m_playerNames[i].text = userInfo.UserName + "#" + userInfo.Discriminator;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIVoiceListPlayerEntry.Setup(DiscordUserInfo)).MethodHandle;
-		}
 	}
 
 	public bool IsUser(DiscordUserInfo userInfo)

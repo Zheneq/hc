@@ -9,7 +9,7 @@ namespace I2.Loc.SimpleJSON
 	[DefaultMember("Item")]
 	public class JSONNode
 	{
-		public virtual void \u0013(string \u001D, JSONNode \u000E)
+		public virtual void symbol_0013(string symbol_001D, JSONNode symbol_000E)
 		{
 		}
 
@@ -35,7 +35,7 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public virtual string \u0009
+		public virtual string symbol_0009
 		{
 			get
 			{
@@ -46,7 +46,7 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public virtual int \u0019
+		public virtual int symbol_0019
 		{
 			get
 			{
@@ -54,27 +54,27 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public virtual void \u0013(JSONNode \u001D)
+		public virtual void symbol_0013(JSONNode symbol_001D)
 		{
-			this.\u0013(string.Empty, \u001D);
+			this.symbol_0013(string.Empty, symbol_001D);
 		}
 
-		public virtual JSONNode \u0011(string \u001D)
-		{
-			return null;
-		}
-
-		public virtual JSONNode \u0011(int \u001D)
+		public virtual JSONNode symbol_0011(string symbol_001D)
 		{
 			return null;
 		}
 
-		public virtual JSONNode \u0011(JSONNode \u001D)
+		public virtual JSONNode symbol_0011(int symbol_001D)
 		{
-			return \u001D;
+			return null;
 		}
 
-		public virtual IEnumerable<JSONNode> \u001A
+		public virtual JSONNode symbol_0011(JSONNode symbol_001D)
+		{
+			return symbol_001D;
+		}
+
+		public virtual IEnumerable<JSONNode> symbol_001A
 		{
 			get
 			{
@@ -86,11 +86,11 @@ namespace I2.Loc.SimpleJSON
 		{
 			get
 			{
-				JSONNode.<>c__Iterator1 <>c__Iterator = new JSONNode.<>c__Iterator1();
-				<>c__Iterator.\u0016 = this;
-				JSONNode.<>c__Iterator1 <>c__Iterator2 = <>c__Iterator;
-				<>c__Iterator2.\u0009 = -2;
-				return <>c__Iterator2;
+				JSONNode._c__Iterator1 _c__Iterator = new JSONNode._c__Iterator1();
+				_c__Iterator.symbol_0016 = this;
+				JSONNode._c__Iterator1 _c__Iterator2 = _c__Iterator;
+				_c__Iterator2.symbol_0009 = -2;
+				return _c__Iterator2;
 			}
 		}
 
@@ -99,119 +99,80 @@ namespace I2.Loc.SimpleJSON
 			return "JSONNode";
 		}
 
-		public virtual string \u0004(string \u001D)
+		public virtual string symbol_0004(string symbol_001D)
 		{
 			return "JSONNode";
 		}
 
-		public virtual int \u000B
+		public virtual int symbol_000B
 		{
 			get
 			{
 				int result = 0;
-				if (int.TryParse(this.\u0009, out result))
+				if (int.TryParse(this.symbol_0009, out result))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.get_\u000B()).MethodHandle;
-					}
 					return result;
 				}
 				return 0;
 			}
 			set
 			{
-				this.\u0009 = value.ToString();
+				this.symbol_0009 = value.ToString();
 			}
 		}
 
-		public virtual float \u0003
+		public virtual float symbol_0003
 		{
 			get
 			{
 				float result = 0f;
-				if (float.TryParse(this.\u0009, out result))
+				if (float.TryParse(this.symbol_0009, out result))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.get_\u0003()).MethodHandle;
-					}
 					return result;
 				}
 				return 0f;
 			}
 			set
 			{
-				this.\u0009 = value.ToString();
+				this.symbol_0009 = value.ToString();
 			}
 		}
 
-		public virtual double \u000F
+		public virtual double symbol_000F
 		{
 			get
 			{
 				double result = 0.0;
-				if (double.TryParse(this.\u0009, out result))
+				if (double.TryParse(this.symbol_0009, out result))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.get_\u000F()).MethodHandle;
-					}
 					return result;
 				}
 				return 0.0;
 			}
 			set
 			{
-				this.\u0009 = value.ToString();
+				this.symbol_0009 = value.ToString();
 			}
 		}
 
-		public virtual bool \u0017
+		public virtual bool symbol_0017
 		{
 			get
 			{
 				bool result = false;
-				if (bool.TryParse(this.\u0009, out result))
+				if (bool.TryParse(this.symbol_0009, out result))
 				{
 					return result;
 				}
-				return !string.IsNullOrEmpty(this.\u0009);
+				return !string.IsNullOrEmpty(this.symbol_0009);
 			}
 			set
 			{
-				this.\u0009 = ((!value) ? "false" : "true");
+				this.symbol_0009 = ((!value) ? "false" : "true");
 			}
 		}
 
-		public virtual JSONArray \u000D
+		public virtual JSONArray symbol_000D
 		{
 			get
 			{
@@ -219,7 +180,7 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public virtual JSONClass \u0008
+		public virtual JSONClass symbol_0008
 		{
 			get
 			{
@@ -227,75 +188,40 @@ namespace I2.Loc.SimpleJSON
 			}
 		}
 
-		public static JSONNode JSONData(string \u001D)
+		public static JSONNode JSONData(string symbol_001D)
 		{
-			return new JSONData(\u001D);
+			return new JSONData(symbol_001D);
 		}
 
-		public static string toString_zq(JSONNode \u001D)
+		public static string toString_zq(JSONNode symbol_001D)
 		{
 			string result;
-			if (JSONNode.\u000A(\u001D, null))
+			if (JSONNode.symbol_000A(symbol_001D, null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.toString_zq(JSONNode)).MethodHandle;
-				}
 				result = null;
 			}
 			else
 			{
-				result = \u001D.\u0009;
+				result = symbol_001D.symbol_0009;
 			}
 			return result;
 		}
 
-		public static bool \u000A(JSONNode \u001D, object \u000E)
+		public static bool symbol_000A(JSONNode symbol_001D, object symbol_000E)
 		{
-			if (\u000E == null)
+			if (symbol_000E == null)
 			{
-				for (;;)
+				if (symbol_001D is JSONLazyCreator)
 				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.\u000A(JSONNode, object)).MethodHandle;
-				}
-				if (\u001D is JSONLazyCreator)
-				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
-			return object.ReferenceEquals(\u001D, \u000E);
+			return object.ReferenceEquals(symbol_001D, symbol_000E);
 		}
 
-		public static bool \u0006(JSONNode \u001D, object \u000E)
+		public static bool symbol_0006(JSONNode symbol_001D, object symbol_000E)
 		{
-			return !JSONNode.\u000A(\u001D, \u000E);
+			return !JSONNode.symbol_000A(symbol_001D, symbol_000E);
 		}
 
 		public override bool Equals(object obj)
@@ -308,10 +234,10 @@ namespace I2.Loc.SimpleJSON
 			return base.GetHashCode();
 		}
 
-		internal static string escapeString(string \u001D)
+		internal static string escapeString(string symbol_001D)
 		{
 			string text = string.Empty;
-			foreach (char c in \u001D)
+			foreach (char c in symbol_001D)
 			{
 				switch (c)
 				{
@@ -327,30 +253,8 @@ namespace I2.Loc.SimpleJSON
 				default:
 					if (c != '"')
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.escapeString(string)).MethodHandle;
-						}
 						if (c != '\\')
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text += c;
 						}
 						else
@@ -371,19 +275,10 @@ namespace I2.Loc.SimpleJSON
 					break;
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return text;
 		}
 
-		public static JSONNode \u0020(string \u001D)
+		public static JSONNode symbol_0020(string symbol_001D)
 		{
 			Stack<JSONNode> stack = new Stack<JSONNode>();
 			JSONNode jsonnode = null;
@@ -391,9 +286,9 @@ namespace I2.Loc.SimpleJSON
 			string text = string.Empty;
 			string text2 = string.Empty;
 			bool flag = false;
-			while (i < \u001D.Length)
+			while (i < symbol_001D.Length)
 			{
-				char c = \u001D[i];
+				char c = symbol_001D[i];
 				switch (c)
 				{
 				case '\t':
@@ -407,29 +302,20 @@ namespace I2.Loc.SimpleJSON
 					case '[':
 						if (flag)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							text += \u001D[i];
+							text += symbol_001D[i];
 							goto IL_4FD;
 						}
 						stack.Push(new JSONArray());
-						if (JSONNode.\u0006(jsonnode, null))
+						if (JSONNode.symbol_0006(jsonnode, null))
 						{
 							text2 = text2.Trim();
 							if (jsonnode is JSONArray)
 							{
-								jsonnode.\u0013(stack.Peek());
+								jsonnode.symbol_0013(stack.Peek());
 							}
 							else if (text2 != string.Empty)
 							{
-								jsonnode.\u0013(text2, stack.Peek());
+								jsonnode.symbol_0013(text2, stack.Peek());
 							}
 						}
 						text2 = string.Empty;
@@ -440,7 +326,7 @@ namespace I2.Loc.SimpleJSON
 						i++;
 						if (flag)
 						{
-							char c2 = \u001D[i];
+							char c2 = symbol_001D[i];
 							switch (c2)
 							{
 							case 'r':
@@ -451,26 +337,8 @@ namespace I2.Loc.SimpleJSON
 								{
 									if (c2 != 'f')
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (c2 != 'n')
 										{
-											for (;;)
-											{
-												switch (2)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											text += c2;
 										}
 										else
@@ -493,7 +361,7 @@ namespace I2.Loc.SimpleJSON
 								break;
 							case 'u':
 							{
-								string s = \u001D.Substring(i + 1, 4);
+								string s = symbol_001D.Substring(i + 1, 4);
 								text += (char)int.Parse(s, NumberStyles.AllowHexSpecifier);
 								i += 4;
 								break;
@@ -514,56 +382,20 @@ namespace I2.Loc.SimpleJSON
 							case '{':
 								if (flag)
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									text += \u001D[i];
+									text += symbol_001D[i];
 									goto IL_4FD;
 								}
 								stack.Push(new JSONClass());
-								if (JSONNode.\u0006(jsonnode, null))
+								if (JSONNode.symbol_0006(jsonnode, null))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									text2 = text2.Trim();
 									if (jsonnode is JSONArray)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										jsonnode.\u0013(stack.Peek());
+										jsonnode.symbol_0013(stack.Peek());
 									}
 									else if (text2 != string.Empty)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										jsonnode.\u0013(text2, stack.Peek());
+										jsonnode.symbol_0013(text2, stack.Peek());
 									}
 								}
 								text2 = string.Empty;
@@ -573,36 +405,14 @@ namespace I2.Loc.SimpleJSON
 							default:
 								if (c != ',')
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.\u0020(string)).MethodHandle;
-									}
 									if (c != ':')
 									{
-										text += \u001D[i];
+										text += symbol_001D[i];
 										goto IL_4FD;
 									}
 									if (flag)
 									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										text += \u001D[i];
+										text += symbol_001D[i];
 										goto IL_4FD;
 									}
 									text2 = text;
@@ -613,45 +423,18 @@ namespace I2.Loc.SimpleJSON
 								{
 									if (flag)
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										text += \u001D[i];
+										text += symbol_001D[i];
 										goto IL_4FD;
 									}
 									if (text != string.Empty)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (jsonnode is JSONArray)
 										{
-											jsonnode.\u0013(JSONNode.JSONData(text));
+											jsonnode.symbol_0013(JSONNode.JSONData(text));
 										}
 										else if (text2 != string.Empty)
 										{
-											for (;;)
-											{
-												switch (4)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
-											jsonnode.\u0013(text2, JSONNode.JSONData(text));
+											jsonnode.symbol_0013(text2, JSONNode.JSONData(text));
 										}
 									}
 									text2 = string.Empty;
@@ -671,85 +454,31 @@ namespace I2.Loc.SimpleJSON
 					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						text += \u001D[i];
+						text += symbol_001D[i];
 					}
 					else
 					{
 						if (stack.Count == 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							throw new Exception("JSON Parse: Too many closing brackets");
 						}
 						stack.Pop();
 						if (text != string.Empty)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text2 = text2.Trim();
 							if (jsonnode is JSONArray)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								jsonnode.\u0013(JSONNode.JSONData(text));
+								jsonnode.symbol_0013(JSONNode.JSONData(text));
 							}
 							else if (text2 != string.Empty)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
-								jsonnode.\u0013(text2, JSONNode.JSONData(text));
+								jsonnode.symbol_0013(text2, JSONNode.JSONData(text));
 							}
 						}
 						text2 = string.Empty;
 						text = string.Empty;
 						if (stack.Count > 0)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							jsonnode = stack.Peek();
 						}
 					}
@@ -761,56 +490,38 @@ namespace I2.Loc.SimpleJSON
 				IL_3CB:
 				if (flag)
 				{
-					text += \u001D[i];
+					text += symbol_001D[i];
 				}
 				goto IL_4FD;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				throw new Exception("JSON Parse: Quotation marks seems to be messed up.");
 			}
 			return jsonnode;
 		}
 
-		public virtual void \u0002(BinaryWriter \u001D)
+		public virtual void symbol_0002(BinaryWriter symbol_001D)
 		{
 		}
 
-		public void write(Stream \u001D)
+		public void write(Stream symbol_001D)
 		{
-			BinaryWriter u001D = new BinaryWriter(\u001D);
-			this.\u0002(u001D);
+			BinaryWriter u001D = new BinaryWriter(symbol_001D);
+			this.symbol_0002(u001D);
 		}
 
-		public void compressed0006(Stream \u001D)
-		{
-			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
-		}
-
-		public void compressed000A(string \u001D)
+		public void compressed0006(Stream symbol_001D)
 		{
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
 
-		public string \u000A()
+		public void compressed000A(string symbol_001D)
+		{
+			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
+		}
+
+		public string symbol_000A()
 		{
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
@@ -838,149 +549,101 @@ namespace I2.Loc.SimpleJSON
 			{
 				if (memoryStream != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.writeToString()).MethodHandle;
-					}
 					((IDisposable)memoryStream).Dispose();
 				}
 			}
 			return result;
 		}
 
-		public static JSONNode \u000A(BinaryReader \u001D)
+		public static JSONNode symbol_000A(BinaryReader symbol_001D)
 		{
-			JSONBinaryTag jsonbinaryTag = (JSONBinaryTag)\u001D.ReadByte();
+			JSONBinaryTag jsonbinaryTag = (JSONBinaryTag)symbol_001D.ReadByte();
 			switch (jsonbinaryTag)
 			{
-			case JSONBinaryTag.\u001D:
+			case JSONBinaryTag.symbol_001D:
 			{
-				int num = \u001D.ReadInt32();
+				int num = symbol_001D.ReadInt32();
 				JSONArray jsonarray = new JSONArray();
 				for (int i = 0; i < num; i++)
 				{
-					jsonarray.\u0013(JSONNode.\u000A(\u001D));
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.\u000A(BinaryReader)).MethodHandle;
+					jsonarray.symbol_0013(JSONNode.symbol_000A(symbol_001D));
 				}
 				return jsonarray;
 			}
-			case JSONBinaryTag.\u000E:
+			case JSONBinaryTag.symbol_000E:
 			{
-				int num2 = \u001D.ReadInt32();
+				int num2 = symbol_001D.ReadInt32();
 				JSONClass jsonclass = new JSONClass();
 				for (int j = 0; j < num2; j++)
 				{
-					string u001D = \u001D.ReadString();
-					JSONNode u000E = JSONNode.\u000A(\u001D);
-					jsonclass.\u0013(u001D, u000E);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
+					string u001D = symbol_001D.ReadString();
+					JSONNode u000E = JSONNode.symbol_000A(symbol_001D);
+					jsonclass.symbol_0013(u001D, u000E);
 				}
 				return jsonclass;
 			}
-			case JSONBinaryTag.\u0012:
-				return new JSONData(\u001D.ReadString());
-			case JSONBinaryTag.\u0015:
-				return new JSONData(\u001D.ReadInt32());
-			case JSONBinaryTag.\u0016:
-				return new JSONData(\u001D.ReadDouble());
-			case JSONBinaryTag.\u0013:
-				return new JSONData(\u001D.ReadBoolean());
-			case JSONBinaryTag.\u0018:
-				return new JSONData(\u001D.ReadSingle());
+			case JSONBinaryTag.symbol_0012:
+				return new JSONData(symbol_001D.ReadString());
+			case JSONBinaryTag.symbol_0015:
+				return new JSONData(symbol_001D.ReadInt32());
+			case JSONBinaryTag.symbol_0016:
+				return new JSONData(symbol_001D.ReadDouble());
+			case JSONBinaryTag.symbol_0013:
+				return new JSONData(symbol_001D.ReadBoolean());
+			case JSONBinaryTag.symbol_0018:
+				return new JSONData(symbol_001D.ReadSingle());
 			default:
 				throw new Exception("Error deserializing JSON. Unknown tag: " + jsonbinaryTag);
 			}
 		}
 
-		public static JSONNode \u000C(string \u001D)
+		public static JSONNode symbol_000C(string symbol_001D)
 		{
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
 
-		public static JSONNode \u000A(Stream \u001D)
+		public static JSONNode symbol_000A(Stream symbol_001D)
 		{
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
 
-		public static JSONNode \u0014(string \u001D)
+		public static JSONNode symbol_0014(string symbol_001D)
 		{
 			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
 		}
 
-		public static JSONNode \u0006(Stream \u001D)
+		public static JSONNode symbol_0006(Stream symbol_001D)
 		{
-			BinaryReader binaryReader = new BinaryReader(\u001D);
+			BinaryReader binaryReader = new BinaryReader(symbol_001D);
 			JSONNode result;
 			try
 			{
-				result = JSONNode.\u000A(binaryReader);
+				result = JSONNode.symbol_000A(binaryReader);
 			}
 			finally
 			{
 				if (binaryReader != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(JSONNode.\u0006(Stream)).MethodHandle;
-					}
 					((IDisposable)binaryReader).Dispose();
 				}
 			}
 			return result;
 		}
 
-		public static JSONNode \u0005(string \u001D)
+		public static JSONNode symbol_0005(string symbol_001D)
 		{
 			JSONNode result;
-			using (FileStream fileStream = File.OpenRead(\u001D))
+			using (FileStream fileStream = File.OpenRead(symbol_001D))
 			{
-				result = JSONNode.\u0006(fileStream);
+				result = JSONNode.symbol_0006(fileStream);
 			}
 			return result;
 		}
 
-		public static JSONNode \u001B(string \u001D)
+		public static JSONNode symbol_001B(string symbol_001D)
 		{
-			byte[] buffer = Convert.FromBase64String(\u001D);
-			return JSONNode.\u0006(new MemoryStream(buffer)
+			byte[] buffer = Convert.FromBase64String(symbol_001D);
+			return JSONNode.symbol_0006(new MemoryStream(buffer)
 			{
 				Position = 0L
 			});

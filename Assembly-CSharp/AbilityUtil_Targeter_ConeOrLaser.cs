@@ -41,19 +41,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		bool shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ConeOrLaser..ctor(Ability, ConeTargetingInfo, LaserTargetingInfo, float)).MethodHandle;
-			}
 			shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
 		}
 		else
@@ -68,30 +55,8 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		base.StartConfirmedTargeting(currentTarget, targetingActor);
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ConeOrLaser.StartConfirmedTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 3)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights[2].SetActive(false);
 			}
 		}
@@ -110,30 +75,8 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		Vector3 vector2 = currentTarget.AimDirection;
 		if (currentTargetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ConeOrLaser.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			if (targets != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 				if (boardSquareSafe != null)
 				{
@@ -145,15 +88,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 					vector2.y = 0f;
 					if (vector2.sqrMagnitude == 0f)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector2 = Vector3.forward;
 					}
 					else
@@ -175,15 +109,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 		List<ActorData> hitActors;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			hitActors = this.m_conePart.GetHitActors(vector, vector2, targetingActor, relevantTeams);
 			this.m_conePart.AdjustHighlight(gameObject, vector, vector2);
 			gameObject.SetActive(true);
@@ -218,15 +143,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				AbilityTooltipSubject subjectType;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					subjectType = AbilityTooltipSubject.Primary;
 				}
 				else
@@ -236,21 +152,12 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				base.AddActorInRange(actor, damageOrigin, targetingActor, subjectType, false);
 				ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
 				float value = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetTravelBoardSquareWorldPosition());
-				actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
-				ContextVars u = actorHitContext.\u0015;
+				actorHitContext.symbol_0015.SetFloat(ContextKeys.symbol_0018.GetHash(), value);
+				ContextVars u = actorHitContext.symbol_0015;
 				int hash = TargetSelect_ConeOrLaser.s_cvarInCone.GetHash();
 				int value2;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value2 = 1;
 				}
 				else
@@ -260,68 +167,23 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 				u.SetInt(hash, value2);
 				if (actorData != targetingActor)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 to = actorData.GetTravelBoardSquareWorldPosition() - targetingActor.GetTravelBoardSquareWorldPosition();
 						to.y = 0f;
 						float value3 = Vector3.Angle(vector2, to);
-						actorHitContext.\u0015.SetFloat(ContextKeys.\u001D.GetHash(), value3);
+						actorHitContext.symbol_0015.SetFloat(ContextKeys.symbol_001D.GetHash(), value3);
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (this.m_affectsTargetingActor && !hitActors.Contains(targetingActor))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_customShouldAddCasterDelegate != null)
 			{
 				if (!this.m_customShouldAddCasterDelegate(targetingActor, hitActors))
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			base.AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Self, false);
@@ -335,19 +197,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 			if (this.m_highlights.Count >= 3)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ConeOrLaser.CreateHighlights()).MethodHandle;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -372,19 +221,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ConeOrLaser.DrawInvalidSquareIndicators_Cone(AbilityTarget, ActorData, Vector3, Vector3)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			this.m_conePart.ShowHiddenSquares(this.m_indicatorHandler, coneStartPos, VectorUtils.HorizontalAngle_Deg(forwardDirection), targetingActor, this.m_coneInfo.m_penetrateLos);
 			base.HideUnusedSquareIndicators();
@@ -395,19 +231,6 @@ public class AbilityUtil_Targeter_ConeOrLaser : AbilityUtil_Targeter
 	{
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ConeOrLaser.DrawInvalidSquareIndicators_Laser(AbilityTarget, ActorData, Vector3, Vector3)).MethodHandle;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			this.m_laserPart.ShowHiddenSquares(this.m_indicatorHandler, startPos, endPos, targetingActor, this.m_laserInfo.penetrateLos);
 			base.HideUnusedSquareIndicators();

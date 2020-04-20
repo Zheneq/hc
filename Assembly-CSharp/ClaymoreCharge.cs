@@ -64,19 +64,6 @@ public class ClaymoreCharge : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Berserker Charge";
 		}
 		this.SetupTargeter();
@@ -89,34 +76,9 @@ public class ClaymoreCharge : Ability
 		AbilityUtil_Targeter_ClaymoreCharge abilityUtil_Targeter_ClaymoreCharge = new AbilityUtil_Targeter_ClaymoreCharge(this, this.GetChargeWidth(), this.GetChargeRange(), this.GetAoeShape(), this.DirectHitIgnoreCover());
 		if (this.GetHealOnSelfPerTargetHit() > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.SetupTargeter()).MethodHandle;
-			}
 			AbilityUtil_Targeter_ClaymoreCharge abilityUtil_Targeter_ClaymoreCharge2 = abilityUtil_Targeter_ClaymoreCharge;
-			if (ClaymoreCharge.<>f__am$cache0 == null)
-			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				ClaymoreCharge.<>f__am$cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
-			}
-			abilityUtil_Targeter_ClaymoreCharge2.m_affectCasterDelegate = ClaymoreCharge.<>f__am$cache0;
+			
+			abilityUtil_Targeter_ClaymoreCharge2.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
 		}
 		base.Targeter = abilityUtil_Targeter_ClaymoreCharge;
 	}
@@ -142,19 +104,6 @@ public class ClaymoreCharge : Ability
 		AbilityAreaShape result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetAoeShape()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_aoeShapeMod.GetModifiedValue(this.m_aoeShape);
 		}
 		else
@@ -184,19 +133,6 @@ public class ClaymoreCharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetDirectHitDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_directHitDamageMod.GetModifiedValue(this.m_directHitDamage);
 		}
 		else
@@ -211,19 +147,6 @@ public class ClaymoreCharge : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedDirectEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetDirectEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedDirectEnemyHitEffect;
 		}
 		else
@@ -243,19 +166,6 @@ public class ClaymoreCharge : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedAoeEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetAoeEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedAoeEnemyHitEffect;
 		}
 		else
@@ -275,19 +185,6 @@ public class ClaymoreCharge : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetHealOnSelfPerTargetHit()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_healOnSelfPerTargetHitMod.GetModifiedValue(this.m_healOnSelfPerTargetHit);
 		}
 		else
@@ -307,19 +204,6 @@ public class ClaymoreCharge : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetChaseHitActor()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_chaseHitActorMod.GetModifiedValue(this.m_chaseHitActor);
 		}
 		else
@@ -342,19 +226,6 @@ public class ClaymoreCharge : Ability
 		int val;
 		if (abilityMod_ClaymoreCharge)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_ClaymoreCharge.m_directHitDamageMod.GetModifiedValue(this.m_directHitDamage);
 		}
 		else
@@ -367,15 +238,6 @@ public class ClaymoreCharge : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_ClaymoreCharge)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_ClaymoreCharge.m_aoeEnemyHitEffectMod.GetModifiedValue(this.m_aoeEnemyHitEffect);
 		}
 		else
@@ -388,15 +250,6 @@ public class ClaymoreCharge : Ability
 		int val2;
 		if (abilityMod_ClaymoreCharge)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_ClaymoreCharge.m_extraDirectHitDamagePerSquareMod.GetModifiedValue(this.m_extraDirectHitDamagePerSquare);
 		}
 		else
@@ -410,15 +263,6 @@ public class ClaymoreCharge : Ability
 		int val3;
 		if (abilityMod_ClaymoreCharge)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = abilityMod_ClaymoreCharge.m_cooldownOnHitMod.GetModifiedValue(this.m_cooldownOnHit);
 		}
 		else
@@ -448,42 +292,11 @@ public class ClaymoreCharge : Ability
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				int num = this.GetDirectHitDamage();
 				if (this.GetExtraDirectHitDamagePerSquare() > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Targeter is AbilityUtil_Targeter_ClaymoreCharge)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						AbilityUtil_Targeter_ClaymoreCharge abilityUtil_Targeter_ClaymoreCharge = base.Targeter as AbilityUtil_Targeter_ClaymoreCharge;
 						int num2 = Mathf.Max(0, abilityUtil_Targeter_ClaymoreCharge.LastUpdatePathSquareCount - 1);
 						num += num2 * this.GetExtraDirectHitDamagePerSquare();
@@ -497,15 +310,6 @@ public class ClaymoreCharge : Ability
 			}
 			else if (this.GetHealOnSelfPerTargetHit() > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
 				{
 					int value = this.GetHealOnSelfPerTargetHit() * Mathf.Max(0, base.Targeter.GetActorsInRange().Count - 1);
@@ -521,19 +325,6 @@ public class ClaymoreCharge : Ability
 		string result;
 		if (this.m_syncComp != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetAccessoryTargeterNumberString(ActorData, AbilityTooltipSymbol, int)).MethodHandle;
-			}
 			result = this.m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
 		}
 		else
@@ -558,30 +349,8 @@ public class ClaymoreCharge : Ability
 				ActorData occupantActor = boardSquarePathInfo.square.OccupantActor;
 				if (occupantActor != null && AreaEffectUtils.IsActorTargetable(occupantActor, relevantTeams))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetActorsOnPath(BoardSquarePathInfo, List<Team>, ActorData)).MethodHandle;
-					}
 					if (relevantTeams != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!relevantTeams.Contains(occupantActor.GetTeam()))
 						{
 							goto IL_69;
@@ -590,15 +359,6 @@ public class ClaymoreCharge : Ability
 					list.Add(occupantActor);
 				}
 				IL_69:;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return list;
@@ -611,44 +371,13 @@ public class ClaymoreCharge : Ability
 		BoardSquare boardSquare = Board.Get().GetBoardSquare(startPos);
 		if (pathEndSquare != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetMaxPotentialChargeDistance(Vector3, Vector3, Vector3, float, ActorData, BoardSquare*)).MethodHandle;
-			}
 			if (pathEndSquare != boardSquare)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 pointToProject = pathEndSquare.ToVector3();
 				Vector3 projectionPoint = VectorUtils.GetProjectionPoint(aimDir, startPos, pointToProject);
 				float num = (projectionPoint - startPos).magnitude + 0.5f;
 				if (num < laserMaxDistInWorld)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = num;
 				}
 				return result;
@@ -664,58 +393,18 @@ public class ClaymoreCharge : Ability
 		BoardSquare result = null;
 		if (chargePath != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetTrimmedDestinationInPath(BoardSquarePathInfo, bool*)).MethodHandle;
-			}
 			BoardSquarePathInfo boardSquarePathInfo = chargePath;
 			result = boardSquarePathInfo.square;
 			int num = 0;
 			while (boardSquarePathInfo.next != null)
 			{
 				BoardSquare square = boardSquarePathInfo.next.square;
-				if (boardSquarePathInfo.square.\u0015())
+				if (boardSquarePathInfo.square.symbol_0015())
 				{
-					for (;;)
+					if (!square.symbol_0015())
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!square.\u0015())
-					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num > 0)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							result = boardSquarePathInfo.square;
 							differentFromInputDest = true;
 							break;
@@ -735,34 +424,12 @@ public class ClaymoreCharge : Ability
 		BoardSquare boardSquare;
 		if (lastChargeHitActor != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreCharge.GetChargeDestinationSquare(Vector3, Vector3, ActorData, BoardSquare, ActorData, bool)).MethodHandle;
-			}
 			boardSquare = lastChargeHitActor.GetCurrentBoardSquare();
 		}
 		else
 		{
 			if (initialPathEndSquare != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare = initialPathEndSquare;
 			}
 			else
@@ -773,15 +440,6 @@ public class ClaymoreCharge : Ability
 			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, boardSquare2, true);
 			if (boardSquarePathInfo != null && trimBeforeFirstInvalid)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag;
 				boardSquare = ClaymoreCharge.GetTrimmedDestinationInPath(boardSquarePathInfo, out flag);
 			}

@@ -94,19 +94,6 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		bool result;
 		if (!this.SnapToTargetSquare())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithShape.SnapAimDirection()).MethodHandle;
-			}
 			result = this.SnapToTargetShapeCenter();
 		}
 		else
@@ -120,30 +107,8 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 	{
 		if (this.m_clampToCursorPos)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithShape.SnapToTargetSquare()).MethodHandle;
-			}
 			if (this.m_snapToTargetSquareWhenClampRange)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return !this.m_snapToTargetShapeCenterWhenClampRange;
 			}
 		}
@@ -155,19 +120,6 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		bool result;
 		if (this.m_clampToCursorPos)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithShape.SnapToTargetShapeCenter()).MethodHandle;
-			}
 			result = this.m_snapToTargetShapeCenterWhenClampRange;
 		}
 		else
@@ -183,19 +135,6 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_LaserWithShape.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -207,50 +146,14 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(currentTarget.GridPos);
 		if (this.SnapAimDirection())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (boardSquareSafe != targetingActor.GetCurrentBoardSquare())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquareSafe.ToVector3(), boardSquareSafe);
 					Vector3 vector2;
 					if (this.SnapToTargetShapeCenter())
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						vector2 = centerOfShape;
 					}
 					else
@@ -283,42 +186,15 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		}
 		if (this.m_laserInfo.affectsCaster)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorInRange(targetingActor, adjustedCoords.start, targetingActor, AbilityTooltipSubject.Primary, false);
 		}
 		bool flag2 = false;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int count = this.m_highlights.Count;
 			int num2;
 			if (this.SnapAimDirection())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num2 = 3;
 			}
 			else
@@ -335,15 +211,6 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		if (this.SnapAimDirection())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
 		flag2 = true;
@@ -353,15 +220,6 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		GameObject gameObject3 = null;
 		if (this.SnapAimDirection())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			gameObject3 = this.m_highlights[2];
 		}
 		bool flag3;
@@ -373,27 +231,9 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 				{
 					goto IL_39C;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			if (this.m_explodeIfHitActor)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = (actorsInLaser.Count > 0);
 			}
 			else
@@ -408,15 +248,6 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		bool flag4 = flag3;
 		if (flag4)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 vector4;
 			AreaEffectUtils.GetEndPointForValidGameplaySquare(adjustedCoords.start, adjustedCoords.end, out vector4);
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(vector4);
@@ -430,40 +261,13 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 					ActorData actorData = enumerator2.Current;
 					if (!actorsInLaser.Contains(actorData))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, centerOfShape2, targetingActor, AbilityTooltipSubject.Secondary, true);
 					}
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			Vector3 position = centerOfShape2;
 			if (this.SnapAimDirection())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				position = centerOfShape2;
 			}
 			else if (!flag2)
@@ -481,40 +285,13 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		Vector3 a2 = adjustedCoords.end;
 		if (this.SnapAimDirection())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(this.m_shape, boardSquareSafe.ToVector3(), boardSquareSafe);
 				float num3 = (float)Board.Get().BaselineHeight;
 				float num4;
 				if (this.SnapAimDirection())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num4 = -0.05f;
 				}
 				else
@@ -526,15 +303,6 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 				Vector3 vector5;
 				if (this.SnapToTargetShapeCenter())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					vector5 = centerOfShape3;
 				}
 				else

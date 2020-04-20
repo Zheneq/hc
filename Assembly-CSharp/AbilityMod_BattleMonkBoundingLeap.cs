@@ -38,19 +38,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		BattleMonkBoundingLeap battleMonkBoundingLeap = targetAbility as BattleMonkBoundingLeap;
 		if (battleMonkBoundingLeap != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBoundingLeap.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_maxDistancePerBounceMod, "MaxDistancePerBounce", string.Empty, battleMonkBoundingLeap.m_maxDistancePerBounce, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxTotalDistanceMod, "MaxTotalDistance", string.Empty, battleMonkBoundingLeap.m_maxTotalDistance, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxBouncesMod, "MaxBounces", string.Empty, battleMonkBoundingLeap.m_maxBounces, true, false);
@@ -74,19 +61,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BattleMonkBoundingLeap.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = battleMonkBoundingLeap.m_damageAmount;
 		}
 		else
@@ -101,15 +75,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = battleMonkBoundingLeap.m_damageAfterFirstHit;
 		}
 		else
@@ -124,15 +89,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = battleMonkBoundingLeap.m_maxTargetsHit;
 		}
 		else
@@ -147,15 +103,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = battleMonkBoundingLeap.m_bounceOffEnemyActor;
 		}
 		else
@@ -170,15 +117,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = battleMonkBoundingLeap.m_maxDistancePerBounce;
 		}
 		else
@@ -193,15 +131,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		float baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = battleMonkBoundingLeap.m_maxTotalDistance;
 		}
 		else
@@ -216,15 +145,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = battleMonkBoundingLeap.m_maxBounces;
 		}
 		else

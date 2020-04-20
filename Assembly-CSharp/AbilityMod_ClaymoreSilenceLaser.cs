@@ -39,19 +39,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		ClaymoreSilenceLaser claymoreSilenceLaser = targetAbility as ClaymoreSilenceLaser;
 		if (claymoreSilenceLaser != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreSilenceLaser.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_laserRangeMod, "LaserRange", string.Empty, claymoreSilenceLaser.m_laserRange, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_laserWidthMod, "LaserWidth", string.Empty, claymoreSilenceLaser.m_laserWidth, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_laserMaxTargetsMod, "LaserMaxTargets", string.Empty, claymoreSilenceLaser.m_laserMaxTargets, true, false);
@@ -75,19 +62,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreSilenceLaser.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = claymoreSilenceLaser.m_laserRange;
 		}
 		else
@@ -103,15 +77,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = claymoreSilenceLaser.m_laserMaxTargets;
 		}
 		else
@@ -126,15 +91,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = claymoreSilenceLaser.m_penetrateLos;
 		}
 		else
@@ -149,15 +105,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = claymoreSilenceLaser.m_onCastDamageAmount;
 		}
 		else
@@ -173,15 +120,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = claymoreSilenceLaser.m_effectExplosionDamage;
 		}
 		else
@@ -196,15 +134,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = claymoreSilenceLaser.m_explosionDamageAfterFirstHit;
 		}
 		else
@@ -219,15 +148,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		bool baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = claymoreSilenceLaser.m_explosionReduceCooldownOnlyIfHitByAlly;
 		}
 		else
@@ -242,15 +162,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = claymoreSilenceLaser.m_explosionCooldownReduction;
 		}
 		else

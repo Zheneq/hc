@@ -33,31 +33,9 @@ public class OnHitBarrierField
 	{
 		if (this.m_centerPosContextKey != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetCenterPosContextKey(bool)).MethodHandle;
-			}
 			if (!recalc)
 			{
 				goto IL_3B;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_centerPosContextKey = ContextVars.GetHash(this.m_centerPosContextName);
@@ -69,31 +47,9 @@ public class OnHitBarrierField
 	{
 		if (this.m_facingDirContextKey != 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetFacingDirContextKey(bool)).MethodHandle;
-			}
 			if (!recalc)
 			{
 				goto IL_3B;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_facingDirContextKey = ContextVars.GetHash(this.m_facingDirContextName);
@@ -105,31 +61,9 @@ public class OnHitBarrierField
 	{
 		if (this.m_barrierWidthContextKey != 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetBarrierWidthContextKey(bool)).MethodHandle;
-			}
 			if (!recalc)
 			{
 				goto IL_39;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_barrierWidthContextKey = ContextVars.GetHash(this.m_barrierWidthContextName);
@@ -142,19 +76,6 @@ public class OnHitBarrierField
 		string identifier = this.GetIdentifier();
 		if (!string.IsNullOrEmpty(identifier))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.AddTooltipTokens(List<TooltipTokenEntry>)).MethodHandle;
-			}
 			if (this.m_barrierData != null)
 			{
 				this.m_barrierData.AddTooltipTokens(tokens, identifier, false, null);
@@ -167,19 +88,6 @@ public class OnHitBarrierField
 		string text = string.Empty;
 		if (this.m_barrierData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(OnHitBarrierField.GetInEditorDesc()).MethodHandle;
-			}
 			text = "- Barrier To Spawn -\n";
 			if (!string.IsNullOrEmpty(this.m_identifier))
 			{
@@ -187,15 +95,6 @@ public class OnHitBarrierField
 			}
 			if (!string.IsNullOrEmpty(this.m_centerPosContextName))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = text + "Center Pos Context Var = " + this.m_centerPosContextName + "\n";
 			}
 			else

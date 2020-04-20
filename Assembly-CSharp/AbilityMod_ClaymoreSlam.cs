@@ -83,19 +83,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreSlam.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = claymoreSlam.m_midLaserWidth;
 		}
 		else
@@ -110,15 +97,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = claymoreSlam.m_fullLaserWidth;
 		}
 		else
@@ -133,15 +111,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = claymoreSlam.m_laserMaxTargets;
 		}
 		else
@@ -156,15 +125,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = claymoreSlam.m_penetrateLos;
 		}
 		else
@@ -179,15 +139,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = claymoreSlam.m_middleDamage;
 		}
 		else
@@ -203,15 +154,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = claymoreSlam.m_sideDamage;
 		}
 		else
@@ -226,15 +168,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = claymoreSlam.m_sideEnemyHitEffect;
 		}
 		else
@@ -251,15 +184,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = claymoreSlam.m_lowHealthThreshold;
 		}
 		else
@@ -274,15 +198,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = claymoreSlam.m_energyLossOnMidHit;
 		}
 		else

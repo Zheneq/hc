@@ -43,19 +43,6 @@ public class UITauntButton : MonoBehaviour
 	{
 		if (this.m_tauntVideoPath.Length > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntButton.SetupTooltip(UITooltipBase)).MethodHandle;
-			}
 			UIFrontendTauntMouseoverVideo uifrontendTauntMouseoverVideo = tooltip as UIFrontendTauntMouseoverVideo;
 			uifrontendTauntMouseoverVideo.Setup("Video/taunts/" + this.m_tauntVideoPath);
 			return true;
@@ -90,32 +77,10 @@ public class UITauntButton : MonoBehaviour
 		string text2 = string.Format(StringUtil.TR("TauntFor", "Global"), this.GetTauntAbilityName(characterTaunt, abilityData));
 		if (!this.m_tauntUnlockData.ObtainedDescription.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntButton.Setup(CharacterResourceLink, int, AbilityData, bool)).MethodHandle;
-			}
 			text2 = text2 + Environment.NewLine + this.m_tauntUnlockData.GetObtainedDescription();
 		}
 		if (!characterTaunt.m_flavorText.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text3 = text2;
 			text2 = string.Concat(new string[]
 			{
@@ -129,39 +94,12 @@ public class UITauntButton : MonoBehaviour
 		this.SetTextArrayText(this.m_descriptionTexts, text2);
 		if (!isUnlocked)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string text4 = "<sprite name=iso>" + this.GetIsoCost();
 			if (characterTaunt.m_obtainedText.Trim().IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int unlockCharacterLevel = this.m_tauntUnlockData.GetUnlockCharacterLevel(charLink.m_characterType, false);
 				if (unlockCharacterLevel > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text4 = string.Format(StringUtil.TR("UnlocksAtLevel", "Global"), unlockCharacterLevel);
 				}
 			}
@@ -179,45 +117,14 @@ public class UITauntButton : MonoBehaviour
 	{
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntButton.GetTauntSprite(CharacterTaunt, AbilityData)).MethodHandle;
-			}
 			return abilityData.m_sprite0;
 		}
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_1)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return abilityData.m_sprite1;
 		}
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return abilityData.m_sprite2;
 		}
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_3)
@@ -226,15 +133,6 @@ public class UITauntButton : MonoBehaviour
 		}
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_4)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return abilityData.m_sprite4;
 		}
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_5)
@@ -253,19 +151,6 @@ public class UITauntButton : MonoBehaviour
 		Ability ability = null;
 		if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntButton.GetTauntAbilityName(CharacterTaunt, AbilityData)).MethodHandle;
-			}
 			ability = abilityData.m_ability0;
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_1)
@@ -274,41 +159,14 @@ public class UITauntButton : MonoBehaviour
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ability = abilityData.m_ability2;
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_3)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ability = abilityData.m_ability3;
 		}
 		else if (characterTaunt.m_actionForTaunt == AbilityData.ActionType.ABILITY_4)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ability = abilityData.m_ability4;
 		}
 		else if (Application.isEditor)
@@ -328,19 +186,6 @@ public class UITauntButton : MonoBehaviour
 		{
 			tmpArray[i].text = text;
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntButton.SetTextArrayText(TextMeshProUGUI[], string)).MethodHandle;
-		}
 	}
 
 	private void SetImageArraySprite(Image[] imgArray, Sprite sprite)
@@ -348,19 +193,6 @@ public class UITauntButton : MonoBehaviour
 		for (int i = 0; i < imgArray.Length; i++)
 		{
 			imgArray[i].sprite = sprite;
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntButton.SetImageArraySprite(Image[], Sprite)).MethodHandle;
 		}
 	}
 

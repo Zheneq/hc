@@ -166,19 +166,6 @@ public class Barrier
 		bool playSequences2;
 		if (playSequences)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.InitBarrier(int, string, Vector3, Vector3, float, bool, BlockingRules, BlockingRules, BlockingRules, BlockingRules, BlockingRules, bool, int, ActorData, List<GameObject>, bool, GameplayResponseForActor, GameplayResponseForActor, int, bool, SequenceSource, Team)).MethodHandle;
-			}
 			playSequences2 = (this.m_barrierSequencePrefabs != null);
 		}
 		else
@@ -189,15 +176,6 @@ public class Barrier
 		this.m_barrierSequences = new List<Sequence>();
 		if (this.m_playSequences)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.BarrierSequenceSource = new SequenceSource(null, null, false, parentSequenceSource, null);
 		}
 		this.m_maxHits = maxHits;
@@ -213,19 +191,6 @@ public class Barrier
 	{
 		if (BarrierManager.Get().SuppressingAbilityBlocks())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.CanBeShotThroughBy(ActorData)).MethodHandle;
-			}
 			return true;
 		}
 		bool flag = this.IsBlocked(shooter, this.BlocksAbilities);
@@ -283,19 +248,6 @@ public class Barrier
 			this.m_generatedClientGeometry.transform.position = new Vector3(vector.x, 1.5f * squareSize, vector.z);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.OnStart(bool, List<ActorData>*)).MethodHandle;
-				}
 				this.m_generatedClientGeometry.transform.localScale = new Vector3(0.25f, 2f * squareSize, a.magnitude);
 			}
 			else
@@ -309,19 +261,6 @@ public class Barrier
 	{
 		if (NetworkServer.active)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.OnEnd()).MethodHandle;
-			}
 			using (List<Sequence>.Enumerator enumerator = this.m_barrierSequences.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -329,62 +268,17 @@ public class Barrier
 					Sequence sequence = enumerator.Current;
 					if (sequence != null)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						sequence.MarkForRemoval();
 					}
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_makeClientGeo)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_generatedClientGeometry != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.DestroyObject(this.m_generatedClientGeometry);
 				}
 				this.m_generatedClientGeometry = null;
@@ -397,19 +291,6 @@ public class Barrier
 		bool result;
 		if (this.BlocksVision != BlockingRules.ForEnemies)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.CanAffectVision()).MethodHandle;
-			}
 			result = (this.BlocksVision == BlockingRules.ForEverybody);
 		}
 		else
@@ -424,19 +305,6 @@ public class Barrier
 		bool result;
 		if (this.BlocksMovement != BlockingRules.ForEnemies)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.CanAffectMovement()).MethodHandle;
-			}
 			result = (this.BlocksMovement == BlockingRules.ForEverybody);
 		}
 		else
@@ -453,84 +321,26 @@ public class Barrier
 		bool result;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.CrossingBarrier(Vector3, Vector3)).MethodHandle;
-			}
 			result = false;
 		}
 		else
 		{
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (VectorUtils.OnSameSideOfLine(src, dest, this.m_endpoint1, this.m_endpoint2))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (VectorUtils.OnSameSideOfLine(this.m_endpoint1, this.m_endpoint2, src, dest))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 			}
 			if (this.m_bidirectional)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 			else
@@ -539,15 +349,6 @@ public class Barrier
 				float num = Vector3.Dot(lhs, this.m_facingDir);
 				if (num > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 				else
@@ -582,19 +383,6 @@ public class Barrier
 		Vector3 vector2 = VectorUtils.GetLineLineIntersection(src, vector, this.m_endpoint1, directionOfSecond, out flag);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.GetIntersectionPoint(Vector3, Vector3)).MethodHandle;
-			}
 			vector2.y = src.y;
 			Vector3 normalized = (-vector).normalized;
 			vector2 += normalized * 0.05f;
@@ -606,30 +394,8 @@ public class Barrier
 	{
 		if (this.m_bidirectional)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.GetCollisionNormal(Vector3)).MethodHandle;
-			}
 			if (Vector3.Dot(incomingDir, this.m_facingDir) > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return -this.m_facingDir;
 			}
 		}
@@ -659,19 +425,6 @@ public class Barrier
 		int ownerIndex = ActorData.s_invalidActorIndex;
 		if (barrier.m_owner != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.BarrierToSerializeInfo(Barrier)).MethodHandle;
-			}
 			ownerIndex = barrier.m_owner.ActorIndex;
 		}
 		barrierSerializeInfo.m_ownerIndex = ownerIndex;
@@ -689,19 +442,6 @@ public class Barrier
 		ActorData owner = null;
 		if (info.m_ownerIndex != ActorData.s_invalidActorIndex)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.CreateBarrierFromSerializeInfo(BarrierSerializeInfo)).MethodHandle;
-			}
 			owner = GameFlowData.Get().FindActorByActorIndex(info.m_ownerIndex);
 		}
 		Vector3 facingDir = VectorUtils.AngleDegreesToVector(info.m_facingHorizontalAngle);
@@ -718,30 +458,8 @@ public class Barrier
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		if (this.m_barrierSequencePrefabs != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Barrier.GetSequenceStartDataList()).MethodHandle;
-			}
 			if (this.m_playSequences)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Quaternion targetRotation = Quaternion.LookRotation(this.m_facingDir);
 				ActorData[] targetActorArray = new ActorData[0];
 				using (List<GameObject>.Enumerator enumerator = this.m_barrierSequencePrefabs.GetEnumerator())
@@ -751,15 +469,6 @@ public class Barrier
 						GameObject gameObject = enumerator.Current;
 						if (gameObject != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Sequence[] components = gameObject.GetComponents<Sequence>();
 							bool flag = false;
 							Sequence[] array = components;
@@ -769,30 +478,12 @@ public class Barrier
 								Sequence sequence = array[i];
 								if (!(sequence is OverwatchScanSequence))
 								{
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!(sequence is GroundLineSequence))
 									{
 										if (!(sequence is ExoLaserHittingWallSequence))
 										{
 											i++;
 											continue;
-										}
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
 										}
 									}
 								}
@@ -814,15 +505,6 @@ public class Barrier
 							ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(gameObject, null, targetRotation, targetActorArray, this.m_owner, this.BarrierSequenceSource, extraParams);
 							list.Add(item);
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}

@@ -13,19 +13,6 @@ namespace TMPro
 		{
 			if (this.lookup.ContainsKey(rhs))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FastAction.Add(Action)).MethodHandle;
-				}
 				return;
 			}
 			this.lookup[rhs] = this.delegates.AddLast(rhs);
@@ -36,19 +23,6 @@ namespace TMPro
 			LinkedListNode<Action> node;
 			if (this.lookup.TryGetValue(rhs, out node))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FastAction.Remove(Action)).MethodHandle;
-				}
 				this.lookup.Remove(rhs);
 				this.delegates.Remove(node);
 			}
@@ -59,19 +33,6 @@ namespace TMPro
 			for (LinkedListNode<Action> linkedListNode = this.delegates.First; linkedListNode != null; linkedListNode = linkedListNode.Next)
 			{
 				linkedListNode.Value();
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FastAction.Call()).MethodHandle;
 			}
 		}
 	}

@@ -39,19 +39,6 @@ public class NekoBendingDisc : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Bending Boomerang Disc";
 		}
 		this.m_syncComp = base.GetComponent<Neko_SyncComponent>();
@@ -77,19 +64,6 @@ public class NekoBendingDisc : Ability
 			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
 			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.GetExpectedNumberOfTargeters()).MethodHandle;
-				}
 				return 1;
 			}
 		}
@@ -109,30 +83,8 @@ public class NekoBendingDisc : Ability
 		Vector3 aimDirection = targets[0].AimDirection;
 		if (maxBendAngle > 0f)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.GetTargeterClampedAimDirection(Vector3, List<AbilityTarget>)).MethodHandle;
-			}
 			if (maxBendAngle < 360f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				aimDir = Vector3.RotateTowards(aimDirection, aimDir, 0.0174532924f * maxBendAngle, 0f);
 			}
 		}
@@ -149,19 +101,6 @@ public class NekoBendingDisc : Ability
 		}
 		if (magnitude > this.GetMaxRangeBeforeBend() * Board.Get().squareSize)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoBendingDisc.GetClampedRangeInSquares(ActorData, AbilityTarget)).MethodHandle;
-			}
 			return this.GetMaxRangeBeforeBend();
 		}
 		return magnitude / Board.Get().squareSize;

@@ -78,30 +78,8 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		base.FinishSetup();
 		if (this.m_lineStartEvent == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.FinishSetup()).MethodHandle;
-			}
 			if (!this.m_lineSpawnOnProjectileImpact)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnLineFX();
 			}
 		}
@@ -115,19 +93,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		this.m_startJointToUse = this.m_lineFxCasterStartJoint;
 		if (this.m_startJointOverrides != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-			}
 			if (this.m_startJointOverrides.Count > 0)
 			{
 				foreach (Sequence.IExtraSequenceParams extraSequenceParams in extraParams)
@@ -137,43 +102,16 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 						Sequence.GenericIntParam genericIntParam = extraSequenceParams as Sequence.GenericIntParam;
 						if (genericIntParam.m_fieldIdentifier == Sequence.GenericIntParam.FieldIdentifier.Index)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (genericIntParam.m_value > 0)
 							{
 								int num = (int)(genericIntParam.m_value - 1);
 								if (num < this.m_startJointOverrides.Count)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_startJointToUse = this.m_startJointOverrides[num];
 								}
 							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -185,19 +123,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		bool flag;
 		if (this.m_removeLineIfNoTarget)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.SpawnImpactFX(Vector3, Quaternion)).MethodHandle;
-			}
 			flag = (base.Targets == null || base.Targets.Length == 0);
 		}
 		else
@@ -207,86 +132,23 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		bool flag2 = flag;
 		if (this.m_lineSpawnOnProjectileImpact)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnLineFX();
 			}
 		}
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.DestroyLine();
 		}
 		if (this.m_onProjAttachFx == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_attachedFxOnHitPrefab != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targets != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (base.Targets.Length > 0)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						bool aimAtCaster = this.m_onProjHitFxAimMode != ProjectileWithTetherSequence.AimMode.None;
 						bool reverseDir = this.m_onProjHitFxAimMode == ProjectileWithTetherSequence.AimMode.CasterToTarget;
 						this.m_onProjAttachFx = Sequence.SpawnAndAttachFx(this, this.m_attachedFxOnHitPrefab, base.Targets[0], this.m_onProjHitJoint, this.m_onProjHitFxAttachToJoint, aimAtCaster, reverseDir);
@@ -296,37 +158,10 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		if (this.m_lineAttachToHitTarget)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.Targets != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (base.Targets.Length > 0)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_lineOnHitTargetAttachJoint.Initialize(base.Targets[0].gameObject);
 				}
 			}
@@ -338,32 +173,10 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		base.OnAnimationEvent(parameter, sourceObject);
 		if (this.m_lineStartEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnLineFX();
 		}
 		if (this.m_lineRemoveEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.DestroyLine();
 		}
 	}
@@ -372,19 +185,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 	{
 		if (this.m_lineSpawned)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.SpawnLineFX()).MethodHandle;
-			}
 			return;
 		}
 		if (!this.m_startJointToUse.IsInitialized())
@@ -392,29 +192,11 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, Sequence.ReferenceModelType.Actor);
 			if (referenceModel != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_startJointToUse.Initialize(referenceModel);
 			}
 		}
 		if (this.m_linePrefab != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Vector3 position = this.m_startJointToUse.m_jointObject.transform.position;
 			Quaternion rotation = default(Quaternion);
 			this.m_lineFx = base.InstantiateFX(this.m_linePrefab, position, rotation, true, true);
@@ -429,15 +211,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		if (this.m_lineDuration > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_lineDespawnTime = GameTime.time + this.m_lineDuration;
 		}
 		else
@@ -459,101 +232,25 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		{
 			if (this.m_lineFx != null && base.Caster != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.OnUpdate()).MethodHandle;
-				}
 				if (this.m_lineFx != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_lineFoFComp != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_lineFoFComp.Setup(base.Caster.GetTeam());
 					}
 				}
 			}
 			if (this.m_lineFx != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_useProjectileStartPosAsStartPoint)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_spline != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_spline.pts.Length > 1)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Vector3 value = this.m_spline.pts[1];
 							if (this.m_lineStartPosUseGroundHeight)
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								value.y = (float)Board.Get().BaselineHeight;
 							}
 							Sequence.SetAttribute(this.m_lineFx, "startPoint", value);
@@ -579,15 +276,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 				bool flag = true;
 				if (this.m_lineAttachToHitTarget)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_lineOnHitTargetAttachJoint.IsInitialized())
 					{
 						value2 = this.m_lineOnHitTargetAttachJoint.m_jointObject.transform.position;
@@ -596,26 +284,8 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 				}
 				if (this.m_startJointToUse.m_jointObject != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_fx != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						value2 = this.m_fx.transform.position;
 						goto IL_273;
 					}
@@ -624,15 +294,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 				IL_273:
 				if (this.m_lineEndPosUseGroundHeight)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					value2.y = (float)Board.Get().BaselineHeight;
 				}
 				if (flag)
@@ -642,26 +303,8 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 			}
 			if (this.m_lineDespawnTime < GameTime.time)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_lineDespawnTime > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DestroyLine();
 				}
 			}
@@ -674,19 +317,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		this.DestroyLine();
 		if (this.m_onProjAttachFx != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.OnSequenceDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_onProjAttachFx);
 			this.m_onProjAttachFx = null;
 		}
@@ -701,19 +331,6 @@ public class ProjectileWithTetherSequence : ArcingProjectileSequence
 		}
 		if (this.m_onProjAttachFx != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProjectileWithTetherSequence.DestroyLine()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_onProjAttachFx);
 			this.m_onProjAttachFx = null;
 		}

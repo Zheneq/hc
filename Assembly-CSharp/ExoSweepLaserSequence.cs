@@ -63,30 +63,8 @@ public class ExoSweepLaserSequence : Sequence
 			ExoSweepLaserSequence.ExtraParams extraParams2 = extraSequenceParams as ExoSweepLaserSequence.ExtraParams;
 			if (extraParams2 != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.Initialize(Sequence.IExtraSequenceParams[])).MethodHandle;
-				}
 				if (extraParams2.lengthInSquares > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
 				}
 				if (extraParams2.rotationDuration > 0f)
@@ -95,38 +73,11 @@ public class ExoSweepLaserSequence : Sequence
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (base.Targets != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int j = 0; j < base.Targets.Length; j++)
 			{
 				this.m_actorsToHit.Add(base.Targets[j]);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -135,19 +86,6 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (this.m_startEvent == null && this.m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.FinishSetup()).MethodHandle;
-			}
 			this.SpawnFX();
 		}
 	}
@@ -162,66 +100,17 @@ public class ExoSweepLaserSequence : Sequence
 		this.m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SpawnFX();
 			}
 		}
 		if (this.m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_fx != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_fx.SetActive(false);
 				}
 			}
@@ -232,68 +121,19 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (this.m_initialized)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.Update()).MethodHandle;
-			}
 			if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fx != null && base.Caster != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FriendlyEnemyVFXSelector component = this.m_fx.GetComponent<FriendlyEnemyVFXSelector>();
 					if (this.m_fx != null && component != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						component.Setup(base.Caster.GetTeam());
 					}
 				}
 				base.ProcessSequenceVisibility();
 				if (this.m_fxCasterJoint.m_jointObject != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 position = this.m_fxCasterJoint.m_jointObject.transform.position;
 					Sequence.SetAttribute(this.m_fx, "startPoint", position);
 					Vector3 forward = this.m_fxCasterJoint.m_jointObject.transform.forward;
@@ -303,15 +143,6 @@ public class ExoSweepLaserSequence : Sequence
 					Sequence.SetAttribute(this.m_fx, "endPoint", position + projectileDistance * forward);
 					if (this.m_actorsToHit.Count > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Vector3 forward2 = this.m_fxCasterJoint.m_jointObject.transform.forward;
 						float num = Vector3.Angle(this.m_lastLaserDir, forward2);
 						Vector3 vec = this.m_lastLaserDir + forward2;
@@ -325,42 +156,15 @@ public class ExoSweepLaserSequence : Sequence
 								bool flag = AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare, base.Caster.GetTravelBoardSquareWorldPositionForLos(), coneCenterAngleDegrees, num + 1f, coneLengthRadiusInSquares, 0f, true, base.Caster, false, default(Vector3));
 								if (flag)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.DoActorHit(this.m_actorsToHit[i]);
 									this.m_actorsToHit.RemoveAt(i);
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					this.m_lastLaserDir = this.m_fxCasterJoint.m_jointObject.transform.forward;
 					if (this.m_actorRotationStarted)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Animator modelAnimator = base.Caster.GetModelAnimator();
 						modelAnimator.SetFloat(ExoSweepLaserSequence.animTimeToRotationGoal, base.Caster.GetRotationTimeRemaining());
 					}
@@ -381,32 +185,10 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.SpawnFX()).MethodHandle;
-			}
 			return;
 		}
 		if (!this.m_fxCasterJoint.IsInitialized())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameObject referenceModel = base.GetReferenceModel(base.Caster, Sequence.ReferenceModelType.Actor);
 			if (referenceModel != null)
 			{
@@ -415,26 +197,8 @@ public class ExoSweepLaserSequence : Sequence
 		}
 		if (this.m_fxPrefab != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_fxCasterJoint != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_fxCasterJoint.m_jointObject != null)
 				{
 					Vector3 position = this.m_fxCasterJoint.m_jointObject.transform.position;
@@ -462,15 +226,6 @@ public class ExoSweepLaserSequence : Sequence
 		}
 		if (!string.IsNullOrEmpty(this.m_audioEvent))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AudioManager.PostEvent(this.m_audioEvent, base.Caster.gameObject);
 		}
 	}
@@ -479,47 +234,16 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.StopFX()).MethodHandle;
-			}
 			this.m_fx.SetActive(false);
 		}
 		if (this.m_hitFxInstances != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			for (int i = 0; i < this.m_hitFxInstances.Count; i++)
 			{
 				if (this.m_hitFxInstances[i] != null)
 				{
 					this.m_hitFxInstances[i].SetActive(false);
 				}
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -528,86 +252,28 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (this.m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			if (this.m_startEvent == parameter)
 			{
 				this.SpawnFX();
 			}
 			if (this.m_stopEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.StopFX();
 			}
 			if (this.m_rotationStartEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_actorRotationStarted)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.Caster.TurnToPosition(base.TargetPos, this.m_actorRotationDuration);
 					this.m_actorRotationStarted = true;
 				}
 			}
 			if (this.m_removePreviousLaserEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.Source.OnSequenceHit(this, base.Caster, null, ActorModelData.RagdollActivation.HealthBased, true);
 			}
 			if (this.m_hitFailsafeEvent == parameter)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				for (int i = 0; i < this.m_actorsToHit.Count; i++)
 				{
 					this.DoActorHit(this.m_actorsToHit[i]);
@@ -632,19 +298,6 @@ public class ExoSweepLaserSequence : Sequence
 		}
 		if (!string.IsNullOrEmpty(this.m_impactAudioEvent))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.DoActorHit(ActorData)).MethodHandle;
-			}
 			AudioManager.PostEvent(this.m_impactAudioEvent, actor.gameObject);
 		}
 	}
@@ -653,19 +306,6 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (this.m_fx != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ExoSweepLaserSequence.OnDisable()).MethodHandle;
-			}
 			UnityEngine.Object.Destroy(this.m_fx.gameObject);
 			this.m_fx = null;
 		}
@@ -676,26 +316,8 @@ public class ExoSweepLaserSequence : Sequence
 				GameObject gameObject = this.m_hitFxInstances[i];
 				if (gameObject != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(gameObject);
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_hitFxInstances.Clear();
 		}

@@ -25,19 +25,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 	{
 		if (!(parent == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.CopyChildrenImages(Image, Image)).MethodHandle;
-			}
 			if (!(sourceImage == null))
 			{
 				Image[] componentsInChildren = sourceImage.GetComponentsInChildren<Image>();
@@ -56,39 +43,12 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 						image.color = component.color;
 						if (this.m_CopyChildrenImages)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.CopyChildrenImages(component, image);
 						}
 						image.SetNativeSize();
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -98,19 +58,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		Canvas canvas = _Draggable.FindInParents<Canvas>(base.gameObject);
 		if (canvas == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.OnBeginDrag(PointerEventData)).MethodHandle;
-			}
 			return;
 		}
 		Image component = base.GetComponent<Image>();
@@ -123,15 +70,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		image.sprite = component.sprite;
 		if (this.m_CopyChildrenImages)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CopyChildrenImages(component, image);
 		}
 		image.SetNativeSize();
@@ -151,19 +89,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 	{
 		if (this.m_DraggingIcon != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.OnDrag(PointerEventData)).MethodHandle;
-			}
 			this.SetDraggedPosition(data);
 		}
 	}
@@ -172,30 +97,8 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 	{
 		if (this.dragOnSurfaces)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.SetDraggedPosition(PointerEventData)).MethodHandle;
-			}
 			if (data.pointerEnter != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (data.pointerEnter.transform as RectTransform != null)
 				{
 					this.m_DraggingPlane = (data.pointerEnter.transform as RectTransform);
@@ -206,15 +109,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		Vector3 position;
 		if (RectTransformUtility.ScreenPointToWorldPointInRectangle(this.m_DraggingPlane, data.position, data.pressEventCamera, out position))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.position = position;
 			component.rotation = this.m_DraggingPlane.rotation;
 		}
@@ -243,19 +137,6 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 		Transform parent = go.transform.parent;
 		while (parent != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_Draggable.FindInParents(GameObject)).MethodHandle;
-			}
 			if (!(component == null))
 			{
 				break;

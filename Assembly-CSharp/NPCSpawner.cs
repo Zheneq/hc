@@ -70,31 +70,9 @@ public class NPCSpawner
 	{
 		if (this.m_id == actor.SpawnerId)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCSpawner.OnActorDeath(ActorData)).MethodHandle;
-			}
 			foreach (ActivatableObject activatableObject in this.m_activationsOnDeath)
 			{
 				activatableObject.Activate();
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -107,19 +85,6 @@ public class NPCSpawner
 			{
 				activatableObject.Activate();
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCSpawner.OnActorSpawn(ActorData)).MethodHandle;
-			}
 		}
 	}
 
@@ -127,31 +92,9 @@ public class NPCSpawner
 	{
 		if (this.m_state == NPCSpawner.NPCSpawnerState.Active)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NPCSpawner.SetupForResolve()).MethodHandle;
-			}
 			ActorTurnSM component = this.m_actor.GetComponent<ActorTurnSM>();
 			if (component)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				component.OnMessage(TurnMessage.BEGIN_RESOLVE, true);
 			}
 		}

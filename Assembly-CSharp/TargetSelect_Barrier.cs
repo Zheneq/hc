@@ -23,14 +23,14 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "For placing a barrier, with optional laser templates in front and back.\n" + base.GetContextUsageStr(ContextKeys.\u000E.GetName(), "non-actor specific context, set as width of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0015.GetName(), "non-actor specific context, center position of barrier", false) + base.GetContextUsageStr(ContextKeys.\u0009.GetName(), "non-actor specific context, facing direction of barrier", false);
+		return "For placing a barrier, with optional laser templates in front and back.\n" + base.GetContextUsageStr(ContextKeys.symbol_000E.GetName(), "non-actor specific context, set as width of barrier", false) + base.GetContextUsageStr(ContextKeys.symbol_0015.GetName(), "non-actor specific context, center position of barrier", false) + base.GetContextUsageStr(ContextKeys.symbol_0009.GetName(), "non-actor specific context, facing direction of barrier", false);
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
 	{
-		keys.Add(ContextKeys.\u000E.GetName());
-		keys.Add(ContextKeys.\u0015.GetName());
-		keys.Add(ContextKeys.\u0009.GetName());
+		keys.Add(ContextKeys.symbol_000E.GetName());
+		keys.Add(ContextKeys.symbol_0015.GetName());
+		keys.Add(ContextKeys.symbol_0009.GetName());
 	}
 
 	public override List<AbilityUtil_Targeter> CreateTargeters(Ability ability)
@@ -39,19 +39,6 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 		float barrierWidth = this.m_barrierWidth;
 		if (ability.GetExpectedNumberOfTargeters() < 2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Barrier.CreateTargeters(Ability)).MethodHandle;
-			}
 			list.Add(new AbilityUtil_Targeter_BarrierWithLasers(ability, barrierWidth, this.m_laserRangeFront, this.m_laserRangeBack, base.IgnoreLos(), this.m_laserRangeIgnoreLos));
 		}
 		else
@@ -79,43 +66,12 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 		position = targets[0].FreePos;
 		if (snapToGrid)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Barrier.GetBarrierPositionAndFacing(List<AbilityTarget>, bool, Vector3*, Vector3*)).MethodHandle;
-			}
 			BoardSquare boardSquareSafe = Board.Get().GetBoardSquareSafe(targets[0].GridPos);
 			if (boardSquareSafe != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 freePos = targets[0].FreePos;
 				if (targets.Count > 1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					freePos = targets[1].FreePos;
 				}
 				facing = VectorUtils.GetDirectionToClosestSide(boardSquareSafe, freePos);
@@ -131,19 +87,6 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 		startPos.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		if (laserRangeFront > 0f)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_Barrier.GetLaserHitActors(Vector3, Vector3, ActorData, List<NonActorTargetInfo>, bool, float, float, float, bool, bool, List<Team>)).MethodHandle;
-			}
 			Vector3 vector;
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(startPos, barrierFacing, laserRangeFront, barrierWidth, caster, teams, ignoreLos, -1, laserRangeIgnoreLos, true, out vector, nonActorTargetInfo, null, true, true);
 			list.AddRange(actorsInLaser);
@@ -159,26 +102,8 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 					ActorData item = enumerator.Current;
 					if (!list.Contains(item))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list.Add(item);
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

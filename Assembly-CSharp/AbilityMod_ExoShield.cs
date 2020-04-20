@@ -60,19 +60,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		StandardActorEffectData baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoShield.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = exoShield.m_absorbEffect;
 		}
 		else
@@ -87,15 +74,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoShield.m_extraAbsorbIfSieging;
 		}
 		else
@@ -110,15 +88,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoShield.m_cdrIfShieldNotUsed;
 		}
 		else
@@ -134,15 +103,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoShield.m_maxShieldLostForEnergyGain;
 		}
 		else
@@ -159,15 +119,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoShield.m_freeActionWhileAnchored;
 		}
 		else

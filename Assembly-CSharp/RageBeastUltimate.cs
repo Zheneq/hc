@@ -60,19 +60,6 @@ public class RageBeastUltimate : Ability
 		StandardEffectInfo cachedExtraEffectOnSelf;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastUltimate.SetCachedFields()).MethodHandle;
-			}
 			cachedExtraEffectOnSelf = this.m_abilityMod.m_extraEffectOnSelfMod.GetModifiedValue(this.m_extraEffectOnSelf);
 		}
 		else
@@ -87,19 +74,6 @@ public class RageBeastUltimate : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastUltimate.GetSelfHealOnCast()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_selfHealOnCastMod.GetModifiedValue(this.m_selfHealOnCast);
 		}
 		else
@@ -114,19 +88,6 @@ public class RageBeastUltimate : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedExtraEffectOnSelf != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastUltimate.GetExtraEffectOnSelf()).MethodHandle;
-			}
 			result = this.m_cachedExtraEffectOnSelf;
 		}
 		else
@@ -141,19 +102,6 @@ public class RageBeastUltimate : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastUltimate.GetPlasmaDamage()).MethodHandle;
-			}
 			result = this.m_plasmaDamage;
 		}
 		else
@@ -173,19 +121,6 @@ public class RageBeastUltimate : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastUltimate.GetPlasmaHealing()).MethodHandle;
-			}
 			result = 0;
 		}
 		else
@@ -217,19 +152,6 @@ public class RageBeastUltimate : Ability
 		int val;
 		if (abilityMod_RageBeastUltimate)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastUltimate.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_RageBeastUltimate.m_plasmaDamageMod.GetModifiedValue(this.m_plasmaDamage);
 		}
 		else
@@ -242,15 +164,6 @@ public class RageBeastUltimate : Ability
 		int val2;
 		if (abilityMod_RageBeastUltimate)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastUltimate.m_plasmaDurationMod.GetModifiedValue(this.m_plasmaDuration);
 		}
 		else
@@ -262,15 +175,6 @@ public class RageBeastUltimate : Ability
 		StandardEffectInfo effectInfo;
 		if (abilityMod_RageBeastUltimate)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			effectInfo = abilityMod_RageBeastUltimate.m_extraEffectOnSelfMod.GetModifiedValue(this.m_extraEffectOnSelf);
 		}
 		else
@@ -284,19 +188,6 @@ public class RageBeastUltimate : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastUltimate))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastUltimate.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RageBeastUltimate);
 			this.Setup();
 		}

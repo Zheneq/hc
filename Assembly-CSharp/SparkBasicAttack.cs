@@ -59,19 +59,6 @@ public class SparkBasicAttack : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Spark Damage Beam";
 		}
 		this.Setup();
@@ -85,19 +72,6 @@ public class SparkBasicAttack : Ability
 			AbilityData component = base.GetComponent<AbilityData>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.Setup()).MethodHandle;
-				}
 				this.m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
 			}
 		}
@@ -112,15 +86,6 @@ public class SparkBasicAttack : Ability
 		bool affectsCaster;
 		if (this.m_healCasterOnIniialAttach)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			affectsCaster = (this.GetHealOnCasterPerTurn() > 0);
 		}
 		else
@@ -129,20 +94,8 @@ public class SparkBasicAttack : Ability
 		}
 		abilityUtil_Targeter.SetAffectedGroups(affectsEnemies, affectsAllies, affectsCaster);
 		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser2 = abilityUtil_Targeter_Laser;
-		if (SparkBasicAttack.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			SparkBasicAttack.<>f__am$cache0 = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
-		}
-		abilityUtil_Targeter_Laser2.m_affectCasterDelegate = SparkBasicAttack.<>f__am$cache0;
+		
+		abilityUtil_Targeter_Laser2.m_affectCasterDelegate = ((ActorData caster, List<ActorData> actorsSoFar) => actorsSoFar.Count > 0);
 		base.Targeter = abilityUtil_Targeter_Laser;
 	}
 
@@ -161,19 +114,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetInitialDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_initialDamageMod.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -198,19 +138,6 @@ public class SparkBasicAttack : Ability
 		int num;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetEnergyOnCasterPerTurn()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_energyOnCasterPerTurnMod.GetModifiedValue(this.m_energyOnCasterPerTurn);
 		}
 		else
@@ -220,15 +147,6 @@ public class SparkBasicAttack : Ability
 		int num2 = num;
 		if (this.m_energizedAbility != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.m_energizedAbility.CalcEnergyOnSelfPerTurn(num2);
 		}
 		return num2;
@@ -239,19 +157,6 @@ public class SparkBasicAttack : Ability
 		int num = (!this.m_abilityMod) ? this.m_healOnCasterOnTick : this.m_abilityMod.m_healOnCasterOnTickMod.GetModifiedValue(this.m_healOnCasterOnTick);
 		if (this.m_energizedAbility != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetHealOnCasterPerTurn()).MethodHandle;
-			}
 			num = this.m_energizedAbility.CalcHealOnSelfPerTurn(num);
 		}
 		return num;
@@ -262,19 +167,6 @@ public class SparkBasicAttack : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetTetherDistance()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherDistanceMod.GetModifiedValue(this.m_tetherDistance);
 		}
 		else
@@ -289,19 +181,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetTetherDuration()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_tetherDurationMod.GetModifiedValue(this.m_tetherDuration);
 		}
 		else
@@ -316,19 +195,6 @@ public class SparkBasicAttack : Ability
 		bool result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.UseBonusDamageOverTime()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_useBonusDamageOverTime;
 		}
 		else
@@ -348,19 +214,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetMaxBonusDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxBonusDamageAmountMod.GetModifiedValue(0);
 		}
 		else
@@ -375,45 +228,14 @@ public class SparkBasicAttack : Ability
 		int num = 0;
 		if (this.UseBonusDamageOverTime())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetBonusDamageFromTetherAge(int)).MethodHandle;
-			}
 			int maxBonusDamage = this.GetMaxBonusDamage();
 			int bonusDamageGrowRate = this.GetBonusDamageGrowRate();
 			if (bonusDamageGrowRate > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = age * bonusDamageGrowRate;
 			}
 			if (maxBonusDamage > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = Mathf.Min(num, maxBonusDamage);
 			}
 		}
@@ -425,19 +247,6 @@ public class SparkBasicAttack : Ability
 		int num;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetEnergyGainCyclePeriod()).MethodHandle;
-			}
 			num = this.m_abilityMod.m_energyGainCyclePeriod.GetModifiedValue(0);
 		}
 		else
@@ -458,19 +267,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetMaxBonusEnergyFromGrowingGain()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxBonusEnergyFromGrowingGainMod.GetModifiedValue(this.m_maxBonusEnergyFromGrowingGain);
 		}
 		else
@@ -485,19 +281,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetBonusEnergyGrowthRate()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_bonusEnergyGrowthRateMod.GetModifiedValue(this.m_bonusEnergyGrowthRate);
 		}
 		else
@@ -513,19 +296,6 @@ public class SparkBasicAttack : Ability
 		AbilityModPropertyLaserInfo mod;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.SetCachedFields()).MethodHandle;
-			}
 			mod = this.m_abilityMod.m_laserInfoMod;
 		}
 		else
@@ -536,15 +306,6 @@ public class SparkBasicAttack : Ability
 		StandardEffectInfo standardEffectInfo;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			standardEffectInfo = this.m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(this.m_laserHitEffect);
 		}
 		else
@@ -565,19 +326,6 @@ public class SparkBasicAttack : Ability
 		StandardActorEffectData result;
 		if (this.m_cachedEffectData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetEnemyTetherEffectData()).MethodHandle;
-			}
 			result = this.m_cachedEffectData;
 		}
 		else
@@ -592,19 +340,6 @@ public class SparkBasicAttack : Ability
 		LaserTargetingInfo result;
 		if (this.m_cachedLaserInfo != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetLaserInfo()).MethodHandle;
-			}
 			result = this.m_cachedLaserInfo;
 		}
 		else
@@ -631,44 +366,13 @@ public class SparkBasicAttack : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.GetInitialDamage() > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetInitialDamage());
 		}
 		this.GetEnemyTetherEffectData().ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
 		if (this.m_healCasterOnIniialAttach)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetHealOnCasterPerTurn() > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityTooltipHelper.ReportHealing(ref result, AbilityTooltipSubject.Self, this.GetHealOnCasterPerTurn());
 			}
 		}
@@ -681,19 +385,6 @@ public class SparkBasicAttack : Ability
 		int result;
 		if (visibleActorsCountByTooltipSubject > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			result = this.GetEnergyOnCasterPerTurn();
 		}
 		else
@@ -703,9 +394,9 @@ public class SparkBasicAttack : Ability
 		return result;
 	}
 
-	public override List<int> \u001D()
+	public override List<int> symbol_001D()
 	{
-		List<int> list = base.\u001D();
+		List<int> list = base.symbol_001D();
 		list.Add(this.m_laserHitEffect.m_effectData.m_damagePerTurn);
 		return list;
 	}
@@ -714,19 +405,6 @@ public class SparkBasicAttack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SparkBasicAttack))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SparkBasicAttack.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SparkBasicAttack);
 			this.Setup();
 		}

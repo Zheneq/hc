@@ -60,19 +60,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserTargetedPull.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
 		}
 		else
@@ -87,19 +74,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserTargetedPull.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -119,19 +93,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserTargetedPull.GetMaxKnockbackDist()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_maxKnockbackDistMod.GetModifiedValue(this.m_maxKnockbackDist);
 		}
 		else
@@ -151,19 +112,6 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 		float result;
 		if (this.m_targetSelMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserTargetedPull.GetDestinationAngleDegWithBack()).MethodHandle;
-			}
 			result = this.m_targetSelMod.m_destinationAngleDegWithBackMod.GetModifiedValue(this.m_destinationAngleDegWithBack);
 		}
 		else
@@ -181,32 +129,10 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
 			if (boardSquareSafe == currentBoardSquare)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TargetSelect_LaserTargetedPull.HandleCustomTargetValidation(Ability, ActorData, AbilityTarget, int, List<AbilityTarget>)).MethodHandle;
-				}
 				return this.m_casterSquareValidForKnockback;
 			}
 			if (this.GetSquareRangeFromCaster() > 0f)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentBoardSquare.HorizontalDistanceInSquaresTo(boardSquareSafe) > this.GetSquareRangeFromCaster())
 				{
 					return false;
@@ -214,16 +140,7 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			}
 			if (this.m_destRequireLosFromCaster)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!currentBoardSquare.\u0013(boardSquareSafe.x, boardSquareSafe.y))
+				if (!currentBoardSquare.symbol_0013(boardSquareSafe.x, boardSquareSafe.y))
 				{
 					return false;
 				}
@@ -239,39 +156,12 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 			}
 			if (NetworkClient.active)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<ActorData> visibleActorsInRangeByTooltipSubject = ability.Targeters[0].GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
 				if (visibleActorsInRangeByTooltipSubject.Count > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					bool flag = false;
 					for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							break;

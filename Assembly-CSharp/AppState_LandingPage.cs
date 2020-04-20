@@ -76,19 +76,6 @@ public class AppState_LandingPage : AppState
 		this.ConnectToLobbyServer();
 		if (this.m_lastLobbyErrorMessage != null && this.m_messageBox == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.OnEnter()).MethodHandle;
-			}
 			UINewUserFlowManager.HideDisplay();
 			string lastLobbyErrorMessage = this.m_lastLobbyErrorMessage;
 			this.m_lastLobbyErrorMessage = null;
@@ -99,26 +86,8 @@ public class AppState_LandingPage : AppState
 		}
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (clientGameManager.IsConnectedToLobbyServer)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UILandingPageScreen.Get() == null)
 				{
 					clientGameManager.SendCheckAccountStatusRequest(new Action<CheckAccountStatusResponse>(this.HandleCheckAccountStatusResponse));
@@ -128,28 +97,10 @@ public class AppState_LandingPage : AppState
 		}
 		if (UILoadingScreenPanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UILoadingScreenPanel.Get().SetVisible(false);
 		}
 		if (clientGameManager.IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.HandleAccountDataUpdated(clientGameManager.GetPlayerAccountData());
 		}
 		UINewUserFlowManager.HighlightQueued();
@@ -161,50 +112,14 @@ public class AppState_LandingPage : AppState
 		this.CheckForPreviousGame();
 		if (clientGameManager.IsServerLocked)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_goToCharacterSelect = false;
 		}
 		if (!this.m_goToCharacterSelect)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.m_returningFromGroupCharacterSelect)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientGameManager != null && clientGameManager.GroupInfo != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (clientGameManager.GroupInfo.InAGroup)
 					{
 						goto IL_31F;
@@ -213,15 +128,6 @@ public class AppState_LandingPage : AppState
 			}
 			if (UIRankedModeSelectScreen.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIRankedModeSelectScreen.Get().SetVisible(false);
 				goto IL_42D;
 			}
@@ -234,37 +140,10 @@ public class AppState_LandingPage : AppState
 		UIFrontEnd.Get().m_frontEndNavPanel.SetNavButtonSelected(UIFrontEnd.Get().m_frontEndNavPanel.m_PlayBtn);
 		if (UIRankedModeSelectScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().GroupInfo != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (ClientGameManager.Get().GroupInfo.SelectedQueueType == GameType.Ranked)
 					{
 						UIFrontEnd.Get().ShowScreen(FrontEndScreenState.RankedModeSelect, false);
@@ -285,19 +164,6 @@ public class AppState_LandingPage : AppState
 	{
 		if (this.m_messageBox != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.OnLeave()).MethodHandle;
-			}
 			this.m_messageBox.Close();
 			this.m_messageBox = null;
 		}
@@ -324,19 +190,6 @@ public class AppState_LandingPage : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (!clientGameManager.IsConnectedToLobbyServer)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.ConnectToLobbyServer()).MethodHandle;
-			}
 			if (this.m_messageBox)
 			{
 				this.m_messageBox.Close();
@@ -344,29 +197,11 @@ public class AppState_LandingPage : AppState
 			}
 			if (!this.m_lastLobbyErrorMessage.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				string lastLobbyErrorMessage = this.m_lastLobbyErrorMessage;
 				this.m_lastLobbyErrorMessage = null;
 				UINewUserFlowManager.HideDisplay();
 				if (clientGameManager.AllowRelogin)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string empty = string.Empty;
 					string description = string.Format(StringUtil.TR("PressOkToReconnect", "Global"), lastLobbyErrorMessage);
 					string leftButtonLabel = StringUtil.TR("Ok", "Global");
@@ -375,23 +210,11 @@ public class AppState_LandingPage : AppState
 					{
 						this.ConnectToLobbyServer();
 					};
-					if (AppState_LandingPage.<>f__am$cache0 == null)
-					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						AppState_LandingPage.<>f__am$cache0 = delegate(UIDialogBox UIDialogBox)
+					
+					this.m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, delegate(UIDialogBox UIDialogBox)
 						{
 							AppState_Shutdown.Get().Enter();
-						};
-					}
-					this.m_messageBox = UIDialogPopupManager.OpenTwoButtonDialog(empty, description, leftButtonLabel, rightButtonLabel, leftButtonCallback, AppState_LandingPage.<>f__am$cache0, false, false);
+						}, false, false);
 				}
 				else
 				{
@@ -422,23 +245,11 @@ public class AppState_LandingPage : AppState
 					string empty2 = string.Empty;
 					string description2 = string.Format(StringUtil.TR("FailedToConnectToLobbyServer", "Global"), ex.Message);
 					string buttonLabelText = StringUtil.TR("Ok", "Global");
-					if (AppState_LandingPage.<>f__am$cache3 == null)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						AppState_LandingPage.<>f__am$cache3 = delegate(UIDialogBox UIDialogBox)
+					
+					this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty2, description2, buttonLabelText, delegate(UIDialogBox UIDialogBox)
 						{
 							AppState_Shutdown.Get().Enter();
-						};
-					}
-					this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty2, description2, buttonLabelText, AppState_LandingPage.<>f__am$cache3, -1, false);
+						}, -1, false);
 				}
 			}
 		}
@@ -457,72 +268,23 @@ public class AppState_LandingPage : AppState
 	{
 		if (this.m_messageBox)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.HandleConnectedToLobbyServer(RegisterGameClientResponse)).MethodHandle;
-			}
 			this.m_messageBox.Close();
 			this.m_messageBox = null;
 		}
 		if (!response.Success)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (response.LocalizedFailure != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				response.ErrorMessage = response.LocalizedFailure.ToString();
 			}
 			if (response.ErrorMessage.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				response.ErrorMessage = StringUtil.TR("UnknownError", "Global");
 			}
 			UINewUserFlowManager.HideDisplay();
 			string text;
 			if (response.ErrorMessage == "INVALID_PROTOCOL_VERSION")
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = StringUtil.TR("NotRecentVersionOfTheGame", "Frontend");
 			}
 			else if (response.ErrorMessage == "INVALID_IP_ADDRESS")
@@ -531,15 +293,6 @@ public class AppState_LandingPage : AppState
 			}
 			else if (response.ErrorMessage == "ACCOUNT_BANNED")
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text = StringUtil.TR("AccountBanned", "Frontend");
 			}
 			else
@@ -549,23 +302,11 @@ public class AppState_LandingPage : AppState
 			string empty = string.Empty;
 			string description = text;
 			string buttonLabelText = StringUtil.TR("Ok", "Global");
-			if (AppState_LandingPage.<>f__am$cache4 == null)
-			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				AppState_LandingPage.<>f__am$cache4 = delegate(UIDialogBox UIDialogBox)
+			
+			this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty, description, buttonLabelText, delegate(UIDialogBox UIDialogBox)
 				{
 					AppState_Shutdown.Get().Enter();
-				};
-			}
-			this.m_messageBox = UIDialogPopupManager.OpenOneButtonDialog(empty, description, buttonLabelText, AppState_LandingPage.<>f__am$cache4, -1, false);
+				}, -1, false);
 		}
 	}
 
@@ -593,30 +334,8 @@ public class AppState_LandingPage : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.CheckForPreviousGame()).MethodHandle;
-			}
 			if (clientGameManager.IsRegistered)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientGameManager.IsReady)
 				{
 					Log.Info("Checking for previous game", new object[0]);
@@ -624,34 +343,12 @@ public class AppState_LandingPage : AppState
 					{
 						if (AppState.GetCurrent() != this)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(AppState_LandingPage.<CheckForPreviousGame>m__7(PreviousGameInfoResponse)).MethodHandle;
-							}
 							return;
 						}
 						if (response.PreviousGameInfo != null)
 						{
 							if (!response.PreviousGameInfo.IsQueuedGame)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!response.PreviousGameInfo.IsCustomGame)
 								{
 									return;
@@ -661,15 +358,6 @@ public class AppState_LandingPage : AppState
 							{
 								this.PromptToRejoinGame(response.PreviousGameInfo);
 								return;
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 					});
@@ -700,19 +388,6 @@ public class AppState_LandingPage : AppState
 		}, false, false);
 		if (ClientCrashReportDetector.Get().m_crashDialog != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.PromptToRejoinGame(LobbyGameInfo)).MethodHandle;
-			}
 			ClientCrashReportDetector.Get().m_crashDialog.gameObject.transform.SetAsLastSibling();
 		}
 	}
@@ -721,30 +396,8 @@ public class AppState_LandingPage : AppState
 	{
 		if (notification.ConsoleMessageType == ConsoleMessageType.Error)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.HandleChatNotification(ChatNotification)).MethodHandle;
-			}
 			if (notification.LocalizedText != null && notification.LocalizedText.ToString() == StringUtil.TR("RejoinGameNoLongerAvailable", "Global"))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AppState_FrontendLoadingScreen.Get().Enter(null, AppState_FrontendLoadingScreen.NextState.GoToLandingPage);
 			}
 		}
@@ -754,19 +407,6 @@ public class AppState_LandingPage : AppState
 	{
 		if (UIMatchStartPanel.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.OnQuickPlayClicked()).MethodHandle;
-			}
 			AppState_CharacterSelect.Get().Enter();
 		}
 		else
@@ -790,30 +430,8 @@ public class AppState_LandingPage : AppState
 		bool flag;
 		if (!AppState.IsInGame())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.HandleGameAssembling()).MethodHandle;
-			}
 			if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.IsCustomGame)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
 				goto IL_64;
 			}
@@ -823,15 +441,6 @@ public class AppState_LandingPage : AppState
 		bool flag2 = flag;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			AppState_CharacterSelect.Get().Enter();
 		}
 	}
@@ -853,43 +462,12 @@ public class AppState_LandingPage : AppState
 	{
 		if (response.Success)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState_LandingPage.HandleCheckAccountStatusResponse(CheckAccountStatusResponse)).MethodHandle;
-			}
 			if (QuestOfferPanel.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(FactionWideData.Get().GetCurrentFactionCompetition());
 				AccountComponent.UIStateIdentifier uistateIdentifier = AccountComponent.UIStateIdentifier.NONE;
 				if (factionCompetition != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uistateIdentifier = factionCompetition.UIToDisplayOnLogin;
 				}
 				if (uistateIdentifier != AccountComponent.UIStateIdentifier.NONE)
@@ -897,28 +475,10 @@ public class AppState_LandingPage : AppState
 					bool flag = true;
 					if (ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uistateIdentifier) == 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 					if (!flag)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (uistateIdentifier == AccountComponent.UIStateIdentifier.HasSeenFactionWarSeasonTwoChapterTwo)
 						{
 							UIFactionsIntroduction.Get().SetupIntro(response.QuestOffers);
@@ -935,26 +495,8 @@ public class AppState_LandingPage : AppState
 				}
 				else if (response.QuestOffers.OfferDailyQuest)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(UIFactionsIntroduction.Get() == null))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (UIFactionsIntroduction.Get().IsActive())
 						{
 							return;
@@ -962,15 +504,6 @@ public class AppState_LandingPage : AppState
 					}
 					if (!response.QuestOffers.DailyQuestIds.IsNullOrEmpty<int>())
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						QuestOfferPanel.Get().ShowDailyQuests(response.QuestOffers);
 					}
 					else

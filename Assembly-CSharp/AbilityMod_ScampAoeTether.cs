@@ -41,19 +41,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		ScampAoeTether scampAoeTether = targetAbility as ScampAoeTether;
 		if (scampAoeTether != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampAoeTether.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_aoeRadiusMod, "AoeRadius", string.Empty, scampAoeTether.m_aoeRadius, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_tetherBreakDistanceOverrideMod, "TetherBreakDistanceOverride", string.Empty, scampAoeTether.m_tetherBreakDistanceOverride, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxKnockbackDistMod, "MaxKnockbackDist", string.Empty, scampAoeTether.m_maxKnockbackDist, true, false, false);
@@ -77,19 +64,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ScampAoeTether.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = scampAoeTether.m_ignoreLos;
 		}
 		else
@@ -104,15 +78,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = scampAoeTether.m_tetherBreakDistanceOverride;
 		}
 		else
@@ -127,15 +92,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		bool baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = scampAoeTether.m_pullToCasterInKnockback;
 		}
 		else
@@ -150,15 +106,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = scampAoeTether.m_maxKnockbackDist;
 		}
 		else
@@ -173,15 +120,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		bool baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = scampAoeTether.m_disableIfShieldDown;
 		}
 		else
@@ -197,15 +135,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = scampAoeTether.m_tetherBreakDamage;
 		}
 		else
@@ -220,15 +149,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		StandardEffectInfo baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = scampAoeTether.m_tetherBreakEnemyEffecf;
 		}
 		else
@@ -243,15 +163,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = scampAoeTether.m_cdrIfNoTetherTrigger;
 		}
 		else

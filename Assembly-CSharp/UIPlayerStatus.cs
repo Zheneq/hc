@@ -88,46 +88,15 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (this.m_actor == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.MouseEntered(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		AbilityData component = this.m_actor.GetComponent<AbilityData>();
 		if (component == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!GameFlowData.Get().IsInDecisionState())
 			{
 				return;
@@ -146,29 +115,11 @@ public class UIPlayerStatus : MonoBehaviour
 				bool flag2 = actionTypeOfAbility == AbilityData.ActionType.ABILITY_4 && ability.GetModdedCost() >= this.m_actor.GetActualMaxTechPoints();
 				if (!component.HasQueuedAction(actionTypeOfAbility))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!flag)
 					{
 						if (!flag2)
 						{
 							goto IL_FF;
-						}
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					continue;
@@ -176,15 +127,6 @@ public class UIPlayerStatus : MonoBehaviour
 				IL_FF:
 				this.UpdateTargetingAbilityIndicator(ability, actionTypeOfAbility, i);
 				i++;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		for (int j = 0; j <= 3; j++)
@@ -195,28 +137,10 @@ public class UIPlayerStatus : MonoBehaviour
 			{
 				if (abilityOfActionType != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.UpdateTargetingAbilityIndicator(abilityOfActionType, actionType, i);
 					i++;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		while (i < this.m_targetingAbilityIndicators.Count)
 		{
@@ -230,19 +154,6 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (this.m_catalsystPips == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.UpdateCatalysts(List<Ability>)).MethodHandle;
-			}
 			return;
 		}
 		bool doActive = false;
@@ -253,65 +164,20 @@ public class UIPlayerStatus : MonoBehaviour
 			Ability ability = cardAbilities[i];
 			if (ability != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityRunPhase abilityRunPhase = Card.AbilityPriorityToRunPhase(ability.GetRunPriority());
 				if (abilityRunPhase == AbilityRunPhase.Prep)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = true;
 				}
 				else if (abilityRunPhase == AbilityRunPhase.Dash)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive2 = true;
 				}
 				else if (abilityRunPhase == AbilityRunPhase.Combat)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive3 = true;
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		UIManager.SetGameObjectActive(this.m_catalsystPips.m_PrepPhaseOn, doActive, null);
 		UIManager.SetGameObjectActive(this.m_catalsystPips.m_DashPhaseOn, doActive2, null);
@@ -342,33 +208,11 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (this.m_lockStatus != isLocked)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.NotifyLockedIn(bool)).MethodHandle;
-			}
 			if (!(this.m_actor == null))
 			{
 				ActorTurnSM component = this.m_actor.GetComponent<ActorTurnSM>();
 				if (component.AmStillDeciding())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_lockIcon, false, null);
 				}
 				else if (this.m_actor.IsDead())
@@ -377,29 +221,11 @@ public class UIPlayerStatus : MonoBehaviour
 				}
 				else if (!this.m_lockIcon.gameObject.activeSelf)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIManager.SetGameObjectActive(this.m_lockIcon, true, null);
 					this.m_animationController.Play("PlayerStatusLockIn");
 				}
 				this.m_lockStatus = isLocked;
 				return;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -408,19 +234,6 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (this.m_actor == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.GetTeam()).MethodHandle;
-			}
 			return Team.Invalid;
 		}
 		return this.m_actor.GetTeam();
@@ -430,33 +243,11 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (this.m_actor == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.Update()).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this, false, null);
 			return;
 		}
 		if (this.m_actor.IsDead())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_deathText.text = string.Empty;
 			UIManager.SetGameObjectActive(this.m_border, true, null);
 			UIManager.SetGameObjectActive(this.m_overlay, true, null);
@@ -491,19 +282,6 @@ public class UIPlayerStatus : MonoBehaviour
 	{
 		if (index < 8)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.UpdateTargetingAbilityIndicator(Ability, AbilityData.ActionType, int)).MethodHandle;
-			}
 			while (this.m_targetingAbilityIndicators.Count <= index)
 			{
 				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(this.m_targetingAbilityIndicatorPrefab);
@@ -517,29 +295,11 @@ public class UIPlayerStatus : MonoBehaviour
 			this.m_targetingAbilityIndicators[index].Setup(this.m_actor, ability, action);
 			if (!this.m_targetingAbilityIndicators[index].gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_targetingAbilityIndicators[index], true, null);
 			}
 		}
 		if (this.m_catalsystPips == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_catalsystPips = UnityEngine.Object.Instantiate<UITargetingAbilityCatalystPipContainer>(this.m_catalystIndicatorPrefab);
 			this.m_catalsystPips.transform.SetParent(this.m_targetingAbilityIconsGrid.transform);
 			this.m_catalsystPips.transform.localScale = Vector3.one;
@@ -556,19 +316,6 @@ public class UIPlayerStatus : MonoBehaviour
 		{
 			if (this.m_targetingAbilityIndicators[i].gameObject.activeSelf)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerStatus.TurnOffTargetingAbilityIndicator(int)).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(this.m_targetingAbilityIndicators[i], false, null);
 			}
 		}

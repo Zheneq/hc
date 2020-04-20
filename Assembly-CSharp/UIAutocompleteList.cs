@@ -38,19 +38,6 @@ public class UIAutocompleteList : MonoBehaviour
 	{
 		if (this.m_isInitialized)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.Initialize()).MethodHandle;
-			}
 			return;
 		}
 		this.m_isInitialized = true;
@@ -62,15 +49,6 @@ public class UIAutocompleteList : MonoBehaviour
 		{
 			componentsInChildren[i].m_hitbox.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnClick);
 			componentsInChildren[i].m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.m_slots = new List<UIAutocompleteEntry>(componentsInChildren);
 	}
@@ -95,19 +73,6 @@ public class UIAutocompleteList : MonoBehaviour
 		{
 			this.m_slots[i].gameObject.SetActive(false);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.Setup(UITextConsole, List<string>, string)).MethodHandle;
-		}
 		this.m_visibilityQueue.Clear();
 		this.m_scrollRect.verticalScrollbar.value = 1f;
 		for (int j = 0; j < autocompleteEntries.Count; j++)
@@ -115,15 +80,6 @@ public class UIAutocompleteList : MonoBehaviour
 			UIAutocompleteEntry uiautocompleteEntry;
 			if (j < this.m_slots.Count)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				uiautocompleteEntry = this.m_slots[j];
 			}
 			else
@@ -154,19 +110,6 @@ public class UIAutocompleteList : MonoBehaviour
 		string text2 = entry.GetTextValue().TrimEnd(new char[0]) + " " + text.Trim();
 		if (!this.m_beforeAutocomplete.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SelectEntry(UIAutocompleteEntry)).MethodHandle;
-			}
 			text2 = this.m_beforeAutocomplete + " " + text2;
 		}
 		this.m_parent.m_textInput.text = text2;
@@ -212,38 +155,12 @@ public class UIAutocompleteList : MonoBehaviour
 				return;
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.Update()).MethodHandle;
-		}
 	}
 
 	public void SelectUp()
 	{
 		if (--this.m_selectionIndex < 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SelectUp()).MethodHandle;
-			}
 			this.m_selectionIndex = 0;
 		}
 		else
@@ -262,19 +179,6 @@ public class UIAutocompleteList : MonoBehaviour
 		{
 			this.m_selectionIndex--;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SelectDown()).MethodHandle;
-		}
 		this.SetupCurrentSelection();
 	}
 
@@ -292,19 +196,6 @@ public class UIAutocompleteList : MonoBehaviour
 		string text3 = string.Empty;
 		while (text2.Length > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIAutocompleteList.SetupCurrentSelection()).MethodHandle;
-			}
 			if (text.ToLower().EndsWith(text2.ToLower()))
 			{
 				for (;;)

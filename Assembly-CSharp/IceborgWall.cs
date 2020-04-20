@@ -37,19 +37,6 @@ public class IceborgWall : GenericAbility_Container
 		string text = base.GetOnHitDataDesc();
 		if (this.m_wallEffectOnHitData != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgWall.GetOnHitDataDesc()).MethodHandle;
-			}
 			text += "-- On Hit Data for lasers from walls --\n";
 			text += this.m_wallEffectOnHitData.GetInEditorDesc();
 		}
@@ -66,30 +53,8 @@ public class IceborgWall : GenericAbility_Container
 	{
 		if (base.Targeters.Count > 0 && currentTargeterIndex > 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgWall.GetHitContextForTargetingNumbers(int, Dictionary<ActorData, ActorHitContext>*, ContextVars*)).MethodHandle;
-			}
 			if (currentTargeterIndex < base.Targeters.Count)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[currentTargeterIndex];
 				actorHitContext = abilityUtil_Targeter.GetActorContextVars();
 				abilityContext = abilityUtil_Targeter.GetNonActorSpecificContext();
@@ -103,30 +68,8 @@ public class IceborgWall : GenericAbility_Container
 	{
 		if (actorHitContext.ContainsKey(targetActor))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(IceborgWall.PostProcessTargetingNumbers(ActorData, int, Dictionary<ActorData, ActorHitContext>, ContextVars, ActorData, TargetingNumberUpdateScratch)).MethodHandle;
-			}
 			if (targetActor.GetTeam() != caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorHitContext actorContext = actorHitContext[targetActor];
 				GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, this.m_wallEffectOnHitData.m_enemyHitIntFields, this.m_calculatedValuesForTargeter);
 				results.m_damage = this.m_calculatedValuesForTargeter.m_damage;

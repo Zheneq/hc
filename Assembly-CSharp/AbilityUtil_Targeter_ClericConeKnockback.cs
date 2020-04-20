@@ -18,19 +18,6 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 	{
 		if (currentTargetIndex == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClericConeKnockback.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			base.InitKnockbackData(0f, KnockbackType.AwayFromSource, 0f, KnockbackType.AwayFromSource);
 			base.UpdateTargetingMultiTargets(currentTarget, targetingActor, currentTargetIndex, targets);
 		}
@@ -47,15 +34,6 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 			Vector3 vector3 = Vector3.RotateTowards(vector, (num <= 0f) ? (-vector2) : vector2, this.m_maxAngleDegrees * 0.5f * 0.0174532924f, 0f);
 			if (this.m_highlights != null && this.m_highlights.Count < 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameObject item = AbilityUtil_Targeter_SoldierCardinalLines.CreateArrowPointerHighlight(1.5f);
 				this.m_highlights.Add(item);
 			}
@@ -67,30 +45,12 @@ public class AbilityUtil_Targeter_ClericConeKnockback : AbilityUtil_Targeter_Str
 			int num2 = 0;
 			if (this.m_knockbackDistance > 0f)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.EnableAllMovementArrows();
 				List<ActorData> visibleActorsInRange = (this.m_ability.Targeters[0] as AbilityUtil_Targeter_ClericConeKnockback).GetVisibleActorsInRange();
 				foreach (ActorData actorData in visibleActorsInRange)
 				{
 					if (actorData.GetTeam() != targetingActor.GetTeam())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(actorData, this.m_knockbackType, vector3, travelBoardSquareWorldPositionForLos, this.m_knockbackDistance);
 						num2 = base.AddMovementArrowWithPrevious(actorData, path, AbilityUtil_Targeter.TargeterMovementType.Knockback, num2, false);
 					}

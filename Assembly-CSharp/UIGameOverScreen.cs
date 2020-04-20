@@ -311,19 +311,6 @@ public class UIGameOverScreen : UIScene
 			Team result;
 			if (this.ClientTeam == Team.TeamB)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.get_FriendlyTeam()).MethodHandle;
-				}
 				result = Team.TeamB;
 			}
 			else
@@ -341,42 +328,11 @@ public class UIGameOverScreen : UIScene
 			bool result = false;
 			if (GameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.get_SelfWon()).MethodHandle;
-				}
 				if (GameManager.Get().PlayerInfo != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Team team;
 					if (GameManager.Get().PlayerInfo.TeamId == Team.TeamB)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						team = Team.TeamB;
 					}
 					else
@@ -391,27 +347,9 @@ public class UIGameOverScreen : UIScene
 						{
 							return result;
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (team3 != Team.TeamB)
 						{
 							return result;
-						}
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					result = true;
@@ -427,30 +365,8 @@ public class UIGameOverScreen : UIScene
 		{
 			if (this.NotificationArrived)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.get_BadgesAreActive()).MethodHandle;
-				}
 				if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -543,19 +459,6 @@ public class UIGameOverScreen : UIScene
 		int num = 0;
 		if (ClientGameManager.Get() != null && ClientGameManager.Get().PlayerWallet != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GGBonusTooltipSetup(UITooltipBase)).MethodHandle;
-			}
 			num = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
 		}
 		string rightString = string.Empty;
@@ -570,15 +473,6 @@ public class UIGameOverScreen : UIScene
 		string text = StringUtil.TR("GGBoostUsageDescription", "GameOver");
 		if (num == 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			text += StringUtil.TR("NoGGBoosts", "GameOver");
 		}
 		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
@@ -602,32 +496,10 @@ public class UIGameOverScreen : UIScene
 	{
 		if (mouseOver)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.NotifyWidgetMouseOver(UIGameOverBadgeWidget, bool)).MethodHandle;
-			}
 			for (int i = 0; i < this.m_GameOverStatWidgets.Count; i++)
 			{
 				if (widget.BadgeInfo.UsesFreelancerStats)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_GameOverStatWidgets[i].DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
 					{
 						this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, true);
@@ -641,15 +513,6 @@ public class UIGameOverScreen : UIScene
 				{
 					if (widget.BadgeInfo.StatsToHighlight.Contains(this.m_GameOverStatWidgets[i].GeneralStatType))
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, true);
 					}
 					else
@@ -662,15 +525,6 @@ public class UIGameOverScreen : UIScene
 					this.m_GameOverStatWidgets[i].SetBadgeHighlight(true, false);
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		else
 		{
@@ -678,75 +532,28 @@ public class UIGameOverScreen : UIScene
 			{
 				this.m_GameOverStatWidgets[j].SetBadgeHighlight(false, false);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
 	public void ShareFacebookButtonClicked(BaseEventData data)
 	{
 		FacebookClientInterface facebookClientInterface = FacebookClientInterface.Get();
-		if (UIGameOverScreen.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.ShareFacebookButtonClicked(BaseEventData)).MethodHandle;
-			}
-			UIGameOverScreen.<>f__am$cache0 = delegate(Texture2D texture)
+		
+		facebookClientInterface.TakeScreenshot(delegate(Texture2D texture)
 			{
 				UILandingPageFullScreenMenus.Get().SetFacebookContainerVisible(true, texture);
-			};
-		}
-		facebookClientInterface.TakeScreenshot(UIGameOverScreen.<>f__am$cache0);
+			});
 	}
 
 	public void NavButtonClicked(BaseEventData data)
 	{
 		if (this.m_currentSubState != null && this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Stats)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.NavButtonClicked(BaseEventData)).MethodHandle;
-			}
 			if (this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Rewards)
 			{
 				if (this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Done)
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -761,54 +568,18 @@ public class UIGameOverScreen : UIScene
 		bool flag4 = false;
 		if (this.m_AccoladesHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = true;
 		}
 		else if (this.m_StatsHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag2 = true;
 		}
 		else if (this.m_RewardsHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = true;
 		}
 		else if (this.m_ScoreHeaderBtn.spriteController.gameObject == gameObject)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag4 = true;
 		}
 		this.m_AccoladesHeaderBtn.SetSelected(flag, false, "SelectedIN", "SelectedOUT");
@@ -819,15 +590,6 @@ public class UIGameOverScreen : UIScene
 		UIManager.SetGameObjectActive(this.m_AccoladesAnimator, flag, null);
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_TopParticipantsAnimator, true, null);
 			UIManager.SetGameObjectActive(this.m_PersonalHighlightsAnimator, true, null);
 			UIAnimationEventManager.Get().PlayAnimation(this.m_TopParticipantsAnimator, "TopParticipantsGrpDefaultIDLE", null, string.Empty, 0, 0f, true, false, null, null);
@@ -837,28 +599,10 @@ public class UIGameOverScreen : UIScene
 				UIManager.SetGameObjectActive(this.m_PersonalHighlightWidgets[i], true, null);
 				this.m_PersonalHighlightWidgets[i].SetHighlight();
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		UIManager.SetGameObjectActive(this.m_StatsContainer, flag2, null);
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIAnimationEventManager.Get().PlayAnimation(this.m_StatsAnimator, "StatsScreenDefaultIDLE", null, string.Empty, 0, 0f, true, false, null, null);
 		}
 		UIManager.SetGameObjectActive(this.m_RewardsContainer, flag3, null);
@@ -885,26 +629,8 @@ public class UIGameOverScreen : UIScene
 				{
 					if (this.m_ggButtonLevelsAnims[i].gameObject.activeInHierarchy)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (currentAmount > 1)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[i], "GGBoostDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 						}
 						else
@@ -914,139 +640,45 @@ public class UIGameOverScreen : UIScene
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ClientGameManager.Get().RequestToUseGGPack();
 				this.m_numSelfGGpacksUsed++;
 				for (int j = 0; j < this.m_ggButtonLevels.Length; j++)
 				{
 					UIManager.SetGameObjectActive(this.m_ggButtonLevels[j], j == this.m_numSelfGGpacksUsed, null);
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_numSelfGGpacksUsed == 1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIFrontEnd.PlaySound(FrontEndButtonSounds.GGButtonEndGameUsed);
 				}
 				else if (this.m_numSelfGGpacksUsed == 2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent("ui/endgame/ggboost_button_silver", null);
 				}
 				else if (this.m_numSelfGGpacksUsed == 3)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AudioManager.PostEvent("ui/endgame/ggboost_button_gold", null);
 				}
 				if (GameOverWorldObjects.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					GameOverWorldObjects.Get().m_worldResultAnimController.Play("ResultGGPackPressAnimation");
 				}
 				this.RequestedToUseGGPack = true;
 				if (currentAmount > 1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_numSelfGGpacksUsed < 3)
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				for (int k = 0; k < this.m_ggButtonLevelsAnims.Length; k++)
 				{
 					if (this.m_ggButtonLevelsAnims[k].gameObject.activeInHierarchy)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[k], "GGBoostNoMoreDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 					}
 				}
 				this.m_worldGGBtnHitBox.SetClickable(false);
 				return;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.OnWorldGGButtonClicked(BaseEventData)).MethodHandle;
 			}
 		}
 		this.m_worldGGBtnHitBox.SetClickable(false);
@@ -1064,19 +696,6 @@ public class UIGameOverScreen : UIScene
 	{
 		if (rewardType == UIGameOverRewardTooltip.RewardTooltipType.FreelancerCurrencyAmount)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.RewardTooltipTypeToCurrencyType(UIGameOverRewardTooltip.RewardTooltipType)).MethodHandle;
-			}
 			return CurrencyType.FreelancerCurrency;
 		}
 		if (rewardType == UIGameOverRewardTooltip.RewardTooltipType.ISOAmount)
@@ -1085,15 +704,6 @@ public class UIGameOverScreen : UIScene
 		}
 		if (rewardType == UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return CurrencyType.RankedCurrency;
 		}
 		return CurrencyType.NONE;
@@ -1125,30 +735,8 @@ public class UIGameOverScreen : UIScene
 				ActorData actorData = enumerator.Current;
 				if (actorData.m_characterType == playerInfo.CharacterType)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetPlayersOriginalActorData()).MethodHandle;
-					}
 					return actorData;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return null;
@@ -1166,31 +754,9 @@ public class UIGameOverScreen : UIScene
 	{
 		if (this.m_turnTimeText != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupLabelText(int, int)).MethodHandle;
-			}
 			string arg = string.Empty;
 			if (UITimerPanel.Get().GetSeconds() < 0xA)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = string.Format(StringUtil.TR("TimeFormatLeadingZero", "Global"), UITimerPanel.Get().GetMinutes(), UITimerPanel.Get().GetSeconds());
 			}
 			else
@@ -1205,65 +771,20 @@ public class UIGameOverScreen : UIScene
 		}
 		if (this.m_redTeamScore != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_redTeamScore.text = string.Format(StringUtil.TR("RedTeamScore", "GameOver"), enemyTeamScore.ToString());
 		}
 		if (this.m_mapText != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_mapText.text = GameWideData.Get().GetMapDisplayName(GameManager.Get().GameInfo.GameConfig.Map);
 		}
 		if (this.m_gameTypeLabel != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_gameTypeLabel.text = string.Format(StringUtil.TR("DeathMatchLabel", "GameOver"), GameManager.Get().GameConfig.TeamAPlayers.ToString(), GameManager.Get().GameConfig.TeamBPlayers.ToString());
 		}
 		if (this.m_objectiveText != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ObjectivePoints.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_objectiveText.text = string.Format(StringUtil.TR(ObjectivePoints.Get().m_victoryCondition), (ObjectivePoints.Get().m_timeLimitTurns - 1).ToString());
 			}
 		}
@@ -1279,19 +800,6 @@ public class UIGameOverScreen : UIScene
 			{
 				if (currentAmount > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleBankBalanceChange(CurrencyData)).MethodHandle;
-					}
 					UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[i], "GGBoostDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 				}
 				else
@@ -1299,15 +807,6 @@ public class UIGameOverScreen : UIScene
 					UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[i], "GGBoostNoMoreDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1321,67 +820,18 @@ public class UIGameOverScreen : UIScene
 		{
 			if (allRewards[i].level == num)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetAccountRewardsForNextLevel(int)).MethodHandle;
-				}
 				if (allRewards[i].repeatEveryXLevels == 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(allRewards[i]);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		for (int j = 0; j < allRewards.Count; j++)
 		{
 			if (allRewards[j].repeatEveryXLevels > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((num - allRewards[j].level) % allRewards[j].repeatEveryXLevels == 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(allRewards[j]);
 				}
 			}
@@ -1423,46 +873,15 @@ public class UIGameOverScreen : UIScene
 		ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 		if (playersOriginalActorData != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupExpBars()).MethodHandle;
-			}
 			this.SetupCharacterRewardTooltip(playersOriginalActorData.GetCharacterResourceLink(), this.m_results.CharacterLevelAtStart);
 		}
 		if (GameFlowData.Get().activeOwnedActorData != null)
 		{
 			if (ReplayPlayManager.Get())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ReplayPlayManager.Get().IsPlayback())
 				{
 					goto IL_2C4;
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			UIManager.SetGameObjectActive(this.m_rewardsInfoContainer, true, null);
@@ -1476,39 +895,12 @@ public class UIGameOverScreen : UIScene
 		UIManager.SetGameObjectActive(this.m_tutorialLevelContainer, seasonTemplate.IsTutorial, null);
 		if (seasonTemplate.IsTutorial)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int endLevel = QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, seasonTemplate.Index);
 			int num2 = this.m_results.SeasonLevelAtStart;
 			if (this.m_gameType != GameType.Custom)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_gameType == GameType.Tutorial)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num2 > 1)
 					{
 						goto IL_38F;
@@ -1526,15 +918,6 @@ public class UIGameOverScreen : UIScene
 				uitutorialSeasonLevelBar.transform.localPosition = Vector3.zero;
 				this.m_tutorialLevelSliderBars.Add(uitutorialSeasonLevelBar);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			Queue<RewardUtils.RewardData> queue = new Queue<RewardUtils.RewardData>(RewardUtils.GetSeasonLevelRewards(-1));
 			List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(seasonTemplate);
 			if (availableSeasonEndRewards.Count > 0)
@@ -1549,15 +932,6 @@ public class UIGameOverScreen : UIScene
 				RewardUtils.RewardData rewardData = null;
 				while (queue.Count > 0)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (rewardData != null)
 					{
 						for (;;)
@@ -1590,15 +964,6 @@ public class UIGameOverScreen : UIScene
 				IL_517:
 				this.m_tutorialLevelSliderBars[j].SetReward(num3, rewardData);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetupTutorialRewards();
 		}
 	}
@@ -1620,19 +985,6 @@ public class UIGameOverScreen : UIScene
 					{
 						if (rewardData.Level <= this.m_tutorialRewards[j].Level)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupTutorialRewards()).MethodHandle;
-							}
 							index = j;
 							IL_BB:
 							this.m_tutorialRewards.Insert(index, rewardData);
@@ -1651,41 +1003,14 @@ public class UIGameOverScreen : UIScene
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(seasonTemplate);
 		this.m_tutorialRewards.AddRange(availableSeasonEndRewards);
 		for (int k = 0; k < this.m_tutorialRewards.Count; k++)
 		{
 			this.m_tutorialRewards[k].Level--;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_tutorialRewards.Count == 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_tutorialRewardTooltipObj, false, null);
 			UIManager.SetGameObjectActive(this.m_tutorialNextRewardLabel, false, null);
 			UIManager.SetGameObjectActive(this.m_tutorialRewardIconImage, false, null);
@@ -1697,28 +1022,10 @@ public class UIGameOverScreen : UIScene
 		RewardUtils.RewardData rewardData2 = null;
 		if (availableSeasonEndRewards.Count > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			rewardData2 = availableSeasonEndRewards[0];
 		}
 		if (rewardData2 == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIManager.SetGameObjectActive(this.m_tutorialRewardTooltipObj, false, null);
 			UIManager.SetGameObjectActive(this.m_tutorialNextRewardLabel, false, null);
 			UIManager.SetGameObjectActive(this.m_tutorialRewardIconImage, false, null);
@@ -1735,33 +1042,11 @@ public class UIGameOverScreen : UIScene
 		{
 			if (this.m_tutorialRewards != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupTutorialRewards>m__7(UITooltipBase)).MethodHandle;
-				}
 				if (this.m_tutorialRewards.Count != 0)
 				{
 					UIRewardListTooltip uirewardListTooltip = tooltip as UIRewardListTooltip;
 					uirewardListTooltip.Setup(this.m_tutorialRewards, this.m_results.SeasonLevelAtStart, UIRewardListTooltip.RewardsType.Tutorial, true);
 					return true;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return false;
@@ -1772,19 +1057,6 @@ public class UIGameOverScreen : UIScene
 	{
 		if (GameBalanceVars.Get() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupCharacterRewardTooltip(CharacterResourceLink, int)).MethodHandle;
-			}
 			return;
 		}
 		this.m_characterXPInfo.PopulateRewardIcon(currentCharLevel, true, charLink);
@@ -1802,53 +1074,13 @@ public class UIGameOverScreen : UIScene
 				int num = this.m_results.CurrencyRewards[i].BaseGained + this.m_results.CurrencyRewards[i].WinGained + this.m_results.CurrencyRewards[i].GGGained + this.m_results.CurrencyRewards[i].QuestGained + this.m_results.CurrencyRewards[i].LevelUpGained + this.m_results.CurrencyRewards[i].EventGained;
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupCurrencyAndInfluenceDisplays()).MethodHandle;
-					}
 					CurrencyType type = this.m_results.CurrencyRewards[i].Type;
 					if (type != CurrencyType.ISO)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (type != CurrencyType.FreelancerCurrency)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (type != CurrencyType.RankedCurrency)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
@@ -1872,15 +1104,6 @@ public class UIGameOverScreen : UIScene
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.TalliedCurrencies = true;
 		}
 		UIManager.SetGameObjectActive(this.m_isoDisplay.m_container, doActive, null);
@@ -1890,26 +1113,8 @@ public class UIGameOverScreen : UIScene
 		FactionCompetition factionCompetition = FactionWideData.Get().GetFactionCompetition(this.m_results.FactionCompetitionId);
 		if (factionCompetition != null && factionCompetition.ShouldShowcase)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_results.FactionId < factionCompetition.Factions.Count)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[this.m_results.FactionId].FactionGroupIDToUse);
 				this.m_influenceDisplay.m_displayIcon.sprite = Resources.Load<Sprite>(factionGroup.IconPath);
 				UIManager.SetGameObjectActive(this.m_influenceDisplay.m_container, factionCompetition.Enabled, null);
@@ -1923,30 +1128,8 @@ public class UIGameOverScreen : UIScene
 	{
 		if (this.NotificationArrived)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupRewardsScreen()).MethodHandle;
-			}
 			if (!this.IsRewardsScreenSetup)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.IsRewardsScreenSetup = true;
 				List<int> list = new List<int>();
 				int i = this.GetNormalBarXPTotal() + this.m_results.GGXpGained + this.m_results.QuestXpGained;
@@ -1959,15 +1142,6 @@ public class UIGameOverScreen : UIScene
 					list.Add(num);
 					num2 = UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType.Season, num);
 				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<RewardUtils.RewardData> list2 = new List<RewardUtils.RewardData>();
 				List<RewardUtils.RewardData> list3 = new List<RewardUtils.RewardData>();
 				for (int j = 0; j < list.Count; j++)
@@ -1977,29 +1151,11 @@ public class UIGameOverScreen : UIScene
 					{
 						if (rewardData.InventoryTemplate.Type == InventoryItemType.Currency)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list2.Add(rewardData);
 						}
 					}
 					if (ClientGameManager.Get().GetPlayerAccountData().QuestComponent.SeasonItemRewardsGranted.ContainsKey(list[j]))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						List<int> list4 = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.SeasonItemRewardsGranted[list[j]];
 						using (List<int>.Enumerator enumerator2 = list4.GetEnumerator())
 						{
@@ -2018,39 +1174,12 @@ public class UIGameOverScreen : UIScene
 									Type = RewardUtils.GetRewardTypeFromInventoryItem(itemTemplate)
 								});
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 				if (playersOriginalActorData != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					CharacterResourceLink characterResourceLink = playersOriginalActorData.GetCharacterResourceLink();
 					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 					List<int> list5 = new List<int>();
@@ -2064,15 +1193,6 @@ public class UIGameOverScreen : UIScene
 						list5.Add(num3);
 						num4 = UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType.Character, num3);
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					for (int l = 0; l < list5.Count; l++)
 					{
 						list3.AddRange(RewardUtils.GetNextCharacterRewards(characterResourceLink, list5[l] - 1));
@@ -2080,48 +1200,12 @@ public class UIGameOverScreen : UIScene
 						{
 							if (gameBalanceVars.RepeatingCharacterLevelRewards[m].charType == (int)characterResourceLink.m_characterType)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (gameBalanceVars.RepeatingCharacterLevelRewards[m].repeatingLevel > 0)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (list5[l] - 1 > gameBalanceVars.RepeatingCharacterLevelRewards[m].startLevel)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if ((list5[l] - gameBalanceVars.RepeatingCharacterLevelRewards[m].startLevel) % gameBalanceVars.RepeatingCharacterLevelRewards[m].repeatingLevel == 0)
 										{
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											RewardUtils.RewardData rewardData2 = new RewardUtils.RewardData();
 											rewardData2.Amount = gameBalanceVars.RepeatingCharacterLevelRewards[m].reward.Amount;
 											InventoryItemTemplate itemTemplate2 = InventoryWideData.Get().GetItemTemplate(gameBalanceVars.RepeatingCharacterLevelRewards[m].reward.ItemTemplateId);
@@ -2138,24 +1222,6 @@ public class UIGameOverScreen : UIScene
 								}
 							}
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				for (int n = 0; n < list2.Count; n++)
@@ -2175,15 +1241,6 @@ public class UIGameOverScreen : UIScene
 					endGameRewardItem2.Setup(list3[num5], playersOriginalActorData.m_characterType);
 					_MouseEventPasser mouseEventPasser2 = endGameRewardItem2.m_tooltipHoverObj.gameObject.AddComponent<_MouseEventPasser>();
 					mouseEventPasser2.AddNewHandler(this.m_RewardsScrollRect);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				this.NumRewardsEarned = list2.Count + list3.Count;
 				this.m_rewardNumberText.text = this.NumRewardsEarned.ToString();
@@ -2207,96 +1264,24 @@ public class UIGameOverScreen : UIScene
 	{
 		if (!this.BadgesAreSet)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupBadges()).MethodHandle;
-			}
 			if (this.NotificationArrived)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().PlayerInfo != null && !this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
 					{
 						foreach (BadgeAndParticipantInfo badgeAndParticipantInfo in this.m_results.BadgeAndParticipantsInfo)
 						{
 							if (badgeAndParticipantInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (badgeAndParticipantInfo.BadgesEarned != null)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									List<BadgeInfo> badgesEarned = badgeAndParticipantInfo.BadgesEarned;
-									if (UIGameOverScreen.<>f__am$cache1 == null)
-									{
-										for (;;)
-										{
-											switch (4)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										UIGameOverScreen.<>f__am$cache1 = delegate(BadgeInfo x, BadgeInfo y)
+									
+									badgesEarned.Sort(delegate(BadgeInfo x, BadgeInfo y)
 										{
 											if (x == null && y == null)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
-												if (!true)
-												{
-													RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupBadges>m__8(BadgeInfo, BadgeInfo)).MethodHandle;
-												}
 												return 0;
 											}
 											if (x == null)
@@ -2315,28 +1300,10 @@ public class UIGameOverScreen : UIScene
 											}
 											if (badgeInfo == null)
 											{
-												for (;;)
-												{
-													switch (6)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												return 1;
 											}
 											if (badgeInfo2 == null)
 											{
-												for (;;)
-												{
-													switch (4)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												return -1;
 											}
 											if (badgeInfo.Quality == badgeInfo2.Quality)
@@ -2345,15 +1312,6 @@ public class UIGameOverScreen : UIScene
 											}
 											if (badgeInfo.Quality > badgeInfo2.Quality)
 											{
-												for (;;)
-												{
-													switch (3)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												return -1;
 											}
 											if (badgeInfo.Quality < badgeInfo2.Quality)
@@ -2361,9 +1319,7 @@ public class UIGameOverScreen : UIScene
 												return 1;
 											}
 											return 0;
-										};
-									}
-									badgesEarned.Sort(UIGameOverScreen.<>f__am$cache1);
+										});
 									for (int i = 0; i < badgeAndParticipantInfo.BadgesEarned.Count; i++)
 									{
 										UIGameOverBadgeWidget uigameOverBadgeWidget = UnityEngine.Object.Instantiate<UIGameOverBadgeWidget>(this.m_BadgePrefab);
@@ -2372,15 +1328,6 @@ public class UIGameOverScreen : UIScene
 										UIGameOverBadgeWidget uigameOverBadgeWidget2 = UnityEngine.Object.Instantiate<UIGameOverBadgeWidget>(this.m_BadgePrefab);
 										uigameOverBadgeWidget2.Setup(badgeAndParticipantInfo.BadgesEarned[i], GameManager.Get().PlayerInfo.CharacterType, badgeAndParticipantInfo.GlobalPercentiles);
 										UIManager.ReparentTransform(uigameOverBadgeWidget2.transform, this.m_StatPadgeBadgesContainer.transform);
-									}
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
 									}
 									this.BadgesAreSet = true;
 								}
@@ -2397,31 +1344,9 @@ public class UIGameOverScreen : UIScene
 	{
 		if (this.NotificationArrived)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupTopParticipants()).MethodHandle;
-			}
 			int num = 0;
 			if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<TopParticipantSlot> list = new List<TopParticipantSlot>();
 				IEnumerator enumerator = Enum.GetValues(typeof(TopParticipantSlot)).GetEnumerator();
 				try
@@ -2438,31 +1363,12 @@ public class UIGameOverScreen : UIScene
 					IDisposable disposable;
 					if ((disposable = (enumerator as IDisposable)) != null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						disposable.Dispose();
 					}
 				}
 				List<TopParticipantSlot> list2 = list;
-				if (UIGameOverScreen.<>f__am$cache2 == null)
-				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					UIGameOverScreen.<>f__am$cache2 = delegate(TopParticipantSlot x, TopParticipantSlot y)
+				
+				list2.Sort(delegate(TopParticipantSlot x, TopParticipantSlot y)
 					{
 						int num2 = BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(x);
 						int num3 = BadgeAndParticipantInfo.ParticipantOrderDisplayPriority(y);
@@ -2473,19 +1379,6 @@ public class UIGameOverScreen : UIScene
 						int result;
 						if (num2 > num3)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupTopParticipants>m__9(TopParticipantSlot, TopParticipantSlot)).MethodHandle;
-							}
 							result = -1;
 						}
 						else
@@ -2493,9 +1386,7 @@ public class UIGameOverScreen : UIScene
 							result = 1;
 						}
 						return result;
-					};
-				}
-				list2.Sort(UIGameOverScreen.<>f__am$cache2);
+					});
 				using (List<TopParticipantSlot>.Enumerator enumerator2 = list.GetEnumerator())
 				{
 					IL_183:
@@ -2509,26 +1400,8 @@ public class UIGameOverScreen : UIScene
 								BadgeAndParticipantInfo badgeAndParticipantInfo = enumerator3.Current;
 								if (!badgeAndParticipantInfo.TopParticipationEarned.IsNullOrEmpty<TopParticipantSlot>())
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (badgeAndParticipantInfo.TopParticipationEarned.Contains(topParticipantSlot))
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (num < this.m_TopParticipantWidgets.Length)
 										{
 											this.m_TopParticipantWidgets[num].Setup(topParticipantSlot, badgeAndParticipantInfo);
@@ -2538,40 +1411,13 @@ public class UIGameOverScreen : UIScene
 									}
 								}
 							}
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			for (int i = num; i < this.m_TopParticipantWidgets.Length; i++)
 			{
 				UIManager.SetGameObjectActive(this.m_TopParticipantWidgets[i], false, null);
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -2588,72 +1434,23 @@ public class UIGameOverScreen : UIScene
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[j].gameObject);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupStatsScreen()).MethodHandle;
-		}
 		componentsInChildren = this.m_firepowerStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 		for (int k = 0; k < componentsInChildren.Length; k++)
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[k].gameObject);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		componentsInChildren = this.m_supportStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 		for (int l = 0; l < componentsInChildren.Length; l++)
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[l].gameObject);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		componentsInChildren = this.m_frontlineStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 		for (int m = 0; m < componentsInChildren.Length; m++)
 		{
 			UnityEngine.Object.Destroy(componentsInChildren[m].gameObject);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_statsAtBeginningOfMatch == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ReplayPlayManager.Get() != null)
 			{
 				PersistedCharacterMatchData playbackMatchData = ReplayPlayManager.Get().GetPlaybackMatchData();
@@ -2670,30 +1467,12 @@ public class UIGameOverScreen : UIScene
 						UIManager.ReparentTransform(uigameOverStatWidget.transform, this.m_freelancerStatGrid.transform);
 						this.m_GameOverStatWidgets.Add(uigameOverStatWidget);
 					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (StatDisplaySettings.StatType typeOfStat in StatDisplaySettings.GeneralStats)
 					{
 						UIGameOverStatWidget uigameOverStatWidget2 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
 						uigameOverStatWidget2.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat, firstPlayerCharacter);
 						UIManager.ReparentTransform(uigameOverStatWidget2.transform, this.m_generalStatGrid.transform);
 						this.m_GameOverStatWidgets.Add(uigameOverStatWidget2);
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					foreach (StatDisplaySettings.StatType typeOfStat2 in StatDisplaySettings.FirepowerStats)
 					{
@@ -2709,15 +1488,6 @@ public class UIGameOverScreen : UIScene
 						UIManager.ReparentTransform(uigameOverStatWidget4.transform, this.m_supportStatGrid.transform);
 						this.m_GameOverStatWidgets.Add(uigameOverStatWidget4);
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					foreach (StatDisplaySettings.StatType typeOfStat4 in StatDisplaySettings.FrontlinerStats)
 					{
 						UIGameOverStatWidget uigameOverStatWidget5 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
@@ -2725,26 +1495,8 @@ public class UIGameOverScreen : UIScene
 						UIManager.ReparentTransform(uigameOverStatWidget5.transform, this.m_frontlineStatGrid.transform);
 						this.m_GameOverStatWidgets.Add(uigameOverStatWidget5);
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (playbackMatchData.MatchFreelancerStats == null)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return;
 					}
 					ClientGameManager.Get().CalculateFreelancerStats(playbackMatchData.MatchFreelancerStats.PersistedStatBucket, firstPlayerCharacter, playbackMatchData.MatchFreelancerStats, delegate(CalculateFreelancerStatsResponse response)
@@ -2766,44 +1518,13 @@ public class UIGameOverScreen : UIScene
 									}
 									else if (uigameOverStatWidget11.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat && !response.FreelancerSpecificPercentiles.IsNullOrEmpty<KeyValuePair<int, PercentileInfo>>())
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
-										if (!true)
-										{
-											RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<SetupStatsScreen>m__A(CalculateFreelancerStatsResponse)).MethodHandle;
-										}
 										uigameOverStatWidget11.UpdatePercentiles(response.FreelancerSpecificPercentiles[uigameOverStatWidget11.FreelancerStat]);
 									}
-								}
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
 								}
 							}
 						}
 						else if (response.LocalizedFailure != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							TextConsole.Get().Write(response.LocalizedFailure.ToString(), ConsoleMessageType.SystemMessage);
 						}
 					});
@@ -2835,15 +1556,6 @@ public class UIGameOverScreen : UIScene
 			UIManager.ReparentTransform(uigameOverStatWidget6.transform, this.m_freelancerStatGrid.transform);
 			this.m_GameOverStatWidgets.Add(uigameOverStatWidget6);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		foreach (StatDisplaySettings.StatType typeOfStat5 in StatDisplaySettings.GeneralStats)
 		{
 			UIGameOverStatWidget uigameOverStatWidget7 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
@@ -2851,15 +1563,6 @@ public class UIGameOverScreen : UIScene
 			uigameOverStatWidget7.UpdatePercentiles(this.GetStatPercentiles(uigameOverStatWidget7.GeneralStatType));
 			UIManager.ReparentTransform(uigameOverStatWidget7.transform, this.m_generalStatGrid.transform);
 			this.m_GameOverStatWidgets.Add(uigameOverStatWidget7);
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		foreach (StatDisplaySettings.StatType typeOfStat6 in StatDisplaySettings.FirepowerStats)
 		{
@@ -2877,15 +1580,6 @@ public class UIGameOverScreen : UIScene
 			UIManager.ReparentTransform(uigameOverStatWidget9.transform, this.m_supportStatGrid.transform);
 			this.m_GameOverStatWidgets.Add(uigameOverStatWidget9);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		foreach (StatDisplaySettings.StatType typeOfStat8 in StatDisplaySettings.FrontlinerStats)
 		{
 			UIGameOverStatWidget uigameOverStatWidget10 = UnityEngine.Object.Instantiate<UIGameOverStatWidget>(this.m_generalStatPrefab);
@@ -2894,28 +1588,10 @@ public class UIGameOverScreen : UIScene
 			UIManager.ReparentTransform(uigameOverStatWidget10.transform, this.m_frontlineStatGrid.transform);
 			this.m_GameOverStatWidgets.Add(uigameOverStatWidget10);
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		List<UIGameOverStatWidget> list = new List<UIGameOverStatWidget>();
 		int num10 = 0;
 		while (list.Count < this.m_PersonalHighlightWidgets.Length)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num10 >= 3)
 			{
 				for (;;)
@@ -2934,78 +1610,24 @@ public class UIGameOverScreen : UIScene
 				{
 					if (!list.Contains(this.m_GameOverStatWidgets[num11]))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num10 == 0)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (this.m_GameOverStatWidgets[num11].BeatRecord())
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								list.Add(this.m_GameOverStatWidgets[num11]);
 								goto IL_82F;
 							}
 						}
 						if (num10 == 1 && this.m_GameOverStatWidgets[num11].BeatAverage())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(this.m_GameOverStatWidgets[num11]);
 						}
 						else if (num10 >= 2)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.Add(this.m_GameOverStatWidgets[num11]);
 						}
 					}
 					IL_82F:;
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				num10++;
 			}
@@ -3015,39 +1637,12 @@ public class UIGameOverScreen : UIScene
 		{
 			if (num12 < list.Count)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (list[num12].DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_PersonalHighlightWidgets[num12].SetupForFreelancerStats(this.m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, list[num12].FreelancerStat, playersOriginalActorData2.GetAbilityData());
 				}
 				else if (list[num12].DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_PersonalHighlightWidgets[num12].SetupForAStat(this.m_statsAtBeginningOfMatch, actorBehavior, list[num12].GeneralStatType);
 				}
 			}
@@ -3061,43 +1656,12 @@ public class UIGameOverScreen : UIScene
 		bool flag2 = flag;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupRankMode()).MethodHandle;
-			}
 			TierPlacement tierCurrent = ClientGameManager.Get().TierCurrent;
 			if (tierCurrent != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tierCurrent.Tier != -1)
 				{
 					goto IL_57;
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			flag2 = false;
@@ -3108,15 +1672,6 @@ public class UIGameOverScreen : UIScene
 				float fillAmount = this.GetRankFillAmt(tierCurrent.Points * 0.01f);
 				if (tierCurrent.Tier != 1)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (tierCurrent.Tier != 2)
 					{
 						goto IL_A0;
@@ -3145,44 +1700,13 @@ public class UIGameOverScreen : UIScene
 		{
 			UIManager.SetGameObjectActive(this.m_ggButtonLevels[i], i == this.m_numSelfGGpacksUsed, null);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupGGBoostScreen()).MethodHandle;
-		}
 		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
 		for (int j = 0; j < this.m_ggButtonLevelsAnims.Length; j++)
 		{
 			if (this.m_ggButtonLevelsAnims[j].gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (currentAmount > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UIAnimationEventManager.Get().PlayAnimation(this.m_ggButtonLevelsAnims[j], "GGBoostDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 				}
 				else
@@ -3201,19 +1725,6 @@ public class UIGameOverScreen : UIScene
 		int num2 = 0;
 		if (HUD_UI.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateGGBoostPlayerList(bool)).MethodHandle;
-			}
 			using (List<LobbyPlayerInfo>.Enumerator enumerator = GameManager.Get().TeamInfo.TeamPlayerInfo.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -3224,55 +1735,19 @@ public class UIGameOverScreen : UIScene
 						int num3 = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(lobbyPlayerInfo.Handle);
 						if (lobbyPlayerInfo.TeamId != teamId)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (teamId == Team.Spectator && lobbyPlayerInfo.TeamId == Team.TeamA)
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 							}
 							else
 							{
 								if (num2 < this.m_redTeamGGProfiles.Length)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIManager.SetGameObjectActive(this.m_redTeamGGProfiles[num2], true, null);
 									this.m_redTeamGGProfiles[num2].Setup(GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterType), lobbyPlayerInfo, true, true);
 									UILoadscreenProfile uiloadscreenProfile = this.m_redTeamGGProfiles[num2];
 									int ggbuttonLevel;
 									if (setGGLevel)
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										ggbuttonLevel = num3;
 									}
 									else
@@ -3288,30 +1763,12 @@ public class UIGameOverScreen : UIScene
 						}
 						if (num < this.m_blueTeamGGProfiles.Length)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIManager.SetGameObjectActive(this.m_blueTeamGGProfiles[num], true, null);
 							this.m_blueTeamGGProfiles[num].Setup(GameWideData.Get().GetCharacterResourceLink(lobbyPlayerInfo.CharacterType), lobbyPlayerInfo, false, true);
 							UILoadscreenProfile uiloadscreenProfile2 = this.m_blueTeamGGProfiles[num];
 							int ggbuttonLevel2;
 							if (setGGLevel)
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								ggbuttonLevel2 = num3;
 							}
 							else
@@ -3323,15 +1780,6 @@ public class UIGameOverScreen : UIScene
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 		}
 		for (int i = num; i < this.m_blueTeamGGProfiles.Length; i++)
@@ -3341,15 +1789,6 @@ public class UIGameOverScreen : UIScene
 		for (int j = num2; j < this.m_redTeamGGProfiles.Length; j++)
 		{
 			UIManager.SetGameObjectActive(this.m_redTeamGGProfiles[j], false, null);
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -3362,19 +1801,6 @@ public class UIGameOverScreen : UIScene
 	{
 		if (this.LastRankTierDisplayed == tier)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.SetupTierDisplay(int, float)).MethodHandle;
-			}
 			return false;
 		}
 		this.LastRankTierDisplayed = tier;
@@ -3385,45 +1811,18 @@ public class UIGameOverScreen : UIScene
 			this.m_rankIcon.sprite = (Sprite)Resources.Load(tierIconResource, typeof(Sprite));
 			if (tierIconResource.ToLower().Contains("bronze"))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_decrease", typeof(Sprite));
 				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_increase", typeof(Sprite));
 				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Bronze_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("silver"))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_decrease", typeof(Sprite));
 				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_increase", typeof(Sprite));
 				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Silver_fill", typeof(Sprite));
 			}
 			else if (tierIconResource.ToLower().Contains("gold"))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_decrease", typeof(Sprite));
 				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_increase", typeof(Sprite));
 				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Gold_fill", typeof(Sprite));
@@ -3436,15 +1835,6 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (tierIconResource.ToLower().Contains("diamond"))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_decrease", typeof(Sprite));
 				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_increase", typeof(Sprite));
 				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Diamond_fill", typeof(Sprite));
@@ -3457,15 +1847,6 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (tierIconResource.ToLower().Contains("contender"))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankDecreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_decrease", typeof(Sprite));
 				this.m_rankIncreaseBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_increase", typeof(Sprite));
 				this.m_rankNormalBar.sprite = (Sprite)Resources.Load("RankFillBars/ranked_Contender_fill", typeof(Sprite));
@@ -3481,39 +1862,12 @@ public class UIGameOverScreen : UIScene
 		});
 		if (array != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (array.Length > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankTeirText.text = array[0];
 			}
 			if (array.Length > 1)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_rankLevelText.text = array[1];
 				this.ShouldDisplayTierPoints = false;
 			}
@@ -3547,118 +1901,24 @@ public class UIGameOverScreen : UIScene
 	{
 		if (GameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CheckPreGameStats()).MethodHandle;
-			}
 			if (GameManager.Get().GameStatus == GameStatus.Started)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo.GameConfig != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameInfo.GameConfig.InstanceSubType != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (GameManager.Get().PlayerInfo != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!GameManager.Get().PlayerInfo.IsSpectator)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 									{
-										for (;;)
-										{
-											switch (3)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (ClientGameManager.Get().IsPlayerCharacterDataAvailable(CharacterType.None))
 										{
-											for (;;)
-											{
-												switch (5)
-												{
-												case 0:
-													continue;
-												}
-												break;
-											}
 											if (this.m_statsAtBeginningOfMatch == null)
 											{
-												for (;;)
-												{
-													switch (7)
-													{
-													case 0:
-														continue;
-													}
-													break;
-												}
 												PersistedStatBucket persistedStatBucket = GameManager.Get().GameInfo.GameConfig.InstanceSubType.PersistedStatBucket;
 												Dictionary<PersistedStatBucket, PersistedStats> persistedStatsDictionary = ClientGameManager.Get().GetPlayerCharacterData(GameManager.Get().PlayerInfo.CharacterType).ExperienceComponent.PersistedStatsDictionary;
 												PersistedStats persistedStats;
@@ -3693,33 +1953,11 @@ public class UIGameOverScreen : UIScene
 		}
 		if (GameManager.Get().GameConfig != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleMatchResultsNotification(MatchResultsNotification)).MethodHandle;
-			}
 			GameType gameType = GameManager.Get().GameConfig.GameType;
 			if (gameType != GameType.Custom)
 			{
 				if (gameType == GameType.Tutorial)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_results.SeasonLevelAtStart > 1)
 					{
 						goto IL_108;
@@ -3729,26 +1967,8 @@ public class UIGameOverScreen : UIScene
 				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(playerAccountData.QuestComponent.ActiveSeason);
 				if (seasonTemplate != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (seasonTemplate.IsTutorial)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UITutorialSeasonInterstitial.Get().Setup(seasonTemplate, playerAccountData.QuestComponent.SeasonLevel - 1, true);
 					}
 				}
@@ -3760,28 +1980,10 @@ public class UIGameOverScreen : UIScene
 		IL_115:
 		if (!notification.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int playerId = GameManager.Get().PlayerInfo.PlayerId;
 			BadgeAndParticipantInfo badgeAndParticipantInfo = notification.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
 			if (badgeAndParticipantInfo != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty<KeyValuePair<StatDisplaySettings.StatType, PercentileInfo>>())
 				{
 					using (Dictionary<StatDisplaySettings.StatType, PercentileInfo>.Enumerator enumerator = badgeAndParticipantInfo.GlobalPercentiles.GetEnumerator())
@@ -3795,28 +1997,10 @@ public class UIGameOverScreen : UIScene
 								uigameOverStatWidget.UpdatePercentiles(kvPair.Value);
 							}
 						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 				}
 				if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty<KeyValuePair<int, PercentileInfo>>())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (Dictionary<int, PercentileInfo>.Enumerator enumerator2 = badgeAndParticipantInfo.FreelancerSpecificPercentiles.GetEnumerator())
 					{
 						while (enumerator2.MoveNext())
@@ -3827,19 +2011,6 @@ public class UIGameOverScreen : UIScene
 								bool result;
 								if (p.FreelancerStat == ivPair.Key)
 								{
-									for (;;)
-									{
-										switch (3)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
-									if (!true)
-									{
-										RuntimeMethodHandle runtimeMethodHandle2 = methodof(UIGameOverScreen.<HandleMatchResultsNotification>c__AnonStorey2.<>m__0(UIGameOverStatWidget)).MethodHandle;
-									}
 									result = (p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat);
 								}
 								else
@@ -3850,26 +2021,8 @@ public class UIGameOverScreen : UIScene
 							});
 							if (uigameOverStatWidget2 != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								uigameOverStatWidget2.UpdatePercentiles(ivPair.Value);
 							}
-						}
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -3882,19 +2035,6 @@ public class UIGameOverScreen : UIScene
 		this.RequestedToUseGGPack = false;
 		if (this.m_currentSubState != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.NotifySelfGGPackUsed()).MethodHandle;
-			}
 			this.UpdateGGBoostPlayerList(true);
 		}
 	}
@@ -3903,19 +2043,6 @@ public class UIGameOverScreen : UIScene
 	{
 		if (this.m_currentSubState != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleGGPackUsed(UseGGPackNotification)).MethodHandle;
-			}
 			this.UpdateGGBoostPlayerList(true);
 		}
 	}
@@ -3926,45 +2053,14 @@ public class UIGameOverScreen : UIScene
 		this.SetWorldGGPackText(string.Format(StringUtil.TR("EndGameGGBonuses", "GameOver"), Mathf.RoundToInt((this.m_GGPack_XPMult - 1f) * 100f)));
 		if (this.m_GGPack_XPMult < 2f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateEndGameGGBonuses(int, float)).MethodHandle;
-			}
 			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostBluePercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 		}
 		else if (this.m_GGPack_XPMult < 3f)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostSilverPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 		}
 		else if (this.m_GGPack_XPMult < 4f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIAnimationEventManager.Get().PlayAnimation(this.m_PercentageAnimator, "GGBoostGoldPercentageDefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
 		}
 		else
@@ -3986,33 +2082,11 @@ public class UIGameOverScreen : UIScene
 		ActorData playersOriginalActorData = UIGameOverScreen.GetPlayersOriginalActorData();
 		if (playersOriginalActorData != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.Setup(GameType, GameResult, int, int)).MethodHandle;
-			}
 			this.m_characterExpBarImage.sprite = playersOriginalActorData.GetCharacterResourceLink().GetCharacterSelectIcon();
 		}
 		GameBalanceVars.PlayerBanner currentBackgroundBanner = ClientGameManager.Get().GetCurrentBackgroundBanner();
 		if (currentBackgroundBanner != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_bannerBG.sprite = (Sprite)Resources.Load(currentBackgroundBanner.m_resourceString, typeof(Sprite));
 		}
 		GameBalanceVars.PlayerBanner currentForegroundBanner = ClientGameManager.Get().GetCurrentForegroundBanner();
@@ -4037,15 +2111,6 @@ public class UIGameOverScreen : UIScene
 		this.ContinueBtnFailSafeTime = Time.unscaledTime;
 		if (GameOverWorldObjects.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameOverWorldObjects.Get().SetVisible(true);
 		}
 		UIManager.SetGameObjectActive(this.m_ContinueBtn, false, null);
@@ -4058,31 +2123,9 @@ public class UIGameOverScreen : UIScene
 		int num = 0;
 		if (this.m_results.CurrencyRewards != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetTotalCurrencyGainedFromQuests()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_results.CurrencyRewards.Count; i++)
 			{
 				num += this.m_results.CurrencyRewards[i].QuestGained;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return num;
@@ -4104,31 +2147,9 @@ public class UIGameOverScreen : UIScene
 		bool flag = false;
 		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.InitialPause)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleUpdateExpSubStateComplete(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.m_ContinueBtn, true, null);
 			if (this.GetNormalBarXPTotal() <= 0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.HasCurrencyToDisplay())
 				{
 					flag = true;
@@ -4143,40 +2164,13 @@ public class UIGameOverScreen : UIScene
 		IL_78:
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 			{
 				goto IL_10C;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_results.GGXpGained > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_ggBonusXPAnimText.text = string.Format(StringUtil.TR("GGBonusXP", "GameOver"), this.m_results.GGXpGained);
 			this.m_ggBonusController.Play("ResultsBonusIconGGDefaultIN");
 			return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
@@ -4188,40 +2182,13 @@ public class UIGameOverScreen : UIScene
 		IL_10C:
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpAnim)
 			{
 				goto IL_15D;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_results.GGXpGained > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
 			{
 				new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar, 1.5f)
@@ -4231,39 +2198,12 @@ public class UIGameOverScreen : UIScene
 		IL_15D:
 		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_results.QuestXpGained <= 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.GetTotalCurrencyGainedFromQuests() <= 0)
 				{
 					flag = true;
 					goto IL_1B2;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
@@ -4274,53 +2214,17 @@ public class UIGameOverScreen : UIScene
 		IL_1B2:
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestBarPause)
 			{
 				goto IL_216;
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_results.QuestXpGained <= 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetTotalCurrencyGainedFromQuests() <= 0)
 			{
 				flag = true;
 				goto IL_216;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return new UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo[]
@@ -4330,15 +2234,6 @@ public class UIGameOverScreen : UIScene
 		IL_216:
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 			{
 				goto IL_301;
@@ -4346,40 +2241,13 @@ public class UIGameOverScreen : UIScene
 		}
 		if (this.IsRankedGame)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().TierCurrent != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().TierCurrent.Tier != -1)
 				{
 					TierPlacement tierPlacement;
 					if (this.SelfWon)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						tierPlacement = ClientGameManager.Get().TierChangeMax;
 					}
 					else
@@ -4388,15 +2256,6 @@ public class UIGameOverScreen : UIScene
 					}
 					if (ClientGameManager.Get().TierCurrent.Tier == tierPlacement.Tier)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (ClientGameManager.Get().TierCurrent.Points == tierPlacement.Points)
 						{
 							goto IL_301;
@@ -4427,46 +2286,15 @@ public class UIGameOverScreen : UIScene
 		int num2 = 0;
 		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateCurrencyHelper(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo, UIGameOverScreen.CurrencyDisplayInfo, CurrencyType)).MethodHandle;
-			}
 			num2 = DisplayInfo.GetTotalNormalCurrencyReward(CurrencyType);
 		}
 		else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = DisplayInfo.GetTotalNormalCurrencyReward(CurrencyType);
 			num2 = DisplayInfo.GetTotalGGBoostCurrencyReward(CurrencyType);
 		}
 		else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = DisplayInfo.GetTotalNormalCurrencyReward(CurrencyType) + DisplayInfo.GetTotalGGBoostCurrencyReward(CurrencyType);
 			num2 = DisplayInfo.GetTotalQuestCurrencyReward(CurrencyType);
 		}
@@ -4479,19 +2307,6 @@ public class UIGameOverScreen : UIScene
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
 		if (seasonTemplate.IsTutorial)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateExpSubStateHelper(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo, UIGameOverScreen.XPDisplayInfo, int, int, int, int)).MethodHandle;
-			}
 			if (DisplayInfo.XPBarType != UIGameOverScreen.XPDisplayInfo.BarXPType.Character)
 			{
 				return;
@@ -4506,64 +2321,19 @@ public class UIGameOverScreen : UIScene
 			num++;
 			xpforType = UIGameOverScreen.XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (DisplayInfo.m_LastLevelDisplayed != num)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int xpforType2 = UIGameOverScreen.XPDisplayInfo.GetXPForType(DisplayInfo.XPBarType, num - 1);
 			if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DisplayInfo.m_NormalXPGainSlider.fillAmount = 1f;
 			}
 			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DisplayInfo.m_GGXPSlider.fillAmount = 1f;
 			}
 			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DisplayInfo.m_GGXPSlider.fillAmount = 1f;
 			}
 			DisplayInfo.m_barLevelLabel.text = (num - 1).ToString();
@@ -4578,15 +2348,6 @@ public class UIGameOverScreen : UIScene
 		{
 			if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DisplayInfo.m_NormalXPGainSlider.fillAmount = (float)i / (float)xpforType;
 			}
 			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
@@ -4595,15 +2356,6 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				DisplayInfo.m_QuestXPSlider.fillAmount = (float)i / (float)xpforType;
 			}
 			DisplayInfo.m_barLevelLabel.text = num.ToString();
@@ -4615,41 +2367,10 @@ public class UIGameOverScreen : UIScene
 	{
 		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateInfluenceObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
 			if (this.m_results.FactionContributionAmounts != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UpdateInfo.IsPaused)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num = 0;
 					using (Dictionary<string, int>.Enumerator enumerator = this.m_results.FactionContributionAmounts.GetEnumerator())
 					{
@@ -4657,15 +2378,6 @@ public class UIGameOverScreen : UIScene
 						{
 							KeyValuePair<string, int> keyValuePair = enumerator.Current;
 							num += keyValuePair.Value;
-						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					int num2 = (int)((float)num * UpdateInfo.PercentageProgress);
@@ -4679,19 +2391,6 @@ public class UIGameOverScreen : UIScene
 	{
 		if (info != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetDisplayTotalCurrency(UIGameOverScreen.CurrencyDisplayInfo, CurrencyType)).MethodHandle;
-			}
 			return info.GetTotalNormalCurrencyReward(CurrencyType) + info.GetTotalGGBoostCurrencyReward(CurrencyType) + info.GetTotalQuestCurrencyReward(CurrencyType);
 		}
 		return 0;
@@ -4706,42 +2405,11 @@ public class UIGameOverScreen : UIScene
 	{
 		if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateCurrencyObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
 			if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UpdateInfo.UpdateType != UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 				{
 					return;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -4757,30 +2425,8 @@ public class UIGameOverScreen : UIScene
 	{
 		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateExperienceObjects(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
 			if (!UpdateInfo.IsPaused)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIScreenManager.Get().PlayNormalXPLoop(true);
 				int normalBarXPTotal = this.GetNormalBarXPTotal();
 				int num = normalBarXPTotal + this.m_results.ConsumableXpGained;
@@ -4790,15 +2436,6 @@ public class UIGameOverScreen : UIScene
 				this.UpdateExpSubStateHelper(UpdateInfo, this.m_playerXPInfo, normalBarXPTotal, this.m_results.SeasonXpAtStart, this.m_results.SeasonLevelAtStart, xpgainedSoFar);
 				if (this.m_results.NumCharactersPlayed > 1)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num /= this.m_results.NumCharactersPlayed;
 					num2 /= this.m_results.NumCharactersPlayed;
 				}
@@ -4809,26 +2446,8 @@ public class UIGameOverScreen : UIScene
 				UIScreenManager.Get().EndNormalXPLoop();
 				if (!this.m_playerXPInfo.m_playingLevelUp)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_characterXPInfo.m_playingLevelUp && !UINewReward.Get().RewardIsBeingAnnounced())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UpdateInfo.SetPaused(false);
 					}
 				}
@@ -4836,15 +2455,6 @@ public class UIGameOverScreen : UIScene
 		}
 		else if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!UpdateInfo.IsPaused)
 			{
 				UIScreenManager.Get().PlayGGBoostXPLoop(true);
@@ -4857,15 +2467,6 @@ public class UIGameOverScreen : UIScene
 				this.UpdateExpSubStateHelper(UpdateInfo, this.m_playerXPInfo, ggxpGained, this.m_results.SeasonXpAtStart + normalBarXPTotal2, this.m_results.SeasonLevelAtStart, num5);
 				if (this.m_results.NumCharactersPlayed > 1)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num3 += num4;
 					num3 /= this.m_results.NumCharactersPlayed;
 					num4 /= this.m_results.NumCharactersPlayed;
@@ -4879,26 +2480,8 @@ public class UIGameOverScreen : UIScene
 				UIScreenManager.Get().EndGGXPLoop();
 				if (!this.m_playerXPInfo.m_playingLevelUp && !this.m_characterXPInfo.m_playingLevelUp)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!UINewReward.Get().RewardIsBeingAnnounced())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UpdateInfo.SetPaused(false);
 					}
 				}
@@ -4908,15 +2491,6 @@ public class UIGameOverScreen : UIScene
 		{
 			if (!UpdateInfo.IsPaused)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIScreenManager.Get().PlayGGBoostXPLoop(true);
 				int questXpGained = this.m_results.QuestXpGained;
 				int num6 = this.GetNormalBarXPTotal() + this.m_results.GGXpGained;
@@ -4929,37 +2503,10 @@ public class UIGameOverScreen : UIScene
 				UIScreenManager.Get().EndGGXPLoop();
 				if (!this.m_playerXPInfo.m_playingLevelUp)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_characterXPInfo.m_playingLevelUp)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!UINewReward.Get().RewardIsBeingAnnounced())
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UpdateInfo.SetPaused(false);
 						}
 					}
@@ -4973,19 +2520,6 @@ public class UIGameOverScreen : UIScene
 		bool result;
 		if (tier != 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.IsTierContenderOrMaster(int)).MethodHandle;
-			}
 			result = (tier == 1);
 		}
 		else
@@ -5000,19 +2534,6 @@ public class UIGameOverScreen : UIScene
 		this.RankLevelUpDownAnimating = false;
 		if (this.SelfWon)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.RankModeAnimDone()).MethodHandle;
-			}
 			this.m_rankNormalBar.fillAmount = 0f;
 			this.m_rankDecreaseBar.fillAmount = 0f;
 			this.m_rankIncreaseBar.fillAmount = 0f;
@@ -5029,33 +2550,11 @@ public class UIGameOverScreen : UIScene
 	{
 		if (!UpdateInfo.IsPaused && ClientGameManager.Get().TierCurrent != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateRankPointsWin(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
 			TierPlacement tierCurrent = ClientGameManager.Get().TierCurrent;
 			TierPlacement tierChangeMax = ClientGameManager.Get().TierChangeMax;
 			float num = 0f;
 			if (tierChangeMax.Tier == tierCurrent.Tier)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = tierChangeMax.Points - tierCurrent.Points;
 			}
 			else
@@ -5065,26 +2564,8 @@ public class UIGameOverScreen : UIScene
 				{
 					if (num2 == tierCurrent.Tier)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.IsTierContenderOrMaster(num2))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							throw new Exception("Increasing tiers from master or contender when winning doesn't make sense.");
 						}
 						num += Mathf.Abs(100f - tierCurrent.Points);
@@ -5095,30 +2576,12 @@ public class UIGameOverScreen : UIScene
 					}
 					if (tierCurrent.Tier < tierChangeMax.Tier)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2++;
 					}
 					else
 					{
 						num2--;
 					}
-				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				num += tierChangeMax.Points;
 			}
@@ -5128,15 +2591,6 @@ public class UIGameOverScreen : UIScene
 			float num6;
 			if (this.IsTierContenderOrMaster(num5))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num6 = float.MaxValue;
 			}
 			else
@@ -5149,15 +2603,6 @@ public class UIGameOverScreen : UIScene
 				num4 -= num7;
 				if (tierCurrent.Tier < tierChangeMax.Tier)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num5++;
 				}
 				else
@@ -5167,15 +2612,6 @@ public class UIGameOverScreen : UIScene
 				float num8;
 				if (this.IsTierContenderOrMaster(num5))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num8 = float.MaxValue;
 				}
 				else
@@ -5186,15 +2622,6 @@ public class UIGameOverScreen : UIScene
 			}
 			if (this.SetupTierDisplay(num5, num4))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.RankLevelUpDownAnimating = true;
 				UpdateInfo.SetPaused(true);
 				this.m_rankUpDownText.text = StringUtil.TR("RankUp", "GameOver");
@@ -5205,15 +2632,6 @@ public class UIGameOverScreen : UIScene
 				this.m_rankPointsText.text = "+" + num3.ToString("F1");
 				if (this.ShouldDisplayTierPoints)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
 				}
 				if (this.IsTierContenderOrMaster(num5))
@@ -5228,15 +2646,6 @@ public class UIGameOverScreen : UIScene
 		}
 		else if (!this.RankLevelUpDownAnimating)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UpdateInfo.SetPaused(false);
 		}
 	}
@@ -5247,41 +2656,10 @@ public class UIGameOverScreen : UIScene
 		TierPlacement tierChangeMin = ClientGameManager.Get().TierChangeMin;
 		if (!UpdateInfo.IsPaused)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateRankPointsLose(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
 			if (tierCurrent != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tierChangeMin != null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num = 0f;
 					if (tierChangeMin.Tier == tierCurrent.Tier)
 					{
@@ -5300,15 +2678,6 @@ public class UIGameOverScreen : UIScene
 							{
 								if (this.IsTierContenderOrMaster(num2))
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									throw new Exception("Decreasing tier to master or contender when losing doesn't make sense.");
 								}
 								num += 100f;
@@ -5322,15 +2691,6 @@ public class UIGameOverScreen : UIScene
 								num2--;
 							}
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num += Mathf.Abs(100f - tierChangeMin.Points);
 					}
 					float num3 = UpdateInfo.PercentageProgress * num;
@@ -5342,15 +2702,6 @@ public class UIGameOverScreen : UIScene
 						{
 							if (UIRankedModeSelectScreen.IsRatchetTier(tierCurrent.Tier))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num4 = 0f;
 								goto IL_1ED;
 							}
@@ -5363,28 +2714,10 @@ public class UIGameOverScreen : UIScene
 								num4 = 0f;
 								goto IL_1ED;
 							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num5--;
 						}
 						if (this.IsTierContenderOrMaster(num5))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Log.Error("How did this happen? Should have been caught in an exception earlier", new object[0]);
 						}
 						num4 += 100f;
@@ -5392,15 +2725,6 @@ public class UIGameOverScreen : UIScene
 						IL_1ED:
 						if (this.SetupTierDisplay(num5, num4))
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.RankLevelUpDownAnimating = true;
 							UpdateInfo.SetPaused(true);
 							this.m_rankUpDownText.text = StringUtil.TR("RankDown", "GameOver");
@@ -5411,28 +2735,10 @@ public class UIGameOverScreen : UIScene
 							this.m_rankPointsText.text = "-" + num3.ToString("F1");
 							if (this.ShouldDisplayTierPoints)
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
 							}
 							if (this.IsTierContenderOrMaster(num5))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_rankNormalBar.fillAmount = 1f;
 							}
 							else
@@ -5456,15 +2762,6 @@ public class UIGameOverScreen : UIScene
 		}
 		if (!this.RankLevelUpDownAnimating)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UpdateInfo.SetPaused(false);
 		}
 	}
@@ -5473,32 +2770,10 @@ public class UIGameOverScreen : UIScene
 	{
 		if (UpdateInfo.UpdateType == UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingType.RankPoints)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateRankPoints(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo)).MethodHandle;
-			}
 			if (ClientGameManager.Get().TierCurrent != null && ClientGameManager.Get().TierCurrent.Tier > -1)
 			{
 				if (this.SelfWon)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.UpdateRankPointsWin(UpdateInfo);
 				}
 				else
@@ -5516,56 +2791,16 @@ public class UIGameOverScreen : UIScene
 		{
 			if (this.m_blueTeamGGProfiles[i].GetPlayerInfo() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.DoNextGGBoostRecapDisplay()).MethodHandle;
-				}
 				int num = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(this.m_blueTeamGGProfiles[i].GetPlayerInfo().Handle);
 				if (!this.m_blueTeamGGProfiles[i].GetPlayerInfo().IsRemoteControlled)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num > 0)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_blueTeamGGProfiles[i].CurrentGGPackLevel != num)
 						{
 							if (flag)
 							{
 								return true;
-							}
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 							flag = true;
 							this.m_blueTeamGGProfiles[i].SetGGButtonLevel(num);
@@ -5578,50 +2813,14 @@ public class UIGameOverScreen : UIScene
 		{
 			if (this.m_redTeamGGProfiles[j].GetPlayerInfo() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num2 = HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.NumberGGPacksUsed(this.m_redTeamGGProfiles[j].GetPlayerInfo().Handle);
 				if (!this.m_redTeamGGProfiles[j].GetPlayerInfo().IsRemoteControlled && num2 > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_redTeamGGProfiles[j].CurrentGGPackLevel != num2)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (flag)
 						{
 							return true;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 						flag = true;
 						this.m_redTeamGGProfiles[j].SetGGButtonLevel(num2);
@@ -5650,19 +2849,6 @@ public class UIGameOverScreen : UIScene
 		}
 		else if (NewSubState == UIGameOverScreen.GameOverGGSubState.GGBoosts.FadeOut)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.HandleNewGGBoostSubState(UIGameOverScreen.GameOverGGSubState, UIGameOverScreen.GameOverGGSubState.GGBoosts)).MethodHandle;
-			}
 			this.m_worldGGBtnHitBox.SetClickable(false);
 			UIAnimationEventManager.Get().PlayAnimation(this.GGBoostContainerAnimator, "GGBonusScreenDefaultOUT", new UIAnimationEventManager.AnimationDoneCallback(SubState.FadeoutAnimDone), string.Empty, 0, 0f, true, false, null, null);
 		}
@@ -5677,55 +2863,15 @@ public class UIGameOverScreen : UIScene
 			{
 				this.m_GameOverStatWidgets[i].SetHighlight();
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.UpdateGameOverSubStateObjects(UIGameOverScreen.GameOverSubState)).MethodHandle;
-			}
 		}
 		if (StateToBeUpdated.SubStateType == UIGameOverScreen.GameOverScreenState.Accolades)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num2 = 0;
 			if (this.m_results.BadgeAndParticipantsInfo != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int num3 = 0;
 				if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					using (List<BadgeAndParticipantInfo>.Enumerator enumerator = this.m_results.BadgeAndParticipantsInfo.GetEnumerator())
 					{
 						while (enumerator.MoveNext())
@@ -5733,26 +2879,8 @@ public class UIGameOverScreen : UIScene
 							BadgeAndParticipantInfo badgeAndParticipantInfo = enumerator.Current;
 							if (!badgeAndParticipantInfo.TopParticipationEarned.IsNullOrEmpty<TopParticipantSlot>())
 							{
-								for (;;)
-								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								num3 += badgeAndParticipantInfo.TopParticipationEarned.Count;
 							}
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 				}
@@ -5762,15 +2890,6 @@ public class UIGameOverScreen : UIScene
 			{
 				if (j < num2)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_TopParticipantWidgets[j].gameObject.activeSelf)
 					{
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.EndGameBadgeBasic);
@@ -5782,27 +2901,9 @@ public class UIGameOverScreen : UIScene
 					UIManager.SetGameObjectActive(this.m_TopParticipantWidgets[j], false, null);
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (StateToBeUpdated.SubStateType == UIGameOverScreen.GameOverScreenState.PersonalHighlights)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			int num4 = Mathf.FloorToInt((float)this.m_PersonalHighlightWidgets.Length * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - this.PersonalHighlightsFrontTimePadPercentage) / (1f - (this.PersonalHighlightsFrontTimePadPercentage + this.PersonalHighlightsEndTimePadPercentage))));
 			for (int k = 0; k < this.m_PersonalHighlightWidgets.Length; k++)
 			{
@@ -5811,28 +2912,10 @@ public class UIGameOverScreen : UIScene
 				{
 					if (!this.m_PersonalHighlightWidgets[k].HighlightDone)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.EndGameBadgeAchievement);
 					}
 					this.m_PersonalHighlightWidgets[k].SetHighlight();
 				}
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (StateToBeUpdated.SubStateType == UIGameOverScreen.GameOverScreenState.MissionNotifications)
@@ -5841,15 +2924,6 @@ public class UIGameOverScreen : UIScene
 			for (int l = 0; l < num5; l++)
 			{
 				QuestCompletePanel.Get().DisplayGameOverQuestComplete(l);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -5902,43 +2976,12 @@ public class UIGameOverScreen : UIScene
 	{
 		if (this.m_currentSubState != null && this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.Done)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.RefreshHeaderButtonClickability()).MethodHandle;
-			}
 			GameManager gameManager = GameManager.Get();
 			bool flag;
 			if (gameManager != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameManager.PlayerInfo != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = gameManager.PlayerInfo.IsSpectator;
 					goto IL_75;
 				}
@@ -5949,15 +2992,6 @@ public class UIGameOverScreen : UIScene
 			bool flag3;
 			if (ReplayPlayManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag3 = ReplayPlayManager.Get().IsPlayback();
 			}
 			else
@@ -5967,15 +3001,6 @@ public class UIGameOverScreen : UIScene
 			bool flag4;
 			if (!flag3)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag4 = !flag2;
 			}
 			else
@@ -5986,15 +3011,6 @@ public class UIGameOverScreen : UIScene
 			bool flag6 = this.NumRewardsEarned > 0;
 			if (this.BadgesAreActive)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_AccoladesHeaderBtn.spriteController.SetClickable(true);
 				UIManager.SetGameObjectActive(this.m_AccoladesHeaderBtn.spriteController.m_defaultImage, true, null);
 			}
@@ -6052,19 +3068,6 @@ public class UIGameOverScreen : UIScene
 	{
 		if (this.m_currentSubState.IsDone())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CheckIfCurrentStateIsDone()).MethodHandle;
-			}
 			bool visible = false;
 			bool doActive = false;
 			bool flag = false;
@@ -6077,26 +3080,8 @@ public class UIGameOverScreen : UIScene
 			bool flag6;
 			if (gameManager != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (gameManager.PlayerInfo != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag6 = gameManager.PlayerInfo.IsSpectator;
 					goto IL_76;
 				}
@@ -6107,27 +3092,9 @@ public class UIGameOverScreen : UIScene
 			bool flag8 = ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback();
 			if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.VictoryDefeat)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag9 = GameManager.IsGameTypeValidForGGPack(this.m_gameType);
 				if (flag9)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					doActive = true;
 					this.DoGGBoostSubstate();
 				}
@@ -6138,41 +3105,14 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.VictoryDefeatWaitingForNotification)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = true;
 				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
 				if (seasonTemplate.IsTutorial)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DoTutorialSeasonSubstate();
 				}
 				else if (this.BadgesAreActive)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = true;
 					this.DoAccoladesDisplay();
 				}
@@ -6186,28 +3126,10 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.GGBoostUsage)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = true;
 				SeasonTemplate seasonTemplate2 = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
 				if (seasonTemplate2.IsTutorial)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.DoTutorialSeasonSubstate();
 				}
 				else if (this.BadgesAreActive)
@@ -6225,27 +3147,9 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.TutorialTenGames)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = true;
 				if (this.BadgesAreActive)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag3 = true;
 					this.DoAccoladesDisplay();
 				}
@@ -6254,15 +3158,6 @@ public class UIGameOverScreen : UIScene
 					bool flag10;
 					if (!flag8)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag10 = !flag7;
 					}
 					else
@@ -6277,15 +3172,6 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.ResultsScreenPause)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive2 = true;
 				flag3 = true;
 				UIManager.SetGameObjectActive(this.m_TopParticipantsAnimator, true, null);
@@ -6313,27 +3199,9 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.MissionNotifications)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				bool flag11;
 				if (!flag8)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag11 = !flag7;
 				}
 				else
@@ -6350,15 +3218,6 @@ public class UIGameOverScreen : UIScene
 				bool flag12;
 				if (!flag8)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag12 = !flag7;
 				}
 				else
@@ -6370,15 +3229,6 @@ public class UIGameOverScreen : UIScene
 				flag2 = true;
 				if (QuestCompletePanel.Get().TotalQuestsToDisplayForGameOver() > 0)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_currentSubState = new UIGameOverScreen.GameOverSubState(UIGameOverScreen.GameOverScreenState.MissionNotifications, 1f);
 				}
 				else
@@ -6388,29 +3238,11 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.ExperienceBars)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = true;
 				flag2 = true;
 				bool flag13;
 				if (!flag8)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag13 = !flag7;
 				}
 				else
@@ -6429,15 +3261,6 @@ public class UIGameOverScreen : UIScene
 			}
 			if (GameOverWorldObjects.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameOverWorldObjects.Get().SetVisible(visible);
 			}
 			UIManager.SetGameObjectActive(this.m_GGBoostContainer, doActive, null);
@@ -6446,15 +3269,6 @@ public class UIGameOverScreen : UIScene
 			bool doActive3;
 			if (!flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				doActive3 = flag;
 			}
 			else
@@ -6481,109 +3295,33 @@ public class UIGameOverScreen : UIScene
 		this.CheckPreGameStats();
 		if (this.m_currentSubState != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.Update()).MethodHandle;
-			}
 			if (this.m_currentSubState.SubStateType != UIGameOverScreen.GameOverScreenState.Done)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_currentSubState.Update();
 				if (Input.GetMouseButtonDown(0))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_currentSubState.TryClickToSkip();
 				}
 				this.CheckIfCurrentStateIsDone();
 				float num = 10f;
 				if (this.m_currentSubState.SubStateType == UIGameOverScreen.GameOverScreenState.GGBoostUsage)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = GameBalanceVars.Get().GGPackEndGameUsageTimer + 10f;
 				}
 				if (this.ContinueBtnFailSafeTime > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Time.unscaledTime > this.ContinueBtnFailSafeTime + num)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.ContinueBtnFailSafeTime = -1f;
 						UIManager.SetGameObjectActive(this.m_ContinueBtn, true, null);
 						string text = string.Format("Failsafe triggered on state {0}", this.m_currentSubState.SubStateType);
 						UIGameOverScreen.GameOverExperienceUpdateSubState gameOverExperienceUpdateSubState = this.m_currentSubState as UIGameOverScreen.GameOverExperienceUpdateSubState;
 						if (gameOverExperienceUpdateSubState != null)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							text += " - SubstateInfo updating ";
 							for (int i = 0; i < gameOverExperienceUpdateSubState.CurrentInfos.Count; i++)
 							{
 								text += string.Format("{0} stuck at {1} and is paused: {2} ", gameOverExperienceUpdateSubState.CurrentInfos[i].UpdateType.ToString(), gameOverExperienceUpdateSubState.CurrentInfos[i].PercentageProgress, gameOverExperienceUpdateSubState.CurrentInfos[i].IsPaused);
-							}
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
 							}
 						}
 						else
@@ -6597,15 +3335,6 @@ public class UIGameOverScreen : UIScene
 		}
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_TopBottomBarsContainer.gameObject.activeInHierarchy)
 			{
 				UIGameStatsWindow.Get().ToggleStatsWindow();
@@ -6613,15 +3342,6 @@ public class UIGameOverScreen : UIScene
 		}
 		if (this.m_ContinueBtn.gameObject.activeInHierarchy)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (InputManager.Get().GetAcceptButtonDown())
 			{
 				this.OnContinueClicked(null);
@@ -6634,45 +3354,14 @@ public class UIGameOverScreen : UIScene
 		PercentileInfo result = null;
 		if (this.m_results != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetStatPercentiles(StatDisplaySettings.StatType)).MethodHandle;
-			}
 			if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
 			{
 				int playerId = GameManager.Get().PlayerInfo.PlayerId;
 				BadgeAndParticipantInfo badgeAndParticipantInfo = this.m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
 				if (badgeAndParticipantInfo != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty<KeyValuePair<StatDisplaySettings.StatType, PercentileInfo>>())
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						badgeAndParticipantInfo.GlobalPercentiles.TryGetValue(statType, out result);
 					}
 				}
@@ -6686,54 +3375,14 @@ public class UIGameOverScreen : UIScene
 		PercentileInfo result = null;
 		if (this.m_results != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GetFreelancerStatPercentiles(int)).MethodHandle;
-			}
 			if (!this.m_results.BadgeAndParticipantsInfo.IsNullOrEmpty<BadgeAndParticipantInfo>())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				int playerId = GameManager.Get().PlayerInfo.PlayerId;
 				BadgeAndParticipantInfo badgeAndParticipantInfo = this.m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
 				if (badgeAndParticipantInfo != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty<KeyValuePair<int, PercentileInfo>>())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						badgeAndParticipantInfo.FreelancerSpecificPercentiles.TryGetValue(index, out result);
 					}
 				}
@@ -6790,19 +3439,6 @@ public class UIGameOverScreen : UIScene
 				UIGameOverScreen.Get().HandleUpdateExpSubStateUpdate(this.TypesBeingUpdated[i]);
 				if (!this.TypesBeingUpdated[i].IsPaused)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverExperienceUpdateSubState.Update()).MethodHandle;
-					}
 					if (this.TypesBeingUpdated[i].PercentageProgress >= 1f)
 					{
 						UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo updateInfo = this.TypesBeingUpdated[i];
@@ -6811,40 +3447,13 @@ public class UIGameOverScreen : UIScene
 						IEnumerable<UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo> enumerable = UIGameOverScreen.Get().HandleUpdateExpSubStateComplete(updateInfo);
 						if (enumerable != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							list.AddRange(enumerable);
 						}
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > 0)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.TypesBeingUpdated.AddRange(list);
 			}
 		}
@@ -6888,19 +3497,6 @@ public class UIGameOverScreen : UIScene
 				{
 					if (this.IsPaused)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo.get_PercentageProgress()).MethodHandle;
-						}
 						return this.PercentageFromPause;
 					}
 					float num = Time.unscaledTime - this.UpdateStartTime;
@@ -6914,33 +3510,11 @@ public class UIGameOverScreen : UIScene
 			{
 				if (Paused)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverExperienceUpdateSubState.UpdatingInfo.SetPaused(bool)).MethodHandle;
-					}
 					this.PauseStartTime = Time.unscaledTime;
 					this.PercentageFromPause = this.PercentageProgress;
 				}
 				else if (this.PauseStartTime != -1f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.TotalUpdateTime -= this.PauseStartTime - this.UpdateStartTime;
 					this.UpdateStartTime = Time.unscaledTime;
 					this.PauseStartTime = -1f;
@@ -6996,19 +3570,6 @@ public class UIGameOverScreen : UIScene
 		{
 			if (base.SubStateType == UIGameOverScreen.GameOverScreenState.GGBoostUsage)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverGGSubState.IsDone()).MethodHandle;
-				}
 				return this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.Done;
 			}
 			return false;
@@ -7025,19 +3586,6 @@ public class UIGameOverScreen : UIScene
 			this.CurrentGGBoostState = newGGBoostState;
 			if (this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.UsageTimer)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverGGSubState.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts)).MethodHandle;
-				}
 				this.StartTime = Time.unscaledTime;
 			}
 			UIGameOverScreen.Get().HandleNewGGBoostSubState(this, this.CurrentGGBoostState);
@@ -7049,30 +3597,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (Time.unscaledTime >= this.NextRecapDisplay)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.GameOverGGSubState.Update()).MethodHandle;
-					}
 					if (UIGameOverScreen.Get().DoNextGGBoostRecapDisplay())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.NextRecapDisplay = Time.unscaledTime + this.RecapDisplayInterval;
 					}
 					else
@@ -7083,104 +3609,32 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.UsageTimer)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIGameOverScreen.Get().NotificationArrived)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.FadeOutTime = Time.unscaledTime;
 				}
 				float num = 0f;
 				if (this.StartTime >= 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = (this.FadeOutTime - Time.unscaledTime) / (this.FadeOutTime - this.StartTime);
 				}
 				UIGameOverScreen.Get().HandleGGBoostSubStateUpdate(this.CurrentGGBoostState, num);
 				if (this.StartTime >= 0f)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (num <= 0f)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts.FadeOut);
 					}
 				}
 			}
 			else if (this.CurrentGGBoostState == UIGameOverScreen.GameOverGGSubState.GGBoosts.WaitingForNotification)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UIGameOverScreen.Get().NotificationArrived)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.SetNewGGBoostState(UIGameOverScreen.GameOverGGSubState.GGBoosts.Done);
 				}
 				else if (this.StartWaitingForNotificationTime > 0f)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Time.unscaledTime - this.StartWaitingForNotificationTime > 15f)
 					{
 						this.StartWaitingForNotificationTime = -1f;
@@ -7322,19 +3776,6 @@ public class UIGameOverScreen : UIScene
 			}
 			if (BarType == UIGameOverScreen.XPDisplayInfo.BarXPType.Character)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.GetXPForType(UIGameOverScreen.XPDisplayInfo.BarXPType, int)).MethodHandle;
-				}
 				return GameBalanceVars.Get().CharacterExperienceToLevel(Level);
 			}
 			return 0;
@@ -7351,19 +3792,6 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.RewardTooltip.IsNullOrEmpty())
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.<Init>m__0(UITooltipBase)).MethodHandle;
-					}
 					return false;
 				}
 				UIRewardItemTooltip uirewardItemTooltip = tooltip as UIRewardItemTooltip;
@@ -7387,19 +3815,6 @@ public class UIGameOverScreen : UIScene
 			int num2 = 0;
 			if (this.XPBarType == UIGameOverScreen.XPDisplayInfo.BarXPType.Season)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.PopulateRewardIcon(int, bool, CharacterResourceLink)).MethodHandle;
-				}
 				List<SeasonReward> accountRewardsForNextLevel = UIGameOverScreen.GetAccountRewardsForNextLevel(CurrentLevel - 1);
 				List<SeasonReward> accountRewardsForNextLevel2 = UIGameOverScreen.GetAccountRewardsForNextLevel(CurrentLevel);
 				int num3 = 0;
@@ -7410,41 +3825,14 @@ public class UIGameOverScreen : UIScene
 					{
 						goto IL_158;
 					}
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (accountRewardsForNextLevel2[i].repeatEveryXLevels <= num3)
 					{
 						goto IL_158;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					SeasonItemReward seasonItemReward = accountRewardsForNextLevel2[i] as SeasonItemReward;
 					if (seasonItemReward.Conditions.IsNullOrEmpty<QuestCondition>())
 					{
 						goto IL_C7;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 					if (QuestWideData.AreConditionsMet(seasonItemReward.Conditions, seasonItemReward.LogicStatement, false))
 					{
@@ -7473,15 +3861,6 @@ public class UIGameOverScreen : UIScene
 					IL_158:
 					if (accountRewardsForNextLevel2[i] is SeasonUnlockReward && accountRewardsForNextLevel2[i].repeatEveryXLevels > num3)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						QuestUnlockReward unlockReward = (accountRewardsForNextLevel2[i] as SeasonUnlockReward).UnlockReward;
 						Sprite sprite2 = (Sprite)Resources.Load(unlockReward.resourceString, typeof(Sprite));
 						this.RewardTooltip = string.Empty;
@@ -7498,15 +3877,6 @@ public class UIGameOverScreen : UIScene
 			}
 			else if (this.XPBarType == UIGameOverScreen.XPDisplayInfo.BarXPType.Character)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				List<RewardUtils.RewardData> list = new List<RewardUtils.RewardData>();
 				List<RewardUtils.RewardData> list2 = new List<RewardUtils.RewardData>();
 				if (charLink != null)
@@ -7514,15 +3884,6 @@ public class UIGameOverScreen : UIScene
 					this.LastCharType = charLink.m_characterType;
 					if (CurrentLevel < GameBalanceVars.Get().MaxCharacterLevel)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list2 = RewardUtils.GetNextCharacterRewards(charLink, CurrentLevel);
 					}
 					if (0 < CurrentLevel - 1 && CurrentLevel - 1 < GameBalanceVars.Get().MaxCharacterLevel)
@@ -7541,53 +3902,17 @@ public class UIGameOverScreen : UIScene
 				{
 					if (!this.RewardTooltip.IsNullOrEmpty())
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.RewardTooltip += Environment.NewLine;
 					}
 					this.RewardTooltip += RewardUtils.GetDisplayString(list2[j], false);
-				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				num = list2.Count;
 				num2 = list.Count;
 			}
 			if (num == 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (IsInitialReward)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.PlayLevelUpAnimation("resultsRewardIconNoIDLE");
 				}
 				else if (num2 > 0)
@@ -7621,19 +3946,6 @@ public class UIGameOverScreen : UIScene
 			CharacterResourceLink charLink = null;
 			if (this.LastCharType != CharacterType.None)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.XPDisplayInfo.LevelUpAnimDone()).MethodHandle;
-				}
 				charLink = GameWideData.Get().GetCharacterResourceLink(this.LastCharType);
 			}
 			this.PopulateRewardIcon(this.m_LastLevelDisplayed, false, charLink);
@@ -7667,30 +3979,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.m_currencyReward[i].Type == currencyType)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalBaseGained(CurrencyType)).MethodHandle;
-					}
 					num += this.m_currencyReward[i].BaseGained;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -7702,30 +3992,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.m_currencyReward[i].Type == currencyType)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalEventGained(CurrencyType)).MethodHandle;
-					}
 					num += this.m_currencyReward[i].EventGained;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -7740,19 +4008,6 @@ public class UIGameOverScreen : UIScene
 					num += this.m_currencyReward[i].WinGained;
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalWinGained(CurrencyType)).MethodHandle;
-			}
 			return num;
 		}
 
@@ -7763,30 +4018,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.m_currencyReward[i].Type == currencyType)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalQuestGained(CurrencyType)).MethodHandle;
-					}
 					num += this.m_currencyReward[i].QuestGained;
 				}
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -7798,30 +4031,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.m_currencyReward[i].Type == currencyType)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalGGGained(CurrencyType)).MethodHandle;
-					}
 					num += this.m_currencyReward[i].GGGained;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -7836,19 +4047,6 @@ public class UIGameOverScreen : UIScene
 					num += this.m_currencyReward[i].LevelUpGained;
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalLevelUpGained(CurrencyType)).MethodHandle;
-			}
 			return num;
 		}
 
@@ -7859,30 +4057,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.m_currencyReward[i].Type == currencyType)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalNormalCurrencyReward(CurrencyType)).MethodHandle;
-					}
 					num += this.m_currencyReward[i].BaseGained + this.m_currencyReward[i].WinGained + this.m_currencyReward[i].EventGained + this.m_currencyReward[i].LevelUpGained;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -7894,30 +4070,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.m_currencyReward[i].Type == currencyType)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalGGBoostCurrencyReward(CurrencyType)).MethodHandle;
-					}
 					num += this.m_currencyReward[i].GGGained;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}
@@ -7929,30 +4083,8 @@ public class UIGameOverScreen : UIScene
 			{
 				if (this.m_currencyReward[i].Type == currencyType)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameOverScreen.CurrencyDisplayInfo.GetTotalQuestCurrencyReward(CurrencyType)).MethodHandle;
-					}
 					num += this.m_currencyReward[i].QuestGained;
 				}
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return num;
 		}

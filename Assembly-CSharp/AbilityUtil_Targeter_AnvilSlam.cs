@@ -34,19 +34,6 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AnvilSlam.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -60,15 +47,6 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		Vector3 a;
 		if (actorsInLaser.Count > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			a = actorsInLaser[0].GetTravelBoardSquareWorldPosition();
 		}
 		else
@@ -84,39 +62,12 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 				ActorData actor = enumerator.Current;
 				base.AddActorInRange(actor, targetingActor.GetTravelBoardSquareWorldPosition(), targetingActor, AbilityTooltipSubject.Primary, false);
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count >= this.m_boltCount + 1)
 			{
 				goto IL_1E5;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>(this.m_boltCount + 1);
@@ -124,15 +75,6 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		for (int i = 0; i < this.m_boltCount; i++)
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateRectangularCursor(1f, 1f, null));
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_1E5:
 		Vector3 vector3 = a - targetingActor.GetTravelBoardSquareWorldPosition();
@@ -143,30 +85,12 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		HighlightUtils.Get().ResizeRectangularCursor(this.m_dashWidthInSquares * Board.Get().squareSize, magnitude, this.m_highlights[0]);
 		if (actorsInLaser.Count > 0)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_boltCount > 0)
 			{
 				Vector3 travelBoardSquareWorldPositionForLos2 = actorsInLaser[0].GetTravelBoardSquareWorldPositionForLos();
 				float num = this.m_boltAngleOffset;
 				if (this.m_relativeToAim)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num += VectorUtils.HorizontalAngle_Deg(currentTarget.AimDirection);
 				}
 				float num2 = 360f / (float)this.m_boltCount;
@@ -186,30 +110,12 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 							ActorData actorData = enumerator2.Current;
 							if (actorData.GetTeam() == targetingActor.GetTeam())
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								base.AddActorInRange(actorData, travelBoardSquareWorldPositionForLos2, targetingActor, AbilityTooltipSubject.Ally, false);
 							}
 							else
 							{
 								base.AddActorInRange(actorData, travelBoardSquareWorldPositionForLos2, targetingActor, AbilityTooltipSubject.Secondary, false);
 							}
-						}
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(travelBoardSquareWorldPositionForLos2, vector4, maxDistanceInWorld, widthInWorld, this.m_boltInfo.penetrateLineOfSight, targetingActor, null);
@@ -232,15 +138,6 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		{
 			int index2 = k + 1;
 			this.m_highlights[index2].SetActive(false);
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -275,19 +172,6 @@ public class AbilityUtil_Targeter_AnvilSlam : AbilityUtil_Targeter
 		{
 			if (boardSquare.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_AnvilSlam.DrawGizmos(AbilityTarget, ActorData)).MethodHandle;
-				}
 				Gizmos.color = Color.green;
 			}
 			else

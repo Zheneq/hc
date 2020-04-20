@@ -101,19 +101,6 @@ public class MantaOutwardLasers : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedEffectData == null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetEnemyEffectData()).MethodHandle;
-			}
 			result = this.m_effectOnEnemy;
 		}
 		else
@@ -128,19 +115,6 @@ public class MantaOutwardLasers : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedMultiHitEffectData == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetMultiHitEnemyEffectData()).MethodHandle;
-			}
 			result = this.m_effectForMultiHitsOnEnemy;
 		}
 		else
@@ -191,33 +165,11 @@ public class MantaOutwardLasers : Ability
 		{
 			if (hitActorContext[i].actor == targetActor)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-				}
 				int num = this.GetBonusDamagePerBounce() * hitActorContext[i].segmentIndex;
 				int value = this.GetBaseDamage() + num;
 				int num2 = this.GetDamageForAdditionalHit() + num;
 				if (dictionary.ContainsKey(AbilityTooltipSymbol.Damage))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Dictionary<AbilityTooltipSymbol, int> dictionary2;
 					(dictionary2 = dictionary)[AbilityTooltipSymbol.Damage] = dictionary2[AbilityTooltipSymbol.Damage] + num2;
 				}
@@ -227,15 +179,6 @@ public class MantaOutwardLasers : Ability
 				}
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		return dictionary;
 	}
 
@@ -243,19 +186,6 @@ public class MantaOutwardLasers : Ability
 	{
 		if (this.m_techPointGainPerLaserHit > 0)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.GetAdditionalTechPointGainForNameplateItem(ActorData, int)).MethodHandle;
-			}
 			int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
 			return this.m_techPointGainPerLaserHit * tooltipSubjectCountTotalWithDuplicates;
 		}
@@ -269,19 +199,6 @@ public class MantaOutwardLasers : Ability
 		int val;
 		if (modAsBase)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MantaOutwardLasers.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = 0;
 		}
 		else
@@ -294,15 +211,6 @@ public class MantaOutwardLasers : Ability
 		int val2;
 		if (modAsBase)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = 0;
 		}
 		else
@@ -315,15 +223,6 @@ public class MantaOutwardLasers : Ability
 		int val3;
 		if (modAsBase)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val3 = 0;
 		}
 		else
@@ -336,15 +235,6 @@ public class MantaOutwardLasers : Ability
 		int val4;
 		if (modAsBase)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val4 = 0;
 		}
 		else
@@ -357,15 +247,6 @@ public class MantaOutwardLasers : Ability
 		int val5;
 		if (modAsBase)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val5 = 0;
 		}
 		else
@@ -378,15 +259,6 @@ public class MantaOutwardLasers : Ability
 		int val6;
 		if (modAsBase)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val6 = 0;
 		}
 		else

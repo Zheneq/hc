@@ -40,19 +40,6 @@ public class ClaymoreKnockbackLaser : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClaymoreKnockbackLaser.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Way of the Waste";
 		}
 		this.SetupTargeter();

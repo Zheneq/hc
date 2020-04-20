@@ -28,19 +28,6 @@ public class Passive_Rampart : Passive
 		StandardBarrierData cachedShieldBarrierData;
 		if (barrierMod != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Passive_Rampart.SetCachedShieldBarrierData(AbilityModPropertyBarrierDataV2)).MethodHandle;
-			}
 			cachedShieldBarrierData = barrierMod.GetModifiedValue(this.m_normalShieldBarrierData);
 		}
 		else

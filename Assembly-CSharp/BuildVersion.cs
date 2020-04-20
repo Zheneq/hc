@@ -92,32 +92,10 @@ public static class BuildVersion
 			string arg;
 			if (timeSpan.TotalHours < 1.0)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(BuildVersion.GetBuildDescriptionString(DateTime, string)).MethodHandle;
-				}
 				arg = string.Format("{0:0} minutes ago", timeSpan.TotalMinutes);
 			}
 			else if (timeSpan.TotalDays < 1.0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = string.Format("{0:0} hours ago", timeSpan.TotalHours);
 			}
 			else
@@ -129,26 +107,8 @@ public static class BuildVersion
 		}
 		if (!buildHostName.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (buildHostName != "unknown")
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				text += string.Format(" on {0}", buildHostName);
 			}
 		}

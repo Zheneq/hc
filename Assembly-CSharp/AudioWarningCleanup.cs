@@ -15,31 +15,9 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 		this.m_registering = true;
 		if (EventManager.Instance != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioWarningCleanup.Start()).MethodHandle;
-			}
 			foreach (string eventName in this.m_warningsToIgnore)
 			{
 				EventManager.Instance.RegisterListener(this, eventName);
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_registering = false;
@@ -53,19 +31,6 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 			foreach (string eventName in this.m_warningsToIgnore)
 			{
 				EventManager.Instance.UnregisterListener(this, eventName);
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AudioWarningCleanup.OnDestroy()).MethodHandle;
 			}
 		}
 		this.m_registering = false;

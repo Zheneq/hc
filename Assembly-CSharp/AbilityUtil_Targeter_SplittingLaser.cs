@@ -70,32 +70,10 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		{
 			if (this.m_primaryLaserAffectsEnemies)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.GetPrimaryLaserAffectedTeams(ActorData)).MethodHandle;
-				}
 				list.Add(caster.GetOpposingTeam());
 			}
 			if (this.m_primaryLaserAffectsAllies)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(caster.GetTeam());
 			}
 		}
@@ -107,43 +85,12 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		List<Team> list = new List<Team>();
 		if (caster != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.GetSplitLaserAffectedTeams(ActorData)).MethodHandle;
-			}
 			if (this.m_splitLaserAffectsEnemies)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(caster.GetOpposingTeam());
 			}
 			if (this.m_splitLaserAffectsAllies)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				list.Add(caster.GetTeam());
 			}
 		}
@@ -174,30 +121,8 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		this.SetupLaserHighlight(laserCoords, 0, true);
 		if (!this.m_alwaysSplit)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (actorsInLaser.Count > 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -236,15 +161,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 			{
 				if (actorsInLaser2[l].GetTeam() == targetingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list4.Add(actorsInLaser2[l]);
 				}
 				else
@@ -252,30 +168,12 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					list3.Add(actorsInLaser2[l]);
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ActorData> list5 = new List<ActorData>();
 			List<ActorData> list6 = new List<ActorData>();
 			for (int m = 0; m < actorsInLaser3.Count; m++)
 			{
 				if (actorsInLaser3[m].GetTeam() == targetingActor.GetTeam())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list6.Add(actorsInLaser3[m]);
 				}
 				else
@@ -283,30 +181,12 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 					list5.Add(actorsInLaser3[m]);
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.AddActorsInRange(list3, laserCoords2.start, targetingActor, AbilityTooltipSubject.Secondary, false);
 			base.AddActorsInRange(list5, laserCoords3.start, targetingActor, AbilityTooltipSubject.Secondary, false);
 			base.AddActorsInRange(list4, laserCoords2.start, targetingActor, AbilityTooltipSubject.Quaternary, false);
 			base.AddActorsInRange(list6, laserCoords3.start, targetingActor, AbilityTooltipSubject.Quaternary, false);
 			this.SetupLaserHighlight(laserCoords2, 1 + k * 2, false);
 			this.SetupLaserHighlight(laserCoords3, 2 + k * 2, false);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -317,19 +197,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		float num;
 		if (primary)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.SetupLaserHighlight(VectorUtils.LaserCoords, int, bool)).MethodHandle;
-			}
 			num = this.m_primaryLaserWidthInSquares;
 		}
 		else
@@ -342,26 +209,8 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		{
 			this.m_highlights.Add(null);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (this.m_highlights[highlightIndex] == null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_highlights[highlightIndex] = HighlightUtils.Get().CreateRectangularCursor(widthInWorld, magnitude, null);
 		}
 		GameObject gameObject = this.m_highlights[highlightIndex];
@@ -384,19 +233,6 @@ public class AbilityUtil_Targeter_SplittingLaser : AbilityUtil_Targeter
 		float num = this.m_interpMaxDistanceInSquares - this.m_interpMinDistanceInSquares;
 		if (num <= 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_SplittingLaser.CalculateSplitAngleDegrees(AbilityTarget, ActorData)).MethodHandle;
-			}
 			return this.m_minAngle;
 		}
 		float value = (currentTarget.FreePos - targetingActor.GetTravelBoardSquareWorldPosition()).magnitude / Board.Get().squareSize;

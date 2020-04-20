@@ -31,19 +31,6 @@ public class Replay
 	{
 		if (this.m_initialMessageTimestamp == 0f)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.RecordRawNetworkMessage(byte[], int)).MethodHandle;
-			}
 			this.m_initialMessageTimestamp = GameTime.time;
 		}
 		Replay.Message item = default(Replay.Message);
@@ -70,41 +57,10 @@ public class Replay
 				int num6 = (int)(8 + num4);
 				if (startSeqNum <= num3 && num3 <= endSeqNum)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.GetRawNetworkMessages(uint, uint)).MethodHandle;
-					}
 					if (num5 != 0x25)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (num5 != 0x33)
 						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Replay.Message value = default(Replay.Message);
 							value.data = new byte[num6];
 							Buffer.BlockCopy(message.data, num2, value.data, 0, num6);
@@ -116,26 +72,8 @@ public class Replay
 				num2 += num6;
 				j -= num6;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if ((long)num == (long)((ulong)(endSeqNum - startSeqNum + 1U)))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				IL_146:
 				return sortedList.Values.ToList<Replay.Message>();
 			}
@@ -156,19 +94,6 @@ public class Replay
 		LobbyGameInfo gameInfo = JsonUtility.FromJson<LobbyGameInfo>(this.m_gameInfo_Serialized);
 		if (gameInfo.GameConfig.GameType == GameType.Tutorial)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.StartPlayback()).MethodHandle;
-			}
 			UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("ReplayIssue", "FrontEnd"), StringUtil.TR("InvalidReplay", "FrontEnd"), StringUtil.TR("Ok", "Global"), null, -1, false);
 			return;
 		}
@@ -182,44 +107,13 @@ public class Replay
 		{
 			if (response.Success)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle2 = methodof(Replay.<StartPlayback>c__AnonStorey0.<>m__0(PlayerMatchDataResponse)).MethodHandle;
-				}
 				for (int i = 0; i < response.MatchData.Count; i++)
 				{
 					if (response.MatchData[i].GameServerProcessCode == gameInfo.GameServerProcessCode)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_matchData = response.MatchData[i];
 						return;
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		});
@@ -243,30 +137,8 @@ public class Replay
 	{
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.PlaybackUpdate()).MethodHandle;
-			}
 			if (ClientGameManager.Get().Connection != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (AppState.IsInGame())
 				{
 					if (this.m_initialMessageTimestamp == 0f)
@@ -301,19 +173,6 @@ public class Replay
 	{
 		while (this.m_messageReadIndex < this.m_messages.Count && ReplayTimestamp.Current() < target)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.PlaybackFastForward(ReplayTimestamp)).MethodHandle;
-			}
 			if (AsyncPump.Current.BreakRequested())
 			{
 				for (;;)
@@ -350,19 +209,6 @@ public class Replay
 	{
 		if (newState == GameState.StartingGame)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Replay.PlaybackOnGameStateChanged(GameState)).MethodHandle;
-			}
 			ClientGameManager.Get().Replay_SetGameStatus(GameStatus.Loaded);
 			ClientGameManager.Get().Replay_SetGameStatus(GameStatus.Started);
 		}

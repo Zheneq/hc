@@ -32,19 +32,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		Vector3 vector;
 		if (currentTarget == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_BounceBomb.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			vector = targetingActor.transform.forward;
 		}
 		else
@@ -55,27 +42,9 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		float num = this.m_bombInfo.width * Board.Get().squareSize;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count >= 2 * this.m_bombCount)
 			{
 				goto IL_127;
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -86,27 +55,9 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 				Vector3.zero
 			}, num));
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < this.m_bombCount; j++)
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateShapeCursor(this.m_bombInfo.shape, targetingActor == GameFlowData.Get().activeOwnedActorData));
-		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		IL_127:
 		base.ClearActorsInRange();
@@ -114,15 +65,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 		float num2 = this.m_bombInfo.maxTotalDistance;
 		if (this.m_clampMaxRangeToFreePos)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float a = (targetingActor.GetTravelBoardSquareWorldPosition() - currentTarget.FreePos).magnitude / Board.Get().squareSize;
 			num2 = Mathf.Min(a, num2);
 		}
@@ -137,27 +79,9 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			float num6 = 1f;
 			if (this.m_alignBombInLine)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				float num7 = Mathf.Abs(num5 - num3);
 				if (num7 < 80f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num6 = 1f / Mathf.Cos(0.0174532924f * num7);
 				}
 			}
@@ -170,15 +94,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			if (dictionary.Count > 0)
 			{
 				goto IL_2D8;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			if (this.m_explodeOnEndOfPath)
 			{
@@ -205,15 +120,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			Vector3 vector3 = vector2;
 			if (boardSquare != null && boardSquare.IsBaselineHeight())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector2 = boardSquare.ToVector3();
 				vector3 = AreaEffectUtils.GetCenterOfShape(this.m_bombInfo.shape, vector2, boardSquare);
 			}
@@ -228,15 +134,6 @@ public class AbilityUtil_Targeter_BounceBomb : AbilityUtil_Targeter
 			this.m_highlights[index].transform.position = vector3;
 			this.m_highlights[index].SetActive(true);
 			goto IL_411;
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 }

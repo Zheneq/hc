@@ -38,30 +38,8 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 	{
 		if (this.m_martyrSyncComp != null && eventType == GameEventManager.EventType.ActorDamaged_Client)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrCrystalStockVFXController.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			if (args is GameEventManager.ActorHitHealthChangeArgs)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				GameEventManager.ActorHitHealthChangeArgs actorHitHealthChangeArgs = args as GameEventManager.ActorHitHealthChangeArgs;
 				if (this.m_owner == actorHitHealthChangeArgs.m_target)
 				{
@@ -83,19 +61,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		this.m_incompleteCrystalVfxList = new List<AttachedActorVFXInfo>();
 		if (this.m_actorModelData != null && this.m_actorModelData.m_parentActorData != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrCrystalStockVFXController.Initialize()).MethodHandle;
-			}
 			this.m_martyrSyncComp = this.m_actorModelData.m_parentActorData.GetComponent<Martyr_SyncComponent>();
 			this.m_martyrPassive = this.m_actorModelData.m_parentActorData.GetComponent<Passive_Martyr>();
 			this.m_owner = this.m_actorModelData.m_parentActorData;
@@ -117,30 +82,12 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 				if (this.m_martyrSyncComp == null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					attachedActorVFXInfo.SetInstanceLayer(instanceLayer);
 				}
 				this.m_spawnedCrystalVfxList.Add(attachedActorVFXInfo);
 			}
 			else if (Application.isEditor)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogWarning("Failed to spawn vfx on joint in MartyrCrystalStockVFXController");
 			}
 			GameObject gameObject = this.m_incompleteCrystalVfxPrefab;
@@ -150,27 +97,9 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			}
 			if (gameObject != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(gameObject, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_Partial_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 				if (attachedActorVFXInfo2.HasVfxInstance())
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					attachedActorVFXInfo2.SetInstanceLocalPosition(jointToVfx.m_localOffset);
 					this.m_incompleteCrystalVfxList.Add(attachedActorVFXInfo2);
 				}
@@ -178,15 +107,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		if (GameEventManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorDamaged_Client);
 		}
 	}
@@ -196,19 +116,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		ActorData actorData;
 		if (this.m_actorModelData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrCrystalStockVFXController.Update()).MethodHandle;
-			}
 			actorData = this.m_actorModelData.m_parentActorData;
 		}
 		else
@@ -219,26 +126,8 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		bool flag;
 		if (!(actorData2 == null))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (actorData2.IsVisibleToClient())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag = (actorData2.GetActorModelDataRenderer() == null || actorData2.GetActorModelDataRenderer().enabled);
 			}
 			else
@@ -254,15 +143,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		bool flag3;
 		if (actorData2 != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag3 = actorData2.IsModelAnimatorDisabled();
 		}
 		else
@@ -273,26 +153,8 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		bool flag5;
 		if (!(actorData2 == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag5 = (GameFlowData.Get().activeOwnedActorData.GetTeam() == actorData2.GetTeam());
 			}
 			else
@@ -309,15 +171,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		int num2 = 0;
 		if (this.m_martyrSyncComp == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = this.m_spawnedCrystalVfxList.Count;
 		}
 		else
@@ -332,27 +185,9 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			{
 				goto IL_180;
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag4)
 			{
 				goto IL_180;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			bool actorVisible = i < num;
 			IL_181:
@@ -368,15 +203,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			bool flag7;
 			if (j >= num)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag7 = (j < num + num2);
 			}
 			else
@@ -388,15 +214,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			bool actorVisible2;
 			if (flag2 && !flag4)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorVisible2 = flag8;
 			}
 			else
@@ -405,30 +222,12 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			}
 			attachedActorVFXInfo2.UpdateVisibility(actorVisible2, flag6);
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int k = 0; k < this.m_animDrivenVfxList.Count; k++)
 		{
 			AnimEventToVfxContainer animEventToVfxContainer = this.m_animDrivenVfxList[k];
 			bool actorVisible3;
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				actorVisible3 = !flag4;
 			}
 			else
@@ -437,46 +236,15 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			}
 			animEventToVfxContainer.UpdateVisibilityForSpawnedVfx(actorVisible3, flag6);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	private void OnDestroy()
 	{
 		if (this.m_spawnedCrystalVfxList != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrCrystalStockVFXController.OnDestroy()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_spawnedCrystalVfxList.Count; i++)
 			{
 				this.m_spawnedCrystalVfxList[i].DestroyVfx();
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			this.m_spawnedCrystalVfxList.Clear();
 		}
@@ -486,15 +254,6 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		}
 		if (this.m_owner != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_owner.OnAnimationEventDelegates -= this.HandleAnimEvent;
 			this.m_owner.OnTurnStartDelegates -= this.HandleTurnTick;
 		}
@@ -506,47 +265,16 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		numPartial = 0;
 		if (this.m_martyrSyncComp != null && this.m_martyrPassive != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrCrystalStockVFXController.GetNumCrystals(ActorData, int*, int*)).MethodHandle;
-			}
 			numActive = Mathf.Max(0, this.m_martyrSyncComp.DamageCrystals + this.m_martyrSyncComp.m_clientCrystalAdjustment);
 			numActive = Mathf.Min(numActive, this.m_martyrPassive.m_maxCrystals);
 			int num = numActive;
 			if (this.m_martyrPassive.m_crystalGainMode == Passive_Martyr.CrystalGainMode.ByDamageTaken)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_martyrPassive.m_damageToCrystalConversion > 0f)
 				{
 					int num2 = Mathf.FloorToInt((float)this.m_martyrSyncComp.m_clientDamageThisTurn / this.m_martyrPassive.m_damageToCrystalConversion);
 					if (this.m_martyrPassive.m_maxCrystalsGainedEachTurn > 0 && num2 > this.m_martyrPassive.m_maxCrystalsGainedEachTurn)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num2 = this.m_martyrPassive.m_maxCrystalsGainedEachTurn;
 					}
 					num = numActive + num2;
@@ -555,50 +283,14 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			}
 			if (this.m_martyrPassive.m_crystalGainMode == Passive_Martyr.CrystalGainMode.ByEnergy)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actor != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_martyrPassive.m_energyToCrystalConversion > 0)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						int energyToDisplay = actor.GetEnergyToDisplay();
 						int num3 = energyToDisplay / this.m_martyrPassive.m_energyToCrystalConversion;
 						if (num3 > num)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num = num3;
 						}
 					}
@@ -618,33 +310,11 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		{
 			if (this.m_animDrivenVfxList[i].m_turnOffOnTurnStart)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrCrystalStockVFXController.HandleTurnTick()).MethodHandle;
-				}
 				this.m_animDrivenVfxList[i].m_shouldShowPersistentVfx = false;
 			}
 		}
 		if (this.m_martyrSyncComp != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_martyrSyncComp.m_clientDamageThisTurn = 0;
 		}
 	}
@@ -659,41 +329,10 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			}
 			if (this.m_hideCrystalsAnimEvent != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MartyrCrystalStockVFXController.HandleAnimEvent(UnityEngine.Object, GameObject)).MethodHandle;
-				}
 				if (eventObj == this.m_hideCrystalsAnimEvent)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_martyrSyncComp != null)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_martyrSyncComp.OnClientCrystalConsumed();
 					}
 				}

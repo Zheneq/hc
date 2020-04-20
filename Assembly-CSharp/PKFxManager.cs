@@ -60,33 +60,11 @@ public static class PKFxManager
 				{
 					object obj = enumerator.Current;
 				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager..cctor()).MethodHandle;
-				}
 			}
 			finally
 			{
 				if (enumerator != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					enumerator.Dispose();
 				}
 			}
@@ -94,15 +72,6 @@ public static class PKFxManager
 		string text = PKFxManager.m_PackPath + "/PKconfig.cfg";
 		if (File.Exists(text))
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FileStream fileStream = new FileStream(text, FileMode.Open, FileAccess.Read);
 			StreamReader textReader = new StreamReader(fileStream, Encoding.ASCII);
 			PKFxManager.m_GlobalConf = (xmlSerializer.Deserialize(textReader) as PKFxManager.PKFxConf);
@@ -126,19 +95,6 @@ public static class PKFxManager
 			{
 				string path = enumerator.Current;
 				PKFxManager.UnloadEffect(path);
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.UnloadAll()).MethodHandle;
 			}
 		}
 		PKFxManager.m_preloadedPKFXPaths.Clear();
@@ -321,19 +277,6 @@ public static class PKFxManager
 		int vertexCount = mesh.vertexCount;
 		if (mesh.subMeshCount > 1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.SceneMeshAddMesh(Mesh, Matrix4x4)).MethodHandle;
-			}
 			Debug.LogWarning("[PKFX] Mesh has more than 1 submesh: non opti");
 		}
 		int i = 0;
@@ -361,15 +304,6 @@ public static class PKFxManager
 			{
 				goto IL_170;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (mesh.normals.Length != vertexCount)
 			{
 				for (;;)
@@ -385,15 +319,6 @@ public static class PKFxManager
 			IL_17A:
 			if (!PKFxManager.SceneMeshAddRawMesh(indicesCount, mesh.GetIndices(i), vertexCount, mesh.vertices, mesh.normals, localToWorldMatrix))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError("[PKFX] Fail to load raw mesh");
 			}
 			i++;
@@ -401,15 +326,6 @@ public static class PKFxManager
 			IL_170:
 			Debug.LogError("[PKFX] Invalid mesh");
 			goto IL_17A;
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return true;
 	}
@@ -429,19 +345,6 @@ public static class PKFxManager
 		{
 			yield return www;
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.<AndroidRetrieveConfFile>c__Iterator0.MoveNext()).MethodHandle;
-		}
 		File.WriteAllBytes(PKFxManager.m_PackPath + "/PKconfig.cfg", www.bytes);
 		www.Dispose();
 		yield break;
@@ -451,32 +354,10 @@ public static class PKFxManager
 	{
 		if (Application.platform == RuntimePlatform.IPhonePlayer)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.Startup()).MethodHandle;
-			}
 			PKFxManager.UnitySetGraphicsDevice(IntPtr.Zero, 8, 0);
 		}
 		if (SystemInfo.usesReversedZBuffer)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			PKFxManager.SetReversedZBuffer(true);
 		}
 		PKFxManager.SetupColorSpace(QualitySettings.activeColorSpace == ColorSpace.Linear);
@@ -500,19 +381,6 @@ public static class PKFxManager
 		string packPath = PKFxManager.m_PackPath;
 		if (string.IsNullOrEmpty(text))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.TryLoadPackRelative()).MethodHandle;
-			}
 			return false;
 		}
 		if (string.IsNullOrEmpty(packPath))
@@ -528,15 +396,6 @@ public static class PKFxManager
 		Uri uri2 = new Uri(packPath + "/");
 		if (uri.Scheme != uri2.Scheme)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return false;
 		}
 		Uri uri3 = uri.MakeRelativeUri(uri2);
@@ -550,19 +409,6 @@ public static class PKFxManager
 		PKFxFX pkfxFX;
 		if (PKFxFX.m_ListEffects.TryGetValue(guid, out pkfxFX))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.OnFxStopped(int)).MethodHandle;
-			}
 			if (pkfxFX.m_OnFxStopped != null)
 			{
 				pkfxFX.m_OnFxStopped(pkfxFX);
@@ -577,19 +423,6 @@ public static class PKFxManager
 		PKFxFX pkfxFX;
 		if (PKFxFX.m_ListEffects.TryGetValue(guid, out pkfxFX))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.OnFxHotReloaded(int, int)).MethodHandle;
-			}
 			pkfxFX.OnFxHotReloaded(newGuid);
 		}
 	}
@@ -644,19 +477,6 @@ public static class PKFxManager
 			Marshal.FreeHGlobal(desc.Name);
 			Marshal.FreeHGlobal(desc.Description);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.ListEffectAttributesFromFx(string)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -671,32 +491,10 @@ public static class PKFxManager
 			desc.Description = Marshal.AllocHGlobal(0x80);
 			if (PKFxManager.EffectFillSamplerDescFromFx(name, i, ref desc))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.ListEffectSamplersFromFx(string)).MethodHandle;
-				}
 				list.Add(new PKFxManager.SamplerDesc(desc));
 			}
 			Marshal.FreeHGlobal(desc.Name);
 			Marshal.FreeHGlobal(desc.Description);
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}
@@ -711,19 +509,6 @@ public static class PKFxManager
 			{
 				list.Add(new PKFxManager.ShaderConstantDesc(desc));
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.ListShaderConstantsFromName(string, int)).MethodHandle;
 		}
 		return list;
 	}
@@ -758,19 +543,6 @@ public static class PKFxManager
 	{
 		if (Application.platform != RuntimePlatform.Android)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.EnableFileLoggingIFN(bool)).MethodHandle;
-			}
 			if (Application.platform != RuntimePlatform.IPhonePlayer)
 			{
 				try
@@ -778,15 +550,6 @@ public static class PKFxManager
 					PKFxManager.m_HasFileLogging = enable;
 					if (enable)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!File.Exists(PKFxManager.m_LogFilePath))
 						{
 							FileStream fileStream = File.Create(PKFxManager.m_LogFilePath);
@@ -795,15 +558,6 @@ public static class PKFxManager
 					}
 					if (!enable)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (File.Exists(PKFxManager.m_LogFilePath))
 						{
 							File.Delete(PKFxManager.m_LogFilePath);
@@ -829,46 +583,15 @@ public static class PKFxManager
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.SetupPackInPersistantDataPathIFN(bool)).MethodHandle;
-			}
 			return;
 		}
 		if (enable)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<string> list = new List<string>();
 			list.AddRange(Directory.GetFiles(Application.streamingAssetsPath + "/PackFx", "*", SearchOption.AllDirectories));
 			for (int i = 0; i < list.Count; i++)
 			{
 				list[i] = list[i].Replace("\\", "/");
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			list.Sort();
 			using (List<string>.Enumerator enumerator = list.GetEnumerator())
@@ -878,69 +601,24 @@ public static class PKFxManager
 					string text = enumerator.Current;
 					if (Path.GetExtension(text) != ".meta")
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						string text2 = text.Substring(Application.streamingAssetsPath.Length);
 						FileInfo fileInfo = new FileInfo(text);
 						FileInfo fileInfo2 = new FileInfo(Application.persistentDataPath + text2);
 						if (!fileInfo2.Exists)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Debug.Log("Copy " + Application.persistentDataPath + text2);
 							if (!Directory.Exists(fileInfo2.Directory.FullName))
 							{
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								Directory.CreateDirectory(fileInfo2.Directory.FullName);
 							}
 							File.Copy(text, fileInfo2.FullName);
 						}
 						else if (fileInfo.LastWriteTime > fileInfo2.LastWriteTime)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							Debug.Log("Overwriting " + Application.persistentDataPath + text2);
 							File.Copy(text, fileInfo2.FullName, true);
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			PKFxManager.m_PackPath = Application.persistentDataPath;
@@ -1605,19 +1283,6 @@ public static class PKFxManager
 			this.m_SkinnedMeshRenderer = null;
 			if (this.m_Mesh != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.Sampler..ctor(string, PKFxManager.SamplerDescShapeMeshFilter)).MethodHandle;
-				}
 				this.m_MeshHashCode = this.m_Mesh.name.GetHashCode();
 			}
 			else
@@ -1640,19 +1305,6 @@ public static class PKFxManager
 			this.m_MeshFilter = null;
 			if (this.m_Mesh != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.Sampler..ctor(string, PKFxManager.SamplerDescShapeSkinnedMesh)).MethodHandle;
-				}
 				this.m_MeshHashCode = this.m_Mesh.name.GetHashCode();
 			}
 			else
@@ -1866,59 +1518,19 @@ public static class PKFxManager
 		{
 			if (val.Length >= 1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(PKFxManager.Attribute..ctor(string, int[])).MethodHandle;
-				}
 				this.m_Descriptor = new PKFxManager.AttributeDesc(PKFxManager.BaseType.Int + val.Length - 1, name);
 				this.m_Value0 = PKFxManager.itof(val[0]);
 			}
 			if (val.Length >= 2)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Value1 = PKFxManager.itof(val[1]);
 			}
 			if (val.Length >= 3)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Value2 = PKFxManager.itof(val[2]);
 			}
 			if (val.Length >= 4)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_Value3 = PKFxManager.itof(val[3]);
 			}
 		}

@@ -83,19 +83,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BlasterDashAndBlast.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = blasterDashAndBlast.m_maxLength;
 		}
 		else
@@ -110,15 +97,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = blasterDashAndBlast.m_minAngle;
 		}
 		else
@@ -133,15 +111,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = blasterDashAndBlast.m_maxAngle;
 		}
 		else
@@ -157,15 +126,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		bool baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = blasterDashAndBlast.m_penetrateLineOfSight;
 		}
 		else
@@ -181,15 +141,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = blasterDashAndBlast.m_distancePerStock;
 		}
 		else
@@ -204,15 +155,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		bool baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = blasterDashAndBlast.m_stockBasedDistUseSquareCoordDist;
 		}
 		else
@@ -227,15 +169,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = blasterDashAndBlast.m_stockBasedDistMaxSquareCoordDist;
 		}
 		else
@@ -250,15 +183,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		int baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = blasterDashAndBlast.m_damageAmountNormal;
 		}
 		else
@@ -273,15 +197,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = blasterDashAndBlast.m_extraDamageForSingleHit;
 		}
 		else
@@ -296,15 +211,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		StandardEffectInfo baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = blasterDashAndBlast.m_enemyEffectNormal;
 		}
 		else
@@ -319,15 +225,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = blasterDashAndBlast.m_enemyEffectOvercharged;
 		}
 		else

@@ -72,19 +72,6 @@ public struct VisionProviderInfo
 		{
 			return Board.Get().GetBoardSquare(this.m_boardX, this.m_boardY);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(VisionProviderInfo.GetBoardSquare()).MethodHandle;
-		}
 		ActorData actorData = GameFlowData.Get().FindActorByActorIndex(this.m_actorIndex);
 		if (actorData == null)
 		{
@@ -93,26 +80,8 @@ public struct VisionProviderInfo
 		BoardSquare result = null;
 		if (this.m_satelliteIndex == -1)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!actorData.IsDead())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = actorData.GetCurrentBoardSquare();
 			}
 		}
@@ -122,15 +91,6 @@ public struct VisionProviderInfo
 			PersistentSatellite persistentSatellite;
 			if (component == null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				persistentSatellite = null;
 			}
 			else
@@ -155,19 +115,6 @@ public struct VisionProviderInfo
 	{
 		if (this.m_actorIndex == ActorData.s_invalidActorIndex)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionProviderInfo.IsEqual(GridPos, float, bool, VisionProviderInfo.BrushRevealType, bool, BoardSquare.VisibilityFlags, bool)).MethodHandle;
-			}
 			if (this.m_boardX == gridPos.x && this.m_boardY == gridPos.y)
 			{
 				return this.HasSameProperties(r, useSraightLineDist, f, brushRevealType, ignoreLos, canFunctionInGlobalBlind);
@@ -180,30 +127,8 @@ public struct VisionProviderInfo
 	{
 		if (this.m_actorIndex == actorIdx)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionProviderInfo.IsEqual(int, float, bool, VisionProviderInfo.BrushRevealType, bool, BoardSquare.VisibilityFlags, bool)).MethodHandle;
-			}
 			if (this.m_satelliteIndex == -1)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.HasSameProperties(r, useSraightLineDist, f, brushRevealType, ignoreLos, canFunctionInGlobalBlind);
 			}
 		}
@@ -214,30 +139,8 @@ public struct VisionProviderInfo
 	{
 		if (this.m_actorIndex == actorIdx)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionProviderInfo.IsEqual(int, int, float, bool, VisionProviderInfo.BrushRevealType, bool, BoardSquare.VisibilityFlags, bool)).MethodHandle;
-			}
 			if (this.m_satelliteIndex == satelliteIdx)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return this.HasSameProperties(r, useSraightLineDist, f, brushRevealType, ignoreLos, canFunctionInGlobalBlind);
 			}
 		}
@@ -248,52 +151,12 @@ public struct VisionProviderInfo
 	{
 		if (this.m_flag == f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(VisionProviderInfo.HasSameProperties(float, bool, BoardSquare.VisibilityFlags, VisionProviderInfo.BrushRevealType, bool, bool)).MethodHandle;
-			}
 			if (this.m_brushRevealType == brushRevealType)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_ignoreLos == ignoreLos)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_canFunctionInGlobalBlind == canFunctionInGlobalBlind && this.m_radiusAsStraightLineDist == useSraightLineDist)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return Mathf.Abs(this.m_radius - r) < 0.05f;
 					}
 				}

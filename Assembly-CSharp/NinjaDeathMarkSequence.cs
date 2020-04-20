@@ -15,19 +15,6 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 	{
 		if (this.m_startEvent == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDeathMarkSequence.FinishSetup()).MethodHandle;
-			}
 			this.SpawnTempSatellite();
 		}
 	}
@@ -44,19 +31,6 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 	{
 		if (this.m_startEvent == parameter)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDeathMarkSequence.OnAnimationEvent(UnityEngine.Object, GameObject)).MethodHandle;
-			}
 			this.SpawnTempSatellite();
 		}
 	}
@@ -65,53 +39,13 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 	{
 		if (this.m_spawnedTempSatellite)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NinjaDeathMarkSequence.Update()).MethodHandle;
-			}
 			if (!this.m_setFinishTrigger)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(this.m_tempSatelliteInstance == null))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().IsDespawning())
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.m_setFinishTrigger = true;

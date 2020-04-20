@@ -37,19 +37,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		GremlinsBigBang gremlinsBigBang = targetAbility as GremlinsBigBang;
 		if (gremlinsBigBang != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBigBang.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_knockbackDistanceMod, "KnockbackDist", string.Empty, gremlinsBigBang.m_knockbackDistance, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_knockbackDistanceIfSingleTarget, "KnockbackDist_SingleTarget", string.Empty, gremlinsBigBang.m_knockbackDistance, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_extraDamagePerTarget, "Damage_ExtraPerTarget", string.Empty, 0, true, false);
@@ -71,19 +58,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent;
 		if (gremlinsBigBang != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBigBang.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			gremlinsLandMineInfoComponent = gremlinsBigBang.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		else
@@ -100,15 +74,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		AbilityAreaShape baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = gremlinsBigBang.m_bombShape;
 		}
 		else
@@ -126,15 +91,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsBigBang.m_bombDamageAmount;
 		}
 		else
@@ -149,15 +105,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = gremlinsBigBang.m_knockbackDistance;
 		}
 		else
@@ -172,15 +119,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = gremlinsLandMineInfoComponent2.m_damageAmount;
 		}
 		else
@@ -195,15 +133,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = gremlinsLandMineInfoComponent2.m_mineDuration;
 		}
 		else
@@ -219,15 +148,6 @@ public class AbilityMod_GremlinsBigBang : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = gremlinsLandMineInfoComponent2.m_energyGainOnExplosion;
 		}
 		else

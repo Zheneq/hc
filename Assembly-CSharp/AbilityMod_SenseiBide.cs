@@ -46,19 +46,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		SenseiBide senseiBide = targetAbility as SenseiBide;
 		if (senseiBide != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiBide.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken_EffectMod(tokens, this.m_onCastTargetEffectDataMod, "OnCastTargetEffectData", senseiBide.m_onCastTargetEffectData, true);
 			AbilityMod.AddToken_EffectMod(tokens, this.m_additionalTargetHitEffectMod, "AdditionalTargetHitEffect", senseiBide.m_additionalTargetHitEffect, true);
 			AbilityMod.AddToken(tokens, this.m_explosionRadiusMod, "ExplosionRadius", string.Empty, senseiBide.m_explosionRadius, true, false, false);
@@ -84,19 +71,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		bool baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SenseiBide.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = senseiBide.m_targetingIgnoreLos;
 		}
 		else
@@ -111,15 +85,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		StandardActorEffectData baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = senseiBide.m_onCastTargetEffectData;
 		}
 		else
@@ -134,15 +99,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		StandardEffectInfo baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = senseiBide.m_additionalTargetHitEffect;
 		}
 		else
@@ -159,15 +115,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		int baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = senseiBide.m_maxDamage;
 		}
 		else
@@ -183,15 +130,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = senseiBide.m_damageMult;
 		}
 		else
@@ -206,15 +144,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = senseiBide.m_enemyHitEffect;
 		}
 		else
@@ -229,15 +158,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = senseiBide.m_absorbMultForHeal;
 		}
 		else
@@ -252,15 +172,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = senseiBide.m_multOnInitialDamageForSubseqHits;
 		}
 		else
@@ -275,15 +186,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = senseiBide.m_extraHealOnHealAoeIfQueued;
 		}
 		else

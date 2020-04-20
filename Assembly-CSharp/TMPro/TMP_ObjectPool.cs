@@ -42,19 +42,6 @@ namespace TMPro
 			T t;
 			if (this.m_Stack.Count == 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_ObjectPool.Get()).MethodHandle;
-				}
 				t = Activator.CreateInstance<T>();
 				this.countAll++;
 			}
@@ -64,15 +51,6 @@ namespace TMPro
 			}
 			if (this.m_ActionOnGet != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_ActionOnGet(t);
 			}
 			return t;
@@ -82,32 +60,10 @@ namespace TMPro
 		{
 			if (this.m_Stack.Count > 0 && object.ReferenceEquals(this.m_Stack.Peek(), element))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(TMP_ObjectPool.Release(T)).MethodHandle;
-				}
 				Debug.LogError("Internal error. Trying to destroy object that is already released to pool.");
 			}
 			if (this.m_ActionOnRelease != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_ActionOnRelease(element);
 			}
 			this.m_Stack.Push(element);

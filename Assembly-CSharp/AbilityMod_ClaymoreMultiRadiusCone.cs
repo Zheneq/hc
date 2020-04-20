@@ -90,19 +90,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ClaymoreMultiRadiusCone.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = claymoreMultiRadiusCone.m_coneWidthAngle;
 		}
 		else
@@ -117,15 +104,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = claymoreMultiRadiusCone.m_coneLengthInner;
 		}
 		else
@@ -140,15 +118,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = claymoreMultiRadiusCone.m_coneLengthMiddle;
 		}
 		else
@@ -163,15 +132,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = claymoreMultiRadiusCone.m_coneLengthOuter;
 		}
 		else
@@ -188,15 +148,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = claymoreMultiRadiusCone.m_damageAmountMiddle;
 		}
 		else
@@ -211,15 +162,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = claymoreMultiRadiusCone.m_damageAmountOuter;
 		}
 		else
@@ -234,15 +176,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = claymoreMultiRadiusCone.m_bonusDamageIfEnemyLowHealth;
 		}
 		else
@@ -257,15 +190,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = claymoreMultiRadiusCone.m_enemyHealthThreshForBonus;
 		}
 		else
@@ -281,15 +205,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		float baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = claymoreMultiRadiusCone.m_casterHealthThreshForBonus;
 		}
 		else
@@ -299,15 +214,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		text = str9 + base.PropDesc(casterHealthThreshForBonusMod, prefix9, showBaseVal9, baseVal9);
 		if (this.m_applyBonusPerThresholdReached)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_casterHealthThreshForBonusMod.operation != AbilityModPropertyFloat.ModOp.Ignore && this.m_bonusDamageIfCasterLowHealthMod.operation != AbilityModPropertyInt.ModOp.Ignore)
 			{
 				text += "\t{applied per [threshold]% below max hp}";
@@ -320,15 +226,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = claymoreMultiRadiusCone.m_tpGainInner;
 		}
 		else
@@ -344,15 +241,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		int baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = claymoreMultiRadiusCone.m_tpGainOuter;
 		}
 		else
@@ -368,15 +256,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		StandardEffectInfo baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = claymoreMultiRadiusCone.m_effectMiddle;
 		}
 		else
@@ -391,15 +270,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		StandardEffectInfo baseVal13;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal13 = claymoreMultiRadiusCone.m_effectOuter;
 		}
 		else

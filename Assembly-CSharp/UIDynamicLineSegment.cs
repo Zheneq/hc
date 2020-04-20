@@ -35,42 +35,11 @@ public class UIDynamicLineSegment : MonoBehaviour
 			{
 				HighlightUtils.DestroyMaterials(renderer.materials);
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicLineSegment.OnDestroy()).MethodHandle;
-			}
 			MeshFilter component = this.m_segmentObject.GetComponent<MeshFilter>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.sharedMesh != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					UnityEngine.Object.Destroy(component.sharedMesh);
 				}
 			}
@@ -93,19 +62,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		Material material;
 		if (dotted)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicLineSegment.CreateSegmentMesh(float, bool, Color)).MethodHandle;
-			}
 			material = this.m_segmentMaterialDotted;
 		}
 		else
@@ -128,15 +84,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 		{
 			if (i == 0)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 lhs = list[i + 1] - list[i];
 				Vector3 normalized = Vector3.Cross(lhs, new Vector3(0f, 1f, 0f)).normalized;
 				normalized.y = 0f;
@@ -149,15 +96,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 			}
 			else if (i == list.Count - 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 normalized2 = (list[i] - list[i - 1]).normalized;
 				Vector3 normalized3 = Vector3.Cross(normalized2, new Vector3(0f, 1f, 0f)).normalized;
 				normalized3.y = 0f;
@@ -192,15 +130,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 				float num = Vector3.Dot(vector2, normalized7);
 				if (num == 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 1f;
 				}
 				vector2.y = 0f;
@@ -228,15 +157,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 			list5.Add(j * 2 + 2);
 			list5.Add(j * 2 + 3);
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		this.m_segmentMesh.vertices = list2.ToArray();
 		this.m_segmentMesh.normals = list3.ToArray();
 		this.m_segmentMesh.uv = list4.ToArray();
@@ -251,19 +171,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 	{
 		if (this.m_segmentObject != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicLineSegment.AdjustDynamicLineSegmentMesh(float, Color)).MethodHandle;
-			}
 			this.AdjustSegmentLength(lengthInWorld);
 			this.AdjustSegmentColor(color);
 		}
@@ -273,19 +180,6 @@ public class UIDynamicLineSegment : MonoBehaviour
 	{
 		if (this.m_segmentObject != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicLineSegment.AdjustSegmentLength(float)).MethodHandle;
-			}
 			this.m_currentLengthInWorld = lengthInWorld;
 			float z = lengthInWorld / 5f;
 			Vector3 localScale = new Vector3(1f, 1f, z);
@@ -301,30 +195,8 @@ public class UIDynamicLineSegment : MonoBehaviour
 			Renderer component = this.m_segmentObject.GetComponent<Renderer>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIDynamicLineSegment.AdjustSegmentColor(Color)).MethodHandle;
-				}
 				if (component.material != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					component.material.SetColor("_TintColor", color);
 				}
 			}

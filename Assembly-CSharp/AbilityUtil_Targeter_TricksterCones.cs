@@ -57,19 +57,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		base.StartConfirmedTargeting(currentTarget, targetingActor);
 		if (this.m_highlights != null && this.m_highlights.Count == this.m_maxCones * 2)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterCones.StartConfirmedTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			for (int i = this.m_maxCones; i < this.m_highlights.Count; i++)
 			{
 				this.m_highlights[i].SetActive(false);
@@ -84,31 +71,9 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		float radiusInWorld = (this.m_coneInfo.m_radiusInSquares + this.m_coneInfo.m_backwardsOffset) * squareSize;
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_TricksterCones.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (this.m_highlights.Count >= this.m_maxCones * 2)
 			{
 				goto IL_FF;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();
@@ -116,42 +81,15 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		{
 			this.m_highlights.Add(HighlightUtils.Get().CreateConeCursor(radiusInWorld, this.m_coneInfo.m_widthAngleDeg));
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		for (int j = 0; j < this.m_maxCones; j++)
 		{
 			GameObject item = HighlightUtils.Get().CreateDynamicLineSegmentMesh(1f, 0.3f, true, Color.cyan);
 			this.m_highlights.Add(item);
 		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		IL_FF:
 		bool flag;
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			flag = (GameFlowData.Get().activeOwnedActorData == targetingActor);
 		}
 		else
@@ -164,15 +102,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 		{
 			if (k < num)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_highlights[k].SetActive(true);
 				this.m_highlights[this.m_maxCones + k].SetActive(active);
 			}
@@ -181,15 +110,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				this.m_highlights[k].SetActive(false);
 				this.m_highlights[this.m_maxCones + k].SetActive(false);
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		Vector3 freeTargetPos = this.GetClampedTargetPos(currentTarget, targetingActor);
 		List<Vector3> list = this.GetConeOrigins(currentTarget, freeTargetPos, targetingActor);
@@ -225,15 +145,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actorsInCone);
 				if (actorsInCone.Contains(targetingActor))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					actorsInCone.Remove(targetingActor);
 				}
 				foreach (ActorData actorData in actorsInCone)
@@ -252,15 +163,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 						int num4;
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							num4 = 1;
 						}
 						else
@@ -270,37 +172,10 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 						dictionary2[key2] = num3 + num4;
 						if (actorCover != null)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!actorCover.IsInCoverWrt(tempActorToDamageOrigins[actorData]))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (actorCover.IsInCoverWrt(vector))
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									tempActorToDamageOrigins[actorData] = vector;
 								}
 							}
@@ -314,15 +189,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 						int value;
 						if (flag2)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							value = 1;
 						}
 						else
@@ -335,15 +201,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				}
 				if (this.m_affectsTargetingActor)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.AddActorInRange(targetingActor, vector, targetingActor, AbilityTooltipSubject.Tertiary, false);
 				}
 				float d = this.m_coneInfo.m_backwardsOffset * squareSize;
@@ -353,43 +210,16 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				this.m_highlights[l].transform.rotation = Quaternion.LookRotation(vector2);
 				if (this.m_showHitIndicatorLine)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_highlights[this.m_maxCones + l].transform.position = position;
 					this.m_highlights[this.m_maxCones + l].transform.rotation = Quaternion.LookRotation(vector2);
 				}
 				else if (this.m_highlights[this.m_maxCones + l].activeSelf)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_highlights[this.m_maxCones + l].SetActive(false);
 				}
 				Color color;
 				if (actorsInCone.Count > 0)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					color = Color.red;
 				}
 				else
@@ -402,27 +232,9 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				{
 					goto IL_671;
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (l >= this.m_squarePosCheckerList.Count - 1)
 				{
 					goto IL_671;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				for (int m = l; m < this.m_squarePosCheckerList.Count; m++)
 				{
@@ -432,15 +244,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 					{
 						squareInsideChecker_Cone.SetLosPosOverride(true, targetingActor.GetTravelBoardSquareWorldPositionForLos(), true);
 					}
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 				IL_6CB:
 				l++;
@@ -463,15 +266,6 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 			Vector3 vector3 = keyValuePair.Value;
 			if (this.m_customDamageOriginDelegate != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				vector3 = this.m_customDamageOriginDelegate(currentTarget, vector3, key5, targetingActor);
 			}
 			for (int n = 0; n < this.m_actorToHitCount[key5]; n++)
@@ -479,32 +273,14 @@ public class AbilityUtil_Targeter_TricksterCones : AbilityUtil_Targeter
 				AbilityTooltipSubject subjectType = (key5.GetTeam() != targetingActor.GetTeam()) ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Secondary;
 				base.AddActorInRange(key5, vector3, targetingActor, subjectType, true);
 				ActorHitContext actorHitContext = this.m_actorContextVars[key5];
-				actorHitContext.\u0015.SetInt(ContextKeys.\u0019.GetHash(), this.m_actorToHitCount[key5]);
+				actorHitContext.symbol_0015.SetInt(ContextKeys.symbol_0019.GetHash(), this.m_actorToHitCount[key5]);
 			}
 		}
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			for (int num5 = 0; num5 < num; num5++)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num5 >= this.m_maxCones)
 				{
 					break;

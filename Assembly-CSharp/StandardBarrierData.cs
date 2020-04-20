@@ -52,26 +52,13 @@ public class StandardBarrierData
 	public BarrierResponseOnShot m_responseOnShotBlock;
 
 	[CompilerGenerated]
-	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> <>f__mg$cache0;
+	private static InEditorDescHelper.GetListEntryStrDelegate<GameObject> f__mg_cache0;
 
 	public void SetupForPattern(AbilityGridPattern pattern)
 	{
 		this.m_bidirectional = true;
 		if (pattern != AbilityGridPattern.Plus_Two_x_Two)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardBarrierData.SetupForPattern(AbilityGridPattern)).MethodHandle;
-			}
 			if (pattern == AbilityGridPattern.Plus_Four_x_Four)
 			{
 				this.m_width = 4f;
@@ -96,19 +83,6 @@ public class StandardBarrierData
 		standardBarrierData.m_onAllyMovedThrough = this.m_onAllyMovedThrough.GetShallowCopy();
 		if (this.m_barrierSequencePrefabs != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardBarrierData.GetShallowCopy()).MethodHandle;
-			}
 			standardBarrierData.m_barrierSequencePrefabs = new List<GameObject>(this.m_barrierSequencePrefabs);
 		}
 		else
@@ -129,19 +103,6 @@ public class StandardBarrierData
 		int otherVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardBarrierData.AddTooltipTokens(List<TooltipTokenEntry>, string, bool, StandardBarrierData)).MethodHandle;
-			}
 			otherVal = other.m_maxDuration;
 		}
 		else
@@ -156,15 +117,6 @@ public class StandardBarrierData
 		int otherVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.m_maxDuration;
 		}
 		else
@@ -174,30 +126,12 @@ public class StandardBarrierData
 		AbilityMod.AddToken_IntDiff(tokens, name3, desc2, maxHits, addDiff2, otherVal2);
 		if (this.m_onEnemyMovedThrough != null && this.m_onEnemyMovedThrough.HasResponse())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameplayResponseForActor onEnemyMovedThrough = this.m_onEnemyMovedThrough;
 			string name4 = name + "_EnemyCross";
 			bool addCompare2 = flag;
 			GameplayResponseForActor other2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				other2 = other.m_onEnemyMovedThrough;
 			}
 			else
@@ -208,15 +142,6 @@ public class StandardBarrierData
 		}
 		if (this.m_onAllyMovedThrough != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_onAllyMovedThrough.HasResponse())
 			{
 				GameplayResponseForActor onAllyMovedThrough = this.m_onAllyMovedThrough;
@@ -225,15 +150,6 @@ public class StandardBarrierData
 				GameplayResponseForActor other3;
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					other3 = other.m_onAllyMovedThrough;
 				}
 				else
@@ -245,26 +161,8 @@ public class StandardBarrierData
 		}
 		if (this.m_responseOnShotBlock != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_responseOnShotBlock.HasResponses())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_responseOnShotBlock.AddTooltipTokens(tokens, name, flag, (!flag) ? null : other.m_responseOnShotBlock);
 			}
 		}
@@ -284,19 +182,6 @@ public class StandardBarrierData
 		float num;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(StandardBarrierData.GetInEditorDescription(string, string, bool, StandardBarrierData)).MethodHandle;
-			}
 			num = (float)other.m_maxDuration;
 		}
 		else
@@ -316,15 +201,6 @@ public class StandardBarrierData
 		float otherVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.m_width;
 		}
 		else
@@ -346,15 +222,6 @@ public class StandardBarrierData
 		bool otherVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal2 = other.m_considerAsCover;
 		}
 		else
@@ -371,35 +238,14 @@ public class StandardBarrierData
 		bool otherVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal3 = other.m_removeAtTurnEndIfEnemyMovedThrough;
 		}
 		else
 		{
 			otherVal3 = false;
 		}
-		if (StandardBarrierData.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			StandardBarrierData.<>f__am$cache0 = ((bool b) => b);
-		}
-		text2 = str5 + InEditorDescHelper.AssembleFieldWithDiff(header5, indent, otherSep4, removeAtTurnEndIfEnemyMovedThrough, showOther4, otherVal3, StandardBarrierData.<>f__am$cache0);
+		
+		text2 = str5 + InEditorDescHelper.AssembleFieldWithDiff(header5, indent, otherSep4, removeAtTurnEndIfEnemyMovedThrough, showOther4, otherVal3, ((bool b) => b));
 		string str6 = text2;
 		string header6 = "* Remove on Turn End: if Ally Moved Through = ";
 		string otherSep5 = text;
@@ -408,35 +254,14 @@ public class StandardBarrierData
 		bool otherVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal4 = other.m_removeAtTurnEndIfAllyMovedThrough;
 		}
 		else
 		{
 			otherVal4 = false;
 		}
-		if (StandardBarrierData.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			StandardBarrierData.<>f__am$cache1 = ((bool b) => b);
-		}
-		text2 = str6 + InEditorDescHelper.AssembleFieldWithDiff(header6, indent, otherSep5, removeAtTurnEndIfAllyMovedThrough, showOther5, otherVal4, StandardBarrierData.<>f__am$cache1);
+		
+		text2 = str6 + InEditorDescHelper.AssembleFieldWithDiff(header6, indent, otherSep5, removeAtTurnEndIfAllyMovedThrough, showOther5, otherVal4, ((bool b) => b));
 		string str7 = text2;
 		string header7 = "* Remove on Phase End: if Enemy Moved Through =";
 		string otherSep6 = text;
@@ -445,35 +270,14 @@ public class StandardBarrierData
 		bool otherVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal5 = other.m_removeAtPhaseEndIfEnemyMovedThrough;
 		}
 		else
 		{
 			otherVal5 = false;
 		}
-		if (StandardBarrierData.<>f__am$cache2 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			StandardBarrierData.<>f__am$cache2 = ((bool b) => b);
-		}
-		text2 = str7 + InEditorDescHelper.AssembleFieldWithDiff(header7, indent, otherSep6, removeAtPhaseEndIfEnemyMovedThrough, showOther6, otherVal5, StandardBarrierData.<>f__am$cache2);
+		
+		text2 = str7 + InEditorDescHelper.AssembleFieldWithDiff(header7, indent, otherSep6, removeAtPhaseEndIfEnemyMovedThrough, showOther6, otherVal5, ((bool b) => b));
 		string str8 = text2;
 		string header8 = "* Remove on Phase End: if Ally Moved Through =";
 		string otherSep7 = text;
@@ -482,71 +286,23 @@ public class StandardBarrierData
 		bool otherVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal6 = other.m_removeAtPhaseEndIfAllyMovedThrough;
 		}
 		else
 		{
 			otherVal6 = false;
 		}
-		if (StandardBarrierData.<>f__am$cache3 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			StandardBarrierData.<>f__am$cache3 = ((bool b) => b);
-		}
-		text2 = str8 + InEditorDescHelper.AssembleFieldWithDiff(header8, indent, otherSep7, removeAtPhaseEndIfAllyMovedThrough, showOther7, otherVal6, StandardBarrierData.<>f__am$cache3);
+		
+		text2 = str8 + InEditorDescHelper.AssembleFieldWithDiff(header8, indent, otherSep7, removeAtPhaseEndIfAllyMovedThrough, showOther7, otherVal6, ((bool b) => b));
 		if (!this.m_onEnemyMovedThrough.HasResponse())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				goto IL_428;
 			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!other.m_onEnemyMovedThrough.HasResponse())
 			{
 				goto IL_428;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		string str9 = text2;
@@ -557,15 +313,6 @@ public class StandardBarrierData
 		GameplayResponseForActor other2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			other2 = other.m_onEnemyMovedThrough;
 		}
 		else
@@ -576,40 +323,13 @@ public class StandardBarrierData
 		IL_428:
 		if (!this.m_onAllyMovedThrough.HasResponse())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				goto IL_496;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!other.m_onAllyMovedThrough.HasResponse())
 			{
 				goto IL_496;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		text2 += this.m_onAllyMovedThrough.GetInEditorDescription("    >> On <color=cyan>Ally</color> Moved Through <<", "            ", flag, (!flag) ? null : other.m_onAllyMovedThrough);
@@ -619,15 +339,6 @@ public class StandardBarrierData
 		GameObject[] myObjList;
 		if (this.m_barrierSequencePrefabs == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			myObjList = null;
 		}
 		else
@@ -638,26 +349,8 @@ public class StandardBarrierData
 		GameObject[] otherObjList;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (other.m_barrierSequencePrefabs == null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				otherObjList = null;
 			}
 			else
@@ -669,22 +362,10 @@ public class StandardBarrierData
 		{
 			otherObjList = null;
 		}
-		if (StandardBarrierData.<>f__mg$cache0 == null)
-		{
-			StandardBarrierData.<>f__mg$cache0 = new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr);
-		}
-		text2 = str10 + InEditorDescHelper.GetListDiffString<GameObject>(header10, indent, myObjList, showDiff2, otherObjList, StandardBarrierData.<>f__mg$cache0);
+		
+		text2 = str10 + InEditorDescHelper.GetListDiffString<GameObject>(header10, indent, myObjList, showDiff2, otherObjList, new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr));
 		if (this.m_responseOnShotBlock.HasResponses())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			string str11 = text2;
 			BarrierResponseOnShot responseOnShotBlock = this.m_responseOnShotBlock;
 			string header11 = "    >> Response on Shot Block <<";
@@ -693,15 +374,6 @@ public class StandardBarrierData
 			BarrierResponseOnShot other3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				other3 = other.m_responseOnShotBlock;
 			}
 			else

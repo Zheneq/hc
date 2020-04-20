@@ -11,9 +11,9 @@ namespace LobbyGameClientMessages
 
 		public enum Status
 		{
-			\u001D,
-			\u000E,
-			\u0012
+			symbol_001D,
+			symbol_000E,
+			symbol_0012
 		}
 	}
 }

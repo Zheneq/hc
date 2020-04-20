@@ -16,19 +16,6 @@ public class Card_ExtendBuffDuration_Ability : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Card_ExtendBuffDuration_Ability.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Buff Enhancer";
 		}
 		this.Setup();

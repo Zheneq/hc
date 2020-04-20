@@ -18,19 +18,6 @@ public class ForceFieldSequence : Sequence
 	{
 		if (this.m_forceFieldPrefab)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ForceFieldSequence.Update()).MethodHandle;
-			}
 			if (this.m_initialized && this.m_forceFieldVFX == null && base.Target)
 			{
 				Vector3 bonePosition = base.Target.GetBonePosition("upperRoot_JNT");
@@ -42,15 +29,6 @@ public class ForceFieldSequence : Sequence
 				}
 				if (this.m_shieldStart != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_shieldStart);
 				}
 				if (!string.IsNullOrEmpty(this.m_startAudioEvent))
@@ -61,26 +39,8 @@ public class ForceFieldSequence : Sequence
 		}
 		if (this.m_forceFieldVFX != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (base.Target)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Renderer[] componentsInChildren = this.m_forceFieldVFX.GetComponentsInChildren<Renderer>();
 				foreach (Renderer renderer in componentsInChildren)
 				{
@@ -96,19 +56,6 @@ public class ForceFieldSequence : Sequence
 	{
 		if (this.m_forceFieldVFX)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ForceFieldSequence.OnDisable()).MethodHandle;
-			}
 			if (base.Target != null && base.Target.GetComponent<AudioSource>() != null)
 			{
 				base.Target.GetComponent<AudioSource>().PlayOneShot(this.m_shieldEnd);

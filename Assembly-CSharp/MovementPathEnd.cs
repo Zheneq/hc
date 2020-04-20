@@ -22,19 +22,6 @@ public class MovementPathEnd : MonoBehaviour
 		{
 			if (meshRenderer.materials.Length > 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathEnd.SetupColor(Color)).MethodHandle;
-				}
 				if (meshRenderer.materials[0] != null)
 				{
 					meshRenderer.materials[0].SetColor("_TintColor", newColor);
@@ -47,19 +34,6 @@ public class MovementPathEnd : MonoBehaviour
 	{
 		if (!isChasing)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(MovementPathEnd.Setup(ActorData, bool)).MethodHandle;
-			}
 			this.m_IndicatorParent.SetActive(true);
 			this.m_animationController.Play("Initial");
 		}

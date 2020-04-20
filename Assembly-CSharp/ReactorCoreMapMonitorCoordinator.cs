@@ -64,19 +64,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (ReactorCoreMapMonitorCoordinator.s_instance != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.Awake()).MethodHandle;
-			}
 			Log.Error(base.GetType() + " has existing instance in scene on Awake, may have duplicates", new object[0]);
 		}
 		ReactorCoreMapMonitorCoordinator.s_instance = this;
@@ -89,19 +76,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (this.m_largePortraitObject != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.Start()).MethodHandle;
-			}
 			this.m_largePortraitObjectRenderer = this.m_largePortraitObject.GetComponent<Renderer>();
 			this.m_largePortraitObject.SetActive(false);
 		}
@@ -120,19 +94,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (controller != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.AddPortraitController(ReactorCoreMapRespawnMonitor)).MethodHandle;
-			}
 			if (!this.m_portraitControllers.Contains(controller))
 			{
 				this.m_portraitControllers.Add(controller);
@@ -144,24 +105,11 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (controller != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.RemovePortraitController(ReactorCoreMapRespawnMonitor)).MethodHandle;
-			}
 			this.m_portraitControllers.Remove(controller);
 		}
 	}
 
-	public void \u000E()
+	public void symbol_000E()
 	{
 		string text = "Respawning Actors:\n";
 		using (List<CharacterType>.Enumerator enumerator = this.m_characterRespawning.GetEnumerator())
@@ -178,19 +126,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 					"\n"
 				});
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.\u000E()).MethodHandle;
-			}
 		}
 		Debug.LogWarning(text);
 	}
@@ -199,19 +134,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 	{
 		if (this.m_characterRespawning.Count > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.Update()).MethodHandle;
-			}
 			this.m_timeTillNextUpdate -= Time.deltaTime;
 			if (this.m_timeTillNextUpdate <= 0f)
 			{
@@ -219,43 +141,16 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				this.m_currentIndex++;
 				if (this.m_currentIndex >= this.m_characterRespawning.Count)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_currentIndex = 0;
 				}
 				CharacterType key = this.m_characterRespawning[this.m_currentIndex];
 				if (this.m_characterSprites.ContainsKey(key))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Sprite respawnPortrait = this.m_characterSprites[key];
 					for (int i = 0; i < this.m_portraitControllers.Count; i++)
 					{
 						if (this.m_portraitControllers[i] != null)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_portraitControllers[i].SetRespawnPortrait(respawnPortrait);
 						}
 					}
@@ -273,49 +168,14 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				this.m_portraitControllers[i].HidePortrait();
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.HidePortraits()).MethodHandle;
-		}
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
 		if (eventType == GameEventManager.EventType.TurnTick)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ReactorCoreMapMonitorCoordinator.OnGameEvent(GameEventManager.EventType, GameEventManager.GameEventArgs)).MethodHandle;
-			}
 			if (this.m_largePortraitObjectRenderer != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			this.m_characterRespawning.Clear();
 			List<ActorData> actors = GameFlowData.Get().GetActors();
@@ -327,26 +187,8 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				{
 					goto IL_A9;
 				}
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (actorData.NextRespawnTurn > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (actorData.NextRespawnTurn == GameFlowData.Get().CurrentTurn)
 					{
 						for (;;)
@@ -368,28 +210,10 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				{
 					goto IL_111;
 				}
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_characterRespawning.Add(actorData.m_characterType);
 				Sprite aliveHUDIcon = actorData.GetAliveHUDIcon();
 				if (!this.m_characterSprites.ContainsKey(actorData.m_characterType))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_characterSprites.Add(actorData.m_characterType, aliveHUDIcon);
 					goto IL_111;
 				}
@@ -398,15 +222,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 			int count = this.m_characterRespawning.Count;
 			if (count > 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_timeTillNextUpdate = 0f;
 			}
 			else
@@ -416,15 +231,6 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 		}
 		if (eventType == GameEventManager.EventType.UIPhaseStartedMovement)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_characterRespawning.Clear();
 			List<ActorData> actors2 = GameFlowData.Get().GetActors();
 			for (int j = 0; j < actors2.Count; j++)
@@ -432,39 +238,12 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 				ActorData actorData2 = actors2[j];
 				if (actorData2.IsDead())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!this.m_characterRespawning.Contains(actorData2.m_characterType))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_characterRespawning.Add(actorData2.m_characterType);
 						Sprite aliveHUDIcon2 = actorData2.GetAliveHUDIcon();
 						if (!this.m_characterSprites.ContainsKey(actorData2.m_characterType))
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							this.m_characterSprites.Add(actorData2.m_characterType, aliveHUDIcon2);
 						}
 					}

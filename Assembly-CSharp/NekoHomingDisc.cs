@@ -69,19 +69,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo cachedOnCastEnemyHitEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.SetCachedFields()).MethodHandle;
-			}
 			cachedOnCastEnemyHitEffect = this.m_abilityMod.m_onCastEnemyHitEffectMod.GetModifiedValue(this.m_onCastEnemyHitEffect);
 		}
 		else
@@ -92,15 +79,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo cachedReturnTripEnemyEffect;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			cachedReturnTripEnemyEffect = this.m_abilityMod.m_returnTripEnemyEffectMod.GetModifiedValue(this.m_returnTripEnemyEffect);
 		}
 		else
@@ -115,19 +93,6 @@ public class NekoHomingDisc : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetLaserLength()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserLengthMod.GetModifiedValue(this.m_laserLength);
 		}
 		else
@@ -142,19 +107,6 @@ public class NekoHomingDisc : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
 		}
 		else
@@ -169,19 +121,6 @@ public class NekoHomingDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetMaxTargets()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_maxTargetsMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -196,19 +135,6 @@ public class NekoHomingDisc : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetDiscReturnEndRadius()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(this.m_discReturnEndRadius);
 		}
 		else
@@ -223,19 +149,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedOnCastEnemyHitEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetOnCastEnemyHitEffect()).MethodHandle;
-			}
 			result = this.m_cachedOnCastEnemyHitEffect;
 		}
 		else
@@ -250,19 +163,6 @@ public class NekoHomingDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetTargetDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_targetDamageMod.GetModifiedValue(this.m_targetDamage);
 		}
 		else
@@ -277,19 +177,6 @@ public class NekoHomingDisc : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetReturnTripDamage()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_returnTripDamageMod.GetModifiedValue(this.m_returnTripDamage);
 		}
 		else
@@ -314,19 +201,6 @@ public class NekoHomingDisc : Ability
 		StandardEffectInfo result;
 		if (this.m_cachedReturnTripEnemyEffect != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.GetReturnTripEnemyEffect()).MethodHandle;
-			}
 			result = this.m_cachedReturnTripEnemyEffect;
 		}
 		else
@@ -380,19 +254,6 @@ public class NekoHomingDisc : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_NekoHomingDisc))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(NekoHomingDisc.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_NekoHomingDisc);
 			this.Setup();
 		}

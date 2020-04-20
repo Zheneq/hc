@@ -20,19 +20,6 @@ public class UIPlayerProgressMostPlayedItem : MonoBehaviour
 			int num = charData.CharacterComponent.LastSkin.skinIndex;
 			if (num >= characterResourceLink.m_skins.Count)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerProgressMostPlayedItem.Setup(PersistedCharacterData)).MethodHandle;
-				}
 				num = 0;
 			}
 			string skinSelectionIconPath = characterResourceLink.m_skins[num].m_skinSelectionIconPath;

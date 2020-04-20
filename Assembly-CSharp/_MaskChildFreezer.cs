@@ -37,38 +37,12 @@ public class _MaskChildFreezer : MonoBehaviour
 			this.m_frozenPosition[i] = this.m_frozenChildren[i].GetComponent<RectTransform>().anchoredPosition;
 			this.m_frozenScale[i] = this.m_frozenChildren[i].GetComponent<RectTransform>().localScale;
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(_MaskChildFreezer.Awake()).MethodHandle;
-		}
 	}
 
 	private void LateUpdate()
 	{
 		if (this.m_previousAnchorPosition != this.maskRectTransform.anchoredPosition)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(_MaskChildFreezer.LateUpdate()).MethodHandle;
-			}
 			this.m_previousAnchorPosition = this.maskRectTransform.anchoredPosition;
 			for (int i = 0; i < this.m_frozenPosition.Length; i++)
 			{
@@ -79,15 +53,6 @@ public class _MaskChildFreezer : MonoBehaviour
 		}
 		if (this.m_previousScalePosition != this.maskRectTransform.localScale)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_previousScalePosition = this.maskRectTransform.localScale;
 			for (int j = 0; j < this.m_frozenScale.Length; j++)
 			{

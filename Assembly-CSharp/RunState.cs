@@ -23,19 +23,6 @@ public class RunState : MoveState
 		base.stateName = "Run";
 		if (RunState.m_animHashRunRun == 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState..ctor(ActorMovement, BoardSquarePathInfo)).MethodHandle;
-			}
 			RunState.m_animHashRunRun = Animator.StringToHash("Base Layer.Run.Run");
 			RunState.m_animHashMovementRun = Animator.StringToHash("Base Layer.Movement.Run");
 			RunState.m_animHashRunStopping = Animator.StringToHash("Base Layer.Run.Stopping");
@@ -44,37 +31,10 @@ public class RunState : MoveState
 		}
 		if (this.m_animator != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_animator.layerCount > 0)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.IsRunStartHash(this.m_animator.GetCurrentAnimatorStateInfo(0).fullPathHash))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_startedRunAnim = true;
 				}
 				return;
@@ -82,15 +42,6 @@ public class RunState : MoveState
 		}
 		if (!NetworkClient.active)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_startedRunAnim = true;
 			this.m_startedExitAnim = true;
 		}
@@ -101,19 +52,6 @@ public class RunState : MoveState
 		bool result;
 		if (hash != RunState.m_animHashRunRun)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.IsRunStartHash(int)).MethodHandle;
-			}
 			result = (hash == RunState.m_animHashMovementRun);
 		}
 		else
@@ -128,19 +66,6 @@ public class RunState : MoveState
 		bool result;
 		if (hash != RunState.m_animHashRunStopping)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.IsRunStopHash(int)).MethodHandle;
-			}
 			result = (hash == RunState.m_animHashMovementRunEnd);
 		}
 		else
@@ -154,32 +79,10 @@ public class RunState : MoveState
 	{
 		if (this.IsRunStartHash(nextAnimHash))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.OnAnimChange(int, int, int, int)).MethodHandle;
-			}
 			this.m_startedRunAnim = true;
 		}
 		if (this.IsRunStopHash(nextAnimHash))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_startedExitAnim = true;
 		}
 		if (nextAnimTag == RunState.m_animTagHashIdle)
@@ -199,41 +102,10 @@ public class RunState : MoveState
 		float num = Time.deltaTime;
 		if (Application.isEditor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RunState.UpdateState()).MethodHandle;
-			}
 			if (num > 0.04f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (num < 0.08f)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = 0.04f;
 				}
 			}
@@ -241,15 +113,6 @@ public class RunState : MoveState
 		float num2;
 		if (this.m_pathSquareInfo.connectionType == BoardSquarePathInfo.ConnectionType.Vault)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num2 = this.m_ownerActorData.m_vaultSpeed * num;
 		}
 		else
@@ -260,15 +123,6 @@ public class RunState : MoveState
 		float num4 = num3 * num3;
 		if (sqrMagnitude > num4)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			vector.Normalize();
 			Vector3 transformPositionToVector = position + vector * num3;
 			transformPositionToVector.y = (float)Board.Get().BaselineHeight;
@@ -277,15 +131,6 @@ public class RunState : MoveState
 			dir.y = 0f;
 			if (dir.magnitude > 0.01f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_owner.m_actor.TurnToDirection(dir);
 			}
 		}

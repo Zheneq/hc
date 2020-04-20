@@ -26,15 +26,6 @@ public class SeasonCurrencyReward : SeasonReward
 			string str;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str = StringUtil.TR("ModTokens", "Rewards");
 			}
 			else
@@ -47,19 +38,6 @@ public class SeasonCurrencyReward : SeasonReward
 		default:
 			if (type != CurrencyType.FreelancerCurrency)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(SeasonCurrencyReward.GetItemTemplate()).MethodHandle;
-				}
 				string str2 = this.CurrencyReward.Type.ToString();
 				string term = str2 + ((!flag) ? string.Empty : "s");
 				InventoryItemTemplate inventoryItemTemplate4 = inventoryItemTemplate;
@@ -78,15 +56,6 @@ public class SeasonCurrencyReward : SeasonReward
 			string str3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				str3 = StringUtil.TR("GGBoosts", "Rewards");
 			}
 			else

@@ -48,19 +48,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		BlasterStretchingCone blasterStretchingCone = targetAbility as BlasterStretchingCone;
 		if (blasterStretchingCone != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BlasterStretchingCone.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_minLengthMod, "MinLength", string.Empty, blasterStretchingCone.m_minLength, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_maxLengthMod, "MaxLength", string.Empty, blasterStretchingCone.m_maxLength, true, false, false);
 			AbilityMod.AddToken(tokens, this.m_minAngleMod, "MinAngle", string.Empty, blasterStretchingCone.m_minAngle, true, false, false);
@@ -89,19 +76,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_BlasterStretchingCone.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = blasterStretchingCone.m_minLength;
 		}
 		else
@@ -116,15 +90,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		float baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = blasterStretchingCone.m_maxLength;
 		}
 		else
@@ -139,15 +104,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = blasterStretchingCone.m_minAngle;
 		}
 		else
@@ -162,15 +118,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = blasterStretchingCone.m_maxAngle;
 		}
 		else
@@ -185,15 +132,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		float baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = blasterStretchingCone.m_coneBackwardOffset;
 		}
 		else
@@ -210,15 +148,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = blasterStretchingCone.m_extraDamageForSingleHit;
 		}
 		else
@@ -233,15 +162,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		float baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = blasterStretchingCone.m_extraDamagePerSquareDistanceFromEnemy;
 		}
 		else
@@ -257,15 +177,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		float baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = blasterStretchingCone.m_distPerDamageChange;
 		}
 		else
@@ -280,15 +191,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		int baseVal9;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal9 = blasterStretchingCone.m_maxDamageChange;
 		}
 		else
@@ -303,15 +205,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		StandardEffectInfo baseVal10;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal10 = blasterStretchingCone.m_normalEnemyEffect;
 		}
 		else
@@ -326,15 +219,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		StandardEffectInfo baseVal11;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal11 = blasterStretchingCone.m_overchargedEnemyEffect;
 		}
 		else
@@ -349,15 +233,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		StandardEffectInfo baseVal12;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal12 = blasterStretchingCone.m_singleEnemyHitEffect;
 		}
 		else

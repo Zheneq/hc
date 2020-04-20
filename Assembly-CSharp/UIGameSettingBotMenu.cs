@@ -48,30 +48,8 @@ public class UIGameSettingBotMenu : UITooltipBase
 				LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
 				if (!lobbyPlayerInfo.IsNPCBot)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingBotMenu.Setup(UITeamMemberEntry, Image)).MethodHandle;
-					}
 					if (!lobbyPlayerInfo.IsRemoteControlled && num2 != lobbyPlayerInfo.PlayerId)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!lobbyPlayerInfo.IsSpectator)
 						{
 							this.m_playerList.Add(lobbyPlayerInfo);
@@ -82,28 +60,10 @@ public class UIGameSettingBotMenu : UITooltipBase
 					}
 				}
 			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		for (int i = num; i < this.m_botSelection.Length; i++)
 		{
 			UIManager.SetGameObjectActive(this.m_botSelection[i], false, null);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -130,30 +90,8 @@ public class UIGameSettingBotMenu : UITooltipBase
 		{
 			if (this.m_botSelection[i].gameObject != gObj)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingBotMenu.ClearButtonSelections(GameObject)).MethodHandle;
-				}
 				this.m_botSelection[i].color = Color.grey;
 			}
-		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -163,30 +101,8 @@ public class UIGameSettingBotMenu : UITooltipBase
 		{
 			if (this.m_botSelection[i].gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIGameSettingBotMenu.BotMenuItemClicked(BaseEventData)).MethodHandle;
-				}
 				this.m_teamMemberEntry.SetControllingPlayerInfo(this.m_playerList[i]);
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		base.SetVisible(false);
 	}

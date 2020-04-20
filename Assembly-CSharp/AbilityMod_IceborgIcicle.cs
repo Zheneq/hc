@@ -27,19 +27,6 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 		IceborgIcicle iceborgIcicle = targetAbility as IceborgIcicle;
 		if (iceborgIcicle != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgIcicle.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			AbilityMod.AddToken(tokens, this.m_energyOnCasterIfTargetHasNovaCoreMod, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore, true, false);
 			AbilityMod.AddToken(tokens, this.m_cdrIfHasHitMod, "CdrIfHasHit", string.Empty, iceborgIcicle.m_cdrIfHasHit, true, false);
@@ -53,19 +40,6 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 		string text = base.ModSpecificAutogenDesc(abilityData);
 		if (iceborgIcicle != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_IceborgIcicle.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			text += base.GetTargetSelectModDesc(this.m_targetSelectMod, iceborgIcicle.m_targetSelectComp, "-- Target Select --");
 			string str = text;
 			AbilityModPropertyInt energyOnCasterIfTargetHasNovaCoreMod = this.m_energyOnCasterIfTargetHasNovaCoreMod;
@@ -74,15 +48,6 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal = iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore;
 			}
 			else
@@ -97,15 +62,6 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = iceborgIcicle.m_cdrIfHasHit;
 			}
 			else

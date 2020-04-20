@@ -6,7 +6,7 @@ public class DebugCommand
 {
 	private List<string> m_slashCommands;
 
-	public virtual KeyCode \u001D()
+	public virtual KeyCode symbol_001D()
 	{
 		return KeyCode.None;
 	}
@@ -16,17 +16,17 @@ public class DebugCommand
 		return false;
 	}
 
-	public virtual bool \u000E()
+	public virtual bool symbol_000E()
 	{
 		return false;
 	}
 
-	public virtual bool \u0012()
+	public virtual bool symbol_0012()
 	{
 		return false;
 	}
 
-	public virtual bool \u0015()
+	public virtual bool symbol_0015()
 	{
 		return false;
 	}
@@ -54,7 +54,7 @@ public class DebugCommand
 	{
 	}
 
-	public virtual bool \u0016()
+	public virtual bool symbol_0016()
 	{
 		return true;
 	}
@@ -69,7 +69,7 @@ public class DebugCommand
 		return "+";
 	}
 
-	public virtual string \u0013()
+	public virtual string symbol_0013()
 	{
 		return "-";
 	}
@@ -84,36 +84,14 @@ public class DebugCommand
 		return string.Empty;
 	}
 
-	public virtual List<string> \u0018()
+	public virtual List<string> symbol_0018()
 	{
 		if (this.m_slashCommands == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand.\u0018()).MethodHandle;
-			}
 			this.m_slashCommands = new List<string>();
 			string slashCommand = this.GetSlashCommand();
 			if (!string.IsNullOrEmpty(slashCommand))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_slashCommands.Add(slashCommand.ToLower());
 			}
 		}
@@ -132,19 +110,6 @@ public class DebugCommand
 			ClientGameManager clientGameManager = ClientGameManager.Get();
 			if (clientGameManager != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(DebugCommand.get_CheatEnabled()).MethodHandle;
-				}
 				if (clientGameManager.IsReady)
 				{
 					return clientGameManager.EnvironmentType != EnvironmentType.External || clientGameManager.ClientAccessLevel == ClientAccessLevel.Admin;

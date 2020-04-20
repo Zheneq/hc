@@ -5,128 +5,88 @@ namespace I2.Loc.SimpleJSON
 {
 	public class JSONData : JSONNode
 	{
-		private string \u0012;
+		private string symbol_0012;
 
-		public JSONData(string \u001D)
+		public JSONData(string symbol_001D)
 		{
-			this.\u0012 = \u001D;
+			this.symbol_0012 = symbol_001D;
 		}
 
-		public JSONData(float \u001D)
+		public JSONData(float symbol_001D)
 		{
-			this.\u0003 = \u001D;
+			this.symbol_0003 = symbol_001D;
 		}
 
-		public JSONData(double \u001D)
+		public JSONData(double symbol_001D)
 		{
-			this.\u000F = \u001D;
+			this.symbol_000F = symbol_001D;
 		}
 
-		public JSONData(bool \u001D)
+		public JSONData(bool symbol_001D)
 		{
-			this.\u0017 = \u001D;
+			this.symbol_0017 = symbol_001D;
 		}
 
-		public JSONData(int \u001D)
+		public JSONData(int symbol_001D)
 		{
-			this.\u000B = \u001D;
+			this.symbol_000B = symbol_001D;
 		}
 
-		public override string \u0009
+		public override string symbol_0009
 		{
 			get
 			{
-				return this.\u0012;
+				return this.symbol_0012;
 			}
 			set
 			{
-				this.\u0012 = value;
+				this.symbol_0012 = value;
 			}
 		}
 
 		public override string ToString()
 		{
-			return "\"" + JSONNode.escapeString(this.\u0012) + "\"";
+			return "\"" + JSONNode.escapeString(this.symbol_0012) + "\"";
 		}
 
-		public override string \u0004(string \u001D)
+		public override string symbol_0004(string symbol_001D)
 		{
-			return "\"" + JSONNode.escapeString(this.\u0012) + "\"";
+			return "\"" + JSONNode.escapeString(this.symbol_0012) + "\"";
 		}
 
-		public override void \u0002(BinaryWriter \u001D)
+		public override void symbol_0002(BinaryWriter symbol_001D)
 		{
 			JSONData jsondata = new JSONData(string.Empty);
-			jsondata.\u000B = this.\u000B;
-			if (jsondata.\u0012 == this.\u0012)
+			jsondata.symbol_000B = this.symbol_000B;
+			if (jsondata.symbol_0012 == this.symbol_0012)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(I2.Loc.SimpleJSON.JSONData.\u0002(BinaryWriter)).MethodHandle;
-				}
-				\u001D.Write(4);
-				\u001D.Write(this.\u000B);
+				symbol_001D.Write(4);
+				symbol_001D.Write(this.symbol_000B);
 				return;
 			}
-			jsondata.\u0003 = this.\u0003;
-			if (jsondata.\u0012 == this.\u0012)
+			jsondata.symbol_0003 = this.symbol_0003;
+			if (jsondata.symbol_0012 == this.symbol_0012)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				\u001D.Write(7);
-				\u001D.Write(this.\u0003);
+				symbol_001D.Write(7);
+				symbol_001D.Write(this.symbol_0003);
 				return;
 			}
-			jsondata.\u000F = this.\u000F;
-			if (jsondata.\u0012 == this.\u0012)
+			jsondata.symbol_000F = this.symbol_000F;
+			if (jsondata.symbol_0012 == this.symbol_0012)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				\u001D.Write(5);
-				\u001D.Write(this.\u000F);
+				symbol_001D.Write(5);
+				symbol_001D.Write(this.symbol_000F);
 				return;
 			}
-			jsondata.\u0017 = this.\u0017;
-			if (jsondata.\u0012 == this.\u0012)
+			jsondata.symbol_0017 = this.symbol_0017;
+			if (jsondata.symbol_0012 == this.symbol_0012)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				\u001D.Write(6);
-				\u001D.Write(this.\u0017);
+				symbol_001D.Write(6);
+				symbol_001D.Write(this.symbol_0017);
 				return;
 			}
-			\u001D.Write(3);
-			\u001D.Write(this.\u0012);
+			symbol_001D.Write(3);
+			symbol_001D.Write(this.symbol_0012);
 		}
 	}
 }

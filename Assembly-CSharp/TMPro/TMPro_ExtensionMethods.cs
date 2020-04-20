@@ -12,19 +12,6 @@ namespace TMPro
 			int i = 0;
 			while (i < chars.Length)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(char[].ArrayToString()).MethodHandle;
-				}
 				if (chars[i] == '\0')
 				{
 					for (;;)
@@ -54,30 +41,8 @@ namespace TMPro
 				T t = list[i];
 				if (t.GetInstanceID() == instanceID)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(List<T>.FindInstanceID(T)).MethodHandle;
-					}
 					return i;
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return -1;
 		}
@@ -86,41 +51,10 @@ namespace TMPro
 		{
 			if (a.r == b.r)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Color32.Compare(Color32)).MethodHandle;
-				}
 				if (a.g == b.g)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (a.b == b.b)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return a.a == b.a;
 					}
 				}
@@ -132,30 +66,8 @@ namespace TMPro
 		{
 			if (a.r == b.r)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Color32.CompareRGB(Color32)).MethodHandle;
-				}
 				if (a.g == b.g)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return a.b == b.b;
 				}
 			}
@@ -166,30 +78,8 @@ namespace TMPro
 		{
 			if (a.r == b.r)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Color.Compare(Color)).MethodHandle;
-				}
 				if (a.g == b.g && a.b == b.b)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return a.a == b.a;
 				}
 			}
@@ -201,19 +91,6 @@ namespace TMPro
 			bool result;
 			if (a.r == b.r && a.g == b.g)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Color.CompareRGB(Color)).MethodHandle;
-				}
 				result = (a.b == b.b);
 			}
 			else
@@ -257,30 +134,8 @@ namespace TMPro
 			bool result = (int)(v1.z * (float)accuracy) == (int)(v2.z * (float)accuracy);
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Vector3.Compare(Vector3, int)).MethodHandle;
-				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return result;
 				}
 			}
@@ -295,30 +150,8 @@ namespace TMPro
 			bool result = (int)(q1.w * (float)accuracy) == (int)(q2.w * (float)accuracy);
 			if (flag && flag2)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Quaternion.Compare(Quaternion, int)).MethodHandle;
-				}
 				if (flag3)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return result;
 				}
 			}

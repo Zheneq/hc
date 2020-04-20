@@ -28,31 +28,9 @@ public class GameOverBannerMenu : UITooltipBase
 			GameOverBannerMenu.GameOverButtonAction action = (GameOverBannerMenu.GameOverButtonAction)i;
 			if (this.IsValidButtonAction(action, true))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverBannerMenu.Start()).MethodHandle;
-				}
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseOver));
 				UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseClicked));
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -60,78 +38,20 @@ public class GameOverBannerMenu : UITooltipBase
 	{
 		if (this.m_botMasqueradingAsHuman)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverBannerMenu.IsValidButtonAction(GameOverBannerMenu.GameOverButtonAction, bool)).MethodHandle;
-			}
 			return true;
 		}
 		if (!this.m_playerHandle.IsNullOrEmpty() && this.m_playerAccountID != 0L)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (action == GameOverBannerMenu.GameOverButtonAction.AddFriend)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().FriendList.Friends.ContainsKey(this.m_playerAccountID))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FriendInfo friendInfo = ClientGameManager.Get().FriendList.Friends[this.m_playerAccountID];
 					if (friendInfo.FriendStatus != FriendStatus.Friend)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (friendInfo.FriendStatus != FriendStatus.Blocked)
 						{
 							goto IL_CA;
-						}
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
 						}
 					}
 					return false;
@@ -140,64 +60,19 @@ public class GameOverBannerMenu : UITooltipBase
 			IL_CA:
 			if (action == GameOverBannerMenu.GameOverButtonAction.BlockPlayer)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().FriendList.Friends.ContainsKey(this.m_playerAccountID))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					FriendInfo friendInfo2 = ClientGameManager.Get().FriendList.Friends[this.m_playerAccountID];
 					if (friendInfo2.FriendStatus == FriendStatus.Blocked)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						return false;
 					}
 				}
 			}
 			if (action == GameOverBannerMenu.GameOverButtonAction.ReportPlayer)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_playerAccountID == ClientGameManager.Get().GetPlayerAccountData().AccountId)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return false;
 				}
 			}
@@ -209,30 +84,8 @@ public class GameOverBannerMenu : UITooltipBase
 	{
 		if (!response.Success)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverBannerMenu.HandleFriendUpdateResponse(FriendUpdateResponse)).MethodHandle;
-			}
 			if (response.LocalizedFailure != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				response.ErrorMessage = response.LocalizedFailure.ToString();
 			}
 			else if (response.ErrorMessage.IsNullOrEmpty())
@@ -260,15 +113,6 @@ public class GameOverBannerMenu : UITooltipBase
 			}
 			if (!text.IsNullOrEmpty())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, text, StringUtil.TR("Ok", "Global"), null, -1, false);
 			}
 		}
@@ -278,44 +122,13 @@ public class GameOverBannerMenu : UITooltipBase
 	{
 		if (!this.m_playerHandle.IsNullOrEmpty())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverBannerMenu.OnGroupChatMouseClicked(BaseEventData)).MethodHandle;
-			}
 			if (this.m_playerAccountID != 0L)
 			{
 				goto IL_47;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (!this.m_botMasqueradingAsHuman)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		IL_47:
@@ -323,62 +136,17 @@ public class GameOverBannerMenu : UITooltipBase
 		{
 			if (this.IsValidButtonAction((GameOverBannerMenu.GameOverButtonAction)i, false))
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					switch (i)
 					{
 					case 0:
 						if (UIManager.Get().CurrentState == UIManager.ClientState.InFrontEnd)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (UIFrontEnd.Get() != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + this.m_playerHandle + " ");
 									goto IL_1BA;
 								}
@@ -386,26 +154,8 @@ public class GameOverBannerMenu : UITooltipBase
 						}
 						if (UIManager.Get().CurrentState == UIManager.ClientState.InGame)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (HUD_UI.Get() != null)
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (HUD_UI.Get().m_textConsole != null)
 								{
 									HUD_UI.Get().m_textConsole.SelectInput("/whisper " + this.m_playerHandle + " ");
@@ -496,19 +246,6 @@ public class GameOverBannerMenu : UITooltipBase
 			{
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverBannerMenu.OnGroupChatMouseOver(BaseEventData)).MethodHandle;
-					}
 					this.m_menuButtons[i].m_icon.color = Color.white;
 					this.m_menuButtons[i].m_label.color = Color.white;
 				}
@@ -523,15 +260,6 @@ public class GameOverBannerMenu : UITooltipBase
 				this.m_menuButtons[i].m_icon.color = Color.gray;
 				this.m_menuButtons[i].m_label.color = Color.gray;
 			}
-		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -568,19 +296,6 @@ public class GameOverBannerMenu : UITooltipBase
 			GameOverBannerMenu.GameOverButtonAction action = (GameOverBannerMenu.GameOverButtonAction)i;
 			if (this.IsValidButtonAction(action, false))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverBannerMenu.Setup(MatchResultsStatline)).MethodHandle;
-				}
 				this.m_menuButtons[i].m_icon.color = this.m_unhighlightedMenuItemColor;
 				this.m_menuButtons[i].m_label.color = this.m_unhighlightedMenuItemColor;
 			}
@@ -589,15 +304,6 @@ public class GameOverBannerMenu : UITooltipBase
 				this.m_menuButtons[i].m_icon.color = Color.gray;
 				this.m_menuButtons[i].m_label.color = Color.gray;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -621,19 +327,6 @@ public class GameOverBannerMenu : UITooltipBase
 				this.m_menuButtons[i].m_icon.color = Color.gray;
 				this.m_menuButtons[i].m_label.color = Color.gray;
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GameOverBannerMenu.Setup(ActorData)).MethodHandle;
 		}
 	}
 

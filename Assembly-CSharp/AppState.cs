@@ -40,19 +40,6 @@ public class AppState : MonoBehaviour
 		string result;
 		if (AppState.GetCurrent() == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.GetCurrentName()).MethodHandle;
-			}
 			result = "NULL";
 		}
 		else
@@ -66,41 +53,10 @@ public class AppState : MonoBehaviour
 	{
 		if (!(AppState.GetCurrent() == AppState_InGameDecision.Get()))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.IsInGame()).MethodHandle;
-			}
 			if (!(AppState.GetCurrent() == AppState_InGameStarting.Get()) && !(AppState.GetCurrent() == AppState_InGameDeployment.Get()))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState.GetCurrent() == AppState_InGameResolve.Get()))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return AppState.GetCurrent() == AppState_InGameEnding.Get();
 				}
 			}
@@ -112,19 +68,6 @@ public class AppState : MonoBehaviour
 	{
 		if (base.enabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.Enter()).MethodHandle;
-			}
 			base.enabled = false;
 		}
 		base.enabled = true;
@@ -141,34 +84,12 @@ public class AppState : MonoBehaviour
 	{
 		if (AppState.s_ready)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.OnEnable()).MethodHandle;
-			}
 			if (!(AppState.s_currentAppState == this))
 			{
 				AppState.s_previousAppState = AppState.s_currentAppState;
 				AppState.s_nextAppState = this;
 				if (AppState.s_currentAppState != null)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					AppState.s_currentAppState.Leave();
 				}
 				Log.Info("Entering {0}", new object[]
@@ -181,15 +102,6 @@ public class AppState : MonoBehaviour
 				GameEventManager.Get().FireEvent(GameEventManager.EventType.AppStateChanged, null);
 				return;
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 	}
 
@@ -197,19 +109,6 @@ public class AppState : MonoBehaviour
 	{
 		if (AppState.s_ready)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.OnDisable()).MethodHandle;
-			}
 			if (!(AppState.s_currentAppState != this))
 			{
 				this.OnLeave();
@@ -245,19 +144,6 @@ public class AppState : MonoBehaviour
 	{
 		if (!AppState.s_ready)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AppState.Create()).MethodHandle;
-			}
 			Log.Error("AppState.Create not ready! code error", new object[0]);
 			return (AppStateType)((object)null);
 		}

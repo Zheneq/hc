@@ -15,19 +15,6 @@ public class ProfilingTimer
 		this.VolatileBytes += bytes;
 		if (skipped)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ProfilingTimer.Increment(long, long, bool)).MethodHandle;
-			}
 			this.VolatileCallsSkipped += 1L;
 		}
 	}

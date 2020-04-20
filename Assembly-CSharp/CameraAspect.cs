@@ -16,19 +16,6 @@ public class CameraAspect : MonoBehaviour
 			float result;
 			if (this.m_height == 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(CameraAspect.get_Aspect()).MethodHandle;
-				}
 				result = 1f;
 			}
 			else

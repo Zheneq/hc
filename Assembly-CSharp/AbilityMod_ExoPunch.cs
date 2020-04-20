@@ -68,19 +68,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		float baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_ExoPunch.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = exoPunch.m_coneBackwardOffset;
 		}
 		else
@@ -96,15 +83,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		bool baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = exoPunch.m_penetrateLineOfSight;
 		}
 		else
@@ -119,15 +97,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = exoPunch.m_maxTargets;
 		}
 		else
@@ -142,15 +111,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		float baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = exoPunch.m_knockbackDistance;
 		}
 		else
@@ -166,15 +126,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = exoPunch.m_damageAmount;
 		}
 		else
@@ -189,15 +140,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		StandardEffectInfo baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = exoPunch.m_targetHitEffect;
 		}
 		else
@@ -213,15 +155,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = exoPunch.m_nearEnemyExtraDamage;
 		}
 		else
@@ -236,15 +169,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		StandardEffectInfo baseVal8;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal8 = exoPunch.m_nearEnemyExtraEffect;
 		}
 		else

@@ -26,19 +26,6 @@ public class GameResultBadgeData : MonoBehaviour
 				return this.StatDescriptions[i].LowerIsBetter;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.IsStatLowerBetter(StatDisplaySettings.StatType)).MethodHandle;
-		}
 		return false;
 	}
 
@@ -76,30 +63,8 @@ public class GameResultBadgeData : MonoBehaviour
 		{
 			if (this.StatDescriptions[i].m_StatType == TypeOfStat)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.GetStatDescription(StatDisplaySettings.StatType)).MethodHandle;
-				}
 				return this.StatDescriptions[i];
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -133,30 +98,8 @@ public class GameResultBadgeData : MonoBehaviour
 		{
 			if (this.GameResultBadges[i].UniqueBadgeID == badgeID)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.GetBadgeInfo(int)).MethodHandle;
-				}
 				return this.GameResultBadges[i];
 			}
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return null;
 	}
@@ -185,47 +128,16 @@ public class GameResultBadgeData : MonoBehaviour
 		{
 			if (description != null)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(GameResultBadgeData.StatDescription.GetStatUnit(GameResultBadgeData.StatDescription)).MethodHandle;
-				}
 				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.PerTurn)
 				{
 					return StringUtil.TR("PerTurn", "Global");
 				}
 				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.PerLife)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return StringUtil.TR("PerLife", "Global");
 				}
 				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.PerTwentyLives)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return StringUtil.TR("PerTwentyLives", "Global");
 				}
 				if (description.StatUnit == GameResultBadgeData.StatDescription.StatUnitType.Percentage)

@@ -23,19 +23,6 @@ public class SniperPenetratingRound : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Penetrating Round";
 		}
 		this.SetupTargeter();
@@ -45,19 +32,6 @@ public class SniperPenetratingRound : Ability
 	{
 		if (this.CanKnockbackOnHitActors())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.SetupTargeter()).MethodHandle;
-			}
 			base.Targeter = new AbilityUtil_Targeter_SniperPenetratingRound(this, this.GetLaserWidth(), this.GetLaserRange(), this.m_laserInfo.penetrateLos, this.m_laserInfo.maxTargets, true, this.GetKnockbackThresholdDistance(), this.m_abilityMod.m_knockbackType, this.m_abilityMod.m_knockbackDistance);
 		}
 		else
@@ -80,19 +54,6 @@ public class SniperPenetratingRound : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetModdedDamage()).MethodHandle;
-			}
 			return this.m_abilityMod.m_laserDamage.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		return this.m_laserDamageAmount;
@@ -102,41 +63,10 @@ public class SniperPenetratingRound : Ability
 	{
 		if (this.m_abilityMod != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.CanKnockbackOnHitActors()).MethodHandle;
-			}
 			if (this.m_abilityMod.m_knockbackHitEnemy)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_abilityMod.m_knockbackDistance > 0f)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
@@ -149,19 +79,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetLaserWidth()).MethodHandle;
-			}
 			result = this.m_laserInfo.width;
 		}
 		else
@@ -176,19 +93,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetLaserRange()).MethodHandle;
-			}
 			result = this.m_laserInfo.range;
 		}
 		else
@@ -202,19 +106,6 @@ public class SniperPenetratingRound : Ability
 	{
 		if (this.m_abilityMod != null && this.m_abilityMod.m_useEnemyHitEffectOverride)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetEnemyHitEffect()).MethodHandle;
-			}
 			return this.m_abilityMod.m_enemyHitEffectOverride;
 		}
 		return this.m_laserHitEffect;
@@ -225,19 +116,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetKnockbackThresholdDistance()).MethodHandle;
-			}
 			result = -1f;
 		}
 		else
@@ -252,19 +130,6 @@ public class SniperPenetratingRound : Ability
 		int result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetAdditionalDamageOnLowHealthTarget()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_additionalDamageOnLowHealthTargetMod.GetModifiedValue(this.m_additionalDamageOnLowHealthTarget);
 		}
 		else
@@ -279,19 +144,6 @@ public class SniperPenetratingRound : Ability
 		float result;
 		if (this.m_abilityMod)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetLowHealthThreshold()).MethodHandle;
-			}
 			result = this.m_abilityMod.m_lowHealthThresholdMod.GetModifiedValue(this.m_lowHealthThreshold);
 		}
 		else
@@ -306,19 +158,6 @@ public class SniperPenetratingRound : Ability
 		List<AbilityTooltipNumber> result = new List<AbilityTooltipNumber>();
 		if (this.GetModdedDamage() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.CalculateAbilityTooltipNumbers()).MethodHandle;
-			}
 			AbilityTooltipHelper.ReportDamage(ref result, AbilityTooltipSubject.Primary, this.GetModdedDamage());
 		}
 		this.m_laserHitEffect.ReportAbilityTooltipNumbers(ref result, AbilityTooltipSubject.Primary);
@@ -330,46 +169,15 @@ public class SniperPenetratingRound : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (this.GetLowHealthThreshold() > 0f && this.GetAdditionalDamageOnLowHealthTarget() > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.GetCustomNameplateItemTooltipValues(ActorData, int)).MethodHandle;
-			}
 			List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
 			if (tooltipSubjectTypes != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 				{
 					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 					int num;
 					if (targetActor.GetHitPointShareOfMax() < this.GetLowHealthThreshold())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num = this.GetAdditionalDamageOnLowHealthTarget();
 					}
 					else
@@ -392,19 +200,6 @@ public class SniperPenetratingRound : Ability
 		int val;
 		if (abilityMod_SniperPenetratingRound)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_SniperPenetratingRound.m_laserDamage.GetModifiedValue(this.m_laserDamageAmount);
 		}
 		else
@@ -418,15 +213,6 @@ public class SniperPenetratingRound : Ability
 		int val2;
 		if (abilityMod_SniperPenetratingRound)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_SniperPenetratingRound.m_additionalDamageOnLowHealthTargetMod.GetModifiedValue(this.m_additionalDamageOnLowHealthTarget);
 		}
 		else
@@ -440,19 +226,6 @@ public class SniperPenetratingRound : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SniperPenetratingRound))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(SniperPenetratingRound.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_SniperPenetratingRound);
 			this.SetupTargeter();
 		}

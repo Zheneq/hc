@@ -41,19 +41,6 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		bool shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreSlam..ctor(Ability, float, float, int, float, float, float, bool, bool, bool, bool, bool)).MethodHandle;
-			}
 			shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
 		}
 		else
@@ -79,30 +66,8 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		VectorUtils.LaserCoords laserCoords2 = laserCoords;
 		if (this.m_affectsTargetingActor)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreSlam.UpdateTargeting(AbilityTarget, ActorData)).MethodHandle;
-			}
 			if (!actorsInLaser.Contains(targetingActor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				base.AddActorInRange(targetingActor, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Self, false);
 			}
 		}
@@ -116,32 +81,14 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 				ActorData actorData = enumerator.Current;
 				if (this.ShouldAddActor(actorData, targetingActor))
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float value = (actorData.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 					base.AddActorInRange(actorData, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Primary, false);
 					ActorHitContext actorHitContext = this.m_actorContextVars[actorData];
-					actorHitContext.\u001D = laserCoords2.start;
-					actorHitContext.\u0015.SetInt(ContextKeys.\u0011.GetHash(), num);
-					actorHitContext.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value);
+					actorHitContext.symbol_001D = laserCoords2.start;
+					actorHitContext.symbol_0015.SetInt(ContextKeys.symbol_0011.GetHash(), num);
+					actorHitContext.symbol_0015.SetFloat(ContextKeys.symbol_0018.GetHash(), value);
 					num++;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		float num2 = VectorUtils.HorizontalAngle_Deg(aimDirection);
@@ -157,42 +104,15 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 					base.AddActorInRange(actorData2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Secondary, this.m_appendTooltipForDuplicates);
 					if (!actorsInLaser.Contains(actorData2))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (actorData2 != targetingActor)
 						{
-							for (;;)
-							{
-								switch (7)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							float value2 = (actorData2.GetTravelBoardSquareWorldPosition() - travelBoardSquareWorldPosition).magnitude / squareSizeStatic;
 							ActorHitContext actorHitContext2 = this.m_actorContextVars[actorData2];
-							actorHitContext2.\u001D = laserCoords2.start;
-							actorHitContext2.\u0015.SetFloat(ContextKeys.\u0018.GetHash(), value2);
+							actorHitContext2.symbol_001D = laserCoords2.start;
+							actorHitContext2.symbol_0015.SetFloat(ContextKeys.symbol_0018.GetHash(), value2);
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		GameObject gameObject = this.m_highlights[0];
@@ -204,15 +124,6 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		HighlightUtils.Get().RotateAndResizeRectangularCursor(this.m_highlights[1], travelBoardSquareWorldPositionForLos, laserCoords2.end, this.m_laserWidth);
 		if (GameFlowData.Get().activeOwnedActorData == targetingActor)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			SquareInsideChecker_Box squareInsideChecker_Box = this.m_squarePosCheckerList[0] as SquareInsideChecker_Box;
 			SquareInsideChecker_Cone squareInsideChecker_Cone = this.m_squarePosCheckerList[1] as SquareInsideChecker_Cone;
 			squareInsideChecker_Box.UpdateBoxProperties(travelBoardSquareWorldPositionForLos, laserCoords2.end, targetingActor);
@@ -235,44 +146,13 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 		{
 			if (actor.GetTeam() == caster.GetTeam())
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreSlam.ShouldAddActor(ActorData, ActorData)).MethodHandle;
-				}
 				if (this.m_affectsAllies)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					return true;
 				}
 			}
 			if (actor.GetTeam() != caster.GetTeam() && this.m_affectsEnemies)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = true;
 			}
 		}
@@ -283,31 +163,9 @@ public class AbilityUtil_Targeter_ClaymoreSlam : AbilityUtil_Targeter
 	{
 		if (this.m_highlights != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_ClaymoreSlam.AllocateHighlights()).MethodHandle;
-			}
 			if (this.m_highlights.Count >= 2)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		this.m_highlights = new List<GameObject>();

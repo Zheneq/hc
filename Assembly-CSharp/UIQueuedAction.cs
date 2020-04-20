@@ -76,19 +76,6 @@ public class UIQueuedAction : MonoBehaviour
 			color.b = c.b;
 			this.m_queueLines[i].color = color;
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAction.SetQueueLineColor(Color)).MethodHandle;
-		}
 		this.m_queueLineColor = c;
 	}
 
@@ -125,19 +112,6 @@ public class UIQueuedAction : MonoBehaviour
 		this.m_colorchangeStartTime = Time.time;
 		if (this.m_lockedIn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAction.NotifyLockedIn(bool)).MethodHandle;
-			}
 			this.m_colorDistance = Vector3.Distance(new Vector3(this.m_queueLineColor.r, this.m_queueLineColor.g, this.m_queueLineColor.b), Vector3.one);
 		}
 		else
@@ -145,15 +119,6 @@ public class UIQueuedAction : MonoBehaviour
 			Color color = Color.white;
 			if (this.m_glowState)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				color = this.m_activeQueueColor;
 			}
 			else
@@ -190,45 +155,14 @@ public class UIQueuedAction : MonoBehaviour
 		this.m_queueType = UIQueuedAction.ActionType.None;
 		if (AbilityData.ActionType.CARD_0 <= actionType)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAction.SetupAbility(AbilityData.AbilityEntry, AbilityData.ActionType, AbilityData, bool)).MethodHandle;
-			}
 			if (actionType <= AbilityData.ActionType.CARD_2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_queueType = UIQueuedAction.ActionType.Card;
 				goto IL_58;
 			}
 		}
 		if (AbilityData.ActionType.ABILITY_0 <= actionType && actionType <= AbilityData.ActionType.ABILITY_6)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_queueType = UIQueuedAction.ActionType.Ability;
 		}
 		IL_58:
@@ -265,19 +199,6 @@ public class UIQueuedAction : MonoBehaviour
 		this.m_abilityData = null;
 		if (updateVisible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAction.ClearAction(bool, bool)).MethodHandle;
-			}
 			this.UpdateVisibility(doNotAnimate);
 		}
 	}
@@ -319,45 +240,14 @@ public class UIQueuedAction : MonoBehaviour
 	{
 		if (this.m_queueType == UIQueuedAction.ActionType.None)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAction.UpdateVisibility(bool)).MethodHandle;
-			}
 			UIManager.SetGameObjectActive(this.TauntCancelButton, false, null);
 			if (!bDoNotPlayAnim)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_cardTransform.gameObject.activeSelf)
 				{
 					if (!this.m_abilityTransform.gameObject.activeSelf)
 					{
 						goto IL_A1;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.SetCancelAnimPlaying(true);
@@ -375,15 +265,6 @@ public class UIQueuedAction : MonoBehaviour
 			ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 			if (activeOwnedActorData != null && this.m_actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				ActorCinematicRequests component = activeOwnedActorData.GetComponent<ActorCinematicRequests>();
 				if (component.IsAbilityCinematicRequested(this.m_actionType))
 				{
@@ -393,15 +274,6 @@ public class UIQueuedAction : MonoBehaviour
 			this.m_queueLineVisible = true;
 			if (!bDoNotPlayAnim)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.SetQueueLineOpacity(0f);
 				this.PlayAnimation("QueueItem_EnterQueue", 0);
 			}
@@ -412,26 +284,8 @@ public class UIQueuedAction : MonoBehaviour
 		{
 			if (queueType != UIQueuedAction.ActionType.Card)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (queueType != UIQueuedAction.ActionType.Movement)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				else
 				{
@@ -464,45 +318,14 @@ public class UIQueuedAction : MonoBehaviour
 	{
 		if (this.m_actionType == AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAction.CanceledTaunt(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null && this.m_actionType != AbilityData.ActionType.INVALID_ACTION)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ActorCinematicRequests component = activeOwnedActorData.GetComponent<ActorCinematicRequests>();
 			if (component.IsAbilityCinematicRequested(this.m_actionType))
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				activeOwnedActorData.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(this.m_actionType, false, -1, -1);
 				UIManager.SetGameObjectActive(this.TauntCancelButton, false, null);
 			}
@@ -527,31 +350,9 @@ public class UIQueuedAction : MonoBehaviour
 		this.m_refreshingAction = false;
 		if (this.m_glowState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIQueuedAction.Update()).MethodHandle;
-			}
 			for (int i = 0; i < this.m_queueLines.Length; i++)
 			{
 				this.m_queueLines[i].color = this.m_activeQueueColor;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		else
@@ -559,15 +360,6 @@ public class UIQueuedAction : MonoBehaviour
 			for (int j = 0; j < this.m_queueLines.Length; j++)
 			{
 				this.m_queueLines[j].color = this.m_pastQueueColor;
-			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		UIManager.SetGameObjectActive(this.m_cardTransform, this.m_cardTransformVisibility, null);

@@ -32,19 +32,6 @@ public class UIChatBox : UIScene
 	{
 		if (UIChatBox.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIChatBox.GetChatBox(UIManager.ClientState)).MethodHandle;
-			}
 			return UIChatBox.Get().m_chatBox;
 		}
 		return null;
@@ -78,19 +65,6 @@ public class UIChatBox : UIScene
 				UIManager.ClientState? newClientGameState3 = newState.NewClientGameState;
 				if (newClientGameState3.Value == UIManager.ClientState.InFrontEnd)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIChatBox.NotifyGameStateChange(SceneStateParameters)).MethodHandle;
-					}
 					this.m_chatBox.transform.SetParent(this.m_FrontEndChatboxContainer.transform);
 					(this.m_chatBox.transform as RectTransform).anchoredPosition = this.m_frontEndPosition;
 					(this.m_chatBox.transform as RectTransform).sizeDelta = this.m_frontEndSize;
@@ -100,15 +74,6 @@ public class UIChatBox : UIScene
 					UIManager.ClientState? newClientGameState4 = newState.NewClientGameState;
 					if (newClientGameState4.Value == UIManager.ClientState.InGame)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_chatBox.transform.SetParent(this.m_InGameChatboxContainer.transform);
 						(this.m_chatBox.transform as RectTransform).anchoredPosition = this.m_inGamePosition;
 						(this.m_chatBox.transform as RectTransform).sizeDelta = this.m_inGameSize;

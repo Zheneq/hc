@@ -23,19 +23,6 @@ public class UITauntSelectionButton : MonoBehaviour
 	{
 		if (this.m_buttonHitBox != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelectionButton.Start()).MethodHandle;
-			}
 			UIEventTriggerUtils.AddListener(this.m_buttonHitBox.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.SelectedTaunt));
 		}
 	}
@@ -54,19 +41,6 @@ public class UITauntSelectionButton : MonoBehaviour
 		}));
 		if (activeOwnedActorData != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelectionButton.SelectedTaunt(BaseEventData)).MethodHandle;
-			}
 			activeOwnedActorData.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(this.m_actionType, true, this.m_tauntRef.m_tauntNumber, this.m_tauntRef.m_uniqueTauntID);
 		}
 		HUD_UI.Get().m_mainScreenPanel.m_queueListPanel.SelectedTaunt(this.m_actionType);
@@ -85,19 +59,6 @@ public class UITauntSelectionButton : MonoBehaviour
 		{
 			if (taunts[i].m_uniqueID == taunt.m_uniqueTauntID)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UITauntSelectionButton.SetupTaunt(AbilityData.ActionType, AbilityData.AbilityEntry, CameraShotSequence)).MethodHandle;
-				}
 				this.m_tauntName.text = string.Format("{0}: {1}", this.m_abilityEntry.ability.GetNameString(), activeOwnedActorData.GetCharacterResourceLink().GetTauntName(i));
 				return;
 			}

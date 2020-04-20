@@ -106,19 +106,6 @@ public class RenderSettingsStore : MonoBehaviour
 		GameObject gameObject = GameObject.Find("RenderSettingsStore");
 		if (gameObject != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RenderSettingsStore.UpdateRenderSettingsStore()).MethodHandle;
-			}
 			UnityEngine.Object.DestroyImmediate(gameObject);
 		}
 		GameObject gameObject2 = new GameObject("RenderSettingsStore");
@@ -135,19 +122,6 @@ public class RenderSettingsStore : MonoBehaviour
 			RenderSettingsStore component = gameObject.GetComponent<RenderSettingsStore>();
 			if (component != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(RenderSettingsStore.LoadRenderSettingsStore()).MethodHandle;
-				}
 				component.RestoreGlobalRenderSettings();
 				result = true;
 			}

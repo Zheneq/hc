@@ -27,43 +27,12 @@ namespace I2.Loc
 				{
 					if (!string.IsNullOrEmpty(text2))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (!true)
-						{
-							RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.ReadTextAsset(TextAsset)).MethodHandle;
-						}
 						if (!string.IsNullOrEmpty(value))
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							dictionary[text2] = value;
 						}
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			return dictionary;
 		}
@@ -78,19 +47,6 @@ namespace I2.Loc
 			int num = line.LastIndexOf("//");
 			if (num >= 0)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.TextAsset_ReadLine(string, string*, string*, string*, string*, string*)).MethodHandle;
-				}
 				comment = line.Substring(num + 2).Trim();
 				comment = LocalizationReader.DecodeString(comment);
 				line = line.Substring(0, num);
@@ -98,15 +54,6 @@ namespace I2.Loc
 			int num2 = line.IndexOf("=");
 			if (num2 < 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				return false;
 			}
 			key = line.Substring(0, num2).Trim();
@@ -115,26 +62,8 @@ namespace I2.Loc
 			value = LocalizationReader.DecodeString(value);
 			if (key.Length > 2)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (key[0] == '[')
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int num3 = key.IndexOf(']');
 					if (num3 >= 0)
 					{
@@ -159,19 +88,6 @@ namespace I2.Loc
 			{
 				if (streamReader != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.ReadCSVfile(string)).MethodHandle;
-					}
 					((IDisposable)streamReader).Dispose();
 				}
 			}
@@ -189,19 +105,6 @@ namespace I2.Loc
 				string[] array = LocalizationReader.ParseCSVline(Text, ref i, Separator);
 				if (array == null)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.ReadCSV(string, char)).MethodHandle;
-					}
 					return list;
 				}
 				list.Add(array);
@@ -228,54 +131,14 @@ namespace I2.Loc
 				char c = Line[iStart];
 				if (flag)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.ParseCSVline(string, int*, char)).MethodHandle;
-					}
 					if (c == '"')
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (iStart + 1 < length)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (Line[iStart + 1] == '"')
 							{
 								if (iStart + 2 < length)
 								{
-									for (;;)
-									{
-										switch (4)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (Line[iStart + 2] == '"')
 									{
 										flag = false;
@@ -297,29 +160,11 @@ namespace I2.Loc
 					{
 						if (c == Separator)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						else
 						{
 							if (c == '"')
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								flag = true;
 								goto IL_F0;
 							}
@@ -329,28 +174,10 @@ namespace I2.Loc
 					LocalizationReader.AddCSVtoken(ref list, ref Line, iStart, ref num);
 					if (c == '\n')
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						iStart++;
 						IL_108:
 						if (iStart > num)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							LocalizationReader.AddCSVtoken(ref list, ref Line, iStart, ref num);
 						}
 						return list.ToArray();
@@ -377,30 +204,8 @@ namespace I2.Loc
 			text = text.Replace("\"\"", "\"");
 			if (text.Length > 1)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.AddCSVtoken(List<string>*, string*, int, int*)).MethodHandle;
-				}
 				if (text[0] == '"' && text[text.Length - 1] == '"')
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					text = text.Substring(1, text.Length - 2);
 				}
 			}
@@ -413,34 +218,12 @@ namespace I2.Loc
 			int num = Term.IndexOf('/');
 			if (num < 0)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.ValidateFullTerm(string*)).MethodHandle;
-				}
 				return;
 			}
 			int startIndex;
 			while ((startIndex = Term.LastIndexOf('/')) != num)
 			{
 				Term = Term.Remove(startIndex, 1);
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 
@@ -457,19 +240,6 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(str))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationReader.DecodeString(string)).MethodHandle;
-				}
 				return string.Empty;
 			}
 			return str.Replace("<\\n>", "\r\n");

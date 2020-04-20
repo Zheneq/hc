@@ -57,31 +57,9 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (activeNow != this.m_usingCurrentActiveActorColor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.SetHealthBarColorForActiveActor(bool)).MethodHandle;
-			}
 			this.m_usingCurrentActiveActorColor = activeNow;
 			if (this.m_healthImage != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (activeNow)
 				{
 					this.m_healthImage.color = this.m_activeActorColor;
@@ -98,32 +76,10 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (this.m_lastPendingHealthPercent == this.m_pendingHPPercent)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdatePendingHealthBar()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_healthPercent > 0f)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_pendingHPImage.fillAmount = this.m_pendingHPPercent;
 			this.m_pendingHPImage.gameObject.SetActive(true);
 		}
@@ -138,55 +94,15 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (!this.m_usingCurrentActiveActorColor)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdateHealthBar()).MethodHandle;
-			}
 			if (this.m_actor != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				TurnStateEnum currentState = this.m_actor.GetActorTurnSM().CurrentState;
 				if (currentState != TurnStateEnum.CONFIRMED)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (currentState != TurnStateEnum.WAITING)
 					{
 						this.m_healthImage.color = Color.white;
 						goto IL_8C;
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				this.m_healthImage.color = this.m_confirmedActorColor;
@@ -195,15 +111,6 @@ public class UISideHealthBar : MonoBehaviour
 		IL_8C:
 		if (this.m_lastHealthPercent == this.m_healthPercent)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		if (this.m_healthPercent > 0f)
@@ -222,32 +129,10 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (this.m_lastShieldPercent == this.m_shieldPercent)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdateShieldBar()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_shieldPercent > 0f)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_shieldBarImage.fillAmount = this.m_shieldPercent;
 			this.m_shieldBarImage.gameObject.SetActive(true);
 		}
@@ -262,19 +147,6 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (this.m_lastEnergyPercent == this.m_energyPercent)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.UpdateEnergyBar()).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_energyPercent > 0f)
@@ -293,19 +165,6 @@ public class UISideHealthBar : MonoBehaviour
 	{
 		if (GameFlowData.Get() != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UISideHealthBar.Update()).MethodHandle;
-			}
 			ActorData actor = this.m_actor;
 			if (actor != null)
 			{
@@ -313,7 +172,7 @@ public class UISideHealthBar : MonoBehaviour
 				int maxHitPoints = actor.GetMaxHitPoints();
 				int energyToDisplay = actor.GetEnergyToDisplay();
 				int actualMaxTechPoints = actor.GetActualMaxTechPoints();
-				int num = actor.\u0004();
+				int num = actor.symbol_0004();
 				int clientUnappliedHoTTotal_ToDisplay_zq = actor.GetClientUnappliedHoTTotal_ToDisplay_zq();
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
@@ -325,15 +184,6 @@ public class UISideHealthBar : MonoBehaviour
 				}
 				if (num > 0)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_shieldText.text = "+" + num.ToString();
 				}
 				else

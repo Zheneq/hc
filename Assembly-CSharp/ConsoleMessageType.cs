@@ -14,5 +14,5 @@ public enum ConsoleMessageType
 	BroadcastMessage,
 	PingChat,
 	ScriptedChat,
-	\u001D
+	symbol_001D
 }

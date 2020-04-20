@@ -120,19 +120,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		this.m_notificationsBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.PopulateContractsTooltip), null);
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.Awake()).MethodHandle;
-			}
 			this.OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 			this.OnInventoryDataUpdated(ClientGameManager.Get().GetPlayerAccountData().InventoryComponent);
 			this.CheckNewCashShopFeaturedItems();
@@ -170,19 +157,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		ClientGameManager.Get().QueryPlayerMatchData(new Action<PlayerMatchDataResponse>(this.HandlePlayerMatchDataResponse));
 		if (ClientGameManager.Get().IsPlayerAccountDataAvailable())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.Start()).MethodHandle;
-			}
 			this.OnAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
 		}
 		int num = 0;
@@ -191,26 +165,8 @@ public class FrontEndNavPanel : MonoBehaviour
 		int num2 = 0;
 		if (ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().PlayerWallet != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CurrencyWallet playerWallet = ClientGameManager.Get().PlayerWallet;
 				num = playerWallet.GetCurrentAmount(CurrencyType.FreelancerCurrency);
 				value = playerWallet.GetCurrentAmount(CurrencyType.ISO);
@@ -221,93 +177,39 @@ public class FrontEndNavPanel : MonoBehaviour
 		this.m_freelancerCurrencyText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(num, true);
 		UITooltipObject component = this.m_freelancerCurrencyText.GetComponent<UITooltipHoverObject>();
 		TooltipType tooltipType = TooltipType.Simple;
-		if (FrontEndNavPanel.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			FrontEndNavPanel.<>f__am$cache0 = delegate(UITooltipBase tooltip)
+		
+		component.Setup(tooltipType, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
 				uisimpleTooltip.Setup(StringUtil.TR("FreelancerCurrencyDesc", "Global"));
 				return true;
-			};
-		}
-		component.Setup(tooltipType, FrontEndNavPanel.<>f__am$cache0, null);
+			}, null);
 		this.m_isoText.text = "<sprite name=iso>" + UIStorePanel.FormatIntToString(value, true);
 		UITooltipObject component2 = this.m_isoText.GetComponent<UITooltipHoverObject>();
 		TooltipType tooltipType2 = TooltipType.Simple;
-		if (FrontEndNavPanel.<>f__am$cache1 == null)
-		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			FrontEndNavPanel.<>f__am$cache1 = delegate(UITooltipBase tooltip)
+		
+		component2.Setup(tooltipType2, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
 				uisimpleTooltip.Setup(StringUtil.TR("ISODescription", "Global"));
 				return true;
-			};
-		}
-		component2.Setup(tooltipType2, FrontEndNavPanel.<>f__am$cache1, null);
+			}, null);
 		this.m_prestigeText.text = "<sprite name=rankedCurrency>" + UIStorePanel.FormatIntToString(value2, true);
 		UITooltipObject component3 = this.m_prestigeText.GetComponent<UITooltipHoverObject>();
 		TooltipType tooltipType3 = TooltipType.Simple;
-		if (FrontEndNavPanel.<>f__am$cache2 == null)
-		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			FrontEndNavPanel.<>f__am$cache2 = delegate(UITooltipBase tooltip)
+		
+		component3.Setup(tooltipType3, delegate(UITooltipBase tooltip)
 			{
 				UISimpleTooltip uisimpleTooltip = (UISimpleTooltip)tooltip;
 				uisimpleTooltip.Setup(StringUtil.TR("RankedCurrencyDescription", "Global"));
 				return true;
-			};
-		}
-		component3.Setup(tooltipType3, FrontEndNavPanel.<>f__am$cache2, null);
+			}, null);
 		if (num > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UINewUserFlowManager.OnFreelancerCurrencyOwned();
 		}
 		if (num2 > 0)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UINewUserFlowManager.OnFreelancerTokenOwned();
 		}
 		UIManager.SetGameObjectActive(this.m_microphoneConnectedBtn, false, null);
@@ -334,19 +236,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		if (DiscordClientInterface.Get() != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.OnDestroy()).MethodHandle;
-			}
 			DiscordClientInterface discordClientInterface = DiscordClientInterface.Get();
 			discordClientInterface.OnJoined = (Action)Delegate.Remove(discordClientInterface.OnJoined, new Action(this.DiscordOnJoined));
 			DiscordClientInterface.Get().OnError -= this.DiscordOnError;
@@ -355,15 +244,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		if (FrontEndNavPanel.s_instance == this)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FrontEndNavPanel.s_instance = null;
 		}
 	}
@@ -372,92 +252,25 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (UIFrontendLoadingScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.Update()).MethodHandle;
-			}
 			if (!UIFrontendLoadingScreen.Get().IsVisible() && base.gameObject.activeInHierarchy)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(Options_UI.Get() == null))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (Options_UI.Get().IsVisible())
 					{
 						return;
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 				}
 				if (!(KeyBinding_UI.Get() == null))
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (KeyBinding_UI.Get().IsVisible())
 					{
 						return;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				bool flag;
 				if (DebugParameters.Get() != null)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = DebugParameters.Get().GetParameterAsBool("DebugCamera");
 				}
 				else
@@ -466,50 +279,14 @@ public class FrontEndNavPanel : MonoBehaviour
 				}
 				if (!flag)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.Seasons_FE_Nav))
 					{
 						if (GameManager.Get() != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (GameManager.Get().GameplayOverrides != null && GameManager.Get().GameplayOverrides.EnableSeasons)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_SeasonBtn.spriteController.IsClickable())
 								{
-									for (;;)
-									{
-										switch (7)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									UIFrontEnd.PlaySound(FrontEndButtonSounds.TopMenuSelect);
 									this.SeasonsBtnClicked(null);
 								}
@@ -518,37 +295,10 @@ public class FrontEndNavPanel : MonoBehaviour
 					}
 					else if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.Collection_FE_Nav))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get() != null)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (GameManager.Get().GameplayOverrides != null)
 							{
-								for (;;)
-								{
-									switch (4)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (GameManager.Get().GameplayOverrides.EnableShop)
 								{
 									UIFrontEnd.PlaySound(FrontEndButtonSounds.TopMenuSelect);
@@ -559,71 +309,26 @@ public class FrontEndNavPanel : MonoBehaviour
 					}
 					else if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.Loot_FE_Nav))
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.TopMenuSelect);
 						this.LootMatrixBtnClicked(null);
 					}
 					else if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.RecruitAFriend_FE_Nav))
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIFrontEnd.PlaySound(FrontEndButtonSounds.TopMenuSelect);
 						this.ReferAFriendBtnClicked(null);
 					}
 					else if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.Profile_FE_Nav))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIFrontEnd.Get().TogglePlayerProgressScreenVisibility(true);
 					}
 					else if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.FreelancerStats_FE_Nav))
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIPlayerProgressPanel uiplayerProgressPanel = UIPlayerProgressPanel.Get();
 						uiplayerProgressPanel.SetVisible(true, false);
 						uiplayerProgressPanel.NotifyMenuButtonClicked(uiplayerProgressPanel.m_stats);
 					}
 					else if (InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.Match_History_Replays_FE_Nav))
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIPlayerProgressPanel uiplayerProgressPanel2 = UIPlayerProgressPanel.Get();
 						uiplayerProgressPanel2.SetVisible(true, false);
 						uiplayerProgressPanel2.NotifyMenuButtonClicked(uiplayerProgressPanel2.m_history);
@@ -636,40 +341,13 @@ public class FrontEndNavPanel : MonoBehaviour
 					}
 					if (GameManager.Get() != null)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!GameManager.Get().GameplayOverrides.DisableControlPadInput && !this.m_playMenuCatgeory.IsVisible())
 						{
 							if (Input.GetButtonDown("GamepadButtonLeftShoulder"))
 							{
-								for (;;)
-								{
-									switch (5)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_gamePadHoverBtn.SetSelected(false, false, string.Empty, string.Empty);
 								if (this.m_gamePadHoverBtn == this.m_landingPageBtn)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_gamePadHoverBtn = this.m_LootMatrixBtn;
 								}
 								else if (this.m_gamePadHoverBtn == this.m_PlayBtn)
@@ -682,43 +360,16 @@ public class FrontEndNavPanel : MonoBehaviour
 								}
 								else if (this.m_gamePadHoverBtn == this.m_CollectionBtn)
 								{
-									for (;;)
-									{
-										switch (6)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_gamePadHoverBtn = this.m_SeasonBtn;
 								}
 								else if (this.m_gamePadHoverBtn == this.m_LootMatrixBtn)
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_gamePadHoverBtn = this.m_CollectionBtn;
 								}
 								this.m_gamePadHoverBtn.SetSelected(true, false, string.Empty, string.Empty);
 							}
 							else if (Input.GetButtonDown("GamepadButtonRightShoulder"))
 							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								this.m_gamePadHoverBtn.SetSelected(false, false, string.Empty, string.Empty);
 								if (this.m_gamePadHoverBtn == this.m_landingPageBtn)
 								{
@@ -730,15 +381,6 @@ public class FrontEndNavPanel : MonoBehaviour
 								}
 								else if (this.m_gamePadHoverBtn == this.m_SeasonBtn)
 								{
-									for (;;)
-									{
-										switch (5)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									this.m_gamePadHoverBtn = this.m_CollectionBtn;
 								}
 								else if (this.m_gamePadHoverBtn == this.m_CollectionBtn)
@@ -753,80 +395,26 @@ public class FrontEndNavPanel : MonoBehaviour
 							}
 							if (Input.GetButtonDown("GamepadButtonA"))
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (this.m_currentNavBtn != this.m_gamePadHoverBtn)
 								{
 									if (this.m_gamePadHoverBtn == this.m_landingPageBtn)
 									{
-										for (;;)
-										{
-											switch (7)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.LandingPageBtnClicked(null);
 									}
 									else if (this.m_gamePadHoverBtn == this.m_PlayBtn)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.PlayBtnClicked(null);
 									}
 									else if (this.m_gamePadHoverBtn == this.m_SeasonBtn)
 									{
-										for (;;)
-										{
-											switch (1)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.SeasonsBtnClicked(null);
 									}
 									else if (this.m_gamePadHoverBtn == this.m_CollectionBtn)
 									{
-										for (;;)
-										{
-											switch (5)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.CollectionsBtnClicked(null);
 									}
 									else if (this.m_gamePadHoverBtn == this.m_LootMatrixBtn)
 									{
-										for (;;)
-										{
-											switch (6)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										this.LootMatrixBtnClicked(null);
 									}
 								}
@@ -850,30 +438,8 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (newLevel == ClientAccessLevel.Locked)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.HandleLobbyServerClientAccessLevelChange(ClientAccessLevel, ClientAccessLevel)).MethodHandle;
-			}
 			if (!this.m_landingPageBtn.isActiveAndEnabled)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!this.m_exitCustomGamesBtn.isActiveAndEnabled)
 				{
 					goto IL_4A;
@@ -884,30 +450,12 @@ public class FrontEndNavPanel : MonoBehaviour
 			AppState_GroupCharacterSelect appState_GroupCharacterSelect = AppState_GroupCharacterSelect.Get();
 			if (appState_GroupCharacterSelect != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (appState_GroupCharacterSelect.InQueue())
 				{
 					appState_GroupCharacterSelect.UpdateReadyState(false);
 					NavigationBar navigationBar = NavigationBar.Get();
 					if (navigationBar != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UIManager.SetGameObjectActive(navigationBar.m_cancelBtn, false, null);
 						navigationBar.m_cancelBtn.spriteController.SetClickable(false);
 						navigationBar.m_searchQueueText.text = string.Empty;
@@ -920,15 +468,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		bool doActive;
 		if (newLevel >= ClientAccessLevel.Full && ClientGameManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = !ClientGameManager.Get().HasPurchasedGame;
 		}
 		else
@@ -972,19 +511,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		bool doActive;
 		if (numLockBoxes > 0)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.OnInventoryDataUpdated(InventoryComponent)).MethodHandle;
-			}
 			doActive = flag;
 		}
 		else
@@ -995,15 +521,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		this.m_NewLootMatrixText.text = numLockBoxes.ToString();
 		if (!this.m_NewLootMatrixText)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FrontEndNavPanel.m_lastSeenNumberOfLootMatrices = numLockBoxes;
 		}
 		if (numLockBoxes > 0)
@@ -1017,19 +534,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		int num = 0;
 		if (accountData.AccountComponent.DailyQuestsAvailable)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.OnAccountDataUpdated(PersistedAccountData)).MethodHandle;
-			}
 			using (Dictionary<int, QuestProgress>.Enumerator enumerator = accountData.QuestComponent.Progress.GetEnumerator())
 			{
 				while (enumerator.MoveNext())
@@ -1038,63 +542,18 @@ public class FrontEndNavPanel : MonoBehaviour
 					int key = keyValuePair.Key;
 					if (QuestWideData.Get().IsDailyQuest(key))
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						num++;
 					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
 		if (ClientGameManager.Get().AlertMissionsData != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().AlertMissionsData.CurrentAlert != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_alertActiveIcon, true, null);
 				if (ClientGameManager.Get().AlertMissionsData.CurrentAlert.Type == AlertMissionType.Quest)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num++;
 				}
 				goto IL_112;
@@ -1105,15 +564,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		this.m_questNotificationNumber.text = num.ToString();
 		if (UIFrontEnd.Get() != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIFrontEnd.Get().m_frontEndNavPanel.CheckSeasonsVisibility();
 			UIFrontEnd.Get().m_frontEndNavPanel.CheckContractsEnabled();
 		}
@@ -1129,71 +579,22 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (newBalance.Type == CurrencyType.FreelancerCurrency)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.HandleBankBalanceChange(CurrencyData)).MethodHandle;
-			}
 			this.m_freelancerCurrencyText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(newBalance.Amount, true);
 			if (newBalance.Amount > 0)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UINewUserFlowManager.OnFreelancerCurrencyOwned();
 			}
 		}
 		else if (newBalance.Type == CurrencyType.ISO)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_isoText.text = "<sprite name=iso>" + UIStorePanel.FormatIntToString(newBalance.Amount, true);
 		}
 		else if (newBalance.Type == CurrencyType.RankedCurrency)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_prestigeText.text = "<sprite name=rankedCurrency>" + UIStorePanel.FormatIntToString(newBalance.Amount, true);
 		}
 		else if (newBalance.Type == CurrencyType.UnlockFreelancerToken)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (newBalance.Amount > 0)
 			{
 				UINewUserFlowManager.OnFreelancerTokenOwned();
@@ -1209,53 +610,13 @@ public class FrontEndNavPanel : MonoBehaviour
 		{
 			if (componentsInChildren[i].gameObject != this.m_CollectionBtn.gameObject)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.SetShopVisible(bool)).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(componentsInChildren[i], visible, null);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!visible && UIStorePanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIStorePanel.Get().IsStoreOpen())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.LandingPageBtnClicked(null);
 			}
 		}
@@ -1274,64 +635,15 @@ public class FrontEndNavPanel : MonoBehaviour
 		{
 			if (componentsInChildren[i].gameObject != this.m_SeasonBtn.gameObject)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.SetSeasonsVisible(bool)).MethodHandle;
-				}
 				UIManager.SetGameObjectActive(componentsInChildren[i], visible, null);
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 		if (!visible)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UISeasonsPanel.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (UISeasonsPanel.Get().IsVisible())
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_SeasonBtn.SetSelected(false, false, string.Empty, string.Empty);
 					UISeasonsPanel.Get().SetVisible(false, false, true);
 				}
@@ -1339,15 +651,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		if (this.m_seasonLockoutReason != SeasonLockoutReason.None)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_SeasonBtn.spriteController.SetForceHovercallback(true);
 			this.m_SeasonBtn.spriteController.SetForceExitCallback(true);
 			this.m_SeasonBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, new TooltipPopulateCall(this.PopulateSeasonsTooltip), null);
@@ -1365,41 +668,10 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_seasonLockoutReason == SeasonLockoutReason.InTutorialSeason)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.PopulateSeasonsTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().GetPlayerAccountData() != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					int activeSeason = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason;
 					int seasonLevel = ClientGameManager.Get().GetPlayerAccountData().QuestComponent.SeasonLevel;
 					SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(activeSeason);
@@ -1411,15 +683,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		else if (this.m_seasonLockoutReason == SeasonLockoutReason.Disabled)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UITitledTooltip uititledTooltip2 = tooltip as UITitledTooltip;
 			uititledTooltip2.Setup(StringUtil.TR("Locked", "Global"), StringUtil.TR("SeasonsDisabled", "Global"), string.Empty);
 			return true;
@@ -1433,41 +696,10 @@ public class FrontEndNavPanel : MonoBehaviour
 		bool flag = false;
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.CheckContractsEnabled()).MethodHandle;
-			}
 			if (clientGameManager.IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (clientGameManager.GetPlayerAccountData().AccountComponent.DailyQuestsAvailable)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = true;
 				}
 			}
@@ -1483,19 +715,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		string term;
 		if (DiscordClientInterface.IsSdkEnabled)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.CheckMicrophoneEnabled()).MethodHandle;
-			}
 			term = "AutoJoinVoiceBtn";
 		}
 		else
@@ -1506,15 +725,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		bool flag = DiscordClientInterface.Get().IsConnected && DiscordClientInterface.Get().ChannelInfo != null;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.DiscordOnJoined();
 		}
 		else
@@ -1528,30 +738,8 @@ public class FrontEndNavPanel : MonoBehaviour
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.CheckNewCashShopFeaturedItems()).MethodHandle;
-			}
 			if (clientGameManager.IsPlayerAccountDataAvailable())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				AccountComponent.UIStateIdentifier uiState = AccountComponent.UIStateIdentifier.CashShopFeaturedItemsVersionViewed;
 				int uistate = ClientGameManager.Get().GetPlayerAccountData().AccountComponent.GetUIState(uiState);
 				int featuredItemsVersion = StoreWideData.Get().m_featuredItemsVersion;
@@ -1566,19 +754,6 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_notificationsBtn.spriteController.IsClickable())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.PopulateContractsTooltip(UITooltipBase)).MethodHandle;
-			}
 			return false;
 		}
 		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
@@ -1597,30 +772,8 @@ public class FrontEndNavPanel : MonoBehaviour
 				UIManager.SetGameObjectActive(componentsInChildren[i], visible, null);
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.SetLootMatrixVisible(bool)).MethodHandle;
-		}
 		if (!visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UILootMatrixScreen.Get().IsVisible)
 			{
 				this.m_LootMatrixBtn.SetSelected(false, false, string.Empty, string.Empty);
@@ -1637,32 +790,10 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (!this.m_notificationsBtn.spriteController.IsClickable())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.NotificationBtnClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		if (UIMainMenu.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (UIMainMenu.Get().IsOpen())
 			{
 				UIMainMenu.Get().SetMenuVisible(false, false);
@@ -1684,19 +815,6 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (!UIMainMenu.Get().IsOpen())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.MenuBtnClicked(BaseEventData)).MethodHandle;
-			}
 			if (this.m_notificationsBtn.IsSelected())
 			{
 				QuestListPanel.Get().SetVisible(false, false, false);
@@ -1710,52 +828,12 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (!(UIFrontEnd.Get() == null))
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.LandingPageBtnClicked(BaseEventData)).MethodHandle;
-			}
 			if (!(UIStorePanel.Get() == null) && !(UILootMatrixScreen.Get() == null) && !(UIRAFProgramScreen.Get() == null))
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(UIPlayerProgressPanel.Get() == null))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UISeasonsPanel.Get() == null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 					}
 					else
 					{
@@ -1764,48 +842,12 @@ public class FrontEndNavPanel : MonoBehaviour
 						UIRAFProgramScreen.Get().SetVisible(false);
 						if (!UICashShopPanel.Get().IsVisible())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!UIStorePanel.Get().IsStoreOpen())
 							{
-								for (;;)
-								{
-									switch (3)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								if (!UISeasonsPanel.Get().IsVisible())
 								{
-									for (;;)
-									{
-										switch (2)
-										{
-										case 0:
-											continue;
-										}
-										break;
-									}
 									if (!UILootMatrixScreen.Get().IsVisible && AppState_LandingPage.Get() == AppState.GetCurrent())
 									{
-										for (;;)
-										{
-											switch (2)
-											{
-											case 0:
-												continue;
-											}
-											break;
-										}
 										if (this.m_currentNavBtn == this.m_landingPageBtn)
 										{
 											return;
@@ -1816,43 +858,16 @@ public class FrontEndNavPanel : MonoBehaviour
 						}
 						if (UIGameSettingsPanel.Get() != null)
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UIGameSettingsPanel.Get().SetVisible(false);
 						}
 						if (this.m_LastTimeNavbuttonClicked == Time.time)
 						{
-							for (;;)
-							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							return;
 						}
 						this.m_LastTimeNavbuttonClicked = Time.time;
 						this.SetNavButtonSelected(this.m_landingPageBtn);
 						if (AppState_LandingPage.Get() != AppState.GetCurrent())
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
 							{
 								AppState_GameTeardown.Get().Enter();
@@ -1878,19 +893,6 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_LastTimeNavbuttonClicked == Time.time)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.PlayBtnClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		this.m_LastTimeNavbuttonClicked = Time.time;
@@ -1900,84 +902,21 @@ public class FrontEndNavPanel : MonoBehaviour
 		UINewUserFlowManager.OnGameModeButtonDisplayed();
 		if (!UICashShopPanel.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!UIStorePanel.Get().IsStoreOpen())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!UISeasonsPanel.Get().IsVisible())
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!UILootMatrixScreen.Get().IsVisible)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!(AppState_CharacterSelect.Get() == AppState.GetCurrent()))
 						{
-							for (;;)
-							{
-								switch (3)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
 							{
 								goto IL_139;
 							}
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 						}
 						if (this.m_currentNavBtn == this.m_PlayBtn)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							if (!this.m_playMenuCatgeory.IsVisible())
 							{
 								this.SetPlayMenuCatgeoryVisible(true);
@@ -2001,32 +940,10 @@ public class FrontEndNavPanel : MonoBehaviour
 		UIRAFProgramScreen.Get().SetVisible(false);
 		if (UISeasonsPanel.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.DoSeasonsBtnClicked(bool, bool)).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_LastTimeNavbuttonClicked == Time.time)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		this.m_LastTimeNavbuttonClicked = Time.time;
@@ -2039,19 +956,6 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (data != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.SeasonsBtnClicked(BaseEventData)).MethodHandle;
-			}
 			ClientGameManager.Get().SendUIActionNotification("SeasonsBtnClicked");
 		}
 		this.DoSeasonsBtnClicked(false, true);
@@ -2064,32 +968,10 @@ public class FrontEndNavPanel : MonoBehaviour
 		UIRAFProgramScreen.Get().SetVisible(false);
 		if (UILootMatrixScreen.Get().IsVisible)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.LootMatrixBtnClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_LastTimeNavbuttonClicked == Time.time)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		this.m_LastTimeNavbuttonClicked = Time.time;
@@ -2097,15 +979,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		UILootMatrixScreen.Get().SetVisible(true);
 		if (int.TryParse(this.m_NewLootMatrixText.text, out FrontEndNavPanel.m_lastSeenNumberOfLootMatrices))
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			FrontEndNavPanel.m_lastSeenNumberOfLootMatrices = int.Parse(this.m_NewLootMatrixText.text);
 		}
 		else
@@ -2119,19 +992,6 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_LastTimeNavbuttonClicked == Time.time)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.CollectionsBtnClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		this.m_LastTimeNavbuttonClicked = Time.time;
@@ -2140,29 +1000,11 @@ public class FrontEndNavPanel : MonoBehaviour
 		UIRAFProgramScreen.Get().SetVisible(false);
 		if (UIStorePanel.Get().IsStoreOpen())
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		this.SetNavButtonSelected(this.m_CollectionBtn);
 		if (data != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientGameManager.Get().SendUIActionNotification("CollectionsBtnClicked");
 		}
 		UIStorePanel.Get().OpenStore();
@@ -2172,19 +1014,6 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (UIRAFProgramScreen.Get().IsVisible)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.ToggleReferAFriend()).MethodHandle;
-			}
 			if (this.m_currentNavBtn == this.m_PlayBtn)
 			{
 				this.SetPlayMenuCatgeoryVisible(true);
@@ -2206,19 +1035,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		UIPlayerProgressPanel.Get().SetVisible(false, true);
 		if (UIRAFProgramScreen.Get().IsVisible)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.ReferAFriendBtnClicked(BaseEventData)).MethodHandle;
-			}
 			return;
 		}
 		this.SetPlayMenuCatgeoryVisible(false);
@@ -2234,58 +1050,18 @@ public class FrontEndNavPanel : MonoBehaviour
 		this.m_LastTimeNavbuttonClicked = Time.time;
 		if (UIGGBoostPurchaseScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.CashShopBtnClicked(BaseEventData)).MethodHandle;
-			}
 			UIGGBoostPurchaseScreen.Get().SetVisible(false);
 		}
 		if (UIPlayerProgressPanel.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIPlayerProgressPanel.Get().SetVisible(false, true);
 		}
 		if (UIRAFProgramScreen.Get() != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIRAFProgramScreen.Get().SetVisible(false);
 		}
 		if (UICashShopPanel.Get().IsVisible())
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			return;
 		}
 		this.SetNavButtonSelected(this.m_CashShopBtn);
@@ -2319,32 +1095,10 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_currentNavBtn == this.m_landingPageBtn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.CloseCurrentTabPanel()).MethodHandle;
-			}
 			UIFrontEnd.Get().m_landingPageScreen.SetVisible(false);
 		}
 		else if (this.m_currentNavBtn == this.m_PlayBtn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetPlayMenuCatgeoryVisible(false);
 			UICharacterSelectWorldObjects.Get().SetVisible(false);
 			UINewUserFlowManager.OnDoneWithReadyButton();
@@ -2358,42 +1112,15 @@ public class FrontEndNavPanel : MonoBehaviour
 			}
 			else if (AppState.GetCurrent() == AppState_JoinGame.Get())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIJoinGameScreen.Get().SetVisible(false);
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
 				if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 					{
 						goto IL_145;
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				UICharacterSelectScreenController.Get().SetVisible(false, false);
@@ -2403,54 +1130,18 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		else if (this.m_currentNavBtn == this.m_CollectionBtn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStorePanel.Get().CloseStore();
 		}
 		else if (this.m_currentNavBtn == this.m_CashShopBtn)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICashShopPanel.Get().SetVisible(false);
 		}
 		else if (this.m_currentNavBtn == this.m_SeasonBtn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UISeasonsPanel.Get().SetVisible(false, false, true);
 		}
 		else if (this.m_currentNavBtn == this.m_LootMatrixBtn)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UILootMatrixScreen.Get().SetVisible(false);
 		}
 	}
@@ -2459,47 +1150,16 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_currentNavBtn == btn)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.SetNavButtonSelected(_SelectableBtn)).MethodHandle;
-			}
 			return;
 		}
 		if (this.m_currentNavBtn != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.CloseCurrentTabPanel();
 			this.m_currentNavBtn.SetSelected(false, false, string.Empty, string.Empty);
 		}
 		UIManager.SetGameObjectActive(this.m_PlayButtonNoticeContainer, this.m_PlayBtn != btn, null);
 		if (btn != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			btn.SetSelected(true, false, string.Empty, string.Empty);
 		}
 		this.m_previousNavBtn = this.m_currentNavBtn;
@@ -2511,19 +1171,6 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_previousNavBtn != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.ReturnToPreviousTab()).MethodHandle;
-			}
 			this.m_previousNavBtn.spriteController.callback(null);
 		}
 	}
@@ -2537,109 +1184,33 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_currentNavBtn == this.m_landingPageBtn)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.NotifyCurrentPanelLoseFocus()).MethodHandle;
-			}
 			UILandingPageScreen.Get().SetVisible(false);
 		}
 		else if (this.m_currentNavBtn == this.m_PlayBtn)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.SetPlayMenuCatgeoryVisible(false);
 			UICharacterSelectWorldObjects.Get().SetVisible(false);
 			UINewUserFlowManager.OnDoneWithReadyButton();
 			if (UIRankedModeSelectScreen.Get() != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIRankedModeSelectScreen.Get().SetVisible(false);
 			}
 			if (AppState.GetCurrent() == AppState_CreateGame.Get())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICreateGameScreen.Get().SetVisible(false);
 			}
 			else if (AppState.GetCurrent() == AppState_JoinGame.Get())
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIJoinGameScreen.Get().SetVisible(false);
 			}
 			else if (AppState.GetCurrent() == AppState_RankModeDraft.Get())
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIRankedModeDraftScreen.Get().m_draftScreenContainer.GetComponent<CanvasGroup>().alpha = 0f;
 			}
 			if (UICharacterSelectScreenController.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 					{
 						goto IL_18A;
@@ -2652,15 +1223,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		else if (this.m_currentNavBtn == this.m_CollectionBtn)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStorePanel.Get().NotifyLoseFocus();
 		}
 		else if (this.m_currentNavBtn == this.m_SeasonBtn)
@@ -2669,41 +1231,14 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		else if (this.m_currentNavBtn == this.m_LootMatrixBtn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UILootMatrixScreen.Get().NotifyLoseFocus();
 		}
 		else if (this.m_currentNavBtn == this.m_CashShopBtn)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICashShopPanel.Get().NotifyLoseFocus();
 		}
 		if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
 			{
 				return;
@@ -2716,97 +1251,30 @@ public class FrontEndNavPanel : MonoBehaviour
 	{
 		if (this.m_currentNavBtn == this.m_landingPageBtn)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.NotifyCurrentPanelGetFocus()).MethodHandle;
-			}
 			UILandingPageScreen.Get().SetVisible(true);
 		}
 		else if (this.m_currentNavBtn == this.m_PlayBtn)
 		{
 			if (AppState.GetCurrent() == AppState_CreateGame.Get())
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UICreateGameScreen.Get().SetVisible(true);
 			}
 			else if (AppState.GetCurrent() == AppState_JoinGame.Get())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIJoinGameScreen.Get().SetVisible(true);
 			}
 			else if (AppState.GetCurrent() == AppState_RankModeDraft.Get())
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIRankedModeDraftScreen.Get().m_draftScreenContainer.GetComponent<CanvasGroup>().alpha = 1f;
 			}
 			else
 			{
 				if (GameManager.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (GameManager.Get().GameInfo != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (GameManager.Get().GameInfo.IsCustomGame && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
 						{
-							for (;;)
-							{
-								switch (1)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							UICharacterSelectWorldObjects.Get().SetVisible(true);
 							UICharacterSelectScreenController.Get().SetVisible(true, false);
 							goto IL_1CF;
@@ -2816,28 +1284,10 @@ public class FrontEndNavPanel : MonoBehaviour
 				this.SetPlayMenuCatgeoryVisible(true);
 				if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (!UIMatchStartPanel.Get().IsVisible())
 					{
 						AppState_GroupCharacterSelect.Get().Enter();
 						goto IL_1CF;
-					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 				AppState_CharacterSelect.Get().Enter();
@@ -2846,54 +1296,18 @@ public class FrontEndNavPanel : MonoBehaviour
 		}
 		else if (this.m_currentNavBtn == this.m_CollectionBtn)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UIStorePanel.Get().NotifyGetFocus();
 		}
 		else if (this.m_currentNavBtn == this.m_SeasonBtn)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UISeasonsPanel.Get().NotifyGetFocus();
 		}
 		else if (this.m_currentNavBtn == this.m_LootMatrixBtn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UILootMatrixScreen.Get().NotifyGetFocus();
 		}
 		else if (this.m_currentNavBtn == this.m_CashShopBtn)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			UICashShopPanel.Get().NotifyGetFocus();
 		}
 	}
@@ -2903,41 +1317,10 @@ public class FrontEndNavPanel : MonoBehaviour
 		bool flag;
 		if (!AppState.IsInGame())
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(FrontEndNavPanel.ToggleUiForGameStarting(bool)).MethodHandle;
-			}
 			if (GameManager.Get().GameInfo != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (GameManager.Get().GameInfo.IsCustomGame)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					flag = (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped);
 					goto IL_72;
 				}
@@ -2950,15 +1333,6 @@ public class FrontEndNavPanel : MonoBehaviour
 		bool doActive;
 		if (!shouldShow)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			doActive = flag2;
 		}
 		else

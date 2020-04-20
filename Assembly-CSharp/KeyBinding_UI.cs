@@ -69,32 +69,10 @@ public class KeyBinding_UI : UIScene
 	{
 		if (this.m_okButton != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.Start()).MethodHandle;
-			}
 			this.m_okButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnOkButton);
 		}
 		if (this.m_applyButton != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_applyButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnApplyButton);
 		}
 		if (this.m_revertDefaultsButton != null)
@@ -103,15 +81,6 @@ public class KeyBinding_UI : UIScene
 		}
 		if (this.m_closeButton != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_closeButton.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.OnCancelButton);
 		}
 		this.m_keybindButtons.Clear();
@@ -121,15 +90,6 @@ public class KeyBinding_UI : UIScene
 			KeyBindingCommand keyBindingCommand = GameWideData.Get().GetKeyBindingCommand(keyCodeDefault.m_preference.ToString());
 			if (keyBindingCommand != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (keyBindingCommand.Settable)
 				{
 					UIKeyCommandEntry uikeyCommandEntry = UnityEngine.Object.Instantiate<UIKeyCommandEntry>(this.m_keyCommandEntryPrefab);
@@ -139,15 +99,6 @@ public class KeyBinding_UI : UIScene
 					uikeyCommandEntry.transform.localEulerAngles = Vector3.zero;
 					if (this.m_scrollRect != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						uikeyCommandEntry.m_primaryKeyButton.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 						uikeyCommandEntry.m_secondaryKeyButton.spriteController.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
 					}
@@ -155,15 +106,6 @@ public class KeyBinding_UI : UIScene
 					this.m_keybindButtons.Add(uikeyCommandEntry);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		this.SortDisplayList();
 	}
@@ -183,19 +125,6 @@ public class KeyBinding_UI : UIScene
 			string fullKeyString2 = InputManager.Get().GetFullKeyString(keyPreference, false, false);
 			this.m_keybindButtons[i].SetLabels(keyCommand, fullKeyString, fullKeyString2);
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.UpdateKeyBindText()).MethodHandle;
-		}
 	}
 
 	private int CompareKeybindButton(UIKeyCommandEntry first, UIKeyCommandEntry second)
@@ -213,19 +142,6 @@ public class KeyBinding_UI : UIScene
 			UIKeyCommandEntry uikeyCommandEntry = this.m_keybindButtons[i];
 			if (uikeyCommandEntry.transform.GetSiblingIndex() != i)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.SortDisplayList()).MethodHandle;
-				}
 				uikeyCommandEntry.transform.SetSiblingIndex(i);
 			}
 		}
@@ -264,19 +180,6 @@ public class KeyBinding_UI : UIScene
 	{
 		if (!this.m_container.gameObject.activeSelf)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.ToggleKeybinds()).MethodHandle;
-			}
 			this.ShowKeybinds();
 		}
 		else
@@ -321,19 +224,6 @@ public class KeyBinding_UI : UIScene
 	{
 		if (InputManager.Get() != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.ApplyCurrentSettings()).MethodHandle;
-			}
 			try
 			{
 				this.ClearSetKeyBind();
@@ -352,26 +242,8 @@ public class KeyBinding_UI : UIScene
 			{
 				if (UICharacterSelectScreenController.Get() != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UICharacterSelectCharacterSettingsPanel.Get() != null)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						UICharacterSelectCharacterSettingsPanel.Get().m_abilitiesSubPanel.RefreshKeyBindings();
 					}
 				}
@@ -388,15 +260,6 @@ public class KeyBinding_UI : UIScene
 			{
 				if (UIMainScreenPanel.Get() != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (UIMainScreenPanel.Get().m_abilityBar != null)
 					{
 						UIMainScreenPanel.Get().m_abilityBar.RefreshHotkeys();
@@ -428,30 +291,8 @@ public class KeyBinding_UI : UIScene
 			UIKeyCommandEntry uikeyCommandEntry = this.m_keybindButtons[i];
 			if (uikeyCommandEntry.GetKeyPreference() == this.m_setKeyBindPreference)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.ShowCurrentSetKeyBind()).MethodHandle;
-				}
 				if (this.m_setKeyBindPrimary)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					uikeyCommandEntry.m_primaryKeyButton.SetSelected(true, false, string.Empty, string.Empty);
 					uikeyCommandEntry.m_secondaryKeyButton.SetSelected(false, false, string.Empty, string.Empty);
 				}
@@ -473,19 +314,6 @@ public class KeyBinding_UI : UIScene
 	{
 		if (this.m_setKeyBindPreference != KeyPreference.NullPreference)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.ClearSetKeyBind()).MethodHandle;
-			}
 			this.m_setKeyBindPreference = KeyPreference.NullPreference;
 			this.ShowCurrentSetKeyBind();
 		}
@@ -495,30 +323,8 @@ public class KeyBinding_UI : UIScene
 	{
 		if (this.m_setKeyBindPreference == setKeyBindPreference)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.ToggleKeyBindButton(KeyPreference, bool)).MethodHandle;
-			}
 			if (this.m_setKeyBindPrimary == setKeyBindPrimary)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ClearSetKeyBind();
 				return;
 			}
@@ -532,30 +338,8 @@ public class KeyBinding_UI : UIScene
 	{
 		if (setKeyBindPreference == this.m_setKeyBindPreference)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.ClearKeyBindButton(KeyPreference, bool)).MethodHandle;
-			}
 			if (setKeyBindPrimary == this.m_setKeyBindPrimary)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ClearSetKeyBind();
 			}
 		}
@@ -568,19 +352,6 @@ public class KeyBinding_UI : UIScene
 		bool result;
 		if (this.m_setKeyBindPreference != KeyPreference.NullPreference)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.IsSettingKeybindCommand()).MethodHandle;
-			}
 			result = this.IsVisible();
 		}
 		else
@@ -594,19 +365,6 @@ public class KeyBinding_UI : UIScene
 	{
 		if (this.IsSettingKeybindCommand())
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(KeyBinding_UI.Update()).MethodHandle;
-			}
 			IEnumerator enumerator = Enum.GetValues(typeof(KeyCode)).GetEnumerator();
 			try
 			{
@@ -616,30 +374,12 @@ public class KeyBinding_UI : UIScene
 					KeyCode keyCode = (KeyCode)obj;
 					if (Input.GetKeyUp(keyCode))
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (!InputManager.Get().IsUnbindableKey(keyCode))
 						{
 							KeyCode modifierKey = KeyCode.None;
 							KeyCode additionalModifierKey = KeyCode.None;
 							if (!InputManager.Get().IsModifierKey(keyCode))
 							{
-								for (;;)
-								{
-									switch (7)
-									{
-									case 0:
-										continue;
-									}
-									break;
-								}
 								InputManager.Get().GetModifierKeys(out modifierKey, out additionalModifierKey);
 							}
 							InputManager.Get().SetCustomKeyBind(this.m_setKeyBindPreference, keyCode, modifierKey, additionalModifierKey, this.m_setKeyBindPrimary);
@@ -649,15 +389,6 @@ public class KeyBinding_UI : UIScene
 							return;
 						}
 					}
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			finally

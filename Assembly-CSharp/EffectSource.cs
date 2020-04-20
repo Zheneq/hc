@@ -59,19 +59,6 @@ public class EffectSource
 	{
 		if (this.Ability == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(EffectSource.IsCharacterSpecificAbility(ActorData)).MethodHandle;
-			}
 			return false;
 		}
 		if (!(caster == null))
@@ -80,15 +67,6 @@ public class EffectSource
 			{
 				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(this.Ability);
 				return AbilityData.IsCharacterSpecificAbility(actionTypeOfAbility);
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;

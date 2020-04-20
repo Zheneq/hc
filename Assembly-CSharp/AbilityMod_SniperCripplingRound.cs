@@ -47,19 +47,6 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_SniperCripplingRound.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			baseVal = sniperCripplingRound.m_laserDamageAmount;
 		}
 		else
@@ -74,15 +61,6 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = sniperCripplingRound.m_explosionDamageAmount;
 		}
 		else
@@ -97,15 +75,6 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		int baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = sniperCripplingRound.m_effectOnLaserHitTargets.m_effectData.m_duration;
 		}
 		else

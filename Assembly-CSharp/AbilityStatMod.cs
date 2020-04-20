@@ -33,32 +33,10 @@ public class AbilityStatMod
 		char c;
 		if (this.modType == ModType.Multiplier)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityStatMod.GetOperationsString()).MethodHandle;
-			}
 			c = 'x';
 		}
 		else if (this.modValue >= 0f)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			c = '+';
 		}
 		else
@@ -68,28 +46,10 @@ public class AbilityStatMod
 		string text;
 		if (this.modType != ModType.BaseAdd)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.modType != ModType.BonusAdd)
 			{
 				text = this.modValue.ToString("F2");
 				goto IL_97;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		text = ((int)Mathf.Abs(this.modValue)).ToString();
@@ -97,41 +57,14 @@ public class AbilityStatMod
 		char c2;
 		if (this.modType == ModType.BonusAdd)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			c2 = '^';
 		}
 		else if (this.modType == ModType.BaseAdd)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			c2 = '_';
 		}
 		else if (this.modType == ModType.PercentAdd)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			c2 = 'x';
 		}
 		else
@@ -152,19 +85,6 @@ public class AbilityStatMod
 		bool flag;
 		if (showDiff)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityStatMod.GetInEditorDescription(string, string, bool, AbilityStatMod)).MethodHandle;
-			}
 			flag = (other != null);
 		}
 		else
@@ -183,35 +103,14 @@ public class AbilityStatMod
 		float otherVal;
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			otherVal = other.modValue;
 		}
 		else
 		{
 			otherVal = 0f;
 		}
-		if (AbilityStatMod.<>f__am$cache0 == null)
-		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			AbilityStatMod.<>f__am$cache0 = ((float f) => f != 0f);
-		}
-		text3 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, showOther, otherVal, AbilityStatMod.<>f__am$cache0);
+		
+		text3 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, showOther, otherVal, ((float f) => f != 0f));
 		return text3 + text2;
 	}
 }

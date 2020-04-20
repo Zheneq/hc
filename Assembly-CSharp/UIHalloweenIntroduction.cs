@@ -31,19 +31,6 @@ public class UIHalloweenIntroduction : MonoBehaviour
 		this.m_HowToGetStuffBackBtn.spriteController.callback = new _ButtonSwapSprite.ButtonClickCallback(this.BackBtnClicked);
 		if (!PlayerPrefs.HasKey("HalloweenEvent"))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIHalloweenIntroduction.Awake()).MethodHandle;
-			}
 		}
 	}
 
@@ -69,19 +56,6 @@ public class UIHalloweenIntroduction : MonoBehaviour
 	{
 		if (visible)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIHalloweenIntroduction.SetVisible(bool)).MethodHandle;
-			}
 			this.m_WhatsInTheHauntAC.enabled = true;
 			UIManager.SetGameObjectActive(this.m_WhatsInTheHauntLootMatrix, true, null);
 			UIManager.SetGameObjectActive(this.m_HowToGetStuff, false, null);

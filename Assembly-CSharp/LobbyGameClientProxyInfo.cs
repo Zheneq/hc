@@ -17,19 +17,6 @@ public class LobbyGameClientProxyInfo : ICloneable
 	{
 		if (this.AssignmentTime > other.AssignmentTime)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LobbyGameClientProxyInfo.IsHigherPriorityThan(LobbyGameClientProxyInfo)).MethodHandle;
-			}
 			return true;
 		}
 		return this.AssignmentTime >= other.AssignmentTime && this.AccountId < other.AccountId;

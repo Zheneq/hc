@@ -95,33 +95,11 @@ public class UIBaseButton : MonoBehaviour
 	{
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseButton.ShowTooltip(UITooltipBase)).MethodHandle;
-			}
 			if (!(this.m_abilityEntry.ability == null))
 			{
 				UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
 				uiabilityTooltip.Setup(this.m_abilityEntry.ability);
 				return true;
-			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return false;
@@ -135,30 +113,8 @@ public class UIBaseButton : MonoBehaviour
 		this.m_turnSM = this.m_abilityData.GetComponent<ActorTurnSM>();
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseButton.Setup(AbilityData.AbilityEntry, AbilityData.ActionType, AbilityData)).MethodHandle;
-			}
 			if (this.m_abilityEntry.ability != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				UIManager.SetGameObjectActive(this.m_theSprite, true, null);
 				this.m_theSprite.sprite = this.m_abilityEntry.ability.sprite;
 				this.m_hotKeyLabel.text = this.m_abilityEntry.hotkey;
@@ -167,15 +123,6 @@ public class UIBaseButton : MonoBehaviour
 		}
 		if (this.m_abilityEntry != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			this.m_statusLabel.text = string.Empty;
 			UIManager.SetGameObjectActive(this.m_theSprite, false, null);
 			this.theButton.enabled = false;
@@ -196,19 +143,6 @@ public class UIBaseButton : MonoBehaviour
 		UITooltipHoverObject component;
 		if (this.theButton != null)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIBaseButton.Start()).MethodHandle;
-			}
 			component = this.theButton.GetComponent<UITooltipHoverObject>();
 		}
 		else
@@ -217,15 +151,6 @@ public class UIBaseButton : MonoBehaviour
 		}
 		if (component)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			component.Setup(TooltipType.Ability, new TooltipPopulateCall(this.ShowTooltip), null);
 		}
 	}

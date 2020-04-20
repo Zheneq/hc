@@ -14,19 +14,6 @@ public class TempSatelliteAnimationEventReceiver : MonoBehaviour, IAnimationEven
 	{
 		if (this.m_owner == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteAnimationEventReceiver.NewEvent(UnityEngine.Object)).MethodHandle;
-			}
 			Log.Error(this + " NewEvent called before setup", new object[0]);
 			return;
 		}
@@ -51,19 +38,6 @@ public class TempSatelliteAnimationEventReceiver : MonoBehaviour, IAnimationEven
 	{
 		if (this.m_owner == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(TempSatelliteAnimationEventReceiver.AudioEvent(string)).MethodHandle;
-			}
 			Log.Error(this + " NewEvent called before Start", new object[0]);
 			return;
 		}

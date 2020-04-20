@@ -38,19 +38,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		GremlinsBombingRun gremlinsBombingRun = targetAbility as GremlinsBombingRun;
 		if (gremlinsBombingRun != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBombingRun.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			AbilityMod.AddToken(tokens, this.m_minSquaresPerExplosionMod, "SquaresPerExplosion", string.Empty, gremlinsBombingRun.m_squaresPerExplosion, true, false);
 			AbilityMod.AddToken(tokens, this.m_maxSquaresPerExplosionMod, "MaxSquaresPerStep", string.Empty, gremlinsBombingRun.m_maxSquaresPerStep, true, false);
 			AbilityMod.AddToken(tokens, this.m_angleWithFirstStepMod, "MaxAngleWithFirstStep", string.Empty, gremlinsBombingRun.m_maxAngleWithFirstStep, true, false, false);
@@ -64,19 +51,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		GremlinsLandMineInfoComponent gremlinsLandMineInfoComponent;
 		if (gremlinsBombingRun != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_GremlinsBombingRun.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-			}
 			gremlinsLandMineInfoComponent = gremlinsBombingRun.GetComponent<GremlinsLandMineInfoComponent>();
 		}
 		else
@@ -93,15 +67,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		int baseVal;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal = gremlinsBombingRun.m_explosionDamageAmount;
 		}
 		else
@@ -117,15 +82,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		int baseVal2;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal2 = gremlinsBombingRun.m_maxSquaresPerStep;
 		}
 		else
@@ -140,15 +96,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		float baseVal3;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal3 = gremlinsBombingRun.m_maxAngleWithFirstStep;
 		}
 		else
@@ -163,15 +110,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		AbilityAreaShape baseVal4;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal4 = gremlinsBombingRun.m_explosionShape;
 		}
 		else
@@ -186,15 +124,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		int baseVal5;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal5 = gremlinsLandMineInfoComponent2.m_damageAmount;
 		}
 		else
@@ -209,15 +138,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		int baseVal6;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal6 = gremlinsLandMineInfoComponent2.m_mineDuration;
 		}
 		else
@@ -233,15 +153,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		int baseVal7;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			baseVal7 = gremlinsLandMineInfoComponent2.m_energyGainOnExplosion;
 		}
 		else

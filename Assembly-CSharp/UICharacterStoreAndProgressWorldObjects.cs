@@ -36,30 +36,8 @@ public class UICharacterStoreAndProgressWorldObjects : UICharacterWorldObjects
 		UIManager.SetGameObjectActive(base.gameObject, base.IsVisible(), null);
 		if (base.IsVisible())
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICharacterStoreAndProgressWorldObjects.OnVisibleChange()).MethodHandle;
-			}
 			if (UICashShopPanel.Get().IsVisible())
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_slotsContainer.position = this.m_cashShopTransform.position;
 				this.m_slotsContainer.rotation = this.m_cashShopTransform.rotation;
 				this.m_slotsContainer.localScale = this.m_cashShopTransform.localScale;

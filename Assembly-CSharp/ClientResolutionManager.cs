@@ -67,55 +67,15 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (this.m_currentMessageHandlersState != this.m_expectedMessageHandlersState)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.VerifyMessageHandlerState()).MethodHandle;
-			}
 			if (this.m_expectedMessageHandlersState == ClientResolutionManager.MessageHandlersState.Registered)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentMessageHandlersState == ClientResolutionManager.MessageHandlersState.NotYetRegistered)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("ClientResolutionManager believes message handlers should be registered, but they aren't yet, as of Update() being called.  Registering them...");
 					this.RegisterHandler();
 				}
 				else if (this.m_currentMessageHandlersState == ClientResolutionManager.MessageHandlersState.Unregistered)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Debug.LogError("ClientResolutionManager believes message handlers should be registered, but they were already unregistered.");
 					this.m_expectedMessageHandlersState = ClientResolutionManager.MessageHandlersState.Unregistered;
 				}
@@ -140,41 +100,10 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (this.m_currentMessageHandlersState == ClientResolutionManager.MessageHandlersState.NotYetRegistered)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.RegisterHandler()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientGameManager.Get().Client.RegisterHandler(0x3A, new NetworkMessageDelegate(this.MsgStartResolutionPhase));
 					ClientGameManager.Get().Client.RegisterHandler(0x40, new NetworkMessageDelegate(this.MsgSingleResolutionAction));
 					ClientGameManager.Get().Client.RegisterHandler(0x3F, new NetworkMessageDelegate(this.MsgRunResolutionActionsOutsideResolve));
@@ -189,41 +118,10 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (this.m_currentMessageHandlersState == ClientResolutionManager.MessageHandlersState.Registered)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.UnregisterHandlers()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientGameManager.Get().Client.UnregisterHandler(0x3A);
 					ClientGameManager.Get().Client.UnregisterHandler(0x40);
 					ClientGameManager.Get().Client.UnregisterHandler(0x3F);
@@ -238,19 +136,6 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (this.m_state == ClientResolutionManager.ClientResolutionManagerState.Idle)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.OnTurnStart()).MethodHandle;
-			}
 			this.m_currentAbilityPhase = AbilityPriority.INVALID;
 		}
 	}
@@ -260,41 +145,10 @@ public class ClientResolutionManager : MonoBehaviour
 		this.m_waitingForAllMessages = false;
 		if (phase != this.m_currentAbilityPhase)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.OnAbilityPhaseStart(AbilityPriority)).MethodHandle;
-			}
 			if (this.m_state != ClientResolutionManager.ClientResolutionManagerState.Resolving)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_state != ClientResolutionManager.ClientResolutionManagerState.WaitingForActionMsgs)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_waitingForAllMessages = true;
 				}
 			}
@@ -338,19 +192,6 @@ public class ClientResolutionManager : MonoBehaviour
 			ClientCastAction item = ClientCastAction.ClientCastAction_DeSerializeFromReader(ref reader);
 			list.Add(item);
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.DeSerializeCastActionsFromServer(NetworkReader*)).MethodHandle;
-		}
 		return list;
 	}
 
@@ -381,54 +222,14 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionActionMessageData clientResolutionActionMessageData = enumerator.Current;
 				if (clientResolutionActionMessageData.m_phase == this.m_currentAbilityPhase && clientResolutionActionMessageData.m_turnIndex == this.m_currentTurnIndex)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.ProcessReceivedMessages()).MethodHandle;
-					}
 					list.Add(clientResolutionActionMessageData);
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (list.Count >= this.m_numResolutionActionsThisPhase)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (list.Count > this.m_numResolutionActionsThisPhase)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Debug.LogError(string.Concat(new object[]
 				{
 					"Somehow got more matching ClientResolutionActionMessageData messages (",
@@ -453,27 +254,9 @@ public class ClientResolutionManager : MonoBehaviour
 					this.m_resolutionActions.Add(action);
 					if (action.ReactsToMovement())
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_movementActions.Add(action);
 					}
 					this.m_receivedMessages.Remove(clientResolutionActionMessageData2);
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.m_movementActions.Sort();
@@ -500,57 +283,17 @@ public class ClientResolutionManager : MonoBehaviour
 		this.m_timeOfLastEvent = GameTime.time;
 		if (TheatricsManager.Get() != null && TheatricsManager.Get().GetPhaseToUpdate() == AbilityPriority.Combat_Damage)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.OnReceivedLastResolutionAction()).MethodHandle;
-			}
 			this.OnCombatPhasePlayDataReceived();
 		}
 		if (this.m_currentAbilityPhase == AbilityPriority.Combat_Knockback)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClientKnockbackManager.Get().InitKnockbacksFromActions(this.m_resolutionActions);
 		}
 		if (!ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!ClientAbilityResults.\u000E)
+			if (!ClientAbilityResults.symbol_000E)
 			{
 				goto IL_DC;
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		Log.Warning(string.Concat(new string[]
@@ -566,26 +309,8 @@ public class ClientResolutionManager : MonoBehaviour
 		this.m_state = ClientResolutionManager.ClientResolutionManagerState.Resolving;
 		if (ClientGameManager.Get())
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (ClientGameManager.Get().IsFastForward)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.ExecuteAllUnexecutedActions(false);
 				this.SendResolutionPhaseCompleted(this.m_currentAbilityPhase, true, false);
 				return;
@@ -601,15 +326,6 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		if (this.m_currentAbilityPhase == AbilityPriority.INVALID)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			GameEventManager.NormalMovementStartAgs normalMovementStartAgs = new GameEventManager.NormalMovementStartAgs();
 			normalMovementStartAgs.m_actorsBeingHitMidMovement = this.GetActorsWithMovementHits();
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.NormalMovementStart, normalMovementStartAgs);
@@ -625,30 +341,8 @@ public class ClientResolutionManager : MonoBehaviour
 			ActorData caster = clientResolutionAction.GetCaster();
 			if (caster != null && caster.GetAbilityData() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.OnCombatPhasePlayDataReceived()).MethodHandle;
-				}
 				if (!this.m_tempCombatPhaseDataReceivedActors.Contains(caster))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					caster.GetAbilityData().OnClientCombatPhasePlayDataReceived(this.m_resolutionActions);
 					this.m_tempCombatPhaseDataReceivedActors.Add(caster);
 				}
@@ -668,34 +362,12 @@ public class ClientResolutionManager : MonoBehaviour
 			ClientResolutionAction item = ClientResolutionAction.ClientResolutionAction_DeSerializeFromStream(ref bitStream);
 			list.Add(item);
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.MsgRunResolutionActionsOutsideResolve(NetworkMessage)).MethodHandle;
-		}
 		using (List<ClientResolutionAction>.Enumerator enumerator = list.GetEnumerator())
 		{
 			while (enumerator.MoveNext())
 			{
 				ClientResolutionAction clientResolutionAction = enumerator.Current;
 				clientResolutionAction.Run_OutsideResolution();
-			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 	}
@@ -726,19 +398,6 @@ public class ClientResolutionManager : MonoBehaviour
 			int num2 = reader.ReadInt32();
 			if (num2 != ActorData.s_invalidActorIndex)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.MsgFailsafeHurryResolutionPhase(NetworkMessage)).MethodHandle;
-				}
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex(num2);
 				if (actorData != null)
 				{
@@ -746,15 +405,6 @@ public class ClientResolutionManager : MonoBehaviour
 					text = text + "\n\t" + actorData.GetDebugName();
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		bool flag = false;
 		for (int j = 0; j < list.Count; j++)
@@ -767,48 +417,12 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (num == this.m_currentTurnIndex)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (abilityPriority == this.m_currentAbilityPhase)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_state == ClientResolutionManager.ClientResolutionManagerState.Idle)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Debug.Log(string.Concat(new object[]
 						{
 							"Server sent 'hurry' failsafe to clients for turn = ",
@@ -824,15 +438,6 @@ public class ClientResolutionManager : MonoBehaviour
 					}
 					else if (this.m_state == ClientResolutionManager.ClientResolutionManagerState.WaitingForActionMsgs)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Debug.LogWarning(string.Concat(new object[]
 						{
 							"Server sent 'hurry' failsafe to clients for turn = ",
@@ -848,15 +453,6 @@ public class ClientResolutionManager : MonoBehaviour
 					}
 					else if (this.m_state == ClientResolutionManager.ClientResolutionManagerState.Resolving)
 					{
-						for (;;)
-						{
-							switch (4)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						Debug.LogWarning(string.Concat(new object[]
 						{
 							"Server sent 'hurry' failsafe to clients for turn = ",
@@ -876,26 +472,8 @@ public class ClientResolutionManager : MonoBehaviour
 			}
 			if (this.m_currentTurnIndex <= num)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_currentTurnIndex == num)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_currentAbilityPhase > abilityPriority)
 					{
 						for (;;)
@@ -969,30 +547,8 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionAction clientResolutionAction = enumerator.Current;
 				if (!clientResolutionAction.CompletedAction())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.HitsDoneExecuting()).MethodHandle;
-					}
 					return false;
 				}
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		return result;
@@ -1006,19 +562,6 @@ public class ClientResolutionManager : MonoBehaviour
 			ClientResolutionAction clientResolutionAction = this.m_resolutionActions[i];
 			if (clientResolutionAction.ContainsSequenceSource(sequenceSource))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.HitsDoneExecuting(SequenceSource)).MethodHandle;
-				}
 				result = clientResolutionAction.CompletedAction();
 				return result;
 			}
@@ -1040,15 +583,6 @@ public class ClientResolutionManager : MonoBehaviour
 		int i = 0;
 		while (i < this.m_resolutionActions.Count)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				if (sequenceSourceToIgnore < 0)
@@ -1057,20 +591,6 @@ public class ClientResolutionManager : MonoBehaviour
 				}
 				if (!this.m_resolutionActions[i].ContainsSequenceSourceID((uint)sequenceSourceToIgnore))
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.HasUnexecutedHitsOnActor(ActorData, int)).MethodHandle;
-						goto IL_35;
-					}
 					goto IL_35;
 				}
 				IL_4C:
@@ -1100,30 +620,8 @@ public class ClientResolutionManager : MonoBehaviour
 			ClientResolutionAction clientResolutionAction = this.m_resolutionActions[i];
 			if (clientResolutionAction.ContainsSequenceSource(sequenceSource))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.ExecuteUnexecutedActions(SequenceSource, string)).MethodHandle;
-				}
 				if (!clientResolutionAction.CompletedAction())
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					string message = string.Concat(new string[]
 					{
 						"Executing Unexecuted Action: ",
@@ -1146,43 +644,12 @@ public class ClientResolutionManager : MonoBehaviour
 			ClientResolutionAction clientResolutionAction = this.m_resolutionActions[i];
 			if (!clientResolutionAction.CompletedAction())
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.ExecuteAllUnexecutedActions(bool)).MethodHandle;
-				}
 				if (showAsError)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Log.Error("Executing Unexecuted Action: " + clientResolutionAction.GetDebugDescription() + clientResolutionAction.GetUnexecutedHitsDebugStr(false), new object[0]);
 				}
 				clientResolutionAction.ExecuteUnexecutedClientHitsInAction();
 			}
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -1197,19 +664,6 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionAction clientResolutionAction = enumerator.Current;
 				if (!clientResolutionAction.CompletedAction())
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.GetActionsDoneExecutingDebugStr()).MethodHandle;
-					}
 					num++;
 					string text2 = text;
 					text = string.Concat(new object[]
@@ -1223,15 +677,6 @@ public class ClientResolutionManager : MonoBehaviour
 					});
 				}
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		return "Action not done: " + num + text;
 	}
@@ -1241,31 +686,9 @@ public class ClientResolutionManager : MonoBehaviour
 		this.VerifyMessageHandlerState();
 		if (this.m_state != ClientResolutionManager.ClientResolutionManagerState.Resolving)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.Update()).MethodHandle;
-			}
 			if (this.m_state != ClientResolutionManager.ClientResolutionManagerState.WaitingForActionMsgs)
 			{
 				return;
-			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		bool flag = this.HitsDoneExecuting();
@@ -1274,15 +697,6 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			if (!(GameFlowData.Get() == null))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				flag2 = !GameFlowData.Get().IsResolutionPaused();
 			}
 			else
@@ -1300,15 +714,6 @@ public class ClientResolutionManager : MonoBehaviour
 			if (this.m_state == ClientResolutionManager.ClientResolutionManagerState.Resolving)
 			{
 				goto IL_9F;
-			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (!flag3)
@@ -1364,19 +769,6 @@ public class ClientResolutionManager : MonoBehaviour
 					ClientResolutionAction clientResolutionAction = enumerator.Current;
 					clientResolutionAction.OnActorMoved_ClientResolutionAction(mover, curPath);
 				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.OnActorMoveStart_ClientResolutionManager(ActorData, BoardSquarePathInfo)).MethodHandle;
-				}
 			}
 		}
 	}
@@ -1385,19 +777,6 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (curPath.m_moverDiesHere)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.OnActorMoved_ClientResolutionManager(ActorData, BoardSquarePathInfo)).MethodHandle;
-			}
 			this.OnActorWillDie(mover);
 		}
 		foreach (ClientResolutionAction clientResolutionAction in this.m_movementActions)
@@ -1410,19 +789,6 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.SendResolutionPhaseCompleted(AbilityPriority, bool, bool)).MethodHandle;
-			}
 			Log.Warning(string.Concat(new object[]
 			{
 				ClientAbilityResults.s_clientResolutionNetMsgHeader,
@@ -1447,15 +813,6 @@ public class ClientResolutionManager : MonoBehaviour
 				networkWriter.FinishMessage();
 				ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		this.m_waitingForAllMessages = false;
 		this.m_state = ClientResolutionManager.ClientResolutionManagerState.Idle;
@@ -1470,19 +827,6 @@ public class ClientResolutionManager : MonoBehaviour
 		networkWriter.FinishMessage();
 		if (ClientAbilityResults.LogMissingSequences)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.SendActorReadyToResolveKnockback(ActorData, ActorData)).MethodHandle;
-			}
 			Log.Warning(string.Concat(new string[]
 			{
 				ClientAbilityResults.s_clientResolutionNetMsgHeader,
@@ -1515,30 +859,8 @@ public class ClientResolutionManager : MonoBehaviour
 		bool result;
 		if (this.m_state != ClientResolutionManager.ClientResolutionManagerState.WaitingForActionMsgs)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.IsWaitingForActionMessages(AbilityPriority)).MethodHandle;
-			}
 			if (this.m_waitingForAllMessages)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				result = (this.m_state != ClientResolutionManager.ClientResolutionManagerState.Resolving);
 			}
 			else
@@ -1571,42 +893,11 @@ public class ClientResolutionManager : MonoBehaviour
 				ClientResolutionAction clientResolutionAction = this.m_resolutionActions[i];
 				clientResolutionAction.ExecuteReactionHitsWithExtraFlagsOnActor(targetActor, caster, hasDamage, hasHealing);
 			}
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.OnHitExecutedOnActor(ActorData, ActorData, bool, bool, bool)).MethodHandle;
-			}
 		}
 		if (this.m_actorsToKillOnLastHitExecution.Contains(targetActor))
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!this.HasUnexecutedHitsOnActor(targetActor, -1))
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.m_actorsToKillOnLastHitExecution.Remove(targetActor);
 				Vector3 position = targetActor.transform.position;
 				Vector3 currentMovementDir = targetActor.GetActorMovement().GetCurrentMovementDir();
@@ -1626,42 +917,11 @@ public class ClientResolutionManager : MonoBehaviour
 			ActorData triggeringMovementActor = clientResolutionAction.GetTriggeringMovementActor();
 			if (triggeringMovementActor != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientResolutionManager.GetActorsWithMovementHits()).MethodHandle;
-				}
 				if (!list.Contains(triggeringMovementActor))
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					list.Add(triggeringMovementActor);
 				}
 			}
-		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return list;
 	}

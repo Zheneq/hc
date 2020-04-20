@@ -28,55 +28,15 @@ public class ClientGameModeEvent
 	{
 		if (GameModeUtils.IsCtfGameModeEvent(this))
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientGameModeEvent.ExecuteClientGameModeEvent()).MethodHandle;
-			}
 			if (CaptureTheFlag.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CaptureTheFlag.Get().ExecuteClientGameModeEvent(this);
 			}
 		}
 		else if (GameModeUtils.IsCtcGameModeEvent(this))
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (CollectTheCoins.Get() != null)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				CollectTheCoins.Get().ExecuteClientGameModeEvent(this);
 			}
 		}

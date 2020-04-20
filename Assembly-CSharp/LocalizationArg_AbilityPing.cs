@@ -39,43 +39,12 @@ public class LocalizationArg_AbilityPing : LocalizationArg
 		string arg;
 		if (this.m_isSelectable)
 		{
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(LocalizationArg_AbilityPing.TR()).MethodHandle;
-			}
 			arg = StringUtil.TR("Ready!", "Global");
 		}
 		else if (this.m_remainingCooldown > 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_remainingCooldown == 1)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				arg = StringUtil.TR("TurnLeft", "GameModes");
 			}
 			else

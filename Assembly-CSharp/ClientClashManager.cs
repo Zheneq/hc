@@ -34,42 +34,11 @@ public class ClientClashManager : MonoBehaviour
 	{
 		if (curPath.m_moverClashesHere)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.OnActorMoved_ClientClashManager(ActorData, BoardSquarePathInfo)).MethodHandle;
-			}
 			if (curPath.next != null)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (curPath.prev != null)
 				{
 					goto IL_50;
-				}
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			this.OnMidMovementClash(curPath.square);
@@ -78,41 +47,14 @@ public class ClientClashManager : MonoBehaviour
 		IL_50:
 		if (curPath.prev != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (curPath.prev.m_moverClashesHere)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				this.OnMidMovementClash(curPath.prev.square);
 				return;
 			}
 		}
 		if (curPath.next == null)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			List<ClashAtEndOfEvade> list = new List<ClashAtEndOfEvade>();
 			using (List<ClashAtEndOfEvade>.Enumerator enumerator = this.m_postEvadeClashes.GetEnumerator())
 			{
@@ -125,15 +67,6 @@ public class ClientClashManager : MonoBehaviour
 						this.OnMidMovementClash(clashAtEndOfEvade.m_clashSquare);
 					}
 				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			using (List<ClashAtEndOfEvade>.Enumerator enumerator2 = list.GetEnumerator())
 			{
@@ -141,15 +74,6 @@ public class ClientClashManager : MonoBehaviour
 				{
 					ClashAtEndOfEvade item = enumerator2.Current;
 					this.m_postEvadeClashes.Remove(item);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -165,42 +89,11 @@ public class ClientClashManager : MonoBehaviour
 				ActiveClashVfx activeClashVfx = enumerator.Current;
 				if (activeClashVfx.m_square == clashSquare)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.OnMidMovementClash(BoardSquare)).MethodHandle;
-					}
 					if (Time.time < activeClashVfx.m_timeCreated + this.m_timeTillNewClashOnSameSquare)
 					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						flag = false;
 					}
 				}
-			}
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 		}
 		if (flag)
@@ -230,30 +123,8 @@ public class ClientClashManager : MonoBehaviour
 	{
 		if (this.m_currentMessageHandlersState == ClientClashManager.MessageHandlersState.NotYetRegistered)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.RegisterHandler()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
 					ClientGameManager.Get().Client.RegisterHandler(0x48, new NetworkMessageDelegate(this.MsgClashesAtEndOfMovement));
@@ -267,41 +138,10 @@ public class ClientClashManager : MonoBehaviour
 	{
 		if (this.m_currentMessageHandlersState == ClientClashManager.MessageHandlersState.Registered)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.UnregisterHandlers()).MethodHandle;
-			}
 			if (ClientGameManager.Get() != null)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (ClientGameManager.Get().Client != null)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					ClientGameManager.Get().Client.UnregisterHandler(0x48);
 					this.m_currentMessageHandlersState = ClientClashManager.MessageHandlersState.Unregistered;
 				}
@@ -332,42 +172,11 @@ public class ClientClashManager : MonoBehaviour
 				ActorData actorData = GameFlowData.Get().FindActorByActorIndex((int)b5);
 				if (actorData != null)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.MsgClashesAtEndOfMovement(NetworkMessage)).MethodHandle;
-					}
 					list.Add(actorData);
 				}
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			ClashAtEndOfEvade item = new ClashAtEndOfEvade(list, boardSquare);
 			this.m_postEvadeClashes.Add(item);
-		}
-		for (;;)
-		{
-			switch (1)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 	}
 
@@ -381,56 +190,16 @@ public class ClientClashManager : MonoBehaviour
 				ActiveClashVfx activeClashVfx = enumerator.Current;
 				if (Time.time > activeClashVfx.m_timeCreated + this.m_timeTillClashExpires)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(ClientClashManager.Update()).MethodHandle;
-					}
 					if (list == null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						list = new List<ActiveClashVfx>();
 					}
 					list.Add(activeClashVfx);
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 		}
 		if (list != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			using (List<ActiveClashVfx>.Enumerator enumerator2 = list.GetEnumerator())
 			{
 				while (enumerator2.MoveNext())
@@ -438,15 +207,6 @@ public class ClientClashManager : MonoBehaviour
 					ActiveClashVfx activeClashVfx2 = enumerator2.Current;
 					activeClashVfx2.OnEnd();
 					this.m_activeClashVfxList.Remove(activeClashVfx2);
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}

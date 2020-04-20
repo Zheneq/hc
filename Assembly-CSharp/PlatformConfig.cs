@@ -86,32 +86,10 @@ public class PlatformConfig
 		int num;
 		if (hex < ':')
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlatformConfig.GetHexVal(char)).MethodHandle;
-			}
 			num = 0x30;
 		}
 		else if (hex < 'a')
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			num = 0x37;
 		}
 		else
@@ -125,34 +103,12 @@ public class PlatformConfig
 	{
 		if (hex.Length % 2 == 1)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(PlatformConfig.StringToByteArray(string)).MethodHandle;
-			}
 			throw new Exception("The binary key cannot have an odd number of digits");
 		}
 		byte[] array = new byte[hex.Length >> 1];
 		for (int i = 0; i < hex.Length >> 1; i++)
 		{
 			array[i] = (byte)((PlatformConfig.GetHexVal(hex[i << 1]) << 4) + PlatformConfig.GetHexVal(hex[(i << 1) + 1]));
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			break;
 		}
 		return array;
 	}
@@ -191,19 +147,6 @@ public class PlatformConfig
 					{
 						if (binaryWriter != null)
 						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							if (!true)
-							{
-								RuntimeMethodHandle runtimeMethodHandle = methodof(PlatformConfig.Encrypt(byte[], string, byte[])).MethodHandle;
-							}
 							((IDisposable)binaryWriter).Dispose();
 						}
 					}
@@ -213,15 +156,6 @@ public class PlatformConfig
 				{
 					if (cryptoStream != null)
 					{
-						for (;;)
-						{
-							switch (6)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						((IDisposable)cryptoStream).Dispose();
 					}
 				}
@@ -230,15 +164,6 @@ public class PlatformConfig
 			{
 				if (memoryStream != null)
 				{
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					((IDisposable)memoryStream).Dispose();
 				}
 			}
@@ -247,15 +172,6 @@ public class PlatformConfig
 		{
 			if (rijndaelManaged != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				((IDisposable)rijndaelManaged).Dispose();
 			}
 		}

@@ -13,57 +13,17 @@ namespace LobbyGameClientMessages
 
 		public string Message;
 
-		public bool \u001D()
+		public bool symbol_001D()
 		{
-			if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0015)
+			if (this.Reason != ClientFeedbackReport.FeedbackReason.symbol_0015)
 			{
-				for (;;)
+				if (this.Reason != ClientFeedbackReport.FeedbackReason.symbol_0016 && this.Reason != ClientFeedbackReport.FeedbackReason.symbol_0018)
 				{
-					switch (2)
+					if (this.Reason != ClientFeedbackReport.FeedbackReason.symbol_0019)
 					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(ClientFeedbackReport.\u001D()).MethodHandle;
-				}
-				if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0016 && this.Reason != ClientFeedbackReport.FeedbackReason.\u0018)
-				{
-					for (;;)
-					{
-						switch (5)
+						if (this.Reason != ClientFeedbackReport.FeedbackReason.symbol_0011)
 						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0019)
-					{
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
-						if (this.Reason != ClientFeedbackReport.FeedbackReason.\u0011)
-						{
-							for (;;)
-							{
-								switch (5)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
-							return this.Reason == ClientFeedbackReport.FeedbackReason.\u001A;
+							return this.Reason == ClientFeedbackReport.FeedbackReason.symbol_001A;
 						}
 					}
 				}
@@ -73,18 +33,18 @@ namespace LobbyGameClientMessages
 
 		public enum FeedbackReason
 		{
-			\u001D,
-			\u000E,
-			\u0012,
-			\u0015,
-			\u0016,
-			\u0013,
-			\u0018,
-			\u0009,
-			\u0019,
-			\u0011,
-			\u001A,
-			\u0004
+			symbol_001D,
+			symbol_000E,
+			symbol_0012,
+			symbol_0015,
+			symbol_0016,
+			symbol_0013,
+			symbol_0018,
+			symbol_0009,
+			symbol_0019,
+			symbol_0011,
+			symbol_001A,
+			symbol_0004
 		}
 	}
 }

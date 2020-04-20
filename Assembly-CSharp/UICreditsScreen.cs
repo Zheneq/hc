@@ -72,19 +72,6 @@ public class UICreditsScreen : UIScene
 		}
 		else if (this.m_wasCharModelShown)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreditsScreen.SetVisible(bool)).MethodHandle;
-			}
 			this.m_wasCharModelShown = false;
 			UICharacterStoreAndProgressWorldObjects.Get().SetVisible(true);
 		}
@@ -119,30 +106,8 @@ public class UICreditsScreen : UIScene
 	{
 		if (this.m_isPlaying)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UICreditsScreen.Update()).MethodHandle;
-			}
 			if (!this.m_isVisible)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 			}
 			else
 			{
@@ -154,15 +119,6 @@ public class UICreditsScreen : UIScene
 				num += Time.deltaTime * this.m_movePerSecond;
 				if (num > this.m_endPos)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					num = this.m_endPos;
 				}
 				this.m_scrollBox.localPosition = new Vector3(0f, num, 0f);

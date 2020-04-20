@@ -28,19 +28,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		bool shouldShowActorRadius;
 		if (!GameWideData.Get().UseActorRadiusForLaser())
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CapsuleAoE..ctor(Ability, float, float, float, int, bool, bool)).MethodHandle;
-			}
 			shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
 		}
 		else
@@ -63,19 +50,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		BoardSquare boardSquare;
 		if (currentTargetIndex > 0)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityUtil_Targeter_CapsuleAoE.UpdateTargetingMultiTargets(AbilityTarget, ActorData, int, List<AbilityTarget>)).MethodHandle;
-			}
 			boardSquare = Board.Get().GetBoardSquareSafe(targets[currentTargetIndex - 1].GridPos);
 		}
 		else
@@ -89,26 +63,8 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		}
 		else if (this.m_ability.GetExpectedNumberOfTargeters() == 0)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.GetDefaultStartSquare != null)
 			{
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				boardSquare2 = this.GetDefaultStartSquare();
 			}
 		}
@@ -119,15 +75,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		bool flag3 = this.m_radiusAroundEnd > 0f;
 		if (flag)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			float widthInSquares = this.m_rangeFromLine * 2f;
 			if (this.m_highlights.Count == 0)
 			{
@@ -136,37 +83,10 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 			}
 			if (vector == vector2)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_highlights.Count > 0)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_highlights[0] != null)
 					{
-						for (;;)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						this.m_highlights[0].SetActive(false);
 					}
 				}
@@ -175,15 +95,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 			{
 				if (this.m_highlights.Count > 0 && this.m_highlights[0] != null)
 				{
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					this.m_highlights[0].SetActive(true);
 				}
 				TargeterUtils.RefreshLaserBoxHighlight(this.m_highlights[0], vector, vector2, widthInSquares, TargeterUtils.HeightAdjustType.FromPathArrow);
@@ -191,29 +102,11 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		}
 		if (flag2)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (this.m_highlights.Count != 1)
 			{
 				if (this.m_highlights.Count != 0 || flag)
 				{
 					goto IL_25E;
-				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			GameObject item2 = TargeterUtils.CreateCircleHighlight(vector, this.m_radiusAroundStart, TargeterUtils.HeightAdjustType.FromPathArrow, targetingActor == GameFlowData.Get().activeOwnedActorData);
@@ -226,104 +119,32 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		{
 			if (this.m_highlights.Count == 2)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (flag)
 					{
 						goto IL_31B;
-					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
 			if (this.m_highlights.Count == 1)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (flag2 ^ flag)
 				{
 					goto IL_31B;
-				}
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 			if (this.m_highlights.Count != 0)
 			{
 				goto IL_34F;
 			}
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag2)
 			{
 				goto IL_34F;
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (flag)
 			{
 				goto IL_34F;
-			}
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
 			}
 			IL_31B:
 			GameObject item3 = TargeterUtils.CreateCircleHighlight(vector2, this.m_radiusAroundEnd, TargeterUtils.HeightAdjustType.FromPathArrow, targetingActor == GameFlowData.Get().activeOwnedActorData);
@@ -332,28 +153,10 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 			int num = 0;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num++;
 			}
 			if (flag2)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num++;
 			}
 			TargeterUtils.RefreshCircleHighlight(this.m_highlights[num], vector2, TargeterUtils.HeightAdjustType.FromPathArrow);
@@ -365,27 +168,9 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		{
 			if (base.GetAffectsTarget(actorData, targetingActor))
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				Vector3 damageOrigin = vector;
 				if (this.UseEndPosAsDamageOriginIfOverlap)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Vector3 travelBoardSquareWorldPosition = actorData.GetTravelBoardSquareWorldPosition();
 					travelBoardSquareWorldPosition.y = vector2.y;
 					if ((travelBoardSquareWorldPosition - vector2).sqrMagnitude <= Mathf.Epsilon)
@@ -396,53 +181,17 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 				base.AddActorInRange(actorData, damageOrigin, targetingActor, AbilityTooltipSubject.Primary, false);
 				if (this.m_radiusAroundStart > 0f)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num2 = VectorUtils.HorizontalPlaneDistInSquares(vector, actorData.GetTravelBoardSquareWorldPosition());
 					if (num2 <= this.m_radiusAroundStart * Board.Get().squareSize)
 					{
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, damageOrigin, targetingActor, AbilityTooltipSubject.Near, true);
 					}
 				}
 				if (this.m_radiusAroundEnd > 0f)
 				{
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					float num3 = VectorUtils.HorizontalPlaneDistInSquares(vector2, actorData.GetTravelBoardSquareWorldPosition());
 					if (num3 <= this.m_radiusAroundEnd * Board.Get().squareSize)
 					{
-						for (;;)
-						{
-							switch (7)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						base.AddActorInRange(actorData, damageOrigin, targetingActor, AbilityTooltipSubject.Far, true);
 					}
 				}
@@ -450,15 +199,6 @@ public class AbilityUtil_Targeter_CapsuleAoE : AbilityUtil_Targeter
 		}
 		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			base.ResetSquareIndicatorIndexToUse();
 			AreaEffectUtils.OperateOnSquaresInRadiusOfLine(this.m_indicatorHandler, vector, vector2, this.m_radiusAroundStart, this.m_radiusAroundEnd, this.m_rangeFromLine, this.m_penetrateLoS, targetingActor);
 			base.HideUnusedSquareIndicators();

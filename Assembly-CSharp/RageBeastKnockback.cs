@@ -38,19 +38,6 @@ public class RageBeastKnockback : Ability
 	{
 		if (this.m_abilityName == "Base Ability")
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.Start()).MethodHandle;
-			}
 			this.m_abilityName = "Upheaval";
 		}
 		this.SetupTargeter();
@@ -95,19 +82,6 @@ public class RageBeastKnockback : Ability
 		int val;
 		if (abilityMod_RageBeastKnockback)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.AddSpecificTooltipTokens(List<TooltipTokenEntry>, AbilityMod)).MethodHandle;
-			}
 			val = abilityMod_RageBeastKnockback.m_maxTargetMod.GetModifiedValue(this.m_maxTargets);
 		}
 		else
@@ -120,15 +94,6 @@ public class RageBeastKnockback : Ability
 		int val2;
 		if (abilityMod_RageBeastKnockback)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			val2 = abilityMod_RageBeastKnockback.m_onHitDamageMod.GetModifiedValue(this.m_damageAmount);
 		}
 		else
@@ -142,19 +107,6 @@ public class RageBeastKnockback : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastKnockback))
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.OnApplyAbilityMod(AbilityMod)).MethodHandle;
-			}
 			this.m_abilityMod = (abilityMod as AbilityMod_RageBeastKnockback);
 			this.SetupTargeter();
 		}
@@ -175,19 +127,6 @@ public class RageBeastKnockback : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.ModdedMaxTargets()).MethodHandle;
-			}
 			result = this.m_maxTargets;
 		}
 		else
@@ -207,19 +146,6 @@ public class RageBeastKnockback : Ability
 		float result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (5)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.ModdedLaserLength()).MethodHandle;
-			}
 			result = this.m_laserDistance;
 		}
 		else
@@ -234,19 +160,6 @@ public class RageBeastKnockback : Ability
 		int result;
 		if (this.m_abilityMod == null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.ModdedOnHitDamage()).MethodHandle;
-			}
 			result = this.m_damageAmount;
 		}
 		else
@@ -281,19 +194,6 @@ public class RageBeastKnockback : Ability
 		}
 		if (num > num3)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(RageBeastKnockback.GetKnockbackDist(AbilityTarget, Vector3, Vector3)).MethodHandle;
-			}
 			return num3;
 		}
 		return num;

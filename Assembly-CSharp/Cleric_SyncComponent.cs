@@ -18,41 +18,10 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		ActorData component = base.GetComponent<ActorData>();
 		if (component != null)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.MeleeKnockbackAnimRangeChanged(int)).MethodHandle;
-			}
 			if (component.GetActorModelData() != null)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (component.GetActorModelData().HasAnimatorControllerParamater("AttackRange"))
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					Animator modelAnimator = component.GetActorModelData().GetModelAnimator();
 					modelAnimator.SetInteger(Cleric_SyncComponent.animAttackRange, value);
 				}
@@ -89,30 +58,8 @@ public class Cleric_SyncComponent : NetworkBehaviour
 			uint dirtyBit = 2U;
 			if (NetworkServer.localClientActive)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.set_Networkm_meleeKnockbackAnimRange(int)).MethodHandle;
-				}
 				if (!base.syncVarHookGuard)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					base.syncVarHookGuard = true;
 					this.MeleeKnockbackAnimRangeChanged(value);
 					base.syncVarHookGuard = false;
@@ -133,30 +80,8 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		bool flag = false;
 		if ((base.syncVarDirtyBits & 1U) != 0U)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.OnSerialize(NetworkWriter, bool)).MethodHandle;
-			}
 			if (!flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
 				flag = true;
 			}
@@ -164,15 +89,6 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		}
 		if ((base.syncVarDirtyBits & 2U) != 0U)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			if (!flag)
 			{
 				writer.WritePackedUInt32(base.syncVarDirtyBits);
@@ -182,15 +98,6 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		}
 		if (!flag)
 		{
-			for (;;)
-			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
 			writer.WritePackedUInt32(base.syncVarDirtyBits);
 		}
 		return flag;
@@ -211,19 +118,6 @@ public class Cleric_SyncComponent : NetworkBehaviour
 		}
 		if ((num & 2) != 0)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(Cleric_SyncComponent.OnDeserialize(NetworkReader, bool)).MethodHandle;
-			}
 			this.MeleeKnockbackAnimRangeChanged((int)reader.ReadPackedUInt32());
 		}
 	}

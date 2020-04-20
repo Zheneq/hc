@@ -37,19 +37,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 		FireborgReactLasers fireborgReactLasers = targetAbility as FireborgReactLasers;
 		if (fireborgReactLasers != null)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgReactLasers.AddModSpecificTooltipTokens(List<TooltipTokenEntry>, Ability)).MethodHandle;
-			}
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
 			base.AddOnHitDataTokens(tokens, this.m_onHitDataForSecondLaserMod, fireborgReactLasers.m_onHitDataForSecondLaser);
 			AbilityMod.AddToken(tokens, this.m_extraShieldIfLowHealthMod, "ExtraShieldIfLowHealth", string.Empty, fireborgReactLasers.m_extraShieldIfLowHealth, true, false);
@@ -75,19 +62,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(AbilityMod_FireborgReactLasers.ModSpecificAutogenDesc(AbilityData)).MethodHandle;
-				}
 				baseVal = fireborgReactLasers.m_extraShieldIfLowHealth;
 			}
 			else
@@ -102,15 +76,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal2;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal2 = fireborgReactLasers.m_lowHealthThresh;
 			}
 			else
@@ -125,15 +90,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal3;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal3 = fireborgReactLasers.m_shieldPerHitReceivedForNextTurn;
 			}
 			else
@@ -148,15 +104,6 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			int baseVal4;
 			if (flag)
 			{
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				baseVal4 = fireborgReactLasers.m_earlyDepleteShieldOnNextTurn;
 			}
 			else

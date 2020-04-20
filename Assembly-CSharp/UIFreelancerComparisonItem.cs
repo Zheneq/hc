@@ -31,52 +31,12 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 		this.m_overviewStat = overviewStat;
 		if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.TimePlayed)
 		{
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFreelancerComparisonItem.SetupNewStat(UIPlayerProgressOverview.OverviewStat)).MethodHandle;
-			}
 			if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.DamageEfficiency)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.AverageDamageDonePerTurn)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.AverageDamageTakenPerTurn)
 					{
-						for (;;)
-						{
-							switch (2)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
 						if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.AverageSupportDonePerTurn)
 						{
 							this.m_value = new PersistedStatEntry();
@@ -113,42 +73,11 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 	{
 		if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.TimePlayed)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIFreelancerComparisonItem.GetValue()).MethodHandle;
-			}
 			if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.MatchesWon)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (this.m_overviewStat != UIPlayerProgressOverview.OverviewStat.NumBadges)
 				{
 					return this.m_value.Average();
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					break;
 				}
 			}
 		}
@@ -168,19 +97,6 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 			float fillAmount2;
 			if (maxValue > 0f)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIFreelancerComparisonItem.SetupDisplay(float)).MethodHandle;
-				}
 				fillAmount2 = num / maxValue;
 			}
 			else
@@ -199,15 +115,6 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 			float fillAmount4;
 			if (maxValue > 0f)
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				fillAmount4 = num / maxValue;
 			}
 			else
@@ -224,15 +131,6 @@ public class UIFreelancerComparisonItem : MonoBehaviour
 			float num;
 			if (num2 > 0f)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				num = this.m_value.GetSum() / num2;
 			}
 			else

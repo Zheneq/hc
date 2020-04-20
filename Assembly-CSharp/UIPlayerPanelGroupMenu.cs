@@ -25,19 +25,6 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 			UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerEnter, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseOver));
 			UIEventTriggerUtils.AddListener(this.m_menuButtons[i].m_button.gameObject, EventTriggerType.PointerClick, new UIEventTriggerUtils.EventDelegate(this.OnGroupChatMouseClicked));
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
-		if (!true)
-		{
-			RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.Awake()).MethodHandle;
-		}
 	}
 
 	public void OnGroupChatMouseClicked(BaseEventData data)
@@ -46,30 +33,8 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 		{
 			if (this.IsValidButtonAction((UIPlayerPanelGroupMenu.GroupMenuButtonAction)i))
 			{
-				for (;;)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (!true)
-				{
-					RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.OnGroupChatMouseClicked(BaseEventData)).MethodHandle;
-				}
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
-					for (;;)
-					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					switch (i)
 					{
 					case 0:
@@ -78,15 +43,6 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 					case 2:
 						if (this.m_botMasqueradingAsHuman)
 						{
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								break;
-							}
 							TextConsole.Get().Write(new TextConsole.Message
 							{
 								Text = StringUtil.TR("AddFriendRequest", "SlashCommand"),
@@ -137,19 +93,6 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 			{
 				if ((data as PointerEventData).pointerCurrentRaycast.gameObject == this.m_menuButtons[i].m_button.gameObject)
 				{
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (!true)
-					{
-						RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.OnGroupChatMouseOver(BaseEventData)).MethodHandle;
-					}
 					this.m_menuButtons[i].m_icon.color = Color.white;
 					this.m_menuButtons[i].m_label.color = Color.white;
 				}
@@ -165,34 +108,12 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 				this.m_menuButtons[i].m_label.color = Color.gray * 0.75f;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			break;
-		}
 	}
 
 	public void Setup(UpdateGroupMemberData memberInfo)
 	{
 		if (memberInfo != null)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.Setup(UpdateGroupMemberData)).MethodHandle;
-			}
 			this.m_memberHandle = memberInfo.MemberDisplayName;
 			this.m_memberAccountId = memberInfo.AccountID;
 		}
@@ -209,19 +130,6 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 	{
 		if (memberInfo != null)
 		{
-			for (;;)
-			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.Setup(LobbyPlayerInfo)).MethodHandle;
-			}
 			this.m_memberHandle = memberInfo.GetHandle();
 			this.m_memberAccountId = memberInfo.AccountId;
 			this.m_botMasqueradingAsHuman = memberInfo.BotsMasqueradeAsHumans;
@@ -263,19 +171,6 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 		bool result = false;
 		if (this.m_memberAccountId >= 0L)
 		{
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.IsValidButtonAction(UIPlayerPanelGroupMenu.GroupMenuButtonAction)).MethodHandle;
-			}
 			switch (action)
 			{
 			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.SendMessage:
@@ -287,30 +182,12 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.PromoteToLeader:
 				if (ClientGameManager.Get().GroupInfo.IsLeader)
 				{
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 				break;
 			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.KickFromParty:
 				if (ClientGameManager.Get().GroupInfo.IsLeader)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 				break;
@@ -320,15 +197,6 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 			case UIPlayerPanelGroupMenu.GroupMenuButtonAction.LeaveParty:
 				if (ClientGameManager.Get().GroupInfo.InAGroup)
 				{
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
 					result = true;
 				}
 				break;
@@ -342,44 +210,13 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 		bool result = true;
 		if (this.m_memberAccountId >= 0L && this.m_memberAccountId == ClientGameManager.Get().GetPlayerAccountData().AccountId)
 		{
-			for (;;)
-			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				break;
-			}
-			if (!true)
-			{
-				RuntimeMethodHandle runtimeMethodHandle = methodof(UIPlayerPanelGroupMenu.IsButtonActionVisible(UIPlayerPanelGroupMenu.GroupMenuButtonAction)).MethodHandle;
-			}
 			if (action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.AddToFriends)
 			{
-				for (;;)
-				{
-					switch (4)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
 				if (action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.KickFromParty && action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.PromoteToLeader && action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.SendMessage)
 				{
 					if (action != UIPlayerPanelGroupMenu.GroupMenuButtonAction.ReportPlayer)
 					{
 						return result;
-					}
-					for (;;)
-					{
-						switch (1)
-						{
-						case 0:
-							continue;
-						}
-						break;
 					}
 				}
 			}
