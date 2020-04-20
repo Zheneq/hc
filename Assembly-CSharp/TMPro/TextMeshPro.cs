@@ -1700,7 +1700,7 @@ namespace TMPro
 									{
 										num36 = num23;
 									}
-									object obj = num33 + num35 * num36;
+									float obj = num33 + num35 * num36;
 									float num37 = num13;
 									float num38;
 									if (flag10)
