@@ -387,8 +387,8 @@ namespace TMPro
 						componentInChildren.rectTransform.gameObject.SetActive(true);
 						Rect rect = rectTransform2.rect;
 						Rect rect2 = componentInChildren.rectTransform.rect;
-						Vector2 vector = rect2.min - rect.min + componentInChildren.rectTransform.localPosition;
-						Vector2 vector2 = rect2.max - rect.max + componentInChildren.rectTransform.localPosition;
+						Vector2 vector = rect2.min - rect.min + (Vector2)componentInChildren.rectTransform.localPosition;
+						Vector2 vector2 = rect2.max - rect.max + (Vector2)componentInChildren.rectTransform.localPosition;
 						Vector2 size = rect2.size;
 						this.m_Items.Clear();
 						Toggle toggle = null;
@@ -439,7 +439,6 @@ namespace TMPro
 						RectTransform rectTransform3 = canvas.transform as RectTransform;
 						Rect rect3 = rectTransform3.rect;
 						int j = 0;
-						IL_531:
 						while (j < 2)
 						{
 							bool flag = false;
@@ -456,23 +455,13 @@ namespace TMPro
 									}
 								}
 								flag = true;
-								IL_513:
-								if (flag)
-								{
-									RectTransformUtility.FlipLayoutOnAxis(rectTransform, j, false, false);
-								}
-								j++;
-								goto IL_531;
+								break;
 							}
-							for (;;)
+							if (flag)
 							{
-								switch (4)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_513;
+								RectTransformUtility.FlipLayoutOnAxis(rectTransform, j, false, false);
 							}
+							j++;
 						}
 						for (int l = 0; l < this.m_Items.Count; l++)
 						{
@@ -645,29 +634,19 @@ namespace TMPro
 				if (parent.GetChild(i) == transform)
 				{
 					num = i - 1;
-					IL_6A:
-					if (num < 0)
-					{
-						return;
-					}
-					this.value = num;
-					this.Hide();
-					return;
+					break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			if (num < 0)
 			{
-				switch (2)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_6A;
+				return;
 			}
+			this.value = num;
+			this.Hide();
 		}
 
 		protected internal class DropdownItem : MonoBehaviour, IPointerEnterHandler, ICancelHandler, IEventSystemHandler
