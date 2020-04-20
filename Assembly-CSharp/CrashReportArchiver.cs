@@ -124,21 +124,12 @@ public static class CrashReportArchiver
 								}
 								else if (stringBuilder2.Length > 0)
 								{
-									IL_2A2:
-									string name2 = stringBuilder2.ToString();
-									userKeyValues["StackTraceHash"] = string.Format("{0:X8}", StringUtil.CaseInsensitiveHash(name2));
-									goto IL_2EB;
+									break;
 								}
 							}
-							for (;;)
-							{
-								switch (6)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_2A2;
-							}
+							string name2 = stringBuilder2.ToString();
+							userKeyValues["StackTraceHash"] = string.Format("{0:X8}", StringUtil.CaseInsensitiveHash(name2));
+							goto IL_2EB;
 						}
 						finally
 						{
