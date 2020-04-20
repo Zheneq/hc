@@ -235,80 +235,53 @@ public class BarrierManager : NetworkBehaviour
 		bool flag = false;
 		bool flag2 = false;
 		float num = 0.3f;
-		for (int i = 0; i < this.m_barriers.Count; i++)
+		int i;
+		for (i = 0; i < this.m_barriers.Count; i++)
 		{
 			Barrier barrier = this.m_barriers[i];
 			if (!barrier.CanBeSeenThroughBy(viewer))
 			{
-				IL_51:
-				if (i < this.m_barriers.Count)
-				{
-					Vector3 a = source.ToVector3();
-					Vector3 a2 = dest.ToVector3();
-					Vector3 b;
-					if (Mathf.Abs(source.x - dest.x) > Mathf.Abs(source.y - dest.y))
-					{
-						b = new Vector3(0f, 0f, Board.Get().squareSize * num);
-					}
-					else
-					{
-						b = new Vector3(Board.Get().squareSize * num, 0f, 0f);
-					}
-					Vector3 src = a + b;
-					Vector3 dest2 = a2 + b;
-					Vector3 src2 = a - b;
-					Vector3 dest3 = a2 - b;
-					for (int j = i; j < this.m_barriers.Count; j++)
-					{
-						if (flag)
-						{
-							if (flag2)
-							{
-								for (;;)
-								{
-									switch (1)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_1D4;
-								}
-							}
-						}
-						Barrier barrier2 = this.m_barriers[j];
-						if (!barrier2.CanBeSeenThroughBy(viewer))
-						{
-							if (!flag)
-							{
-								if (barrier2.CrossingBarrierForVision(src, dest2))
-								{
-									flag = true;
-								}
-							}
-							if (!flag2)
-							{
-								if (barrier2.CrossingBarrierForVision(src2, dest3))
-								{
-									flag2 = true;
-								}
-							}
-						}
-					}
-				}
-				IL_1D4:
-				bool result;
-				if (flag)
-				{
-					result = flag2;
-				}
-				else
-				{
-					result = false;
-				}
-				return result;
+				break;
 			}
 		}
-		goto IL_51;
+		if (i < this.m_barriers.Count)
+		{
+			Vector3 a = source.ToVector3();
+			Vector3 a2 = dest.ToVector3();
+			Vector3 b;
+			if (Mathf.Abs(source.x - dest.x) > Mathf.Abs(source.y - dest.y))
+			{
+				b = new Vector3(0f, 0f, Board.Get().squareSize * num);
+			}
+			else
+			{
+				b = new Vector3(Board.Get().squareSize * num, 0f, 0f);
+			}
+			Vector3 src = a + b;
+			Vector3 dest2 = a2 + b;
+			Vector3 src2 = a - b;
+			Vector3 dest3 = a2 - b;
+			for (int j = i; j < this.m_barriers.Count; j++)
+			{
+				if (flag && flag2)
+				{
+					return true;
+				}
+				Barrier barrier2 = this.m_barriers[j];
+				if (!barrier2.CanBeSeenThroughBy(viewer))
+				{
+					if (!flag && barrier2.CrossingBarrierForVision(src, dest2))
+					{
+						flag = true;
+					}
+					if (!flag2 && barrier2.CrossingBarrierForVision(src2, dest3))
+					{
+						flag2 = true;
+					}
+				}
+			}
+		}
+		return flag && flag2;
 	}
 
 	public int GetVisionStateChangesFor(ActorData actor)
@@ -638,57 +611,47 @@ public class BarrierManager : NetworkBehaviour
 				if (this.m_barriers[i].ConsiderAsCover)
 				{
 					flag = true;
-					IL_5C:
-					this.m_barriers.Clear();
-					if (this.m_barrierIdSync.Count > 0x32)
-					{
-						Debug.LogError("More than 50 barriers active?");
-					}
-					for (int j = 0; j < this.m_barrierIdSync.Count; j++)
-					{
-						using (List<BarrierSerializeInfo>.Enumerator enumerator = this.m_clientBarrierInfo.GetEnumerator())
-						{
-							while (enumerator.MoveNext())
-							{
-								BarrierSerializeInfo barrierSerializeInfo = enumerator.Current;
-								if (barrierSerializeInfo.m_guid == this.m_barrierIdSync[j])
-								{
-									Barrier barrier = Barrier.CreateBarrierFromSerializeInfo(barrierSerializeInfo);
-									if (barrier.ConsiderAsCover)
-									{
-										flag = true;
-									}
-									List<ActorData> list;
-									this.AddBarrier(barrier, false, out list);
-									goto IL_115;
-								}
-							}
-						}
-						IL_115:;
-					}
-					this.ClientUpdateMovementAndVision();
-					this.UpdateHasAbilityBlockingBarriers();
-					if (flag)
-					{
-						GameFlowData.Get().UpdateCoverFromBarriersForAllActors();
-						return;
-					}
-					return;
+					break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			this.m_barriers.Clear();
+			if (this.m_barrierIdSync.Count > 0x32)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_5C;
+				Debug.LogError("More than 50 barriers active?");
 			}
+			for (int j = 0; j < this.m_barrierIdSync.Count; j++)
+			{
+				using (List<BarrierSerializeInfo>.Enumerator enumerator = this.m_clientBarrierInfo.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						BarrierSerializeInfo barrierSerializeInfo = enumerator.Current;
+						if (barrierSerializeInfo.m_guid == this.m_barrierIdSync[j])
+						{
+							Barrier barrier = Barrier.CreateBarrierFromSerializeInfo(barrierSerializeInfo);
+							if (barrier.ConsiderAsCover)
+							{
+								flag = true;
+							}
+							List<ActorData> list;
+							this.AddBarrier(barrier, false, out list);
+							break;
+						}
+					}
+				}
+			}
+			this.ClientUpdateMovementAndVision();
+			this.UpdateHasAbilityBlockingBarriers();
+			if (flag)
+			{
+				GameFlowData.Get().UpdateCoverFromBarriersForAllActors();
+				return;
+			}
+			return;
 		}
 	}
 
