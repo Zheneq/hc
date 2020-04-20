@@ -211,151 +211,121 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 			Vector3 start = endPoints[i - 1];
 			Vector3 end = endPoints[i];
 			BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(start, end, true, false, float.MaxValue);
-			if (!(lastValidBoardSquareInLine == null))
+			if (lastValidBoardSquareInLine != null && lastValidBoardSquareInLine.IsBaselineHeight())
 			{
-				if (lastValidBoardSquareInLine.IsBaselineHeight())
-				{
-					IL_79:
-					Vector3 vector = endPoints[endPoints.Count - 1];
-					Vector3 vector2;
-					if (endPoints.Count >= 2)
-					{
-						vector2 = endPoints[endPoints.Count - 2];
-					}
-					else
-					{
-						vector2 = caster.GetTravelBoardSquareWorldPositionForLos();
-					}
-					Vector3 vector3 = vector2;
-					Vector3 a = vector - vector3;
-					float magnitude = a.magnitude;
-					a.Normalize();
-					Vector3 end2 = vector - Mathf.Min(0.5f, magnitude / 2f) * a;
-					float num = 0f;
-					BoardSquare boardSquare;
-					if (this.m_maxTargetsHit > 0 && laserTargets.Count >= this.m_maxTargetsHit)
-					{
-						boardSquare = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
-						num = -0.5f;
-					}
-					else
-					{
-						boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(vector3, end2, true, false, float.MaxValue);
-					}
-					if (boardSquare != null)
-					{
-						if (boardSquare != caster.GetCurrentBoardSquare())
-						{
-							float num2 = VectorUtils.HorizontalPlaneDistInWorld(vector3, boardSquare.ToVector3());
-							float maxDistance = Mathf.Max(0f, num2 + num);
-							boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(vector3, vector, true, false, maxDistance);
-						}
-					}
-					List<BoardSquare> list = new List<BoardSquare>();
-					if (boardSquare != null)
-					{
-						list.Add(caster.GetCurrentBoardSquare());
-						for (int j = 0; j < endPoints.Count; j++)
-						{
-							Vector3 vector4;
-							if (j == 0)
-							{
-								vector4 = list[j].ToVector3();
-							}
-							else
-							{
-								vector4 = endPoints[j - 1];
-							}
-							BoardSquare y = list[list.Count - 1];
-							Vector3 a2 = endPoints[j] - vector4;
-							a2.y = 0f;
-							a2.Normalize();
-							Vector3 b = a2 / 2f;
-							if (j > 0)
-							{
-								BoardSquare boardSquare2 = Board.Get().GetBoardSquare(vector4 + b);
-								if (boardSquare2 != null)
-								{
-									if (boardSquare2 != y && boardSquare2.IsBaselineHeight())
-									{
-										list.Add(boardSquare2);
-										y = boardSquare2;
-									}
-								}
-							}
-							if (j == endPoints.Count - 1)
-							{
-								if (boardSquare != y)
-								{
-									list.Add(boardSquare);
-								}
-							}
-							else
-							{
-								BoardSquare boardSquare3 = Board.Get().GetBoardSquare(endPoints[j] - b);
-								if (boardSquare3 != null)
-								{
-									if (!boardSquare3.IsBaselineHeight())
-									{
-										BoardSquare lastValidBoardSquareInLine2 = KnockbackUtils.GetLastValidBoardSquareInLine(vector4, endPoints[j], true, false, float.MaxValue);
-										if (lastValidBoardSquareInLine2 != null)
-										{
-											if (lastValidBoardSquareInLine2.IsBaselineHeight())
-											{
-												boardSquare3 = lastValidBoardSquareInLine2;
-											}
-										}
-									}
-								}
-								if (boardSquare3 != null)
-								{
-									if (boardSquare3 != y)
-									{
-										list.Add(boardSquare3);
-									}
-								}
-							}
-						}
-						ActorData occupantActor = boardSquare.OccupantActor;
-						if (occupantActor != null && occupantActor != caster)
-						{
-							if (occupantActor.IsVisibleToClient())
-							{
-								Vector3 testDir = vector3 - boardSquare.ToVector3();
-								testDir.y = 0f;
-								testDir.Normalize();
-								BoardSquare secondToLastInOrigPath = null;
-								if (list.Count > 1)
-								{
-									secondToLastInOrigPath = list[list.Count - 2];
-								}
-								BoardSquare endSquareForOccupant = this.GetEndSquareForOccupant(boardSquare, testDir, caster, secondToLastInOrigPath);
-								list.Add(endSquareForOccupant);
-							}
-						}
-					}
-					else
-					{
-						list.Add(caster.GetCurrentBoardSquare());
-					}
-					if (list.Count == 1)
-					{
-						list.Add(caster.GetCurrentBoardSquare());
-					}
-					return list;
-				}
+				break;
 			}
 			endPoints.RemoveAt(i);
 		}
-		for (;;)
+		Vector3 vector = endPoints[endPoints.Count - 1];
+		Vector3 vector2;
+		if (endPoints.Count >= 2)
 		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_79;
+			vector2 = endPoints[endPoints.Count - 2];
 		}
+		else
+		{
+			vector2 = caster.GetTravelBoardSquareWorldPositionForLos();
+		}
+		Vector3 vector3 = vector2;
+		Vector3 a = vector - vector3;
+		float magnitude = a.magnitude;
+		a.Normalize();
+		Vector3 end2 = vector - Mathf.Min(0.5f, magnitude / 2f) * a;
+		float num = 0f;
+		BoardSquare boardSquare;
+		if (this.m_maxTargetsHit > 0 && laserTargets.Count >= this.m_maxTargetsHit)
+		{
+			boardSquare = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
+			num = -0.5f;
+		}
+		else
+		{
+			boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(vector3, end2, true, false, float.MaxValue);
+		}
+		if (boardSquare != null && boardSquare != caster.GetCurrentBoardSquare())
+		{
+			float num2 = VectorUtils.HorizontalPlaneDistInWorld(vector3, boardSquare.ToVector3());
+			float maxDistance = Mathf.Max(0f, num2 + num);
+			boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(vector3, vector, true, false, maxDistance);
+		}
+		List<BoardSquare> list = new List<BoardSquare>();
+		if (boardSquare != null)
+		{
+			list.Add(caster.GetCurrentBoardSquare());
+			for (int j = 0; j < endPoints.Count; j++)
+			{
+				Vector3 vector4;
+				if (j == 0)
+				{
+					vector4 = list[j].ToVector3();
+				}
+				else
+				{
+					vector4 = endPoints[j - 1];
+				}
+				BoardSquare y = list[list.Count - 1];
+				Vector3 a2 = endPoints[j] - vector4;
+				a2.y = 0f;
+				a2.Normalize();
+				Vector3 b = a2 / 2f;
+				if (j > 0)
+				{
+					BoardSquare boardSquare2 = Board.Get().GetBoardSquare(vector4 + b);
+					if (boardSquare2 != null)
+					{
+						if (boardSquare2 != y && boardSquare2.IsBaselineHeight())
+						{
+							list.Add(boardSquare2);
+							y = boardSquare2;
+						}
+					}
+				}
+				if (j == endPoints.Count - 1 && boardSquare != y)
+				{
+					list.Add(boardSquare);
+				}
+				else
+				{
+					BoardSquare boardSquare3 = Board.Get().GetBoardSquare(endPoints[j] - b);
+					if (boardSquare3 != null && !boardSquare3.IsBaselineHeight())
+					{
+						BoardSquare lastValidBoardSquareInLine2 = KnockbackUtils.GetLastValidBoardSquareInLine(vector4, endPoints[j], true, false, float.MaxValue);
+						if (lastValidBoardSquareInLine2 != null && lastValidBoardSquareInLine2.IsBaselineHeight())
+						{
+							boardSquare3 = lastValidBoardSquareInLine2;
+						}
+					}
+					if (boardSquare3 != null && boardSquare3 != y)
+					{
+						list.Add(boardSquare3);
+					}
+				}
+			}
+			ActorData occupantActor = boardSquare.OccupantActor;
+			if (occupantActor != null && occupantActor != caster && occupantActor.IsVisibleToClient())
+			{
+				Vector3 testDir = vector3 - boardSquare.ToVector3();
+				testDir.y = 0f;
+				testDir.Normalize();
+				BoardSquare secondToLastInOrigPath = null;
+				if (list.Count > 1)
+				{
+					secondToLastInOrigPath = list[list.Count - 2];
+				}
+				BoardSquare endSquareForOccupant = this.GetEndSquareForOccupant(boardSquare, testDir, caster, secondToLastInOrigPath);
+				list.Add(endSquareForOccupant);
+			}
+		}
+		else
+		{
+			list.Add(caster.GetCurrentBoardSquare());
+		}
+		if (list.Count == 1)
+		{
+			list.Add(caster.GetCurrentBoardSquare());
+		}
+		return list;
 	}
 
 	private BoardSquare GetEndSquareForOccupant(BoardSquare lastSquare, Vector3 testDir, ActorData caster, BoardSquare secondToLastInOrigPath)
@@ -367,15 +337,7 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 		{
 			if (!(boardSquare == null))
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_1BE;
-				}
+				goto IL_1BE;
 			}
 			else
 			{
