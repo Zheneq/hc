@@ -89,7 +89,7 @@ public class PKFxCamera : PKFxPackDependent
 	public static short GetUniqueID()
 	{
 		short num = PKFxCamera.g_CameraUID;
-		PKFxCamera.g_CameraUID = num + 1;
+		PKFxCamera.g_CameraUID = (short)(num + 1);
 		return num;
 	}
 
