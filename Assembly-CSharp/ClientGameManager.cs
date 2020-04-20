@@ -6941,7 +6941,7 @@ public class ClientGameManager : MonoBehaviour
 			paymentMethod.isDefault = true;
 			onResponseCallback(new PaymentMethodsResponse
 			{
-				// TODO ClientGameManager::RequestPaymentMethods
+				// TODO DECOMP ClientGameManager::RequestPaymentMethods
 				//PaymentMethodList = new PaymentMethodList(),
 				PaymentMethodList = 
 				{
