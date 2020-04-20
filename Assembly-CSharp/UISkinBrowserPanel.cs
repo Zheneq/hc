@@ -951,30 +951,20 @@ public class UISkinBrowserPanel : MonoBehaviour
 			{
 				this.SelectSkin(this.m_skinButtons[i], false);
 				this.SetupSkinPurchaseButtons(this.m_skinButtons[i].m_skinData);
-				IL_8A:
-				for (int j = 0; j < this.m_colorButtons.Count; j++)
-				{
-					if (this.m_colorButtons[j].m_patternIndex == this.m_currentSelection.patternIndex)
-					{
-						if (this.m_colorButtons[j].m_tintIndex == this.m_currentSelection.colorIndex)
-						{
-							this.SelectColor(this.m_colorButtons[j], newSelection.skinIndex);
-							this.SetupColorPurchaseButtons(this.m_colorButtons[j].m_colorData);
-							break;
-						}
-					}
-				}
-				return;
+				break;
 			}
 		}
-		for (;;)
+		for (int j = 0; j < this.m_colorButtons.Count; j++)
 		{
-			switch (2)
+			if (this.m_colorButtons[j].m_patternIndex == this.m_currentSelection.patternIndex)
 			{
-			case 0:
-				continue;
+				if (this.m_colorButtons[j].m_tintIndex == this.m_currentSelection.colorIndex)
+				{
+					this.SelectColor(this.m_colorButtons[j], newSelection.skinIndex);
+					this.SetupColorPurchaseButtons(this.m_colorButtons[j].m_colorData);
+					break;
+				}
 			}
-			goto IL_8A;
 		}
 	}
 
@@ -997,7 +987,7 @@ public class UISkinBrowserPanel : MonoBehaviour
 		uipurchaseableItem.m_textureIndex = this.m_currentSelection.patternIndex;
 		uipurchaseableItem.m_tintIndex = this.m_currentSelection.colorIndex;
 		uipurchaseableItem.m_currencyType = currencyType;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 
 	private void PurchaseWithRealCurrency(BaseEventData data)
@@ -1009,7 +999,7 @@ public class UISkinBrowserPanel : MonoBehaviour
 		uipurchaseableItem.m_skinIndex = this.m_currentSelection.skinIndex;
 		uipurchaseableItem.m_textureIndex = this.m_currentSelection.patternIndex;
 		uipurchaseableItem.m_tintIndex = this.m_currentSelection.colorIndex;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 
 	public enum HandlerType
