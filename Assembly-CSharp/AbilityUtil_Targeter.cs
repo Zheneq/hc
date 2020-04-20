@@ -708,51 +708,33 @@ public class AbilityUtil_Targeter
 
 	protected void AddMovementArrow(ActorData mover, BoardSquarePathInfo path, Color arrowColor, MovementPathStart previousLine, bool isChasing, AbilityUtil_Targeter.TargeterMovementType movementType)
 	{
-		if (path != null)
+		if (path != null && mover != null && mover.IsVisibleToClient())
 		{
-			if (mover != null && mover.IsVisibleToClient())
+			List<Vector3> list = KnockbackUtils.BuildDrawablePath(path, false);
+			if (list.Count >= 2)
 			{
-				List<Vector3> list = KnockbackUtils.BuildDrawablePath(path, false);
-				if (list.Count >= 2)
+				GameObject gameObject = Targeting.GetTargeting().CreateFancyArrowMesh(ref list, 0.2f, arrowColor, isChasing, mover, movementType, null, previousLine, false, 0.4f, 0.4f);
+				bool flag = false;
+					
+				for (int i = 0;  i < this.m_arrows.Count;  i++)
 				{
-					GameObject gameObject = Targeting.GetTargeting().CreateFancyArrowMesh(ref list, 0.2f, arrowColor, isChasing, mover, movementType, null, previousLine, false, 0.4f, 0.4f);
-					bool flag = false;
-					int i = 0;
-					while (i < this.m_arrows.Count)
+					if (this.m_arrows[i].m_gameObject == gameObject)
 					{
-						if (this.m_arrows[i].m_gameObject == gameObject)
-						{
-							flag = true;
-							this.m_arrows[i].m_pathInfo = path;
-							IL_D7:
-							if (flag)
-							{
-								return;
-							}
-							if (gameObject.GetComponentInChildren<MovementPathStart>() != null)
-							{
-								AbilityUtil_Targeter.ArrowList arrowList = new AbilityUtil_Targeter.ArrowList();
-								arrowList.m_gameObject = gameObject;
-								arrowList.m_pathInfo = path;
-								this.m_arrows.Add(arrowList);
-								return;
-							}
-							return;
-						}
-						else
-						{
-							i++;
-						}
+						flag = true;
+						this.m_arrows[i].m_pathInfo = path;
+						break;
 					}
-					for (;;)
-					{
-						switch (2)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_D7;
-					}
+				}
+				if (flag)
+				{
+					return;
+				}
+				if (gameObject.GetComponentInChildren<MovementPathStart>() != null)
+				{
+					AbilityUtil_Targeter.ArrowList arrowList = new AbilityUtil_Targeter.ArrowList();
+					arrowList.m_gameObject = gameObject;
+					arrowList.m_pathInfo = path;
+					this.m_arrows.Add(arrowList);
 				}
 			}
 		}
