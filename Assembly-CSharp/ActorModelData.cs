@@ -1716,7 +1716,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				particleSystem.Clear();
 			}
-			particleSystem.emission.enabled = flag2;
+			var emission = particleSystem.emission;
+			emission.enabled = flag2;
 		}
 		this.SetPersistentVfxActive(flag2);
 	}
