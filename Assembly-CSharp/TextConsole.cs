@@ -118,7 +118,7 @@ public class TextConsole
 		}
 		else
 		{
-			string[] array = input.Split(null, 2, StringSplitOptions.RemoveEmptyEntries);
+			string[] array = input.Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 			if (array.Length >= 2)
 			{
 				text = array[0];
