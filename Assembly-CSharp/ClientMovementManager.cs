@@ -372,34 +372,25 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 					}
 					actorMovementEntry.m_progressState = ActorMovementEntry.MovementProgressState.FinishedMovement;
 				}
-				IL_1AD:
-				if (!flag)
-				{
-					if (!(dest != mover.GetCurrentBoardSquare()))
-					{
-						if (path == null)
-						{
-							return;
-						}
-						if (path.next == null)
-						{
-							return;
-						}
-					}
-					this.m_movedButUnhandledActors.Add(mover);
-				}
-				return;
+				break;
 			}
 		}
-		for (;;)
+		if (!flag)
 		{
-			switch (6)
+			if (!(dest != mover.GetCurrentBoardSquare()))
 			{
-			case 0:
-				continue;
+				if (path == null)
+				{
+					return;
+				}
+				if (path.next == null)
+				{
+					return;
+				}
 			}
-			goto IL_1AD;
+			this.m_movedButUnhandledActors.Add(mover);
 		}
+		return;
 	}
 
 	public void OnActorMoveStart_Disappeared(ActorData mover, ActorData.MovementType actorMovementType)
@@ -416,23 +407,14 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			{
 				flag = true;
 				actorMovementEntry.m_progressState = ActorMovementEntry.MovementProgressState.FinishedMovement;
-				IL_71:
-				if (!flag)
-				{
-					this.m_movedButUnhandledActors.Add(mover);
-				}
-				return;
+				break;
 			}
 		}
-		for (;;)
+		if (!flag)
 		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_71;
+			this.m_movedButUnhandledActors.Add(mover);
 		}
+		return;
 	}
 
 	private void ExamineActorMovement()
@@ -508,56 +490,47 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			if (GameFlowData.Get().IsActorDataOwned(list[j]))
 			{
 				flag = true;
-				IL_F3:
-				if (flag)
+				break;
+			}
+		}
+		if (flag)
+		{
+			if (this.AreActorsDoneMoving())
+			{
+				Debug.Log(string.Concat(new string[]
 				{
-					if (this.AreActorsDoneMoving())
-					{
-						Debug.Log(string.Concat(new string[]
-						{
 							"ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; but our state is Idle, so it doesn't apply to us.\n",
 							text,
 							"\n(This client = ",
 							GameFlowData.Get().GetActiveOwnedActorDataDebugNameString(),
 							".)\nIgnoring failsafe."
-						}));
-					}
-					else if (list.Count == 0)
-					{
-						Debug.LogWarning(string.Concat(new string[]
-						{
+				}));
+			}
+			else if (list.Count == 0)
+			{
+				Debug.LogWarning(string.Concat(new string[]
+				{
 							"ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; but the client doesn't know of any actors still resolving, so that's unexpected.\n",
 							text,
 							"\n(This client = ",
 							GameFlowData.Get().GetActiveOwnedActorDataDebugNameString(),
 							".)\nIgnoring failsafe... I guess..."
-						}));
-					}
-					else
-					{
-						Debug.LogWarning(string.Concat(new string[]
-						{
+				}));
+			}
+			else
+			{
+				Debug.LogWarning(string.Concat(new string[]
+				{
 							"ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; the failsafe applies to us.\n",
 							text,
 							"\n(This client = ",
 							GameFlowData.Get().GetActiveOwnedActorDataDebugNameString(),
 							".)\nExecuting failsafe..."
-						}));
-						this.ExecuteMovementFailsafe();
-					}
-				}
-				return;
+				}));
+				this.ExecuteMovementFailsafe();
 			}
 		}
-		for (;;)
-		{
-			switch (3)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_F3;
-		}
+		return;
 	}
 
 	private void ExecuteMovementFailsafe()
