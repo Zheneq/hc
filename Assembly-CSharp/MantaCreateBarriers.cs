@@ -63,22 +63,13 @@ public class MantaCreateBarriers : Ability
 			if (ability != null && ability is MantaCreateBarriersChainFinal)
 			{
 				this.m_finalDamageChain = (ability as MantaCreateBarriersChainFinal);
-				IL_90:
-				this.m_syncComp = base.GetComponent<Manta_SyncComponent>();
-				this.Setup();
-				base.ResetTooltipAndTargetingNumbers();
-				return;
+				break;
 			}
 		}
-		for (;;)
-		{
-			switch (7)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_90;
-		}
+		this.m_syncComp = base.GetComponent<Manta_SyncComponent>();
+		this.Setup();
+		base.ResetTooltipAndTargetingNumbers();
+		return;
 	}
 
 	private void Setup()
