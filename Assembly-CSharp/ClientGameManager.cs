@@ -1608,84 +1608,46 @@ public class ClientGameManager : MonoBehaviour
 
 	public bool IsCharacterAvailable(CharacterType characterType, GameType gameType)
 	{
-		bool flag;
-		if (GameManager.Get() != null)
-		{
-			flag = GameManager.Get().GameplayOverrides.EnableHiddenCharacters;
-		}
-		else
-		{
-			flag = false;
-		}
-		bool flag2 = flag;
+		bool enableHiddenCharacters = GameManager.Get()?.GameplayOverrides.EnableHiddenCharacters ?? false;
 		CharacterResourceLink characterResourceLink = null;
-		for (int i = 0; i < GameWideData.Get().m_characterResourceLinks.Length; i++)
+		foreach (CharacterResourceLink crl in GameWideData.Get().m_characterResourceLinks)
 		{
-			if (GameWideData.Get().m_characterResourceLinks[i].m_characterType == characterType)
+			if (crl.m_characterType == characterType)
 			{
-				characterResourceLink = GameWideData.Get().m_characterResourceLinks[i];
-				IL_8D:
-				if (!(characterResourceLink == null))
+				characterResourceLink = crl;
+				break;
+			}
+		}
+
+		if (characterResourceLink == null)
+		{
+			return false;
+		}
+		if (characterResourceLink.m_isHidden && !enableHiddenCharacters)
+		{
+			return false;
+		}
+		if (!characterResourceLink.m_characterType.IsValidForHumanPreGameSelection())
+		{
+			return false;
+		}
+		if (characterResourceLink.m_characterType.IsWillFill() && gameType != GameType.PvP && gameType != GameType.NewPlayerPvP)
+		{
+			return false;
+		}
+		PersistedCharacterData playerCharacterData = this.GetPlayerCharacterData(characterType);
+		if (this.ClientAccessLevel < ClientAccessLevel.Full && !characterType.IsWillFill())
+		{
+			if (gameType != GameType.Practice)
+			{
+				if (playerCharacterData != null && playerCharacterData.CharacterComponent.Unlocked)
 				{
-					if (characterResourceLink.m_isHidden)
-					{
-						if (!flag2)
-						{
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								return false;
-							}
-						}
-					}
-					if (!characterResourceLink.m_characterType.IsValidForHumanPreGameSelection())
-					{
-						return false;
-					}
-					if (characterResourceLink.m_characterType.IsWillFill())
-					{
-						if (gameType != GameType.PvP)
-						{
-							if (gameType != GameType.NewPlayerPvP)
-							{
-								return false;
-							}
-						}
-					}
-					PersistedCharacterData playerCharacterData = this.GetPlayerCharacterData(characterType);
-					if (this.ClientAccessLevel < ClientAccessLevel.Full && !characterType.IsWillFill())
-					{
-						if (gameType != GameType.Practice)
-						{
-							if (playerCharacterData != null)
-							{
-								if (playerCharacterData.CharacterComponent.Unlocked)
-								{
-									goto IL_16A;
-								}
-							}
-							return this.IsCharacterInFreeRotation(characterType, gameType);
-						}
-					}
-					IL_16A:
 					return true;
 				}
-				return false;
+				return this.IsCharacterInFreeRotation(characterType, gameType);
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_8D;
-		}
+		return true;
 	}
 
 	private List<CharacterVisualInfo> WaitingForSkinSelectResponse { get; set; }
@@ -3118,124 +3080,94 @@ public class ClientGameManager : MonoBehaviour
 				if (notification.Members[i].IsLeader)
 				{
 					flag = (notification.Members[i].AccountID == this.GetPlayerAccountData().AccountId);
-					IL_175:
-					this.GroupInfo.IsLeader = flag;
-					if (UICharacterScreen.Get() != null)
-					{
-						if (notification.GameType == GameType.Coop)
-						{
-							bool value = false;
-							UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
-							if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
-							{
-								if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
-								{
-									goto IL_274;
-								}
-							}
-							characterSelectSceneStateParameters.AllyBotTeammatesClickable = new bool?(!flag);
-							Dictionary<ushort, GameSubType> gameTypeSubTypes = this.GetGameTypeSubTypes(GameType.Coop);
-							IEnumerable<ushort> enumerable = from p in gameTypeSubTypes.Keys
-							where (p & notification.SubTypeMask) != 0
-							select p;
-							if (!enumerable.IsNullOrEmpty<ushort>())
-							{
-								GameSubType gameSubType;
-								if (gameTypeSubTypes.TryGetValue(enumerable.First<ushort>(), out gameSubType) && gameSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-								{
-									value = true;
-								}
-							}
-							IL_274:
-							characterSelectSceneStateParameters.SelectedEnemyBotDifficulty = new int?((int)notification.EnemyDifficulty);
-							characterSelectSceneStateParameters.SelectedAllyBotDifficulty = new int?((int)notification.AllyDifficulty);
-							characterSelectSceneStateParameters.AllyBotTeammatesSelected = new bool?(value);
-							UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
-						}
-						if (!flag)
-						{
-							UICharacterScreen.Get().UpdateSubTypeMaskChecks(notification.SubTypeMask);
-						}
-					}
-					goto IL_34E;
+					break;
 				}
 			}
-			for (;;)
+			this.GroupInfo.IsLeader = flag;
+			if (UICharacterScreen.Get() != null)
 			{
-				switch (1)
+				if (notification.GameType == GameType.Coop)
 				{
-				case 0:
-					continue;
+					bool value = false;
+					UICharacterScreen.CharacterSelectSceneStateParameters characterSelectSceneStateParameters = new UICharacterScreen.CharacterSelectSceneStateParameters();
+					if (AppState.GetCurrent() == AppState_CharacterSelect.Get() || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+					{
+						characterSelectSceneStateParameters.AllyBotTeammatesClickable = new bool?(!flag);
+						Dictionary<ushort, GameSubType> gameTypeSubTypes = this.GetGameTypeSubTypes(GameType.Coop);
+						IEnumerable<ushort> enumerable = from p in gameTypeSubTypes.Keys
+														 where (p & notification.SubTypeMask) != 0
+														 select p;
+						if (!enumerable.IsNullOrEmpty<ushort>())
+						{
+							GameSubType gameSubType;
+							if (gameTypeSubTypes.TryGetValue(enumerable.First<ushort>(), out gameSubType) && gameSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
+							{
+								value = true;
+							}
+						}
+					}
+					characterSelectSceneStateParameters.SelectedEnemyBotDifficulty = new int?((int)notification.EnemyDifficulty);
+					characterSelectSceneStateParameters.SelectedAllyBotDifficulty = new int?((int)notification.AllyDifficulty);
+					characterSelectSceneStateParameters.AllyBotTeammatesSelected = new bool?(value);
+					UIManager.Get().HandleNewSceneStateParameter(characterSelectSceneStateParameters);
 				}
-				goto IL_175;
+				if (!flag)
+				{
+					UICharacterScreen.Get().UpdateSubTypeMaskChecks(notification.SubTypeMask);
+				}
 			}
 		}
 		else
 		{
-			if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
+			if (AppState.GetCurrent() == AppState_CharacterSelect.Get() || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 			{
-				if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
+				if (this.GroupInfo.SelectedQueueType == GameType.Coop)
 				{
-					goto IL_34E;
+					UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
+					{
+						AllyBotTeammatesSelected = new bool?(false)
+					});
 				}
 			}
-			if (this.GroupInfo.SelectedQueueType == GameType.Coop)
-			{
-				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-				{
-					AllyBotTeammatesSelected = new bool?(false)
-				});
-			}
 		}
-		IL_34E:
 		if (UICharacterScreen.Get() != null)
 		{
 			UICharacterScreen.Get().DoRefreshFunctions(0x80);
 		}
-		if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
+		if (AppState.GetCurrent() == AppState_CharacterSelect.Get() || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 		{
-			if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
+			if (UICharacterScreen.Get() != null)
 			{
-				goto IL_3D5;
+				UICharacterScreen.Get().DoRefreshFunctions(0x40);
 			}
 		}
-		if (UICharacterScreen.Get() != null)
-		{
-			UICharacterScreen.Get().DoRefreshFunctions(0x40);
-		}
-		IL_3D5:
 		if (DiscordClientInterface.IsEnabled)
 		{
-			if (!DiscordClientInterface.IsSdkEnabled)
+			if (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled)
 			{
-				if (!DiscordClientInterface.IsInstalled)
+				if (this.GroupInfo.InAGroup)
 				{
-					goto IL_4AD;
-				}
-			}
-			if (this.GroupInfo.InAGroup)
-			{
-				bool enableAutoJoinDiscord = Options_UI.Get().GetEnableAutoJoinDiscord();
-				if (enableAutoJoinDiscord)
-				{
-					this.JoinDiscord();
-				}
-				else if (!this.m_discordJoinSuggested)
-				{
-					this.m_discordJoinSuggested = true;
-					string text = string.Format(StringUtil.TR("ClickToJoinDiscordGroupChat", "Global"), new object[0]);
-					if (!DiscordClientInterface.IsSdkEnabled)
+					bool enableAutoJoinDiscord = Options_UI.Get().GetEnableAutoJoinDiscord();
+					if (enableAutoJoinDiscord)
 					{
-						TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+						this.JoinDiscord();
+					}
+					else if (!this.m_discordJoinSuggested)
+					{
+						this.m_discordJoinSuggested = true;
+						string text = string.Format(StringUtil.TR("ClickToJoinDiscordGroupChat", "Global"), new object[0]);
+						if (!DiscordClientInterface.IsSdkEnabled)
+						{
+							TextConsole.Get().Write(text, ConsoleMessageType.SystemMessage);
+						}
 					}
 				}
-			}
-			else
-			{
-				this.LeaveDiscord();
+				else
+				{
+					this.LeaveDiscord();
+				}
 			}
 		}
-		IL_4AD:
 		this.OnGroupUpdateNotificationHolder();
 	}
 
@@ -4782,24 +4714,12 @@ public class ClientGameManager : MonoBehaviour
 
 	private IEnumerator LoadCharacterAssets(GameStatus gameStatusForAssets, float delaySeconds)
 	{
-		bool flag = false;
-		uint num;
+		bool loading = false;
 		GameManager gameManager;
 		IEnumerator<LobbyPlayerInfo> enumerator;
-		switch (num)
-		{
-		case 0U:
-			this.m_loadingCharacterAssets = true;
-			gameManager = GameManager.Get();
-			enumerator = gameManager.TeamInfo.TeamAPlayerInfo.GetEnumerator();
-			break;
-		case 1U:
-			break;
-		case 2U:
-			goto IL_1B3;
-		default:
-			yield break;
-		}
+		this.m_loadingCharacterAssets = true;
+		gameManager = GameManager.Get();
+		enumerator = gameManager.TeamInfo.TeamAPlayerInfo.GetEnumerator();
 		try
 		{
 			while (enumerator.MoveNext())
@@ -4811,16 +4731,13 @@ public class ClientGameManager : MonoBehaviour
 					this.m_loadingCharacterResources.Add(characterResourceLink);
 					characterResourceLink.LoadAsync(teamPlayerInfo.CharacterInfo.CharacterSkin, new CharacterResourceLink.CharacterResourceDelegate(this.HandleCharacterResourceLoaded), gameStatusForAssets);
 					yield return new WaitForSeconds(delaySeconds);
-					flag = true;
+					loading = true;
 				}
 			}
 		}
 		finally
 		{
-			if (flag)
-			{
-			}
-			else if (enumerator != null)
+			if (!loading && enumerator != null)
 			{
 				enumerator.Dispose();
 			}
@@ -4828,7 +4745,6 @@ public class ClientGameManager : MonoBehaviour
 		IEnumerator<LobbyPlayerInfo> enumerator2 = gameManager.TeamInfo.TeamBPlayerInfo.GetEnumerator();
 		try
 		{
-			IL_1B3:
 			while (enumerator2.MoveNext())
 			{
 				LobbyPlayerInfo teamPlayerInfo2 = enumerator2.Current;
@@ -4838,16 +4754,13 @@ public class ClientGameManager : MonoBehaviour
 					this.m_loadingCharacterResources.Add(characterResourceLink2);
 					characterResourceLink2.LoadAsync(teamPlayerInfo2.CharacterInfo.CharacterSkin, new CharacterResourceLink.CharacterResourceDelegate(this.HandleCharacterResourceLoaded), gameStatusForAssets);
 					yield return new WaitForSeconds(delaySeconds);
-					flag = true;
+					loading = true;
 				}
 			}
 		}
 		finally
 		{
-			if (flag)
-			{
-			}
-			else if (enumerator2 != null)
+			if (!loading && enumerator2 != null)
 			{
 				enumerator2.Dispose();
 			}
@@ -5542,59 +5455,35 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateRemoteCharacter(CharacterType[] characters, int[] remoteSlotIndexes, Action<UpdateRemoteCharacterResponse> onResponse = null)
 	{
-		if (this.m_lobbyGameClientInterface != null)
+		if (this.m_lobbyGameClientInterface == null || this.m_lobbyGameClientInterface.IsConnected)
 		{
-			if (this.m_lobbyGameClientInterface.IsConnected)
+			Log.Error("Not connected to lobby server.", new object[0]);
+			return;
+		}
+		if (remoteSlotIndexes.IsNullOrEmpty<int>() || characters.IsNullOrEmpty<CharacterType>() || remoteSlotIndexes.Length != characters.Length)
+		{
+			return;
+		}
+
+		if (this.m_loadedPlayerAccountData != null)
+		{
+			bool flag = false;
+			List<CharacterType> lastRemoteCharacters = this.m_loadedPlayerAccountData.AccountComponent.LastRemoteCharacters;
+						
+			for (int i = 0; i < characters.Length; i++)
 			{
-				if (!remoteSlotIndexes.IsNullOrEmpty<int>())
+				if (!(lastRemoteCharacters.Count > remoteSlotIndexes[i] && lastRemoteCharacters[remoteSlotIndexes[i]] == characters[i]))
 				{
-					if (!characters.IsNullOrEmpty<CharacterType>())
-					{
-						if (remoteSlotIndexes.Length == characters.Length)
-						{
-							if (this.m_loadedPlayerAccountData != null)
-							{
-								bool flag = false;
-								List<CharacterType> lastRemoteCharacters = this.m_loadedPlayerAccountData.AccountComponent.LastRemoteCharacters;
-								int i = 0;
-								while (i < characters.Length)
-								{
-									if (lastRemoteCharacters.Count > remoteSlotIndexes[i])
-									{
-										if (lastRemoteCharacters[remoteSlotIndexes[i]] == characters[i])
-										{
-											i++;
-											continue;
-										}
-									}
-									flag = true;
-									IL_D2:
-									if (!flag)
-									{
-										return;
-									}
-									goto IL_E0;
-								}
-								for (;;)
-								{
-									switch (6)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_D2;
-								}
-							}
-							IL_E0:
-							this.m_lobbyGameClientInterface.UpdateRemoteCharacter(characters, remoteSlotIndexes, onResponse);
-							return;
-						}
-					}
+					flag = true;
+					break;
 				}
+			}
+			if (!flag)
+			{
 				return;
 			}
 		}
-		Log.Error("Not connected to lobby server.", new object[0]);
+		this.m_lobbyGameClientInterface.UpdateRemoteCharacter(characters, remoteSlotIndexes, onResponse);	
 	}
 
 	public void RequestTitleSelect(int newTitleID, Action<SelectTitleResponse> onResponse)
@@ -7052,7 +6941,8 @@ public class ClientGameManager : MonoBehaviour
 			paymentMethod.isDefault = true;
 			onResponseCallback(new PaymentMethodsResponse
 			{
-				PaymentMethodList = new PaymentMethodList(),
+				// TODO ClientGameManager::RequestPaymentMethods
+				//PaymentMethodList = new PaymentMethodList(),
 				PaymentMethodList = 
 				{
 					IsError = false,
@@ -7421,22 +7311,11 @@ public class ClientGameManager : MonoBehaviour
 	private IEnumerator HttpPostCoroutine(string url, string postString, Action<string, string> callback)
 	{
 		bool flag = false;
-		uint num;
 		WWW client;
-		switch (num)
-		{
-		case 0U:
-		{
-			UTF8Encoding utf8Encoding = new UTF8Encoding();
-			byte[] postBytes = utf8Encoding.GetBytes(postString);
-			client = new WWW(url, postBytes);
-			break;
-		}
-		case 1U:
-			break;
-		default:
-			yield break;
-		}
+		UTF8Encoding utf8Encoding = new UTF8Encoding();
+		byte[] postBytes = utf8Encoding.GetBytes(postString);
+		client = new WWW(url, postBytes);
+
 		try
 		{
 			yield return client;
@@ -7445,19 +7324,14 @@ public class ClientGameManager : MonoBehaviour
 			{
 				int num2 = client.error.IndexOf(": ");
 				string arg;
-				if (client.error.StartsWith("Failed to connect to"))
+				if (client.error.StartsWith("Failed to connect to") && num2 > 0 && num2 + 2 < client.error.Length)
 				{
-					if (num2 > 0)
-					{
-						if (num2 + 2 < client.error.Length)
-						{
-							arg = client.error.Substring(num2 + 2, client.error.Length - num2 - 2);
-							goto IL_165;
-						}
-					}
+					arg = client.error.Substring(num2 + 2, client.error.Length - num2 - 2);
 				}
-				arg = client.error;
-				IL_165:
+				else
+				{
+					arg = client.error;
+				}
 				callback(null, arg);
 			}
 			else
@@ -7906,22 +7780,13 @@ public class ClientGameManager : MonoBehaviour
 		get
 		{
 			bool flag = false;
-			uint num;
 			List<UpdateGroupMemberData>.Enumerator enumerator;
-			switch (num)
+			if (this.GroupInfo.Members.IsNullOrEmpty<UpdateGroupMemberData>())
 			{
-			case 0U:
-				if (this.GroupInfo.Members.IsNullOrEmpty<UpdateGroupMemberData>())
-				{
-					goto IL_F8;
-				}
-				enumerator = this.GroupInfo.Members.GetEnumerator();
-				break;
-			case 1U:
-				break;
-			default:
 				yield break;
 			}
+			enumerator = this.GroupInfo.Members.GetEnumerator();
+				
 			try
 			{
 				while (enumerator.MoveNext())
@@ -7944,7 +7809,6 @@ public class ClientGameManager : MonoBehaviour
 					((IDisposable)enumerator).Dispose();
 				}
 			}
-			IL_F8:
 			yield break;
 		}
 	}
@@ -8411,29 +8275,18 @@ public class ClientGameManager : MonoBehaviour
 		public IEnumerable<QueueRequirement> GetQueueRequirements(GameType gameType)
 		{
 			bool flag = false;
-			uint num;
 			IEnumerator<QueueRequirement> enumerator;
-			switch (num)
+			GameTypeAvailability gta;
+			if (!this.m_gtas.TryGetValue(gameType, out gta))
 			{
-			case 0U:
-			{
-				GameTypeAvailability gta;
-				if (!this.m_gtas.TryGetValue(gameType, out gta))
-				{
-					goto IL_124;
-				}
-				if (gta.Requirements.IsNullOrEmpty<QueueRequirement>())
-				{
-					goto IL_124;
-				}
-				enumerator = gta.Requirements.GetEnumerator();
-				break;
-			}
-			case 1U:
-				break;
-			default:
 				yield break;
 			}
+			if (gta.Requirements.IsNullOrEmpty<QueueRequirement>())
+			{
+				yield break;
+			}
+			enumerator = gta.Requirements.GetEnumerator();
+			
 			try
 			{
 				while (enumerator.MoveNext())
@@ -8453,7 +8306,6 @@ public class ClientGameManager : MonoBehaviour
 					enumerator.Dispose();
 				}
 			}
-			IL_124:
 			yield break;
 		}
 
@@ -8529,22 +8381,12 @@ public class ClientGameManager : MonoBehaviour
 			get
 			{
 				bool flag = false;
-				uint num;
 				ClientGameManager cgm;
 				GameType gameType;
 				IEnumerator enumerator;
-				switch (num)
-				{
-				case 0U:
-					cgm = ClientGameManager.Get();
-					gameType = cgm.GroupInfo.SelectedQueueType;
-					enumerator = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
-					break;
-				case 1U:
-					break;
-				default:
-					yield break;
-				}
+				cgm = ClientGameManager.Get();
+				gameType = cgm.GroupInfo.SelectedQueueType;
+				enumerator = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
 				try
 				{
 					while (enumerator.MoveNext())
@@ -8699,18 +8541,8 @@ public class ClientGameManager : MonoBehaviour
 			get
 			{
 				bool flag = false;
-				uint num;
 				IEnumerator enumerator;
-				switch (num)
-				{
-				case 0U:
-					enumerator = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
-					break;
-				case 1U:
-					break;
-				default:
-					yield break;
-				}
+				enumerator = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
 				try
 				{
 					while (enumerator.MoveNext())
