@@ -537,28 +537,20 @@ public class DiscordClientInterface : MonoBehaviour
 							if (this.m_discordChannelUsers[i].UserId == num3)
 							{
 								flag = true;
-								IL_3B1:
-								if (!flag)
-								{
-									DiscordUserInfo discordUserInfo = new DiscordUserInfo();
-									discordUserInfo.UserId = num3;
-									discordUserInfo.UserName = jobject2.SelectToken("user.username").ToString();
-									discordUserInfo.Discriminator = jobject2.SelectToken("user.discriminator").ToString();
-									this.m_discordChannelUsers.Add(discordUserInfo);
-									this.OnUserJoined(discordUserInfo);
-								}
-								goto IL_5C4;
+								break;
 							}
 						}
-						for (;;)
+						if (!flag)
 						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_3B1;
+							DiscordUserInfo discordUserInfo = new DiscordUserInfo();
+							discordUserInfo.UserId = num3;
+							discordUserInfo.UserName = jobject2.SelectToken("user.username").ToString();
+							discordUserInfo.Discriminator = jobject2.SelectToken("user.discriminator").ToString();
+							this.m_discordChannelUsers.Add(discordUserInfo);
+							this.OnUserJoined(discordUserInfo);
 						}
+						goto IL_5C4;
+
 					}
 				}
 				if (rpcResponse.evt == "VOICE_STATE_DELETE")
@@ -573,19 +565,11 @@ public class DiscordClientInterface : MonoBehaviour
 								DiscordUserInfo obj2 = this.m_discordChannelUsers[j];
 								this.m_discordChannelUsers.RemoveAt(j);
 								this.OnUserLeft(obj2);
-								IL_4D9:
-								goto IL_5C4;
+								break;
 							}
 						}
-						for (;;)
-						{
-							switch (3)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_4D9;
-						}
+						goto IL_5C4;
+
 					}
 				}
 				if (!(rpcResponse.evt == "SPEAKING_START"))
@@ -724,8 +708,7 @@ public class DiscordClientInterface : MonoBehaviour
 	private void InitializeSdk()
 	{
 		string name = "Hydrogen.DiscordSdk";
-		bool flag;
-		Mutex mutex = new Mutex(true, name, ref flag);
+		Mutex mutex = new Mutex(true, name, out bool flag);
 		if (flag)
 		{
 			if (mutex != null)
