@@ -68,33 +68,28 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 	public override bool ItemTooltipPopulate(UITooltipBase tooltip, UIStoreItemBtn slot, GameBalanceVars.PlayerUnlockable item)
 	{
 		UIOverconData.NameToOverconEntry nameToOverconEntry = null;
-		int i = 0;
-		while (i < UIOverconData.Get().m_nameToOverconEntry.Count)
+		
+		for (int i = 0; i < UIOverconData.Get().m_nameToOverconEntry.Count; i++)
 		{
 			if (UIOverconData.Get().m_nameToOverconEntry[i].m_overconId == item.ID)
 			{
 				nameToOverconEntry = UIOverconData.Get().m_nameToOverconEntry[i];
-				IL_63:
-				if (nameToOverconEntry == null)
-				{
-					return false;
-				}
-				string text = StringUtil.TR("/overcon", "SlashCommand") + " " + nameToOverconEntry.GetCommandName();
-				string text2 = nameToOverconEntry.GetObtainedDescription().Trim();
-				if (!text2.IsNullOrEmpty())
-				{
-					text = text + Environment.NewLine + text2;
-				}
-				UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-				uititledTooltip.Setup(nameToOverconEntry.GetDisplayName(), text, string.Empty);
-				return true;
-			}
-			else
-			{
-				i++;
+				break;
 			}
 		}
-		goto IL_63;
+		if (nameToOverconEntry == null)
+		{
+			return false;
+		}
+		string text = StringUtil.TR("/overcon", "SlashCommand") + " " + nameToOverconEntry.GetCommandName();
+		string text2 = nameToOverconEntry.GetObtainedDescription().Trim();
+		if (!text2.IsNullOrEmpty())
+		{
+			text = text + Environment.NewLine + text2;
+		}
+		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
+		uititledTooltip.Setup(nameToOverconEntry.GetDisplayName(), text, string.Empty);
+		return true;
 	}
 
 	protected override void PurchaseItem(GameBalanceVars.PlayerUnlockable item, CurrencyType type)
@@ -103,6 +98,6 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 		uipurchaseableItem.m_itemType = PurchaseItemType.Overcon;
 		uipurchaseableItem.m_overconID = item.ID;
 		uipurchaseableItem.m_currencyType = type;
-		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+		UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 	}
 }
