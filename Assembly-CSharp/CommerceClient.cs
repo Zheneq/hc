@@ -315,24 +315,23 @@ public class CommerceClient
 			if (storeItemForPurchase.m_itemTemplateId == templateId)
 			{
 				originalPrice = storeItemForPurchase.Prices.GetPrice(currencyCode);
-				IL_54:
-				using (List<StoreItemPriceOverride>.Enumerator enumerator = this.m_overriddenStoreItems.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						StoreItemPriceOverride storeItemPriceOverride = enumerator.Current;
-						if (storeItemPriceOverride.inventoryTemplateId == templateId)
-						{
-							if (storeItemPriceOverride.prices != null)
-							{
-								return storeItemPriceOverride.prices.GetPrice(currencyCode);
-							}
-						}
-					}
-				}
-				return originalPrice;
+				break;
 			}
 		}
-		goto IL_54;
+		using (List<StoreItemPriceOverride>.Enumerator enumerator = this.m_overriddenStoreItems.GetEnumerator())
+		{
+			while (enumerator.MoveNext())
+			{
+				StoreItemPriceOverride storeItemPriceOverride = enumerator.Current;
+				if (storeItemPriceOverride.inventoryTemplateId == templateId)
+				{
+					if (storeItemPriceOverride.prices != null)
+					{
+						return storeItemPriceOverride.prices.GetPrice(currencyCode);
+					}
+				}
+			}
+		}
+		return originalPrice;
 	}
 }
