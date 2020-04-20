@@ -41,7 +41,7 @@ public class UIStoreGamePanel : UIStoreBasePanel
 				UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
 				uipurchaseableItem.m_itemType = PurchaseItemType.Game;
 				uipurchaseableItem.m_gamePack = GameWideData.Get().m_gamePackData.m_gamePacks[0];
-				UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+				UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 				UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 			}
 		};
@@ -105,7 +105,7 @@ public class UIStoreGamePanel : UIStoreBasePanel
 			UIPurchaseableItem uipurchaseableItem = new UIPurchaseableItem();
 			uipurchaseableItem.m_itemType = PurchaseItemType.Game;
 			uipurchaseableItem.m_gamePack = selectedGameItem.GetGamePackReference();
-			UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem, null);
+			UIStorePanel.Get().OpenPurchaseDialog(uipurchaseableItem);
 			UIFrontEnd.PlaySound(FrontEndButtonSounds.StorePurchased);
 		}
 	}
