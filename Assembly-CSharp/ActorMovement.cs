@@ -520,8 +520,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			bool cannotExceedMaxMovement = GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
 			while (toCheckQueue.Count > 0)
 			{
-				ActorMovement.BoardSquareMovementInfo value2 = toCheckQueue.First.Value;
-				BoardSquare curSquare = value2.square;
+				ActorMovement.BoardSquareMovementInfo curMovementInfo = toCheckQueue.First.Value;
+				BoardSquare curSquare = curMovementInfo.square;
 				for (int i = -1; i <= 1; i++)
 				{
 					for (int j = -1; j <= 1; j++)
@@ -538,9 +538,9 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 						}
 
 						bool diag = Board.Get().AreDiagonallyAdjacent(curSquare, nextSquare);
-						float cost = value2.cost + (diag ? 1.5f : 1f);
+						float cost = curMovementInfo.cost + (diag ? 1.5f : 1f);
 
-						bool validMove = cannotExceedMaxMovement ? cost <= maxHorizontalMovement : value2.cost < maxHorizontalMovement;
+						bool validMove = cannotExceedMaxMovement ? cost <= maxHorizontalMovement : curMovementInfo.cost < maxHorizontalMovement;
 						if (!validMove)
 						{
 							continue;
@@ -553,7 +553,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							{
 								square = nextSquare,
 								cost = cost,
-								prevCost = value2.cost
+								prevCost = curMovementInfo.cost
 							};
 							bool alreadyInQueue = false;
 							for (var toCheckNode = toCheckQueue.First; toCheckNode != toCheckQueue.Last; toCheckNode = toCheckNode.Next)
@@ -582,7 +582,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, curSquare))
 					{
 						eligibleSquares.Add(curSquare);
-						bool validMoveForInner = cannotExceedMaxMovement ? value2.cost <= innerMaxMove : value2.prevCost < innerMaxMove;
+						bool validMoveForInner = cannotExceedMaxMovement ? curMovementInfo.cost <= innerMaxMove : curMovementInfo.prevCost < innerMaxMove;
 						if (innerMaxMove > 0f && validMoveForInner)
 						{
 							innerSquares.Add(curSquare);
@@ -597,187 +597,136 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public HashSet<BoardSquare> BuildSquaresCanMoveTo(BoardSquare squareToStartFrom, float maxHorizontalMovement)
 	{
-		HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
+		HashSet<BoardSquare> result = new HashSet<BoardSquare>();
 		if (squareToStartFrom == null || maxHorizontalMovement == 0f)
 		{
-			return hashSet;
+			return result;
 		}
-		hashSet.Add(squareToStartFrom);
-		LinkedList<ActorMovement.BoardSquareMovementInfo> linkedList = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
-		HashSet<BoardSquare> hashSet2 = new HashSet<BoardSquare>();
-		ActorMovement.BoardSquareMovementInfo value;
-		value.square = squareToStartFrom;
-		value.cost = 0f;
-		value.prevCost = 0f;
-		linkedList.AddLast(value);
-		List<BoardSquare> list = new List<BoardSquare>(8);
-		while (linkedList.Count > 0)
+		result.Add(squareToStartFrom);
+		LinkedList<ActorMovement.BoardSquareMovementInfo> toCheckQueue = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
+		HashSet<BoardSquare> checkedSquares = new HashSet<BoardSquare>();
+		ActorMovement.BoardSquareMovementInfo startMovementInfo = new ActorMovement.BoardSquareMovementInfo
 		{
-			ActorMovement.BoardSquareMovementInfo value2 = linkedList.First.Value;
-			BoardSquare square = value2.square;
-			list.Clear();
+			square = squareToStartFrom,
+			cost = 0f,
+			prevCost = 0f
+		};
+		toCheckQueue.AddLast(startMovementInfo);
+		List<BoardSquare> adjacent = new List<BoardSquare>(8);
+		while (toCheckQueue.Count > 0)
+		{
+			ActorMovement.BoardSquareMovementInfo curMovementInfo = toCheckQueue.First.Value;
+			BoardSquare curSquare = curMovementInfo.square;
+			adjacent.Clear();
 			if (GameplayData.Get() == null || GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled)
 			{
-				goto IL_DB;
+				Board.Get().GetAllAdjacentSquares(curSquare.x, curSquare.y, ref adjacent);
 			}
-			Board.Get().GetStraightAdjacentSquares(square.x, square.y, ref list);
-			IL_FB:
-			for (int i = 0; i < list.Count; i++)
+			else
 			{
-				BoardSquare boardSquare = list[i];
-				if (!hashSet2.Contains(boardSquare))
+				Board.Get().GetStraightAdjacentSquares(curSquare.x, curSquare.y, ref adjacent);
+			}
+			foreach (BoardSquare nextSquare in adjacent)
+			{
+				if (checkedSquares.Contains(nextSquare))
 				{
-					bool flag = Board.Get().AreDiagonallyAdjacent(square, boardSquare);
-					float num;
-					if (flag)
-					{
-						num = value2.cost + 1.5f;
-					}
-					else
-					{
-						num = value2.cost + 1f;
-					}
-					if (!(GameplayData.Get() != null))
-					{
-						goto IL_19A;
-					}
-					if (GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax)
-					{
-						goto IL_19A;
-					}
-					bool flag2 = num <= maxHorizontalMovement;
-					IL_1A6:
-					if (!flag2)
-					{
-						goto IL_290;
-					}
-					ActorMovement.BoardSquareMovementInfo value3;
-					value3.square = boardSquare;
-					value3.cost = num;
-					value3.prevCost = value2.cost;
-					bool flag3 = false;
-					LinkedListNode<ActorMovement.BoardSquareMovementInfo> linkedListNode = linkedList.First;
-					while (linkedListNode != linkedList.Last)
-					{
-						ActorMovement.BoardSquareMovementInfo value4 = linkedListNode.Value;
-						if (value4.square == boardSquare)
-						{
-							flag3 = true;
-							if (value4.cost > num)
-							{
-								linkedListNode.Value = value3;
-							}
-							IL_245:
-							if (flag3)
-							{
-								goto IL_290;
-							}
-							if (this.CanCrossToAdjacentSquare(square, boardSquare, false, (!flag) ? ActorMovement.DiagonalCalcFlag.NotDiagonal : ActorMovement.DiagonalCalcFlag.IsDiagonal) && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
-							{
-								linkedList.AddLast(value3);
-							}
-							goto IL_290;
-						}
-						else
-						{
-							linkedListNode = linkedListNode.Next;
-						}
-					}
-					goto IL_245;
-					
-					IL_19A:
-					flag2 = (value2.cost < maxHorizontalMovement);
-					goto IL_1A6;
+					continue;
 				}
-				IL_290:;
-			}
-			if (!hashSet.Contains(square))
-			{
-				if (MovementUtils.CanStopOnSquare(square))
+				bool diag = Board.Get().AreDiagonallyAdjacent(curSquare, nextSquare);
+				float cost = curMovementInfo.cost + (diag ? 1.5f : 1f);
+				bool cannotExceedMaxMovement = GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
+				bool validMove = cannotExceedMaxMovement ? cost <= maxHorizontalMovement : curMovementInfo.cost < maxHorizontalMovement;
+
+				if (!validMove)
 				{
-					if (SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
+					continue;
+				}
+				ActorMovement.BoardSquareMovementInfo nextMovementInfo = new ActorMovement.BoardSquareMovementInfo
+				{
+					square = nextSquare,
+					cost = cost,
+					prevCost = curMovementInfo.cost
+				};
+
+				bool alreadyInQueue = false;
+				for (var toCheckNode = toCheckQueue.First; toCheckNode != toCheckQueue.Last; toCheckNode = toCheckNode.Next)
+				{
+					ActorMovement.BoardSquareMovementInfo toCheck = toCheckNode.Value;
+					if (toCheck.square == nextSquare)
 					{
-						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
+						alreadyInQueue = true;
+						if (toCheck.cost > cost)
 						{
-							hashSet.Add(square);
+							toCheckNode.Value = nextMovementInfo;
 						}
+						break;
 					}
 				}
+				if (alreadyInQueue)
+				{
+					continue;
+				}
+				ActorMovement.DiagonalCalcFlag diagonalFlag = diag ? ActorMovement.DiagonalCalcFlag.IsDiagonal : ActorMovement.DiagonalCalcFlag.NotDiagonal;
+				if (this.CanCrossToAdjacentSquare(curSquare, nextSquare, ignoreBarriers: false, diagonalFlag) && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, nextSquare))
+				{
+					toCheckQueue.AddLast(nextMovementInfo);
+				}
 			}
-			hashSet2.Add(square);
-			linkedList.RemoveFirst();
-			continue;
-			IL_DB:
-			Board.Get().GetAllAdjacentSquares(square.x, square.y, ref list);
-			goto IL_FB;
+			if (!result.Contains(curSquare) &&
+				MovementUtils.CanStopOnSquare(curSquare) && 
+				SinglePlayerManager.IsDestinationAllowed(this.m_actor, curSquare, true) && 
+				FirstTurnMovement.CanActorMoveToSquare(this.m_actor, curSquare))
+			{
+				result.Add(curSquare);
+			}
+			checkedSquares.Add(curSquare);
+			toCheckQueue.RemoveFirst();
 		}
-		return hashSet;
+		return result;
 	}
 
 	public HashSet<BoardSquare> CheckSquareCanMoveToCache(BoardSquare squareToStartFrom, float maxHorizontalMovement)
 	{
 		HashSet<BoardSquare> result = null;
 		int squaresCanMoveToSinglePlayerState = -1;
-		if (SinglePlayerManager.Get() != null)
+		if (SinglePlayerManager.Get() != null && this.m_actor.SpawnerId == -1)
 		{
-			if (this.m_actor.SpawnerId == -1)
-			{
-				squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
-			}
+			squaresCanMoveToSinglePlayerState = SinglePlayerManager.Get().GetCurrentScriptIndex();
 		}
-		int squaresCanMoveToBarrierState = -1;
-		if (BarrierManager.Get() != null)
+		int squaresCanMoveToBarrierState = BarrierManager.Get()?.GetMovementStateChangesFor(this.m_actor) ?? -1;
+		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.Get()?.GetRestrictedMovementState() ?? FirstTurnMovement.RestrictedMovementState.Invalid;
+
+		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry()
 		{
-			squaresCanMoveToBarrierState = BarrierManager.Get().GetMovementStateChangesFor(this.m_actor);
-		}
-		FirstTurnMovement.RestrictedMovementState squaresCanMoveToFirstTurnState = FirstTurnMovement.RestrictedMovementState.Invalid;
-		if (FirstTurnMovement.Get() != null)
-		{
-			squaresCanMoveToFirstTurnState = FirstTurnMovement.Get().GetRestrictedMovementState();
-		}
-		ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry = new ActorMovement.SquaresCanMoveToCacheEntry();
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin = squareToStartFrom;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState;
-		squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState;
+			m_squaresCanMoveToOrigin = squareToStartFrom,
+			m_squaresCanMoveToHorizontalAllowed = maxHorizontalMovement,
+			m_squaresCanMoveToSinglePlayerState = squaresCanMoveToSinglePlayerState,
+			m_squaresCanMoveToBarrierState = squaresCanMoveToBarrierState,
+			m_squaresCanMoveToFirstTurnState = squaresCanMoveToFirstTurnState
+		};
 		int num = 0;
 		ActorMovement.SquaresCanMoveToCacheEntry item = null;
 		for (int i = 0; i < this.m_squaresCanMoveToCache.Count; i++)
 		{
-			ActorMovement.SquaresCanMoveToCacheEntry squaresCanMoveToCacheEntry2 = this.m_squaresCanMoveToCache[i];
-			if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin)
+			ActorMovement.SquaresCanMoveToCacheEntry entry = this.m_squaresCanMoveToCache[i];
+			if (entry.m_squaresCanMoveToOrigin == squaresCanMoveToCacheEntry.m_squaresCanMoveToOrigin &&
+				entry.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed &&
+				entry.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState && 
+				entry.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState &&
+				entry.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
 			{
-				if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToHorizontalAllowed == squaresCanMoveToCacheEntry.m_squaresCanMoveToHorizontalAllowed)
-				{
-					if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToSinglePlayerState == squaresCanMoveToCacheEntry.m_squaresCanMoveToSinglePlayerState)
-					{
-						if (squaresCanMoveToCacheEntry2.m_squaresCanMoveToBarrierState == squaresCanMoveToCacheEntry.m_squaresCanMoveToBarrierState && squaresCanMoveToCacheEntry2.m_squaresCanMoveToFirstTurnState == squaresCanMoveToCacheEntry.m_squaresCanMoveToFirstTurnState)
-						{
-							result = squaresCanMoveToCacheEntry2.m_squaresCanMoveTo;
-							item = squaresCanMoveToCacheEntry2;
-							num = i;
-							IL_1A7:
-							if (num != 0)
-							{
-								this.m_squaresCanMoveToCache.RemoveAt(num);
-								this.m_squaresCanMoveToCache.Insert(0, item);
-							}
-							return result;
-						}
-					}
-				}
+				result = entry.m_squaresCanMoveTo;
+				item = entry;
+				num = i;
+				break;
 			}
 		}
-		for (;;)
+		if (num != 0)
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_1A7;
+			this.m_squaresCanMoveToCache.RemoveAt(num);
+			this.m_squaresCanMoveToCache.Insert(0, item);
 		}
+		return result;
 	}
 
 	public void AddToSquareCanMoveToCache(BoardSquare squareToStartFrom, float maxHorizontalMovement, HashSet<BoardSquare> squaresCanMoveTo)
