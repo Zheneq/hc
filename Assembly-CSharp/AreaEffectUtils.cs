@@ -1717,7 +1717,9 @@ public static class AreaEffectUtils
 		Vector3 travelBoardSquareWorldPositionForLos = caster.GetTravelBoardSquareWorldPositionForLos();
 		Vector3 vector3 = startSquare.ToVector3();
 		vector3.y = travelBoardSquareWorldPositionForLos.y;
-		(vector2 - vector3).y = 0f;
+		// TODO DECOMP WTF is this
+		// (vector2 - vector3).y = 0f;
+		vector2.y = vector3.y; // I hope that's what it means
 		float squareSize = Board.Get().squareSize;
 		bool flag = AreaEffectUtils.SquaresHaveLoSForAbilities(startSquare, testSquare, caster, false, null);
 		List<NonActorTargetInfo> list;
