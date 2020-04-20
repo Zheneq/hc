@@ -452,8 +452,7 @@ public class AuthTicket
 		for (int i = 0; i < 0xA; i++)
 		{
 			string name = string.Format("Hydrogen.{0}.{1}", resourceName, i);
-			bool flag;
-			AuthTicket.s_userNameMutex = new Mutex(true, name, ref flag);
+			AuthTicket.s_userNameMutex = new Mutex(true, name, out bool flag);
 			if (flag && AuthTicket.s_userNameMutex != null)
 			{
 				AuthTicket.s_userIndex = i;
