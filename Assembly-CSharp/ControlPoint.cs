@@ -881,83 +881,45 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		{
 			if (!string.IsNullOrEmpty(captureMessage.message))
 			{
-				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyCapture)
+				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyCapture && activeOwnedActorData.GetTeam() == capturedByTeam)
 				{
-					if (activeOwnedActorData.GetTeam() == capturedByTeam)
-					{
-						InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-						goto IL_260;
-					}
+					InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
+					break;
 				}
 				if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyCapture && activeOwnedActorData.GetTeam() != capturedByTeam)
 				{
 					InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
+					break;
 				}
 				else
 				{
-					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamACapture)
+					if ((captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamACapture &&
+						activeOwnedActorData.GetTeam() == capturedByTeam &&
+						capturedByTeam == Team.TeamA)
+						||
+						(captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyTeamACapture &&
+						activeOwnedActorData.GetTeam() != capturedByTeam &&
+						capturedByTeam == Team.TeamA)
+						||
+						(captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamBCapture &&
+						activeOwnedActorData.GetTeam() == capturedByTeam &&
+						capturedByTeam == Team.TeamB)
+						||
+						(captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyTeamBCapture &&
+						activeOwnedActorData.GetTeam() != capturedByTeam &&
+						capturedByTeam == Team.TeamB))
 					{
-						if (activeOwnedActorData.GetTeam() == capturedByTeam)
-						{
-							if (capturedByTeam == Team.TeamA)
-							{
-								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-								goto IL_260;
-							}
-						}
+						InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 					}
-					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnEnemyTeamACapture)
-					{
-						if (activeOwnedActorData.GetTeam() != capturedByTeam)
-						{
-							if (capturedByTeam == Team.TeamA)
-							{
-								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-								goto IL_260;
-							}
-						}
-					}
-					if (captureMessage.condition == ControlPoint.CaptureMessageCondition.OnFriendlyTeamBCapture)
-					{
-						if (activeOwnedActorData.GetTeam() == capturedByTeam)
-						{
-							if (capturedByTeam == Team.TeamB)
-							{
-								InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
-								goto IL_260;
-							}
-						}
-					}
-					if (captureMessage.condition != ControlPoint.CaptureMessageCondition.OnEnemyTeamBCapture || activeOwnedActorData.GetTeam() == capturedByTeam)
-					{
-						goto IL_249;
-					}
-					if (capturedByTeam != Team.TeamB)
-					{
-						goto IL_249;
-					}
-					InterfaceManager.Get().DisplayAlert(captureMessage.message, captureMessage.color, 7f, false, 0);
 				}
-				IL_260:
-				GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, new GameEventManager.MatchObjectiveEventArgs
-				{
-					objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ControlPointCaptured,
-					activatingActor = null,
-					team = capturedByTeam
-				});
-				return;
 			}
-			IL_249:;
 		}
-		for (;;)
+		GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, new GameEventManager.MatchObjectiveEventArgs
 		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_260;
-		}
+			objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.ControlPointCaptured,
+			activatingActor = null,
+			team = capturedByTeam
+		});
 	}
 
 	public unsafe virtual void CalcCurrentStatus(out bool teamACapturing, out bool teamAControlled, out bool teamBCapturing, out bool teamBControlled, out bool alliedCapturing, out bool alliedControlled, out bool enemyCapturing, out bool enemyControlled, out bool contested)
