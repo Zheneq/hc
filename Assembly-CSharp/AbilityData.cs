@@ -1485,56 +1485,26 @@ public class AbilityData : NetworkBehaviour
 		AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
 		if (abilityName != null)
 		{
-			for (int i = 0; i < 0xE; i++)
+			for (int i = (int)ActionType.ABILITY_0; i < (int)ActionType.NUM_ACTIONS; i++)
 			{
-				if (this.m_abilities[i] != null)
+				if (this.m_abilities[i] != null && this.m_abilities[i].ability != null && this.m_abilities[i].ability.m_abilityName == abilityName)
 				{
-					if (this.m_abilities[i].ability != null)
-					{
-						if (this.m_abilities[i].ability.m_abilityName == abilityName)
-						{
-							actionType = (AbilityData.ActionType)i;
-							IL_8F:
-							if (actionType != AbilityData.ActionType.INVALID_ACTION)
-							{
-								return actionType;
-							}
-							sbyte b = 0;
-							while ((int)b < this.m_allChainAbilities.Count)
-							{
-								if (this.m_allChainAbilities[(int)b] != null)
-								{
-									if (this.m_allChainAbilities[(int)b].m_abilityName == abilityName)
-									{
-										sbyte b2 = b;
-										b2 = checked((sbyte)(unchecked((int)b2) + 0xA));
-										return (AbilityData.ActionType)b2;
-									}
-								}
-								b = (sbyte)((int)b + 1);
-							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								return actionType;
-							}
-						}
-					}
+					actionType = (AbilityData.ActionType)i;
+					break;
 				}
 			}
-			for (;;)
+			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_8F;
+				return actionType;
 			}
+			for (int j = 0; j < this.m_allChainAbilities.Count; j++)
+			{
+				if (this.m_allChainAbilities[j] != null && this.m_allChainAbilities[j].m_abilityName == abilityName)
+				{
+					return (AbilityData.ActionType)(j + (int)ActionType.CHAIN_0);
+				}
+			}
+			return actionType;
 		}
 		return actionType;
 	}
@@ -1550,52 +1520,26 @@ public class AbilityData : NetworkBehaviour
 		AbilityData.ActionType actionType = AbilityData.ActionType.INVALID_ACTION;
 		if (ability != null)
 		{
-			int i = 0;
-			while (i < 0xE)
+			for (int i = (int)ActionType.ABILITY_0; i < (int)ActionType.NUM_ACTIONS; i++)
 			{
 				if (this.m_abilities[i] != null && this.m_abilities[i].ability == ability)
 				{
 					actionType = (AbilityData.ActionType)i;
-					IL_67:
-					if (actionType != AbilityData.ActionType.INVALID_ACTION)
-					{
-						return actionType;
-					}
-					sbyte b = 0;
-					while ((int)b < this.m_allChainAbilities.Count)
-					{
-						if (this.m_allChainAbilities[(int)b] != null && this.m_allChainAbilities[(int)b] == ability)
-						{
-							sbyte b2 = b;
-							b2 = checked((sbyte)(unchecked((int)b2) + 0xA));
-							return (AbilityData.ActionType)b2;
-						}
-						b = (sbyte)((int)b + 1);
-					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						return actionType;
-					}
-				}
-				else
-				{
-					i++;
+					break;
 				}
 			}
-			for (;;)
+			if (actionType != AbilityData.ActionType.INVALID_ACTION)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_67;
+				return actionType;
 			}
+			for (int j = 0; j < this.m_allChainAbilities.Count; j++)
+			{
+				if (this.m_allChainAbilities[j] != null && this.m_allChainAbilities[j] == ability)
+				{
+					return (AbilityData.ActionType)(j + (int)ActionType.CHAIN_0);
+				}
+			}
+			return actionType;
 		}
 		return actionType;
 	}
