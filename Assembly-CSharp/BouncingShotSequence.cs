@@ -353,60 +353,50 @@ public class BouncingShotSequence : Sequence
 				}
 				this.m_curSegment = i;
 			}
-			IL_287:
-			if (flag)
-			{
-				this.m_reachedDestination = true;
-				if (this.m_useSplineCurve)
-				{
-					this.m_fx.transform.position = this.m_spline.Interp(1f);
-				}
-				else
-				{
-					this.m_fx.transform.position = this.m_segmentPts[this.m_segmentPts.Count - 1];
-				}
-				this.OnDestinationSequenceHits();
-				this.SpawnEndExplosionFX(this.m_fx.transform.position, this.m_fx.transform.rotation);
-			}
-			else
-			{
-				Quaternion rotation = default(Quaternion);
-				Vector3 vector3;
-				if (this.m_useSplineCurve && this.m_totalTravelDistance > 0f)
-				{
-					int index = this.m_spline.Section(this.m_splineDistanceTraveled / this.m_totalTravelDistance);
-					this.m_splineDistanceTraveled += this.m_projectileSpeed * this.m_splineSpeedModifierPerSegment[index] * GameTime.deltaTime;
-					float t = this.m_splineDistanceTraveled / this.m_totalTravelDistance;
-					vector3 = this.m_spline.Interp(t);
-					rotation.SetLookRotation((vector3 - this.m_fx.transform.position).normalized);
-				}
-				else
-				{
-					float d = this.m_distanceTraveled - num;
-					vector3 = a + curDelta.normalized * d;
-					rotation.SetLookRotation(curDelta.normalized);
-				}
-				this.m_fx.transform.position = vector3;
-				this.m_fx.transform.rotation = rotation;
-			}
+			break;
+		}
+		if (flag)
+		{
+			this.m_reachedDestination = true;
 			if (this.m_useSplineCurve)
 			{
-				this.DoHitForSplineProjectile(this.m_fx.transform.forward);
+				this.m_fx.transform.position = this.m_spline.Interp(1f);
 			}
 			else
 			{
-				this.ProcessHitFX(curEndPtIndex, curDelta);
+				this.m_fx.transform.position = this.m_segmentPts[this.m_segmentPts.Count - 1];
 			}
-			return;
+			this.OnDestinationSequenceHits();
+			this.SpawnEndExplosionFX(this.m_fx.transform.position, this.m_fx.transform.rotation);
 		}
-		for (;;)
+		else
 		{
-			switch (2)
+			Quaternion rotation = default(Quaternion);
+			Vector3 vector3;
+			if (this.m_useSplineCurve && this.m_totalTravelDistance > 0f)
 			{
-			case 0:
-				continue;
+				int index = this.m_spline.Section(this.m_splineDistanceTraveled / this.m_totalTravelDistance);
+				this.m_splineDistanceTraveled += this.m_projectileSpeed * this.m_splineSpeedModifierPerSegment[index] * GameTime.deltaTime;
+				float t = this.m_splineDistanceTraveled / this.m_totalTravelDistance;
+				vector3 = this.m_spline.Interp(t);
+				rotation.SetLookRotation((vector3 - this.m_fx.transform.position).normalized);
 			}
-			goto IL_287;
+			else
+			{
+				float d = this.m_distanceTraveled - num;
+				vector3 = a + curDelta.normalized * d;
+				rotation.SetLookRotation(curDelta.normalized);
+			}
+			this.m_fx.transform.position = vector3;
+			this.m_fx.transform.rotation = rotation;
+		}
+		if (this.m_useSplineCurve)
+		{
+			this.DoHitForSplineProjectile(this.m_fx.transform.forward);
+		}
+		else
+		{
+			this.ProcessHitFX(curEndPtIndex, curDelta);
 		}
 	}
 
