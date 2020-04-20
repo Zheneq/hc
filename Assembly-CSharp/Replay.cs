@@ -74,19 +74,10 @@ public class Replay
 			}
 			if ((long)num == (long)((ulong)(endSeqNum - startSeqNum + 1U)))
 			{
-				IL_146:
-				return sortedList.Values.ToList<Replay.Message>();
+				break;
 			}
 		}
-		for (;;)
-		{
-			switch (2)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_146;
-		}
+		return sortedList.Values.ToList<Replay.Message>();
 	}
 
 	public void StartPlayback()
