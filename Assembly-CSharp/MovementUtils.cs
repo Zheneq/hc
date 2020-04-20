@@ -666,7 +666,7 @@ public static class MovementUtils
 	public static bool ShouldVault(BoardSquare srcSquare, BoardSquare destSquare)
 	{
 		bool result = false;
-		if (Board.Get().symbol_0015(srcSquare, destSquare))
+		if (Board.Get().AreDiagonallyAdjacent(srcSquare, destSquare))
 		{
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(srcSquare.GetGridPos().x, destSquare.GetGridPos().y);
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(destSquare.GetGridPos().x, srcSquare.GetGridPos().y);

@@ -782,37 +782,12 @@ public class Board : MonoBehaviour, IGameEventListener
 		return result;
 	}
 
-	public bool symbol_000E(BoardSquare symbol_001D, BoardSquare symbol_000E)
+	public bool AreAdjacent(BoardSquare a, BoardSquare b)  // symbol_000E
 	{
-		bool flag;
-		if (symbol_001D.x == symbol_000E.x)
-		{
-			flag = (symbol_001D.y != symbol_000E.y);
-		}
-		else
-		{
-			flag = true;
-		}
-		bool flag2 = flag;
-		bool flag3 = symbol_001D.x >= symbol_000E.x - 1 && symbol_001D.x <= symbol_000E.x + 1;
-		bool flag4;
-		if (symbol_001D.y >= symbol_000E.y - 1)
-		{
-			flag4 = (symbol_001D.y <= symbol_000E.y + 1);
-		}
-		else
-		{
-			flag4 = false;
-		}
-		bool result = flag4;
-		if (flag2)
-		{
-			if (flag3)
-			{
-				return result;
-			}
-		}
-		return false;
+		bool same = a.x == b.x && a.y == b.y;
+		bool adjacentX = a.x >= b.x - 1 && a.x <= b.x + 1;
+		bool adjacentY = a.y >= b.y - 1 && a.y <= b.y + 1;
+		return !same && adjacentX && adjacentY;
 	}
 
 	public bool symbol_0012(BoardSquare symbol_001D, BoardSquare symbol_000E)
@@ -844,10 +819,10 @@ public class Board : MonoBehaviour, IGameEventListener
 		return false;
 	}
 
-	public bool symbol_0015(BoardSquare symbol_001D, BoardSquare symbol_000E)
+	public bool AreDiagonallyAdjacent(BoardSquare a, BoardSquare b)
 	{
-		bool flag = this.symbol_000E(symbol_001D, symbol_000E);
-		return flag && symbol_001D.x != symbol_000E.x && symbol_001D.y != symbol_000E.y;
+		bool adjacent = this.AreAdjacent(a, b);
+		return adjacent && a.x != b.x && a.y != b.y;
 	}
 
 	public List<BoardSquare> symbol_000E(Bounds symbol_001D, Func<BoardSquare, bool> symbol_000E = null)

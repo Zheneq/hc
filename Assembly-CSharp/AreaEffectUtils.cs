@@ -3193,7 +3193,7 @@ public static class AreaEffectUtils
 					{
 						if (AreaEffectUtils.IsActorTargetable(actorData, teams))
 						{
-							if (Board.Get().symbol_000E(aroundActor.GetCurrentBoardSquare(), actorData.GetCurrentBoardSquare()))
+							if (Board.Get().AreAdjacent(aroundActor.GetCurrentBoardSquare(), actorData.GetCurrentBoardSquare()))
 							{
 								return true;
 							}

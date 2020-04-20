@@ -391,13 +391,13 @@ public static class KnockbackUtils
 		{
 			return false;
 		}
-		if (!Board.Get().symbol_000E(src, dest))
+		if (!Board.Get().AreAdjacent(src, dest))
 		{
 			return false;
 		}
 		bool flag = true;
 		bool flag2 = true;
-		if (Board.Get().symbol_0015(src, dest))
+		if (Board.Get().AreDiagonallyAdjacent(src, dest))
 		{
 			BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
 			BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);

@@ -501,178 +501,96 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	{
 		eligibleSquares = new HashSet<BoardSquare>();
 		innerSquares = new HashSet<BoardSquare>();
-		if (!(squareToStartFrom == null))
+		if (squareToStartFrom != null && maxHorizontalMovement != 0f)
 		{
-			if (maxHorizontalMovement != 0f)
+			eligibleSquares.Add(squareToStartFrom);
+			if (innerMaxMove > 0f)
 			{
-				eligibleSquares.Add(squareToStartFrom);
-				if (innerMaxMove > 0f)
+				innerSquares.Add(squareToStartFrom);
+			}
+			LinkedList<ActorMovement.BoardSquareMovementInfo> toCheckQueue = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
+			HashSet<BoardSquare> checkedSquares = new HashSet<BoardSquare>();
+			ActorMovement.BoardSquareMovementInfo startMovementInfo = new ActorMovement.BoardSquareMovementInfo
+			{
+				square = squareToStartFrom,
+				cost = 0f,
+				prevCost = 0f
+			};
+			toCheckQueue.AddLast(startMovementInfo);
+			bool cannotExceedMaxMovement = GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
+			while (toCheckQueue.Count > 0)
+			{
+				ActorMovement.BoardSquareMovementInfo value2 = toCheckQueue.First.Value;
+				BoardSquare curSquare = value2.square;
+				for (int i = -1; i <= 1; i++)
 				{
-					innerSquares.Add(squareToStartFrom);
-				}
-				LinkedList<ActorMovement.BoardSquareMovementInfo> linkedList = new LinkedList<ActorMovement.BoardSquareMovementInfo>();
-				HashSet<BoardSquare> hashSet = new HashSet<BoardSquare>();
-				ActorMovement.BoardSquareMovementInfo value;
-				value.square = squareToStartFrom;
-				value.cost = 0f;
-				value.prevCost = 0f;
-				linkedList.AddLast(value);
-				bool flag;
-				if (GameplayData.Get() != null)
-				{
-					flag = (GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax);
-				}
-				else
-				{
-					flag = false;
-				}
-				bool flag2 = flag;
-				Board board = Board.Get();
-				while (linkedList.Count > 0)
-				{
-					ActorMovement.BoardSquareMovementInfo value2 = linkedList.First.Value;
-					BoardSquare square = value2.square;
-					int x = square.x;
-					int y = square.y;
-					for (int i = -1; i <= 1; i++)
+					for (int j = -1; j <= 1; j++)
 					{
-						int j = -1;
-						while (j <= 1)
+						if (i == 0 && j == 0)
 						{
-							if (i != 0)
-							{
-								goto IL_126;
-							}
-							if (j != 0)
-							{
-								goto IL_126;
-							}
-							IL_2E5:
-							j++;
 							continue;
-							IL_126:
-							BoardSquare boardSquare = board.GetBoardSquare(x + i, y + j);
-							if (!(boardSquare == null))
-							{
-								if (hashSet.Contains(boardSquare))
-								{
-								}
-								else
-								{
-									bool flag3 = board.symbol_0015(square, boardSquare);
-									float num;
-									if (flag3)
-									{
-										num = value2.cost + 1.5f;
-									}
-									else
-									{
-										num = value2.cost + 1f;
-									}
-									bool flag4;
-									if (flag2)
-									{
-										flag4 = (num <= maxHorizontalMovement);
-									}
-									else
-									{
-										flag4 = (value2.cost < maxHorizontalMovement);
-									}
-									if (flag4)
-									{
-										BoardSquare src = square;
-										BoardSquare dest = boardSquare;
-										bool ignoreBarriers = false;
-										ActorMovement.DiagonalCalcFlag diagonalFlag;
-										if (flag3)
-										{
-											diagonalFlag = ActorMovement.DiagonalCalcFlag.IsDiagonal;
-										}
-										else
-										{
-											diagonalFlag = ActorMovement.DiagonalCalcFlag.NotDiagonal;
-										}
-										if (this.CanCrossToAdjacentSquare(src, dest, ignoreBarriers, diagonalFlag))
-										{
-											ActorMovement.BoardSquareMovementInfo value3;
-											value3.square = boardSquare;
-											value3.cost = num;
-											value3.prevCost = value2.cost;
-											bool flag5 = false;
-											LinkedListNode<ActorMovement.BoardSquareMovementInfo> linkedListNode = linkedList.First;
-											while (linkedListNode != linkedList.Last)
-											{
-												ActorMovement.BoardSquareMovementInfo value4 = linkedListNode.Value;
-												if (value4.square == boardSquare)
-												{
-													flag5 = true;
-													if (value4.cost > num)
-													{
-														linkedListNode.Value = value3;
-													}
-													else if (value4.cost == num && value3.prevCost < value4.prevCost)
-													{
-														linkedListNode.Value = value3;
-													}
-													IL_2C5:
-													if (!flag5 && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
-													{
-														linkedList.AddLast(value3);
-														goto IL_2E5;
-													}
-													goto IL_2E5;
-												}
-												else
-												{
-													linkedListNode = linkedListNode.Next;
-												}
-											}
-											for (;;)
-											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												goto IL_2C5;
-											}
-										}
-									}
-								}
-							}
-							goto IL_2E5;
 						}
-					}
-					if (MovementUtils.CanStopOnSquare(square) && SinglePlayerManager.IsDestinationAllowed(this.m_actor, square, true))
-					{
-						if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, square))
+
+						BoardSquare nextSquare = Board.Get().GetBoardSquare(curSquare.x + i, curSquare.y + j);
+						if (nextSquare == null || checkedSquares.Contains(nextSquare))
 						{
-							if (!eligibleSquares.Contains(square))
+							continue;
+						}
+
+						bool diag = Board.Get().AreDiagonallyAdjacent(curSquare, nextSquare);
+						float cost = value2.cost + (diag ? 1.5f : 1f);
+
+						bool validMove = cannotExceedMaxMovement ? cost <= maxHorizontalMovement : value2.cost < maxHorizontalMovement;
+						if (!validMove)
+						{
+							continue;
+						}
+
+						ActorMovement.DiagonalCalcFlag diagonalFlag = diag ? ActorMovement.DiagonalCalcFlag.IsDiagonal : ActorMovement.DiagonalCalcFlag.NotDiagonal;
+						if (this.CanCrossToAdjacentSquare(curSquare, nextSquare, ignoreBarriers: false, diagonalFlag))
+						{
+							ActorMovement.BoardSquareMovementInfo nextMovementInfo = new ActorMovement.BoardSquareMovementInfo
 							{
-								eligibleSquares.Add(square);
+								square = nextSquare,
+								cost = cost,
+								prevCost = value2.cost
+							};
+							bool alreadyInQueue = false;
+							for (var toCheckNode = toCheckQueue.First; toCheckNode != toCheckQueue.Last; toCheckNode = toCheckNode.Next)
+							{
+								ActorMovement.BoardSquareMovementInfo toCheck = toCheckNode.Value;
+								if (toCheck.square == nextSquare)
+								{
+									alreadyInQueue = true;
+									if (toCheck.cost > cost || toCheck.cost == cost && nextMovementInfo.prevCost < toCheck.prevCost)
+									{
+										toCheckNode.Value = nextMovementInfo;
+									}
+									break;
+								}
 							}
-							if (innerMaxMove > 0f && !innerSquares.Contains(square))
+
+							if (!alreadyInQueue && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, nextSquare))
 							{
-								bool flag6;
-								if (flag2)
-								{
-									flag6 = (value2.cost <= innerMaxMove);
-								}
-								else
-								{
-									flag6 = (value2.prevCost < innerMaxMove);
-								}
-								if (flag6)
-								{
-									innerSquares.Add(square);
-								}
+								toCheckQueue.AddLast(nextMovementInfo);
 							}
 						}
 					}
-					hashSet.Add(square);
-					linkedList.RemoveFirst();
 				}
-				return;
+				if (MovementUtils.CanStopOnSquare(curSquare) && SinglePlayerManager.IsDestinationAllowed(this.m_actor, curSquare, true))
+				{
+					if (FirstTurnMovement.CanActorMoveToSquare(this.m_actor, curSquare))
+					{
+						eligibleSquares.Add(curSquare);
+						bool validMoveForInner = cannotExceedMaxMovement ? value2.cost <= innerMaxMove : value2.prevCost < innerMaxMove;
+						if (innerMaxMove > 0f && validMoveForInner)
+						{
+							innerSquares.Add(curSquare);
+						}
+					}
+				}
+				checkedSquares.Add(curSquare);
+				toCheckQueue.RemoveFirst();
 			}
 		}
 	}
@@ -698,11 +616,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			ActorMovement.BoardSquareMovementInfo value2 = linkedList.First.Value;
 			BoardSquare square = value2.square;
 			list.Clear();
-			if (!(GameplayData.Get() != null))
-			{
-				goto IL_DB;
-			}
-			if (GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled)
+			if (GameplayData.Get() == null || GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled)
 			{
 				goto IL_DB;
 			}
@@ -713,7 +627,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 				BoardSquare boardSquare = list[i];
 				if (!hashSet2.Contains(boardSquare))
 				{
-					bool flag = Board.Get().symbol_0015(square, boardSquare);
+					bool flag = Board.Get().AreDiagonallyAdjacent(square, boardSquare);
 					float num;
 					if (flag)
 					{
@@ -761,7 +675,6 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							if (this.CanCrossToAdjacentSquare(square, boardSquare, false, (!flag) ? ActorMovement.DiagonalCalcFlag.NotDiagonal : ActorMovement.DiagonalCalcFlag.IsDiagonal) && FirstTurnMovement.CanActorMoveToSquare(this.m_actor, boardSquare))
 							{
 								linkedList.AddLast(value3);
-								goto IL_290;
 							}
 							goto IL_290;
 						}
@@ -770,15 +683,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 							linkedListNode = linkedListNode.Next;
 						}
 					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_245;
-					}
+					goto IL_245;
+					
 					IL_19A:
 					flag2 = (value2.cost < maxHorizontalMovement);
 					goto IL_1A6;
@@ -950,79 +856,36 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private bool CanCrossToAdjacentSingleSquare(BoardSquare src, BoardSquare dest, bool ignoreBarriers, bool knownAdjacent = false, ActorMovement.DiagonalCalcFlag diagonalFlag = ActorMovement.DiagonalCalcFlag.Unknown)
 	{
-		if (!(dest == null))
+		if (dest == null || !dest.IsBaselineHeight())
 		{
-			if (!dest.IsBaselineHeight())
-			{
-			}
-			else
-			{
-				if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
-				{
-					return false;
-				}
-				if (!ignoreBarriers)
-				{
-					if (BarrierManager.Get() != null)
-					{
-						if (BarrierManager.Get().IsMovementBlocked(this.m_actor, src, dest))
-						{
-							return false;
-						}
-					}
-				}
-				bool flag;
-				if (!knownAdjacent)
-				{
-					flag = Board.Get().symbol_000E(src, dest);
-				}
-				else
-				{
-					flag = true;
-				}
-				if (!flag)
-				{
-					return false;
-				}
-				bool flag2 = true;
-				if (diagonalFlag != ActorMovement.DiagonalCalcFlag.IsDiagonal)
-				{
-					if (diagonalFlag != ActorMovement.DiagonalCalcFlag.Unknown)
-					{
-						goto IL_18A;
-					}
-					if (!Board.Get().symbol_0015(src, dest))
-					{
-						goto IL_18A;
-					}
-				}
-				BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
-				BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
-				if (flag2)
-				{
-					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				if (flag2)
-				{
-					flag2 &= this.CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				if (flag2)
-				{
-					flag2 &= this.CanCrossToAdjacentSingleSquare(boardSquare, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				if (flag2)
-				{
-					flag2 &= this.CanCrossToAdjacentSingleSquare(boardSquare2, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
-				}
-				IL_18A:
-				if (!flag2)
-				{
-					return false;
-				}
-				return true;
-			}
+
+			return false;
 		}
-		return false;
+
+		if (src.GetCoverInDirection(VectorUtils.GetCoverDirection(src, dest)) == ThinCover.CoverType.Full)
+		{
+			return false;
+		}
+		if (!ignoreBarriers && BarrierManager.Get() != null && BarrierManager.Get().IsMovementBlocked(this.m_actor, src, dest))
+		{
+			return false;
+		}
+		if (!knownAdjacent || Board.Get().AreAdjacent(src, dest))
+		{
+			return false;
+		}
+		if (diagonalFlag != ActorMovement.DiagonalCalcFlag.IsDiagonal &&
+			(diagonalFlag != ActorMovement.DiagonalCalcFlag.Unknown || !Board.Get().AreDiagonallyAdjacent(src, dest)))
+		{
+			return true;
+		}
+
+		BoardSquare boardSquare = Board.Get().GetBoardSquare(src.x, dest.y);
+		BoardSquare boardSquare2 = Board.Get().GetBoardSquare(dest.x, src.y);
+		return	this.CanCrossToAdjacentSingleSquare(src, boardSquare, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal) &&
+				this.CanCrossToAdjacentSingleSquare(src, boardSquare2, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal) &&
+				this.CanCrossToAdjacentSingleSquare(boardSquare, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal) &&
+				this.CanCrossToAdjacentSingleSquare(boardSquare2, dest, ignoreBarriers, true, ActorMovement.DiagonalCalcFlag.NotDiagonal);
 	}
 
 	public void ClearPath()
@@ -1914,7 +1777,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					for (int i = 0; i < list.Count; i++)
 					{
 						BoardSquare boardSquare = list[i];
-						bool flag5 = board.symbol_0015(boardSquarePathInfo2.square, boardSquare);
+						bool flag5 = board.AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
 						float num;
 						if (flag5)
 						{
@@ -2126,7 +1989,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 					for (int i = 0; i < list2.Count; i++)
 					{
 						BoardSquare boardSquare = list2[i];
-						bool flag5 = Board.Get().symbol_0015(boardSquarePathInfo2.square, boardSquare);
+						bool flag5 = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo2.square, boardSquare);
 						float num;
 						if (flag5)
 						{

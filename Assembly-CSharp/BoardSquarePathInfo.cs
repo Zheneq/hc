@@ -165,7 +165,7 @@ public class BoardSquarePathInfo : IComparable
 		float num = this.moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = this.next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			bool flag = Board.Get().symbol_0015(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
+			bool flag = Board.Get().AreDiagonallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
 			bool flag2 = Board.Get().symbol_0012(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
 			bool flag3 = boardSquarePathInfo.square == boardSquarePathInfo.prev.square;
 			if (flag)
