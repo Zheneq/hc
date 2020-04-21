@@ -472,20 +472,23 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				num = i;
 				flag4 = true;
-				IL_CE:
-				if (flag4)
-				{
-					this.m_lastUsedCombatTextIndex = num;
-				}
-				else
-				{
-					num = (this.m_lastUsedCombatTextIndex + 1) % this.nameplateCombatText.Length;
-					this.m_lastUsedCombatTextIndex = num;
-				}
-				float number = 0f;
-				switch (category)
-				{
-				case CombatTextCategory.Damage:
+				break;
+			}
+		}
+	IL_CE:
+		if (flag4)
+		{
+			this.m_lastUsedCombatTextIndex = num;
+		}
+		else
+		{
+			num = (this.m_lastUsedCombatTextIndex + 1) % this.nameplateCombatText.Length;
+			this.m_lastUsedCombatTextIndex = num;
+		}
+		float number = 0f;
+		switch (category)
+		{
+			case CombatTextCategory.Damage:
 				{
 					string[] array = text.Split(new char[]
 					{
@@ -515,116 +518,104 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					flag2 = true;
 					break;
 				}
-				case CombatTextCategory.Healing:
-					if (relationshipWithPlayer != UINameplateItem.BarColor.Self)
+			case CombatTextCategory.Healing:
+				if (relationshipWithPlayer != UINameplateItem.BarColor.Self)
+				{
+					if (relationshipWithPlayer != UINameplateItem.BarColor.Team)
 					{
-						if (relationshipWithPlayer != UINameplateItem.BarColor.Team)
+						if (relationshipWithPlayer != UINameplateItem.BarColor.Enemy)
 						{
-							if (relationshipWithPlayer != UINameplateItem.BarColor.Enemy)
-							{
-								goto IL_2D8;
-							}
-							this.nameplateCombatText[num].m_colorToChangeCombatText = new Color(0.0392156877f, 0.498039216f, 0.0627451f);
-							c = new Color(0f, 0.105882354f, 0.003921569f);
-							flag3 = true;
 							goto IL_2D8;
 						}
+						this.nameplateCombatText[num].m_colorToChangeCombatText = new Color(0.0392156877f, 0.498039216f, 0.0627451f);
+						c = new Color(0f, 0.105882354f, 0.003921569f);
+						flag3 = true;
+						goto IL_2D8;
 					}
-					this.nameplateCombatText[num].m_colorToChangeCombatText = new Color(0.7843137f, 1f, 0.796078444f);
-					c = new Color(0f, 0.458823532f, 0.0117647061f);
-					flag3 = false;
-					IL_2D8:
-					this.nameplateCombatText[num].m_combatText.text = text;
-					number = (float)int.Parse(text);
-					flag2 = true;
-					break;
-				case CombatTextCategory.Absorb:
-					this.nameplateCombatText[num].m_combatText.text = text;
-					c = Color.blue;
-					flag2 = true;
-					break;
-				case CombatTextCategory.TP_Damage:
-					this.nameplateCombatText[num].m_combatText.text = text;
-					c = Color.magenta;
-					flag2 = true;
-					break;
-				case CombatTextCategory.TP_Recovery:
-					this.nameplateCombatText[num].m_combatText.text = text;
-					c = Color.yellow * 0.7f;
-					flag2 = true;
-					break;
 				}
-				Component combatTextCover = this.nameplateCombatText[num].m_combatTextCover;
-				bool doActive;
-				if (this.m_showCombatTextIcons)
+				this.nameplateCombatText[num].m_colorToChangeCombatText = new Color(0.7843137f, 1f, 0.796078444f);
+				c = new Color(0f, 0.458823532f, 0.0117647061f);
+				flag3 = false;
+			IL_2D8:
+				this.nameplateCombatText[num].m_combatText.text = text;
+				number = (float)int.Parse(text);
+				flag2 = true;
+				break;
+			case CombatTextCategory.Absorb:
+				this.nameplateCombatText[num].m_combatText.text = text;
+				c = Color.blue;
+				flag2 = true;
+				break;
+			case CombatTextCategory.TP_Damage:
+				this.nameplateCombatText[num].m_combatText.text = text;
+				c = Color.magenta;
+				flag2 = true;
+				break;
+			case CombatTextCategory.TP_Recovery:
+				this.nameplateCombatText[num].m_combatText.text = text;
+				c = Color.yellow * 0.7f;
+				flag2 = true;
+				break;
+		}
+		Component combatTextCover = this.nameplateCombatText[num].m_combatTextCover;
+		bool doActive;
+		if (this.m_showCombatTextIcons)
+		{
+			doActive = flag;
+		}
+		else
+		{
+			doActive = false;
+		}
+		UIManager.SetGameObjectActive(combatTextCover, doActive, null);
+		if (this.nameplateCombatText[num].m_iconImage != null)
+		{
+			if (HUD_UIResources.Get() != null)
+			{
+				Sprite combatTextIconSprite = HUD_UIResources.Get().GetCombatTextIconSprite(icon);
+				if (combatTextIconSprite != null && this.m_showCombatTextIcons)
 				{
-					doActive = flag;
+					this.nameplateCombatText[num].m_iconImage.sprite = combatTextIconSprite;
+					UIManager.SetGameObjectActive(this.nameplateCombatText[num].m_iconImage, true, null);
 				}
 				else
 				{
-					doActive = false;
+					this.nameplateCombatText[num].m_iconImage.sprite = null;
+					UIManager.SetGameObjectActive(this.nameplateCombatText[num].m_iconImage, false, null);
 				}
-				UIManager.SetGameObjectActive(combatTextCover, doActive, null);
-				if (this.nameplateCombatText[num].m_iconImage != null)
-				{
-					if (HUD_UIResources.Get() != null)
-					{
-						Sprite combatTextIconSprite = HUD_UIResources.Get().GetCombatTextIconSprite(icon);
-						if (combatTextIconSprite != null && this.m_showCombatTextIcons)
-						{
-							this.nameplateCombatText[num].m_iconImage.sprite = combatTextIconSprite;
-							UIManager.SetGameObjectActive(this.nameplateCombatText[num].m_iconImage, true, null);
-						}
-						else
-						{
-							this.nameplateCombatText[num].m_iconImage.sprite = null;
-							UIManager.SetGameObjectActive(this.nameplateCombatText[num].m_iconImage, false, null);
-						}
-					}
-				}
-				bool flag5 = false;
-				if (flag2)
-				{
-					if (this.nameplateCombatText[num].m_CombatTextController != null)
-					{
-						if (flag3)
-						{
-							this.nameplateCombatText[num].m_CombatTextController.Play(text3, 0, 0f);
-						}
-						else
-						{
-							this.nameplateCombatText[num].m_CombatTextController.Play(text2, 0, 0f);
-						}
-						this.nameplateCombatText[num].m_combatText.color = Color.white;
-						this.nameplateCombatText[num].m_combatText.outlineColor = c;
-						flag5 = true;
-					}
-				}
-				if (flag5)
-				{
-					this.MoveToTopOfNameplates();
-				}
-				float scaledCombatTextSize = HUD_UIResources.GetScaledCombatTextSize(number);
-				this.nameplateCombatText[num].m_TextScalar.localScale = new Vector3(scaledCombatTextSize, scaledCombatTextSize, scaledCombatTextSize);
-				if (GameFlowData.Get() != null)
-				{
-					if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
-					{
-						this.HighlightNameplateForAbility();
-						this.m_setToDimTime = Time.time + 1f;
-					}
-				}
-				return;
 			}
 		}
-		for (;;)
+		bool flag5 = false;
+		if (flag2)
 		{
-			switch (3)
+			if (this.nameplateCombatText[num].m_CombatTextController != null)
 			{
-			case 0:
-				continue;
+				if (flag3)
+				{
+					this.nameplateCombatText[num].m_CombatTextController.Play(text3, 0, 0f);
+				}
+				else
+				{
+					this.nameplateCombatText[num].m_CombatTextController.Play(text2, 0, 0f);
+				}
+				this.nameplateCombatText[num].m_combatText.color = Color.white;
+				this.nameplateCombatText[num].m_combatText.outlineColor = c;
+				flag5 = true;
 			}
-			goto IL_CE;
+		}
+		if (flag5)
+		{
+			this.MoveToTopOfNameplates();
+		}
+		float scaledCombatTextSize = HUD_UIResources.GetScaledCombatTextSize(number);
+		this.nameplateCombatText[num].m_TextScalar.localScale = new Vector3(scaledCombatTextSize, scaledCombatTextSize, scaledCombatTextSize);
+		if (GameFlowData.Get() != null)
+		{
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
+			{
+				this.HighlightNameplateForAbility();
+				this.m_setToDimTime = Time.time + 1f;
+			}
 		}
 	}
 
