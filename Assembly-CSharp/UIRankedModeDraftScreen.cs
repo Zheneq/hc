@@ -1237,53 +1237,44 @@ public class UIRankedModeDraftScreen : UIScene
 							}
 						}
 					}
-					IL_FF:
-					if (this.m_playerIDsOnDeck.Count == 1)
-					{
-						KeyValuePair<int, CharacterType> selectedChar = new KeyValuePair<int, CharacterType>(playerId, this.HoveredCharacter);
-						if (this.m_playerIDsOnDeck.ContainsKey(playerId))
-						{
-							this.SetupSelection(selectedChar, data, this.m_singleCharacterName, this.singleNoSelectionCharacter, this.singleBrowseSelectionCharacter, this.singleSelectionCharacter, this.m_singleSelectionCharacterSelected, this.m_singleBlueSelectionCharacterSelected, this.m_singleBlueTeamSelectedCharacter, this.m_singleBlueTeamPlayerName, true, false);
-						}
-						return;
-					}
-					if (this.m_playerIDsOnDeck.Count == 2)
-					{
-						bool flag = true;
-						using (Dictionary<int, CharacterType>.Enumerator enumerator = this.m_playerIDsOnDeck.GetEnumerator())
-						{
-							while (enumerator.MoveNext())
-							{
-								KeyValuePair<int, CharacterType> selectedChar2 = enumerator.Current;
-								if (flag)
-								{
-									this.SetupSelection(selectedChar2, data, this.m_leftCharacterName, this.doubleNoSelectionLeftCharacter, this.doubleBrowseSelectionLeftCharacter, this.doubleSelectionLeftCharacter, this.m_doubleLeftSelectionCharacterSelected, this.m_doubleLeftBlueSelectionCharacterSelected, this.m_doubleLeftBlueTeamSelectedCharacter, this.m_doubleLeftBlueTeamPlayerName, true, false);
-									flag = false;
-								}
-								else
-								{
-									this.SetupSelection(selectedChar2, data, this.m_rightCharacterName, this.doubleNoSelectionRightCharacter, this.doubleBrowseSelectionRightCharacter, this.doubleSelectionRightCharacter, this.m_doubleRightSelectionCharacterSelected, this.m_doubleRightBlueSelectionCharacterSelected, this.m_doubleRightBlueTeamSelectedCharacter, this.m_doubleRightBlueTeamPlayerName, true, false);
-								}
-							}
-						}
-						return;
-					}
-					return;
+					break;
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+			if (this.m_playerIDsOnDeck.Count == 1)
 			{
-				switch (3)
+				KeyValuePair<int, CharacterType> selectedChar = new KeyValuePair<int, CharacterType>(playerId, this.HoveredCharacter);
+				if (this.m_playerIDsOnDeck.ContainsKey(playerId))
 				{
-				case 0:
-					continue;
+					this.SetupSelection(selectedChar, data, this.m_singleCharacterName, this.singleNoSelectionCharacter, this.singleBrowseSelectionCharacter, this.singleSelectionCharacter, this.m_singleSelectionCharacterSelected, this.m_singleBlueSelectionCharacterSelected, this.m_singleBlueTeamSelectedCharacter, this.m_singleBlueTeamPlayerName, true, false);
 				}
-				goto IL_FF;
+				return;
 			}
+			if (this.m_playerIDsOnDeck.Count == 2)
+			{
+				bool flag = true;
+				using (Dictionary<int, CharacterType>.Enumerator enumerator = this.m_playerIDsOnDeck.GetEnumerator())
+				{
+					while (enumerator.MoveNext())
+					{
+						KeyValuePair<int, CharacterType> selectedChar2 = enumerator.Current;
+						if (flag)
+						{
+							this.SetupSelection(selectedChar2, data, this.m_leftCharacterName, this.doubleNoSelectionLeftCharacter, this.doubleBrowseSelectionLeftCharacter, this.doubleSelectionLeftCharacter, this.m_doubleLeftSelectionCharacterSelected, this.m_doubleLeftBlueSelectionCharacterSelected, this.m_doubleLeftBlueTeamSelectedCharacter, this.m_doubleLeftBlueTeamPlayerName, true, false);
+							flag = false;
+						}
+						else
+						{
+							this.SetupSelection(selectedChar2, data, this.m_rightCharacterName, this.doubleNoSelectionRightCharacter, this.doubleBrowseSelectionRightCharacter, this.doubleSelectionRightCharacter, this.m_doubleRightSelectionCharacterSelected, this.m_doubleRightBlueSelectionCharacterSelected, this.m_doubleRightBlueTeamSelectedCharacter, this.m_doubleRightBlueTeamPlayerName, true, false);
+						}
+					}
+				}
+				return;
+			}
+			return;
 		}
 	}
 
@@ -1820,163 +1811,148 @@ public class UIRankedModeDraftScreen : UIScene
 				if (data.symbol_001D(this.m_blueTeamMembers[i].PlayerID))
 				{
 					flag = true;
-					IL_67:
-					for (int j = 0; j < this.m_redTeamMembers.Length; j++)
-					{
-						if (data.symbol_001D(this.m_redTeamMembers[j].PlayerID))
-						{
-							flag2 = true;
-							IL_A8:
-							bool flag3 = true;
-							foreach (RankedResolutionPlayerState rankedResolutionPlayerState in data.PlayersOnDeck)
-							{
-								if (this.m_playerIDsOnDeck.ContainsKey(rankedResolutionPlayerState.PlayerId))
-								{
-									flag3 = false;
-								}
-							}
-							if (this.m_lastDraftNotification.SubPhase == this.m_lastPhaseForUpdateCenter)
-							{
-								if (!flag3)
-								{
-									foreach (RankedResolutionPlayerState rankedResolutionPlayerState2 in data.PlayersOnDeck)
-									{
-										this.m_playerIDsOnDeck[rankedResolutionPlayerState2.PlayerId] = rankedResolutionPlayerState2.Intention;
-									}
-									goto IL_39C;
-								}
-							}
-							if (this.m_playerIDsOnDeck.Count > 0)
-							{
-								bool flag4 = false;
-								bool flag5 = false;
-								for (int k = 0; k < this.m_blueTeamMembers.Length; k++)
-								{
-									if (this.m_playerIDsOnDeck.ContainsKey(this.m_blueTeamMembers[k].PlayerID))
-									{
-										flag4 = true;
-										break;
-									}
-								}
-								for (int l = 0; l < this.m_redTeamMembers.Length; l++)
-								{
-									if (this.m_playerIDsOnDeck.ContainsKey(this.m_redTeamMembers[l].PlayerID))
-									{
-										flag5 = true;
-										break;
-									}
-								}
-								if (flag5)
-								{
-									if (this.m_playerIDsOnDeck.Count == 1)
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectEnd);
-									}
-									else
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectEnd);
-									}
-								}
-								else if (flag4)
-								{
-									if (this.m_playerIDsOnDeck.Count == 1)
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectEnd);
-									}
-									else
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectEnd);
-									}
-								}
-							}
-							if (!this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
-							{
-								if (this.m_lastDraftNotification.SubPhase.IsPickFreelancerSubPhase())
-								{
-								}
-								else
-								{
-									if (this.m_lastDraftNotification.SubPhase == FreelancerResolutionPhaseSubType.FREELANCER_TRADE)
-									{
-										this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.TradePhase);
-										goto IL_2E7;
-									}
-									goto IL_2E7;
-								}
-							}
-							UIRankedModeDraftScreen.CenterNotification centerNotification = UIRankedModeDraftScreen.CenterNotification.None;
-							int count = data.PlayersOnDeck.Count;
-							if (flag2)
-							{
-								this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamNotification);
-								if (count == 1)
-								{
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart;
-								}
-								else if (count == 2)
-								{
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart;
-								}
-							}
-							else if (flag)
-							{
-								this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamNotification);
-								if (count == 1)
-								{
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart;
-								}
-								else if (count == 2)
-								{
-									centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart;
-								}
-							}
-							if (centerNotification != UIRankedModeDraftScreen.CenterNotification.None)
-							{
-								this.QueueCenterState(centerNotification);
-							}
-							IL_2E7:
-							this.m_playerIDsOnDeck.Clear();
-							using (List<RankedResolutionPlayerState>.Enumerator enumerator3 = data.PlayersOnDeck.GetEnumerator())
-							{
-								while (enumerator3.MoveNext())
-								{
-									RankedResolutionPlayerState rankedResolutionPlayerState3 = enumerator3.Current;
-									this.m_playerIDsOnDeck.Add(rankedResolutionPlayerState3.PlayerId, rankedResolutionPlayerState3.Intention);
-								}
-							}
-							IL_39C:
-							if (!updateFromGameInfoUpdate)
-							{
-								this.UpdateCenterVisuals(data, flag, flag2);
-							}
-							this.m_lastPhaseForUpdateCenter = this.m_lastDraftNotification.SubPhase;
-							return;
-						}
-					}
-					for (;;)
-					{
-						switch (6)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_A8;
-					}
+					break;
+
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (;;)
+		IL_67:
+			for (int j = 0; j < this.m_redTeamMembers.Length; j++)
 			{
-				switch (6)
+				if (data.symbol_001D(this.m_redTeamMembers[j].PlayerID))
 				{
-				case 0:
-					continue;
+					flag2 = true;
+					break;
 				}
-				goto IL_67;
 			}
+			bool flag3 = true;
+			foreach (RankedResolutionPlayerState rankedResolutionPlayerState in data.PlayersOnDeck)
+			{
+				if (this.m_playerIDsOnDeck.ContainsKey(rankedResolutionPlayerState.PlayerId))
+				{
+					flag3 = false;
+				}
+			}
+			if (this.m_lastDraftNotification.SubPhase == this.m_lastPhaseForUpdateCenter)
+			{
+				if (!flag3)
+				{
+					foreach (RankedResolutionPlayerState rankedResolutionPlayerState2 in data.PlayersOnDeck)
+					{
+						this.m_playerIDsOnDeck[rankedResolutionPlayerState2.PlayerId] = rankedResolutionPlayerState2.Intention;
+					}
+					goto IL_39C;
+				}
+			}
+			if (this.m_playerIDsOnDeck.Count > 0)
+			{
+				bool flag4 = false;
+				bool flag5 = false;
+				for (int k = 0; k < this.m_blueTeamMembers.Length; k++)
+				{
+					if (this.m_playerIDsOnDeck.ContainsKey(this.m_blueTeamMembers[k].PlayerID))
+					{
+						flag4 = true;
+						break;
+					}
+				}
+				for (int l = 0; l < this.m_redTeamMembers.Length; l++)
+				{
+					if (this.m_playerIDsOnDeck.ContainsKey(this.m_redTeamMembers[l].PlayerID))
+					{
+						flag5 = true;
+						break;
+					}
+				}
+				if (flag5)
+				{
+					if (this.m_playerIDsOnDeck.Count == 1)
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectEnd);
+					}
+					else
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectEnd);
+					}
+				}
+				else if (flag4)
+				{
+					if (this.m_playerIDsOnDeck.Count == 1)
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectEnd);
+					}
+					else
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectEnd);
+					}
+				}
+			}
+			if (!this.m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
+			{
+				if (this.m_lastDraftNotification.SubPhase.IsPickFreelancerSubPhase())
+				{
+				}
+				else
+				{
+					if (this.m_lastDraftNotification.SubPhase == FreelancerResolutionPhaseSubType.FREELANCER_TRADE)
+					{
+						this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.TradePhase);
+						goto IL_2E7;
+					}
+					goto IL_2E7;
+				}
+			}
+			UIRankedModeDraftScreen.CenterNotification centerNotification = UIRankedModeDraftScreen.CenterNotification.None;
+			int count = data.PlayersOnDeck.Count;
+			if (flag2)
+			{
+				this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.RedTeamNotification);
+				if (count == 1)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamSingleSelectStart;
+				}
+				else if (count == 2)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.RedTeamDoubleSelectStart;
+				}
+			}
+			else if (flag)
+			{
+				this.QueueCenterState(UIRankedModeDraftScreen.CenterNotification.BlueTeamNotification);
+				if (count == 1)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamSingleSelectStart;
+				}
+				else if (count == 2)
+				{
+					centerNotification = UIRankedModeDraftScreen.CenterNotification.BlueTeamDoubleSelectStart;
+				}
+			}
+			if (centerNotification != UIRankedModeDraftScreen.CenterNotification.None)
+			{
+				this.QueueCenterState(centerNotification);
+			}
+		IL_2E7:
+			this.m_playerIDsOnDeck.Clear();
+			using (List<RankedResolutionPlayerState>.Enumerator enumerator3 = data.PlayersOnDeck.GetEnumerator())
+			{
+				while (enumerator3.MoveNext())
+				{
+					RankedResolutionPlayerState rankedResolutionPlayerState3 = enumerator3.Current;
+					this.m_playerIDsOnDeck.Add(rankedResolutionPlayerState3.PlayerId, rankedResolutionPlayerState3.Intention);
+				}
+			}
+		IL_39C:
+			if (!updateFromGameInfoUpdate)
+			{
+				this.UpdateCenterVisuals(data, flag, flag2);
+			}
+			this.m_lastPhaseForUpdateCenter = this.m_lastDraftNotification.SubPhase;
+			return;
+
 		}
 	}
 
