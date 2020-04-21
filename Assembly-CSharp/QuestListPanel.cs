@@ -665,20 +665,15 @@ public class QuestListPanel : UIScene
 
 	private void HandleQuestProgressChanged(QuestProgress[] progress)
 	{
-		int i = 0;
-		IL_3D:
-		while (i < this.dailyQuests.Length)
+		for (int i = 0; i < this.dailyQuests.Length; i++)
 		{
 			for (int j = 0; j < progress.Length; j++)
 			{
 				if (this.dailyQuests[i].UpdateProgress(progress[j]))
 				{
-					IL_39:
-					i++;
-					goto IL_3D;
+					break;
 				}
 			}
-			goto IL_39;
 		}
 	}
 
