@@ -1022,7 +1022,6 @@ public class UILandingPageScreen : UIScene
 		{
 			using (List<RewardUtils.RewardData>.Enumerator enumerator = RewardUtils.GetAccountLevelRewards(i).GetEnumerator())
 			{
-				IL_9D:
 				while (enumerator.MoveNext())
 				{
 					RewardUtils.RewardData rewardData = enumerator.Current;
@@ -1032,20 +1031,10 @@ public class UILandingPageScreen : UIScene
 						if (rewardData.Level <= this.m_playerRewards[j].Level)
 						{
 							index = j;
-							IL_90:
-							this.m_playerRewards.Insert(index, rewardData);
-							goto IL_9D;
+							break;
 						}
 					}
-					for (;;)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_90;
-					}
+					this.m_playerRewards.Insert(index, rewardData);
 				}
 			}
 		}
