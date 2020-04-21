@@ -326,38 +326,17 @@ public class UIPlayCategoryMenu : MonoBehaviour
 							if (this.m_menuList[k] != this.m_CustomBtn)
 							{
 								num = k;
-								IL_20F:
-								if (num != -1)
-								{
-									this.DoSelectGameType(this.m_menuList[num].spriteController.gameObject);
-									return;
-								}
-								goto IL_23F;
+								break;
 							}
 						}
 					}
-					for (;;)
+					if (num != -1)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_20F;
+						this.DoSelectGameType(this.m_menuList[num].spriteController.gameObject);
+						return;
 					}
-					return;
 				}
 			}
-			IL_23F:;
-		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			return;
 		}
 	}
 
