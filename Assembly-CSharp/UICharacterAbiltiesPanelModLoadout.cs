@@ -313,22 +313,12 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 			if (this.m_modListItems[i] == item)
 			{
 				loadoutIndex = i;
-				IL_51:
-				ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Load Request");
-				ClientGameManager.Get().RequestToSelectLoadout(item.LoadoutRef, loadoutIndex);
-				this.SetListVisible(false);
-				return;
+				break;
 			}
 		}
-		for (;;)
-		{
-			switch (4)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_51;
-		}
+		ClientGameManager.Get().SendUIActionNotification("CLICK (UILoadout): Load Request");
+		ClientGameManager.Get().RequestToSelectLoadout(item.LoadoutRef, loadoutIndex);
+		this.SetListVisible(false);
 	}
 
 	public void NotifySaveModLoadoutClicked(UICharacterAbilitiesPanelModItem item)
