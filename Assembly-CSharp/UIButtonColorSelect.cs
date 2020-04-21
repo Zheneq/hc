@@ -46,43 +46,26 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 				if (Transforms[j].GetTransform() == first.GetTransform())
 				{
 					num = j;
-					IL_5D:
-					int num2 = 0;
-					for (int k = 0; k < Transforms.Count; k++)
-					{
-						if (Transforms[k].GetTransform() == second.GetTransform())
-						{
-							num2 = k;
-							IL_B1:
-							int num3 = first.GetTransformPriority() * Transforms.Count + num;
-							int num4 = second.GetTransformPriority() * Transforms.Count + num2;
-							return num3 - num4;
-						}
-					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_B1;
-					}
+					break;
+
 				}
 				else
 				{
 					j++;
 				}
 			}
-			for (;;)
+			int num2 = 0;
+			for (int k = 0; k < Transforms.Count; k++)
 			{
-				switch (3)
+				if (Transforms[k].GetTransform() == second.GetTransform())
 				{
-				case 0:
-					continue;
+					num2 = k;
+					break;
 				}
-				goto IL_5D;
 			}
+			int num3 = first.GetTransformPriority() * Transforms.Count + num;
+			int num4 = second.GetTransformPriority() * Transforms.Count + num2;
+			return num3 - num4;
 		});
 		for (int i = 0; i < Transforms.Count; i++)
 		{
