@@ -239,22 +239,12 @@ public class UISeasonsRewardEntry : MonoBehaviour, IUIDataEntry
 							if (GameWideData.Get().m_gameBalanceVars.Overcons[k].ID == unlockReward.typeSpecificData[0])
 							{
 								overconUnlockData = GameWideData.Get().m_gameBalanceVars.Overcons[k];
-								IL_319:
-								inventoryItemTemplate.DisplayName = overconUnlockData.GetOverconName();
-								playerUnlockable = overconUnlockData;
-								goto IL_349;
+								break;
 							}
 						}
-						for (;;)
-						{
-							switch (5)
-							{
-							case 0:
-								continue;
-							}
-							goto IL_319;
-						}
-						break;
+						inventoryItemTemplate.DisplayName = overconUnlockData.GetOverconName();
+						playerUnlockable = overconUnlockData;
+						goto IL_349;
 					}
 					case PurchaseType.ChatEmoji:
 					{
