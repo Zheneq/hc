@@ -802,40 +802,7 @@ public class UISeasonsPanel : UIScene
 				num2 = 0;
 				if (i >= this.m_rewardElements.Length)
 				{
-					IL_2D0:
-					i = 0;
-					if (i >= 0)
-					{
-						if (i < this.m_rewardElements.Length)
-						{
-							for (int l = num2; l < this.m_rewardElements[i].m_rewardImages.Length; l++)
-							{
-								UIManager.SetGameObjectActive(this.m_rewardElements[i].m_rewardImages[l], false, null);
-							}
-						}
-					}
-					for (i++; i < this.m_rewardElements.Length; i++)
-					{
-						StaggerComponent.SetStaggerComponent(this.m_rewardElements[i].gameObject, false, true);
-					}
-					if (displayOverviewButton)
-					{
-						this.SetSelectedHeaderButton(this.m_OverviewButton);
-					}
-					else
-					{
-						if (displayHighestChapter)
-						{
-							this.SetSelectedHeaderButton(this.m_currentChapterButton);
-						}
-						else
-						{
-							this.SetupChapter(this.m_selectedChapterIndex);
-						}
-						List<IDataEntry> itemList = this.m_selectedSeason.SeasonRewardEntries.ConvertAll<IDataEntry>(new Converter<UISeasonRewardEntry, IDataEntry>(UISeasonsPanel.SeasonEntryToDataEntry));
-						this.m_seasonsScrollList.Setup(itemList, Mathf.Max(this.m_selectedSeason.currentLevelDisplayIndex - 2, 0));
-					}
-					return;
+					break;
 				}
 				StaggerComponent.SetStaggerComponent(this.m_rewardElements[i].gameObject, true, true);
 				if (seasonInfo.RepeatingRewards[j].RepeatEveryXLevels == 1)
@@ -851,15 +818,39 @@ public class UISeasonsPanel : UIScene
 			this.m_rewardElements[i].Setup(num2, seasonInfo.RepeatingRewards[j]);
 			num2++;
 		}
-		for (;;)
+		i = 0;
+		if (i >= 0)
 		{
-			switch (1)
+			if (i < this.m_rewardElements.Length)
 			{
-			case 0:
-				continue;
+				for (int l = num2; l < this.m_rewardElements[i].m_rewardImages.Length; l++)
+				{
+					UIManager.SetGameObjectActive(this.m_rewardElements[i].m_rewardImages[l], false, null);
+				}
 			}
-			goto IL_2D0;
 		}
+		for (i++; i < this.m_rewardElements.Length; i++)
+		{
+			StaggerComponent.SetStaggerComponent(this.m_rewardElements[i].gameObject, false, true);
+		}
+		if (displayOverviewButton)
+		{
+			this.SetSelectedHeaderButton(this.m_OverviewButton);
+		}
+		else
+		{
+			if (displayHighestChapter)
+			{
+				this.SetSelectedHeaderButton(this.m_currentChapterButton);
+			}
+			else
+			{
+				this.SetupChapter(this.m_selectedChapterIndex);
+			}
+			List<IDataEntry> itemList = this.m_selectedSeason.SeasonRewardEntries.ConvertAll<IDataEntry>(new Converter<UISeasonRewardEntry, IDataEntry>(UISeasonsPanel.SeasonEntryToDataEntry));
+			this.m_seasonsScrollList.Setup(itemList, Mathf.Max(this.m_selectedSeason.currentLevelDisplayIndex - 2, 0));
+		}
+		return;
 	}
 
 	private void Setup(bool setOverheadBtn = false, bool displayHighestChapter = true, bool resetChapterText = true)
@@ -988,23 +979,14 @@ public class UISeasonsPanel : UIScene
 						if (this.displayInfo[i].SeasonNumber == playerAccountData.QuestComponent.ActiveSeason)
 						{
 							uiplayerSeasonDisplayInfo = this.displayInfo[i];
-							IL_11B:
-							if (uiplayerSeasonDisplayInfo != null)
-							{
-								this.SetSelectedHeaderButton(this.m_currentChapterButton);
-							}
-							return;
+							break;
 						}
 					}
-					for (;;)
+					if (uiplayerSeasonDisplayInfo != null)
 					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_11B;
+						this.SetSelectedHeaderButton(this.m_currentChapterButton);
 					}
+					return;
 				}
 				else
 				{
