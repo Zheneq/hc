@@ -446,93 +446,92 @@ public class UIGameSettingsPanel : UIScene
 			if (this.m_theMapList[i].ToggleBtn.IsChecked())
 			{
 				map = this.m_theMapList[i].MapConfig.Map;
-				IL_6E:
-				lobbyGameConfig.Map = map;
-				int @checked = this.GetChecked(this.m_teamAPlayersButtons);
-				int checked2 = this.GetChecked(this.m_teamBPlayersButtons);
-				int checked3 = this.GetChecked(this.m_spectatorButtons);
-				lobbyGameConfig.RoomName = this.m_gameNameInputField.text;
-				lobbyGameConfig.TeamAPlayers = @checked;
-				lobbyGameConfig.TeamBPlayers = checked2;
-				lobbyGameConfig.Spectators = checked3;
-				lobbyGameConfig.GameType = GameType.Custom;
-				lobbyGameConfig.SubTypes = new List<GameSubType>();
-				lobbyGameConfig.SubTypes.Add(GameManager.Get().GameConfig.InstanceSubType);
-				lobbyGameConfig.InstanceSubTypeBit = GameManager.Get().GameConfig.InstanceSubTypeBit;
-				if (lobbyGameConfig.InstanceSubType.GameOverrides == null)
-				{
-					lobbyGameConfig.InstanceSubType.GameOverrides = new GameValueOverrides();
-				}
-				try
-				{
-					lobbyGameConfig.InstanceSubType.GameOverrides.SetTimeSpanOverride(GameValueOverrides.OverrideAbleGameValue.TurnTimeSpan, new TimeSpan?(GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(this.m_roundTime.text))));
-				}
-				catch (Exception exception)
-				{
-					Log.Exception(exception);
-				}
-				if (this.m_allowDuplicateCharacters.isOn)
-				{
-					lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowDuplicateCharacters);
-				}
-				if (this.m_allowPausing.isOn)
-				{
-					lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowPausing);
-				}
-				try
-				{
-					if (this.m_useTimeBank.isOn)
-					{
-						lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, null);
-					}
-					else
-					{
-						lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, new int?(0));
-					}
-				}
-				catch (Exception exception2)
-				{
-					Log.Exception(exception2);
-				}
-				this.m_teamInfo.TeamPlayerInfo.Clear();
-				int num = 1;
-				foreach (UITeamMemberEntry uiteamMemberEntry in this.m_teamAMemberEntries)
-				{
-					LobbyPlayerInfo playerInfo = uiteamMemberEntry.GetPlayerInfo();
-					if (playerInfo != null)
-					{
-						playerInfo.CustomGameVisualSlot = num;
-						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo);
-					}
-					num++;
-				}
-				num = 1;
-				foreach (UITeamMemberEntry uiteamMemberEntry2 in this.m_teamBMemberEntries)
-				{
-					LobbyPlayerInfo playerInfo2 = uiteamMemberEntry2.GetPlayerInfo();
-					if (playerInfo2 != null)
-					{
-						playerInfo2.CustomGameVisualSlot = num;
-						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo2);
-					}
-					num++;
-				}
-				num = 1;
-				foreach (UITeamMemberEntry uiteamMemberEntry3 in this.m_spectatorMemberEntries)
-				{
-					LobbyPlayerInfo playerInfo3 = uiteamMemberEntry3.GetPlayerInfo();
-					if (playerInfo3 != null)
-					{
-						playerInfo3.CustomGameVisualSlot = num;
-						this.m_teamInfo.TeamPlayerInfo.Add(playerInfo3);
-					}
-					num++;
-				}
-				AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, this.m_teamInfo, closeSettingsWindow);
-				return;
+				break;
 			}
 		}
-		goto IL_6E;
+	IL_6E:
+		lobbyGameConfig.Map = map;
+		int @checked = this.GetChecked(this.m_teamAPlayersButtons);
+		int checked2 = this.GetChecked(this.m_teamBPlayersButtons);
+		int checked3 = this.GetChecked(this.m_spectatorButtons);
+		lobbyGameConfig.RoomName = this.m_gameNameInputField.text;
+		lobbyGameConfig.TeamAPlayers = @checked;
+		lobbyGameConfig.TeamBPlayers = checked2;
+		lobbyGameConfig.Spectators = checked3;
+		lobbyGameConfig.GameType = GameType.Custom;
+		lobbyGameConfig.SubTypes = new List<GameSubType>();
+		lobbyGameConfig.SubTypes.Add(GameManager.Get().GameConfig.InstanceSubType);
+		lobbyGameConfig.InstanceSubTypeBit = GameManager.Get().GameConfig.InstanceSubTypeBit;
+		if (lobbyGameConfig.InstanceSubType.GameOverrides == null)
+		{
+			lobbyGameConfig.InstanceSubType.GameOverrides = new GameValueOverrides();
+		}
+		try
+		{
+			lobbyGameConfig.InstanceSubType.GameOverrides.SetTimeSpanOverride(GameValueOverrides.OverrideAbleGameValue.TurnTimeSpan, new TimeSpan?(GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(this.m_roundTime.text))));
+		}
+		catch (Exception exception)
+		{
+			Log.Exception(exception);
+		}
+		if (this.m_allowDuplicateCharacters.isOn)
+		{
+			lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowDuplicateCharacters);
+		}
+		if (this.m_allowPausing.isOn)
+		{
+			lobbyGameConfig.GameOptionFlags = lobbyGameConfig.GameOptionFlags.WithGameOption(GameOptionFlag.AllowPausing);
+		}
+		try
+		{
+			if (this.m_useTimeBank.isOn)
+			{
+				lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, null);
+			}
+			else
+			{
+				lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, new int?(0));
+			}
+		}
+		catch (Exception exception2)
+		{
+			Log.Exception(exception2);
+		}
+		this.m_teamInfo.TeamPlayerInfo.Clear();
+		int num = 1;
+		foreach (UITeamMemberEntry uiteamMemberEntry in this.m_teamAMemberEntries)
+		{
+			LobbyPlayerInfo playerInfo = uiteamMemberEntry.GetPlayerInfo();
+			if (playerInfo != null)
+			{
+				playerInfo.CustomGameVisualSlot = num;
+				this.m_teamInfo.TeamPlayerInfo.Add(playerInfo);
+			}
+			num++;
+		}
+		num = 1;
+		foreach (UITeamMemberEntry uiteamMemberEntry2 in this.m_teamBMemberEntries)
+		{
+			LobbyPlayerInfo playerInfo2 = uiteamMemberEntry2.GetPlayerInfo();
+			if (playerInfo2 != null)
+			{
+				playerInfo2.CustomGameVisualSlot = num;
+				this.m_teamInfo.TeamPlayerInfo.Add(playerInfo2);
+			}
+			num++;
+		}
+		num = 1;
+		foreach (UITeamMemberEntry uiteamMemberEntry3 in this.m_spectatorMemberEntries)
+		{
+			LobbyPlayerInfo playerInfo3 = uiteamMemberEntry3.GetPlayerInfo();
+			if (playerInfo3 != null)
+			{
+				playerInfo3.CustomGameVisualSlot = num;
+				this.m_teamInfo.TeamPlayerInfo.Add(playerInfo3);
+			}
+			num++;
+		}
+		AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, this.m_teamInfo, closeSettingsWindow);
 	}
 
 	public void UpdateClicked(BaseEventData data)
@@ -766,48 +765,39 @@ public class UIGameSettingsPanel : UIScene
 						if (!array[j])
 						{
 							num2 = j;
-							IL_176:
-							if (num2 >= teamSize)
-							{
-								goto IL_226;
-							}
-							if (lobbyPlayerInfo2.IsNPCBot)
-							{
-								goto IL_226;
-							}
-							if (!lobbyPlayerInfo2.IsGameOwner)
-							{
-								if (lobbyPlayerInfo2.CustomGameVisualSlot != 0)
-								{
-									if (0 < lobbyPlayerInfo2.CustomGameVisualSlot)
-									{
-										if (lobbyPlayerInfo2.CustomGameVisualSlot < array.Length + 1 && !array[lobbyPlayerInfo2.CustomGameVisualSlot - 1])
-										{
-											num2 = lobbyPlayerInfo2.CustomGameVisualSlot - 1;
-										}
-									}
-								}
-								teamMemberEntries[num2].SetTeamPlayerInfo(lobbyPlayerInfo2);
-								UIManager.SetGameObjectActive(teamMemberEntries[num2], true, null);
-								array[num2] = true;
-								goto IL_226;
-							}
-							goto IL_226;
+							break;
 						}
 						else
 						{
 							j++;
 						}
 					}
-					for (;;)
+					if (num2 >= teamSize)
 					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_176;
+						goto IL_226;
 					}
+					if (lobbyPlayerInfo2.IsNPCBot)
+					{
+						goto IL_226;
+					}
+					if (!lobbyPlayerInfo2.IsGameOwner)
+					{
+						if (lobbyPlayerInfo2.CustomGameVisualSlot != 0)
+						{
+							if (0 < lobbyPlayerInfo2.CustomGameVisualSlot)
+							{
+								if (lobbyPlayerInfo2.CustomGameVisualSlot < array.Length + 1 && !array[lobbyPlayerInfo2.CustomGameVisualSlot - 1])
+								{
+									num2 = lobbyPlayerInfo2.CustomGameVisualSlot - 1;
+								}
+							}
+						}
+						teamMemberEntries[num2].SetTeamPlayerInfo(lobbyPlayerInfo2);
+						UIManager.SetGameObjectActive(teamMemberEntries[num2], true, null);
+						array[num2] = true;
+					}
+					goto IL_226;
+
 				}
 			}
 			finally
@@ -831,47 +821,37 @@ public class UIGameSettingsPanel : UIScene
 						if (!array[k])
 						{
 							num3 = k;
-							IL_2A5:
-							if (num3 >= teamSize)
-							{
-								goto IL_33F;
-							}
-							if (lobbyPlayerInfo3.IsNPCBot)
-							{
-								if (lobbyPlayerInfo3.CustomGameVisualSlot != 0)
-								{
-									if (0 < lobbyPlayerInfo3.CustomGameVisualSlot)
-									{
-										if (lobbyPlayerInfo3.CustomGameVisualSlot < array.Length + 1)
-										{
-											if (!array[lobbyPlayerInfo3.CustomGameVisualSlot - 1])
-											{
-												num3 = lobbyPlayerInfo3.CustomGameVisualSlot - 1;
-											}
-										}
-									}
-								}
-								teamMemberEntries[num3].SetTeamPlayerInfo(lobbyPlayerInfo3);
-								UIManager.SetGameObjectActive(teamMemberEntries[num3], true, null);
-								array[num3] = true;
-								goto IL_33F;
-							}
-							goto IL_33F;
+							break;
 						}
 						else
 						{
 							k++;
 						}
 					}
-					for (;;)
+					if (num3 >= teamSize)
 					{
-						switch (4)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_2A5;
+						goto IL_33F;
 					}
+					if (lobbyPlayerInfo3.IsNPCBot)
+					{
+						if (lobbyPlayerInfo3.CustomGameVisualSlot != 0)
+						{
+							if (0 < lobbyPlayerInfo3.CustomGameVisualSlot)
+							{
+								if (lobbyPlayerInfo3.CustomGameVisualSlot < array.Length + 1)
+								{
+									if (!array[lobbyPlayerInfo3.CustomGameVisualSlot - 1])
+									{
+										num3 = lobbyPlayerInfo3.CustomGameVisualSlot - 1;
+									}
+								}
+							}
+						}
+						teamMemberEntries[num3].SetTeamPlayerInfo(lobbyPlayerInfo3);
+						UIManager.SetGameObjectActive(teamMemberEntries[num3], true, null);
+						array[num3] = true;
+					}
+					goto IL_33F;
 				}
 			}
 			finally
