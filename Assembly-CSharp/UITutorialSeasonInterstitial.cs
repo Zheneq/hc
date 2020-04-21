@@ -230,31 +230,29 @@ public class UITutorialSeasonInterstitial : UIScene
 			if (!uitutorialSeasonLevelBar.AnimateFill())
 			{
 				this.m_unanimated.Enqueue(uitutorialSeasonLevelBar);
-				IL_46:
-				if (this.m_toLevel != null)
-				{
-					if (this.m_timeToLevel < Time.time)
-					{
-						this.m_toLevel.SetFilled(true);
-						this.m_toLevel = null;
-						if (this.m_toLevelReward != null)
-						{
-							UINewReward.Get().NotifyNewRewardReceived(this.m_toLevelReward, CharacterType.None, -1, -1);
-							this.m_toLevelReward = null;
-						}
-						if (this.m_isFinal)
-						{
-							UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesPregressComplete);
-						}
-						else
-						{
-							UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesProgressIncrement);
-						}
-					}
-				}
-				return;
+				break;
 			}
 		}
-		goto IL_46;
+		if (this.m_toLevel != null)
+		{
+			if (this.m_timeToLevel < Time.time)
+			{
+				this.m_toLevel.SetFilled(true);
+				this.m_toLevel = null;
+				if (this.m_toLevelReward != null)
+				{
+					UINewReward.Get().NotifyNewRewardReceived(this.m_toLevelReward, CharacterType.None, -1, -1);
+					this.m_toLevelReward = null;
+				}
+				if (this.m_isFinal)
+				{
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesPregressComplete);
+				}
+				else
+				{
+					UIFrontEnd.PlaySound(FrontEndButtonSounds.FirstTenGamesProgressIncrement);
+				}
+			}
+		}
 	}
 }
