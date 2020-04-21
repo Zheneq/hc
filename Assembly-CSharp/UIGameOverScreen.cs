@@ -976,7 +976,6 @@ public class UIGameOverScreen : UIScene
 		{
 			using (List<RewardUtils.RewardData>.Enumerator enumerator = RewardUtils.GetAccountLevelRewards(i).GetEnumerator())
 			{
-				IL_C9:
 				while (enumerator.MoveNext())
 				{
 					RewardUtils.RewardData rewardData = enumerator.Current;
@@ -986,20 +985,10 @@ public class UIGameOverScreen : UIScene
 						if (rewardData.Level <= this.m_tutorialRewards[j].Level)
 						{
 							index = j;
-							IL_BB:
-							this.m_tutorialRewards.Insert(index, rewardData);
-							goto IL_C9;
+							break;
 						}
 					}
-					for (;;)
-					{
-						switch (5)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_BB;
-					}
+					this.m_tutorialRewards.Insert(index, rewardData);
 				}
 			}
 		}
@@ -2703,7 +2692,7 @@ public class UIGameOverScreen : UIScene
 							if (UIRankedModeSelectScreen.IsRatchetTier(tierCurrent.Tier))
 							{
 								num4 = 0f;
-								goto IL_1ED;
+								break;
 							}
 							num5++;
 						}
@@ -2712,7 +2701,7 @@ public class UIGameOverScreen : UIScene
 							if (tierCurrent.Tier <= tierChangeMin.Tier)
 							{
 								num4 = 0f;
-								goto IL_1ED;
+								break;
 							}
 							num5--;
 						}
@@ -2722,41 +2711,31 @@ public class UIGameOverScreen : UIScene
 						}
 						num4 += 100f;
 						continue;
-						IL_1ED:
-						if (this.SetupTierDisplay(num5, num4))
+					}
+					if (this.SetupTierDisplay(num5, num4))
+					{
+						this.RankLevelUpDownAnimating = true;
+						UpdateInfo.SetPaused(true);
+						this.m_rankUpDownText.text = StringUtil.TR("RankDown", "GameOver");
+						UIAnimationEventManager.Get().PlayAnimation(this.m_rankModeLevelAnimator, "RankedLvlDown", new UIAnimationEventManager.AnimationDoneCallback(this.RankModeAnimDone), string.Empty, 0, 0f, true, false, null, null);
+					}
+					else
+					{
+						this.m_rankPointsText.text = "-" + num3.ToString("F1");
+						if (this.ShouldDisplayTierPoints)
 						{
-							this.RankLevelUpDownAnimating = true;
-							UpdateInfo.SetPaused(true);
-							this.m_rankUpDownText.text = StringUtil.TR("RankDown", "GameOver");
-							UIAnimationEventManager.Get().PlayAnimation(this.m_rankModeLevelAnimator, "RankedLvlDown", new UIAnimationEventManager.AnimationDoneCallback(this.RankModeAnimDone), string.Empty, 0, 0f, true, false, null, null);
+							this.m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
+						}
+						if (this.IsTierContenderOrMaster(num5))
+						{
+							this.m_rankNormalBar.fillAmount = 1f;
 						}
 						else
 						{
-							this.m_rankPointsText.text = "-" + num3.ToString("F1");
-							if (this.ShouldDisplayTierPoints)
-							{
-								this.m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
-							}
-							if (this.IsTierContenderOrMaster(num5))
-							{
-								this.m_rankNormalBar.fillAmount = 1f;
-							}
-							else
-							{
-								this.m_rankNormalBar.fillAmount = this.GetRankFillAmt(num4 / 100f);
-							}
+							this.m_rankNormalBar.fillAmount = this.GetRankFillAmt(num4 / 100f);
 						}
-						return;
 					}
-					for (;;)
-					{
-						switch (7)
-						{
-						case 0:
-							continue;
-						}
-						goto IL_1ED;
-					}
+					return;
 				}
 			}
 		}
