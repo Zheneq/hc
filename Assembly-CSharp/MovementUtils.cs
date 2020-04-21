@@ -637,7 +637,7 @@ public static class MovementUtils
 					if (boardSquarePathInfo3 == desiredEnding)
 					{
 						boardSquarePathInfo2 = boardSquarePathInfo4;
-						goto IL_95;
+						break;
 					}
 					boardSquarePathInfo3 = boardSquarePathInfo3.next;
 					boardSquarePathInfo4 = boardSquarePathInfo4.next;
