@@ -24,6 +24,8 @@ public class UIBaseQuestDisplayInfo
 
 	public override bool Equals(object obj)
 	{
+		// TODO DECOMP this one was tricky
+
 		if (!(obj is UIBaseQuestDisplayInfo))
 		{
 			return false;
@@ -132,135 +134,85 @@ public class UIBaseQuestDisplayInfo
 			}
 		}
 		bool flag4 = false;
-		if (info.QuestRewardsRef != null)
+		if (info.QuestRewardsRef != null && this.QuestRewardsRef != null &&
+			info.QuestRewardsRef.CurrencyRewards.Count == this.QuestRewardsRef.CurrencyRewards.Count &&
+			info.QuestRewardsRef.ItemRewards.Count == this.QuestRewardsRef.ItemRewards.Count &&
+			info.QuestRewardsRef.UnlockRewards.Count == this.QuestRewardsRef.UnlockRewards.Count)
 		{
-			if (this.QuestRewardsRef != null)
+			flag4 = true;
+			
+			for (int i = 0; i < info.QuestRewardsRef.CurrencyRewards.Count; i++)
 			{
-				if (info.QuestRewardsRef.CurrencyRewards.Count == this.QuestRewardsRef.CurrencyRewards.Count)
+				if (!this.QuestRewardsRef.CurrencyRewards.ContainsWhere(delegate(QuestCurrencyReward reward)
 				{
-					if (info.QuestRewardsRef.ItemRewards.Count == this.QuestRewardsRef.ItemRewards.Count)
+					bool result;
+					if (reward.Type == info.QuestRewardsRef.CurrencyRewards[i].Type)
 					{
-						if (info.QuestRewardsRef.UnlockRewards.Count == this.QuestRewardsRef.UnlockRewards.Count)
+						result = (reward.Amount == info.QuestRewardsRef.CurrencyRewards[i].Amount);
+					}
+					else
+					{
+						result = false;
+					}
+					return result;
+				}))
+				{
+					flag4 = false;
+					break;
+
+				}
+			}
+			if (flag4)
+			{
+				for (int ik = 0; ik < info.QuestRewardsRef.ItemRewards.Count; ik++)
+				{
+					if (!this.QuestRewardsRef.ItemRewards.ContainsWhere(delegate (QuestItemReward reward)
+					{
+						bool result;
+						if (reward.ItemTemplateId == info.QuestRewardsRef.ItemRewards[ik].ItemTemplateId)
 						{
-							flag4 = true;
-							int i = 0;
-							while (i < info.QuestRewardsRef.CurrencyRewards.Count)
+							result = (reward.Amount == info.QuestRewardsRef.ItemRewards[ik].Amount);
+						}
+						else
+						{
+							result = false;
+						}
+						return result;
+					}))
+					{
+						flag4 = false;
+						break;
+					}
+				}
+				if (flag4)
+				{
+					int ii;
+					for (ii = 0; ii < info.QuestRewardsRef.UnlockRewards.Count; ii++)
+					{
+						if (!this.QuestRewardsRef.UnlockRewards.ContainsWhere(delegate (QuestUnlockReward reward)
+						{
+							if (reward.purchaseType == info.QuestRewardsRef.UnlockRewards[ii].purchaseType &&
+								reward.typeSpecificData.Length == info.QuestRewardsRef.UnlockRewards[ii].typeSpecificData.Length)
 							{
-								if (!this.QuestRewardsRef.CurrencyRewards.ContainsWhere(delegate(QuestCurrencyReward reward)
+								for (int ij = 0; ij < reward.typeSpecificData.Length; ij++)
 								{
-									bool result;
-									if (reward.Type == info.QuestRewardsRef.CurrencyRewards[i].Type)
+									if (reward.typeSpecificData[ij] != info.QuestRewardsRef.UnlockRewards[ii].typeSpecificData[ij])
 									{
-										result = (reward.Amount == info.QuestRewardsRef.CurrencyRewards[i].Amount);
-									}
-									else
-									{
-										result = false;
-									}
-									return result;
-								}))
-								{
-									flag4 = false;
-									IL_548:
-									if (!flag4)
-									{
-										goto IL_664;
-									}
-									int i = 0;
-									while (i < info.QuestRewardsRef.ItemRewards.Count)
-									{
-										if (!this.QuestRewardsRef.ItemRewards.ContainsWhere(delegate(QuestItemReward reward)
-										{
-											bool result;
-											if (reward.ItemTemplateId == info.QuestRewardsRef.ItemRewards[i].ItemTemplateId)
-											{
-												result = (reward.Amount == info.QuestRewardsRef.ItemRewards[i].Amount);
-											}
-											else
-											{
-												result = false;
-											}
-											return result;
-										}))
-										{
-											flag4 = false;
-											IL_5CC:
-											if (!flag4)
-											{
-												goto IL_664;
-											}
-											int i;
-											for (i = 0; i < info.QuestRewardsRef.UnlockRewards.Count; i++)
-											{
-												if (!this.QuestRewardsRef.UnlockRewards.ContainsWhere(delegate(QuestUnlockReward reward)
-												{
-													int i;
-													if (reward.purchaseType == info.QuestRewardsRef.UnlockRewards[i].purchaseType)
-													{
-														if (reward.typeSpecificData.Length == info.QuestRewardsRef.UnlockRewards[i].typeSpecificData.Length)
-														{
-															for (i = 0; i < reward.typeSpecificData.Length; i++)
-															{
-																if (reward.typeSpecificData[i] != info.QuestRewardsRef.UnlockRewards[i].typeSpecificData[i])
-																{
-																	return false;
-																}
-															}
-															return true;
-														}
-													}
-													return false;
-												}))
-												{
-													flag4 = false;
-													goto IL_664;
-												}
-											}
-											for (;;)
-											{
-												switch (6)
-												{
-												case 0:
-													continue;
-												}
-												goto IL_664;
-											}
-										}
-										else
-										{
-											i++;
-										}
-									}
-									for (;;)
-									{
-										switch (1)
-										{
-										case 0:
-											continue;
-										}
-										goto IL_5CC;
+										return false;
 									}
 								}
-								else
-								{
-									i++;
-								}
+								return true;
 							}
-							for (;;)
-							{
-								switch (2)
-								{
-								case 0:
-									continue;
-								}
-								goto IL_548;
-							}
+							return false;
+						}))
+						{
+							flag4 = false;
+							break;
 						}
 					}
 				}
 			}
 		}
-		IL_664:
 		if (this.Completed == info.Completed)
 		{
 			if (flag && flag3)
