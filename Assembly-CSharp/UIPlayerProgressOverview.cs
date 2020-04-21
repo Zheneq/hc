@@ -498,45 +498,31 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 		{
 			List<PersistedCharacterData> list = new List<PersistedCharacterData>();
 			list.AddRange(ClientGameManager.Get().GetAllPlayerCharacterData().Values);
-			int i = 0;
-			IL_3C9:
-			while (i < this.m_seasonBuckets.Count)
+			
+			for (int i = 0; i < this.m_seasonBuckets.Count; i++)
 			{
-				int j = 0;
-				while (j < list.Count)
+				
+				for (int j = 0; j < list.Count; j++)
 				{
 					Dictionary<PersistedStatBucket, PersistedStats> dictionary;
 					if (this.m_seasonBuckets[i].Season == activeSeason)
 					{
 						dictionary = list[j].ExperienceComponent.PersistedStatsDictionary;
-						goto IL_36C;
+						if (dictionary.ContainsKey(this.m_seasonBuckets[i].StatBucket))
+						{
+							shouldShow[i] = true;
+							break;
+						}
 					}
-					if (list[j].ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(this.m_seasonBuckets[i].Season))
+					else if (list[j].ExperienceComponent.PersistedStatsDictionaryBySeason.ContainsKey(this.m_seasonBuckets[i].Season))
 					{
 						dictionary = list[j].ExperienceComponent.PersistedStatsDictionaryBySeason[this.m_seasonBuckets[i].Season];
-						goto IL_36C;
+						if (dictionary.ContainsKey(this.m_seasonBuckets[i].StatBucket))
+						{
+							shouldShow[i] = true;
+							break;
+						}
 					}
-					IL_3A3:
-					j++;
-					continue;
-					IL_36C:
-					if (dictionary.ContainsKey(this.m_seasonBuckets[i].StatBucket))
-					{
-						shouldShow[i] = true;
-						IL_3C3:
-						i++;
-						goto IL_3C9;
-					}
-					goto IL_3A3;
-				}
-				for (;;)
-				{
-					switch (5)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_3C3;
 				}
 			}
 		}
