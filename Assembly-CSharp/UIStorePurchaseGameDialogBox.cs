@@ -399,34 +399,24 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				if (this.m_packReference.Upgrades[i].AlreadyOwnedGamePack == highestPurchasedGamePack)
 				{
 					gamePackUpgrade = this.m_packReference.Upgrades[i];
-					IL_E4:
-					if (gamePackUpgrade == null)
-					{
-						Log.Error(string.Concat(new object[]
-						{
+					break;
+				}
+			}
+			if (gamePackUpgrade == null)
+			{
+				Log.Error(string.Concat(new object[]
+				{
 							"No upgrade path specified from ",
 							highestPurchasedGamePack,
 							" to ",
 							this.m_packReference.Index
-						}), new object[0]);
-						num = 0f;
-					}
-					else
-					{
-						float num2;
-						num = CommerceClient.Get().GetGamePackPrice(gamePackUpgrade.ProductCode, accountCurrency, out num2);
-					}
-					goto IL_176;
-				}
+				}), new object[0]);
+				num = 0f;
 			}
-			for (;;)
+			else
 			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_E4;
+				float num2;
+				num = CommerceClient.Get().GetGamePackPrice(gamePackUpgrade.ProductCode, accountCurrency, out num2);
 			}
 		}
 		else
@@ -434,7 +424,6 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 			float num2;
 			num = CommerceClient.Get().GetGamePackPrice(this.m_packReference.ProductCode, accountCurrency, out num2);
 		}
-		IL_176:
 		string text = UIStorePanel.GetLocalizedPriceString(num, accountCurrency);
 		if (num == 0f)
 		{
