@@ -1310,8 +1310,9 @@ namespace TMPro
 								else
 								{
 									this.m_Text = string.Empty;
-									foreach (char c in text)
+									foreach (char _c in text)
 									{
+										char c = _c;
 										if (c == '\r' || c == '\u0003')
 										{
 											c = '\n';
@@ -2114,59 +2115,51 @@ namespace TMPro
 			{
 				if (this.m_TextComponent.textInfo.lineInfo[i].baseline > this.m_TextComponent.textInfo.lineInfo[lineNumber].baseline + height)
 				{
-					IL_DC:
-					int lastCharacterIndex = this.m_TextComponent.textInfo.lineInfo[i].lastCharacterIndex;
-					int num = -1;
-					float num2 = 32767f;
-					float num3 = 0f;
-					for (int j = this.m_TextComponent.textInfo.lineInfo[i].firstCharacterIndex; j < lastCharacterIndex; j++)
-					{
-						TMP_CharacterInfo tmp_CharacterInfo2 = this.m_TextComponent.textInfo.characterInfo[j];
-						float num4 = tmp_CharacterInfo.origin - tmp_CharacterInfo2.origin;
-						float num5 = num4 / (tmp_CharacterInfo2.xAdvance - tmp_CharacterInfo2.origin);
-						if (num5 >= 0f)
-						{
-							if (num5 <= 1f)
-							{
-								if (num5 < 0.5f)
-								{
-									return j;
-								}
-								return j + 1;
-							}
-						}
-						num4 = Mathf.Abs(num4);
-						if (num4 < num2)
-						{
-							num = j;
-							num2 = num4;
-							num3 = num5;
-						}
-					}
-					if (num == -1)
-					{
-						return lastCharacterIndex;
-					}
-					if (num3 < 0.5f)
-					{
-						return num;
-					}
-					return num + 1;
+					break;
 				}
 				else
 				{
 					i--;
 				}
 			}
-			for (;;)
+		IL_DC:
+			int lastCharacterIndex = this.m_TextComponent.textInfo.lineInfo[i].lastCharacterIndex;
+			int num = -1;
+			float num2 = 32767f;
+			float num3 = 0f;
+			for (int j = this.m_TextComponent.textInfo.lineInfo[i].firstCharacterIndex; j < lastCharacterIndex; j++)
 			{
-				switch (4)
+				TMP_CharacterInfo tmp_CharacterInfo2 = this.m_TextComponent.textInfo.characterInfo[j];
+				float num4 = tmp_CharacterInfo.origin - tmp_CharacterInfo2.origin;
+				float num5 = num4 / (tmp_CharacterInfo2.xAdvance - tmp_CharacterInfo2.origin);
+				if (num5 >= 0f)
 				{
-				case 0:
-					continue;
+					if (num5 <= 1f)
+					{
+						if (num5 < 0.5f)
+						{
+							return j;
+						}
+						return j + 1;
+					}
 				}
-				goto IL_DC;
+				num4 = Mathf.Abs(num4);
+				if (num4 < num2)
+				{
+					num = j;
+					num2 = num4;
+					num3 = num5;
+				}
 			}
+			if (num == -1)
+			{
+				return lastCharacterIndex;
+			}
+			if (num3 < 0.5f)
+			{
+				return num;
+			}
+			return num + 1;
 		}
 
 		private int PageDownCharacterPosition(int originalPos, bool goToLastChar)
