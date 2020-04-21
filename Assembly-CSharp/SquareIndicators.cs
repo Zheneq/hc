@@ -86,22 +86,12 @@ public class SquareIndicators
 			{
 				if (!this.m_indicators[i].activeSelf)
 				{
-					IL_76:
-					this.m_nextIndicatorIndex = fromIndex;
-					return;
+					break;
 				}
 				this.m_indicators[i].SetActive(false);
 			}
 		}
-		for (;;)
-		{
-			switch (5)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_76;
-		}
+		this.m_nextIndicatorIndex = fromIndex;
 	}
 
 	public void ClearAllSquareIndicators()
