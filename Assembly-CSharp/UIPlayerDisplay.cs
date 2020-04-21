@@ -70,31 +70,22 @@ public class UIPlayerDisplay : MonoBehaviour
 			if (this.m_teamPlayerIcons[i].ActorDataRef == theActor)
 			{
 				this.m_teamPlayerIcons[i].UpdateCatalysts(cardAbilities);
-				IL_4D:
-				for (int j = 0; j < this.m_enemyPlayerIcons.Length; j++)
-				{
-					if (this.m_enemyPlayerIcons[j].ActorDataRef == theActor)
-					{
-						this.m_enemyPlayerIcons[j].UpdateCatalysts(cardAbilities);
-						return;
-					}
-				}
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					return;
-				}
+				break;
+				
 			}
 			else
 			{
 				i++;
 			}
 		}
-		goto IL_4D;
+		for (int j = 0; j < this.m_enemyPlayerIcons.Length; j++)
+		{
+			if (this.m_enemyPlayerIcons[j].ActorDataRef == theActor)
+			{
+				this.m_enemyPlayerIcons[j].UpdateCatalysts(cardAbilities);
+				return;
+			}
+		}
 	}
 
 	private bool IsAnimationPlaying()
