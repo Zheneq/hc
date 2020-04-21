@@ -2363,7 +2363,6 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		{
 			TextMeshProUGUI[] componentsInChildren = NavigationBar.Get().m_cancelBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
 			int i = 0;
-			IL_D1:
 			while (i < componentsInChildren.Length)
 			{
 				bool flag = true;
@@ -2376,31 +2375,21 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					if (NavigationBar.Get().m_timeInQueueLabel[j] == componentsInChildren[i])
 					{
 						flag = false;
-						IL_97:
-						if (flag)
-						{
-							if (isInCustomGame)
-							{
-								componentsInChildren[i].alignment = TextAlignmentOptions.Center;
-							}
-							else
-							{
-								componentsInChildren[i].alignment = TextAlignmentOptions.Right;
-							}
-						}
-						i++;
-						goto IL_D1;
+						break;
 					}
 				}
-				for (;;)
+				if (flag)
 				{
-					switch (1)
+					if (isInCustomGame)
 					{
-					case 0:
-						continue;
+						componentsInChildren[i].alignment = TextAlignmentOptions.Center;
 					}
-					goto IL_97;
+					else
+					{
+						componentsInChildren[i].alignment = TextAlignmentOptions.Right;
+					}
 				}
+				i++;
 			}
 		}
 	}
