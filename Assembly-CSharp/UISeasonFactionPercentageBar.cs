@@ -26,44 +26,36 @@ public class UISeasonFactionPercentageBar : MonoBehaviour
 			num2 += rectTransform.sizeDelta.x;
 			if (rectTransform.anchorMin.x == rectTransform.anchorMax.x)
 			{
-				IL_D7:
-				float num3 = num * num2 / 100f;
-				if (this.m_percentageText.preferredWidth > num3)
-				{
-					num3 = this.m_percentageText.preferredWidth / num2;
-					endPortion = startPortion + num3;
-					if (endPortion > 1f)
-					{
-						startPortion = 1f - num3;
-						endPortion = 1f;
-					}
-				}
-				this.m_bar.rectTransform.anchorMin = new Vector2(startPortion, this.m_bar.rectTransform.anchorMin.y);
-				this.m_bar.rectTransform.anchorMax = new Vector2(endPortion, this.m_bar.rectTransform.anchorMax.y);
-				Vector2 zero = Vector2.zero;
-				Vector2 zero2 = Vector2.zero;
-				if (startPortion > 0f)
-				{
-					zero.x = -5f;
-				}
-				if (endPortion < 1f)
-				{
-					zero2.x = 5f;
-				}
-				this.m_bar.rectTransform.offsetMin = zero;
-				this.m_bar.rectTransform.offsetMax = zero2;
-				this.m_bar.color = factionColor;
-				return endPortion;
+				break;
 			}
 		}
-		for (;;)
+	IL_D7:
+		float num3 = num * num2 / 100f;
+		if (this.m_percentageText.preferredWidth > num3)
 		{
-			switch (3)
+			num3 = this.m_percentageText.preferredWidth / num2;
+			endPortion = startPortion + num3;
+			if (endPortion > 1f)
 			{
-			case 0:
-				continue;
+				startPortion = 1f - num3;
+				endPortion = 1f;
 			}
-			goto IL_D7;
 		}
+		this.m_bar.rectTransform.anchorMin = new Vector2(startPortion, this.m_bar.rectTransform.anchorMin.y);
+		this.m_bar.rectTransform.anchorMax = new Vector2(endPortion, this.m_bar.rectTransform.anchorMax.y);
+		Vector2 zero = Vector2.zero;
+		Vector2 zero2 = Vector2.zero;
+		if (startPortion > 0f)
+		{
+			zero.x = -5f;
+		}
+		if (endPortion < 1f)
+		{
+			zero2.x = 5f;
+		}
+		this.m_bar.rectTransform.offsetMin = zero;
+		this.m_bar.rectTransform.offsetMax = zero2;
+		this.m_bar.color = factionColor;
+		return endPortion;
 	}
 }
