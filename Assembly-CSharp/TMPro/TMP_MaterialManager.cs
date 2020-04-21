@@ -217,7 +217,6 @@ namespace TMPro
 			}
 			Transform parent = transform.parent;
 			List<Mask> list = TMP_ListPool<Mask>.Get();
-			IL_CF:
 			while (parent != null)
 			{
 				parent.GetComponents<Mask>(list);
@@ -228,41 +227,23 @@ namespace TMPro
 					if (mask != null && mask.MaskEnabled() && mask.graphic.IsActive())
 					{
 						num++;
-						IL_B1:
-						if (parent == y)
-						{
-							goto IL_E7;
-						}
-						parent = parent.parent;
-						goto IL_CF;
+						break;
 					}
 					else
 					{
 						i++;
 					}
 				}
-				for (;;)
+				if (parent == y)
 				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_B1;
+					break;
 				}
-				IL_E7:
-				TMP_ListPool<Mask>.Release(list);
-				return Mathf.Min((1 << num) - 1, 0xFF);
+				parent = parent.parent;
+
 			}
-			for (;;)
-			{
-				switch (1)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_E7;
-			}
+			TMP_ListPool<Mask>.Release(list);
+			return Mathf.Min((1 << num) - 1, 0xFF);
+
 		}
 
 		public static Material GetMaterialForRendering(MaskableGraphic graphic, Material baseMaterial)
@@ -292,29 +273,20 @@ namespace TMPro
 				canvas = list[i];
 				if (canvas.overrideSorting)
 				{
-					IL_54:
-					TMP_ListPool<Canvas>.Release(list);
-					Transform result;
-					if (canvas != null)
-					{
-						result = canvas.transform;
-					}
-					else
-					{
-						result = null;
-					}
-					return result;
+					break;
 				}
 			}
-			for (;;)
+			TMP_ListPool<Canvas>.Release(list);
+			Transform result;
+			if (canvas != null)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_54;
+				result = canvas.transform;
 			}
+			else
+			{
+				result = null;
+			}
+			return result;
 		}
 
 		public static Material GetFallbackMaterial(Material sourceMaterial, Material targetMaterial)
