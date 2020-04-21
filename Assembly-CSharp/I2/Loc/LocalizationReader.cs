@@ -175,26 +175,17 @@ namespace I2.Loc
 					if (c == '\n')
 					{
 						iStart++;
-						IL_108:
-						if (iStart > num)
-						{
-							LocalizationReader.AddCSVtoken(ref list, ref Line, iStart, ref num);
-						}
-						return list.ToArray();
+						break;
 					}
 				}
 				IL_F0:
 				iStart++;
 			}
-			for (;;)
+			if (iStart > num)
 			{
-				switch (6)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_108;
+				LocalizationReader.AddCSVtoken(ref list, ref Line, iStart, ref num);
 			}
+			return list.ToArray();
 		}
 
 		private unsafe static void AddCSVtoken(ref List<string> list, ref string Line, int iEnd, ref int iWordStart)
