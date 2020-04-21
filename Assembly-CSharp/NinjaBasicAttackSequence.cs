@@ -140,9 +140,7 @@ public class NinjaBasicAttackSequence : Sequence
 	private BoardSquare GetClosestUnoccupiedSquare(BoardSquare center)
 	{
 		BoardSquare boardSquare = null;
-		int i = 1;
-		IL_E4:
-		while (i < 3)
+		for (int i = 1; i < 3; i++)
 		{
 			int j = -i;
 			while (j <= i)
@@ -151,39 +149,28 @@ public class NinjaBasicAttackSequence : Sequence
 				if (boardSquare2.occupant == null && !this.SquareInUseByTempSatellite(boardSquare2))
 				{
 					boardSquare = boardSquare2;
-					IL_73:
-					for (int k = -i; k <= i; k += i * 2)
-					{
-						BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + k);
-						if (boardSquare3.occupant == null && !this.SquareInUseByTempSatellite(boardSquare3))
-						{
-							boardSquare = boardSquare3;
-							break;
-						}
-					}
-					if (boardSquare != null)
-					{
-						goto IL_EB;
-					}
-					i++;
-					goto IL_E4;
+					break;
 				}
 				else
 				{
 					j += i * 2;
 				}
 			}
-			for (;;)
+			for (int k = -i; k <= i; k += i * 2)
 			{
-				switch (4)
+				BoardSquare boardSquare3 = Board.Get().GetBoardSquare(center.x, center.y + k);
+				if (boardSquare3.occupant == null && !this.SquareInUseByTempSatellite(boardSquare3))
 				{
-				case 0:
-					continue;
+					boardSquare = boardSquare3;
+					break;
 				}
-				goto IL_73;
 			}
+			if (boardSquare != null)
+			{
+				break;
+			}
+			
 		}
-		IL_EB:
 		if (boardSquare == null)
 		{
 			boardSquare = center;
