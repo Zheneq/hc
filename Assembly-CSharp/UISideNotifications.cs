@@ -109,49 +109,39 @@ public class UISideNotifications : MonoBehaviour
 			if (!this.activeGGPackDisplays[j].DoneAnimating)
 			{
 				flag = false;
-				IL_123:
-				if (flag)
+				break;
+			}
+		}
+		if (flag)
+		{
+			this.m_ggPackNotificationActive = false;
+			if (this.m_ggPackAnimator.enabled)
+			{
+				if (this.m_ggPackAnimator.gameObject.activeInHierarchy)
 				{
-					this.m_ggPackNotificationActive = false;
-					if (this.m_ggPackAnimator.enabled)
+					AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ggPackAnimator.GetCurrentAnimatorClipInfo(0);
+					if (currentAnimatorClipInfo != null)
 					{
-						if (this.m_ggPackAnimator.gameObject.activeInHierarchy)
+						if (currentAnimatorClipInfo.Length > 0)
 						{
-							AnimatorClipInfo[] currentAnimatorClipInfo = this.m_ggPackAnimator.GetCurrentAnimatorClipInfo(0);
-							if (currentAnimatorClipInfo != null)
+							if (currentAnimatorClipInfo[0].clip.name != "ggPackListOUT")
 							{
-								if (currentAnimatorClipInfo.Length > 0)
-								{
-									if (currentAnimatorClipInfo[0].clip.name != "ggPackListOUT")
-									{
-										this.m_ggPackAnimator.Play("ggPackListOUT");
-									}
-								}
+								this.m_ggPackAnimator.Play("ggPackListOUT");
 							}
 						}
 					}
 				}
-				if (gameFlowData != null)
-				{
-					if (gameFlowData.activeOwnedActorData != null)
-					{
-						if (gameFlowData.activeOwnedActorData.GetTeam() != this.m_currentTeam)
-						{
-							this.SetupSideProfiles(gameFlowData.activeOwnedActorData.GetTeam());
-						}
-					}
-				}
-				return;
 			}
 		}
-		for (;;)
+		if (gameFlowData != null)
 		{
-			switch (3)
+			if (gameFlowData.activeOwnedActorData != null)
 			{
-			case 0:
-				continue;
+				if (gameFlowData.activeOwnedActorData.GetTeam() != this.m_currentTeam)
+				{
+					this.SetupSideProfiles(gameFlowData.activeOwnedActorData.GetTeam());
+				}
 			}
-			goto IL_123;
 		}
 	}
 
