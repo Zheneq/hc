@@ -504,25 +504,15 @@ public class UINewReward : UIScene
 						this.m_seasonRewardsToAnnounce.RemoveAt(i);
 						if (list.Count >= this.m_seasonRewards.Length)
 						{
-							IL_282:
-							this.SetupSeasonReward(list);
-							UIManager.SetGameObjectActive(this.m_seasonContainer, true, null);
-							UIManager.SetGameObjectActive(this.m_container, false, null);
-							UIManager.SetGameObjectActive(this.m_trustContainer, false, null);
-							this.m_seasonAnimationController.Play("NewReward", -1, 0f);
-							goto IL_3A0;
+							break;
 						}
 					}
 				}
-				for (;;)
-				{
-					switch (3)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_282;
-				}
+				this.SetupSeasonReward(list);
+				UIManager.SetGameObjectActive(this.m_seasonContainer, true, null);
+				UIManager.SetGameObjectActive(this.m_container, false, null);
+				UIManager.SetGameObjectActive(this.m_trustContainer, false, null);
+				this.m_seasonAnimationController.Play("NewReward", -1, 0f);
 			}
 			else if (this.m_trustRewardsToAnnounce.Count > 0)
 			{
@@ -542,7 +532,6 @@ public class UINewReward : UIScene
 				this.m_animationController.Play("NewReward", -1, 0f);
 				this.rewardTypesToAnnounce.RemoveAt(0);
 			}
-			IL_3A0:
 			UIScreenManager.Get().EndAllLoopSounds();
 			AudioManager.PostEvent("ui/endgame/unlock", null);
 			this.m_rewardAnnouncementInProgress = true;
