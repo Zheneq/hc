@@ -309,55 +309,46 @@ public class UICharacterGeneralPanel : MonoBehaviour
 					this.m_nextRewardIcon.sprite = Resources.Load<Sprite>(this.m_rewards[k].SpritePath);
 					UIManager.SetGameObjectActive(this.m_nextRewardFG, this.m_rewards[k].Foreground != null, null);
 					this.m_nextRewardFG.sprite = this.m_rewards[k].Foreground;
-					IL_5C9:
-					this.m_bioText.text = charLink.GetCharBio();
-					List<LoreArticle> articlesByCharacter = LoreWideData.Get().GetArticlesByCharacter(charLink.m_characterType);
-					articlesByCharacter.Sort(delegate(LoreArticle a, LoreArticle b)
-					{
-						DateTime value = Convert.ToDateTime(a.DatePublished);
-						return Convert.ToDateTime(a.DatePublished).CompareTo(value);
-					});
-					int l;
-					for (l = 0; l < articlesByCharacter.Count; l++)
-					{
-						UIArticleSelectButton uiarticleSelectButton;
-						if (l < this.m_articleButtons.Count)
-						{
-							uiarticleSelectButton = this.m_articleButtons[l];
-						}
-						else
-						{
-							uiarticleSelectButton = UnityEngine.Object.Instantiate<UIArticleSelectButton>(this.m_articleSelectButtonPrefab);
-							uiarticleSelectButton.transform.SetParent(this.m_articlesGrid.transform);
-							uiarticleSelectButton.transform.localPosition = Vector3.zero;
-							uiarticleSelectButton.transform.localScale = Vector3.one;
-							uiarticleSelectButton.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
-							this.m_articleButtons.Add(uiarticleSelectButton);
-						}
-						uiarticleSelectButton.Setup(articlesByCharacter[l]);
-						UIManager.SetGameObjectActive(uiarticleSelectButton, true, null);
-					}
-					while (l < this.m_articleButtons.Count)
-					{
-						UIManager.SetGameObjectActive(this.m_articleButtons[l], false, null);
-						l++;
-					}
-					LayoutRebuilder.ForceRebuildLayoutImmediate(this.m_bottomScrollRect.transform as RectTransform);
-					this.m_bottomScrollRect.verticalNormalizedPosition = 1f;
-					this.m_descriptionScrollRect.verticalNormalizedPosition = 1f;
-					this.m_rewardTooltipObj.Refresh();
-					this.UpdateBuyButtons();
-					return;
+					break;
 				}
-				for (;;)
+				this.m_bioText.text = charLink.GetCharBio();
+				List<LoreArticle> articlesByCharacter = LoreWideData.Get().GetArticlesByCharacter(charLink.m_characterType);
+				articlesByCharacter.Sort(delegate (LoreArticle a, LoreArticle b)
 				{
-					switch (3)
+					DateTime value = Convert.ToDateTime(a.DatePublished);
+					return Convert.ToDateTime(a.DatePublished).CompareTo(value);
+				});
+				int l;
+				for (l = 0; l < articlesByCharacter.Count; l++)
+				{
+					UIArticleSelectButton uiarticleSelectButton;
+					if (l < this.m_articleButtons.Count)
 					{
-					case 0:
-						continue;
+						uiarticleSelectButton = this.m_articleButtons[l];
 					}
-					goto IL_5C9;
+					else
+					{
+						uiarticleSelectButton = UnityEngine.Object.Instantiate<UIArticleSelectButton>(this.m_articleSelectButtonPrefab);
+						uiarticleSelectButton.transform.SetParent(this.m_articlesGrid.transform);
+						uiarticleSelectButton.transform.localPosition = Vector3.zero;
+						uiarticleSelectButton.transform.localScale = Vector3.one;
+						uiarticleSelectButton.m_hitbox.RegisterScrollListener(new UIEventTriggerUtils.EventDelegate(this.OnScroll));
+						this.m_articleButtons.Add(uiarticleSelectButton);
+					}
+					uiarticleSelectButton.Setup(articlesByCharacter[l]);
+					UIManager.SetGameObjectActive(uiarticleSelectButton, true, null);
 				}
+				while (l < this.m_articleButtons.Count)
+				{
+					UIManager.SetGameObjectActive(this.m_articleButtons[l], false, null);
+					l++;
+				}
+				LayoutRebuilder.ForceRebuildLayoutImmediate(this.m_bottomScrollRect.transform as RectTransform);
+				this.m_bottomScrollRect.verticalNormalizedPosition = 1f;
+				this.m_descriptionScrollRect.verticalNormalizedPosition = 1f;
+				this.m_rewardTooltipObj.Refresh();
+				this.UpdateBuyButtons();
+				return;
 			}
 		}
 	}
