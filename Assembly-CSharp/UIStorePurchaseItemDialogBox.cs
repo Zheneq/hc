@@ -432,21 +432,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					{
 						num = gameBalanceVars2.PlayerTitles[j].GetUnlockFreelancerCurrencyPrice();
 					}
-					IL_8B9:
-					UIManager.SetGameObjectActive(this.m_Item.m_itemIcon, false, null);
-					UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
-					goto IL_F2E;
+					break;
 				}
 			}
-			for (;;)
-			{
-				switch (3)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_8B9;
-			}
+			UIManager.SetGameObjectActive(this.m_Item.m_itemIcon, false, null);
+			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
 		}
 		else if (item.m_itemType == PurchaseItemType.Banner)
 		{
@@ -570,22 +560,12 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 					{
 						num = characterUnlockData.abilityVfxUnlockData[m].GetUnlockRankedCurrencyPrice();
 					}
-					IL_E25:
-					string vfxswapName = item.m_charLink.GetVFXSwapName(item.m_abilityID, item.m_abilityVfxID);
-					text2 = vfxswapName;
-					text = vfxswapName;
-					goto IL_F2E;
+					break;
 				}
 			}
-			for (;;)
-			{
-				switch (7)
-				{
-				case 0:
-					continue;
-				}
-				goto IL_E25;
-			}
+			string vfxswapName = item.m_charLink.GetVFXSwapName(item.m_abilityID, item.m_abilityVfxID);
+			text2 = vfxswapName;
+			text = vfxswapName;
 		}
 		else if (item.m_itemType == PurchaseItemType.LoadingScreenBackground)
 		{
@@ -609,7 +589,6 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 			this.m_Item.m_itemIcon.sprite = Resources.Load<Sprite>(loadingScreenBackground.m_iconPath);
 			UIManager.SetGameObjectActive(this.m_Item.m_itemFG, false, null);
 		}
-		IL_F2E:
 		int num2 = 0;
 		if (ClientGameManager.Get().PlayerWallet != null)
 		{
