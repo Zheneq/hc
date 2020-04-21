@@ -125,27 +125,18 @@ public class UIStoreFeaturedPanel : UICashShopPanelBase
 												if (!InventoryWideData.IsOwned(list3[num]))
 												{
 													flag = false;
-													IL_3BD:
-													if (flag)
-													{
-														goto IL_3F6;
-													}
-													goto IL_3C3;
+															break;
 												}
 												else
 												{
 													num++;
 												}
 											}
-											for (;;)
+											if (flag)
 											{
-												switch (3)
-												{
-												case 0:
-													continue;
-												}
-												goto IL_3BD;
+												goto IL_3F6;
 											}
+											goto IL_3C3;
 										}
 									}
 								}
