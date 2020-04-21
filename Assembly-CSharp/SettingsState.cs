@@ -637,34 +637,18 @@ public class SettingsState : ICloneable
 			if (names[i] == qualityName)
 			{
 				QualitySettings.SetQualityLevel(i, true);
-				IL_3AC:
-				GameEventManager.Get().FireEvent(GameEventManager.EventType.GraphicsQualityChanged, null);
-				yield return null;
-				for (;;)
-				{
-					switch (7)
-					{
-					case 0:
-						continue;
-					}
-					goto IL_3E3;
-				}
+				break;
+				
 			}
 			else
 			{
 				i++;
 			}
 		}
-		for (;;)
-		{
-			switch (6)
-			{
-			case 0:
-				continue;
-			}
-			goto IL_3AC;
-		}
-		IL_3E3:
+		GameEventManager.Get().FireEvent(GameEventManager.EventType.GraphicsQualityChanged, null);
+		yield return null;
+
+	IL_3E3:
 		if (newState != null)
 		{
 			this.resolutionWidth = newState.resolutionWidth;
