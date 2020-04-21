@@ -579,53 +579,43 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 					uivfxSwapSelectButton = this.m_vfxSwapButtons[i];
 					num = i;
 				}
-				IL_EC:
-				bool flag2 = num != -1;
-				if (flag2)
-				{
-					for (int j = 0; j < this.m_vfxSwapButtons.Count; j++)
-					{
-						if (j == num)
-						{
-							this.m_vfxSwapButtons[j].SetSelected(true, false);
-						}
-						else
-						{
-							this.m_vfxSwapButtons[j].SetSelected(false, false);
-						}
-					}
-					if (this.m_selectedAbilityButton != null)
-					{
-						if (uivfxSwapSelectButton != null)
-						{
-							if (uivfxSwapSelectButton.GetSwap() != null)
-							{
-								this.m_selectedAbilityButton.SetSelectedVfxSwap(uivfxSwapSelectButton.GetSwap());
-								this.m_selectedAbilityButton.SetSelectedVfxSwapIndex(num);
-								this.m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(this.m_selectedAbilityIndex, uivfxSwapSelectButton.GetSwap().m_uniqueID);
-								UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
-								goto IL_226;
-							}
-						}
-						this.m_selectedAbilityButton.SetSelectedVfxSwap(null);
-						this.m_selectedAbilityButton.SetSelectedVfxSwapIndex(-1);
-						this.m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(this.m_selectedAbilityIndex, 0);
-						UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
-						IL_226:
-						ClientGameManager.Get().UpdateSelectedAbilityVfxSwaps(this.m_abilityVfxSwapInfo, 0);
-					}
-				}
-				return;
+				break;
 			}
 		}
-		for (;;)
+		bool flag2 = num != -1;
+		if (flag2)
 		{
-			switch (5)
+			for (int j = 0; j < this.m_vfxSwapButtons.Count; j++)
 			{
-			case 0:
-				continue;
+				if (j == num)
+				{
+					this.m_vfxSwapButtons[j].SetSelected(true, false);
+				}
+				else
+				{
+					this.m_vfxSwapButtons[j].SetSelected(false, false);
+				}
 			}
-			goto IL_EC;
+			if (this.m_selectedAbilityButton != null)
+			{
+				if (uivfxSwapSelectButton != null)
+				{
+					if (uivfxSwapSelectButton.GetSwap() != null)
+					{
+						this.m_selectedAbilityButton.SetSelectedVfxSwap(uivfxSwapSelectButton.GetSwap());
+						this.m_selectedAbilityButton.SetSelectedVfxSwapIndex(num);
+						this.m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(this.m_selectedAbilityIndex, uivfxSwapSelectButton.GetSwap().m_uniqueID);
+						UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModAdd);
+						goto IL_226;
+					}
+				}
+				this.m_selectedAbilityButton.SetSelectedVfxSwap(null);
+				this.m_selectedAbilityButton.SetSelectedVfxSwapIndex(-1);
+				this.m_abilityVfxSwapInfo.SetAbilityVfxSwapIdForAbility(this.m_selectedAbilityIndex, 0);
+				UIFrontEnd.PlaySound(FrontEndButtonSounds.CharacterSelectModClear);
+			IL_226:
+				ClientGameManager.Get().UpdateSelectedAbilityVfxSwaps(this.m_abilityVfxSwapInfo, 0);
+			}
 		}
 	}
 
@@ -757,40 +747,31 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 									if (characterUnlockData.abilityVfxUnlockData[k].ID == characterAbilityVfxSwap.m_uniqueID)
 									{
 										abilityVfxUnlockData = characterUnlockData.abilityVfxUnlockData[k];
-										IL_261:
-										if (abilityVfxUnlockData == null || !GameBalanceVarsExtensions.MeetsVisibilityConditions(abilityVfxUnlockData))
-										{
-											goto IL_338;
-										}
-										this.m_vfxSwapButtons[j].SetVfxSwap(characterAbilityVfxSwap, j + 1);
-										UIManager.SetGameObjectActive(this.m_vfxSwapButtons[j], true, null);
-										bool flag2 = playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(this.m_selectedAbilityIndex, characterAbilityVfxSwap.m_uniqueID);
-										this.m_vfxSwapButtons[j].SetLocked(!flag2);
-										if (this.m_abilityButtons[i].GetSelectedVfxSwap() == this.m_vfxSwapButtons[j].GetSwap())
-										{
-											this.m_vfxSwapButtons[j].SetSelected(true, forceAnimation);
-										}
-										else
-										{
-											this.m_vfxSwapButtons[j].SetSelected(false, forceAnimation);
-										}
-										j++;
-										goto IL_338;
+										break;
 									}
 									else
 									{
 										k++;
 									}
 								}
-								for (;;)
+								if (abilityVfxUnlockData == null || !GameBalanceVarsExtensions.MeetsVisibilityConditions(abilityVfxUnlockData))
 								{
-									switch (2)
-									{
-									case 0:
-										continue;
-									}
-									goto IL_261;
+									goto IL_338;
 								}
+								this.m_vfxSwapButtons[j].SetVfxSwap(characterAbilityVfxSwap, j + 1);
+								UIManager.SetGameObjectActive(this.m_vfxSwapButtons[j], true, null);
+								bool flag2 = playerCharacterData.CharacterComponent.IsAbilityVfxSwapUnlocked(this.m_selectedAbilityIndex, characterAbilityVfxSwap.m_uniqueID);
+								this.m_vfxSwapButtons[j].SetLocked(!flag2);
+								if (this.m_abilityButtons[i].GetSelectedVfxSwap() == this.m_vfxSwapButtons[j].GetSwap())
+								{
+									this.m_vfxSwapButtons[j].SetSelected(true, forceAnimation);
+								}
+								else
+								{
+									this.m_vfxSwapButtons[j].SetSelected(false, forceAnimation);
+								}
+								j++;
+								goto IL_338;
 							}
 						}
 						while (j < this.m_vfxSwapButtons.Count)
