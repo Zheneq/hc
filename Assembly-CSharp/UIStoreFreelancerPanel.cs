@@ -164,12 +164,10 @@ public class UIStoreFreelancerPanel : UIStoreBasePanel
 			if (this.m_pageMarkers[i].m_hitbox.gameObject == (data as PointerEventData).pointerCurrentRaycast.gameObject)
 			{
 				this.SetCharacterPageList(i);
-				IL_6E:
-				this.FreeLancerClicked(null);
-				return;
+				break;
 			}
 		}
-		goto IL_6E;
+		this.FreeLancerClicked(null);
 	}
 
 	private void OnScroll(BaseEventData data)
